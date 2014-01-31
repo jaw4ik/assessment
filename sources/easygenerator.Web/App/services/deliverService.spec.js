@@ -487,6 +487,166 @@
                 });
 
             });
+            
+            describe('publishCourseForReview:', function () {
+                var course;
+                var post;
+
+                beforeEach(function () {
+                    course = { id: 'someId' };
+
+                    post = $.Deferred();
+                    spyOn(http, 'post').andReturn(post.promise());
+                });
+
+                it('should be function', function () {
+                    expect(service.publishCourseForReview).toEqual(jasmine.any(Function));
+                });
+
+                it('should return promise', function () {
+                    var promise = service.publishCourseForReview();
+
+                    expect(promise).toBePromise();
+                });
+
+                it('should send request', function () {
+                    post.resolve();
+                    var promise = service.publishCourseForReview(course.id).fin(function () { });
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(http.post).toHaveBeenCalledWith('course/publishForReview', { courseId: course.id });
+                    });
+                });
+
+                describe('and send request to server', function () {
+
+                    describe('and request succeed', function () {
+
+                        describe('and response is undefined', function () {
+
+                            it('should reject promise', function () {
+                                var promise = service.publishCourseForReview();
+
+                                post.resolve();
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise.inspect().state).toEqual("rejected");
+                                });
+                            });
+
+                        });
+
+                        describe('and response.success is undefined', function () {
+
+                            it('should reject promise', function () {
+                                var promise = service.publishCourseForReview();
+
+                                post.resolve({});
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise.inspect().state).toEqual("rejected");
+                                });
+                            });
+
+                        });
+
+                        describe('and response.success is true', function () {
+
+                            beforeEach(function () {
+                                post.resolve({ success: true, data: { ReviewUrl: 'SomeUrl' } });
+                            });
+
+                            it('should resolve promise with true', function () {
+                                var promise = service.publishCourseForReview();
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolvedWith({ reviewUrl: 'SomeUrl' });
+                                });
+                            });
+
+                        });
+
+                        describe('and response.success is false', function () {
+
+                            describe('and response.resourceKey is a string', function () {
+
+                                var lozalizedMessage = 'localized message';
+
+                                beforeEach(function () {
+                                    spyOn(localizationManager, 'localize').andReturn(lozalizedMessage);
+                                });
+
+                                it('should reject promise with localized message', function () {
+                                    var promise = service.publishCourseForReview();
+
+                                    var buildResult = { success: false, resourceKey: 'message' };
+
+                                    post.resolve(buildResult);
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeRejectedWith(lozalizedMessage);
+                                    });
+                                });
+
+                            });
+
+                            describe('and response.resourceKey does not exist', function () {
+
+                                it('should reject promise with response message', function () {
+                                    var promise = service.publishCourseForReview();
+
+                                    var buildResult = { success: false, message: 'message' };
+
+                                    post.resolve(buildResult);
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeRejectedWith(buildResult.message);
+                                    });
+                                });
+
+                            });
+
+                        });
+                    });
+
+                    describe('and request failed', function () {
+
+                        it('should reject promise', function () {
+                            var promise = service.publishCourseForReview();
+
+                            post.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise.inspect().state).toEqual("rejected");
+                            });
+                        });
+
+                    });
+
+                });
+
+            });
 
             describe('publishCourseToStore:', function () {
                 var course;

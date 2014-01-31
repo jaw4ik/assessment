@@ -169,6 +169,9 @@
     <Content Include="App\bootstrapping\errorHandlingTask.js" />
     <Content Include="App\bootstrapping\localizationTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
+    <Content Include="App\models\course.spec.js">
+      <DependentUpon>course.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\common\contentField.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.spec.js">
@@ -271,6 +274,21 @@
     <Content Include="App\viewmodels\courses\deliveringActions\scormBuild.spec.js">
       <DependentUpon>scormBuild.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\panels\sidePanel.spec.js">
+      <DependentUpon>sidePanel.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\panels\sidePanel.js" />
+    <Content Include="App\viewmodels\panels\tabs\feedbackTab.js" />
+    <Content Include="App\viewmodels\panels\tabs\feedbackTab.spec.js">
+      <DependentUpon>feedbackTab.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\panels\tabs\reviewTab.js" />
+    <Content Include="App\viewmodels\panels\tabs\reviewTab.spec.js">
+      <DependentUpon>reviewTab.js</DependentUpon>
+    </Content>
+    <Content Include="App\views\panels\sidePanel.html" />
+    <Content Include="App\views\panels\tabs\feedbackTab.html" />
+    <Content Include="App\views\panels\tabs\reviewTab.html" />
     <Content Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
       <SubType>Designer</SubType>
     </Content>
@@ -327,6 +345,7 @@
     <Compile Include="Configuration\TaskConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\AnswerController.cs" />
+    <Compile Include="Controllers\Api\CommentController.cs" />
     <Compile Include="Controllers\Api\CourseController.cs" />
     <Compile Include="Controllers\Api\FeedbackController.cs" />
     <Compile Include="Controllers\Api\HelpHintController.cs" />
@@ -341,6 +360,7 @@
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\PublishedPackageController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
     <Compile Include="DomainEvents\Handlers\SubscribeForNewslettersHandler.cs" />
@@ -378,10 +398,6 @@
     <Content Include="App\viewmodels\courses\courses.spec.js">
       <DependentUpon>courses.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\feedback.js" />
-    <Content Include="App\viewmodels\feedback.spec.js">
-      <DependentUpon>feedback.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\questions\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
     </Content>
@@ -389,7 +405,6 @@
     <Content Include="App\views\courses\deliver.html" />
     <Content Include="App\views\courses\design.html" />
     <Content Include="App\views\courses\course.html" />
-    <Content Include="App\views\feedback.html" />
     <Content Include="App\widgets\notifyViewer\view.html" />
     <Content Include="App\widgets\notifyViewer\viewmodel.js" />
     <Content Include="App\widgets\notifyViewer\viewmodel.spec.js">
@@ -402,6 +417,7 @@
     </Content>
     <Content Include="Content\durandal.css" />
     <Content Include="Content\images\account\log-in.jpg" />
+    <Content Include="Content\images\blue-loader.GIF" />
     <Content Include="Content\images\build-loader.gif" />
     <Content Include="Content\images\download-scorm-loader.GIF" />
     <Content Include="Content\images\emptyList.png" />
@@ -411,7 +427,10 @@
     <Content Include="Content\images\package-preloader.gif" />
     <Content Include="Content\images\processSteps.png" />
     <Content Include="Content\images\publish-loader.GIF" />
+    <Content Include="Content\images\review-sprites.png" />
     <Content Include="Content\introduction.css" />
+    <Content Include="Content\review.css" />
+    <Content Include="Content\panels.css" />
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
     <Compile Include="Mail\MailNotificationManager.cs">
       <SubType>Code</SubType>
@@ -428,7 +447,9 @@
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Publish\CoursePublisher.cs" />
+    <Compile Include="Publish\CoursePublishingService.cs" />
     <Compile Include="Publish\ICoursePublisher.cs" />
+    <Compile Include="Publish\ICoursePublishingService.cs" />
     <Compile Include="Publish\IPublishDispatcher.cs" />
     <Compile Include="Publish\PublishDispatcher.cs" />
     <Compile Include="Resources\Views\Account\Resources.Designer.cs">
@@ -440,6 +461,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Views\Review\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Views\Shared\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
@@ -490,7 +516,8 @@
     <Content Include="Content\selectbox.css" />
     <Content Include="Content\styles.css" />
     <Content Include="Scripts\account\analytics.js" />
-    <Content Include="Scripts\account\clientSessionContext.js" />
+    <Content Include="Scripts\common\app.js" />
+    <Content Include="Scripts\common\clientSessionContext.js" />
     <Content Include="Scripts\account\common.js" />
     <Content Include="Scripts\account\constants.js" />
     <Content Include="Scripts\account\focusHandlerBinding.js" />
@@ -498,8 +525,13 @@
     <Content Include="Scripts\account\passwordrecovery.spec.js">
       <DependentUpon>passwordrecovery.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\account\serviceUnavailableAjaxErrorHandler.js" />
-    <Content Include="Scripts\account\serviceUnavailableAjaxErrorHandler.spec.js">
+    <Content Include="Scripts\review\common.js" />
+    <Content Include="Scripts\review\review.js" />
+    <Content Include="Scripts\review\review.spec.js">
+      <DependentUpon>review.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\common\serviceUnavailableAjaxErrorHandler.js" />
+    <Content Include="Scripts\common\serviceUnavailableAjaxErrorHandler.spec.js">
       <DependentUpon>serviceUnavailableAjaxErrorHandler.js</DependentUpon>
     </Content>
     <Content Include="Scripts\account\signin.js" />
@@ -731,7 +763,7 @@
     <Content Include="Scripts\knockoutBindings\clickElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\cssBinding.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
-    <Content Include="Scripts\knockoutBindings\feedBackBinding.js" />
+    <Content Include="Scripts\knockoutBindings\slidingDialogBinding.js" />
     <Content Include="Scripts\knockoutBindings\outsideClickBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectOnMouseOverBinding.js" />
@@ -1246,6 +1278,7 @@
     <Content Include="Templates\Quiz\js\vendor.js.bundle">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Review\ReviewCourse.cshtml" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
@@ -1402,8 +1435,6 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Objective\Index.cshtml" />
-    <Content Include="Views\Objective\Create.cshtml" />
     <Content Include="Views\Application\splash.cshtml" />
     <None Include="Web.AutoTests.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1421,6 +1452,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <CustomToolNamespace>AccountRes</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Review\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

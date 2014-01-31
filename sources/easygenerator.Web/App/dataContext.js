@@ -98,6 +98,7 @@
                                 publishedPackageUrl: item.PublishedPackageUrl,
                                 builtOn: _.isNullOrUndefined(item.builtOn) ? null : parseDateString(item.builtOn),
                                 packageUrl: item.PackageUrl,
+                                reviewUrl: item.ReviewUrl,
                                 template: _.find(templates, function (tItem) {
                                     return tItem.id === item.Template.Id;
                                 }),

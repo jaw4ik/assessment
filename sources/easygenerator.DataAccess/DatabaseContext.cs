@@ -42,6 +42,7 @@ namespace easygenerator.DataAccess
         public DbSet<Template> Templates { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<HelpHint> HelpHints { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Entity
         {
@@ -69,10 +70,14 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Course>().HasMany(e => e.RelatedObjectivesCollection).WithMany(e => e.RelatedCoursesCollection).Map(m => m.ToTable("CourseObjectives"));
             modelBuilder.Entity<Course>().HasMany(e => e.TemplateSettings).WithRequired(e => e.Course).WillCascadeOnDelete(true);
             modelBuilder.Entity<Course>().Property(e => e.IntroductionContent).IsMaxLength().IsOptional();
+            modelBuilder.Entity<Course>().HasMany(e => e.CommentsCollection).WithRequired(e => e.Course).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Course.CourseTemplateSettings>().Property(e => e.Settings);
             modelBuilder.Entity<Course.CourseTemplateSettings>().HasRequired(e => e.Course);
             modelBuilder.Entity<Course.CourseTemplateSettings>().HasRequired(e => e.Template);
+
+            modelBuilder.Entity<Comment>().HasRequired(e => e.Course);
+            modelBuilder.Entity<Comment>().Property(e => e.Text).IsRequired();
 
             modelBuilder.Entity<Question>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Question>().HasRequired(e => e.Objective);

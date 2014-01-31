@@ -8,8 +8,6 @@ namespace easygenerator.Web.Publish
 {
     public interface ICoursePublisher
     {
-        bool Publish(Course course);
-        string GetPublishedPackageUrl(string courseId);
-        string GetPublishedResourcePhysicalPath(string resourceUrl);
+        bool Publish(Course course, string destinationDirectory);
     }
 }

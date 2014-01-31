@@ -20,7 +20,7 @@ namespace easygenerator.Web.Tests.Controllers
     [TestClass]
     public class PublishedPackageControllerTest
     {
-        private ICoursePublisher _coursePublisher;
+        private ICoursePublishingService _coursePublishingService;
         private PhysicalFileManager _physicalFileManager;
         private PublishedPackageController _controller;
         private HttpContextBase _context;
@@ -28,11 +28,11 @@ namespace easygenerator.Web.Tests.Controllers
         [TestInitialize]
         public void InitializeController()
         {
-            _coursePublisher = Substitute.For<ICoursePublisher>();
+            _coursePublishingService = Substitute.For<ICoursePublishingService>();
             _context = Substitute.For<HttpContextBase>();
             _physicalFileManager = Substitute.For<PhysicalFileManager>();
 
-            _controller = new PublishedPackageController(_coursePublisher, _physicalFileManager);
+            _controller = new PublishedPackageController(_coursePublishingService, _physicalFileManager);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -54,7 +54,7 @@ namespace easygenerator.Web.Tests.Controllers
         {
             //Arrange
             _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
-            _coursePublisher.GetPublishedResourcePhysicalPath(Arg.Any<string>()).Returns("filePath");
+            _coursePublishingService.GetPublishedResourcePhysicalPath(Arg.Any<string>()).Returns("filePath");
             _physicalFileManager.GetFileContentType(Arg.Any<string>()).Returns("text/html");
             //Act
             var result = _controller.GetPublishedResource("packageId", "resourceId");

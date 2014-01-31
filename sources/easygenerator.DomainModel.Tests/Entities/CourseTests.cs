@@ -63,6 +63,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.CreatedOn.Should().Be(DateTime.MaxValue);
             course.ModifiedOn.Should().Be(DateTime.MaxValue);
             course.RelatedObjectives.Should().BeEmpty();
+            course.CommentsCollection.Should().BeEmpty();
             course.TemplateSettings.Should().BeEmpty();
             course.CreatedBy.Should().Be(CreatedBy);
             course.ModifiedBy.Should().Be(CreatedBy);
@@ -749,5 +750,41 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion UpdateIntroductionContent
+        #region AddComment
+
+        [TestMethod]
+        public void AddComment_ShouldThrowArgumentNullException_WhenCommentIsNull()
+        {
+            var course = CourseObjectMother.Create();
+
+            Action action = () => course.AddComment(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("comment");
+        }
+
+        [TestMethod]
+        public void AddComment_ShouldAddComment()
+        {
+            var course = CourseObjectMother.Create();
+            var comment = CommentObjectMother.Create();
+
+            course.AddComment(comment);
+
+            course.Comments.Should().NotBeEmpty().And.HaveCount(1).And.Contain(comment);
+        }
+
+        [TestMethod]
+        public void AddComment_ShouldSetCourseToComment()
+        {
+            var course = CourseObjectMother.Create();
+            var comment = CommentObjectMother.Create();
+
+            course.AddComment(comment);
+
+            comment.Course.Should().Be(course);
+        }
+
+        #endregion
+
     }
 }

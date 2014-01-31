@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Mail;
-using AccountRes;
 using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Mail
@@ -29,7 +28,7 @@ namespace easygenerator.Web.Mail
             var restorePasswordUrl = _urlHelperWrapper.RouteRestorePasswordUrl(ticketId);
             var websiteUrl = _urlHelperWrapper.RouteWebsiteUrl();
 
-            var title = String.Format(Resources.ForgotPasswordSubject, websiteUrl);
+            var title = String.Format(AccountRes.Resources.ForgotPasswordSubject, websiteUrl);
 
             const string templateName = "ForgotPasswordTemplate";
             var templateSettings = _senderSettings.MailTemplatesSettings[templateName];

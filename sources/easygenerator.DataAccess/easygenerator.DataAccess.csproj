@@ -112,6 +112,10 @@
     <Compile Include="Migrations\201401291459294_AddImageFileTable.Designer.cs">
       <DependentUpon>201401291459294_AddImageFileTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201401310859479_AddComments.cs" />
+    <Compile Include="Migrations\201401310859479_AddComments.Designer.cs">
+      <DependentUpon>201401310859479_AddComments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
@@ -178,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201401291459294_AddImageFileTable.resx">
       <DependentUpon>201401291459294_AddImageFileTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401310859479_AddComments.resx">
+      <DependentUpon>201401310859479_AddComments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

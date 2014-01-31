@@ -1,0 +1,102 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Principal;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
+using easygenerator.DomainModel;
+using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Infrastructure;
+using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Tests.Utils;
+
+namespace easygenerator.Web.Tests.Controllers.Api
+{
+    [TestClass]
+    public class CommentControllerTests
+    {
+        private const string CreatedBy = "easygenerator@easygenerator.com";
+
+        private CommentController _controller;
+
+        IEntityFactory _entityFactory;
+        IPrincipal _user;
+        HttpContextBase _context;
+
+        [TestInitialize]
+        public void InitializeContext()
+        {
+            _entityFactory = Substitute.For<IEntityFactory>();
+            _controller = new CommentController(_entityFactory);
+
+            _user = Substitute.For<IPrincipal>();
+            _context = Substitute.For<HttpContextBase>();
+            _context.User.Returns(_user);
+
+            _controller = new CommentController(_entityFactory);
+            _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
+        }
+
+        #region Create comment
+
+        [TestMethod]
+        public void Create_ShouldReturnJsonErrorResult_WnenCourseIsNull()
+        {
+            //Act
+            var result = _controller.Create(null, null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
+        public void Create_ShouldAddCommentToCourse()
+        {
+            //Arrange
+            const string text = "text";
+            const string user = "Test user";
+            _user.Identity.Name.Returns("Test user");
+            var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
+            var comment = Substitute.For<Comment>("Comment", CreatedBy);
+
+            _entityFactory.Comment(text, user).Returns(comment);
+
+            //Act
+            _controller.Create(course, text);
+
+            //Assert
+            course.Received().AddComment(comment);
+        }
+
+        [TestMethod]
+        public void Create_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            const string text = "text";
+            const string user = "Test user";
+            _user.Identity.Name.Returns("Test user");
+            var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
+            var comment = Substitute.For<Comment>("Comment", CreatedBy);
+            
+            _entityFactory.Comment(text, user).Returns(comment);
+
+            //Act
+            var result = _controller.Create(course, text);
+
+            //Assert
+            result.Should()
+                .BeJsonSuccessResult()
+                .And.Data.ShouldBeSimilar(true);
+        }
+
+        #endregion
+
+    }
+}

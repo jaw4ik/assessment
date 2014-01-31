@@ -84,7 +84,8 @@ namespace easygenerator.Web.Configuration
             #region Publisher dependencies
 
             builder.RegisterType<CoursePublisher>().As<ICoursePublisher>();
-            builder.RegisterType<PublishDispatcher>().As<IPublishDispatcher>().SingleInstance();
+            builder.RegisterType<CoursePublishingService>().As<ICoursePublishingService>();
+            builder.RegisterType<PublishDispatcher>().As <IPublishDispatcher>().SingleInstance();
             builder.RegisterType<PublishIsInProgressConstraint>();
 
             #endregion

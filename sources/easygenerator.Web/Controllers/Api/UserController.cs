@@ -12,7 +12,6 @@ using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
-using AccountRes;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
@@ -52,7 +51,7 @@ namespace easygenerator.Web.Controllers.Api
             var user = _repository.GetUserByEmail(username);
             if (user == null || !user.VerifyPassword(password))
             {
-                return JsonError(Resources.IncorrectEmailOrPassword);
+                return JsonError(AccountRes.Resources.IncorrectEmailOrPassword);
             }
 
             _authenticationProvider.SignIn(username, true);

@@ -19,6 +19,7 @@ namespace easygenerator.DomainModel.Entities
             Title = title;
             Template = template;
             RelatedObjectivesCollection = new Collection<Objective>();
+            CommentsCollection = new Collection<Comment>();
             TemplateSettings = new Collection<CourseTemplateSettings>();
             BuildOn = null;
             IntroductionContent = null;
@@ -33,6 +34,21 @@ namespace easygenerator.DomainModel.Entities
 
             Template = template;
             MarkAsModified(modifiedBy);
+        }
+
+        protected internal virtual ICollection<Comment> CommentsCollection { get; set; }
+
+        public virtual IEnumerable<Comment> Comments
+        {
+            get { return CommentsCollection.AsEnumerable(); }
+        }
+
+        public virtual void AddComment(Comment comment)
+        {
+            ThrowIfCommentIsInvalid(comment);
+
+            CommentsCollection.Add(comment);
+            comment.Course = this;
         }
 
         protected internal virtual ICollection<Objective> RelatedObjectivesCollection { get; set; }
@@ -160,6 +176,11 @@ namespace easygenerator.DomainModel.Entities
         }
 
         #endregion
+
+        private void ThrowIfCommentIsInvalid(Comment comment)
+        {
+            ArgumentValidation.ThrowIfNull(comment, "comment");
+        }
 
         private void ThrowIfTemplateIsInvaid(Template template)
         {

@@ -19,7 +19,7 @@
                 succeed: 'succeed',
                 failed: 'failed'
             },
-            
+
             registerOnAim4YouStates: {
                 inProgress: 'registerInProgress',
                 success: 'registerSuccess',
@@ -55,6 +55,11 @@
                         started: 'course:publish-started',
                         completed: 'course:publish-completed',
                         failed: 'course:publish-failed'
+                    },
+                    publishForReview: {
+                        started: 'course:review-publish-started',
+                        completed: 'course:review-publish-completed',
+                        failed: 'course:review-publish-failed'
                     },
                     publishToAim4You: {
                         started: 'course:publishToAim4You-started',

@@ -24,14 +24,25 @@ namespace easygenerator.Web.Configuration
                     .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
                 );
 
-            bundles.Add(new ScriptBundle("~/scripts/accounts")
+            bundles.Add(new ScriptBundle("~/bundles/scripts/account")
                     .Include("~/scripts/jquery-{version}.js")
                     .Include("~/scripts/knockout-{version}.js")
                     .IncludeDirectory("~/scripts/account", "*.js")
+                    .IncludeDirectory("~/scripts/common", "*.js")
                     .Include("~/scripts/underscore.js")
                     .Include("~/scripts/underscore.extensions.js")
                     .Include("~/scripts/knockoutBindings/selectBoxBinding.js")
                 );
+
+            bundles.Add(new ScriptBundle("~/bundles/scripts/review")
+                   .Include("~/scripts/jquery-{version}.js")
+                   .Include("~/scripts/knockout-{version}.js")
+                   .IncludeDirectory("~/scripts/review", "*.js")
+                   .IncludeDirectory("~/scripts/common", "*.js")
+                   .Include("~/scripts/underscore.js")
+                   .Include("~/scripts/underscore.extensions.js")
+                   .Include("~/scripts/knockoutBindings/slidingDialogBinding.js")
+               );
 
             bundles.Add(new StyleBundle("~/Content/css")
                     .Include("~/Content/font-awesome.css")
@@ -51,6 +62,13 @@ namespace easygenerator.Web.Configuration
                     .Include("~/Content/account.css")
                     .Include("~/Content/helphint.css")
                     .Include("~/Content/introduction.css")
+                    .Include("~/Content/panels.css")
+                );
+
+            bundles.Add(new StyleBundle("~/Content/reviewcss")
+                    .Include("~/Content/styles.css")
+                    .Include("~/Content/common.css")
+                    .Include("~/Content/review.css")
                 );
         }
     }

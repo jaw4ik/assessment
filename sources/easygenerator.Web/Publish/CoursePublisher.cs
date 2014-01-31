@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Web;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Infrastructure;
@@ -16,29 +12,19 @@ namespace easygenerator.Web.Publish
         private readonly BuildPathProvider _pathProvider;
         private readonly PhysicalFileManager _fileManager;
         private readonly IPublishDispatcher _publishDispatcher;
-        private readonly IUrlHelperWrapper _urlHelper;
-        private const string PublishedPackageUrlPattern = "~/storage/{0}/";
 
-        public CoursePublisher(PhysicalFileManager fileManager, BuildPathProvider pathProvider, IPublishDispatcher publishDispatcher, IUrlHelperWrapper urlHelper)
+        public CoursePublisher(PhysicalFileManager fileManager, BuildPathProvider pathProvider, IPublishDispatcher publishDispatcher)
         {
             _pathProvider = pathProvider;
             _fileManager = fileManager;
             _publishDispatcher = publishDispatcher;
-            _urlHelper = urlHelper;
         }
 
-        public string GetPublishedResourcePhysicalPath(string resourceUrl)
+        public bool Publish(Course course, string destinationDirectory)
         {
-            return _pathProvider.GetPublishedResourcePath(resourceUrl.Replace("/", "\\"));
-        }
+            if (String.IsNullOrWhiteSpace(destinationDirectory))
+                throw new ArgumentException("Destination directory path is not specified.");
 
-        public string GetPublishedPackageUrl(string courseId)
-        {
-            return _urlHelper.ToAbsoluteUrl(string.Format(PublishedPackageUrlPattern, courseId));
-        }
-
-        public bool Publish(Course course)
-        {
             if (!course.BuildOn.HasValue || string.IsNullOrWhiteSpace(course.PackageUrl))
                 throw new NotSupportedException("Publishing of non builded course is not supported.");
 
@@ -49,9 +35,7 @@ namespace easygenerator.Web.Publish
                 // start publish, now maintenance page will be shown instead of published content
                 _publishDispatcher.StartPublish(courseId);
 
-                PublishPackage(courseId, course);
-
-                course.UpdatePublishedOnDate();
+                PublishPackage(courseId, course, destinationDirectory);
 
                 return true;
             }
@@ -67,11 +51,10 @@ namespace easygenerator.Web.Publish
             }
         }
 
-        protected virtual void PublishPackage(string courseId, Course course)
+        protected virtual void PublishPackage(string courseId, Course course, string destinationDirectoryPath)
         {
             string buildPackagePath = _pathProvider.GetBuildedPackagePath(course.PackageUrl);
-            string publishFolderPath = _pathProvider.GetPublishFolderPath(courseId);
-            CopyPublishedPackage(buildPackagePath, publishFolderPath);
+            CopyPublishedPackage(buildPackagePath, destinationDirectoryPath);
         }
 
         private void CopyPublishedPackage(string packagePath, string destinationFolderPath)

@@ -1,22 +1,18 @@
 ﻿<section>
-    <div class="feedback-wrapper" data-bind="feedback: { isShowFeedbackPopup: isShowFeedbackPopup }">
-        <div class="feedback-btn" data-bind="click: toggleFeedbackPopup, css: browserCulture() + '-lang'">
-            <span class="feedback-btn-text" data-bind="localize: { text: 'sendFeedback' }">Send feedback
-            </span>
-        </div>
+    <div class="tab-header">
+        <div class="tab-header-title">Give feedback</div>
+    </div>
+    <div class="tab-content">
+        <div class="tab-help-info" data-bind="localize: { text: 'feedBackHelp' }">Help us to improve our application</div>
         <form class="feedback-form">
-            <div class="feedback-help" data-bind="localize: { text: 'feedBackHelp' }">Help us to improve our application</div>
             <!-- ko if: isTryMode -->
             <span class="feedback-label" data-bind="localize: { text: 'yourEmailWithoutPoints' }">Your email:</span>
             <input type="text" class="feedback-text-block email" placeholder="Your e-mail..." data-bind="localize: { placeholder: 'yourEmail' }, value: feedbackEmail, valueUpdate: 'afterkeydown'" />
             <!-- /ko -->
             <span class="feedback-label" data-bind="localize: { text: 'yourMessageWithoutPoints' }">Your message:</span>
             <textarea class="feedback-text-block message" placeholder="Your message..." data-bind="localize: { placeholder: 'yourMessage' }, value: feedbackMessageFromUser, valueUpdate: 'afterkeydown', css: { error: isFeedbackMessageErrorVisible() }, event: { focus: feedbackMessageFocus }"></textarea>
-            <div class="feedback-action-wrapper">
-                <div class="feedback-cancel">
-                    <span data-bind="click: toggleFeedbackPopup, localize: { text: 'cancel' }"></span>
-                </div>
-                <button class="btn orange btn-small" data-bind="click: sendFeedback">
+            <div class="tab-action-wrapper">
+                <button class="btn blue round pull-right tab-btn " data-bind="click: sendFeedback">
                     <span class="btn-text" data-bind="localize: { text: 'send' }">Send</span>
                 </button>
             </div>

@@ -46,8 +46,15 @@
 
         toBeRejectedWith: function (reason) {
             return toBeRejectedWith.apply(this, [this.actual, reason]);
-        }
+        },
 
+        toBeArray: function (length) {
+            return toBeArray.apply(this, [this.actual, length]);
+        },
+
+        toBeString: function () {
+            return toBeString.call(this, this.actual);
+        }
     };
 
     this.addMatchers(matchers);
@@ -221,4 +228,40 @@ function toBeRejectedWith(actual, reason) {
     };
 
     return actual.inspect().reason == reason;
+}
+
+function toBeArray(actual, length) {
+    if (this.isNot) {
+        throw '[.not] is not supported';
+    }
+
+    this.message = function () {
+        return "Expected to be an Array";
+    };
+
+    var isArray = jasmine.getEnv().equals_(actual, jasmine.any(Array));
+
+    if (length != undefined) {
+        this.message = function () {
+            return "Expected to be an Array of length " + length;
+        };
+
+        if (isArray) {
+            isArray = isArray & actual.length === length;
+        }
+    }
+
+    return isArray;
+}
+
+function toBeString(actual) {
+    if (this.isNot) {
+        throw '[.not] is not supported';
+    }
+
+    this.message = function () {
+        return "Expected to be string";
+    };
+
+    return jasmine.getEnv().equals_(actual, jasmine.any(String));
 }

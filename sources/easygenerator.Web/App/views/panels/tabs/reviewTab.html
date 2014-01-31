@@ -1,0 +1,44 @@
+﻿<section>
+    <div class="tab-header">
+        <div class="tab-header-title">Get on review</div>
+    </div>
+    <div class="tab-content">
+        <div class="tab-help-info">
+            Share this course with a private link and allow commenting
+        </div>
+        <!--*
+        * GET LINK
+        * -->
+        <!-- ko if: !reviewUrlExists() && !isDelivering() -->
+        <button class="btn blue round pull-right tab-btn review-btn" data-bind="click: updateCourseForReview">
+            <span class="btn-text">Get link</span>
+        </button>
+        <!-- /ko -->
+        <!--*
+        * UPDATE COURSE
+        * -->
+        <!-- ko if: reviewUrlExists() -->
+        <div class="review-link">
+            <div class="open-review-link" data-bind="click: openCourseReviewUrl"></div>
+            <div class="review-link-input-wrapper">
+                <input class="review-link-input" type="text" readonly="readonly" data-bind="value: reviewUrl(), css: { selectable: !isDelivering() }, selectTextBinding: reviewUrlExists()" />
+            </div>
+        </div>
+        <!-- /ko -->
+        <div class="tab-action-wrapper">
+            <!-- ko if: !isDelivering() && reviewUrlExists()-->
+            <button class="btn blue round pull-right tab-btn review-btn" data-bind="click: updateCourseForReview">
+                <span class="btn-text">Update course</span>
+            </button>
+            <!-- /ko -->
+            <!--*
+            * PUBLISHING
+            * -->
+            <!-- ko if: isDelivering() -->
+            <button class="btn blue round pull-right tab-btn review-btn">
+                <span class="btn-text iconed">Publishing...</span>
+            </button>
+            <!-- /ko -->
+        </div>
+    </div>
+</section>

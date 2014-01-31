@@ -1,6 +1,6 @@
 ﻿define(function (require) {
 
-    var viewModel = require('viewmodels/feedback'),
+    var viewModel = require('viewmodels/panels/tabs/feedbackTab'),
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         localizationManager = require('localization/localizationManager'),
@@ -20,35 +20,61 @@
             expect(viewModel).toBeDefined();
         });
 
+        describe('title:', function () {
+
+            it('should be string', function () {
+                expect(viewModel.title).toBeString();
+            });
+
+        });
+
+        describe('isEnabled:', function () {
+
+            it('should be computed', function () {
+                expect(viewModel.isEnabled).toBeComputed();
+            });
+
+            it('should return true', function () {
+                expect(viewModel.isEnabled()).toBeTruthy();
+            });
+        });
+
+        describe('canActivate:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.canActivate).toBeFunction();
+            });
+
+        });
+
         describe('activate:', function () {
 
             it('should be function', function () {
                 expect(viewModel.activate).toBeFunction();
             });
 
-            it('should set browserCulture', function () {
-                localizationManager.currentLanguage = 'ar';
+            it('should send event \'Open feedback form\'', function () {
                 var promise = viewModel.activate();
-                waitsFor(function() {
+                waitsFor(function () {
                     return !promise.isPending();
                 });
-                runs(function() {
-                    expect(viewModel.browserCulture()).toBe('ar');
+                runs(function () {
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Open feedback form');
                 });
             });
 
             it('should set userEmail', function () {
                 dataContext.userEmail = 'some email';
                 var promise = viewModel.activate();
-                waitsFor(function() {
+                waitsFor(function () {
                     return !promise.isPending();
                 });
-                runs(function() {
+                runs(function () {
                     expect(viewModel.userEmail).toBe('some email');
                 });
             });
 
-            it('should set isTryMode', function() {
+            it('should set isTryMode', function () {
                 dataContext.isTryMode = false;
                 var promise = viewModel.activate();
                 waitsFor(function () {
@@ -228,38 +254,5 @@
 
         });
 
-        describe('isShowFeedbackPopup:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.isShowFeedbackPopup).toBeObservable();
-            });
-
-        });
-
-        describe('toggleFeedbackPopup:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.toggleFeedbackPopup).toBeFunction();
-            });
-
-            it('should toggle feedbackPopup', function () {
-                viewModel.isShowFeedbackPopup(false);
-                viewModel.toggleFeedbackPopup();
-                expect(viewModel.isShowFeedbackPopup()).toBeTruthy();
-            });
-
-            describe('when feedback popup hidden', function() {
-                
-                it('should send event \'Open feedback form\'', function () {
-                    viewModel.isShowFeedbackPopup(false);
-                    viewModel.toggleFeedbackPopup();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Open feedback form');
-                });
-
-            });
-
-        });
-
     });
-
 });

@@ -18,6 +18,12 @@
                 return { publishedPackageUrl: responseData.PublishedPackageUrl };
             });
         };
+        
+        var publishCourseForReview = function (courseId) {
+            return invokeServiceMethod('course/publishForReview', { courseId: courseId }, function (responseData) {
+                return { reviewUrl: responseData.ReviewUrl };
+            });
+        };
 
         var publishCourseToStore = function (courseId) {
             return invokeServiceMethod('course/publishToStore', { courseId: courseId }, function() {});
@@ -50,6 +56,7 @@
             buildCourse: buildCourse,
             publishCourse: publishCourse,
             scormBuildCourse: scormBuildCourse,
-            publishCourseToStore: publishCourseToStore
+            publishCourseToStore: publishCourseToStore,
+            publishCourseForReview: publishCourseForReview
         };
 });

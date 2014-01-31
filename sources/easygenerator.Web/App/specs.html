@@ -23,16 +23,18 @@
 
     <!-- Source scripts -->
     <script type="text/javascript" src="../Scripts/require.js"></script>
-    
+
     <script type="text/javascript" src="../Scripts/account/common.js"></script>
     <script type="text/javascript" src="../Scripts/account/constants.js"></script>
     <script type="text/javascript" src="../Scripts/account/analytics.js"></script>
+    <script type="text/javascript" src="../Scripts/common/app.js"></script>
     <script type="text/javascript" src="../Scripts/account/signup.js"></script>
     <script type="text/javascript" src="../Scripts/account/signin.js"></script>
+    <script type="text/javascript" src="../Scripts/review/review.js"></script>
     <script type="text/javascript" src="../Scripts/account/signupsecondstep.js"></script>
     <script type="text/javascript" src="../Scripts/account/passwordrecovery.js"></script>
-    <script type="text/javascript" src="../Scripts/account/serviceUnavailableAjaxErrorHandler.js"></script>
-    <script type="text/javascript" src="../Scripts/account/clientSessionContext.js"></script>
+    <script type="text/javascript" src="../Scripts/common/serviceUnavailableAjaxErrorHandler.js"></script>
+    <script type="text/javascript" src="../Scripts/common/clientSessionContext.js"></script>
 
     <script type="text/javascript">
 
@@ -59,6 +61,7 @@
                 'guard.spec',
                 'httpWrapper.spec',
                 'notify.spec',
+                'models/course.spec',
                 'errorHandling/httpErrorHandlerRegistrator.spec',
                 'errorHandling/globalErrorHandler.spec',
                 'errorHandling/errorHandlingConfiguration.spec',
@@ -95,10 +98,10 @@
                 'viewmodels/shell.spec',
                 '../Scripts/account/signup.spec',
                 '../Scripts/account/signin.spec',
+                '../Scripts/review/review.spec',
                 '../Scripts/account/signupsecondstep.spec',
                 '../Scripts/account/passwordrecovery.spec',
-                '../Scripts/account/serviceUnavailableAjaxErrorHandler.spec',
-                'viewmodels/feedback.spec',
+                '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec',
                 'help/helpHint.spec',
                 'bootstrapper.spec',
                 'introduction/welcome.spec',
@@ -108,7 +111,10 @@
                 'userContext.spec',
                 'services/aim4YouService.spec',
                 'viewmodels/courses/deliveringActions/publishToAim4You.spec',
-                'viewmodels/common/contentField.spec'
+                'viewmodels/common/contentField.spec',
+                'viewmodels/panels/sidePanel.spec',
+                'viewmodels/panels/tabs/reviewTab.spec',
+                'viewmodels/panels/tabs/feedbackTab.spec'
             ];
 
             require(specs, function () {

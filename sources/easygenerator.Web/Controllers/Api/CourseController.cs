@@ -25,15 +25,15 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ICourseBuilder _builder;
         private readonly IEntityFactory _entityFactory;
         private readonly ICourseRepository _repository;
-        private readonly ICoursePublisher _coursePublisher;
+        private readonly ICoursePublishingService _coursePublishingService;
         private readonly IScormCourseBuilder _scormCourseBuilder;
 
-        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory, ICoursePublisher coursePublisher)
+        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory, ICoursePublishingService publishingService)
         {
             _builder = courseBuilder;
             _repository = repository;
             _entityFactory = entityFactory;
-            _coursePublisher = coursePublisher;
+            _coursePublishingService = publishingService;
             _scormCourseBuilder = scormCourseBuilder;
         }
 
@@ -106,6 +106,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Route("course/publish")]
         public ActionResult Publish(Course course)
         {
             if (course == null)
@@ -113,7 +114,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
             }
 
-            var result = _coursePublisher.Publish(course);
+            var result = _coursePublishingService.Publish(course);
 
             if (!result)
             {
@@ -122,8 +123,30 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(new
                 {
-                    PublishedPackageUrl = _coursePublisher.GetPublishedPackageUrl(course.Id.ToString())
+                    PublishedPackageUrl = _coursePublishingService.GetPublishedPackageUrl(course.Id.ToString())
                 });
+        }
+
+        [HttpPost]
+        [Route("course/publishForReview")]
+        public ActionResult PublishForReview(Course course)
+        {
+            if (course == null)
+            {
+                return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
+            }
+
+            var result = _coursePublishingService.Publish(course);
+
+            if (!result)
+            {
+                return JsonLocalizableError(Errors.CoursePublishFailedError, Errors.CoursePublishFailedResourceKey);
+            }
+
+            return JsonSuccess(new
+            {
+                ReviewUrl = _coursePublishingService.GetCourseReviewUrl(course.Id.ToString())
+            });
         }
 
         [HttpPost]
@@ -140,7 +163,8 @@ namespace easygenerator.Web.Controllers.Api
                 ModifiedOn = course.ModifiedOn,
                 Template = new { Id = course.Template.Id.ToNString() },
                 PackageUrl = course.PackageUrl,
-                PublishedPackageUrl = course.PublishedOn != null ? _coursePublisher.GetPublishedPackageUrl(course.Id.ToString()) : null,
+                PublishedPackageUrl = course.PublishedOn != null ? _coursePublishingService.GetPublishedPackageUrl(course.Id.ToString()) : null,
+                ReviewUrl = course.PublishedOn != null ? _coursePublishingService.GetCourseReviewUrl(course.Id.ToString()) : null,
                 RelatedObjectives = course.RelatedObjectives.Select(obj => new
                 {
                     Id = obj.Id.ToNString()

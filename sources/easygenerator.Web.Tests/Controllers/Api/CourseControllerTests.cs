@@ -33,7 +33,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         ICourseRepository _repository;
         IPrincipal _user;
         HttpContextBase _context;
-        private ICoursePublisher _coursePublisher;
+        private ICoursePublishingService _coursePublishingService;
 
         [TestInitialize]
         public void InitializeContext()
@@ -42,14 +42,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository = Substitute.For<ICourseRepository>();
             _builder = Substitute.For<ICourseBuilder>();
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
-            _coursePublisher = Substitute.For<ICoursePublisher>();
+            _coursePublishingService = Substitute.For<ICoursePublishingService>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _coursePublisher);
+            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _coursePublishingService);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -227,7 +227,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Publish_ShouldReturnJsonErrorResult_WhenPublishFails()
         {
             //Arrange
-            _coursePublisher.Publish(Arg.Any<Course>()).Returns(false);
+            _coursePublishingService.Publish(Arg.Any<Course>()).Returns(false);
 
             //Act
             var result = _controller.Publish(CourseObjectMother.Create());
@@ -241,13 +241,56 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _coursePublisher.Publish(course).Returns(true);
+            _coursePublishingService.Publish(course).Returns(true);
 
             //Act
             var result = _controller.Publish(course);
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PublishedPackageUrl = _coursePublisher.GetPublishedPackageUrl(course.Id.ToString()) });
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PublishedPackageUrl = _coursePublishingService.GetPublishedPackageUrl(course.Id.ToString()) });
+        }
+
+        #endregion
+
+        #region Publish course for review
+
+        [TestMethod]
+        public void PublishForReview_ShouldReturnJsonErrorResult_WhenCourseNotFound()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.PublishForReview(null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
+        public void PublishForReview_ShouldReturnJsonErrorResult_WhenPublishFails()
+        {
+            //Arrange
+            _coursePublishingService.Publish(Arg.Any<Course>()).Returns(false);
+
+            //Act
+            var result = _controller.PublishForReview(CourseObjectMother.Create());
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoursePublishFailedError);
+        }
+
+        [TestMethod]
+        public void PublishForReview_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            _coursePublishingService.Publish(course).Returns(true);
+
+            //Act
+            var result = _controller.PublishForReview(course);
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ReviewUrl = _coursePublishingService.GetCourseReviewUrl(course.Id.ToString()) });
         }
 
         #endregion

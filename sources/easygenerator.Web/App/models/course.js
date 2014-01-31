@@ -12,6 +12,7 @@
             this.scormPackageUrl = spec.scormPackageUrl;
             this.template = spec.template;
             this.publishedPackageUrl = spec.publishedPackageUrl;
+            this.reviewUrl = spec.reviewUrl;
             this.deliveringState = constants.deliveringStates.notStarted;
             this.introductionContent = spec.introductionContent;
         };
@@ -95,6 +96,34 @@
                 deferred.reject(message);
             });
                         
+            return deferred.promise;
+        };
+        
+        Course.prototype.publishForReview = function () {
+            var that = this;
+            var deferred = Q.defer();
+
+            if (that.deliveringState == constants.deliveringStates.building || that.deliveringState == constants.deliveringStates.publishing) {
+                deferred.reject('Course is already building or publishing.');
+            }
+
+            that.build().then(function () {
+                that.deliveringState = constants.deliveringStates.publishing;
+                app.trigger(constants.messages.course.publishForReview.started, that);
+
+                return deliverService.publishCourseForReview(that.id).then(function (publishInfo) {
+                    that.reviewUrl = publishInfo.reviewUrl;
+                    that.deliveringState = constants.deliveringStates.succeed;
+                    app.trigger(constants.messages.course.publishForReview.completed, that);
+                    deferred.resolve(that);
+                });
+            }).fail(function (message) {
+                that.deliveringState = constants.deliveringStates.failed;
+                that.reviewUrl = '';
+                app.trigger(constants.messages.course.publishForReview.failed, that.id, message);
+                deferred.reject(message);
+            });
+
             return deferred.promise;
         };
 

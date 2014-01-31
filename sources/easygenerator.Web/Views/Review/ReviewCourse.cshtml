@@ -1,0 +1,45 @@
+﻿@using System.Web.Optimization
+@using easygenerator.Web.Resources.Views.Review
+
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=640,maximum-scale=1.0">
+    <meta name="description" content="">
+    <title>easygenerator</title>
+    @Styles.Render("~/Content/reviewcss")
+</head>
+<body>
+    <div class="course-review">
+        <div class="review-content">
+            <iframe src="@ViewBag.PublishedCourseUrl" frameborder="0" width="100%" height="100%"></iframe>
+        </div>
+        <div class="review-comments" data-bind="slidingDialog: { isExpanded: isExpanded, position: '-269px', side: 'bottom', onCollapsed: onCollapsed }">
+            <div class="comments-header" data-bind="click: toggleVisiblity">
+                <div class="comment-header-text">@Resources.LeaveYourComment</div>
+                <div class="comments-expander" data-bind="css: { 'collapsed': !isExpanded(), 'expanded': isExpanded() }"></div>
+            </div>
+            <form class="add-comment-form">
+                <textarea class="comment-text-block message" placeholder="@Resources.YourMessage" data-bind="value: text, valueUpdate: 'afterkeydown', css: { error: hasValidationError() }, event: { focus: onTextFocused }"></textarea>
+                <div class="comment-action-wrapper">
+                    <div class="comment-status-message success" data-bind="visible: isSaved">
+                        @Resources.CommentWasSent
+                    </div>
+                    <div class="comment-status-message fail" data-bind="visible: isFailed">
+                        @Resources.CommentWasNotSent
+                        <br />
+                        @Resources.TryAgain
+                    </div>
+                    <button class="btn comment-btn blue round pull-right" data-bind="click: addComment.bind($data, '@ViewBag.CourseId')">
+                        <span class="btn-title">@Resources.Send</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+@Scripts.Render("~/bundles/scripts/review")

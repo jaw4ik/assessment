@@ -124,6 +124,7 @@
     <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraintTest.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\Api\AnswerControllerTests.cs" />
+    <Compile Include="Controllers\Api\CommentControllerTests.cs" />
     <Compile Include="Controllers\Api\CourseControllerTests.cs" />
     <Compile Include="Controllers\Api\FeedbackControllerTests.cs" />
     <Compile Include="Controllers\Api\LearningContentControllerTests.cs" />
@@ -143,6 +144,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Publish\CoursePublisherTest.cs" />
     <Compile Include="Publish\PublishDispatcherTest.cs" />
+    <Compile Include="Publish\CoursePublishingServiceTests.cs" />
+    <Compile Include="Controllers\ReviewControllerTests.cs" />
     <Compile Include="Tasks\PasswordRecoveryTicketExpirationTaskTest.cs" />
     <Compile Include="Tasks\MailSenderTaskTest.cs" />
     <Compile Include="Tasks\SchedulerTest.cs" />

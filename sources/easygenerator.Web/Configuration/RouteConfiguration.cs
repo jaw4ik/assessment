@@ -18,16 +18,33 @@ namespace easygenerator.Web.Configuration
             #region Errors
 
             routes.MapRoute(
+               name: "ServerError",
+               url: "servererror",
+               defaults: new { controller = "Error", action = "ServerError" }
+            );
+
+            routes.MapRoute(
                 name: "ErrorNotFound",
                 url: "notfound",
                 defaults: new { controller = "Error", action = "NotFound" }
             );
 
+            #endregion
+
+            #region Review
+
             routes.MapRoute(
-               name: "ServerError",
-               url: "servererror",
-               defaults: new { controller = "Error", action = "ServerError" }
-           );
+                name: "ReviewedCoursePublishIsInProgress",
+                url: "review/{courseId}",
+                defaults: new { controller = "Maintenance", action = "PublishIsInProgress" },
+                constraints: new RouteValueDictionary { { "courseId", DependencyResolver.Current.GetService<PublishIsInProgressConstraint>() } }
+             );
+
+            routes.MapRoute(
+                name: "ReviewCourse",
+                url: "review/{courseId}",
+                defaults: new { controller = "Review", action = "ReviewCourse" }
+            );
 
             #endregion
 
@@ -79,12 +96,12 @@ namespace easygenerator.Web.Configuration
                 defaults: new { controller = "Question", action = "UpdateTitle" }
             );
 
-             routes.MapRoute(
-                name: "UpdateQuestionContent",
-                url: "api/question/updateContent",
-                defaults: new { controller = "Question", action = "UpdateContent" }
-            );
-            
+            routes.MapRoute(
+               name: "UpdateQuestionContent",
+               url: "api/question/updateContent",
+               defaults: new { controller = "Question", action = "UpdateContent" }
+           );
+
 
             #endregion
 
@@ -205,16 +222,8 @@ namespace easygenerator.Web.Configuration
                 url: "api/course/{courseId}/template/{templateId}",
                 defaults: new { controller = "Course", action = "TemplateSettings" }
             );
-
-
-
+            
             #region Publish routes
-
-            routes.MapRoute(
-                name: "PublishCourse",
-                url: "course/publish",
-                defaults: new { controller = "Course", action = "Publish" }
-                );
 
             routes.MapRoute(
                 "PublishIsInProgress",
