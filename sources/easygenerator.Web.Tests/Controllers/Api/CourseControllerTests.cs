@@ -311,6 +311,24 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region CourseExists
+
+        [TestMethod]
+        public void CourseExists_ShouldReturnJsonSuccessResultTrue_WhenCourseExists()
+        {
+            var result = _controller.CourseExists(CourseObjectMother.Create());
+            result.Should().BeJsonSuccessResult().And.Data.Should().Be(true);
+        }
+
+        [TestMethod]
+        public void CourseExists_ShouldReturnJsonSuccessResultTrue_WhenCoursDoesntExist()
+        {
+            var result = _controller.CourseExists(null);
+            result.Should().BeJsonSuccessResult().And.Data.Should().Be(false);
+        }
+
+        #endregion
+
         #region Update Title
 
         [TestMethod]

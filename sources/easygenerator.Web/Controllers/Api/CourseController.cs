@@ -175,6 +175,13 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Route("api/courseExists")]
+        public ActionResult CourseExists(Course course)
+        {
+            return JsonSuccess(course != null);
+        }
+
+        [HttpPost]
         public ActionResult UpdateTitle(Course course, string courseTitle)
         {
             if (course == null)

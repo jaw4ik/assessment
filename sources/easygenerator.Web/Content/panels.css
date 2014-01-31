@@ -33,6 +33,10 @@
     margin-right: 3px;
 }
 
+.tab-headers {
+    
+}
+
 .tab-header {
     display: table-cell;
     position: relative;
@@ -46,7 +50,7 @@
     border-top-right-radius: 35px 100px;
     border: 1px solid #C4C4C4;
     border-bottom: none;
-    box-shadow: 0 2px 7px #C4C4C4;
+    box-shadow: 0px 0px 7px #C4C4C4;
 }
 
     .tab-header:hover {

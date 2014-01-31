@@ -12,23 +12,23 @@
 
             getById = function (id) {
                 return Q.fcall(function () {
-                    var deferred = Q.defer();
                     guard.throwIfNotString(id, 'Course id (string) was expected');
 
-                    httpWrapper.post('api/courses').then(function () {
+                    var requestArgs = {
+                        courseId: id
+                    };
+                    
+                    return httpWrapper.post('api/courseExists', requestArgs).then(function () {
                         var result = _.find(dataContext.courses, function (item) {
                             return item.id === id;
                         });
 
                         if (_.isUndefined(result)) {
-                            deferred.reject('Course with this id is not found');
-                            return;
+                            throw 'Course with this id is not found';
                         };
 
-                        deferred.resolve(result);
+                        return result;
                     });
-
-                    return deferred.promise;
                 });
             },
 

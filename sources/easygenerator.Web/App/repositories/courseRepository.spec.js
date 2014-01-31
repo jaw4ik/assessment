@@ -107,7 +107,7 @@
                         });
                     });
 
-                    it('should not send request to server to api/courses', function () {
+                    it('should not send request to server to api/courseExists', function () {
                         var promise = repository.getById();
 
                         waitsFor(function () {
@@ -121,9 +121,10 @@
                 });
 
                 describe('when id is a string', function () {
+                    var courseId = 'courseId';
 
-                    it('should send request to server to api/courses', function () {
-                        var promise = repository.getCollection();
+                    it('should send request to server to api/courseExists', function () {
+                        var promise = repository.getById(courseId);
 
                         httpWrapperPost.resolve();
 
@@ -131,18 +132,16 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/courses');
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/courseExists', { courseId: courseId });
                         });
                     });
 
                     describe('and request failed', function () {
                         var reason = 'reason';
-                        beforeEach(function () {
-                            httpWrapperPost.reject(reason);
-                        });
 
                         it('should reject promise with reason', function () {
-                            var promise = repository.getCollection();
+                            var promise = repository.getById(courseId);
+                            httpWrapperPost.reject(reason);
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -156,16 +155,13 @@
 
                     describe('and request succeed', function () {
 
-                        beforeEach(function () {
-                            httpWrapperPost.resolve();
-                        });
-
                         describe('and when course does not exist', function () {
 
                             it('should reject promise with \'Course with this id is not found\'', function () {
                                 dataContext.courses = [];
                                 var promise = repository.getById('');
-
+                                httpWrapperPost.resolve();
+                                
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
@@ -183,6 +179,7 @@
                                 dataContext.courses = [course];
 
                                 var promise = repository.getById('0');
+                                httpWrapperPost.resolve();
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -1485,14 +1482,14 @@
 
             describe('updateIntroductionContent:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(repository.updateIntroductionContent).toBeFunction();
-                }); 
+                });
 
                 it('should return promise', function () {
                     expect(repository.updateIntroductionContent('courseId')).toBePromise();
                 });
-                
+
                 describe('when courseId is not a string', function () {
 
                     it('should reject promise with reason \'Course id is not a string\'', function () {
@@ -1508,7 +1505,7 @@
 
                 });
 
-                describe('when course id is string', function() {
+                describe('when course id is string', function () {
 
                     it('should send request to /api/course/updateintroductioncontent', function () {
                         var courseId = 'Some id';
@@ -1525,7 +1522,7 @@
                         });
                     });
 
-                    describe('and request fail', function() {
+                    describe('and request fail', function () {
 
                         it('should reject promise', function () {
                             var reason = 'Some reason';
@@ -1542,7 +1539,7 @@
 
                     });
 
-                    describe('and request successful', function() {
+                    describe('and request successful', function () {
 
                         describe('and response is not an object', function () {
 
@@ -1550,17 +1547,17 @@
                                 var promise = repository.updateIntroductionContent('Some id', 'Some content');
                                 httpWrapperPost.resolve('');
 
-                                waitsFor(function() {
+                                waitsFor(function () {
                                     return !promise.isPending();
                                 });
-                                runs(function() {
+                                runs(function () {
                                     expect(promise).toBeRejectedWith('Response is not an object');
                                 });
                             });
-                            
+
                         });
 
-                        describe('and response is object', function() {
+                        describe('and response is object', function () {
 
                             describe('and when ModifiedOn is not a string', function () {
 
@@ -1569,10 +1566,10 @@
                                     var promise = repository.updateIntroductionContent('some id', 'some content');
                                     httpWrapperPost.resolve({ ModifiedOn: 1 });
 
-                                    waitsFor(function() {
+                                    waitsFor(function () {
                                         return !promise.isPending();
                                     });
-                                    runs(function() {
+                                    runs(function () {
                                         expect(promise).toBeRejectedWith('Response does not have modification date');
                                     });
 
@@ -1584,23 +1581,23 @@
 
                                 var newModifiedDate;
 
-                                beforeEach(function() {
+                                beforeEach(function () {
                                     newModifiedDate = "/Date(1378106938845)/";
                                     httpWrapperPost.resolve({ ModifiedOn: newModifiedDate });
                                 });
 
                                 describe('and when course is not found in dataContext', function () {
-                                    
-                                    beforeEach(function() {
+
+                                    beforeEach(function () {
                                         dataContext.courses = [];
                                     });
 
                                     it('should reject promise with \'Course does not exist in dataContext\'', function () {
                                         var promise = repository.updateIntroductionContent('someid', 'some content');
-                                        waitsFor(function() {
+                                        waitsFor(function () {
                                             return !promise.isPending();
                                         });
-                                        runs(function() {
+                                        runs(function () {
                                             expect(promise).toBeRejectedWith('Course does not exist in dataContext');
                                         });
                                     });
@@ -1621,18 +1618,18 @@
                                         dataContext.courses = [course];
                                     });
 
-                                    it('should update content in course', function() {
+                                    it('should update content in course', function () {
                                         var promise = repository.updateIntroductionContent(course.id, 'some content');
 
-                                        waitsFor(function() {
+                                        waitsFor(function () {
                                             return !promise.isPending();
                                         });
-                                        runs(function() {
+                                        runs(function () {
                                             expect(course.introductionContent).toBe('some content');
                                         });
                                     });
 
-                                    it('should update modifiedDate', function() {
+                                    it('should update modifiedDate', function () {
                                         var promise = repository.updateIntroductionContent(course.id, 'some content');
 
                                         waitsFor(function () {
