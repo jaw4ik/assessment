@@ -2,9 +2,16 @@
 
     return [
         {
-            route: ['', 'home'],
-            moduleId: 'viewmodels/home',
+            route: 'objectives',
+            moduleId: 'viewmodels/objectives',
             title: 'Objectives and questions',
+            rootLinkDisabled: true
+        },
+        {
+            route: ['', 'introduction'],
+            moduleId: 'viewmodels/introduction',
+            title: 'Introduction',
+            hideNav: true,
             rootLinkDisabled: true
         },
         {

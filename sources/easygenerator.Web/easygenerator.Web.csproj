@@ -807,12 +807,17 @@
     </Content>
     <Content Include="Templates\Freestyle learning\App\settingsReader.js" />
     <Content Include="Templates\Freestyle learning\App\specs.html" />
+    <Content Include="Templates\Freestyle learning\App\viewmodels\introduction.spec.js">
+      <DependentUpon>introduction.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Freestyle learning\App\viewmodels\introduction.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
     </Content>
     <Content Include="Templates\Freestyle learning\App\viewmodels\question.spec.js">
       <DependentUpon>question.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Freestyle learning\App\views\introduction.html" />
     <Content Include="Templates\Freestyle learning\App\windowOperations.js" />
     <Content Include="Templates\Freestyle learning\App\windowOperations.spec.js">
       <DependentUpon>windowOperations.js</DependentUpon>
@@ -910,7 +915,7 @@
     <Content Include="Templates\Freestyle learning\App\main.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\404.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\feedback.js" />
-    <Content Include="Templates\Freestyle learning\App\viewmodels\home.js" />
+    <Content Include="Templates\Freestyle learning\App\viewmodels\objectives.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\learningContents.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\notsupportedbrowser.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\notsupportedbrowserMobile.js" />
@@ -919,7 +924,7 @@
     <Content Include="Templates\Freestyle learning\App\viewmodels\summary.js" />
     <Content Include="Templates\Freestyle learning\App\views\404.html" />
     <Content Include="Templates\Freestyle learning\App\views\feedback.html" />
-    <Content Include="Templates\Freestyle learning\App\views\home.html" />
+    <Content Include="Templates\Freestyle learning\App\views\objectives.html" />
     <Content Include="Templates\Freestyle learning\App\views\learningContents.html" />
     <Content Include="Templates\Freestyle learning\App\views\notsupportedbrowser.html" />
     <Content Include="Templates\Freestyle learning\App\views\notsupportedbrowserMobile.html" />

@@ -5,7 +5,7 @@
         objective = null,
         question = null,
         backToObjectives = function () {
-            router.navigate('');
+            router.navigate('objectives');
         },
         showLearningContents = function () {
             router.navigate('objective/' + objective.id + '/question/' + question.id + '/learningContents');
@@ -17,7 +17,7 @@
             return this.score < 100;
         },
         chooseNextQuestion = function () {
-            router.navigate('');
+            router.navigate('objectives');
         },
         tryAgain = function () {
             router.navigate('objective/' + objective.id + '/question/' + question.id );

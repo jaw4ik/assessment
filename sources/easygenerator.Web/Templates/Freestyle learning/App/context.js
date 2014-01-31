@@ -18,6 +18,7 @@
 
                     that.course.id = response.id;
                     that.course.title = response.title;
+                    that.course.hasIntroductionContent = response.hasIntroductionContent;
 
                     that.objectives = _.map(response.objectives, function (objective) {
                         return {

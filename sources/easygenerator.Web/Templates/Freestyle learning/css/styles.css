@@ -235,7 +235,7 @@ input[type="checkbox"] {
     border: none;
 }
 
-.content.home {
+.content.objectives {
     margin-top: 11px;
 }
 
@@ -356,7 +356,7 @@ input[type="checkbox"] {
 
 /*#endregion sub navigation partial */
 
-/*#region home view*/
+/*#region objectives view*/
 
 .objective-brief-list {
     margin: 0;
@@ -487,7 +487,7 @@ input[type="checkbox"] {
         text-decoration: underline;
     }
 
-/*#endregion home view*/
+/*#endregion objectives view*/
 
 /*#region question view*/
 
@@ -890,3 +890,47 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 }
 
 /*#endregion progress summary view*/
+
+/*#region introduction view */
+
+.intro.content {
+    border-top: none;
+    padding: 30px;
+}
+
+.intro-header {
+    width: 100%;
+    display: table;
+    margin-top: 20px;
+}
+
+.intro-title-holder {
+    font-family: Arial;
+    font-size: 22px;
+    color: black;
+    padding: 50px 20px;
+    display: table-cell;
+}
+
+.intro-title {
+    font-weight: bold;
+}
+
+.intro-start-holder {
+    text-align: right;
+    padding: 0 20px;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.intro-start-button {
+    font-family: Arial;
+    font-size: 16px;
+    color: white;
+    padding: 10px 30px;
+    background-color: rgb(244,138,114);
+    white-space: nowrap;
+    display: inline-block;
+}
+
+/*#endregion introduction view*/

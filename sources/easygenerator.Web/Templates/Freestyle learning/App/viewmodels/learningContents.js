@@ -8,7 +8,7 @@
         question = null,
 
         backToObjectives = function () {
-            router.navigate('');
+            router.navigate('objectives');
         },
 
         backToQuestion = function () {

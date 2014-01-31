@@ -60,7 +60,7 @@
 
             startCourse = function () {
                 eventManager.courseStarted();
-                router.navigate('home');
+                router.navigate('');
             },
 
             activate = function () {

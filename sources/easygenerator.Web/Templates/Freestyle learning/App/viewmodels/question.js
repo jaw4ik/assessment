@@ -36,7 +36,7 @@
         },
 
         backToObjectives = function () {
-            router.navigate('');
+            router.navigate('objectives');
         },
         showLearningContents = function () {
             router.navigate('objective/' + objective.id + '/question/' + question.id + '/learningContents');

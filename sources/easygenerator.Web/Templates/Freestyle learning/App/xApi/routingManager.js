@@ -19,7 +19,7 @@
                 existingGuard = router.guardRoute;
                 router.guardRoute = function (model, route) {
                     if (route.config.route == 'login') {
-                        return moduleInitializer.getInitStatus() ? 'home' : true;
+                        return moduleInitializer.getInitStatus() ? '' : true;
                     }
                     if (!moduleInitializer.getInitStatus()) {
                         return 'login';
