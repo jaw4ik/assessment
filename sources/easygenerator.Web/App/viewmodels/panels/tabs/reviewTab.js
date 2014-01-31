@@ -2,7 +2,8 @@
     function (constants, app, notify, eventTracker, repository, router, clientContext) {
 
         var events = {
-            updateCourseForReview: 'Update course for review'
+            updateCourseForReview: 'Update course for review',
+            openReviewTab: 'Open review tab'
         };
 
         var viewModel = {
@@ -104,6 +105,7 @@
 
         function activate() {
             viewModel.courseId = clientContext.get('lastVistedCourse');
+            eventTracker.publish(events.openReviewTab);
             return repository.getById(viewModel.courseId).then(function (course) {
                 viewModel.reviewUrl(course.reviewUrl);
                 viewModel.state(viewModel.reviewUrlExists() ? constants.deliveringStates.succeed : constants.deliveringStates.failed);

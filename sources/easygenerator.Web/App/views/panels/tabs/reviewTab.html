@@ -19,7 +19,7 @@
         * -->
         <!-- ko if: reviewUrlExists() -->
         <div class="review-link">
-            <div class="open-review-link" data-bind="click: openCourseReviewUrl"></div>
+            <div class="open-review-link" data-bind="click: openCourseReviewUrl" title="Open link"></div>
             <div class="review-link-input-wrapper">
                 <input class="review-link-input" type="text" readonly="readonly" data-bind="value: reviewUrl(), css: { selectable: !isDelivering() }, selectTextBinding: reviewUrlExists()" />
             </div>

@@ -284,6 +284,17 @@
                 it('should be function', function () {
                     expect(viewModel.activate).toBeFunction();
                 });
+                
+                it('should send event \'Open review tab\'', function () {
+                    var promise = viewModel.activate();
+                    getById.resolve();
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Open review tab');
+                    });
+                });
 
                 it('should return promise', function () {
                     expect(viewModel.activate()).toBePromise();
