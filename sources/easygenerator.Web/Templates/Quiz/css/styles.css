@@ -504,6 +504,10 @@ body {
         word-break: break-all;
     }
 
+.answer-text {
+    white-space: pre-wrap;
+}
+
 .question-submit {
     padding: 25px 0 0;
 }
