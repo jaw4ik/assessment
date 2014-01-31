@@ -2,28 +2,18 @@
 
 .panel-right {
     position: fixed;
-    right: 0px;
     top: 0px;
-    display: block;
-    padding-top: 147px;
+    padding-top: 114px;
     min-height: 100%;
     height: 100%;
-    width: 327px;
+    width: 330px;
     z-index: 100;
     right: -300px;
     font-family: 'OpenSans';
     font-size: 13px;
 }
 
-.tabs {
-    display: block;
-    float: left;
-    height: 100%;
-    width: 27px;
-    font-size: 14px;
-}
-
-.tabs-wrapper {
+.tab-headers-wrapper {
     -moz-transform: rotate(270.0deg);
     -webkit-transform: rotate(270.0deg);
     -ms-transform: rotate(270.0deg);
@@ -32,50 +22,53 @@
     -ms-transform-origin: 200px 200px;
     -moz-transform-origin: 200px 200px;
     transform-origin: 200px 200px;
-    text-align: right;
-    vertical-align: middle;
-    width: 400px;
-    height: 27px;
-    padding-right: 40px;
-}
-
-.tab {
-    position: relative;
-    line-height: 27px;
-    padding-right: 5px;
-    padding-left: 5px;
-    text-align: center;
-    display: inline-block;
-    width: 130px;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
     font-size: 14px;
     font-family: 'OpenSans-Semibold';
-    border-radius: 6px 6px 0px 0px;
-    background-color: #d1d1d1;
+    cursor: default;
     color: #5c5c5c;
-    cursor: pointer;
-    border-top-left-radius: 45px 90px;
-    border-top-right-radius: 45px 90px;
+    height: 30px;
+    margin-right: 3px;
+}
+
+.tab-header {
+    display: table-cell;
+    position: relative;
+    line-height: 32px;
+    vertical-align: middle;
+    text-align: center;
+    float: right;
+    width: 130px;
+    background-color: #d1d1d1;
+    border-top-left-radius: 35px 100px;
+    border-top-right-radius: 35px 100px;
     border: 1px solid #C4C4C4;
     border-bottom: none;
     box-shadow: 0 2px 7px #C4C4C4;
 }
 
-.tab:hover {
-    top: -2px;
-    z-index: 999;
-}
+    .tab-header:hover {
+        top: -2px;
+        z-index: 999;
+    }
 
-    .tab.active {
+    .tab-header.active {
         background-color: #7a7a7a;
         color: #ffffff;
         z-index: 9999;
     }
 
-    .tab.disabled {
-        visibility: hidden;
+    .tab-header + .tab-header {
+        margin-right: -7px;
     }
 
-.active-tab {
+.tab-header-text {
+    display: inline-block;
+}
+
+.tab {
     position: relative;
     background-color: #f4f4f4;
     width: 300px;
@@ -87,7 +80,7 @@
     box-shadow: 0 2px 3px #CECECE;
 }
 
-    .active-tab:after {
+    .tab:after {
         clear: both;
     }
 
@@ -95,14 +88,14 @@
 
 /*#region Tabs*/
 
-.tab-header {
+.tab-title {
     background-color: white;
     height: 40px;
     border-bottom: 1px solid #DFDFDF;
     border-top-left-radius: 10px;
 }
 
-.tab-header-title {
+.tab-title-text {
     border-right: 1px solid #DFDFDF;
     display: inline-block;
     line-height: 40px;
@@ -215,9 +208,6 @@
 
 .feedback-label {
     display: none;
-    color: white;
-    font-family: 'OpenSans-Semibold';
-    font-size: 13px;
     padding: 0 10px 3px;
 }
 

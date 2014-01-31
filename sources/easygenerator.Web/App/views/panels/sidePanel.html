@@ -1,14 +1,14 @@
 ﻿<section class="panel-right" data-bind="slidingDialog: { isExpanded: isExpanded, position: '-300px', side: 'right', collapseOnOuterClick: true, onCollapsed: onCollapsed }">
-    <div class="tabs">
-        <div class="tabs-wrapper">
-            <!-- ko foreach: tabs -->
-                <!-- ko if: isEnabled() -->
-                <div class="tab" data-bind="text: title, click: $parent.toggleTabVisibility, css: { 'active': $parent.isExpanded() && $parent.activeTab() == $data }"></div>
-                <!-- /ko -->
-            <!-- /ko -->
+    <div class="tab-headers-wrapper">
+        <!-- ko foreach: tabs -->
+        <!-- ko if: isEnabled() -->
+        <div class="tab-header" data-bind="click: $parent.toggleTabVisibility, css: { 'active': $parent.isExpanded() && $parent.activeTab() == $data }">
+            <div class="tab-header-text" data-bind="text: title"></div>
         </div>
+        <!-- /ko -->
+        <!-- /ko -->
     </div>
-    <div class="active-tab">
+    <div class="tab">
         <!-- ko compose: { model: activeTab, cacheViews: false } -->
         <!-- /ko -->
     </div>

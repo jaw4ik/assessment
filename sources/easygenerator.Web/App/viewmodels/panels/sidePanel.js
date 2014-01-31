@@ -3,7 +3,7 @@
 
         var viewModel = {
             activeTab: ko.observable(),
-            tabs: [feedbackTab, reviewTab],
+            tabs: [reviewTab, feedbackTab],
             activate: activate,
             toggleTabVisibility: toggleTabVisibility,
             onCollapsed: onCollapsed,
@@ -17,7 +17,7 @@
                 viewModel.activeTab(null);
             });
         }
-        
+
         function toggleTabVisibility(tab) {
             var isTabActive = viewModel.activeTab() == tab;
             if (!isTabActive) {
