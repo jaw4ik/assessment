@@ -4,7 +4,7 @@
     var viewModel = require('viewmodels/shell'),
         router = require('plugins/router'),
         context = require('context'),
-        requestManager = require('xAPI/requestManager');
+        modulesInitializer = require('modulesInitializer');
 
     describe('viewModel [shell]', function () {
 
@@ -13,13 +13,16 @@
         });
 
         describe('activate:', function () {
-            var deferred, promise;
+            var deferred, promise, moduleDefer;
             beforeEach(function () {
+                context.logoUrl = 'someUrl';
                 deferred = $.Deferred();
+                moduleDefer = Q.defer();
                 spyOn(context, 'initialize').andReturn(deferred.promise());
-                spyOn(requestManager, 'init');
+                spyOn(modulesInitializer, 'init').andReturn(moduleDefer.promise);
                 promise = viewModel.activate();
                 deferred.resolve();
+                moduleDefer.resolve();
             });
 
             it('should be function', function () {
@@ -36,7 +39,7 @@
                     return promise.state() != 'pending';
                 });
                 runs(function () {
-                    expect(requestManager.init).toHaveBeenCalled();
+                    expect(modulesInitializer.init).toHaveBeenCalled();
                     expect(router.replace).toBeFunction();
                 });
             });
@@ -45,12 +48,29 @@
                 expect(router.replace).toBeFunction();
             });
 
+            it('should set logoUrl', function () {
+                waitsFor(function () {
+                    return promise.state() != 'pending';
+                });
+                runs(function () {
+                    expect(viewModel.logoUrl).toBe(context.logoUrl;);
+                });
+            });
+
         });
 
         describe('router:', function () {
             it('should be defined', function () {
                 expect(router).toBeDefined();
             });
+        });
+
+        describe('logoUrl', function() {
+
+            it('should be defined', function() {
+                expect(viewModel.logoUrl).toBeDefined();
+            });
+
         });
 
     });

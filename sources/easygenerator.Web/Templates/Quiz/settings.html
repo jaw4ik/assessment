@@ -22,12 +22,11 @@
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
-            border: 1px solid #e0dede;
             border-radius: 3px;
             color: #303133;
         }
 
-        .page-header {
+        .content-header {
             display: table;
             width: 100%;
             position: relative;
@@ -91,9 +90,6 @@
             padding: 11px 9px;
             margin-top: 6px;
             background: white;
-            border: 1px solid #c7c7c7;
-            border-bottom-color: #a0a0a0;
-            border-radius: 2px;
             cursor: default;
         }
 
@@ -139,7 +135,7 @@
             background: white;
         }
 
-        .page-title:before {
+        .page-title.settings:before {
             content: '';
             display: block;
             height: 16px;
@@ -150,7 +146,24 @@
             background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6M0IyNDEyQUM1MUUxMTFFMzgxNEU5NTEyMjAzOUIzN0UiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6M0IyNDEyQUQ1MUUxMTFFMzgxNEU5NTEyMjAzOUIzN0UiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozQjI0MTJBQTUxRTExMUUzODE0RTk1MTIyMDM5QjM3RSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozQjI0MTJBQjUxRTExMUUzODE0RTk1MTIyMDM5QjM3RSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pi8TDU4AAAFgSURBVHjalNM9SEJhFMbxq7Q4BEK0RG3RkFRCQzUEEhdyKGhrqK1oyBolgqKl6JKDUx/0gWNDixASFQiBQW0iuTX3vbUG9j/1BJfSxBd+eDn3nHPf995jwHVdp8Zqw7auE3iolhSsEgtgFmVMSFmxQL0GncjjAGFfPKxYXjl/GjQhiRJiTu0VU05SNV8NorjFFkJO/RVSrtVErUEcEafxZTVxa+BpF4UGiguq8ewcq2jBGKaxieYahe9YxjE28BzUJ5rU75O2lqtSnNO9N98nLlmDLLpxgRPsYAFTeBW7XsS+nn6mZllrkFFwHa6a2RPa0YM+dCjWpRxPD8tYgzRacYdB9GNPZ7zEuZrv6t6wZsGGK20NihjAGlZwrWMNoSJ2fYobLOnFW03xZxI/kEIvXnCFeYxqThIa40flpFTzPY6+dY8RzChp3DfqczjSjv79N1rCod5yQSKKVX4nfwowAHrZUiFD+84AAAAAAElFTkSuQmCC) no-repeat;
         }
 
-        .form-wrapper {
+        .page-title.brush:before {
+            content: '';
+            display: block;
+            height: 16px;
+            width: 18px;
+            position: absolute;
+            top: 2px;
+            left: 0;
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAQCAYAAAAbBi9cAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MkFGQUJGNTA4OEI2MTFFM0FFRTM4RDdFNTVGRkIyREEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MkFGQUJGNTE4OEI2MTFFM0FFRTM4RDdFNTVGRkIyREEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoyQUZBQkY0RTg4QjYxMUUzQUVFMzhEN0U1NUZGQjJEQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoyQUZBQkY0Rjg4QjYxMUUzQUVFMzhEN0U1NUZGQjJEQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PkB0g9oAAAEVSURBVHjaYnRxcWGgADACcR4Qx7NQYIgAEC8GYh8gzifXIGUg3g7EqkC8F4gnM5FhiBkQH4Ma8gKI43bv3v2fVIN8gXgfEIsB8S8gDgAa8gwkQYpBGUC8Hoi5ofw0ID4Jk2QiMmbagHg6EDNDxXqBeCGyIkKBzQbE7kCsgiQGCuRydIX4DOID4nVA7ATExVCX6QBxJBD/RVeMzWsgMQsg9ocawgj1ygEgBqXejww4NCEDXSC+BcTHQTECxLlA/A+KQeJPcTkf3WvzoYkNBIKgYQSKLQ4g3o0vMJnQAtYQTd4HGtCTCUUtskFaOMJsNzGJjAmKTYB4NhZ5UKbcQ4xBLFDvRELZP4D4PzRgQQluErHJHiDAAGbxLotMtU2/AAAAAElFTkSuQmCC) no-repeat;
+        }
+
+        .content-container {
+            border: 1px solid #c7c7c7;
+            border-bottom-color: #a0a0a0;
+            border-radius: 2px;
+        }
+
+        .content-wrapper {
             padding: 15px 10px 5px;
         }
 
@@ -159,7 +172,7 @@
             font-weight: 600;
         }
 
-        .form-checkbox {
+        .content-checkbox {
             display: inline-block;
             vertical-align: top;
             height: 16px;
@@ -169,11 +182,11 @@
             border-radius: 1px;
         }
 
-        .disabled .form-checkbox {
+        .disabled .content-checkbox {
             opacity: 0.4;
         }
 
-        .form-checkbox-input {
+        .content-checkbox-input {
             position: absolute;
             top: 0;
             left: 0;
@@ -183,7 +196,7 @@
             filter: alpha(opacity=0);
         }
 
-            .form-checkbox-input:checked + .form-checkbox-checked {
+            .content-checkbox-input:checked + .content-checkbox-checked {
                 display: block;
                 height: 100%;
                 width: 100%;
@@ -199,31 +212,31 @@
             opacity: 0.4;
         }
 
-        .form-row {
+        .content-row {
             display: block;
             padding: 10px 0;
         }
 
-            .form-row:after {
+            .content-row:after {
                 content: '';
                 display: block;
                 clear: both;
             }
 
-            .form-row.checkbox {
+            .content-row.top-row {
                 padding-top: 0;
             }
 
-            .form-row.banner {
+            .content-row.banner {
                 padding: 0 0 5px;
             }
 
-        .form-col-right {
+        .content-col-right {
             float: right;
             width: 67%;
         }
 
-        .form-text-input {
+        .content-text-input {
             width: 100%;
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
@@ -239,27 +252,27 @@
             font-weight: normal;
         }
 
-            .form-text-input:hover {
+            .content-text-input:hover {
                 box-shadow: 0 0 2px rgba(0,0,0,0.2);
             }
 
-            .form-text-input:focus,
-            .form-text-input:active {
+            .content-text-input:focus,
+            .content-text-input:active {
                 outline: none;
                 border-color: #a0dfff;
                 box-shadow: none;
             }
 
-            .form-text-input[disabled] {
+            .content-text-input[disabled] {
                 background: #ebebe4;
                 opacity: 0.4;
             }
 
-                .form-text-input[disabled]:hover {
+                .content-text-input[disabled]:hover {
                     box-shadow: none;
                 }
 
-        .form-label {
+        .content-label {
             display: block;
             width: 30.5%;
             float: left;
@@ -273,8 +286,8 @@
         }
 
         .save-btn {
-            display: inline-block;
             vertical-align: top;
+            float: left;
             max-width: 150px;
             line-height: 30px;
             padding: 7px 27px;
@@ -323,6 +336,8 @@
         .save-message-wrapper {
             padding: 6px 0;
             float: left;
+            margin-left: 10px;
+            font-size: 13px;
         }
 
         .save-message {
@@ -367,108 +382,213 @@
             border: none;
         }
 
-        .form-splitter-line {
+        .content-splitter-line {
             text-align: center;
             background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAABCAIAAACZnPOkAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RDUzQUJFNDI3OURCMTFFMzgzMzNDMDIwRTU0NzFGMzAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RDUzQUJFNDM3OURCMTFFMzgzMzNDMDIwRTU0NzFGMzAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpENTNBQkU0MDc5REIxMUUzODMzM0MwMjBFNTQ3MUYzMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpENTNBQkU0MTc5REIxMUUzODMzM0MwMjBFNTQ3MUYzMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pkkbg44AAAARSURBVHjaYnxw7x4DEgAIMAAkqgKeRfq9aAAAAABJRU5ErkJggg==') repeat-x center;
         }
 
-        .form-splitter-text {
+        .content-splitter-text {
             display: inline-block;
             vertical-align: top;
             padding: 6px 10px;
             background: white;
         }
+
+        .logo-wrapper {
+            width: 300px;
+            height: 50px;
+            border: #e0dede 1px dashed;
+            position: relative;
+        }
+
+        .logo-default-content {
+            text-align: center;
+            margin-left: 50px;
+            padding: 6px 20px;
+        }
+
+            .logo-default-content:before {
+                content: '';
+                position: absolute;
+                top: 5px;
+                left: 20px;
+                width: 42px;
+                height: 40px;
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAoCAYAAACIC2hQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODY3MUQ0OUM4OEI4MTFFMzhFQjNFOENGREQxNDNBNkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODY3MUQ0OUQ4OEI4MTFFMzhFQjNFOENGREQxNDNBNkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4NjcxRDQ5QTg4QjgxMUUzOEVCM0U4Q0ZERDE0M0E2QiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4NjcxRDQ5Qjg4QjgxMUUzOEVCM0U4Q0ZERDE0M0E2QiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsvDIYYAAAVESURBVHjaxJh7aJVlHMffnV28LcX7KnOJWmZeWKQlzVnbzryB2D+FKTEU0SgIImXYP16wDUZStP+KKMhGUeQCrzueeS1JkHRaLa/L23JmKOGWrtn3J99Hfjw87+Wcs+UPPpz3nPc97/t7n+f7/C5PVnV1tRfRHgBrQCP4HnR6qdtwUAoqSHFVVVVrlD/mpPCQWaCK3AT7wC6QAM0+/+kDngNxUgRi6nwZ+CTKw2MpOFqujvuDOWATOAYug8/AYlCgrnsKzCZFjueVR314Ko4+w89/wa/WOXHuVfA5uASOglrKZS0dlmsWgRpwjv8rrampyepJRweBaTw+Ap4AhWA5+BJcVdfKg6eAt8FOcI26rgQt1PkYMBHIAhnSkxoVfWbzOMHP38HHJMZRi3M6i0Eer+vL38w0t9Nx4Wsspj+jOJDls+pH8cayEFaAD8AbSle7Q+4rGn6e14rzkwKu/ZmLUhz/EY5fDXI0H5TwphWcFrEdYC44wd86OFWphqaH1MoX50cGXPuLcnwvHP/bOPotPuepqdK2CtSDC2ra415mJhqeqpwuoTxcdgv8ALYZjWon7zDkyBt9wVjnWfo0JrpdTw1vB+/y/0Em538itXRyphrxqXwZ45fcOyeHD1/IEzJ6b4E2dWM9grY2V3IVe9RzK0NUZMPUdqrF5SFcjeAzV3JR3h2gmPXwoZaTHlOexzBzxDr3uPV9QoayEMevgM186XsDFGPwNhqcybRnTBbQwzxuAt3WfSWG3ubxTc5IxsYkYCQni+lQzJrSfpxCezRd+hQ7CCaDZQzyJyL6Mizk/JMqFe/DCN+OOZwoj6hPYy0sLE5HdHIsV/LAiHVFQqfQ3Y6LsrniPOrlZERHBoAGJRlt0zgL45iC/azMHiDj6GU1bZIKB4PpzPFBo/m6VS8MYn5fwFClTaqtpAr2o330masG6A9TQsYcU5vF0QzT52ugDixVuksqjS8BT/NYCpLvmAGNPerz8tNZdYkloc87tqPGmWOshuIqQCetm8mIfcjjDQxTezgbujJ7D7xDDeda9xgdVZ929bQXdDHwSlHxLH9v5hTourReVVMFrD/7OB5aQlxWGFWf9ojekOqFo1eiHqz1mceU2c/RcqRqhQ595qsBOqn7Kbtw3saR9dPnLbYVBdTgp+BimnG90GcGcl0L2C6c61jKaX0ed9zwCthMTIA2RcUshqgwK+BM/BOmT9eIXufqnaIiwBlKYiOdcJWDEtreB/NZr5ayzTjsSLu63HvER5/dTNmBPVOZ9Xs2A/UarmxpHbaCN9k7uWrIJl4voUaqoZfZsrT6TT/0OZLp+G5fBn1eC+uZSkOmLJ+F9jx+v8BpMj1+u3W9vNhXxFRcpmgeZj3X1KGHojR3qVbwoxjQK1VR3EjHDzralhZSFxA/m8IcHUMyaTOKyGqWfgdUD9Qc0AGUqX2DUEcrvJ61/mqfyWNRnlCOt1Gf45VeRZ9/hTm6wOtdM/F3icl6cLLRShiJsA2IvIB011s2Wa30wLpXh6EHWXN2e/fPOrgAAx1tVZtZr4Bv2K/8n9bIrjTS3lM7q6N6ymEGF0OcL5Ldi47uTGc3ry+3CAcwHZos8xL4SG0d9qQl0nG0k7l9K7PLHm4KnOOnxNvHuHnWwDohEzuPaf8t3f3RhLW1spEFSjtTonmRhUyHxQz06TieyGQj16+pkwrpRfZLlUyjXVyxtZbj69ged6X5rEgbuftZL5qAfErtEyVDRs04Lqxlh/qCWpjjrI2zjBzt4EJqY9o7m4EG5aW2ENOFmv3YEdBnW9Cf/xNgANrEVt9ERl9EAAAAAElFTkSuQmCC) no-repeat;
+            }
+
+        .logo-default-text {
+            color: #555;
+            font: 13px 'OpenSans-Semibold';
+        }
+
+        .logo-recomended-size {
+            color: #878787;
+            font-size: 12px;
+        }
+
+        .logo-img-wrapper {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .logo-clear {
+            width: 58px;
+            height: 25px;
+            background-color: #5b5b5b;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            margin-top: -12px;
+            color: #fff;
+            font-size: 12px;
+            cursor: default;
+        }
+
+        .logo-clear:before {
+            content: 'Clear';
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            margin-top: -9px;
+        }
+
+        .logo-clear:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            margin-top: -4px;
+            width: 8px;
+            height: 8px;
+            z-index: 1;
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QTE2QTNDMUU4OEMwMTFFM0I1RjA5QTI4RDQwODI3NjIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QTE2QTNDMUY4OEMwMTFFM0I1RjA5QTI4RDQwODI3NjIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBMTZBM0MxQzg4QzAxMUUzQjVGMDlBMjhENDA4Mjc2MiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBMTZBM0MxRDg4QzAxMUUzQjVGMDlBMjhENDA4Mjc2MiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgKAp5QAAABBSURBVHjaYvj//z8DEIcDsSiUzQBlg8QYYJIgcBkqIQplg0A4A5rAZTS2KLKRMAlk0xiYGAgBYqwg6Ei83gQIMABcrcC5Xp8FxAAAAABJRU5ErkJggg==) no-repeat;
+        }
     </style>
 </head>
 <body>
     <div class="page-container">
-        <div class="page-header">
-            <div class="page-title-wrapper">
-                <h1 class="page-title">Quiz template settings</h1>
+        <form id="settingsForm" class="user-form" role="form" data-bind="submit: submit">
+            <div class="content-row">
+                <button type="submit" class="save-btn">
+                    <span class="save-btn-title">Apply</span>
+                </button>
+                <div class="save-message-wrapper success" data-bind="style: { display: isSaved() ? 'block' : 'none' }">
+                    <span class="save-message">Settings have been saved succesfully</span>
+                </div>
+                <div class="save-message-wrapper error" data-bind="style: { display: isFailed() ? 'block' : 'none' }">
+                    <span class="save-message">Something went wrong. Try again</span>
+                </div>
             </div>
-            <div class="info-tooltip-btn">
-                <div class="info-tooltip-wrapper">
-                    <div class="info-tooltip">
-                        <span class="info-tooltip-text">You can track and trace the results of your
-                            learners through the Xapi. You need to set up your own Xapi
-                            Learning record store (LRS). See <a href="http://www.scorm.com/" target="blank" class="info-tooltip-link">www.scorm.com</a>
-                            or <a href="http://www.saltbox.com/" target="blank" class="info-tooltip-link">www.saltbox.com</a>.
-                            When you have created your LRS you can enable the Xapi. In this window
-                            you can provide the url and admin login and password from your LRS.
+            <div class="content-container">
+                <div class="content-header">
+                    <div class="page-title-wrapper">
+                        <h1 class="page-title brush">Graphical customization</h1>
+                    </div>
+                </div>
+                <div class="content-wrapper">
+                    <div class="content-row top-row">
+                        <label for="imgUrl" class="content-label">Image URL</label>
+                        <div class="content-col-right">
+                            <input type="text" class="content-text-input" id="imgUrl" data-bind="value: logoUrl, valueUpdate: 'afterkeydown'" />
+                        </div>
+                    </div>
+                    <div class="content-row">
+                        <div class="logo-wrapper">
+                            <div class="logo-default-content" data-bind="style: { display: hasLogo() ? 'none' : 'block' }">
+                                <span class="logo-default-text">Your logo appears here</span><br />
+                                <span class="logo-recomended-size">(recomended size 300 x 50 px)</span>
+                            </div>
+                            <div class="logo-img-wrapper" data-bind="style: { display: hasLogo() ? 'block' : 'none' }">
+                                <img src="" class="logo" data-bind="attr: { src: logoUrl }" />
+                                <div class="logo-clear" data-bind="click: clearLogo"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-header">
+                    <div class="page-title-wrapper">
+                        <h1 class="page-title settings">Freestyle template settings</h1>
+                    </div>
+                    <div class="info-tooltip-btn">
+                        <div class="info-tooltip-wrapper">
+                            <div class="info-tooltip">
+                                <span class="info-tooltip-text">You can track and trace the results of your
+                                    learners through the Xapi. You need to set up your own Xapi
+                                    Learning record store (LRS). See <a href="http://www.scorm.com/" target="blank" class="info-tooltip-link">www.scorm.com</a>
+                                    or <a href="http://www.saltbox.com/" target="blank" class="info-tooltip-link">www.saltbox.com</a>.
+                                    When you have created your LRS you can enable the Xapi. In this window
+                                    you can provide the url and admin login and password from your LRS.
+                                </span>
+                            </div>
+                            <div class="info-tooltip-triangle-holder">
+                                <div class="info-tooltip-triangle-border"></div>
+                                <div class="info-tooltip-triangle">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-wrapper">
+                    <label class="content-row top-row">
+                        <span class="content-checkbox">
+                            <input type="checkbox" class="content-checkbox-input" data-bind="checked: enableXAPI">
+                            <span class="content-checkbox-checked"></span>
                         </span>
+                        <span class="input-label">Enable XAPI</span>
+                    </label>
+                    <div class="content-row">
+                        <label for="lrsUrl" class="content-label">LRS URL</label>
+                        <div class="content-col-right">
+                            <input type="text" class="content-text-input" id="lrsUrl" data-bind="value: lrsUrl, enable: enableXAPI">
+                        </div>
                     </div>
-                    <div class="info-tooltip-triangle-holder">
-                        <div class="info-tooltip-triangle-border"></div>
-                        <div class="info-tooltip-triangle">&nbsp;</div>
+                    <div class="content-row checkbox">
+                        <div class="content-col-right">
+                            <label data-bind="css: { disabled: !enableXAPI() }">
+                                <span class="content-checkbox">
+                                    <input class="content-checkbox-input" type="checkbox" data-bind="checked: authenticationRequired, enable: enableXAPI">
+                                    <span class="content-checkbox-checked"></span>
+                                </span>
+                                <span class="input-label">Authentication required</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="content-row">
+                        <label for="lapLogin" class="content-label">LAP login</label>
+                        <div class="content-col-right">
+                            <input type="text" class="content-text-input" id="lapLogin" data-bind="value: lapLogin, enable: credentialsEnabled">
+                        </div>
+                    </div>
+
+                    <div class="content-row">
+                        <label for="lapPassword" class="content-label">LAP password</label>
+                        <div class="content-col-right">
+                            <input type="password" class="content-text-input" id="lapPassword" data-bind="value: lapPassword, enable: credentialsEnabled">
+                        </div>
+                    </div>
+
+                    <div class="content-splitter-line">
+                        <span class="content-splitter-text">Easygenerator recommends</span>
+                    </div>
+                    <div class="content-row banner">
+                        <a href="https://www.waxlrs.com/?utm_medium=affiliate&utm_source=easy_generator" target="_blank">
+                            <img src="../Freestyle learning/img/saltbox-banner.png" class="saltbox-banner" alt="Saltbox banner" />
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-wrapper">
-            <form id="settingsForm" class="user-form" role="form" data-bind="submit: submit">
-                <label class="form-row checkbox">
-                    <span class="form-checkbox">
-                        <input type="checkbox" class="form-checkbox-input" data-bind="checked: enableXAPI">
-                        <span class="form-checkbox-checked"></span>
-                    </span>
-                    <span class="input-label">Enable XAPI</span>
-                </label>
-                <div class="form-row">
-                    <label for="lrsUrl" class="form-label">LRS URL</label>
-                    <div class="form-col-right">
-                        <input type="text" class="form-text-input" id="lrsUrl" data-bind="value: lrsUrl, enable: enableXAPI">
-                    </div>
-                </div>
-                <div class="form-row checkbox">
-                    <div class="form-col-right">
-                        <label data-bind="css: { disabled: !enableXAPI() }">
-                            <span class="form-checkbox">
-                                <input class="form-checkbox-input" type="checkbox" data-bind="checked: authenticationRequired, enable: enableXAPI">
-                                <span class="form-checkbox-checked"></span>
-                            </span>
-                            <span class="input-label">Authentication required</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <label for="lapLogin" class="form-label">LAP login</label>
-                    <div class="form-col-right">
-                        <input type="text" class="form-text-input" id="lapLogin" data-bind="value: lapLogin, enable: credentialsEnabled">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <label for="lapPassword" class="form-label">LAP password</label>
-                    <div class="form-col-right">
-                        <input type="password" class="form-text-input" id="lapPassword" data-bind="value: lapPassword, enable: credentialsEnabled">
-                    </div>
-                </div>
-                <div class="form-row save-btn-wrapper">
-                    <div class="save-message-wrapper success" data-bind="style: { display: isSaved() ? 'block' : 'none' }">
-                        <span class="save-message">Settings have been saved succesfully</span>
-                    </div>
-                    <div class="save-message-wrapper error" data-bind="style: { display: isFailed() ? 'block' : 'none' }">
-                        <span class="save-message">Something went wrong. Try again</span>
-                    </div>
-                    <button type="submit" class="save-btn">
-                        <span class="save-btn-title">Save</span>
-                    </button>
-                </div>
-                <div class="form-splitter-line">
-                    <span class="form-splitter-text">Easygenerator recommends</span>
-                </div>
-                <div class="form-row banner">
-                    <a href="http://www.waxlrs.com/?utm_medium=affiliate&utm_source=easy_generator" target="_blank">
-                        <img src="img/saltbox-banner.png" class="saltbox-banner" alt="Saltbox banner" />
-                    </a>
-                </div>
-            </form>
-        </div>
+        </form>
     </div>
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.0.0/knockout-min.js"></script>
 
     <script>
         function getURLParameter(name) {
@@ -493,15 +613,29 @@
                 lapLogin: ko.observable(),
                 lapPassword: ko.observable(),
                 isSaved: ko.observable(false),
-                isFailed: ko.observable(false)
+                isFailed: ko.observable(false),
+                logoUrl: ko.observable(''),
+                hasLogo: ko.observable(false),
             };
 
             viewModel.credentialsEnabled = ko.computed(function () {
                 return viewModel.enableXAPI() && viewModel.authenticationRequired();
             });
 
+            viewModel.hasLogo = ko.computed(function () {
+                return viewModel.logoUrl() != '';
+            });
+
+            viewModel.clearLogo = function () {
+                viewModel.logoUrl('');
+                viewModel.hasLogo(false);
+            };
+
             viewModel.submit = function () {
                 var settings = {
+                    logo: {
+                        url: viewModel.logoUrl()
+                    },
                     xApi: {
                         enabled: viewModel.enableXAPI(),
                         lrs: {
@@ -543,6 +677,8 @@
                     viewModel.authenticationRequired(settings.xApi.lrs.authenticationRequired || false);
                     viewModel.lapLogin(settings.xApi.lrs.credentials.username || '');
                     viewModel.lapPassword(settings.xApi.lrs.credentials.password || '');
+                    viewModel.logoUrl(settings.logo.url || '');
+                    viewModel.hasLogo(viewModel.logoUrl() != '');
                 }
             });
 

@@ -1,4 +1,7 @@
 ﻿{
+    "logo": {
+        "url": ""
+    },
     "xApi": {
         "enabled": true,
         "lrs": {

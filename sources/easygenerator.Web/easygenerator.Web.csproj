@@ -801,6 +801,10 @@
     <Content Include="BuildCourse\Scorm\js\scormInitializer.spec.js">
       <DependentUpon>scormInitializer.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Freestyle learning\App\modules\graphicalCustomization.js" />
+    <Content Include="Templates\Freestyle learning\App\modules\graphicalCustomization.spec.js">
+      <DependentUpon>graphicalCustomization.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Freestyle learning\App\settingsReader.js" />
     <Content Include="Templates\Freestyle learning\App\specs.html" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\learningContents.spec.js">
@@ -1005,6 +1009,10 @@
     <Content Include="Templates\Quiz\App\modulesInitializer.js" />
     <Content Include="Templates\Quiz\App\modulesInitializer.spec.js">
       <DependentUpon>modulesInitializer.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\modules\graphicalCustomization.js" />
+    <Content Include="Templates\Quiz\App\modules\graphicalCustomization.spec.js">
+      <DependentUpon>graphicalCustomization.js</DependentUpon>
     </Content>
     <Content Include="Templates\Quiz\App\settingsReader.js" />
     <Content Include="Templates\Quiz\App\specs.html" />

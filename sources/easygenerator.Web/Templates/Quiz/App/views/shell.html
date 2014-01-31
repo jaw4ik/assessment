@@ -1,10 +1,14 @@
 ﻿<div class="header clearfix unselectable" data-bind="css: 'module-' + cssName()">
     <div class="brand">
         <!-- ko ifnot: isRootLinkActive() -->
-        <span class="inline main-logo"></span>
+        <span class="main-logo-wrapper">
+            <img alt="" class="main-logo" src="" data-bind="attr: { src: logoUrl }"/>
+        </span>
         <!-- /ko -->
         <!-- ko if: isRootLinkActive() -->
-        <a href="#/" class="inline main-logo">&nbsp;</a>
+        <a href="#/" class="main-logo-wrapper">
+            <img alt="" class="main-logo" src="" data-bind="attr: { src: logoUrl }"/>
+        </a>
         <!-- /ko -->
     </div>
 </div>

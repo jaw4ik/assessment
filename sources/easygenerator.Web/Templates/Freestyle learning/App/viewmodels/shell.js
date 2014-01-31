@@ -26,10 +26,15 @@
                 }
                 return settings;
             },
+            
+            logoUrl: '',
 
             activate: function () {
+                var that = this;
                 return context.initialize().then(function () {
                     return modulesInitializer.init().then(function () {
+                        that.logoUrl = context.logoUrl;
+
                         return router.map(routes)
                             .buildNavigationModel()
                             .mapUnknownRoutes('viewmodels/404', '404')

@@ -159,43 +159,39 @@ input[type="checkbox"] {
 }
 
 .header {
-    padding-left: 20px;
-    height: 40px;
-    border-bottom: 3px solid #000000;
-    background-color: #404A4C;
-    color: #fff;
+    display: table;
+    width: 100%;
+    min-height: 40px;
+    padding: 5px 0px 5px 20px;
+    background-color: #404a4c;
 }
 
     .header.module-home .main-logo {
         cursor: default;
     }
 
+.navigation-menu {
+    display: table-row;
+    width: 100%;
+    position: relative;
+}
+
 .navigation-menu,
 .navigation-menu-item {
-    display: inline-block;
+    display: table-row;
     margin: 0;
     padding: 0;
 }
 
-.navigation-menu {
-    width: 100%;
-}
-
 .navigation-menu-item {
-    line-height: 37px;
-}
-
-    .navigation-menu-item.active {
-        display: none;
-    }
-
-.navigation-menu-item-home {
-    line-height: 34px;
+    display: table-cell;
+    vertical-align: middle;
+    height: 32px;
 }
 
 .navigation-menu-item-link {
-    display: inline-block;
-    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
     padding: 0 27px;
 }
 
@@ -211,6 +207,11 @@ input[type="checkbox"] {
     color: #fff;
     font-size: 18px;
     font-family: Tahoma, Arial, sans-serif;
+}
+
+.main-logo {
+    max-height: 50px;
+    max-width: 300px;
 }
 
 .content-wrapper {

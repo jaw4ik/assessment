@@ -19,15 +19,18 @@
                 }
                 return true;
             },
+            
+            logoUrl = '',
 
             activate = function () {
+                var that = this;
                 return context.initialize().then(function () {
-
                     router.replace = function (url) {
                         router.navigate(url, { replace: true, trigger: true });
                     };
 
                     return modulesInitializer.init().then(function () {
+                        that.logoUrl = context.logoUrl;
                         return router.map(routes)
                             .buildNavigationModel()
                             .mapUnknownRoutes('viewmodels/404', '404')
@@ -40,6 +43,7 @@
             router: router,
             cssName: cssName,
             isRootLinkActive: isRootLinkActive,
+            logoUrl: logoUrl,
             activate: activate
         };
     }
