@@ -860,7 +860,7 @@
     
     /* Resource section for model Copyright */
     CopyrightText: {
-        en: 'Copyright © 2013 easygenerator. All rights reserved.'
+        en: 'Copyright © 2014 easygenerator. All rights reserved.'
     },
     /* End resource section for model Copyright */
     
