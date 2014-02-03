@@ -44,9 +44,23 @@
                 return;
             }
 
+            definition.src = definition.src + '?width=173&height=128';
+            definition.dblClick = onDblClick;
+            definition.click = onClick;
+
+            var that = this;
+            $.ajax(definition.src).done(function () {
+                var image = that.createImage(definition);
+                that.$imagesList.append(image);
+            });
+        },
+
+        //Return image entity (DOM element)
+        createImage: function (definition) {
+            
             var $image = $('<div>');
             $image.addClass('image-library-item-img');
-            $image.css('background-image', 'url(\'' + definition.src + '?width=173&height=128\')');
+            $image.css('background-image', 'url(\'' + definition.src + '\')');
 
             var $imageWrapper = $('<div>');
             $imageWrapper.addClass('image-library-item-img-wrapper');
@@ -65,20 +79,20 @@
                 this.selectImage($listItem);
             }
 
-            if (!!onDblClick) {
-                $listItem.dblclick(onDblClick);
+            if (!!definition.dblClick) {
+                $listItem.dblclick(definition.dblClick);
             }
 
             var that = this;
             $listItem.click(function () {
                 that.selectImage(this);
 
-                if (!!onClick) {
-                    onClick();
+                if (!!definition.click) {
+                    definition.click();
                 }
             });
 
-            this.$imagesList.append($listItem);
+            return $listItem;
         },
 
         //Makes image selected in images list
@@ -120,9 +134,7 @@
 
                     $.ajax(plugin.getUserImagesApiUrl)
                         .done(function (response) {
-                            var
-                                emptyListDialogElement = dialog.getContentElement(plugin.mainTabId, plugin.emptyListIndicatorId).getElement(),
-                                imageListDialogElement = dialog.getContentElement(plugin.mainTabId, plugin.imageListContainerId).getElement();
+                            var emptyListDialogElement = dialog.getContentElement(plugin.mainTabId, plugin.emptyListIndicatorId).getElement();
 
                             if (!response || !response.data || response.data.length === 0) {
                                 emptyListDialogElement.show();
@@ -149,7 +161,7 @@
                                 );
                             });
 
-                            resizeDialog(imageListDialogElement.$.scrollHeight);
+                            resizeDialog(response.data.length);
                         })
                         .fail(function () {
                             loadingErrorDialogElement.show();
@@ -157,17 +169,23 @@
                 }
             }));
 
-            function resizeDialog(scrollHeight) {
+            function resizeDialog(imagesCount) {
                 var
                     rowHeight = 175,
-                    screen = { width: this.innerWidth, height: this.innerHeight },
-                    rowsCount = scrollHeight / rowHeight | 0,
-                    allowedRowsCount = (screen.height / rowHeight | 0) - 1,
+                    screen = {
+                        width: this.innerWidth,
+                        height: this.innerHeight,
+                        isHighResolution: this.innerWidth >= 1280
+                    },
+                    columnsCount = screen.isHighResolution ? 5 : 4,
+                    enoughRowsCount = Math.ceil(imagesCount / columnsCount),
+                    allowedRowsCount = Math.floor(screen.height / rowHeight) - 1,
+                    rowsCount = enoughRowsCount > allowedRowsCount
+                        ? allowedRowsCount
+                        : enoughRowsCount >= 2 ? enoughRowsCount : 2,
 
-                    widthToResize = screen.width < 1280 ? 805 : 1005,
-                    heightToResize = rowsCount > allowedRowsCount
-                        ? allowedRowsCount * rowHeight
-                        : rowsCount * rowHeight;
+                    widthToResize = screen.isHighResolution ? 1005 : 805,
+                    heightToResize = rowsCount * rowHeight;
 
                 dialog.resize(widthToResize, heightToResize);
                 moveDialogToCenter();
