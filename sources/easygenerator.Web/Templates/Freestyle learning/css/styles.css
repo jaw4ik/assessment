@@ -930,9 +930,13 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     font-size: 16px;
     color: white;
     padding: 10px 30px;
-    background-color: rgb(244,138,114);
+    background-color: rgb(246,137,114);
     white-space: nowrap;
     display: inline-block;
+}
+
+.intro-start-button:hover {
+    background-color: rgb(242,121,94);
 }
 
 /*#endregion introduction view*/
