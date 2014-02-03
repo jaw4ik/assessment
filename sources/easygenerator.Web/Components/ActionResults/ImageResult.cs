@@ -30,16 +30,23 @@ namespace easygenerator.Web.Components.ActionResults
 
         public override void ExecuteResult(ControllerContext context)
         {
-            ApplyCaching(context);
+            //ApplyCaching(context);
 
             if (Height.HasValue && Width.HasValue)
             {
-                var content = new WebImage(FilePath)
-                    .Resize(Width.Value, Height.Value)
-                    .GetBytes();
+                try
+                {
+                    var content = new WebImage(FilePath)
+                        .Resize(Width.Value, Height.Value)
+                        .Crop(1, 1)
+                        .GetBytes();
 
-
-                new FileContentResult(content, ContentTypeForFilePath()).ExecuteResult(context);
+                    new FileContentResult(content, ContentTypeForFilePath()).ExecuteResult(context);
+                }
+                catch
+                {
+                    new HttpNotFoundResult().ExecuteResult(context);
+                }
             }
             else
             {
@@ -48,13 +55,13 @@ namespace easygenerator.Web.Components.ActionResults
         }
 
 
-        protected void ApplyCaching(ControllerContext context)
-        {
-            var response = context.HttpContext.Response;
-            response.Cache.SetCacheability(HttpCacheability.Public);
-            response.Cache.SetExpires(Cache.NoAbsoluteExpiration);
-            response.Cache.SetLastModifiedFromFileDependencies();
-        }
+        //protected void ApplyCaching(ControllerContext context)
+        //{
+        //    var response = context.HttpContext.Response;
+        //    response.Cache.SetCacheability(HttpCacheability.Public);
+        //    response.Cache.SetExpires(Cache.NoAbsoluteExpiration);
+        //    response.Cache.SetLastModifiedFromFileDependencies();
+        //}
 
         protected string ContentTypeForFilePath()
         {
