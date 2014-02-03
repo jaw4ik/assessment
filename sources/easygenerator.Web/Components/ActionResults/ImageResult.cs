@@ -37,7 +37,7 @@ namespace easygenerator.Web.Components.ActionResults
                 try
                 {
                     var content = new WebImage(FilePath)
-                        .Resize(Width.Value, Height.Value)
+                        .Resize(Width.Value, Height.Value, true, true)
                         .Crop(1, 1)
                         .GetBytes();
 
