@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'context', 'eventManager', 'configuration/routes', 'modulesInitializer'],
-    function (app, router, context, eventManager, routes, modulesInitializer) {
+﻿define(['durandal/app', 'plugins/router', 'context', 'eventManager', 'configuration/routes', 'modulesInitializer', 'modules/graphicalCustomization'],
+    function (app, router, context, eventManager, routes, modulesInitializer, graphicalCustomization) {
         
         var
             cssName = ko.computed(function () {
@@ -28,9 +28,8 @@
                     router.replace = function (url) {
                         router.navigate(url, { replace: true, trigger: true });
                     };
-
                     return modulesInitializer.init().then(function () {
-                        that.logoUrl = context.logoUrl;
+                        that.logoUrl = graphicalCustomization.settings.logoUrl;
                         return router.map(routes)
                             .buildNavigationModel()
                             .mapUnknownRoutes('viewmodels/404', '404')

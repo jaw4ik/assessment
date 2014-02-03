@@ -1,8 +1,7 @@
 ﻿define(function (require) {
     "use strict";
 
-    var module = require('modules/graphicalCustomization'),
-        context = require('context');
+    var module = require('modules/graphicalCustomization');
 
     describe('module [graphicalCustomization]', function () {
 
@@ -10,7 +9,7 @@
 
         beforeEach(function () {
             logoUrl = 'some logo url';
-            context.logoUrl = logoUrl;
+            module.settings.logoUrl = logoUrl;
         });
 
         it('should be defined', function () {
@@ -29,7 +28,7 @@
 
             describe('when settings has empty url', function () {
 
-                it('should not update logoUrl in context', function () {
+                it('should not update logoUrl', function () {
                     var settings = {
                         url: ''
                     };
@@ -38,7 +37,7 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(context.logoUrl).toBe(logoUrl);
+                        expect(module.settings.logoUrl).toBe(logoUrl);
                     });
                 });
 
@@ -46,7 +45,7 @@
 
             describe('when settings has url', function () {
 
-                it('should update logoUrl in context', function () {
+                it('should update logoUrl', function () {
                     var newUrl = 'new logo url';
                     var settings = {
                         url: newUrl
@@ -56,10 +55,22 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(context.logoUrl).toBe(newUrl);
+                        expect(module.settings.logoUrl).toBe(newUrl);
                     });
                 });
 
+            });
+
+        });
+
+        describe('settings:', function () {
+
+            it('should be defined', function () {
+                expect(module.settings).toBeDefined();
+            });
+
+            it('should set default value for logoUrl', function () {
+                expect(module.settings.logoUrl).toBe(logoUrl);
             });
 
         });

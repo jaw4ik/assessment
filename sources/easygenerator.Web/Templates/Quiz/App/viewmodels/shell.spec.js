@@ -4,7 +4,8 @@
     var viewModel = require('viewmodels/shell'),
         router = require('plugins/router'),
         context = require('context'),
-        modulesInitializer = require('modulesInitializer');
+        modulesInitializer = require('modulesInitializer'),
+        graphicalCustomization = require('modules/graphicalCustomization');
 
     describe('viewModel [shell]', function () {
 
@@ -15,12 +16,12 @@
         describe('activate:', function () {
             var deferred, promise, moduleDefer;
             beforeEach(function () {
-                context.logoUrl = 'someUrl';
-                deferred = $.Deferred();
+                graphicalCustomization.settings.logoUrl = 'someUrl';
+                deferred = Q.defer();
                 moduleDefer = Q.defer();
-                spyOn(context, 'initialize').andReturn(deferred.promise());
+                spyOn(context, 'initialize').andReturn(deferred.promise);
                 spyOn(modulesInitializer, 'init').andReturn(moduleDefer.promise);
-                promise = viewModel.activate();
+                promise = viewModel.activate().fin(function (){});
                 deferred.resolve();
                 moduleDefer.resolve();
             });
@@ -36,7 +37,7 @@
 
             it('should initialize xAPI', function () {
                 waitsFor(function () {
-                    return promise.state() != 'pending';
+                    return promise.inspect().state != 'pending';
                 });
                 runs(function () {
                     expect(modulesInitializer.init).toHaveBeenCalled();
@@ -48,13 +49,12 @@
                 expect(router.replace).toBeFunction();
             });
 
-            it('should set logoUrl', function () {
-                waitsFor(function () {
-                    return promise.state() != 'pending';
+            describe('when xAPI is initialized', function () {
+                
+                it('should set logoUrl', function () {
+                    expect(viewModel.logoUrl).toBe(graphicalCustomization.settings.logoUrl);
                 });
-                runs(function () {
-                    expect(viewModel.logoUrl).toBe(context.logoUrl;);
-                });
+
             });
 
         });

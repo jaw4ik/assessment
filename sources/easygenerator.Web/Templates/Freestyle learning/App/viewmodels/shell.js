@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer'],
-    function (app, router, routes, context, modulesInitializer) {
+﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/graphicalCustomization'],
+    function (app, router, routes, context, modulesInitializer, graphicalCustomisation) {
 
         return {
             router: router,
@@ -33,7 +33,7 @@
                 var that = this;
                 return context.initialize().then(function () {
                     return modulesInitializer.init().then(function () {
-                        that.logoUrl = context.logoUrl;
+                        that.logoUrl = graphicalCustomisation.settings.logoUrl;
 
                         return router.map(routes)
                             .buildNavigationModel()
