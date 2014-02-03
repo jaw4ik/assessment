@@ -7,15 +7,13 @@
                 <span>Back to objectives</span>
             </a>
         </div>
-        <div class="pull-right">
-            <a class="navigation-link navigation-link-right" href="/#" data-bind="click: showLearningContents">
-                <span>Show me learning content</span>
-                <div class="navigation-link-right-image"></div>
-            </a>
-        </div>
     </div>
 
     <div class="content-holder">
+        <!-- ko if: learningContents.length > 0 -->
+        <!-- ko compose: 'learningContents.html'-->
+        <!-- /ko -->
+        <!-- /ko -->
         <div class="content">
             <div class="caption">
                 <div class="caption-inner shadow-bottom-curve">
@@ -29,11 +27,11 @@
             </div>
         </div>
         <!-- ko if: content -->
-        <div class="question-content" data-bind="html: content"></div>
+        <div class="question-content" data-bind="compose: { model: { url: content }, strategy: 'strategies/externalContentStrategy' }"></div>
         <!-- /ko -->
         <div class="content">
             <ul class="question-answers unstyled" data-bind="foreach: answers">
-                <li class="question-answer" data-bind="click: toggleCheck">
+                <li class="question-answer" data-bind="click: $parent.checkItem">
                     <div>
                         <a class="question-answer-checkbox" data-bind="css: { checked: isChecked() }"></a>
                     </div>

@@ -216,7 +216,7 @@ input[type="checkbox"] {
 
 .content-wrapper {
     max-width: 1182px;
-    padding: 0 20px;
+    padding: 0 20px 20px;
     margin: 0 auto;
 }
 
@@ -228,7 +228,7 @@ input[type="checkbox"] {
 .content {
     background-color: #FFFFFF;
     border: 1px solid #E0E0E0;
-    padding: 10px;
+    padding: 10px 15px;
 }
 
 .question .content {
@@ -265,7 +265,7 @@ input[type="checkbox"] {
     table-layout: fixed;
     height: 68px;
     width: 100%;
-    padding-left: 16px;
+    padding-left: 15px;
     background-color: #F5F5F5;
     border-top: 1px solid #E1E1E1;
     border-bottom: 1px solid #E1E1E1;
@@ -506,22 +506,15 @@ input[type="checkbox"] {
 }
 
 .question-answers {
-    padding: 10px 20px 20px;
+    padding: 0 20px 20px;
 }
 
 .question-answer {
-    padding: 10px;
+    padding: 15px 0;
 }
-
-    .question-answer + .question-answer {
-        margin-top: 10px;
-    }
 
     .question-answer:hover {
         background-color: rgba(247,247,247, 0.75);
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        border-radius: 10px;
     }
 
     .question-answer > * {
@@ -531,6 +524,7 @@ input[type="checkbox"] {
 
 .question-answer-text {
     word-break: break-all;
+    padding-left: 15px;
     white-space: pre-wrap;
 }
 
@@ -539,7 +533,7 @@ input[type="checkbox"] {
     height: 36px;
     border: 1px dashed #DADADA;
     display: block;
-    margin-right: 15px;
+    margin: 1px;
 }
 
     .question-answer-checkbox.checked {
@@ -548,7 +542,7 @@ input[type="checkbox"] {
     }
 
 .btn-submit-wrapper {
-    margin: 0 30px 20px;
+    margin: 0 20px 10px;
 }
 
 .btn-submit {
@@ -640,21 +634,18 @@ input[type="checkbox"] {
 /*#endregion feedback view */
 
 /*#region learning content view*/
-.learning-contents {
-    padding-bottom: 10px;
+
+.learning-contents .navigation-link-right-image {
+    background-position: 0 -114px;
 }
 
-    .learning-contents .navigation-link-right-image {
-        background-position: 0 -114px;
-    }
+.learning-contents .caption-icon-image {
+    background-position: 0 -28px;
+}
 
-    .learning-contents .caption-icon-image {
-        background-position: 0 -28px;
-    }
-
-    .learning-contents .caption-text {
-        text-transform: uppercase;
-    }
+.learning-contents .caption-text {
+    text-transform: uppercase;
+}
 
 .learning-content-items {
     padding: 0 10px;
@@ -662,7 +653,7 @@ input[type="checkbox"] {
 }
 
     .learning-content-items .learning-content-item {
-        padding: 20px 0;
+        padding: 20px 5px;
         word-wrap: break-word;
         overflow: hidden;
     }

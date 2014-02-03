@@ -807,13 +807,11 @@
     </Content>
     <Content Include="Templates\Freestyle learning\App\settingsReader.js" />
     <Content Include="Templates\Freestyle learning\App\specs.html" />
+    <Content Include="Templates\Freestyle learning\App\strategies\externalContentStrategy.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\introduction.spec.js">
       <DependentUpon>introduction.js</DependentUpon>
     </Content>
     <Content Include="Templates\Freestyle learning\App\viewmodels\introduction.js" />
-    <Content Include="Templates\Freestyle learning\App\viewmodels\learningContents.spec.js">
-      <DependentUpon>learningContents.js</DependentUpon>
-    </Content>
     <Content Include="Templates\Freestyle learning\App\viewmodels\question.spec.js">
       <DependentUpon>question.js</DependentUpon>
     </Content>
@@ -916,7 +914,6 @@
     <Content Include="Templates\Freestyle learning\App\viewmodels\404.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\feedback.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\objectives.js" />
-    <Content Include="Templates\Freestyle learning\App\viewmodels\learningContents.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\notsupportedbrowser.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\notsupportedbrowserMobile.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\question.js" />
@@ -1499,7 +1496,9 @@
       <Name>easygenerator.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="PublishedPackages\b7032edc-14e3-4893-b068-b1408d88e8eb\App\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

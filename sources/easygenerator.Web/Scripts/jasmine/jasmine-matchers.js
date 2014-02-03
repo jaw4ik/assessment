@@ -28,6 +28,10 @@
             return toBeObject.call(this, this.actual);
         },
 
+        toBeArray: function () {
+            return toBeArray.call(this, this.actual);
+        },
+
         toBePromise: function () {
             return toBePromise.call(this, this.actual);
         },
@@ -155,6 +159,18 @@ function toBeObject(actual) {
     };
 
     return jasmine.getEnv().equals_(actual, jasmine.any(Object));
+}
+
+function toBeArray(actual) {
+    if (this.isNot) {
+        throw '[.not] is not supported';
+    }
+
+    this.message = function () {
+        return "Expected to be array";
+    };
+
+    return jasmine.getEnv().equals_(actual, jasmine.any(Array));
 }
 
 function toBePromise(actual) {

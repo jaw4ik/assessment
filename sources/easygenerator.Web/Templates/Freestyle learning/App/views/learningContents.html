@@ -1,19 +1,4 @@
 ﻿<section id="learning-contents" class="learning-contents">
-    <div class="navigation-link-container clearfix">
-        <div class="pull-left">
-            <a class="navigation-link" href="/#" data-bind="click: backToObjectives">
-                <div class="navigation-link-left-image"></div>
-                <span>Back to objectives</span>
-            </a>
-        </div>
-        <div class="pull-right">
-            <a class="navigation-link" href="/#" data-bind="click: backToQuestion">
-                <span>Back to question</span>
-                <div class="navigation-link-right-image"></div>
-            </a>
-        </div>
-    </div>
-
     <div class="content">
         <div class="caption">
             <div class="caption-inner shadow-bottom-curve">
@@ -27,7 +12,7 @@
         </div>
         <ul class="learning-content-items unstyled">
             <!-- ko foreach: learningContents-->
-            <li class="learning-content-item" data-bind="html: learningContent"></li>
+            <li class="learning-content-item" data-bind="compose: { model: { url: view }, strategy: 'strategies/externalContentStrategy' }"></li>
             <!-- /ko -->
         </ul>
     </div>

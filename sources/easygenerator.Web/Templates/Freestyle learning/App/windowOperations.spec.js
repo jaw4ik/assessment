@@ -29,7 +29,7 @@
                     expect(window.close).toHaveBeenCalled();
                 });
 
-                describe('when navigator is not Microsoft Internet Explorer', function () {
+                xdescribe('when navigator is not Microsoft Internet Explorer', function () {
 
                     it('should show notification', function () {
                         spyOn(window, 'navigator');
@@ -43,7 +43,7 @@
 
                 });
                 
-                describe('when navigator is Microsoft Internet Explorer', function () {
+                xdescribe('when navigator is Microsoft Internet Explorer', function () {
 
                     it('should not show notification', function () {
                         spyOn(window, 'navigator');
