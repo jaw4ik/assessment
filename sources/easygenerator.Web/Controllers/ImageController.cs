@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -25,13 +26,15 @@ namespace easygenerator.Web.Controllers
         private readonly IStorage _storage;
         private readonly IImageFileRepository _repository;
         private readonly IUrlHelperWrapper _urlHelperWrapper;
+        private readonly IImageValidator _imageValidator;
 
-        public ImageController(IEntityFactory entityFactory, IStorage storage, IImageFileRepository repository, IUrlHelperWrapper urlHelperWrapper)
+        public ImageController(IEntityFactory entityFactory, IStorage storage, IImageFileRepository repository, IUrlHelperWrapper urlHelperWrapper, IImageValidator imageValidator)
         {
             _entityFactory = entityFactory;
             _storage = storage;
             _repository = repository;
             _urlHelperWrapper = urlHelperWrapper;
+            _imageValidator = imageValidator;
         }
 
 
@@ -77,6 +80,11 @@ namespace easygenerator.Web.Controllers
         public ActionResult Upload(HttpPostedFileBase file)
         {
             if (file == null || String.IsNullOrEmpty(file.FileName) || file.ContentLength == 0)
+            {
+                return BadRequest();
+            }
+
+            if (!_imageValidator.IsImage(file.InputStream))
             {
                 return BadRequest();
             }
