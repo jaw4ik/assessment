@@ -61,8 +61,8 @@
 .image-library-item-img {
     background-position: center center;
     background-repeat: no-repeat;
-    -moz-background-size: contain;
-    background-size: contain;
+    -moz-background-size: auto auto;
+    background-size: auto auto;
     width: 173px;
     height: 128px;
     border: 1px solid #E3E3E3;
