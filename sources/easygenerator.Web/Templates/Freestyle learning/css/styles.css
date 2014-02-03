@@ -506,7 +506,7 @@ input[type="checkbox"] {
 }
 
 .question-answers {
-    padding: 0 20px 20px;
+    padding: 0 20px;
 }
 
 .question-answer {
@@ -542,7 +542,7 @@ input[type="checkbox"] {
     }
 
 .btn-submit-wrapper {
-    margin: 0 20px 10px;
+    margin: 20px 20px 10px;
 }
 
 .btn-submit {
@@ -659,7 +659,7 @@ input[type="checkbox"] {
     }
 
         .learning-content-items .learning-content-item + .learning-content-item {
-            border-top: solid 2px #e0e0e0;
+            border-top: solid 1px #e0e0e0;
         }
 
 /*#endregion of learning content view*/
