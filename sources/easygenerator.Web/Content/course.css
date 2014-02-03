@@ -779,7 +779,6 @@
     color: #666;
     font-family: Arial, sans-serif;
     font-size: 13px;
-    overflow: hidden;
 }
 
 .course-introduction {
@@ -789,6 +788,7 @@
     box-sizing: border-box;
     padding: 12px 10px;
     vertical-align: top;
+    overflow: hidden;
 }
 
 .course-introduction ul, .course-introduction ol {
