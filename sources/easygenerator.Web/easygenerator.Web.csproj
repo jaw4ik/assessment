@@ -472,6 +472,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Storage\ImageValidator.cs" />
     <Compile Include="Storage\Storage.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Objective\CreateObjectiveViewModel.cs" />

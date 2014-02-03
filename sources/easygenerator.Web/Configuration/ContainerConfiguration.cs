@@ -85,7 +85,7 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<CoursePublisher>().As<ICoursePublisher>();
             builder.RegisterType<CoursePublishingService>().As<ICoursePublishingService>();
-            builder.RegisterType<PublishDispatcher>().As <IPublishDispatcher>().SingleInstance();
+            builder.RegisterType<PublishDispatcher>().As<IPublishDispatcher>().SingleInstance();
             builder.RegisterType<PublishIsInProgressConstraint>();
 
             #endregion
@@ -109,6 +109,8 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<UrlHelperWrapper>().As<IUrlHelperWrapper>();
             builder.RegisterType<Storage.Storage>().As<IStorage>();
+
+            builder.RegisterType<ImageValidator>().As<IImageValidator>();
 
             var container = builder.Build();
 

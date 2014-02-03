@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Security.Policy;
@@ -32,6 +33,7 @@ namespace easygenerator.Web.Tests.Controllers
         private IStorage _storage;
         private IImageFileRepository _repository;
         private IUrlHelperWrapper _urlHelperWrapper;
+        private IImageValidator _imageValidator;
 
         private IPrincipal _user;
         private HttpContextBase _context;
@@ -44,6 +46,7 @@ namespace easygenerator.Web.Tests.Controllers
             _storage = Substitute.For<IStorage>();
             _repository = Substitute.For<IImageFileRepository>();
             _urlHelperWrapper = Substitute.For<IUrlHelperWrapper>();
+            _imageValidator = Substitute.For<IImageValidator>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -51,7 +54,7 @@ namespace easygenerator.Web.Tests.Controllers
             _context.User.Returns(_user);
 
 
-            _controller = new ImageController(_entityFactory, _storage, _repository, _urlHelperWrapper);
+            _controller = new ImageController(_entityFactory, _storage, _repository, _urlHelperWrapper, _imageValidator);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -184,9 +187,25 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
+        public void Upload_ShouldReturnBadRequest_WhenFileIsNotAnImage()
+        {
+            //Arrange
+            ArrangeImageValidator(false);
+            ArrangeCurrentUser();
+            ArrangeStorageMaxFileSize();
+
+            //Act
+            var result = _controller.Upload(FileSubstitute());
+
+            //Assert
+            result.Should().BeBadRequestResult();
+        }
+
+        [TestMethod]
         public void Upload_ShouldReturnRequestEntityTooLargeHttpStatusCode_WhenFileIsTooLarge()
         {
             //Arrange
+            ArrangeImageValidator();
             ArrangeStorageMaxFileSize(1);
 
             //Act
@@ -200,6 +219,7 @@ namespace easygenerator.Web.Tests.Controllers
         public void Upload_ShouldAddFileToRepository()
         {
             //Arrange
+            ArrangeImageValidator();
             ArrangeCurrentUser();
             ArrangeStorageMaxFileSize();
 
@@ -220,6 +240,7 @@ namespace easygenerator.Web.Tests.Controllers
             const string fileName = "fileName.txt";
             const string filePath = "C:\\" + fileName;
 
+            ArrangeImageValidator();
             ArrangeCurrentUser();
             ArrangeStorageMaxFileSize();
 
@@ -236,6 +257,7 @@ namespace easygenerator.Web.Tests.Controllers
         public void Upload_ShouldSaveFileOnDisk()
         {
             //Arrange
+            ArrangeImageValidator();
             ArrangeCurrentUser();
             ArrangeStorageMaxFileSize();
             ArrangeImageFileEntityFactory();
@@ -256,6 +278,7 @@ namespace easygenerator.Web.Tests.Controllers
         public void Upload_ShouldReturnJsonSuccess_WithUrl()
         {
             //Arrange
+            ArrangeImageValidator();
             ArrangeCurrentUser();
             ArrangeStorageMaxFileSize();
             ArrangeImageFileEntityFactory();
@@ -269,6 +292,11 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.ShouldQuackLike(new { url = url });
+        }
+
+        private void ArrangeImageValidator(bool isImage = true)
+        {
+            _imageValidator.IsImage(Arg.Any<Stream>()).Returns(isImage);
         }
 
         private void ArrangeStorageMaxFileSize(long maxFileSize = 100)
@@ -285,8 +313,7 @@ namespace easygenerator.Web.Tests.Controllers
         {
             _entityFactory.ImageFile(Arg.Any<string>(), Arg.Any<string>()).Returns(image ?? Substitute.For<ImageFile>());
         }
-
-
+        
         private static HttpPostedFileBase FileSubstitute(string fileName = "fileName", int contentLength = 1)
         {
             var file = Substitute.For<HttpPostedFileBase>();
