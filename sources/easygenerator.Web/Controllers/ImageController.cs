@@ -18,6 +18,7 @@ using easygenerator.Web.Storage;
 
 namespace easygenerator.Web.Controllers
 {
+    [NoCache]
     public class ImageController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
@@ -56,7 +57,6 @@ namespace easygenerator.Web.Controllers
 
         [HttpGet]
         [Route("api/images")]
-        [NoCache]
         public ActionResult GetCurrentUserImageCollection()
         {
             var images = _repository.GetCollection(e => e.CreatedBy == GetCurrentUsername());
