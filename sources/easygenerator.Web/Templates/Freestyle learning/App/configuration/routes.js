@@ -30,11 +30,6 @@
             title: 'Feedback'
         },
         {
-            route: 'objective/:objectiveId/question/:questionId/learningContents',
-            moduleId: 'viewmodels/learningContents',
-            title: 'Learning objects'
-        },
-        {
             route: 'summary',
             moduleId: 'viewmodels/summary',
             title: 'Summary',
