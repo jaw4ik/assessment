@@ -28,7 +28,9 @@
             <!-- ko if: isExpanded -->
             <div class="course-introduction-content-wrapper">
                 <div class="course-introduction-content" data-bind="css: { active: hasFocus }">
-                    <div class="course-introduction selectable" data-bind="ckeditor: { data: text, language: $root.language(), eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $root.localizationManager }"></div>
+                    <div class="course-introduction-block">
+                        <div class="course-introduction selectable" data-bind="ckeditor: { data: text, language: $root.language(), eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $root.localizationManager }"></div>
+                        </div>
                 </div>
             </div>  
             <!-- /ko -->

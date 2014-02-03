@@ -758,7 +758,6 @@
     border: 1px solid #e6e6e6;
     border-radius: 3px;
     width: 100%;
-    overflow: hidden;
 }
 
     .course-introduction-content.active {
@@ -776,6 +775,10 @@
 
 .course-introduction-block {
     display: table-cell;
+    word-wrap: break-word;
+    color: #666;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
     overflow: hidden;
 }
 
@@ -786,10 +789,6 @@
     box-sizing: border-box;
     padding: 12px 10px;
     vertical-align: top;
-    word-wrap: break-word;
-    color: #666;
-    font-family: Arial, sans-serif;
-    font-size: 13px;
 }
 
 .course-introduction ul, .course-introduction ol {
