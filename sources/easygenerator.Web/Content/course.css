@@ -95,7 +95,7 @@
 
 .choose-template-holder {
     min-width: 250px;
-    max-width: 49%;
+    max-width: 50%;
     margin-right: 415px;
     font-family: 'OpenSans';
     color: #303133;
@@ -802,7 +802,7 @@
 @media (min-width: 1000px) {
 
     .template-settings-block {
-        width: 49%;
+        width: 50%;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
