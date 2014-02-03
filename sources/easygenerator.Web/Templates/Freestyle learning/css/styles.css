@@ -889,11 +889,13 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     border-top: none;
     padding: 30px;
     margin-bottom: 20px;
+    word-wrap: break-word;
 }
 
 .intro-header {
     width: 100%;
     display: table;
+    table-layout: fixed;
     margin-top: 20px;
 }
 
@@ -903,6 +905,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     color: black;
     padding: 50px 20px;
     display: table-cell;
+    word-wrap: break-word;
 }
 
 .intro-title {
@@ -914,6 +917,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     padding: 0 20px;
     vertical-align: middle;
     display: table-cell;
+    width: 185px;
 }
 
 .intro-start-button {
