@@ -34,7 +34,6 @@
 }
 
 .tab-headers {
-    
 }
 
 .tab-header {
@@ -50,7 +49,7 @@
     border-top-right-radius: 35px 100px;
     border: 1px solid #C4C4C4;
     border-bottom: none;
-    box-shadow: 0px 0px 7px #C4C4C4;
+    box-shadow: 0px 0px 4px #C4C4C4;
 }
 
     .tab-header:hover {
@@ -81,12 +80,15 @@
     border-left: 1px solid #CECECE;
     border-top: 1px solid #CECECE;
     border-top-left-radius: 10px;
-    box-shadow: 0 2px 3px #CECECE;
 }
 
-    .tab:after {
-        clear: both;
-    }
+.panel-right.expanded .tab {
+    box-shadow: 0px 0px 5px #CECECE;
+}
+
+.tab:after {
+    clear: both;
+}
 
 /*#endregion Panel*/
 
@@ -129,27 +131,23 @@
     text-shadow: none;
 }
 
-    .tab-btn .btn-text {
+    .tab-btn .btn-text.iconed {
         display: inline-block;
         position: relative;
         vertical-align: top;
-        padding: 0px 15px;
+        padding-left: 20px;
     }
 
-        .tab-btn .btn-text.iconed {
-            padding-left: 30px;
+        .tab-btn .btn-text.iconed:before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0px;
+            left: -2px;
+            width: 16px;
+            height: 16px;
+            background: url('images/blue-loader.gif') no-repeat;
         }
-
-            .tab-btn .btn-text.iconed:before {
-                content: '';
-                display: block;
-                position: absolute;
-                top: 0px;
-                left: 8px;
-                width: 16px;
-                height: 16px;
-                background: url('images/blue-loader.gif') no-repeat;
-            }
 
 /*#endregion Tabs*/
 

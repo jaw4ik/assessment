@@ -21,19 +21,11 @@
             side = valueAccessor().side,
             speed = valueAccessor().speed,
             onCollapsed = valueAccessor().onCollapsed,
-            cssClassOnCollapsed = valueAccessor().cssClassOnCollapsed,
+            cssClassOnExpanded = valueAccessor().cssClassOnExpanded,
             animateValue = isExpanded ? '0px' : position;
 
         if (!speed) {
             speed = 400;
-        }
-
-        if (cssClassOnCollapsed) {
-            if (isExpanded) {
-                $element.addClass(cssClassOnCollapsed);
-            } else {
-                $element.removeClass(cssClassOnCollapsed);
-            }
         }
 
         var animateSettings = {};
@@ -41,10 +33,18 @@
 
         var animation = $element.animate(animateSettings, speed);
 
-        if (onCollapsed && !isExpanded) {
-            $.when(animation).done(function () {
+        $.when(animation).done(function () {
+            if (cssClassOnExpanded) {
+                if (isExpanded) {
+                    $element.addClass(cssClassOnExpanded);
+                } else {
+                    $element.removeClass(cssClassOnExpanded);
+                }
+            }
+
+            if (onCollapsed && !isExpanded) {
                 onCollapsed();
-            });
-        }
+            }
+        });
     }
 };
