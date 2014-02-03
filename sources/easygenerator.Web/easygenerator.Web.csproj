@@ -1252,7 +1252,6 @@
     <Content Include="Content\font\opensans-semibold.woff" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Account\TryNow.cshtml" />
-    <Content Include="Content\eula\easygenerator_EULA.pdf" />
     <Content Include="Content\font\opensans-semibolditalic.eot" />
     <Content Include="Content\font\opensans-semibolditalic.ttf" />
     <Content Include="Content\font\opensans-semibolditalic.woff" />
@@ -1269,6 +1268,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="BuildCourse\Scorm\Templates\metadata.cshtml" />
+    <Content Include="Content\eula\easygenerator_EULA.pdf" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Templates\Freestyle learning\js\vendor.js.bundle">
       <SubType>Designer</SubType>

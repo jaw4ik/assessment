@@ -94,6 +94,12 @@
                     onBlur();
                 }
             });
+
+            $(window).on("blur", function () {
+                if (isEditing()) {
+                    $(editor.editable().$).blur();
+                }
+            });
         });
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
