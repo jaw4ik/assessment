@@ -44,27 +44,17 @@
                 return;
             }
 
-            definition.src = definition.src + '?width=173&height=128';
-            definition.dblClick = onDblClick;
-            definition.click = onClick;
+            var $image = $('<img>');
+            $image.attr('src', definition.src + '?width=173&height=128');
 
-            var that = this;
-            $.ajax(definition.src).done(function () {
-                var image = that.createImage(definition);
-                that.$imagesList.append(image);
-            });
-        },
-
-        //Return image entity (DOM element)
-        createImage: function (definition) {
-            
-            var $image = $('<div>');
-            $image.addClass('image-library-item-img');
-            $image.css('background-image', 'url(\'' + definition.src + '\')');
+            var $imageHolder = $('<div>');
+            $imageHolder.addClass('image-library-item-img');
+            $imageHolder.append($image);
+            $imageHolder.append($('<div>'));
 
             var $imageWrapper = $('<div>');
             $imageWrapper.addClass('image-library-item-img-wrapper');
-            $imageWrapper.append($image);
+            $imageWrapper.append($imageHolder);
 
             var $text = $('<span>');
             $text.html(definition.title);
@@ -74,25 +64,30 @@
             $listItem.append($imageWrapper);
             $listItem.append($text);
             $listItem.addClass('image-library-item');
+            $listItem.hide();
 
             if (definition.src == plugin.selectedImageUrl) {
                 this.selectImage($listItem);
             }
 
-            if (!!definition.dblClick) {
-                $listItem.dblclick(definition.dblClick);
+            if (!!onDblClick) {
+                $listItem.dblclick(onDblClick);
             }
 
             var that = this;
             $listItem.click(function () {
                 that.selectImage(this);
 
-                if (!!definition.click) {
-                    definition.click();
+                if (!!onClick) {
+                    onClick();
                 }
             });
 
-            return $listItem;
+            $image.load(function () {
+                $listItem.show();
+            });
+
+            that.$imagesList.append($listItem);
         },
 
         //Makes image selected in images list
