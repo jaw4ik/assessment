@@ -33,13 +33,13 @@
 
         var animation = $element.animate(animateSettings, speed);
 
+        if (cssClassOnExpanded && isExpanded) {
+            $element.addClass(cssClassOnExpanded);
+        }
+
         $.when(animation).done(function () {
-            if (cssClassOnExpanded) {
-                if (isExpanded) {
-                    $element.addClass(cssClassOnExpanded);
-                } else {
-                    $element.removeClass(cssClassOnExpanded);
-                }
+            if (cssClassOnExpanded && !isExpanded) {
+                $element.removeClass(cssClassOnExpanded);
             }
 
             if (onCollapsed && !isExpanded) {
