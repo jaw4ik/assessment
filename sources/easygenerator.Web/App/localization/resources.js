@@ -1064,7 +1064,7 @@
         en: 'Update course'
     },
     reviewPublishingCourse: {
-        en: 'Publishing...'
+        en: 'publishing...'
     },
     /* End resource section for model Review */
     
