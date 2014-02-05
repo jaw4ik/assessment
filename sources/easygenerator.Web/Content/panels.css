@@ -53,7 +53,7 @@
     box-shadow: 0px 0px 4px #C4C4C4;
 }
 
-    .tab-header:hover {
+    .tab-header:hover, .tab-header.active {
         top: -2px;
         z-index: 999;
     }

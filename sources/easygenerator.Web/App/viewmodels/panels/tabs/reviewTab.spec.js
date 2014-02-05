@@ -84,9 +84,30 @@
                         viewModel.reviewUrl('someUrl');
                     });
 
-                    it('should open course review url', function () {
-                        viewModel.openCourseReviewUrl();
-                        expect(router.openUrl).toHaveBeenCalledWith(viewModel.reviewUrl());
+                    describe('when course is not delivering', function () {
+
+                        beforeEach(function() {
+                            viewModel.state(constants.deliveringStates.failed);
+                        });
+
+                        it('should open course review url', function () {
+                            viewModel.openCourseReviewUrl();
+                            expect(router.openUrl).toHaveBeenCalledWith(viewModel.reviewUrl());
+                        });
+
+                    });
+
+                    describe('when course is delivering', function () {
+
+                        beforeEach(function () {
+                            viewModel.state(constants.deliveringStates.building);
+                        });
+
+                        it('should not open link', function () {
+                            viewModel.openCourseReviewUrl();
+                            expect(router.openUrl).not.toHaveBeenCalledWith(viewModel.reviewUrl());
+                        });
+
                     });
 
                 });

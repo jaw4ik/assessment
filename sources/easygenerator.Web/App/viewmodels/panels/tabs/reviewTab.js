@@ -68,7 +68,7 @@
         return viewModel;
 
         function openCourseReviewUrl() {
-            if (viewModel.reviewUrlExists()) {
+            if (viewModel.reviewUrlExists() && !viewModel.isDelivering()) {
                 router.openUrl(viewModel.reviewUrl());
             }
         }

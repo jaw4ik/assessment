@@ -15,7 +15,7 @@
         <div class="review-link">
             <div class="open-review-link" data-bind="click: openCourseReviewUrl, localize: { title: 'reviewOpenLinkTitle' }" title="Open link"></div>
             <div class="review-link-input-wrapper">
-                <input class="review-link-input" type="text" readonly="readonly" data-bind="value: reviewUrl(), css: { selectable: !isDelivering() }, selectTextBinding: reviewUrlExists()" />
+                <input class="review-link-input" type="text" readonly="readonly" data-bind="value: reviewUrl(), css: { selectable: !isDelivering() }, selectTextBinding: reviewUrlExists(), enable: !isDelivering()" />
             </div>
         </div>
         <!-- /ko -->
