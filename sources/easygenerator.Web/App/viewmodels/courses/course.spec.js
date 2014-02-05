@@ -19,6 +19,7 @@
             beforeEach(function () {
                 spyOn(viewModel.activeStep, 'activateItem').andReturn(activateItemDeferred.promise);
                 spyOn(notify, 'error');
+                spyOn(router, 'navigate');
             });
 
             it('should be an object', function () {
@@ -233,8 +234,6 @@
                 });
 
                 it('should navigate to #courses', function () {
-                    spyOn(router, 'navigate');
-                    
                     viewModel.navigateToCourses();
                     expect(router.navigate).toHaveBeenCalledWith('courses');
                 });
