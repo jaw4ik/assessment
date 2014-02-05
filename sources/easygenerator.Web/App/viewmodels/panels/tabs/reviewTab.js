@@ -1,5 +1,5 @@
-﻿define(['constants', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'plugins/router', 'clientContext'],
-    function (constants, app, notify, eventTracker, repository, router, clientContext) {
+﻿define(['constants', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'plugins/router', 'guard'],
+    function (constants, app, notify, eventTracker, repository, router, guard) {
 
         var events = {
             updateCourseForReview: 'Update course for review',
@@ -9,7 +9,6 @@
         var viewModel = {
             title: 'Review',
             activate: activate,
-            canActivate: canActivate,
             reviewUrl: ko.observable(),
             state: ko.observable(),
             states: constants.deliveringStates,
@@ -18,15 +17,6 @@
             isActive: ko.observable(false),
             courseId: null
         };
-
-        viewModel.isEnabled = ko.computed(function () {
-            var activeInstruction = router.activeInstruction();
-            if (_.isNullOrUndefined(activeInstruction)) {
-                return false;
-            }
-
-            return activeInstruction.config.moduleId == 'viewmodels/courses/course';
-        });
 
         viewModel.isDelivering = ko.computed(function () {
             return this.state() === constants.deliveringStates.building || this.state() === constants.deliveringStates.publishing;
@@ -99,19 +89,19 @@
             });
         }
 
-        function canActivate() {
-            return viewModel.isEnabled();
-        }
+        function activate(dataPromise) {
+            return Q.fcall(function() {
+                guard.throwIfNotAnObject(dataPromise, 'Activation data promise is not an object');
 
-        function activate() {
-            viewModel.courseId = clientContext.get('lastVistedCourse');
-            eventTracker.publish(events.openReviewTab);
-            return repository.getById(viewModel.courseId).then(function (course) {
-                viewModel.reviewUrl(course.reviewUrl);
-                viewModel.state(viewModel.reviewUrlExists() ? constants.deliveringStates.succeed : constants.deliveringStates.failed);
-            }).fail(function (reason) {
-                router.activeItem.settings.lifecycleData = { redirect: '404' };
-                throw reason;
+                return dataPromise.then(function(data) {
+                    guard.throwIfNotAnObject(data, 'Activation data is not an object');
+                    guard.throwIfNotString(data.courseId, 'Course id is not a string');
+
+                    eventTracker.publish(events.openReviewTab);
+                    viewModel.courseId = data.courseId;
+                    viewModel.reviewUrl(data.reviewUrl);
+                    viewModel.state(viewModel.reviewUrlExists() ? constants.deliveringStates.succeed : constants.deliveringStates.failed);
+                });
             });
         }
     }

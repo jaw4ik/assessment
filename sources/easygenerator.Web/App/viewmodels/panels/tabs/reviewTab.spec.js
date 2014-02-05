@@ -273,211 +273,133 @@
 
             describe('activate:', function () {
                 var courseId = 'courseId';
-                var getById;
-
-                beforeEach(function () {
-                    getById = Q.defer();
-                    spyOn(repository, 'getById').andReturn(getById.promise);
-                    spyOn(clientContext, 'get').andReturn(courseId);
+                var dataDeferred, dataPromise;
+                beforeEach(function() {
+                    dataDeferred = Q.defer();
+                    dataPromise = dataDeferred.promise;
                 });
 
                 it('should be function', function () {
                     expect(viewModel.activate).toBeFunction();
                 });
-                
-                it('should send event \'Open review tab\'', function () {
-                    var promise = viewModel.activate();
-                    getById.resolve();
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Open review tab');
-                    });
-                });
 
                 it('should return promise', function () {
-                    expect(viewModel.activate()).toBePromise();
+                    expect(viewModel.activate(dataPromise)).toBePromise();
                 });
 
-                it('should get courseId from client context', function () {
-                    var promise = viewModel.activate();
-                    getById.resolve();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(clientContext.get).toHaveBeenCalledWith('lastVistedCourse');
-                    });
-                });
-
-                it('should get course from repository', function () {
-                    var promise = viewModel.activate();
-                    getById.resolve();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(repository.getById).toHaveBeenCalledWith(courseId);
-                    });
-                });
-
-                describe('when course does not exist', function () {
-
-                    beforeEach(function () {
-                        getById.reject('reason');
-                    });
-
-                    it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
-                        router.activeItem.settings.lifecycleData = null;
-
-                        var promise = viewModel.activate();
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
-                        });
-                    });
-
-                    it('should reject promise', function () {
-                        var promise = viewModel.activate();
+                describe('when activation data is not an object', function () {
+                    it('should reject promise with \'Activation data promise is not an object\'', function () {
+                        var promise = viewModel.activate(null);
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeRejectedWith('reason');
+                            expect(promise).toBeRejectedWith('Activation data promise is not an object');
                         });
                     });
                 });
 
-                describe('when course exists', function () {
+                describe('when activation data is an object', function () {
 
-                    describe('when course has reviewUrl', function () {
+                    describe('when activation data courseId is not a string', function () {
+                        it('should reject promise with \'Course id is not a string\'', function () {
+                            var promise = viewModel.activate(dataPromise);
+                            dataDeferred.resolve({ courseId: null });
 
-                        it('should set reviewUrl', function () {
-                            var promise = viewModel.activate();
-                            getById.resolve(course);
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(viewModel.reviewUrl()).toBe(course.reviewUrl);
-                            });
-                        });
-
-                        it('should set state to succeed', function () {
-                            var promise = viewModel.activate();
-                            getById.resolve(course);
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.state()).toBe(constants.deliveringStates.succeed);
+                                expect(promise).toBeRejectedWith('Course id is not a string');
                             });
                         });
                     });
 
-                    describe('when course doesnt have reviewUrl', function () {
-                        var courseWithoutReviewUrl = { id: 'courseId', reviewUrl: '' };
+                    describe('when activation data courseId is a string', function () {
+                        var activationData = { courseId: 'id' };
 
-                        it('should set reviewUrl', function () {
-                            var promise = viewModel.activate();
-                            getById.resolve(courseWithoutReviewUrl);
+                        it('should send event \'Open review tab\'', function () {
+                            var promise = viewModel.activate(dataPromise);
+                            dataDeferred.resolve(activationData);
+
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(viewModel.reviewUrl()).toBe(courseWithoutReviewUrl.reviewUrl);
+                                expect(eventTracker.publish).toHaveBeenCalledWith('Open review tab');
                             });
                         });
 
-                        it('should set state to failed', function () {
-                            var promise = viewModel.activate();
-                            getById.resolve(courseWithoutReviewUrl);
+                        it('should set courseId to corresponding value', function () {
+                            var promise = viewModel.activate(dataPromise);
+                            dataDeferred.resolve(activationData);
+
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(viewModel.state()).toBe(constants.deliveringStates.failed);
+                                expect(viewModel.courseId).toBe(activationData.courseId);
                             });
                         });
-                    });
+                        
+                        it('should set reviewUrl to corresponding value', function () {
+                            activationData.reviewUrl = 'url';
+                            var promise = viewModel.activate(dataPromise);
+                            dataDeferred.resolve(activationData);
 
-                    it('should resolve promise', function () {
-                        var promise = viewModel.activate();
-                        getById.resolve({ id: 'courseId', reviewUrl: '' });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.reviewUrl()).toBe(activationData.reviewUrl);
+                            });
                         });
-                        runs(function () {
-                            expect(promise).toBeResolved();
-                        });
-                    });
 
+                        describe('and when activationData reviewUrl is string', function() {
+                            beforeEach(function() {
+                                activationData.reviewUrl = 'url';
+                            });
+
+                            it('should set state to succeed', function () {
+                                var promise = viewModel.activate(dataPromise);
+                                dataDeferred.resolve(activationData);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.state()).toBe(constants.deliveringStates.succeed);
+                                });
+                            });
+                        });
+
+                        describe('and when activationData reviewUrl is not a string', function () {
+                            beforeEach(function () {
+                                activationData.reviewUrl = null;
+                            });
+
+                            it('should set state to failed', function () {
+                                var promise = viewModel.activate(dataPromise);
+                                dataDeferred.resolve(activationData);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.state()).toBe(constants.deliveringStates.failed);
+                                });
+                            });
+                        });
+
+                    });
                 });
-            });
-
-            describe('isEnabled:', function () {
-
-                it('should be computed', function () {
-                    expect(viewModel.isEnabled).toBeComputed();
-                });
-
-                describe('when router has active instruction', function () {
-
-                    describe('and active moduleId is \'viewmodels/courses/course\'', function () {
-
-                        beforeEach(function () {
-                            router.activeInstruction({
-                                config: {
-                                    moduleId: 'viewmodels/courses/course'
-                                }
-                            });
-                        });
-
-                        it('should return true', function () {
-                            expect(viewModel.isEnabled()).toBeTruthy();
-                        });
-
-                    });
-
-                    describe('and active moduleId is not \'viewmodels/courses/course\'', function () {
-
-                        beforeEach(function () {
-                            router.activeInstruction({
-                                config: {
-                                    moduleId: 'viewmodels/courses/course2'
-                                }
-                            });
-                        });
-
-                        it('should return false', function () {
-                            expect(viewModel.isEnabled()).toBeFalsy();
-                        });
-
-                    });
-
-                });
-
             });
 
             describe('isActive:', function () {
                 it('should be observable', function () {
                     expect(viewModel.isActive).toBeObservable();
                 });
-            });
-
-            describe('canActivate:', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.canActivate).toBeFunction();
-                });
-
             });
 
             describe('when course build was started', function () {
@@ -551,7 +473,7 @@
                         beforeEach(function () {
                             viewModel.isActive(true);
                         });
-                        
+
                         it('should change state to \'failed\'', function () {
                             viewModel.courseId = course.id;
                             viewModel.state('');
