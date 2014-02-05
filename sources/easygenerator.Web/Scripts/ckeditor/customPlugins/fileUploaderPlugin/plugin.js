@@ -114,19 +114,18 @@
                         frame = {
                             init: function () {
                                 fileFrame.on('readystatechange', function () {
-                                    var that = this.$;
-                                    if (that.readyState != "complete") {
+                                    if (this.readyState != "complete") {
                                         return;
                                     }
 
                                     try {
-                                        var response = that.contentDocument.body.innerHTML;
+                                        var response = this.contentDocument.body.innerHTML;
                                         handleResponse(response);
                                     } catch (e) {
                                         status.failed(lang.somethingWentWrong);
                                         input.enable();
                                     }
-                                });
+                                }, fileFrame.$);
                             }
                         },
                         

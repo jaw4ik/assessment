@@ -115,8 +115,8 @@
                 if (!dialog.userlockRatio && oImageOriginal.getCustomData('isReady') == 'true') {
                     var width = dialog.getValueOf('info', 'txtWidth'),
                         height = dialog.getValueOf('info', 'txtHeight'),
-                        originalRatio = oImageOriginal.$.width * 1000 / oImageOriginal.$.height,
-                        thisRatio = width * 1000 / height;
+                        originalRatio = oImageOriginal.$.width * 100 / oImageOriginal.$.height,
+                        thisRatio = width * 100 / height;
                     dialog.lockRatio = false; // Default: unlock ratio
 
                     if (!width && !height)
