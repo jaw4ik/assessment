@@ -1,10 +1,12 @@
 ﻿<section class="panel-right" data-bind="slidingDialog: { isExpanded: isExpanded, position: '-300px', side: 'right', collapseOnOuterClick: true, onCollapsed: onCollapsed, cssClassOnExpanded: 'expanded' }">
     <div class="tab-headers-wrapper">
         <div class="tab-headers">
+            <!-- ko if: isReviewTabVisible() -->
             <!-- ko  with: reviewTab-->
-            <div class="tab-header" data-bind="click: $parent.toggleTabVisibility, css: { 'active': $parent.isExpanded() && $parent.activeTab() == $data }, style: { visibility: $parent.isReviewTabVisible() ? 'visible' : 'hidden' }">
+            <div class="tab-header" data-bind="click: $parent.toggleTabVisibility, css: { 'active': $parent.isExpanded() && $parent.activeTab() == $data }">
                 <div class="tab-header-text" data-bind="localize: { text: 'review' }">Review</div>
             </div>
+            <!-- /ko -->
             <!-- /ko -->
             <!-- ko  with: feedbackTab-->
             <div class="tab-header" data-bind="click: $parent.toggleTabVisibility, css: { 'active': $parent.isExpanded() && $parent.activeTab() == $data }">
