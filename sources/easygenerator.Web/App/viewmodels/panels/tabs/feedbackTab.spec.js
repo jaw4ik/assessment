@@ -20,14 +20,6 @@
             expect(viewModel).toBeDefined();
         });
 
-        describe('title:', function () {
-
-            it('should be string', function () {
-                expect(viewModel.title).toBeString();
-            });
-
-        });
-
         describe('isEnabled:', function () {
 
             it('should be computed', function () {

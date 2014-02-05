@@ -1,15 +1,13 @@
 ﻿<section>
     <div class="tab-title">
-        <div class="tab-title-text">Give feedback</div>
+        <div class="tab-title-text" data-bind="localize: { text: 'feedbackTabTitle' }">Give feedback</div>
     </div>
     <div class="tab-content">
         <div class="tab-help-info" data-bind="localize: { text: 'feedBackHelp' }">Help us to improve our application</div>
         <form class="feedback-form">
             <!-- ko if: isTryMode -->
-            <span class="feedback-label" data-bind="localize: { text: 'yourEmailWithoutPoints' }">Your email:</span>
             <input type="text" class="feedback-text-block email" placeholder="Your e-mail..." data-bind="localize: { placeholder: 'yourEmail' }, value: feedbackEmail, valueUpdate: 'afterkeydown'" />
             <!-- /ko -->
-            <span class="feedback-label" data-bind="localize: { text: 'yourMessageWithoutPoints' }">Your message:</span>
             <textarea class="feedback-text-block message" placeholder="Your message..." data-bind="localize: { placeholder: 'yourMessage' }, value: feedbackMessageFromUser, valueUpdate: 'afterkeydown', css: { error: isFeedbackMessageErrorVisible() }, event: { focus: feedbackMessageFocus }"></textarea>
             <div class="tab-action-wrapper">
                 <button class="btn blue round pull-right tab-btn " data-bind="click: sendFeedback">

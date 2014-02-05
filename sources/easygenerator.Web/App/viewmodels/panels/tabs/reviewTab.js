@@ -7,7 +7,6 @@
         };
 
         var viewModel = {
-            title: 'Review',
             activate: activate,
             reviewUrl: ko.observable(),
             state: ko.observable(),

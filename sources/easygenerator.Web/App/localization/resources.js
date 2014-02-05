@@ -88,30 +88,6 @@
     deleteSeveralObjectivesError: {
         en: 'You can not delete more than 1 learning objective at once.'
     },
-    sendFeedback: {
-        en: 'Send feedback'
-    },
-    send: {
-        en: 'Send'
-    },
-    feedBackHelp: {
-        en: 'Help us to improve our application'
-    },
-    yourEmail: {
-        en: 'Your e-mail...'
-    },
-    yourMessage: {
-        en: 'Your message...'
-    },
-    successFeedback: {
-        en: 'Your feedback has been sent successfully'
-    },
-    yourEmailWithoutPoints: {
-        en: 'Your e-mail:'
-    },
-    yourMessageWithoutPoints: {
-        en: 'Your message:'
-    },
     allChangesAreSaved: {
         en: 'All changes are saved'
     },
@@ -860,7 +836,7 @@
     
     /* Resource section for model Copyright */
     CopyrightText: {
-        en: 'Copyright © 2014 easygenerator. All rights reserved.'
+        en: 'Copyright © 2013 easygenerator. All rights reserved.'
     },
     /* End resource section for model Copyright */
     
@@ -1065,7 +1041,58 @@
     },
     pasteEmbedCodeHere: {
         en: 'Paste Embed Code Here'
-    }
+    },
     /* End resource section for model CKEditor */
+    
+    /* Resource section for model Review */
+    review: {
+        en: 'Review'
+    },
+    reviewTabTitle: {
+        en: 'Share course for review'
+    },
+    reviewTabHelp: {
+        en: 'Share this course with a private link and allow commenting'
+    },
+    reviewGetLink: {
+        en: 'Get link'
+    },
+    reviewOpenLinkTitle: {
+        en: 'Open link'
+    },
+    reviewUpdateCourse: {
+        en: 'Update course'
+    },
+    reviewPublishingCourse: {
+        en: 'Publishing...'
+    },
+    /* End resource section for model Review */
+    
+    /* Resource section for model Feedback */
+    feedback: {
+        en: 'Feedback'
+    },
+    sendFeedback: {
+        en: 'Send feedback'
+    },
+    send: {
+        en: 'Send'
+    },
+    feedBackHelp: {
+        en: 'Help us to improve our application'
+    },
+    yourEmail: {
+        en: 'Your e-mail...'
+    },
+    yourMessage: {
+        en: 'Your message...'
+    },
+    successFeedback: {
+        en: 'Your feedback has been sent successfully'
+    },
+    feedbackTabTitle: {
+        en: 'Give feedback'
+    }
+    /* End resource section for model Feedback */
            
 });

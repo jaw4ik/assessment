@@ -2,6 +2,11 @@
     margin: 0px;
     padding: 0px;
     border: none;
+    overflow: hidden;
+}
+
+iframe {
+    overflow: visible;
 }
 
 .review-comments {
@@ -20,7 +25,6 @@
 .review-content, .course-review {
     height: 100%;
     width: 100%;
-    overflow: hidden;
 }
 
 /*#region Header*/

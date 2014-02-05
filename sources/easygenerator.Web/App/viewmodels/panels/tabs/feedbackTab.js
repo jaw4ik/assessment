@@ -5,7 +5,6 @@
     };
 
     var viewModel = {
-        title: 'Feedback',
         feedbackMessageFromUser: ko.observable(''),
         feedbackEmail: ko.observable(''),
         isFeedbackMessageErrorVisible: ko.observable(false),

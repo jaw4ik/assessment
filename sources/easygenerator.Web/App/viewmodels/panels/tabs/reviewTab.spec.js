@@ -26,14 +26,6 @@
                 expect(viewModel).toBeObject();
             });
 
-            describe('title:', function () {
-
-                it('should be string', function () {
-                    expect(viewModel.title).toBeString();
-                });
-
-            });
-
             describe('isDelivering', function () {
                 it('should be computed', function () {
                     expect(viewModel.isDelivering).toBeComputed();
