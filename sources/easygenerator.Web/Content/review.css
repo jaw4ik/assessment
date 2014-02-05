@@ -12,15 +12,15 @@
     border-top-left-radius: 7px;
     box-shadow: 0 2px 5px #D7D7D7;
     position: fixed;
-    bottom: 0px;
     right: 0px;
     z-index: 5000;
     width: 300px;
     bottom: -269px;
 }
 
-.review-content {
+.review-content, .course-review {
     height: 100%;
+    width: 100%;
 }
 
 /*#region Header*/
