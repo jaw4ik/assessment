@@ -49,7 +49,7 @@
                     }
 
                     var
-                        statusManager = {
+                        status = {
                             info: function () {
                                 this.$preloaderContainer.hide();
                                 this.$container.hide();
@@ -66,7 +66,7 @@
                             $preloaderContainer: $(preloaderContainer.$)
                         },
 
-                        inputManager = {
+                        input = {
                             enable: function () {
                                 this.container.offsetParent.className = this.container.offsetParent.className.replace(" disabled", "");
                                 this.container.disabled = false;
@@ -78,13 +78,13 @@
                             submit: function () {
                                 this.container.form.submit();
                                 this.disable();
-                                statusManager.loading();
+                                status.loading();
                             },
                             container: (function () {
                                 var c = inputContainer.$;
                                 c.onchange = function () {
                                     if (!this.files) {
-                                        inputManager.submit();
+                                        input.submit();
                                         return;
                                     }
 
@@ -92,62 +92,96 @@
                                         return;
                                     }
 
-                                    var
-                                        file = this.files[0],
+                                    var file = this.files[0],
                                         fileExtension = file.name.split('.').pop().toLowerCase();
 
                                     if ($.inArray(fileExtension, allowedFileExtensions) === -1) {
-                                        statusManager.failed(lang.extensionNotSupported + fileExtension);
+                                        status.failed(lang.extensionNotSupported + fileExtension);
                                         return;
                                     }
 
                                     if (file.size > maxFileSize * 1024 * 1024) {
-                                        statusManager.failed(lang.fileCannotBeLargerThan + maxFileSize + ' MB');
+                                        status.failed(lang.fileCannotBeLargerThan + maxFileSize + ' MB');
                                         return;
                                     }
 
-                                    inputManager.submit();
+                                    uploader.uploadFile(file);
                                 };
                                 return c;
                             })()
                         },
+                        
+                        frame = {
+                            init: function () {
+                                fileFrame.on('readystatechange', function () {
+                                    var that = this.$;
+                                    if (that.readyState != "complete") {
+                                        return;
+                                    }
 
-                        handleResult = function () {
-                            try {
-                                var requestResult = this.contentDocument.body.innerHTML;
-                                if (!requestResult) {
-                                    statusManager.info();
-                                    return;
-                                }
+                                    try {
+                                        var response = that.contentDocument.body.innerHTML;
+                                        handleResponse(response);
+                                    } catch (e) {
+                                        status.failed(lang.somethingWentWrong);
+                                        input.enable();
+                                    }
+                                });
+                            }
+                        },
+                        
+                        uploader = {
+                            uploadFile: function (file) {
+                                input.disable();
+                                status.loading();
 
-                                var result = JSON.parse(requestResult);
-                                if (!result || !result.success || !result.data) {
-                                    throw "Request is not success";
-                                }
-
-                                if (elementDefinition.urlContainer && elementDefinition.urlContainer.length == 2) {
-                                    dialog.setValueOf(elementDefinition.urlContainer[0], elementDefinition.urlContainer[1], result.data.url);
-                                    statusManager.info();
-                                }
-                            } catch (e) {
-                                statusManager.failed(lang.somethingWentWrong);
-                            } finally {
-                                inputManager.enable();
+                                var formData = new FormData();
+                                formData.append("file", file);
+                                
+                                $.ajax({
+                                    url: url,
+                                    type: 'POST',
+                                    data: formData,
+                                    cache: false,
+                                    dataType: 'json',
+                                    processData: false, // Don't process the files
+                                    contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+                                }).done(function (response) {
+                                    handleResponse(response);
+                                }).fail(function () {
+                                    status.failed(lang.somethingWentWrong);
+                                    input.enable();
+                                });
                             }
                         };
 
-                    statusManager.info();
-
-                    if (window.top.navigator.userAgent.indexOf("MSIE") > -1) {
-                        fileFrame.$.onreadystatechange = function () {
-                            if (this.readyState == "complete") {
-                                handleResult.call(this);
+                    status.info();
+                    frame.init();
+                    
+                    function handleResponse(response) {
+                        try {
+                            if (!response) {
+                                throw "Request is empty";
                             }
-                        };
-                    } else {
-                        fileFrame.$.onload = handleResult;
+
+                            if (typeof response != "object") {
+                                response = JSON.parse(response);
+                            }
+                            
+                            if (!response || !response.success || !response.data) {
+                                throw "Request is not success";
+                            }
+
+                            if (elementDefinition.urlContainer && elementDefinition.urlContainer.length == 2) {
+                                dialog.setValueOf(elementDefinition.urlContainer[0], elementDefinition.urlContainer[1], response.data.url);
+                                status.info();
+                            }
+                        } catch (e) {
+                            status.failed(lang.somethingWentWrong);
+                        } finally {
+                            input.enable();
+                        }
                     }
-
                 });
             }
         });
