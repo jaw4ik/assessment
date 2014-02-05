@@ -237,6 +237,7 @@
 }
 
 .open-review-link {
+    cursor: pointer;
     position: relative;
     height: 28px;
     width: 25px;
