@@ -29,3 +29,8 @@
     border-radius: 3px;
     padding: 6px !important;
 }
+
+.cke_dialog a.cke_btn_reset.disabled {
+    opacity: 0.5;
+    cursor: default;
+}

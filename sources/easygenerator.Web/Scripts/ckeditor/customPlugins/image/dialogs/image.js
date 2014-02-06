@@ -43,6 +43,7 @@
                     }
                 }
             }
+            switchResetButton(dialog);
             updatePreview(dialog);
         };
 
@@ -159,6 +160,40 @@
                 heightField && heightField.setValue(oImageOriginal.$.height);
             }
             updatePreview(dialog);
+            switchResetButton(dialog, false);
+        };
+
+        var switchResetButton = function (dialog, value) {
+            var
+                resetButton = CKEDITOR.document.getById(btnResetSizeId),
+                originalImage = dialog.originalElement.$,
+                width = dialog.getValueOf('info', 'txtWidth'),
+                height = dialog.getValueOf('info', 'txtHeight');
+
+            if (!resetButton) {
+                return;
+            }
+
+            if (typeof value !== "undefined") {
+                value ? enable() : disable();
+                return;
+            }
+
+            enable();
+
+            if ((!width || !height) || (width == originalImage.width && height == originalImage.height)) {
+                disable();
+            }
+
+            function enable() {
+                resetButton.removeClass('disabled');
+                resetButton.removeAttribute('disabled');
+            }
+
+            function disable() {
+                resetButton.addClass('disabled');
+                resetButton.setAttribute('disabled', 'disabled');
+            }
         };
 
         var setupDimension = function (type, element) {
@@ -210,6 +245,7 @@
             if (this.firstLoad)
                 CKEDITOR.tools.setTimeout(function () {
                     switchLockRatio(this, 'check');
+                    switchResetButton(this);
                 }, 0, this);
 
             this.firstLoad = false;
