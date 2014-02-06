@@ -215,6 +215,9 @@
     line-height: 33px;
     padding-left: 18px;
     color: #999999;
+    font-family: 'OpenSans';
+    font-size: 13px;
+    -webkit-font-smoothing: none;
 }
 
     .feedback-status-text:before {
