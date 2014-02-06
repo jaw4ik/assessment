@@ -253,6 +253,10 @@
     padding: 0px 5px;
 }
 
+    .review-link-input.disabled {
+        opacity: 0.6;
+    }
+
 .open-review-link {
     cursor: pointer;
     position: relative;
