@@ -3,6 +3,13 @@
 
         describe('viewModel [sidePanel]', function () {
 
+            var getById;
+
+            beforeEach(function() {
+                getById = Q.defer();
+                spyOn(repository, 'getById').andReturn(getById.promise);
+            });
+
             it('should be object', function () {
                 expect(viewModel).toBeObject();
             });
@@ -309,11 +316,8 @@
 
             describe('reviewTabActivationData:', function () {
                 var courseId = 'courseId';
-                var getById;
 
                 beforeEach(function () {
-                    getById = Q.defer();
-                    spyOn(repository, 'getById').andReturn(getById.promise);
                     spyOn(notify, 'error');
                 });
 

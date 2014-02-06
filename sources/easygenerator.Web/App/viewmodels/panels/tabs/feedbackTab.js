@@ -21,38 +21,41 @@
         return true;
     });
 
+    return viewModel;
+
     function canActivate() {
         return viewModel.isEnabled();
     }
 
     function sendFeedback() {
-        var that = this;
-        if (!_.isEmpty(this.feedbackMessageFromUser())) {
-            var data = { email: this.isTryMode ? this.feedbackEmail() : this.userEmail, message: this.feedbackMessageFromUser() };
-            eventTracker.publish(events.feedback);
-            that.isShowFeedbackPopup(false);
-            return httpWrapper.post('api/feedback/sendfeedback', data).then(function () {
-                notify.success(localizationManager.localize('successFeedback'));
-                that.feedbackMessageFromUser('');
-                that.feedbackEmail('');
-            });
-        } else {
-            this.isFeedbackMessageErrorVisible(true);
+        if (_.isEmpty(viewModel.feedbackMessageFromUser())) {
+            viewModel.isFeedbackMessageErrorVisible(true);
+            return;
         }
-    };
 
-    function feedbackMessageFocus() {
-        this.isFeedbackMessageErrorVisible(false);
-    };
+        var data = {
+            email: viewModel.isTryMode ? viewModel.feedbackEmail() : viewModel.userEmail,
+            message: viewModel.feedbackMessageFromUser()
+        };
 
-    function activate() {
-        var that = this;
-        return Q.fcall(function () {
-            eventTracker.publish(events.openFeedbackForm);
-            that.isTryMode = dataContext.isTryMode;
-            that.userEmail = dataContext.userEmail;
+        eventTracker.publish(events.feedback);
+        viewModel.isShowFeedbackPopup(false);
+        return httpWrapper.post('api/feedback/sendfeedback', data).then(function () {
+            notify.success(localizationManager.localize('successFeedback'));
+            viewModel.feedbackMessageFromUser('');
+            viewModel.feedbackEmail('');
         });
     };
 
-    return viewModel;
+    function feedbackMessageFocus() {
+        viewModel.isFeedbackMessageErrorVisible(false);
+    };
+
+    function activate() {
+        return Q.fcall(function () {
+            eventTracker.publish(events.openFeedbackForm);
+            viewModel.isTryMode = dataContext.isTryMode;
+            viewModel.userEmail = dataContext.userEmail;
+        });
+    };
 });
