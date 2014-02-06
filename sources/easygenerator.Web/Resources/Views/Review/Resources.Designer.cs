@@ -106,7 +106,7 @@ namespace easygenerator.Web.Resources.Views.Review {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tepe your message....
+        ///   Looks up a localized string similar to Type your comment....
         /// </summary>
         public static string YourMessage {
             get {
