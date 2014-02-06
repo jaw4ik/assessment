@@ -1088,7 +1088,7 @@
         en: 'Your message...'
     },
     successFeedback: {
-        en: 'Your feedback has been sent successfully'
+        en: 'Feedback was sent'
     },
     feedbackTabTitle: {
         en: 'Give feedback'

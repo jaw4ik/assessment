@@ -10,6 +10,9 @@
             <!-- /ko -->
             <textarea class="feedback-text-block message" placeholder="Your message..." data-bind="localize: { placeholder: 'yourMessage' }, value: feedbackMessageFromUser, valueUpdate: 'afterkeydown', css: { error: isFeedbackMessageErrorVisible() }, event: { focus: feedbackMessageFocus }"></textarea>
             <div class="tab-action-wrapper">
+                <!-- ko if: feedbackSuccessfulySent -->
+                <div class="feedback-status-text pull-left" data-bind="localize: { text: 'successFeedback' }"></div>
+                <!-- /ko -->
                 <button class="btn blue round pull-right tab-btn " data-bind="click: sendFeedback">
                     <span class="btn-text" data-bind="localize: { text: 'send' }">Send</span>
                 </button>

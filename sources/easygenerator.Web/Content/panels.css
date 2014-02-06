@@ -211,6 +211,23 @@
             box-shadow: inset 0 0 7px rgba(149, 59, 57, 1);
         }
 
+.feedback-status-text {
+    line-height: 33px;
+    padding-left: 18px;
+    color: #999999;
+}
+
+    .feedback-status-text:before {
+        content: '';
+        position: absolute;
+        background: url(images/sprites.png) -94px -52px no-repeat;
+        width: 18px;
+        height: 18px;
+        display: block;
+        margin-left: -20px;
+        margin-top: 9px;
+    }
+
 /*#endregion SEND FEEDBACK*/
 
 /*#region Review tab*/
