@@ -43,7 +43,7 @@
 
             eventTracker.publish(events.feedback);
             viewModel.isShowFeedbackPopup(false);
-            return httpWrapper.post('api/feedback/sendfeedback', data, true).then(function () {
+            return httpWrapper.post('api/feedback/sendfeedback', data).then(function () {
                 viewModel.feedbackSuccessfulySent(true);
                 viewModel.feedbackMessageFromUser('');
                 viewModel.feedbackEmail('');

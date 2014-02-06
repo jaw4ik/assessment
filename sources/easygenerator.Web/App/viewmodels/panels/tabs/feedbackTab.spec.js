@@ -8,7 +8,7 @@
         notify = require('notify'),
         dataContext = require('dataContext');
 
-    describe('viewModel [feedback]', function () {
+    describe('viewModel [feedbackTab]', function () {
 
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
@@ -143,17 +143,6 @@
 
                     beforeEach(function () {
                         feedbackDefer.resolve();
-                    });
-
-                    it('should call notify with message \'Feedback\'', function () {
-                        var promise = viewModel.sendFeedback();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(notify.success).toHaveBeenCalledWith('Your feedback has been sent successfully');
-                        });
                     });
 
                     it('should clear feedback message', function () {
