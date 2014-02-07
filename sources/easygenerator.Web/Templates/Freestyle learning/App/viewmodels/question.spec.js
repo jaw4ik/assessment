@@ -1,8 +1,6 @@
 ﻿define(['viewmodels/question'], function (viewModel) {
 
-    var app = require('durandal/app'),
-        context = require('context'),
-        eventManager = require('eventManager'),
+    var context = require('context'),
         router = require('plugins/router');
 
     describe('viewModel [question]', function () {
@@ -107,7 +105,7 @@
             describe('when objective is not found', function () {
 
                 beforeEach(function () {
-                    context.objectives = [];
+                    context.course.objectives = [];
                 });
 
                 it('should navigate to 404', function () {
@@ -131,7 +129,7 @@
 
                     it('should navigate to 404', function () {
                         spyOn(router, 'navigate');
-                        context.objectives = objectives;
+                        context.course.objectives = objectives;
                         var promise = viewModel.activate(objectiveId);
 
                         waitsFor(function () {
@@ -147,7 +145,7 @@
                 describe('and question is found', function () {
 
                     beforeEach(function () {
-                        context.objectives = objectives;
+                        context.course.objectives = objectives;
                     });
 
                     it('should not navigate', function () {
@@ -329,6 +327,32 @@
 
                     });
 
+                    it('should set isAnswered', function () {
+                        viewModel.isAnswered(null);
+
+                        var promise = viewModel.activate(objectiveId, questionId);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.isAnswered()).toBe(false);
+                        });
+                    });
+
+                    it('should set isCorrect', function () {
+                        viewModel.isCorrect(null);
+
+                        var promise = viewModel.activate(objectiveId, questionId);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.isCorrect()).toBe(false);
+                        });
+                    });
+
                 });
 
             });
@@ -365,30 +389,198 @@
 
             });
 
+            describe('when question is answered', function () {
+
+                describe('and item is uncheck', function () {
+
+                    it('should not check item', function () {
+                        viewModel.isAnswered(true);
+                        var item = { isChecked: ko.observable(false) };
+
+                        viewModel.checkItem(item);
+
+                        expect(item.isChecked()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and item is check', function () {
+
+                    it('should not uncheck item', function () {
+                        viewModel.isAnswered(true);
+                        var item = { isChecked: ko.observable(true) };
+
+                        viewModel.checkItem(item);
+
+                        expect(item.isChecked()).toBeTruthy();
+                    });
+
+                });
+
+            });
+
         });
 
-        xdescribe('submit:', function () {
+        describe('isAnswered:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.isAnswered).toBeObservable();
+            });
+
+        });
+
+        describe('isCorrect', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.isCorrect).toBeObservable();
+            });
+
+        });
+
+        describe('isCorrectAnswered', function () {
+
+            it('should be computed', function () {
+                expect(viewModel.isCorrectAnswered).toBeComputed();
+            });
+
+            describe('when is not answered', function () {
+
+                it('should be falsy', function () {
+                    viewModel.isAnswered(false);
+
+                    expect(viewModel.isCorrectAnswered()).toBeFalsy();
+                });
+
+            });
+
+            describe('when is answered', function () {
+
+                describe('and answer is not correct', function () {
+
+                    it('should be falsy', function () {
+                        viewModel.isAnswered(true);
+                        viewModel.isCorrect(false);
+
+                        expect(viewModel.isCorrectAnswered()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and answer is correct', function () {
+
+                    it('should be truthy', function () {
+                        viewModel.isAnswered(true);
+                        viewModel.isCorrect(true);
+
+                        expect(viewModel.isCorrectAnswered()).toBeTruthy();
+                    });
+
+                });
+
+            });
+
+        });
+
+        describe('isWrongAnswered', function () {
+
+            it('should be computed', function () {
+                expect(viewModel.isWrongAnswered).toBeComputed();
+            });
+
+            describe('when is not answered', function () {
+
+                it('should be falsy', function () {
+                    viewModel.isAnswered(false);
+
+                    expect(viewModel.isWrongAnswered()).toBeFalsy();
+                });
+
+            });
+
+            describe('when is answered', function () {
+
+                describe('and answer is not correct', function () {
+
+                    it('should be truthy', function () {
+                        viewModel.isAnswered(true);
+                        viewModel.isCorrect(false);
+
+                        expect(viewModel.isWrongAnswered()).toBeTruthy();
+                    });
+
+                });
+
+                describe('and answer is correct', function () {
+
+                    it('should be falsy', function () {
+                        viewModel.isAnswered(true);
+                        viewModel.isCorrect(true);
+
+                        expect(viewModel.isWrongAnswered()).toBeFalsy();
+                    });
+
+                });
+
+            });
+
+        });
+
+        describe('submit:', function () {
 
             it('should be a function', function () {
                 expect(viewModel.submit).toBeFunction();
             });
 
-            it('should invoke answersSubmitted event', function () {
-                spyOn(eventManager, 'answersSubmitted');
+            it('should set question to answered', function () {
+                viewModel.isAnswered(null);
 
                 viewModel.submit();
 
-                expect(eventManager.answersSubmitted).toHaveBeenCalled();
+                expect(viewModel.isAnswered()).toBe(true);
             });
 
-            it('should navigate to feedback', function () {
+        });
+
+        describe('tryAnswerAgain', function () {
+
+            it('should be a function', function () {
+                expect(viewModel.tryAnswerAgain).toBeFunction();
+            });
+
+            it('should set question to not answered', function () {
+                viewModel.isAnswered(null);
+
+                viewModel.tryAnswerAgain();
+
+                expect(viewModel.isAnswered()).toBeFalsy();
+            });
+
+            it('should reset answers', function () {
+                viewModel.answers = [
+                    { isChecked: ko.observable(null) },
+                    { isChecked: ko.observable(null) }
+                ];
+
+                viewModel.tryAnswerAgain();
+
+                expect(viewModel.answers[0].isChecked()).toBe(false);
+                expect(viewModel.answers[1].isChecked()).toBe(false);
+            });
+
+        });
+
+        describe('navigateNext', function () {
+
+            it('should be a function', function () {
+                expect(viewModel.navigateNext);
+            });
+
+            it('should navigate to objectives list', function () {
                 spyOn(router, 'navigate');
-                viewModel.objectiveId = 'objectiveId';
-                viewModel.questionId = 'questionId';
 
-                viewModel.submit();
+                viewModel.navigateNext();
 
-                expect(router.navigate).toHaveBeenCalledWith('objective/objectiveId/question/questionId/feedback');
+                expect(router.navigate).toHaveBeenCalledWith('objectives');
             });
 
         });

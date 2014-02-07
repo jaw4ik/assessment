@@ -109,7 +109,7 @@
             var question = finishedEventData.question;
             var questionUrl = activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id;
             var result = new resultModel({
-                score: new scoreModel(question.getScore() / 100),
+                score: new scoreModel(question.score / 100),
                 response: question.getSelectedAnswersId().toString()
             });
 

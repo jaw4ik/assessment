@@ -25,11 +25,6 @@
             title: 'Question'
         },
         {
-            route: 'objective/:objectiveId/question/:questionId/feedback',
-            moduleId: 'viewmodels/feedback',
-            title: 'Feedback'
-        },
-        {
             route: 'summary',
             moduleId: 'viewmodels/summary',
             title: 'Summary',

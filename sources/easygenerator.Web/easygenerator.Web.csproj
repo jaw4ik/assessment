@@ -788,6 +788,11 @@
     <Content Include="Templates\Freestyle learning\App\eventManager.spec.js">
       <DependentUpon>eventManager.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Freestyle learning\App\models\answer.js" />
+    <Content Include="Templates\Freestyle learning\App\models\course.js" />
+    <Content Include="Templates\Freestyle learning\App\models\learningContent.js" />
+    <Content Include="Templates\Freestyle learning\App\models\objective.js" />
+    <Content Include="Templates\Freestyle learning\App\models\question.js" />
     <Content Include="Templates\Freestyle learning\App\models\questionResult.js" />
     <Content Include="Templates\Freestyle learning\App\moduleLoader.js" />
     <Content Include="Templates\Freestyle learning\App\moduleLoader.spec.js">
@@ -914,7 +919,6 @@
     <Content Include="Templates\Freestyle learning\js\durandal\viewLocator.js" />
     <Content Include="Templates\Freestyle learning\App\main.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\404.js" />
-    <Content Include="Templates\Freestyle learning\App\viewmodels\feedback.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\objectives.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\notsupportedbrowser.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\notsupportedbrowserMobile.js" />
@@ -922,7 +926,6 @@
     <Content Include="Templates\Freestyle learning\App\viewmodels\shell.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\summary.js" />
     <Content Include="Templates\Freestyle learning\App\views\404.html" />
-    <Content Include="Templates\Freestyle learning\App\views\feedback.html" />
     <Content Include="Templates\Freestyle learning\App\views\objectives.html" />
     <Content Include="Templates\Freestyle learning\App\views\learningContents.html" />
     <Content Include="Templates\Freestyle learning\App\views\notsupportedbrowser.html" />

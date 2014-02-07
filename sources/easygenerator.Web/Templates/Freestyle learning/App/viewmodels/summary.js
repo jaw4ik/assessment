@@ -18,7 +18,7 @@
                     return result / objective.questions.length;
                 }
 
-                this.objectives = _.map(context.objectives, function (item) {
+                this.objectives = _.map(context.course.objectives, function (item) {
                     return { id: item.id, title: item.title, score: getObjectiveScore(item) };
                 });
 

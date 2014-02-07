@@ -38,9 +38,35 @@
                     <div class="question-answer-text selectable" data-bind="text: text"></div>
                 </li>
             </ul>
-            <div class="btn-submit-wrapper">
+            <!-- ko if: !isAnswered() -->
+            <div class="btn-submit-wrapper" data-bind="visible: !isAnswered()">
                 <button class="btn-submit" data-bind="click: submit">Submit</button>
             </div>
+            <!-- /ko -->
         </div>
+        <!-- ko if: isCorrectAnswered() -->
+        <div class="feedback-content" data-bind="visible: isAnswered">
+            <div class="feedback-correct">
+                <span class="feedback-icon"></span>
+                <span class="feedback-text">Correct answer</span>
+            </div>
+            <div class="feedback-btn-holder">
+                <button class="btn-next-question" data-bind="click: navigateNext">Next question</button>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: isWrongAnswered() -->
+        <div class="feedback-content feedback-incorrect" data-bind="visible: isAnswered">
+            <div class="feedback-incorrect">
+                <span class="feedback-icon"></span>
+                <span class="feedback-text">Incorrect answer</span>
+            </div>
+            <div class="feedback-btn-holder">
+                <button class="btn-try-again" data-bind="click: tryAnswerAgain">Try again</button><!--
+             --><span class="feedback-btn-whitespace"></span><!--
+             --><button class="btn-next-question" data-bind="click: navigateNext">Next question</button>
+            </div>
+        </div>
+        <!-- /ko -->
     </div>
 </section>
