@@ -1,7 +1,7 @@
 ﻿.xapi-error-container {
     position: relative;
 
-    width: 590px;
+    max-width: 590px;
     height: 230px;
 
     margin: 120px auto;
