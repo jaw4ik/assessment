@@ -51,6 +51,11 @@
                 browser == "safari" && version >= 533)
                 return true;
 
+            // IE 11 is supported
+            if (ua.indexOf('rv:11.0') != -1) {
+                return true;
+            }
+
             return false;
         }());
 

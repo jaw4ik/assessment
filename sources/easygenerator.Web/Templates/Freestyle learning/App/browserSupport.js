@@ -1,7 +1,7 @@
 ﻿define([],
     function () {
         var ua = navigator.userAgent.toLowerCase();
-        
+        debugger;
         var isMobileDevice = (function () {
             if (ua.indexOf("ipod") != -1 ||
                 ua.indexOf("iphone") != -1 ||
@@ -50,6 +50,11 @@
                 browser == "firefox" && version >= 22 ||
                 browser == "safari" && version >= 533)
                 return true;
+
+            // IE 11 is supported
+            if (ua.indexOf('rv:11.0') != -1) {
+                return true;
+            }
 
             return false;
         }());
