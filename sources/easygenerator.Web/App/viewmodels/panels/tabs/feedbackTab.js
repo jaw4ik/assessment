@@ -57,6 +57,8 @@
         function activate() {
             return Q.fcall(function () {
                 viewModel.feedbackSuccessfulySent(false);
+                viewModel.isFeedbackMessageErrorVisible(false);
+                
                 eventTracker.publish(events.openFeedbackForm);
                 viewModel.isTryMode = dataContext.isTryMode;
                 viewModel.userEmail = dataContext.userEmail;

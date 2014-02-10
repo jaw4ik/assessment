@@ -55,6 +55,18 @@
                 });
             });
 
+            it('should clear previous error message', function () {
+                viewModel.isFeedbackMessageErrorVisible(null);
+                
+                var promise = viewModel.activate();
+                waitsFor(function () {
+                    return !promise.isPending();
+                });
+                runs(function () {
+                    expect(viewModel.isFeedbackMessageErrorVisible()).toBe(false);
+                });
+            });
+
             it('should set userEmail', function () {
                 dataContext.userEmail = 'some email';
                 var promise = viewModel.activate();
