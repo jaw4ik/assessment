@@ -1,6 +1,6 @@
 ﻿define(['./models/actor', './models/statement', './models/activity', 'eventManager', './requestManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './utils/dateTimeConverter'],
     function (actorModel, statementModel, activityModel, eventManager, requestManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, dateTimeConverter) {
-        
+
         "use strict";
 
         var subscriptions = [],
@@ -8,7 +8,7 @@
                 actor: null,
                 activityName: null,
                 activityUrl: null,
-                
+
                 init: init,
                 createActor: createActor,
                 rootCourseUrl: null,
@@ -22,19 +22,19 @@
                 if (_.isUndefined(xApiSettings.scoresDistribution.minScoreForPositiveResult) || _.isUndefined(xApiSettings.scoresDistribution.positiveVerb)) {
                     throw errorsHandler.errors.notEnoughDataInSettings;
                 }
-                
+
                 activityProvider.actor = actorData;
                 activityProvider.activityName = activityName;
                 activityProvider.activityUrl = activityUrl;
                 activityProvider.rootCourseUrl = activityUrl != undefined ? activityUrl.split("?")[0].split("#")[0] : '';
-               
+
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(sendCourseStarted));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(learningContentExperienced));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(sendAnsweredQuestionsStatements));
             });
         }
-        
+
         function turnOffSubscriptions() {
             _.each(subscriptions, function (subscription) {
                 if (!_.isNullOrUndefined(subscription && subscription.off)) {
@@ -89,7 +89,7 @@
                 duration: dateTimeConverter.timeToISODurationString(finishedEventData.spentTime),
             });
 
-            var learningContentUrl = activityProvider.rootCourseUrl + '#objective/' + finishedEventData.objective.id + '/question/' + finishedEventData.question.id + '/learningContents';
+            var learningContentUrl = activityProvider.rootCourseUrl + '#objective/' + finishedEventData.objective.id + '/question/' + finishedEventData.question.id + '?learningContents';
             var parentUrl = activityProvider.rootCourseUrl + '#objective/' + finishedEventData.objective.id + '/question/' + finishedEventData.question.id;
             var groupingUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + finishedEventData.objective.id;
             var object = createActivity(learningContentUrl, finishedEventData.question.title);

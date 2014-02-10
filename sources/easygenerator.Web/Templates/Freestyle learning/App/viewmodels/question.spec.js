@@ -1,6 +1,7 @@
 ﻿define(['viewmodels/question'], function (viewModel) {
 
     var context = require('context'),
+        eventManager = require('eventManager'),
         router = require('plugins/router');
 
     describe('viewModel [question]', function () {
@@ -72,6 +73,14 @@
 
             it('should be array', function () {
                 expect(viewModel.learningContents).toBeArray();
+            });
+
+        });
+
+        describe('startTime:', function() {
+
+            it('should be defined', function () {
+                expect(viewModel.startTime).toBeDefined();
             });
 
         });
@@ -353,6 +362,18 @@
                         });
                     });
 
+                    it('should set startTime', function () {
+                        viewModel.startTime = null;
+
+                        var promise = viewModel.activate(objectiveId, questionId);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.startTime).not.toBeNull();
+                        });
+                    });
                 });
 
             });
@@ -581,6 +602,25 @@
                 viewModel.navigateNext();
 
                 expect(router.navigate).toHaveBeenCalledWith('objectives');
+            });
+
+        });
+
+        describe('deactivate', function () {
+
+            it('should be function', function () {
+                expect(viewModel.deactivate).toBeFunction();
+            });
+
+            it('should rise event learningContentExperienced', function () {
+                spyOn(eventManager, 'learningContentExperienced');
+                context.course.objectives = objectives;
+                viewModel.objectiveId = objectiveId;
+                viewModel.questionId = objectiveId;
+
+                viewModel.deactivate();
+
+                expect(eventManager.learningContentExperienced).toHaveBeenCalled();
             });
 
         });

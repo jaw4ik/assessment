@@ -9,13 +9,15 @@
             learningContents: [],
             isAnswered: ko.observable(false),
             isCorrect: ko.observable(false),
+            startTime: null,
 
             backToObjectives: backToObjectives,
             submit: submit,
             checkItem: checkItem,
             tryAnswerAgain: tryAnswerAgain,
             navigateNext: navigateNext,
-            activate: activate
+            activate: activate,
+            deactivate: deactivate
         };
 
         viewModel.isCorrectAnswered = ko.computed(function () {
@@ -72,6 +74,7 @@
                 });
                 viewModel.isAnswered(false);
                 viewModel.isCorrect(false);
+                viewModel.startTime = new Date();
             });
         }
 
@@ -138,6 +141,30 @@
 
         function navigateNext() {
             router.navigate('objectives');
+        }
+
+        function deactivate() {
+            var endTime = new Date(),
+
+                objective = _.find(context.course.objectives, function (item) {
+                    return item.id == viewModel.objectiveId;
+                }),
+
+                question = _.find(objective.questions, function (item) {
+                    return item.id == viewModel.questionId;
+                });
+
+            eventManager.learningContentExperienced({
+                objective: {
+                    id: objective.id,
+                    title: objective.title
+                },
+                question: {
+                    id: question.id,
+                    title: question.title
+                },
+                spentTime: endTime - viewModel.startTime
+            });
         }
     }
 );
