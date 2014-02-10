@@ -113,6 +113,14 @@ iframe {
     border: 1px solid #e5e5e5;
 }
 
+    .comment-text-block.placeholder {
+        color: #c4c4c4;
+    }
+
+    .comment-text-block:-ms-input-placeholder {
+        color: #c4c4c4;
+    }
+
     .comment-text-block:focus {
         border: 1px solid rgba(0, 168, 255, 0.75);
         -webkit-box-shadow: 0 0 3px rgba(0, 168, 255, 0.75);

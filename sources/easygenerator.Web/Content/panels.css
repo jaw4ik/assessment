@@ -186,6 +186,14 @@
     border: 1px solid #CAC3BD;
 }
 
+    .feedback-text-block.placeholder {
+        color: #c4c4c4;
+    }
+
+    .feedback-text-block:-ms-input-placeholder {
+        color: #c4c4c4;
+    }
+
     .feedback-text-block:focus {
         border: 1px solid rgba(0, 168, 255, 0.75);
         -webkit-box-shadow: 0 0 3px rgba(0, 168, 255, 0.75);

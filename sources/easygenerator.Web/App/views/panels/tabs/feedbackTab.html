@@ -6,9 +6,9 @@
         <div class="tab-help-info" data-bind="localize: { text: 'feedBackHelp' }">Help us to improve our application</div>
         <form class="feedback-form">
             <!-- ko if: isTryMode -->
-            <input type="text" class="feedback-text-block email" placeholder="Your e-mail..." data-bind="localize: { placeholder: 'yourEmail' }, value: feedbackEmail, valueUpdate: 'afterkeydown'" />
+            <input type="text" class="feedback-text-block email" placeholder="Your e-mail..." data-bind="placeholder: {}, localize: { placeholder: 'yourEmail' }, value: feedbackEmail, valueUpdate: 'afterkeydown'" />
             <!-- /ko -->
-            <textarea class="feedback-text-block message" placeholder="Your message..." data-bind="localize: { placeholder: 'yourMessage' }, value: feedbackMessageFromUser, valueUpdate: 'afterkeydown', css: { error: isFeedbackMessageErrorVisible() }, event: { focus: feedbackMessageFocus }"></textarea>
+            <textarea class="feedback-text-block message" placeholder="Your message..." data-bind="placeholder: {}, localize: { placeholder: 'yourMessage' }, value: feedbackMessageFromUser, valueUpdate: 'afterkeydown', css: { error: isFeedbackMessageErrorVisible() }, event: { focus: feedbackMessageFocus }"></textarea>
             <div class="tab-action-wrapper">
                 <!-- ko if: feedbackSuccessfulySent -->
                 <div class="feedback-status-text pull-left" data-bind="localize: { text: 'successFeedback' }"></div>

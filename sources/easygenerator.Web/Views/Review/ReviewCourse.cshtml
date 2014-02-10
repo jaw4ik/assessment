@@ -22,7 +22,7 @@
                 <div class="comments-expander" data-bind="css: { 'collapsed': !isExpanded(), 'expanded': isExpanded() }"></div>
             </div>
             <form class="add-comment-form">
-                <textarea class="comment-text-block message" placeholder="@Resources.YourMessage" data-bind="value: text, valueUpdate: 'afterkeydown', css: { error: hasValidationError() }, event: { focus: onTextFocused }"></textarea>
+                <textarea class="comment-text-block message" placeholder="@Resources.YourMessage" data-bind="value: text, valueUpdate: 'afterkeydown', css: { error: hasValidationError() }, event: { focus: onTextFocused }, placeholder: {}"></textarea>
                 <div class="comment-action-wrapper">
                     <div class="comment-status-message success" data-bind="visible: isSaved">
                         @Resources.CommentWasSent
@@ -39,7 +39,8 @@
             </form>
         </div>
     </div>
+
+    @Scripts.Render("~/bundles/scripts/review")
+
 </body>
 </html>
-
-@Scripts.Render("~/bundles/scripts/review")

@@ -526,6 +526,7 @@
     <Content Include="Scripts\account\passwordrecovery.spec.js">
       <DependentUpon>passwordrecovery.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\knockoutBindings\placeholderBinding.js" />
     <Content Include="Scripts\review\common.js" />
     <Content Include="Scripts\review\review.js" />
     <Content Include="Scripts\review\review.spec.js">

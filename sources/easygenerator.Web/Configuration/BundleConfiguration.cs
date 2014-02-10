@@ -21,6 +21,7 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/has.js")
                     .Include("~/scripts/moment.js")
                     .Include("~/scripts/moment-lang-nl.js", "~/scripts/moment-lang-de.js")
+                    .Include("~/scripts/jquery.placeholder.js")
                     .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
                 );
 
@@ -41,7 +42,9 @@ namespace easygenerator.Web.Configuration
                    .IncludeDirectory("~/scripts/common", "*.js")
                    .Include("~/scripts/underscore.js")
                    .Include("~/scripts/underscore.extensions.js")
+                   .Include("~/scripts/jquery.placeholder.js")
                    .Include("~/scripts/knockoutBindings/slidingDialogBinding.js")
+                   .Include("~/scripts/knockoutBindings/placeholderBinding.js")
                );
 
             bundles.Add(new StyleBundle("~/Content/css")
