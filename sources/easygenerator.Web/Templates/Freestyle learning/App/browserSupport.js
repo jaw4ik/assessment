@@ -1,7 +1,7 @@
 ﻿define([],
     function () {
         var ua = navigator.userAgent.toLowerCase();
-        debugger;
+        
         var isMobileDevice = (function () {
             if (ua.indexOf("ipod") != -1 ||
                 ua.indexOf("iphone") != -1 ||
