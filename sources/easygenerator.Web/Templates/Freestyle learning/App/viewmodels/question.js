@@ -112,11 +112,12 @@
                 question: new QuestionResultModel({
                     id: question.id,
                     title: question.title,
-                    answers: _.map(viewModel.aswers, function (item) {
+                    answers: _.map(viewModel.answers, function (item) {
                         return {
                             id: item.id,
+                            text: item.text,
                             isCorrect: item.isCorrect,
-                            isChecked: item.isChecked
+                            isChecked: item.isChecked()
                         };
                     }),
                     score: question.score,

@@ -29,7 +29,7 @@
         var getSelectedAnswersId = function () {
             return _.chain(this.answers)
                 .filter(function (item) {
-                    return item.isChecked();
+                    return item.isChecked;
                 })
                 .map(function (item) {
                     return item.id;
