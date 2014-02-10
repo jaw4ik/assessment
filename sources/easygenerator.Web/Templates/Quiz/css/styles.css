@@ -448,6 +448,7 @@ body {
     padding: 20px;
     border-bottom: 1px solid #c1c5ca;
     word-wrap: break-word;
+    overflow-x: auto;
 }
 
 .content-block {
@@ -566,6 +567,7 @@ body {
 
 .learning-contents-list-item {
     overflow: hidden;
+    overflow-x: auto;
     word-wrap: break-word;
 }
 

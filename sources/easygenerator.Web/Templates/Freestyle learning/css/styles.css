@@ -502,6 +502,7 @@ input[type="checkbox"] {
     padding: 10px 40px 20px;
     border-bottom: 1px solid #E0E0E0;
     word-wrap: break-word;
+    overflow-x: auto;
 }
 
 .question-answers {
@@ -673,6 +674,7 @@ input[type="checkbox"] {
         padding: 20px 5px;
         word-wrap: break-word;
         overflow: hidden;
+        overflow-x: auto;
     }
 
         .learning-content-items .learning-content-item + .learning-content-item {
