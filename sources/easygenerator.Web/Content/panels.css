@@ -17,10 +17,10 @@
     -webkit-transform: rotate(270.0deg);
     -ms-transform: rotate(270.0deg);
     transform: rotate(270.0deg);
-    -webkit-transform-origin: 200px 200px;
-    -ms-transform-origin: 200px 200px;
-    -moz-transform-origin: 200px 200px;
-    transform-origin: 200px 200px;
+    -webkit-transform-origin: 300px 300px;
+    -ms-transform-origin: 300px 300px;
+    -moz-transform-origin: 300px 300px;
+    transform-origin: 300px 300px;
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     -ms-backface-visibility: hidden;
@@ -30,7 +30,7 @@
     cursor: default;
     color: #5c5c5c;
     height: 30px;
-    margin-right: 75px;
+    margin-right: -82px;
 }
 
 .tab-headers {
@@ -74,7 +74,7 @@
 .tab {
     position: absolute;
     min-height: 490px;
-    top: 102px;
+    top: 148px;
     bottom: 0;
     right: 0;
     left: 30px;
@@ -379,6 +379,8 @@
     font-size: 12px;
     font-family: 'OpenSans';
     color: #303133;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .review-comment-date {
