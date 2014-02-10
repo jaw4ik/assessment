@@ -1146,6 +1146,10 @@ a.top-navigation-item:hover {
     border-radius: 20px;
 }
 
+.entity-content-action-wrapper:hover {
+    background-color: rgb(242, 242, 242);
+}
+
 .entity-content-action {
     font-size: 13px;
     font-family: 'OpenSans-Semibold';
