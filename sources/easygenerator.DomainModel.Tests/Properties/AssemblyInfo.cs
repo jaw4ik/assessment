@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ISM eCompany")]
 [assembly: AssemblyProduct("easygenerator.DomainModel.Tests")]
-[assembly: AssemblyCopyright("Copyright © ISM eCompany 2013")]
+[assembly: AssemblyCopyright("Copyright © ISM eCompany 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
