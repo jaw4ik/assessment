@@ -907,6 +907,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     border-top: none;
     padding: 30px;
     word-wrap: break-word;
+    overflow-x: auto;
 }
 
 .intro-header {
