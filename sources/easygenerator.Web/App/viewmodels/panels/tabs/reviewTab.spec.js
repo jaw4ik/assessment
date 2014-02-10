@@ -3,8 +3,8 @@
 
         var router = require('plugins/router'),
             constants = require('constants'),
-            clientContext = require('clientContext'),
             repository = require('repositories/courseRepository'),
+            commentRepository = require('repositories/commentRepository'),
             eventTracker = require('eventTracker'),
             app = require('durandal/app');
 
@@ -26,7 +26,7 @@
                 expect(viewModel).toBeObject();
             });
 
-            describe('isDelivering', function () {
+            describe('isDelivering:', function () {
                 it('should be computed', function () {
                     expect(viewModel.isDelivering).toBeComputed();
                 });
@@ -287,9 +287,13 @@
             describe('activate:', function () {
                 var courseId = 'courseId';
                 var dataDeferred, dataPromise;
+                var getCommentsCollectionDefer;
+
                 beforeEach(function() {
                     dataDeferred = Q.defer();
                     dataPromise = dataDeferred.promise;
+                    getCommentsCollectionDefer = Q.defer();
+                    spyOn(commentRepository, 'getCollection').andReturn(getCommentsCollectionDefer.promise);
                 });
 
                 it('should be function', function () {
@@ -405,6 +409,86 @@
                             });
                         });
 
+                        describe('and when all viewModel fields are filled', function() {
+
+                            beforeEach(function () {
+                                activationData.courseId = course.id;
+                                dataDeferred.resolve(activationData);
+                            });
+
+                            it('should set isCommentsLoading to true', function () {
+                                var promise = viewModel.activate(dataPromise);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.isCommentsLoading()).toBeTruthy();
+                                });
+                            });
+
+                            it('should get comments collection', function () {
+                                var promise = viewModel.activate(dataPromise);
+                                
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(commentRepository.getCollection).toHaveBeenCalledWith(course.id);
+                                });
+                            });
+
+                            describe('and when repository was rejected', function () {
+
+                                beforeEach(function() {
+                                    getCommentsCollectionDefer.reject();
+                                });
+
+                                it('should set isCommentsLoading to false', function () {
+                                    var promise = viewModel.activate(dataPromise);
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(viewModel.isCommentsLoading()).toBeFalsy();
+                                    });
+                                });
+
+                            });
+
+                            describe('and when repository was resolved', function() {
+
+                                var comments = [{ id: '0' }, {id: '1'}];
+                                beforeEach(function() {
+                                    getCommentsCollectionDefer.resolve(comments);
+                                });
+
+                                it('should set viewModel.comments', function() {
+                                    var promise = viewModel.activate(dataPromise);
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(viewModel.comments()).toBe(comments);
+                                    });
+                                });
+
+                                it('should set isCommentsLoading to false', function () {
+                                    var promise = viewModel.activate(dataPromise);
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(viewModel.isCommentsLoading()).toBeFalsy();
+                                    });
+                                });
+
+                            });
+
+                        });
                     });
                 });
             });
@@ -413,6 +497,22 @@
                 it('should be observable', function () {
                     expect(viewModel.isActive).toBeObservable();
                 });
+            });
+
+            describe('comments:', function() {
+
+                it('should be observable array', function() {
+                    expect(viewModel.comments).toBeObservableArray();
+                });
+
+            });
+
+            describe('isCommentsLoading:', function() {
+
+                it('should be observable', function() {
+                    expect(viewModel.isCommentsLoading).toBeObservable();
+                });
+
             });
 
             describe('when course build was started', function () {

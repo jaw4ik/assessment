@@ -1,5 +1,5 @@
-﻿define(['constants', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'plugins/router', 'guard'],
-    function (constants, app, notify, eventTracker, repository, router, guard) {
+﻿define(['constants', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'repositories/commentRepository', 'plugins/router', 'guard'],
+    function (constants, app, notify, eventTracker, repository, commentRepository, router, guard) {
 
         var events = {
             updateCourseForReview: 'Update course for review',
@@ -14,7 +14,9 @@
             openCourseReviewUrl: openCourseReviewUrl,
             updateCourseForReview: updateCourseForReview,
             isActive: ko.observable(false),
-            courseId: null
+            courseId: null,
+            comments: ko.observableArray(),
+            isCommentsLoading: ko.observable()
         };
 
         viewModel.isDelivering = ko.computed(function () {
@@ -100,6 +102,15 @@
                     viewModel.courseId = data.courseId;
                     viewModel.reviewUrl(data.reviewUrl);
                     viewModel.state(viewModel.reviewUrlExists() ? constants.deliveringStates.succeed : constants.deliveringStates.failed);
+
+                    viewModel.isCommentsLoading(true);
+                    commentRepository.getCollection(data.courseId)
+                        .then(function (comments) {
+                            viewModel.comments(comments);
+                        })
+                        .fin(function () {
+                            viewModel.isCommentsLoading(false);
+                        });
                 });
             });
         }

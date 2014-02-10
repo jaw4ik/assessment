@@ -1,6 +1,30 @@
-﻿<section>
+﻿<section class="review-comments-section" data-bind="css: { empty: !reviewUrlExists() }">
     <div class="tab-title">
-        <div class="tab-title-text" data-bind="localize: { text: 'reviewTabTitle' }">Share course for review</div>
+        <div class="tab-title-text" data-bind="localize: { text: 'reviewTabTitle' }">Comments</div>
+        <div class="tab-title-remain-space"></div>
+    </div>
+
+    <div class="review-comments-block">
+        <!-- ko if: isCommentsLoading -->
+        <div class="review-comments-block-loader"></div>
+        <!-- /ko -->
+        <!-- ko ifnot: isCommentsLoading -->
+            <!-- ko foreach: comments -->
+            <div class="review-comment">
+                <div class="review-comment-text">
+                    "<span data-bind="text: text"></span>"
+                </div>
+                <!--<div class="review-comment-date" data-bind="text: time + ' ' + date"></div>-->
+                <div class="review-comment-date">
+                    <span data-bind="date: { value: createdOn, formatString: 'hh:mm A' }"></span>
+                    <span data-bind="date: { value: createdOn, formatString: 'D/M/YYYY' }"></span>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko ifnot: comments().length -->
+            <div class="no-comments" data-bind="localize: { title: 'reviewNoComments' }">No comments yet</div>
+            <!-- /ko -->
+        <!-- /ko -->
     </div>
     <div class="tab-content">
         <div class="tab-help-info" data-bind="localize: { text: 'reviewTabHelp' }">

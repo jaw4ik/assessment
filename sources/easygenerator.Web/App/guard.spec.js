@@ -3,20 +3,20 @@
 
     describe('[guard]', function () {
 
-        describe('throwIfNotAnObject:', function() {
+        describe('throwIfNotAnObject:', function () {
 
-            describe('when argument is not an object', function() {
+            describe('when argument is not an object', function () {
 
                 it('should throw exception with message', function () {
                     var message = 'message';
-                    var f = function() {
+                    var f = function () {
                         guard.throwIfNotAnObject(null, message);
                     };
                     expect(f).toThrow(message);
                 });
 
             });
-            
+
             describe('when argument is an object', function () {
 
                 it('should not throw exception with message', function () {
@@ -30,8 +30,8 @@
 
         });
 
-        describe('throwIfNotString', function () {
-            
+        describe('throwIfNotString:', function () {
+
             describe('when argument is not a string', function () {
 
                 it('should throw exception with message', function () {
@@ -54,10 +54,10 @@
                 });
 
             });
-            
+
         });
 
-        describe('throwIfNotBoolean', function () {
+        describe('throwIfNotBoolean:', function () {
 
             describe('when argument is not a boolean', function () {
 
@@ -76,6 +76,37 @@
                 it('should not throw exception', function () {
                     var f = function () {
                         guard.throwIfNotBoolean(true, '');
+                    };
+                    expect(f).not.toThrow();
+                });
+
+            });
+
+        });
+
+        describe('throwIfNotDate:', function () {
+
+            it('should be function', function () {
+                expect(guard.throwIfNotDate).toBeFunction();
+            });
+
+            describe('when argument is not a date', function () {
+
+                it('should throw exception with message', function () {
+                    var message = 'error message';
+                    var f = function () {
+                        guard.throwIfNotDate(null, message);
+                    };
+                    expect(f).toThrow(message);
+                });
+
+            });
+
+            describe('when argument is a date', function() {
+
+                it('should not throw exception', function() {
+                    var f = function () {
+                        guard.throwIfNotDate(new Date());
                     };
                     expect(f).not.toThrow();
                 });

@@ -836,7 +836,7 @@
     
     /* Resource section for model Copyright */
     CopyrightText: {
-        en: 'Copyright © 2014 easygenerator. All rights reserved.'
+        en: 'Copyright © 2013 easygenerator. All rights reserved.'
     },
     /* End resource section for model Copyright */
     
@@ -1049,7 +1049,7 @@
         en: 'Review'
     },
     reviewTabTitle: {
-        en: 'Share course for review'
+        en: 'Comments'
     },
     reviewTabHelp: {
         en: 'Share this course with a private link and allow commenting'
@@ -1065,6 +1065,9 @@
     },
     reviewPublishingCourse: {
         en: 'publishing...'
+    },
+    reviewNoComments: {
+        en: 'No comments yet'
     },
     /* End resource section for model Review */
     

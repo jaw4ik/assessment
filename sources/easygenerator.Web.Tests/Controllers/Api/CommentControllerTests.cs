@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
@@ -84,7 +85,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.Name.Returns("Test user");
             var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
             var comment = Substitute.For<Comment>("Comment", CreatedBy);
-            
+
             _entityFactory.Comment(text, user).Returns(comment);
 
             //Act
@@ -94,6 +95,33 @@ namespace easygenerator.Web.Tests.Controllers.Api
             result.Should()
                 .BeJsonSuccessResult()
                 .And.Data.ShouldBeSimilar(true);
+        }
+
+        #endregion
+
+        #region GetComments
+
+        [TestMethod]
+        public void GetComments_ShouldReturnHttpNotFound_WhenCourseIsNull()
+        {
+            //Act
+            var result = _controller.GetComments(null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
+        public void GetComments_ShouldReturnJsonSuccessResult_WhenCourseNotNull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = _controller.GetComments(course);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion

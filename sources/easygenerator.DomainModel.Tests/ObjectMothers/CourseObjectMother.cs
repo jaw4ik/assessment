@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Collections.Generic;
+using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers
 {
@@ -20,6 +21,16 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
         public static Course CreateWithTemplate(Template template, string title = Title, string createdBy = CreatedBy)
         {
             return new Course(title, template, createdBy);
+        }
+
+        public static Course CreateWithComments(IEnumerable<Comment> comments)
+        {
+            var course = Create();
+            foreach (var comment in comments)
+            {
+                course.AddComment(comment);
+            }
+            return course;
         }
 
         public static Course Create(string title = Title, string createdBy = CreatedBy)

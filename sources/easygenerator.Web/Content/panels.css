@@ -3,7 +3,6 @@
 .panel-right {
     position: fixed;
     top: 0px;
-    margin-top: 148px;
     min-height: 100%;
     height: 100%;
     width: 330px;
@@ -31,7 +30,7 @@
     cursor: default;
     color: #5c5c5c;
     height: 30px;
-    margin-right: -28px;
+    margin-right: 75px;
 }
 
 .tab-headers {
@@ -74,12 +73,13 @@
 
 .tab {
     position: absolute;
-    top: 0px;
+    min-height: 490px;
+    top: 102px;
+    bottom: 0;
+    right: 0;
     left: 30px;
+    overflow: hidden;
     background-color: #f4f4f4;
-    width: 300px;
-    height: 100%;
-    float: right;
     border-left: 1px solid #CECECE;
     border-top: 1px solid #CECECE;
     border-top-left-radius: 10px;
@@ -98,17 +98,47 @@
 /*#region Tabs*/
 
 .tab-title {
-    background-color: white;
+    width: 100%;
     height: 40px;
-    border-bottom: 1px solid #DFDFDF;
-    border-top-left-radius: 10px;
 }
 
 .tab-title-text {
-    border-right: 1px solid #DFDFDF;
     display: inline-block;
+    float: left;
     line-height: 40px;
-    padding: 0px 22px;
+    padding: 0 15px 0 40px;
+    border-right: 1px solid #DFDFDF;
+}
+
+    .tab-title-text:before {
+        content: '';
+        display: block;
+        width: 22px;
+        height: 23px;
+        position: absolute;
+        left: 15px;
+        top: 7px;
+        background: url(../Content/images/sprites.png);
+    }
+
+    .review-comments-section .tab-title-text:before {
+        background-position: -219px -213px;
+    }
+
+    .feedback-section .tab-title-text:before {
+         background-position: -242px -221px;
+    }
+
+.tab-title-remain-space {
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #DFDFDF;
+}
+
+.tab-title-text,
+.tab-title-remain-space {
+    background-color: #FFF;
+    border-top-left-radius: 10px;
 }
 
 .tab-help-info {
@@ -117,7 +147,13 @@
 }
 
 .tab-content {
-    padding: 22px 10px 0px 10px;
+    padding: 10px 10px 0px 10px;
+}
+
+.tab-description {
+    background-color: #FFF;
+    padding: 15px 10px;
+    border-bottom: 1px solid #E2E2E2;
 }
 
 .tab-action-wrapper {
@@ -294,5 +330,83 @@
     width: 130px;
 }
 
+
+.review-comments-section {
+    height: 100%;
+    position: relative;
+}
+
+    .review-comments-section .tab-title,
+    .review-comments-section .review-comments-block,
+    .review-comments-section .tab-content {
+        position: absolute;
+    }
+
+    .review-comments-section .review-comments-block {
+        position: absolute;
+        width: 100%;
+        top: 40px;
+        bottom: 190px;
+        overflow: auto;
+    }
+
+    .review-comments-section.empty .review-comments-block {
+        bottom: 145px;
+    }
+
+    .review-comments-section .tab-content {
+        bottom: 0;
+        height: 190px;
+        box-shadow: 0px 0px 5px 1px #CECECE;
+        border-top: 1px solid #CECECE;
+    }
+
+    .review-comments-section.empty .tab-content {
+        height: 145px;
+    }
+
+.review-comments-block {
+    background-color: #FFF;
+}
+
+.review-comment {
+    padding: 13px 10px 10px 10px;
+    border-bottom: 1px solid #E2E2E2;
+}
+
+.review-comment-text {
+    padding-bottom: 5px;
+    font-size: 12px;
+    font-family: 'OpenSans';
+    color: #303133;
+}
+
+.review-comment-date {
+    text-align: right;
+    font-size: 11px;
+    font-family: 'OpenSansItalic';
+    color: #555555;
+}
+
+.review-comments-block-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    margin: -16px 0 0 -16px;
+    background-image: url('images/buildprogress.gif');
+    background-size: 32px 32px;
+}
+
+.review-comments-block .no-comments {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    color: #999999;
+    margin-top: -18px;
+}
 /*#endregion Review tab*/
+
 

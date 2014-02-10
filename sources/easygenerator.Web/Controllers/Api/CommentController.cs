@@ -36,5 +36,24 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(true);
         }
+
+        [HttpPost]
+        [Route("api/comments")]
+        public ActionResult GetComments(Course course)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            var comments = course.Comments.OrderByDescending(i => i.CreatedOn).Select(i => new
+            {
+                Id = i.Id.ToNString(),
+                Text = i.Text,
+                CreatedOn = i.CreatedOn
+            });
+
+            return JsonSuccess(new { Comments = comments });
+        }
     }
 }
