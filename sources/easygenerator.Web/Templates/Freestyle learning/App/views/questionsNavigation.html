@@ -3,6 +3,6 @@
     <div class="questions-navigation-title"><span>Questions</span></div>
     <!-- /ko -->
     <div class="questions-navigation">
-        <a class="question-navigation-button previous" data-bind="attr: { href: previousQuestionUrl }, css: { disabled: !isPreviousQuestionAvailable() }">&nbsp;</a><span class="questions-counter" data-bind="text: currentQuestionIndex + ' of ' + questionsCount"></span><a class="question-navigation-button" data-bind="attr: { href: nextQuestionUrl }, css: { disabled: !isNextQuestionAvailable() }">&nbsp;</a>
+        <a class="question-navigation-button previous" data-bind="attr: { href: previousQuestionUrl, title: isPreviousQuestionAvailable() ? 'previous question' : '' }, css: { disabled: !isPreviousQuestionAvailable() }">&nbsp;</a><span class="questions-counter" data-bind="text: currentQuestionIndex + ' of ' + questionsCount"></span><a class="question-navigation-button" data-bind="attr: { href: nextQuestionUrl, title: isNextQuestionAvailable() ? 'next question' : '' }, css: { disabled: !isNextQuestionAvailable() }">&nbsp;</a>
     </div>
 </div>
