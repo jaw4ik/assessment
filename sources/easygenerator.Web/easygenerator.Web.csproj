@@ -824,7 +824,12 @@
     <Content Include="Templates\Freestyle learning\App\viewmodels\question.spec.js">
       <DependentUpon>question.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Freestyle learning\App\viewmodels\questionsNavigation.js" />
+    <Content Include="Templates\Freestyle learning\App\viewmodels\questionsNavigation.spec.js">
+      <DependentUpon>questionsNavigation.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Freestyle learning\App\views\introduction.html" />
+    <Content Include="Templates\Freestyle learning\App\views\questionsNavigation.html" />
     <Content Include="Templates\Freestyle learning\App\windowOperations.js" />
     <Content Include="Templates\Freestyle learning\App\windowOperations.spec.js">
       <DependentUpon>windowOperations.js</DependentUpon>
