@@ -27,6 +27,6 @@ CKEDITOR.plugins.setLang( 'image', 'en', {
 	pasteImageInstruction: 'If you want to use an image you found online, paste the URL of this image.',
 	uploadFileTitle: 'Upload from your computer',
 	uploadFileInstruction: 'File size: not more than 10 MB.\nExtensions: jpeg, jpg, png, gif.',
-	chooseImageFromLibraryTitle: 'Paste from image library',
+	chooseImageFromLibraryTitle: 'Choose from image library',
 	chooseImageFromLibraryInstruction: 'Find there the images you have uploaded before.'
 });
