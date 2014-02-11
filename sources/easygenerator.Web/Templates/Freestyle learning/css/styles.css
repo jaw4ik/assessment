@@ -953,3 +953,53 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     }
 
 /*#endregion introduction view*/
+
+/* questions navigation styles */
+
+.questions-navigation-container {
+    float:right;
+    font-family: Arial;
+}
+
+.questions-navigation-title {
+    margin: -4px 0 12px 0;
+    font-size: 20px;
+    color: #555;
+    text-align: center;
+}
+
+.questions-counter {
+    font-size: 16px;
+    color: #777;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+
+.question-navigation-button {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAALCAYAAACtWacbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6REMwNDY5MzM5MjI5MTFFMzhCQTdGN0E1RkJERDZDNzUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6REMwNDY5MzQ5MjI5MTFFMzhCQTdGN0E1RkJERDZDNzUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpEQzA0NjkzMTkyMjkxMUUzOEJBN0Y3QTVGQkRENkM3NSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpEQzA0NjkzMjkyMjkxMUUzOEJBN0Y3QTVGQkRENkM3NSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgGKvSMAAADVSURBVHjabJC9CsIwFIXTWK3gD/oCDg4OOin4BvpQfQShYzdHRwdfwNnNrXO3Dh2CBm2gkDSei0Ha4oFDksOXe2/CGKS13htjjtj24A5ry1o7rarqjtUWRXFCNP4HemmaLgE+Cczz/IBsBPM22E2SZGedsiwLkQ3aoAcHUsqYIMwnoyhaIes3SpVluUXLB0FoHyNawENXoDm8EOKMaAPPGpUAXAlQSt1wXMPz+vC+a3XhnAchhOMbFrCi++zX7/uJExreQS/64/qrmCvru1XXAdJHgAEA3dp1dgOLWqEAAAAASUVORK5CYII=);
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    background-color: #77acc8;
+    display: inline-block;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-position: 10px 8px;
+}
+
+.question-navigation-button.previous {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAALCAYAAABCm8wlAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzE1N0VBNjU5MjM2MTFFM0I2QzRBQThFMzI1Mjk5RjUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzE1N0VBNjY5MjM2MTFFM0I2QzRBQThFMzI1Mjk5RjUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDMTU3RUE2MzkyMzYxMUUzQjZDNEFBOEUzMjUyOTlGNSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDMTU3RUE2NDkyMzYxMUUzQjZDNEFBOEUzMjUyOTlGNSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pm/LMOIAAADMSURBVHjaYmBAAv///xf89+/fnl+/flUDuexAzIQszwCUPAtU9P/nz5+HgVxxqCK45Cyo5JW8vDxboJAcEHPAJCtAkkD6w/Tp032BQhpALATELDB734MUPHjwYBJQUBeIxYCYFWY64+vXr33/Q8G1a9cKgGL86A5kf/HiRRlIwd+/fz+eOnXKE2o/I9wUIOZ8//79NJCi379/P4b6gpUFFgRA/FNQULDs1atXnzZv3nwA6kVmRgZUALKXC4p/A/EXdAUwRUxQU/8BBBgAiHlzQzWDPKwAAAAASUVORK5CYII=);
+    background-position: 9px 8px;
+}
+
+.question-navigation-button:hover {
+    background-color: #519ec7;
+    cursor: pointer;
+}
+
+.question-navigation-button.disabled {
+    background-color: #dedede;
+    cursor: default;
+}
+
+/* end questions navigation styles */
