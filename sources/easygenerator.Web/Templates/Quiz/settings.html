@@ -660,7 +660,7 @@
                 isFailed: ko.observable(false),
                 logoUrl: ko.observable(''),
                 hasLogo: ko.observable(false),
-                hasStarterPlan: ko.observable(false)
+                hasStarterPlan: ko.observable(true)
             };
 
             viewModel.credentialsEnabled = ko.computed(function () {
@@ -733,6 +733,9 @@
                 dataType: 'json',
                 success: function (user) {
                     viewModel.hasStarterPlan(user.accessType >= starterAccessType);
+                },
+                error: function () {
+                    viewModel.hasStarterPlan(false);
                 }
             });
 
