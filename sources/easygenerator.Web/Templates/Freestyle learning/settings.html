@@ -49,6 +49,7 @@
             position: relative;
             margin: 9px;
             padding-left: 25px;
+            -ms-word-break: break-all;
             word-break: break-all;
             font-size: 14px;
             font-weight: 600;
@@ -166,6 +167,7 @@
 
         .content-wrapper {
             padding: 15px 10px 5px;
+            position: relative;
         }
 
         .user-form {
@@ -278,6 +280,7 @@
             width: 30.5%;
             float: left;
             padding: 6px 0;
+            -ms-word-break: break-all;
             word-break: break-all;
         }
 
@@ -471,6 +474,36 @@
             z-index: 1;
             background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QTE2QTNDMUU4OEMwMTFFM0I1RjA5QTI4RDQwODI3NjIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QTE2QTNDMUY4OEMwMTFFM0I1RjA5QTI4RDQwODI3NjIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBMTZBM0MxQzg4QzAxMUUzQjVGMDlBMjhENDA4Mjc2MiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBMTZBM0MxRDg4QzAxMUUzQjVGMDlBMjhENDA4Mjc2MiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgKAp5QAAABBSURBVHjaYvj//z8DEIcDsSiUzQBlg8QYYJIgcBkqIQplg0A4A5rAZTS2KLKRMAlk0xiYGAgBYqwg6Ei83gQIMABcrcC5Xp8FxAAAAABJRU5ErkJggg==) no-repeat;
         }
+
+        .logo-unavailable {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #FFF;
+            opacity: 0.9;
+            z-index: 10;
+        }
+
+            .logo-unavailable .lock {
+                width: 25px;
+                height: 32px;
+                margin: 35px auto 17px;
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAgCAYAAADnnNMGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjExR/NCNwAAAqFJREFUSEu1Vs2OMUEU9W7TmA0JEomNf2sSYUMkWPrdzzzAhI3VrIewk/AAxANggQe4X59ObvetUq3n+5JvcVJV955zT92qbi1ERC+x3+9pPB5TLpej9/d3sizLGbPZLE0mE9rtdjbNrGUYg8DlcqFms0lvb28UDoed4gDWPGc0Gg06n8+2zFzLGDydTpTJZIwFJTiPEXzo9FrAU+B2uzlHITuIRCLU6XRosVjQcrl0RqwRl6bQ3e93u4xaU1kA0+nUFcGoWCz67hDxUqmkGOGedJ6yuF6vFI1GXUE+n6fH42GnVJEE8ngoWAM96kiOIvj+/nbJwHa7tcNe3g/gSR3qyLxCHg6H7j0UCgU75OWCgGNlk9FoZIe8nEJst9vuEwNDmQvCYDBwTVqtlh3ycgqxVqu5xM/PTzvk5YIAPmtRR+YUojT5+PiwQ14uCOD/2oSP6792gouH0b+YQAtUq1U75OUUouzkb4+LO4H+qZNer0dAt9ulVCrltoxHGPF+v++MfoAOI/isRR3OQR/iBMBd6DF+d+QckHO/NTSuCRdgI13AMZnnOcNvrXTyCtKUDUwbAXSzX5tAmEgkqF6vUzKZNHIYurnRhEmSXKlUlCemXC67OQlTd4Gd8IdJ/2WVv9gozEdkOsaQfn4mgDObzRST+XzuFkNe1tFr/vpO0uk0HQ4Hxwgj1lzMdEQSviZcQO4Kn2aY4BOLtTwm05rha2Iq8PX15ZhglHGe+yGwE4nNZuOYrNfrpxxg0gAv70TfJf9rOR6PRo5fV44JkrwLPyLiMGAgJndu6oLrBj7CTIzH47Rarejn58f5gxeLxZx36JUeOeifOtEh4zqH19DLOIPz7p0wURcwEaNfMUBuQM4B5eJlkruTI8eZowM83cCyLPoDQjgPNvAjl64AAAAASUVORK5CYII=) no-repeat;
+            }
+
+            .logo-unavailable .text {
+                text-align: center;
+                font-weight: normal;
+                color: #444444;
+            }
+
+            .logo-unavailable .text a {
+                color: #0084D3;
+            }
+
     </style>
 </head>
 <body>
@@ -490,14 +523,14 @@
             <div class="content-container">
                 <div class="content-header">
                     <div class="page-title-wrapper">
-                        <h1 class="page-title brush">Graphical customization</h1>
+                        <h1 class="page-title brush">Custom course logo</h1>
                     </div>
                 </div>
                 <div class="content-wrapper">
                     <div class="content-row top-row">
                         <label for="imgUrl" class="content-label">Image URL</label>
                         <div class="content-col-right">
-                            <input type="text" class="content-text-input" id="imgUrl" data-bind="value: logoUrl, valueUpdate: ['afterkeydown', 'afterpaste']" />
+                            <input type="text" class="content-text-input" id="imgUrl" data-bind="value: logoUrl, valueUpdate: ['afterkeydown', 'afterpaste'], enable: hasStarterPlan" />
                         </div>
                     </div>
                     <div class="content-row">
@@ -512,10 +545,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="logo-unavailable" data-bind="style: { display: hasStarterPlan() ? 'none' : 'block' }">
+                        <div class="lock"></div>
+                        <div class="text">
+                            Starter plan users only. Please, 
+                            <a href="http://www.easygenerator.com/pricing/" target="_blank">upgrade</a>
+                            to use this functionality
+                        </div>
+                    </div>
                 </div>
                 <div class="content-header">
                     <div class="page-title-wrapper">
-                        <h1 class="page-title settings">Freestyle template settings</h1>
+                        <h1 class="page-title settings">XAPI settings</h1>
                     </div>
                     <div class="info-tooltip-btn">
                         <div class="info-tooltip-wrapper">
@@ -598,14 +639,15 @@
             );
         }
 
-
         $(function () {
-            var courseId = getURLParameter('courseId');
-            var templateId = getURLParameter('templateId');
+            var
+                courseId = getURLParameter('courseId'),
+                templateId = getURLParameter('templateId'),
 
-            var baseURL = location.protocol + "//" + location.host;
-
-            var settingsURL = baseURL + "/api/course/" + courseId + "/template/" + templateId;
+                baseURL = location.protocol + "//" + location.host,
+                settingsURL = baseURL + "/api/course/" + courseId + "/template/" + templateId,
+                
+                starterAccessType = 1;
 
             var viewModel = {
                 enableXAPI: ko.observable(false),
@@ -617,6 +659,7 @@
                 isFailed: ko.observable(false),
                 logoUrl: ko.observable(''),
                 hasLogo: ko.observable(false),
+                hasStarterPlan: ko.observable(false)
             };
 
             viewModel.credentialsEnabled = ko.computed(function () {
@@ -635,7 +678,7 @@
             viewModel.submit = function () {
                 var settings = {
                     logo: {
-                        url: viewModel.logoUrl()
+                        url: viewModel.hasStarterPlan() ? viewModel.logoUrl() : ''
                     },
                     xApi: {
                         enabled: viewModel.enableXAPI(),
@@ -679,6 +722,16 @@
                     viewModel.lapLogin(settings.xApi.lrs.credentials.username || '');
                     viewModel.lapPassword(settings.xApi.lrs.credentials.password || '');
                     viewModel.logoUrl(settings.logo.url || '');
+                }
+            });
+
+            $.ajax({
+                url: baseURL + '/api/identify',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (user) {
+                    viewModel.hasStarterPlan(user.accessType >= starterAccessType);
                 }
             });
 
