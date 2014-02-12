@@ -423,6 +423,7 @@
     padding-left: 12px;
     padding-right: 12px;
     padding-top: 32px;
+    cursor: default;
 }
 
     .review-not-paid-message:before {
