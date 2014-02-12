@@ -20,7 +20,6 @@
 
         return viewModel;
 
-
         function activate(courseId) {
             return userContext.identify().then(function () {
                 return repository.getById(courseId).then(function (course) {
@@ -34,6 +33,5 @@
                 });
             });
         }
-
-
-    })
+    }
+);

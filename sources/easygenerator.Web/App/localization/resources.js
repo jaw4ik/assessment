@@ -1069,6 +1069,12 @@
     reviewNoComments: {
         en: 'No comments yet'
     },
+    reviewNotPaidMessage: {
+        en: 'Starter plan users only. Please <u style=\"color: #2cb7ff;\">upgrade</u> to use this functionality.'
+    },
+    upgradeToStarterPlanToUseCommentsErrorMessage: {
+        en: 'Please upgrade your account to \"Starter plan\" to be able to see comments.'
+    },
     /* End resource section for model Review */
     
     /* Resource section for model Feedback */

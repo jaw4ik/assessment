@@ -1,5 +1,5 @@
-﻿define(['constants', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'repositories/commentRepository', 'plugins/router', 'guard'],
-    function (constants, app, notify, eventTracker, repository, commentRepository, router, guard) {
+﻿define(['constants', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'repositories/commentRepository', 'plugins/router', 'guard', 'userContext'],
+    function (constants, app, notify, eventTracker, repository, commentRepository, router, guard, userContext) {
 
         var events = {
             updateCourseForReview: 'Update course for review',
@@ -16,7 +16,8 @@
             isActive: ko.observable(false),
             courseId: null,
             comments: ko.observableArray(),
-            isCommentsLoading: ko.observable()
+            isCommentsLoading: ko.observable(),
+            hasAccessToComments: userContext.hasStarterAccess
         };
 
         viewModel.isDelivering = ko.computed(function () {
@@ -91,27 +92,34 @@
         }
 
         function activate(dataPromise) {
-            return Q.fcall(function() {
+            return Q.fcall(function () {
                 guard.throwIfNotAnObject(dataPromise, 'Activation data promise is not an object');
 
-                return dataPromise.then(function(data) {
+                return dataPromise.then(function (data) {
                     guard.throwIfNotAnObject(data, 'Activation data is not an object');
                     guard.throwIfNotString(data.courseId, 'Course id is not a string');
 
                     eventTracker.publish(events.openReviewTab);
+
                     viewModel.courseId = data.courseId;
                     viewModel.reviewUrl(data.reviewUrl);
                     viewModel.state(viewModel.reviewUrlExists() ? constants.deliveringStates.succeed : constants.deliveringStates.failed);
 
-                    viewModel.isCommentsLoading(true);
-                    commentRepository.getCollection(data.courseId)
-                        .then(function (comments) {
-                            viewModel.comments(comments);
-                        })
-                        .fin(function () {
-                            viewModel.isCommentsLoading(false);
-                        });
+                    return userContext.identify().then(function() {
+                        if (userContext.hasStarterAccess()) {
+                            return loadComments(viewModel.courseId);
+                        }
+                    });
                 });
+            });
+        }
+
+        function loadComments(courseId) {
+            viewModel.isCommentsLoading(true);
+            return commentRepository.getCollection(courseId).then(function (comments) {
+                viewModel.comments(comments);
+            }).fin(function () {
+                viewModel.isCommentsLoading(false);
             });
         }
     }

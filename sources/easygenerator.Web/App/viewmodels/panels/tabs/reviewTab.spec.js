@@ -6,7 +6,8 @@
             repository = require('repositories/courseRepository'),
             commentRepository = require('repositories/commentRepository'),
             eventTracker = require('eventTracker'),
-            app = require('durandal/app');
+            app = require('durandal/app'),
+            userContext = require('userContext');
 
         describe('viewModel [reviewTab]', function () {
 
@@ -86,7 +87,7 @@
 
                     describe('when course is not delivering', function () {
 
-                        beforeEach(function() {
+                        beforeEach(function () {
                             viewModel.state(constants.deliveringStates.failed);
                         });
 
@@ -285,15 +286,22 @@
             });
 
             describe('activate:', function () {
-                var courseId = 'courseId';
-                var dataDeferred, dataPromise;
-                var getCommentsCollectionDefer;
 
-                beforeEach(function() {
+                var dataDeferred, dataPromise;
+                var getCommentsCollectionDefer,
+                    userContextIdentityDefer;
+
+                beforeEach(function () {
                     dataDeferred = Q.defer();
                     dataPromise = dataDeferred.promise;
+
                     getCommentsCollectionDefer = Q.defer();
+                    userContextIdentityDefer = Q.defer();
+
                     spyOn(commentRepository, 'getCollection').andReturn(getCommentsCollectionDefer.promise);
+                    spyOn(userContext, 'identify').andReturn(userContextIdentityDefer.promise);
+
+                    userContextIdentityDefer.resolve();
                 });
 
                 it('should be function', function () {
@@ -319,7 +327,7 @@
 
                 describe('when activation data is an object', function () {
 
-                    describe('when activation data courseId is not a string', function () {
+                    describe('and activation data courseId is not a string', function () {
                         it('should reject promise with \'Course id is not a string\'', function () {
                             var promise = viewModel.activate(dataPromise);
                             dataDeferred.resolve({ courseId: null });
@@ -333,12 +341,17 @@
                         });
                     });
 
-                    describe('when activation data courseId is a string', function () {
+                    describe('and activation data courseId is a string', function () {
+
                         var activationData = { courseId: 'id' };
+
+                        beforeEach(function () {
+                            dataDeferred.resolve(activationData);
+                        });
 
                         it('should send event \'Open review tab\'', function () {
                             var promise = viewModel.activate(dataPromise);
-                            dataDeferred.resolve(activationData);
+                            getCommentsCollectionDefer.reject();
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -350,7 +363,7 @@
 
                         it('should set courseId to corresponding value', function () {
                             var promise = viewModel.activate(dataPromise);
-                            dataDeferred.resolve(activationData);
+                            getCommentsCollectionDefer.reject();
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -359,11 +372,11 @@
                                 expect(viewModel.courseId).toBe(activationData.courseId);
                             });
                         });
-                        
+
                         it('should set reviewUrl to corresponding value', function () {
                             activationData.reviewUrl = 'url';
                             var promise = viewModel.activate(dataPromise);
-                            dataDeferred.resolve(activationData);
+                            getCommentsCollectionDefer.reject();
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -373,14 +386,40 @@
                             });
                         });
 
-                        describe('and when activationData reviewUrl is string', function() {
-                            beforeEach(function() {
+                        it('should set isCommentsLoading to true', function () {
+                            spyOn(userContext, 'hasStarterAccess').andReturn(true);
+                            var promise = dataDeferred.promise.fin(function () { });
+                            viewModel.activate(dataPromise);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.isCommentsLoading()).toBeTruthy();
+                            });
+                        });
+
+                        it('should update user identity', function() {
+                            var promise = dataDeferred.promise.fin(function () { });
+                            viewModel.activate(dataPromise);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(userContext.identify).toHaveBeenCalled();
+                            });
+                        });
+
+                        describe('and activationData reviewUrl is string', function () {
+                            beforeEach(function () {
                                 activationData.reviewUrl = 'url';
                             });
 
                             it('should set state to succeed', function () {
                                 var promise = viewModel.activate(dataPromise);
                                 dataDeferred.resolve(activationData);
+                                getCommentsCollectionDefer.reject();
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -391,14 +430,14 @@
                             });
                         });
 
-                        describe('and when activationData reviewUrl is not a string', function () {
+                        describe('and activationData reviewUrl is not a string', function () {
                             beforeEach(function () {
                                 activationData.reviewUrl = null;
                             });
 
                             it('should set state to failed', function () {
                                 var promise = viewModel.activate(dataPromise);
-                                dataDeferred.resolve(activationData);
+                                getCommentsCollectionDefer.reject();
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -409,88 +448,104 @@
                             });
                         });
 
-                        describe('and when all viewModel fields are filled', function() {
+                        describe('and user identity received', function() {
+                            
+                            describe('and user has starter access', function () {
 
-                            beforeEach(function () {
-                                activationData.courseId = course.id;
-                                dataDeferred.resolve(activationData);
-                            });
-
-                            it('should set isCommentsLoading to true', function () {
-                                var promise = viewModel.activate(dataPromise);
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
+                                beforeEach(function () {
+                                    spyOn(userContext, 'hasStarterAccess').andReturn(true);
                                 });
-                                runs(function () {
-                                    expect(viewModel.isCommentsLoading()).toBeTruthy();
-                                });
-                            });
 
-                            it('should get comments collection', function () {
-                                var promise = viewModel.activate(dataPromise);
-                                
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(commentRepository.getCollection).toHaveBeenCalledWith(course.id);
-                                });
-                            });
-
-                            describe('and when repository was rejected', function () {
-
-                                beforeEach(function() {
+                                it('should get comments collection', function () {
+                                    var promise = viewModel.activate(dataPromise);
                                     getCommentsCollectionDefer.reject();
-                                });
-
-                                it('should set isCommentsLoading to false', function () {
-                                    var promise = viewModel.activate(dataPromise);
 
                                     waitsFor(function () {
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(viewModel.isCommentsLoading()).toBeFalsy();
+                                        expect(commentRepository.getCollection).toHaveBeenCalledWith(activationData.courseId);
+                                    });
+                                });
+
+                                describe('and repository was rejected', function () {
+
+                                    beforeEach(function () {
+                                        getCommentsCollectionDefer.reject();
+                                    });
+
+                                    it('should set isCommentsLoading to false', function () {
+                                        var promise = viewModel.activate(dataPromise);
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(viewModel.isCommentsLoading()).toBeFalsy();
+                                        });
+                                    });
+
+                                });
+
+                                describe('and repository was resolved', function () {
+
+                                    var comments = [{ id: '0' }, { id: '1' }];
+                                    beforeEach(function () {
+                                        getCommentsCollectionDefer.resolve(comments);
+                                    });
+
+                                    it('should set comments', function () {
+                                        var promise = viewModel.activate(dataPromise);
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(viewModel.comments()).toBe(comments);
+                                        });
+                                    });
+
+                                    it('should set isCommentsLoading to false', function () {
+                                        var promise = viewModel.activate(dataPromise);
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(viewModel.isCommentsLoading()).toBeFalsy();
+                                        });
+                                    });
+
+                                });
+
+                            });
+
+                            describe('and user has no starter access', function () {
+
+                                beforeEach(function () {
+                                    spyOn(userContext, 'hasStarterAccess').andReturn(false);
+                                });
+
+                                it('should not get comments collection', function () {
+                                    var promise = viewModel.activate(dataPromise);
+                                    getCommentsCollectionDefer.reject();
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(commentRepository.getCollection).not.toHaveBeenCalled();
                                     });
                                 });
 
                             });
 
-                            describe('and when repository was resolved', function() {
-
-                                var comments = [{ id: '0' }, {id: '1'}];
-                                beforeEach(function() {
-                                    getCommentsCollectionDefer.resolve(comments);
-                                });
-
-                                it('should set viewModel.comments', function() {
-                                    var promise = viewModel.activate(dataPromise);
-
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(viewModel.comments()).toBe(comments);
-                                    });
-                                });
-
-                                it('should set isCommentsLoading to false', function () {
-                                    var promise = viewModel.activate(dataPromise);
-
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(viewModel.isCommentsLoading()).toBeFalsy();
-                                    });
-                                });
-
-                            });
 
                         });
                     });
+
                 });
+
             });
 
             describe('isActive:', function () {
@@ -499,18 +554,26 @@
                 });
             });
 
-            describe('comments:', function() {
+            describe('comments:', function () {
 
-                it('should be observable array', function() {
+                it('should be observable array', function () {
                     expect(viewModel.comments).toBeObservableArray();
                 });
 
             });
 
-            describe('isCommentsLoading:', function() {
+            describe('isCommentsLoading:', function () {
 
-                it('should be observable', function() {
+                it('should be observable', function () {
                     expect(viewModel.isCommentsLoading).toBeObservable();
+                });
+
+            });
+
+            describe('hasAccessToComments:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.hasAccessToComments).toBeFunction();
                 });
 
             });

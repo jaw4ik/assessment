@@ -30,5 +30,6 @@ namespace easygenerator.Infrastructure
         public const string CoursePublishFailedResourceKey = "publishFailed";
 
         public const string UpgradeToStarterPlanToUseScormResourceKey = "upgradeToStarterPlanToUseScormErrorMessage";
+        public const string UpgradeToStarterPlanToUseCommentsErrorMessage = "upgradeToStarterPlanToUseCommentsErrorMessage";
     }
 }
