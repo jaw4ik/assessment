@@ -413,7 +413,7 @@
 .review-not-paid-message-wrapper {
     position: absolute;
     top: 50%;
-    height: 70px;
+    height: 88px;
     margin-top: -35px;
 }
 
@@ -422,21 +422,21 @@
     text-align: center;
     padding-left: 12px;
     padding-right: 12px;
-    padding-top: 32px;
+    padding-top: 44px;
     cursor: default;
 }
 
     .review-not-paid-message:before {
-        background: url("images/sprites.png") repeat scroll 50px 0 rgba(0, 0, 0, 0);
+        background: url("images/sprites.png") repeat scroll -3px 51px rgba(0, 0, 0, 0);
         content: "";
         display: block;
-        height: 22px;
+        height: 36px;
         left: 50%;
         margin-left: -5px;
         position: absolute;
         top: 50%;
-        margin-top: -27px;
-        width: 20px;
+        margin-top: -38px;
+        width: 26px;
     }
 
 /*#endregion Review tab*/
