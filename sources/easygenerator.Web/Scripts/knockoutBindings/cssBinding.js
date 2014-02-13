@@ -17,9 +17,8 @@
         $(window).resize(setHeight);
 
         function setHeight() {
-
+            
             var headerHeight = $('.header').height(),
-                topNavHeight = $('.top-navigation').height(),
                 fixedContainerHeight = $(fixedContainer).height() - 9;
 
             if (!_.isEmptyOrWhitespace(value)) {
@@ -33,8 +32,8 @@
                 helpHintHeight = 0;
             }
 
-            $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
-            $(notifyContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
+            $(fixedContainer).css('top', headerHeight + helpHintHeight + 'px');
+            $(notifyContainer).css('top', headerHeight + helpHintHeight + 'px');
             $(notFixedContainer).css('padding-top', fixedContainerHeight + helpHintHeight + 'px');
             $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
             $(backBtn).css('padding-top', parseInt($(fixedContainer).css('top')) + 14 + 'px');

@@ -6,7 +6,7 @@
 }
 
 .main {
-    padding-top: 97px;
+    padding-top: 56px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -56,10 +56,9 @@
 
 .content-holder {
     position: relative;
-    max-width: 1200px;
+    max-width: 1000px;
     min-width: 600px;
     margin: 0 auto;
-    padding: 0 98px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -78,14 +77,10 @@
 /*#region HEADER */
 
 .header {
-    width: 100%;
-    background-color: #303133;
+    min-width: 900px;
+    background-color: rgb(57, 57,57);
     font-family: 'OpenSans';
 }
-
-    .header .content-holder {
-        min-height: 56px;
-    }
 
 .header-logo-holder {
     padding: 14px 0;
@@ -270,7 +265,7 @@
     height: 100%;
     color: rgb(163, 180, 200);
     background-color: rgba(230, 230, 230, 0.1);
-    padding-top: 112px;
+    padding-top: 70px;
     text-align: center;
     z-index: 100;
     cursor: pointer;
@@ -301,34 +296,25 @@
     opacity: 1;
 }
 
-.top-navigation {
-    width: 100%;
-    background: #eae7e4;
-    border-bottom: 1px solid #cdc9c6;
-}
-
 .top-navigation-item {
     display: table-cell;
     min-width: 188px;
-    height: 40px;
+    height: 56px;
     border-bottom: 1px solid transparent;
     vertical-align: middle;
     text-align: center;
-    color: #877f78;
+    color: #d2d2d2;
     font-size: 13px;
     font-family: 'OpenSans-Semibold';
 }
 
 a.top-navigation-item:hover {
-    background: #f3f2f0;
-    color: #544f4b;
-    border-bottom-color: #eae6e3;
+    text-decoration: underline;
 }
 
 .top-navigation-item.current {
-    background: #f7f6f5;
-    border-bottom: 1px solid #bcd643;
-    color: #544f4b;
+    background: rgb(37,37,37);
+    color: #ffffff;
     cursor: default;
 }
 
@@ -342,7 +328,7 @@ a.top-navigation-item:hover {
 
 .view-module > .fixed-container:first-child {
     background: white;
-    top: 97px;
+    top: 56px;
 }
 
 .page-view-caption {
@@ -1188,24 +1174,19 @@ a.top-navigation-item:hover {
 
 /*#endregion ENTITY CONTENT*/
 
-@media (max-width: 1024px) {
+@media (max-width: 1380px) {
 
     /*#region HEADER*/
     .header-logo {
         width: 36px;
     }
-    /*#endregion HEADER*/
 
+    /*#endregion HEADER*/
 }
 
-@media (max-width: 910px ) {
+@media (max-width: 1200px ) {
 
     /*#region HEADER*/
-    .header .content-holder {
-        width: 100%;
-        padding: 0 5px;
-    }
-
     .header-menu-list-item.sign-up {
         padding: 16px 10px;
         font-size: 13px;
@@ -1216,17 +1197,26 @@ a.top-navigation-item:hover {
             font-size: 12px;
             margin-left: 10px;
         }
-
+    
     .header-logo {
         width: 153px;
     }
+
     /*#endregion HEADER*/
 
+    /*#region LAYOUT*/
+    .content-holder {
+        max-width: 796px;
+    }
+    /*#endregion LAYOUT*/
 }
 
-@media (max-width: 720px) {
+@media (max-width: 1145px) {
 
+    /*#region HEADER*/
     .header-logo {
         width: 36px;
     }
+
+    /*#endregion HEADER*/
 }
