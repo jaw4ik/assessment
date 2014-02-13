@@ -1070,7 +1070,7 @@
         en: 'No comments yet'
     },
     reviewNotPaidMessage: {
-        en: 'Starter plan users only. Please <u style=\"color: #2cb7ff;\">upgrade</u> to use this functionality.'
+        en: 'You have to <a target=\"_blank\" href=\"http://www.easygenerator.com/pricing/\">upgrade your account</a> in order to read external review comments'
     },
     upgradeToStarterPlanToUseCommentsErrorMessage: {
         en: 'Please upgrade your account to \"Starter plan\" to be able to see comments.'
