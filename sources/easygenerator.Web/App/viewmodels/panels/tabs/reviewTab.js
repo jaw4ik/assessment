@@ -14,10 +14,7 @@
             openCourseReviewUrl: openCourseReviewUrl,
             updateCourseForReview: updateCourseForReview,
             isActive: ko.observable(false),
-            courseId: null,
-            comments: ko.observableArray(),
-            isCommentsLoading: ko.observable(),
-            hasAccessToComments: userContext.hasStarterAccess
+            courseId: null
         };
 
         viewModel.isDelivering = ko.computed(function () {
@@ -104,22 +101,7 @@
                     viewModel.courseId = data.courseId;
                     viewModel.reviewUrl(data.reviewUrl);
                     viewModel.state(viewModel.reviewUrlExists() ? constants.deliveringStates.succeed : constants.deliveringStates.failed);
-
-                    return userContext.identify().then(function() {
-                        if (userContext.hasStarterAccess()) {
-                            return loadComments(viewModel.courseId);
-                        }
-                    });
                 });
-            });
-        }
-
-        function loadComments(courseId) {
-            viewModel.isCommentsLoading(true);
-            return commentRepository.getCollection(courseId).then(function (comments) {
-                viewModel.comments(comments);
-            }).fin(function () {
-                viewModel.isCommentsLoading(false);
             });
         }
     }

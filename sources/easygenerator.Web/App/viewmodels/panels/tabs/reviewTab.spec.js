@@ -386,31 +386,6 @@
                             });
                         });
 
-                        it('should set isCommentsLoading to true', function () {
-                            spyOn(userContext, 'hasStarterAccess').andReturn(true);
-                            var promise = dataDeferred.promise.fin(function () { });
-                            viewModel.activate(dataPromise);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.isCommentsLoading()).toBeTruthy();
-                            });
-                        });
-
-                        it('should update user identity', function() {
-                            var promise = dataDeferred.promise.fin(function () { });
-                            viewModel.activate(dataPromise);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(userContext.identify).toHaveBeenCalled();
-                            });
-                        });
-
                         describe('and activationData reviewUrl is string', function () {
                             beforeEach(function () {
                                 activationData.reviewUrl = 'url';
@@ -448,100 +423,6 @@
                             });
                         });
 
-                        describe('and user identity received', function() {
-                            
-                            describe('and user has starter access', function () {
-
-                                beforeEach(function () {
-                                    spyOn(userContext, 'hasStarterAccess').andReturn(true);
-                                });
-
-                                it('should get comments collection', function () {
-                                    var promise = viewModel.activate(dataPromise);
-                                    getCommentsCollectionDefer.reject();
-
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(commentRepository.getCollection).toHaveBeenCalledWith(activationData.courseId);
-                                    });
-                                });
-
-                                describe('and repository was rejected', function () {
-
-                                    beforeEach(function () {
-                                        getCommentsCollectionDefer.reject();
-                                    });
-
-                                    it('should set isCommentsLoading to false', function () {
-                                        var promise = viewModel.activate(dataPromise);
-
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(viewModel.isCommentsLoading()).toBeFalsy();
-                                        });
-                                    });
-
-                                });
-
-                                describe('and repository was resolved', function () {
-
-                                    var comments = [{ id: '0' }, { id: '1' }];
-                                    beforeEach(function () {
-                                        getCommentsCollectionDefer.resolve(comments);
-                                    });
-
-                                    it('should set comments', function () {
-                                        var promise = viewModel.activate(dataPromise);
-
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(viewModel.comments()).toBe(comments);
-                                        });
-                                    });
-
-                                    it('should set isCommentsLoading to false', function () {
-                                        var promise = viewModel.activate(dataPromise);
-
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(viewModel.isCommentsLoading()).toBeFalsy();
-                                        });
-                                    });
-
-                                });
-
-                            });
-
-                            describe('and user has no starter access', function () {
-
-                                beforeEach(function () {
-                                    spyOn(userContext, 'hasStarterAccess').andReturn(false);
-                                });
-
-                                it('should not get comments collection', function () {
-                                    var promise = viewModel.activate(dataPromise);
-                                    getCommentsCollectionDefer.reject();
-
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(commentRepository.getCollection).not.toHaveBeenCalled();
-                                    });
-                                });
-
-                            });
-
-
-                        });
                     });
 
                 });
@@ -552,30 +433,6 @@
                 it('should be observable', function () {
                     expect(viewModel.isActive).toBeObservable();
                 });
-            });
-
-            describe('comments:', function () {
-
-                it('should be observable array', function () {
-                    expect(viewModel.comments).toBeObservableArray();
-                });
-
-            });
-
-            describe('isCommentsLoading:', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.isCommentsLoading).toBeObservable();
-                });
-
-            });
-
-            describe('hasAccessToComments:', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.hasAccessToComments).toBeFunction();
-                });
-
             });
 
             describe('when course build was started', function () {

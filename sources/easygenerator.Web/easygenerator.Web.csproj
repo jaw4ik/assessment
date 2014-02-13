@@ -262,6 +262,10 @@
     <Content Include="App\viewmodels\common\contentField.spec.js">
       <DependentUpon>contentField.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\courses\courseComments.js" />
+    <Content Include="App\viewmodels\courses\courseComments.spec.js">
+      <DependentUpon>courseComments.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\deliveringActions\deliveringAction.js" />
     <Content Include="App\viewmodels\courses\deliveringActions\deliveringAction.spec.js">
       <DependentUpon>deliveringAction.js</DependentUpon>
@@ -288,6 +292,7 @@
     <Content Include="App\viewmodels\panels\tabs\reviewTab.spec.js">
       <DependentUpon>reviewTab.js</DependentUpon>
     </Content>
+    <Content Include="App\views\courses\courseComments.html" />
     <Content Include="App\views\panels\sidePanel.html" />
     <Content Include="App\views\panels\tabs\feedbackTab.html" />
     <Content Include="App\views\panels\tabs\reviewTab.html" />
