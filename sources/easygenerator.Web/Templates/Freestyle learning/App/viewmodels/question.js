@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'eventManager', 'context', 'plugins/router', 'models/questionResult'],
-    function (app, eventManager, context, router, QuestionResultModel) {
+﻿define(['eventManager', 'plugins/router', 'repositories/questionRepository'],
+    function (eventManager, router, repository) {
         var viewModel = {
             objectiveId: null,
             questionId: null,
@@ -36,23 +36,8 @@
 
         function activate(objectiveId, questionId) {
             return Q.fcall(function () {
-                var objective = null,
-                    question = null;
-
-                objective = _.find(context.course.objectives, function (item) {
-                    return item.id == objectiveId;
-                });
-
-                if (!objective) {
-                    router.navigate('404');
-                    return;
-                }
-
-                question = _.find(objective.questions, function (item) {
-                    return item.id == questionId;
-                });
-
-                if (!question) {
+                var question = repository.get(objectiveId, questionId);
+                if (question == null) {
                     router.navigate('404');
                     return;
                 }
@@ -60,20 +45,19 @@
                 viewModel.objectiveId = objectiveId;
                 viewModel.questionId = questionId;
                 viewModel.title = question.title;
-                viewModel.content = question.hasContent ? 'content/' + objective.id + '/' + question.id + '/content' : '';
+                viewModel.content = question.hasContent ? 'content/' + objectiveId + '/' + question.id + '/content' : '';
                 viewModel.answers = _.map(question.answers, function (answer) {
                     return {
                         id: answer.id,
                         text: answer.text,
-                        isCorrect: answer.isCorrect,
-                        isChecked: ko.observable(false)
+                        isChecked: ko.observable(answer.isChecked)
                     };
                 });
                 viewModel.learningContents = _.map(question.learningContents, function (item) {
-                    return { view: 'content/' + objective.id + '/' + question.id + '/' + item.id };
+                    return { view: 'content/' + objectiveId + '/' + question.id + '/' + item.id };
                 });
-                viewModel.isAnswered(false);
-                viewModel.isCorrect(false);
+                viewModel.isAnswered(question.isAnswered);
+                viewModel.isCorrect(question.isCorrectAnswered);
                 viewModel.startTime = new Date();
             });
         }
@@ -86,50 +70,19 @@
         }
 
         function submit() {
-            var objective,
-                question,
-                result = 0;
+            var question = repository.get(viewModel.objectiveId, viewModel.questionId);
 
-            viewModel.isAnswered(true);
-
-            if (viewModel.answers.length > 0) {
-                _.each(viewModel.answers, function (answer) {
-                    if (answer.isChecked() == answer.isCorrect) {
-                        result++;
-                    }
-                });
-                result = (result / viewModel.answers.length) * 100;
-            }
-
-            objective = _.find(context.course.objectives, function (item) {
-                return item.id == viewModel.objectiveId;
-            });
-
-            question = _.find(objective.questions, function (item) {
-                return item.id == viewModel.questionId;
-            });
-
-            question.score = result;
-
-            eventManager.answersSubmitted({
-                question: new QuestionResultModel({
-                    id: question.id,
-                    title: question.title,
-                    answers: _.map(viewModel.answers, function (item) {
-                        return {
-                            id: item.id,
-                            text: item.text,
-                            isCorrect: item.isCorrect,
-                            isChecked: item.isChecked()
-                        };
-                    }),
-                    score: question.score,
-                    objectiveId: objective.id,
-                    objectiveTitle: objective.title
+            question.submitAnswer(
+                _.chain(viewModel.answers)
+                .filter(function (item) {
+                    return item.isChecked();
                 })
-            });
+                .map(function (item) {
+                    return item.id;
+                }).value());
 
-            viewModel.isCorrect(question.score == 100);
+            viewModel.isAnswered(question.isAnswered);
+            viewModel.isCorrect(question.isCorrectAnswered);
         }
 
         function tryAnswerAgain() {
@@ -144,27 +97,8 @@
         }
 
         function deactivate() {
-            var endTime = new Date(),
-
-                objective = _.find(context.course.objectives, function (item) {
-                    return item.id == viewModel.objectiveId;
-                }),
-
-                question = _.find(objective.questions, function (item) {
-                    return item.id == viewModel.questionId;
-                });
-
-            eventManager.learningContentExperienced({
-                objective: {
-                    id: objective.id,
-                    title: objective.title
-                },
-                question: {
-                    id: question.id,
-                    title: question.title
-                },
-                spentTime: endTime - viewModel.startTime
-            });
+            var question = repository.get(viewModel.objectiveId, viewModel.questionId);
+            question.learningContentExperienced(new Date() - viewModel.startTime);
         }
     }
 );

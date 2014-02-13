@@ -796,12 +796,22 @@
     <Content Include="Templates\Freestyle learning\App\eventManager.spec.js">
       <DependentUpon>eventManager.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Freestyle learning\App\guard.js" />
+    <Content Include="Templates\Freestyle learning\App\guard.spec.js">
+      <DependentUpon>guard.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Freestyle learning\App\models\answer.js" />
     <Content Include="Templates\Freestyle learning\App\models\course.js" />
     <Content Include="Templates\Freestyle learning\App\models\learningContent.js" />
     <Content Include="Templates\Freestyle learning\App\models\objective.js" />
     <Content Include="Templates\Freestyle learning\App\models\question.js" />
-    <Content Include="Templates\Freestyle learning\App\models\questionResult.js" />
+    <Content Include="Templates\Freestyle learning\App\models\question.spec.js">
+      <DependentUpon>question.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Freestyle learning\App\models\questionEventDataBuilder.js" />
+    <Content Include="Templates\Freestyle learning\App\models\questionEventDataBuilder.spec.js">
+      <DependentUpon>questionEventDataBuilder.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Freestyle learning\App\moduleLoader.js" />
     <Content Include="Templates\Freestyle learning\App\moduleLoader.spec.js">
       <DependentUpon>moduleLoader.js</DependentUpon>
@@ -818,6 +828,14 @@
     <Content Include="Templates\Freestyle learning\App\modules\graphicalCustomization.js" />
     <Content Include="Templates\Freestyle learning\App\modules\graphicalCustomization.spec.js">
       <DependentUpon>graphicalCustomization.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Freestyle learning\App\repositories\objectiveRepository.js" />
+    <Content Include="Templates\Freestyle learning\App\repositories\objectiveRepository.spec.js">
+      <DependentUpon>objectiveRepository.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Freestyle learning\App\repositories\questionRepository.js" />
+    <Content Include="Templates\Freestyle learning\App\repositories\questionRepository.spec.js">
+      <DependentUpon>questionRepository.js</DependentUpon>
     </Content>
     <Content Include="Templates\Freestyle learning\App\settingsReader.js" />
     <Content Include="Templates\Freestyle learning\App\specs.html" />

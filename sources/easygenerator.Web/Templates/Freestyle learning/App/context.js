@@ -23,6 +23,7 @@
                                 questions: _.map(objective.questions, function (question) {
                                     return new Question({
                                         id: question.id,
+                                        objectiveId: objective.id,
                                         title: question.title,
                                         answers: _.map(question.answers, function (answer) {
                                             return new Answer({

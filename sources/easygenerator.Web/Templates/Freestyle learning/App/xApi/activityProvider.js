@@ -84,20 +84,23 @@
             return Q.fcall(function () { });
         }
 
-        function learningContentExperienced(finishedEventData) {
+        function learningContentExperienced(eventData) {
+            var question = eventData.question,
+                objective = eventData.objective;
+
             var result = new resultModel({
-                duration: dateTimeConverter.timeToISODurationString(finishedEventData.spentTime),
+                duration: dateTimeConverter.timeToISODurationString(eventData.spentTime),
             });
 
-            var learningContentUrl = activityProvider.rootCourseUrl + '#objective/' + finishedEventData.objective.id + '/question/' + finishedEventData.question.id + '?learningContents';
-            var parentUrl = activityProvider.rootCourseUrl + '#objective/' + finishedEventData.objective.id + '/question/' + finishedEventData.question.id;
-            var groupingUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + finishedEventData.objective.id;
-            var object = createActivity(learningContentUrl, finishedEventData.question.title);
+            var learningContentUrl = activityProvider.rootCourseUrl + '#objective/' + objective.id + '/question/' + question.id + '?learningContents';
+            var parentUrl = activityProvider.rootCourseUrl + '#objective/' + objective.id + '/question/' + question.id;
+            var groupingUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
+            var object = createActivity(learningContentUrl, question.title);
 
             var context = new contextModel({
                 contextActivities: new contextActivitiesModel({
-                    parent: [createActivity(parentUrl, finishedEventData.question.title)],
-                    grouping: [createActivity(groupingUrl, finishedEventData.objective.title)]
+                    parent: [createActivity(parentUrl, question.title)],
+                    grouping: [createActivity(groupingUrl, objective.title)]
                 })
             });
 
@@ -105,12 +108,14 @@
             return requestManager.sendStatement(statement);
         }
 
-        function sendAnsweredQuestionsStatements(finishedEventData) {
-            var question = finishedEventData.question;
+        function sendAnsweredQuestionsStatements(eventData) {
+            var question = eventData.question,
+                objective = eventData.objective;
+            
             var questionUrl = activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id;
             var result = new resultModel({
                 score: new scoreModel(question.score / 100),
-                response: question.getSelectedAnswersId().toString()
+                response: question.selectedAnswersIds.toString()
             });
 
             var object = new activityModel({
@@ -121,7 +126,7 @@
                     },
                     type: "http://adlnet.gov/expapi/activities/cmi.interaction",
                     interactionType: "choice",
-                    correctResponsesPattern: [question.getCorrectAnswersIds().join("[,]")],
+                    correctResponsesPattern: [question.correctAnswersIds.join("[,]")],
                     choices: _.map(question.answers, function (item) {
                         return {
                             id: item.id,
@@ -133,11 +138,11 @@
                 }
             });
 
-            var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + question.objectiveId;
+            var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
 
             var context = new contextModel({
                 contextActivities: new contextActivitiesModel({
-                    parent: [createActivity(parentUrl, question.objectiveTitle)]
+                    parent: [createActivity(parentUrl, objective.title)]
                 })
             });
 
