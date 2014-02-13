@@ -545,7 +545,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="logo-unavailable" data-bind="style: { display: hasStarterPlan() ? 'none' : 'block' }">
+                    <div class="logo-unavailable" data-bind="fadeVisible: !hasStarterPlan()">
                         <div class="lock"></div>
                         <div class="text">
                             Starter plan users only. Please, 
@@ -738,9 +738,19 @@
                 }
             });
 
+            ko.bindingHandlers.fadeVisible = {
+                init: function (element, valueAccessor) {
+                    var value = valueAccessor();
+                    $(element).toggle(ko.unwrap(value));
+                },
+                update: function (element, valueAccessor) {
+                    var value = valueAccessor();
+                    ko.unwrap(value) ? $(element).fadeIn() : $(element).fadeOut();
+                }
+            };
+
             ko.applyBindings(viewModel, $("#settingsForm")[0]);
         });
-
 
     </script>
 
