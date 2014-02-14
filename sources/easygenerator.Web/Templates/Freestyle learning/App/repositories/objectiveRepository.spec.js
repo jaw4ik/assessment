@@ -1,5 +1,4 @@
-﻿define(['repositories/objectiveRepository'], function (repository) {
-    var context = require('context');
+﻿define(['repositories/objectiveRepository', 'context'], function (repository, context) {
 
     describe('repository [objectiveRepository]', function () {
 
@@ -33,7 +32,7 @@
                     });
 
                     it('should return null', function () {
-                        var result = repository.get(objectiveId;
+                        var result = repository.get(objectiveId);
                         expect(result).toBeNull();
                     });
                 });
