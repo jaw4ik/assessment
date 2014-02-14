@@ -53,9 +53,9 @@
     text-decoration: underline;
 }
 
-.help-hint-text a:hover {
-    text-decoration: none;
-}
+    .help-hint-text a:hover {
+        text-decoration: none;
+    }
 
 .help-hint-left {
     float: left;
@@ -79,6 +79,7 @@
     cursor: default;
     opacity: 0.8;
 }
+
     .help-hint-close:after {
         content: '';
         display: block;

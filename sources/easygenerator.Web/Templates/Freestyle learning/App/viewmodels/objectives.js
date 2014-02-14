@@ -3,6 +3,8 @@
 
         var
             objectives = [],
+            courseTitle = "\"" + context.course.title + "\"",
+
             activate = function () {
                 if (this.objectives.length == 0) {
                     this.objectives = _.map(context.course.objectives, function (item) {
@@ -23,7 +25,7 @@
         return {
             activate: activate,
             caption: 'Objectives and questions',
-
+            courseTitle: courseTitle,
             objectives: objectives
         };
     }
