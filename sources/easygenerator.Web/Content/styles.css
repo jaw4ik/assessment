@@ -305,17 +305,18 @@
     text-align: center;
     color: #d2d2d2;
     font-size: 13px;
-    font-family: 'OpenSans-Semibold';
+    font-family: 'OpenSans';
 }
 
 a.top-navigation-item:hover {
-    text-decoration: underline;
+    background: rgb(46,46,46);
 }
 
 .top-navigation-item.current {
     background: rgb(37,37,37);
     color: #ffffff;
     cursor: default;
+    font-family: 'OpenSans-Semibold';
 }
 
     .top-navigation-item.current.cursor-pointer {
