@@ -1,9 +1,8 @@
 ﻿define(['viewmodels/question'], function (viewModel) {
 
-    var context = require('context'),
-        eventManager = require('eventManager'),
-        router = require('plugins/router'),
-        repository = require('repositories/questionRepository');
+    var router = require('plugins/router'),
+        repository = require('repositories/questionRepository'),
+        navigationModule = require('modules/questionsNavigation');
 
     describe('viewModel [question]', function () {
 
@@ -86,6 +85,54 @@
 
         });
 
+        describe('navigationContext:', function () {
+            it('should be defined', function () {
+                expect(viewModel.navigationContext).toBeDefined();
+            });
+        });
+        
+        describe('isNextQuestionAvailable:', function () {
+            it('should be defined function', function () {
+                expect(viewModel.isNextQuestionAvailable).toBeFunction();
+            });
+
+            it('should return false if viewModel.navigationContext.nextQuestionUrl is null', function () {
+                viewModel.navigationContext = { nextQuestionUrl: null };
+                expect(viewModel.isNextQuestionAvailable()).toBeFalsy();
+            });
+                
+            it('should return false if viewModel.navigationContext.nextQuestionUrl is undefined', function () {
+                viewModel.navigationContext = { nextQuestionUrl: undefined };
+                expect(viewModel.isNextQuestionAvailable()).toBeFalsy();
+            });
+                
+            it('should return true if viewModel.navigationContext.nextQuestionUrl is defined', function () {
+                viewModel.navigationContext = { nextQuestionUrl: 'some url' };
+                expect(viewModel.isNextQuestionAvailable()).toBeTruthy();
+            });
+        });
+        
+        describe('isPreviousQuestionAvailable:', function () {
+            it('should be defined function', function () {
+                expect(viewModel.isPreviousQuestionAvailable).toBeFunction();
+            });
+
+            it('should return false if viewModel.navigationContext.previousQuestionUrl is null', function () {
+                viewModel.navigationContext = { previousQuestionUrl: null };
+                expect(viewModel.isPreviousQuestionAvailable()).toBeFalsy();
+            });
+
+            it('should return false if viewModel.navigationContext.previousQuestionUrl is undefined', function () {
+                viewModel.navigationContext = { previousQuestionUrl: undefined };
+                expect(viewModel.isPreviousQuestionAvailable()).toBeFalsy();
+            });
+
+            it('should return true if viewModel.navigationContext.previousQuestionUrl is defined', function () {
+                viewModel.navigationContext = { previousQuestionUrl: 'some url' };
+                expect(viewModel.isPreviousQuestionAvailable()).toBeTruthy();
+            });
+        });
+        
         describe('backToObjectives:', function () {
 
             it('should be a function', function () {
@@ -152,6 +199,38 @@
                     });
                 });
 
+                it('should get navigation context from navigation module for correct objective and question', function() {
+                    spyOn(navigationModule, "getNavigationContext");
+                    var promise = viewModel.activate(objectiveId, questionId);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(navigationModule.getNavigationContext).toHaveBeenCalledWith(objectiveId, questionId, jasmine.any(Function));
+                    });
+                });
+
+                it('should set navigationContext to value returned from navigation module', function () {
+                    var navigationContext = {                            
+                        previousQuestionUrl: 'previousQuestionUrl',
+                        nextQuestionUrl: 'nextQuestionUrl',
+                        questionsCount: 10,
+                        currentQuestionIndex: 1
+                    };
+
+                    spyOn(navigationModule, 'getNavigationContext').andReturn(navigationContext);
+                        
+                    var promise = viewModel.activate(objectiveId, questionId);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.navigationContext).toBe(navigationContext);
+                    });
+                });
+                
                 it('should set objectiveId', function () {
                     viewModel.objectiveId = null;
 
@@ -587,17 +666,27 @@
 
             it('should be a function', function () {
                 expect(viewModel.navigateNext);
+                expect(viewModel.navigateNext).toBeFunction();
             });
 
             it('should navigate to objectives list', function () {
-                spyOn(router, 'navigate');
+                it('should navigate to objectives list if viewModel.isNextQuestionAvailable is false', function () {
+                    viewModel.isNextQuestionAvailable = function() { return false; };
+                    spyOn(router, 'navigate');
 
-                viewModel.navigateNext();
+                    viewModel.navigateNext();
 
-                expect(router.navigate).toHaveBeenCalledWith('objectives');
+                    expect(router.navigate).toHaveBeenCalledWith('objectives');
+                });
+
+                it('should navigate to next question if viewModel.isNextQuestionAvailable is true', function () {
+                    viewModel.isNextQuestionAvailable = function () { return true; };
+                    viewModel.navigationContext = { nextQuestionUrl: 'nextQuestionUrl' };
+                    spyOn(router, 'navigate');
+                    viewModel.navigateNext();
+                    expect(router.navigate).toHaveBeenCalledWith('nextQuestionUrl');
+                });
             });
-
-        });
 
         describe('deactivate', function () {
 

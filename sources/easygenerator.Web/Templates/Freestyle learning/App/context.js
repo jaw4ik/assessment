@@ -51,7 +51,6 @@
 
         return {
             initialize: initialize,
-
             course: course
         };
 

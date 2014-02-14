@@ -7,7 +7,10 @@
                 <span>Back to objectives</span>
             </a>
         </div>
-        <!-- ko compose: { model: 'viewmodels/questionsNavigation', activationData: { objectiveId: objectiveId, questionId: questionId, showTitle: true } } --><!--/ko-->
+        <div class="questions-navigation-container">
+            <div class="questions-navigation-title"><span>Questions</span></div>
+            <!-- ko compose: { view: 'questionsNavigation', preserveContext: true } --><!--/ko-->
+        </div>
     </div>
 
     <div class="content-holder">
@@ -52,7 +55,7 @@
                 <span class="feedback-text">Correct answer</span>
             </div>
             <div class="feedback-btn-holder">
-                <button class="btn-next-question" data-bind="click: navigateNext">Next question</button>
+                <button class="btn-next-question" data-bind="click: navigateNext, text: isNextQuestionAvailable() ? 'Next' : 'Go to learning objectives'">Next</button>
             </div>
         </div>
         <!-- /ko -->
@@ -65,12 +68,14 @@
             <div class="feedback-btn-holder">
                 <button class="btn-try-again" data-bind="click: tryAnswerAgain">Try again</button><!--
                     --><span class="feedback-btn-whitespace"></span><!--
-                        --><button class="btn-next-question" data-bind="click: navigateNext">Next question</button>
+                        --><button class="btn-next-question" data-bind="click: navigateNext, text: isNextQuestionAvailable() ? 'Next' : 'Go to learning objectives'">Next</button>
             </div>
         </div>
         <!-- /ko -->
     </div>
     <div class="navigation-link-container clearfix">
-        <!-- ko compose: { model: 'viewmodels/questionsNavigation', activationData: { objectiveId: objectiveId, questionId: questionId, showTitle: false } } --><!--/ko-->
+        <div class="questions-navigation-container">
+            <!-- ko compose: { view: 'questionsNavigation', preserveContext: true } --><!--/ko-->
+        </div>
     </div>
 </section>

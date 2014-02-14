@@ -1,5 +1,5 @@
-﻿define(['eventManager', 'plugins/router', 'repositories/questionRepository'],
-    function (eventManager, router, repository) {
+﻿define(['eventManager', 'plugins/router', 'repositories/questionRepository', 'modules/questionsNavigation'],
+    function (eventManager, router, repository, navigationModule) {
         var viewModel = {
             objectiveId: null,
             questionId: null,
@@ -10,16 +10,23 @@
             isAnswered: ko.observable(false),
             isCorrect: ko.observable(false),
             startTime: null,
-
-            backToObjectives: backToObjectives,
+            navigationContext: null,
+            
             submit: submit,
             checkItem: checkItem,
             tryAnswerAgain: tryAnswerAgain,
-            navigateNext: navigateNext,
             activate: activate,
             deactivate: deactivate
         };
 
+        viewModel.isNextQuestionAvailable = function () {
+            return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl);
+        };
+
+        viewModel.isPreviousQuestionAvailable = function () {
+            return !_.isNullOrUndefined(viewModel.navigationContext.previousQuestionUrl);
+        };
+        
         viewModel.isCorrectAnswered = ko.computed(function () {
             return viewModel.isAnswered() && viewModel.isCorrect();
         });
@@ -28,11 +35,16 @@
             return viewModel.isAnswered() && !viewModel.isCorrect();
         });
 
-        return viewModel;
-
-        function backToObjectives() {
+        viewModel.backToObjectives = function () {
             router.navigate('objectives');
-        }
+        };
+
+        viewModel.navigateNext = function () {
+            var nextUrl = viewModel.isNextQuestionAvailable() ? viewModel.navigationContext.nextQuestionUrl : 'objectives';
+            router.navigate(nextUrl);
+        };
+        
+        return viewModel;
 
         function activate(objectiveId, questionId) {
             return Q.fcall(function () {
@@ -42,6 +54,7 @@
                     return;
                 }
 
+                viewModel.navigationContext = navigationModule.getNavigationContext(objectiveId, questionId, questionUrlBuilder);
                 viewModel.objectiveId = objectiveId;
                 viewModel.questionId = questionId;
                 viewModel.title = question.title;
@@ -62,6 +75,10 @@
             });
         }
 
+        function questionUrlBuilder(objectiveId, questionId) {
+            return '#/objective/' + objectiveId + '/question/' + questionId;
+        }
+        
         function checkItem(item) {
             if (viewModel.isAnswered())
                 return;
@@ -90,10 +107,6 @@
             _.each(viewModel.answers, function (answer) {
                 answer.isChecked(false);
             });
-        }
-
-        function navigateNext() {
-            router.navigate('objectives');
         }
 
         function deactivate() {
