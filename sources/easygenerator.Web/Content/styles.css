@@ -1198,17 +1198,7 @@ a.top-navigation-item:hover {
             margin-left: 10px;
         }
     
-    .header-logo {
-        width: 153px;
-    }
 
-    /*#endregion HEADER*/
-
-    /*#region LAYOUT*/
-    .content-holder {
-        max-width: 796px;
-    }
-    /*#endregion LAYOUT*/
 }
 
 @media (max-width: 1145px) {
