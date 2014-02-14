@@ -776,8 +776,7 @@ a.top-navigation-item:hover {
 }
 
 /*green button*/
-.btn.green 
-{
+.btn.green {
     background: #B0C93E;
     border-color: #B0C93E;
     border-bottom-color: #899d30;
@@ -785,8 +784,7 @@ a.top-navigation-item:hover {
 
     .btn.green:hover,
     .btn.green.active,
-    .btn.green.active:active
-     {
+    .btn.green.active:active {
         background: #BDD93D;
         border-color: #BDD93D;
         border-bottom-color: #899d30;
@@ -841,13 +839,12 @@ a.top-navigation-item:hover {
         border-color: #b16e3f;
     }
 /*grey button*/
-.btn.grey
-{
+.btn.grey {
     background: #909399;
     border-color: #909399;
     border-bottom-color: #707377;
 }
-    
+
     .btn.grey:hover,
     .btn.grey.active,
     .btn.grey.active:active {
@@ -1133,9 +1130,9 @@ a.top-navigation-item:hover {
     border-radius: 20px;
 }
 
-.entity-content-action-wrapper:hover {
-    background-color: rgb(242, 242, 242);
-}
+    .entity-content-action-wrapper:hover {
+        background-color: rgb(242, 242, 242);
+    }
 
 .entity-content-action {
     font-size: 13px;
@@ -1156,7 +1153,7 @@ a.top-navigation-item:hover {
         margin-top: -7px;
         background: url(images/sprites.png) no-repeat;
     }
-    
+
     .entity-content-action.add:before {
         background: url(images/sprites.png) -23px -231px;
     }
@@ -1198,7 +1195,12 @@ a.top-navigation-item:hover {
             font-size: 12px;
             margin-left: 10px;
         }
-    
+
+    /*#region LAYOUT*/
+    .content-holder {
+        max-width: 800px;
+    }
+    /*#endregion LAYOUT*/
 
 }
 
