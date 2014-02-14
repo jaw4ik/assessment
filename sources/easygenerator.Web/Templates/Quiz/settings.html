@@ -658,7 +658,7 @@
                 lapPassword: ko.observable(),
                 isSaved: ko.observable(false),
                 isFailed: ko.observable(false),
-                logoUrl: ko.observable(''),
+                logoUrl: ko.observable('').extend({ throttle: 300 }),
                 hasLogo: ko.observable(false),
                 hasStarterPlan: ko.observable(true)
             };
