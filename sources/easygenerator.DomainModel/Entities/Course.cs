@@ -23,6 +23,7 @@ namespace easygenerator.DomainModel.Entities
             TemplateSettings = new Collection<CourseTemplateSettings>();
             BuildOn = null;
             IntroductionContent = null;
+            ObjectivesOrder = null;
         }
 
         public virtual Template Template { get; private set; }
@@ -53,9 +54,14 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal virtual ICollection<Objective> RelatedObjectivesCollection { get; set; }
 
+        protected internal string ObjectivesOrder { get; set; }
+
         public IEnumerable<Objective> RelatedObjectives
         {
-            get { return RelatedObjectivesCollection.AsEnumerable(); }
+            get
+            {
+                return GetOrderedRelatedObjectives().AsEnumerable();
+            }
         }
 
         public virtual void RelateObjective(Objective objective, string modifiedBy)
@@ -65,6 +71,10 @@ namespace easygenerator.DomainModel.Entities
 
             if (!RelatedObjectivesCollection.Contains(objective))
             {
+                var objectives = GetOrderedRelatedObjectives();
+                objectives.Insert(0, objective);
+                UpdateObjectivesOrder(objectives, modifiedBy);
+
                 RelatedObjectivesCollection.Add(objective);
             }
 
@@ -76,8 +86,31 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfObjectiveIsInvalid(objective);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
+
+            var objectives = GetOrderedRelatedObjectives();
+            objectives.Remove(objective);
+            UpdateObjectivesOrder(objectives, modifiedBy);
+
             RelatedObjectivesCollection.Remove(objective);
+
             MarkAsModified(modifiedBy);
+        }
+
+
+        public void UpdateObjectivesOrder(ICollection<Objective> objectives, string modifiedBy)
+        {
+            ObjectivesOrder = objectives.Count == 0 ? null : String.Join(",", objectives.Select(i => i.Id).ToArray());
+            MarkAsModified(modifiedBy);
+        }
+
+        private List<Objective> GetOrderedRelatedObjectives()
+        {
+            if (ObjectivesOrder == null)
+            {
+                return RelatedObjectivesCollection.ToList();
+            }
+            var orderedObjectives = ObjectivesOrder.Split(',').Where(e => e != "").ToList();
+            return orderedObjectives.Select(id => RelatedObjectivesCollection.FirstOrDefault(e => e.Id.ToString() == id)).ToList();
         }
 
         public string Title { get; private set; }

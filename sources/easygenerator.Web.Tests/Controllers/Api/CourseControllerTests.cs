@@ -673,7 +673,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Act
             var result = _controller.UpdateIntroductionContent(null, "some user");
 
-            //Assert
+            //Assert 
             result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
         }
 
@@ -705,5 +705,49 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion UpdateContent
+
+        #region UpdateObjectivesOrder
+
+        [TestMethod]
+        public void UpdateObjectivesOrderedList_ShouldReturnHttpNotFound_WhenCourseIsNull()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.UpdateObjectivesOrderedList(null, new List<Objective>());
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
+        public void UpdateObjectivesOrderedList_ShouldCallMethodReorderRelatedObjectives()
+        {
+            //Arrange
+            var course = Substitute.For<Course>();
+            var objectivesCollection = new Collection<Objective>();
+            _user.Identity.Name.Returns("user");
+            //Act
+            _controller.UpdateObjectivesOrderedList(course, objectivesCollection);
+
+            //Assert
+            course.Received().UpdateObjectivesOrder(objectivesCollection, "user");
+        }
+
+        [TestMethod]
+        public void UpdateObjectivesOrderedList_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            //Act
+            var result = _controller.UpdateObjectivesOrderedList(course, new List<Objective>());
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = course.ModifiedOn });
+        }
+
+        #endregion UpdateObjectivesOrder
+
+
     }
 }

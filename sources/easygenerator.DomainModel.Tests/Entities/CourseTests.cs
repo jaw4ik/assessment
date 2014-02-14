@@ -68,6 +68,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.CreatedBy.Should().Be(CreatedBy);
             course.ModifiedBy.Should().Be(CreatedBy);
             course.IntroductionContent.Should().BeNull();
+            course.ObjectivesOrder.Should().BeNull();
         }
 
         #endregion
@@ -114,6 +115,28 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Assert
             course.RelatedObjectives.Should().Contain(objective);
+        }
+
+        [TestMethod]
+        public void RelateObjective_ShouldUpdateObjectivesOrderedList()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+            var objective1 = ObjectiveObjectMother.Create();
+            course.RelatedObjectivesCollection = new Collection<Objective>()
+            {
+                objective
+            };
+            var objectiveCollection = new List<Objective>() { objective };
+            course.UpdateObjectivesOrder(objectiveCollection, ModifiedBy);
+            objectiveCollection.Insert(0, objective1);
+            var result = String.Join(",", objectiveCollection.ConvertAll(o => o.Id.ToString()).ToArray());
+            //Act
+            course.RelateObjective(objective1, ModifiedBy);
+
+            //Assert
+            course.ObjectivesOrder.Should().Be(result);
         }
 
         [TestMethod]
@@ -196,6 +219,25 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Assert
             course.RelatedObjectives.Should().NotContain(objective);
+        }
+
+        [TestMethod]
+        public void UnrelateObjective_ShouldUpdateObjectivesOrderedList()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+            course.RelatedObjectivesCollection = new Collection<Objective>()
+            {
+                objective
+            };
+            var objectiveCollection = new List<Objective>() { objective };
+            course.UpdateObjectivesOrder(objectiveCollection, ModifiedBy);
+            //Act
+            course.UnrelateObjective(objective, ModifiedBy);
+
+            //Assert
+            course.ObjectivesOrder.Should().Be(null);
         }
 
         [TestMethod]
@@ -750,6 +792,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion UpdateIntroductionContent
+
         #region AddComment
 
         [TestMethod]
@@ -785,6 +828,134 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region UpdateObjectivesOrder
+
+        [TestMethod]
+        public void UpdateObjectivesOrderedList_ShouldUpdateObjectivesOrderedList()
+        {
+            //Arrange
+            var user = "some user";
+            var course = CourseObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+            var objective1 = ObjectiveObjectMother.Create();
+            var objectiveCollection = new List<Objective>()
+            {
+                objective,objective1
+            };
+            var result = String.Join(",", objectiveCollection.ConvertAll(o => o.Id.ToString()).ToArray());
+            //Act
+            course.UpdateObjectivesOrder(objectiveCollection, user);
+
+            //Assert
+            course.ObjectivesOrder.Should().Be(result);
+        }
+
+        [TestMethod]
+        public void UpdateObjectivesOrderedList_ShouldUpdateModificationDate()
+        {
+            //Arrange
+            var user = "some user";
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var course = CourseObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(1);
+            DateTimeWrapper.Now = () => dateTime;
+            var objectiveCollection = new List<Objective>()
+            {
+                ObjectiveObjectMother.Create()
+            };
+
+            //Act
+            course.UpdateObjectivesOrder(objectiveCollection, user);
+
+            //Assert
+            course.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdateObjectivesOrderedList_ShouldUpdateModifiedBy()
+        {
+            //Arrange
+            var user = "some user";
+            var course = CourseObjectMother.Create();
+            var objectiveCollection = new List<Objective>()
+            {
+                ObjectiveObjectMother.Create()
+            };
+            //Act
+            course.UpdateObjectivesOrder(objectiveCollection, user);
+
+            //Assert
+            course.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void UpdateObjectivesOrderedList_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var objectiveCollection = new List<Objective>()
+            {
+                ObjectiveObjectMother.Create()
+            };
+
+            //Act
+            Action action = () => course.UpdateObjectivesOrder(objectiveCollection, null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateObjectivesOrderedList_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var objectiveCollection = new List<Objective>()
+            {
+                ObjectiveObjectMother.Create()
+            };
+
+            //Act
+            Action action = () => course.UpdateObjectivesOrder(objectiveCollection, "");
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        #endregion UpdateObjectivesOrder
+
+        #region RelatedObjectives
+
+        [TestMethod]
+        public void RelatedObjectives_ShouldReturnOrderedObjectivesCollection_WhenObjectivesOrderedListNotNull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var objective1 = ObjectiveObjectMother.Create();
+            var objective2 = ObjectiveObjectMother.Create();
+            var orderedCollection = new Collection<Objective>()
+            {
+                objective1,
+                objective2
+            };
+            course.RelatedObjectivesCollection = new Collection<Objective>()
+            {
+                objective2,
+                objective1
+            };
+
+            course.UpdateObjectivesOrder(orderedCollection, "user");
+
+            //Act
+            var result = course.RelatedObjectives;
+
+            //Assert
+            result.First().Id.Should().Be(objective1.Id);
+        }
+
+        #endregion RelatedObjectives
 
     }
 }

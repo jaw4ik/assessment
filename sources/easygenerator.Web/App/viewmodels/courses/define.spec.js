@@ -987,7 +987,7 @@
                         });
                     });
 
-                    it('should set current course objectives sorted by createdOn descending', function () {
+                    it('should set current course objectives', function () {
                         viewModel.connectedObjectives(null);
 
                         var promise = viewModel.activate(course.id);
@@ -997,7 +997,6 @@
                         });
                         runs(function () {
                             expect(viewModel.connectedObjectives().length).toEqual(4);
-                            expect(viewModel.connectedObjectives()).toBeSortedDesc('createdOn');
                         });
                     });
 
@@ -1028,6 +1027,51 @@
 
                 it('should be observable', function() {
                     expect(viewModel.language).toBeObservable();
+                });
+
+            });
+
+            describe('reorderObjectives:', function () {
+
+                var relatedObjectives,
+                    updateObjectiveOrderDefer,
+                    updateObjectiveOrderPromise;
+
+                beforeEach(function () {
+                    relatedObjectives = [
+                        { id: '0', isSelected: ko.observable(true) },
+                        { id: '1', isSelected: ko.observable(false) },
+                        { id: '2', isSelected: ko.observable(true) }
+                    ];
+
+                    viewModel.connectedObjectives(relatedObjectives);
+                    updateObjectiveOrderDefer = Q.defer();
+                    updateObjectiveOrderPromise = updateObjectiveOrderDefer.promise.finally(function () { });
+                    spyOn(repository, 'updateObjectiveOrder').andReturn(updateObjectiveOrderDefer.promise);
+                });
+
+                it('should be function', function() {
+                    expect(viewModel.reorderObjectives).toBeFunction();
+                });
+
+                it('should call repository \"updateObjectiveOrder\" method', function () {
+                    viewModel.reorderObjectives();
+                    expect(repository.updateObjectiveOrder).toHaveBeenCalledWith(viewModel.id, relatedObjectives);
+                });
+
+                describe('when ObjectivesSortedList is updated', function() {
+
+                    it('should show notify saved message', function() {
+                        viewModel.reorderObjectives();
+                        updateObjectiveOrderDefer.resolve();
+                        waitsFor(function() {
+                            return !updateObjectiveOrderPromise.isPending();
+                        });
+                        runs(function() {
+                            expect(notify.saved).toHaveBeenCalled();
+                        });
+                    });
+
                 });
 
             });

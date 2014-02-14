@@ -1172,6 +1172,15 @@ a.top-navigation-item:hover {
 
 /*#endregion ENTITY CONTENT*/
 
+/*#region SORTABLE-LIST*/
+
+.sortable-list-placeholder {
+    border: 1px dashed #2db7ff;
+    border-radius: 4px;
+}
+
+/*#endregion SORTABLE-LIST*/
+
 @media (max-width: 1279px) {
 
     /*#region HEADER*/

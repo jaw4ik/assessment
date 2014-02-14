@@ -168,6 +168,7 @@
     <Content Include="App\bootstrapping\compositionTask.js" />
     <Content Include="App\bootstrapping\errorHandlingTask.js" />
     <Content Include="App\bootstrapping\localizationTask.js" />
+    <Content Include="App\bootstrapping\knockoutBindingsTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.spec.js">
@@ -533,6 +534,10 @@
     <Content Include="Scripts\account\passwordrecovery.spec.js">
       <DependentUpon>passwordrecovery.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="Scripts\knockout-sortable.js" />
+    <Content Include="Scripts\knockout-sortable.min.js" />
     <Content Include="Scripts\knockoutBindings\placeholderBinding.js" />
     <Content Include="Scripts\review\common.js" />
     <Content Include="Scripts\review\review.js" />

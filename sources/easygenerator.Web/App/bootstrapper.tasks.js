@@ -6,7 +6,8 @@
                 require('bootstrapping/localizationTask'),
                 require('bootstrapping/routingTask'),
                 require('bootstrapping/compositionTask'),
-                require('bootstrapping/viewLocatorTask')
+                require('bootstrapping/viewLocatorTask'),
+                require('bootstrapping/knockoutBindingsTask')
             ];
         }
     };

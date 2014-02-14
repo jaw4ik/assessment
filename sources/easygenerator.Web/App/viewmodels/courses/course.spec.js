@@ -222,13 +222,15 @@
 
             describe('navigateToCourses:', function () {
 
+                beforeEach(function() {
+                    spyOn(eventTracker, 'publish');
+                });
+
                 it('should be function', function () {
                     expect(viewModel.navigateToCourses).toBeFunction();
                 });
 
                 it('should send event \'Navigate to courses\'', function () {
-                    spyOn(eventTracker, 'publish');
-
                     viewModel.navigateToCourses();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to courses');
                 });

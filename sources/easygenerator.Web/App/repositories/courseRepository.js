@@ -17,7 +17,7 @@
                     var requestArgs = {
                         courseId: id
                     };
-                    
+
                     return httpWrapper.post('api/courseExists', requestArgs).then(function () {
                         var result = _.find(dataContext.courses, function (item) {
                             return item.id === id;
@@ -122,7 +122,7 @@
                     });
 
                     _.each(relatedObjectives, function (objective) {
-                        course.objectives.push(objective);
+                        course.objectives.unshift(objective);
                     });
 
                     return {
@@ -233,15 +233,15 @@
         },
 
         updateIntroductionContent = function (courseId, introductionContent) {
-            return Q.fcall(function() {
+            return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id is not a string');
 
                 return httpWrapper.post('api/course/updateintroductioncontent', { courseId: courseId, introductionContent: introductionContent })
-                    .then(function(response) {
+                    .then(function (response) {
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
-                        var course = _.find(dataContext.courses, function(item) {
+                        var course = _.find(dataContext.courses, function (item) {
                             return item.id === courseId;
                         });
 
@@ -255,6 +255,39 @@
                         return modifiedOn;
                     });
             });
+        },
+
+        updateObjectiveOrder = function (courseId, objectives) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(courseId, 'Course id is not a string');
+                guard.throwIfNotArray(objectives, 'Objectives to relate are not array');
+
+                var requestArgs = {
+                    courseId: courseId,
+                    objectives: _.map(objectives, function (item) {
+                        return item.id;
+                    })
+                };
+
+                return httpWrapper.post('api/course/updateobjectivesorder', requestArgs).then(function (response) {
+                    guard.throwIfNotAnObject(response, 'Response does not an object');
+                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+
+                    var course = _.find(dataContext.courses, function (course) {
+                        return course.id == courseId;
+                    });
+                    guard.throwIfNotAnObject(course, "Course doesn`t exist");
+
+                    course.objectives = _.map(objectives, function (item) {
+                        return _.find(course.objectives, function (objective) {
+                            return objective.id == item.id;
+                        });
+                    });
+
+                    course.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                    return course.modifiedOn;
+                });
+            });
         };
 
         return {
@@ -265,10 +298,11 @@
             updateCourseTitle: updateCourseTitle,
             updateCourseTemplate: updateCourseTemplate,
             removeCourse: removeCourse,
-            
+
             relateObjectives: relateObjectives,
             unrelateObjectives: unrelateObjectives,
-            updateIntroductionContent: updateIntroductionContent
+            updateIntroductionContent: updateIntroductionContent,
+            updateObjectiveOrder: updateObjectiveOrder
         };
     }
 );

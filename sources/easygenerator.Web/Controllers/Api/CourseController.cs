@@ -13,6 +13,7 @@ using easygenerator.Web.Components;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Publish;
+using Elmah;
 using Microsoft.Ajax.Utilities;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Extensions;
@@ -305,6 +306,20 @@ namespace easygenerator.Web.Controllers.Api
             course.UpdateIntroductionContent(introductionContent, GetCurrentUsername());
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
+        }
+
+        [HttpPost]
+        [Route("api/course/updateobjectivesorder")]
+        public ActionResult UpdateObjectivesOrderedList(Course course, ICollection<Objective> objectives)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            course.UpdateObjectivesOrder(objectives, GetCurrentUsername());
+
+            return JsonSuccess(new {ModifiedOn = course.ModifiedOn});
         }
 
     }

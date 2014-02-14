@@ -5,7 +5,7 @@
 
 /*#region DEFINE STEP*/
 .course .create-new-title {
-    padding: 55px 0;
+    padding: 40px 0;
 }
 
 .course .main-content-list-holder,
@@ -73,6 +73,28 @@
 
     .filter-radio-label.checked:before {
         background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6N0RCQTkwNDY0RDM4MTFFMzgyREZGNUVDODFCMzIxRTkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6N0RCQTkwNDc0RDM4MTFFMzgyREZGNUVDODFCMzIxRTkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3REJBOTA0NDREMzgxMUUzODJERkY1RUM4MUIzMjFFOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3REJBOTA0NTREMzgxMUUzODJERkY1RUM4MUIzMjFFOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pg7pvucAAAB0SURBVHjaYvz//z8DuYCJgQLAAmMwriROw/9wKtmMS3MYEF8B4p9QOgyvs5FACBAje0Ibib+KkM0NOFxTR4yzVXFoViVG820cmm8To7kRh+ZmYjSvBuIIIL4OxL+hdARaIOIMbQaoQoLJhnHA0jZFmgECDABefhfmRLTltwAAAABJRU5ErkJggg==) center center no-repeat;
+    }
+
+    .course .main-content-list .list-item-logo,
+    .course .main-content-list .list-item-logo-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .course .main-content-list .list-item-drag-icon-wrapper {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        width: 18px;
+    }
+
+    .course .main-content-list .list-item-drag-icon {
+        position: relative;
+        display: inline-block;
+        height: 26px;
+        width: 6px;
+        background: url(images/sprites.png) -204px -220px no-repeat;
+        cursor: move;
     }
 
 /*#endregion DEFINE STEP*/

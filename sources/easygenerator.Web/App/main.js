@@ -13,9 +13,6 @@ define('jquery', function () {
 });
 
 define('knockout', function () {
-    ko.validation.configure({
-        insertMessages: false
-    });
     return ko;
 });
 

@@ -2,8 +2,7 @@
     function (repository, CourseModel) {
         "use strict";
 
-        var constants = require('constants'),
-            http = require('plugins/http'),
+        var http = require('plugins/http'),
             httpWrapper = require('httpWrapper'),
             dataContext = require('dataContext');
 
@@ -1646,6 +1645,197 @@
 
                         });
 
+                    });
+
+                });
+
+            });
+
+            describe('updateObjectiveOrder', function () {
+
+                it('should be function', function() {
+                    expect(repository.updateObjectiveOrder).toBeFunction();
+                });
+
+                it('should return promise', function() {
+                    expect(repository.updateObjectiveOrder()).toBePromise();
+                });
+
+                describe('when courseId is not a string', function () {
+
+                    it('should reject promise with reason \'Course id is not a string\'', function () {
+                        var promise = repository.updateObjectiveOrder({}, 'Some content');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('Course id is not a string');
+                        });
+                    });
+
+                });
+
+                describe('when course id is string', function () {
+                    
+                    describe('when objectives is not an array', function () {
+
+                        it('should reject promise', function () {
+                            var promise = repository.updateObjectiveOrder('some course Id', {});
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith('Objectives to relate are not array');
+                            });
+                        });
+
+                    });
+
+                    describe('when objectives is an array', function() {
+                        var objectives, sortedCollection;
+
+                        beforeEach(function () {
+                            objectives = [
+                                {
+                                    0: {
+                                        id: 1
+                                    }
+                                }
+                            ];
+
+                            sortedCollection = _.map(objectives, function (item) {
+                                return item.id;
+                            });
+                        });
+
+                        it('should send request to /api/course/updateobjectivesorder', function () {
+                            var courseId = 'Some id';
+                            var promise = repository.updateObjectiveOrder(courseId, objectives);
+                            httpWrapperPost.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(httpWrapper.post).toHaveBeenCalledWith('api/course/updateobjectivesorder', jasmine.any(Object));
+                                expect(httpWrapper.post.mostRecentCall.args[1].courseId).toEqual(courseId);
+                                expect(httpWrapper.post.mostRecentCall.args[1].objectives).toEqual(sortedCollection);
+                            });
+                        });
+
+                        describe('and request fail', function () {
+
+                            it('should reject promise', function () {
+                                var reason = 'some message';
+                                var promise = repository.updateObjectiveOrder('some id', objectives);
+                                httpWrapperPost.reject(reason);
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith(reason);
+                                });
+                            });
+
+                        });
+
+                        describe('and request success', function () {
+
+                            describe('and response is not an object', function () {
+
+                                it('should reject promise with \'Response does not an object\'', function () {
+                                    var promise = repository.updateObjectiveOrder('some id', objectives);
+                                    httpWrapperPost.resolve(null);
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeRejectedWith('Response does not an object');
+                                    });
+                                });
+
+                            });
+
+                            describe('and response is an object', function () {
+
+                                describe('and response.ModifiedOn is not a string', function () {
+
+                                    it('should reject promise with \'Response does not have modification date\'', function () {
+                                        var promise = repository.updateObjectiveOrder('some id', objectives);
+                                        httpWrapperPost.resolve({ ModifiedOn: null });
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeRejectedWith('Response does not have modification date');
+                                        });
+                                    });
+
+                                });
+
+                                describe('and response.ModifiedOn is a string', function () {
+
+                                    var newModifiedDate;
+
+                                    beforeEach(function () {
+                                        newModifiedDate = "/Date(1378106938845)/";
+                                        httpWrapperPost.resolve({ ModifiedOn: newModifiedDate });
+                                    });
+
+
+                                    describe('and when course is not found in dataContext', function () {
+
+                                        beforeEach(function () {
+                                            dataContext.courses = [];
+                                        });
+
+                                        it('should reject promise with \'Course doesn`t exist\'', function () {
+                                            var promise = repository.updateObjectiveOrder('someid', objectives);
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(promise).toBeRejectedWith('Course doesn`t exist');
+                                            });
+                                        });
+
+                                    });
+
+                                    describe('and when course is found in dataContext', function () {
+
+                                        var course;
+
+                                        beforeEach(function () {
+                                            course = {
+                                                id: 'Some id',
+                                                title: 'Original title',
+                                                modifiedOn: 'Some date1'
+                                            };
+                                            dataContext.courses = [course];
+                                        });
+
+                                        it('should update modifiedDate', function () {
+                                            var promise = repository.updateObjectiveOrder(course.id, objectives);
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(course.modifiedOn).toEqual(utils.getDateFromString(newModifiedDate));
+                                            });
+                                        });
+
+
+                                    });
+
+                                });
+
+                            });
+
+                        });
                     });
 
                 });
