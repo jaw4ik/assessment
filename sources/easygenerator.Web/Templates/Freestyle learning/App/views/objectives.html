@@ -1,8 +1,11 @@
 ﻿<section id="objectivesPage" class="objectives content unselectable">
+    <h1 class="course-title-wrapper">
+        <span>Course: </span><span class="course-caption" data-bind="text: courseTitle"></span>
+    </h1>
     <ul class="unstyled objective-brief-list" data-bind="foreach: objectives">
         <li class="objective-brief-list-item">
             <div class="objective-brief-wrapper">
-                <a class="objective-brief" data-bind="click: toggleExpand, css: { 'shadow-bottom-curve': isExpanded() }">
+                <div class="objective-brief shadow-bottom-curve">
                     <div class="objective-brief-indicator"></div>
                     <div class="objective-brief-image-wrapper">
                         <div class="white-framing">
@@ -11,18 +14,12 @@
                     </div>
                     <div class="objective-brief-title selectable" data-bind="text: title">
                     </div>
-                    <div class="objective-brief-expand-collapse-wrapper">
-                        <div data-bind="css: { 'btn-collapse': isExpanded(), 'btn-expand': !isExpanded() }"></div>
+                    <div class="objective-brief-start-wrapper">
+                        <a class="start-objective-btn" href="#" data-bind="attr: { href: '#/objective/' + questions[0].objectiveId + '/question/' + 1 }">Start objective</a>
                     </div>
-                </a>
+                </div>
             </div>
-            <!-- ko if: isExpanded() -->
-            <ul class="unstyled question-brief-list" data-bind="foreach: questions">
-                <li class="question-brief">
-                    <a class="question-brief-title selectable" href="#" data-bind="text: title, attr: { href: '#/objective/' + $parent.id + '/question/' + id, title: title }"></a>
-                </li>
-            </ul>
-            <!-- /ko -->
         </li>
     </ul>
+    <div class="img-preloader-block"></div>
 </section>
