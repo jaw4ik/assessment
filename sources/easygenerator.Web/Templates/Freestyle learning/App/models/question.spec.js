@@ -1,7 +1,7 @@
 ﻿define(['models/question'], function (QuestionModel) {
 
     var eventManager = require('eventManager'),
-        eventDataBuilder = require('models/questionEventDataBuilder');
+        eventDataBuilder = require('eventDataBuilders/questionEventDataBuilder');
 
     describe('model [question]', function () {
 

@@ -1,4 +1,4 @@
-﻿define(['repositories/objectiveRepository', 'context'], function (repository, context) {
+﻿define(['context', 'repositories/objectiveRepository'], function (context, repository) {
 
     describe('repository [objectiveRepository]', function () {
 

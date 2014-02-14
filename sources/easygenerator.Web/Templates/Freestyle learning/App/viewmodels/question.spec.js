@@ -21,8 +21,10 @@
                     { id: '1' },
                     { id: '2' }
                 ],
-                submitAnswer: function () { },
-                learningContentExperienced: function () { }
+                submitAnswer: function () {
+                },
+                learningContentExperienced: function () {
+                }
             };
 
         it('should be defined', function () {
@@ -90,7 +92,7 @@
                 expect(viewModel.navigationContext).toBeDefined();
             });
         });
-        
+
         describe('isNextQuestionAvailable:', function () {
             it('should be defined function', function () {
                 expect(viewModel.isNextQuestionAvailable).toBeFunction();
@@ -100,18 +102,18 @@
                 viewModel.navigationContext = { nextQuestionUrl: null };
                 expect(viewModel.isNextQuestionAvailable()).toBeFalsy();
             });
-                
+
             it('should return false if viewModel.navigationContext.nextQuestionUrl is undefined', function () {
                 viewModel.navigationContext = { nextQuestionUrl: undefined };
                 expect(viewModel.isNextQuestionAvailable()).toBeFalsy();
             });
-                
+
             it('should return true if viewModel.navigationContext.nextQuestionUrl is defined', function () {
                 viewModel.navigationContext = { nextQuestionUrl: 'some url' };
                 expect(viewModel.isNextQuestionAvailable()).toBeTruthy();
             });
         });
-        
+
         describe('isPreviousQuestionAvailable:', function () {
             it('should be defined function', function () {
                 expect(viewModel.isPreviousQuestionAvailable).toBeFunction();
@@ -132,7 +134,7 @@
                 expect(viewModel.isPreviousQuestionAvailable()).toBeTruthy();
             });
         });
-        
+
         describe('backToObjectives:', function () {
 
             it('should be a function', function () {
@@ -199,7 +201,7 @@
                     });
                 });
 
-                it('should get navigation context from navigation module for correct objective and question', function() {
+                it('should get navigation context from navigation module for correct objective and question', function () {
                     spyOn(navigationModule, "getNavigationContext");
                     var promise = viewModel.activate(objectiveId, questionId);
 
@@ -212,7 +214,7 @@
                 });
 
                 it('should set navigationContext to value returned from navigation module', function () {
-                    var navigationContext = {                            
+                    var navigationContext = {
                         previousQuestionUrl: 'previousQuestionUrl',
                         nextQuestionUrl: 'nextQuestionUrl',
                         questionsCount: 10,
@@ -220,7 +222,7 @@
                     };
 
                     spyOn(navigationModule, 'getNavigationContext').andReturn(navigationContext);
-                        
+
                     var promise = viewModel.activate(objectiveId, questionId);
 
                     waitsFor(function () {
@@ -230,7 +232,7 @@
                         expect(viewModel.navigationContext).toBe(navigationContext);
                     });
                 });
-                
+
                 it('should set objectiveId', function () {
                     viewModel.objectiveId = null;
 
@@ -669,9 +671,9 @@
                 expect(viewModel.navigateNext).toBeFunction();
             });
 
-            it('should navigate to objectives list', function () {
+            describe('should navigate to objectives list', function () {
                 it('should navigate to objectives list if viewModel.isNextQuestionAvailable is false', function () {
-                    viewModel.isNextQuestionAvailable = function() { return false; };
+                    viewModel.isNextQuestionAvailable = function () { return false; };
                     spyOn(router, 'navigate');
 
                     viewModel.navigateNext();
@@ -687,6 +689,8 @@
                     expect(router.navigate).toHaveBeenCalledWith('nextQuestionUrl');
                 });
             });
+
+        });
 
         describe('deactivate', function () {
 
@@ -707,5 +711,4 @@
         });
 
     });
-
 });

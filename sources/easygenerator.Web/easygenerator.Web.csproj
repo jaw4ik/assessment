@@ -797,6 +797,10 @@
     <Content Include="Templates\Freestyle learning\App\browserSupport.js" />
     <Content Include="Templates\Freestyle learning\App\configuration\routes.js" />
     <Content Include="Templates\Freestyle learning\App\context.js" />
+    <Content Include="Templates\Freestyle learning\App\eventDataBuilders\courseEventDataBuilder.js" />
+    <Content Include="Templates\Freestyle learning\App\eventDataBuilders\courseEventDataBuilder.spec.js">
+      <DependentUpon>courseEventDataBuilder.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Freestyle learning\App\eventManager.js" />
     <Content Include="Templates\Freestyle learning\App\eventManager.spec.js">
       <DependentUpon>eventManager.js</DependentUpon>
@@ -807,14 +811,20 @@
     </Content>
     <Content Include="Templates\Freestyle learning\App\models\answer.js" />
     <Content Include="Templates\Freestyle learning\App\models\course.js" />
+    <Content Include="Templates\Freestyle learning\App\models\course.spec.js">
+      <DependentUpon>course.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Freestyle learning\App\models\learningContent.js" />
     <Content Include="Templates\Freestyle learning\App\models\objective.js" />
+    <Content Include="Templates\Freestyle learning\App\models\objective.spec.js">
+      <DependentUpon>objective.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Freestyle learning\App\models\question.js" />
     <Content Include="Templates\Freestyle learning\App\models\question.spec.js">
       <DependentUpon>question.js</DependentUpon>
     </Content>
-    <Content Include="Templates\Freestyle learning\App\models\questionEventDataBuilder.js" />
-    <Content Include="Templates\Freestyle learning\App\models\questionEventDataBuilder.spec.js">
+    <Content Include="Templates\Freestyle learning\App\eventDataBuilders\questionEventDataBuilder.js" />
+    <Content Include="Templates\Freestyle learning\App\eventDataBuilders\questionEventDataBuilder.spec.js">
       <DependentUpon>questionEventDataBuilder.js</DependentUpon>
     </Content>
     <Content Include="Templates\Freestyle learning\App\moduleLoader.js" />
@@ -833,6 +843,10 @@
     <Content Include="Templates\Freestyle learning\App\modules\graphicalCustomization.js" />
     <Content Include="Templates\Freestyle learning\App\modules\graphicalCustomization.spec.js">
       <DependentUpon>graphicalCustomization.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Freestyle learning\App\repositories\courseRepository.js" />
+    <Content Include="Templates\Freestyle learning\App\repositories\courseRepository.spec.js">
+      <DependentUpon>courseRepository.js</DependentUpon>
     </Content>
     <Content Include="Templates\Freestyle learning\App\modules\questionsNavigation.js" />
     <Content Include="Templates\Freestyle learning\App\modules\questionsNavigation.spec.js">
@@ -857,6 +871,9 @@
       <DependentUpon>question.js</DependentUpon>
     </Content>
     
+    <Content Include="Templates\Freestyle learning\App\viewmodels\summary.spec.js">
+      <DependentUpon>summary.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Freestyle learning\App\views\introduction.html" />
     <Content Include="Templates\Freestyle learning\App\views\questionsNavigation.html" />
     <Content Include="Templates\Freestyle learning\App\windowOperations.js" />

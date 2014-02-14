@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'context', 'plugins/router', 'eventManager', 'windowOperations'],
-    function (app, context, router, eventManager, windowOperations) {
+﻿define(['repositories/courseRepository', 'plugins/router', 'windowOperations'],
+    function (repository, router, windowOperations) {
         var
             objectives = [],
             score = 0,
@@ -12,18 +12,18 @@
             status = ko.observable(statuses.readyToFinish),
 
             activate = function () {
-
-                function getObjectiveScore(objective) {
-                    var result = _.reduce(objective.questions, function (memo, question) { return memo + question.score; }, 0);
-                    return result / objective.questions.length;
+                var course = repository.get();
+                if (course == null) {
+                    router.navigate('404');
+                    return;
                 }
 
-                this.objectives = _.map(context.course.objectives, function (item) {
-                    return { id: item.id, title: item.title, score: getObjectiveScore(item) };
-                });
+                course.calculateScore();
 
-                var result = _.reduce(this.objectives, function (memo, objective) { return memo + objective.score; }, 0);
-                this.score = result / this.objectives.length;
+                this.score = course.score;
+                this.objectives = _.map(course.objectives, function (item) {
+                    return { id: item.id, title: item.title, score: item.score };
+                });
             },
 
             navigateBack = function () {
@@ -33,21 +33,11 @@
             finish = function () {
                 status(statuses.sendingRequests);
 
-                var that = this;
-                eventManager.courseFinished({
-                    result: Math.round(that.score) / 100,
-                    objectives: _.map(that.objectives, function (objective) {
-                        return {
-                            id: objective.id,
-                            title: objective.title,
-                            score: objective.score
-                        };
-                    })
-                }, closeCourse);
+                var course = repository.get();
+                course.finish(onCourseFinishedCallback);
             },
 
-            closeCourse = function () {
-                eventManager.turnAllEventsOff();
+            onCourseFinishedCallback = function () {
                 status(statuses.finished);
                 windowOperations.close();
             };

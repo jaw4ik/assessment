@@ -1,4 +1,4 @@
-﻿define(['eventManager', 'guard', 'models/questionEventDataBuilder'], function (eventManager, guard, eventDataBuilder) {
+﻿define(['eventManager', 'guard', 'eventDataBuilders/questionEventDataBuilder'], function (eventManager, guard, eventDataBuilder) {
 
     var model = function (spec) {
         return {

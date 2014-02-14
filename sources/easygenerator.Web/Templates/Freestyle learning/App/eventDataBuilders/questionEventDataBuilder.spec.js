@@ -1,4 +1,4 @@
-﻿define(['models/questionEventDataBuilder'], function (eventDataBuilder) {
+﻿define(['eventDataBuilders/questionEventDataBuilder'], function (eventDataBuilder) {
 
     var objectiveRepository = require('repositories/objectiveRepository');
 

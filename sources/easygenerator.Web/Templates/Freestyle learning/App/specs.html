@@ -71,11 +71,16 @@
                 'viewmodels/question.spec',
                 'viewmodels/introduction.spec',
                 'modules/questionsNavigation.spec',
+                'viewmodels/summary.spec',
                 'modules/graphicalCustomization.spec',
+                'models/course.spec',
+                'models/objective.spec',
                 'models/question.spec',
-                'models/questionEventDataBuilder.spec',
+                'eventDataBuilders/questionEventDataBuilder.spec',
+                'eventDataBuilders/courseEventDataBuilder.spec',
                 'repositories/questionRepository.spec',
-                'repositories/objectiveRepository.spec'
+                'repositories/objectiveRepository.spec',
+                'repositories/courseRepository.spec'
             ];
 
             require(specs, function () {
