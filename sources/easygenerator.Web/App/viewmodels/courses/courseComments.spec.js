@@ -46,9 +46,14 @@
 
                 it('should set comment loading flag', function () {
                     viewModel.isCommentsLoading(false);
-                    viewModel.activate('123');
+                    var promise = viewModel.activate('123');
 
-                    expect(viewModel.isCommentsLoading()).toBeTruthy();
+                    waitsFor(function() {
+                        return !promise.isPending();
+                    });
+                    runs(function() {
+                        expect(viewModel.isCommentsLoading()).toBeTruthy();
+                    });
                 });
 
                 it('should update user identity', function () {
