@@ -170,12 +170,37 @@
                     });
                 });
 
-                describe('when not all of answers checked correct', function () {
+                describe('when answers checked partually correct', function () {
                     var answersIds = ['0', '1'];
-                    it('should set score to 50', function () {
+                    it('should set score to 0', function () {
                         question.score = 0;
                         question.submitAnswer(answersIds);
-                        expect(question.score).toBe(50);
+                        expect(question.score).toBe(0);
+                    });
+
+                    it('should set isCorrectAnswered to false', function () {
+                        question.isCorrectAnswered = true;
+                        question.submitAnswer(answersIds);
+                        expect(question.isCorrectAnswered).toBe(false);
+                    });
+
+                    it('should call event data builder buildAnswersSubmittedEventData', function () {
+                        question.submitAnswer(answersIds);
+                        expect(eventDataBuilder.buildAnswersSubmittedEventData).toHaveBeenCalled();
+                    });
+
+                    it('should call event manager answersSubmitted', function () {
+                        question.submitAnswer(answersIds);
+                        expect(eventManager.answersSubmitted).toHaveBeenCalledWith(eventData);
+                    });
+                });
+                
+                describe('when answers checked incorrect', function () {
+                    var answersIds = ['1', '3'];
+                    it('should set score to 0', function () {
+                        question.score = 0;
+                        question.submitAnswer(answersIds);
+                        expect(question.score).toBe(0);
                     });
 
                     it('should set isCorrectAnswered to false', function () {

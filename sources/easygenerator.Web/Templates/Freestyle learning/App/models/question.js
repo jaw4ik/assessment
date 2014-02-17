@@ -39,14 +39,11 @@
     };
 
     var calculateScore = function (answers) {
-        var result = 0;
-        _.each(answers, function (answer) {
-            if (answer.isChecked == answer.isCorrect) {
-                result++;
-            }
+        var hasIncorrectCheckedAnswer = _.some(answers, function (answer) {
+            return answer.isChecked != answer.isCorrect;
         });
 
-        return (result / answers.length) * 100;
+        return hasIncorrectCheckedAnswer ? 0 : 100;
     };
 
     return model;
