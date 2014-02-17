@@ -270,6 +270,10 @@
     background: url('images/sprites.png') -269px -224px no-repeat;
 }
 
+.template-preview-link:hover {
+    text-decoration: underline;
+}
+
 /*#endregion DESIGN STEP*/
 
 /*#region DELIVER STEP*/
