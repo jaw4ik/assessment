@@ -19,22 +19,25 @@
 
             initialize = function () {
                 var that = this;
-                return $.ajax({
-                    url: 'api/templates',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    dataType: 'json'
-                }).then(function (response) {
-                    _.each(response.data, function (template) {
-                        templates.push(
-                            new TemplateModel(
-                            {
-                                id: template.Id,
-                                name: template.Name,
-                                image: template.Image,
-                                settingsUrl: template.SettingsUrl,
-                                description: template.Description
-                            }));
+                return Q.fcall(function () {
+                    return $.ajax({
+                        url: 'api/templates',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        dataType: 'json'
+                    }).then(function (response) {
+                        _.each(response.data, function (template) {
+                            templates.push(
+                                new TemplateModel(
+                                    {
+                                        id: template.Id,
+                                        name: template.Name,
+                                        image: template.Image,
+                                        settingsUrl: template.SettingsUrl,
+                                        description: template.Description,
+                                        previewDemoUrl: template.PreviewDemoUrl
+                                    }));
+                        });
                     });
                 }).then(function () {
                     return $.ajax({
@@ -83,7 +86,7 @@
                         type: 'POST',
                         contentType: 'application/json',
                         dataType: 'json'
-                    }).then(function (response) {
+                    }).then(function (response) {   
                         _.each(response.data, function (item) {
                             courses.push(new CourseModel({
                                 id: item.Id.split('-').join(''),
