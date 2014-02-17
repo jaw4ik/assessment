@@ -92,8 +92,8 @@
         position: relative;
         display: inline-block;
         height: 26px;
-        width: 6px;
-        background: url(images/sprites.png) -204px -220px no-repeat;
+        width: 8px;
+        background: url(images/sprites.png) -203px -220px no-repeat;
         cursor: move;
     }
 
