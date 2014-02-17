@@ -13,7 +13,7 @@
             saveIntervalId = null,
             $toolbarElement = null,
             editor = null,
-            
+
             localizationManager = valueAccessor().localizationManager;
 
         CKEDITOR.config.language = language;
@@ -152,17 +152,22 @@
         }
 
         function addContentFilter() {
-            var widthRegExp = new RegExp("\s*width\s*:\s*([^;]*)", "g");
-            var heightRegExp = new RegExp("\s*height\s*:\s*([^;]*)", "g");
+            var
+                widthRegExp = new RegExp("\s*width\s*:\s*([^;]*)", "g"),
+                heightRegExp = new RegExp("\s*height\s*:\s*([^;]*)", "g"),
+                floatRegExp = new RegExp("\s*float\s*:\s*([^;]*)");
 
             var rules = {
                 elements: {
                     $: function (e) {
                         if (e.attributes.style) {
-                            var width = e.attributes.style.match(widthRegExp) + ';';
-                            var height = e.attributes.style.match(heightRegExp) + ';';
+                            var
+                                width = e.attributes.style.match(widthRegExp) + ';',
+                                height = e.attributes.style.match(heightRegExp) + ';',
+                                float = e.attributes.style.match(floatRegExp) + ';';
+
                             delete e.attributes.style;
-                            e.attributes.style = width + height;
+                            e.attributes.style = width + height + float;
                         }
 
                         if (e.attributes.class) {
@@ -178,10 +183,6 @@
 
         function filterContent(contentElement) {
             var $content = $(contentElement);
-
-            $content.find('br').each(function (index, brElement) {
-                $(brElement).replaceWith(' ');
-            });
 
             $content.find('style').each(function (index, styleElement) {
                 $(styleElement).remove();
