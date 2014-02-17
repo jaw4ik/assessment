@@ -162,12 +162,12 @@
                     $: function (e) {
                         if (e.attributes.style) {
                             var
-                                width = e.attributes.style.match(widthRegExp) + ';',
-                                height = e.attributes.style.match(heightRegExp) + ';',
-                                float = e.attributes.style.match(floatRegExp) + ';';
+                                widthValue = e.attributes.style.match(widthRegExp) + ';',
+                                heightValue = e.attributes.style.match(heightRegExp) + ';',
+                                floatValue = e.attributes.style.match(floatRegExp) + ';';
 
                             delete e.attributes.style;
-                            e.attributes.style = width + height + float;
+                            e.attributes.style = widthValue + heightValue + floatValue;
                         }
 
                         if (e.attributes.class) {
