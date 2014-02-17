@@ -395,8 +395,8 @@
                         beforeEach(function () {
                             viewModel.templates([]);
                             getTemplatesDeferred.resolve([
-                                { id: "0", name: "Default", description: "Default template", image: "path/to/image1.png" },
-                                { id: "1", name: "Quiz", description: "Quiz template", image: "path/to/image2.png" }
+                                { id: "0", name: "Default", description: "Default template", image: "path/to/image1.png", previewDemoUrl: 'preview_url_default' },
+                                { id: "1", name: "Quiz", description: "Quiz template", image: "path/to/image2.png", previewDemoUrl: 'preview_url_quiz' }
                             ]);
                         });
 
@@ -463,6 +463,33 @@
 
                                 it('should be false by default', function () {
                                     expect(template.isSelected()).toBeFalsy();
+                                });
+
+                            });
+
+                            describe('openPreview:', function() {
+
+                                it('should be function', function() {
+                                    expect(template.openPreview).toBeFunction();
+                                });
+
+                                var event = {
+                                    stopPropagation: function () { }
+                                };
+
+                                beforeEach(function () {
+                                    spyOn(event, 'stopPropagation');
+                                    spyOn(router, 'openUrl').andCallFake(function () { });
+                                });
+
+                                it('should stop propagation', function() {
+                                    template.openPreview(template, event);
+                                    expect(event.stopPropagation).toHaveBeenCalled();
+                                });
+
+                                it('should open template preview in new tab', function() {
+                                    template.openPreview(template, event);
+                                    expect(router.openUrl).toHaveBeenCalledWith(template.previewUrl);
                                 });
 
                             });

@@ -30,7 +30,8 @@ namespace easygenerator.Web.Controllers.Api
                 Name = tmpl.Name,
                 Image = tmpl.Image,
                 SettingsUrl = "/Templates/" + tmpl.Name + "/settings.html",
-                Description = tmpl.Name == "Freestyle learning" ? "Use this when you want a course style like setup." : "Use this when you want to create an assessment."
+                Description = tmpl.Description,
+                PreviewDemoUrl = tmpl.PreviewUrl
             });
 
             return JsonSuccess(result);

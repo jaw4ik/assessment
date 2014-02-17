@@ -9,6 +9,7 @@
             obj.image = spec.image;
             obj.description = spec.description;
             obj.settingsUrl = spec.settingsUrl;
+            obj.previewDemoUrl = spec.previewDemoUrl;
 
             return obj;
         };

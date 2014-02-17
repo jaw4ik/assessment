@@ -34,17 +34,29 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             const string name = "name";
             const string image = "image";
+            const string description = "description";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var course = TemplateObjectMother.Create(name, image, CreatedBy);
+            var course = TemplateObjectMother.Create(name, image, description, CreatedBy);
 
             course.Id.Should().NotBeEmpty();
             course.Name.Should().Be(name);
             course.Image.Should().Be(image);
+            course.Description.Should().Be(description);
             course.CreatedOn.Should().Be(DateTime.MaxValue);
             course.ModifiedOn.Should().Be(DateTime.MaxValue);
             course.CreatedBy.Should().Be(CreatedBy);
             course.ModifiedBy.Should().Be(CreatedBy);
+        }
+
+        [TestMethod]
+        public void Course_ShouldCreateTemplateInstanceWithPreviewUrl()
+        {
+            const string previewUrl = "preview_url";
+
+            var course = TemplateObjectMother.CreateWithPreviewUrl(previewUrl);
+
+            course.PreviewUrl.Should().Be(previewUrl);
         }
 
         #endregion

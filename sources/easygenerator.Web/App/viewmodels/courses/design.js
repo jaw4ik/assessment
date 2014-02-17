@@ -32,7 +32,12 @@
                                 name: template.name,
                                 image: template.image,
                                 description: template.description,
-                                settingsUrl: template.settingsUrl
+                                settingsUrl: template.settingsUrl,
+                                previewDemoUrl: template.previewDemoUrl,
+                                openPreview: function (item, event) {
+                                    event.stopPropagation();
+                                    router.openUrl(item.previewDemoUrl);
+                                }
                             };
                         })
                         .sortBy(function (template) { return template.name; })

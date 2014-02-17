@@ -81,8 +81,13 @@
 
             describe('when course exists', function () {
 
-                var template = { id: 'templateId', settingsUrl: 'settingsUrl' };
-                var course = { id: 'courseId', template: template };
+                var
+                    templates = [
+                        { id: "0", name: "Default", image: "path/to/image1.png", description: "Default template", previewDemoUrl: 'preview_url_default' },
+                        { id: "1", name: "Quiz", image: "path/to/image2.png", description: "Quiz template", previewDemoUrl: 'preview_url_quiz' }
+                    ],
+                    template = templates[0],
+                    course = { id: 'courseId', template: template };
 
                 beforeEach(function () {
                     getCourseDefer.resolve(course);
@@ -101,10 +106,10 @@
                 });
 
                 describe('and an error occured when getting templates', function () {
-                    beforeEach(function() {
+                    beforeEach(function () {
                         getTemplateCollectionDefer.reject('reason');
                     });
-                    
+
                     it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
                         router.activeItem.settings.lifecycleData = null;
 
@@ -119,7 +124,7 @@
 
                     it('should reject promise', function () {
                         var promise = viewModel.activate(course.id);
-                        
+
                         waitsFor(function () {
                             return !promise.isPending();
                         });
@@ -131,9 +136,6 @@
                 });
 
                 describe('and got templates', function () {
-
-                    var templates = [{ id: '1' }, template];
-
 
                     beforeEach(function () {
                         getTemplateCollectionDefer.resolve(templates);
@@ -166,6 +168,79 @@
                         });
                     });
 
+                    describe('should map templates:', function () {
+
+                        beforeEach(function () {
+                            var promise = viewModel.activate();
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                template = viewModel.templates[0];
+                            });
+                        });
+
+                        describe('id:', function () {
+
+                            it('should be defined', function () {
+                                expect(template.id).toBeDefined();
+                            });
+
+                        });
+
+                        describe('name:', function () {
+
+                            it('should be defined', function () {
+                                expect(template.name).toBeDefined();
+                            });
+
+                        });
+
+                        describe('description:', function () {
+
+                            it('should be defined', function () {
+                                expect(template.description).toBeDefined();
+                            });
+
+                        });
+
+                        describe('image:', function () {
+
+                            it('should be defined', function () {
+                                expect(template.image).toBeDefined();
+                            });
+
+                        });
+
+                        describe('openPreview:', function () {
+
+                            it('should be function', function () {
+                                expect(template.openPreview).toBeFunction();
+                            });
+
+                            var event = {
+                                stopPropagation: function () { }
+                            };
+
+                            beforeEach(function() {
+                                spyOn(event, 'stopPropagation');
+                                spyOn(router, 'openUrl').andCallFake(function() { });
+                            });
+
+                            it('should stop propagation', function () {
+                                template.openPreview(template, event);
+                                expect(event.stopPropagation).toHaveBeenCalled();
+                            });
+
+                            it('should open template preview in new tab', function () {
+                                template.openPreview(template, event);
+                                expect(router.openUrl).toHaveBeenCalledWith(template.previewDemoUrl);
+                            });
+
+                        });
+
+                    });
+
                     it('should set currentTemplate', function () {
                         var promise = viewModel.activate(course.id);
 
@@ -182,7 +257,6 @@
             });
 
         });
-
 
         describe('selectTemplate:', function () {
 

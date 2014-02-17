@@ -78,7 +78,12 @@
                     name: item.name,
                     description: item.description,
                     image: item.image,
-                    isSelected: ko.observable(false)
+                    isSelected: ko.observable(false),
+                    previewUrl: item.previewDemoUrl,
+                    openPreview: function (template, event) {
+                        event.stopPropagation();
+                        router.openUrl(template.previewUrl);
+                    }
                 };
             },
 
