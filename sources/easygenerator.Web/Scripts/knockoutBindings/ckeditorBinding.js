@@ -155,7 +155,7 @@
             var
                 widthRegExp = new RegExp("\s*width\s*:\s*([^;]*)", "g"),
                 heightRegExp = new RegExp("\s*height\s*:\s*([^;]*)", "g"),
-                floatRegExp = new RegExp("\s*float\s*:\s*([^;]*)");
+                floatRegExp = new RegExp("\s*float\s*:\s*([^;]*)", "g");
 
             var rules = {
                 elements: {
@@ -165,7 +165,6 @@
                                 widthValue = e.attributes.style.match(widthRegExp) + ';',
                                 heightValue = e.attributes.style.match(heightRegExp) + ';',
                                 floatValue = e.attributes.style.match(floatRegExp) + ';';
-
                             delete e.attributes.style;
                             e.attributes.style = widthValue + heightValue + floatValue;
                         }
