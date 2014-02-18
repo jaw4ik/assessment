@@ -195,7 +195,7 @@
             }
 
             repository.relateObjectives(that.id, objectivesToRelate).then(function (response) {
-                that.connectedObjectives(_.chain(that.connectedObjectives()).union(response.relatedObjectives.reverse()).map(function (item) {
+                that.connectedObjectives(_.chain(that.connectedObjectives()).union(response.relatedObjectives).map(function (item) {
                     return objectiveBrief(item);
                 }).value());
 
