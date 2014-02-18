@@ -218,7 +218,7 @@
         en: 'Please upgrade your account to \"Starter plan\" to be able to download the course as a SCORM package.'
     },
     upgradeToStarterPlanToUseScormMessage: {
-        en: 'You have to <a href=\"http://www.easygenerator.com/pricing/\" target=\"_blank\">upgrade your account</a> in order to publish to \"SCORM 1.2\"'
+        en: 'You have to <a href=\"http://www.easygenerator.com/order-now/\" target=\"_blank\">upgrade your account</a> in order to publish to \"SCORM 1.2\"'
     },
     publishToAim4You: {
         en: 'Publish to Aim4You'
@@ -1073,7 +1073,7 @@
         en: 'No comments yet'
     },
     reviewNotPaidMessage: {
-        en: 'You have to <a target=\"_blank\" href=\"http://www.easygenerator.com/pricing/\">upgrade your account</a> in order to read external review comments'
+        en: 'You have to <a target=\"_blank\" href=\"http://www.easygenerator.com/order-now/\">upgrade your account</a> in order to read external review comments'
     },
     upgradeToStarterPlanToUseCommentsErrorMessage: {
         en: 'Please upgrade your account to \"Starter plan\" to be able to see comments.'
