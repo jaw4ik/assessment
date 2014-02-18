@@ -316,8 +316,8 @@
     createAndContinue: {
         en: 'Create and continue'
     },
-    previewDemo: {
-        en: 'Preview demo'
+    previewTemplate: {
+        en: 'Preview template'
     },
     /* End resource section for model CreateCourse */
     
