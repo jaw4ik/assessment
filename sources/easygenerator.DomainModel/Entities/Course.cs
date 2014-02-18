@@ -72,7 +72,7 @@ namespace easygenerator.DomainModel.Entities
             if (!RelatedObjectivesCollection.Contains(objective))
             {
                 var objectives = GetOrderedRelatedObjectives();
-                objectives.Insert(0, objective);
+                objectives.Add(objective);
                 UpdateObjectivesOrder(objectives, modifiedBy);
 
                 RelatedObjectivesCollection.Add(objective);

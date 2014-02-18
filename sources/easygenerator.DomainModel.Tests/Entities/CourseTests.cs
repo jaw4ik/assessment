@@ -130,7 +130,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             };
             var objectiveCollection = new List<Objective>() { objective };
             course.UpdateObjectivesOrder(objectiveCollection, ModifiedBy);
-            objectiveCollection.Insert(0, objective1);
+            objectiveCollection.Add(objective1);
             var result = String.Join(",", objectiveCollection.ConvertAll(o => o.Id.ToString()).ToArray());
             //Act
             course.RelateObjective(objective1, ModifiedBy);

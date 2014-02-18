@@ -13,7 +13,8 @@
                 showAllAvailableObjectives: 'Show all available objectives',
                 connectSelectedObjectivesToCourse: 'Connect selected objectives to course',
                 showConnectedObjectives: 'Show connected objectives',
-                unrelateObjectivesFromCourse: 'Unrelate objectives from course'
+                unrelateObjectivesFromCourse: 'Unrelate objectives from course',
+                changeOrderObjectives: 'Change order of learning objectives'
             };
 
         var eventsForCourseContent = {
@@ -194,9 +195,9 @@
             }
 
             repository.relateObjectives(that.id, objectivesToRelate).then(function (response) {
-                that.connectedObjectives(_.chain(response.relatedObjectives.reverse()).map(function (item) {
+                that.connectedObjectives(_.chain(that.connectedObjectives()).union(response.relatedObjectives.reverse()).map(function (item) {
                     return objectiveBrief(item);
-                }).union(that.connectedObjectives()).value());
+                }).value());
 
                 that.availableObjectives(that.availableObjectives().filter(function (item) {
                     return !_.contains(response.relatedObjectives, item._original);
@@ -226,6 +227,7 @@
         }
 
         function reorderObjectives() {
+            eventTracker.publish(events.changeOrderObjectives);
             repository.updateObjectiveOrder(viewModel.id, viewModel.connectedObjectives()).then(function () {
                 notify.saved();
             });

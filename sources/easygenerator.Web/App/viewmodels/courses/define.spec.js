@@ -1054,6 +1054,11 @@
                     expect(viewModel.reorderObjectives).toBeFunction();
                 });
 
+                it('should send event \'Change order of learning objectives\'', function () {
+                    viewModel.reorderObjectives();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Change order of learning objectives');
+                });
+
                 it('should call repository \"updateObjectiveOrder\" method', function () {
                     viewModel.reorderObjectives();
                     expect(repository.updateObjectiveOrder).toHaveBeenCalledWith(viewModel.id, relatedObjectives);

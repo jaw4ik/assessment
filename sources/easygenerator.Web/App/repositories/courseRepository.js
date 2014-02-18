@@ -122,7 +122,7 @@
                     });
 
                     _.each(relatedObjectives, function (objective) {
-                        course.objectives.unshift(objective);
+                        course.objectives.push(objective);
                     });
 
                     return {
