@@ -124,6 +124,10 @@
     <Compile Include="Migrations\201402171250434_AddFieldsToTemplateEntity.Designer.cs">
       <DependentUpon>201402171250434_AddFieldsToTemplateEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201402181156345_RenameFreestyleLearningTemplateToCourse.cs" />
+    <Compile Include="Migrations\201402181156345_RenameFreestyleLearningTemplateToCourse.Designer.cs">
+      <DependentUpon>201402181156345_RenameFreestyleLearningTemplateToCourse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
@@ -199,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201402171250434_AddFieldsToTemplateEntity.resx">
       <DependentUpon>201402171250434_AddFieldsToTemplateEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201402181156345_RenameFreestyleLearningTemplateToCourse.resx">
+      <DependentUpon>201402181156345_RenameFreestyleLearningTemplateToCourse.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

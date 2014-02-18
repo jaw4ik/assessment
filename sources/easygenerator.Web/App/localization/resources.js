@@ -155,13 +155,13 @@
         en: 'updating...'
     },
     courseDefine: {
-        en: 'Define'
+        en: '1. Develop'
     },
     courseDesign: {
-        en: 'Design'
+        en: '2. Design'
     },
     courseDeliver: {
-        en: 'Deliver'
+        en: '3. Deliver'
     },
     publishOnline: {
         en: 'Publish online'
@@ -638,13 +638,13 @@
         en: 'Create course'
     },
     introCreateCourseDesc: {
-        en: 'Name the course and choose how you want to present it, as a freestyle course or as a quiz.'
+        en: 'Name the course and choose how you want to present it, as a simple course or as a quiz.'
     },
     introConnectLOtoCourse: {
         en: 'Connect learning objectives to the course'
     },
     introConnectLOtoCourseDesc: {
-        en: 'Assemble your course (freestyle course or quiz) by adding learning objectives to it.'
+        en: 'Assemble your course (simple course or quiz) by adding learning objectives to it.'
     },
     introPublishCourse: {
         en: 'Publish the course'
@@ -986,7 +986,7 @@
         en: 'What is a course?'
     },
     coursesHelpHint: {
-        en: '<p><strong>Course</strong> is a name for eLearning you will be creating. It can be a freestyle course, a learning nugget, a quiz etc. In fact it can be anything that will provide learner with a learning experience.</p><p>Course consist out of one or more learning objectives, with connected questions and learning content.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p><strong>Course</strong> is a name for eLearning you will be creating. It can be a simple course, a learning nugget, a quiz etc. In fact it can be anything that will provide learner with a learning experience.</p><p>Course consist out of one or more learning objectives, with connected questions and learning content.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
     courseHelpHintTitle: {
         en: 'Why do I need to connect learning objectives?'

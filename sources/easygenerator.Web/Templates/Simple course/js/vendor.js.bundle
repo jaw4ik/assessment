@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true" output="vendor.js">
+  <!--The order of the <file> elements determines the order of them when bundled.-->
+  <file>/Templates/Simple course/js/jquery-1.9.1.js</file>
+  <file>/Templates/Simple course/js/underscore-1.5.1.js</file>
+  <file>/Templates/Simple course/js/underscore.extensions.js</file>
+  <file>/Templates/Simple course/js/knockout-2.2.1.js</file>
+  <file>/Templates/Simple course/js/knockoutBindings/focusHandlerBinding.js</file>
+  <file>/Templates/Simple course/js/q.js</file>
+  <file>/Templates/Simple course/js/circleProgressBinding.js</file>
+</bundle>
