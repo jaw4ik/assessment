@@ -97,6 +97,11 @@
         cursor: move;
     }
 
+    .course .main-content-list .list-item-drag-icon.disabled {
+        opacity: 0.5;
+        cursor: default;
+    }
+
 /*#endregion DEFINE STEP*/
 
 /*#region DESIGN STEP*/
