@@ -1207,10 +1207,7 @@
     <Content Include="Templates\Simple course\img\info-btn.png" />
     <Content Include="Templates\Simple course\img\loader.gif" />
     <Content Include="Templates\Simple course\img\logo.png" />
-    <Content Include="Templates\Simple course\img\nav-icons.png" />
     <Content Include="Templates\Simple course\img\objective.png" />
-    <Content Include="Templates\Simple course\img\progress_summary.png" />
-    <Content Include="Templates\Simple course\img\progress_summary_white.png" />
     <Content Include="Templates\Simple course\img\question.png" />
     <Content Include="Templates\Simple course\img\safari.png" />
     <Content Include="Templates\Simple course\img\saltbox-banner.png" />
