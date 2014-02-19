@@ -1097,10 +1097,6 @@
       <DependentUpon>question.js</DependentUpon>
     </Content>
     <Content Include="Templates\Simple course\App\viewmodels\shell.js" />
-    <Content Include="Templates\Simple course\App\viewmodels\summary.js" />
-    <Content Include="Templates\Simple course\App\viewmodels\summary.spec.js">
-      <DependentUpon>summary.js</DependentUpon>
-    </Content>
     <Content Include="Templates\Simple course\App\views\404.html" />
     <Content Include="Templates\Simple course\App\views\introduction.html" />
     <Content Include="Templates\Simple course\App\views\learningContents.html" />
