@@ -521,7 +521,6 @@ input[type="checkbox"] {
 
 .objective-brief-info {
     display: table-cell;
-    vertical-align: middle;
     width: 100%;
     min-width: 300px;
     position: relative;
@@ -535,7 +534,7 @@ input[type="checkbox"] {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     position: absolute;
-    bottom: 4px;
+    bottom: 6px;
     white-space: nowrap;
 }
 
@@ -592,7 +591,6 @@ input[type="checkbox"] {
 }
 
 .objective-progress-score {
-    vertical-align: middle;
     color: #444;
 }
 
