@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'repositories/objectiveRepository', 'durandal/system'], function (dataContext, objectiveRepository, system) {
+﻿define(['dataContext'], function (dataContext) {
 
     var getCollection = function () {
         var deferred = Q.defer();

@@ -6,6 +6,7 @@
             router = require('plugins/router'),
             eventTracker = require('eventTracker'),
             dataContext = require('dataContext'),
+            userContext = require('userContext'),
             httpWrapper = require('httpWrapper'),
             uiLocker = require('uiLocker');
 
@@ -40,7 +41,7 @@
                 describe('when is anonymous user', function () {
 
                     beforeEach(function () {
-                        dataContext.userEmail = '';
+                        userContext.identity = null;
                     });
 
                     it('should hide checkbox \'Do not show again\'', function () {
@@ -54,7 +55,7 @@
                 describe('when is not anonymous user', function () {
 
                     beforeEach(function () {
-                        dataContext.userEmail = 'user@easygenerator.com';
+                        userContext.identity = {};
                     });
 
                     it('should show checkbox \'Do not show again\'', function () {
@@ -98,7 +99,7 @@
                 describe('when is not anonymous user', function () {
 
                     beforeEach(function () {
-                        dataContext.userEmail = 'user@easygenerator.com';
+                        userContext.identity = {};
                     });
                     
                     it('should return promise', function () {
@@ -194,14 +195,12 @@
                         });
                     });
 
-                    
-
                 });
 
                 describe('when is anonymous user', function () {
 
                     beforeEach(function() {
-                        dataContext.userEmail = '';
+                        userContext.identity = null;
                     });
                     
                     it('should send event \'Start easygenerator from welcome page\'', function () {

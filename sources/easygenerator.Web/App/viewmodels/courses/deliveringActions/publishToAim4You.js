@@ -1,5 +1,5 @@
-﻿define(['localization/localizationManager','constants', 'dataContext', 'viewmodels/courses/deliveringActions/deliveringAction', 'eventTracker', 'services/aim4YouService', 'repositories/courseRepository', 'notify', 'durandal/app'],
-    function (localizationManager, constants, dataContext, deliveringAcion, eventTracker, aim4YouService, courseRepository, notify, app) {
+﻿define(['localization/localizationManager','constants', 'dataContext', 'viewmodels/courses/deliveringActions/deliveringAction', 'eventTracker', 'services/aim4YouService', 'repositories/courseRepository', 'notify', 'durandal/app', 'userContext'],
+    function (localizationManager, constants, dataContext, deliveringAcion, eventTracker, aim4YouService, courseRepository, notify, app, userContext) {
 
         var events = {
             registerToAim4You: 'Register to Aim4You',
@@ -23,9 +23,9 @@
 
             viewModel.messageState = ko.observable(viewModel.infoMessageStates.none);
 
-            viewModel.isTryMode = dataContext.isTryMode;
+            viewModel.isTryMode = !_.isObject(userContext.identity);
 
-            viewModel.isRegisteredOnAim4You = ko.observable(dataContext.isRegisteredOnAim4You);
+            viewModel.isRegisteredOnAim4You = ko.observable(dataContext.userSettings.isRegisteredOnAim4You);
 
             viewModel.register = function () {
                 if (viewModel.isDelivering() || viewModel.isRegisteredOnAim4You()) {

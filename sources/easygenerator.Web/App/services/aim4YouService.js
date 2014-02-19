@@ -12,7 +12,7 @@
                 if (_.isUndefined(response)) {
                     defer.reject('Response has invalid format');
                 } else if (response.success) {
-                    dataContext.isRegisteredOnAim4You = true;
+                    dataContext.userSettings.isRegisteredOnAim4You = true;
                     defer.resolve(response);
                 } else {
                     var message = response.resourceKey ? localizationManager.localize(response.resourceKey) : response.message;

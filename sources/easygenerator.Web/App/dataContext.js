@@ -9,12 +9,10 @@
             objectives = [],
             courses = [],
             templates = [],
-            isTryMode = false,
-            userEmail = '',
             helpHints = [],
-            isRegisteredOnAim4You = false,
             userSettings = {
-                isShowIntroduction: true
+                isShowIntroduction: true,
+                isRegisteredOnAim4You: false
             },
 
             initialize = function () {
@@ -118,16 +116,13 @@
                         cache: false
                     }).then(function (response) {
                         if (response.data) {
-                            that.isTryMode = response.data.IsTryMode;
-                            that.userEmail = response.data.Email;
-                            that.isRegisteredOnAim4You = response.data.IsRegisteredOnAim4You;
                             userSettings.isShowIntroduction = response.data.IsShowIntroductionPage;
+                            userSettings.isRegisteredOnAim4You = response.data.IsRegisteredOnAim4You;
                         }
                     });
                 }).fail(function () {
                     app.showMessage("Failed to initialize datacontext.");
                 });
-
             };
 
         return {
@@ -135,10 +130,7 @@
             objectives: objectives,
             courses: courses,
             templates: templates,
-            isTryMode: isTryMode,
-            userEmail: userEmail,
             helpHints: helpHints,
-            userSettings: userSettings,
-            isRegisteredOnAim4You: isRegisteredOnAim4You
+            userSettings: userSettings
         };
     });

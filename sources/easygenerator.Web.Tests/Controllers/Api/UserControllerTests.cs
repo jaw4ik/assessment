@@ -438,54 +438,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void GetCurrentUserInfo_ShouldReturnJsonSuccessWithEmail_WhenUserIsSignedIn()
-        {
-            //Arrange
-            const string userEmail = "easygenerator@easygenerator.com";
-
-            _user.Identity.IsAuthenticated.Returns(true);
-            _user.Identity.Name.Returns(userEmail);
-
-            var user = UserObjectMother.Create(userEmail, "Password1", "FullName", "Phone", "OrganizationName", "Country", userEmail);
-
-            _userRepository.GetUserByEmail(userEmail).Returns(user);
-
-            //Act
-            var result = _controller.GetCurrentUserInfo();
-
-            //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { Email = "easygenerator@easygenerator.com" });
-        }
-
-        [TestMethod]
-        public void GetCurrentUserInfo_ShouldReturnJsonSuccessResultWithIsTryModeTrue_WhenUserIsAnonymous()
-        {
-            //Arrange
-
-            //Act
-            var result = _controller.GetCurrentUserInfo();
-
-            //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { IsTryMode = true });
-        }
-
-        [TestMethod]
-        public void GetCurrentUserInfo_ShouldReturnJsonSuccessResultWithIsTryModeFalse_WhenUserIsNotAnonymous()
-        {
-            //Arrange
-            const string email = "easygenerator@eg.com";
-            _user.Identity.Name.Returns(email);
-            _userRepository.GetUserByEmail(email).Returns(UserObjectMother.Create());
-
-            //Act
-            var result = _controller.GetCurrentUserInfo();
-
-            //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { IsTryMode = false });
-
-        }
-
-        [TestMethod]
         public void GetCurrentUserInfo_ShouldReturnIsShowIntroductionPageTrue_WhenUserIsAnonymous()
         {
             //Arrange

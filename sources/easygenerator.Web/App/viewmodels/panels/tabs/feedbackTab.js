@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'notify', 'eventTracker', 'httpWrapper', 'localization/localizationManager'],
-    function (dataContext, notify, eventTracker, httpWrapper, localizationManager) {
+﻿define(['userContext', 'notify', 'eventTracker', 'httpWrapper'],
+    function (userContext, notify, eventTracker, httpWrapper) {
 
         var events = {
             feedback: 'Send feedback',
@@ -60,8 +60,9 @@
                 viewModel.isFeedbackMessageErrorVisible(false);
                 
                 eventTracker.publish(events.openFeedbackForm);
-                viewModel.isTryMode = dataContext.isTryMode;
-                viewModel.userEmail = dataContext.userEmail;
+                
+                viewModel.isTryMode = !_.isObject(userContext.identity);
+                viewModel.userEmail = viewModel.isTryMode ? null : userContext.identity.email;
             });
         };
     }

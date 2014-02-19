@@ -13,6 +13,7 @@ using easygenerator.Web.ViewModels.Account;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Extensions;
+using Microsoft.Ajax.Utilities;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -131,31 +132,12 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult GetCurrentUserInfo()
         {
             var user = _repository.GetUserByEmail(GetCurrentUsername());
-            object userInfo;
 
-            var isTryMode = user == null;
-            if (isTryMode)
+            return JsonSuccess(new
             {
-                userInfo = new
-                {
-                    Email = string.Empty,
-                    IsTryMode = true,
-                    IsShowIntroductionPage = true
-                };
-            }
-            else
-            {
-                userInfo = new
-                {
-                    Email = user.Email,
-                    IsTryMode = false,
-                    IsShowIntroductionPage = user.UserSetting.IsShowIntroductionPage,
-                    IsRegisteredOnAim4You = false
-                };
-            }
-
-            return JsonSuccess(userInfo);
-
+                IsShowIntroductionPage = (user == null) || user.UserSetting.IsShowIntroductionPage,
+                IsRegisteredOnAim4You = false
+            });
         }
 
         [HttpPost]

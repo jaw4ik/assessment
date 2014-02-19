@@ -63,14 +63,14 @@
                     });
 
                     it('should update isRegisteredInAim4You in dataContext to true', function () {
-                        dataContext.isRegisteredOnAim4You = false;
+                        dataContext.userSettings.isRegisteredOnAim4You = false;
                         var promise = service.register();
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(dataContext.isRegisteredOnAim4You).toBeTruthy();
+                            expect(dataContext.userSettings.isRegisteredOnAim4You).toBeTruthy();
                         });
                     });
 

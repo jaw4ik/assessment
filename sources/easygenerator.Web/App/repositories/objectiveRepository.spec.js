@@ -315,8 +315,6 @@
 
                         describe('and response has id and creation date', function () {
 
-                            var dataContext = require('dataContext');
-
                             var objectiveTitle = 'objectiveTitle';
                             var response = {
                                 Id: 'objectiveId',
@@ -504,8 +502,6 @@
 
                         describe('and response has modification date', function () {
 
-                            var dataContext = require('dataContext');
-
                             var response = { ModifiedOn: "/Date(1378106938845)/" };
 
                             beforeEach(function () {
@@ -646,8 +642,6 @@
 
 
                     describe('and request to server was successful', function () {
-
-                        var dataContext = require('dataContext');
 
                         it('should remove objective from dataContext', function () {
                             var objectiveId = 'id';

@@ -1,5 +1,5 @@
-﻿define(['durandal/system', 'plugins/router', 'dataContext'],
-    function (system, router, dataContext) {
+﻿define(['durandal/system', 'plugins/router', 'userContext'],
+    function (system, router, userContext) {
 
         var providers = [];
 
@@ -7,7 +7,7 @@
             var
                 trackEvent = function (eventName, eventCategory) {
                     var mixpanel = window.mixpanel;
-                    var username = dataContext.userEmail;
+                    var username = _.isObject(userContext.identity) ? userContext.identity.email : '';
 
                     if (!mixpanel) {
                         return;

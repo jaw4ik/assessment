@@ -3,8 +3,8 @@
         "use strict";
 
         var
-            httpWrapper = require('httpWrapper')
-        ;
+            httpWrapper = require('httpWrapper'),
+            dataContext = require('dataContext');
 
         describe('repository [learningContentRepository]', function () {
 
@@ -293,8 +293,6 @@
 
                     describe('and response has id and creation date', function () {
 
-                        var dataContext = require('dataContext');
-
                         var response = {
                             Id: 'learningContentId',
                             CreatedOn: "/Date(1378106938845)/"
@@ -480,9 +478,7 @@
 
                     describe('and response has modification date', function () {
 
-                        var dataContext = require('dataContext');
                         var response = { ModifiedOn: "/Date(1378106938845)/" };
-
 
                         beforeEach(function () {
                             post.resolve(response);
@@ -681,8 +677,6 @@
                     });
 
                     describe('and response has learning content modification date', function () {
-
-                        var dataContext = require('dataContext');
 
                         var response = {
                             ModifiedOn: "/Date(1378106938845)/"

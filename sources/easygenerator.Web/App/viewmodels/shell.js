@@ -5,6 +5,7 @@
         router = require('plugins/router'),
         routes = require('routing/routes'),
         dataContext = require('dataContext'),
+        userContext = require('userContext'),
         eventTracker = require('eventTracker'),
         clientContext = require('clientContext'),
         localizationManager = require('localization/localizationManager'),
@@ -64,7 +65,7 @@
         },
 
         isTryMode = false,
-        userEmail = '',
+        username = null,
 
         activate = function () {
             composition.addBindingHandler('fixedBlocksPosition');
@@ -146,9 +147,14 @@
                             isPartOfModules: ko.observable(false)
                         }
                     ]);
-                    that.isTryMode = dataContext.isTryMode;
-                    that.userEmail = dataContext.userEmail;
 
+                    that.isTryMode = !_.isObject(userContext.identity);
+
+                    if (!that.isTryMode) {
+                        that.username = _.isEmptyOrWhitespace(userContext.identity.fullname)
+                            ? userContext.identity.email
+                            : userContext.identity.fullname;
+                    }
 
                     clientContext.set('lastVisitedObjective', null);
                     clientContext.set('lastVistedCourse', null);
@@ -173,7 +179,7 @@
         navigation: navigation,
         isTryMode: isTryMode,
 
-        userEmail: userEmail,
+        username: username,
 
         help: help
     };

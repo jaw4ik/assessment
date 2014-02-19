@@ -3,7 +3,9 @@
     var
         viewModel = require('viewmodels/shell'),
         router = require('plugins/router'),
-        eventTracker = require('eventTracker');
+        eventTracker = require('eventTracker'),
+        dataContext = require('dataContext'),
+        userContext = require('userContext');
 
     describe('viewModel [shell]', function () {
 
@@ -35,12 +37,107 @@
                 expect(viewModel.activate).toBeFunction();
             });
 
+            describe('when dataContext initialized', function() {
+
+                var dataContextDefer, routerActivateDefer;
+                beforeEach(function() {
+                    dataContextDefer = Q.defer();
+                    routerActivateDefer = Q.defer();
+                    
+                    spyOn(dataContext, 'initialize').andReturn(dataContextDefer.promise);
+                    spyOn(router, 'activate').andReturn(routerActivateDefer.promise);
+                    
+                    dataContextDefer.resolve();
+                    routerActivateDefer.resolve();
+                });
+
+                describe('when user is anonymous', function() {
+
+                    beforeEach(function() {
+                        userContext.identity = null;
+                    });
+
+                    it('should set isTryMode to true', function() {
+                        var promise = viewModel.activate();
+
+                        waitsFor(function() {
+                            return !promise.isPending();
+                        });
+                        runs(function() {
+                            expect(viewModel.isTryMode).toBeTruthy();
+                        });
+                    });
+
+                    it('should set username to null', function() {
+                        var promise = viewModel.activate();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.username).toBeNull();
+                        });
+                    });
+
+                });
+
+                describe('when user is not anonymous', function() {
+
+                    beforeEach(function() {
+                        userContext.identity = {};
+                    });
+                    
+                    describe('and when user does not have fullname', function () {
+
+                        beforeEach(function () {
+                            userContext.identity = {
+                                email: 'usermail@easygenerator.com',
+                                fullname: ' '
+                            };
+                        });
+
+                        it('should set email to username', function () {
+                            var promise = viewModel.activate();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.username).toBe(userContext.identity.email);
+                            });
+                        });
+
+                    });
+
+                    describe('and when user has fullname', function () {
+
+                        beforeEach(function () {
+                            userContext.identity = { fullname: 'username' };
+                        });
+
+                        it('should set fullname to username', function () {
+                            var promise = viewModel.activate();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.username).toBe(userContext.identity.fullname);
+                            });
+                        });
+
+                    });
+
+                });
+
+            });
+
         });
 
-        describe('userEmail:', function () {
+        describe('username:', function () {
 
             it('should be defined', function () {
-                expect(viewModel.userEmail).toBeDefined();
+                expect(viewModel.username).toBeDefined();
             });
 
         });

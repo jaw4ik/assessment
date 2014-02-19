@@ -1,9 +1,10 @@
 ﻿define(['repositories/answerRepository'], function (repository) {
     "use strict";
 
-    var constants = require('constants'),
-        httpWrapper = require('httpWrapper')
-    ;
+    var
+        constants = require('constants'),
+        httpWrapper = require('httpWrapper'),
+        dataContext = require('dataContext');
 
     describe('repository [answerRepository]', function () {
 
@@ -180,8 +181,6 @@
                 });
 
                 describe('and response has id and creation date', function () {
-
-                    var dataContext = require('dataContext');
 
                     var response = {
                         Id: 'answerId',
@@ -368,9 +367,7 @@
 
                 describe('and response has modification date', function () {
 
-                    var dataContext = require('dataContext');
                     var response = { ModifiedOn: "/Date(1378106938845)/" };
-
 
                     beforeEach(function () {
                         post.resolve(response);
@@ -590,7 +587,6 @@
                         ModifiedOn: "/Date(1378106938845)/"
                     };
 
-                    var dataContext = require('dataContext');
                     var question = { id: 'questionId', modifiedOn: '' };
                     var objective = { id: 'objectiveId', questions: [question] };
 

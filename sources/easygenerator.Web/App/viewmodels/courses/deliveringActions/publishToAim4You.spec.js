@@ -1,5 +1,5 @@
-﻿define(['localization/localizationManager', 'constants', 'dataContext', 'viewmodels/courses/deliveringActions/publishToAim4You', 'eventTracker', 'services/aim4YouService', 'notify', 'repositories/courseRepository', 'durandal/app'],
-    function (localizationManager, constants, dataContext, publishToAim4You, eventTracker, aim4YouService, notify, courseRepository, app) {
+﻿define(['localization/localizationManager', 'constants', 'dataContext', 'viewmodels/courses/deliveringActions/publishToAim4You', 'eventTracker', 'services/aim4YouService', 'notify', 'repositories/courseRepository', 'durandal/app', 'userContext'],
+    function (localizationManager, constants, dataContext, publishToAim4You, eventTracker, aim4YouService, notify, courseRepository, app, userContext) {
 
         describe('viewModel [publishToAim4You]', function () {
 
@@ -169,8 +169,11 @@
 
                 describe('when user to be in try mode', function () {
 
+                    beforeEach(function() {
+                        userContext.identity = null;
+                    });
+
                     it('should be true', function () {
-                        dataContext.isTryMode = true;
                         var view = publishToAim4You(courseId);
                         expect(view.isTryMode).toBeTruthy();
                     });
@@ -179,8 +182,11 @@
 
                 describe('when user to not be in try mode', function () {
 
+                    beforeEach(function() {
+                        userContext.identity = {};
+                    });
+
                     it('should be false', function () {
-                        dataContext.isTryMode = false;
                         var view = publishToAim4You(courseId);
                         expect(view.isTryMode).toBeFalsy();
                     });
@@ -198,7 +204,7 @@
                 describe('when user is registered in Aim4You', function () {
 
                     it('should be true', function () {
-                        dataContext.isRegisteredOnAim4You = true;
+                        dataContext.userSettings.isRegisteredOnAim4You = true;
                         var view = publishToAim4You(courseId);
                         expect(view.isRegisteredOnAim4You()).toBeTruthy();
                     });
@@ -208,7 +214,7 @@
                 describe('when user is not registered in Aim4You', function () {
 
                     it('should be false', function () {
-                        dataContext.isRegisteredOnAim4You = false;
+                        dataContext.userSettings.isRegisteredOnAim4You = false;
                         var view = publishToAim4You(courseId);
                         expect(view.isRegisteredOnAim4You()).toBeFalsy();
                     });

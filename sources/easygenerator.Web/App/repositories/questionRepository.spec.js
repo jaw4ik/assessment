@@ -3,7 +3,8 @@
         "use strict";
 
         var
-            httpWrapper = require('httpWrapper');
+            httpWrapper = require('httpWrapper'),
+            dataContext = require('dataContext');
 
         describe('[questionRepository]', function () {
 
@@ -148,8 +149,6 @@
                         });
 
                         describe('and response has id and creation date', function () {
-
-                            var dataContext = require('dataContext');
 
                             var response = {
                                 Id: 'questionId',
@@ -365,9 +364,7 @@
 
                         describe('and response has modification date', function () {
 
-                            var dataContext = require('dataContext');
                             var response = { ModifiedOn: "/Date(1378106938845)/" };
-
 
                             beforeEach(function () {
                                 post.resolve(response);
@@ -649,8 +646,6 @@
 
                     describe('and response has modification date', function () {
 
-                        var dataContext = require('dataContext');
-
                         var response = { ModifiedOn: "/Date(1378106938845)/" };
 
                         beforeEach(function () {
@@ -818,8 +813,6 @@
                     });
 
                     describe('and response has modification date', function () {
-
-                        var dataContext = require('dataContext');
 
                         var response = { ModifiedOn: "/Date(1378106938845)/" };
 

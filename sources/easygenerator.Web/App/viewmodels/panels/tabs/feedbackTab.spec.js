@@ -3,10 +3,9 @@
     var viewModel = require('viewmodels/panels/tabs/feedbackTab'),
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
-        localizationManager = require('localization/localizationManager'),
         httpWrapper = require('httpWrapper'),
         notify = require('notify'),
-        dataContext = require('dataContext');
+        userContext = require('userContext');
 
     describe('viewModel [feedbackTab]', function () {
 
@@ -67,26 +66,66 @@
                 });
             });
 
-            it('should set userEmail', function () {
-                dataContext.userEmail = 'some email';
-                var promise = viewModel.activate();
-                waitsFor(function () {
-                    return !promise.isPending();
+            describe('when user is anonymous', function() {
+
+                beforeEach(function() {
+                    userContext.identity = null;
                 });
-                runs(function () {
-                    expect(viewModel.userEmail).toBe('some email');
+
+                it('should set isTryMode to true', function() {
+                    var promise = viewModel.activate();
+                    
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.isTryMode).toBeTruthy();
+                    });
                 });
+
+                it('should set userEmail to null', function() {
+                    var promise = viewModel.activate();
+                    
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.userEmail).toBeNull();
+                    });
+                });
+
             });
 
-            it('should set isTryMode', function () {
-                dataContext.isTryMode = false;
-                var promise = viewModel.activate();
-                waitsFor(function () {
-                    return !promise.isPending();
+            describe('when user is not anonymous', function() {
+
+                beforeEach(function() {
+                    userContext.identity = {
+                        email: 'some_user@easygenerator.com'
+                    };
                 });
-                runs(function () {
-                    expect(viewModel.isTryMode).toBeFalsy();
+
+                it('should set isTryMode to false', function() {
+                    var promise = viewModel.activate();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.isTryMode).toBeFalsy();
+                    });
                 });
+
+                it('should set userEmail', function() {
+                    var promise = viewModel.activate();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.userEmail).toBe(userContext.identity.email);
+                    });
+                });
+
             });
 
         });

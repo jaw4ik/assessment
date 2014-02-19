@@ -588,7 +588,6 @@
 
                                 it('should remove course from dataContext', function () {
                                     var courseId = 'id';
-                                    var dataContext = require('dataContext');
                                     dataContext.courses = [{ id: 'id' }];
                                     httpWrapperPost.resolve();
                                     var promise = repository.removeCourse(courseId);
