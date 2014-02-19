@@ -94,6 +94,9 @@
     upgradeAccount: {
         en: 'Upgrade account'
     },
+    changeOrderTooltip: {
+        en: 'Change order by Drag & Drop'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
