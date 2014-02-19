@@ -1037,7 +1037,9 @@
     <Content Include="Templates\Simple course\App\eventManager.spec.js">
       <DependentUpon>eventManager.js</DependentUpon>
     </Content>
-    <Content Include="Templates\Simple course\App\guard.js" />
+    <Content Include="Templates\Simple course\App\guard.js">
+      <DependentUpon>objectives.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Simple course\App\guard.spec.js">
       <DependentUpon>guard.js</DependentUpon>
     </Content>
@@ -1096,15 +1098,14 @@
     <Content Include="Templates\Simple course\App\viewmodels\notsupportedbrowser.js" />
     <Content Include="Templates\Simple course\App\viewmodels\notsupportedbrowserMobile.js" />
     <Content Include="Templates\Simple course\App\viewmodels\objectives.js" />
+    <Content Include="Templates\Simple course\App\viewmodels\objectives.spec.js">
+      <DependentUpon>objectives.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Simple course\App\viewmodels\question.js" />
     <Content Include="Templates\Simple course\App\viewmodels\question.spec.js">
       <DependentUpon>question.js</DependentUpon>
     </Content>
     <Content Include="Templates\Simple course\App\viewmodels\shell.js" />
-    <Content Include="Templates\Simple course\App\viewmodels\summary.js" />
-    <Content Include="Templates\Simple course\App\viewmodels\summary.spec.js">
-      <DependentUpon>summary.js</DependentUpon>
-    </Content>
     <Content Include="Templates\Simple course\App\views\404.html" />
     <Content Include="Templates\Simple course\App\views\introduction.html" />
     <Content Include="Templates\Simple course\App\views\learningContents.html" />
@@ -1114,7 +1115,6 @@
     <Content Include="Templates\Simple course\App\views\question.html" />
     <Content Include="Templates\Simple course\App\views\questionsNavigation.html" />
     <Content Include="Templates\Simple course\App\views\shell.html" />
-    <Content Include="Templates\Simple course\App\views\summary.html" />
     <Content Include="Templates\Simple course\App\windowOperations.js" />
     <Content Include="Templates\Simple course\App\windowOperations.spec.js">
       <DependentUpon>windowOperations.js</DependentUpon>
@@ -1216,10 +1216,7 @@
     <Content Include="Templates\Simple course\img\info-btn.png" />
     <Content Include="Templates\Simple course\img\loader.gif" />
     <Content Include="Templates\Simple course\img\logo.png" />
-    <Content Include="Templates\Simple course\img\nav-icons.png" />
     <Content Include="Templates\Simple course\img\objective.png" />
-    <Content Include="Templates\Simple course\img\progress_summary.png" />
-    <Content Include="Templates\Simple course\img\progress_summary_white.png" />
     <Content Include="Templates\Simple course\img\question.png" />
     <Content Include="Templates\Simple course\img\safari.png" />
     <Content Include="Templates\Simple course\img\saltbox-banner.png" />

@@ -23,15 +23,6 @@
             route: 'objective/:objectiveId/question/:questionId',
             moduleId: 'viewmodels/question',
             title: 'Question'
-        },
-        {
-            route: 'summary',
-            moduleId: 'viewmodels/summary',
-            title: 'Summary',
-            nav: true,
-            settings: {
-                caption: 'Progress summary&nbsp;<img src="img/progress_summary_white.png" alt="" />'
-            }
         }
     ];
 

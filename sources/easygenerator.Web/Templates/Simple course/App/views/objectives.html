@@ -1,7 +1,20 @@
-﻿<section id="objectivesPage" class="objectives content unselectable">
-    <h1 class="course-title-wrapper">
-        <span>Course: </span><span class="course-caption" data-bind="text: courseTitle"></span>
-    </h1>
+﻿<section id="objectivesPage" class="objectives content unselectable" data-view="views/objectives" data-active-view="true" style="">
+    <header class="objectives-page-header">
+        <div class="course-title-wrapper">
+            <h1 class="course-title">
+                <span>Course: </span><span class="course-caption" data-bind="text: courseTitle">"course title"</span>
+            </h1>
+        </div>
+        <div class="overall-progress-block">
+            <div class="overall-progress-wrapper">
+                <canvas width="100" height="100" data-bind="circleProgress: { progress: score }"></canvas>
+                <div class="overall-progress-score selectable" data-bind="text: Math.round(score) + '%'">0%</div>
+            </div>
+        </div>
+        <div class="finish-course-wrapper">
+            <a href="#" class="red-btn objective-page-action-btn" data-bind="click: finish">Finish course</a>
+        </div>
+    </header>
     <ul class="unstyled objective-brief-list" data-bind="foreach: objectives">
         <li class="objective-brief-list-item">
             <div class="objective-brief-wrapper">
@@ -12,14 +25,27 @@
                             <img class="objective-brief-image" src="" alt="" data-bind="attr: { src: image }">
                         </div>
                     </div>
-                    <div class="objective-brief-title selectable" data-bind="text: title">
+                    <div class="objective-brief-info">
+                        <span data-bind="text: title">objective title</span>
+
+                        <div class="objective-brief-progress">
+                            <div class="objective-progressbar-holder">
+                                <div class="objective-progressbar-inside">
+                                    <div class="objective-progressbar-background"></div>
+                                    <div class="objective-progressbar-score" data-bind="style: { width: Math.round(score) + '%' }" style="width: 0%;"></div>
+                                </div>
+                                <div class="objective-progressbar-wrapper">
+                                    <div class="objective-progressbar-border"></div>
+                                </div>
+                            </div>
+                            <span class="objective-progress-score" data-bind="text: Math.round(score) + '%'">0%</span>
+                        </div>
                     </div>
                     <div class="objective-brief-start-wrapper">
-                        <a class="start-objective-btn" href="#" data-bind="attr: { href: '#/objective/' + questions[0].objectiveId + '/question/' + questions[0].id }">Start objective</a>
+                        <a class="objective-page-action-btn blue-btn" href="#" data-bind="attr: { href: '#/objective/' + questions[0].objectiveId + '/question/' + questions[0].id }">Start objective</a>
                     </div>
                 </div>
             </div>
         </li>
     </ul>
-    <div class="img-preloader-block"></div>
 </section>

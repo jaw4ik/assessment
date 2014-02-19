@@ -51,13 +51,11 @@
 
     .tab-header:hover, .tab-header.active {
         top: -2px;
-        z-index: 999;
     }
 
     .tab-header.active {
         background-color: #7a7a7a;
         color: #ffffff;
-        z-index: 9999;
     }
 
     .tab-header + .tab-header {

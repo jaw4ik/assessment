@@ -1,10 +1,10 @@
-﻿define(['viewmodels/summary'], function (viewModel) {
+﻿define(['viewmodels/objectives'], function (viewModel) {
 
     var repository = require('repositories/courseRepository'),
         router = require('plugins/router'),
         windowOperations = require('windowOperations');
 
-    describe('viewModel [summary]', function () {
+    describe('viewModel [objectives]', function () {
 
         var course = {
             calculateScore: function () {
@@ -107,21 +107,6 @@
                 });
             });
 
-        });
-
-        describe('navigateBack:', function () {
-            beforeEach(function () {
-                spyOn(router, 'navigateBack');
-            });
-
-            it('should be function', function () {
-                expect(viewModel.navigateBack).toBeFunction();
-            });
-
-            it('should call router navigate back', function () {
-                viewModel.navigateBack();
-                expect(router.navigateBack).toHaveBeenCalled();
-            });
         });
 
         describe('finish:', function () {
