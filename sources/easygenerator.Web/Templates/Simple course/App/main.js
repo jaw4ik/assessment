@@ -34,6 +34,8 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
             viewLocator.useConvention();
             app.setRoot(getRootView);
 
+            app.title = 'easygenerator';
+
             var modules = [];
 
             Q.allSettled([
