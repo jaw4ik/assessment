@@ -49,7 +49,7 @@
             <!-- /ko -->
         </div>
         <!-- ko if: isCorrectAnswered() -->
-        <div class="feedback-content" data-bind="visible: isAnswered">
+        <div class="feedback-content" data-bind="visible: isAnswered, scrollIntoView: isAnswered">
             <div class="feedback-correct">
                 <span class="feedback-icon"></span>
                 <span class="feedback-text">Correct answer</span>
@@ -60,7 +60,7 @@
         </div>
         <!-- /ko -->
         <!-- ko if: isWrongAnswered() -->
-        <div class="feedback-content feedback-incorrect" data-bind="visible: isAnswered">
+        <div class="feedback-content feedback-incorrect" data-bind="visible: isAnswered, scrollIntoView: isAnswered">
             <div class="feedback-incorrect">
                 <span class="feedback-icon"></span>
                 <span class="feedback-text">Incorrect answer</span>

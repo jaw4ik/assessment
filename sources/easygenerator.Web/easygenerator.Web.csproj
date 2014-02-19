@@ -1192,6 +1192,7 @@
     <Content Include="Templates\Simple course\js\jquery-1.9.1.js" />
     <Content Include="Templates\Simple course\js\knockout-2.2.1.js" />
     <Content Include="Templates\Simple course\js\knockoutBindings\focusHandlerBinding.js" />
+    <Content Include="Templates\Simple course\js\knockoutBindings\scrollIntoViewBinding.js" />
     <Content Include="Templates\Simple course\js\q.js" />
     <Content Include="Templates\Simple course\js\require.js" />
     <Content Include="Templates\Simple course\js\text.js" />

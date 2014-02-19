@@ -1,4 +1,4 @@
-///#source 1 1 /Templates/Simple course/js/jquery-1.9.1.js
+﻿///#source 1 1 /Templates/Simple course/js/jquery-1.9.1.js
 /*!
  * jQuery JavaScript Library v1.9.1
  * http://jquery.com/
@@ -10992,6 +10992,23 @@ ko.bindingHandlers.focusHandler = {
         });
         $(elem).blur(function () {
             $(this).parent().find(wrapper).removeClass('focus');
+        });
+    }
+};
+///#source 1 1 /Templates/Simple course/js/knockoutBindings/scrollIntoViewBinding.js
+ko.bindingHandlers.scrollIntoView = {
+    init: function () {
+    },
+
+    update: function (element, valueAccessor) {
+        var $element = $(element),
+            isVisible = ko.utils.unwrapObservable(valueAccessor());
+
+        if (!isVisible)
+            return;
+
+        $('body').animate({
+            scrollTop: $element.offset().top
         });
     }
 };
