@@ -296,7 +296,7 @@
     <Content Include="App\viewmodels\panels\tabs\reviewTab.spec.js">
       <DependentUpon>reviewTab.js</DependentUpon>
     </Content>
-    <Content Include="App\views\common\contextMenu.html" />
+    <Content Include="App\views\common\courseNavigation.html" />
     <Content Include="App\views\courses\courseComments.html" />
     <Content Include="App\views\panels\sidePanel.html" />
     <Content Include="App\views\panels\tabs\feedbackTab.html" />

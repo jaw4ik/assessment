@@ -1,0 +1,3 @@
+﻿<div class="courseNavigationHolder" data-bind="css: { 'hidden': $data.length == 0 }">
+    <!-- ko foreach: $data --><a class="courseNavigationItem" href="#" data-bind="click: navigate, css: { 'active': isActive(), 'cursor-default': isRootView() }, attr: { href: navigationLink }, localize: { text: title }"></a><!-- /ko -->
+</div>

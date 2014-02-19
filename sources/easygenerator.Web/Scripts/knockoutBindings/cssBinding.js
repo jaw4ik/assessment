@@ -6,7 +6,7 @@
         var helpHintHeight,
             contentContainer = '#content',
             helpHint = '.help-hint',
-            contextMenuHolder = '.contextMenuHolder',
+            courseNavigationHolder = '.courseNavigationHolder',
             notFixedContainer = '.view-module',
             fixedContainer = '.view-module > .fixed-container:first-child',
             notifyContainer = '.notify.fixed-container',
@@ -33,17 +33,17 @@
                 helpHintHeight = 0;
             }
 
-            var contextMenuHeight = 0;
-            if (!_.isNullOrUndefined($(contextMenuHolder).height())) {
-                contextMenuHeight = $(contextMenuHolder).height();
+            var courseNavigationHeight = 0;
+            if (!_.isNullOrUndefined($(courseNavigationHolder).height())) {
+                courseNavigationHeight = $(courseNavigationHolder).height();
             }
 
-            $(fixedContainer).css('top', headerHeight + contextMenuHeight + helpHintHeight + 'px');
-            $(notifyContainer).css('top', headerHeight + contextMenuHeight + helpHintHeight + 'px');
-            $(notFixedContainer).css('padding-top', fixedContainerHeight + contextMenuHeight + helpHintHeight + 'px');
+            $(fixedContainer).css('top', headerHeight + courseNavigationHeight + helpHintHeight + 'px');
+            $(notifyContainer).css('top', headerHeight + courseNavigationHeight + helpHintHeight + 'px');
+            $(notFixedContainer).css('padding-top', fixedContainerHeight + courseNavigationHeight + helpHintHeight + 'px');
             $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
             $(backBtn).css('padding-top', parseInt($(fixedContainer).css('top')) + 14 + 'px');
-            $(helpHint).css('padding-top', contextMenuHeight + 'px');
+            $(helpHint).css('padding-top', courseNavigationHeight + 'px');
         }
     }
 

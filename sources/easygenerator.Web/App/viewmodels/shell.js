@@ -35,7 +35,7 @@
         objectivesModules = ['objectives', 'objective', 'createObjective', 'createQuestion', 'question'],
         coursesModules = ['courses', 'createCourse', 'course', 'design', 'deliver'],
         isViewReady = ko.observable(false),
-        contextMenu = ko.observableArray([]),
+        courseNavigation = ko.observableArray([]),
 
         activeModule = ko.computed(function () {
             var activeItem = router.activeItem();
@@ -68,7 +68,7 @@
             return null;
         },
 
-        getCourseContextMenu = function (activeModuleId, courseId) {
+        getCourseNavigation = function (activeModuleId, courseId) {
             if (!_.isNullOrUndefined(courseId)) {
                return [{
                     navigate: function () {
@@ -170,7 +170,7 @@
                         var activeModuleId = getModuleIdFromRouterActiveInstruction();
                         var courseId = getCurrentCourseId(activeModuleId);
 
-                        contextMenu(getCourseContextMenu(activeModuleId, courseId));
+                        courseNavigation(getCourseNavigation(activeModuleId, courseId));
 
                         that.navigation()[0].isPartOfModules(_.contains(coursesModules, activeModuleId) || !_.isNullOrUndefined(courseId));
                         that.navigation()[1].isPartOfModules(_.contains(objectivesModules, activeModuleId) && _.isNullOrUndefined(courseId));
@@ -246,7 +246,7 @@
         navigation: navigation,
         isTryMode: isTryMode,
 
-        contextMenu: contextMenu,
+        courseNavigation: courseNavigation,
         username: username,
 
         help: help
