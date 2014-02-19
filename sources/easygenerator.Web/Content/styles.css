@@ -325,6 +325,40 @@ a.top-navigation-item:hover {
 
 /*#endregion TOP-NAVIGATION*/
 
+/*#region COURSE-CONTEXT-MENU*/
+
+.contextMenuHolder {
+    background-color: white;
+    text-align: center;
+    border-bottom: 1px solid rgb(206,206,206);
+}
+
+    .contextMenuHolder.hidden {
+        display: none;
+    }
+
+.contextMenuItem {
+    width: 187px;
+    display: inline-block;
+    padding: 15px 0;
+    color: #877f78;
+    font-family: OpenSans;
+    font-size: 13px;
+}
+
+.contextMenuItem:hover {
+    background-color: rgb(251,251,251);
+}
+
+.contextMenuItem.active {
+    background-color: rgb(247, 247, 247);
+    font-family: OpenSans-Semibold;
+    color: #544f4b;
+    border-bottom: 1px solid rgb(173,198,52);
+}
+
+/*#endregion COURSE-CONTEXT-MENU*/
+
 /*#region VIEW CAPTIONS*/
 
 .view-module > .fixed-container:first-child {

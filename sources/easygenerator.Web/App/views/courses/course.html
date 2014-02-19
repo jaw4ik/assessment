@@ -1,4 +1,4 @@
-﻿<section class="course view-module">
+﻿<section class="course define view-module">
     <div class="fixed-container">
         <div class="content-holder">
             <div class="page-view-caption clearfix">
@@ -10,26 +10,156 @@
         <!-- /ko -->
     </div>
     <div class="content-holder">
-        <div class="process-steps-container">
-            <ul class="process-steps unstyled">
-                <li class="tb-cell process-step" data-bind="click: goToDefine, css: { 'active': activeStep() == steps[0] }">
-                    <span data-bind="localize: { text: 'courseDefine' }">Define</span>
-                </li>
-                <li class="tb-cell">
-                    <span class="separator">&nbsp;</span>
-                </li>
-                <li class="tb-cell process-step" data-bind="click: goToDesign, css: { 'active': activeStep() == steps[1] }">
-                    <span data-bind="localize: { text: 'courseDesign' }">Design</span>
-                </li>
-                <li class="tb-cell">
-                    <span class="separator">&nbsp;</span>
-                </li>
-                <li class="tb-cell process-step active" data-bind="click: goToDeliver, css: { 'active': activeStep() == steps[2] }">
-                    <span data-bind="localize: { text: 'courseDeliver' }">Deliver</span>
-                </li>
-            </ul>
+        <div class="content-holder resizable">
+
+            <header class="view-header">
+                <div class="view-header-title">
+                    <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': isEditing(), 'error': !title.isValid() }"></div>
+                    <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
+                        <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: courseTitleMaxLength"></span>
+                    </div>
+                </div>
+            </header>
+            <div class="course-introduction-wrapper" data-bind="with: courseIntroductionContent">
+                <div class="entity-content-action-wrapper">
+                    <!-- ko if: isContentDefined -->
+                    <!-- ko if: isExpanded -->
+                    <div class="entity-content-action hide cursor-default" data-bind="click: toggleExpand, localize: { text: 'hideCourseContent' }">Hide course introduction content</div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isExpanded -->
+                    <div class="entity-content-action show cursor-default" data-bind="click: toggleExpand, localize: { text: 'showCourseContent' }">Show course introduction content</div>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko ifnot: isContentDefined -->
+                    <div class="entity-content-action add cursor-default" data-bind="click: addContent, localize: { text: 'addCourseContent' }">Add course introduction content</div>
+                    <!-- /ko -->
+                </div>
+                <!-- ko if: isContentDefined -->
+                <!-- ko if: isExpanded -->
+                <div class="course-introduction-content-wrapper">
+                    <div class="course-introduction-content" data-bind="css: { active: hasFocus }">
+                        <div class="course-introduction-block">
+                            <div class="course-introduction selectable" data-bind="ckeditor: { data: text, language: $root.language(), eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $root.localizationManager }"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- /ko -->
+            </div>
+
+            <div class="objectives-filters-holder clearfix">
+                <aside class="objectives-filters-block">
+                    <h3 class="objectives-filters-title" data-bind="localize: { text: 'filter' }"></h3>
+                    <div class="objectives-filters-controls">
+                        <div class="filter-radio-control" data-bind="click: showConnectedObjectives">
+                            <label class="filter-radio-label" data-bind="css: { checked: objectivesMode() == objectivesListModes.display }, localize: { text: 'showAllConnectedLearningObjectives' }">
+                            </label>
+                        </div>
+                        <div class="filter-radio-control" data-bind="click: showAllAvailableObjectives">
+                            <label class="filter-radio-label" data-bind="css: { checked: objectivesMode() == objectivesListModes.appending }, localize: { text: 'showOtherLearningObjectives' }">
+                            </label>
+                        </div>
+                    </div>
+                </aside>
+                <div class="main-content-list-holder">
+                    <div class="list-controls-holder clearfix">
+                        <!-- ko if: objectivesMode() == objectivesListModes.display -->
+                        <!-- ko if: canDisconnectObjectives() -->
+                        <span class="selected-item-action disconnect enabled" data-bind="click: disconnectSelectedObjectives, localize: { text: 'disconnectSelected' }"></span>
+                        <!-- /ko -->
+                        <!-- ko ifnot: canDisconnectObjectives()-->
+                        <span class="selected-item-action disconnect disabled" data-bind="localize: { text: 'disconnectSelected' }"></span>
+                        <!-- /ko -->
+                        <!--/ko -->
+                        <!-- ko if: objectivesMode() == objectivesListModes.appending -->
+                        <span class="selected-item-action add" data-bind="css: { enabled: canConnectObjectives(), disabled: !canConnectObjectives() }, click: connectObjectives, localize: { text: 'connectSelected' }"></span>
+                        <!-- /ko -->
+                        <div class="dotted-line"></div>
+                    </div>
+                    <!-- ko if: objectivesMode() == objectivesListModes.display -->
+                    <div class="create-new-holder">
+                        <a href="#" class="create-new-title" data-bind="click: navigateToCreateObjective, attr: { href: '#objective/create?courseId=' + id }">
+                            <span class="create-new-icon">&nbsp;</span>
+                            <span data-bind="localize: { text: 'createAndConnectLearningObjective' }"></span>
+                        </a>
+                        <div class="dotted-line"></div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
+                    <div class="empty-list-wrapper">
+                        <div class="empty-list" data-bind="localize: { text: 'noLearningObjectivesToConnect' }"></div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: (objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
+                    <!--ko if: objectivesMode() == objectivesListModes.display-->
+                    <ul class="unstyled main-content-list" data-bind="sortable: { data: connectedObjectives, afterMove: reorderObjectives, isEnabled: isSortingEnabled }">
+                        <li class="main-content-list-item" data-bind="css: { selected: isSelected }">
+                            <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
+                                <div class="list-item-drag-icon-wrapper">
+                                    <!-- ko if: $parent.isSortingEnabled() -->
+                                    <span class="list-item-drag-icon" data-bind="stopEventPropagation: { event: 'click' }, localize: { title: 'changeOrderTooltip' }"></span>
+                                    <!-- /ko -->
+                                    <!-- ko ifnot: $parent.isSortingEnabled() -->
+                                    <span class="list-item-drag-icon disabled" data-bind="stopEventPropagation: { event: 'click' }"></span>
+                                    <!-- /ko -->
+                                </div>
+                                <div class="list-item-checkbox">
+                                    <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
+                                        <input class="custom-checkbox" type="checkbox" />
+                                    </span>
+                                </div>
+                                <div class="list-item-logo">
+                                    <img class="list-item-logo-image" alt="" src="" data-bind="attr: { src: image }" />
+                                </div>
+                                <div class="list-item-info">
+                                    <div class="list-item-title">
+                                        <span class="selectable" data-bind="text: title"></span>
+                                    </div>
+                                    <div class="list-item-saved">
+                                        <span data-bind="localize: { text: 'lastEdited' }">Last edited: </span><span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="open-item-btn">
+                                <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent), attr: { href: 'objective/' + $parent.id + '?courseId=' + id }">
+                                    <span class="open-btn-text" data-bind="localize: { text: 'open' }"></span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- /ko -->
+                    <!--ko ifnot: objectivesMode() == objectivesListModes.display-->
+                    <ul class="unstyled main-content-list" data-bind="foreach: availableObjectives">
+                        <li class="main-content-list-item" data-bind="css: { selected: isSelected }">
+                            <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
+                                <div class="list-item-checkbox">
+                                    <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
+                                        <input class="custom-checkbox" type="checkbox" />
+                                    </span>
+                                </div>
+                                <div class="list-item-logo">
+                                    <img class="list-item-logo-image" alt="" src="" data-bind="attr: { src: image }" />
+                                </div>
+                                <div class="list-item-info">
+                                    <div class="list-item-title">
+                                        <span class="selectable" data-bind="text: title"></span>
+                                    </div>
+                                    <div class="list-item-saved">
+                                        <span data-bind="localize: { text: 'lastEdited' }">Last edited: </span><span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="open-item-btn">
+                                <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent), attr: { href: 'objective/' + $parent.id + '?courseId=' + id }">
+                                    <span class="open-btn-text" data-bind="localize: { text: 'open' }"></span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                </div>
+            </div>
         </div>
-        <!-- ko compose: { model: activeStep, cacheViews: false } -->
-        <!-- /ko -->
     </div>
 </section>

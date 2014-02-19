@@ -6,7 +6,8 @@
         courseRepository = require('repositories/courseRepository'),
         templateRepository = require('repositories/templateRepository'),
         notify = require('notify'),
-        localizationManager = require('localization/localizationManager');
+        localizationManager = require('localization/localizationManager'),
+        clientContext = require('clientContext');
 
     describe('viewModel [design]', function () {
 
@@ -33,6 +34,31 @@
             expect(viewModel).toBeDefined();
         });
 
+        describe('goBackTooltip:', function () {
+            it('should be defined', function () {
+                expect(viewModel.goBackTooltip).toBeDefined();
+            });
+        });
+
+        describe('navigateToCourses:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.navigateToCourses).toBeFunction();
+            });
+
+            it('should send event \'Navigate to courses\'', function () {
+                viewModel.navigateToCourses();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to courses');
+            });
+
+            it('should navigate to #courses', function () {
+                spyOn(router, "navigate");
+                viewModel.navigateToCourses();
+                expect(router.navigate).toHaveBeenCalledWith('courses');
+            });
+
+        });
+
         describe('activate:', function () {
 
             it('should be function', function () {
@@ -47,6 +73,12 @@
                 var courseId = 'courseId';
                 viewModel.activate(courseId);
                 expect(courseRepository.getById).toHaveBeenCalledWith(courseId);
+            });
+
+            it('should set goBackTooltip', function () {
+                spyOn(localizationManager, 'localize').andReturn('text');
+                viewModel.activate('SomeId');
+                expect(viewModel.goBackTooltip).toEqual('text text');
             });
 
             describe('when course was not found', function () {
@@ -102,6 +134,32 @@
                     });
                     runs(function () {
                         expect(templateRepository.getCollection).toHaveBeenCalled();
+                    });
+                });
+
+                it('should set course id as the last visited in client context', function () {
+                    spyOn(clientContext, 'set');
+                    var promise = viewModel.activate(course.id);
+                    getTemplateCollectionDefer.reject();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(clientContext.set).toHaveBeenCalledWith('lastVistedCourse', course.id);
+                    });
+                });
+
+                it('should reset last visited objective in client context', function () {
+                    spyOn(clientContext, 'set');
+                    var promise = viewModel.activate(course.id);
+                    getTemplateCollectionDefer.reject();
+                    
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', null);
                     });
                 });
 

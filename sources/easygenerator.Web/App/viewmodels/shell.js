@@ -33,8 +33,9 @@
         coursesModule = 'courses',
         introductionPage = 'welcome',
         objectivesModules = ['objectives', 'objective', 'createObjective', 'createQuestion', 'question'],
-        coursesModules = ['courses', 'course', 'createCourse'],
+        coursesModules = ['courses', 'createCourse', 'course', 'design', 'deliver'],
         isViewReady = ko.observable(false),
+        contextMenu = ko.observableArray([]),
 
         activeModule = ko.computed(function () {
             var activeItem = router.activeItem();
@@ -55,6 +56,66 @@
             return '';
         },
 
+        getCurrentCourseId = function (activeModuleId) {
+            var instruction = router.activeInstruction();
+
+            if (_.contains(["course", "design", "deliver"], activeModuleId)) {
+                return instruction.params[0];
+            } else if (!_.isNullOrUndefined(instruction.queryParams) && _.isString(instruction.queryParams.courseId)) {
+                return instruction.queryParams.courseId;
+            }
+
+            return null;
+        },
+
+        getCourseContextMenu = function (activeModuleId, courseId) {
+            if (!_.isNullOrUndefined(courseId)) {
+               return [{
+                    navigate: function () {
+                        if (_.isString(courseId))
+                            router.navigate('course/' + courseId);
+                    },
+                    navigationLink: '#course/' + courseId,
+                    title: 'courseDefine',
+                    isActive: ko.computed(function () {
+                        return activeModuleId != "design" && activeModuleId != "deliver";
+                    }),
+                    isRootView: ko.computed(function () {
+                        return activeModuleId == "course";
+                    })
+                },
+                    {
+                        navigate: function () {
+                            if (_.isString(courseId))
+                                router.navigate('design/' + courseId);
+                        },
+                        navigationLink: '#design/' + courseId,
+                        title: 'courseDesign',
+                        isActive: ko.computed(function () {
+                            return activeModuleId == "design";
+                        }),
+                        isRootView: ko.computed(function () {
+                            return activeModuleId == "design";
+                        })
+                    },
+                    {
+                        navigate: function () {
+                            if (_.isString(courseId))
+                                router.navigate('deliver/' + courseId);
+                        },
+                        navigationLink: '#deliver/' + courseId,
+                        title: 'courseDeliver',
+                        isActive: ko.computed(function () {
+                            return activeModuleId == "deliver";
+                        }),
+                        isRootView: ko.computed(function () {
+                            return activeModuleId == "deliver";
+                        })
+                    }];
+            } else {
+                return [];
+            }
+        },
 
         browserCulture = ko.observable(),
 
@@ -90,10 +151,10 @@
                         checkRequestCounter(defer);
 
                         return defer.promise;
-                        
+
                         function checkRequestCounter(defer) {
                             if (requestsCounter() > 0) {
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     checkRequestCounter(defer);
                                 }, 100);
                             } else {
@@ -105,8 +166,14 @@
 
                     router.on('router:route:activating').then(function () {
                         isViewReady(false);
-                        that.navigation()[0].isPartOfModules(_.contains(coursesModules, getModuleIdFromRouterActiveInstruction()));
-                        that.navigation()[1].isPartOfModules(_.contains(objectivesModules, getModuleIdFromRouterActiveInstruction()));
+
+                        var activeModuleId = getModuleIdFromRouterActiveInstruction();
+                        var courseId = getCurrentCourseId(activeModuleId);
+
+                        contextMenu(getCourseContextMenu(activeModuleId, courseId));
+
+                        that.navigation()[0].isPartOfModules(_.contains(coursesModules, activeModuleId) || !_.isNullOrUndefined(courseId));
+                        that.navigation()[1].isPartOfModules(_.contains(objectivesModules, activeModuleId) && _.isNullOrUndefined(courseId));
                     });
 
                     router.on('router:navigation:composition-complete').then(function () {
@@ -179,6 +246,7 @@
         navigation: navigation,
         isTryMode: isTryMode,
 
+        contextMenu: contextMenu,
         username: username,
 
         help: help

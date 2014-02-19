@@ -6,6 +6,7 @@
         var helpHintHeight,
             contentContainer = '#content',
             helpHint = '.help-hint',
+            contextMenuHolder = '.contextMenuHolder',
             notFixedContainer = '.view-module',
             fixedContainer = '.view-module > .fixed-container:first-child',
             notifyContainer = '.notify.fixed-container',
@@ -32,11 +33,17 @@
                 helpHintHeight = 0;
             }
 
-            $(fixedContainer).css('top', headerHeight + helpHintHeight + 'px');
-            $(notifyContainer).css('top', headerHeight + helpHintHeight + 'px');
-            $(notFixedContainer).css('padding-top', fixedContainerHeight + helpHintHeight + 'px');
+            var contextMenuHeight = 0;
+            if (!_.isNullOrUndefined($(contextMenuHolder).height())) {
+                contextMenuHeight = $(contextMenuHolder).height();
+            }
+
+            $(fixedContainer).css('top', headerHeight + contextMenuHeight + helpHintHeight + 'px');
+            $(notifyContainer).css('top', headerHeight + contextMenuHeight + helpHintHeight + 'px');
+            $(notFixedContainer).css('padding-top', fixedContainerHeight + contextMenuHeight + helpHintHeight + 'px');
             $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
             $(backBtn).css('padding-top', parseInt($(fixedContainer).css('top')) + 14 + 'px');
+            $(helpHint).css('padding-top', contextMenuHeight + 'px');
         }
     }
 

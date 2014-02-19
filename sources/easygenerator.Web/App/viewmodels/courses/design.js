@@ -1,7 +1,10 @@
-﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager'],
-    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager) {
+﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext'],
+    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext) {
 
-        var events = {
+        var goBackTooltip = '',
+
+            events = {
+            navigateToCourses: 'Navigate to courses',
             updateCourseTemplate: 'Change course template to'
         };
 
@@ -11,18 +14,28 @@
             templates: [],
 
             showProgress: ko.observable(false),
-
             selectTemplate: selectTemplate,
+
+            goBackTooltip: goBackTooltip,
+            navigateToCourses: navigateToCourses,
 
             activate: activate
         };
 
         return viewModel;
 
+        function navigateToCourses() {
+            eventTracker.publish(events.navigateToCourses);
+            router.navigate('courses');
+        }
 
         function activate(courseId) {
+            viewModel.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
+
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;
+                clientContext.set('lastVistedCourse', course.id);
+                clientContext.set('lastVisitedObjective', null);
 
                 return templateRepository.getCollection().then(function (templates) {
                     viewModel.templates = _.chain(templates)

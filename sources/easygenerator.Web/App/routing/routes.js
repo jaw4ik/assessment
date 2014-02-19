@@ -74,6 +74,22 @@
                 }
             },
             {
+                route: 'design/:id',
+                moduleId: 'viewmodels/courses/design',
+                title: 'Design Course',
+                settings: {
+                    localizationKey: 'course'
+                }
+            },
+            {
+                route: 'deliver/:id',
+                moduleId: 'viewmodels/courses/deliver',
+                title: 'Deliver Course',
+                settings: {
+                    localizationKey: 'course'
+                }
+             },
+            {
                 route: 'welcome',
                 moduleId: 'introduction/welcome',
                 title: 'Welcome page',

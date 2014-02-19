@@ -6,8 +6,12 @@
             router = require('plugins/router'),
             constants = require('constants'),
             userContext = require('userContext'),
-            repository = require('repositories/courseRepository')
-        ;
+            notify = require('notify'),
+            app = require('durandal/app'),
+            repository = require('repositories/courseRepository'),
+            eventTracker = require('eventTracker'),
+            localizationManager = require('localization/localizationManager'),
+            clientContext = require('clientContext');
 
         describe('viewModel [deliver]', function () {
             var course = {
@@ -15,8 +19,38 @@
                 title: 'title',
             };
 
+            beforeEach(function() {
+                spyOn(notify, 'error');
+                spyOn(eventTracker, 'publish');
+            });
+
             it('should be object', function () {
                 expect(viewModel).toBeObject();
+            });
+
+            describe('goBackTooltip:', function () {
+                it('should be defined', function () {
+                    expect(viewModel.goBackTooltip).toBeDefined();
+                });
+            });
+
+            describe('navigateToCourses:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.navigateToCourses).toBeFunction();
+                });
+
+                it('should send event \'Navigate to courses\'', function () {
+                    viewModel.navigateToCourses();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to courses');
+                });
+
+                it('should navigate to #courses', function () {
+                    spyOn(router, "navigate");
+                    viewModel.navigateToCourses();
+                    expect(router.navigate).toHaveBeenCalledWith('courses');
+                });
+
             });
 
             describe('states:', function () {
@@ -135,6 +169,12 @@
                     expect(userContext.identify).toHaveBeenCalled();
                 });
 
+                it('should set goBackTooltip', function () {
+                    spyOn(localizationManager, 'localize').andReturn('text');
+                    viewModel.activate('SomeId');
+                    expect(viewModel.goBackTooltip).toEqual('text text');
+                });
+
                 describe('when user is re-identified', function () {
 
                     beforeEach(function () {
@@ -217,6 +257,30 @@
                             });
                         });
 
+                        it('should set course id as the last visited in client context', function () {
+                            spyOn(clientContext, 'set');
+                            var promise = viewModel.activate(course.id);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(clientContext.set).toHaveBeenCalledWith('lastVistedCourse', course.id);
+                            });
+                        });
+
+                        it('should reset last visited objective in client context', function () {
+                            spyOn(clientContext, 'set');
+                            var promise = viewModel.activate(course.id);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', null);
+                            });
+                        });
+
                         describe('and user has starter access', function () {
 
                             beforeEach(function () {
@@ -276,6 +340,68 @@
 
             });
 
+            describe('when current course build failed', function () {
+
+                var message = "message";
+
+                describe('and when message is defined', function () {
+                    it('should show notification', function () {
+                        viewModel.id = 'id';
+                        app.trigger(constants.messages.course.build.failed, viewModel.id, message);
+                        expect(notify.error).toHaveBeenCalledWith(message);
+                    });
+                });
+
+                describe('and when message is not defined', function () {
+                    it('should not show notification', function () {
+                        viewModel.id = 'id';
+                        app.trigger(constants.messages.course.build.failed, viewModel.id);
+                        expect(notify.error).not.toHaveBeenCalled();
+                    });
+                });
+
+            });
+
+            describe('when any other course build failed', function () {
+
+                it('should not show notification', function () {
+                    viewModel.id = 'id';
+                    app.trigger(constants.messages.course.build.failed, '100500');
+                    expect(notify.error).not.toHaveBeenCalled();
+                });
+
+            });
+
+            describe('when current course publish failed', function () {
+
+                var message = "message";
+
+                describe('and when message is defined', function () {
+                    it('should show notification', function () {
+                        viewModel.id = 'id';
+                        app.trigger(constants.messages.course.publish.failed, viewModel.id, message);
+                        expect(notify.error).toHaveBeenCalledWith(message);
+                    });
+                });
+
+                describe('and when message is not defined', function () {
+                    it('should not show notification', function () {
+                        viewModel.id = 'id';
+                        app.trigger(constants.messages.course.publish.failed, viewModel.id);
+                        expect(notify.error).not.toHaveBeenCalled();
+                    });
+                });
+            });
+
+            describe('when any other course build failed', function () {
+
+                it('should not show notification', function () {
+                    viewModel.id = 'id';
+                    app.trigger(constants.messages.course.publish.failed, '100500');
+                    expect(notify.error).not.toHaveBeenCalled();
+                });
+
+            });
         });
 
     }
