@@ -58,6 +58,7 @@
             courseTitleMaxLength: constants.validation.courseTitleMaxLength,
             disconnectSelectedObjectives: disconnectSelectedObjectives,
             reorderObjectives: reorderObjectives,
+            isSortingEnabled: ko.observable(true),
             activate: activate
         };
 
@@ -71,6 +72,10 @@
             return _.some(viewModel.availableObjectives(), function (item) {
                 return item.isSelected();
             });
+        });
+
+        viewModel.isSortingEnabled = ko.computed(function () {
+            return viewModel.connectedObjectives().length != 1;
         });
 
         return viewModel;

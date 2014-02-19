@@ -988,7 +988,7 @@
                     });
 
                     it('should set current course objectives', function () {
-                        viewModel.connectedObjectives(null);
+                        viewModel.connectedObjectives([]);
 
                         var promise = viewModel.activate(course.id);
 
@@ -1075,6 +1075,39 @@
                         runs(function() {
                             expect(notify.saved).toHaveBeenCalled();
                         });
+                    });
+
+                });
+
+            });
+
+            describe('isSortingEnabled', function () {
+
+                it('should be observable', function() {
+                    expect(viewModel.isSortingEnabled).toBeObservable();
+                });
+
+                describe('when connectedObjectives length not equal 1', function() {
+
+                    it('should return true', function () {
+                        var objectivesList = [
+                            { isSelected: ko.observable(false) },
+                            { isSelected: ko.observable(false) }
+                        ];
+                        viewModel.connectedObjectives(objectivesList);
+                        expect(viewModel.isSortingEnabled()).toBeTruthy();
+                    });
+
+                });
+                
+                describe('when connectedObjectives length equal 1', function () {
+
+                    it('should return false', function () {
+                        var objectivesList = [
+                            { isSelected: ko.observable(false) }
+                        ];
+                        viewModel.connectedObjectives(objectivesList);
+                        expect(viewModel.isSortingEnabled()).toBeFalsy();
                     });
 
                 });

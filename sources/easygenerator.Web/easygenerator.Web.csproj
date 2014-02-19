@@ -539,6 +539,7 @@
     <Content Include="Scripts\knockout-sortable.js" />
     <Content Include="Scripts\knockout-sortable.min.js" />
     <Content Include="Scripts\knockoutBindings\placeholderBinding.js" />
+    <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
     <Content Include="Scripts\review\common.js" />
     <Content Include="Scripts\review\review.js" />
     <Content Include="Scripts\review\review.spec.js">
