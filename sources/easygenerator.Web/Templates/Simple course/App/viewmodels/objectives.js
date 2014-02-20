@@ -25,7 +25,6 @@
 
                 this.score = course.score;
                 this.objectives = _.map(course.objectives, function (item) {
-                    console.dir(item);
                     return {
                         id: item.id,
                         title: item.title,
