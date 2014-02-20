@@ -61,7 +61,7 @@ namespace easygenerator.Web.Components.ActionResults
 
         protected string ContentTypeForFilePath()
         {
-            switch (Path.GetExtension(FilePath))
+            switch (Path.GetExtension(FilePath).ToLower())
             {
                 case ".png": return "image/png";
                 case ".jpg": return "image/jpeg";
