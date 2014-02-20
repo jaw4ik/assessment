@@ -28,6 +28,12 @@
                 expect(viewModel).toBeObject();
             });
 
+            describe('courseId:', function () {
+                it('should be defined', function () {
+                    expect(viewModel.courseId).toBeDefined();
+                });
+            });
+
             describe('goBackTooltip:', function () {
                 it('should be defined', function () {
                     expect(viewModel.goBackTooltip).toBeDefined();
@@ -174,7 +180,7 @@
                     viewModel.activate('SomeId');
                     expect(viewModel.goBackTooltip).toEqual('text text');
                 });
-
+                
                 describe('when user is re-identified', function () {
 
                     beforeEach(function () {
@@ -254,6 +260,18 @@
                             });
                             runs(function () {
                                 expect(viewModel.buildAction()).toBeDefined();
+                            });
+                        });
+
+                        it('should set courseId', function() {
+                            viewModel.courseId = '';
+                            var promise = viewModel.activate(course.id);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.courseId).toBe(course.id);
                             });
                         });
 
@@ -346,16 +364,16 @@
 
                 describe('and when message is defined', function () {
                     it('should show notification', function () {
-                        viewModel.id = 'id';
-                        app.trigger(constants.messages.course.build.failed, viewModel.id, message);
+                        viewModel.courseId = 'id';
+                        app.trigger(constants.messages.course.build.failed, viewModel.courseId, message);
                         expect(notify.error).toHaveBeenCalledWith(message);
                     });
                 });
 
                 describe('and when message is not defined', function () {
                     it('should not show notification', function () {
-                        viewModel.id = 'id';
-                        app.trigger(constants.messages.course.build.failed, viewModel.id);
+                        viewModel.courseId = 'id';
+                        app.trigger(constants.messages.course.build.failed, viewModel.courseId);
                         expect(notify.error).not.toHaveBeenCalled();
                     });
                 });
@@ -365,7 +383,7 @@
             describe('when any other course build failed', function () {
 
                 it('should not show notification', function () {
-                    viewModel.id = 'id';
+                    viewModel.courseId = 'id';
                     app.trigger(constants.messages.course.build.failed, '100500');
                     expect(notify.error).not.toHaveBeenCalled();
                 });
@@ -378,16 +396,16 @@
 
                 describe('and when message is defined', function () {
                     it('should show notification', function () {
-                        viewModel.id = 'id';
-                        app.trigger(constants.messages.course.publish.failed, viewModel.id, message);
+                        viewModel.courseId = 'id';
+                        app.trigger(constants.messages.course.publish.failed, viewModel.courseId, message);
                         expect(notify.error).toHaveBeenCalledWith(message);
                     });
                 });
 
                 describe('and when message is not defined', function () {
                     it('should not show notification', function () {
-                        viewModel.id = 'id';
-                        app.trigger(constants.messages.course.publish.failed, viewModel.id);
+                        viewModel.courseId = 'id';
+                        app.trigger(constants.messages.course.publish.failed, viewModel.courseId);
                         expect(notify.error).not.toHaveBeenCalled();
                     });
                 });
@@ -396,7 +414,7 @@
             describe('when any other course build failed', function () {
 
                 it('should not show notification', function () {
-                    viewModel.id = 'id';
+                    viewModel.courseId = 'id';
                     app.trigger(constants.messages.course.publish.failed, '100500');
                     expect(notify.error).not.toHaveBeenCalled();
                 });

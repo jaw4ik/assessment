@@ -10,6 +10,7 @@
             };
 
         var viewModel = {
+            courseId: '',
             states: constants.deliveringStates,
 
             buildAction: ko.observable(),
@@ -40,7 +41,7 @@
         }
 
         function notifyError(courseId, message) {
-            if (courseId == viewModel.id && !_.isNullOrUndefined(message)) {
+            if (courseId == viewModel.courseId && !_.isNullOrUndefined(message)) {
                 notify.error(message);
             }
         }
@@ -50,6 +51,8 @@
 
             return userContext.identify().then(function () {
                 return repository.getById(courseId).then(function (course) {
+                    viewModel.courseId = course.id;
+                    
                     clientContext.set('lastVistedCourse', course.id);
                     clientContext.set('lastVisitedObjective', null);
 
