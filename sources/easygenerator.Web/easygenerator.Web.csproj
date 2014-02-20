@@ -311,6 +311,7 @@
     <Content Include="App\viewmodels\courses\deliveringActions\publish.js" />
     <Content Include="App\viewmodels\courses\deliveringActions\scormBuild.js" />
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
+    <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransform.cs" />
     <Compile Include="Components\ActionFilters\Authorization\RequireAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
     <Compile Include="Components\ActionResults\BadRequestResult.cs" />
@@ -1553,7 +1554,9 @@
 IF NOT EXIST "$(ProjectDir)App\main-built.js" EXIT /B 1</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>del  "$(ProjectDir)App\main-built.js"</PreBuildEvent>
+    <PreBuildEvent>
+      del "$(ProjectDir)App\main-built.js"
+    </PreBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

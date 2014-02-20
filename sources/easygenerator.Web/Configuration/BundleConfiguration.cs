@@ -1,4 +1,5 @@
 ﻿using System.Web.Optimization;
+using easygenerator.Web.Components.BundleTransforms;
 
 namespace easygenerator.Web.Configuration
 {
@@ -49,26 +50,28 @@ namespace easygenerator.Web.Configuration
                    .Include("~/scripts/knockoutBindings/placeholderBinding.js")
                );
 
-            bundles.Add(new StyleBundle("~/Content/css")
-                    .Include("~/Content/font-awesome.css")
-                    .Include("~/Content/durandal.css")
-                    .Include("~/Content/common_old.css")
-                    .Include("~/Content/styles.css")
-                    .Include("~/Content/question.css")
-                    .Include("~/Content/objective.css")
-                    .Include("~/Content/objectives.css")
-                    .Include("~/Content/courses.css")
-                    .Include("~/Content/course.css")
-                    .Include("~/Scripts/ckeditor/Content.css")
-                    .Include("~/Content/ckeditor.css")
-                    .Include("~/Content/notify.css")
-                    .Include("~/Content/selectbox.css")
-                    .Include("~/Content/common.css")
-                    .Include("~/Content/account.css")
-                    .Include("~/Content/helphint.css")
-                    .Include("~/Content/introduction.css")
-                    .Include("~/Content/panels.css")
-                );
+
+            var stylesBundle = new StyleBundle("~/Content/css")
+                .Include("~/Content/font-awesome.css")
+                .Include("~/Content/durandal.css")
+                .Include("~/Content/common_old.css")
+                .Include("~/Content/styles.css")
+                .Include("~/Content/question.css")
+                .Include("~/Content/objective.css")
+                .Include("~/Content/objectives.css")
+                .Include("~/Content/courses.css")
+                .Include("~/Content/course.css")
+                .Include("~/Scripts/ckeditor/Content.css")
+                .Include("~/Content/ckeditor.css")
+                .Include("~/Content/notify.css")
+                .Include("~/Content/selectbox.css")
+                .Include("~/Content/common.css")
+                .Include("~/Content/account.css")
+                .Include("~/Content/helphint.css")
+                .Include("~/Content/introduction.css")
+                .Include("~/Content/panels.css");
+            stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());
+            bundles.Add(stylesBundle);
 
             bundles.Add(new StyleBundle("~/Content/reviewcss")
                     .Include("~/Content/styles.css")
