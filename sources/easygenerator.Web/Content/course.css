@@ -105,20 +105,9 @@
 /*#endregion DEFINE STEP*/
 
 /*#region DESIGN STEP*/
-.design-view-module {
+.view-module.design {
     padding-top: 20px;
 }
-
-    .design-view-module .template-logo-wrapper {
-        display: inline-block;
-        vertical-align: top;
-        width: 165px;
-        text-align: center;
-    }
-
-    .design-view-module .template-logo {
-        max-height: 87px;
-    }
 
 .choose-template-holder {
     min-width: 250px;
@@ -283,9 +272,12 @@
 
 /*#region DELIVER STEP*/
 
+.view-module.deliver {
+    padding-top: 20px;
+}
+
 .package-actions-holder {
     width: 100%;
-    padding-top: 30px;
 }
 
 .package-action-cell {

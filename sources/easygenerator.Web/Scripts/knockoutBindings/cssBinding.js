@@ -40,10 +40,9 @@
 
             $(fixedContainer).css('top', headerHeight + courseNavigationHeight + helpHintHeight + 'px');
             $(notifyContainer).css('top', headerHeight + courseNavigationHeight + helpHintHeight + 'px');
-            $(notFixedContainer).css('padding-top', fixedContainerHeight + courseNavigationHeight + helpHintHeight + 'px');
+            $(notFixedContainer).css('padding-top', fixedContainerHeight + helpHintHeight + 'px');
             $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
             $(backBtn).css('padding-top', parseInt($(fixedContainer).css('top')) + 14 + 'px');
-            $(helpHint).css('padding-top', courseNavigationHeight + 'px');
         }
     }
 

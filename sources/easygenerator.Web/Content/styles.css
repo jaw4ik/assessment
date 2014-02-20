@@ -330,6 +330,19 @@ span.top-navigation-item.current {
 
 /*#region COURSE-NAVIGATION*/
 
+
+.main.courseEditMode {
+    padding-top: 105px;
+}
+
+.courseEditMode .view-module > .fixed-container:first-child {
+    top: 105px;
+}
+
+.courseEditMode .nav-back-holder {
+    padding-top: 119px;
+}
+
 .courseNavigationHolder {
     background-color: white;
     text-align: center;
