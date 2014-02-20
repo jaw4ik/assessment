@@ -315,13 +315,16 @@ a.top-navigation-item:hover {
 .top-navigation-item.current {
     background: rgb(37,37,37);
     color: #ffffff;
-    cursor: default;
     font-family: 'OpenSans-Semibold';
 }
 
     .top-navigation-item.current.cursor-pointer {
         cursor: pointer;
     }
+
+span.top-navigation-item.current {
+    cursor: default;
+}
 
 /*#endregion TOP-NAVIGATION*/
 
@@ -346,16 +349,16 @@ a.top-navigation-item:hover {
     font-size: 13px;
 }
 
-.courseNavigationItem:hover {
-    background-color: rgb(251,251,251);
-}
+    .courseNavigationItem:hover {
+        background-color: rgb(251,251,251);
+    }
 
-.courseNavigationItem.active {
-    background-color: rgb(247, 247, 247);
-    font-family: OpenSans-Semibold;
-    color: #544f4b;
-    border-bottom: 1px solid rgb(173,198,52);
-}
+    .courseNavigationItem.active {
+        background-color: rgb(247, 247, 247);
+        font-family: OpenSans-Semibold;
+        color: #544f4b;
+        border-bottom: 1px solid rgb(173,198,52);
+    }
 
 /*#endregion COURSE-NAVIGATION*/
 
