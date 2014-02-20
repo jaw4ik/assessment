@@ -75,7 +75,75 @@
 
                     });
 
-                    describe('and active moduleId is not \'viewmodels/courses/course\'', function () {
+                    describe('and active moduleId is \'viewmodels/courses/design\'', function () {
+
+                        describe('and activeInstruction has params', function () {
+                            beforeEach(function () {
+                                router.activeInstruction({
+                                    config: {
+                                        moduleId: 'viewmodels/courses/design'
+                                    },
+                                    params: [courseId]
+                                });
+                            });
+
+                            it('should be first param value', function () {
+                                expect(viewModel.courseId()).toBe(courseId);
+                            });
+                        });
+
+                        describe('and activeInstruction does not have any params', function () {
+                            beforeEach(function () {
+                                router.activeInstruction({
+                                    config: {
+                                        moduleId: 'viewmodels/courses/design'
+                                    },
+                                    params: []
+                                });
+                            });
+
+                            it('should be null', function () {
+                                expect(viewModel.courseId()).toBe(null);
+                            });
+                        });
+
+                    });
+
+                    describe('and active moduleId is \'viewmodels/courses/deliver\'', function () {
+
+                        describe('and activeInstruction has params', function () {
+                            beforeEach(function () {
+                                router.activeInstruction({
+                                    config: {
+                                        moduleId: 'viewmodels/courses/deliver'
+                                    },
+                                    params: [courseId]
+                                });
+                            });
+
+                            it('should be first param value', function () {
+                                expect(viewModel.courseId()).toBe(courseId);
+                            });
+                        });
+
+                        describe('and activeInstruction does not have any params', function () {
+                            beforeEach(function () {
+                                router.activeInstruction({
+                                    config: {
+                                        moduleId: 'viewmodels/courses/deliver'
+                                    },
+                                    params: []
+                                });
+                            });
+
+                            it('should be null', function () {
+                                expect(viewModel.courseId()).toBe(null);
+                            });
+                        });
+
+                    });
+
+                    describe('and active moduleId is not course module', function () {
 
                         describe('and when activeInstruction has query params', function () {
                             describe('and when query param courseId is string', function () {

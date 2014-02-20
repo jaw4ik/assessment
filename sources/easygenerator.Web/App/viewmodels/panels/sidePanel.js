@@ -18,7 +18,8 @@
                 return null;
             }
 
-            if (activeInstruction.config && activeInstruction.config.moduleId == 'viewmodels/courses/course') {
+            var courseTabs = ['viewmodels/courses/course', 'viewmodels/courses/design', 'viewmodels/courses/deliver'];
+            if (activeInstruction.config && _.contains(courseTabs, activeInstruction.config.moduleId)) {
                 return activeInstruction.params.length > 0 ? activeInstruction.params[0] : null;
             }
 
