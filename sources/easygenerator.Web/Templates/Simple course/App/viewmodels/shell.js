@@ -31,7 +31,9 @@
 
             activate: function () {
                 var that = this;
-                return context.initialize().then(function () {
+                return context.initialize().then(function (dataContext) {
+                    app.title = dataContext.course.title;
+
                     return modulesInitializer.init().then(function () {
                         that.logoUrl = graphicalCustomisation.settings.logoUrl;
 

@@ -24,10 +24,13 @@
 
             activate = function () {
                 var that = this;
-                return context.initialize().then(function () {
+                return context.initialize().then(function (dataContext) {
+                    app.title = dataContext.title;
+
                     router.replace = function (url) {
                         router.navigate(url, { replace: true, trigger: true });
                     };
+                    
                     return modulesInitializer.init().then(function () {
                         that.logoUrl = graphicalCustomization.settings.logoUrl;
                         return router.map(routes)

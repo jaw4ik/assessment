@@ -4,7 +4,7 @@
         {
             route: ['', 'home'],
             moduleId: 'viewmodels/home',
-            title: 'Question',
+            title: 'Questions',
             rootLinkDisabled: true
         },
         {

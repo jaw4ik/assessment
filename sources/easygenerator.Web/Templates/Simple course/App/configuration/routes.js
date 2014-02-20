@@ -2,12 +2,6 @@
 
     return [
         {
-            route: 'objectives',
-            moduleId: 'viewmodels/objectives',
-            title: 'Objectives and questions',
-            rootLinkDisabled: true
-        },
-        {
             route: ['', 'introduction'],
             moduleId: 'viewmodels/introduction',
             title: 'Introduction',
@@ -15,14 +9,20 @@
             rootLinkDisabled: true
         },
         {
-            route: '404(/:url)',
-            moduleId: 'viewmodels/404',
-            title: 'Not found'
+            route: 'objectives',
+            moduleId: 'viewmodels/objectives',
+            title: 'Objectives',
+            rootLinkDisabled: true
         },
         {
             route: 'objective/:objectiveId/question/:questionId',
             moduleId: 'viewmodels/question',
             title: 'Question'
+        },
+        {
+            route: '404(/:url)',
+            moduleId: 'viewmodels/404',
+            title: 'Not found'
         }
     ];
 

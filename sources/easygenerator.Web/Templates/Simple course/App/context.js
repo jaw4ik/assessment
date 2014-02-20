@@ -1,7 +1,8 @@
 ﻿define(['models/course', 'models/objective', 'models/question', 'models/answer', 'models/learningContent'],
     function (Course, Objective, Question, Answer, LearningContent) {
 
-        var course = {},
+        var
+            course = {},
 
             initialize = function () {
                 var that = this;
@@ -44,7 +45,7 @@
                     });
 
                     return {
-                        course: course,
+                        course: that.course
                     };
                 });
             };
