@@ -127,6 +127,12 @@
 
                             guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
 
+                            objective.questions = _.map(questions, function(question) {
+                                return _.find(objective.questions, function(item) {
+                                    return item.id == question.id;
+                                });
+                            });
+
                             objective.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
                             return { modifiedOn: objective.modifiedOn };
                         });

@@ -849,7 +849,22 @@
                         describe('and objective exists in dataContext', function () {
 
                             beforeEach(function () {
-                                dataContext.objectives = [{ id: 'objectiveId', title: 'objective title' }];
+                                dataContext.objectives = [{ id: 'objectiveId', title: 'objective title', questions: [{ id: '2' }, { id: '1' }] }];
+                            });
+
+                            it('should update order of questions for objective', function() {
+                                var objectiveId = 'objectiveId',
+                                    questions = [{ id: '1' }, { id: '2' }];
+                                var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
+                                
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(dataContext.objectives[0].questions.length).toBe(2);
+                                    expect(dataContext.objectives[0].questions[0].id).toBe('1');
+                                    expect(dataContext.objectives[0].questions[1].id).toBe('2');
+                                });
                             });
 
                             it('should update modification date', function () {
