@@ -11007,7 +11007,7 @@ ko.bindingHandlers.scrollIntoView = {
         if (!isVisible)
             return;
 
-        $('body').animate({
+        $('body,html').animate({
             scrollTop: $element.offset().top
         });
     }
