@@ -1514,7 +1514,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PublishedPackages\b7032edc-14e3-4893-b068-b1408d88e8eb\App\" />
+    <Folder Include="PublishedPackages\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

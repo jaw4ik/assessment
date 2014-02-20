@@ -46,7 +46,7 @@
 
                 describe('and request failed', function () {
                     var reason = 'reason';
-                    beforeEach(function() {
+                    beforeEach(function () {
                         post.reject(reason);
                     });
 
@@ -64,7 +64,7 @@
 
                 describe('and request succeed', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         post.resolve();
                     });
 
@@ -675,6 +675,215 @@
                     });
 
                 });
+            });
+
+            describe('updateQuestionsOrder', function () {
+
+                it('should be a function', function () {
+                    expect(objectiveRepository.updateQuestionsOrder).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    var result = objectiveRepository.updateQuestionsOrder();
+                    expect(result).toBePromise();
+                });
+
+                describe('when objectiveId is not a string', function () {
+
+                    it('should reject promise', function () {
+                        var promise = objectiveRepository.updateQuestionsOrder();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
+                    });
+
+                    it('should not send request to server', function () {
+                        var promise = objectiveRepository.updateQuestionsOrder();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(httpWrapper.post).not.toHaveBeenCalled();
+                        });
+                    });
+
+                });
+
+                describe('when questions is not array', function () {
+
+                    it('should reject promise', function () {
+                        var promise = objectiveRepository.updateQuestionsOrder('objectiveId');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
+                    });
+
+                    it('should not send request to server', function () {
+                        var promise = objectiveRepository.updateQuestionsOrder('objectiveId');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(httpWrapper.post).not.toHaveBeenCalled();
+                        });
+                    });
+
+                });
+
+                it('should send request \'api/objective/updatequestionsorder\' to server', function () {
+                    var objectiveId = 'objectiveId',
+                        questions = [
+                            { id: '1', title: 'someTitle' },
+                            { id: '2', title: 'someTitle' }
+                        ];
+                    post.reject();
+                    var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/updatequestionsorder', {
+                            objectiveId: objectiveId,
+                            questions: ['1', '2']
+                        });
+                    });
+
+                });
+
+                describe('when request to server is failed', function () {
+
+                    it('should reject promise', function () {
+                        var objectiveId = 'objectiveId',
+                            questions = [];
+                        post.reject('reason');
+                        var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('reason');
+                        });
+
+                    });
+
+                });
+
+                describe('when request to server is succeed', function () {
+
+                    describe('and response is not an object', function () {
+
+                        it('should reject promise', function () {
+                            var objectiveId = 'objectiveId',
+                                questions = [];
+                            post.resolve();
+                            var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith('Response is not an object');
+                            });
+
+                        });
+
+                    });
+
+                    describe('and response does not have modification date', function () {
+
+                        it('should reject promise', function () {
+                            var objectiveId = 'objectiveId',
+                                questions = [];
+                            post.resolve({});
+                            var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith('Response does not have modification date');
+                            });
+
+                        });
+
+                    });
+
+                    describe('and response has modification date', function () {
+
+                        var response = { ModifiedOn: "/Date(1378106938845)/" };
+
+                        beforeEach(function () {
+                            post.resolve(response);
+                        });
+
+                        describe('and objective does not exist in dataContext', function () {
+
+                            it('should reject promise', function () {
+                                var objectiveId = 'objectiveId',
+                                    questions = [];
+                                dataContext.objectives = [];
+                                var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Objective does not exist in dataContext');
+                                });
+                            });
+
+                        });
+
+                        describe('and objective exists in dataContext', function () {
+
+                            beforeEach(function () {
+                                dataContext.objectives = [{ id: 'objectiveId', title: 'objective title' }];
+                            });
+
+                            it('should update modification date', function () {
+                                var objectiveId = 'objectiveId',
+                                    questions = [];
+                                var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(dataContext.objectives[0].modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                                });
+                            });
+
+                            it('should resolve promise with modification date', function () {
+                                var objectiveId = 'objectiveId',
+                                    questions = [];
+                                var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolvedWith({ modifiedOn: utils.getDateFromString(response.ModifiedOn) });
+                                });
+                            });
+
+                        });
+
+                    });
+
+                });
+
             });
 
         });

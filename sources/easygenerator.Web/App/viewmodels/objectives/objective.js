@@ -12,225 +12,213 @@
                 deleteSelectedQuestions: "Delete question",
                 navigateToCourse: "Navigate to course",
                 navigateToObjectives: "Navigate to objectives",
+                changeQuestionsOrder: "Change order of questions"
+            },
+            viewModel = {
+                objectiveId: null,
+                title: ko.observable(''),
+                titleMaxLength: constants.validation.objectiveTitleMaxLength,
+                currentLanguage: '',
+                contextCourseId: null,
+                contextCourseTitle: null,
+                goBackTooltip: '',
+                goBackLink: '',
+
+                questions: ko.observableArray([]),
+
+                startEditTitle: startEditTitle,
+                endEditTitle: endEditTitle,
+
+                navigateBack: navigateBack,
+                navigateToEditQuestion: navigateToEditQuestion,
+
+                createQuestion: createQuestion,
+                deleteSelectedQuestions: deleteSelectedQuestions,
+                toggleQuestionSelection: toggleQuestionSelection,
+                updateQuestionsOrder: updateQuestionsOrder,
+
+                activate: activate
             };
 
-        var
-            objectiveId = null,
-            contextCourseTitle = null,
-            contextCourseId = null,
-            goBackLink = '',
-            goBackTooltip = '',
-            title = ko.observable(''),
-            currentLanguage = '';
-
-        title.isEditing = ko.observable();
-        title.isValid = ko.computed(function () {
-            var length = title().trim().length;
+        viewModel.title.isEditing = ko.observable();
+        viewModel.title.isValid = ko.computed(function () {
+            var length = viewModel.title().trim().length;
             return length > 0 && length <= constants.validation.objectiveTitleMaxLength;
         });
 
-        var
-            startEditTitle = function () {
-                title.isEditing(true);
-            },
+        viewModel.enableDeleteQuestions = ko.computed(function () {
+            return getSelectedQuestions().length > 0;
+        });
 
-            endEditTitle = function () {
-                title(title().trim());
-                title.isEditing(false);
+        viewModel.isSortingEnabled = ko.computed(function () {
+            return viewModel.questions().length > 1;
+        });
 
-                var objectiveTitle = null;
-                var that = this;
-                repository.getById(that.objectiveId).then(function (response) {
+        return viewModel;
+
+        function startEditTitle() {
+            viewModel.title.isEditing(true);
+        }
+
+        function endEditTitle() {
+            viewModel.title(viewModel.title().trim());
+            viewModel.title.isEditing(false);
+
+            var objectiveTitle = null;
+
+            repository.getById(viewModel.objectiveId)
+                .then(function (response) {
                     objectiveTitle = response.title;
-                    if (title() == objectiveTitle)
+                    if (viewModel.title() == objectiveTitle)
                         return;
 
                     eventTracker.publish(events.updateObjectiveTitle);
 
-                    if (title.isValid()) {
-                        repository.updateObjective({ id: that.objectiveId, title: that.title() }).then(showNotification);
+                    if (viewModel.title.isValid()) {
+                        repository.updateObjective({ id: viewModel.objectiveId, title: viewModel.title() }).then(showNotification);
                     } else {
-                        title(objectiveTitle);
+                        viewModel.title(objectiveTitle);
                     }
                 });
-            },
+        }
 
-            questions = ko.observableArray([]),
+        function navigateToEditQuestion(question) {
+            eventTracker.publish(events.navigateToEditQuestion);
+            if (_.isNullOrUndefined(question)) {
+                throw 'Question is null or undefined';
+            }
 
-            navigateToEditQuestion = function (question) {
-                eventTracker.publish(events.navigateToEditQuestion);
-                if (_.isNullOrUndefined(question)) {
-                    throw 'Question is null or undefined';
-                }
+            if (_.isNullOrUndefined(question.id)) {
+                throw 'Question id is null or undefined';
+            }
 
-                if (_.isNullOrUndefined(question.id)) {
-                    throw 'Question id is null or undefined';
-                }
+            router.navigateWithQueryString('objective/' + viewModel.objectiveId + '/question/' + question.id);
+        }
 
-                router.navigateWithQueryString('objective/' + this.objectiveId + '/question/' + question.id);
-            },
-            
-            createQuestion = function () {
-                var that = this;
-                eventTracker.publish(events.createNewQuestion);
-                uiLocker.lock();
-                return Q.fcall(function () {
-
-                    var newQuestion = {
-                        title: localizationManager.localize('newQuestionTitle')
-                    };
-
-                    return questionRepository.addQuestion(that.objectiveId, newQuestion).then(function (createdQuestion) {
-                        clientContext.set('lastCreatedQuestionId', createdQuestion.id);
-                        uiLocker.unlock();
-                        router.navigateWithQueryString('objective/' + that.objectiveId + '/question/' + createdQuestion.id);
-                    }).fail(function() {
-                        uiLocker.unlock();
-                    });
-                });
-            },
-
-            deleteSelectedQuestions = function () {
-                eventTracker.publish(events.deleteSelectedQuestions);
-                var selectedQuestions = getSelectedQuestions();
-                if (selectedQuestions.length == 0)
-                    throw 'No selected questions to delete';
-
-                var that = this;
-
-                var questionIds = _.map(selectedQuestions, function (item) {
-                    return item.id;
-                });
-
-                questionRepository.removeQuestions(this.objectiveId, questionIds).then(function (modifiedOn) {
-                    that.questions(_.difference(that.questions(), selectedQuestions));
-                    showNotification(modifiedOn);
-                });
-
-            },
-
-            toggleQuestionSelection = function (question) {
-
-                if (_.isNullOrUndefined(question)) {
-                    throw 'Question is null or undefined';
-                }
-
-                if (!ko.isObservable(question.isSelected)) {
-                    throw 'Question does not have isSelected observable';
-                }
-
-                question.isSelected(!question.isSelected());
-                eventTracker.publish(question.isSelected() ? events.selectQuestion : events.unselectQuestion);
-            },
-
-            mapQuestion = function (item) {
-                var mappedQuestion = {
-                    id: item.id,
-                    title: item.title,
-                    modifiedOn: item.modifiedOn,
-                    isSelected: ko.observable(false)
+        function createQuestion() {
+            eventTracker.publish(events.createNewQuestion);
+            uiLocker.lock();
+            return Q.fcall(function () {
+                var newQuestion = {
+                    title: localizationManager.localize('newQuestionTitle')
                 };
 
-                return mappedQuestion;
-            },
+                return questionRepository.addQuestion(viewModel.objectiveId, newQuestion)
+                    .then(function (createdQuestion) {
+                        clientContext.set('lastCreatedQuestionId', createdQuestion.id);
+                        uiLocker.unlock();
+                        router.navigateWithQueryString('objective/' + viewModel.objectiveId + '/question/' + createdQuestion.id);
+                    })
+                    .fail(function () {
+                        uiLocker.unlock();
+                    });
+            });
+        }
 
-            navigateBack = function () {
-                if (_.isNull(this.contextCourseId)) {
-                    eventTracker.publish(events.navigateToObjectives);
-                    router.navigate('objectives');
-                } else {
-                    eventTracker.publish(events.navigateToCourse);
-                    router.navigate('course/' + this.contextCourseId);
-                }
-            },
+        function deleteSelectedQuestions() {
+            eventTracker.publish(events.deleteSelectedQuestions);
+            var selectedQuestions = getSelectedQuestions();
+            if (selectedQuestions.length == 0)
+                throw 'No selected questions to delete';
 
-            activate = function (objId, queryParams) {
-                var that = this;
-                
+            var questionIds = _.map(selectedQuestions, function (item) {
+                return item.id;
+            });
 
-                
-                this.currentLanguage = localizationManager.currentLanguage;
+            questionRepository.removeQuestions(viewModel.objectiveId, questionIds)
+                .then(function (modifiedOn) {
+                    viewModel.questions(_.difference(viewModel.questions(), selectedQuestions));
+                    showNotification(modifiedOn);
+                });
+        }
 
-                if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.courseId)) {
-                    that.contextCourseId = null;
-                    that.contextCourseTitle = null;
-                    that.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('learningObjectives');
-                    that.goBackLink = '#objectives';
+        function toggleQuestionSelection(question) {
+            if (_.isNullOrUndefined(question)) {
+                throw 'Question is null or undefined';
+            }
 
-                    return initObjectiveInfo(objId);
-                }
+            if (!ko.isObservable(question.isSelected)) {
+                throw 'Question does not have isSelected observable';
+            }
 
-                return courseRepository.getById(queryParams.courseId).then(function (course) {
-                    that.contextCourseId = course.id;
-                    that.contextCourseTitle = course.title;
+            question.isSelected(!question.isSelected());
+            eventTracker.publish(question.isSelected() ? events.selectQuestion : events.unselectQuestion);
+        }
 
-                    that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + course.title + '\'';
-                    that.goBackLink = '#course/' + course.id;
+        function navigateBack() {
+            if (_.isNull(viewModel.contextCourseId)) {
+                eventTracker.publish(events.navigateToObjectives);
+                router.navigate('objectives');
+            } else {
+                eventTracker.publish(events.navigateToCourse);
+                router.navigate('course/' + viewModel.contextCourseId);
+            }
+        }
 
-                    return initObjectiveInfo(objId);
+        function activate(objId, queryParams) {
+            viewModel.currentLanguage = localizationManager.currentLanguage;
+
+            if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.courseId)) {
+                viewModel.contextCourseId = null;
+                viewModel.contextCourseTitle = null;
+                viewModel.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('learningObjectives');
+                viewModel.goBackLink = '#objectives';
+
+                return initObjectiveInfo(objId);
+            }
+
+            return courseRepository.getById(queryParams.courseId).then(function (course) {
+                viewModel.contextCourseId = course.id;
+                viewModel.contextCourseTitle = course.title;
+
+                viewModel.goBackTooltip = localizationManager.localize('backTo') + ' \'' + course.title + '\'';
+                viewModel.goBackLink = '#course/' + course.id;
+
+                return initObjectiveInfo(objId);
+            }).fail(function (reason) {
+                router.activeItem.settings.lifecycleData = { redirect: '404' };
+                throw reason;
+            });
+
+            function initObjectiveInfo(id) {
+                return repository.getById(id).then(function (objective) {
+                    clientContext.set('lastVisitedObjective', id);
+                    viewModel.objectiveId = objective.id;
+                    viewModel.title(objective.title);
+
+                    var array = _.map(objective.questions, function (question) {
+                        return {
+                            id: question.id,
+                            title: question.title,
+                            modifiedOn: question.modifiedOn,
+                            isSelected: ko.observable(false)
+                        };
+                    });
+
+                    viewModel.questions(array);
                 }).fail(function (reason) {
                     router.activeItem.settings.lifecycleData = { redirect: '404' };
                     throw reason;
                 });
-                
-                function initObjectiveInfo(id) {
-                    return repository.getById(id).then(function (objective) {
-                        clientContext.set('lastVisitedObjective', id);
-                        that.objectiveId = objective.id;
-                        that.title(objective.title);
+            }
+        }
 
-                        var array = _.chain(objective.questions).sortBy(function (question) {
-                            return -question.createdOn;
-                        }).map(function (item) {
-                            return mapQuestion(item);
-                        }).value();
+        function getSelectedQuestions() {
+            return _.reject(viewModel.questions(), function (item) {
+                return !item.isSelected();
+            });
+        }
 
-                        that.questions(array);
-                    }).fail(function (reason) {
-                        router.activeItem.settings.lifecycleData = { redirect: '404' };
-                        throw reason;
-                    });
-                }
-            },
+        function showNotification(date) {
+            notify.saved();
+        }
 
-            getSelectedQuestions = function () {
-                return _.reject(questions(), function (item) {
-                    return !item.isSelected();
+        function updateQuestionsOrder() {
+            eventTracker.publish(events.changeQuestionsOrder);
+            repository.updateQuestionsOrder(viewModel.objectiveId, viewModel.questions())
+                .then(function () {
+                    showNotification();
                 });
-            },
-
-            enableDeleteQuestions = ko.computed(function () {
-                return getSelectedQuestions().length > 0;
-            }),
-
-            showNotification = function (date) {
-                notify.saved();
-            };
-
-        return {
-            objectiveId: objectiveId,
-            title: title,
-            titleMaxLength: constants.validation.objectiveTitleMaxLength,
-            currentLanguage: currentLanguage,
-            contextCourseId: contextCourseId,
-            contextCourseTitle: contextCourseTitle,
-            goBackTooltip: goBackTooltip,
-            goBackLink: goBackLink,
-
-            questions: questions,
-            enableDeleteQuestions: enableDeleteQuestions,
-
-            startEditTitle: startEditTitle,
-            endEditTitle: endEditTitle,
-
-            navigateBack: navigateBack,
-            navigateToEditQuestion: navigateToEditQuestion,
-
-            createQuestion: createQuestion,
-            deleteSelectedQuestions: deleteSelectedQuestions,
-            toggleQuestionSelection: toggleQuestionSelection,
-
-            activate: activate
-        };
+        }
     }
 );

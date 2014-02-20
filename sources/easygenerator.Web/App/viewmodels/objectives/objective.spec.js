@@ -135,7 +135,7 @@
 
                         it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
                             router.activeItem.settings.lifecycleData = null;
-                            
+
                             var promise = viewModel.activate(objective.id, null);
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -361,7 +361,7 @@
                                 beforeEach(function () {
                                     deferred.reject('reason');
                                 });
-                                
+
                                 it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
                                     router.activeItem.settings.lifecycleData = null;
 
@@ -485,7 +485,7 @@
                             beforeEach(function () {
                                 getCourseDeferred.reject('reason');
                             });
-                            
+
                             it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
                                 router.activeItem.settings.lifecycleData = null;
 
@@ -840,7 +840,7 @@
                     expect(viewModel.createQuestion()).toBePromise();
                 });
 
-                it('should send event \'Create new question\'', function() {
+                it('should send event \'Create new question\'', function () {
                     viewModel.createQuestion();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question');
                 });
@@ -863,7 +863,7 @@
                     });
                 });
 
-                it('should lock content', function() {
+                it('should lock content', function () {
                     viewModel.objectiveId = 'SomeId';
 
                     var promise = viewModel.createQuestion().fin(function () { });
@@ -911,7 +911,7 @@
                         });
                     });
 
-                    it('should set lastCreatedQuestionId in client context', function() {
+                    it('should set lastCreatedQuestionId in client context', function () {
                         var createdQuestionId = 'SomeId';
 
                         var promise = viewModel.createQuestion().fin(function () { });
@@ -1200,6 +1200,119 @@
                     });
 
                 });
+            });
+
+            describe('isSortingEnabled:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.isSortingEnabled).toBeComputed();
+                });
+
+                describe('when questions count is 0', function () {
+
+                    it('should be falsy', function () {
+                        viewModel.questions([]);
+
+                        expect(viewModel.isSortingEnabled()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when questions count is 1', function () {
+
+                    it('should be falsy', function () {
+                        viewModel.questions([{ isSelected: ko.observable(false) }]);
+
+                        expect(viewModel.isSortingEnabled()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when questions count is more than 1', function () {
+
+                    it('should be truthy', function () {
+                        viewModel.questions([
+                            { isSelected: ko.observable(false) },
+                            { isSelected: ko.observable(false) }
+                        ]);
+
+                        expect(viewModel.isSortingEnabled()).toBeTruthy();
+                    });
+
+                });
+
+            });
+
+            describe('updateQuestionsOrder:', function () {
+
+                it('should be a function', function () {
+                    expect(viewModel.updateQuestionsOrder).toBeFunction();
+                });
+
+                it('should send event \'Change order of questions\'', function () {
+                    spyOn(repository, 'updateQuestionsOrder').andReturn(Q.defer().promise);
+
+                    viewModel.updateQuestionsOrder();
+
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Change order of questions');
+                });
+
+                it('should update questions order', function () {
+                    spyOn(repository, 'updateQuestionsOrder').andReturn(Q.defer().promise);
+
+                    var questions = [{ isSelected: ko.observable(false) }];
+                    viewModel.questions(questions);
+                    viewModel.objectiveId = objective.id;
+
+                    viewModel.updateQuestionsOrder();
+
+                    expect(repository.updateQuestionsOrder).toHaveBeenCalledWith(objective.id, questions);
+                });
+
+                describe('when update questions order is succeed', function() {
+
+                    it('should notify saved', function () {
+                        var deferred = Q.defer();
+                        deferred.resolve();
+                        var promise = deferred.promise.finally(function () { });
+
+                        spyOn(repository, 'updateQuestionsOrder').andReturn(deferred.promise);
+                        spyOn(notify, 'saved');
+
+                        viewModel.updateQuestionsOrder();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.saved).toHaveBeenCalled();
+                        });
+                    });
+
+                });
+
+                describe('when update questions order is failed', function () {
+
+                    it('should not notify saved', function () {
+                        var deferred = Q.defer();
+                        deferred.reject();
+                        var promise = deferred.promise.finally(function () { });
+
+                        spyOn(repository, 'updateQuestionsOrder').andReturn(deferred.promise);
+                        spyOn(notify, 'saved');
+
+                        viewModel.updateQuestionsOrder();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.saved).not.toHaveBeenCalled();
+                        });
+                    });
+
+                });
+
             });
         });
     }

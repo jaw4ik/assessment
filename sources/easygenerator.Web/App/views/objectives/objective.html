@@ -5,7 +5,7 @@
                 <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</div>
             </div>
         </div>
-        
+
         <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateBack.bind($data), goBackLink: goBackLink, goBackTooltip: goBackTooltip } } -->
         <!-- /ko -->
     </div>
@@ -40,10 +40,17 @@
                     </a>
                     <div class="dotted-line"></div>
                 </div>
-                <ul class="unstyled main-content-list">
-                    <!-- ko foreach: questions -->
+                <ul class="unstyled main-content-list" data-bind="sortable: { data: questions, afterMove: updateQuestionsOrder, isEnabled: isSortingEnabled }">
                     <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
                         <div class="list-item-content-holder" data-bind="click: $parent.toggleQuestionSelection">
+                            <div class="list-item-drag-icon-wrapper">
+                                <!-- ko if: $parent.isSortingEnabled() -->
+                                <span class="list-item-drag-icon" data-bind="stopEventPropagation: { event: 'click' }, localize: { title: 'changeOrderTooltip' }"></span>
+                                <!-- /ko -->
+                                <!-- ko ifnot: $parent.isSortingEnabled() -->
+                                <span class="list-item-drag-icon disabled" data-bind="stopEventPropagation: { event: 'click' }"></span>
+                                <!-- /ko -->
+                            </div>
                             <div class="list-item-checkbox" data-bind="">
                                 <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
                                     <input class="custom-checkbox" type="checkbox" />
@@ -67,7 +74,6 @@
                             </a>
                         </div>
                     </li>
-                    <!-- /ko -->
                 </ul>
             </div>
         </div>

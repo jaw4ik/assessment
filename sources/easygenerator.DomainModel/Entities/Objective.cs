@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using easygenerator.Infrastructure;
@@ -16,6 +17,7 @@ namespace easygenerator.DomainModel.Entities
             Title = title;
 
             QuestionsCollection = new Collection<Question>();
+            QuestionsOrder = null;
         }
 
         public string Title { get; private set; }
@@ -33,22 +35,17 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual IEnumerable<Course> Courses
         {
-            get
-            {
-                return RelatedCoursesCollection.AsEnumerable();
-            }
+            get { return RelatedCoursesCollection.AsEnumerable(); }
         }
-
 
         protected internal virtual ICollection<Question> QuestionsCollection { get; set; }
 
         public virtual IEnumerable<Question> Questions
         {
-            get
-            {
-                return QuestionsCollection.AsEnumerable();
-            }
+            get { return GetOrderedQuestions().AsEnumerable(); }
         }
+
+        protected internal string QuestionsOrder { get; set; }
 
         public virtual void AddQuestion(Question question, string modifiedBy)
         {
@@ -57,6 +54,7 @@ namespace easygenerator.DomainModel.Entities
 
             QuestionsCollection.Add(question);
             question.Objective = this;
+            DoUpdateQuestionsOrder(QuestionsCollection);
             MarkAsModified(modifiedBy);
         }
 
@@ -67,7 +65,38 @@ namespace easygenerator.DomainModel.Entities
 
             QuestionsCollection.Remove(question);
             question.Objective = null;
+            DoUpdateQuestionsOrder(QuestionsCollection);
             MarkAsModified(modifiedBy);
+        }
+
+        public virtual void UpdateQuestionsOrder(ICollection<Question> questions, string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNull(questions, "questions");
+
+            DoUpdateQuestionsOrder(questions);
+            MarkAsModified(modifiedBy);
+        }
+
+        private void DoUpdateQuestionsOrder(ICollection<Question> questions)
+        {
+            QuestionsOrder = questions.Count == 0 ? null : String.Join(",", questions.Select(i => i.Id).ToArray());
+        }
+
+        private IEnumerable<Question> GetOrderedQuestions()
+        {
+            if (String.IsNullOrEmpty(QuestionsOrder))
+            {
+                return QuestionsCollection;
+            }
+
+            var orderedQuestionIds = QuestionsOrder.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            return QuestionsCollection.OrderBy(item => GetQuestionIndex(orderedQuestionIds, item));
+        }
+
+        private int GetQuestionIndex(List<string> orderedQuestionIds, Question question)
+        {
+            var index = orderedQuestionIds.IndexOf(question.Id.ToString());
+            return index > -1 ? index : orderedQuestionIds.Count;
         }
 
         private void ThrowIfTitleIsInvalid(string title)

@@ -23,6 +23,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
     public class ObjectiveControllerTests
     {
         private const string CreatedBy = "easygenerator@easygenerator.com";
+        private const string ModifiedBy = "easygenerator2@easygenerator.com";
 
         private ObjectiveController _controller;
 
@@ -104,7 +105,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Update(null, String.Empty);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");  
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
         }
 
 
@@ -112,13 +113,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Update_ShouldUpdateObjectiveTitle()
         {
             const string title = "updated title";
-            var user = "Test user";
-            _user.Identity.Name.Returns(user);
+            _user.Identity.Name.Returns(ModifiedBy);
             var objective = Substitute.For<Objective>("Some title", CreatedBy);
 
             _controller.Update(objective, title);
 
-            objective.Received().UpdateTitle(title, user);
+            objective.Received().UpdateTitle(title, ModifiedBy);
         }
 
         [TestMethod]
@@ -168,14 +168,60 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             var course = Substitute.For<Course>();
             var courses = new List<Course>() { course };
-            
+
             var objective = Substitute.For<Objective>("Some title", CreatedBy);
             objective.Courses.Returns(courses);
 
             var result = _controller.Delete(objective);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective can not be deleted");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveCannnotBeDeleted"); 
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveCannnotBeDeleted");
+        }
+
+        #endregion
+
+        #region UpdateQuestionsOrder
+
+        [TestMethod]
+        public void UpdateQuestionsOrder_ShouldReturnHttpNotFoundResult_WhenObjectiveIsNull()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.UpdateQuestionsOrder(null, new Collection<Question>());
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.ObjectiveNotFoundError);
+        }
+
+        [TestMethod]
+        public void UpdateQuestionsOrder_ShouldCallUpdateQuestionsForObjective()
+        {
+            //Arrange
+            var objective = Substitute.For<Objective>();
+            var questions = new Collection<Question>();
+            _user.Identity.Name.Returns(ModifiedBy);
+
+            //Act
+            _controller.UpdateQuestionsOrder(objective, questions);
+
+            //Assert
+            objective.Received().UpdateQuestionsOrder(questions, ModifiedBy);
+        }
+
+        [TestMethod]
+        public void UpdateQuestionsOrder_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var objective = Substitute.For<Objective>();
+            var questions = new Collection<Question>();
+            _user.Identity.Name.Returns(ModifiedBy);
+
+            //Act
+            var result = _controller.UpdateQuestionsOrder(objective, questions);
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = objective.ModifiedOn });
         }
 
         #endregion

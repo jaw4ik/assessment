@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
@@ -24,6 +25,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Route("api/objectives")]
         public ActionResult GetCollection()
         {
             var objectives = _repository.GetCollection(obj => obj.CreatedBy == User.Identity.Name);
@@ -54,6 +56,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Route("api/objective/create")]
         public ActionResult Create(string title)
         {
             var objective = _entityFactory.Objective(title, GetCurrentUsername());
@@ -68,6 +71,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Route("api/objective/update")]
         public ActionResult Update(Objective objective, string title)
         {
             if (objective == null)
@@ -81,6 +85,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Route("api/objective/delete")]
         public ActionResult Delete(Objective objective)
         {
             if (objective != null)
@@ -94,6 +99,19 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             return JsonSuccess();
+        }
+
+        [HttpPost]
+        [Route("api/objective/updatequestionsorder")]
+        public ActionResult UpdateQuestionsOrder(Objective objective, ICollection<Question> questions)
+        {
+            if (objective == null)
+            {
+                return HttpNotFound(Errors.ObjectiveNotFoundError);
+            }
+
+            objective.UpdateQuestionsOrder(questions, GetCurrentUsername());
+            return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
     }
 }

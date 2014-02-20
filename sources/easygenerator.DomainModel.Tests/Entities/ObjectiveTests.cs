@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.DomainModel.Tests.ObjectMothers;
-using NSubstitute;
+using System.Linq;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -224,11 +225,24 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question = QuestionObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
-            var user = "Some user";
 
-            objective.AddQuestion(question, user);
+            objective.AddQuestion(question, ModifiedBy);
 
-            objective.ModifiedBy.Should().Be(user);
+            objective.ModifiedBy.Should().Be(ModifiedBy);
+        }
+
+        [TestMethod]
+        public void AddQuestion_ShouldUpdateQuestionsOrder()
+        {
+            //Arrange
+            var question = QuestionObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+
+            //Act
+            objective.AddQuestion(question, ModifiedBy);
+
+            //Assert
+            objective.QuestionsOrder.Should().Be(question.Id.ToString());
         }
 
         #endregion
@@ -251,7 +265,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var objective = ObjectiveObjectMother.Create();
             var question = QuestionObjectMother.Create();
 
-            objective.AddQuestion(question, ModifiedBy);
+            objective.QuestionsCollection.Add(question);
 
             objective.RemoveQuestion(question, ModifiedBy);
             objective.Questions.Should().BeEmpty();
@@ -283,7 +297,6 @@ namespace easygenerator.DomainModel.Tests.Entities
             objective.ModifiedOn.Should().Be(dateTime);
         }
 
-
         [TestMethod]
         public void RemoveQuestion_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
@@ -311,11 +324,26 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question = QuestionObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
-            var user = "Some user";
 
-            objective.RemoveQuestion(question, user);
+            objective.RemoveQuestion(question, ModifiedBy);
 
-            objective.ModifiedBy.Should().Be(user);
+            objective.ModifiedBy.Should().Be(ModifiedBy);
+        }
+
+        [TestMethod]
+        public void RemoveQuestion_ShouldUpdateQuestionsOrder()
+        {
+            //Arrange
+            var question = QuestionObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+            objective.QuestionsCollection.Add(question);
+            objective.QuestionsOrder = "questionId";
+
+            //Act
+            objective.RemoveQuestion(question, ModifiedBy);
+
+            //Assert
+            objective.QuestionsOrder.Should().BeNull();
         }
 
         #endregion
@@ -365,6 +393,152 @@ namespace easygenerator.DomainModel.Tests.Entities
             objective.DefineCreatedBy(updatedCreatedBy);
 
             objective.ModifiedBy.Should().Be(updatedCreatedBy);
+        }
+
+        #endregion
+
+        #region UpdateQuestionsOrder
+
+        [TestMethod]
+        public void UpdateQuestionsOrder_ShouldThrowArgumentNullException_WhenQuestionsIsNull()
+        {
+            //Arrange
+            var objective = ObjectiveObjectMother.Create();
+
+            //Act
+            Action action = () => objective.UpdateQuestionsOrder(null, ModifiedBy);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("questions");
+        }
+
+        [TestMethod]
+        public void UpdateQuestionsOrder_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            //Arrange
+            var objective = ObjectiveObjectMother.Create();
+
+            //Act
+            Action action = () => objective.UpdateQuestionsOrder(new List<Question>(), null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateQuestionsOrder_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            //Arrange
+            var objective = ObjectiveObjectMother.Create();
+
+            //Act
+            Action action = () => objective.UpdateQuestionsOrder(new List<Question>(), "");
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateQuestionsOrder_ShouldSetQuestionsOrderToNull_WhenQuestionsIsEmpty()
+        {
+            //Arrange
+            var objective = ObjectiveObjectMother.Create();
+
+            //Act
+            objective.UpdateQuestionsOrder(new List<Question>(), ModifiedBy);
+
+            //Assert
+            objective.QuestionsOrder.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void UpdateQuestionsOrder_ShouldSetQuestionsOrder()
+        {
+            //Arrange
+            var objective = ObjectiveObjectMother.Create();
+            var questions = new List<Question>()
+            {
+                QuestionObjectMother.Create(),
+                QuestionObjectMother.Create()
+            };
+
+            objective.QuestionsCollection = questions;
+
+            //Act
+            objective.UpdateQuestionsOrder(questions, ModifiedBy);
+
+            //Assert
+            objective.QuestionsOrder.Should().Be(String.Format("{0},{1}", questions[0].Id, questions[1].Id));
+        }
+
+        #endregion
+
+        #region Questions
+
+        [TestMethod]
+        public void Questions_ShouldReturnListOfQuestionsInCorrectOrder()
+        {
+            //Arrange
+            var objective = ObjectiveObjectMother.Create();
+            var question1 = QuestionObjectMother.Create();
+            var question2 = QuestionObjectMother.Create();
+
+            objective.QuestionsCollection = new List<Question>()
+            {
+                question1,
+                question2
+            };
+            objective.QuestionsOrder = String.Format("{0},{1}", question2.Id, question1.Id);
+
+            //Act
+            var result = objective.Questions;
+
+            //Assert
+            result.First().Should().Be(question2);
+        }
+
+        [TestMethod]
+        public void Questions_ShouldReturnAllQuestions_WhenOrderedCollectionIsNotFull()
+        {
+            //Arrange
+            var objective = ObjectiveObjectMother.Create();
+            var question1 = QuestionObjectMother.Create();
+            var question2 = QuestionObjectMother.Create();
+
+            objective.QuestionsCollection = new List<Question>()
+            {
+                question1,
+                question2
+            };
+            objective.QuestionsOrder = question2.Id.ToString();
+
+            //Act
+            var result = objective.Questions;
+
+            //Assert
+            result.Count().Should().Be(2);
+            result.First().Should().Be(question2);
+        }
+
+        [TestMethod]
+        public void Questions_ShouldReturnAllQuestions_WhenOrderedCollectionIsOverfull()
+        {
+            //Arrange
+            var objective = ObjectiveObjectMother.Create();
+            var question1 = QuestionObjectMother.Create();
+            var question2 = QuestionObjectMother.Create();
+
+            objective.QuestionsCollection = new List<Question>()
+            {
+                question1
+            };
+            objective.QuestionsOrder = String.Format("{0},{1}", question2.Id, question1.Id); ;
+
+            //Act
+            var result = objective.Questions;
+
+            //Assert
+            result.Count().Should().Be(1);
         }
 
         #endregion

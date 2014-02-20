@@ -572,6 +572,27 @@ span.top-navigation-item.current {
     padding: 15px 0;
 }
 
+.main-content-list .list-item-drag-icon-wrapper {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    width: 18px;
+}
+
+.main-content-list .list-item-drag-icon {
+    position: relative;
+    display: inline-block;
+    height: 26px;
+    width: 8px;
+    background: url(images/sprites.png) -203px -220px no-repeat;
+    cursor: move;
+}
+
+    .main-content-list .list-item-drag-icon.disabled {
+        opacity: 0.5;
+        cursor: default;
+    }
+
 .main-content-list .list-item-checkbox {
     display: table-cell;
     width: 36px;
