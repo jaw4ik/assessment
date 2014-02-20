@@ -239,7 +239,7 @@ input[type="checkbox"] {
 }
 
 /*ACTION BUTTONS*/
-.objective-page-action-btn {
+.small-page-action-btn {
     display: inline-block;
     width: 144px;
     -moz-box-sizing: border-box;
@@ -247,19 +247,25 @@ input[type="checkbox"] {
     box-sizing: border-box;
     vertical-align: top;
     padding: 7px 9px;
+    outline: 0;
     text-align: center;
     word-wrap: break-word;
-    color: white;
     font-size: 16px;
 }
 
-    .objective-page-action-btn,
-    .objective-page-action-btn:hover,
-    .objective-page-action-btn:active {
-        outline: none;
-    }
+.middle-page-action-btn {
+    height: 50px;
+    line-height: 20px;
+    width: 45.5%;
+    max-width: 300px;
+    outline: 0;
+    text-align: center;
+    word-wrap: break-word;
+    font-size: 20px;
+}
 
 .red-btn {
+    color: white;
     background-color: #f26c4f;
     border: 1px solid #f37559;
     opacity: 0.8;
@@ -273,6 +279,7 @@ input[type="checkbox"] {
     }
 
 .blue-btn {
+    color: white;
     background-color: #5698bb;
     border: 1px solid #5c9bbd;
     opacity: 0.8;
@@ -281,6 +288,20 @@ input[type="checkbox"] {
 
     .blue-btn:hover,
     .blue-btn:active {
+        opacity: 1;
+        filter: alpha(opacity=100);
+    }
+
+.grey-btn {
+    color: white;
+    background-color: #343a41;
+    border: 1px solid #62676B;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+
+    .grey-btn:hover,
+    .grey-btn:active {
         opacity: 1;
         filter: alpha(opacity=100);
     }
@@ -692,11 +713,6 @@ input[type="checkbox"] {
 }
 
 .btn-submit {
-    background-color: #343a41;
-    opacity: 0.8;
-    filter: alpha(opacity=80);
-    color: white;
-    border: 1px solid #62676B;
     outline: none;
     padding: 10px;
     font-size: 20px;
@@ -755,39 +771,6 @@ input[type="checkbox"] {
     padding-top: 35px;
     white-space: nowrap;
 }
-
-.btn-try-again,
-.btn-next-question {
-    width: 45.5%;
-    max-width: 300px;
-    height: 50px;
-    line-height: 20px;
-    opacity: 0.8;
-    filter: alpha(opacity=80);
-    color: #fff;
-    font-size: 20px;
-}
-
-.btn-next-question {
-    background-color: #5698bb;
-    border: 1px solid #78adc9;
-}
-
-.feedback-incorrect .btn-next-question {
-    background-color: #343a41;
-    border: 1px solid #62676B;
-}
-
-.btn-try-again {
-    background-color: #f58972;
-    border: 1px solid #f7a18e;
-}
-
-    .btn-try-again:hover,
-    .btn-next-question:hover {
-        opacity: 1;
-        filter: alpha(opacity=100);
-    }
 
 .feedback-btn-whitespace {
     display: inline-block;
@@ -901,20 +884,6 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     display: table-cell;
     width: 185px;
 }
-
-.intro-start-button {
-    font-family: Arial;
-    font-size: 16px;
-    color: white;
-    padding: 10px 30px;
-    background-color: rgb(246,137,114);
-    white-space: nowrap;
-    display: inline-block;
-}
-
-    .intro-start-button:hover {
-        background-color: rgb(242,121,94);
-    }
 
 /*#endregion introduction view*/
 
