@@ -1027,6 +1027,18 @@
     questionHelpHint: {
         en: '<p><strong>Answer options</strong> are the options presented to the learner for answering the question. They can be correct or incorrect.</p><p><strong>Learning content </strong> is the information presented to the learner to assist him in answering a specific question. It can consist out of text, video or images.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
+    designHelpHintTitle: {
+        en: 'What is a course template?'
+    },
+    designHelpHint: {
+        en: '<p><strong>Course template</strong> is a set of predefined graphical and instructional design parameters.</p><p>Course template defines how a learning material will be presented to a learner, how a learner will be able to interact with it and how a learner\'s responses will be affecting course.</p><p>For an author choosing certain course template will also change set of designing capabilities, depending on which of them are supported by chosen course template.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+    },
+    deliverHelpHintTitle: {
+        en: 'How to deliver the course to learners?'
+    },
+    deliverHelpHint: {
+        en: '<p>To publish this course on your own webserver - download course as HTML/JavaScript package;</p><p>To publish the course to an LMS - download the course as SCORM 1.2 package;</p><p>Or publish the course on easygenerator webserver - just get a link and share it with your learners.</p>'
+    },
     helpCloseButton: {
         en: 'Hide'
     },

@@ -20,7 +20,13 @@
         function setHeight() {
             
             var headerHeight = $('.header').height(),
-                fixedContainerHeight = $(fixedContainer).height() - 9;
+                paddingBeforeViewModule = 0;
+
+            if ($(fixedContainer).height() > 0) {
+                paddingBeforeViewModule = $(fixedContainer).height() - 9;
+            } else {
+                paddingBeforeViewModule = 20;
+            }
 
             if (!_.isEmptyOrWhitespace(value)) {
 
@@ -37,10 +43,10 @@
             if (!_.isNullOrUndefined($(courseNavigationHolder).height())) {
                 courseNavigationHeight = $(courseNavigationHolder).height();
             }
-
+            
             $(fixedContainer).css('top', headerHeight + courseNavigationHeight + helpHintHeight + 'px');
             $(notifyContainer).css('top', headerHeight + courseNavigationHeight + helpHintHeight + 'px');
-            $(notFixedContainer).css('padding-top', fixedContainerHeight + helpHintHeight + 'px');
+            $(notFixedContainer).css('padding-top', paddingBeforeViewModule + helpHintHeight + 'px');
             $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
             $(backBtn).css('padding-top', parseInt($(fixedContainer).css('top')) + 14 + 'px');
         }
