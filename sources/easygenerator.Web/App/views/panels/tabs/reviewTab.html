@@ -10,13 +10,25 @@
     </div>
     <div class="tab-content">
         <div class="tab-help-info" data-bind="localize: { text: 'reviewTabHelp' }">
-            Share this course with a private link and allow commenting
+            Press the button and then share the link with your external reviewers:
         </div>
         <!-- ko if: !reviewUrlExists() && !isDelivering() -->
-        <button class="btn blue round pull-right tab-btn review-btn" data-bind="click: updateCourseForReview">
+        <button class="btn blue round tab-btn review-btn" data-bind="click: updateCourseForReview">
             <span class="btn-text" data-bind="localize: { text: 'reviewGetLink' }">Get link</span>
         </button>
         <!-- /ko -->
+        <div class="tab-action-wrapper">
+            <!-- ko if: !isDelivering() && reviewUrlExists()-->
+            <button class="btn blue round tab-btn review-btn" data-bind="click: updateCourseForReview">
+                <span class="btn-text" data-bind="localize: { text: 'reviewUpdateCourse' }">Update course</span>
+            </button>
+            <!-- /ko -->
+            <!-- ko if: isDelivering() -->
+            <button class="btn blue round tab-btn review-btn">
+                <span class="btn-text iconed" data-bind="localize: { text: 'reviewPublishingCourse' }">Publishing...</span>
+            </button>
+            <!-- /ko -->
+        </div>
         <!-- ko if: reviewUrlExists() -->
         <div class="review-link" data-bind="css: { disabled: isDelivering() }">
             <div class="open-review-link" data-bind="click: openCourseReviewUrl, localize: { title: 'reviewOpenLinkTitle' }" title="Open link"></div>
@@ -25,17 +37,5 @@
             </div>
         </div>
         <!-- /ko -->
-        <div class="tab-action-wrapper">
-            <!-- ko if: !isDelivering() && reviewUrlExists()-->
-            <button class="btn blue round pull-right tab-btn review-btn" data-bind="click: updateCourseForReview">
-                <span class="btn-text" data-bind="localize: { text: 'reviewUpdateCourse' }">Update course</span>
-            </button>
-            <!-- /ko -->
-            <!-- ko if: isDelivering() -->
-            <button class="btn blue round pull-right tab-btn review-btn">
-                <span class="btn-text iconed" data-bind="localize: { text: 'reviewPublishingCourse' }">Publishing...</span>
-            </button>
-            <!-- /ko -->
-        </div>
     </div>
 </section>

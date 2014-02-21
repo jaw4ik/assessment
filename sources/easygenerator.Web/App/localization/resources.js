@@ -1070,7 +1070,7 @@
         en: 'Comments'
     },
     reviewTabHelp: {
-        en: 'Copy and email this link to share this course with external reviewers:'
+        en: 'Press the button and then share the link with your external reviewers:'
     },
     reviewGetLink: {
         en: 'Get link'
