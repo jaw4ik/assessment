@@ -2,14 +2,14 @@
 
     var router = require('plugins/router'),
         repository = require('repositories/questionRepository'),
-        navigationModule = require('modules/questionsNavigation');
+        navigationModule = require('modules/questionsNavigation'),
+        objectiveRepository = require('repositories/objectiveRepository');
 
     describe('viewModel [question]', function () {
 
-        var objectiveId = '1',
-            questionId = '1',
+        var
             question = {
-                id: questionId,
+                id: '1',
                 title: 'Some question 1',
                 isAnswered: true,
                 isCorrectAnswered: false,
@@ -25,16 +25,34 @@
                 },
                 learningContentExperienced: function () {
                 }
+            },
+            objective = {
+                id: '1',
+                title: 'Objective title',
+                score: 80,
+                calculateScore: function () { }
             };
+
+        beforeEach(function () {
+            spyOn(router, 'navigate');
+        });
 
         it('should be defined', function () {
             expect(viewModel).toBeDefined();
         });
 
-        describe('objectiveId:', function () {
+        describe('objective:', function () {
 
             it('should be defined', function () {
-                expect(viewModel.objectiveId).toBeDefined();
+                expect(viewModel.objective).toBeDefined();
+            });
+
+        });
+
+        describe('objectiveScore:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.objectiveScore).toBeObservable();
             });
 
         });
@@ -142,7 +160,6 @@
             });
 
             it('should navigate to objectives list', function () {
-                spyOn(router, 'navigate');
                 viewModel.backToObjectives();
                 expect(router.navigate).toHaveBeenCalledWith('objectives');
             });
@@ -161,15 +178,13 @@
                 expect(result).toBePromise();
             });
 
-            describe('when question is not found', function () {
+            describe('when objective is not found', function () {
 
                 beforeEach(function () {
-                    spyOn(repository, 'get').andReturn(null);
+                    spyOn(objectiveRepository, 'get').andReturn(null);
                 });
 
                 it('should navigate to 404', function () {
-                    spyOn(router, 'navigate');
-
                     var promise = viewModel.activate();
 
                     waitsFor(function () {
@@ -182,245 +197,281 @@
 
             });
 
-            describe('when question is found', function () {
+            describe('when objective is found', function () {
 
                 beforeEach(function () {
-                    spyOn(repository, 'get').andReturn(question);
+                    spyOn(objectiveRepository, 'get').andReturn(objective);
                 });
 
-                it('should not navigate', function () {
-                    spyOn(router, 'navigate');
+                describe('and when question is not found', function () {
 
-                    var promise = viewModel.activate(objectiveId, questionId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
+                    beforeEach(function () {
+                        spyOn(repository, 'get').andReturn(null);
                     });
-                    runs(function () {
-                        expect(router.navigate).not.toHaveBeenCalled();
-                    });
-                });
 
-                it('should get navigation context from navigation module for correct objective and question', function () {
-                    spyOn(navigationModule, "getNavigationContext");
-                    var promise = viewModel.activate(objectiveId, questionId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(navigationModule.getNavigationContext).toHaveBeenCalledWith(objectiveId, questionId, jasmine.any(Function));
-                    });
-                });
-
-                it('should set navigationContext to value returned from navigation module', function () {
-                    var navigationContext = {
-                        previousQuestionUrl: 'previousQuestionUrl',
-                        nextQuestionUrl: 'nextQuestionUrl',
-                        questionsCount: 10,
-                        currentQuestionIndex: 1
-                    };
-
-                    spyOn(navigationModule, 'getNavigationContext').andReturn(navigationContext);
-
-                    var promise = viewModel.activate(objectiveId, questionId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.navigationContext).toBe(navigationContext);
-                    });
-                });
-
-                it('should set objectiveId', function () {
-                    viewModel.objectiveId = null;
-
-                    var promise = viewModel.activate(objectiveId, questionId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.objectiveId).toBe(objectiveId);
-                    });
-                });
-
-                it('should set questionId', function () {
-                    viewModel.questionId = null;
-
-                    var promise = viewModel.activate(objectiveId, questionId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.questionId).toBe(questionId);
-                    });
-                });
-
-                it('should set title', function () {
-                    viewModel.title = null;
-
-                    var promise = viewModel.activate(objectiveId, questionId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.title).toBe(question.title);
-                    });
-                });
-
-                it('should set answers', function () {
-                    viewModel.answers = null;
-
-                    var promise = viewModel.activate(objectiveId, questionId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.answers).not.toBeNull();
-                    });
-                });
-
-                it('should set id for each answer', function () {
-                    viewModel.answers = null;
-
-                    var promise = viewModel.activate(objectiveId, questionId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.answers.length).toBe(2);
-                        expect(viewModel.answers[0].id).toBe(question.answers[0].id);
-                        expect(viewModel.answers[1].id).toBe(question.answers[1].id);
-                    });
-                });
-
-                it('should set text for each answer', function () {
-                    viewModel.answers = null;
-
-                    var promise = viewModel.activate(objectiveId, questionId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.answers.length).toBe(2);
-                        expect(viewModel.answers[0].text).toBe(question.answers[0].text);
-                        expect(viewModel.answers[1].text).toBe(question.answers[1].text);
-                    });
-                });
-
-                it('should set isChecked for each answer', function () {
-                    viewModel.answers = null;
-
-                    var promise = viewModel.activate(objectiveId, questionId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.answers.length).toBe(2);
-                        expect(viewModel.answers[0].isChecked).toBeObservable();
-                        expect(viewModel.answers[1].isChecked).toBeObservable();
-                        expect(viewModel.answers[0].isChecked()).toBe(false);
-                        expect(viewModel.answers[1].isChecked()).toBe(true);
-                    });
-                });
-
-                it('should set learningContents', function () {
-                    viewModel.learningContents = null;
-
-                    var promise = viewModel.activate(objectiveId, questionId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.learningContents.length).toBe(2);
-
-                        expect(viewModel.learningContents[0].view).toBe('content/' + objectiveId + '/' + questionId + '/1');
-                        expect(viewModel.learningContents[1].view).toBe('content/' + objectiveId + '/' + questionId + '/2');
-                    });
-                });
-
-                describe('and question has content', function () {
-
-                    it('should set content path', function () {
-                        viewModel.content = null;
-                        question.hasContent = true;
-
-                        var promise = viewModel.activate(objectiveId, questionId);
+                    it('should navigate to 404', function () {
+                        var promise = viewModel.activate();
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.content).toBe('content/' + objectiveId + '/' + questionId + '/content');
+                            expect(router.navigate).toHaveBeenCalledWith('404');
                         });
                     });
 
                 });
 
-                describe('and question has not content', function () {
+                describe('and when question is found', function () {
 
-                    it('should set content to empty', function () {
-                        viewModel.content = null;
-                        question.hasContent = false;
+                    beforeEach(function () {
+                        spyOn(repository, 'get').andReturn(question);
+                    });
 
-                        var promise = viewModel.activate(objectiveId, questionId);
+                    it('should not navigate', function () {
+                        var promise = viewModel.activate(objective.id, question.id);
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.content).toBe('');
+                            expect(router.navigate).not.toHaveBeenCalled();
                         });
                     });
 
-                });
+                    it('should calculate objective score', function () {
+                        spyOn(objective, 'calculateScore');
+                        var promise = viewModel.activate();
 
-                it('should set isAnswered', function () {
-                    viewModel.isAnswered(null);
-
-                    var promise = viewModel.activate(objectiveId, questionId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(objective.calculateScore).toHaveBeenCalled();
+                        });
                     });
-                    runs(function () {
-                        expect(viewModel.isAnswered()).toBe(question.isAnswered);
+
+                    it('should set current objective score to objectiveScore variable', function () {
+                        objective.score = 75;
+                        var promise = viewModel.activate();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.objectiveScore()).toBe(objective.score);
+                        });
                     });
-                });
 
-                it('should set isCorrect', function () {
-                    viewModel.isCorrect(null);
+                    it('should get navigation context from navigation module for correct objective and question', function () {
+                        spyOn(navigationModule, "getNavigationContext");
+                        var promise = viewModel.activate(objective.id, question.id);
 
-                    var promise = viewModel.activate(objectiveId, questionId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(navigationModule.getNavigationContext).toHaveBeenCalledWith(objective.id, question.id, jasmine.any(Function));
+                        });
                     });
-                    runs(function () {
-                        expect(viewModel.isCorrect()).toBe(question.isCorrectAnswered);
-                    });
-                });
 
-                it('should set startTime', function () {
-                    viewModel.startTime = null;
+                    it('should set navigationContext to value returned from navigation module', function () {
+                        var navigationContext = {
+                            previousQuestionUrl: 'previousQuestionUrl',
+                            nextQuestionUrl: 'nextQuestionUrl',
+                            questionsCount: 10,
+                            currentQuestionIndex: 1
+                        };
 
-                    var promise = viewModel.activate(objectiveId, questionId);
+                        spyOn(navigationModule, 'getNavigationContext').andReturn(navigationContext);
 
-                    waitsFor(function () {
-                        return !promise.isPending();
+                        var promise = viewModel.activate(objective.id, question.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.navigationContext).toBe(navigationContext);
+                        });
                     });
-                    runs(function () {
-                        expect(viewModel.startTime).not.toBeNull();
+
+                    it('should set questionId', function () {
+                        viewModel.questionId = null;
+
+                        var promise = viewModel.activate(objective.id, question.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.questionId).toBe(question.id);
+                        });
                     });
+
+                    it('should set title', function () {
+                        viewModel.title = null;
+
+                        var promise = viewModel.activate(objective.id, question.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.title).toBe(question.title);
+                        });
+                    });
+
+                    it('should set answers', function () {
+                        viewModel.answers = null;
+
+                        var promise = viewModel.activate(objective.id, question.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.answers).not.toBeNull();
+                        });
+                    });
+
+                    it('should set id for each answer', function () {
+                        viewModel.answers = null;
+
+                        var promise = viewModel.activate(objective.id, question.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.answers.length).toBe(2);
+                            expect(viewModel.answers[0].id).toBe(question.answers[0].id);
+                            expect(viewModel.answers[1].id).toBe(question.answers[1].id);
+                        });
+                    });
+
+                    it('should set text for each answer', function () {
+                        viewModel.answers = null;
+
+                        var promise = viewModel.activate(objective.id, question.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.answers.length).toBe(2);
+                            expect(viewModel.answers[0].text).toBe(question.answers[0].text);
+                            expect(viewModel.answers[1].text).toBe(question.answers[1].text);
+                        });
+                    });
+
+                    it('should set isChecked for each answer', function () {
+                        viewModel.answers = null;
+
+                        var promise = viewModel.activate(objective.id, question.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.answers.length).toBe(2);
+                            expect(viewModel.answers[0].isChecked).toBeObservable();
+                            expect(viewModel.answers[1].isChecked).toBeObservable();
+                            expect(viewModel.answers[0].isChecked()).toBe(false);
+                            expect(viewModel.answers[1].isChecked()).toBe(true);
+                        });
+                    });
+
+                    it('should set learningContents', function () {
+                        viewModel.learningContents = null;
+
+                        var promise = viewModel.activate(objective.id, question.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.learningContents.length).toBe(2);
+
+                            expect(viewModel.learningContents[0].view).toBe('content/' + objective.id + '/' + question.id + '/1');
+                            expect(viewModel.learningContents[1].view).toBe('content/' + objective.id + '/' + question.id + '/2');
+                        });
+                    });
+
+                    describe('and question has content', function () {
+
+                        it('should set content path', function () {
+                            viewModel.content = null;
+                            question.hasContent = true;
+
+                            var promise = viewModel.activate(objective.id, question.id);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.content).toBe('content/' + objective.id + '/' + question.id + '/content');
+                            });
+                        });
+
+                    });
+
+                    describe('and question has not content', function () {
+
+                        it('should set content to empty', function () {
+                            viewModel.content = null;
+                            question.hasContent = false;
+
+                            var promise = viewModel.activate(objective.id, question.id);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.content).toBe('');
+                            });
+                        });
+
+                    });
+
+                    it('should set isAnswered', function () {
+                        viewModel.isAnswered(null);
+
+                        var promise = viewModel.activate(objective.id, question.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.isAnswered()).toBe(question.isAnswered);
+                        });
+                    });
+
+                    it('should set isCorrect', function () {
+                        viewModel.isCorrect(null);
+
+                        var promise = viewModel.activate(objective.id, question.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.isCorrect()).toBe(question.isCorrectAnswered);
+                        });
+                    });
+
+                    it('should set startTime', function () {
+                        viewModel.startTime = null;
+
+                        var promise = viewModel.activate(objective.id, question.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.startTime).not.toBeNull();
+                        });
+                    });
+
                 });
 
             });
@@ -634,6 +685,22 @@
 
                 expect(viewModel.isCorrect()).toBe(question.isCorrectAnswered);
             });
+
+            it('should calculate objective score', function () {
+                spyOn(objective, 'calculateScore');
+
+                viewModel.submit();
+
+                expect(objective.calculateScore).toHaveBeenCalled();
+            });
+
+            it('should set current objective score to objectiveScore variable', function () {
+                objective.score = 23;
+
+                viewModel.submit();
+
+                expect(viewModel.objectiveScore()).toBe(objective.score);
+            });
         });
 
         describe('tryAnswerAgain', function () {
@@ -674,7 +741,6 @@
             describe('should navigate to objectives list', function () {
                 it('should navigate to objectives list if viewModel.isNextQuestionAvailable is false', function () {
                     viewModel.isNextQuestionAvailable = function () { return false; };
-                    spyOn(router, 'navigate');
 
                     viewModel.navigateNext();
 
@@ -684,7 +750,7 @@
                 it('should navigate to next question if viewModel.isNextQuestionAvailable is true', function () {
                     viewModel.isNextQuestionAvailable = function () { return true; };
                     viewModel.navigationContext = { nextQuestionUrl: 'nextQuestionUrl' };
-                    spyOn(router, 'navigate');
+
                     viewModel.navigateNext();
                     expect(router.navigate).toHaveBeenCalledWith('nextQuestionUrl');
                 });

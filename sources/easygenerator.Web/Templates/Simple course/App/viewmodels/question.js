@@ -1,7 +1,8 @@
-﻿define(['eventManager', 'plugins/router', 'repositories/questionRepository', 'modules/questionsNavigation'],
-    function (eventManager, router, repository, navigationModule) {
+﻿define(['eventManager', 'plugins/router', 'repositories/questionRepository', 'repositories/objectiveRepository', 'modules/questionsNavigation'],
+    function (eventManager, router, repository, objectiveRepository, navigationModule) {
         var viewModel = {
-            objectiveId: null,
+            objective: null,
+            objectiveScore: ko.observable(0),
             questionId: null,
             title: '',
             content: null,
@@ -11,7 +12,7 @@
             isCorrect: ko.observable(false),
             startTime: null,
             navigationContext: null,
-            
+
             submit: submit,
             checkItem: checkItem,
             tryAnswerAgain: tryAnswerAgain,
@@ -26,7 +27,7 @@
         viewModel.isPreviousQuestionAvailable = function () {
             return !_.isNullOrUndefined(viewModel.navigationContext.previousQuestionUrl);
         };
-        
+
         viewModel.isCorrectAnswered = ko.computed(function () {
             return viewModel.isAnswered() && viewModel.isCorrect();
         });
@@ -43,19 +44,27 @@
             var nextUrl = viewModel.isNextQuestionAvailable() ? viewModel.navigationContext.nextQuestionUrl : 'objectives';
             router.navigate(nextUrl);
         };
-        
+
         return viewModel;
 
         function activate(objectiveId, questionId) {
             return Q.fcall(function () {
+                viewModel.objective = objectiveRepository.get(objectiveId);
+                if (viewModel.objective == null) {
+                    router.navigate('404');
+                    return;
+                }
+
                 var question = repository.get(objectiveId, questionId);
                 if (question == null) {
                     router.navigate('404');
                     return;
                 }
 
+                viewModel.objective.calculateScore();
+                viewModel.objectiveScore(viewModel.objective.score);
+
                 viewModel.navigationContext = navigationModule.getNavigationContext(objectiveId, questionId, questionUrlBuilder);
-                viewModel.objectiveId = objectiveId;
                 viewModel.questionId = questionId;
                 viewModel.title = question.title;
                 viewModel.content = question.hasContent ? 'content/' + objectiveId + '/' + question.id + '/content' : '';
@@ -78,7 +87,7 @@
         function questionUrlBuilder(objectiveId, questionId) {
             return '#/objective/' + objectiveId + '/question/' + questionId;
         }
-        
+
         function checkItem(item) {
             if (viewModel.isAnswered())
                 return;
@@ -87,7 +96,7 @@
         }
 
         function submit() {
-            var question = repository.get(viewModel.objectiveId, viewModel.questionId);
+            var question = repository.get(viewModel.objective.id, viewModel.questionId);
 
             question.submitAnswer(
                 _.chain(viewModel.answers)
@@ -100,6 +109,9 @@
 
             viewModel.isAnswered(question.isAnswered);
             viewModel.isCorrect(question.isCorrectAnswered);
+            
+            viewModel.objective.calculateScore();
+            viewModel.objectiveScore(viewModel.objective.score);
         }
 
         function tryAnswerAgain() {
@@ -110,7 +122,7 @@
         }
 
         function deactivate() {
-            var question = repository.get(viewModel.objectiveId, viewModel.questionId);
+            var question = repository.get(viewModel.objective.id, viewModel.questionId);
             question.learningContentExperienced(new Date() - viewModel.startTime);
         }
     }
