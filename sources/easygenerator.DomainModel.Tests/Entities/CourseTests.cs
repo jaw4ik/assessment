@@ -935,24 +935,61 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create();
             var objective1 = ObjectiveObjectMother.Create();
             var objective2 = ObjectiveObjectMother.Create();
-            var orderedCollection = new Collection<Objective>()
-            {
-                objective1,
-                objective2
-            };
             course.RelatedObjectivesCollection = new Collection<Objective>()
             {
                 objective2,
                 objective1
             };
-
-            course.UpdateObjectivesOrder(orderedCollection, "user");
+            course.ObjectivesOrder = String.Format("{0},{1}", objective1.Id, objective2.Id);
 
             //Act
             var result = course.RelatedObjectives;
 
             //Assert
             result.First().Id.Should().Be(objective1.Id);
+        }
+
+        [TestMethod]
+        public void RelatedObjectives_ShouldReturnAllObjectivesInCorrectOrder_WhenObjectivesOrderedListIsNotFull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var objective1 = ObjectiveObjectMother.Create();
+            var objective2 = ObjectiveObjectMother.Create();
+            course.RelatedObjectivesCollection = new Collection<Objective>()
+            {
+                objective2,
+                objective1
+            };
+            course.ObjectivesOrder = objective1.Id.ToString();
+
+            //Act
+            var result = course.RelatedObjectives;
+
+            //Assert
+            result.Count().Should().Be(2);
+            result.First().Should().Be(objective1);
+        }
+
+        [TestMethod]
+        public void RelatedObjectives_ShouldReturnAllObjectivesInCorrectOrder_WhenObjectivesOrderedListIsOverfull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var objective1 = ObjectiveObjectMother.Create();
+            var objective2 = ObjectiveObjectMother.Create();
+            course.RelatedObjectivesCollection = new Collection<Objective>()
+            {
+                objective2
+            };
+            course.ObjectivesOrder = String.Format("{0},{1}", objective1.Id, objective2.Id);
+
+            //Act
+            var result = course.RelatedObjectives;
+
+            //Assert
+            result.Count().Should().Be(1);
+            result.First().Should().Be(objective2);
         }
 
         #endregion RelatedObjectives

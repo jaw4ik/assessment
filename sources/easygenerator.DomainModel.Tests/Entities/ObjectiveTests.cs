@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -235,14 +236,39 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void AddQuestion_ShouldUpdateQuestionsOrder()
         {
             //Arrange
+            var question1 = QuestionObjectMother.Create();
+            var question2 = QuestionObjectMother.Create();
+            var question3 = QuestionObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+            objective.QuestionsCollection = new Collection<Question>()
+            {
+                question3,
+                question1
+            };
+            objective.QuestionsOrder = String.Format("{0},{1}", question1.Id, question3.Id);
+            //Act
+            objective.AddQuestion(question2, ModifiedBy);
+
+            //Assert
+            objective.QuestionsOrder.Should().Be(String.Format("{0},{1},{2}", question1.Id, question3.Id, question2.Id));
+        }
+
+        [TestMethod]
+        public void AddQuestion_ShouldNotAddQuestion_WhenQuestionHasBeenAlreadyAdded()
+        {
+            //Arrange
             var question = QuestionObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
+            objective.QuestionsCollection = new Collection<Question>()
+            {
+                question
+            };
 
             //Act
             objective.AddQuestion(question, ModifiedBy);
 
             //Assert
-            objective.QuestionsOrder.Should().Be(question.Id.ToString());
+            objective.QuestionsCollection.Count.Should().Be(1);
         }
 
         #endregion
@@ -334,16 +360,22 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void RemoveQuestion_ShouldUpdateQuestionsOrder()
         {
             //Arrange
-            var question = QuestionObjectMother.Create();
+            var question1 = QuestionObjectMother.Create();
+            var question2 = QuestionObjectMother.Create();
+            var question3 = QuestionObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
-            objective.QuestionsCollection.Add(question);
-            objective.QuestionsOrder = "questionId";
-
+            objective.QuestionsCollection = new Collection<Question>()
+            {
+                question3,
+                question1,
+                question2
+            };
+            objective.QuestionsOrder = String.Format("{0},{1},{2}", question1.Id, question3.Id, question2.Id);
             //Act
-            objective.RemoveQuestion(question, ModifiedBy);
+            objective.RemoveQuestion(question2, ModifiedBy);
 
             //Assert
-            objective.QuestionsOrder.Should().BeNull();
+            objective.QuestionsOrder.Should().Be(String.Format("{0},{1}", question1.Id, question3.Id));
         }
 
         #endregion
@@ -539,6 +571,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Assert
             result.Count().Should().Be(1);
+            result.First().Should().Be(question1);
         }
 
         #endregion

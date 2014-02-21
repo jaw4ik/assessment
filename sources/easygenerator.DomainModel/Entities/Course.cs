@@ -58,10 +58,7 @@ namespace easygenerator.DomainModel.Entities
 
         public IEnumerable<Objective> RelatedObjectives
         {
-            get
-            {
-                return GetOrderedRelatedObjectives().AsEnumerable();
-            }
+            get { return GetOrderedRelatedObjectives().AsEnumerable(); }
         }
 
         public virtual void RelateObjective(Objective objective, string modifiedBy)
@@ -86,7 +83,6 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfObjectiveIsInvalid(objective);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-
             var objectives = GetOrderedRelatedObjectives();
             objectives.Remove(objective);
             UpdateObjectivesOrder(objectives, modifiedBy);
@@ -96,21 +92,27 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-
         public void UpdateObjectivesOrder(ICollection<Objective> objectives, string modifiedBy)
         {
             ObjectivesOrder = objectives.Count == 0 ? null : String.Join(",", objectives.Select(i => i.Id).ToArray());
             MarkAsModified(modifiedBy);
         }
 
-        private List<Objective> GetOrderedRelatedObjectives()
+        private ICollection<Objective> GetOrderedRelatedObjectives()
         {
             if (ObjectivesOrder == null)
             {
                 return RelatedObjectivesCollection.ToList();
             }
-            var orderedObjectives = ObjectivesOrder.Split(',').Where(e => e != "").ToList();
-            return orderedObjectives.Select(id => RelatedObjectivesCollection.FirstOrDefault(e => e.Id.ToString() == id)).ToList();
+
+            var orderedObjectiveIds = ObjectivesOrder.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            return RelatedObjectivesCollection.OrderBy(objective => GetObjectiveIndex(orderedObjectiveIds, objective)).ToList();
+        }
+
+        private int GetObjectiveIndex(List<string> orderedObjectiveIds, Objective objective)
+        {
+            var index = orderedObjectiveIds.IndexOf(objective.Id.ToString());
+            return index > -1 ? index : orderedObjectiveIds.Count;
         }
 
         public string Title { get; private set; }

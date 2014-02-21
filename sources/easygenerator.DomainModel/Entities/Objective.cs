@@ -52,9 +52,16 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfQuestionIsInvalid(question);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            QuestionsCollection.Add(question);
-            question.Objective = this;
-            DoUpdateQuestionsOrder(QuestionsCollection);
+            if (!QuestionsCollection.Contains(question))
+            {
+                var questions = GetOrderedQuestions();
+                questions.Add(question);
+                DoUpdateQuestionsOrder(questions);
+
+                QuestionsCollection.Add(question);
+                question.Objective = this;
+            }
+
             MarkAsModified(modifiedBy);
         }
 
@@ -63,9 +70,12 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfQuestionIsInvalid(question);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
+            var questions = GetOrderedQuestions();
+            questions.Remove(question);
+            DoUpdateQuestionsOrder(questions);
+
             QuestionsCollection.Remove(question);
             question.Objective = null;
-            DoUpdateQuestionsOrder(QuestionsCollection);
             MarkAsModified(modifiedBy);
         }
 
@@ -82,15 +92,15 @@ namespace easygenerator.DomainModel.Entities
             QuestionsOrder = questions.Count == 0 ? null : String.Join(",", questions.Select(i => i.Id).ToArray());
         }
 
-        private IEnumerable<Question> GetOrderedQuestions()
+        private ICollection<Question> GetOrderedQuestions()
         {
             if (String.IsNullOrEmpty(QuestionsOrder))
             {
-                return QuestionsCollection;
+                return QuestionsCollection.ToList();
             }
 
             var orderedQuestionIds = QuestionsOrder.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            return QuestionsCollection.OrderBy(item => GetQuestionIndex(orderedQuestionIds, item));
+            return QuestionsCollection.OrderBy(item => GetQuestionIndex(orderedQuestionIds, item)).ToList();
         }
 
         private int GetQuestionIndex(List<string> orderedQuestionIds, Question question)
