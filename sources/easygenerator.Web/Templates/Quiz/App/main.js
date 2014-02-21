@@ -18,7 +18,9 @@ define('knockout', function () {
 
 define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'browserSupport', 'settingsReader'],
     function (app, viewLocator, system, modulesInitializer, getRootView, settingsReader) {
-        
+
+        app.title = 'easygenerator';
+
         app.configurePlugins({
             router: true,
             dialog: true,
