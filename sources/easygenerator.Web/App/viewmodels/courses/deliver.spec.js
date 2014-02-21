@@ -420,6 +420,37 @@
                 });
 
             });
+            
+            describe('when current course scorm build failed', function () {
+
+                var message = "message";
+
+                describe('and when message is defined', function () {
+                    it('should show notification', function () {
+                        viewModel.courseId = 'id';
+                        app.trigger(constants.messages.course.scormBuild.failed, viewModel.courseId, message);
+                        expect(notify.error).toHaveBeenCalledWith(message);
+                    });
+                });
+
+                describe('and when message is not defined', function () {
+                    it('should not show notification', function () {
+                        viewModel.courseId = 'id';
+                        app.trigger(constants.messages.course.scormBuild.failed, viewModel.courseId);
+                        expect(notify.error).not.toHaveBeenCalled();
+                    });
+                });
+            });
+
+            describe('when any other course scorm build failed', function () {
+
+                it('should not show notification', function () {
+                    viewModel.courseId = 'id';
+                    app.trigger(constants.messages.course.scormBuild.failed, '100500');
+                    expect(notify.error).not.toHaveBeenCalled();
+                });
+
+            });
         });
 
     }

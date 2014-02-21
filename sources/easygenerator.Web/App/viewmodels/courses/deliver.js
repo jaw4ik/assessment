@@ -32,7 +32,8 @@
 
         app.on(constants.messages.course.build.failed, notifyError);
         app.on(constants.messages.course.publish.failed, notifyError);
-
+        app.on(constants.messages.course.scormBuild.failed, notifyError);
+        
         return viewModel;
 
         function navigateToCourses() {
