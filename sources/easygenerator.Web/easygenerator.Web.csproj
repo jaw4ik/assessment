@@ -267,9 +267,6 @@
     <Content Include="App\viewmodels\courses\courseComments.spec.js">
       <DependentUpon>courseComments.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\course.spec.js">
-      <DependentUpon>course.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\deliveringActions\deliveringAction.js" />
     <Content Include="App\viewmodels\courses\deliveringActions\deliveringAction.spec.js">
       <DependentUpon>deliveringAction.js</DependentUpon>
@@ -401,6 +398,10 @@
     </Content>
     <Content Include="App\viewmodels\courses\deliver.js" />
     <Content Include="App\viewmodels\courses\design.js" />
+    <Content Include="App\viewmodels\courses\course.js" />
+    <Content Include="App\viewmodels\courses\course.spec.js">
+      <DependentUpon>course.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\courses.spec.js">
       <DependentUpon>courses.js</DependentUpon>
     </Content>
@@ -410,6 +411,7 @@
     <Content Include="App\views\common\back.html" />
     <Content Include="App\views\courses\deliver.html" />
     <Content Include="App\views\courses\design.html" />
+    <Content Include="App\views\courses\course.html" />
     <Content Include="App\widgets\notifyViewer\view.html" />
     <Content Include="App\widgets\notifyViewer\viewmodel.js" />
     <Content Include="App\widgets\notifyViewer\viewmodel.spec.js">
@@ -808,12 +810,43 @@
     <Content Include="Templates\Quiz\App\configuration\routes.js" />
     <Content Include="Templates\Quiz\App\configuration\settings.js" />
     <Content Include="Templates\Quiz\App\context.js" />
+    <Content Include="Templates\Quiz\App\eventDataBuilders\courseEventDataBuilder.js" />
+    <Content Include="Templates\Quiz\App\eventDataBuilders\courseEventDataBuilder.spec.js">
+      <DependentUpon>courseEventDataBuilder.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\eventDataBuilders\questionEventDataBuilder.js" />
+    <Content Include="Templates\Quiz\App\eventDataBuilders\questionEventDataBuilder.spec.js">
+      <DependentUpon>questionEventDataBuilder.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\eventManager.js" />
     <Content Include="Templates\Quiz\App\eventManager.spec.js">
       <DependentUpon>eventManager.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Quiz\App\guard.js" />
+    <Content Include="Templates\Quiz\App\guard.spec.js">
+      <DependentUpon>guard.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\main.js" />
+    <Content Include="Templates\Quiz\App\models\answer.js" />
+    <Content Include="Templates\Quiz\App\models\answer.spec.js">
+      <DependentUpon>answer.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\models\course.js" />
+    <Content Include="Templates\Quiz\App\models\course.spec.js">
+      <DependentUpon>course.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\models\learningContent.js" />
+    <Content Include="Templates\Quiz\App\models\learningContent.spec.js">
+      <DependentUpon>learningContent.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\models\objective.js" />
+    <Content Include="Templates\Quiz\App\models\objective.spec.js">
+      <DependentUpon>objective.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\models\question.js" />
+    <Content Include="Templates\Quiz\App\models\question.spec.js">
+      <DependentUpon>question.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\moduleLoader.js" />
     <Content Include="Templates\Quiz\App\moduleLoader.spec.js">
       <DependentUpon>moduleLoader.js</DependentUpon>
@@ -825,6 +858,22 @@
     <Content Include="Templates\Quiz\App\modules\graphicalCustomization.js" />
     <Content Include="Templates\Quiz\App\modules\graphicalCustomization.spec.js">
       <DependentUpon>graphicalCustomization.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\repositories\learningContentRepository.js" />
+    <Content Include="Templates\Quiz\App\repositories\courseRepository.js" />
+    <Content Include="Templates\Quiz\App\repositories\courseRepository.spec.js">
+      <DependentUpon>courseRepository.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\repositories\objectiveRepository.js" />
+    <Content Include="Templates\Quiz\App\repositories\objectiveRepository.spec.js">
+      <DependentUpon>objectiveRepository.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\repositories\questionRepository.js" />
+    <Content Include="Templates\Quiz\App\repositories\learningContentRepository.spec.js">
+      <DependentUpon>learningContentRepository.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\repositories\questionRepository.spec.js">
+      <DependentUpon>questionRepository.js</DependentUpon>
     </Content>
     <Content Include="Templates\Quiz\App\settingsReader.js" />
     <Content Include="Templates\Quiz\App\specs.html" />
@@ -1024,13 +1073,9 @@
     <Content Include="Templates\Simple course\App\configuration\routes.js" />
     <Content Include="Templates\Simple course\App\context.js" />
     <Content Include="Templates\Simple course\App\eventDataBuilders\courseEventDataBuilder.js" />
-    <Content Include="Templates\Simple course\App\eventDataBuilders\courseEventDataBuilder.spec.js">
-      <DependentUpon>courseEventDataBuilder.js</DependentUpon>
-    </Content>
+    <Content Include="Templates\Simple course\App\eventDataBuilders\courseEventDataBuilder.spec.js" />
     <Content Include="Templates\Simple course\App\eventDataBuilders\questionEventDataBuilder.js" />
-    <Content Include="Templates\Simple course\App\eventDataBuilders\questionEventDataBuilder.spec.js">
-      <DependentUpon>questionEventDataBuilder.js</DependentUpon>
-    </Content>
+    <Content Include="Templates\Simple course\App\eventDataBuilders\questionEventDataBuilder.spec.js" />
     <Content Include="Templates\Simple course\App\eventManager.js" />
     <Content Include="Templates\Simple course\App\eventManager.spec.js">
       <DependentUpon>eventManager.js</DependentUpon>
@@ -1094,6 +1139,9 @@
     <Content Include="Templates\Simple course\App\viewmodels\notsupportedbrowser.js" />
     <Content Include="Templates\Simple course\App\viewmodels\notsupportedbrowserMobile.js" />
     <Content Include="Templates\Simple course\App\viewmodels\objectives.js" />
+    <Content Include="Templates\Simple course\App\viewmodels\objectives.spec.js">
+      <DependentUpon>objectives.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Simple course\App\viewmodels\question.js" />
     <Content Include="Templates\Simple course\App\viewmodels\question.spec.js">
       <DependentUpon>question.js</DependentUpon>
@@ -1117,9 +1165,7 @@
       <DependentUpon>activityProvider.js</DependentUpon>
     </Content>
     <Content Include="Templates\Simple course\App\xApi\base64.js" />
-    <Content Include="Templates\Simple course\App\xApi\base64.spec.js">
-      <DependentUpon>base64.js</DependentUpon>
-    </Content>
+    <Content Include="Templates\Simple course\App\xApi\base64.spec.js" />
     <Content Include="Templates\Simple course\App\xApi\configuration\routes.js" />
     <Content Include="Templates\Simple course\App\xApi\configuration\viewConstants.js" />
     <Content Include="Templates\Simple course\App\xApi\configuration\xApiSettings.js" />
@@ -1130,13 +1176,9 @@
     <Content Include="Templates\Simple course\App\xApi\css\login.css" />
     <Content Include="Templates\Simple course\App\xApi\css\xAPIError.css" />
     <Content Include="Templates\Simple course\App\xApi\errorsHandler.js" />
-    <Content Include="Templates\Simple course\App\xApi\errorsHandler.spec.js">
-      <DependentUpon>errorsHandler.js</DependentUpon>
-    </Content>
+    <Content Include="Templates\Simple course\App\xApi\errorsHandler.spec.js" />
     <Content Include="Templates\Simple course\App\xApi\guard.js" />
-    <Content Include="Templates\Simple course\App\xApi\guard.spec.js">
-      <DependentUpon>guard.js</DependentUpon>
-    </Content>
+    <Content Include="Templates\Simple course\App\xApi\guard.spec.js" />
     <Content Include="Templates\Simple course\App\xApi\models\activity.js" />
     <Content Include="Templates\Simple course\App\xApi\models\activityDefinition.js" />
     <Content Include="Templates\Simple course\App\xApi\models\actor.js" />
@@ -1148,31 +1190,19 @@
     <Content Include="Templates\Simple course\App\xApi\models\statement.js" />
     <Content Include="Templates\Simple course\App\xApi\models\verb.js" />
     <Content Include="Templates\Simple course\App\xApi\requestManager.js" />
-    <Content Include="Templates\Simple course\App\xApi\requestManager.spec.js">
-      <DependentUpon>requestManager.js</DependentUpon>
-    </Content>
+    <Content Include="Templates\Simple course\App\xApi\requestManager.spec.js" />
     <Content Include="Templates\Simple course\App\xApi\routingManager.js" />
-    <Content Include="Templates\Simple course\App\xApi\routingManager.spec.js">
-      <DependentUpon>routingManager.js</DependentUpon>
-    </Content>
+    <Content Include="Templates\Simple course\App\xApi\routingManager.spec.js" />
     <Content Include="Templates\Simple course\App\xApi\utils\dateTimeConverter.js" />
-    <Content Include="Templates\Simple course\App\xApi\utils\dateTimeConverter.spec.js">
-      <DependentUpon>dateTimeConverter.js</DependentUpon>
-    </Content>
+    <Content Include="Templates\Simple course\App\xApi\utils\dateTimeConverter.spec.js" />
     <Content Include="Templates\Simple course\App\xApi\viewmodels\login.js" />
-    <Content Include="Templates\Simple course\App\xApi\viewmodels\login.spec.js">
-      <DependentUpon>login.js</DependentUpon>
-    </Content>
+    <Content Include="Templates\Simple course\App\xApi\viewmodels\login.spec.js" />
     <Content Include="Templates\Simple course\App\xApi\viewmodels\xAPIError.js" />
-    <Content Include="Templates\Simple course\App\xApi\viewmodels\xAPIError.spec.js">
-      <DependentUpon>xAPIError.js</DependentUpon>
-    </Content>
+    <Content Include="Templates\Simple course\App\xApi\viewmodels\xAPIError.spec.js" />
     <Content Include="Templates\Simple course\App\xApi\views\login.html" />
     <Content Include="Templates\Simple course\App\xApi\views\xAPIError.html" />
     <Content Include="Templates\Simple course\App\xApi\xApiInitializer.js" />
-    <Content Include="Templates\Simple course\App\xApi\xApiInitializer.spec.js">
-      <DependentUpon>xApiInitializer.js</DependentUpon>
-    </Content>
+    <Content Include="Templates\Simple course\App\xApi\xApiInitializer.spec.js" />
     <Content Include="Templates\Simple course\content\1cfad92b55964ddca69134ac91077c95\c3f1dc4191c3463d9898501f891d2812\3f7ee936f63f4c3097fd4a71ad1b4970.html" />
     <Content Include="Templates\Simple course\content\1cfad92b55964ddca69134ac91077c95\c3f1dc4191c3463d9898501f891d2812\bf804d7c8c8e472ca12c11668740e023.html" />
     <Content Include="Templates\Simple course\content\893fec4c12a44115bfba0b93dff97caf\5b95975bbf964828b974580ff1c5af6f\04a63846b71c4e47a8883932be4a85a8.html" />
@@ -1209,7 +1239,10 @@
     <Content Include="Templates\Simple course\img\info-btn.png" />
     <Content Include="Templates\Simple course\img\loader.gif" />
     <Content Include="Templates\Simple course\img\logo.png" />
+    <Content Include="Templates\Simple course\img\nav-icons.png" />
     <Content Include="Templates\Simple course\img\objective.png" />
+    <Content Include="Templates\Simple course\img\progress_summary.png" />
+    <Content Include="Templates\Simple course\img\progress_summary_white.png" />
     <Content Include="Templates\Simple course\img\question.png" />
     <Content Include="Templates\Simple course\img\safari.png" />
     <Content Include="Templates\Simple course\img\saltbox-banner.png" />
@@ -1328,7 +1361,6 @@
     <Content Include="App\viewmodels\errors\400.js" />
     <Content Include="App\viewmodels\errors\404.js" />
     <Content Include="App\viewmodels\courses\createCourse.js" />
-    <Content Include="App\viewmodels\courses\course.js" />
     <Content Include="App\viewmodels\courses\courses.js" />
     <Content Include="App\viewmodels\objectives\createObjective.js" />
     <Content Include="App\viewmodels\objectives\createObjective.spec.js">
@@ -1397,7 +1429,6 @@
     </Content>
     <None Include="App\specs.html" />
     <Content Include="App\localization\localizationManager.js" />
-    <Content Include="App\views\courses\course.html" />
     <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />
     <Content Include="App\views\courses\courses.html" />

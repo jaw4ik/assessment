@@ -1,131 +1,77 @@
-﻿define(['durandal/app', 'plugins/http', 'plugins/router', 'context', 'eventManager', 'models/question', 'configuration/settings'],
-    function (app, http, router, context, eventManager, Question, settings) {
+﻿define(['durandal/app', 'plugins/router', 'eventManager', 'configuration/settings', 'repositories/questionRepository', 'repositories/courseRepository'],
+    function (app, router, eventManager, settings, questionRepository, courseRepository) {
 
-        var
-            displayedQuestions = ko.observableArray(),
+        var displayedQuestions = ko.observableArray(),
             totalQuestionsCount = 0,
             isFullyLoaded = ko.observable(false),
-
-            allQuestionsList = [],
-            loadedQuestionsCount = 0,
+            allQuestions = [],
             activeQuestionId = null,
-
-
+            loadedQuestionsCount = 0,
+            courseTitle = '',
             loadQuestions = function () {
-                var promises = [],
+                var questionsToLoadContent = [],
                     questionsToLoadCount = loadedQuestionsCount + settings.loadingQuestionsInStepCount;
 
                 for (var i = loadedQuestionsCount; i < questionsToLoadCount; i++) {
-                    if (i > allQuestionsList.length - 1) {
+                    if (i > allQuestions.length - 1) {
                         isFullyLoaded(true);
                         break;
                     }
 
-                    promises.push(loadQuestionContent(allQuestionsList[i]));
-
+                    questionsToLoadContent.push(allQuestions[i]);
                     loadedQuestionsCount++;
                 }
 
-                return Q.allSettled(promises).then(function (results) {
-                    _.chain(results)
-                        .map(function (item) {
-                            return item.value;
-                        })
-                        .sortBy(function (item) {
-                            return item.number;
-                        })
-                        .each(function (item) {
-                            displayedQuestions.push(item);
+                return questionRepository.loadQuestionContentCollection(questionsToLoadContent)
+                    .then(function (questions) {
+                        _.each(questions, function (question) {
+                            displayedQuestions.push(mapQuestion(question));
                         });
-                });
+                    });
             },
-
             submit = function () {
-                app.trigger(eventManager.events.answersSubmitted, {
-                    questions: _.map(displayedQuestions(), function (question) {
-                        return new Question(question);
-                    })
-                });
+                var course = courseRepository.get();
+                course.submitAnswers(_.map(displayedQuestions(), function (question) {
+                    return {
+                        question: questionRepository.get(question.objectiveId, question.id),
+                        checkedAnswersIds: _.chain(question.answers)
+                            .filter(function (item) {
+                                return item.isChecked();
+                            })
+                            .map(function (item) {
+                                return item.id;
+                            }).value()
+                    };
+                }));
 
-                context.testResult(displayedQuestions());
                 router.navigate('summary');
             },
-
             showLearningContents = function (item) {
                 activeQuestionId = item.id;
                 router.navigate('objective/' + item.objectiveId + '/question/' + item.id + '/learningContents');
             },
-
-            shuffleAndSetNumber = function (questionsList) {
-                questionsList = _.shuffle(questionsList);
-
-                _.each(questionsList, function (question, key) {
-                    question.number = key + 1;
-                });
-
-                return questionsList;
-            },
-
-            loadQuestionContent = function (question) {
-                var defer = Q.defer();
-
-                if (question.hasContent) {
-                    var contentUrl = 'content/' + question.objectiveId + '/' + question.id + '/content.html';
-                    http.get(contentUrl)
-                        .done(function (response) {
-                            question.content = response;
-                        })
-                        .fail(function () {
-                            question.content = settings.questionContentNonExistError;
-                        })
-                        .always(function () {
-                            defer.resolve(question);
-                        });
-                } else {
-                    defer.resolve(question);
-                }
-
-                return defer.promise;
-            },
-
-            mapQuestion = function (question, objective) {
+            mapQuestion = function (question) {
                 var mappedQuestion = {
                     id: question.id,
+                    objectiveId: question.objectiveId,
                     title: question.title,
                     hasContent: question.hasContent,
                     content: "",
-                    objectiveId: objective.id,
-                    objectiveTitle: objective.title,
                     answers: _.map(question.answers, function (answer) {
                         return {
                             id: answer.id,
                             text: answer.text,
-                            isCorrect: answer.isCorrect,
                             isChecked: ko.observable(false),
                             toggleCheck: function () {
                                 this.isChecked(!this.isChecked());
                             }
                         };
                     }),
-                    learningContents: question.learningContents,
-                    number: 0
+                    learningContents: question.learningContents
                 };
 
                 return mappedQuestion;
             },
-
-            getQuestions = function (objectives) {
-                var questionsList = [];
-
-                _.each(objectives, function (objective) {
-                    questionsList = questionsList.concat(_.map(objective.questions, function (question) {
-                        return mapQuestion(question, objective);
-                    }));
-                });
-
-                return questionsList;
-            },
-
             compositionComplete = function () {
                 if (_.isNull(activeQuestionId)) {
                     return;
@@ -138,32 +84,35 @@
 
                 activeQuestionId = null;
             },
+            activate = function () {
+                var course = courseRepository.get();
 
-            resetCourse = function () {
+                if (course == null) {
+                    router.navigate('404');
+                    return;
+                }
+
+                allQuestions = _.map(course.getAllQuestions(), function (question) {
+                    return mapQuestion(question);
+                });
+
+                allQuestions = _.shuffle(allQuestions);
+                this.totalQuestionsCount = allQuestions.length;
+                this.courseTitle = course.title;
+            },
+            canActivate = function () {
+                var course = courseRepository.get();
+                return !course.isAnswered;
+            },
+            setInitialSettings = function () {
                 displayedQuestions([]);
-                allQuestionsList = [];
-                loadedQuestionsCount = 0;
+                allQuestions = [];
                 isFullyLoaded(false);
                 activeQuestionId = null;
-            },
-
-            activate = function () {
-
-                if (context.isTryAgain) {
-                    resetCourse();
-                    context.isTryAgain = false;
-                    app.trigger(eventManager.events.courseStarted);
-                }
-
-                if (context.objectives.length > 0) {
-                    allQuestionsList = shuffleAndSetNumber(getQuestions(context.objectives));
-                    this.totalQuestionsCount = allQuestionsList.length;
-                }
-            },
-
-            canActivate = function () {
-                return _.isNullOrUndefined(context.testResult) || _.isNullOrUndefined(context.testResult()) || context.testResult().length == 0;
+                loadedQuestionsCount = 0;
             };
+
+        app.on(eventManager.events.courseRestart, setInitialSettings);
 
         return {
             activate: activate,
@@ -171,12 +120,13 @@
             loadQuestions: loadQuestions,
             submit: submit,
             showLearningContents: showLearningContents,
+            activeQuestionId: activeQuestionId,
             compositionComplete: compositionComplete,
 
             questions: displayedQuestions,
             totalQuestionsCount: totalQuestionsCount,
             isFullyLoaded: isFullyLoaded,
-            courseTitle: context.title,
+            courseTitle: courseTitle
         };
     }
 );

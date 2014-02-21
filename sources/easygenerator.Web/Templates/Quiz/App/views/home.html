@@ -9,7 +9,7 @@
                 <header class="content-header question-header">
                     <div class="content-header-inner">
                         <div class="question-counter">
-                            <span data-bind="text: number + ' of ' + $parent.totalQuestionsCount"></span>
+                            <span data-bind="text: ($index() + 1) + ' of ' + $parent.totalQuestionsCount"></span>
                         </div>
                         <div class="content-title question-text">
                             <span class="selectable" data-bind="text: title"></span>

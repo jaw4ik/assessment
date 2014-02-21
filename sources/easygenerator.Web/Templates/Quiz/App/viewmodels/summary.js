@@ -1,12 +1,12 @@
-﻿define(['durandal/app', 'plugins/router', 'context', 'eventManager', 'windowOperations'],
-    function (app, router, context, eventManager, windowOperations) {
+﻿define(['durandal/app', 'plugins/router', 'context', 'eventManager', 'windowOperations', 'repositories/courseRepository'],
+    function (app, router, context, eventManager, windowOperations, repository) {
         var objectives = [],
-            scores = [],
             overallScore = 0,
 
             tryAgain = function () {
-                context.isTryAgain = true;
-                context.testResult([]);
+                var course = repository.get();
+                course.restart();
+
                 this.status(this.statuses.readyToFinish);
                 router.navigate('');
             },
@@ -22,83 +22,37 @@
             finish = function () {
                 status(statuses.sendingRequests);
 
-                var that = this;
-                return eventManager.courseFinished({
-                    result: Math.round(that.overallScore) / 100,
-                    objectives: _.map(that.objectives, function (objective) {
-                        return {
-                            id: objective.id,
-                            title: objective.title,
-                            score: objective.score
-                        };
-                    })
-                }, closeCourse);
+                var course = repository.get();
+                course.finish(onCourseFinishedCallback);
             },
 
-            closeCourse = function () {
-                eventManager.turnAllEventsOff();
+            onCourseFinishedCallback = function () {
                 status(statuses.finished);
                 windowOperations.close();
-            },
-
-            activate = function () {
-                var that = this;
-
-                if (context.isRestartCourse) {
-                    this.status(this.statuses.readyToFinish);
-                    context.isRestartCourse = false;
-                }
-                this.objectives = [];
-                scores = [];
-                this.overallScore = 0;
-
-                this.objectives = _.map(context.objectives, function (objective) {
-                    return {
-                        id: objective.id,
-                        title: objective.title,
-                        image: objective.image,
-                        score: 0,
-                        count: 0
-                    };
-                });
-                var result = 0;
-
-                _.each(context.testResult(), function (item) {
-                    _.each(item.answers, function (answer) {
-                        if ((answer.isChecked() && answer.isCorrect) || (!answer.isChecked() && !answer.isCorrect)) {
-                            result++;
-                        }
-                    });
-
-                    scores.push({
-                        objectiveId: item.objectiveId,
-                        value: (result / item.answers.length) * 100
-                    });
-                    result = 0;
-                });
-
-                _.each(this.objectives, function (objective) {
-                    var questionForThisObjective = _.filter(scores, function (item) {
-                        return item.objectiveId == objective.id;
-                    });
-
-                    var scoreForThisObjective = 0;
-
-                    _.each(questionForThisObjective, function (question) {
-                        scoreForThisObjective += question.value;
-                    });
-
-                    objective.score = scoreForThisObjective / questionForThisObjective.length;
-                    that.overallScore += objective.score;
-                });
-
-                this.overallScore = this.overallScore / this.objectives.length;
-                return this.overallScore;
-            },
-
-            canActivate = function () {
-                return !_.isNullOrUndefined(context.testResult) && !_.isNullOrUndefined(context.testResult()) && context.testResult().length > 0;
             };
+
+        activate = function() {
+            var course = repository.get();
+            if (course == null) {
+                router.navigate('404');
+                return;
+            }
+
+            course.calculateScore();
+
+            this.overallScore = course.score;
+            this.objectives = _.map(course.objectives, function (item) {
+                return {
+                    id: item.id,
+                    title: item.title,
+                    score: item.score
+                };
+            });
+        },
+        canActivate = function() {
+            var course = repository.get();
+            return course.isAnswered;
+        };
 
         return {
             activate: activate,

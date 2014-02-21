@@ -1,4 +1,4 @@
-///#source 1 1 /Templates/Quiz/js/jquery-1.9.1.js
+﻿///#source 1 1 /Templates/Quiz/js/jquery-1.9.1.js
 /*!
  * jQuery JavaScript Library v1.9.1
  * http://jquery.com/

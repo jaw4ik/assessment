@@ -4,124 +4,110 @@
     var
         viewModel = require('viewmodels/summary'),
         router = require('plugins/router'),
-        context = require('context'),
-        app = require('durandal/app'),
-        eventManager = require('eventManager'),
-        windowOperations = require('windowOperations');
+        windowOperations = require('windowOperations'),
+        repository = require('repositories/courseRepository');
 
     describe('viewModel [summary]', function () {
+
+        var course = {
+            calculateScore: function () { },
+            finish: function () { },
+            restart: function () { },
+            objectives: [{
+                id: 'id',
+                title: 'titile',
+                score: 75
+            }]
+        };
 
         it('should be defined', function () {
             expect(viewModel).toBeDefined();
         });
 
         describe('canActivate:', function () {
+            beforeEach(function () {
+                spyOn(repository, 'get').andReturn(course);
+            });
 
             it('should be function', function () {
                 expect(viewModel.canActivate).toBeFunction();
             });
 
-            describe('when context.testResult is empty', function () {
-
-                it('should return false', function () {
-                    context.testResult([]);
-                    expect(viewModel.canActivate()).toBeFalsy();
+            describe('when course is answered', function () {
+                beforeEach(function () {
+                    course.isAnswered = true;
                 });
-
-            });
-
-            describe('when context.testResult is not empty', function () {
 
                 it('should return true', function () {
-                    context.testResult([{}, {}]);
-                    expect(viewModel.canActivate()).toBeTruthy();
+                    var result = viewModel.canActivate();
+                    expect(result).toBeTruthy();
                 });
-
             });
 
+            describe('when course is not answered', function () {
+                beforeEach(function () {
+                    course.isAnswered = false;
+                });
+
+                it('should return false', function () {
+                    var result = viewModel.canActivate();
+                    expect(result).toBeFalsy();
+                });
+            });
         });
 
         describe('activate:', function () {
+
+            beforeEach(function () {
+                spyOn(router, 'navigate');
+            });
 
             it('should be function', function () {
                 expect(viewModel.activate).toBeFunction();
             });
 
-            beforeEach(function () {
+            describe('when course is not an object', function () {
 
-                context.objectives = [{
-                    "id": 0,
-                    "title": "The learner is able to appreciate the easy and powerful features of easygenerator",
-                    "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
-                    "questions": [{
-                        "id": 0,
-                        "title": "Which of the following statements fits the WYSIWYG feature best?",
-                        "answers": [{
-                            "id": 0,
-                            "isCorrect": false,
-                            "text": "The e-Learning in our platform will look exactly the same to the authors as it will be presented to the learners."
-                        }, {
-                            "id": 1,
-                            "isCorrect": true,
-                            "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
-                        }],
-                        "learningContents": [{
-                            "id": 0
-                        }, {
-                            "id": 1
-                        }]
-                    }]
-                }];
-                context.title = "courseTitle";
-                context.testResult([{
-                    id: 0,
-                    objectiveId: 0,
-                    answers: [{
-                        id: 0,
-                        isCorrect: false,
-                        isChecked: function () {
-                            this.isCorrect = !this.isCorrect;
-                        }
-                    }, {
-                        id: 1,
-                        isCorrect: true,
-                        isChecked: function () {
-                            this.isCorrect = !this.isCorrect;
-                        }
-                    }],
-                    learningContents: [],
-                    title: 'Questions 1',
-                    score: 46
-                }, {
-                    id: 1,
-                    objectiveId: 1,
-                    answers: [{
-                        id: 0,
-                        isCorrect: false,
-                        isChecked: function () {
-                            this.isCorrect = !this.isCorrect;
-                        }
-                    }, {
-                        id: 1,
-                        isCorrect: true,
-                        isChecked: function () {
-                            this.isCorrect = !this.isCorrect;
-                        }
-                    }],
-                    learningContents: [],
-                    title: 'Questions 2',
-                    score: 89
-                }]);
+                beforeEach(function () {
+                    spyOn(repository, 'get').andReturn(null);
+                });
+
+                it('should navigate to 404', function () {
+                    viewModel.activate();
+                    expect(router.navigate).toHaveBeenCalledWith('404');
+                });
             });
 
-            it('should set objectives', function () {
-                viewModel.activate();
-                expect(viewModel.objectives[0].id).toBe(context.objectives[0].id);
-            });
+            describe('when course is an object', function () {
 
-            it('should set overallProgress to 50%', function () {
-                viewModel.activate();
-                expect(viewModel.overallScore).toBe(50);
+                beforeEach(function () {
+                    spyOn(repository, 'get').andReturn(course);
+                });
+
+                it('should call course calculate score', function () {
+                    spyOn(course, 'calculateScore');
+
+                    viewModel.activate();
+                    expect(course.calculateScore).toHaveBeenCalled();
+                });
+
+                it('should set course overallScore', function () {
+                    viewModel.overallScore = 0;
+                    course.score = 55;
+
+                    viewModel.activate();
+                    expect(viewModel.overallScore).toBe(55);
+                });
+
+                it('should map objectives collection', function () {
+                    viewModel.objectives = [];
+
+                    viewModel.activate();
+                    expect(viewModel.objectives.length).toBe(1);
+                    expect(viewModel.objectives[0].id).toBe(course.objectives[0].id);
+                    expect(viewModel.objectives[0].title).toBe(course.objectives[0].title);
+                    expect(viewModel.objectives[0].score).toBe(course.objectives[0].score);
+                });
             });
 
         });
@@ -132,138 +118,68 @@
                 expect(viewModel.tryAgain).toBeFunction();
             });
 
-            describe('when click "Try Again"', function () {
+            beforeEach(function () {
+                spyOn(router, 'navigate');
+                spyOn(course, 'restart');
+                spyOn(repository, 'get').andReturn(course);
+            });
 
-                beforeEach(function () {
-                    spyOn(router, 'navigate');
-                    context.isTryAgain = false;
-                });
+            it('should call course restart', function () {
+                viewModel.tryAgain();
+                expect(course.restart).toHaveBeenCalled();
+            });
 
-                it('should set context.isTryAgain to true', function () {
-                    viewModel.tryAgain();
-                    expect(context.isTryAgain).toBeTruthy();
-                });
-
-                it('should navigate to \'\'', function () {
-                    viewModel.tryAgain();
-                    expect(router.navigate).toHaveBeenCalledWith('');
-                });
-
-                it('should reset context.testResult', function () {
-                    context.testResult([{}, {}]);
-                    viewModel.tryAgain();
-                    expect(context.testResult().length).toBe(0);
-                });
-
+            it('should navigate to \'\'', function () {
+                viewModel.tryAgain();
+                expect(router.navigate).toHaveBeenCalledWith('');
             });
         });
 
-        describe('finish: ', function () {
+        describe('finish:', function () {
 
             beforeEach(function () {
-                app.off("courseFinished");
-
-                spyOn(eventManager, 'turnAllEventsOff');
-                spyOn(windowOperations, 'close');
+                spyOn(repository, 'get').andReturn(course);
             });
-            
+
             it('should be function', function () {
                 expect(viewModel.finish).toBeFunction();
             });
-            
-            it('should return promise', function () {
-                var result = viewModel.finish();
-                expect(result).toBePromise();
+
+            it('should change status to sending request', function () {
+                viewModel.finish();
+                expect(viewModel.status()).toBe('sendingRequests');
             });
 
-            describe('whene there are subscribers on "courseFinished" event', function() {
-                var promise;
-                var actions;
-
-                beforeEach(function () {
-                    actions = [];
-
-                    var subscriptionFinished = app.on("courseFinished").then(function () {
-                        actions.push("courseFinished");
-                        subscriptionFinished.off();
-                    });
-
-                    viewModel.status('');
-                    promise = viewModel.finish();
-                });
-
-                it('should execute "courseFinished" subscribers', function () {
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(actions.length).toBe(1);
-                        expect(actions[0]).toBe("courseFinished");
-                    });
-                });
-
-                it('should turn off all events', function () {
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(eventManager.turnAllEventsOff).toHaveBeenCalled();
-                    });
-                });
-
-                it('should change status to finished', function () {
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.status()).toBe(viewModel.statuses.finished);
-                    });
-                });
-
-                it('should close window', function () {
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(windowOperations.close).toHaveBeenCalled();
-                    });
-                });
+            it('should get course from repository', function () {
+                viewModel.finish();
+                expect(repository.get).toHaveBeenCalled();
             });
 
-            describe('whene there are no subscribers on "courseFinished" event', function () {
-                var promise;
+            it('should call course finish', function () {
+                spyOn(course, 'finish');
 
+                viewModel.finish();
+                expect(course.finish).toHaveBeenCalled();
+            });
+
+            describe('when course finished', function () {
                 beforeEach(function () {
-                    viewModel.status('');
-                    promise = viewModel.finish();
-                });
-
-                it('should turn off all events', function () {
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(eventManager.turnAllEventsOff).toHaveBeenCalled();
+                    spyOn(windowOperations, 'close');
+                    spyOn(course, 'finish').andCallFake(function (callback) {
+                        callback();
                     });
                 });
 
-                it('should change status to finished', function () {
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.status()).toBe(viewModel.statuses.finished);
-                    });
+                it('should change status to fiished', function () {
+                    viewModel.finish();
+                    expect(viewModel.status()).toBe('finished');
                 });
 
-                it('should close window', function () {
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(windowOperations.close).toHaveBeenCalled();
-                    });
+                it('should call windows operations close', function () {
+                    viewModel.finish();
+                    expect(windowOperations.close).toHaveBeenCalled();
                 });
+
             });
         });
 

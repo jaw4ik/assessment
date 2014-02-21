@@ -1,64 +1,75 @@
 ﻿define(function (require) {
     "use strict";
 
-    var
-        viewModel = require('viewmodels/home'),
+    var viewModel = require('viewmodels/home'),
         router = require('plugins/router'),
-        context = require('context'),
-        http = require('plugins/http'),
         app = require('durandal/app'),
         eventManager = require('eventManager'),
-        settings = require('configuration/settings');
+        settings = require('configuration/settings'),
+        courseRepository = require('repositories/courseRepository'),
+        questionRepository = require('repositories/questionRepository');
 
     describe('viewModel [home]', function () {
 
-        beforeEach(function () {
-            context.objectives = [{
+        var questions = [
+            {
+                id: 0,
+                title: "Which of the following statements fits the WYSIWYG feature best?",
+                hasContent: true,
+                answers: [{
+                    "id": 0,
+                    "isCorrect": false,
+                    "text": "The e-Learning in our platform will look exactly the same to the authors as it will be presented to the learners."
+                }, {
+                    "id": 1,
+                    "isCorrect": true,
+                    "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
+                }],
+                learningContents: [{
+                    "id": 0
+                }, {
+                    "id": 1
+                }],
+                loadContent: function () { }
+            },
+            {
+                id: 1,
+                title: "Which of the following statements fits the WYSIWYG feature best?",
+                hasContent: true,
+                answers: [{
+                    "id": 0,
+                    "isCorrect": false,
+                    "text": "The e-Learning in our platform will look exactly the same to the authors as it will be presented to the learners."
+                }, {
+                    "id": 1,
+                    "isCorrect": true,
+                    "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
+                }],
+                learningContents: [{
+                    "id": 0
+                }, {
+                    "id": 1
+                }],
+                loadContent: function () { }
+            }
+        ];
+
+        var course = {
+            start: function () { },
+            reset: function () { },
+            getAllQuestions: function () { },
+            submitAnswers: function () { },
+            objectives: [{
                 "id": 0,
                 "title": "The learner is able to appreciate the easy and powerful features of easygenerator",
                 "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
-                "questions": [
-                    {
-                        "id": 0,
-                        "title": "Which of the following statements fits the WYSIWYG feature best?",
-                        "hasContent": true,
-                        "answers": [{
-                            "id": 0,
-                            "isCorrect": false,
-                            "text": "The e-Learning in our platform will look exactly the same to the authors as it will be presented to the learners."
-                        }, {
-                            "id": 1,
-                            "isCorrect": true,
-                            "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
-                        }],
-                        "learningContents": [{
-                            "id": 0
-                        }, {
-                            "id": 1
-                        }]
-                    },
-                    {
-                        "id": 1,
-                        "title": "Which of the following statements fits the WYSIWYG feature best?",
-                        "hasContent": true,
-                        "answers": [{
-                            "id": 0,
-                            "isCorrect": false,
-                            "text": "The e-Learning in our platform will look exactly the same to the authors as it will be presented to the learners."
-                        }, {
-                            "id": 1,
-                            "isCorrect": true,
-                            "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
-                        }],
-                        "learningContents": [{
-                            "id": 0
-                        }, {
-                            "id": 1
-                        }]
-                    }
-                ]
-            }];
-            context.title = "Course title";
+                "questions": questions
+            }]
+        };
+
+        beforeEach(function () {
+            spyOn(course, 'getAllQuestions').andReturn(questions);
+            spyOn(router, 'navigate');
         });
 
         it('should be defined', function () {
@@ -131,37 +142,24 @@
 
         describe('submit:', function () {
 
+            beforeEach(function () {
+                spyOn(courseRepository, 'get').andReturn(course);
+                spyOn(course, 'submitAnswers');
+            });
+
             it('should be function', function () {
                 expect(viewModel.submit).toBeFunction();
             });
 
             it('should navigate to summary', function () {
-                spyOn(router, 'navigate');
                 viewModel.submit();
                 expect(router.navigate).toHaveBeenCalledWith('summary');
             });
 
-            it('should trigger event \'answersSubmitted\'', function () {
-                spyOn(app, 'trigger');
-
-                viewModel.questions(context.objectives[0].questions);
-
-                var Question = require('models/question');
-                var mappedQuestions = _.map(viewModel.questions(), function (question) {
-                    return new Question(question);
-                });
-
+            it('should call course submit answers', function () {
                 viewModel.submit();
-
-                expect(app.trigger).toHaveBeenCalledWith(eventManager.events.answersSubmitted, { questions: mappedQuestions });
+                expect(course.submitAnswers).toHaveBeenCalled();
             });
-
-            it('should set context.testResult', function () {
-                context.testResult([]);
-                viewModel.submit();
-                expect(context.testResult().length).toBeGreaterThan(0);
-            });
-            
         });
 
         describe('showLearningContents:', function () {
@@ -171,7 +169,6 @@
             });
 
             it('should navigate to objective/:objectiveId/question/:questionid/learningContents', function () {
-                spyOn(router, 'navigate');
                 var learningContents = { objectiveId: 'obj1', id: 'ques1' };
                 viewModel.showLearningContents(learningContents);
                 expect(router.navigate).toHaveBeenCalledWith('objective/obj1/question/ques1/learningContents');
@@ -188,32 +185,34 @@
                 expect(viewModel.loadQuestions()).toBePromise();
             });
 
-            describe('when not all questions are loaded', function () {
-
-                var httpGetDefer;
+            describe('when all questions can be loaded at one step', function () {
+                var defer;
                 beforeEach(function () {
-                    context.isTryAgain = true;
-                    viewModel.activate();
+                    viewModel.questions([]);
+                    settings.loadingQuestionsInStepCount = 5;
+                    defer = Q.defer();
 
-                    httpGetDefer = $.Deferred();
-                    spyOn(http, 'get').andReturn(httpGetDefer.promise());
+                    spyOn(courseRepository, 'get').andReturn(course);
+                    app.trigger(eventManager.events.courseRestart);
+                    viewModel.activate();
+                    spyOn(questionRepository, 'loadQuestionContentCollection').andReturn(defer.promise);
                 });
 
-                it('should load questions', function () {
+                it('should load question content', function () {
                     var promise = viewModel.loadQuestions();
-                    httpGetDefer.resolve('<html></html>');
+                    defer.resolve();
 
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(viewModel.questions().length).toBeGreaterThan(0);
+                        expect(questionRepository.loadQuestionContentCollection).toHaveBeenCalled();
                     });
                 });
 
                 it('should set isFullyLoaded to true', function () {
                     var promise = viewModel.loadQuestions();
-                    httpGetDefer.resolve('<html></html>');
+                    defer.resolve();
 
                     waitsFor(function () {
                         return !promise.isPending();
@@ -223,99 +222,75 @@
                     });
                 });
 
-                describe('when load question content', function() {
+                describe('and when content of question is loaded', function () {
+                    it('should add question to questions collection', function () {
+                        var promise = viewModel.loadQuestions();
+                        defer.resolve(questions);
 
-                    describe('and content in not found', function() {
-
-                        beforeEach(function() {
-                            httpGetDefer.reject();
+                        waitsFor(function () {
+                            return !promise.isPending();
                         });
-
-                        it('should set error message to content property', function () {
-                            var promise = viewModel.loadQuestions();
-                            
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.questions()[0].content).toBe(settings.questionContentNonExistError);
-                                expect(viewModel.questions()[1].content).toBe(settings.questionContentNonExistError);
-                            });
+                        runs(function () {
+                            expect(viewModel.questions().length).toBe(2);
                         });
-
-                        it('should load questions', function() {                            
-                            var promise = viewModel.loadQuestions();
-                            
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.questions().length).toBe(2);
-                            });
-                        });
-
                     });
+                });
 
-                    describe('and content exists', function() {
+            });
 
-                        beforeEach(function() {
-                            httpGetDefer.resolve('<html></html>');
-                        });
+            describe('when not all questions can be loaded at one step', function () {
+                var defer;
+                beforeEach(function () {
+                    settings.loadingQuestionsInStepCount = 1;
+                    defer = Q.defer();
 
-                        it('should set question content', function() {
-                            var promise = viewModel.loadQuestions();
+                    spyOn(courseRepository, 'get').andReturn(course);
+                    app.trigger(eventManager.events.courseRestart);
+                    viewModel.activate();
+                    spyOn(questionRepository, 'loadQuestionContentCollection').andReturn(defer.promise);
+                });
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.questions()[0].content).toBe('<html></html>');
-                            });
-                        });
+                it('should load question content', function () {
+                    var promise = viewModel.loadQuestions();
+                    defer.resolve();
 
-                        it('should load questions', function () {
-                            var promise = viewModel.loadQuestions();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.questions().length).toBe(2);
-                            });
-                        });
-
+                    waitsFor(function () {
+                        return !promise.isPending();
                     });
+                    runs(function () {
+                        expect(questionRepository.loadQuestionContentCollection).toHaveBeenCalled();
+                    });
+                });
 
+                it('should not change isFullyLoaded', function () {
+                    viewModel.isFullyLoaded(false);
+
+                    var promise = viewModel.loadQuestions();
+                    defer.resolve();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.isFullyLoaded()).toBeFalsy();
+                    });
+                });
+
+                describe('and when content of question is loaded', function () {
+                    it('should add one question to questions collection', function () {
+                        var promise = viewModel.loadQuestions();
+                        defer.resolve([questions[0]]);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.questions().length).toBe(1);
+                        });
+                    });
                 });
 
             });
-
-        });
-
-        describe('canActivate:', function() {
-
-            it('should be function', function() {
-                expect(viewModel.canActivate).toBeFunction();
-            });
-
-            describe('when context.testResult is not empty', function() {
-
-                it('should return false', function() {
-                    context.testResult([{}, {}]);
-                    expect(viewModel.canActivate()).toBeFalsy();
-                });
-
-            });
-            
-            describe('when context.testResult is empty', function () {
-
-                it('should return true', function () {
-                    context.testResult([]);
-                    expect(viewModel.canActivate()).toBeTruthy();
-                });
-
-            });
-
         });
 
         describe('activate:', function () {
@@ -324,41 +299,83 @@
                 expect(viewModel.activate).toBeFunction();
             });
 
-            describe('when objectives exists', function () {
+            describe('when course is found', function () {
+
+                beforeEach(function () {
+                    spyOn(courseRepository, 'get').andReturn(course);
+                });
 
                 it('should set totalQuestionsCount', function () {
+                    viewModel.totalQuestionsCount = 0;
                     viewModel.activate();
-                    expect(viewModel.totalQuestionsCount).toBe(2);
+                    expect(viewModel.totalQuestionsCount).toBe(questions.length);
+                });
+
+                it('should set courseTitle', function () {
+                    viewModel.courseTitle = '';
+                    viewModel.activate();
+                    expect(viewModel.courseTitle).toBe(course.title);
                 });
 
             });
 
-            describe('when context.isTryAgain is true', function () {
-
-                beforeEach(function() {
-                    context.isTryAgain = true;
+            describe('when course is not found', function () {
+                beforeEach(function () {
+                    spyOn(courseRepository, 'get').andReturn(null);
                 });
 
-                it('should reset course data', function () {
-                    viewModel.questions([{ id: 0 }, { id: 1 }]);
-                    viewModel.isFullyLoaded(true);
-
+                it('should navigate to 404', function () {
                     viewModel.activate();
-                    expect(viewModel.questions().length).toBe(0);
-                    expect(viewModel.isFullyLoaded()).toBeFalsy();
+                    expect(router.navigate).toHaveBeenCalledWith('404');
+                });
+            });
+
+        });
+
+        describe('canActivate:', function () {
+            beforeEach(function () {
+                spyOn(courseRepository, 'get').andReturn(course);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.canActivate).toBeFunction();
+            });
+
+            describe('when course is answered', function () {
+                beforeEach(function () {
+                    course.isAnswered = true;
                 });
 
-                it('should set context.isTryAgain to false', function() {
-                    viewModel.activate();
-                    expect(context.isTryAgain).toBeFalsy();
+                it('should return false', function () {
+                    var result = viewModel.canActivate();
+                    expect(result).toBeFalsy();
+                });
+            });
+
+            describe('when course is not answered', function () {
+                beforeEach(function () {
+                    course.isAnswered = false;
                 });
 
-                it('should trigger event \'courseStarted\'', function () {
-                    spyOn(app, 'trigger');
-                    viewModel.activate();
-                    expect(app.trigger).toHaveBeenCalledWith(eventManager.events.courseStarted);
+                it('should return true', function () {
+                    var result = viewModel.canActivate();
+                    expect(result).toBeTruthy();
                 });
+            });
+        });
 
+        describe('when course is reset', function () {
+
+            it('should clear questions collection', function () {
+                viewModel.questions([{}]);
+                app.trigger(eventManager.events.courseRestart);
+                expect(viewModel.questions().length).toBe(0);
+            });
+
+            it('should set isFullyLoaded to false', function () {
+                viewModel.isFullyLoaded(true);
+                app.trigger(eventManager.events.courseRestart);
+                expect(viewModel.isFullyLoaded()).toBeFalsy();
             });
 
         });

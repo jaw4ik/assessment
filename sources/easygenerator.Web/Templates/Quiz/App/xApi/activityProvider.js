@@ -107,10 +107,13 @@
         function sendAnsweredQuestionsStatements(finishedEventData) {
             var promises = [];
 
-            _.each(finishedEventData.questions, function (question) {
+            _.each(finishedEventData, function (item) {
+                var question = item.question;
+                var objective = item.objective;
+
                 var result = {
-                    score: question.getScore() / 100,
-                    response: question.getSelectedAnswersId().toString()
+                    score: question.score / 100,
+                    response: question.selectedAnswersIds.toString()
                 };
 
                 var object = {
@@ -121,12 +124,12 @@
                         },
                         type: "http://adlnet.gov/expapi/activities/cmi.interaction",
                         interactionType: "choice",
-                        correctResponsesPattern: question.getCorrectAnswersIds(),
-                        choices: _.map(question.answers, function (item) {
+                        correctResponsesPattern: question.correctAnswersIds,
+                        choices: _.map(question.answers, function (answer) {
                             return {
-                                id: item.id,
+                                id: answer.id,
                                 description: {
-                                    "en-US": item.text
+                                    "en-US": answer.text
                                 }
                             };
                         })
@@ -135,7 +138,7 @@
 
                 var context = {
                     contextActivities: {
-                        parent: [createActivityForObjective(question.objectiveId, question.objectiveTitle)]
+                        parent: [createActivityForObjective(objective.id, objective.title)]
                     }
                 };
 

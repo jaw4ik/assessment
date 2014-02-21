@@ -1,11 +1,12 @@
 ﻿define(function (require) {
     "use strict";
 
-    var
-        viewModel = require('viewModels/learningContents'),
+    var viewModel = require('viewModels/learningContents'),
         router = require('plugins/router'),
         context = require('context'),
-        http = require('plugins/http');
+        http = require('plugins/http'),
+        questionRepository = require('repositories/questionRepository'),
+        learningContentRepository = require('repositories/learningContentRepository');
 
     describe('viewModel [learningContents]', function () {
 
@@ -13,128 +14,165 @@
             expect(viewModel).toBeDefined();
         });
 
-        beforeEach(function () {
-            context.objectives = [{
+        var question = {
+            id: 0,
+            title: "Which of the following statements fits the WYSIWYG feature best?",
+            answers: [{
                 "id": 0,
-                "title": "The learner is able to appreciate the easy and powerful features of easygenerator",
-                "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
-                "questions": [{
-                    "id": 0,
-                    "title": "Which of the following statements fits the WYSIWYG feature best?",
-                    "answers": [{
-                        "id": 0,
-                        "isCorrect": false,
-                        "text": "The e-Learning in our platform will look exactly the same to the authors as it will be presented to the learners."
-                    }, {
-                        "id": 1,
-                        "isCorrect": true,
-                        "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
-                    }],
-                    "learningContents": [{
-                        "id": 0
-                    }]
-                }]
-            }];
-            context.title = "Course title";
+                "isCorrect": false,
+                "text": "The e-Learning in our platform will look exactly the same to the authors as it will be presented to the learners."
+            }, {
+                "id": 1,
+                "isCorrect": true,
+                "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
+            }],
+            learningContents: [{
+                "id": 0
+            }],
+            learningContentExperienced: function () { }
+        };
 
+        beforeEach(function () {
             spyOn(window, 'scroll');
+            spyOn(router, 'navigate');
         });
 
         describe('activate:', function () {
-
             var deferred = null;
-
-            beforeEach(function() {
-                deferred = $.Deferred();
-                spyOn(http, 'get').andReturn(deferred.promise());
+            beforeEach(function () {
+                deferred = Q.defer();
+                spyOn(learningContentRepository, 'getCollection').andReturn(deferred.promise);
             });
 
             it('should be function', function () {
                 expect(viewModel.activate).toBeFunction();
             });
 
-            it('should be set learning content', function () {
-                viewModel.activate(0, 0);
-                expect(viewModel.learningContents).toNotBe([]);
-            });
-
-            describe('when routeData incorrect', function () {
-
+            describe('when question is not found', function () {
                 beforeEach(function () {
-                    spyOn(router, 'navigate');
+                    spyOn(questionRepository, 'get').andReturn(null);
                 });
 
-                describe('when objectiveId incorrect', function () {
+                it('should navigate to 404', function () {
+                    var promise = viewModel.activate('0', '0');
+                    deferred.resolve();
 
-                    it('should navigate to 404', function () {
-                        viewModel.activate('Some incorrect id', '0');
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
                         expect(router.navigate).toHaveBeenCalledWith('404');
                     });
+                });
+            });
 
+            describe('when question is found', function () {
+                beforeEach(function () {
+                    spyOn(questionRepository, 'get').andReturn(question);
                 });
 
-                describe('when questionId incorrect', function () {
+                it('should return promise', function () {
+                    expect(viewModel.activate('0', '0')).toBePromise();
+                });
 
-                    it('should navigate to 404', function () {
-                        viewModel.activate('0', 'Some incorrect id');
-                        expect(router.navigate).toHaveBeenCalledWith('404');
+                it('should set questionId', function () {
+                    var promise = viewModel.activate('0', '0');
+                    deferred.resolve();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
                     });
-
+                    runs(function () {
+                        expect(viewModel.questionId).toBe('0');
+                    });
                 });
-            });
 
-            it('should scroll window to 0, 0', function () {
-                viewModel.activate('0', '0');
-                expect(window.scroll).toHaveBeenCalledWith(0, 0);
-            });
+                it('should set objectiveId', function () {
+                    var promise = viewModel.activate('0', '0');
+                    deferred.resolve();
 
-            it('should load learning content', function () {
-                var objectiveId = '0';
-                var questionId = '0';
-                var itemId = '0';
-                var learningContentUrl = 'content/' + objectiveId + '/' + questionId + '/' + itemId + '.html';
-
-                viewModel.activate(objectiveId, questionId);
-
-                expect(http.get).toHaveBeenCalledWith(learningContentUrl);
-            });
-            
-            it('should push loaded learning content to viewmodel', function () {
-                var objectiveId = '0';
-                var questionId = '0';
-                var responseText = 'some response text';
-
-                var promise = viewModel.activate(objectiveId, questionId);
-
-                deferred.resolve(responseText);
-
-                waitsFor(function () {
-                    return promise.state() == 'resolved';
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.objectiveId).toBe('0');
+                    });
                 });
-                runs(function () {
-                    expect(viewModel.learningContents[0].learningContent).toEqual(responseText);
-                });
-            });
 
+                it('should scroll window to 0, 0', function () {
+                    var promise = viewModel.activate('0', '0');
+                    deferred.resolve();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(window.scroll).toHaveBeenCalledWith(0, 0);
+                    });
+                });
+
+                it('should load learning content', function () {
+                    var promise = viewModel.activate('0', '0');
+                    deferred.resolve();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(learningContentRepository.getCollection).toHaveBeenCalledWith('0', '0');
+                    });
+                });
+
+                describe('and when learning contents are loaded', function () {
+                    var responseText = 'some response text';
+                    var contents = [{ index: 1, learningContent: responseText }, { index: 0, learningContent: responseText }];
+
+                    it('should push loaded learning content to viewmodel', function () {
+                        var promise = viewModel.activate('0', '0');
+                        deferred.resolve(contents);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.learningContents[0].learningContent).toEqual(responseText);
+                        });
+                    });
+                    
+                    it('should orders learning contents by index', function () {
+                        var promise = viewModel.activate('0', '0');
+                        deferred.resolve(contents);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.learningContents[0].index).toBe(0);
+                            expect(viewModel.learningContents[1].index).toBe(1);
+                        });
+                    });
+                });
+
+            });
         });
 
-        
         describe('deactivate:', function () {
 
             beforeEach(function () {
-                spyOn(app, 'trigger');
+                spyOn(questionRepository, 'get').andReturn(question);
+                spyOn(question, 'learningContentExperienced');
             });
 
             it('should be function', function () {
                 expect(viewModel.deactivate).toBeFunction();
             });
 
-            it('should trigger \'events.learningContentExperienced\' event', function () {
+            it('should call question learningContentExperienced', function () {
                 viewModel.deactivate();
-                expect(app.trigger).toHaveBeenCalledWith("learningContentExperienced");
+                expect(question.learningContentExperienced).toHaveBeenCalled();
             });
         });
-        
+
         describe('backToQuestions:', function () {
 
             it('should be function', function () {
@@ -142,11 +180,9 @@
             });
 
             it('should navigate to \'home\'', function () {
-                spyOn(router, 'navigate');
                 viewModel.backToQuestions();
                 expect(router.navigate).toHaveBeenCalledWith('home');
             });
-
         });
     });
 

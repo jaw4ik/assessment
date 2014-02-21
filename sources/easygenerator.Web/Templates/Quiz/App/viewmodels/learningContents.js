@@ -1,60 +1,41 @@
-﻿define(['plugins/http', 'context', 'plugins/router', 'eventManager', 'durandal/app'],
-    function (http, context, router, eventManager, app) {
+﻿define(['plugins/http', 'context', 'plugins/router', 'eventManager', 'durandal/app', 'repositories/questionRepository', 'repositories/learningContentRepository'],
+    function (http, context, router, eventManager, app, questionRepository, learningContentRepository) {
 
         var learningContents = [],
             enteredOnPage,
-            objective,
-            question,
+            questionId,
+            objectiveId,
             backToQuestions = function () {
                 router.navigate('home');
             },
             activate = function (objectiveId, questionId) {
                 var that = this;
+                return Q.fcall(function () {
+                    that.questionId = questionId;
+                    that.objectiveId = objectiveId;
+                    that.enteredOnPage = new Date();
 
-                this.enteredOnPage = new Date();
+                    var question = questionRepository.get(objectiveId, questionId);
+                    if (question == null) {
+                        router.navigate('404');
+                        return;
+                    }
 
-                this.objective = _.find(context.objectives, function (item) {
-                    return item.id == objectiveId;
-                });
+                    that.learningContents = [];
 
-                if (_.isUndefined(this.objective)) {
-                    router.navigate('404');
-                    return undefined;
-                }
-                this.question = _.find(this.objective.questions, function (item) {
-                    return item.id == questionId;
-                });
-
-                if (_.isUndefined(this.question)) {
-                    router.navigate('404');
-                    return undefined;
-                }
-
-
-                this.learningContents = [];
-                var requests = [];
-
-                _.each(this.question.learningContents, function (item, index) {
-                    requests.push(http.get('content/' + objectiveId + '/' + questionId + '/' + item.id + '.html').done(function (response) {
-                        that.learningContents.push({ index: index, learningContent: response });
-                    }));
-                });
-
-                window.scroll(0, 0);
-
-                return $.when.apply($, requests).done(function () {
-                    that.learningContents = _.sortBy(that.learningContents, function (item) {
-                        return item.index;
+                    return learningContentRepository.getCollection(objectiveId, questionId).then(function (items) {
+                        that.learningContents = _.sortBy(items, function (item) {
+                            return item.index;
+                        });
+                        
+                        window.scroll(0, 0);
                     });
                 });
             },
 
             deactivate = function () {
-               eventManager.learningContentExperienced({
-                    objective: this.objective,
-                    question: this.question,
-                    spentTime: new Date() - this.enteredOnPage
-                });
+                var question = questionRepository.get(objectiveId, questionId);
+                question.learningContentExperienced(new Date() - this.enteredOnPage);
             };
 
         return {
@@ -62,6 +43,8 @@
             deactivate: deactivate,
             learningContents: learningContents,
             backToQuestions: backToQuestions,
+            questionId: questionId,
+            objectiveId: objectiveId
         };
     }
 );

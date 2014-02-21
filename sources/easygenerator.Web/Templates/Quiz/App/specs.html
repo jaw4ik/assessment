@@ -45,14 +45,15 @@
             var specs = [
                 'viewmodels/home.spec',
                 'viewmodels/shell.spec',
-                /*'viewmodels/learningContents.spec',
-                'viewmodels/notsupportedbrowser.spec',
+                'viewmodels/learningContents.spec',
+               /* 'viewmodels/notsupportedbrowser.spec',
                 'viewmodels/404.spec',
                 'xAPI/errorsHandler.spec',
                 'xAPI/requestManager.spec',*/
                 'viewmodels/summary.spec',
                 'modulesInitializer.spec',
                 'moduleLoader.spec',
+                'guard.spec',
                 'windowOperations.spec',
                 'eventManager.spec',
                 'xApi/viewModels/login.spec',
@@ -64,7 +65,20 @@
                 'xApi/requestManager.spec',
                 'xApi/errorsHandler.spec',
                 'xApi/utils/dateTimeConverter.spec',
-                'modules/graphicalCustomization.spec'
+                'modules/graphicalCustomization.spec',
+                'models/answer.spec',
+                'models/course.spec',
+                'models/objective.spec',
+                'models/question.spec',
+                'models/learningContent.spec',
+                'eventDataBuilders/questionEventDataBuilder.spec',
+                'eventDataBuilders/courseEventDataBuilder.spec',
+                'repositories/questionRepository.spec',
+                'repositories/objectiveRepository.spec',
+                'repositories/courseRepository.spec',
+                'repositories/learningContentRepository.spec',
+                'eventDataBuilders/questionEventDataBuilder.spec',
+                'eventDataBuilders/courseEventDataBuilder.spec'
             ];
             
             require(specs, function () {

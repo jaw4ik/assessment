@@ -82,6 +82,19 @@
                 });
             });
 
+            describe('courseRestart', function () {
+
+                it('should be function', function () {
+                    expect(eventManager.courseRestart).toBeFunction();
+                });
+
+                it('should call app.trigger event with parameter "courseRestart"', function () {
+                    eventManager.courseRestart({});
+                    expect(app.trigger).toHaveBeenCalledWith("courseRestart");
+                });
+
+            });
+
             describe('answersSubmitted', function () {
 
                 it('should be function', function () {
