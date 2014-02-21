@@ -25,7 +25,7 @@
             activate = function () {
                 var that = this;
                 return context.initialize().then(function (dataContext) {
-                    app.title = dataContext.title;
+                    app.title = dataContext.course.title;
 
                     router.replace = function (url) {
                         router.navigate(url, { replace: true, trigger: true });
