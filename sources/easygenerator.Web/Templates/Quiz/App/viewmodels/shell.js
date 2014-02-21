@@ -32,7 +32,9 @@
                     };
                     
                     return modulesInitializer.init().then(function () {
+                        
                         that.logoUrl = graphicalCustomization.settings.logoUrl;
+                        
                         return router.map(routes)
                             .buildNavigationModel()
                             .mapUnknownRoutes('viewmodels/404', '404')

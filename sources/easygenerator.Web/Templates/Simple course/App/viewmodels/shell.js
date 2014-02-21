@@ -35,6 +35,7 @@
                     app.title = dataContext.course.title;
 
                     return modulesInitializer.init().then(function () {
+                        
                         that.logoUrl = graphicalCustomisation.settings.logoUrl;
 
                         return router.map(routes)
