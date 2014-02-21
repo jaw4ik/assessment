@@ -1,5 +1,25 @@
-﻿.objective .main-content-list .list-item-logo,
+﻿.objective .create-new-title {
+    padding: 32px  0
+}
+
+.objective .main-content-list-holder, .objective .list-controls-holder {
+    max-width: none;
+}
+
+.objective .main-content-list .list-item-logo,
 .objective .main-content-list .list-item-logo-image {
     width: 60px;
     height: 60px;
+}
+
+.objective .main-content-list .list-item-saved {
+    bottom: 5px;
+}
+
+.objective .main-content-list .list-item-info {
+    padding-bottom: 6px;
+}
+
+.objective .main-content-list .open-item-btn {
+    top: 32px;
 }
