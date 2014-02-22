@@ -1,5 +1,5 @@
 ﻿var tagsGroup = {
-    tagsSelectionFormat: ['abbr', 'acronym', 'blockquote', 'q', 'cite', 'dfn', 'code', 'samp', 'tt', 'em', 'strong', 'sub', 'sup', 'mark', 'time'],
+    tagsSelectionFormat: ['abbr', 'acronym', 'blockquote', 'q', 'cite', 'dfn', 'code', 'samp', 'em', 'strong', 'sub', 'sup', 'mark', 'time'],
     tagsParagraphFormat: ['address', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'article', 'section', 'aside', 'header', 'footer', 'figure', 'nav'],
     normalTag: 'p'
 };

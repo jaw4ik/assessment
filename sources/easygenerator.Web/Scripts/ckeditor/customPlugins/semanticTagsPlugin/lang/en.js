@@ -8,7 +8,6 @@
     dfn: 'Definition',
     code: 'Code reference',
     samp: 'Sample output',
-    tt: 'Teletype text',
     em: 'Emphasis',
     strong: 'Strong emphasis',
     sub: 'Subscript',
