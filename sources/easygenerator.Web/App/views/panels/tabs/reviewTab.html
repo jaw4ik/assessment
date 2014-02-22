@@ -9,16 +9,24 @@
         <!-- /ko -->
     </div>
     <div class="tab-content">
-        <div class="tab-help-info" data-bind="localize: { text: 'reviewTabHelp' }">
-            Press the button and then share the link with your external reviewers:
+        <!-- ko ifnot: reviewUrlExists() -->
+        <div class="tab-help-info" data-bind="localize: { text: 'getReviewTabHelp' }">
+            Press the get link button and then share the link with your external reviewers:
         </div>
-        <!-- ko if: !reviewUrlExists() && !isDelivering() -->
-        <button class="btn blue round tab-btn review-btn" data-bind="click: updateCourseForReview">
-            <span class="btn-text" data-bind="localize: { text: 'reviewGetLink' }">Get link</span>
-        </button>
         <!-- /ko -->
+        <!-- ko if: reviewUrlExists() -->
+        <div class="tab-help-info" data-bind="localize: { text: 'updateReviewTabHelp' }">
+            Press the upload button and then share the link with your external reviewers:
+        </div>
+        <!-- /ko -->
+
         <div class="tab-action-wrapper">
-            <!-- ko if: !isDelivering() && reviewUrlExists()-->
+            <!-- ko if: !reviewUrlExists() && !isDelivering() -->
+            <button class="btn blue round tab-btn review-btn" data-bind="click: updateCourseForReview">
+                <span class="btn-text" data-bind="localize: { text: 'reviewGetLink' }">Get link</span>
+            </button>
+            <!-- /ko -->
+            <!-- ko if: reviewUrlExists() && !isDelivering() -->
             <button class="btn blue round tab-btn review-btn" data-bind="click: updateCourseForReview">
                 <span class="btn-text" data-bind="localize: { text: 'reviewUpdateCourse' }">Update course</span>
             </button>
@@ -29,6 +37,7 @@
             </button>
             <!-- /ko -->
         </div>
+        
         <!-- ko if: reviewUrlExists() -->
         <div class="review-link" data-bind="css: { disabled: isDelivering() }">
             <div class="open-review-link" data-bind="click: openCourseReviewUrl, localize: { title: 'reviewOpenLinkTitle' }" title="Open link"></div>

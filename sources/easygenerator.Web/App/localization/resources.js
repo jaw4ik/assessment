@@ -1069,8 +1069,11 @@
     reviewTabTitle: {
         en: 'Comments'
     },
-    reviewTabHelp: {
-        en: 'Press the button and then share the link with your external reviewers:'
+    getReviewTabHelp: {
+        en: 'Press the get link button and then share the link with your external reviewers:'
+    },
+    updateReviewTabHelp: {
+        en: 'Press the upload button and then share the link with your external reviewers:'
     },
     reviewGetLink: {
         en: 'Get link'
@@ -1092,6 +1095,9 @@
     },
     upgradeToStarterPlanToUseCommentsErrorMessage: {
         en: 'Please upgrade your account to \"Starter plan\" to be able to see comments.'
+    },
+    loadingCourseError: {
+        en: 'Smth went wrong!'
     },
     /* End resource section for model Review */
     

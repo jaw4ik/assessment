@@ -5,7 +5,7 @@
 
             var getById;
 
-            beforeEach(function() {
+            beforeEach(function () {
                 getById = Q.defer();
                 spyOn(repository, 'getById').andReturn(getById.promise);
             });
@@ -29,8 +29,8 @@
             });
 
             describe('lastReviewTabActivationData:', function () {
-                it('should be computed', function () {
-                    expect(viewModel.lastReviewTabActivationData).toBeDefined();
+                it('should be observable', function () {
+                    expect(viewModel.lastReviewTabActivationData).toBeObservable();
                 });
             });
 
@@ -261,22 +261,22 @@
 
                     describe('and when lastReviewTabActivationData is object', function () {
                         beforeEach(function () {
-                            viewModel.lastReviewTabActivationData = {};
+                            viewModel.lastReviewTabActivationData({});
                         });
 
                         it('should update lastReviewTabActivationData.reviewUrl to the corresponding one', function () {
-                            viewModel.lastReviewTabActivationData.reviewUrl = '';
+                            viewModel.lastReviewTabActivationData().reviewUrl = '';
 
                             course.reviewUrl = 'url';
                             app.trigger(constants.messages.course.publishForReview.completed, course);
 
-                            expect(viewModel.lastReviewTabActivationData.reviewUrl).toEqual(course.reviewUrl);
+                            expect(viewModel.lastReviewTabActivationData().reviewUrl).toEqual(course.reviewUrl);
                         });
                     });
 
                     describe('and when lastReviewTabActivationData is null', function () {
                         beforeEach(function () {
-                            viewModel.lastReviewTabActivationData = null;
+                            viewModel.lastReviewTabActivationData(null);
                         });
 
                         it('should not change lastReviewTabActivationData', function () {
@@ -284,7 +284,7 @@
 
                             app.trigger(constants.messages.course.publishForReview.completed, course);
 
-                            expect(viewModel.lastReviewTabActivationData).toBeNull();
+                            expect(viewModel.lastReviewTabActivationData()).toBeNull();
                         });
                     });
 
@@ -409,7 +409,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.lastReviewTabActivationData).toBe(null);
+                            expect(viewModel.lastReviewTabActivationData()).toBe(null);
                         });
                     });
 
@@ -432,7 +432,7 @@
 
                     describe('when lastReviewTabActivationData is null', function () {
                         beforeEach(function () {
-                            viewModel.lastReviewTabActivationData = null;
+                            spyOn(viewModel, 'lastReviewTabActivationData').andReturn(null);
                         });
 
                         it('should get course from repository', function () {
@@ -453,13 +453,13 @@
                                 getById.reject('reason');
                             });
 
-                            it('should show notify error with \'Smth went wrong!\'', function () {
+                            it('should show notify error', function () {
                                 var promise = viewModel.reviewTabActivationData();
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(notify.error).toHaveBeenCalledWith('Smth went wrong!');
+                                    expect(notify.error).toHaveBeenCalled();
                                 });
                             });
                         });
@@ -467,17 +467,20 @@
                         describe('when course exists', function () {
 
                             it('should update lastReviewTabActivationData', function () {
-                                var promise = viewModel.reviewTabActivationData();
-                                var course = { reviewUrl: '', id: 'someId' };
+                                var
+                                    promise = viewModel.reviewTabActivationData(),
+                                    course = { reviewUrl: '', id: 'someId' };
+
                                 getById.resolve(course);
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(viewModel.lastReviewTabActivationData).toBeDefined();
-                                    expect(viewModel.lastReviewTabActivationData.courseId).toBe(course.id);
-                                    expect(viewModel.lastReviewTabActivationData.reviewUrl).toBe(course.reviewUrl);
+                                    expect(promise).toBeResolvedWith({
+                                        courseId: course.id,
+                                        reviewUrl: course.reviewUrl
+                                    });
                                 });
                             });
 
@@ -498,13 +501,10 @@
                     });
 
                     describe('when lastReviewTabActivationData is not null', function () {
-                        beforeEach(function () {
-                            viewModel.lastReviewTabActivationData = {};
-                        });
 
                         describe('and when lastReviewTabActivationData courseId equals to current courseId', function () {
                             beforeEach(function () {
-                                viewModel.lastReviewTabActivationData.courseId = courseId;
+                                spyOn(viewModel, 'lastReviewTabActivationData').andReturn({ courseId: courseId });
                             });
 
                             it('should not get course from repository', function () {
@@ -526,14 +526,14 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeResolvedWith(viewModel.lastReviewTabActivationData);
+                                    expect(promise).toBeResolvedWith(viewModel.lastReviewTabActivationData());
                                 });
                             });
                         });
 
                         describe('and when lastReviewTabActivationData courseId is not equal to current courseId', function () {
                             beforeEach(function () {
-                                viewModel.lastReviewTabActivationData.courseId = '100500';
+                                spyOn(viewModel, 'lastReviewTabActivationData').andReturn({ courseId: '100500' });
                             });
 
                             it('should get course from repository', function () {
@@ -568,17 +568,20 @@
                             describe('when course exists', function () {
 
                                 it('should update lastReviewTabActivationData', function () {
-                                    var promise = viewModel.reviewTabActivationData();
-                                    var course = { reviewUrl: '', id: 'someId' };
+                                    var
+                                        promise = viewModel.reviewTabActivationData(),
+                                        course = { reviewUrl: '', id: 'someId' };
+                                    
                                     getById.resolve(course);
 
                                     waitsFor(function () {
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(viewModel.lastReviewTabActivationData).toBeDefined();
-                                        expect(viewModel.lastReviewTabActivationData.courseId).toBe(course.id);
-                                        expect(viewModel.lastReviewTabActivationData.reviewUrl).toBe(course.reviewUrl);
+                                        expect(promise).toBeResolvedWith({
+                                            courseId: course.id,
+                                            reviewUrl: course.reviewUrl
+                                        });
                                     });
                                 });
 

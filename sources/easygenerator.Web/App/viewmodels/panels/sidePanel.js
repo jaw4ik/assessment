@@ -1,5 +1,5 @@
-﻿define(['constants', 'durandal/app', 'viewmodels/panels/tabs/reviewTab', 'viewmodels/panels/tabs/feedbackTab', 'repositories/courseRepository', 'plugins/router', 'notify'],
-    function (constants, app, reviewTab, feedbackTab, repository, router, notify) {
+﻿define(['constants', 'durandal/app', 'viewmodels/panels/tabs/reviewTab', 'viewmodels/panels/tabs/feedbackTab', 'repositories/courseRepository', 'plugins/router', 'notify', 'localization/localizationManager'],
+    function (constants, app, reviewTab, feedbackTab, repository, router, notify, localizationManager) {
         var viewModel = {
             activeTab: ko.observable(),
             reviewTab: reviewTab,
@@ -9,7 +9,7 @@
             onCollapsed: onCollapsed,
             isExpanded: ko.observable(false),
             reviewTabActivationData: ko.observable({}),
-            lastReviewTabActivationData: null
+            lastReviewTabActivationData: ko.observable(null)
         };
 
         viewModel.courseId = ko.computed(function () {
@@ -35,30 +35,33 @@
         });
 
         viewModel.reviewTabActivationData = ko.computed(function () {
-            var activeInstruction = router.activeInstruction();
             var courseId = viewModel.courseId();
+
+            router.activeInstruction();
+            viewModel.lastReviewTabActivationData();
+            
             return Q.fcall(function () {
                 if (courseId == null) {
-                    viewModel.lastReviewTabActivationData = null;
                     return null;
                 }
+                
+                if (viewModel.lastReviewTabActivationData() == null ||
+                    (viewModel.lastReviewTabActivationData() != null && viewModel.lastReviewTabActivationData().courseId != courseId)) {
 
-                if (viewModel.lastReviewTabActivationData == null ||
-                    (viewModel.lastReviewTabActivationData != null && viewModel.lastReviewTabActivationData.courseId != courseId)) {
                     return repository.getById(courseId).then(function (course) {
                         var data = {
                             courseId: course.id,
                             reviewUrl: course.reviewUrl
                         };
+                        viewModel.lastReviewTabActivationData(data);
 
-                        viewModel.lastReviewTabActivationData = data;
                         return data;
                     }).fail(function () {
-                        notify.error('Smth went wrong!');
+                        notify.error(localizationManager.localize('loadingCourseError'));
                     });
                 }
 
-                return viewModel.lastReviewTabActivationData;
+                return viewModel.lastReviewTabActivationData();
             });
         });
 
@@ -66,8 +69,11 @@
             if (course.id !== viewModel.courseId())
                 return;
 
-            if (viewModel.lastReviewTabActivationData != null) {
-                viewModel.lastReviewTabActivationData.reviewUrl = course.reviewUrl;
+            if (viewModel.lastReviewTabActivationData() != null) {
+                viewModel.lastReviewTabActivationData({
+                    courseId: course.id,
+                    reviewUrl: course.reviewUrl
+                });
             }
         });
 
