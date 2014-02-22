@@ -34,7 +34,7 @@
             beforeEach(function () {
                 contextInitializeDefer = Q.defer();
                 spyOn(context, 'initialize').andReturn(contextInitializeDefer.promise);
-                contextInitializeDefer.resolve({ title: 'Course title' });
+                contextInitializeDefer.resolve({ course: { title: 'Course title' } });
             });
 
             it('should initialize context', function () {
