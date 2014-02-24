@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/questionTreeNode'], function (QuestionTreeNode) {
+﻿define(['treeOfContent/QuestionTreeNode'], function (QuestionTreeNode) {
 
     describe('[QuestionTreeNode]', function () {
 

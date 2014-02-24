@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/courseTreeNode'], function (CourseTreeNode) {
+﻿define(['treeOfContent/CourseTreeNode'], function (CourseTreeNode) {
 
     var
         courseRepository = require('repositories/courseRepository')

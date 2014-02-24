@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/handlers/treeOfContentTraversal', 'treeOfContent/courseTreeNode', 'treeOfContent/relatedObjectiveTreeNode', 'treeOfContent/questionTreeNode'], function (treeOfContentTraversal, CourseTreeNode, ObjectiveTreeNode, QuestionTreeNode) {
+﻿define(['treeOfContent/handlers/treeOfContentTraversal', 'treeOfContent/CourseTreeNode', 'treeOfContent/RelatedObjectiveTreeNode', 'treeOfContent/QuestionTreeNode'], function (treeOfContentTraversal, CourseTreeNode, ObjectiveTreeNode, QuestionTreeNode) {
 
     var eventHandler = function () {
 
@@ -39,9 +39,11 @@
 
         function objectivesRelated(courseId, objectives) {
             _.each(treeOfContentTraversal.getCourseTreeNodeCollection(courseId), function (courseTreeNode) {
-                _.each(objectives, function (objective) {
-                    courseTreeNode.children.push(new ObjectiveTreeNode(objective.id, courseId, objective.title, "#objective/" + objective.id + "?courseId=" + courseId));
-                });
+                if (courseTreeNode.isExpanded()) {
+                    _.each(objectives, function (objective) {
+                        courseTreeNode.children.push(new ObjectiveTreeNode(objective.id, courseId, objective.title, "#objective/" + objective.id + "?courseId=" + courseId));
+                    });
+                }
             });
         }
 
@@ -73,7 +75,9 @@
 
         function questionCreated(objectiveId, question) {
             _.each(treeOfContentTraversal.getObjectiveTreeNodeCollection(objectiveId), function (objectiveTreeNode) {
-                objectiveTreeNode.children.push(new QuestionTreeNode(question.id, question.title, "#objective/" + objectiveTreeNode.id + "/question/" + question.id + '?courseId=' + objectiveTreeNode.courseId));
+                if (objectiveTreeNode.isExpanded()) {
+                    objectiveTreeNode.children.push(new QuestionTreeNode(question.id, question.title, "#objective/" + objectiveTreeNode.id + "/question/" + question.id + '?courseId=' + objectiveTreeNode.courseId));
+                }
             });
         }
 

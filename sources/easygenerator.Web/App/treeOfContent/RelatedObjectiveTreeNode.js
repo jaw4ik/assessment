@@ -1,4 +1,4 @@
-﻿define(['repositories/objectiveRepository', 'treeOfContent/TreeNode', 'treeOfContent/questionTreeNode', 'treeOfContent/commands/createQuestionCommand'], function (objectiveRepository, TreeNode, QuestionTreeNode, createQuestionCommand) {
+﻿define(['repositories/objectiveRepository', 'treeOfContent/TreeNode', 'treeOfContent/QuestionTreeNode', 'treeOfContent/commands/createQuestionCommand'], function (objectiveRepository, TreeNode, QuestionTreeNode, createQuestionCommand) {
 
     return function (objectiveId, courseId, title, url) {
         TreeNode.call(this, objectiveId, title, url);

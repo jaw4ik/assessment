@@ -1,11 +1,7 @@
 ﻿define(['treeOfContent/handlers/treeOfContentEventHandler'], function (ctor) {
 
     var
-        treeOfContentTraversal = require('treeOfContent/handlers/treeOfContentTraversal'),
-
-        objectiveTreeNode = require('treeOfContent/relatedObjectiveTreeNode'),
-        questionTreeNode = require('treeOfContent/questionTreeNode'),
-        courseTreeNode = require('treeOfContent/courseTreeNode')
+        treeOfContentTraversal = require('treeOfContent/handlers/treeOfContentTraversal')
     ;
 
     describe('handler [treeOfContentEventHandler]', function () {
@@ -42,17 +38,36 @@
                 expect(handler.questionCreated).toBeFunction();
             });
 
-            it('should add question to the objective in index', function () {
-                var objectiveTreeNode1 = { id: 'objectiveId', children: ko.observableArray([]) };
-                var objectiveTreeNode2 = { id: 'objectiveId', children: ko.observableArray([]) };
-                spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').andReturn([objectiveTreeNode1, objectiveTreeNode2]);
+            describe('when objective is expanded', function () {
 
+                it('should add question to the objective', function () {
+                    var objectiveTreeNode1 = { id: 'objectiveId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
+                    var objectiveTreeNode2 = { id: 'objectiveId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
+                    spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').andReturn([objectiveTreeNode1, objectiveTreeNode2]);
 
-                handler.questionCreated('objectiveId', { id: 'questionId', title: 'title' });
+                    handler.questionCreated('objectiveId', { id: 'questionId', title: 'title' });
 
-                expect(objectiveTreeNode1.children().length).toEqual(1);
-                expect(objectiveTreeNode1.children().length).toEqual(1);
+                    expect(objectiveTreeNode1.children().length).toEqual(1);
+                    expect(objectiveTreeNode1.children().length).toEqual(1);
+                });
+
             });
+
+            describe('when objective is not expanded', function () {
+
+                it('should not add question to the objective', function () {
+                    var objectiveTreeNode1 = { id: 'objectiveId', children: ko.observableArray([]), isExpanded: ko.observable(false) };
+                    var objectiveTreeNode2 = { id: 'objectiveId', children: ko.observableArray([]), isExpanded: ko.observable(false) };
+                    spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').andReturn([objectiveTreeNode1, objectiveTreeNode2]);
+
+                    handler.questionCreated('objectiveId', { id: 'questionId', title: 'title' });
+
+                    expect(objectiveTreeNode1.children().length).toEqual(0);
+                    expect(objectiveTreeNode1.children().length).toEqual(0);
+                });
+
+            });
+
 
         });
 
@@ -120,16 +135,34 @@
                 expect(handler.objectivesRelated).toBeFunction();
             });
 
-            it('should relate objectives to the course', function () {
-                var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([]) };
+            describe('when course is expanded', function () {
 
-                spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').andReturn([courseTreeNode1]);
+                it('should relate objectives to the course', function () {
+                    var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
 
-                handler.objectivesRelated('courseId', [{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }]);
+                    spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').andReturn([courseTreeNode1]);
 
-                expect(courseTreeNode1.children().length).toEqual(2);
-                expect(courseTreeNode1.children()[0].id).toEqual('objectiveId_#1');
-                expect(courseTreeNode1.children()[1].id).toEqual('objectiveId_#2');
+                    handler.objectivesRelated('courseId', [{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }]);
+
+                    expect(courseTreeNode1.children().length).toEqual(2);
+                    expect(courseTreeNode1.children()[0].id).toEqual('objectiveId_#1');
+                    expect(courseTreeNode1.children()[1].id).toEqual('objectiveId_#2');
+                });
+
+            });
+
+            describe('when course is not expanded', function () {
+
+                it('should not relate objectives to the course', function () {
+                    var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([]), isExpanded: ko.observable(false) };
+
+                    spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').andReturn([courseTreeNode1]);
+
+                    handler.objectivesRelated('courseId', [{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }]);
+
+                    expect(courseTreeNode1.children().length).toEqual(0);
+                });
+
             });
         });
 
