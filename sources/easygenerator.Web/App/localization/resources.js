@@ -1073,7 +1073,7 @@
         en: 'Press the get link button and then share the link with your external reviewers:'
     },
     updateReviewTabHelp: {
-        en: 'Press the upload button and then share the link with your external reviewers:'
+        en: 'Press the update button and then share the link with your external reviewers:'
     },
     reviewGetLink: {
         en: 'Get link'
