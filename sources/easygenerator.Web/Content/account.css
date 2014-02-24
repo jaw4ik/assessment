@@ -312,10 +312,29 @@ body.try {
     font-family: 'OpenSans';
 }
 
+    .user-form-input.placeholder {
+        color: #999;
+    }
+
+    .user-form-input::-webkit-input-placeholder,
+    .user-form-input[type="password"]::-webkit-input-placeholder { /* WebKit browsers */
+        color:    #999;
+    }
+    .user-form-input:-moz-placeholder,
+    .user-form-input[type="password"]:-moz-placeholder  { /* Mozilla Firefox 4 to 18 */
+        color:    #999;
+    }
+    .user-form-input::-moz-placeholder,
+    .user-form-input[type="password"]::-moz-placeholder  { /* Mozilla Firefox 19+ */
+        color:    #999;
+    }
+    .user-form-input:-ms-input-placeholder,
+    .user-form-input[type="password"]:-ms-input-placeholder  { /* Internet Explorer 10+ */
+        color:    #999;
+    }
+
     .user-form-input[type="password"] {
         -webkit-text-security: disc;
-        *font: large Verdana,sans-serif;
-        *letter-spacing: 1px;
         color: #444444;
     }
 

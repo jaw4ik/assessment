@@ -216,11 +216,3 @@
 }
 
 /*#endregion USER-FORM SELECTBOX STYLES*/
-
-@media screen and (min-width:0\0) {
-    /*#region Styles for IE9-10*/
-    .user-form-selectbox .selectbox-current-item-text {
-        color: #333;
-    }
-    /*#endregion Styles for IE9-10*/
-}  

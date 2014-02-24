@@ -330,15 +330,6 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to hide.
-        /// </summary>
-        public static string Hide {
-            get {
-                return ResourceManager.GetString("Hide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hide password.
         /// </summary>
         public static string HidePassword {
@@ -402,6 +393,15 @@ namespace AccountRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No spaces.
+        /// </summary>
+        public static string NoSpaces {
+            get {
+                return ResourceManager.GetString("NoSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NOT contain whitespace character(s)..
         /// </summary>
         public static string NotContainWhitespaceCharacters {
@@ -420,11 +420,29 @@ namespace AccountRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not less than 7 symbols.
+        /// </summary>
+        public static string NotLessThanSevenSymbols {
+            get {
+                return ResourceManager.GetString("NotLessThanSevenSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Now.
         /// </summary>
         public static string Now {
             get {
                 return ResourceManager.GetString("Now", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Numbers.
+        /// </summary>
+        public static string Numbers {
+            get {
+                return ResourceManager.GetString("Numbers", resourceCulture);
             }
         }
         
@@ -668,6 +686,15 @@ namespace AccountRes {
         public static string TryWarningMessage {
             get {
                 return ResourceManager.GetString("TryWarningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upper and lowercase letters.
+        /// </summary>
+        public static string UpperAndLowercaseLetters {
+            get {
+                return ResourceManager.GetString("UpperAndLowercaseLetters", resourceCulture);
             }
         }
         

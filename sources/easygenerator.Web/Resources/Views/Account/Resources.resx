@@ -218,9 +218,6 @@ your password.</value>
   <data name="FullNameCaption" xml:space="preserve">
     <value>Full name</value>
   </data>
-  <data name="Hide" xml:space="preserve">
-    <value>hide</value>
-  </data>
   <data name="HidePassword" xml:space="preserve">
     <value>Hide password</value>
   </data>
@@ -242,14 +239,23 @@ your password.</value>
   <data name="LicenseAgreeCheckBoxTitle" xml:space="preserve">
     <value>I have read and I agree to the &lt;a href="{0}"&gt;Terms&lt;/a&gt; and &lt;a href="{1}"&gt;Privacy&lt;/a&gt;</value>
   </data>
+  <data name="NoSpaces" xml:space="preserve">
+    <value>No spaces</value>
+  </data>
   <data name="NotContainWhitespaceCharacters" xml:space="preserve">
     <value>NOT contain whitespace character(s).</value>
   </data>
   <data name="Nothing" xml:space="preserve">
     <value>Nothing</value>
   </data>
+  <data name="NotLessThanSevenSymbols" xml:space="preserve">
+    <value>Not less than 7 symbols</value>
+  </data>
   <data name="Now" xml:space="preserve">
     <value>Now</value>
+  </data>
+  <data name="Numbers" xml:space="preserve">
+    <value>Numbers</value>
   </data>
   <data name="OptionalInformation" xml:space="preserve">
     <value>Optional information</value>
@@ -331,6 +337,9 @@ your password.</value>
   </data>
   <data name="TryWarningMessage" xml:space="preserve">
     <value>In Try It Now mode your content is not safe!</value>
+  </data>
+  <data name="UpperAndLowercaseLetters" xml:space="preserve">
+    <value>Upper and lowercase letters</value>
   </data>
   <data name="Variant1Month" xml:space="preserve">
     <value>1-3 months</value>

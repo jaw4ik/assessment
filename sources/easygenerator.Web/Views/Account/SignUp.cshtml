@@ -46,7 +46,7 @@
                                     <input id="show-hide-password-checkbox" class="custom-checkbox" type="checkbox" data-bind="checked: isPasswordVisible" />
                                 </div>
                                 <div class="user-form-checkbox-label password">
-                                    <label for="show-hide-password-checkbox" data-bind="text: isPasswordVisible() ? '@Resources.Hide' : '@Resources.Show'"></label>
+                                    <label for="show-hide-password-checkbox">@Resources.Show</label>
                                 </div>
                             </div>
                         </div>
@@ -55,16 +55,16 @@
                                 <span class="password-requirements-item-text">Please use:</span>
                             </li>
                             <li class="password-requirements-item">
-                                <span class="password-requirements-item-text requirement" data-bind="css: { success: password.hasMoreThanSevenSymbols }">Not less than 7 symbols</span>
+                                <span class="password-requirements-item-text requirement" data-bind="css: { success: password.hasMoreThanSevenSymbols }">@Resources.NotLessThanSevenSymbols</span>
                             </li>
                             <li class="password-requirements-item">
-                                <span class="password-requirements-item-text requirement" data-bind="css: { success: password.hasUpperAndLowerCaseLetters }">Upper and lowercase letters</span>
+                                <span class="password-requirements-item-text requirement" data-bind="css: { success: password.hasUpperAndLowerCaseLetters }">@Resources.UpperAndLowercaseLetters</span>
                             </li>
                             <li class="password-requirements-item">
-                                <span class="password-requirements-item-text requirement" data-bind="css: { success: password.hasNumbers }">Numbers</span>
+                                <span class="password-requirements-item-text requirement" data-bind="css: { success: password.hasNumbers }">@Resources.Numbers</span>
                             </li>
                             <li class="password-requirements-item">
-                                <span class="password-requirements-item-text requirement" data-bind="css: { success: password.hasSpaces }">No spaces</span>
+                                <span class="password-requirements-item-text requirement" data-bind="css: { success: password.hasSpaces }">@Resources.NoSpaces</span>
                             </li>
                         </ul>
                     </div>
