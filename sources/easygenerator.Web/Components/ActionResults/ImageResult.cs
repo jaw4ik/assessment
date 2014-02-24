@@ -54,7 +54,7 @@ namespace easygenerator.Web.Components.ActionResults
             }
             catch
             {
-                new HttpNotFoundResult().ExecuteResult(context);
+                new EmptyResult().ExecuteResult(context);
             }
 
         }

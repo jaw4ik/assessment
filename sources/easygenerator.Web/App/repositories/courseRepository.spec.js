@@ -2,9 +2,12 @@
     function (repository, CourseModel) {
         "use strict";
 
-        var http = require('plugins/http'),
+        var
+            http = require('plugins/http'),
             httpWrapper = require('httpWrapper'),
-            dataContext = require('dataContext');
+            dataContext = require('dataContext'),
+            app = require('durandal/app')
+        ;
 
         describe('repository [courseRepository]', function () {
 
@@ -16,6 +19,7 @@
                 httpWrapperPost = Q.defer();
                 spyOn(http, 'post').andReturn(post.promise());
                 spyOn(httpWrapper, 'post').andReturn(httpWrapperPost.promise);
+                spyOn(app, 'trigger');
             });
 
             it('should be object', function () {
@@ -160,7 +164,7 @@
                                 dataContext.courses = [];
                                 var promise = repository.getById('');
                                 httpWrapperPost.resolve();
-                                
+
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
@@ -480,6 +484,24 @@
 
                                             });
 
+                                            it('should trigger event \'course:created\'', function () {
+                                                var promise = repository.addCourse(title, templateId);
+
+                                                waitsFor(function () {
+                                                    return !promise.isPending();
+                                                });
+                                                runs(function () {
+                                                    expect(app.trigger).toHaveBeenCalledWith('course:created', new CourseModel({
+                                                        id: courseId,
+                                                        title: title,
+                                                        template: template,
+                                                        createdOn: utils.getDateFromString(courseCreatedOn),
+                                                        modifiedOn: utils.getDateFromString(courseCreatedOn),
+                                                        objectives: []
+                                                    }));
+                                                });
+                                            });
+
                                         });
 
                                     });
@@ -597,6 +619,19 @@
                                     });
                                     runs(function () {
                                         expect(dataContext.courses.length).toEqual(0);
+                                    });
+                                });
+
+                                it('should trigger event \'course:deleted\'', function () {
+                                    var promise = repository.removeCourse('id');
+
+                                    httpWrapperPost.resolve();
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(app.trigger).toHaveBeenCalledWith('course:deleted', 'id');
                                     });
                                 });
 
@@ -758,10 +793,13 @@
 
                         describe('and course exists in dataContext', function () {
 
-                            it('should update expereince modifiedOn date', function () {
+                            beforeEach(function () {
                                 dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: [] }];
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: [{ Id: objectives[0].id }] });
+                            });
+
+                            it('should update expereince modifiedOn date', function () {
                                 var promise = repository.relateObjectives(course.id, objectives);
-                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: [] });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -772,9 +810,7 @@
                             });
 
                             it('should relate objectives to course', function () {
-                                dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: [] }];
                                 var promise = repository.relateObjectives(course.id, objectives);
-                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: [{ Id: objectives[0].id }] });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -785,9 +821,7 @@
                             });
 
                             it('should resolve promise with modification date and related objectives collection', function () {
-                                dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: [] }];
                                 var promise = repository.relateObjectives(course.id, objectives);
-                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: [{ Id: objectives[0].id }] });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -797,6 +831,17 @@
                                         modifiedOn: utils.getDateFromString('/Date(1378106938845)/'),
                                         relatedObjectives: [{ id: objectives[0].id }]
                                     });
+                                });
+                            });
+
+                            it('should trigger event \'course:objectivesRelated\'', function () {
+                                var promise = repository.relateObjectives(course.id, objectives);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(app.trigger).toHaveBeenCalledWith('course:objectivesRelated', course.id, [objectives[0]]);
                                 });
                             });
 
@@ -999,10 +1044,13 @@
 
                         describe('and course exists in dataContext', function () {
 
-                            it('should update expereince modifiedOn date', function () {
+                            beforeEach(function () {
                                 dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: [] }];
-                                var promise = repository.unrelateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+                            });
+
+                            it('should update expereince modifiedOn date', function () {
+                                var promise = repository.unrelateObjectives(course.id, objectives);
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -1013,9 +1061,7 @@
                             });
 
                             it('should unrelate objectives from course', function () {
-                                dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: objectives }];
                                 var promise = repository.unrelateObjectives(course.id, objectives);
-                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -1026,9 +1072,7 @@
                             });
 
                             it('should resolve promise with modification date', function () {
-                                dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: [] }];
                                 var promise = repository.unrelateObjectives(course.id, objectives);
-                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -1036,6 +1080,18 @@
                                 runs(function () {
                                     expect(promise).toBeResolvedWith(utils.getDateFromString('/Date(1378106938845)/'));
                                 });
+                            });
+
+                            it('should trigger event \'course:objectivesUnrelated\'', function () {
+                                var promise = repository.unrelateObjectives(course.id, objectives);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(app.trigger).toHaveBeenCalledWith('course:objectivesUnrelated', course.id, [objectives[0].id, objectives[1].id]);
+                                });
+
                             });
 
                         });
@@ -1178,18 +1234,24 @@
 
                                 describe('and course found in dataContext', function () {
 
-                                    it('should update course title', function () {
-                                        var newTitle = 'Some new title',
-                                            newModifiedOnDate = "/Date(1378106938845)/",
-                                            course = {
-                                                id: 'Some id',
-                                                title: 'Original title',
-                                                modifiedOn: 'Some date'
-                                            };
+                                    var
+                                        newTitle = 'Some new title',
+                                        newModifiedOnDate = "/Date(1378106938845)/",
+                                        parsedNewModifiedOnDate = new Date(parseInt(newModifiedOnDate.substr(6), 10)),
+                                        course = {
+                                            id: 'Some id',
+                                            title: 'Original title',
+                                            modifiedOn: 'Some date'
+                                        }
+                                    ;
 
+                                    beforeEach(function () {
                                         dataContext.courses = [course];
-                                        var promise = repository.updateCourseTitle(course.id, newTitle);
                                         httpWrapperPost.resolve({ ModifiedOn: newModifiedOnDate });
+                                    });
+
+                                    it('should update course title', function () {
+                                        var promise = repository.updateCourseTitle(course.id, newTitle);
 
                                         waitsFor(function () {
                                             return !promise.isPending();
@@ -1200,18 +1262,7 @@
                                     });
 
                                     it('should update course modifiedOn date', function () {
-                                        var newTitle = 'Some new title',
-                                            newModifiedOnDate = "/Date(1378106938845)/",
-                                            parsedNewModifiedOnDate = new Date(parseInt(newModifiedOnDate.substr(6), 10)),
-                                            course = {
-                                                id: 'Some id',
-                                                title: 'Original title',
-                                                modifiedOn: 'Some date'
-                                            };
-
-                                        dataContext.courses = [course];
                                         var promise = repository.updateCourseTitle(course.id, newTitle);
-                                        httpWrapperPost.resolve({ ModifiedOn: newModifiedOnDate });
 
                                         waitsFor(function () {
                                             return !promise.isPending();
@@ -1222,24 +1273,24 @@
                                     });
 
                                     it('should resolve promise with modifiedOn date', function () {
-                                        var newTitle = 'Some new title',
-                                            newModifiedOnDate = "/Date(1378106938845)/",
-                                            parsedNewModifiedOnDate = new Date(parseInt(newModifiedOnDate.substr(6), 10)),
-                                            course = {
-                                                id: 'Some id',
-                                                title: 'Original title',
-                                                modifiedOn: 'Some date'
-                                            };
-
-                                        dataContext.courses = [course];
                                         var promise = repository.updateCourseTitle(course.id, newTitle);
-                                        httpWrapperPost.resolve({ ModifiedOn: newModifiedOnDate });
 
                                         waitsFor(function () {
                                             return !promise.isPending();
                                         });
                                         runs(function () {
                                             expect(promise).toBeResolvedWith(parsedNewModifiedOnDate);
+                                        });
+                                    });
+
+                                    it('should trigger event \'course:titleUpdated\'', function () {
+                                        var promise = repository.updateCourseTitle(course.id, newTitle);
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(app.trigger).toHaveBeenCalledWith('course:titleUpdated', course);
                                         });
                                     });
 
@@ -1652,11 +1703,11 @@
 
             describe('updateObjectiveOrder', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(repository.updateObjectiveOrder).toBeFunction();
                 });
 
-                it('should return promise', function() {
+                it('should return promise', function () {
                     expect(repository.updateObjectiveOrder()).toBePromise();
                 });
 
@@ -1676,7 +1727,7 @@
                 });
 
                 describe('when course id is string', function () {
-                    
+
                     describe('when objectives is not an array', function () {
 
                         it('should reject promise', function () {
@@ -1692,7 +1743,7 @@
 
                     });
 
-                    describe('when objectives is an array', function() {
+                    describe('when objectives is an array', function () {
                         var objectives, sortedCollection;
 
                         beforeEach(function () {
@@ -1827,6 +1878,16 @@
                                             });
                                         });
 
+                                        it('should trigger course:objectivesReordered', function () {
+                                            var promise = repository.updateObjectiveOrder(course.id, objectives);
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(app.trigger).toHaveBeenCalledWith('course:objectivesReordered', course);
+                                            });
+                                        });
 
                                     });
 

@@ -125,6 +125,8 @@
             return _.contains(['404', '400'], this.activeModuleName());
         },
 
+        showTreeOfContent = ko.observable(),
+
         isTryMode = false,
         username = null,
 
@@ -171,6 +173,8 @@
                         var courseId = getCurrentCourseId(activeModuleId);
 
                         courseNavigation(getCourseNavigation(activeModuleId, courseId));
+
+                        that.showTreeOfContent(_.contains(coursesModules, activeModuleId) || !_.isNullOrUndefined(courseId));
 
                         that.navigation()[0].isPartOfModules(_.contains(coursesModules, activeModuleId) || !_.isNullOrUndefined(courseId));
                         that.navigation()[1].isPartOfModules(_.contains(objectivesModules, activeModuleId) && _.isNullOrUndefined(courseId));
@@ -243,6 +247,7 @@
         isViewReady: isViewReady,
 
         showNavigation: showNavigation,
+        showTreeOfContent: showTreeOfContent,
         navigation: navigation,
         isTryMode: isTryMode,
 

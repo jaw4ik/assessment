@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'httpWrapper', 'guard', 'repositories/objectiveRepository', 'durandal/system'], function (dataContext, httpWrapper, guard, objectiveRepository, system) {
+﻿define(['durandal/app', 'dataContext', 'httpWrapper', 'guard', 'repositories/objectiveRepository', 'durandal/system'], function (app, dataContext, httpWrapper, guard, objectiveRepository, system) {
 
     var
         addQuestion = function (objectiveId, obj) {
@@ -36,6 +36,8 @@
                         objective.modifiedOn = createdOn;
                         objective.questions.push(createdQuestion);
 
+                        app.trigger('question:created', objectiveId, createdQuestion);
+
                         return {
                             id: createdQuestion.id,
                             createdOn: createdQuestion.createdOn
@@ -69,6 +71,8 @@
                             return _.indexOf(questionIds, item.id) != -1;
                         });
 
+                        app.trigger('questions:deleted', objectiveId, questionIds);
+
                         return modifiedOn;
                     });
             });
@@ -95,6 +99,8 @@
 
                         question.title = title;
                         question.modifiedOn = modifiedOn;
+
+                        app.trigger('question:titleUpdated', question);
 
                         return modifiedOn;
                     });
@@ -126,35 +132,6 @@
             });
         },
 
-        //update = function (objectiveId, obj) {
-        //    if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(obj))
-        //        throw 'Invalid arguments';
-
-        //    var deferred = Q.defer();
-
-        //    objectiveRepository.getById(objectiveId).then(function (objective) {
-        //        if (!_.isObject(objective)) {
-        //            deferred.reject('Objective does not exist');
-        //            return;
-        //        }
-
-        //        var question = _.find(objective.questions, function (item) {
-        //            return item.id === obj.id;
-        //        });
-
-        //        if (!_.isObject(question)) {
-        //            deferred.reject('Question does not exist');
-        //            return;
-        //        }
-
-        //        question.title = obj.title;
-        //        question.modifiedOn = new Date();
-
-        //        deferred.resolve(question);
-        //    });
-
-        //    return deferred.promise;
-        //},
         getById = function (objectiveId, questionId) {
             if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(questionId))
                 throw 'Invalid arguments';
@@ -189,7 +166,6 @@
         removeQuestions: removeQuestions,
         updateTitle: updateTitle,
         updateContent: updateContent,
-        //update: update,
         getById: getById
     };
 });

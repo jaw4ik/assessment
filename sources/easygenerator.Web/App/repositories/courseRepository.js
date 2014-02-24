@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'plugins/http', 'models/course', 'guard', 'httpWrapper'],
-    function (dataContext, constants, http, CourseModel, guard, httpWrapper) {
+﻿define(['dataContext', 'constants', 'plugins/http', 'models/course', 'guard', 'httpWrapper', 'durandal/app'],
+    function (dataContext, constants, http, CourseModel, guard, httpWrapper, app) {
 
         var
             getCollection = function () {
@@ -54,7 +54,8 @@
 
                         guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
 
-                        var courseId = response.Id,
+                        var
+                            courseId = response.Id,
                             createdOn = new Date(parseInt(response.CreatedOn.substr(6), 10)),
                             createdCourse = new CourseModel({
                                 id: courseId,
@@ -70,6 +71,8 @@
                             });
 
                         dataContext.courses.push(createdCourse);
+
+                        app.trigger('course:created', createdCourse);
 
                         return {
                             id: createdCourse.id,
@@ -87,6 +90,8 @@
                     dataContext.courses = _.reject(dataContext.courses, function (course) {
                         return course.id === courseId;
                     });
+
+                    app.trigger('course:deleted', courseId);
                 });
             });
         },
@@ -125,6 +130,8 @@
                         course.objectives.push(objective);
                     });
 
+                    app.trigger('course:objectivesRelated', requestArgs.courseId, relatedObjectives);
+
                     return {
                         modifiedOn: course.modifiedOn,
                         relatedObjectives: relatedObjectives
@@ -161,6 +168,9 @@
                     });
 
                     course.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+
+                    app.trigger('course:objectivesUnrelated', requestArgs.courseId, requestArgs.objectives);
+
                     return course.modifiedOn;
                 });
             });
@@ -188,6 +198,8 @@
 
                     course.title = courseTitle;
                     course.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+
+                    app.trigger('course:titleUpdated', course);
 
                     return course.modifiedOn;
                 });
@@ -285,6 +297,9 @@
                     });
 
                     course.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+
+                    app.trigger('course:objectivesReordered', course);
+
                     return course.modifiedOn;
                 });
             });

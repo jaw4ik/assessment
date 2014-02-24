@@ -175,6 +175,41 @@
       <DependentUpon>course.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\commentRepository.js" />
+    <Content Include="App\treeOfContent\commands\createQuestionCommand.js" />
+    <Content Include="App\treeOfContent\commands\createQuestionCommand.spec.js">
+      <DependentUpon>createQuestionCommand.js</DependentUpon>
+    </Content>
+    <Content Include="App\treeOfContent\CourseTreeNode.html">
+      <DependentUpon>CourseTreeNode.js</DependentUpon>
+    </Content>
+    <Content Include="App\treeOfContent\CourseTreeNode.js" />
+    <Content Include="App\treeOfContent\CourseTreeNode.spec.js">
+      <DependentUpon>CourseTreeNode.js</DependentUpon>
+    </Content>
+    <Content Include="App\treeOfContent\handlers\treeOfContentEventHandler.js" />
+    <Content Include="App\treeOfContent\handlers\treeOfContentEventHandler.spec.js">
+      <DependentUpon>treeOfContentEventHandler.js</DependentUpon>
+    </Content>
+    <Content Include="App\treeOfContent\QuestionTreeNode.html">
+      <DependentUpon>QuestionTreeNode.js</DependentUpon>
+    </Content>
+    <Content Include="App\treeOfContent\QuestionTreeNode.js" />
+    <Content Include="App\treeOfContent\QuestionTreeNode.spec.js">
+      <DependentUpon>QuestionTreeNode.js</DependentUpon>
+    </Content>
+    <Content Include="App\treeOfContent\RelatedObjectiveTreeNode.html">
+      <DependentUpon>RelatedObjectiveTreeNode.js</DependentUpon>
+    </Content>
+    <Content Include="App\treeOfContent\RelatedObjectiveTreeNode.js" />
+    <Content Include="App\treeOfContent\RelatedObjectiveTreeNode.spec.js">
+      <DependentUpon>RelatedObjectiveTreeNode.js</DependentUpon>
+    </Content>
+    <Content Include="App\treeOfContent\TreeNode.js" />
+    <Content Include="App\treeOfContent\treeOfContent.html">
+      <DependentUpon>treeOfContent.js</DependentUpon>
+    </Content>
+    <Content Include="App\treeOfContent\treeOfContent.js" />
+    <Content Include="App\treeOfContent\handlers\treeOfContentTraversal.js" />
     <Content Include="App\viewmodels\common\contentField.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.spec.js">
@@ -427,8 +462,10 @@
     <Content Include="Content\images\account\sign-up.png" />
     <Content Include="Content\images\blue-loader.GIF" />
     <Content Include="Content\images\build-loader.gif" />
+    <Content Include="Content\images\disabled.png" />
     <Content Include="Content\images\download-scorm-loader.GIF" />
     <Content Include="Content\images\emptyList.png" />
+    <Content Include="Content\images\enabled.png" />
     <Content Include="Content\images\intro-page.png" />
     <Content Include="Content\images\objective.png" />
     <Content Include="Content\images\oops.png" />
@@ -436,9 +473,11 @@
     <Content Include="Content\images\processSteps.png" />
     <Content Include="Content\images\publish-loader.GIF" />
     <Content Include="Content\images\review-sprites.png" />
+    <Content Include="Content\images\tree.png" />
     <Content Include="Content\introduction.css" />
     <Content Include="Content\review.css" />
     <Content Include="Content\panels.css" />
+    <Content Include="Content\treeOfContent.css" />
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
     <Compile Include="Mail\MailNotificationManager.cs">
       <SubType>Code</SubType>

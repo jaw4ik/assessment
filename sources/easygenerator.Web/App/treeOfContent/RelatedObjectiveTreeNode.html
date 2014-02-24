@@ -1,0 +1,34 @@
+﻿<li class="navigation-tree-node" data-bind="attr: { 'data-view-id': id }">
+    <div class="navigation-tree-node-caption-wrapper">
+        <!-- ko ifnot: isExpanded -->
+        <div class="navigation-tree-node-collapsed" data-bind="click: expand"></div>
+        <!-- /ko -->
+        <!-- ko if: isExpanded -->
+        <div class="navigation-tree-node-expanded" data-bind="click: collapse"></div>
+        <!-- /ko -->
+
+        <a href="#" class="navigation-tree-node-caption" data-bind="text: title, attr: { href: url }"></a>
+    </div>
+
+    <!-- ko if: isExpanded -->
+
+    <ul>
+        <li class="navigation-tree-node">
+            <div class="navigation-tree-node-caption-wrapper">
+                <a class="navigation-tree-node-caption create" href="#" data-bind="click: createQuestion">Create Question</a>
+            </div>
+        </li>
+
+        <!-- ko foreach: children -->
+
+        <!-- ko compose: { model: $data, preserveContext: true } -->
+        <!-- /ko -->
+
+        <!-- /ko -->
+
+    </ul>
+
+
+    <!-- /ko -->
+
+</li>

@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'httpWrapper', 'guard', 'models/objective'],
-    function (dataContext, constants, httpWrapper, guard, objectiveModel) {
+﻿define(['dataContext', 'constants', 'httpWrapper', 'guard', 'models/objective', 'durandal/app'],
+    function (dataContext, constants, httpWrapper, guard, objectiveModel, app) {
         var
             getCollection = function () {
                 return Q.fcall(function () {
@@ -70,23 +70,24 @@
                     guard.throwIfNotString(obj.id, 'Objective data has invalid format');
                     guard.throwIfNotString(obj.title, 'Objective data has invalid format');
 
-                    return httpWrapper.post('api/objective/update', { objectiveId: obj.id, title: obj.title })
-                        .then(function (response) {
+                    return httpWrapper.post('api/objective/update', { objectiveId: obj.id, title: obj.title }).then(function (response) {
 
-                            guard.throwIfNotAnObject(response, 'Response is not an object');
-                            guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
-                            var objective = _.find(dataContext.objectives, function (item) {
-                                return item.id === obj.id;
-                            });
-
-                            guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
-
-                            objective.title = obj.title;
-                            objective.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
-
-                            return objective.modifiedOn;
+                        var objective = _.find(dataContext.objectives, function (item) {
+                            return item.id === obj.id;
                         });
+
+                        guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
+
+                        objective.title = obj.title;
+                        objective.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+
+                        app.trigger('objective:titleUpdated', objective);
+
+                        return objective.modifiedOn;
+                    });
                 });
             },
 
@@ -127,13 +128,16 @@
 
                             guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
 
-                            objective.questions = _.map(questions, function(question) {
-                                return _.find(objective.questions, function(item) {
+                            objective.questions = _.map(questions, function (question) {
+                                return _.find(objective.questions, function (item) {
                                     return item.id == question.id;
                                 });
                             });
 
                             objective.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+
+                            app.trigger('objective:questionsReordered', objective);
+
                             return { modifiedOn: objective.modifiedOn };
                         });
                 });

@@ -60,6 +60,10 @@
     <div class="icon-spinner-wrapper" data-bind="visible: !isViewReady()">
         <img src="/Content/images/loader.gif" alt="" />
     </div>
+    <!-- ko if: showTreeOfContent -->
+    <!-- ko compose: 'treeOfContent/treeOfContent' -->
+    <!-- /ko -->
+    <!-- /ko -->
     <section id="content" class="main" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }, css: browserCulture() + '-lang', css: { 'courseEditMode': courseNavigation().length > 0 }">
         <div data-bind="widget: { kind: 'notifyViewer' }"></div>
         <!-- ko compose: { model: 'help/helpHint', activationData: activeModuleName } -->

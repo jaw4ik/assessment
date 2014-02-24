@@ -5,7 +5,8 @@
         var
            constants = require('constants'),
            httpWrapper = require('httpWrapper'),
-           dataContext = require('dataContext')
+           dataContext = require('dataContext'),
+           app = require('durandal/app')
         ;
 
         describe('repository [objectiveRepository]', function () {
@@ -15,6 +16,7 @@
             beforeEach(function () {
                 post = $.Deferred();
                 spyOn(httpWrapper, 'post').andReturn(post.promise());
+                spyOn(app, 'trigger');
             });
 
             it('should be object', function () {
@@ -557,6 +559,17 @@
                                     });
                                 });
 
+                                it('should trigger event \'objective:titleUpdated\'', function () {
+                                    var promise = objectiveRepository.updateObjective(objective);
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(app.trigger).toHaveBeenCalledWith('objective:titleUpdated', dataContext.objectives[0]);
+                                    });
+                                });
+
                             });
 
                         });
@@ -879,6 +892,20 @@
                                     expect(dataContext.objectives[0].modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
                                 });
                             });
+
+                            it('should trigger event \'objective:questionsReordered\'', function () {
+                                var objectiveId = 'objectiveId',
+                                    questions = [];
+                                var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(app.trigger).toHaveBeenCalledWith('objective:questionsReordered', dataContext.objectives[0]);
+                                });
+                            });
+
 
                             it('should resolve promise with modification date', function () {
                                 var objectiveId = 'objectiveId',
