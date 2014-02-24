@@ -1,7 +1,7 @@
 ﻿define(function (require) {
     "use strict";
 
-    var viewModel = require('viewmodels/home'),
+    var viewModel = require('viewmodels/questions'),
         router = require('plugins/router'),
         app = require('durandal/app'),
         eventManager = require('eventManager'),
@@ -9,7 +9,7 @@
         courseRepository = require('repositories/courseRepository'),
         questionRepository = require('repositories/questionRepository');
 
-    describe('viewModel [home]', function () {
+    describe('viewModel [questions]', function () {
 
         var questions = [
             {

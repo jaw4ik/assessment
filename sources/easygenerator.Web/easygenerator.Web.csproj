@@ -881,10 +881,14 @@
     <Content Include="Templates\Quiz\App\viewmodels\404.spec.js">
       <DependentUpon>404.js</DependentUpon>
     </Content>
-    <Content Include="Templates\Quiz\App\viewmodels\home.js" />
-    <Content Include="Templates\Quiz\App\viewmodels\home.spec.js">
-      <DependentUpon>home.js</DependentUpon>
+    <Content Include="Templates\Quiz\App\viewmodels\introduction.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\introduction.spec.js">
+      <DependentUpon>introduction.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Quiz\App\viewmodels\questions.spec.js">
+      <DependentUpon>questions.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\viewmodels\questions.js" />
     <Content Include="Templates\Quiz\App\viewmodels\learningContents.js" />
     <Content Include="Templates\Quiz\App\viewmodels\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
@@ -902,7 +906,8 @@
       <DependentUpon>summary.js</DependentUpon>
     </Content>
     <Content Include="Templates\Quiz\App\views\404.html" />
-    <Content Include="Templates\Quiz\App\views\home.html" />
+    <Content Include="Templates\Quiz\App\views\introduction.html" />
+    <Content Include="Templates\Quiz\App\views\questions.html" />
     <Content Include="Templates\Quiz\App\views\learningContents.html" />
     <Content Include="Templates\Quiz\App\views\notsupportedbrowser.html" />
     <Content Include="Templates\Quiz\App\views\shell.html" />

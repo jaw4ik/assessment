@@ -215,9 +215,9 @@
                     expect(eventManager.courseStarted).toHaveBeenCalled();
                 });
 
-                it('should navigate to home', function () {
+                it('should navigate to root', function () {
                     viewModel.skip();
-                    expect(router.navigate).toHaveBeenCalledWith('home');
+                    expect(router.navigate).toHaveBeenCalledWith('');
                 });
 
             });
@@ -324,12 +324,12 @@
                             });
                         });
 
-                        it('should navigate to home', function () {
+                        it('should navigate to root', function () {
                             waitsFor(function () {
                                 return !xApiInitializerInitPromise.isPending();
                             });
                             runs(function () {
-                                expect(router.navigate).toHaveBeenCalledWith('home');
+                                expect(router.navigate).toHaveBeenCalledWith('');
                             });
                         });
 

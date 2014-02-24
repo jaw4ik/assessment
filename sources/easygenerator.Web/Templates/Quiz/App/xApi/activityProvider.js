@@ -24,7 +24,7 @@
                 activityProvider.actor = actorData;
                 activityProvider.activityName = activityName;
                 activityProvider.rootCourseUrl = activityUrl.split("?")[0].split("#")[0];
-                activityProvider.rootActivityUrl = activityProvider.rootCourseUrl + '#home';
+                activityProvider.rootActivityUrl = activityProvider.rootCourseUrl + '#questions';
 
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(sendCourseStarted));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished));

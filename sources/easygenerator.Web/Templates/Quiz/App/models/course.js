@@ -1,10 +1,11 @@
-﻿define(['eventManager', 'guard', 'eventDataBuilders/courseEventDataBuilder'],
-    function (eventManager, guard, eventDataBuilder) {
+﻿define(['eventManager', 'guard', 'eventDataBuilders/courseEventDataBuilder', 'plugins/http'],
+    function (eventManager, guard, eventDataBuilder, http) {
 
         function Course(spec) {
             this.id = spec.id;
             this.title = spec.title;
             this.hasIntroductionContent = spec.hasIntroductionContent;
+            this.content = null;
             this.objectives = spec.objectives;
             this.score = spec.score;
             this.isAnswered = false;
@@ -13,6 +14,7 @@
             this.calculateScore = calculateScore;
             this.restart = restart;
             this.submitAnswers = submitAnswers;
+            this.loadContent = loadContent;
         }
 
         function getAllQuestions() {
@@ -61,6 +63,25 @@
             }, 0);
 
             this.score = result / this.objectives.length;
+        };
+
+        var loadContent = function () {
+            var that = this;
+            return Q.fcall(function () {
+                if (!that.hasIntroductionContent) {
+                    return null;
+                }
+
+                return http.get('content/content.html')
+                    .then(function (response) {
+                        that.content = response;
+                        return that.content;
+                    })
+                    .fail(function () {
+                        that.content = null;
+                        return that.content;
+                    });
+            });
         };
 
         return Course;

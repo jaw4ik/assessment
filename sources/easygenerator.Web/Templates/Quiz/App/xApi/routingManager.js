@@ -19,7 +19,7 @@
                 existingGuard = router.guardRoute;
                 router.guardRoute = function (model, route) {
                     if (route.config.route == 'login') {
-                        return activityManager.getInitStatus() ? 'home' : true;
+                        return activityManager.getInitStatus() ? '' : true;
                     }
                     if (!activityManager.getInitStatus()) {
                         return 'login';

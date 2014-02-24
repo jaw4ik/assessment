@@ -6,7 +6,7 @@
             questionId,
             objectiveId,
             backToQuestions = function () {
-                router.navigate('home');
+                router.navigate('questions');
             },
             activate = function (objectiveId, questionId) {
                 var that = this;

@@ -1,6 +1,7 @@
 ﻿define(['models/course', 'eventDataBuilders/courseEventDataBuilder'], function (CourseModel, eventDataBuilder) {
 
-    var eventManager = require('eventManager');
+    var eventManager = require('eventManager'),
+        http = require('plugins/http');
 
     describe('model [course]', function () {
 
@@ -61,6 +62,16 @@
 
             it('should be equal to spec hasIntroductionContent', function () {
                 expect(course.hasIntroductionContent).toBe(spec.hasIntroductionContent);
+            });
+        });
+        
+        describe('content:', function () {
+            it('should be defined', function () {
+                expect(course.content).toBeDefined();
+            });
+
+            it('should be null', function () {
+                expect(course.content).toBe(null);
             });
         });
 
@@ -238,6 +249,125 @@
             it('should return all questions', function () {
                 var result = course.getAllQuestions();
                 expect(result.length).toBe(2);
+            });
+        });
+        
+        describe('loadContent:', function () {
+            var deferred = null;
+            beforeEach(function () {
+                deferred = Q.defer();
+                spyOn(http, 'get').andReturn(deferred.promise);
+            });
+
+            it('should be function', function () {
+                expect(course.loadContent).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(course.loadContent({})).toBePromise();
+            });
+
+            describe('and when course does not have content', function () {
+                beforeEach(function () {
+                    course.hasIntroductionContent = false;
+                });
+
+                it('should resolve promise with null', function () {
+                    var promise = course.loadContent();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(promise).toBeResolvedWith(null);
+                    });
+                });
+
+                it('should not load content', function () {
+                    var promise = course.loadContent();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(http.get).not.toHaveBeenCalled();
+                    });
+                });
+            });
+
+            describe('and when course has content', function () {
+                beforeEach(function () {
+                    course.hasIntroductionContent = true;
+                });
+                
+                var content = 'content';
+
+                it('should load content', function () {
+                    var promise = course.loadContent();
+                    deferred.resolve();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(http.get).toHaveBeenCalledWith('content/content.html');
+                    });
+                });
+
+                describe('and when content loaded successfully', function () {
+
+                    it('should set course content', function () {
+                        var promise = course.loadContent();
+                        deferred.resolve(content);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(course.content).toBe(content);
+                        });
+                    });
+
+                    it('should resolve promise with content', function () {
+                        var promise = course.loadContent();
+                        deferred.resolve(content);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeResolvedWith(content);
+                        });
+                    });
+
+                });
+
+                describe('and when failed to load content', function () {
+                    it('should set course content to null', function () {
+                        var promise = course.loadContent();
+                        deferred.reject();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(course.content).toBe(null);
+                        });
+                    });
+
+                    it('should resolve promise with null', function () {
+                        var promise = course.loadContent();
+                        deferred.reject();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeResolvedWith(null);
+                        });
+                    });
+                });
+
             });
         });
     });

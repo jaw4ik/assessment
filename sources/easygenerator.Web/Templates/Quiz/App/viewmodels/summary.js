@@ -8,7 +8,7 @@
                 course.restart();
 
                 this.status(this.statuses.readyToFinish);
-                router.navigate('');
+                router.navigate('questions');
             },
 
             statuses = {

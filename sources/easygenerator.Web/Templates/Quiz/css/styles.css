@@ -178,6 +178,8 @@ html, body, .application-wrapper {
     height: 100%;
     color: #666;
     font-family: Arial, sans-serif;
+    font-size: 17px;
+    line-height: 26px;
 }
 
 body {
@@ -283,6 +285,44 @@ body {
 
 
 /*#endregion background css-styles  */
+
+/*#region introduction view */
+
+.intro.content {
+    font-size: 17px;
+    border-top: none;
+    padding: 30px;
+    word-wrap: break-word;
+    overflow-x: auto;
+}
+
+.intro-header {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    margin: 20px 0px;
+}
+
+.intro-title-holder {
+    font-family: Tahoma, sans-serif;
+    font-size: 28px;
+    padding: 12px 30px 20px 0px;
+    display: table-cell;
+    word-wrap: break-word;
+}
+
+.intro-title {
+    font-weight: bold;
+}
+
+.intro-start-holder {
+    text-align: right;
+    vertical-align: middle;
+    display: table-cell;
+    width: 210px;
+}
+
+/*#endregion introduction view*/
 
 /*#region header css-styles  */
 
@@ -924,6 +964,7 @@ body {
 }
 
 .question-submit .btn,
+.intro-start-holder .btn,
 .summary-btn-holder .btn {
     color: #5c6572;
     font-size: 24px;

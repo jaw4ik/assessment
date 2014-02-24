@@ -3,8 +3,6 @@
 
     var viewModel = require('viewModels/learningContents'),
         router = require('plugins/router'),
-        context = require('context'),
-        http = require('plugins/http'),
         questionRepository = require('repositories/questionRepository'),
         learningContentRepository = require('repositories/learningContentRepository');
 
@@ -179,9 +177,9 @@
                 expect(viewModel.backToQuestions).toBeFunction();
             });
 
-            it('should navigate to \'home\'', function () {
+            it('should navigate to \'questions\'', function () {
                 viewModel.backToQuestions();
-                expect(router.navigate).toHaveBeenCalledWith('home');
+                expect(router.navigate).toHaveBeenCalledWith('questions');
             });
         });
     });

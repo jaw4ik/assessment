@@ -129,9 +129,9 @@
                 expect(course.restart).toHaveBeenCalled();
             });
 
-            it('should navigate to \'\'', function () {
+            it('should navigate to \'questions\'', function () {
                 viewModel.tryAgain();
-                expect(router.navigate).toHaveBeenCalledWith('');
+                expect(router.navigate).toHaveBeenCalledWith('questions');
             });
         });
 
