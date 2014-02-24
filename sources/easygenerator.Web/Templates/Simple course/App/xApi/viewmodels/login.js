@@ -63,11 +63,14 @@
                 router.navigate('');
             },
 
+            courseTitle = "\"" + context.course.title + "\"",
+
             activate = function () {
             };
 
         return {
             activate: activate,
+            courseTitle: courseTitle,
 
             usermail: usermail,
             username: username,

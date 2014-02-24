@@ -10,9 +10,9 @@
             expect(viewModel).toBeDefined();
         });
 
-        describe('title:', function () {
+        describe('courseTitle:', function () {
             it('should be defined', function () {
-                expect(viewModel.title).toBeDefined();
+                expect(viewModel.courseTitle).toBeDefined();
             });
         });
 
@@ -66,7 +66,7 @@
                 context.course.title = "some title";
 
                 viewModel.activate();
-                expect(viewModel.title).toBe('"some title"');
+                expect(viewModel.courseTitle).toBe('"some title"');
             });
 
             it('should get content from file \'content/content.html\'', function () {

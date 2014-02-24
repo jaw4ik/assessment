@@ -1,19 +1,7 @@
 ﻿<section id="learning-contents" class="learning-contents">
-    <div class="content">
-        <div class="caption">
-            <div class="caption-inner shadow-bottom-curve">
-                <div class="caption-icon">
-                    <div class="caption-icon-image"></div>
-                </div>
-                <div class="caption-text">
-                    <span>Learning content</span>
-                </div>
-            </div>
-        </div>
-        <ul class="learning-content-items unstyled">
-            <!-- ko foreach: learningContents-->
-            <li class="learning-content-item" data-bind="compose: { model: { url: view }, strategy: 'strategies/externalContentStrategy' }"></li>
-            <!-- /ko -->
-        </ul>
-    </div>
+    <ul class="learning-content-items unstyled">
+        <!-- ko foreach: learningContents-->
+        <li class="learning-content-item" data-bind="compose: { model: { url: view }, strategy: 'strategies/externalContentStrategy' }"></li>
+        <!-- /ko -->
+    </ul>
 </section>

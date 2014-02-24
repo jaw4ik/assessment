@@ -1,7 +1,7 @@
 ﻿<div class="header" data-bind="css: 'module-' + cssName()">
     <ul class="navigation-menu">
         <li class="navigation-menu-item">
-            <!-- ko if: viewSettings().rootLinkEnabled -->
+            <!-- ko if: viewSettings().rootLinkEnabled  -->
             <a href="#objectives">
                 <img alt="" src="" class="main-logo" data-bind="attr: { src: logoUrl }">
             </a>
@@ -13,11 +13,11 @@
             <!-- /ko -->
         </li>
         <!-- ko if: viewSettings().navigationEnabled -->
-            <!-- ko foreach: router.navigationModel -->
-            <li class="navigation-menu-item" data-bind="css: { active: isActive }">
-                <a class="navigation-menu-item-link pull-right" data-bind="html: settings.caption, attr: { href: hash }"></a>
-            </li>
-            <!-- /ko -->
+        <!-- ko foreach: router.navigationModel -->
+        <li class="navigation-menu-item" data-bind="css: { active: isActive }">
+            <a class="navigation-menu-item-link pull-right" data-bind="html: settings.caption, attr: { href: hash }"></a>
+        </li>
+        <!-- /ko -->
         <!-- /ko -->
     </ul>
 </div>
@@ -25,5 +25,6 @@
     <div class="loader-image"></div>
 </div>
 <section id="content" class="content-wrapper" data-bind="visible: !isNavigatingToAnotherView()">
-    <!--ko router: { cacheViews:false }--><!--/ko-->
+    <!--ko router: { cacheViews:false }-->
+    <!--/ko-->
 </section>

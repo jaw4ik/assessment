@@ -1,87 +1,104 @@
 ﻿<section id="question" class="question unselectable">
-
-    <div class="navigation-link-container clearfix">
-        <div class="pull-left">
-            <a class="navigation-link navigation-link-left" href="/#" data-bind="click: backToObjectives">
-                <div class="navigation-link-left-image"></div>
-                <span>Back to objectives</span>
-            </a>
-        </div>
-        <div class="questions-navigation-container">
-            <div class="questions-navigation-title"><span>Questions</span></div>
-            <div>
-                <a class="question-navigation-button previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: isPreviousQuestionAvailable() ? 'previous question' : '' }, css: { disabled: !isPreviousQuestionAvailable() }">&nbsp;</a><span class="questions-counter" data-bind="text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span><a class="question-navigation-button" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: isNextQuestionAvailable() ? 'next question' : '' }, css: { disabled: !isNextQuestionAvailable() }">&nbsp;</a>
-            </div>
-        </div>
-    </div>
     <div class="loader" data-bind="visible: isLoadingNewQuestion()">
         <div class="loader-image"></div>
-    </div>    
-    <!-- ko ifnot: isLoadingNewQuestion -->
-    <div class="content-holder" data-bind="visible: !isLoadingNewQuestion()">
-        <!-- ko if: learningContents.length > 0 -->
-        <!-- ko compose: 'learningContents.html'-->
-        <!-- /ko -->
-        <!-- /ko -->
-        <div class="content">
-            <div class="caption">
-                <div class="caption-inner shadow-bottom-curve">
-                    <div class="caption-icon">
-                        <div class="caption-icon-image"></div>
-                    </div>
-                    <div class="caption-text">
-                        <span class="selectable" data-bind="text: title"></span>
-                    </div>
+    </div>
+    <div class="content">
+        <header class="page-header">
+            <div class="navigation-home-link" data-bind="click: backToObjectives">
+                <div class="navigation-home-link-wrapper">
+                    <div class="navigation-home-link-arrow"></div>
+                    <div class="navigation-home-link-block">Home</div>
                 </div>
             </div>
-        </div>
-        <!-- ko if: content -->
-        <div class="question-content" data-bind="compose: { model: { url: content }, strategy: 'strategies/externalContentStrategy' }"></div>
-        <!-- /ko -->
-        <div class="content">
-            <ul class="question-answers unstyled" data-bind="foreach: answers">
-                <li class="question-answer" data-bind="click: $parent.checkItem">
-                    <div>
-                        <a class="question-answer-checkbox" data-bind="css: { checked: isChecked() }"></a>
-                    </div>
-                    <div class="question-answer-text selectable" data-bind="text: text"></div>
-                </li>
-            </ul>
-            <!-- ko if: !isAnswered() -->
-            <div class="btn-submit-wrapper" data-bind="visible: !isAnswered()">
-                <button class="btn-submit grey-btn" data-bind="click: submit">Submit</button>
+            <div class="objective-image-holder">
+                <div class="objective-image-wrapper">
+                    <img src="" alt="" data-bind="attr: { src: objective.image }">
+                </div>
             </div>
+            <div class="objective-info">
+                <span data-bind="text: objective.title">objective title</span>
+                <div class="objective-progress">
+                    <div class="objective-progressbar-holder">
+                        <div class="objective-progressbar-inside">
+                            <div class="objective-progressbar-score" data-bind="style: { width: 100 - Math.round(objectiveScore()) + '%' }" style="width: 0%;">&nbsp;</div>
+                        </div>
+                        <div class="objective-progressbar-wrapper">
+                            <div class="objective-progressbar-border"></div>
+                        </div>
+                    </div>
+                    <span class="objective-progress-score" data-bind="text: Math.round(objectiveScore()) + '%'">0%</span>
+                </div>
+            </div>
+            <div class="questions-navigation-container">
+                <h5 class="questions-navigation-title">Questions</h5>
+                <div class="questions-navigation">
+                    <a class="question-navigation-button previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: isPreviousQuestionAvailable() ? 'previous question' : '' }, css: { disabled: !isPreviousQuestionAvailable() }">&nbsp;</a><span class="questions-counter" data-bind="    text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span><a class="question-navigation-button" data-bind="    attr: { href: navigationContext.nextQuestionUrl, title: isNextQuestionAvailable() ? 'next question' : '' }, css: { disabled: !isNextQuestionAvailable() }">&nbsp;</a>
+                </div>
+            </div>
+        </header>
+        <!-- ko ifnot: isLoadingNewQuestion -->
+        <div class="learning-content-section">
+            <div class="learning-content-title">
+                Learning content
+            </div>
+
+            <!-- ko if: learningContents.length > 0 -->
+            <!-- ko compose: 'learningContents.html'-->
+            <!-- /ko -->
             <!-- /ko -->
         </div>
-        <!-- ko if: isCorrectAnswered() -->
-        <div class="feedback-content" data-bind="visible: isAnswered, scrollIntoView: isAnswered">
-            <div class="feedback-correct">
-                <span class="feedback-icon"></span>
-                <span class="feedback-text">Correct answer</span>
+        <div class="question-section">
+            <div class="question-title selectable" data-bind="text: title">
+                question title
             </div>
-            <div class="feedback-btn-holder">
-                <button class="middle-page-action-btn blue-btn" data-bind="click: navigateNext, text: isNextQuestionAvailable() ? 'Next' : 'Go to learning objectives'">Next</button>
+            <!-- ko if: content -->
+            <div class="question-content" data-bind="compose: { model: { url: content }, strategy: 'strategies/externalContentStrategy' }"></div>
+            <!-- /ko -->
+            <ul class="question-answers-list" data-bind="foreach: answers">
+                <li class="question-answer-item" data-bind="click: $parent.checkItem, css: { checked: isChecked() }">
+                    <div class="question-answer-checkbox-wrapper">
+                        <a class="question-answer-checkbox" data-bind="css: { checked: isChecked() }">&nbsp;</a>
+                    </div>
+                    <div class="question-answer-text selectable" data-bind="text: text">answer</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ko if: !isAnswered() -->
+        <div class="btn-submit-wrapper" data-bind="visible: !isAnswered()">
+            <a href="#" class="small-page-action-btn blue-btn" data-bind="click: submit">Submit</a>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: isCorrectAnswered() -->
+        <div class="result-block correct" data-bind="visible: isAnswered, scrollIntoView: isAnswered">
+            <div class="result-text-wrapper">
+                <span class="result-text">Correct answer</span>
+            </div>
+            <div class="result-btn-holder">
+                <button class="small-page-action-btn blue-btn" data-bind="click: navigateNext, text: isNextQuestionAvailable() ? 'Next' : 'Go to learning objectives'">Next</button>
             </div>
         </div>
         <!-- /ko -->
         <!-- ko if: isWrongAnswered() -->
-        <div class="feedback-content feedback-incorrect" data-bind="visible: isAnswered, scrollIntoView: isAnswered">
-            <div class="feedback-incorrect">
-                <span class="feedback-icon"></span>
-                <span class="feedback-text">Incorrect answer</span>
+        <div class="result-block incorrect" data-bind="visible: isAnswered, scrollIntoView: isAnswered">
+            <div class="result-text-wrapper">
+                <span class="result-text">Incorrect answer</span>
             </div>
-            <div class="feedback-btn-holder">
-                <button class="middle-page-action-btn red-btn" data-bind="click: tryAnswerAgain">Try again</button><!--
+            <div class="result-btn-holder">
+                <button class="small-page-action-btn red-btn" data-bind="click: tryAnswerAgain">Try again</button><!--
                     --><span class="feedback-btn-whitespace"></span><!--
-                        --><button class="middle-page-action-btn grey-btn" data-bind="click: navigateNext, text: isNextQuestionAvailable() ? 'Next' : 'Go to learning objectives'">Next</button>
+                        -->
+                <button class="small-page-action-btn grey-btn" data-bind="click: navigateNext, text: isNextQuestionAvailable() ? 'Next question' : 'Go to learning objectives'">Next question</button>
             </div>
         </div>
         <!-- /ko -->
+        <!-- /ko -->
     </div>
+    <!-- ko ifnot: isLoadingNewQuestion -->
     <div class="navigation-link-container clearfix">
-        <div class="questions-navigation-container">
-            <div>
-                <a class="question-navigation-button previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: isPreviousQuestionAvailable() ? 'previous question' : '' }, css: { disabled: !isPreviousQuestionAvailable() }">&nbsp;</a><span class="questions-counter" data-bind="text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span><a class="question-navigation-button" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: isNextQuestionAvailable() ? 'next question' : '' }, css: { disabled: !isNextQuestionAvailable() }">&nbsp;</a>
+        <div class="questions-navigation-container bottom">
+            <div class="questions-navigation">
+                <a class="question-navigation-button previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: isPreviousQuestionAvailable() ? 'previous question' : '' }, css: { disabled: !isPreviousQuestionAvailable() }">&nbsp;</a><span class="questions-counter" data-bind="    text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span><a class="question-navigation-button" data-bind="    attr: { href: navigationContext.nextQuestionUrl, title: isNextQuestionAvailable() ? 'next question' : '' }, css: { disabled: !isNextQuestionAvailable() }">&nbsp;</a>
             </div>
         </div>
     </div>

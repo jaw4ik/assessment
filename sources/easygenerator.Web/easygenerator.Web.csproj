@@ -1215,6 +1215,7 @@
     <Content Include="Templates\Simple course\App\xApi\constants.js" />
     <Content Include="Templates\Simple course\App\xApi\css\img\icons-xApi.png" />
     <Content Include="Templates\Simple course\App\xApi\css\img\info-message.png" />
+    <Content Include="Templates\Simple course\App\xApi\css\img\xapi-icons.png" />
     <Content Include="Templates\Simple course\App\xApi\css\img\xapierror.png" />
     <Content Include="Templates\Simple course\App\xApi\css\login.css" />
     <Content Include="Templates\Simple course\App\xApi\css\xAPIError.css" />
@@ -1262,11 +1263,14 @@
     <Content Include="Templates\Simple course\content\ece17e927e8b4036a830b5b2146b694d\1841ec890a4641399bdba1ef06e2c9bd\1bd3108977d843df91260eed5debc334.html" />
     <Content Include="Templates\Simple course\content\ece17e927e8b4036a830b5b2146b694d\cd8d15024d6c420b9101c6a104b196ae\c00667a74a724e35b3ac47f81982eefc.html" />
     <Content Include="Templates\Simple course\css\durandal.css" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.svg" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.svg" />
     <Content Include="Templates\Simple course\css\ie10mobile.css" />
     <Content Include="Templates\Simple course\css\jasmine.css" />
     <Content Include="Templates\Simple course\css\normalize.css" />
     <Content Include="Templates\Simple course\css\styles.css" />
     <Content Include="Templates\Simple course\img\back-btn.png" />
+    <Content Include="Templates\Simple course\img\bg.png" />
     <Content Include="Templates\Simple course\img\buildprogress.gif" />
     <Content Include="Templates\Simple course\img\checkbox.png" />
     <Content Include="Templates\Simple course\img\chrome.png" />
@@ -1277,6 +1281,7 @@
     <Content Include="Templates\Simple course\img\feedback.png" />
     <Content Include="Templates\Simple course\img\finish.png" />
     <Content Include="Templates\Simple course\img\firefox.png" />
+    <Content Include="Templates\Simple course\img\home.png" />
     <Content Include="Templates\Simple course\img\icons-images.png" />
     <Content Include="Templates\Simple course\img\ie10.png" />
     <Content Include="Templates\Simple course\img\info-btn.png" />
@@ -1284,6 +1289,7 @@
     <Content Include="Templates\Simple course\img\logo.png" />
     <Content Include="Templates\Simple course\img\objective.png" />
     <Content Include="Templates\Simple course\img\question.png" />
+    <Content Include="Templates\Simple course\img\reporting-progress-loader.gif" />
     <Content Include="Templates\Simple course\img\safari.png" />
     <Content Include="Templates\Simple course\img\saltbox-banner.png" />
     <Content Include="Templates\Simple course\index.html" />
@@ -1379,6 +1385,12 @@
     <Content Include="Templates\Simple course\App\viewmodels\shell.spec.js">
       <DependentUpon>shell.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Simple course\css\font\opensans-regular.eot" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.ttf" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.woff" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.eot" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.ttf" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.woff" />
     <None Include="Templates\Simple course\js\vendor.js.bundle" />
     <Content Include="Templates\Simple course\js\vendor.min.js.map">
       <DependentUpon>vendor.js.bundle</DependentUpon>

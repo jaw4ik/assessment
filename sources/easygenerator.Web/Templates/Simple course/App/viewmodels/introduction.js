@@ -1,7 +1,7 @@
 ﻿define(['context', 'plugins/router', 'plugins/http'],
     function (context, router, http) {
 
-        var title = null,
+        var courseTitle = null,
             content = null,
 
             canActivate = function () {
@@ -12,7 +12,7 @@
             },
 
             activate = function () {
-                this.title = "\"" + context.course.title + "\"";
+                this.courseTitle = "\"" + context.course.title + "\"";
 
                 var that = this;
                 return Q.fcall(function () {
@@ -30,7 +30,7 @@
             };
 
         return {
-            title: title,
+            courseTitle: courseTitle,
             content: content,
 
             startCourse: startCourse,

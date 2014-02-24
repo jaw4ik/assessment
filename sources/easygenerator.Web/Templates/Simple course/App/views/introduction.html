@@ -1,12 +1,13 @@
 ﻿<section id="introduction" class="unselectable">
-    <div class="intro-header content">
-        <div class="intro-title-holder"><span class="intro-title">Course: </span><span data-bind="text: title"></span></div>
-        <div class="intro-start-holder">
-            <a class="small-page-action-btn red-btn" href="#" data-bind="click: startCourse">Start course</a>
-        </div>
+    <div class="content">
+        <header class="page-header">
+            <h1 class="course-title">
+                <span class="course-name">Course: </span><span class="course-caption" data-bind="text: courseTitle">"course_name"</span>
+            </h1>
+            <div class="course-action-block intro">
+                <a class="small-page-action-btn blue-btn" href="#" data-bind="click: startCourse">Start course</a>
+            </div>
+        </header>
+        <div class="course-intro-text" data-bind="html: content"></div>
     </div>
-
-    <!-- ko if: content -->
-    <div class="intro content" data-bind="html: content"></div>
-    <!-- /ko -->
 </section>
