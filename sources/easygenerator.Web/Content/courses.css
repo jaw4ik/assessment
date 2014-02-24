@@ -145,7 +145,6 @@
 
 .course-action.package-link {
     text-align: left;
-    padding-right: 15px;
 }
 
 .package-link-input,
@@ -156,12 +155,34 @@
     height: 20px;
     border: 1px solid #c1c1c1;
     border-radius: 3px;
-    padding-left: 4px;
+    padding: 0 5px;
     outline: none;
     font-family: 'OpenSans';
     font-size: 12px;
     cursor: text;
 }
+
+/*
+ * Open link action
+*/
+
+.course-action-open-link {
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    height: 30px;
+    padding-right: 15px;
+    white-space: nowrap;
+    width: 5%;
+}
+
+.open-link-title {
+    color: #00a8ff;
+}
+
+    .open-link-title:hover {
+        text-decoration: underline;
+    }
 
 /*
  * Statuses of course

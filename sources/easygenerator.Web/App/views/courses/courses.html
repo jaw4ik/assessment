@@ -26,7 +26,7 @@
                 </a>
                 <div class="dotted-line"></div>
             </div>
-            <ul class="unstyled main-content-list" data-bind="selectOnMouseOver: 'copyLink'">
+            <ul class="unstyled main-content-list">
                 <!-- ko foreach: courses -->
                   <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
                     <div class="list-item-content-holder" data-bind="click: $parent.toggleSelection">
@@ -72,10 +72,18 @@
                                 <span class="course-action-title" data-bind="localize: { text: !publishPackageExists() ? 'publishOnline' : 'republishOnline' }">Publish online</span>
                             </div>
                             <!-- /ko -->
-                            <div class="course-action" data-bind="css: { disabled: !publishPackageExists(), 'package-link': publishPackageExists() }">
-                                <input class="package-link-input" id="copyLink" type="text" readonly="readonly" data-bind="visible: publishPackageExists, value: publishedPackageUrl" />
+                            <div class="course-action disabled" data-bind="css: { 'package-link': publishPackageExists() }">
+                                <!-- ko if: publishPackageExists() -->
+                                <input class="package-link-input" type="text" readonly="readonly" data-bind="value: publishedPackageUrl, selectTextBinding: deliveringState() === $parent.states.succeed" />
+                                <!-- /ko -->
                             </div>
-                            
+                            <!-- ko if: publishPackageExists() -->
+                            <div class="course-action-open-link disabled">
+                                <a class="open-link" data-bind="click: $parent.openPublishedCourse, attr: { href: publishedPackageUrl }">
+                                    <span class="open-link-title" data-bind="localize: { text: 'openLink' }"></span>
+                                </a>
+                            </div>
+                            <!-- /ko -->
                         </div>
                     </div>
                     <!-- ko if: showStatus() -->

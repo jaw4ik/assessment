@@ -612,7 +612,7 @@
                         publish: function () {
                         }
                     };
-                    
+
                     spyOn(course, 'publish');
 
                     courseRepositoryGetByIdDefer = Q.defer();
@@ -650,7 +650,7 @@
                         expect(course.publish).toHaveBeenCalled();
                     });
                 });
-                
+
                 describe('when publish is finished', function () {
                     beforeEach(function () {
                         course = {
@@ -659,11 +659,11 @@
                             showStatus: ko.observable(),
                             isSelected: ko.observable(),
                             publishPackageExists: ko.observable(),
-                            publish: function() {
+                            publish: function () {
                             }
                         };
                     });
-                    
+
                     describe('and publish failed', function () {
 
                         it('should show error notification', function () {
@@ -677,7 +677,7 @@
                             waitsFor(function () {
                                 return !publishPromise.isPending();
                             });
-                            
+
                             runs(function () {
                                 expect(notify.error).toHaveBeenCalledWith('Course publish is failed');
                             });
@@ -720,7 +720,7 @@
                 it('should be a function', function () {
                     expect(viewModel.downloadCourse).toBeFunction();
                 });
-               
+
                 it('should send event \"Download course\"', function () {
                     viewModel.downloadCourse(course);
                     expect(eventTracker.publish).toHaveBeenCalledWith('Download course');
@@ -759,7 +759,7 @@
                     });
 
                 });
-                
+
                 describe('when deliveringState or deliveringState equals publishing', function () {
 
                     beforeEach(function () {
@@ -775,223 +775,278 @@
                 });
             });
 
-            describe('when course build was started', function () {
+            describe('build events handling:', function () {
 
-                var courseVm;
+                describe('when course build was started', function () {
 
-                beforeEach(function () {
-                    courseVm = {
-                        id: 'courseId',
-                        deliveringState: ko.observable(constants.deliveringStates.notStarted),
-                        showStatus: ko.observable(false)
-                    };
-                    viewModel.courses([courseVm]);
+                    var courseVm;
+
+                    beforeEach(function () {
+                        courseVm = {
+                            id: 'courseId',
+                            deliveringState: ko.observable(constants.deliveringStates.notStarted),
+                            showStatus: ko.observable(false)
+                        };
+                        viewModel.courses([courseVm]);
+                    });
+
+                    it('should change status of corresponding course to \'building\'', function () {
+                        app.trigger(constants.messages.course.build.started, { id: courseVm.id });
+                        expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.building);
+                    });
+
+                    it('should show building status for corresponding course', function () {
+                        app.trigger(constants.messages.course.build.started, { id: courseVm.id });
+                        expect(courseVm.showStatus()).toBeTruthy();
+                    });
+
+                    it('should not change status of other courses', function () {
+                        app.trigger(constants.messages.course.build.started, { id: '100500' });
+                        expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.notStarted);
+                    });
+
+                    it('should not show building status for other courses', function () {
+                        app.trigger(constants.messages.course.build.started, { id: '100500' });
+                        expect(courseVm.showStatus()).toBeFalsy();
+                    });
+
                 });
 
-                it('should change status of corresponding course to \'building\'', function () {
-                    app.trigger(constants.messages.course.build.started, { id: courseVm.id });
-                    expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.building);
+                describe('when course build completed', function () {
+
+                    var courseVm;
+
+                    beforeEach(function () {
+                        courseVm = {
+                            id: 'courseId',
+                            packageUrl: ko.observable('packageUrl'),
+                            deliveringState: ko.observable(constants.deliveringStates.inProgress)
+                        };
+                        viewModel.courses([courseVm]);
+                    });
+
+                    it('should change status of the corresponding course to \'success\'', function () {
+                        app.trigger(constants.messages.course.build.completed, { id: courseVm.id });
+                        expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.succeed);
+                    });
+
+                    it('should change packageUrl of the corresponding course', function () {
+                        var packageUrl = "http://xxx.com";
+                        app.trigger(constants.messages.course.build.completed, { id: courseVm.id, packageUrl: packageUrl });
+
+                        expect(courseVm.packageUrl()).toEqual(packageUrl);
+                    });
+
+                    it('should not change status of other courses', function () {
+                        app.trigger(constants.messages.course.build.completed, { id: '100500' });
+                        expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.inProgress);
+                    });
+
+                    it('should not change packageUrl of other courses', function () {
+                        var packageUrl = "http://xxx.com";
+                        app.trigger(constants.messages.course.build.completed, { id: '100500', packageUrl: packageUrl });
+
+                        expect(courseVm.packageUrl()).toEqual('packageUrl');
+                    });
+
                 });
 
-                it('should show building status for corresponding course', function () {
-                    app.trigger(constants.messages.course.build.started, { id: courseVm.id });
-                    expect(courseVm.showStatus()).toBeTruthy();
-                });
+                describe('when course build failed', function () {
 
-                it('should not change status of other courses', function () {
-                    app.trigger(constants.messages.course.build.started, { id: '100500' });
-                    expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.notStarted);
-                });
+                    var courseVm;
 
-                it('should not show building status for other courses', function () {
-                    app.trigger(constants.messages.course.build.started, { id: '100500' });
-                    expect(courseVm.showStatus()).toBeFalsy();
-                });
+                    beforeEach(function () {
+                        courseVm = {
+                            id: 'courseId',
+                            packageUrl: ko.observable('packageUrl'),
+                            deliveringState: ko.observable(constants.deliveringStates.inProgress),
+                        };
+                        viewModel.courses([courseVm]);
+                    });
 
-            });
+                    it('should change status of the corresponding course to \'failed\'', function () {
+                        app.trigger(constants.messages.course.build.failed, courseVm.id);
+                        expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.failed);
+                    });
 
-            describe('when course build completed', function () {
+                    it('should remove packageUrl of the corresponding course', function () {
+                        app.trigger(constants.messages.course.build.failed, courseVm.id);
+                        expect(courseVm.packageUrl()).toEqual("");
+                    });
 
-                var courseVm;
+                    it('should not change status of other courses', function () {
+                        app.trigger(constants.messages.course.build.failed, '100500');
+                        expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.inProgress);
+                    });
 
-                beforeEach(function () {
-                    courseVm = {
-                        id: 'courseId',
-                        packageUrl: ko.observable('packageUrl'),
-                        deliveringState: ko.observable(constants.deliveringStates.inProgress)
-                    };
-                    viewModel.courses([courseVm]);
-                });
+                    it('should not remove packageUrl of other courses', function () {
+                        app.trigger(constants.messages.course.build.failed, '100500');
+                        expect(courseVm.packageUrl()).toEqual("packageUrl");
+                    });
 
-                it('should change status of the corresponding course to \'success\'', function () {
-                    app.trigger(constants.messages.course.build.completed, { id: courseVm.id });
-                    expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.succeed);
-                });
-
-                it('should change packageUrl of the corresponding course', function () {
-                    var packageUrl = "http://xxx.com";
-                    app.trigger(constants.messages.course.build.completed, { id: courseVm.id, packageUrl: packageUrl });
-
-                    expect(courseVm.packageUrl()).toEqual(packageUrl);
-                });
-
-                it('should not change status of other courses', function () {
-                    app.trigger(constants.messages.course.build.completed, { id: '100500' });
-                    expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.inProgress);
-                });
-
-                it('should not change packageUrl of other courses', function () {
-                    var packageUrl = "http://xxx.com";
-                    app.trigger(constants.messages.course.build.completed, { id: '100500', packageUrl: packageUrl });
-
-                    expect(courseVm.packageUrl()).toEqual('packageUrl');
-                });
-
-            });
-
-            describe('when course build failed', function () {
-
-                var courseVm;
-
-                beforeEach(function () {
-                    courseVm = {
-                        id: 'courseId',
-                        packageUrl: ko.observable('packageUrl'),
-                        deliveringState: ko.observable(constants.deliveringStates.inProgress),
-                    };
-                    viewModel.courses([courseVm]);
-                });
-
-                it('should change status of the corresponding course to \'failed\'', function () {
-                    app.trigger(constants.messages.course.build.failed, courseVm.id);
-                    expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.failed);
-                });
-
-                it('should remove packageUrl of the corresponding course', function () {
-                    app.trigger(constants.messages.course.build.failed, courseVm.id);
-                    expect(courseVm.packageUrl()).toEqual("");
-                });
-
-                it('should not change status of other courses', function () {
-                    app.trigger(constants.messages.course.build.failed, '100500');
-                    expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.inProgress);
-                });
-
-                it('should not remove packageUrl of other courses', function () {
-                    app.trigger(constants.messages.course.build.failed, '100500');
-                    expect(courseVm.packageUrl()).toEqual("packageUrl");
-                });
-
-            });
-
-            describe('when course publish was started', function () {
-
-                var courseVm;
-
-                beforeEach(function () {
-                    courseVm = {
-                        id: 'courseId',
-                        deliveringState: ko.observable(constants.deliveringStates.notStarted),
-                        showStatus: ko.observable(false)
-                    };
-                    viewModel.courses([courseVm]);
-                });
-
-                it('should change deliveringState of corresponding course to \'publishing\'', function () {
-                    app.trigger(constants.messages.course.publish.started, { id: courseVm.id });
-                    expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.publishing);
-                });
-
-                it('should show deliveringState for corresponding course', function () {
-                    app.trigger(constants.messages.course.publish.started, { id: courseVm.id });
-                    expect(courseVm.showStatus()).toBeTruthy();
-                });
-
-                it('should not change deliveringState of other courses', function () {
-                    app.trigger(constants.messages.course.publish.started, { id: '100500' });
-                    expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.notStarted);
-                });
-
-                it('should not show deliveringState for other courses', function () {
-                    app.trigger(constants.messages.course.publish.started, { id: '100500' });
-                    expect(courseVm.showStatus()).toBeFalsy();
                 });
 
             });
 
-            describe('when course publish completed', function () {
+            describe('publish events handling:', function () {
 
-                var courseVm;
+                describe('when course publish was started', function () {
 
-                beforeEach(function () {
-                    courseVm = {
-                        id: 'courseId',
-                        publishedPackageUrl: ko.observable('packageUrl'),
-                        deliveringState: ko.observable(constants.deliveringStates.inProgress)
-                    };
-                    viewModel.courses([courseVm]);
+                    var courseVm;
+
+                    beforeEach(function () {
+                        courseVm = {
+                            id: 'courseId',
+                            deliveringState: ko.observable(constants.deliveringStates.notStarted),
+                            showStatus: ko.observable(false)
+                        };
+                        viewModel.courses([courseVm]);
+                    });
+
+                    it('should change deliveringState of corresponding course to \'publishing\'', function () {
+                        app.trigger(constants.messages.course.publish.started, { id: courseVm.id });
+                        expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.publishing);
+                    });
+
+                    it('should show deliveringState for corresponding course', function () {
+                        app.trigger(constants.messages.course.publish.started, { id: courseVm.id });
+                        expect(courseVm.showStatus()).toBeTruthy();
+                    });
+
+                    it('should not change deliveringState of other courses', function () {
+                        app.trigger(constants.messages.course.publish.started, { id: '100500' });
+                        expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.notStarted);
+                    });
+
+                    it('should not show deliveringState for other courses', function () {
+                        app.trigger(constants.messages.course.publish.started, { id: '100500' });
+                        expect(courseVm.showStatus()).toBeFalsy();
+                    });
+
                 });
 
-                it('should change deliveringState of the corresponding course to \'success\'', function () {
-                    app.trigger(constants.messages.course.publish.completed, { id: courseVm.id });
-                    expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.succeed);
+                describe('when course publish completed', function () {
+
+                    var courseVm;
+
+                    beforeEach(function () {
+                        courseVm = {
+                            id: 'courseId',
+                            publishedPackageUrl: ko.observable('packageUrl'),
+                            deliveringState: ko.observable(constants.deliveringStates.inProgress)
+                        };
+                        viewModel.courses([courseVm]);
+                    });
+
+                    it('should change deliveringState of the corresponding course to \'success\'', function () {
+                        app.trigger(constants.messages.course.publish.completed, { id: courseVm.id });
+                        expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.succeed);
+                    });
+
+                    it('should change publishedPackageUrl of the corresponding course', function () {
+                        var publishedPackageUrl = "http://xxx.com";
+                        app.trigger(constants.messages.course.publish.completed, { id: courseVm.id, publishedPackageUrl: publishedPackageUrl });
+
+                        expect(courseVm.publishedPackageUrl()).toEqual(publishedPackageUrl);
+                    });
+
+                    it('should not change deliveringState of other courses', function () {
+                        app.trigger(constants.messages.course.publish.completed, { id: '100500' });
+                        expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.inProgress);
+                    });
+
+                    it('should not change publishedPackageUrl of other courses', function () {
+                        var publishedPackageUrl = "http://xxx.com";
+                        app.trigger(constants.messages.course.publish.completed, { id: '100500', publishedPackageUrl: publishedPackageUrl });
+
+                        expect(courseVm.publishedPackageUrl()).toEqual('packageUrl');
+                    });
+
                 });
 
-                it('should change publishedPackageUrl of the corresponding course', function () {
-                    var publishedPackageUrl = "http://xxx.com";
-                    app.trigger(constants.messages.course.publish.completed, { id: courseVm.id, publishedPackageUrl: publishedPackageUrl });
+                describe('when course publish failed', function () {
 
-                    expect(courseVm.publishedPackageUrl()).toEqual(publishedPackageUrl);
-                });
+                    var courseVm;
 
-                it('should not change deliveringState of other courses', function () {
-                    app.trigger(constants.messages.course.publish.completed, { id: '100500' });
-                    expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.inProgress);
-                });
+                    beforeEach(function () {
+                        courseVm = {
+                            id: 'courseId',
+                            publishedPackageUrl: ko.observable('packageUrl'),
+                            deliveringState: ko.observable(constants.deliveringStates.inProgress),
+                        };
+                        viewModel.courses([courseVm]);
+                    });
 
-                it('should not change publishedPackageUrl of other courses', function () {
-                    var publishedPackageUrl = "http://xxx.com";
-                    app.trigger(constants.messages.course.publish.completed, { id: '100500', publishedPackageUrl: publishedPackageUrl });
+                    it('should change deliveringState of the corresponding course to \'failed\'', function () {
+                        app.trigger(constants.messages.course.publish.failed, courseVm.id);
+                        expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.failed);
+                    });
 
-                    expect(courseVm.publishedPackageUrl()).toEqual('packageUrl');
+                    it('should remove publishedPackageUrl of the corresponding course', function () {
+                        app.trigger(constants.messages.course.publish.failed, courseVm.id);
+                        expect(courseVm.publishedPackageUrl()).toEqual("");
+                    });
+
+                    it('should not change deliveringState of other courses', function () {
+                        app.trigger(constants.messages.course.publish.failed, '100500');
+                        expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.inProgress);
+                    });
+
+                    it('should not remove publishedPackageUrl of other courses', function () {
+                        app.trigger(constants.messages.course.publish.failed, '100500');
+                        expect(courseVm.publishedPackageUrl()).toEqual("packageUrl");
+                    });
+
                 });
 
             });
 
-            describe('when course publish failed', function () {
+            describe('openPublishedCourse:', function () {
 
-                var courseVm;
+                it('should be a function', function () {
+                    expect(viewModel.openPublishedCourse).toBeFunction();
+                });
 
                 beforeEach(function () {
-                    courseVm = {
-                        id: 'courseId',
-                        publishedPackageUrl: ko.observable('packageUrl'),
-                        deliveringState: ko.observable(constants.deliveringStates.inProgress),
-                    };
-                    viewModel.courses([courseVm]);
+                    spyOn(router, 'openUrl');
                 });
 
-                it('should change deliveringState of the corresponding course to \'failed\'', function () {
-                    app.trigger(constants.messages.course.publish.failed, courseVm.id);
-                    expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.failed);
+                describe('when published package exists', function () {
+
+                    it('should open published course link', function () {
+                        var course = {
+                            publishedPackageUrl: ko.observable('published course link'),
+                            publishPackageExists: ko.computed(function () {
+                                return true;
+                            })
+                        };
+
+                        viewModel.openPublishedCourse(course);
+
+                        expect(router.openUrl).toHaveBeenCalledWith('published course link');
+                    });
+
                 });
 
-                it('should remove publishedPackageUrl of the corresponding course', function () {
-                    app.trigger(constants.messages.course.publish.failed, courseVm.id);
-                    expect(courseVm.publishedPackageUrl()).toEqual("");
-                });
+                describe('when published package does not exist', function () {
 
-                it('should not change deliveringState of other courses', function () {
-                    app.trigger(constants.messages.course.publish.failed, '100500');
-                    expect(courseVm.deliveringState()).toEqual(constants.deliveringStates.inProgress);
-                });
+                    it('should not open published course link', function () {
+                        var course = {
+                            publishedPackageUrl: ko.observable('published course link'),
+                            publishPackageExists: ko.computed(function () {
+                                return false;
+                            })
+                        };
 
-                it('should not remove publishedPackageUrl of other courses', function () {
-                    app.trigger(constants.messages.course.publish.failed, '100500');
-                    expect(courseVm.publishedPackageUrl()).toEqual("packageUrl");
+                        viewModel.openPublishedCourse(course);
+
+                        expect(router.openUrl).not.toHaveBeenCalled();
+                    });
+
                 });
 
             });
+
         });
     }
 );

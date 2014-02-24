@@ -32,6 +32,7 @@
             enableOpenCourse: enableOpenCourse,
             
             publishCourse: publishCourse,
+            openPublishedCourse: openPublishedCourse,
 
             deleteSelectedCourses: deleteSelectedCourses,
             lastVistedCourseId: '',
@@ -40,6 +41,62 @@
             activate: activate,
             deactivate: deactivate
         };
+
+        viewModel.enableDeleteCourses = ko.computed(function () {
+            return getSelectedCourses().length > 0;
+        });
+
+        //#region build events
+
+        app.on(constants.messages.course.build.started).then(function (course) {
+            updateCourseViewModelIfExists(course.id, function (expVm) {
+                expVm.deliveringState(constants.deliveringStates.building);
+                expVm.showStatus(true);
+            });
+        });
+
+        app.on(constants.messages.course.build.completed, function (course) {
+            updateCourseViewModelIfExists(course.id, function (expVm) {
+
+                expVm.deliveringState(constants.deliveringStates.succeed);
+                expVm.packageUrl(course.packageUrl);
+            });
+        });
+
+        app.on(constants.messages.course.build.failed, function (courseId) {
+            updateCourseViewModelIfExists(courseId, function (expVm) {
+                expVm.deliveringState(constants.deliveringStates.failed);
+                expVm.packageUrl('');
+            });
+        });
+
+        //#endregion build events
+
+        //#region publish events
+        app.on(constants.messages.course.publish.started).then(function (course) {
+            updateCourseViewModelIfExists(course.id, function (expVm) {
+                expVm.deliveringState(constants.deliveringStates.publishing);
+                expVm.showStatus(true);
+            });
+        });
+
+        app.on(constants.messages.course.publish.completed, function (course) {
+            updateCourseViewModelIfExists(course.id, function (expVm) {
+                expVm.deliveringState(constants.deliveringStates.succeed);
+                expVm.publishedPackageUrl(course.publishedPackageUrl);
+            });
+        });
+
+        app.on(constants.messages.course.publish.failed, function (courseId) {
+            updateCourseViewModelIfExists(courseId, function (expVm) {
+                expVm.deliveringState(constants.deliveringStates.failed);
+                expVm.publishedPackageUrl('');
+            });
+        });
+
+        //#endregion publish events
+
+        return viewModel;
 
         function toggleSelection(course) {
             if (!course.isSelected())
@@ -114,10 +171,6 @@
                 return course.isSelected && course.isSelected();
             });
         }
-
-        viewModel.enableDeleteCourses = ko.computed(function () {
-            return getSelectedCourses().length > 0;
-        });
 
         function deleteSelectedCourses() {
             eventTracker.publish(events.deleteCourse);
@@ -196,53 +249,12 @@
             }
         }
 
-        //#region App-wide messaging
+        function openPublishedCourse(course) {
+            if(course.publishPackageExists()) {
+                router.openUrl(course.publishedPackageUrl());
+            }
+        }
 
-        app.on(constants.messages.course.build.started).then(function (course) {
-            updateCourseViewModelIfExists(course.id, function (expVm) {
-                expVm.deliveringState(constants.deliveringStates.building);
-                expVm.showStatus(true);
-            });
-        });
-
-        app.on(constants.messages.course.build.completed, function (course) {
-            updateCourseViewModelIfExists(course.id, function (expVm) {
-                
-                expVm.deliveringState(constants.deliveringStates.succeed);
-                expVm.packageUrl(course.packageUrl);
-            });
-        });
-
-        app.on(constants.messages.course.build.failed, function (courseId) {
-            updateCourseViewModelIfExists(courseId, function (expVm) {
-                expVm.deliveringState(constants.deliveringStates.failed);
-                expVm.packageUrl('');
-            });
-        });
-        
-        // #region publish events
-        app.on(constants.messages.course.publish.started).then(function (course) {
-            updateCourseViewModelIfExists(course.id, function (expVm) {
-                expVm.deliveringState(constants.deliveringStates.publishing);
-                expVm.showStatus(true);
-            });
-        });
-
-        app.on(constants.messages.course.publish.completed, function (course) {
-            updateCourseViewModelIfExists(course.id, function (expVm) {
-                expVm.deliveringState(constants.deliveringStates.succeed);
-                expVm.publishedPackageUrl(course.publishedPackageUrl);
-            });
-        });
-
-        app.on(constants.messages.course.publish.failed, function (courseId) {
-            updateCourseViewModelIfExists(courseId, function (expVm) {
-                expVm.deliveringState(constants.deliveringStates.failed);
-                expVm.publishedPackageUrl('');
-            });
-        });
-        // #endregion publish events
-        
         function updateCourseViewModelIfExists(courseId, handler) {
             var expVm = _.find(viewModel.courses(), function (item) {
                 return item.id == courseId;
@@ -252,9 +264,5 @@
                 handler(expVm);
             }
         }
-
-        //#endregion App-wide messaging
-
-        return viewModel;
     }
 );
