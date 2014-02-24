@@ -22,6 +22,12 @@
 
         });
 
+        describe('isNavigatingToAnotherView:', function () {
+            it('should be defined observable', function () {
+                expect(viewModel.isNavigatingToAnotherView).toBeObservable();
+            });
+        });
+        
         describe('activate:', function () {
 
             it('should be function', function () {

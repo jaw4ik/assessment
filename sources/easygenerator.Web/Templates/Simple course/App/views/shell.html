@@ -21,9 +21,9 @@
         <!-- /ko -->
     </ul>
 </div>
-<div class="loader" data-bind="visible: router.isNavigating()">
+<div class="loader" data-bind="visible: isNavigatingToAnotherView()">
     <div class="loader-image"></div>
 </div>
-<section id="content" class="content-wrapper" data-bind="visible: !router.isNavigating()">
-    <!--ko router: { cacheViews:false }--><!--/ko-->    
+<section id="content" class="content-wrapper" data-bind="visible: !isNavigatingToAnotherView()">
+    <!--ko router: { cacheViews:false }--><!--/ko-->
 </section>

@@ -9,6 +9,11 @@
         box-sizing: border-box;
     }
 
+html {
+    overflow-y: scroll;
+    overflow: -moz-scrollbars-vertical;
+}
+
 html, body, .application-wrapper {
     width: 100%;
 }

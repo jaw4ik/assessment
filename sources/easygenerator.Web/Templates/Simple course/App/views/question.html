@@ -9,11 +9,16 @@
         </div>
         <div class="questions-navigation-container">
             <div class="questions-navigation-title"><span>Questions</span></div>
-            <!-- ko compose: { view: 'questionsNavigation', preserveContext: true } --><!--/ko-->
+            <div>
+                <a class="question-navigation-button previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: isPreviousQuestionAvailable() ? 'previous question' : '' }, css: { disabled: !isPreviousQuestionAvailable() }">&nbsp;</a><span class="questions-counter" data-bind="text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span><a class="question-navigation-button" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: isNextQuestionAvailable() ? 'next question' : '' }, css: { disabled: !isNextQuestionAvailable() }">&nbsp;</a>
+            </div>
         </div>
     </div>
-
-    <div class="content-holder">
+    <div class="loader" data-bind="visible: isLoadingNewQuestion()">
+        <div class="loader-image"></div>
+    </div>    
+    <!-- ko ifnot: isLoadingNewQuestion -->
+    <div class="content-holder" data-bind="visible: !isLoadingNewQuestion()">
         <!-- ko if: learningContents.length > 0 -->
         <!-- ko compose: 'learningContents.html'-->
         <!-- /ko -->
@@ -75,7 +80,10 @@
     </div>
     <div class="navigation-link-container clearfix">
         <div class="questions-navigation-container">
-            <!-- ko compose: { view: 'questionsNavigation', preserveContext: true } --><!--/ko-->
+            <div>
+                <a class="question-navigation-button previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: isPreviousQuestionAvailable() ? 'previous question' : '' }, css: { disabled: !isPreviousQuestionAvailable() }">&nbsp;</a><span class="questions-counter" data-bind="text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span><a class="question-navigation-button" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: isNextQuestionAvailable() ? 'next question' : '' }, css: { disabled: !isNextQuestionAvailable() }">&nbsp;</a>
+            </div>
         </div>
     </div>
+    <!-- /ko -->
 </section>

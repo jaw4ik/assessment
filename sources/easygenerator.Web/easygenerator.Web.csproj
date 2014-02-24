@@ -1159,7 +1159,6 @@
     <Content Include="Templates\Simple course\App\views\notsupportedbrowserMobile.html" />
     <Content Include="Templates\Simple course\App\views\objectives.html" />
     <Content Include="Templates\Simple course\App\views\question.html" />
-    <Content Include="Templates\Simple course\App\views\questionsNavigation.html" />
     <Content Include="Templates\Simple course\App\views\shell.html" />
     <Content Include="Templates\Simple course\App\windowOperations.js" />
     <Content Include="Templates\Simple course\App\windowOperations.spec.js">

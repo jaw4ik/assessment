@@ -28,9 +28,24 @@
             },
             
             logoUrl: '',
+            isNavigatingToAnotherView: ko.observable(false),
+
 
             activate: function () {
                 var that = this;
+                
+                router.on('router:route:activating').then(function (newView) {
+                    var currentView = router.activeItem();
+                    if (newView && currentView && newView.__moduleId__ === currentView.__moduleId__) {
+                        return;
+                    }
+                    that.isNavigatingToAnotherView(true);
+                });
+                
+                router.on('router:navigation:composition-complete').then(function () {
+                    that.isNavigatingToAnotherView(false);
+                });
+                
                 return context.initialize().then(function (dataContext) {
                     app.title = dataContext.course.title;
 

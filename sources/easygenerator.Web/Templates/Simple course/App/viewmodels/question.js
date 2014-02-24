@@ -20,6 +20,10 @@
             deactivate: deactivate
         };
 
+        viewModel.isLoadingNewQuestion = ko.computed(function () {
+           return router.isNavigating();
+        });
+
         viewModel.isNextQuestionAvailable = function () {
             return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl);
         };
@@ -109,7 +113,7 @@
 
             viewModel.isAnswered(question.isAnswered);
             viewModel.isCorrect(question.isCorrectAnswered);
-            
+
             viewModel.objective.calculateScore();
             viewModel.objectiveScore(viewModel.objective.score);
         }

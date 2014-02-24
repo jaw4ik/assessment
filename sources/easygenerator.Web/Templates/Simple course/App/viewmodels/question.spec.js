@@ -32,6 +32,7 @@
                 score: 80,
                 calculateScore: function () { }
             };
+        
 
         beforeEach(function () {
             spyOn(router, 'navigate');
@@ -108,6 +109,12 @@
         describe('navigationContext:', function () {
             it('should be defined', function () {
                 expect(viewModel.navigationContext).toBeDefined();
+            });
+        });
+
+        describe('isLoadingNewQuestion:', function () {
+            it('should be defined computed', function() {
+                expect(viewModel.isLoadingNewQuestion).toBeComputed();
             });
         });
 
