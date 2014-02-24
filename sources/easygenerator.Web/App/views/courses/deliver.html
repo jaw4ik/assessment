@@ -129,7 +129,7 @@
                     <!-- ko if: publishAction().packageExists() -->
                     <div class="copy-link-control" data-bind="css: { disabled: isDeliveringInProgress() }">
                         <div class="copy-link-input-wrapper">
-                            <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: publishAction().packageUrl(), css: { selectable: !isDeliveringInProgress() }, selectTextBinding: publishAction().packageExists()" />
+                            <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: publishAction().packageUrl(), css: { selectable: !isDeliveringInProgress() }, selectTextBinding: publishAction().state() === states.succeed" />
                         </div>
                         <div class="open-link-btn-wrapper">
                             <div class="open-link-description-wrapper">
