@@ -70,7 +70,7 @@ menu, nav, section, summary, mark, audio, video {
     outline: 0;
 }
 
-html, body, div, article, aside,
+html, div, article, aside,
 footer, header, menu, nav, section {
     -moz-user-select: none;
     -webkit-user-select: none;
