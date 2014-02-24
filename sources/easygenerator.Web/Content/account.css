@@ -669,8 +669,9 @@ body.try {
 }
 
 .password-requirements .password-requirements-item {
-    display: table-cell;
+    display: inline-block;
     position: relative;
+    float: left;
 }
 
 .password-requirements-item + .password-requirements-item {
