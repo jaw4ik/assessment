@@ -26,7 +26,8 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         private HttpHelper _httpHelper;
 
         private const string emailToSubscribe = "test@easygenerator.com";
-        private const string userName = "userName";
+        private const string firstName = "firstName";
+        private const string lastName = "lastName";
         private const string serviceUrl = "serviceUrl";
         private const string getListMethodPath = "serviceUrl/lists/list";
         private const string subscribeMethodPath = "serviceUrl/lists/subscribe";
@@ -57,7 +58,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _configurationReader.MailChimpConfiguration.Returns(_mailChimpConfiguration);
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, userName);
+            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
 
             // Assert
             result.Should().BeTrue();
@@ -68,7 +69,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         {
             // Arrange
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, userName);
+            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
 
             // Assert
             _httpHelper.Received().Post<object, MailChimpLists>(Arg.Is(getListMethodPath), Arg.Any<object>());
@@ -84,7 +85,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpHelper.Post<object, MailChimpLists>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, userName);
+            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
 
             // Assert
             result.Should().BeFalse();
@@ -101,7 +102,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpHelper.Post<object, MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, userName);
+            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
 
             // Assert
             result.Should().BeFalse();
@@ -117,7 +118,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpHelper.Post<object, MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, userName);
+            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
 
             // Assert
             result.Should().BeFalse();
@@ -134,7 +135,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpHelper.Post<object, MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, userName);
+            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
 
             // Assert
             _httpHelper.Received().Post<object, MailChimpSubscription>(Arg.Is(subscribeMethodPath), Arg.Any<object>());
@@ -152,7 +153,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpHelper.Post<object, MailChimpSubscription>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, userName);
+            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
 
             // Assert
             result.Should().BeFalse();
@@ -170,7 +171,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpHelper.Post<object, MailChimpSubscription>(null, null).Returns(new MailChimpSubscription() { Email = "someother@mail.com"} );
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, userName);
+            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
 
             // Assert
             result.Should().BeFalse();
@@ -188,7 +189,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpHelper.Post<object, MailChimpSubscription>(null, null).ReturnsForAnyArgs(new MailChimpSubscription() { Email = emailToSubscribe });
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, userName);
+            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
 
             // Assert
             result.Should().BeTrue();

@@ -168,8 +168,11 @@
   <data name="EnterValidEmailMessage" xml:space="preserve">
     <value>Enter a valid e-mail</value>
   </data>
-  <data name="EnterValidFullName" xml:space="preserve">
-    <value>Fill in your full name</value>
+  <data name="EnterValidFirstName" xml:space="preserve">
+    <value>Fill in your first name</value>
+  </data>
+  <data name="EnterValidLastName" xml:space="preserve">
+    <value>Fill in your last name</value>
   </data>
   <data name="EnterValidOrganization" xml:space="preserve">
     <value>Fill in your organization name</value>
@@ -179,6 +182,9 @@
   </data>
   <data name="Finish" xml:space="preserve">
     <value>Finish</value>
+  </data>
+  <data name="FirstNameCaption" xml:space="preserve">
+    <value>First name</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
     <value>Forgot your password?</value>
@@ -212,6 +218,9 @@ your password.</value>
   <data name="FullNameCaption" xml:space="preserve">
     <value>Full name</value>
   </data>
+  <data name="Hide" xml:space="preserve">
+    <value>hide</value>
+  </data>
   <data name="HidePassword" xml:space="preserve">
     <value>Hide password</value>
   </data>
@@ -226,6 +235,9 @@ your password.</value>
   </data>
   <data name="JustLooking" xml:space="preserve">
     <value>Just looking</value>
+  </data>
+  <data name="LastNameCaption" xml:space="preserve">
+    <value>Last name</value>
   </data>
   <data name="LicenseAgreeCheckBoxTitle" xml:space="preserve">
     <value>I have read and I agree to the &lt;a href="{0}"&gt;Terms&lt;/a&gt; and &lt;a href="{1}"&gt;Privacy&lt;/a&gt;</value>
@@ -273,10 +285,13 @@ your password.</value>
     <value>An error was encountered while processing your request:</value>
   </data>
   <data name="RequiredInformation" xml:space="preserve">
-    <value>- required information</value>
+    <value>- all field are required</value>
   </data>
   <data name="RestorePasswordCaption" xml:space="preserve">
     <value>Enter your new password</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>show</value>
   </data>
   <data name="ShowPassword" xml:space="preserve">
     <value>Show password</value>

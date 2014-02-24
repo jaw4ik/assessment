@@ -8,7 +8,7 @@
 
 .selectbox-options-list {
     position: absolute;
-    z-index: 2;
+    z-index: 300;
 }
 
 /*#endregion COMMON SELECTBOX STYLES*/
@@ -86,7 +86,7 @@
 /*#region USER-FROM SELECTBOX STYLES*/
 .user-form-selectbox.selectbox {
     font-size: 16px;
-    max-width: 600px;
+    max-width: 550px;
     margin-top: 10px;
 }
 
@@ -97,7 +97,7 @@
 .user-form-selectbox .selectbox-options-list {
     display: none;
     width: 100%;
-    margin-top: -1px;
+    margin-top: -11px;
     list-style-type: none;
     top: 51px;
     border: 1px solid #ccc;
@@ -109,7 +109,7 @@
     .user-form-selectbox .selectbox-options-list.selectbox-scroll {
         overflow-x: hidden;
         overflow-y: scroll;
-        max-height: 215px;
+        max-height: 200px;
     }
 
 .user-form-selectbox .selectbox-current-item {
@@ -118,7 +118,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     min-width: 50px;
-    height: 50px;
+    height: 40px;
 }
 
     .user-form-selectbox .selectbox-current-item.expanded {
@@ -129,16 +129,16 @@
     position: absolute;
     width: 100%;
     z-index: 1;
-    padding: 13px 55px 13px 20px;
-    color: #c3c3c3;
+    padding: 8px 55px 8px 10px;
+    color: #999;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-    .user-form-selectbox .selectbox-current-item-text.choosen {
+    .user-form-selectbox .selectbox-current-item-text.choosen{
         color: #333;
-    }
+    } 
 
 .user-form-selectbox .selectbox-caret-holder {
     height: 100%;
@@ -159,6 +159,7 @@
     height: 6px;
     margin-top: -3px;
     margin-left: -6px;
+    opacity: 0.4;
     background: url(../Content/images/sprites.png) -116px -54px;
 }
 
@@ -188,10 +189,10 @@
 .user-form-selectbox .selectbox-filter-input {
     display: inline-block;
     position: relative;
-    max-width: 320px;
+    max-width: 200px;
     height: 24px;
     width: 100%;
-    top: 12px;
+    top: 7px;
     left: 0;
     right: 40px;
     border: none;
@@ -206,7 +207,7 @@
 }
 
 .user-form-selectbox .selectbox-current-item.filter {
-    height: 50px;
+    height: 40px;
 }
 
 .user-form-selectbox .selectbox-option-item.error {
@@ -215,3 +216,11 @@
 }
 
 /*#endregion USER-FORM SELECTBOX STYLES*/
+
+@media screen and (min-width:0\0) {
+    /*#region Styles for IE9-10*/
+    .user-form-selectbox .selectbox-current-item-text {
+        color: #333;
+    }
+    /*#endregion Styles for IE9-10*/
+}  

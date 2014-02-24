@@ -136,8 +136,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
-
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            
             //Act
             _controller.Signup(profile);
 
@@ -151,7 +151,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -175,7 +175,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.IsAuthenticated.Returns(true);
             _user.Identity.Name.Returns(tryItNowUsername);
             _userRepository.GetUserByEmail(tryItNowUsername).Returns((User)null);
-            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -190,7 +190,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -205,7 +205,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
 
             //Act
             var result = _controller.Signup(profile);
@@ -220,7 +220,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
             _user.Identity.IsAuthenticated.Returns(true);
 
             //Act
@@ -236,7 +236,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
             _user.Identity.IsAuthenticated.Returns(false);
 
             //Act
@@ -252,8 +252,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
-
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
             //Act
             _controller.Signup(profile);
 
@@ -267,7 +266,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             {
                 Country = "Ukraine",
                 Email = "easygenerator@easygenerator.com",
-                FullName = "easygenerator user",
+                FirstName = "easygenerator user firstname",
+                LastName = "easygenerator user lastname",
                 Phone = "+380777777",
                 Organization = "ism",
                 Password = "UserPassword777",
@@ -571,7 +571,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             result.Should().BeJsonResult().And.Data.ShouldBeSimilar(new
             {
                 email = user.Email,
-                fullname = user.FullName,
+                fullname = user.FirstName + " " + user.LastName,
                 accessType = user.AccessType
             });
         }

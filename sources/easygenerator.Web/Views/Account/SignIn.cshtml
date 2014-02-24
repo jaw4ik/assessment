@@ -5,44 +5,52 @@
 }
 <section class="view-module log-in">
     <div class="user-columns">
-        <div class="user-column form">
-            <div class="user-title">@Resources.SignIn </div>
-            <form class="user-form" id="signinForm" action="#" method="post" data-bind="submit: submit, focusHandler: {}">
-                <div class="user-form-row" data-bind="css: { error: hasError() || (!username.isValid() && username.isModified()) }">
-                    <label class="user-form-label email">@Resources.EmailCaption</label>
-                    <div class="user-form-input-holder">
-                        <span class="user-form-input-wrapper"></span>
-                        <input class="user-form-input" type="text" name="email" autocomplete="off" data-bind="value: username, valueUpdate: 'afterkeydown', event: { blur: username.markAsModified }" ondrop="return false;" />
+        <div class="user-column form-login">
+            <div class="user-title">@Resources.SignIn</div>
+            <div class="user-form">
+                <form id="signinForm" action="#" method="post" data-bind="submit: submit, focusHandler: {}">
+                    <div class="user-form-row" data-bind="css: { error: hasError() || (!username.isValid() && username.isModified()) }">
+                        <div class="user-form-input-holder email">
+                            <span class="user-form-input-wrapper"></span>
+                            <input class="user-form-input" type="text" name="email" autocomplete="off" placeholder="@Resources.EmailCaption" data-bind="value: username, valueUpdate: 'afterkeydown', event: { blur: username.markAsModified }, placeholder: {}" ondrop="return false;" />
+                        </div>
+                        <!-- ko if: !username.isValid() && username.isModified() -->
+                        <span class="user-form-message">@Resources.EnterValidEmailMessage</span>
+                        <!-- /ko -->
                     </div>
-                    <!-- ko if: !username.isValid() && username.isModified() -->
-                    <span class="user-form-message">@Resources.EnterValidEmailMessage</span>
+                    <div class="user-form-row" data-bind="css: { error: hasError }">
+                        <div class="user-form-input-holder password">
+                            <span class="user-form-input-wrapper"></span>
+                            <input class="user-form-input" type="password" name="password" placeholder="@Resources.PasswordCaption" autocomplete="off" data-bind="value: password, valueUpdate: 'afterkeydown', attr: { type: isPasswordVisible() ? 'text' : 'password' }, placeholder: {}" ondrop="return false;" />
+                            <div class="user-form-checkbox-holder password clearfix" data-bind="attr: { title: isPasswordVisible() ? '@Resources.HidePassword' : '@Resources.ShowPassword' } ">
+                                <div class="user-form-checkbox password" data-bind="css: { checked: isPasswordVisible }">
+                                    <input id="uf-checkbox" class="custom-checkbox" type="checkbox" data-bind="checked: isPasswordVisible" />
+                                </div>
+                                <div class="user-form-checkbox-label password">
+                                    <label for="uf-checkbox" data-bind="text: isPasswordVisible() ? '@Resources.Hide' : '@Resources.Show'">
+                                    </label>
+                                </div>
+                             </div>
+                        </div>
+                        <div class="forgot-password-wrapper">
+                            <a class="forgot-password-link pull-right" data-bind="css: { 'disabled': !username.isValid() || !forgotPasswordEnabled() }, click: forgotPassword">@Resources.ForgotPassword</a>
+                        </div>
+                    </div>
+                    <div class="user-form-notification warning" data-bind="css: { visible: hasError() }">
+                        <span class="user-form-notification-text" data-bind="text: errorMessage"></span>
+                    </div>
+                    <!-- ko if: forgotPasswordSent -->
+                    <div class="user-form-notification info" data-bind="css: { visible: forgotPasswordSent() }">
+                        <span class="user-form-notification-text">@Resources.ForgotPasswordSent</span>
+                    </div>
                     <!-- /ko -->
-                </div>
-                <div class="user-form-row" data-bind="css: { error: hasError }">
-                    <label class="user-form-label password">@Resources.PasswordCaption</label>
-                    <div class="user-form-input-holder">
-                        <span class="user-form-input-wrapper"></span>
-                        <input class="user-form-input" type="password" name="password" autocomplete="off" data-bind="value: password, valueUpdate: 'afterkeydown', attr: { type: isPasswordVisible() ? 'text' : 'password' }" ondrop="return false;" />
-                        <a href="#" class="user-form-password-eye" data-bind="css: { revealed: isPasswordVisible }, click: togglePasswordVisibility, attr: { title: isPasswordVisible() ? '@Resources.HidePassword' : '@Resources.ShowPassword' }"></a>
+                    <div class="user-form-row submit">
+                        <div class="formBtn">
+                            <input class="green btn user-form-btn" type="submit" data-bind="enable: canSubmit, css: { disabled: !canSubmit() }" value="@Resources.SignIn ">
+                        </div>
                     </div>
-                    <div class="forgot-password-wrapper">
-                        <a class="forgot-password-link pull-right" data-bind="css: { 'disabled': !username.isValid() || !forgotPasswordEnabled() }, click: forgotPassword">@Resources.ForgotPassword</a>
-                    </div>
-                </div>
-                <div class="user-form-notification warning" data-bind="css: { visible: hasError() }">
-                    <span class="user-form-notification-text" data-bind="text: errorMessage"></span>
-                </div>
-                <!-- ko if: forgotPasswordSent -->
-                <div class="user-form-notification info" data-bind="css: { visible: forgotPasswordSent() }">
-                    <span class="user-form-notification-text">@Resources.ForgotPasswordSent</span>
-                </div>
-                <!-- /ko -->
-                <div class="user-form-row submit">
-                    <div class="formBtn">
-                        <input class="green btn user-form-btn" type="submit" data-bind="enable: canSubmit, css: { disabled: !canSubmit() }" value="@Resources.SignIn ">
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
         <div class="user-column image">
             <img class="user-column-image" src="~/Content/images/account/log-in.jpg" alt="#" />

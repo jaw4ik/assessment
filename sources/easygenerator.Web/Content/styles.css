@@ -715,6 +715,7 @@ span.top-navigation-item.current {
     height: 100%;
     width: 100%;
     opacity: 0;
+    z-index: 10;
     filter: alpha(opacity=0);
 }
 

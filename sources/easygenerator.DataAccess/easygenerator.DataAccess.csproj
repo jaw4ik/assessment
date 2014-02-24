@@ -132,6 +132,10 @@
     <Compile Include="Migrations\201402190657525_AddQuestionsOrderColumnToObjectivesTable.Designer.cs">
       <DependentUpon>201402190657525_AddQuestionsOrderColumnToObjectivesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201402201534148_RemoveFullNameAndAddFirstNameAndLastNameToTableUsers.cs" />
+    <Compile Include="Migrations\201402201534148_RemoveFullNameAndAddFirstNameAndLastNameToTableUsers.Designer.cs">
+      <DependentUpon>201402201534148_RemoveFullNameAndAddFirstNameAndLastNameToTableUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
@@ -213,6 +217,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201402190657525_AddQuestionsOrderColumnToObjectivesTable.resx">
       <DependentUpon>201402190657525_AddQuestionsOrderColumnToObjectivesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201402201534148_RemoveFullNameAndAddFirstNameAndLastNameToTableUsers.resx">
+      <DependentUpon>201402201534148_RemoveFullNameAndAddFirstNameAndLastNameToTableUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

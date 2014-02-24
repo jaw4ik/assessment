@@ -12,20 +12,22 @@ namespace easygenerator.DomainModel.Entities
     {
         protected internal User() { }
 
-        protected internal User(string email, string password, string fullname, string phone, string organization,
+        protected internal User(string email, string password, string firstname, string lastname, string phone, string organization,
             string country, string createdBy, UserSettings userSettings)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
             ThrowIfPasswordIsNotValid(password);
-            ArgumentValidation.ThrowIfNullOrEmpty(fullname, "fullName");
+            ArgumentValidation.ThrowIfNullOrEmpty(firstname, "firstname");
+            ArgumentValidation.ThrowIfNullOrEmpty(lastname, "lastname");
             ArgumentValidation.ThrowIfNullOrEmpty(phone, "phone");
             ArgumentValidation.ThrowIfNullOrEmpty(organization, "organization");
             ArgumentValidation.ThrowIfNullOrEmpty(country, "country");
-
+            
             Email = email;
             PasswordHash = Cryptography.GetHash(password);
-            FullName = fullname;
+            FirstName = firstname;
+            LastName = lastname;
             Phone = phone;
             Organization = organization;
             Country = country;
@@ -37,7 +39,8 @@ namespace easygenerator.DomainModel.Entities
         public string Email { get; protected set; }
         public string PasswordHash { get; private set; }
 
-        public string FullName { get; private set; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
         public string Phone { get; private set; }
         public string Organization { get; private set; }
         public string Country { get; private set; }
@@ -46,6 +49,11 @@ namespace easygenerator.DomainModel.Entities
         public virtual bool VerifyPassword(string password)
         {
             return Cryptography.VerifyHash(password, PasswordHash);
+        }
+
+        public virtual string GetFullName()
+        {
+            return (FirstName + " " + LastName).Trim();
         }
 
         public virtual UserSettings UserSetting { get; private set; }

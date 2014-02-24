@@ -36,6 +36,8 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/underscore.js")
                     .Include("~/scripts/underscore.extensions.js")
                     .Include("~/scripts/knockoutBindings/selectBoxBinding.js")
+                    .Include("~/scripts/jquery.placeholder.js")
+                    .Include("~/scripts/knockoutBindings/placeholderBinding.js")
                 );
 
             bundles.Add(new ScriptBundle("~/bundles/scripts/review")

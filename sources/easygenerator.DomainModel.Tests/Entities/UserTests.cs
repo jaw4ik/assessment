@@ -126,13 +126,23 @@ namespace easygenerator.DomainModel.Tests.Entities
 
 
         [TestMethod]
-        public void User_ShouldThrowArgumentNullException_WhenFullNameIsNull()
+        public void User_ShouldThrowArgumentNullException_WhenFirstNameIsNull()
         {
             //Arrange
-            Action action = () => UserObjectMother.CreateWithFullName(null);
+            Action action = () => UserObjectMother.CreateWithFirstName(null);
 
             //Act & Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("fullName");
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("firstname");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentNullException_WhenLastNameIsNull()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithLastName(null);
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("lastname");
         }
 
         [TestMethod]
@@ -166,13 +176,23 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void User_ShouldThrowArgumentNullException_WhenFullNameIsEmpty()
+        public void User_ShouldThrowArgumentNullException_WhenFirstNameIsEmpty()
         {
             //Arrange
-            Action action = () => UserObjectMother.CreateWithFullName("");
+            Action action = () => UserObjectMother.CreateWithFirstName("");
 
             //Act & Assert
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("fullName");
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("firstname");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentNullException_WhenLastNameIsEmpty()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithLastName("");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("lastname");
         }
 
         [TestMethod]
@@ -211,20 +231,22 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Arrange
             var email = "easygenerator3@easygenerator.com";
             var password = "Easy123!";
-            var fullname = "easygenerator user";
+            var firstname = "easygenerator user firstname";
+            var lastname = "easygenerator user lastname";
             var phone = "some phone";
             var organization = "Easygenerator";
             var country = "some country";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
-            var user = UserObjectMother.Create(email, password, fullname, phone, organization, country, CreatedBy);
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, organization, country, CreatedBy);
 
             //Assert
             user.Id.Should().NotBeEmpty();
             user.Email.Should().Be(email);
             user.VerifyPassword(password).Should().BeTrue();
-            user.FullName.Should().Be(fullname);
+            user.FirstName.Should().Be(firstname);
+            user.LastName.Should().Be(lastname);
             user.Phone.Should().Be(phone);
             user.Organization.Should().Be(organization);
             user.Country.Should().Be(country);
@@ -275,6 +297,24 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region GetFullName
+
+        [TestMethod]
+        public void GetFullName_ShouldReturnFullName()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+
+            //Act
+            var result = user.GetFullName();
+
+            //Assert
+            result.Should().Be(user.FirstName + " " + user.LastName);
+        }
+
+        #endregion GetFullName
 
         #region Add password recovery ticket
 

@@ -78,16 +78,16 @@
 
         });
 
-        describe('fullName:', function () {
+        describe('firstName:', function() {
 
-            it('should be observable', function () {
-                expect(viewModel.fullName).toBeObservable();
+            it('should be observable', function() {
+                expect(viewModel.firstName).toBeObservable();
             });
 
-            describe('isValid:', function () {
+            describe('isValid:', function() {
 
-                it('should be computed', function () {
-                    expect(viewModel.fullName.isValid).toBeComputed();
+                it('should be computed', function() {
+                    expect(viewModel.firstName.isValid).toBeComputed();
                 });
 
             });
@@ -95,8 +95,8 @@
             describe('when empty', function () {
 
                 it('should be not valid', function () {
-                    viewModel.fullName('');
-                    expect(viewModel.fullName.isValid()).toBeFalsy();
+                    viewModel.firstName('');
+                    expect(viewModel.firstName.isValid()).toBeFalsy();
                 });
 
             });
@@ -104,11 +104,46 @@
             describe('when not empty', function () {
 
                 it('should be valid', function () {
-                    viewModel.fullName('Some name');
-                    expect(viewModel.fullName.isValid()).toBeTruthy();
+                    viewModel.firstName('firstName');
+                    expect(viewModel.firstName.isValid()).toBeTruthy();
                 });
 
             });
+
+        });
+
+        describe('lastName:', function() {
+
+            it('should be observable', function() {
+                expect(viewModel.lastName).toBeObservable();
+            });
+            
+            describe('isValid:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.lastName.isValid).toBeComputed();
+                });
+
+            });
+
+            describe('when empty', function() {
+
+                it('should be not valid', function () {
+                    viewModel.lastName('');
+                    expect(viewModel.lastName.isValid()).toBeFalsy();
+                });
+
+            });
+
+            describe('when not empty', function() {
+
+                it('should be valid', function() {
+                    viewModel.lastName('lastName');
+                    expect(viewModel.lastName.isValid()).toBeTruthy();
+                });
+
+            });
+
         });
 
         describe('phone:', function () {
@@ -241,7 +276,8 @@
                 it('should be valid', function () {
                     viewModel.userName('anonymous@easygenerator.com');
                     viewModel.password('abcABC123');
-                    viewModel.fullName('some fullName');
+                    viewModel.lastName('lastName');
+                    viewModel.firstName('firstName');
                     viewModel.phone('some phone');
                     viewModel.organization('some organization');
                     viewModel.country('some country');
@@ -257,7 +293,8 @@
                 it('should be not valid', function () {
                     viewModel.userName('');
                     viewModel.password('');
-                    viewModel.fullName('');
+                    viewModel.lastName('');
+                    viewModel.firstName('');
                     viewModel.phone('');
                     viewModel.organization('');
                     viewModel.country(null);
@@ -273,7 +310,8 @@
                 it('should be not valid', function () {
                     viewModel.userName('');
                     viewModel.password('abcABC123');
-                    viewModel.fullName('some fullName');
+                    viewModel.lastName('lastName');
+                    viewModel.firstName('firstName');
                     viewModel.phone('some phone');
                     viewModel.organization('some organization');
                     viewModel.country('some country');
@@ -289,7 +327,8 @@
                 it('should be not valid', function () {
                     viewModel.userName('anonymous@easygenerator.com');
                     viewModel.password('');
-                    viewModel.fullName('some fullName');
+                    viewModel.lastName('lastName');
+                    viewModel.firstName('firstName');
                     viewModel.phone('some phone');
                     viewModel.organization('some organization');
                     viewModel.country('some country');
@@ -300,12 +339,30 @@
 
             });
 
-            describe('when fullName not valid', function () {
+            describe('when firstName not valid', function () {
 
                 it('should be not valid', function () {
                     viewModel.userName('anonymous@easygenerator.com');
                     viewModel.password('abcABC123');
-                    viewModel.fullName('');
+                    viewModel.lastName('lastName');
+                    viewModel.firstName('');
+                    viewModel.phone('some phone');
+                    viewModel.organization('some organization');
+                    viewModel.country('some country');
+                    viewModel.isLicenseAgreed(true);
+
+                    expect(viewModel.isFormValid()).toBeFalsy();
+                });
+
+            });
+            
+            describe('when lastName not valid', function () {
+
+                it('should be not valid', function () {
+                    viewModel.userName('anonymous@easygenerator.com');
+                    viewModel.password('abcABC123');
+                    viewModel.lastName('');
+                    viewModel.firstName('firstName');
                     viewModel.phone('some phone');
                     viewModel.organization('some organization');
                     viewModel.country('some country');
@@ -321,7 +378,8 @@
                 it('should be not valid', function () {
                     viewModel.userName('anonymous@easygenerator.com');
                     viewModel.password('abcABC123');
-                    viewModel.fullName('some fullName');
+                    viewModel.lastName('lastName');
+                    viewModel.firstName('firstName');
                     viewModel.phone('');
                     viewModel.organization('some organization');
                     viewModel.country('some country');
@@ -337,7 +395,8 @@
                 it('should be not valid', function () {
                     viewModel.userName('anonymous@easygenerator.com');
                     viewModel.password('abcABC123');
-                    viewModel.fullName('some fullName');
+                    viewModel.lastName('lastName');
+                    viewModel.firstName('firstName');
                     viewModel.phone('some phone');
                     viewModel.organization('');
                     viewModel.country('some country');
@@ -353,7 +412,8 @@
                 it('should be not valid', function () {
                     viewModel.userName('anonymous@easygenerator.com');
                     viewModel.password('abcABC123');
-                    viewModel.fullName('some fullName');
+                    viewModel.lastName('lastName');
+                    viewModel.firstName('firstName');
                     viewModel.phone('some phone');
                     viewModel.organization('some organization');
                     viewModel.country(null);
@@ -369,7 +429,8 @@
                 it('should be not valid', function () {
                     viewModel.userName('anonymous@easygenerator.com');
                     viewModel.password('abcABC123');
-                    viewModel.fullName('some fullName');
+                    viewModel.lastName('lastName');
+                    viewModel.firstName('firstName');
                     viewModel.phone('some phone');
                     viewModel.organization('some organization');
                     viewModel.country('some country');
@@ -402,6 +463,110 @@
                     expect(viewModel.password.isValid).toBeComputed();
                 });
 
+            });
+
+            describe('hasUpperAndLowerCaseLetters:', function () {
+                
+                it('should be computed', function () {
+                    expect(viewModel.password.hasUpperAndLowerCaseLetters).toBeComputed();
+                });
+
+                describe('when password has uppercase and lowercase letters', function() {
+
+                    it('should return true', function() {
+                        viewModel.password('SomePassword');
+                        expect(viewModel.password.hasUpperAndLowerCaseLetters()).toBeTruthy();
+                    });
+
+                });
+                
+                describe('when password not has uppercase and lowercase letters', function () {
+                    
+                    it('should return false', function () {
+                        viewModel.password('111');
+                        expect(viewModel.password.hasUpperAndLowerCaseLetters()).toBeFalsy();
+                    });
+                    
+                });
+
+            });
+            
+            describe('hasNumbers:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.password.hasNumbers).toBeComputed();
+                });
+
+                describe('when password has number', function() {
+
+                    it('should return true', function() {
+                        viewModel.password('111asd');
+                        expect(viewModel.password.hasNumbers()).toBeTruthy();
+                    });
+
+                });
+                
+                describe('when password not has number', function () {
+
+                    it('should return false', function () {
+                        viewModel.password('abcABC');
+                        expect(viewModel.password.hasNumbers()).toBeFalsy();
+                    });
+
+                });
+
+            });
+            
+            describe('hasSpaces:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.password.hasSpaces).toBeComputed();
+                });
+
+                describe('when password not has spaces', function() {
+
+                    it('should return true', function() {
+                        viewModel.password('abcANC123');
+                        expect(viewModel.password.hasSpaces()).toBeTruthy();
+                    });
+
+                });
+                
+                describe('when password has spaces', function () {
+
+                    it('should return false', function () {
+                        viewModel.password('abcAN   C123');
+                        expect(viewModel.password.hasSpaces()).toBeFalsy();
+                    });
+
+                });
+
+            });
+            
+            describe('hasMoreThanSevenSymbols:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.password.hasMoreThanSevenSymbols).toBeComputed();
+                });
+
+                describe('when password not less 7 symbols', function () {
+
+                    it('should return true', function () {
+                        viewModel.password('abcANC123');
+                        expect(viewModel.password.hasMoreThanSevenSymbols()).toBeTruthy();
+                    });
+
+                });
+
+                describe('when password has less 7 symbols', function () {
+
+                    it('should return false', function () {
+                        viewModel.password('abcAN');
+                        expect(viewModel.password.hasMoreThanSevenSymbols()).toBeFalsy();
+                    });
+
+                });
+                
             });
 
             describe('when is empty', function () {
@@ -774,7 +939,8 @@
             beforeEach(function () {
                 viewModel.userName('anonymous@easygenerator.com');
                 viewModel.password('abcABC123');
-                viewModel.fullName('some fullName');
+                viewModel.firstName('firstName');
+                viewModel.lastName('lastName');
                 viewModel.phone('some phone');
                 viewModel.organization('some organization');
                 viewModel.country('some country');
@@ -782,7 +948,8 @@
                 data = {
                     email: viewModel.userName(),
                     password: viewModel.password(),
-                    fullName: viewModel.fullName(),
+                    firstName: viewModel.firstName(),
+                    lastName: viewModel.lastName(),
                     phone: viewModel.phone(),
                     organization: viewModel.organization(),
                     country: viewModel.country()
@@ -932,10 +1099,18 @@
 
         });
 
-        describe('isFullNameErrorVisible:', function () {
+        describe('isFirstNameErrorVisible:', function () {
 
             it('should be observable', function () {
-                expect(viewModel.isFullNameErrorVisible).toBeObservable();
+                expect(viewModel.isFirstNameErrorVisible).toBeObservable();
+            });
+
+        });
+        
+        describe('isLastNameErrorVisible:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.isLastNameErrorVisible).toBeObservable();
             });
 
         });
@@ -972,16 +1147,30 @@
 
         });
 
-        describe('onFocusFullName:', function () {
+        describe('onFocusFirstName:', function () {
 
             it('should be function', function () {
-                expect(viewModel.onFocusFullName).toBeFunction();
+                expect(viewModel.onFocusFirstName).toBeFunction();
             });
 
             it('should set isFullNameErrorVisible to false', function () {
-                viewModel.isFullNameErrorVisible(true);
-                viewModel.onFocusFullName();
-                expect(viewModel.isFullNameErrorVisible()).toBeFalsy();
+                viewModel.isFirstNameErrorVisible(true);
+                viewModel.onFocusFirstName();
+                expect(viewModel.isFirstNameErrorVisible()).toBeFalsy();
+            });
+
+        });
+        
+        describe('onFocusLastName:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.onFocusLastName).toBeFunction();
+            });
+
+            it('should set isFullNameErrorVisible to false', function () {
+                viewModel.isLastNameErrorVisible(true);
+                viewModel.onFocusLastName();
+                expect(viewModel.isLastNameErrorVisible()).toBeFalsy();
             });
 
         });
@@ -1014,36 +1203,6 @@
 
         });
 
-        describe('validateFullName:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.validateFullName).toBeFunction();
-            });
-
-            describe('when fullname has only whitespaces', function () {
-
-                it('should be set isFullNameErrorVisible to true', function () {
-                    viewModel.fullName('        ');
-                    viewModel.isFullNameErrorVisible(false);
-                    viewModel.validateFullName();
-                    expect(viewModel.isFullNameErrorVisible()).toBeTruthy();
-                });
-
-            });
-
-            describe('when fullname not has only whitespaces', function () {
-
-                it('should be set isFullNameErrorVisible to false', function () {
-                    viewModel.fullName('    some full name    ');
-                    viewModel.isFullNameErrorVisible(true);
-                    viewModel.validateFullName();
-                    expect(viewModel.isFullNameErrorVisible()).toBeFalsy();
-                });
-
-            });
-
-        });
-
         describe('validatePhone:', function () {
 
             it('should be function', function () {
@@ -1063,7 +1222,7 @@
 
             describe('when phone not has only whitespaces', function () {
 
-                it('should be set isFullNameErrorVisible to false', function () {
+                it('should be set isPhoneErrorVisible to false', function () {
                     viewModel.phone('    some phone    ');
                     viewModel.isPhoneErrorVisible(true);
                     viewModel.validatePhone();

@@ -68,7 +68,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonError("Account with this email already exists");
             }
 
-            var user = _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone,
+            var user = _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone,
                 profile.Organization, profile.Country, profile.Email, new UserSettings(profile.Email, true));
 
             _repository.Add(user);
@@ -151,7 +151,7 @@ namespace easygenerator.Web.Controllers.Api
                 return Json(new { });
             }
 
-            return Json(new { email = user.Email, fullname = user.FullName, accessType = user.AccessType });
+            return Json(new { email = user.Email, fullname = user.GetFullName(), accessType = user.AccessType });
 
         }
 

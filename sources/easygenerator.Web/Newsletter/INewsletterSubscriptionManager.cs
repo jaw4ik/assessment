@@ -8,6 +8,6 @@ namespace easygenerator.Web.Newsletter
 {
     public interface INewsletterSubscriptionManager
     {
-        bool SubscribeForNewsletters(string userEmail, string userName);
+        bool SubscribeForNewsletters(string userEmail, string firstname, string lastname);
     }
 }

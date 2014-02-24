@@ -26,11 +26,11 @@ namespace easygenerator.Web.DomainEvents.Handlers
             Task.Run
                 (() =>
                     {
-                        if (!_subscriptionManager.SubscribeForNewsletters(args.User.Email, args.User.FullName))
+                        if (!_subscriptionManager.SubscribeForNewsletters(args.User.Email, args.User.FirstName, args.User.LastName))
                         {
                             _mailNotificationManager.AddMailNotificationToQueue(
                                 Constants.MailTemplates.NewsletterSubscriptionFailedTemplate,
-                                new {Email = args.User.Email, FullName = args.User.FullName});
+                                new {Email = args.User.Email, FirstName = args.User.FirstName, LastName = args.User.LastName});
                         }
                     }
                 );

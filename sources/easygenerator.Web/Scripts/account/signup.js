@@ -1,11 +1,15 @@
 ﻿var app = app || {};
 
 app.signupModel = function () {
+    
+    var digitRegex = /\d/,
+        whitespaceRegex = /\s/;
 
     var
         userName = ko.observable(''),
         password = ko.observable(''),
-        fullName = ko.observable(''),
+        firstName = ko.observable(''),
+        lastName = ko.observable(''),
         phone = ko.observable(''),
         organization = ko.observable(''),
         country = ko.observable(null),
@@ -14,7 +18,8 @@ app.signupModel = function () {
         isUserNameValidating = ko.observable(false),
         isPasswordEditing = ko.observable(false),
         isPasswordVisible = ko.observable(false),
-        isFullNameErrorVisible = ko.observable(false),
+        isFirstNameErrorVisible = ko.observable(false),
+        isLastNameErrorVisible = ko.observable(false),
         isPhoneErrorVisible = ko.observable(false),
         isOrganizationErrorVisible = ko.observable(false),
         isCountrySuccessVisible = ko.observable(false),
@@ -23,7 +28,8 @@ app.signupModel = function () {
         userExists = ko.observable(false),
         isFormValid = null,
         lastValidatedUserName = null,
-        lastValidateFullName = null,
+        lastValidateFirstName = null,
+        lastValidateLastName = null,
         lastValidatePhone = null,
         lastValidateOrganization = null,
         phoneCode = ko.observable('+ ( ... )'),
@@ -40,7 +46,8 @@ app.signupModel = function () {
         var data = {
             email: userName().trim().toLowerCase(),
             password: password(),
-            fullName: fullName(),
+            firstName: firstName(),
+            lastName: lastName(),
             phone: phone(),
             organization: organization(),
             country: country()
@@ -80,15 +87,25 @@ app.signupModel = function () {
             isUserNameValidating(false);
         });
     },
-
-    validateFullName = function () {
-        lastValidateFullName = fullName().trim();
-        fullName(fullName().trim());
-        isFullNameErrorVisible(_.isEmpty(lastValidateFullName));
+        
+    validateFirstName = function () {
+        lastValidateFirstName = firstName().trim();
+        firstName(firstName().trim());
+        isFirstNameErrorVisible(_.isEmpty(lastValidateFirstName));
     },
 
-    onFocusFullName = function () {
-        isFullNameErrorVisible(false);
+    onFocusFirstName = function () {
+        isFirstNameErrorVisible(false);
+    },
+        
+    validateLastName = function () {
+        lastValidateLastName = lastName().trim();
+        lastName(lastName().trim());
+        isLastNameErrorVisible(_.isEmpty(lastValidateLastName));
+    },
+
+    onFocusLastName = function () {
+        isLastNameErrorVisible(false);
     },
 
     validatePhone = function () {
@@ -118,9 +135,6 @@ app.signupModel = function () {
     });
 
     password.isValid = ko.computed(function () {
-        var digitRegex = /\d/,
-            whitespaceRegex = /\s/;
-
         return password().length >= 7
             && password().toLowerCase() != password()
             && password().toUpperCase() != password()
@@ -128,8 +142,30 @@ app.signupModel = function () {
             && !whitespaceRegex.test(password());
     });
 
-    fullName.isValid = ko.computed(function () {
-        return !_.isEmptyOrWhitespace(fullName());
+    password.hasUpperAndLowerCaseLetters = ko.computed(function() {
+        return password().toLowerCase() != password()
+            && password().toUpperCase() != password();
+    });
+
+    password.hasNumbers = ko.computed(function() {
+        return digitRegex.test(password());
+    });
+
+    password.hasSpaces = ko.computed(function() {
+        return !whitespaceRegex.test(password())
+            && password().length != 0;
+    });
+
+    password.hasMoreThanSevenSymbols = ko.computed(function() {
+        return password().length >= 7;
+    });
+
+    firstName.isValid = ko.computed(function() {
+        return !_.isEmptyOrWhitespace(firstName());
+    });
+
+    lastName.isValid = ko.computed(function() {
+        return !_.isEmptyOrWhitespace(lastName());
     });
 
     phone.isValid = ko.computed(function () {
@@ -161,8 +197,8 @@ app.signupModel = function () {
 
     isFormValid = ko.computed(function () {
         return userName.isValid() && password.isValid()
-            && fullName.isValid() && phone.isValid()
-            && organization.isValid() && country.isValid()
+            && firstName.isValid() && lastName.isValid()
+            && phone.isValid() && organization.isValid() && country.isValid()
             && isLicenseAgreed();
     });
 
@@ -174,7 +210,8 @@ app.signupModel = function () {
     return {
         userName: userName,
         password: password,
-        fullName: fullName,
+        firstName: firstName,
+        lastName: lastName,
         country: country,
         countries: app.constants.countries,
         phone: phone,
@@ -188,16 +225,19 @@ app.signupModel = function () {
         userExists: userExists,
         userPreciselyExists: userPreciselyExists,
 
-        isFullNameErrorVisible: isFullNameErrorVisible,
+        isFirstNameErrorVisible: isFirstNameErrorVisible,
+        isLastNameErrorVisible: isLastNameErrorVisible,
         isPhoneErrorVisible: isPhoneErrorVisible,
         isOrganizationErrorVisible: isOrganizationErrorVisible,
         isCountrySuccessVisible: isCountrySuccessVisible,
         isCountryErrorVisible: isCountryErrorVisible,
-        onFocusFullName: onFocusFullName,
+        onFocusFirstName: onFocusFirstName,
+        onFocusLastName: onFocusLastName,
         onFocusPhone: onFocusPhone,
         onFocusOrganization: onFocusOrganization,
 
-        validateFullName: validateFullName,
+        validateFirstName: validateFirstName,
+        validateLastName: validateLastName,
         validatePhone: validatePhone,
         validateOrganization: validateOrganization,
 
