@@ -1,5 +1,5 @@
-﻿define(['./login', 'xApi/xApiInitializer', 'eventManager', 'plugins/router', 'context', 'xApi/errorsHandler'],
-    function (viewModel, xApiInitializer, eventManager, router, context, errorsHandler) {
+﻿define(['./login', 'xApi/xApiInitializer', 'plugins/router', 'repositories/courseRepository', 'xApi/errorsHandler'],
+    function (viewModel, xApiInitializer, router, repository, errorsHandler) {
 
         "use strict";
 
@@ -9,9 +9,17 @@
                 expect(viewModel).toBeDefined();
             });
 
+            var course = {
+                id: 'id',
+                title: 'title',
+                start: function () {
+                }
+            };
+
             beforeEach(function () {
                 spyOn(router, 'navigate');
-                spyOn(eventManager, 'courseStarted');
+                spyOn(course, 'start');
+                spyOn(repository, 'get').andReturn(course);
                 spyOn(xApiInitializer, 'turnOff');
             });
 
@@ -210,9 +218,9 @@
                     expect(xApiInitializer.turnOff).toHaveBeenCalled();
                 });
 
-                it('should trigger event "courseStarted"', function () {
+                it('should call course start', function () {
                     viewModel.skip();
-                    expect(eventManager.courseStarted).toHaveBeenCalled();
+                    expect(course.start).toHaveBeenCalled();
                 });
 
                 it('should navigate to root', function () {
@@ -230,17 +238,17 @@
 
                 describe('when usermail or username are not valid', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         viewModel.usermail("not e-mail");
                         viewModel.username("          ");
                     });
 
-                    it('should mark username as modified', function() {
+                    it('should mark username as modified', function () {
                         spyOn(viewModel.username, 'markAsModified');
                         viewModel.login();
                         expect(viewModel.username.markAsModified).toHaveBeenCalled();
                     });
-                    
+
                     it('should mark usermail as modified', function () {
                         spyOn(viewModel.usermail, 'markAsModified');
                         viewModel.login();
@@ -270,15 +278,12 @@
                     });
 
                     it('should init xApiInitializer', function () {
-                        context.title = "Some title";
-                        context.courseId = "10";
-                        
                         var
-                            url = window.top.location.toString() + '?course_id=' + context.courseId,
+                            url = window.top.location.toString() + '?course_id=' + course.id,
                             actor = xApiInitializer.createActor(viewModel.username(), viewModel.usermail());
 
                         viewModel.login();
-                        expect(xApiInitializer.init).toHaveBeenCalledWith(actor, context.title, url);
+                        expect(xApiInitializer.init).toHaveBeenCalledWith(actor, course.title, url);
                     });
 
                     describe('and when xApiInitializer.init was rejected', function () {
@@ -286,10 +291,10 @@
                         it('should turn off xApiInitializer', function () {
                             xApiInitializerInitDefer.reject();
                             viewModel.login();
-                            waitsFor(function() {
+                            waitsFor(function () {
                                 return !xApiInitializerInitPromise.isPending();
                             });
-                            runs(function() {
+                            runs(function () {
                                 expect(xApiInitializer.turnOff).toHaveBeenCalled();
                             });
                         });
@@ -298,10 +303,10 @@
                             spyOn(errorsHandler, 'handleError');
                             xApiInitializerInitDefer.reject("Some reason");
                             viewModel.login();
-                            waitsFor(function() {
+                            waitsFor(function () {
                                 return !xApiInitializerInitPromise.isPending();
                             });
-                            runs(function() {
+                            runs(function () {
                                 expect(errorsHandler.handleError).toHaveBeenCalledWith("Some reason");
                             });
                         });
@@ -315,12 +320,12 @@
                             viewModel.login();
                         });
 
-                        it('should trigger event "courseStarted"', function () {
+                        it('should call course start', function () {
                             waitsFor(function () {
                                 return !xApiInitializerInitPromise.isPending();
                             });
                             runs(function () {
-                                expect(eventManager.courseStarted).toHaveBeenCalled();
+                                expect(course.start).toHaveBeenCalled();
                             });
                         });
 

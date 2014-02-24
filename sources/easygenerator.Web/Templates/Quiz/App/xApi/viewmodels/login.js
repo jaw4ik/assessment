@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'eventManager', 'context', '../configuration/viewConstants', '../errorsHandler', 'xApi/xApiInitializer'],
-    function (router, eventManager, context, viewConstants, errorsHandler, xApiInitializer) {
+﻿define(['plugins/router', '../configuration/viewConstants', '../errorsHandler', 'xApi/xApiInitializer', 'repositories/courseRepository'],
+    function (router, viewConstants, errorsHandler, xApiInitializer, repository) {
 
         "use strict";
 
@@ -42,8 +42,9 @@
 
             login = function () {
                 if (usermail.isValid() && username.isValid()) {
-                    var title = context.title;
-                    var url = window.top.location.toString() + '?course_id=' + context.courseId;
+                    var course = repository.get();
+                    var title = course.title;
+                    var url = window.top.location.toString() + '?course_id=' + course.id;
                     var actor = xApiInitializer.createActor(username(), usermail());
                     xApiInitializer.init(actor, title, url).then(function () {
                         startCourse();
@@ -59,7 +60,8 @@
             },
 
             startCourse = function () {
-                eventManager.courseStarted();
+                var course = repository.get();
+                course.start();
                 router.navigate('');
             },
 

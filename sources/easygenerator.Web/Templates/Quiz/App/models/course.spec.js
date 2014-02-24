@@ -161,6 +161,23 @@
 
             });
         });
+        
+        describe('start:', function () {
+            it('should be function', function () {
+                expect(course.start).toBeFunction();
+            });
+
+            it('should call event manager course started', function () {
+                course.start();
+                expect(eventManager.courseStarted).toHaveBeenCalled();
+            });
+
+            it('should set isAnswered to false', function () {
+                course.isAnswered = true;
+                course.start();
+                expect(course.isAnswered).toBeFalsy();
+            });
+        });
 
         describe('restart:', function () {
             it('should be function', function () {
