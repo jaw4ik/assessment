@@ -1,5 +1,6 @@
-﻿define(['constants', 'durandal/app', 'viewmodels/panels/tabs/reviewTab', 'viewmodels/panels/tabs/feedbackTab', 'repositories/courseRepository', 'plugins/router', 'notify', 'localization/localizationManager'],
-    function (constants, app, reviewTab, feedbackTab, repository, router, notify, localizationManager) {
+﻿define(['constants', 'durandal/app', 'viewmodels/panels/tabs/reviewTab', 'viewmodels/panels/tabs/feedbackTab', 'repositories/courseRepository',
+        'plugins/router', 'notify', 'localization/localizationManager', 'routing/routingContext'],
+    function (constants, app, reviewTab, feedbackTab, repository, router, notify, localizationManager, routingContext) {
         var viewModel = {
             activeTab: ko.observable(),
             reviewTab: reviewTab,
@@ -12,39 +13,17 @@
             lastReviewTabActivationData: ko.observable(null)
         };
 
-        viewModel.courseId = ko.computed(function () {
-            var activeInstruction = router.activeInstruction();
-            if (_.isNullOrUndefined(activeInstruction)) {
-                return null;
-            }
-
-            var courseTabs = ['viewmodels/courses/course', 'viewmodels/courses/design', 'viewmodels/courses/deliver'];
-            if (activeInstruction.config && _.contains(courseTabs, activeInstruction.config.moduleId)) {
-                return activeInstruction.params.length > 0 ? activeInstruction.params[0] : null;
-            }
-
-            if (_.isObject(activeInstruction.queryParams) && _.isString(activeInstruction.queryParams.courseId)) {
-                return activeInstruction.queryParams.courseId;
-            }
-
-            return null;
-        });
-
         viewModel.isReviewTabVisible = ko.computed(function () {
-            return viewModel.courseId() != null;
+            return routingContext.courseId() != null;
         });
-
+       
         viewModel.reviewTabActivationData = ko.computed(function () {
-            var courseId = viewModel.courseId();
-
-            router.activeInstruction();
-            viewModel.lastReviewTabActivationData();
-            
+            var courseId = routingContext.courseId();
             return Q.fcall(function () {
                 if (courseId == null) {
                     return null;
                 }
-                
+
                 if (viewModel.lastReviewTabActivationData() == null ||
                     (viewModel.lastReviewTabActivationData() != null && viewModel.lastReviewTabActivationData().courseId != courseId)) {
 
@@ -66,7 +45,7 @@
         });
 
         app.on(constants.messages.course.publishForReview.completed, function (course) {
-            if (course.id !== viewModel.courseId())
+            if (course.id !== routingContext.courseId())
                 return;
 
             if (viewModel.lastReviewTabActivationData() != null) {

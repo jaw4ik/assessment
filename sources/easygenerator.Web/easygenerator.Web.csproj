@@ -174,6 +174,10 @@
     <Content Include="App\models\course.spec.js">
       <DependentUpon>course.js</DependentUpon>
     </Content>
+    <Content Include="App\routing\routingContext.js" />
+    <Content Include="App\routing\routingContext.spec.js">
+      <DependentUpon>routingContext.js</DependentUpon>
+    </Content>
     <Content Include="App\repositories\commentRepository.js" />
     <Content Include="App\treeOfContent\commands\createQuestionCommand.js" />
     <Content Include="App\treeOfContent\commands\createQuestionCommand.spec.js">

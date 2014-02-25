@@ -1,5 +1,5 @@
-﻿define(['viewmodels/panels/sidePanel', 'constants', 'durandal/app', 'repositories/courseRepository', 'plugins/router', 'viewmodels/panels/tabs/reviewTab', 'notify'],
-    function (viewModel, constants, app, repository, router, reviewTab, notify) {
+﻿define(['viewmodels/panels/sidePanel', 'constants', 'durandal/app', 'repositories/courseRepository', 'plugins/router', 'viewmodels/panels/tabs/reviewTab', 'notify', 'routing/routingContext'],
+    function (viewModel, constants, app, repository, router, reviewTab, notify, routingContext) {
 
         describe('viewModel [sidePanel]', function () {
 
@@ -34,179 +34,6 @@
                 });
             });
 
-            describe('courseId:', function () {
-                var courseId = 'courseId';
-                it('should be computed', function () {
-                    expect(viewModel.courseId).toBeComputed();
-                });
-
-                describe('when router has active instruction', function () {
-                    describe('and active moduleId is \'viewmodels/courses/course\'', function () {
-
-                        describe('and activeInstruction has params', function () {
-                            beforeEach(function () {
-                                router.activeInstruction({
-                                    config: {
-                                        moduleId: 'viewmodels/courses/course'
-                                    },
-                                    params: [courseId]
-                                });
-                            });
-
-                            it('should be first param value', function () {
-                                expect(viewModel.courseId()).toBe(courseId);
-                            });
-                        });
-
-                        describe('and activeInstruction does not have any params', function () {
-                            beforeEach(function () {
-                                router.activeInstruction({
-                                    config: {
-                                        moduleId: 'viewmodels/courses/course'
-                                    },
-                                    params: []
-                                });
-                            });
-
-                            it('should be null', function () {
-                                expect(viewModel.courseId()).toBe(null);
-                            });
-                        });
-
-                    });
-
-                    describe('and active moduleId is \'viewmodels/courses/design\'', function () {
-
-                        describe('and activeInstruction has params', function () {
-                            beforeEach(function () {
-                                router.activeInstruction({
-                                    config: {
-                                        moduleId: 'viewmodels/courses/design'
-                                    },
-                                    params: [courseId]
-                                });
-                            });
-
-                            it('should be first param value', function () {
-                                expect(viewModel.courseId()).toBe(courseId);
-                            });
-                        });
-
-                        describe('and activeInstruction does not have any params', function () {
-                            beforeEach(function () {
-                                router.activeInstruction({
-                                    config: {
-                                        moduleId: 'viewmodels/courses/design'
-                                    },
-                                    params: []
-                                });
-                            });
-
-                            it('should be null', function () {
-                                expect(viewModel.courseId()).toBe(null);
-                            });
-                        });
-
-                    });
-
-                    describe('and active moduleId is \'viewmodels/courses/deliver\'', function () {
-
-                        describe('and activeInstruction has params', function () {
-                            beforeEach(function () {
-                                router.activeInstruction({
-                                    config: {
-                                        moduleId: 'viewmodels/courses/deliver'
-                                    },
-                                    params: [courseId]
-                                });
-                            });
-
-                            it('should be first param value', function () {
-                                expect(viewModel.courseId()).toBe(courseId);
-                            });
-                        });
-
-                        describe('and activeInstruction does not have any params', function () {
-                            beforeEach(function () {
-                                router.activeInstruction({
-                                    config: {
-                                        moduleId: 'viewmodels/courses/deliver'
-                                    },
-                                    params: []
-                                });
-                            });
-
-                            it('should be null', function () {
-                                expect(viewModel.courseId()).toBe(null);
-                            });
-                        });
-
-                    });
-
-                    describe('and active moduleId is not course module', function () {
-
-                        describe('and when activeInstruction has query params', function () {
-                            describe('and when query param courseId is string', function () {
-                                beforeEach(function () {
-                                    router.activeInstruction({
-                                        config: {
-                                            moduleId: 'viewmodels/courses/course2'
-                                        },
-                                        queryParams: { courseId: courseId }
-                                    });
-                                });
-
-                                it('should be query param courseId value', function () {
-                                    expect(viewModel.courseId()).toBe(courseId);
-                                });
-                            });
-
-                            describe('and when query param courseId is not string', function () {
-                                beforeEach(function () {
-                                    router.activeInstruction({
-                                        config: {
-                                            moduleId: 'viewmodels/courses/course2'
-                                        },
-                                        queryParams: {}
-                                    });
-                                });
-
-                                it('should be null', function () {
-                                    expect(viewModel.courseId()).toBe(null);
-                                });
-                            });
-
-                        });
-
-                        describe('and when activeInstruction does not have query params', function () {
-                            beforeEach(function () {
-                                router.activeInstruction({
-                                    config: {
-                                        moduleId: 'viewmodels/courses/course2'
-                                    }
-                                });
-                            });
-
-                            it('should be null', function () {
-                                expect(viewModel.courseId()).toBe(null);
-                            });
-                        });
-
-                    });
-
-                });
-
-                describe('when router does not have active instruction', function () {
-                    beforeEach(function () {
-                        router.activeInstruction(null);
-                    });
-
-                    it('should be null', function () {
-                        expect(viewModel.courseId()).toBe(null);
-                    });
-                });
-            });
-
             describe('isExpanded:', function () {
                 it('should be observable', function () {
                     expect(viewModel.isExpanded).toBeObservable();
@@ -224,9 +51,9 @@
                     expect(viewModel.isReviewTabVisible).toBeComputed();
                 });
 
-                describe('when courseId is null', function () {
+                describe('when routingContext courseId is null', function () {
                     beforeEach(function () {
-                        router.activeInstruction(null);
+                        routingContext.courseId(null);
                     });
 
                     it('should be false', function () {
@@ -234,11 +61,9 @@
                     });
                 });
 
-                describe('when courseId is string', function () {
+                describe('when routingContext courseId is string', function () {
                     beforeEach(function () {
-                        router.activeInstruction({
-                            queryParams: { courseId: 'id' }
-                        });
+                        routingContext.courseId('id');
                     });
 
                     it('should be true', function () {
@@ -254,9 +79,7 @@
                 describe('and when course is current course', function () {
 
                     beforeEach(function () {
-                        router.activeInstruction({
-                            queryParams: { courseId: course.id }
-                        });
+                        spyOn(routingContext, 'courseId').andReturn(course.id);
                     });
 
                     describe('and when lastReviewTabActivationData is object', function () {
@@ -397,9 +220,9 @@
                     expect(viewModel.reviewTabActivationData()).toBePromise();
                 });
 
-                describe('when courseId is null', function () {
+                describe('when routingContext courseId is null', function () {
                     beforeEach(function () {
-                        router.activeInstruction(null);
+                        routingContext.courseId(null);
                     });
 
                     it('should set lastReviewTabActivationData to null', function () {
@@ -425,12 +248,12 @@
                     });
                 });
 
-                describe('when courseId is string', function () {
+                describe('when routingContext courseId is string', function () {
                     beforeEach(function () {
-                        router.activeInstruction({ queryParams: { courseId: courseId } });
+                        routingContext.courseId(courseId);
                     });
 
-                    describe('when lastReviewTabActivationData is null', function () {
+                    describe('and when lastReviewTabActivationData is null', function () {
                         beforeEach(function () {
                             spyOn(viewModel, 'lastReviewTabActivationData').andReturn(null);
                         });
@@ -451,6 +274,7 @@
 
                             beforeEach(function () {
                                 getById.reject('reason');
+                                routingContext.courseId.valueHasMutated();
                             });
 
                             it('should show notify error', function () {
@@ -467,6 +291,7 @@
                         describe('when course exists', function () {
 
                             it('should update lastReviewTabActivationData', function () {
+                                routingContext.courseId.valueHasMutated();
                                 var
                                     promise = viewModel.reviewTabActivationData(),
                                     course = { reviewUrl: '', id: 'someId' };
@@ -500,11 +325,12 @@
 
                     });
 
-                    describe('when lastReviewTabActivationData is not null', function () {
+                    describe('and when lastReviewTabActivationData is not null', function () {
 
                         describe('and when lastReviewTabActivationData courseId equals to current courseId', function () {
                             beforeEach(function () {
                                 spyOn(viewModel, 'lastReviewTabActivationData').andReturn({ courseId: courseId });
+                                routingContext.courseId.valueHasMutated();
                             });
 
                             it('should not get course from repository', function () {
@@ -534,6 +360,7 @@
                         describe('and when lastReviewTabActivationData courseId is not equal to current courseId', function () {
                             beforeEach(function () {
                                 spyOn(viewModel, 'lastReviewTabActivationData').andReturn({ courseId: '100500' });
+                                routingContext.courseId.valueHasMutated();
                             });
 
                             it('should get course from repository', function () {
@@ -552,6 +379,7 @@
 
                                 beforeEach(function () {
                                     getById.reject('reason');
+                                    routingContext.courseId.valueHasMutated();
                                 });
 
                                 it('should show notify error with \'Smth went wrong!\'', function () {
@@ -571,7 +399,7 @@
                                     var
                                         promise = viewModel.reviewTabActivationData(),
                                         course = { reviewUrl: '', id: 'someId' };
-                                    
+
                                     getById.resolve(course);
 
                                     waitsFor(function () {

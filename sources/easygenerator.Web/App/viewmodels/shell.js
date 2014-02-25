@@ -10,6 +10,7 @@
         clientContext = require('clientContext'),
         localizationManager = require('localization/localizationManager'),
         uiLocker = require('uiLocker'),
+        routingContext = require('routing/routingContext'),
 
         help = require('help/helpHint')
     ;
@@ -47,30 +48,9 @@
             return '';
         }),
 
-        getModuleIdFromRouterActiveInstruction = function () {
-            var activeInstruction = router.activeInstruction();
-            if (_.isObject(activeInstruction)) {
-                var moduleId = router.activeInstruction().config.moduleId;
-                return moduleId.slice(moduleId.lastIndexOf('/') + 1);
-            }
-            return '';
-        },
-
-        getCurrentCourseId = function (activeModuleId) {
-            var instruction = router.activeInstruction();
-
-            if (_.contains(["course", "design", "deliver"], activeModuleId)) {
-                return instruction.params[0];
-            } else if (!_.isNullOrUndefined(instruction.queryParams) && _.isString(instruction.queryParams.courseId)) {
-                return instruction.queryParams.courseId;
-            }
-
-            return null;
-        },
-
         getCourseNavigation = function (activeModuleId, courseId) {
             if (!_.isNullOrUndefined(courseId)) {
-               return [{
+                return [{
                     navigate: function () {
                         if (_.isString(courseId))
                             router.navigate('course/' + courseId);
@@ -84,34 +64,34 @@
                         return activeModuleId == "course";
                     })
                 },
-                    {
-                        navigate: function () {
-                            if (_.isString(courseId))
-                                router.navigate('design/' + courseId);
-                        },
-                        navigationLink: '#design/' + courseId,
-                        title: 'courseDesign',
-                        isActive: ko.computed(function () {
-                            return activeModuleId == "design";
-                        }),
-                        isRootView: ko.computed(function () {
-                            return activeModuleId == "design";
-                        })
-                    },
-                    {
-                        navigate: function () {
-                            if (_.isString(courseId))
-                                router.navigate('deliver/' + courseId);
-                        },
-                        navigationLink: '#deliver/' + courseId,
-                        title: 'courseDeliver',
-                        isActive: ko.computed(function () {
-                            return activeModuleId == "deliver";
-                        }),
-                        isRootView: ko.computed(function () {
-                            return activeModuleId == "deliver";
-                        })
-                    }];
+                     {
+                         navigate: function () {
+                             if (_.isString(courseId))
+                                 router.navigate('design/' + courseId);
+                         },
+                         navigationLink: '#design/' + courseId,
+                         title: 'courseDesign',
+                         isActive: ko.computed(function () {
+                             return activeModuleId == "design";
+                         }),
+                         isRootView: ko.computed(function () {
+                             return activeModuleId == "design";
+                         })
+                     },
+                     {
+                         navigate: function () {
+                             if (_.isString(courseId))
+                                 router.navigate('deliver/' + courseId);
+                         },
+                         navigationLink: '#deliver/' + courseId,
+                         title: 'courseDeliver',
+                         isActive: ko.computed(function () {
+                             return activeModuleId == "deliver";
+                         }),
+                         isRootView: ko.computed(function () {
+                             return activeModuleId == "deliver";
+                         })
+                     }];
             } else {
                 return [];
             }
@@ -169,8 +149,8 @@
                     router.on('router:route:activating').then(function () {
                         isViewReady(false);
 
-                        var activeModuleId = getModuleIdFromRouterActiveInstruction();
-                        var courseId = getCurrentCourseId(activeModuleId);
+                        var activeModuleId = routingContext.moduleName();
+                        var courseId = routingContext.courseId();
 
                         courseNavigation(getCourseNavigation(activeModuleId, courseId));
 
