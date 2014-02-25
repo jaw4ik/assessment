@@ -5,8 +5,7 @@
         key: '',
         title: ko.observable(),
         text: ko.observable(),
-        visible: ko.observable(true),
-        isEmptyHint: ko.observable(false),
+        enabled: ko.observable(false),
         show: show,
         close: close,
         isRequestPending: false,
@@ -21,7 +20,7 @@
 
     function show() {
 
-        if (viewModel.id || viewModel.isRequestPending || viewModel.isEmptyHint()) {
+        if (viewModel.id || viewModel.isRequestPending || !viewModel.enabled()) {
             return;
         }
 
@@ -51,28 +50,28 @@
     }
 
     function activate(key) {
-
         viewModel.key = key;
-        
         viewModel.id = '';
         viewModel.title('');
         viewModel.text('');
-        viewModel.isEmptyHint(false);
+        viewModel.enabled(false);
 
-        return helpHintRepository.getHint(key).then(function(hint) {
-            if (_.isNullOrUndefined(hint)) {
-                return;
-            }
+        var isHelpHintsExist = localizationManager.hasKey(key + 'HelpHint') && localizationManager.hasKey(key + 'HelpHintTitle');
+        if (isHelpHintsExist) {
+            return helpHintRepository.getHint(key).then(function (hint) {
+                viewModel.enabled(true);
 
-            if (localizationManager.hasKey(hint.localizationKey)) {
+                if (_.isNullOrUndefined(hint)) {
+                    return;
+                }
+
                 viewModel.id = hint.id;
                 viewModel.title(localizationManager.localize(hint.localizationKey + 'Title'));
                 viewModel.text(localizationManager.localize(hint.localizationKey));
-            } else {
-                viewModel.isEmptyHint(true);
-            }
-        });
+            });
+        }
 
+        return Q.fcall(function () { });
     }
 
 })

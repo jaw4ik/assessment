@@ -8,8 +8,8 @@
 
         describe('visible:', function () {
 
-            describe('when title exists', function() {
-            
+            describe('when title exists', function () {
+
                 it('should be true', function () {
                     viewModel.title('title');
                     viewModel.text('');
@@ -17,7 +17,7 @@
                 });
 
             });
-            
+
             describe('when text exists', function () {
 
                 it('should be true', function () {
@@ -27,7 +27,7 @@
                 });
 
             });
-            
+
             describe('when title and text do not exist', function () {
 
                 it('should be false', function () {
@@ -38,7 +38,13 @@
 
             });
 
-            
+
+        });
+
+        describe('enabled:', function () {
+            it('should be observable', function () {
+                expect(viewModel.enabled).toBeObservable();
+            });
         });
 
         describe('show:', function () {
@@ -73,6 +79,7 @@
                 viewModel.id = '';
                 viewModel.key = key;
                 viewModel.isRequestPending = false;
+                viewModel.enabled(true);
 
                 viewModel.show();
 
@@ -103,6 +110,20 @@
 
             });
 
+            describe('when help hint disabled', function () {
+                beforeEach(function () {
+                    viewModel.id = '';
+                    viewModel.isRequestPending = false;
+                    viewModel.enabled(false);
+                });
+
+                it('should not add help hint to repository again', function () {
+                    viewModel.show();
+
+                    expect(repository.addHint).not.toHaveBeenCalled();
+                });
+            });
+
             describe('when help hint was added', function () {
 
                 var hint = { id: 'id', key: 'key', localizationKey: 'localizationKey' };
@@ -110,6 +131,7 @@
                 beforeEach(function () {
                     viewModel.id = '';
                     viewModel.isRequestPending = false;
+                    viewModel.enabled(true);
                     addHint.resolve(hint);
                 });
 
@@ -317,163 +339,160 @@
                 expect(viewModel.key).toEqual(key);
             });
 
-            describe('when help hint exists', function () {
-
-                var hint = { id: 'id', key: 'key', localizationKey: 'localizationKey' };
-
+            describe('when help hint does not have localization keys', function () {
                 beforeEach(function () {
-                    getHint.resolve(hint);
-                    spyOn(localizationManager, 'localize').andCallFake(function (key) { return key; });
-                    spyOn(localizationManager, 'hasKey').andReturn(true);
-                });
-
-                it('should set help hint id', function () {
-                    viewModel.id = '';
-
-                    var promise = viewModel.activate(hint.key);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.id).toEqual(hint.id);
-                    });
-                });
-
-                it('should set help hint title', function () {
-                    viewModel.title('');
-
-                    var promise = viewModel.activate(hint.key);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.title()).toEqual(hint.localizationKey + 'Title');
-                    });
-                });
-
-                it('should set help hint text', function () {
-                    viewModel.text('');
-
-                    var promise = viewModel.activate(hint.key);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.text()).toEqual(hint.localizationKey);
-                    });
-                });
-
-            });
-
-            describe('when help hint does not exist', function () {
-
-                beforeEach(function () {
-                    spyOn(localizationManager, 'localize').andCallFake(function (key) { return key; });
-                    getHint.resolve(null);
-                });
-
-                it('should clear help hint id', function () {
-                    viewModel.id = 'id';
-
-                    var promise = viewModel.activate();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.id).toEqual('');
-                    });
-                });
-
-                it('should set help hint title', function () {
-                    viewModel.title('title');
-
-                    var promise = viewModel.activate();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.title()).toEqual('');
-                    });
-                });
-
-                it('should set help hint text', function () {
-                    viewModel.text('text');
-
-                    var promise = viewModel.activate();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.text()).toEqual('');
-                    });
-                });
-
-                it('should set isEmptyHint to false', function () {
-                    viewModel.isEmptyHint(true);
-
-                    var promise = viewModel.activate();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.text()).toBeFalsy();
-                    });
-                });
-
-            });
-
-            describe('when help hint could not be retrieved', function() {
-
-                var reason = 'reason';
-
-                beforeEach(function () {
-                    getHint.reject(reason);
-                });
-
-                it('should reject promise', function() {
-                    var promise = viewModel.activate();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(promise).toBeRejectedWith(reason);
-                    });
-                });
-            });
-
-            describe('when help hint does not have localization key', function() {
-                
-                var hint = { id: 'id', key: 'key', localizationKey: 'localizationKey' };
-
-                beforeEach(function () {
-                    getHint.resolve(hint);
                     spyOn(localizationManager, 'hasKey').andReturn(false);
                 });
 
-                it('should set isEmptyHint to true', function () {
-                    viewModel.isEmptyHint(false);
+                it('should help hint be disabled', function () {
+                    viewModel.enabled(true);
                     var promise = viewModel.activate();
-                    
+
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(viewModel.isEmptyHint()).toBeTruthy();
+                        expect(viewModel.enabled()).toBeFalsy();
+                    });
+                });
+            });
+
+            describe('when help hint has localization keys', function () {
+                beforeEach(function () {
+                    spyOn(localizationManager, 'hasKey').andReturn(true);
+                });
+
+                describe('and help hint open', function () {
+                    var hint = { id: 'id', key: 'key', localizationKey: 'localizationKey' };
+
+                    beforeEach(function () {
+                        getHint.resolve(hint);
+                        spyOn(localizationManager, 'localize').andReturn('localized help text');
+                    });
+
+                    it('should set help hint enabled to \'true\'', function () {
+                        viewModel.enabled(false);
+                        var promise = viewModel.activate();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.enabled()).toBeTruthy();
+                        });
+                    });
+
+                    it('should set help hint id', function () {
+                        viewModel.id = '';
+                        var promise = viewModel.activate();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.id).toBe(hint.id);
+                        });
+                    });
+
+                    it('should set help hint title', function () {
+                        viewModel.title('');
+                        var promise = viewModel.activate();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.title()).toBe('localized help text');
+                        });
+                    });
+
+                    it('should set help hint text', function () {
+                        viewModel.text('');
+                        var promise = viewModel.activate();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.text()).toBe('localized help text');
+                        });
                     });
                 });
 
+                describe('when help hint does not open', function () {
+                    beforeEach(function () {
+                        getHint.resolve(null);
+                    });
+
+                    it('should set help hint enabled to \'true\'', function () {
+                        viewModel.enabled(false);
+                        var promise = viewModel.activate();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.enabled()).toBeTruthy();
+                        });
+                    });
+
+                    it('should not set help hint id', function () {
+                        viewModel.id = '';
+                        var promise = viewModel.activate();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.id).toBe('');
+                        });
+                    });
+
+                    it('should not set help hint title', function () {
+                        viewModel.title('');
+                        var promise = viewModel.activate();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.title()).toBe('');
+                        });
+                    });
+
+                    it('should not set help hint text', function () {
+                        viewModel.text('');
+                        var promise = viewModel.activate();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.text()).toBe('');
+                        });
+                    });
+                });
+
+                describe('when help hint could not be retrieved', function () {
+
+                    var reason = 'reason';
+
+                    beforeEach(function () {
+                        getHint.reject(reason);
+                    });
+
+                    it('should reject promise', function () {
+                        var promise = viewModel.activate();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith(reason);
+                        });
+                    });
+                });
             });
-
         });
-
     });
-
 })

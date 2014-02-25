@@ -19,7 +19,7 @@
                             </a>
                         </li>
                         <!-- /ko -->
-                        <li class="header-menu-list-item help" data-bind="localize: { text: 'help' }, click: help.show, css: { disabled: help.visible, empty: help.isEmptyHint }">Help</li>
+                        <li class="header-menu-list-item help" data-bind="localize: { text: 'help' }, click: help.show, css: { disabled: help.visible() || !help.enabled() }">Help</li>
                         <!-- ko ifnot: isTryMode -->
                         <li class="header-menu-list-item mode profile" data-bind="dropDown: {}">
                             <div class="header-submenu-holder">
