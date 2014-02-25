@@ -340,7 +340,7 @@ span.top-navigation-item.current {
 }
 
 .courseEditMode .nav-back-holder {
-    padding-top: 119px;
+    display: none;
 }
 
 .courseNavigationHolder {
