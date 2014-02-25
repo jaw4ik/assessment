@@ -29,7 +29,8 @@
     position: relative;
     padding-top: 150px;
     padding-bottom: 35px;
-    width: 650px;
+    width: 60%;
+    min-width: 540px;
     margin: 0 auto;
 }
 

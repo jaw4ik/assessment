@@ -174,7 +174,7 @@ img:hover {
 
 html, body, .application-wrapper {
     width: 100%;
-    min-width: 710px;
+    min-width: 600px;
     height: 100%;
     color: #666;
     font-family: Arial, sans-serif;
@@ -357,7 +357,7 @@ body {
 
 .container {
     width: 90%;
-    min-width: 690px;
+    min-width: 600px;
     max-width: 1200px;
     margin: 0 auto;
     padding-bottom: 20px;
@@ -389,7 +389,7 @@ body {
 
 .content-holder {
     width: 100%;
-    min-width: 680px;
+    min-width: 600px;
     background-color: white;
     border: 1px solid #dddddd;
     border-radius: 4px;

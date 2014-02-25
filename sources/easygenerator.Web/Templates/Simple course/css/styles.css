@@ -631,6 +631,7 @@ input[type="checkbox"] {
     padding: 0 0 40px;
     color: #666;
     font-size: 16px;
+    word-break: break-all;
 }
 
 .objective-start {
