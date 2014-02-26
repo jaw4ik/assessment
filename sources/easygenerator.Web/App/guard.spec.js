@@ -114,6 +114,37 @@
             });
 
         });
+        
+        describe('throwIfNotNumber:', function () {
+
+            it('should be function', function () {
+                expect(guard.throwIfNotNumber).toBeFunction();
+            });
+
+            describe('when argument is not a number', function () {
+
+                it('should throw exception with message', function () {
+                    var message = 'error message';
+                    var f = function () {
+                        guard.throwIfNotNumber(null, message);
+                    };
+                    expect(f).toThrow(message);
+                });
+
+            });
+
+            describe('when argument is a number', function () {
+
+                it('should not throw exception', function () {
+                    var f = function () {
+                        guard.throwIfNotNumber(100);
+                    };
+                    expect(f).not.toThrow();
+                });
+
+            });
+
+        });
 
     });
 });

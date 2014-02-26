@@ -59,12 +59,12 @@
 
             describe('when question is an object', function () {
 
-                describe('when spentTime is not an object', function () {
-                    it('should throw exception with \'SpentTime is not and object\'', function () {
+                describe('when spentTime is not a number', function () {
+                    it('should throw exception with \'SpentTime is not a number\'', function () {
                         var f = function () {
                             eventDataBuilder.buildLearningContentExperiencedEventData({}, null);
                         };
-                        expect(f).toThrow('SpentTime is not and object');
+                        expect(f).toThrow('SpentTime is not a number');
                     });
                 });
 
@@ -77,7 +77,7 @@
 
                         it('should throw exception with \'Objective is not found\'', function () {
                             var f = function () {
-                                eventDataBuilder.buildLearningContentExperiencedEventData(question, {});
+                                eventDataBuilder.buildLearningContentExperiencedEventData(question, 100);
                             };
                             expect(f).toThrow('Objective is not found');
                         });
@@ -89,13 +89,13 @@
                         });
 
                         it('should return object', function () {
-                            var data = eventDataBuilder.buildLearningContentExperiencedEventData(question, {});
+                            var data = eventDataBuilder.buildLearningContentExperiencedEventData(question, 100);
 
                             expect(data.objective.id).toBe(objective.id);
                             expect(data.objective.title).toBe(objective.title);
                             expect(data.question.id).toBe(question.id);
                             expect(data.question.title).toBe(question.title);
-                            expect(data.spentTime).toBeObject();
+                            expect(data.spentTime).toBe(100);
                         });
                     });
 

@@ -29,6 +29,12 @@
             if (!_.isDate(date)) {
                 throw message;
             }
+        },
+        
+        throwIfNotNumber: function (number, message) {
+            if (!_.isNumber(number)) {
+                throw message;
+            }
         }
     };
 

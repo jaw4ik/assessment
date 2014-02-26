@@ -1145,9 +1145,13 @@
     <Content Include="Templates\Simple course\App\configuration\routes.js" />
     <Content Include="Templates\Simple course\App\context.js" />
     <Content Include="Templates\Simple course\App\eventDataBuilders\courseEventDataBuilder.js" />
-    <Content Include="Templates\Simple course\App\eventDataBuilders\courseEventDataBuilder.spec.js" />
+    <Content Include="Templates\Simple course\App\eventDataBuilders\courseEventDataBuilder.spec.js">
+      <DependentUpon>courseEventDataBuilder.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Simple course\App\eventDataBuilders\questionEventDataBuilder.js" />
-    <Content Include="Templates\Simple course\App\eventDataBuilders\questionEventDataBuilder.spec.js" />
+    <Content Include="Templates\Simple course\App\eventDataBuilders\questionEventDataBuilder.spec.js">
+      <DependentUpon>questionEventDataBuilder.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Simple course\App\eventManager.js" />
     <Content Include="Templates\Simple course\App\eventManager.spec.js">
       <DependentUpon>eventManager.js</DependentUpon>

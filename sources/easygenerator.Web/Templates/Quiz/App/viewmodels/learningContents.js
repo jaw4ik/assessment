@@ -34,7 +34,7 @@
             },
 
             deactivate = function () {
-                var question = questionRepository.get(objectiveId, questionId);
+                var question = questionRepository.get(this.objectiveId, this.questionId);
                 question.learningContentExperienced(new Date() - this.enteredOnPage);
             };
 
