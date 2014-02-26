@@ -92,7 +92,7 @@
                 throw 'Question id is null or undefined';
             }
 
-            router.navigateWithQueryString('objective/' + viewModel.objectiveId + '/question/' + question.id);
+            router.navigate(getEditQuestionLink(question.id));
         }
 
         function createQuestion() {
@@ -107,7 +107,7 @@
                     .then(function (createdQuestion) {
                         clientContext.set('lastCreatedQuestionId', createdQuestion.id);
                         uiLocker.unlock();
-                        router.navigateWithQueryString('objective/' + viewModel.objectiveId + '/question/' + createdQuestion.id);
+                        router.navigate(getEditQuestionLink(createdQuestion.id));
                     })
                     .fail(function () {
                         uiLocker.unlock();
@@ -185,13 +185,14 @@
                     clientContext.set('lastVisitedObjective', id);
                     viewModel.objectiveId = objective.id;
                     viewModel.title(objective.title);
-
+  
                     var array = _.map(objective.questions, function (question) {
                         return {
                             id: question.id,
                             title: question.title,
                             modifiedOn: question.modifiedOn,
-                            isSelected: ko.observable(false)
+                            isSelected: ko.observable(false),
+                            editLink: getEditQuestionLink(question.id)
                         };
                     });
 
@@ -201,6 +202,13 @@
                     throw reason;
                 });
             }
+        }
+        
+        function getEditQuestionLink(questionId) {
+            var queryString = router.activeInstruction().queryString;
+            queryString = _.isNullOrUndefined(queryString) ? '' : '?' + queryString;
+            
+            return '#objective/' + viewModel.objectiveId + '/question/' + questionId + queryString;
         }
 
         function getSelectedQuestions() {

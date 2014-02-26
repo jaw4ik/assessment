@@ -28,11 +28,14 @@
                 ]
             };
 
+            var instruction = { queryString: 'courseId=id1'};
+
             beforeEach(function () {
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigateWithQueryString');
                 spyOn(router, 'navigate');
                 spyOn(router, 'replace');
+                spyOn(router, 'activeInstruction').andReturn(instruction);
             });
 
             it('is object', function () {
@@ -800,13 +803,13 @@
 
                 });
 
-                it('should navigate to #objectives', function () {
+                it('should navigate to question editor with query string', function () {
 
                     viewModel.objectiveId = objective.id;
 
                     viewModel.navigateToEditQuestion(objective.questions[0]);
 
-                    expect(router.navigateWithQueryString).toHaveBeenCalledWith('objective/' + objective.id + '/question/' + objective.questions[0].id);
+                    expect(router.navigate).toHaveBeenCalledWith('#objective/' + objective.id + '/question/' + objective.questions[0].id + '?' + instruction.queryString);
                 });
 
                 it('should send event \"Navigate to question editor\"', function () {
@@ -880,7 +883,7 @@
 
                 describe('when question added', function () {
 
-                    it('should navigate to \'objective/\' + that.objectiveId + \'/question/\' + createdQuestion.id', function () {
+                    it('should navigate to question editor with query string', function () {
                         var createdQuestionId = 'SomeId';
 
                         var promise = viewModel.createQuestion().fin(function () { });
@@ -891,7 +894,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(router.navigateWithQueryString).toHaveBeenCalledWith('objective/' + viewModel.objectiveId + '/question/' + createdQuestionId);
+                            expect(router.navigate).toHaveBeenCalledWith('#objective/' + viewModel.objectiveId + '/question/' + createdQuestionId + '?' + instruction.queryString);
                         });
                     });
 
