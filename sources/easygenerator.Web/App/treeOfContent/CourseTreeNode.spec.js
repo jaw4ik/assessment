@@ -1,7 +1,7 @@
 ﻿define(['treeOfContent/CourseTreeNode'], function (CourseTreeNode) {
 
     var
-        courseRepository = require('repositories/courseRepository')
+        getCourseByIdQuery = require('treeOfContent/queries/getCourseByIdQuery')
     ;
 
     describe('[CourseTreeNode]', function () {
@@ -26,13 +26,13 @@
         describe('expand:', function () {
 
             var courseTreeNode;
-            var getById;
+            var execute;
 
             beforeEach(function () {
                 courseTreeNode = new CourseTreeNode();
 
-                getById = Q.defer();
-                spyOn(courseRepository, 'getById').andReturn(getById.promise);
+                execute = Q.defer();
+                spyOn(getCourseByIdQuery, 'execute').andReturn(execute.promise);
 
                 function toBeObjectiveTreeNode(actual) {
                     this.message = function () {
@@ -64,7 +64,7 @@
                 });
 
                 it('should get children', function () {
-                    getById.resolve({ objectives: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
+                    execute.resolve({ objectives: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
 
                     var promise = courseTreeNode.expand();
 
@@ -78,7 +78,7 @@
                 });
 
                 it('should mark node as expanded', function () {
-                    getById.resolve({ objectives: [] });
+                    execute.resolve({ objectives: [] });
                     courseTreeNode.isExpanded(false);
 
                     var promise = courseTreeNode.expand();
@@ -100,7 +100,7 @@
                 });
 
                 it('should not get children', function () {
-                    getById.resolve({ objectives: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
+                    execute.resolve({ objectives: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
 
                     var promise = courseTreeNode.expand();
 
@@ -108,13 +108,13 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(courseRepository.getById).not.toHaveBeenCalled();
+                        expect(getCourseByIdQuery.execute).not.toHaveBeenCalled();
                     });
                 });
 
 
                 it('should mark node as expanded', function () {
-                    getById.resolve({ objectives: [] });
+                    execute.resolve({ objectives: [] });
                     courseTreeNode.isExpanded(false);
 
                     var promise = courseTreeNode.expand();

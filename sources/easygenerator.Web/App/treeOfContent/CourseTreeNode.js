@@ -1,4 +1,4 @@
-﻿define(['repositories/courseRepository', 'treeOfContent/TreeNode', 'treeOfContent/RelatedObjectiveTreeNode'], function (courseRepository, TreeNode, RelatedObjectiveTreeNode) {
+﻿define(['treeOfContent/TreeNode', 'treeOfContent/RelatedObjectiveTreeNode', 'treeOfContent/queries/getCourseByIdQuery'], function (TreeNode, RelatedObjectiveTreeNode, getCourseByIdQuery) {
 
     return function (id, title, url) {
         TreeNode.call(this, id, title, url);
@@ -10,7 +10,7 @@
     };
 
     function getObjectives(id) {
-        return courseRepository.getById(id).then(function (course) {
+        return getCourseByIdQuery.execute(id).then(function (course) {
             return _.map(course.objectives, function (objective) {
                 return new RelatedObjectiveTreeNode(objective.id, course.id, objective.title, '#objective/' + objective.id + '?courseId=' + course.id);
             });

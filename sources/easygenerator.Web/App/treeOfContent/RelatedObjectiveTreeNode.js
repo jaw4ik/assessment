@@ -1,4 +1,4 @@
-﻿define(['repositories/objectiveRepository', 'treeOfContent/TreeNode', 'treeOfContent/QuestionTreeNode', 'treeOfContent/commands/createQuestionCommand'], function (objectiveRepository, TreeNode, QuestionTreeNode, createQuestionCommand) {
+﻿define(['treeOfContent/TreeNode', 'treeOfContent/QuestionTreeNode', 'treeOfContent/queries/getObjectiveByIdQuery', 'treeOfContent/commands/createQuestionCommand'], function (TreeNode, QuestionTreeNode, getObjectiveByIdQuery, createQuestionCommand) {
 
     return function (objectiveId, courseId, title, url) {
         TreeNode.call(this, objectiveId, title, url);
@@ -12,7 +12,7 @@
     };
 
     function getQuestions(objectiveId, courseId) {
-        return objectiveRepository.getById(objectiveId).then(function (objective) {
+        return getObjectiveByIdQuery.execute(objectiveId).then(function (objective) {
             return _.map(objective.questions, function (question) {
                 return new QuestionTreeNode(question.id, question.title, '#objective/' + objectiveId + '/question/' + question.id + "?courseId=" + courseId);
             });

@@ -1,7 +1,7 @@
 ﻿define(['treeOfContent/RelatedObjectiveTreeNode'], function (RelatedObjectiveTreeNode) {
 
     var
-        objectiveRepository = require('repositories/objectiveRepository'),
+        getObjectiveByIdQuery = require('treeOfContent/queries/getObjectiveByIdQuery'),
         createQuestionCommand = require('treeOfContent/commands/createQuestionCommand')
     ;
 
@@ -29,13 +29,13 @@
         describe('expand:', function () {
 
             var objectiveTreeNode;
-            var getById;
+            var execute;
 
             beforeEach(function () {
                 objectiveTreeNode = new RelatedObjectiveTreeNode();
 
-                getById = Q.defer();
-                spyOn(objectiveRepository, 'getById').andReturn(getById.promise);
+                execute = Q.defer();
+                spyOn(getObjectiveByIdQuery, 'execute').andReturn(execute.promise);
 
                 function toBeQuestionTreeNode(actual) {
                     this.message = function () {
@@ -64,7 +64,7 @@
                 });
 
                 it('should get children', function () {
-                    getById.resolve({ questions: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
+                    execute.resolve({ questions: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
 
                     var promise = objectiveTreeNode.expand();
 
@@ -78,7 +78,7 @@
                 });
 
                 it('should mark node as expanded', function () {
-                    getById.resolve({ questions: [] });
+                    execute.resolve({ questions: [] });
                     objectiveTreeNode.isExpanded(false);
 
                     var promise = objectiveTreeNode.expand();
@@ -101,7 +101,7 @@
                 });
 
                 it('should not get children', function () {
-                    getById.resolve({ questions: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
+                    execute.resolve({ questions: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
 
                     var promise = objectiveTreeNode.expand();
 
@@ -109,12 +109,12 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(objectiveRepository.getById).not.toHaveBeenCalled();
+                        expect(getObjectiveByIdQuery.execute).not.toHaveBeenCalled();
                     });
                 });
 
                 it('should mark node as expanded', function () {
-                    getById.resolve({ questions: [] });
+                    execute.resolve({ questions: [] });
                     objectiveTreeNode.isExpanded(false);
 
                     var promise = objectiveTreeNode.expand();
