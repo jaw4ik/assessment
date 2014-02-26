@@ -6,7 +6,7 @@
         var helpHintHeight,
             contentContainer = '#content',
             helpHint = '.help-hint',
-            courseNavigationHolder = '.courseNavigationHolder',
+            courseNavigationHolder = '.course-navigation-holder',
             notFixedContainer = '.view-module',
             fixedContainer = '.view-module > .fixed-container:first-child',
             notifyContainer = '.notify.fixed-container',
