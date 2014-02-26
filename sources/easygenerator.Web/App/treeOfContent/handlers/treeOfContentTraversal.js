@@ -2,16 +2,20 @@
 
     return {
         getTreeOfContent: getTreeOfContent,
-        getQuestionTreeNodeCollection: getTreeNodeById,
-        getObjectiveTreeNodeCollection: getTreeNodeById,
-        getCourseTreeNodeCollection: getTreeNodeById
+        getQuestionTreeNodeCollection: getTreeNodeCollectionById,
+        getObjectiveTreeNodeCollection: getTreeNodeCollectionById,
+        getCourseTreeNodeCollection: getTreeNodeCollectionById
     };
 
     function getTreeOfContent() {
-        return ko.dataFor($('[data-view="treeOfContent/treeOfContent"]').get(0));
+        var element = $('[data-view="treeOfContent/treeOfContent"]').get(0);
+        if (element) {
+            return ko.dataFor(element);
+        }
+        return undefined;
     }
 
-    function getTreeNodeById(id) {
+    function getTreeNodeCollectionById(id) {
         return _.map($('[data-view-id="' + id + '"]').get(), function (element) {
             return ko.dataFor(element);
         });
