@@ -291,7 +291,7 @@ your password.</value>
     <value>An error was encountered while processing your request:</value>
   </data>
   <data name="RequiredInformation" xml:space="preserve">
-    <value>- all field are required</value>
+    <value>- all fields are required</value>
   </data>
   <data name="RestorePasswordCaption" xml:space="preserve">
     <value>Enter your new password</value>

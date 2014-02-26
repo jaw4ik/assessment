@@ -546,7 +546,7 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - all field are required.
+        ///   Looks up a localized string similar to - all fields are required.
         /// </summary>
         public static string RequiredInformation {
             get {
