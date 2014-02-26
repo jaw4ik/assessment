@@ -11,7 +11,7 @@
             <div class="user-required-subtitle">@Resources.RequiredInformation</div>
         </div>
         <div class="user-form">
-            <form id="signUpForm" action="#" method="post">
+            <form id="signUpForm" data-bind="focusHandler: {}" action="#" method="post">
                 <div class="user-column">
                     <div class="user-form-row-combiner">
                         <div class="user-form-row" data-bind="css: { error: isFirstNameErrorVisible(), success: !isFirstNameErrorVisible() && firstName.isValid() }">

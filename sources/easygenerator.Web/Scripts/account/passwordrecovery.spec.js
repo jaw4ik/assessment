@@ -10,6 +10,110 @@
             it('should be observable', function() {
                 expect(viewModel.password).toBeObservable();
             });
+            
+            describe('hasUpperAndLowerCaseLetters:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.password.hasUpperAndLowerCaseLetters).toBeComputed();
+                });
+
+                describe('when password has uppercase and lowercase letters', function () {
+
+                    it('should return true', function () {
+                        viewModel.password('SomePassword');
+                        expect(viewModel.password.hasUpperAndLowerCaseLetters()).toBeTruthy();
+                    });
+
+                });
+
+                describe('when password not has uppercase and lowercase letters', function () {
+
+                    it('should return false', function () {
+                        viewModel.password('111');
+                        expect(viewModel.password.hasUpperAndLowerCaseLetters()).toBeFalsy();
+                    });
+
+                });
+
+            });
+
+            describe('hasNumbers:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.password.hasNumbers).toBeComputed();
+                });
+
+                describe('when password has number', function () {
+
+                    it('should return true', function () {
+                        viewModel.password('111asd');
+                        expect(viewModel.password.hasNumbers()).toBeTruthy();
+                    });
+
+                });
+
+                describe('when password not has number', function () {
+
+                    it('should return false', function () {
+                        viewModel.password('abcABC');
+                        expect(viewModel.password.hasNumbers()).toBeFalsy();
+                    });
+
+                });
+
+            });
+
+            describe('hasSpaces:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.password.hasSpaces).toBeComputed();
+                });
+
+                describe('when password not has spaces', function () {
+
+                    it('should return true', function () {
+                        viewModel.password('abcANC123');
+                        expect(viewModel.password.hasSpaces()).toBeTruthy();
+                    });
+
+                });
+
+                describe('when password has spaces', function () {
+
+                    it('should return false', function () {
+                        viewModel.password('abcAN   C123');
+                        expect(viewModel.password.hasSpaces()).toBeFalsy();
+                    });
+
+                });
+
+            });
+
+            describe('hasMoreThanSevenSymbols:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.password.hasMoreThanSevenSymbols).toBeComputed();
+                });
+
+                describe('when password not less 7 symbols', function () {
+
+                    it('should return true', function () {
+                        viewModel.password('abcANC123');
+                        expect(viewModel.password.hasMoreThanSevenSymbols()).toBeTruthy();
+                    });
+
+                });
+
+                describe('when password has less 7 symbols', function () {
+
+                    it('should return false', function () {
+                        viewModel.password('abcAN');
+                        expect(viewModel.password.hasMoreThanSevenSymbols()).toBeFalsy();
+                    });
+
+                });
+
+            });
 
         });
 

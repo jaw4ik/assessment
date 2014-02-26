@@ -1,7 +1,7 @@
 ﻿/*#region Layout*/
 
 .content-wrapper.eg-bg-image {
-    background: url(images/bg-logo.png) 20px 29px no-repeat;
+    background: url(images/bg-logo.png) 20px 90px no-repeat;
     min-height: 350px;
 }
 
@@ -55,7 +55,7 @@ body.try {
 }
 
 .try .view-module {
-    padding-top: 0;
+    padding-top: 70px;
 }
 
 .preloader-block {
@@ -1161,8 +1161,8 @@ body.try {
 }
 
 .user-form.password-recovery {
-    padding: 9.3% 16px 0;
-    width: 430px;
+    padding: 35px 0 0;
+    width: 550px;
     margin: 0 auto;
 }
 
@@ -1177,7 +1177,7 @@ body.try {
     }
 
 .user-form-row.password-recovery.submit {
-    padding-top: 4%;
+    margin-top: 4%;
 }
 
 .user-message-holder.password-recovery {
@@ -1479,4 +1479,18 @@ body.try {
     .footer-item {
         font-size: 11px;
     }
+}
+
+@media (min-width: 1300px) {
+
+    .content-wrapper.eg-bg-image {
+        background-position-x: 0;
+        max-width: 1470px;
+    }
+
+    .content {
+        width: 86%;
+        margin: 0 auto;
+    }
+
 }
