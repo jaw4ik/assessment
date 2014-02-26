@@ -160,7 +160,7 @@ body.try {
 
 .user-column {
     display: table-cell;
-    width: 550px;
+    width: 553px;
 }
 
     .user-column.form {
@@ -659,7 +659,7 @@ body.try {
 .password-requirements {
     display: none;
     margin-top: 2px;
-    width: 550px;
+    width: 553px;
     font: 12px 'OpenSans';
     color: #222;
 }
