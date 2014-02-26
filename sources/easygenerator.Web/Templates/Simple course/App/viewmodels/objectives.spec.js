@@ -119,42 +119,70 @@
                 expect(viewModel.finish).toBeFunction();
             });
 
-            it('should change status to sending request', function () {
-                viewModel.finish();
-                expect(viewModel.status()).toBe('sendingRequests');
-            });
+            describe('when status is not ready to finish', function () {
 
-            it('should get course from repository', function () {
-                viewModel.finish();
-                expect(repository.get).toHaveBeenCalled();
-            });
-
-            it('should call course finish', function () {
-                spyOn(course, 'finish');
-
-                viewModel.finish();
-                expect(course.finish).toHaveBeenCalled();
-            });
-
-            describe('when course finished', function () {
                 beforeEach(function () {
-                    spyOn(windowOperations, 'close');
-                    spyOn(course, 'finish').andCallFake(function (callback) {
-                        callback();
-                    });
+                    viewModel.status('notReadyToFinish');
                 });
 
-                it('should change status to fiished', function () {
+                it('should not change status', function () {
                     viewModel.finish();
-                    expect(viewModel.status()).toBe('finished');
+                    expect(viewModel.status()).toBe('notReadyToFinish');
                 });
 
-                it('should call windows operations close', function () {
+                it('should not call course finish', function () {
+                    spyOn(course, 'finish');
                     viewModel.finish();
-                    expect(windowOperations.close).toHaveBeenCalled();
+                    expect(course.finish).not.toHaveBeenCalled();
                 });
 
             });
+
+            describe('when status is ready to finish', function() {
+
+                beforeEach(function() {
+                    viewModel.status(viewModel.statuses.readyToFinish);
+                });
+
+                it('should change status to sending request', function () {
+                    viewModel.finish();
+                    expect(viewModel.status()).toBe('sendingRequests');
+                });
+
+                it('should get course from repository', function () {
+                    viewModel.finish();
+                    expect(repository.get).toHaveBeenCalled();
+                });
+
+                it('should call course finish', function () {
+                    spyOn(course, 'finish');
+                    viewModel.finish();
+                    expect(course.finish).toHaveBeenCalled();
+                });
+
+                describe('and course finished', function () {
+                    
+                    beforeEach(function () {
+                        spyOn(windowOperations, 'close');
+                        spyOn(course, 'finish').andCallFake(function (callback) {
+                            callback();
+                        });
+                    });
+
+                    it('should change status to fiished', function () {
+                        viewModel.finish();
+                        expect(viewModel.status()).toBe('finished');
+                    });
+
+                    it('should call windows operations close', function () {
+                        viewModel.finish();
+                        expect(windowOperations.close).toHaveBeenCalled();
+                    });
+
+                });
+
+            });
+
         });
 
     });
