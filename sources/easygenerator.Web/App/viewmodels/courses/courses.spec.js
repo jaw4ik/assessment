@@ -379,10 +379,10 @@
                     expect(viewModel.navigateToDetails).toBeFunction();
                 });
 
-                it('should send event \"Navigate to details\"', function () {
+                it('should send event \"Navigate to course details\"', function () {
                     dataContext.courses = courses;
                     viewModel.navigateToDetails(courses[0]);
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to details');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to course details');
                 });
 
                 it('should navigate to #course/id', function () {

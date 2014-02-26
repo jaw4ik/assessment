@@ -809,12 +809,12 @@
                     expect(router.navigateWithQueryString).toHaveBeenCalledWith('objective/' + objective.id + '/question/' + objective.questions[0].id);
                 });
 
-                it('should send event \"Navigate to edit question\"', function () {
+                it('should send event \"Navigate to question editor\"', function () {
                     viewModel.objectiveId = objective.id;
 
                     viewModel.navigateToEditQuestion(objective.questions[0]);
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to edit question');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to question editor');
                 });
 
             });

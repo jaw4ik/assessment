@@ -8,7 +8,7 @@
                 navigateToCreateCourse: 'Navigate to create course',
                 courseSelected: 'Course selected',
                 courseUnselected: 'Course unselected',
-                navigateToDetails: 'Navigate to details',
+                navigateToCourseDetails: 'Navigate to course details',
                 downloadCourse: 'Download course',
                 courseBuildFailed: 'Course build is failed',
                 coursePublishFailed: 'Course publish is failed',
@@ -113,7 +113,7 @@
         }
 
         function navigateToDetails(course) {
-            eventTracker.publish(events.navigateToDetails);
+            eventTracker.publish(events.navigateToCourseDetails);
             router.navigate('course/' + course.id);
         }
 

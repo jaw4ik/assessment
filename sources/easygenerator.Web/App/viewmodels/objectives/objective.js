@@ -5,7 +5,7 @@
         var
             events = {
                 updateObjectiveTitle: "Update objective title",
-                navigateToEditQuestion: "Navigate to edit question",
+                navigateToQuestionEditor: "Navigate to question editor",
                 createNewQuestion: "Create new question",
                 selectQuestion: "Select question",
                 unselectQuestion: "Unselect question",
@@ -83,7 +83,7 @@
         }
 
         function navigateToEditQuestion(question) {
-            eventTracker.publish(events.navigateToEditQuestion);
+            eventTracker.publish(events.navigateToQuestionEditor);
             if (_.isNullOrUndefined(question)) {
                 throw 'Question is null or undefined';
             }
