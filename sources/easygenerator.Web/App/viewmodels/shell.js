@@ -36,7 +36,6 @@
         objectivesModules = ['objectives', 'objective', 'createObjective', 'createQuestion', 'question'],
         coursesModules = ['courses', 'createCourse', 'course', 'design', 'deliver'],
         isViewReady = ko.observable(false),
-        courseNavigation = ko.observableArray([]),
 
         activeModule = ko.computed(function () {
             var activeItem = router.activeItem();
@@ -48,55 +47,6 @@
             return '';
         }),
 
-        getCourseNavigation = function (activeModuleId, courseId) {
-            if (!_.isNullOrUndefined(courseId)) {
-                return [{
-                    navigate: function () {
-                        if (_.isString(courseId))
-                            router.navigate('course/' + courseId);
-                    },
-                    navigationLink: '#course/' + courseId,
-                    title: 'courseDefine',
-                    isActive: ko.computed(function () {
-                        return activeModuleId != "design" && activeModuleId != "deliver";
-                    }),
-                    isRootView: ko.computed(function () {
-                        return activeModuleId == "course";
-                    })
-                },
-                     {
-                         navigate: function () {
-                             if (_.isString(courseId))
-                                 router.navigate('design/' + courseId);
-                         },
-                         navigationLink: '#design/' + courseId,
-                         title: 'courseDesign',
-                         isActive: ko.computed(function () {
-                             return activeModuleId == "design";
-                         }),
-                         isRootView: ko.computed(function () {
-                             return activeModuleId == "design";
-                         })
-                     },
-                     {
-                         navigate: function () {
-                             if (_.isString(courseId))
-                                 router.navigate('deliver/' + courseId);
-                         },
-                         navigationLink: '#deliver/' + courseId,
-                         title: 'courseDeliver',
-                         isActive: ko.computed(function () {
-                             return activeModuleId == "deliver";
-                         }),
-                         isRootView: ko.computed(function () {
-                             return activeModuleId == "deliver";
-                         })
-                     }];
-            } else {
-                return [];
-            }
-        },
-
         browserCulture = ko.observable(),
 
         navigation = ko.observableArray([]),
@@ -104,6 +54,8 @@
         showNavigation = function () {
             return _.contains(['404', '400'], this.activeModuleName());
         },
+
+        showCourseNavigation = ko.observable(),
 
         showTreeOfContent = ko.observable(),
 
@@ -150,14 +102,13 @@
                         isViewReady(false);
 
                         var activeModuleId = routingContext.moduleName();
-                        var courseId = routingContext.courseId();
+                        var hasCourseId = routingContext.courseId() != null;
 
-                        courseNavigation(getCourseNavigation(activeModuleId, courseId));
+                        that.showCourseNavigation(hasCourseId);
+                        that.showTreeOfContent(_.contains(coursesModules, activeModuleId) || hasCourseId);
 
-                        that.showTreeOfContent(_.contains(coursesModules, activeModuleId) || !_.isNullOrUndefined(courseId));
-
-                        that.navigation()[0].isPartOfModules(_.contains(coursesModules, activeModuleId) || !_.isNullOrUndefined(courseId));
-                        that.navigation()[1].isPartOfModules(_.contains(objectivesModules, activeModuleId) && _.isNullOrUndefined(courseId));
+                        that.navigation()[0].isPartOfModules(_.contains(coursesModules, activeModuleId) || hasCourseId);
+                        that.navigation()[1].isPartOfModules(_.contains(objectivesModules, activeModuleId) && !hasCourseId);
                     });
 
                     router.on('router:navigation:composition-complete').then(function () {
@@ -227,11 +178,11 @@
         isViewReady: isViewReady,
 
         showNavigation: showNavigation,
+        showCourseNavigation: showCourseNavigation,
         showTreeOfContent: showTreeOfContent,
         navigation: navigation,
         isTryMode: isTryMode,
 
-        courseNavigation: courseNavigation,
         username: username,
 
         help: help

@@ -54,8 +54,10 @@
                 </nav>
             </div>
         </header>
-        <!-- ko compose: { view: 'views/courses/courseNavigation', model: courseNavigation } -->
-        <!-- /ko -->
+          <!-- ko if: showCourseNavigation -->
+             <!-- ko compose: 'viewModels/courses/courseNavigation/navigation' -->
+             <!-- /ko -->
+         <!-- /ko -->
     </div>
     <div class="icon-spinner-wrapper" data-bind="visible: !isViewReady()">
         <img src="/Content/images/loader.gif" alt="" />
@@ -64,7 +66,7 @@
     <!-- ko compose: 'treeOfContent/treeOfContent' -->
     <!-- /ko -->
     <!-- /ko -->
-    <section id="content" class="main" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }, css: browserCulture() + '-lang', css: { 'courseEditMode': courseNavigation().length > 0 }">
+    <section id="content" class="main" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }, css: browserCulture() + '-lang', css: { 'courseEditMode': showCourseNavigation }">
         <div data-bind="widget: { kind: 'notifyViewer' }"></div>
         <!-- ko compose: { model: 'help/helpHint', activationData: activeModuleName } -->
         <!-- /ko -->
