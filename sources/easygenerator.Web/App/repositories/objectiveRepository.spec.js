@@ -86,7 +86,7 @@
 
                 });
             });
-
+            
             describe('getById:', function () {
 
                 it('should be function', function () {
@@ -110,7 +110,7 @@
                         });
                     });
 
-                    it('should not send request to server to api/objectives', function () {
+                    it('should not send request to server to api/objectiveExists', function () {
                         var promise = objectiveRepository.getById();
 
                         waitsFor(function () {
@@ -124,9 +124,10 @@
                 });
 
                 describe('when id is a string', function () {
+                    var objectiveId = 'id';
 
-                    it('should send request to server to api/objectives', function () {
-                        var promise = objectiveRepository.getCollection();
+                    it('should send request to server to api/objectiveExists', function () {
+                        var promise = objectiveRepository.getById(objectiveId);
 
                         post.resolve();
 
@@ -134,18 +135,16 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/objectives');
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/objectiveExists', { courseId: objectiveId });
                         });
                     });
 
                     describe('and request failed', function () {
                         var reason = 'reason';
-                        beforeEach(function () {
-                            post.reject(reason);
-                        });
 
                         it('should reject promise with reason', function () {
-                            var promise = objectiveRepository.getCollection();
+                            var promise = objectiveRepository.getById(objectiveId);
+                            post.reject(reason);
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -159,7 +158,7 @@
 
                     describe('and request succeed', function () {
 
-                        beforeEach(function () {
+                        beforeEach(function() {
                             post.resolve();
                         });
 

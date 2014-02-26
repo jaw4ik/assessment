@@ -63,6 +63,24 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region ObjectiveExists
+
+        [TestMethod]
+        public void ObjectiveExists_ShouldReturnJsonSuccessResultTrue_WhenCourseExists()
+        {
+            var result = _controller.ObjectiveExists(ObjectiveObjectMother.Create());
+            result.Should().BeJsonSuccessResult().And.Data.Should().Be(true);
+        }
+
+        [TestMethod]
+        public void ObjectiveExists_ShouldReturnJsonSuccessResultTrue_WhenCoursDoesntExist()
+        {
+            var result = _controller.ObjectiveExists(null);
+            result.Should().BeJsonSuccessResult().And.Data.Should().Be(false);
+        }
+
+        #endregion
+
         #region Create objective
 
         [TestMethod]

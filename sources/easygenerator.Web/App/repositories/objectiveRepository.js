@@ -11,23 +11,23 @@
 
             getById = function (id) {
                 return Q.fcall(function () {
-                    var deferred = Q.defer();
                     guard.throwIfNotString(id, 'Objective id (string) was expected');
 
-                    httpWrapper.post('api/objectives').then(function () {
+                    var requestArgs = {
+                        courseId: id
+                    };
+
+                    return httpWrapper.post('api/objectiveExists', requestArgs).then(function () {
                         var result = _.find(dataContext.objectives, function (item) {
                             return item.id === id;
                         });
 
                         if (_.isUndefined(result)) {
-                            deferred.reject('Objective with this id is not found');
-                            return;
+                            throw 'Objective with this id is not found';
                         };
 
-                        deferred.resolve(result);
+                        return result;
                     });
-
-                    return deferred.promise;
                 });
             },
 

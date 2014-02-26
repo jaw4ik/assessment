@@ -56,6 +56,13 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Route("api/objectiveExists")]
+        public ActionResult ObjectiveExists(Objective objective)
+        {
+            return JsonSuccess(objective != null);
+        }
+
+        [HttpPost]
         [Route("api/objective/create")]
         public ActionResult Create(string title)
         {
