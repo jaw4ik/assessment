@@ -35,8 +35,6 @@
                         viewModel.lastReviewTabActivationData(data);
 
                         return data;
-                    }).fail(function () {
-                        notify.error(localizationManager.localize('loadingCourseError'));
                     });
                 }
 

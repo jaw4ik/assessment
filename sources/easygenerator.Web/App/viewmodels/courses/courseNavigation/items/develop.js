@@ -3,7 +3,7 @@
 
         var
            events = {
-               navigateToDefineCourse: 'Navigate to define course'
+               navigateToDefineCourse: 'Navigate to develop course'
            };
 
         var viewModel = function () {

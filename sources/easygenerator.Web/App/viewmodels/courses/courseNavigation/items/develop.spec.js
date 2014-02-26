@@ -1,17 +1,17 @@
-﻿define(['viewmodels/courses/courseNavigation/items/define', 'eventTracker', 'plugins/router', 'routing/routingContext'],
-    function (DefineNavigationItemViewModel, eventsTracker, router, routingContext) {
+﻿define(['viewmodels/courses/courseNavigation/items/develop', 'eventTracker', 'plugins/router', 'routing/routingContext'],
+    function (DevelopNavigationItemViewModel, eventsTracker, router, routingContext) {
 
         describe('viewmodel [defineNavigationItem]', function () {
 
             it('should be defined', function () {
-                expect(DefineNavigationItemViewModel).toBeDefined();
+                expect(DevelopNavigationItemViewModel).toBeDefined();
             });
 
             var navigationItem,
                 courseId = 'id';
 
             beforeEach(function() {
-                navigationItem = new DefineNavigationItemViewModel();
+                navigationItem = new DevelopNavigationItemViewModel();
                 routingContext.courseId(courseId);
             });
 
@@ -45,9 +45,9 @@
                     expect(navigationItem.navigate).toBeFunction();
                 });
 
-                it('should publish event\'Navigate to define course\'', function () {
+                it('should publish event\'Navigate to develop course\'', function () {
                     navigationItem.navigate();
-                    expect(eventsTracker.publish).toHaveBeenCalledWith('Navigate to define course');
+                    expect(eventsTracker.publish).toHaveBeenCalledWith('Navigate to develop course');
                 });
 
                 it('should navigate to \'course/\' + courseId', function () {

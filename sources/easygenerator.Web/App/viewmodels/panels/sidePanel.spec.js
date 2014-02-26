@@ -270,24 +270,6 @@
                             });
                         });
 
-                        describe('when course does not exist', function () {
-
-                            beforeEach(function () {
-                                getById.reject('reason');
-                                routingContext.courseId.valueHasMutated();
-                            });
-
-                            it('should show notify error', function () {
-                                var promise = viewModel.reviewTabActivationData();
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(notify.error).toHaveBeenCalled();
-                                });
-                            });
-                        });
-
                         describe('when course exists', function () {
 
                             it('should update lastReviewTabActivationData', function () {
@@ -372,24 +354,6 @@
                                 });
                                 runs(function () {
                                     expect(repository.getById).toHaveBeenCalledWith(courseId);
-                                });
-                            });
-
-                            describe('when course does not exist', function () {
-
-                                beforeEach(function () {
-                                    getById.reject('reason');
-                                    routingContext.courseId.valueHasMutated();
-                                });
-
-                                it('should show notify error with \'Smth went wrong!\'', function () {
-                                    var promise = viewModel.reviewTabActivationData();
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(notify.error).toHaveBeenCalledWith('Smth went wrong!');
-                                    });
                                 });
                             });
 
