@@ -1083,6 +1083,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 .course-intro-text {
     font-size: 16px;
     overflow-x:auto;
+    word-wrap: break-word;
 }
 
     .course-intro-text:first-child {
