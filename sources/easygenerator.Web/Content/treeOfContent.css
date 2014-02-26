@@ -175,7 +175,7 @@
             padding: 8px 5px;
         }
 
-    .navigation-tree-node .navigation-tree-node:last-child .navigation-tree-node-wrapper {
+    .navigation-tree-node .navigation-tree-node .navigation-tree-node:last-child .navigation-tree-node-wrapper {
         border-bottom: 1px solid #E1E1E1;
     }
 
