@@ -1051,6 +1051,7 @@
     <Content Include="Templates\Quiz\content\1cfad92b55964ddca69134ac91077c95\c3f1dc4191c3463d9898501f891d2812\bf804d7c8c8e472ca12c11668740e023.html" />
     <Content Include="Templates\Quiz\content\893fec4c12a44115bfba0b93dff97caf\5b95975bbf964828b974580ff1c5af6f\04a63846b71c4e47a8883932be4a85a8.html" />
     <Content Include="Templates\Quiz\content\893fec4c12a44115bfba0b93dff97caf\e7d6456f4c2d4f358db763f87cf0d91c\3cdd0d6352194b9cad48cf8b56112874.html" />
+    <Content Include="Templates\Quiz\content\c25c9530-ebb9-4380-be15-a26c4f04e914.png" />
     <Content Include="Templates\Quiz\content\content.html" />
     <Content Include="Templates\Quiz\content\d914c8c89ab04359a3145e561712632e\3062e9dcc12a47f9926930d75e58c716\81546904ba5f4d58b0b54247c43d88f2.html" />
     <Content Include="Templates\Quiz\content\d914c8c89ab04359a3145e561712632e\74c9d65fc6b6470785ff2a625f397920\73ebb7da0c8f4ca1b5a2047b1a908fc3.html" />
@@ -1289,6 +1290,7 @@
     <Content Include="Templates\Simple course\content\1cfad92b55964ddca69134ac91077c95\c3f1dc4191c3463d9898501f891d2812\bf804d7c8c8e472ca12c11668740e023.html" />
     <Content Include="Templates\Simple course\content\893fec4c12a44115bfba0b93dff97caf\5b95975bbf964828b974580ff1c5af6f\04a63846b71c4e47a8883932be4a85a8.html" />
     <Content Include="Templates\Simple course\content\893fec4c12a44115bfba0b93dff97caf\e7d6456f4c2d4f358db763f87cf0d91c\3cdd0d6352194b9cad48cf8b56112874.html" />
+    <Content Include="Templates\Simple course\content\c25c9530-ebb9-4380-be15-a26c4f04e914.png" />
     <Content Include="Templates\Simple course\content\content.html" />
     <Content Include="Templates\Simple course\content\d914c8c89ab04359a3145e561712632e\3062e9dcc12a47f9926930d75e58c716\81546904ba5f4d58b0b54247c43d88f2.html" />
     <Content Include="Templates\Simple course\content\d914c8c89ab04359a3145e561712632e\74c9d65fc6b6470785ff2a625f397920\73ebb7da0c8f4ca1b5a2047b1a908fc3.html" />
