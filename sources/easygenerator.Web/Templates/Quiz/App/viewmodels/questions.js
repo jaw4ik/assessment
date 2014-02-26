@@ -56,7 +56,7 @@
                     objectiveId: question.objectiveId,
                     title: question.title,
                     hasContent: question.hasContent,
-                    content: "",
+                    content: question.content,
                     answers: _.map(question.answers, function (answer) {
                         return {
                             id: answer.id,
