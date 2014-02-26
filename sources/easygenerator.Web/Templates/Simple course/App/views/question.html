@@ -57,7 +57,7 @@
             </div>
             <!-- /ko -->
             <ul class="question-answers-list" data-bind="foreach: answers">
-                <li class="question-answer-item" data-bind="click: $parent.checkItem, css: { checked: isChecked() }">
+                <li class="question-answer-item" data-bind="click: $parent.checkItem, css: { checked: isChecked(), enabled: !$parent.isAnswered() }">
                     <div class="question-answer-checkbox-wrapper">
                         <a class="question-answer-checkbox" data-bind="css: { checked: isChecked() }">&nbsp;</a>
                     </div>
