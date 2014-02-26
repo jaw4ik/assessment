@@ -52,7 +52,9 @@
                 question title
             </div>
             <!-- ko if: content -->
-            <div class="question-content" data-bind="compose: { model: { url: content }, strategy: 'strategies/externalContentStrategy' }"></div>
+            <div class="question-content-wrapper">
+                <div class="question-content" data-bind="compose: { model: { url: content }, strategy: 'strategies/externalContentStrategy' }"></div>
+            </div>
             <!-- /ko -->
             <ul class="question-answers-list" data-bind="foreach: answers">
                 <li class="question-answer-item" data-bind="click: $parent.checkItem, css: { checked: isChecked() }">

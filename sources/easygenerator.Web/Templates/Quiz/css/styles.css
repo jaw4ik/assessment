@@ -288,10 +288,14 @@ body {
 
 /*#region introduction view */
 
+.intro-content-wrapper
+{
+     padding: 30px;
+}
 .intro.content {
     font-size: 17px;
     border-top: none;
-    padding: 30px;
+   
     word-wrap: break-word;
     overflow-x: auto;
 }
@@ -484,9 +488,12 @@ body {
     vertical-align: top;
 }
 
-.question-content {
-    padding: 20px;
+.question-content-wrapper{
     border-bottom: 1px solid #c1c5ca;
+    padding: 20px;
+}
+
+.question-content {
     word-wrap: break-word;
     overflow-x: auto;
 }
