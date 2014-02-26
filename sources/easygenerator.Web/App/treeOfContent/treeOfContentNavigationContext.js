@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'treeOfContent/handlers/treeOfContentTraversal'], function (router, treeOfContentTraversal) {
+﻿define(['plugins/router'], function (router) {
 
     return ko.computed(function () {
         var activeInstruction = router.activeInstruction();
@@ -14,8 +14,6 @@
                 context.push(param);
             } 
         });
-
-        console.dir(context);
 
         return context;
     });

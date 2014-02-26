@@ -64,9 +64,14 @@
 
         function activate() {
             return courseRepository.getCollection().then(function (courses) {
-                viewModel.children(_.map(courses, function (course) {
-                    return new CourseTreeNode(course.id, course.title, '#course/' + course.id);
-                }));                
+
+                var array = _.chain(courses)
+                    .sortBy(function (course) { return -course.createdOn; })
+                    .map(function (course) { return new CourseTreeNode(course.id, course.title, '#course/' + course.id); })
+                    .value();
+
+
+                viewModel.children(array);
             });
         }
 
