@@ -1,4 +1,8 @@
-﻿.navigation-tree-wrapper {
+﻿.navigation-tree-shown-mode .nav-back-holder{
+    left: 50px;
+}
+
+.navigation-tree-wrapper {
     position: fixed;
     z-index: 200;
     height: 100%;

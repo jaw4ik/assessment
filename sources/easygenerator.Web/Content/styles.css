@@ -329,29 +329,30 @@ span.top-navigation-item.current {
 /*#region COURSE-NAVIGATION*/
 
 
-.main.courseEditMode {
+.main.course-edit-mode {
     padding-top: 105px;
 }
 
-.courseEditMode .view-module > .fixed-container:first-child {
+.course-edit-mode .view-module > .fixed-container:first-child {
     top: 105px;
 }
 
-.courseEditMode .nav-back-holder {
-    display: none;
+.course-edit-mode .nav-back-holder {
+    padding-top: 119px;
 }
 
-.courseNavigationHolder {
+.course-navigation-holder {
     background-color: white;
     text-align: center;
     border-bottom: 1px solid rgb(206,206,206);
+    min-width: 600px;
 }
 
-    .courseNavigationHolder.hidden {
+    .course-navigation-holder.hidden {
         display: none;
     }
 
-.courseNavigationItem {
+.course-navigation-item {
     width: 187px;
     display: inline-block;
     padding: 15px 0;
@@ -360,11 +361,11 @@ span.top-navigation-item.current {
     font-size: 13px;
 }
 
-    .courseNavigationItem:hover {
+    .course-navigation-item:hover {
         background-color: rgb(251,251,251);
     }
 
-    .courseNavigationItem.active {
+    .course-navigation-item.active {
         background-color: rgb(247, 247, 247);
         font-family: OpenSans-Semibold;
         color: #544f4b;
@@ -1265,7 +1266,7 @@ span.top-navigation-item.current {
 
     /*#region HEADER*/
     .header-menu-list-item.sign-up {
-        padding: 16px 10px;
+        padding: 8px 10px;
         font-size: 13px;
     }
 
@@ -1273,22 +1274,21 @@ span.top-navigation-item.current {
             padding: 7px 8px;
             font-size: 12px;
             margin-left: 10px;
+            display: inline-block;
+            min-width: 60px;
+            vertical-align: top;
+            margin-top: 2px;
         }
 
+    .try-warning-message {
+        display: inline-block;
+        width: 166px;
+    }
     /*#region LAYOUT*/
     .content-holder {
-        max-width: 800px;
+        max-width: 700px;
     }
     /*#endregion LAYOUT*/
 
 }
 
-@media (max-width: 1145px) {
-
-    /*#region HEADER*/
-    .header-logo {
-        width: 36px;
-    }
-
-    /*#endregion HEADER*/
-}

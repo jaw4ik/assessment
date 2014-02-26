@@ -4,16 +4,16 @@
             <div class="page-view-caption clearfix">
                 <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjectives' }">Learning objectives</div>
             </div>
-        </div>
-        <div class="list-controls-holder">
-            <!-- ko if: enableDeleteObjectives -->
-            <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedObjectives, localize: { text: 'deleteSelected' }">Delete selected</span>
-            <!-- /ko -->
+            <div class="list-controls-holder">
+                <!-- ko if: enableDeleteObjectives -->
+                    <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedObjectives, localize: { text: 'deleteSelected' }">Delete selected</span>
+                <!-- /ko -->
 
-            <!-- ko ifnot: enableDeleteObjectives -->
-            <span class="selected-item-action delete delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
-            <!-- /ko -->
-            <div class="dotted-line"></div>
+                <!-- ko ifnot: enableDeleteObjectives -->
+                    <span class="selected-item-action delete delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
+                <!-- /ko -->
+                <div class="dotted-line"></div>
+            </div>
         </div>
     </div>
 
