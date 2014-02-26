@@ -1,4 +1,4 @@
-﻿.navigation-tree-shown-mode .nav-back-holder{
+﻿.navigation-tree-shown-mode .nav-back-holder {
     left: 50px;
 }
 
@@ -10,20 +10,21 @@
     width: 50px;
 }
 
-.navigation-tree-wrapper.expanded {
-    width: 18%;
-    min-width: 200px;
-    max-width: 300px;
-}
+    .navigation-tree-wrapper.expanded {
+        width: 18%;
+        min-width: 200px;
+        max-width: 300px;
+    }
 
 .navigation-tree {
+    position: relative;
     display: block;
-    background: #F7F7F7;
     height: 100%;
+    padding-bottom: 85px;
+    background: #F7F7F7;
     -webkit-box-shadow: 3px 3px 3px #dedede;
     -moz-box-shadow: 3px 3px 3px #dedede;
     box-shadow: 3px 3px 3px #dedede;
-    position: relative;
     overflow-x: hidden;
     overflow-y: hidden;
 }
@@ -62,7 +63,7 @@
 }
 
     .navigation-tree-header:hover {
-        background-color: #FBFBFB;
+        background-color: #E8E8E8;
     }
 
     .navigation-tree-header:after {
@@ -78,6 +79,7 @@
 .navigation-tree-content {
     height: 100%;
     overflow-y: auto;
+    border-bottom: 1px solid #E1E1E1;
 }
 
 
@@ -89,7 +91,7 @@
     display: table;
     width: 100%;
     border-bottom: 1px solid #E1E1E1;
-    border-top: 1px solid #ffffff;
+    border-top: 1px solid #FFFFFF;
 }
 
     .navigation-tree-node-caption-wrapper.disabled {
@@ -103,6 +105,11 @@
             cursor: default;
         }
 
+    .navigation-tree-node-caption-wrapper.active {
+        background-color: #fcf8e8 !important;
+    }
+
+
 .navigation-tree-node-caption {
     position: relative;
     display: inline-block;
@@ -111,12 +118,19 @@
     line-height: 15px;
     font-size: 12px;
     font-family: 'OpenSans';
-    color: #474747;
+    color: #303133;
+}
+
+.navigation-tree-node-caption-wrapper.expanded .navigation-tree-node-caption {
+    color: #111111;
 }
 
 .navigation-tree-node-caption-wrapper.active .navigation-tree-node-caption {
-    font-family: 'OpenSans-Semibold';
-    color: #313131;
+    cursor: default;
+}
+
+.navigation-tree-node-caption-wrapper.active .navigation-tree-node-caption:hover {
+    background-color: inherit;
 }
 
 .navigation-tree-node {
@@ -125,45 +139,37 @@
 
     .navigation-tree-node .navigation-tree-node-caption-wrapper {
         padding-left: 7px;
-        background-color: #F7F7F7;
+        background-color: #F1F1F1;
     }
-
-    .navigation-tree-node a.navigation-tree-node-caption-wrapper:hover {
-        background-color: #EFEFEF;
-    }
-
 
     .navigation-tree-node .navigation-tree-node .navigation-tree-node-caption-wrapper {
         padding-left: 30px;
         background-color: #FAFAFA;
     }
 
-
-    .navigation-tree-node .navigation-tree-node a.navigation-tree-node-caption-wrapper:hover {
-        background-color: #EFEFEF;
+    .navigation-tree-node .navigation-tree-node .navigation-tree-node .navigation-tree-node-caption-wrapper,
+    .navigation-tree-node .navigation-tree-node .navigation-tree-node .navigation-tree-node-wrapper {
+        background-color: #FFFFFF;
     }
 
     .navigation-tree-node .navigation-tree-node .navigation-tree-node .navigation-tree-node-caption-wrapper {
         padding-left: 0px;
-        background-color: #FFFFFF;
         box-shadow: none;
     }
 
     .navigation-tree-node .navigation-tree-node .navigation-tree-node .navigation-tree-node-wrapper {
         padding-left: 60px;
-        background-color: #FFFFFF;
     }
 
         .navigation-tree-node .navigation-tree-node .navigation-tree-node .navigation-tree-node-wrapper a.navigation-tree-node-caption-wrapper {
             padding-left: 5px;
         }
 
+    .navigation-tree-node a.navigation-tree-node-caption-wrapper:hover,
+    .navigation-tree-node .navigation-tree-node-caption:hover,
+    .navigation-tree-node .navigation-tree-node a.navigation-tree-node-caption-wrapper:hover,
     .navigation-tree-node .navigation-tree-node .navigation-tree-node a.navigation-tree-node-caption-wrapper:hover {
-        background-color: #EFEFEF;
-    }
-
-    .navigation-tree-node .navigation-tree-node-caption:hover {
-        background-color: #EFEFEF;
+        background-color: #E8E8E8;
     }
 
 
@@ -224,7 +230,7 @@
 
     .navigation-tree-node-icon.expand:hover,
     .navigation-tree-node-icon.collapse:hover {
-        background-color: #EAEAEA;
+        background-color: #E8E8E8;
     }
 
 .navigation-tree-node-caption-wrapper:hover .navigation-tree-node-icon.create:before {

@@ -31,7 +31,7 @@
         var animateSettings = {};
         animateSettings[side] = animateValue;
 
-        var animation = $element.animate(animateSettings, speed);
+        var animation = $element.finish().animate(animateSettings, speed);
 
         if (cssClassOnExpanded && isExpanded) {
             $element.addClass(cssClassOnExpanded);
