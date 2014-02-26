@@ -659,6 +659,17 @@ input[type="checkbox"] {
         width: 226px;
     }
 }
+
+@media (max-width: 740px) {
+
+    .objective-progress {
+        width: 218px;
+    }
+
+    .objective-progressbar-inside {
+        width: 214px;
+    }
+}
 /*#endregion objectives view*/
 
 /*#region questions navigation styles */
