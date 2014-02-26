@@ -3,18 +3,26 @@
     var viewModel = {
         children: ko.observableArray([]),
         isExpanded: ko.observable(false),
+        isTreeVisible: ko.observable(false),
+        
         expand: expand,
         collapse: collapse,
+        onCollapsed: onCollapsed,
 
         activate: activate
     };
 
     function expand() {
         viewModel.isExpanded(true);
+        viewModel.isTreeVisible(true);
     }
 
     function collapse() {
         viewModel.isExpanded(false);
+    }
+
+    function onCollapsed() {
+        viewModel.isTreeVisible(false);
     }
 
     self.handler = treeOfContentEventHandler();

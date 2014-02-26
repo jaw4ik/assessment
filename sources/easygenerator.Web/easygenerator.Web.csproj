@@ -490,11 +490,17 @@
     <Content Include="Content\images\account\sign-up.png" />
     <Content Include="Content\images\blue-loader.GIF" />
     <Content Include="Content\images\build-loader.gif" />
+    <Content Include="Content\images\collapse.png" />
+    <Content Include="Content\images\create.png" />
+    <Content Include="Content\images\create_active.png" />
     <Content Include="Content\images\disabled.png" />
     <Content Include="Content\images\download-scorm-loader.GIF" />
     <Content Include="Content\images\emptyList.png" />
     <Content Include="Content\images\enabled.png" />
+    <Content Include="Content\images\expand.png" />
     <Content Include="Content\images\intro-page.png" />
+    <Content Include="Content\images\nav_collapse.png" />
+    <Content Include="Content\images\nav_expand.png" />
     <Content Include="Content\images\objective.png" />
     <Content Include="Content\images\oops.png" />
     <Content Include="Content\images\package-preloader.gif" />

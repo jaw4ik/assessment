@@ -1,70 +1,77 @@
 ﻿<div class="navigation-tree-wrapper">
 
-    <!-- ko if: isExpanded -->
+    <div class="navigation-tree" data-bind="slidingDialog: { isExpanded: isExpanded, position: '-250px', side: 'left', collapseOnOuterClick: false, onCollapsed: onCollapsed }, visible: isTreeVisible">
 
-    <div class="navigation-tree expanded">
-        <div class="navigation-tree-header" data-bind="click: collapse">Navigation</div>
+        <div class="navigation-tree-header" data-bind="click: collapse">Hide navigation</div>
 
-        <script type="text/html" id="tree-node">
-            <div class="navigation-tree-node-caption-wrapper">
-                <!-- ko if: children -->
-
-                <!-- ko ifnot: isExpanded -->
-                <div class="navigation-tree-node-collapsed" data-bind="click: expand"></div>
-                <!-- /ko -->
-                <!-- ko if: isExpanded -->
-                <div class="navigation-tree-node-expanded" data-bind="click: collapse"></div>
-                <!-- /ko -->
-
-                <!-- /ko -->
-
-                <a href="#" class="navigation-tree-node-caption" data-bind="text: title, attr: { href: url }"></a>
-            </div>
-        </script>
-
-
-        <ul>
-            <li class="navigation-tree-node">
+        <div class="navigation-tree-content">
+            <script type="text/html" id="tree-node">
                 <div class="navigation-tree-node-caption-wrapper">
-                    <a class="navigation-tree-node-caption create" href="#/course/create">Create Course</a>
+                    <!-- ko if: children -->
+
+                    <!-- ko ifnot: isExpanded -->
+                    <div class="navigation-tree-node-icon expand" data-bind="click: expand"></div>
+                    <!-- /ko -->
+                    <!-- ko if: isExpanded -->
+                    <div class="navigation-tree-node-icon collapse" data-bind="click: collapse"></div>
+                    <!-- /ko -->
+
+                    <!-- /ko -->
+
+                    <a href="#" class="navigation-tree-node-caption" data-bind="text: title, attr: { href: url }"></a>
                 </div>
-            </li>
+            </script>
 
-            <!-- ko foreach: children -->
 
-            <!-- ko compose: { model: $data, preserveContext: true }-->
-            <!-- /ko -->
+            <ul>
+                <li class="navigation-tree-node">
+                    <a class="navigation-tree-node-caption-wrapper" href="#/course/create">
+                        <span class="navigation-tree-node-icon create"></span>
+                        <span class="navigation-tree-node-caption">Course</span>
+                    </a>
+                </li>
 
-            <!-- /ko -->
+                <!-- ko foreach: children -->
 
-            <!-- ko ifnot: children().length -->
-            <li class="navigation-tree-node">
-                <ul>
-                    <li class="navigation-tree-node">
-                        <div class="navigation-tree-node-caption-wrapper">
-                            <span class="navigation-tree-node-caption create disabled">Create Objective</span>
-                        </div>
-                    </li>
-                    <li class="navigation-tree-node">
-                        <ul>
-                            <li class="navigation-tree-node">
-                                <div class="navigation-tree-node-caption-wrapper">
-                                    <span class="navigation-tree-node-caption create disabled">Create Question</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <!-- /ko -->
+                <!-- ko compose: { model: $data, preserveContext: true }-->
+                <!-- /ko -->
 
-        </ul>
+                <!-- /ko -->
+
+                <!-- ko ifnot: children().length -->
+                <li class="navigation-tree-node">
+                    <ul>
+                        <li class="navigation-tree-node">
+                            <div class="navigation-tree-node-caption-wrapper disabled">
+                                <span class="navigation-tree-node-icon create"></span>
+                                <span class="navigation-tree-node-caption">Question</span>
+                            </div>
+                        </li>
+                        <li class="navigation-tree-node">
+                            <ul>
+                                <li class="navigation-tree-node">
+                                    <div class="navigation-tree-node-wrapper">
+                                        <div class="navigation-tree-node-caption-wrapper disabled">
+                                            <span class="navigation-tree-node-icon create"></span>
+                                            <span class="navigation-tree-node-caption">Question</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /ko -->
+
+            </ul>
+        </div>
+
 
 
 
     </div>
 
-    <!-- /ko -->
+
 
 
     <!-- ko ifnot: isExpanded -->
