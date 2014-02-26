@@ -5,24 +5,6 @@
         <div class="navigation-tree-header" data-bind="click: collapse">Hide navigation</div>
 
         <div class="navigation-tree-content">
-            <script type="text/html" id="tree-node">
-                <div class="navigation-tree-node-caption-wrapper">
-                    <!-- ko if: children -->
-
-                    <!-- ko ifnot: isExpanded -->
-                    <div class="navigation-tree-node-icon expand" data-bind="click: expand"></div>
-                    <!-- /ko -->
-                    <!-- ko if: isExpanded -->
-                    <div class="navigation-tree-node-icon collapse" data-bind="click: collapse"></div>
-                    <!-- /ko -->
-
-                    <!-- /ko -->
-
-                    <a href="#" class="navigation-tree-node-caption" data-bind="text: title, attr: { href: url }"></a>
-                </div>
-            </script>
-
-
             <ul>
                 <li class="navigation-tree-node">
                     <a class="navigation-tree-node-caption-wrapper" href="#/course/create">

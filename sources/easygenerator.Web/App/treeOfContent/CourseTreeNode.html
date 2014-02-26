@@ -10,9 +10,7 @@
         <a href="#" class="navigation-tree-node-caption" data-bind="text: title, attr: { href: url }"></a>
     </div>
 
-    <!-- ko if: isExpanded -->
-
-    <ul>
+    <ul data-bind="visible: isExpanded">
         <li class="navigation-tree-node">
             <a class="navigation-tree-node-caption-wrapper" data-bind="attr: { href: '#objective/create?courseId=' + id }">
                 <span class="navigation-tree-node-icon create"></span>
@@ -44,8 +42,5 @@
         <!-- /ko -->
 
     </ul>
-
-
-    <!-- /ko -->
 
 </li>

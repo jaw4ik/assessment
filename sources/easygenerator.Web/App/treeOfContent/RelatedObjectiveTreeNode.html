@@ -10,9 +10,7 @@
         <a href="#" class="navigation-tree-node-caption" data-bind="text: title, attr: { href: url }"></a>
     </div>
 
-    <!-- ko if: isExpanded -->
-
-    <ul>
+    <ul data-bind="visible: isExpanded">
         <li class="navigation-tree-node">
             <div class="navigation-tree-node-wrapper">
                 <a class="navigation-tree-node-caption-wrapper" href="#" data-bind="click: createQuestion">
@@ -30,8 +28,5 @@
         <!-- /ko -->
 
     </ul>
-
-
-    <!-- /ko -->
 
 </li>

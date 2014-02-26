@@ -190,6 +190,9 @@
     <Content Include="App\treeOfContent\CourseTreeNode.spec.js">
       <DependentUpon>CourseTreeNode.js</DependentUpon>
     </Content>
+    <Content Include="App\treeOfContent\handlers\treeOfContentAutoExpandHandler.spec.js">
+      <DependentUpon>treeOfContentAutoExpandHandler.js</DependentUpon>
+    </Content>
     <Content Include="App\treeOfContent\handlers\treeOfContentEventHandler.js" />
     <Content Include="App\treeOfContent\handlers\treeOfContentEventHandler.spec.js">
       <DependentUpon>treeOfContentEventHandler.js</DependentUpon>
@@ -222,6 +225,8 @@
     </Content>
     <Content Include="App\treeOfContent\treeOfContent.js" />
     <Content Include="App\treeOfContent\handlers\treeOfContentTraversal.js" />
+    <Content Include="App\treeOfContent\treeOfContentNavigationContext.js" />
+    <Content Include="App\treeOfContent\handlers\treeOfContentAutoExpandHandler.js" />
     <Content Include="App\viewmodels\common\contentField.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.spec.js">
