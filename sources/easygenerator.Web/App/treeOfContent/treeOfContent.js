@@ -2,6 +2,7 @@
     'durandal/app',
     'treeOfContent/handlers/treeOfContentEventHandler',
     'treeOfContent/handlers/treeOfContentAutoExpandHandler',
+    'treeOfContent/handlers/treeOfContentHighlightHandler',
     'treeOfContent/treeOfContentNavigationContext',
     'repositories/courseRepository',
     'treeOfContent/CourseTreeNode',
@@ -10,7 +11,7 @@
     'text!treeOfContent/RelatedObjectiveTreeNode.html',
     'text!treeOfContent/QuestionTreeNode.html'],
 
-    function (app, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentNavigationContext, courseRepository, CourseTreeNode) {
+    function (app, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, treeOfContentNavigationContext, courseRepository, CourseTreeNode) {
 
         var viewModel = {
             children: ko.observableArray([]),
@@ -22,7 +23,7 @@
             onCollapsed: onCollapsed,
 
             activate: activate,
-            attached: attached
+            compositionComplete: compositionComplete
         };
 
         function expand() {
@@ -57,7 +58,9 @@
         app.on('course:objectivesReordered', self.handler.objectivesReordered);
 
         treeOfContentNavigationContext.subscribe(function (navigationContext) {
-            treeOfContentAutoExpandHandler.handle(navigationContext);
+            treeOfContentAutoExpandHandler.handle(viewModel, navigationContext).then(function () {                
+                treeOfContentHighlightHandler.handle();
+            });
         });
 
         return viewModel;
@@ -72,10 +75,13 @@
 
 
                 viewModel.children(array);
+
+                return treeOfContentAutoExpandHandler.handle(viewModel, treeOfContentNavigationContext());
             });
         }
 
-        function attached() {
-            treeOfContentAutoExpandHandler.handle(treeOfContentNavigationContext());
+        function compositionComplete() {
+            treeOfContentHighlightHandler.handle();
         }
+
     })

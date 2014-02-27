@@ -1,23 +1,41 @@
-﻿define(['treeOfContent/handlers/treeOfContentTraversal'], function (treeOfContentTraversal) {
+﻿define([], function () {
 
     return {
-        handle: function (context) {
-            var treeOfContent = treeOfContentTraversal.getTreeOfContent();
-            if (context[0] && treeOfContent) {
-                _.each(treeOfContent.children(), function (courseTreeNode) {
-                    if (courseTreeNode.id == context[0]) {
-                        courseTreeNode.expand().then(function () {
-                            if (context[1]) {
-                                _.each(courseTreeNode.children(), function (objectiveTreeNode) {
-                                    if (objectiveTreeNode.id == context[1]) {
-                                        objectiveTreeNode.expand();
-                                    }
-                                });
-                            }
-                        });
-                    }
+        handle: function (treeOfContent, context) {
+
+            var dfd = Q.defer();
+
+            if (treeOfContent && context && context[0]) {
+                var courseTreeNode = _.find(treeOfContent.children(), function (item) {
+                    return item.id == context[0];
                 });
+
+                if (courseTreeNode) {
+                    courseTreeNode.expand().then(function () {
+                        if (context[1]) {
+                            var objectiveTreeNode = _.find(courseTreeNode.children(), function (item) {
+                                return item.id == context[1];
+                            });
+                            if (objectiveTreeNode) {
+                                objectiveTreeNode.expand().then(function () {
+                                    dfd.resolve();
+                                });
+                            } else {
+                                dfd.resolve();
+                            }
+
+                        } else {
+                            dfd.resolve();
+                        }
+                    });
+                } else {
+                    dfd.resolve();
+                }
+            } else {
+                dfd.resolve();
             }
+
+            return dfd.promise;
         }
 
     };

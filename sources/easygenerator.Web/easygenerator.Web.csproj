@@ -197,6 +197,7 @@
     <Content Include="App\treeOfContent\handlers\treeOfContentEventHandler.spec.js">
       <DependentUpon>treeOfContentEventHandler.js</DependentUpon>
     </Content>
+    <Content Include="App\treeOfContent\handlers\treeOfContentHighlightHandler.js" />
     <Content Include="App\treeOfContent\queries\getCourseByIdQuery.js" />
     <Content Include="App\treeOfContent\queries\getCourseByIdQuery.spec.js">
       <DependentUpon>getCourseByIdQuery.js</DependentUpon>
