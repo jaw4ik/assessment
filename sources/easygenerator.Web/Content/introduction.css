@@ -67,8 +67,6 @@
 
 .intro-checkbox-holder {
     display: block;
-    width: 30%;
-    margin: 0 auto;
     padding-top: 15px;
 }
 
@@ -137,12 +135,11 @@
 
 .provide-elearning-content {
     padding: 0 50px;
+    text-align: center;
 }
 
 .provide-elearning-content-item {
     padding: 15px 0;
-    width: 67%;
-    margin: 0 auto;
 }
 
 .provide-elearning-content-text strong {
