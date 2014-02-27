@@ -5,7 +5,7 @@
         key: '',
         title: ko.observable(),
         text: ko.observable(),
-        enabled: ko.observable(false),
+        isHelpHintExist: ko.observable(false),
         show: show,
         close: close,
         isRequestPending: false,
@@ -20,7 +20,7 @@
 
     function show() {
 
-        if (viewModel.id || viewModel.isRequestPending || !viewModel.enabled()) {
+        if (viewModel.id || viewModel.isRequestPending || !viewModel.isHelpHintExist()) {
             return;
         }
 
@@ -52,26 +52,27 @@
     function activate(key) {
         viewModel.key = key;
         viewModel.id = '';
-        viewModel.title('');
-        viewModel.text('');
-        viewModel.enabled(false);
 
-        var isHelpHintsExist = localizationManager.hasKey(key + 'HelpHint') && localizationManager.hasKey(key + 'HelpHintTitle');
-        if (isHelpHintsExist) {
-            return helpHintRepository.getHint(key).then(function (hint) {
-                viewModel.enabled(true);
-
-                if (_.isNullOrUndefined(hint)) {
-                    return;
-                }
-
-                viewModel.id = hint.id;
-                viewModel.title(localizationManager.localize(hint.localizationKey + 'Title'));
-                viewModel.text(localizationManager.localize(hint.localizationKey));
+        viewModel.isHelpHintExist(localizationManager.hasKey(key + 'HelpHint') && localizationManager.hasKey(key + 'HelpHintTitle'));
+        
+        if (!viewModel.isHelpHintExist())
+            return Q.fcall(function() {
+                viewModel.title('');
+                viewModel.text('');
             });
-        }
 
-        return Q.fcall(function () { });
+        return helpHintRepository.getHint(key).then(function (hint) {
+
+            if (_.isNullOrUndefined(hint)) {
+                viewModel.title('');
+                viewModel.text('');
+                return;
+            }
+
+            viewModel.id = hint.id;
+            viewModel.title(localizationManager.localize(hint.localizationKey + 'Title'));
+            viewModel.text(localizationManager.localize(hint.localizationKey));
+        });
     }
 
 })

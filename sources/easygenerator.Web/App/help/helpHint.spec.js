@@ -41,9 +41,9 @@
 
         });
 
-        describe('enabled:', function () {
+        describe('isHelpHintExist:', function () {
             it('should be observable', function () {
-                expect(viewModel.enabled).toBeObservable();
+                expect(viewModel.isHelpHintExist).toBeObservable();
             });
         });
 
@@ -61,7 +61,7 @@
                 expect(viewModel.show).toBeFunction();
             });
 
-            describe('when help hint already exists', function () {
+            describe('when help hint already added', function () {
 
                 it('should not add it to repository again', function () {
                     viewModel.id = 'id';
@@ -79,7 +79,7 @@
                 viewModel.id = '';
                 viewModel.key = key;
                 viewModel.isRequestPending = false;
-                viewModel.enabled(true);
+                viewModel.isHelpHintExist(true);
 
                 viewModel.show();
 
@@ -110,11 +110,11 @@
 
             });
 
-            describe('when help hint disabled', function () {
+            describe('when help hint is not exist', function () {
                 beforeEach(function () {
                     viewModel.id = '';
                     viewModel.isRequestPending = false;
-                    viewModel.enabled(false);
+                    viewModel.isHelpHintExist(false);
                 });
 
                 it('should not add help hint to repository again', function () {
@@ -131,7 +131,7 @@
                 beforeEach(function () {
                     viewModel.id = '';
                     viewModel.isRequestPending = false;
-                    viewModel.enabled(true);
+                    viewModel.isHelpHintExist(true);
                     addHint.resolve(hint);
                 });
 
@@ -344,15 +344,39 @@
                     spyOn(localizationManager, 'hasKey').andReturn(false);
                 });
 
-                it('should help hint be disabled', function () {
-                    viewModel.enabled(true);
+                it('should help hint isHelpHintExist set false', function () {
+                    viewModel.isHelpHintExist(true);
                     var promise = viewModel.activate();
 
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(viewModel.enabled()).toBeFalsy();
+                        expect(viewModel.isHelpHintExist()).toBeFalsy();
+                    });
+                });
+
+                it('should set help hint title as empty', function() {
+                    viewModel.title('title');
+                    var promise = viewModel.activate();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.title()).toBe('');
+                    });
+                });
+
+                it('should set help hint text as empty', function() {
+                    viewModel.text('text');
+                    var promise = viewModel.activate();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.text()).toBe('');
                     });
                 });
             });
@@ -362,24 +386,18 @@
                     spyOn(localizationManager, 'hasKey').andReturn(true);
                 });
 
+                it('should set help hint isHelpHintExist to \'true\'', function () {
+                    viewModel.isHelpHintExist(false);
+                    viewModel.activate();
+                    expect(viewModel.isHelpHintExist()).toBeTruthy();
+                });
+
                 describe('and help hint open', function () {
                     var hint = { id: 'id', key: 'key', localizationKey: 'localizationKey' };
 
                     beforeEach(function () {
                         getHint.resolve(hint);
                         spyOn(localizationManager, 'localize').andReturn('localized help text');
-                    });
-
-                    it('should set help hint enabled to \'true\'', function () {
-                        viewModel.enabled(false);
-                        var promise = viewModel.activate();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(viewModel.enabled()).toBeTruthy();
-                        });
                     });
 
                     it('should set help hint id', function () {
@@ -424,18 +442,6 @@
                         getHint.resolve(null);
                     });
 
-                    it('should set help hint enabled to \'true\'', function () {
-                        viewModel.enabled(false);
-                        var promise = viewModel.activate();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(viewModel.enabled()).toBeTruthy();
-                        });
-                    });
-
                     it('should not set help hint id', function () {
                         viewModel.id = '';
                         var promise = viewModel.activate();
@@ -448,7 +454,7 @@
                         });
                     });
 
-                    it('should not set help hint title', function () {
+                    it('should set help hint title as empty', function () {
                         viewModel.title('');
                         var promise = viewModel.activate();
 
@@ -460,7 +466,7 @@
                         });
                     });
 
-                    it('should not set help hint text', function () {
+                    it('should set help hint text as empty', function () {
                         viewModel.text('');
                         var promise = viewModel.activate();
 
