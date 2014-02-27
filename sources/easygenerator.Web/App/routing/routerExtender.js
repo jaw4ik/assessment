@@ -46,6 +46,10 @@
             var downloadUrl = hash == '' ? href + '/' + url : href.replace(hash, url);
             window.open(downloadUrl);
         };
+        
+        router.on('router:navigation:composition-complete').then(function () {
+            $(document).scrollTop(0);
+        });
     }
 
 })

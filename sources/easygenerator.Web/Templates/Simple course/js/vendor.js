@@ -1,4 +1,3 @@
-﻿///#source 1 1 /Templates/Simple course/js/jquery-1.9.1.js
 /*!
  * jQuery JavaScript Library v1.9.1
  * http://jquery.com/
@@ -9597,7 +9596,6 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 
 })( window );
 
-///#source 1 1 /Templates/Simple course/js/underscore-1.5.1.js
 //     Underscore.js 1.5.1
 //     http://underscorejs.org
 //     (c) 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -10845,7 +10843,6 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 
 }).call(this);
 
-///#source 1 1 /Templates/Simple course/js/underscore.extensions.js
 (function () {
     "use strict";
     if (typeof (_) !== "function") {
@@ -10870,7 +10867,6 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
     };
 
 })();
-///#source 1 1 /Templates/Simple course/js/knockout-2.2.1.js
 // Knockout JavaScript library v2.2.1
 // (c) Steven Sanderson - http://knockoutjs.com/
 // License: MIT (http://www.opensource.org/licenses/mit-license.php)
@@ -10957,7 +10953,6 @@ var f=b.data("precompiled");f||(f=b.text()||"",f=F.template(p,"{{ko_with $item.k
 {open:"__.push($1 || '');"},F.tmpl.tag.ko_with={open:"with($1) {",close:"} "})};b.qa.prototype=new b.v;w=new b.qa;0<w.Db&&b.wa(w);b.b("jqueryTmplTemplateEngine",b.qa)}"function"===typeof require&&"object"===typeof exports&&"object"===typeof module?L(module.exports||exports):"function"===typeof define&&define.amd?define(["exports"],L):L(x.ko={});m;
 })();
 
-///#source 1 1 /Templates/Simple course/js/knockoutBindings/focusHandlerBinding.js
 ko.bindingHandlers.focusHandler = {
     init: function () {
     },
@@ -10995,7 +10990,6 @@ ko.bindingHandlers.focusHandler = {
         });
     }
 };
-///#source 1 1 /Templates/Simple course/js/knockoutBindings/scrollIntoViewBinding.js
 ko.bindingHandlers.scrollIntoView = {
     init: function () {
     },
@@ -11012,7 +11006,6 @@ ko.bindingHandlers.scrollIntoView = {
         });
     }
 };
-///#source 1 1 /Templates/Simple course/js/q.js
 // vim:ts=4:sts=4:sw=4:
 /*!
  *
@@ -12951,7 +12944,6 @@ return Q;
 
 });
 
-///#source 1 1 /Templates/Simple course/js/circleProgressBinding.js
 ko.bindingHandlers.circleProgress = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 
