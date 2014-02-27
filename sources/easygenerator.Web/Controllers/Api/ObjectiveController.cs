@@ -42,12 +42,7 @@ namespace easygenerator.Web.Controllers.Api
                     Title = q.Title,
                     Content = q.Content,
                     CreatedOn = q.CreatedOn,
-                    ModifiedOn = q.ModifiedOn,
-                    LearningContents = q.LearningContents.Select(lo => new
-                    {
-                        Id = lo.Id.ToNString(),
-                        Text = lo.Text,
-                    })
+                    ModifiedOn = q.ModifiedOn
                 })
             });
 
