@@ -108,7 +108,8 @@
         }
 
     .navigation-tree-node-caption-wrapper.active {
-        background-color: #fcf8e8 !important;
+        background-color: #e1e9bc !important;
+        border-bottom: 2px solid #adc733 !important;
     }
 
 
