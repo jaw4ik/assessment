@@ -5,6 +5,10 @@
     min-height: 600px;
 }
 
+#content.main {
+    min-width: 1000px;
+}
+
 .main {
     padding-top: 56px;
     -moz-box-sizing: border-box;
@@ -17,6 +21,7 @@
     z-index: 99;
     left: 0;
     right: 0;
+    min-width: 1000px;
 }
 
     .fixed-container.toolbar {
@@ -1252,16 +1257,6 @@ span.top-navigation-item.current {
 
 /*#endregion SORTABLE-LIST*/
 
-@media (max-width: 1279px) {
-
-    /*#region HEADER*/
-    .header-logo {
-        width: 36px;
-    }
-
-    /*#endregion HEADER*/
-}
-
 @media (max-width: 1200px ) {
 
     /*#region HEADER*/
@@ -1284,6 +1279,13 @@ span.top-navigation-item.current {
         display: inline-block;
         width: 166px;
     }
+
+    .header-logo {
+        width: 36px;
+    }
+
+    /*#endregion HEADER*/
+
     /*#region LAYOUT*/
     .content-holder {
         max-width: 700px;
