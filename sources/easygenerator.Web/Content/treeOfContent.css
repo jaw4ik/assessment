@@ -45,7 +45,7 @@
             height: 21px;
             top: 12px;
             right: 14px;
-            background: url("images/nav_expand.png");
+            background: url('images/sprites.png') -102px -251px;
         }
 
 
@@ -73,7 +73,7 @@
         height: 21px;
         left: 10px;
         top: 12px;
-        background: url("images/nav_collapse.png");
+        background: url('images/sprites.png') -128px -251px;
     }
 
 .navigation-tree-content {
@@ -215,19 +215,19 @@
     .navigation-tree-node-icon.create:before {
         width: 15px;
         height: 15px;
-        background-image: url('images/create.png');
+        background: url('images/sprites.png') -59px -267px;
     }
 
     .navigation-tree-node-icon.expand:before {
         width: 6px;
         height: 11px;
-        background-image: url('images/expand.png');
+        background: url('images/sprites.png') -167px -261px;
     }
 
     .navigation-tree-node-icon.collapse:before {
         width: 11px;
         height: 6px;
-        background-image: url('images/collapse.png');
+        background: url('images/sprites.png') -167px -251px;
     }
 
     .navigation-tree-node-icon.expand:hover,
@@ -236,9 +236,9 @@
     }
 
 .navigation-tree-node-caption-wrapper:hover .navigation-tree-node-icon.create:before {
-    background-image: url('images/create_active.png');
+    background: url('images/sprites.png') -35px -267px;
 }
 
 .navigation-tree-node-caption-wrapper.disabled:hover .navigation-tree-node-icon.create:before {
-    background-image: url('images/create.png');
+    background: url('images/sprites.png') -59px -267px;
 }
