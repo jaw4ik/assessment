@@ -67,7 +67,8 @@
                 return memo + objective.score;
             }, 0);
 
-            this.score = result / this.objectives.length;
+            var objectivesLength = this.objectives.length;
+            this.score = objectivesLength == 0 ? 0 : result / objectivesLength;
         };
 
         var loadContent = function () {

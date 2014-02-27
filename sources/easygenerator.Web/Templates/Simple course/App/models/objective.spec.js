@@ -87,6 +87,16 @@
                 expect(objective.score).toBe(50);
             });
 
+            describe('when objective has no questions', function() {
+
+                it('should set score to zero', function() {
+                    objective.questions = [];
+                    objective.calculateScore();
+                    expect(objective.score).toBe(0);
+                });
+
+            });
+
         });
     });
 });

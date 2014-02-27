@@ -118,6 +118,16 @@
                 course.calculateScore();
                 expect(course.score).toBe(50);
             });
+
+            describe('when course has no objectives', function () {
+
+                it('should set score to zero', function () {
+                    course.objectives = [];
+                    course.calculateScore();
+                    expect(course.score).toBe(0);
+                });
+
+            });
         });
 
         describe('finish:', function () {

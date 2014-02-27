@@ -12,7 +12,9 @@
 
         var calculateScore = function () {
             var result = _.reduce(this.questions, function (memo, question) { return memo + question.score; }, 0);
-            this.score = result / this.questions.length;
+            var questionsLength = this.questions.length;
+            this.score = questionsLength == 0 ? 0 : result / questionsLength;
+            
         };
 
         return Objective;
