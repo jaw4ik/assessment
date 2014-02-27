@@ -1140,6 +1140,9 @@
     },
     createQuestionTreeNodeTitle: {
         en: 'Question'
+    },
+    openNavigationBar: {
+        en: 'Open navigation bar'
     }
     /* End resource section for model Navigation tree */
            
