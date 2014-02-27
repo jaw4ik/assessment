@@ -68,7 +68,7 @@
         en: 'Delete'
     },
     materialDevelopment: {
-        en: 'Material development'
+        en: 'My materials'
     },
     packageCreatedOn: {
         en: 'Last package created on'
@@ -125,7 +125,7 @@
     
     /* Resource section for model Courses */
     courses: {
-        en: 'My courses'
+        en: 'Courses'
     },
     course: {
         en: 'Course'
