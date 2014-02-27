@@ -49,11 +49,13 @@
 
         function objectivesUnrelated(courseId, objectives) {
             _.each(treeOfContentTraversal.getCourseTreeNodeCollection(courseId), function (courseTreeNode) {
+                var collection = [];
                 _.each(courseTreeNode.children(), function (objectiveTreeNode) {
-                    if (_.contains(objectives, objectiveTreeNode.id)) {
-                        courseTreeNode.children.remove(objectiveTreeNode);
+                    if (!_.contains(objectives, objectiveTreeNode.id)) {
+                        collection.push(objectiveTreeNode);
                     }
                 });
+                courseTreeNode.children(collection);
             });
         }
 
@@ -83,11 +85,13 @@
 
         function questionsDeleted(objectiveId, questions) {
             _.each(treeOfContentTraversal.getObjectiveTreeNodeCollection(objectiveId), function (objectiveTreeNode) {
+                var collection = [];
                 _.each(objectiveTreeNode.children(), function (questionTreeNode) {
-                    if (_.contains(questions, questionTreeNode.id)) {
-                        objectiveTreeNode.children.remove(questionTreeNode);
+                    if (!_.contains(questions, questionTreeNode.id)) {
+                        collection.push(questionTreeNode);
                     }
                 });
+                objectiveTreeNode.children(collection);
             });
 
         }
