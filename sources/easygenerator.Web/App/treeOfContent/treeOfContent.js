@@ -58,7 +58,7 @@
         app.on('course:objectivesReordered', self.handler.objectivesReordered);
 
         treeOfContentNavigationContext.subscribe(function (navigationContext) {
-            treeOfContentAutoExpandHandler.handle(viewModel, navigationContext).then(function () {                
+            treeOfContentAutoExpandHandler.handle(viewModel, navigationContext).then(function () {
                 treeOfContentHighlightHandler.handle();
             });
         });
