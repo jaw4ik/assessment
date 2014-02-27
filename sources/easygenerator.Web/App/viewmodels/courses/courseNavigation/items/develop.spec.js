@@ -21,7 +21,7 @@
                 });
 
                 it('should be \'#course/\' + courseId', function () {
-                    expect(navigationItem.navigationLink).toBe('#course/' + courseId);
+                    expect(navigationItem.navigationLink()).toBe('#course/' + courseId);
                 });
             });
 

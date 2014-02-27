@@ -13,7 +13,7 @@
                     eventTracker.publish(events.navigateToDesignCourse);
                     router.navigate('design/' + routingContext.courseId());
                 },
-                navigationLink: '#design/' + routingContext.courseId(),
+                navigationLink: ko.computed(function () { return '#design/' + routingContext.courseId(); }),
                 title: 'courseDesign',
                 isActive: ko.computed(function() {
                     return routingContext.moduleName() == "design";
