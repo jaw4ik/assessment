@@ -4,9 +4,9 @@
 
 .navigation-tree-wrapper {
     position: fixed;
+    top: 56px;
+    bottom: 0;
     z-index: 200;
-    height: 100%;
-    padding-top: 56px;
     width: 50px;
 }
 
