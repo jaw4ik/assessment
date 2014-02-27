@@ -78,6 +78,7 @@
 
 .navigation-tree-content {
     height: 100%;
+    overflow-x: hidden;
     overflow-y: auto;
     border-bottom: 1px solid #E1E1E1;
 }
@@ -116,6 +117,7 @@
     width: 100%;
     padding: 12px 5px;
     line-height: 15px;
+    word-break: break-all;
     font-size: 12px;
     font-family: 'OpenSans';
     color: #303133;
