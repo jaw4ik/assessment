@@ -605,7 +605,7 @@
         en: 'We provide better e-learning based on:'
     },
     introElearningPrincipleOne: {
-        en: 'All learning processes starts with the definition of <strong>learning objectives</strong>.'
+        en: 'All learning processes start with the definition of <strong>learning objectives</strong>.'
     },
     introElearningPrincipleTwo: {
         en: 'Progress is measured by <strong>answering questions</strong> not by reading pages.'
@@ -1037,7 +1037,7 @@
         en: 'How to deliver the course to learners?'
     },
     deliverHelpHint: {
-        en: '<p>To publish this course on your own webserver - download course as HTML/JavaScript package;</p><p>To publish the course to an LMS - download the course as SCORM 1.2 package;</p><p>Or publish the course on easygenerator webserver - just get a link and share it with your learners.</p>'
+        en: '<p>To publish this course on <strong>your own webserver</strong> - download course as HTML/JavaScript package;</p><p>To publish the course to an <strong>LMS</strong> - download the course as SCORM 1.2 package;</p><p>Or publish the course on <strong>easygenerator webserver</strong> - just get a link and share it with your learners.</p>'
     },
     helpCloseButton: {
         en: 'Hide'
@@ -1125,7 +1125,22 @@
     },
     feedbackTabTitle: {
         en: 'Give feedback'
-    }
+    },
     /* End resource section for model Feedback */
+    
+    /* Resource section for model Navigation tree */
+    hideNavigationTree: {
+        en: 'Hide navigation'
+    },
+    createCourseTreeNodeTitle: {
+        en: 'Course'
+    },
+    createObjectiveTreeNodeTitle: {
+        en: 'Learning objective'
+    },
+    createQuestionTreeNodeTitle: {
+        en: 'Question'
+    }
+    /* End resource section for model Navigation tree */
            
 });

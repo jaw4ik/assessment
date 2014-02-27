@@ -14,7 +14,7 @@
         <li class="navigation-tree-node">
             <a class="navigation-tree-node-caption-wrapper" data-bind="attr: { href: '#objective/create?courseId=' + id }">
                 <span class="navigation-tree-node-icon create"></span>
-                <span class="navigation-tree-node-caption">Learning objective</span>
+                <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createObjectiveTreeNodeTitle' }">Learning objective</span>
             </a>
             <!-- ko ifnot: children().length -->
             <ul>
@@ -24,7 +24,7 @@
                             <div class="navigation-tree-node-wrapper">
                                 <div class="navigation-tree-node-caption-wrapper disabled">
                                     <span class="navigation-tree-node-icon create"></span>
-                                    <span class="navigation-tree-node-caption">Question</span>
+                                    <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createQuestionTreeNodeTitle' }">Question</span>
                                 </div>
                             </div>
                         </li>
