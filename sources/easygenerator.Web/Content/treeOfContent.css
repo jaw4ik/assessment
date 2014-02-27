@@ -131,11 +131,12 @@
 
 .navigation-tree-node-caption-wrapper.active .navigation-tree-node-caption {
     cursor: default;
+    padding: 12px 5px 11px;
 }
 
-.navigation-tree-node-caption-wrapper.active .navigation-tree-node-caption:hover {
-    background-color: inherit;
-}
+    .navigation-tree-node-caption-wrapper.active .navigation-tree-node-caption:hover {
+        background-color: inherit;
+    }
 
 .navigation-tree-node {
     display: inline;
@@ -193,6 +194,11 @@
             padding: 8px 5px;
         }
 
+        .navigation-tree-node .navigation-tree-node:first-child .navigation-tree-node-caption-wrapper.active .navigation-tree-node-caption,
+        .navigation-tree-node .navigation-tree-node .navigation-tree-node:first-child .navigation-tree-node-caption-wrapper.active .navigation-tree-node-caption {
+            padding: 8px 5px 7px;
+        }
+
     .navigation-tree-node .navigation-tree-node .navigation-tree-node:last-child .navigation-tree-node-wrapper {
         border-bottom: 1px solid #E1E1E1;
     }
@@ -200,6 +206,10 @@
     .navigation-tree-node .navigation-tree-node .navigation-tree-node:last-child .navigation-tree-node-caption-wrapper {
         border-bottom: none;
     }
+
+        .navigation-tree-node .navigation-tree-node .navigation-tree-node:last-child .navigation-tree-node-caption-wrapper.active .navigation-tree-node-caption {
+            padding: 12px 5px 10px;
+        }
 
 .navigation-tree-node-icon {
     display: table-cell;
