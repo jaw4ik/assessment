@@ -152,10 +152,16 @@
         }
 
         function addContentFilter() {
-            var
-                widthRegExp = new RegExp("\s*width\s*:\s*([^;]*)", "g"),
-                heightRegExp = new RegExp("\s*height\s*:\s*([^;]*)", "g"),
-                floatRegExp = new RegExp("\s*float\s*:\s*([^;]*)", "g");
+            var widthRegExp = new RegExp('(^| )width\s*:\s*([^;]*)', 'g'),
+                heightRegExp = new RegExp('(^| )height\s*:\s*([^;]*)', 'g'),
+                floatRegExp = new RegExp('(^| )float\s*:\s*([^;]*)', 'g'),
+                borderStyleRegExp = new RegExp('(^| )border-style\s*:\s*([^;]*)', 'g'),
+                borderWidthRegExp = new RegExp('(^| )border-width\s*:\s*([^;]*)', 'g'),
+                marginRegExp = new RegExp('(^| )margin\s*:\s*([^;]*)', 'g'),
+                marginTopRegExp = new RegExp('(^| )margin-top\s*:\s*([^;]*)', 'g'),
+                marginLeftRegExp = new RegExp('(^| )margin-left\s*:\s*([^;]*)', 'g'),
+                marginRightRegExp = new RegExp('(^| )margin-right\s*:\s*([^;]*)', 'g'),
+                marginBottomRegExp = new RegExp('(^| )margin-bottom\s*:\s*([^;]*)', 'g');
 
             var rules = {
                 elements: {
@@ -164,11 +170,21 @@
                             var
                                 widthValue = e.attributes.style.match(widthRegExp) + ';',
                                 heightValue = e.attributes.style.match(heightRegExp) + ';',
-                                floatValue = e.attributes.style.match(floatRegExp) + ';';
-                            delete e.attributes.style;
-                            e.attributes.style = widthValue + heightValue + floatValue;
-                        }
+                                floatValue = e.attributes.style.match(floatRegExp) + ';',
+                                borderWidthValue = e.attributes.style.match(borderWidthRegExp) + ';',
+                                borderStyleValue = e.attributes.style.match(borderStyleRegExp) + ';',
+                                marginValue = e.attributes.style.match(marginRegExp) + ';',
+                                marginTopValue = e.attributes.style.match(marginTopRegExp) + ';',
+                                marginLeftValue = e.attributes.style.match(marginLeftRegExp) + ';',
+                                marginRightValue = e.attributes.style.match(marginRightRegExp) + ';',
+                                marginBottomValue = e.attributes.style.match(marginBottomRegExp) + ';';
 
+                            delete e.attributes.style;
+                            e.attributes.style = widthValue + heightValue
+                                + floatValue
+                                + borderWidthValue + borderStyleValue
+                                + marginValue + marginTopValue + marginLeftValue + marginRightValue + marginBottomValue;
+                        }
                         if (e.attributes.class) {
                             delete e.attributes.class;
                         }
