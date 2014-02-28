@@ -30,6 +30,12 @@ time, mark, audio, video {
     outline: 0;
 }
 
+menu,
+ol,
+ul {
+    padding: 0 0 0 40px;
+}
+
 /**
  * Correct `block` display not defined in IE 8/9.
  */
@@ -288,14 +294,13 @@ body {
 
 /*#region introduction view */
 
-.intro-content-wrapper
-{
-     padding: 30px;
+.intro-content-wrapper {
+    padding: 30px;
 }
+
 .intro.content {
     font-size: 17px;
     border-top: none;
-   
     word-wrap: break-word;
     overflow-x: auto;
 }
@@ -488,7 +493,7 @@ body {
     vertical-align: top;
 }
 
-.question-content-wrapper{
+.question-content-wrapper {
     border-bottom: 1px solid #c1c5ca;
     padding: 20px;
 }

@@ -82,7 +82,6 @@ a {
 
 menu, ol, ul {
     margin: 0;
-    -webkit-padding-start: 0;
 }
 
     /*#endregion ACTION BUTTONS*/
