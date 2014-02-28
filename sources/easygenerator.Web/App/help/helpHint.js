@@ -9,7 +9,7 @@
         show: show,
         close: close,
         isRequestPending: false,
-        activate: activate,
+        activate: activate
     };
 
     viewModel.visible = ko.computed(function () {
@@ -54,9 +54,9 @@
         viewModel.id = '';
 
         viewModel.isHelpHintExist(localizationManager.hasKey(key + 'HelpHint') && localizationManager.hasKey(key + 'HelpHintTitle'));
-        
+
         if (!viewModel.isHelpHintExist())
-            return Q.fcall(function() {
+            return Q.fcall(function () {
                 viewModel.title('');
                 viewModel.text('');
             });

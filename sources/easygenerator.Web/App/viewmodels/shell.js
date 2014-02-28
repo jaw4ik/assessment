@@ -12,7 +12,8 @@
         uiLocker = require('uiLocker'),
         routingContext = require('routing/routingContext'),
 
-        help = require('help/helpHint')
+        help = require('help/helpHint'),
+        helpHintPositioning = require('help/helpHintPositioning')
     ;
 
     var events = {
@@ -63,8 +64,6 @@
         username = null,
 
         activate = function () {
-            composition.addBindingHandler('fixedBlocksPosition');
-
             var that = this;
             return dataContext.initialize()
                 .then(function () {
@@ -101,6 +100,11 @@
                     router.on('router:route:activating').then(function () {
                         isViewReady(false);
 
+
+                        composition.current.complete(function () {
+                            isViewReady(true);
+                        });
+
                         var activeModuleId = routingContext.moduleName();
                         var hasCourseId = routingContext.courseId() != null;
 
@@ -109,10 +113,6 @@
 
                         that.navigation()[0].isPartOfModules(_.contains(coursesModules, activeModuleId) || hasCourseId);
                         that.navigation()[1].isPartOfModules(_.contains(objectivesModules, activeModuleId) && !hasCourseId);
-                    });
-
-                    router.on('router:navigation:composition-complete').then(function () {
-                        isViewReady(true);
                     });
 
                     that.navigation([
