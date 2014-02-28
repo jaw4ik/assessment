@@ -389,7 +389,8 @@ body {
     font-family: Tahoma, sans-serif;
     font-weight: normal;
     text-align: center;
-    word-break: break-all;
+    -ms-word-break: break-word;
+    word-break: break-word;
 }
 
 .content-list-wrapper {
@@ -554,7 +555,8 @@ body {
         }
 
     .question-answer .question-answer-text {
-        word-break: break-all;
+        -ms-word-break: break-word;
+        word-break: break-word;
     }
 
 .answer-text {
