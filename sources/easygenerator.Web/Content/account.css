@@ -335,6 +335,7 @@ body.try {
 
     .user-form-input[type="password"] {
         -webkit-text-security: disc;
+        line-height: 20px;
         color: #444444;
     }
 
