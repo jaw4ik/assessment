@@ -67,7 +67,7 @@
     delete: {
         en: 'Delete'
     },
-    materialDevelopment: {
+    materials: {
         en: 'My materials'
     },
     packageCreatedOn: {

@@ -139,7 +139,7 @@
                                 router.navigate('objectives');
                             },
                             navigationLink: '#objectives',
-                            title: 'materialDevelopment',
+                            title: 'materials',
                             isActive: ko.computed(function () {
                                 return _.contains(objectivesModules, that.activeModuleName()) || router.isNavigating();
                             }),
