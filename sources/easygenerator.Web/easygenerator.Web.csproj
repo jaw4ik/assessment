@@ -500,6 +500,8 @@
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
     <Content Include="Content\durandal.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\account\sign-up.png" />
     <Content Include="Content\images\blue-loader.GIF" />
@@ -520,6 +522,7 @@
     <Content Include="Content\review.css" />
     <Content Include="Content\panels.css" />
     <Content Include="Content\treeOfContent.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
     <Compile Include="Mail\MailNotificationManager.cs">
       <SubType>Code</SubType>
@@ -813,6 +816,10 @@
     <Content Include="Scripts\account\passwordrecovery.spec.js">
       <DependentUpon>passwordrecovery.js</DependentUpon>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -1552,11 +1559,6 @@
     <Content Include="App\viewmodels\objectives\objectives.spec.js">
       <DependentUpon>objectives.js</DependentUpon>
     </Content>
-    <None Include="Content\font-awesome-ie7.css" />
-    <None Include="Content\font-awesome-ie7.min.css" />
-    <Content Include="Content\font-awesome.css" />
-    <None Include="Content\font-awesome.min.css" />
-    <Content Include="Content\font\fontawesome-webfont.svg" />
     <Content Include="Content\images\multichoice-question.png" />
     <Content Include="Content\images\logo.png" />
     <None Include="Content\jasmine.css" />
@@ -1567,10 +1569,6 @@
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />
     <Content Include="robots.txt" />
-    <Content Include="Content\font\fontawesome-webfont.woff" />
-    <Content Include="Content\font\fontawesome-webfont.ttf" />
-    <Content Include="Content\font\fontawesome-webfont.eot" />
-    <Content Include="Content\font\FontAwesome.otf" />
     <None Include="Scripts\jasmine\jasmine-1.3.1-html.js" />
     <None Include="Scripts\jasmine\jasmine-1.3.1.js" />
     <None Include="Scripts\jasmine\jasmine-1.3.1-console.js" />
