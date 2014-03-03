@@ -2,7 +2,7 @@
     return function (data) {
         var dfd = Q.defer();
 
-        system.acquire(viewEngine.convertViewIdToRequirePath('../../' + data.model.url)).then(function (markup) {
+        $.get(data.model.url + '.html', function (markup) {
             dfd.resolve($("<div>" + markup + "</div>").get(0));
         });
 
