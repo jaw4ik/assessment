@@ -899,6 +899,7 @@
     <Content Include="Templates\Quiz\App\guard.spec.js">
       <DependentUpon>guard.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Quiz\App\main-built.js" />
     <Content Include="Templates\Quiz\App\main.js" />
     <Content Include="Templates\Quiz\App\models\answer.js" />
     <Content Include="Templates\Quiz\App\models\answer.spec.js">
