@@ -51,6 +51,7 @@
 
     .tab-header:hover, .tab-header.active {
         top: -2px;
+        z-index: 999;
     }
 
     .tab-header.active {
