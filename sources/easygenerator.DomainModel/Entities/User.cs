@@ -31,7 +31,7 @@ namespace easygenerator.DomainModel.Entities
             Phone = phone;
             Organization = organization;
             Country = country;
-            AccessType = AccessType.Free;
+            AccessType = AccessType.Starter;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
             UserSetting = userSettings;
         }
