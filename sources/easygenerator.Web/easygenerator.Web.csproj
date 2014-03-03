@@ -606,54 +606,6 @@
     <Content Include="Content\selectbox.css" />
     <Content Include="Content\styles.css" />
     <Content Include="Scripts\account\analytics.js" />
-    <Content Include="Scripts\common\app.js" />
-    <Content Include="Scripts\common\clientSessionContext.js" />
-    <Content Include="Scripts\account\common.js" />
-    <Content Include="Scripts\account\constants.js" />
-    <Content Include="Scripts\account\focusHandlerBinding.js" />
-    <Content Include="Scripts\account\passwordrecovery.js" />
-    <Content Include="Scripts\account\passwordrecovery.spec.js">
-      <DependentUpon>passwordrecovery.js</DependentUpon>
-    </Content>
-    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.0.js" />
-    <Content Include="Scripts\jquery-2.1.0.min.js" />
-    <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
-    <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-sortable.js" />
-    <Content Include="Scripts\knockout-sortable.min.js" />
-    <Content Include="Scripts\knockoutBindings\placeholderBinding.js" />
-    <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
-    <Content Include="Scripts\moment-with-langs.js" />
-    <Content Include="Scripts\moment-with-langs.min.js" />
-    <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\r.js" />
-    <Content Include="Scripts\require.js" />
-    <Content Include="Scripts\review\common.js" />
-    <Content Include="Scripts\review\review.js" />
-    <Content Include="Scripts\review\review.spec.js">
-      <DependentUpon>review.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\common\serviceUnavailableAjaxErrorHandler.js" />
-    <Content Include="Scripts\common\serviceUnavailableAjaxErrorHandler.spec.js">
-      <DependentUpon>serviceUnavailableAjaxErrorHandler.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\account\signin.js" />
-    <Content Include="Scripts\account\signin.spec.js">
-      <DependentUpon>signin.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\account\signup.js" />
-    <Content Include="Scripts\account\signup.spec.js">
-      <DependentUpon>signup.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\account\signupsecondstep.js" />
-    <Content Include="Scripts\account\signupsecondstep.spec.js">
-      <DependentUpon>signupsecondstep.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
@@ -662,7 +614,9 @@
     <Content Include="Scripts\ckeditor\contents.css" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\failed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\info.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\lang\de.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\loader.gif" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\styles.css" />
@@ -698,6 +652,7 @@
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en-gb.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
@@ -773,6 +728,7 @@
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en-gb.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\es.js" />
@@ -848,6 +804,54 @@
     <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\common\app.js" />
+    <Content Include="Scripts\common\clientSessionContext.js" />
+    <Content Include="Scripts\account\common.js" />
+    <Content Include="Scripts\account\constants.js" />
+    <Content Include="Scripts\account\focusHandlerBinding.js" />
+    <Content Include="Scripts\account\passwordrecovery.js" />
+    <Content Include="Scripts\account\passwordrecovery.spec.js">
+      <DependentUpon>passwordrecovery.js</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.0.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-sortable.js" />
+    <Content Include="Scripts\knockout-sortable.min.js" />
+    <Content Include="Scripts\knockoutBindings\placeholderBinding.js" />
+    <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
+    <Content Include="Scripts\moment-with-langs.js" />
+    <Content Include="Scripts\moment-with-langs.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\review\common.js" />
+    <Content Include="Scripts\review\review.js" />
+    <Content Include="Scripts\review\review.spec.js">
+      <DependentUpon>review.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\common\serviceUnavailableAjaxErrorHandler.js" />
+    <Content Include="Scripts\common\serviceUnavailableAjaxErrorHandler.spec.js">
+      <DependentUpon>serviceUnavailableAjaxErrorHandler.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\account\signin.js" />
+    <Content Include="Scripts\account\signin.spec.js">
+      <DependentUpon>signin.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\account\signup.js" />
+    <Content Include="Scripts\account\signup.spec.js">
+      <DependentUpon>signup.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\account\signupsecondstep.js" />
+    <Content Include="Scripts\account\signupsecondstep.spec.js">
+      <DependentUpon>signupsecondstep.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\durandal\activator.js" />
     <Content Include="Scripts\durandal\app.js" />
     <Content Include="Scripts\durandal\binder.js" />
