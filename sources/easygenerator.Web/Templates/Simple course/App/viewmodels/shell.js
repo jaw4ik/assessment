@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/graphicalCustomization'],
-    function (app, router, routes, context, modulesInitializer, graphicalCustomisation) {
+﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/graphicalCustomization'],
+    function (app, composition, router, routes, context, modulesInitializer, graphicalCustomisation) {
 
         return {
             router: router,
@@ -40,10 +40,10 @@
                         return;
                     }
                     that.isNavigatingToAnotherView(true);
-                });
-                
-                router.on('router:navigation:composition-complete').then(function () {
-                    that.isNavigatingToAnotherView(false);
+
+                    composition.current.complete(function () {
+                        that.isNavigatingToAnotherView(false);
+                    });
                 });
                 
                 return context.initialize().then(function (dataContext) {
