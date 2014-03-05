@@ -551,6 +551,11 @@ input[type="checkbox"] {
     z-index: 1;
 }
 
+.ie9 .navigation-home-link-arrow {
+    top: 11px;
+    left: -17px;
+}
+
 /*#endregion sub navigation partial */
 
 /*#region objectives view*/
