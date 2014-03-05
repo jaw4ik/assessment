@@ -1,83 +1,21 @@
 ﻿function getCustomMatchers() {
 
-    var matchers = {};
-    /*   toBeSortedAsc: function (sortingField) {
-            return toBeSorted.apply(this, [sortingField, this.actual, true]);
-        },
-
-        toBeSortedDesc: function (sortingField) {
-            return toBeSorted.apply(this, [sortingField, this.actual, false]);
-        },
-
-        toBeObservable: function () {
-            return toBeObservable.call(this, this.actual);
-        },
-
-        toBeObservableArray: function () {
-            return toBeObservableArray.call(this, this.actual);
-        },
-
-        toBeComputed: function () {
-            return toBeComputed.call(this, this.actual);
-        },
-
-        toBeFunction: function () {
-            return toBeFunction.call(this, this.actual);
-        },
-
-        toBeObject: function () {
-            return toBeObject.call(this, this.actual);
-        },
-
-        toBeArray: function () {
-            return toBeArray.call(this, this.actual);
-        },
-
-        toBePromise: function () {
-            return toBePromise.call(this, this.actual);
-        },
-
-        toBeResolved: function () {
-            return toBeResolved.call(this, this.actual);
-        },
-
-        toBeResolvedWith: function (value) {
-            return toBeResolvedWith.apply(this, [this.actual, value]);
-        },
-
-        toBeRejected: function () {
-            return toBeRejected.call(this, this.actual);
-        },
-
-        toBeRejectedWith: function (reason) {
-            return toBeRejectedWith.apply(this, [this.actual, reason]);
-        },
-
-        toBeArray: function (length) {
-            return toBeArray.apply(this, [this.actual, length]);
-        },
-
-        toBeString: function () {
-            return toBeString.call(this, this.actual);
-        }
-    };*/
-
-    matchers.toBeFunction = toBeFunction;
-    matchers.toBeObject = toBeObject;
-    matchers.toBePromise = toBePromise;
-    matchers.toBeRejected = toBeRejected;
-    matchers.toBeRejectedWith = toBeRejectedWith;
-    matchers.toBeResolved = toBeResolved;
-    matchers.toBeResolvedWith = toBeResolvedWith;
-    matchers.toBeSortedAsc = toBeSortedAsc;
-    matchers.toBeSortedDesc = toBeSortedDesc;
-    matchers.toBeObservable = toBeObservable;
-    matchers.toBeObservableArray = toBeObservableArray;
-    matchers.toBeComputed = toBeComputed;
-    matchers.toBeArray = toBeArray;
-    matchers.toBeString = toBeString;
-
-    return matchers;
+    return {
+        toBeFunction: toBeFunction,
+        toBeObject: toBeObject,
+        toBePromise: toBePromise,
+        toBeRejected: toBeRejected,
+        toBeRejectedWith: toBeRejectedWith,
+        toBeResolved: toBeResolved,
+        toBeResolvedWith: toBeResolvedWith,
+        toBeSortedAsc: toBeSortedAsc,
+        toBeSortedDesc: toBeSortedDesc,
+        toBeObservable: toBeObservable,
+        toBeObservableArray: toBeObservableArray,
+        toBeComputed: toBeComputed,
+        toBeArray: toBeArray,
+        toBeString: toBeString
+    };
 }
 
 
@@ -284,7 +222,7 @@ function toBeSortedDesc(util, customEqualityTesters) {
 function toBeObservable(util, customEqualityTesters) {
     return {
         compare: function (actual) {
-            
+
             var result = {};
             result.pass = ko.isObservable(actual);
 
@@ -345,7 +283,7 @@ function toBeArray(util, customEqualityTesters) {
             } else {
                 result.pass = utils.equals(ko.unwrap(actual), jasmine.any(Array), customEqualityTesters);
             }
-            
+
             if (result.pass) {
                 result.message = "Ok";
             } else {
