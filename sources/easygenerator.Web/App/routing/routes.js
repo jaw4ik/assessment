@@ -29,7 +29,7 @@
                 }
             },
             {
-                route: 'objective/:id',
+                route: 'objective/:objectiveId',
                 moduleId: 'viewmodels/objectives/objective',
                 title: 'Learning Objective',
                 settings: {
@@ -45,7 +45,7 @@
                 }
             },
             {
-                route: 'objective/:objectiveId/question/:id',
+                route: 'objective/:objectiveId/question/:questionId',
                 moduleId: 'viewmodels/questions/question',
                 title: 'Question',
                 settings: {
@@ -61,7 +61,7 @@
                 }
             },
             {
-                route: 'course/:id',
+                route: 'course/:courseId',
                 moduleId: 'viewmodels/courses/course',
                 title: 'Course',
                 settings: {
@@ -69,7 +69,7 @@
                 }
             },
             {
-                route: 'design/:id',
+                route: 'design/:courseId',
                 moduleId: 'viewmodels/courses/design',
                 title: 'Design Course',
                 settings: {
@@ -77,7 +77,7 @@
                 }
             },
             {
-                route: 'deliver/:id',
+                route: 'deliver/:courseId',
                 moduleId: 'viewmodels/courses/deliver',
                 title: 'Deliver Course',
                 settings: {

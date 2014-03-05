@@ -1,5 +1,5 @@
-﻿define(['routing/routingContext', 'viewmodels/courses/courseNavigation/items/develop', 'viewmodels/courses/courseNavigation/items/design', 'viewmodels/courses/courseNavigation/items/deliver'],
-    function (routingContext, DevelopNavigationItem, DesignNavigationItem, DeliverNavigationItem) {
+﻿define(['viewmodels/courses/courseNavigation/items/develop', 'viewmodels/courses/courseNavigation/items/design', 'viewmodels/courses/courseNavigation/items/deliver'],
+    function (DevelopNavigationItem, DesignNavigationItem, DeliverNavigationItem) {
         var items = [];
         var activate = function () {
             this.items = [

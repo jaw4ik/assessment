@@ -5,16 +5,16 @@
 
             var dfd = Q.defer();
 
-            if (treeOfContent && context && context[0]) {
+            if (treeOfContent && context && context.courseId) {
                 var courseTreeNode = _.find(treeOfContent.children(), function (item) {
-                    return item.id == context[0];
+                    return item.id == context.courseId;
                 });
 
                 if (courseTreeNode) {
                     courseTreeNode.expand().then(function () {
-                        if (context[1]) {
+                        if (context.objectiveId) {
                             var objectiveTreeNode = _.find(courseTreeNode.children(), function (item) {
-                                return item.id == context[1];
+                                return item.id == context.objectiveId;
                             });
                             if (objectiveTreeNode) {
                                 objectiveTreeNode.expand().then(function () {

@@ -1,6 +1,6 @@
 ﻿define(['constants', 'durandal/app', 'viewmodels/panels/tabs/reviewTab', 'viewmodels/panels/tabs/feedbackTab', 'repositories/courseRepository',
-        'plugins/router', 'notify', 'localization/localizationManager', 'routing/routingContext'],
-    function (constants, app, reviewTab, feedbackTab, repository, router, notify, localizationManager, routingContext) {
+        'plugins/router'],
+    function (constants, app, reviewTab, feedbackTab, repository, router) {
         var viewModel = {
             activeTab: ko.observable(),
             reviewTab: reviewTab,
@@ -14,11 +14,11 @@
         };
 
         viewModel.isReviewTabVisible = ko.computed(function () {
-            return routingContext.courseId() != null;
+            return router.routeData().courseId != null;
         });
-       
+
         viewModel.reviewTabActivationData = ko.computed(function () {
-            var courseId = routingContext.courseId();
+            var courseId = router.routeData().courseId;
             return Q.fcall(function () {
                 if (courseId == null) {
                     return null;
@@ -43,7 +43,7 @@
         });
 
         app.on(constants.messages.course.publishForReview.completed, function (course) {
-            if (course.id !== routingContext.courseId())
+            if (course.id !== router.routeData().courseId)
                 return;
 
             if (viewModel.lastReviewTabActivationData() != null) {
@@ -55,7 +55,7 @@
         });
 
         return viewModel;
-
+        
         function activate() {
             return Q.fcall(function () {
                 viewModel.activeTab(null);

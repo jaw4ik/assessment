@@ -1,12 +1,11 @@
-﻿define(['viewmodels/panels/sidePanel', 'constants', 'durandal/app', 'repositories/courseRepository', 'plugins/router', 'viewmodels/panels/tabs/reviewTab', 'notify', 'routing/routingContext'],
-    function (viewModel, constants, app, repository, router, reviewTab, notify, routingContext) {
-
+﻿define(['viewmodels/panels/sidePanel', 'constants', 'durandal/app', 'repositories/courseRepository', 'plugins/router', 'viewmodels/panels/tabs/reviewTab', 'notify'],
+    function (viewModel, constants, app, repository, router, reviewTab, notify) {
         describe('viewModel [sidePanel]', function () {
-
             var getById;
 
             beforeEach(function () {
                 getById = Q.defer();
+                router.routeData({ courseId: 'courseId' });
                 spyOn(repository, 'getById').andReturn(getById.promise);
             });
 
@@ -51,9 +50,9 @@
                     expect(viewModel.isReviewTabVisible).toBeComputed();
                 });
 
-                describe('when routingContext courseId is null', function () {
+                describe('when router.routeData courseId is null', function () {
                     beforeEach(function () {
-                        routingContext.courseId(null);
+                        router.routeData({ courseId: null });
                     });
 
                     it('should be false', function () {
@@ -61,9 +60,9 @@
                     });
                 });
 
-                describe('when routingContext courseId is string', function () {
+                describe('when router.routeData courseId is string', function () {
                     beforeEach(function () {
-                        routingContext.courseId('id');
+                        router.routeData({ courseId: 'id' });
                     });
 
                     it('should be true', function () {
@@ -79,7 +78,7 @@
                 describe('and when course is current course', function () {
 
                     beforeEach(function () {
-                        spyOn(routingContext, 'courseId').andReturn(course.id);
+                        router.routeData({ courseId: course.id });
                     });
 
                     describe('and when lastReviewTabActivationData is object', function () {
@@ -220,9 +219,9 @@
                     expect(viewModel.reviewTabActivationData()).toBePromise();
                 });
 
-                describe('when routingContext courseId is null', function () {
+                describe('when router.routeData courseId is null', function () {
                     beforeEach(function () {
-                        routingContext.courseId(null);
+                        router.routeData({ courseId: null });
                     });
 
                     it('should set lastReviewTabActivationData to null', function () {
@@ -248,9 +247,9 @@
                     });
                 });
 
-                describe('when routingContext courseId is string', function () {
+                describe('when router.routeData courseId is string', function () {
                     beforeEach(function () {
-                        routingContext.courseId(courseId);
+                        router.routeData({ courseId: courseId });
                     });
 
                     describe('and when lastReviewTabActivationData is null', function () {
@@ -273,7 +272,6 @@
                         describe('when course exists', function () {
 
                             it('should update lastReviewTabActivationData', function () {
-                                routingContext.courseId.valueHasMutated();
                                 var
                                     promise = viewModel.reviewTabActivationData(),
                                     course = { reviewUrl: '', id: 'someId' };
@@ -312,7 +310,6 @@
                         describe('and when lastReviewTabActivationData courseId equals to current courseId', function () {
                             beforeEach(function () {
                                 spyOn(viewModel, 'lastReviewTabActivationData').andReturn({ courseId: courseId });
-                                routingContext.courseId.valueHasMutated();
                             });
 
                             it('should not get course from repository', function () {
@@ -342,7 +339,6 @@
                         describe('and when lastReviewTabActivationData courseId is not equal to current courseId', function () {
                             beforeEach(function () {
                                 spyOn(viewModel, 'lastReviewTabActivationData').andReturn({ courseId: '100500' });
-                                routingContext.courseId.valueHasMutated();
                             });
 
                             it('should get course from repository', function () {

@@ -13,7 +13,7 @@
             });
 
             it('should return promise', function () {
-                expect(handler.handle([])).toBePromise();
+                expect(handler.handle({})).toBePromise();
             });
 
             describe('when context has course', function () {
@@ -46,7 +46,7 @@
                     });
 
                     it('should expand course', function () {
-                        var promise = handler.handle(treeOfContent, ['courseId']);
+                        var promise = handler.handle(treeOfContent, { courseId: 'courseId' });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -60,7 +60,7 @@
                     describe('and course was expanded', function () {
 
                         it('should resolve promise', function () {
-                            var promise = handler.handle(treeOfContent, ['courseId']);
+                            var promise = handler.handle(treeOfContent, { courseId: 'courseId' });
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -102,7 +102,7 @@
                 describe('and objective was not found', function () {
 
                     it('should resolve promise', function () {
-                        var promise = handler.handle(treeOfContent, ['courseId', '-']);
+                        var promise = handler.handle(treeOfContent, { courseId: 'courseId', objectiveId: '-' });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -115,7 +115,7 @@
                 });
 
                 it('should expand objective', function () {
-                    var promise = handler.handle(treeOfContent, ['courseId', 'objectiveId']);
+                    var promise = handler.handle(treeOfContent, { courseId: 'courseId', objectiveId: 'objectiveId' });
 
                     waitsFor(function () {
                         return !promise.isPending();
@@ -128,7 +128,7 @@
                 describe('and objective was expanded', function () {
 
                     it('should resolve promise', function () {
-                        var promise = handler.handle(treeOfContent, ['courseId', 'objectiveId']);
+                        var promise = handler.handle(treeOfContent, { courseId: 'courseId', objectiveId: 'objectiveId' });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -160,7 +160,7 @@
             describe('when context is empty', function () {
 
                 it('should resolve promise', function () {
-                    var promise = handler.handle({ children: ko.observableArray([]) }, []);
+                    var promise = handler.handle({ children: ko.observableArray([]) }, {});
 
                     waitsFor(function () {
                         return !promise.isPending();
@@ -175,7 +175,7 @@
             describe('when tree of content is not specified', function () {
 
                 it('should resolve promise', function () {
-                    var promise = handler.handle(undefined, ['-']);
+                    var promise = handler.handle(undefined, { courseId: '-' });
 
                     waitsFor(function () {
                         return !promise.isPending();

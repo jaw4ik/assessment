@@ -70,7 +70,6 @@
 
                 it('should set the title of course', function () {
                     viewModel.title = '';
-                    debugger;
                     var promise = viewModel.activate();
                     deferred.resolve();
                     waitsFor(function () {

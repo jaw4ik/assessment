@@ -1,9 +1,9 @@
 ﻿define([
     'durandal/app',
+    'plugins/router',
     'treeOfContent/handlers/treeOfContentEventHandler',
     'treeOfContent/handlers/treeOfContentAutoExpandHandler',
     'treeOfContent/handlers/treeOfContentHighlightHandler',
-    'treeOfContent/treeOfContentNavigationContext',
     'repositories/courseRepository',
     'treeOfContent/CourseTreeNode',
 
@@ -11,7 +11,7 @@
     'text!treeOfContent/RelatedObjectiveTreeNode.html',
     'text!treeOfContent/QuestionTreeNode.html'],
 
-    function (app, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, treeOfContentNavigationContext, courseRepository, CourseTreeNode) {
+    function (app, router, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, courseRepository, CourseTreeNode) {
 
         var viewModel = {
             children: ko.observableArray([]),
@@ -57,7 +57,7 @@
         app.on('course:objectivesUnrelated', self.handler.objectivesUnrelated);
         app.on('course:objectivesReordered', self.handler.objectivesReordered);
 
-        treeOfContentNavigationContext.subscribe(function (navigationContext) {
+        router.routeData.subscribe(function (navigationContext) {
             treeOfContentAutoExpandHandler.handle(viewModel, navigationContext).then(function () {
                 treeOfContentHighlightHandler.handle();
             });
@@ -76,7 +76,7 @@
 
                 viewModel.children(array);
 
-                return treeOfContentAutoExpandHandler.handle(viewModel, treeOfContentNavigationContext());
+                return treeOfContentAutoExpandHandler.handle(viewModel, router.routeData());
             });
         }
 

@@ -10,11 +10,8 @@
         clientContext = require('clientContext'),
         localizationManager = require('localization/localizationManager'),
         uiLocker = require('uiLocker'),
-        routingContext = require('routing/routingContext'),
-
         help = require('help/helpHint'),
-        helpHintPositioning = require('help/helpHintPositioning')
-    ;
+        helpHintPositioning = require('help/helpHintPositioning');
 
     var events = {
         navigateToCourses: "Navigate to courses",
@@ -39,13 +36,7 @@
         isViewReady = ko.observable(false),
 
         activeModule = ko.computed(function () {
-            var activeItem = router.activeItem();
-            if (_.isObject(activeItem)) {
-                var moduleId = activeItem.__moduleId__;
-                moduleId = moduleId.slice(moduleId.lastIndexOf('/') + 1);
-                return moduleId;
-            }
-            return '';
+            return router.routeData().moduleName;
         }),
 
         navigation = ko.observableArray([]),
@@ -102,8 +93,8 @@
                             isViewReady(true);
                         });
 
-                        var activeModuleId = routingContext.moduleName();
-                        var hasCourseId = routingContext.courseId() != null;
+                        var activeModuleId = router.routeData().moduleName;
+                        var hasCourseId = router.routeData().courseId != null;
 
                         that.showCourseNavigation(hasCourseId);
                         that.showTreeOfContent(_.contains(coursesModules, activeModuleId) || hasCourseId);
@@ -170,17 +161,13 @@
         activeModuleName: activeModule,
         router: router,
         homeModuleName: coursesModule,
-
         isViewReady: isViewReady,
-
         showNavigation: showNavigation,
         showCourseNavigation: showCourseNavigation,
         showTreeOfContent: showTreeOfContent,
         navigation: navigation,
         isTryMode: isTryMode,
-
         username: username,
-
         help: help
     };
 }

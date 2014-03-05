@@ -182,9 +182,8 @@
     <Content Include="App\models\course.spec.js">
       <DependentUpon>course.js</DependentUpon>
     </Content>
-    <Content Include="App\routing\routingContext.js" />
-    <Content Include="App\routing\routingContext.spec.js">
-      <DependentUpon>routingContext.js</DependentUpon>
+    <Content Include="App\routing\routerExtender.spec.js">
+      <DependentUpon>routerExtender.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\commentRepository.js" />
     <Content Include="App\treeOfContent\commands\createQuestionCommand.js" />
@@ -234,7 +233,6 @@
     </Content>
     <Content Include="App\treeOfContent\treeOfContent.js" />
     <Content Include="App\treeOfContent\handlers\treeOfContentTraversal.js" />
-    <Content Include="App\treeOfContent\treeOfContentNavigationContext.js" />
     <Content Include="App\treeOfContent\handlers\treeOfContentAutoExpandHandler.js" />
     <Content Include="App\viewmodels\common\contentField.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.js" />
@@ -339,6 +337,10 @@
     </Content>
     <Content Include="App\viewmodels\courses\courseNavigation\items\deliver.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\items\design.js" />
+    <Content Include="App\viewmodels\courses\courseNavigation\items\navigationItem.js" />
+    <Content Include="App\viewmodels\courses\courseNavigation\items\navigationItem.spec.js">
+      <DependentUpon>navigationItem.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\courseNavigation\navigation.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\items\develop.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\navigation.spec.js">
