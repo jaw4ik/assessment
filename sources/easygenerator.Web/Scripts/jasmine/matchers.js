@@ -69,6 +69,11 @@
     matchers.toBeRejectedWith = toBeRejectedWith;
     matchers.toBeResolved = toBeResolved;
     matchers.toBeResolvedWith = toBeResolvedWith;
+    matchers.toBeSortedAsc = toBeSortedAsc;
+    matchers.toBeSortedDesc = toBeSortedDesc;
+    matchers.toBeObservable = toBeObservable;
+    matchers.toBeObservableArray = toBeObservableArray;
+    matchers.toBeComputed = toBeComputed;
 
     return matchers;
 }
@@ -131,7 +136,7 @@ function toBeRejected(util, customEqualityTesters) {
             }
 
             var result = {};
-            result.pass = util.equals(actual.inspect().state, "rejected");
+            result.pass = util.equals(actual.inspect().state, "rejected", customEqualityTesters);
 
             if (result.pass) {
                 result.message = "Ok";
@@ -152,7 +157,7 @@ function toBeRejectedWith(util, customEqualityTesters) {
             }
 
             var result = {};
-            result.pass = toBeRejected(util, customEqualityTesters).compare(actual) && util.equals(actual.inspect().reason, reason);
+            result.pass = toBeRejected(util, customEqualityTesters).compare(actual) && util.equals(actual.inspect().reason, reason, customEqualityTesters);
 
             if (result.pass) {
                 result.message = "Ok";
@@ -173,7 +178,7 @@ function toBeResolved(util, customEqualityTesters) {
             }
 
             var result = {};
-            result.pass = util.equals(actual.inspect().state, "fulfilled");
+            result.pass = util.equals(actual.inspect().state, "fulfilled", customEqualityTesters);
 
             if (result.pass) {
                 result.message = "Ok";
@@ -197,7 +202,7 @@ function toBeResolvedWith(util, customEqualityTesters) {
             }
 
             var result = {};
-            result.pass = toBeResolved(util, customEqualityTesters).compare(actual) && util.equals(actualJSON, valueJSON);
+            result.pass = toBeResolved(util, customEqualityTesters).compare(actual) && util.equals(actualJSON, valueJSON, customEqualityTesters);
 
             if (result.pass) {
                 result.message = "Ok";
@@ -208,79 +213,125 @@ function toBeResolvedWith(util, customEqualityTesters) {
         }
     };
 }
+
+function toBeSorted(util, customEqualityTesters) {
+    return {
+        compare: function (sortingField, actual, asc) {
+
+            if (_.isEmpty(sortingField)) {
+                throw 'You should specify sorting field';
+            }
+
+            var result = {};
+            result.pass = true;
+
+            var arr = actual;
+            for (var i = 0, length = arr.length; i < length - 1; i++) {
+                var value1 = ko.unwrap(arr[i][sortingField]);
+                var value2 = ko.unwrap(arr[i + 1][sortingField]);
+
+                if (_.isString(value1)) {
+                    value1 = value1.toLowerCase();
+                }
+
+                if (_.isString(value2)) {
+                    value2 = value2.toLowerCase();
+                }
+
+                if (asc) {
+                    if (value1 > value2) {
+                        result.pass = false;
+                    }
+                } else {
+                    if (value1 < value2) {
+                        result.pass = false;
+                    }
+                }
+            }
+
+            if (result.pass) {
+                result.message = "Ok";
+            } else {
+                if (asc) {
+                    result.message = "Expected " + JSON.stringify(this.actual) + " to be sorted ascending by '" + sortingField + "'";
+                } else {
+                    result.message = "Expected " + JSON.stringify(this.actual) + " to be sorted descending by '" + sortingField + "'";
+                }
+            }
+            return result;
+        }
+    };
+}
+
+function toBeSortedAsc(util, customEqualityTesters) {
+    return {
+        compare: function (actual, sortingField) {
+            return toBeSorted(util, customEqualityTesters).compare(actual, sortingField, true);
+        }
+    };
+}
+
+function toBeSortedDesc(util, customEqualityTesters) {
+    return {
+        compare: function (actual, sortingField) {
+            return toBeSorted(util, customEqualityTesters).compare(actual, sortingField, false);
+        }
+    };
+}
+
+function toBeObservable(util, customEqualityTesters) {
+    return {
+        compare: function (actual) {
+            
+            var result = {};
+            result.pass = ko.isObservable(actual);
+
+            if (result.pass) {
+                result.message = "Ok";
+            } else {
+                result.message = "Expected to be observable";
+            }
+            return result;
+        }
+    };
+}
+
+function toBeObservableArray(util, customEqualityTesters) {
+    return {
+        compare: function (actual) {
+
+            var result = {};
+            result.pass = ko.isObservable(actual) && utils.equals(ko.unwrap(actual), jasmine.any(Array), customEqualityTesters);
+
+            if (result.pass) {
+                result.message = "Ok";
+            } else {
+                result.message = "Expected to be observable array";
+            }
+            return result;
+        }
+    };
+}
+
+function toBeComputed(util, customEqualityTesters) {
+    return {
+        compare: function (actual) {
+
+            var result = {};
+            result.pass = ko.isComputed(actual);
+
+            if (result.pass) {
+                result.message = "Ok";
+            } else {
+                result.message = "Expected to be computed";
+            }
+            return result;
+        }
+    };
+}
+
 /*
-function toBeSorted(sortingField, actual, asc) {
-    if (this.isNot) {
-        throw '[.not] is not supported';
-    }
 
-    if (_.isEmpty(sortingField)) {
-        throw 'You should specify sorting field';
-    }
-
-    this.message = function () {
-        if (asc)
-            return "Expected " + JSON.stringify(this.actual) + " to be sorted ascending by '" + sortingField + "'";
-
-        return "Expected " + JSON.stringify(this.actual) + " to be sorted descending by '" + sortingField + "'";
-    };
-
-    var arr = actual;
-    for (var i = 0, len = arr.length; i < len - 1; i++) {
-        var value1 = ko.unwrap(arr[i][sortingField]);
-        var value2 = ko.unwrap(arr[i + 1][sortingField]);
-
-        if (_.isString(value1)) {
-            value1 = value1.toLowerCase();
-        }
-
-        if (_.isString(value2)) {
-            value2 = value2.toLowerCase();
-        }
-
-        if (asc) {
-            if (value1 > value2) return false;
-        } else if (value1 < value2) return false;
-    }
-
-    return true;
-}
-
-function toBeObservable(actual) {
-    if (this.isNot) {
-        throw '[.not] is not supported';
-    }
-
-    this.message = function () {
-        return "Expected to be observable";
-    };
-
-    return ko.isObservable(actual);
-}
-
-function toBeObservableArray(actual) {
-    if (this.isNot) {
-        throw '[.not] is not supported';
-    }
-
-    this.message = function () {
-        return "Expected to be observable array";
-    };
-
-    return ko.isObservable(actual) && jasmine.getEnv().equals_(ko.unwrap(actual), jasmine.any(Array));
-}
-
-function toBeComputed(actual) {
-    if (this.isNot) {
-        throw '[.not] is not supported';
-    }
-
-    this.message = function () {
-        return "Expected to be computed";
-    };
-
-    return ko.isComputed(actual);
-}
 
 function toBeArray(actual) {
     if (this.isNot) {
