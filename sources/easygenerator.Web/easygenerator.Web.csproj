@@ -829,7 +829,7 @@
     <Content Include="Scripts\jasmine\jasmine.js" />
     <Content Include="Scripts\jasmine\jasmine_favicon.png" />
     <Content Include="Scripts\jasmine\matchers.js" />
-    <Content Include="Scripts\jasmine\specRunner.js" />
+    <Content Include="App\specRunner.js" />
     <Content Include="Scripts\jasmine\utils.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
