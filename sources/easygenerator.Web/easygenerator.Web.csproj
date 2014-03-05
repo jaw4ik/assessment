@@ -910,6 +910,15 @@
     <Content Include="Content\font\buxtonsketch.ttf" />
     <Content Include="Content\font\buxtonsketch.woff" />
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Templates\Quiz\App\bootstrapper.js" />
+    <Content Include="Templates\Quiz\App\bootstrapper.spec.js">
+      <DependentUpon>bootstrapper.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\bootstrapper.tasks.js">
+      <DependentUpon>bootstrapper.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\bootstrapping\binderTask.js" />
+    <Content Include="Templates\Quiz\App\bootstrapping\viewLocatorTask.js" />
     <Content Include="Templates\Quiz\App\browserSupport.js" />
     <Content Include="Templates\Quiz\App\configuration\routes.js" />
     <Content Include="Templates\Quiz\App\configuration\settings.js" />
@@ -1180,6 +1189,15 @@
     <Content Include="Templates\Quiz\settings.html" />
     <Content Include="Templates\Quiz\settings.js" />
     <Content Include="Templates\Quiz\weyland-config.js" />
+    <Content Include="Templates\Simple course\App\bootstrapper.js" />
+    <Content Include="Templates\Simple course\App\bootstrapper.spec.js">
+      <DependentUpon>bootstrapper.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Simple course\App\bootstrapper.tasks.js">
+      <DependentUpon>bootstrapper.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Simple course\App\bootstrapping\binderTask.js" />
+    <Content Include="Templates\Simple course\App\bootstrapping\viewLocatorTask.js" />
     <Content Include="Templates\Simple course\App\browserSupport.js" />
     <Content Include="Templates\Simple course\App\configuration\routes.js" />
     <Content Include="Templates\Simple course\App\context.js" />

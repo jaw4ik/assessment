@@ -16,8 +16,8 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'browserSupport', 'settingsReader'],
-    function (app, viewLocator, system, modulesInitializer, getRootView, settingsReader) {
+define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'browserSupport', 'settingsReader', 'bootstrapper'],
+    function (app, viewLocator, system, modulesInitializer, getRootView, settingsReader, bootstrapper) {
 
         app.title = 'easygenerator';
 
@@ -28,7 +28,8 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
         });
 
         app.start().then(function () {
-            viewLocator.useConvention();
+            bootstrapper.run();
+
             app.setRoot(getRootView);
 
             var modules = [];

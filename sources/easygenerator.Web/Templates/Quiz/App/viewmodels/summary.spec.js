@@ -49,9 +49,9 @@
                     course.isAnswered = false;
                 });
 
-                it('should return false', function () {
+                it('should return redirect to root', function () {
                     var result = viewModel.canActivate();
-                    expect(result).toBeFalsy();
+                    expect(result).toEqual({ redirect: '#' });
                 });
             });
         });

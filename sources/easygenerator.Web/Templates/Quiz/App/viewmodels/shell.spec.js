@@ -99,7 +99,7 @@
                             return !promise.isPending();
                         });
                         runs(function() {
-                            expect(viewModel.logoUrl).toBe(graphicalCustomization.settings.logoUrl);
+                            expect(viewModel.logoUrl()).toBe(graphicalCustomization.settings.logoUrl);
                         });
                     });
 
