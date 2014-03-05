@@ -74,6 +74,8 @@
     matchers.toBeObservable = toBeObservable;
     matchers.toBeObservableArray = toBeObservableArray;
     matchers.toBeComputed = toBeComputed;
+    matchers.toBeArray = toBeArray;
+    matchers.toBeString = toBeString;
 
     return matchers;
 }
@@ -330,53 +332,48 @@ function toBeComputed(util, customEqualityTesters) {
     };
 }
 
-/*
+function toBeArray(util, customEqualityTesters) {
+    return {
+        compare: function (actual, length) {
 
+            var hasLengthRestriction = length != undefined && _.isNumber(length);
 
-function toBeArray(actual) {
-    if (this.isNot) {
-        throw '[.not] is not supported';
-    }
+            var result = {};
 
-    this.message = function () {
-        return "Expected to be array";
-    };
+            if (hasLengthRestriction) {
+                result.pass = utils.equals(ko.unwrap(actual), jasmine.any(Array), customEqualityTesters) && actual.length === length;
+            } else {
+                result.pass = utils.equals(ko.unwrap(actual), jasmine.any(Array), customEqualityTesters);
+            }
+            
+            if (result.pass) {
+                result.message = "Ok";
+            } else {
+                if (hasLengthRestriction) {
+                    result.message = "Expected to be an Array of length " + length;
+                } else {
+                    result.message = "Expected to be an Array";
+                }
+            }
 
-    return jasmine.getEnv().equals_(actual, jasmine.any(Array));
-}
-
-function toBeArray(actual, length) {
-    if (this.isNot) {
-        throw '[.not] is not supported';
-    }
-
-    this.message = function () {
-        return "Expected to be an Array";
-    };
-
-    var isArray = jasmine.getEnv().equals_(actual, jasmine.any(Array));
-
-    if (length != undefined) {
-        this.message = function () {
-            return "Expected to be an Array of length " + length;
-        };
-
-        if (isArray) {
-            isArray = isArray & actual.length === length;
+            return result;
         }
-    }
-
-    return isArray;
+    };
 }
 
-function toBeString(actual) {
-    if (this.isNot) {
-        throw '[.not] is not supported';
-    }
+function toBeString(util, customEqualityTesters) {
+    return {
+        compare: function (actual) {
 
-    this.message = function () {
-        return "Expected to be string";
+            var result = {};
+            result.pass = utils.equals(ko.unwrap(actual), jasmine.any(String), customEqualityTesters);
+
+            if (result.pass) {
+                result.message = "Ok";
+            } else {
+                result.message = "Expected to be string";
+            }
+            return result;
+        }
     };
-
-    return jasmine.getEnv().equals_(actual, jasmine.any(String));
-}*/
+}

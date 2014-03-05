@@ -16,7 +16,7 @@
      * Require Jasmine's core files. Specifically, this requires and attaches all of Jasmine's code to the `jasmine` reference.
      */
     window.jasmine = jasmineRequire.core(jasmineRequire);
-    window.jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+    window.jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
 
     /**
      * Since this is being run in a browser and the results should populate to an HTML page, require the HTML-specific Jasmine code, injecting the same reference.
