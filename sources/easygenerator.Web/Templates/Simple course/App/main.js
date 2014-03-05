@@ -34,24 +34,25 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
 
         app.start().then(function () {
             viewLocator.useConvention();
-            app.setRoot(getRootView);
 
             var modules = [];
 
             Q.allSettled([
 
-            settingsReader.readTemplateSettings().then(function (settings) {
-                modules['modules/graphicalCustomization'] = settings.logo;
-                modules["xApi/xApiInitializer"] = settings.xApi;
-            }),
+                settingsReader.readTemplateSettings().then(function (settings) {
+                    modules['modules/graphicalCustomization'] = settings.logo;
+                    modules["xApi/xApiInitializer"] = settings.xApi;
+                }),
 
-            settingsReader.readPublishSettings().then(function (settings) {
-                _.each(settings.modules, function(module) {
-                    modules[module.name] = true;
-                });
-
-            })]).then(function () {
+                settingsReader.readPublishSettings().then(function (settings) {
+                    _.each(settings.modules, function(module) {
+                        modules[module.name] = true;
+                    });
+                })
+            
+            ]).then(function () {
                 modulesInitializer.register(modules);
+                app.setRoot(getRootView);
             });
         });
     }

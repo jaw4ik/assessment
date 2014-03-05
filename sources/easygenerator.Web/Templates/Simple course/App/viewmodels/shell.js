@@ -27,7 +27,7 @@
                 return settings;
             },
             
-            logoUrl: '',
+            logoUrl: ko.observable(''),
             isNavigatingToAnotherView: ko.observable(false),
 
 
@@ -51,7 +51,7 @@
 
                     return modulesInitializer.init().then(function () {
                         
-                        that.logoUrl = graphicalCustomisation.settings.logoUrl;
+                        that.logoUrl(graphicalCustomisation.settings.logoUrl);
 
                         return router.map(routes)
                             .buildNavigationModel()

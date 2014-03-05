@@ -20,7 +20,7 @@
                 return true;
             },
             
-            logoUrl = '',
+            logoUrl = ko.observable(''),
 
             activate = function () {
                 var that = this;
@@ -33,7 +33,7 @@
                     
                     return modulesInitializer.init().then(function () {
                         
-                        that.logoUrl = graphicalCustomization.settings.logoUrl;
+                        that.logoUrl(graphicalCustomization.settings.logoUrl);
                         
                         return router.map(routes)
                             .buildNavigationModel()
