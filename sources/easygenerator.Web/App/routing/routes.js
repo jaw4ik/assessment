@@ -13,11 +13,6 @@
                 title: '400 Bad Request',
             },
             {
-                route: 'user',
-                moduleId: 'viewmodels/userproperties',
-                title: 'User Properties',
-            },
-            {
                 route: 'objectives',
                 moduleId: 'viewmodels/objectives/objectives',
                 title: 'Objectives',

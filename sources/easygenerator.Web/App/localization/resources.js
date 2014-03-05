@@ -681,12 +681,6 @@
     },
     /* End resource section for model Error pages */
     
-    /* Resource section for model User properties */
-    userProperties: {
-        en: 'User properties'
-    },
-    /* End resource section for model User properties */
-    
     /* Resource section for model Not supported browsers */
     browserNotSupport: {
         en: 'Your browser is currently not supported. Do not worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.'

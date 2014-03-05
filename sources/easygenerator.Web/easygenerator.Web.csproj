@@ -831,8 +831,6 @@
     <Content Include="Scripts\knockout-sortable.min.js" />
     <Content Include="Scripts\knockoutBindings\placeholderBinding.js" />
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
-    <Content Include="Scripts\moment-with-langs.js" />
-    <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\r.js" />
@@ -1493,7 +1491,6 @@
     <Content Include="App\viewmodels\questions\question.spec.js">
       <DependentUpon>question.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\userproperties.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\errors\400.html" />
@@ -1550,7 +1547,6 @@
     <Content Include="App\views\objectives\objectives.html" />
     <Content Include="App\views\courses\courses.html" />
     <Content Include="App\views\questions\question.html" />
-    <Content Include="App\views\userproperties.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="Content\common.css" />
     <Content Include="App\viewmodels\objectives\objective.spec.js">
@@ -1582,8 +1578,6 @@
     <Content Include="Scripts\knockout.validation.debug.js" />
     <None Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\knockoutBindings\selectBoxBinding.js" />
-    <Content Include="Scripts\moment-lang-de.js" />
-    <Content Include="Scripts\moment-lang-nl.js" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\underscore.extensions.js" />
     <Content Include="Web.config">

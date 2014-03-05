@@ -66,7 +66,7 @@
     <!-- ko compose: 'treeOfContent/treeOfContent' -->
     <!-- /ko -->
     <!-- /ko -->
-    <section id="content" class="main" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }, css: browserCulture() + '-lang', css: { 'course-edit-mode': showCourseNavigation, 'navigation-tree-shown-mode': showTreeOfContent() }">
+    <section id="content" class="main" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }, css: { 'course-edit-mode': showCourseNavigation, 'navigation-tree-shown-mode': showTreeOfContent() }">
         <div data-bind="widget: { kind: 'notifyViewer' }"></div>
         <!-- ko compose: { model: 'help/helpHint', activationData: activeModuleName } -->
         <!-- /ko -->

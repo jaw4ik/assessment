@@ -48,8 +48,6 @@
             return '';
         }),
 
-        browserCulture = ko.observable(),
-
         navigation = ko.observableArray([]),
 
         showNavigation = function () {
@@ -67,7 +65,6 @@
             var that = this;
             return dataContext.initialize()
                 .then(function () {
-                    browserCulture(localizationManager.currentLanguage);
 
                     router.guardRoute = function (routeInfo, params) {
                         if (dataContext.userSettings.isShowIntroduction && clientContext.get('isShowIntroductionPage')) {
@@ -171,7 +168,6 @@
     return {
         activate: activate,
         activeModuleName: activeModule,
-        browserCulture: browserCulture,
         router: router,
         homeModuleName: coursesModule,
 
