@@ -823,6 +823,14 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="Scripts\jasmine\boot.js" />
+    <Content Include="Scripts\jasmine\jasmine-html.js" />
+    <Content Include="Scripts\jasmine\jasmine.css" />
+    <Content Include="Scripts\jasmine\jasmine.js" />
+    <Content Include="Scripts\jasmine\jasmine_favicon.png" />
+    <Content Include="Scripts\jasmine\matchers.js" />
+    <Content Include="Scripts\jasmine\specRunner.js" />
+    <Content Include="Scripts\jasmine\utils.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
@@ -1524,7 +1532,6 @@
     <Content Include="Content\images\sample\9.png" />
     <Content Include="Content\images\typeQuestionTitleArrow.png" />
     <Content Include="Scripts\has.js" />
-    <Content Include="Scripts\jasmine\utils.js" />
     <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
     <Content Include="App\routing\routes.js" />
     <Content Include="App\constants.js" />
@@ -1559,7 +1566,6 @@
     </Content>
     <Content Include="Content\images\multichoice-question.png" />
     <Content Include="Content\images\logo.png" />
-    <None Include="Content\jasmine.css" />
     <Content Include="Content\objective.css" />
     <Content Include="Content\question.css" />
     <Content Include="Content\objectives.css" />
@@ -1567,10 +1573,6 @@
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />
     <Content Include="robots.txt" />
-    <None Include="Scripts\jasmine\jasmine-1.3.1-html.js" />
-    <None Include="Scripts\jasmine\jasmine-1.3.1.js" />
-    <None Include="Scripts\jasmine\jasmine-1.3.1-console.js" />
-    <Content Include="Scripts\jasmine\jasmine-matchers.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <None Include="Scripts\jquery.validate.min.js" />

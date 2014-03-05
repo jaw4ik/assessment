@@ -29,9 +29,9 @@ IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 "%VS110COMNTOOLS%..\IDE\mstest.exe" /testcontainer:sources\easygenerator.Web.Tests\bin\Debug\easygenerator.Web.Tests.dll 
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
-echo Running Jasmine tests...
-"tools/phantomjs/phantomjs.exe" tools/phantomjs/run-jasmine.js sources/easygenerator.Web/App/specs.html
-IF NOT %ERRORLEVEL% == 0 GOTO ERROR
+:: echo Running Jasmine tests...
+:: "tools/phantomjs/phantomjs.exe" tools/phantomjs/run-jasmine.js sources/easygenerator.Web/App/specs.html
+:: IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 ECHO "Deploying to %DeploymentDirectory% ..."
 xcopy "./sources/easygenerator.Web/App/main-built.js" "%DeploymentDirectory%\App\" /Y /F /I
