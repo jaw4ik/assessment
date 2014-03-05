@@ -134,20 +134,20 @@ function toBeResolvedWith(util, customEqualityTesters) {
     return {
         compare: function (actual, value) {
 
-            var valueJSON = JSON.stringify(value);
-            var actualJSON = JSON.stringify(actual.inspect().value);
+            var valueJson = JSON.stringify(value);
+            var actualJson = JSON.stringify(actual.inspect().value);
 
             if (!toBePromise(util, customEqualityTesters).compare(actual)) {
                 throw 'Expected to be promise';
             }
 
             var result = {};
-            result.pass = toBeResolved(util, customEqualityTesters).compare(actual) && util.equals(actualJSON, valueJSON, customEqualityTesters);
+            result.pass = toBeResolved(util, customEqualityTesters).compare(actual) && util.equals(actualJson, valueJson, customEqualityTesters);
 
             if (result.pass) {
                 result.message = "Ok";
             } else {
-                result.message = "Expected promise to be resolved with value '" + valueJSON + "', but it was resolved with value '" + actualJSON + "'";
+                result.message = "Expected promise to be resolved with value '" + valueJson + "', but it was resolved with value '" + actualJson + "'";
             }
             return result;
         }
