@@ -35,9 +35,9 @@
        'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
        'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
        'routing/routerExtender.spec',
-       'localization/localizationManager.spec'
-       /*'services/deliverService.spec',
-       'repositories/courseRepository.spec',
+       'localization/localizationManager.spec',
+       'services/deliverService.spec'
+       /*'repositories/courseRepository.spec',
        'repositories/objectiveRepository.spec',
        'repositories/questionRepository.spec',
        'repositories/answerRepository.spec',
