@@ -12,6 +12,7 @@
                     var f = function () {
                         guard.throwIfNotAnObject(null, message);
                     };
+
                     expect(f).toThrow(message);
                 });
 
@@ -23,6 +24,7 @@
                     var f = function () {
                         guard.throwIfNotAnObject({}, '');
                     };
+
                     expect(f).not.toThrow();
                 });
 
@@ -39,6 +41,7 @@
                     var f = function () {
                         guard.throwIfNotString({}, message);
                     };
+
                     expect(f).toThrow(message);
                 });
 
@@ -50,6 +53,7 @@
                     var f = function () {
                         guard.throwIfNotString('', '');
                     };
+
                     expect(f).not.toThrow();
                 });
 
@@ -66,6 +70,7 @@
                     var f = function () {
                         guard.throwIfNotBoolean(undefined, message);
                     };
+
                     expect(f).toThrow(message);
                 });
 
@@ -77,6 +82,7 @@
                     var f = function () {
                         guard.throwIfNotBoolean(true, '');
                     };
+
                     expect(f).not.toThrow();
                 });
 
@@ -97,24 +103,26 @@
                     var f = function () {
                         guard.throwIfNotDate(null, message);
                     };
+
                     expect(f).toThrow(message);
                 });
 
             });
 
-            describe('when argument is a date', function() {
+            describe('when argument is a date', function () {
 
-                it('should not throw exception', function() {
+                it('should not throw exception', function () {
                     var f = function () {
                         guard.throwIfNotDate(new Date());
                     };
+
                     expect(f).not.toThrow();
                 });
 
             });
 
         });
-        
+
         describe('throwIfNotNumber:', function () {
 
             it('should be function', function () {
@@ -128,6 +136,7 @@
                     var f = function () {
                         guard.throwIfNotNumber(null, message);
                     };
+
                     expect(f).toThrow(message);
                 });
 
@@ -139,6 +148,7 @@
                     var f = function () {
                         guard.throwIfNotNumber(100);
                     };
+
                     expect(f).not.toThrow();
                 });
 

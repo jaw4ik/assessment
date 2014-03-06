@@ -1,5 +1,6 @@
 ﻿define(['models/entity'],
     function (EntityModel) {
+        "use strict";
 
         var AnswerOption = function (spec) {
 

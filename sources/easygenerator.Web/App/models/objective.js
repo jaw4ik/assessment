@@ -1,5 +1,6 @@
 ﻿define(['models/entity'],
     function (EntityModel) {
+        "use strict";
 
         var Objective = function (spec) {
 

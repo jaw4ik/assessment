@@ -50,9 +50,7 @@
 
                 it('should reject promise with reason', function (done) {
                     var promise = httpWrapper.post();
-                    promise.fin(function () {
-                        done();
-                    });
+                    promise.fin(done);
 
                     var reason = "reason";
 
@@ -63,9 +61,7 @@
 
                 it('should trigger \'httpWrapper:post-end\' event', function (done) {
                     var promise = httpWrapper.post();
-                    promise.fin(function () {
-                        done();
-                    });
+                    promise.fin(done);
 
                     post.reject();
 
@@ -77,9 +73,7 @@
 
                 it('should trigger \'httpWrapper:post-end\' event', function (done) {
                     var promise = httpWrapper.post();
-                    promise.fin(function () {
-                        done();
-                    });
+                    promise.fin(done);
 
                     post.resolve();
 
@@ -90,9 +84,7 @@
 
                     it('should reject promise', function (done) {
                         var promise = httpWrapper.post();
-                        promise.fin(function () {
-                            done();
-                        });
+                        promise.fin(done);
 
                         post.resolve();
 
@@ -104,11 +96,13 @@
                 describe('and response is an object', function () {
 
                     describe('and response state is not success', function () {
+
                         beforeEach(function () {
                             spyOn(notify, 'error');
                         });
 
                         describe('and response resourceKey exists', function () {
+
                             beforeEach(function () {
                                 spyOn(localizationManager, 'localize').and.returnValue("test localizable value");
                             });
@@ -118,9 +112,7 @@
                                 var message = "test message";
 
                                 var promise = httpWrapper.post();
-                                promise.fin(function () {
-                                    done();
-                                });
+                                promise.fin(done);
 
                                 post.resolve({ resourceKey: resourceKey, message: message });
 
@@ -133,9 +125,7 @@
                                 var message = "test message";
 
                                 var promise = httpWrapper.post();
-                                promise.fin(function () {
-                                    done();
-                                });
+                                promise.fin(done);
 
                                 post.resolve({ resourceKey: resourceKey, message: message });
 
@@ -151,9 +141,7 @@
                                     var message = "test message";
 
                                     var promise = httpWrapper.post();
-                                    promise.fin(function () {
-                                        done();
-                                    });
+                                    promise.fin(done);
 
                                     post.resolve({ message: message });
 
@@ -164,9 +152,7 @@
                                     var message = "test message";
 
                                     var promise = httpWrapper.post();
-                                    promise.fin(function () {
-                                        done();
-                                    });
+                                    promise.fin(done);
 
                                     post.resolve({ message: message });
 
@@ -182,9 +168,7 @@
 
                                 it('should show localized default error message', function (done) {
                                     var promise = httpWrapper.post();
-                                    promise.fin(function () {
-                                        done();
-                                    });
+                                    promise.fin(done);
 
                                     post.resolve({});
 
@@ -193,9 +177,7 @@
 
                                 it('should reject promise with default message', function (done) {
                                     var promise = httpWrapper.post();
-                                    promise.fin(function () {
-                                        done();
-                                    });
+                                    promise.fin(done);
 
                                     post.resolve({});
 
@@ -204,9 +186,7 @@
 
                                 it('should show error notification with default message', function (done) {
                                     var promise = httpWrapper.post();
-                                    promise.fin(function () {
-                                        done();
-                                    });
+                                    promise.fin(done);
 
                                     post.resolve({});
 
@@ -220,9 +200,7 @@
 
                         it('should resolve promise with response data', function (done) {
                             var promise = httpWrapper.post();
-                            promise.fin(function () {
-                                done();
-                            });
+                            promise.fin(done);
 
                             var data = { title: 'title', description: 'description' };
 

@@ -1,5 +1,6 @@
 ﻿define([],
     function () {
+        "use strict";
         
         function Entity (spec) {
             if (typeof spec == typeof undefined) throw 'You should provide a specification to create an Entity';

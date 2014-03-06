@@ -24,10 +24,10 @@
 
         var specs = [
        'guard.spec',
-       'httpWrapper.spec'
-       /*'notify.spec',
-       'models/course.spec',
-       'errorHandling/httpErrorHandlerRegistrator.spec',
+       'httpWrapper.spec',
+       'notify.spec',
+       'models/course.spec'
+       /*'errorHandling/httpErrorHandlerRegistrator.spec',
        'errorHandling/globalErrorHandler.spec',
        'errorHandling/errorHandlingConfiguration.spec',
        'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',

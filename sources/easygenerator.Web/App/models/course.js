@@ -1,5 +1,6 @@
 ﻿define(['models/entity', 'durandal/app', 'constants', 'services/deliverService'],
     function (EntityModel, app, constants, deliverService) {
+        "use strict";
 
         function Course(spec) {
 

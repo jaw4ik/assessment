@@ -1,5 +1,6 @@
 ﻿define(['models/entity'],
     function (entityModel) {
+        "use strict";
 
         var template = function (spec) {
 

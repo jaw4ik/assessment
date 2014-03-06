@@ -1,4 +1,5 @@
 ﻿define(['widgets/notifyViewer/viewmodel', 'localization/localizationManager'], function (notifyViewer, localizationManager) {
+    "use strict";
 
     var
         noticeTypes = {
@@ -6,7 +7,6 @@
             error: "error",
             success: "success"
         },
-
 
         success = function (message) {
             showNotification(message, noticeTypes.success);
