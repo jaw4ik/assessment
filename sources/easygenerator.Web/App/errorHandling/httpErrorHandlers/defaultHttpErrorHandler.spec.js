@@ -1,12 +1,19 @@
-﻿define(['errorHandling/httpErrorHandlers/defaultHttpErrorHandler', 'localization/localizationManager', 'notify'], function (errorHandler, localizationManager, notify) {
+﻿define(['errorHandling/httpErrorHandlers/defaultHttpErrorHandler'], function (errorHandler) {
+    "use strict";
+
+    var
+        localizationManager = require('localization/localizationManager'),
+        notify = require('notify');
 
     describe('[defaultHttpErrorHandler]', function () {
 
         describe('handleError:', function () {
+
             var defaultErrorNotification = 'failed';
+
             beforeEach(function () {
                 spyOn(notify, 'error');
-                spyOn(localizationManager, 'localize').andReturn(defaultErrorNotification);
+                spyOn(localizationManager, 'localize').and.returnValue(defaultErrorNotification);
             });
 
             describe('and response is undefined', function () {
@@ -15,6 +22,7 @@
                     errorHandler.handleError();
                     expect(notify.error).toHaveBeenCalledWith(defaultErrorNotification);
                 });
+
             });
 
             describe('and response is string', function () {
@@ -24,6 +32,7 @@
                     errorHandler.handleError(response);
                     expect(notify.error).toHaveBeenCalledWith(response);
                 });
+
             });
 
             describe('and response is not-string object', function () {
@@ -34,6 +43,7 @@
                 });
                 
             });
+
         });
 
     });
