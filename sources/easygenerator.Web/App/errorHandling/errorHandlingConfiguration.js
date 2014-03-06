@@ -3,6 +3,7 @@
     'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler',
     'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler'],
     function (httpErrorHandlerRegistrator, serviceUnavailableHttpErrorHandler, forbiddenHttpErrorHandler, unauthorizedHttpErrorHandler) {
+        "use strict";
 
         var configure = function () {
             httpErrorHandlerRegistrator.registerHandler(401, unauthorizedHttpErrorHandler);

@@ -28,9 +28,9 @@
        'notify.spec',
        'models/course.spec',
        'errorHandling/httpErrorHandlerRegistrator.spec',
-       'errorHandling/globalErrorHandler.spec'
-       /*'errorHandling/errorHandlingConfiguration.spec',
-       'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
+       'errorHandling/globalErrorHandler.spec',
+       'errorHandling/errorHandlingConfiguration.spec'
+       /*'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
        'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
        'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
        'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
