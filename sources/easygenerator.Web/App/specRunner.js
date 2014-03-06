@@ -32,9 +32,9 @@
        'errorHandling/errorHandlingConfiguration.spec',
        'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
        'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
-       'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec'
-       /*'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
-       'routing/routerExtender.spec',
+       'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
+       'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec'
+       /*'routing/routerExtender.spec',
        'localization/localizationManager.spec',
        'services/deliverService.spec',
        'repositories/courseRepository.spec',
