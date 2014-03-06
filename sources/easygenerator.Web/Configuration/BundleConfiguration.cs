@@ -53,7 +53,6 @@ namespace easygenerator.Web.Configuration
 
 
             var stylesBundle = new StyleBundle("~/Content/css")
-                .Include("~/Content/font-awesome.css")
                 .Include("~/Content/durandal.css")
                 .Include("~/Content/common_old.css")
                 .Include("~/Content/styles.css")
