@@ -4,9 +4,9 @@
         var goBackTooltip = '',
 
             events = {
-            navigateToCourses: 'Navigate to courses',
-            updateCourseTemplate: 'Change course template to'
-        };
+                navigateToCourses: 'Navigate to courses',
+                updateCourseTemplate: 'Change course template to'
+            };
 
         var viewModel = {
             courseId: '',
@@ -55,13 +55,13 @@
                         })
                         .sortBy(function (template) { return template.name; })
                         .value();
-                    
+
                     viewModel.currentTemplate(_.find(viewModel.templates, function (item) { return item.id == course.template.id; }));
                 });
             }).fail(function (reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
                 throw reason;
-            });;
+            });
         }
 
         function selectTemplate(template) {

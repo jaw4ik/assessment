@@ -5,7 +5,7 @@
             events = {
                 navigateToObjectives: 'Navigate to objectives',
                 navigateToCourse: 'Navigate to course',
-                createAndContinue: "Create learning objective and open it properties",
+                createAndContinue: "Create learning objective and open it properties"
             },
 
             sendEvent = function (eventName) {

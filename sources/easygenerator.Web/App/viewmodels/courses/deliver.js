@@ -6,7 +6,7 @@
 
         var goBackTooltip = '',
             events = {
-                navigateToCourses: 'Navigate to courses',
+                navigateToCourses: 'Navigate to courses'
             };
 
         var viewModel = {
@@ -21,7 +21,7 @@
             goBackTooltip: goBackTooltip,
             navigateToCourses: navigateToCourses,
 
-            activate: activate,
+            activate: activate
         };
 
         viewModel.isDeliveringInProgress = ko.computed(function () {

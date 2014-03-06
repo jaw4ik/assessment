@@ -5,12 +5,12 @@
             {
                 route: '404',
                 moduleId: 'viewmodels/errors/404',
-                title: '404 Not Found',
+                title: '404 Not Found'
             },
             {
                 route: '400',
                 moduleId: 'viewmodels/errors/400',
-                title: '400 Bad Request',
+                title: '400 Bad Request'
             },
             {
                 route: 'objectives',

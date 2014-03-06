@@ -44,12 +44,12 @@
                     build: {
                         started: 'course:build-started',
                         completed: 'course:build-completed',
-                        failed: 'course:build-failed',
+                        failed: 'course:build-failed'
                     },
                     scormBuild: {
                         started: 'course:scormBuild-started',
                         completed: 'course:scormBuild-completed',
-                        failed: 'course:scormBuild-failed',
+                        failed: 'course:scormBuild-failed'
                     },
                     publish: {
                         started: 'course:publish-started',

@@ -6,7 +6,7 @@
             deleteAnswerOption: 'Delete answer option',
             toggleAnswerCorrectness: 'Change answer option correctness',
             beginEditText: 'Start editing answer option',
-            endEditText: 'End editing answer option',
+            endEditText: 'End editing answer option'
         };
 
         var viewModel = function (questionId, answers) {

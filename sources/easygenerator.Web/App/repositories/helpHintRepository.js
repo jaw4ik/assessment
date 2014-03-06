@@ -54,6 +54,6 @@
         return {
             getHint: getHint,
             addHint: addHint,
-            removeHint: removeHint,
+            removeHint: removeHint
         };
     });

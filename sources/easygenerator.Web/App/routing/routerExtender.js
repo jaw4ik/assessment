@@ -104,6 +104,6 @@
     }
     
     return {
-        execute: execute,
+        execute: execute
     };
 })
