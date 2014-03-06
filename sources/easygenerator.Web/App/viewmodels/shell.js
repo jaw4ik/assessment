@@ -36,7 +36,13 @@
         isViewReady = ko.observable(false),
 
         activeModule = ko.computed(function () {
-            return router.routeData().moduleName;
+            var activeItem = router.activeItem();
+            if (_.isObject(activeItem)) {
+                var moduleId = activeItem.__moduleId__;
+                moduleId = moduleId.slice(moduleId.lastIndexOf('/') + 1);
+                return moduleId;
+            }
+            return '';
         }),
 
         navigation = ko.observableArray([]),
@@ -87,7 +93,6 @@
 
                     router.on('router:route:activating').then(function () {
                         isViewReady(false);
-
 
                         composition.current.complete(function () {
                             isViewReady(true);
