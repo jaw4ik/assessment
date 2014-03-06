@@ -1,5 +1,6 @@
 ﻿define(['errorHandling/httpErrorHandlerRegistrator', 'errorHandling/httpErrorHandlers/defaultHttpErrorHandler'],
     function (errorHandlerRegistrator, defaultHttpErrorHandler) {
+        "use strict";
 
         var subscribeOnAjaxErrorEvents = function () {
             $(document).ajaxError(function (event, response) {
