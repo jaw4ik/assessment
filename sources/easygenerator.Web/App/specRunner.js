@@ -30,9 +30,9 @@
        'errorHandling/httpErrorHandlerRegistrator.spec',
        'errorHandling/globalErrorHandler.spec',
        'errorHandling/errorHandlingConfiguration.spec',
-       'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec'
-       /*'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
-       'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
+       'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
+       'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec'
+       /*'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
        'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
        'routing/routerExtender.spec',
        'localization/localizationManager.spec',

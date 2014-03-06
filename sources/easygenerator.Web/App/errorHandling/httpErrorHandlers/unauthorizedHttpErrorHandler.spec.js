@@ -1,5 +1,8 @@
-﻿define(['errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler', 'plugins/router'], function (errorHandler, router) {
+﻿define(['errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler'], function (errorHandler) {
     "use strict";
+
+    var
+        router = require('plugins/router');
 
     describe('[unauthorizedHttpErrorHandler]', function () {
 
