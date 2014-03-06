@@ -33,9 +33,9 @@
        'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
        'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
        'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
-       'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec'
-       /*'routing/routerExtender.spec',
-       'localization/localizationManager.spec',
+       'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
+       'routing/routerExtender.spec'
+       /*'localization/localizationManager.spec',
        'services/deliverService.spec',
        'repositories/courseRepository.spec',
        'repositories/objectiveRepository.spec',

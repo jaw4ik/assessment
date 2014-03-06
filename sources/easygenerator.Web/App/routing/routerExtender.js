@@ -1,6 +1,8 @@
 ﻿define(['durandal/app', 'plugins/router', 'localization/localizationManager'], function (app, router, localizationManager) {
-   
+    "use strict";
+
     function execute() {
+
         router.openUrl = function (url) {
             window.open(url, '_blank');
         };
