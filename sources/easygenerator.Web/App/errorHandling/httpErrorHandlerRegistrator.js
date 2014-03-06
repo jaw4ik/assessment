@@ -3,11 +3,13 @@
     var registeredHandlers = {};
 
     var registerHandler = function (status, handler) {
-        if (!_.isNullOrUndefined(this.registeredHandlers[status]))
+        if (!_.isNullOrUndefined(this.registeredHandlers[status])) {
             throw 'Error handler for status code ' + status + ' has already been registered.';
+        }
 
-        if (!_.isFunction(handler.handleError))
+        if (!_.isFunction(handler.handleError)) {
             throw 'Error handler has to expose \'handleError()\' method';
+        }
 
         this.registeredHandlers[status] = handler;
     };

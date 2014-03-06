@@ -10,7 +10,7 @@
             describe('publishForReview:', function () {
 
                 it('should be function', function () {
-                    expect(course.publishForReview).toEqual(jasmine.any(Function));
+                    expect(course.publishForReview).toBeFunction();
                 });
 
             });

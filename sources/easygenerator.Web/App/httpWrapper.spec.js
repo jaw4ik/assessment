@@ -52,7 +52,7 @@
                     var promise = httpWrapper.post();
                     promise.fin(done);
 
-                    var reason = "reason";
+                    var reason = "some reason";
 
                     post.reject(reason);
 
@@ -63,7 +63,7 @@
                     var promise = httpWrapper.post();
                     promise.fin(done);
 
-                    post.reject();
+                    post.reject("some reason");
 
                     expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-end');
                 });
