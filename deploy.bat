@@ -24,9 +24,9 @@ IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 ECHO Running .Net unit tests...
 
-"%VS120COMNTOOLS%..\IDE\mstest.exe" /testcontainer:sources\easygenerator.DomainModel.Tests\bin\Debug\easygenerator.DomainModel.Tests.dll
+"%VS110COMNTOOLS%..\IDE\mstest.exe" /testcontainer:sources\easygenerator.DomainModel.Tests\bin\Debug\easygenerator.DomainModel.Tests.dll
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
-"%VS120COMNTOOLS%..\IDE\mstest.exe" /testcontainer:sources\easygenerator.Web.Tests\bin\Debug\easygenerator.Web.Tests.dll 
+"%VS110COMNTOOLS%..\IDE\mstest.exe" /testcontainer:sources\easygenerator.Web.Tests\bin\Debug\easygenerator.Web.Tests.dll 
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 :: echo Running Jasmine tests...
