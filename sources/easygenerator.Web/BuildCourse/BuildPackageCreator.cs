@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.IO.Compression;
 using easygenerator.Infrastructure;
+using Ionic.Zip;
+using Ionic.Zlib;
 
 namespace easygenerator.Web.BuildCourse
 {
     public class BuildPackageCreator
     {
         private PhysicalFileManager _fileManager;
-        private static List<string> _ignoredTypes = new List<string>(new string[] { ".exe" }); 
 
         public BuildPackageCreator(PhysicalFileManager fileManager)
         {
@@ -17,51 +17,42 @@ namespace easygenerator.Web.BuildCourse
 
         public virtual void CreatePackageFromFolder(string packageFolderPath, string destinationFileName)
         {
+            ThrowIfSourceDirectoryIsInvalid(packageFolderPath);
+            ThrowIfDestinationPackageIsInvalid(destinationFileName);
+
             _fileManager.DeleteFile(destinationFileName);
-            DoCreateFromDirectory(packageFolderPath, destinationFileName, _ignoredTypes);
+            DoCreateFromDirectory(packageFolderPath, destinationFileName);
         }
 
-        private static void DoCreateFromDirectory(string sourceDirectoryName, string destinationArchiveFileName, List<string> ignoredTypes)
+        private void DoCreateFromDirectory(string sourceDirectoryName, string destinationArchiveFileName)
         {
-            sourceDirectoryName = Path.GetFullPath(sourceDirectoryName);
-            destinationArchiveFileName = Path.GetFullPath(destinationArchiveFileName);
-            using (ZipArchive archive = ZipFile.Open(destinationArchiveFileName, ZipArchiveMode.Create))
+            using (var zipFile = new ZipFile())
             {
-                DirectoryInfo info = new DirectoryInfo(sourceDirectoryName);
-                string fullName = info.FullName;
-
-                foreach (FileSystemInfo info2 in info.EnumerateFileSystemInfos("*", SearchOption.AllDirectories))
-                {
-                    int length = info2.FullName.Length - fullName.Length;
-                    string entryName = info2.FullName.Substring(fullName.Length, length).TrimStart(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar });
-                    if (info2 is FileInfo)
-                    {
-                        if (!ignoredTypes.Contains(info2.Extension.ToLower()))
-                            archive.CreateEntryFromFile(info2.FullName, entryName.Replace("\\", "/"));
-                    }
-                    else
-                    {
-                        DirectoryInfo possiblyEmptyDir = info2 as DirectoryInfo;
-                        if ((possiblyEmptyDir != null) && IsDirEmpty(possiblyEmptyDir))
-                        {
-                            archive.CreateEntry(entryName + Path.AltDirectorySeparatorChar);
-                        }
-                    }
-                }
+                zipFile.CompressionLevel = CompressionLevel.BestSpeed;
+                zipFile.AddDirectory(sourceDirectoryName);
+                zipFile.Save(destinationArchiveFileName);
             }
         }
 
-        private static bool IsDirEmpty(DirectoryInfo possiblyEmptyDir)
+        private void ThrowIfSourceDirectoryIsInvalid(string folderPath)
         {
-            using (IEnumerator<FileSystemInfo> enumerator = possiblyEmptyDir.EnumerateFileSystemInfos("*", SearchOption.AllDirectories).GetEnumerator())
+            if (String.IsNullOrEmpty(folderPath))
             {
-                while (enumerator.MoveNext())
-                {
-                    FileSystemInfo current = enumerator.Current;
-                    return false;
-                }
+                throw new ArgumentException("Source directory path is invalid");
             }
-            return true;
+
+            if (!_fileManager.DirectoryExists(folderPath))
+            {
+                throw new DirectoryNotFoundException("Source directory not found");
+            }
+        }
+
+        private void ThrowIfDestinationPackageIsInvalid(string filePath)
+        {
+            if (String.IsNullOrEmpty(filePath))
+            {
+                throw new ArgumentException("Package file name is invalid");
+            }
         }
     }
 }

@@ -179,5 +179,10 @@ namespace easygenerator.Infrastructure
             var directoryUri = new Uri(directory);
             return Uri.UnescapeDataString(directoryUri.MakeRelativeUri(pathUri).ToString().Replace('/', Path.DirectorySeparatorChar));
         }
+
+        public virtual bool DirectoryExists(string directoryPath)
+        {
+            return Directory.Exists(directoryPath);
+        }
     }
 }
