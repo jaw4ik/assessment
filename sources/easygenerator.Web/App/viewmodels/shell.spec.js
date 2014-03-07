@@ -1,8 +1,7 @@
-﻿define(function (require) {
+﻿define(['viewmodels/shell'], function (viewModel) {
+    "use strict";
 
-    var
-        viewModel = require('viewmodels/shell'),
-        router = require('plugins/router'),
+    var router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         dataContext = require('dataContext'),
         userContext = require('userContext');
@@ -44,50 +43,46 @@
                     dataContextDefer = Q.defer();
                     routerActivateDefer = Q.defer();
                     
-                    spyOn(dataContext, 'initialize').andReturn(dataContextDefer.promise);
-                    spyOn(router, 'activate').andReturn(routerActivateDefer.promise);
+                    spyOn(dataContext, 'initialize').and.returnValue(dataContextDefer.promise);
+                    spyOn(router, 'activate').and.returnValue(routerActivateDefer.promise);
                     
                     dataContextDefer.resolve();
                     routerActivateDefer.resolve();
                 });
 
-                describe('when user is anonymous', function() {
+                describe('and user is anonymous', function() {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         userContext.identity = null;
                     });
 
-                    it('should set isTryMode to true', function() {
+                    it('should set isTryMode to true', function (done) {
                         var promise = viewModel.activate();
-
-                        waitsFor(function() {
-                            return !promise.isPending();
-                        });
-                        runs(function() {
+                        promise.fin(function () {
                             expect(viewModel.isTryMode).toBeTruthy();
+                            done();
                         });
                     });
 
-                    it('should set username to null', function() {
+                    it('should set username to null', function(done) {
                         var promise = viewModel.activate();
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        promise.fin(function () {
                             expect(viewModel.username).toBeNull();
+                            done();
                         });
+
                     });
 
                 });
 
-                describe('when user is not anonymous', function() {
+                describe('and user is not anonymous', function() {
 
                     beforeEach(function() {
                         userContext.identity = {};
                     });
                     
-                    describe('and when user does not have fullname', function () {
+                    describe('and user does not have fullname', function () {
 
                         beforeEach(function () {
                             userContext.identity = {
@@ -96,33 +91,28 @@
                             };
                         });
 
-                        it('should set email to username', function () {
+                        it('should set email to username', function (done) {
                             var promise = viewModel.activate();
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            promise.fin(function () {
                                 expect(viewModel.username).toBe(userContext.identity.email);
+                                done();
                             });
                         });
 
                     });
 
-                    describe('and when user has fullname', function () {
+                    describe('and user has fullname', function () {
 
                         beforeEach(function () {
                             userContext.identity = { fullname: 'username' };
                         });
 
-                        it('should set fullname to username', function () {
+                        it('should set fullname to username', function (done) {
                             var promise = viewModel.activate();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            promise.fin(function () {
                                 expect(viewModel.username).toBe(userContext.identity.fullname);
+                                done();
                             });
                         });
 
@@ -157,7 +147,7 @@
                 describe('when error page 400', function () {
 
                     it('should be return true', function () {
-                        spyOn(viewModel, 'activeModuleName').andReturn('400');
+                        spyOn(viewModel, 'activeModuleName').and.returnValue('400');
                         expect(viewModel.showNavigation()).toBeTruthy();
                     });
 
@@ -166,7 +156,7 @@
                 describe('when error page 404', function () {
 
                     it('should be return true', function () {
-                        spyOn(viewModel, 'activeModuleName').andReturn('404');
+                        spyOn(viewModel, 'activeModuleName').and.returnValue('404');
                         expect(viewModel.showNavigation()).toBeTruthy();
                     });
 
@@ -177,7 +167,7 @@
             describe('when activeModuleName is not error page', function () {
 
                 it('should be return fasle', function () {
-                    spyOn(viewModel, 'activeModuleName').andReturn('somepage');
+                    spyOn(viewModel, 'activeModuleName').and.returnValue('somepage');
                     expect(viewModel.showNavigation()).toBeFalsy();
                 });
 
