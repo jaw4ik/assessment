@@ -16,7 +16,6 @@ namespace easygenerator.DomainModel.Handlers
         private readonly IQuerableRepository<Question> _qustionRepository;
         private readonly IQuerableRepository<Answer> _answerRepository;
         private readonly IQuerableRepository<LearningContent> _learningContentRepository;
-        private readonly IHelpHintRepository _helpHintRepository;
         private readonly IImageFileRepository _imageFileRepository;
 
         public SignupFromTryItNowHandler(IQuerableRepository<Course> courseRepository,
@@ -24,7 +23,6 @@ namespace easygenerator.DomainModel.Handlers
             IQuerableRepository<Question> qustionRepository,
             IQuerableRepository<Answer> answerRepository,
             IQuerableRepository<LearningContent> learningContentRepository,
-            IHelpHintRepository helpHintRepository,
             IImageFileRepository imageFileRepository)
         {
             _courseRepository = courseRepository;
@@ -32,7 +30,6 @@ namespace easygenerator.DomainModel.Handlers
             _qustionRepository = qustionRepository;
             _answerRepository = answerRepository;
             _learningContentRepository = learningContentRepository;
-            _helpHintRepository = helpHintRepository;
             _imageFileRepository = imageFileRepository;
         }
 
@@ -61,11 +58,6 @@ namespace easygenerator.DomainModel.Handlers
             foreach (var learningContent in _learningContentRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
             {
                 learningContent.DefineCreatedBy(signUpUsername);
-            }
-
-            foreach (var helpHint in _helpHintRepository.GetHelpHintsForUser(tryItNowUsername))
-            {
-                helpHint.DefineCreatedBy(signUpUsername);
             }
 
             foreach (var imageFile in _imageFileRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))

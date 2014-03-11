@@ -24,6 +24,7 @@
 
         var specs = [
         'viewmodels/shell.spec', // should be moved down
+        'help/helpHint.spec',
         'guard.spec',
         'httpWrapper.spec',
         'notify.spec',
@@ -44,7 +45,6 @@
        'repositories/answerRepository.spec',
        'repositories/learningContentRepository.spec',
        'repositories/templateRepository.spec',
-       'repositories/helpHintRepository.spec',
        'repositories/commentRepository.spec',
        'viewmodels/objectives/objectives.spec',
        'viewmodels/objectives/objective.spec',
@@ -68,7 +68,6 @@
        '../Scripts/account/signupsecondstep.spec',
        '../Scripts/account/passwordrecovery.spec',
        '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec',
-       'help/helpHint.spec',
        'bootstrapper.spec',
        'introduction/welcome.spec',
        'widgets/notifyViewer/viewmodel.spec',

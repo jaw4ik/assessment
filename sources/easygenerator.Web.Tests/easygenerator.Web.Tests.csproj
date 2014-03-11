@@ -139,7 +139,6 @@
     <Compile Include="Controllers\Api\CourseControllerTests.cs" />
     <Compile Include="Controllers\Api\FeedbackControllerTests.cs" />
     <Compile Include="Controllers\Api\LearningContentControllerTests.cs" />
-    <Compile Include="Controllers\Api\HelpHintControllerTests.cs" />
     <Compile Include="Controllers\Api\ObjectiveControllerTests.cs" />
     <Compile Include="Controllers\Api\QuestionControllerTests.cs" />
     <Compile Include="Controllers\Api\TemplateControllerTests.cs" />

@@ -9,7 +9,6 @@
             objectives = [],
             courses = [],
             templates = [],
-            helpHints = [],
             userSettings = {
                 isShowIntroduction: true,
                 isRegisteredOnAim4You: false
@@ -35,21 +34,6 @@
                                         description: template.Description,
                                         previewDemoUrl: template.PreviewDemoUrl
                                     }));
-                        });
-                    });
-                }).then(function () {
-                    return $.ajax({
-                        url: 'api/helpHints',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: 'json'
-                    }).then(function (response) {
-                        _.each(response.data.HelpHints, function (helpHint) {
-                            helpHints.push({
-                                id: helpHint.Id,
-                                name: helpHint.Name,
-                                localizationKey: helpHint.Name + 'HelpHint'
-                            });
                         });
                     });
                 }).then(function () {
@@ -130,7 +114,6 @@
             objectives: objectives,
             courses: courses,
             templates: templates,
-            helpHints: helpHints,
             userSettings: userSettings
         };
     });

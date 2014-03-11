@@ -69,7 +69,6 @@
     <Compile Include="Entities\CourseTests.cs" />
     <Compile Include="Entities\QuestionTests.cs" />
     <Compile Include="Entities\TemplateTests.cs" />
-    <Compile Include="Entities\HelpHintTests.cs" />
     <Compile Include="Entities\CommentTests.cs" />
     <Compile Include="Entities\UserSettingsTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
@@ -81,7 +80,6 @@
     <Compile Include="ObjectMothers\ImageFileObjectMother.cs" />
     <Compile Include="ObjectMothers\MailNotificationObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseObjectMother.cs" />
-    <Compile Include="ObjectMothers\HelpHintObjectMother.cs" />
     <Compile Include="ObjectMothers\LearningContentObjectMother.cs" />
     <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
     <Compile Include="ObjectMothers\PasswordRecoveryTicketObjectMother.cs" />

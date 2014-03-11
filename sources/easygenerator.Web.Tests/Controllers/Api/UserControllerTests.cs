@@ -26,7 +26,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
     public class UserControllerTests
     {
         private IUserRepository _userRepository;
-        private IHelpHintRepository _helpHintRepository;
         private UserController _controller;
         private IEntityFactory _entityFactory;
         private IAuthenticationProvider _authenticationProvider;
@@ -41,14 +40,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void InitializeContext()
         {
             _userRepository = Substitute.For<IUserRepository>();
-            _helpHintRepository = Substitute.For<IHelpHintRepository>();
             _entityFactory = Substitute.For<IEntityFactory>();
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _signupFromTryItNowHandler = Substitute.For<ISignupFromTryItNowHandler>();
             _publisher = Substitute.For<IDomainEventPublisher<UserSignedUpEvent>>();
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
 
-            _controller = new UserController(_userRepository, _helpHintRepository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _publisher, _mailSenderWrapper);
+            _controller = new UserController(_userRepository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _publisher, _mailSenderWrapper);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -212,38 +210,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.Should().Be(profile.Email);
-        }
-
-        [TestMethod]
-        public void SignUp_ShouldNotCreateHelpHintsForUser_WhenUserSignupFromTry()
-        {
-            //Arrange
-            var profile = GetTestUserSignUpViewModel();
-            var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
-            _user.Identity.IsAuthenticated.Returns(true);
-
-            //Act
-            _controller.Signup(profile);
-
-            //Assert
-            _helpHintRepository.DidNotReceive().CreateHelpHintsForUser(profile.Email);
-        }
-
-        [TestMethod]
-        public void SignUp_ShouldNotCreateHelpHintsForUser_WhenUserSignup()
-        {
-            //Arrange
-            var profile = GetTestUserSignUpViewModel();
-            var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
-            _user.Identity.IsAuthenticated.Returns(false);
-
-            //Act
-            _controller.Signup(profile);
-
-            //Assert
-            _helpHintRepository.Received().CreateHelpHintsForUser(profile.Email);
         }
 
         [TestMethod]

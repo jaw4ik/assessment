@@ -52,20 +52,6 @@ namespace easygenerator.DataAccess.Tests
         }
 
         [TestMethod]
-        public void Materialize_ShouldSetDateTimeKindToUtcForHelpHint()
-        {
-            //Arrange
-            var entity = HelpHintObjectMother.Create();
-
-            //Act
-            DateTimeObjectMaterializer.Materialize(entity);
-
-            //Assert
-            entity.CreatedOn.Kind.Should().Be(DateTimeKind.Utc);
-            entity.ModifiedOn.Kind.Should().Be(DateTimeKind.Utc);
-        }
-
-        [TestMethod]
         public void Materialize_ShouldSetDateTimeKindToUtcForLearningContent()
         {
             //Arrange

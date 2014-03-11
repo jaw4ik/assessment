@@ -64,10 +64,13 @@
     <Compile Include="Migrations\201402251153129_ClearDefaultUserNameInUsersTable.Designer.cs">
       <DependentUpon>201402251153129_ClearDefaultUserNameInUsersTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201403110656160_RemoveHelpHintTableAndEntity.cs" />
+    <Compile Include="Migrations\201403110656160_RemoveHelpHintTableAndEntity.Designer.cs">
+      <DependentUpon>201403110656160_RemoveHelpHintTableAndEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
-    <Compile Include="Repositories\HelpHintRepository.cs" />
     <Compile Include="Repositories\ImageFileRepository.cs" />
     <Compile Include="Repositories\MailNotificationRepository.cs" />
     <Compile Include="Repositories\ObjectiveRepository.cs" />
@@ -94,6 +97,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201402251153129_ClearDefaultUserNameInUsersTable.resx">
       <DependentUpon>201402251153129_ClearDefaultUserNameInUsersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403110656160_RemoveHelpHintTableAndEntity.resx">
+      <DependentUpon>201403110656160_RemoveHelpHintTableAndEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

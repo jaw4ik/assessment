@@ -301,10 +301,6 @@
     <Content Include="App\repositories\answerRepository.spec.js">
       <DependentUpon>answerRepository.js</DependentUpon>
     </Content>
-    <Content Include="App\repositories\helpHintRepository.js" />
-    <Content Include="App\repositories\helpHintRepository.spec.js">
-      <DependentUpon>helpHintRepository.js</DependentUpon>
-    </Content>
     <Content Include="App\repositories\learningContentRepository.js" />
     <Content Include="App\repositories\learningContentRepository.spec.js">
       <DependentUpon>learningContentRepository.js</DependentUpon>
@@ -438,7 +434,6 @@
     <Compile Include="Controllers\Api\CommentController.cs" />
     <Compile Include="Controllers\Api\CourseController.cs" />
     <Compile Include="Controllers\Api\FeedbackController.cs" />
-    <Compile Include="Controllers\Api\HelpHintController.cs" />
     <Compile Include="Controllers\Api\LearningContentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\Api\ObjectiveController.cs" />

@@ -41,7 +41,6 @@ namespace easygenerator.DataAccess
         public DbSet<LearningContent> LearningContents { get; set; }
         public DbSet<Template> Templates { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<HelpHint> HelpHints { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Entity
@@ -110,8 +109,6 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.ModifiedBy);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.ModifiedOn);
-
-            modelBuilder.Entity<HelpHint>().Property(e => e.Name).IsRequired().HasMaxLength(254);
 
             modelBuilder.Entity<Template>().Property(e => e.Name).IsRequired();
             modelBuilder.Entity<Template>().Property(e => e.Image).IsRequired();

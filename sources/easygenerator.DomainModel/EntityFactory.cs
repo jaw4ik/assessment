@@ -12,7 +12,6 @@ namespace easygenerator.DomainModel
         LearningContent LearningContent(string text, string createdBy);
         User User(string email, string password, string firstname, string lastname, string phone, string organization,
             string country, string createdBy, UserSettings userSettings);
-        HelpHint HelpHint(string name, string createdBy);
         MailNotification MailNotification(string body, string subject, string from, string to, string cc = null, string bcc = null);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
@@ -54,11 +53,6 @@ namespace easygenerator.DomainModel
             string country, string createdBy, UserSettings userSettings)
         {
             return new User(email, password, firstname, lastname, phone, organization, country, createdBy, userSettings);
-        }
-
-        public HelpHint HelpHint(string name, string createdBy)
-        {
-            return new HelpHint(name, createdBy);
         }
 
         public MailNotification MailNotification(string body, string subject, string from, string to, string cc = null, string bcc = null)

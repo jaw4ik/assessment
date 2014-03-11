@@ -90,18 +90,6 @@ namespace easygenerator.DomainModel.Tests
         }
 
         [TestMethod]
-        public void HelpHint_ShouldCreateHelpHint()
-        {
-            const string createdBy = "easygenerator@easygenerator.com";
-            const string name = "courses";
-
-            var helpHint = _entityFactory.HelpHint(name, ModifiedBy);
-            helpHint.Should().NotBeNull();
-            helpHint.Name.Should().Be(name);
-            helpHint.CreatedBy.Should().Be(createdBy);
-        }
-
-        [TestMethod]
         public void ImageFile_ShouldCreateImageFileObject()
         {
             //Arrange

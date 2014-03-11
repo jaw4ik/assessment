@@ -21,7 +21,6 @@ namespace easygenerator.Web.Controllers.Api
     public class UserController : DefaultController
     {
         private readonly IUserRepository _repository;
-        private readonly IHelpHintRepository _helpHintRepository;
         private readonly IEntityFactory _entityFactory;
         private readonly IAuthenticationProvider _authenticationProvider;
         private readonly ISignupFromTryItNowHandler _signupFromTryItNowHandler;
@@ -29,7 +28,6 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IMailSenderWrapper _mailSenderWrapper;
 
         public UserController(IUserRepository repository,
-            IHelpHintRepository helpHintRepository,
             IEntityFactory entityFactory,
             IAuthenticationProvider authenticationProvider,
             ISignupFromTryItNowHandler signupFromTryItNowHandler,
@@ -40,7 +38,6 @@ namespace easygenerator.Web.Controllers.Api
             _entityFactory = entityFactory;
             _authenticationProvider = authenticationProvider;
             _signupFromTryItNowHandler = signupFromTryItNowHandler;
-            _helpHintRepository = helpHintRepository;
             _publisher = publisher;
             _mailSenderWrapper = mailSenderWrapper;
         }
@@ -77,10 +74,6 @@ namespace easygenerator.Web.Controllers.Api
             if (User.Identity.IsAuthenticated && _repository.GetUserByEmail(User.Identity.Name) == null)
             {
                 _signupFromTryItNowHandler.HandleOwnership(User.Identity.Name, user.Email);
-            }
-            else
-            {
-                _helpHintRepository.CreateHelpHintsForUser(profile.Email);
             }
 
             _authenticationProvider.SignIn(profile.Email, true);

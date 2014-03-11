@@ -15,13 +15,11 @@ namespace easygenerator.Web.Controllers
     {
         private readonly IAuthenticationProvider _authenticationProvider;
         private readonly IUserRepository _repository;
-        private readonly IHelpHintRepository _helpHintRepository;
 
-        public AccountController(IAuthenticationProvider authenticationProvider, IUserRepository repository, IHelpHintRepository helpHintRepository)
+        public AccountController(IAuthenticationProvider authenticationProvider, IUserRepository repository)
         {
             _authenticationProvider = authenticationProvider;
             _repository = repository;
-            _helpHintRepository = helpHintRepository;
         }
 
         [NoCache]
@@ -45,7 +43,6 @@ namespace easygenerator.Web.Controllers
             {
                 var user = Guid.NewGuid().ToString();
                 _authenticationProvider.SignIn(user, true);
-                _helpHintRepository.CreateHelpHintsForUser(user);
             }
 
             return RedirectToRoute("Default");

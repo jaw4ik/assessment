@@ -319,28 +319,6 @@ namespace easygenerator.Web.Configuration
 
             #endregion;
 
-            #region Help hints
-
-            routes.MapRoute(
-                name: "HideHelpHint",
-                url: "api/helpHint/hide",
-                defaults: new { controller = "HelpHint", action = "HideHint" }
-            );
-
-            routes.MapRoute(
-                name: "ShowHelpHint",
-                url: "api/helpHint/show",
-                defaults: new { controller = "HelpHint", action = "ShowHint" }
-            );
-
-            routes.MapRoute(
-                name: "GetHelpHints",
-                url: "api/helpHints",
-                defaults: new { controller = "HelpHint", action = "GetCollection" }
-            );
-
-            #endregion
-
             #region Feedback
 
             routes.MapRoute(
