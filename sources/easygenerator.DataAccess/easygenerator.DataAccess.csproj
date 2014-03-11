@@ -60,9 +60,9 @@
     <Compile Include="DateTimeObjectMaterializer.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IDataContext.cs" />
-    <Compile Include="Migrations\201310181318465_InitialCreate.cs" />
-    <Compile Include="Migrations\201310181318465_InitialCreate.Designer.cs">
-      <DependentUpon>201310181318465_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201402251153129_ClearDefaultUserNameInUsersTable.cs" />
+    <Compile Include="Migrations\201402251153129_ClearDefaultUserNameInUsersTable.Designer.cs">
+      <DependentUpon>201402251153129_ClearDefaultUserNameInUsersTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,8 +92,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201310181318465_InitialCreate.resx">
-      <DependentUpon>201310181318465_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201402251153129_ClearDefaultUserNameInUsersTable.resx">
+      <DependentUpon>201402251153129_ClearDefaultUserNameInUsersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
