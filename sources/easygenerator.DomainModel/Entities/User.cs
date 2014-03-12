@@ -13,7 +13,7 @@ namespace easygenerator.DomainModel.Entities
         protected internal User() { }
 
         protected internal User(string email, string password, string firstname, string lastname, string phone, string organization,
-            string country, string createdBy, UserSettings userSettings)
+            string country, string createdBy, UserSettings userSettings, AccessType accessType, DateTime? accesTypeExpirationTime)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -31,7 +31,8 @@ namespace easygenerator.DomainModel.Entities
             Phone = phone;
             Organization = organization;
             Country = country;
-            AccessType = AccessType.Starter;
+            AccessType = accessType;
+            AccesTypeExpirationTime = accesTypeExpirationTime;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
             UserSetting = userSettings;
         }
@@ -45,6 +46,7 @@ namespace easygenerator.DomainModel.Entities
         public string Organization { get; private set; }
         public string Country { get; private set; }
         public AccessType AccessType { get; protected internal set; }
+        public DateTime? AccesTypeExpirationTime { get; protected internal set; }
 
         public virtual bool VerifyPassword(string password)
         {
@@ -88,6 +90,19 @@ namespace easygenerator.DomainModel.Entities
             return AccessType >= accessType;
         }
 
+        public virtual void UpdateStarterPlanAccess(DateTime? expirationTime, string modifiedBy)
+        {
+            AccessType = AccessType.Starter;
+            AccesTypeExpirationTime = expirationTime;
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void DowngradeToFreeAccess(string modifiedBy)
+        {
+            AccessType = AccessType.Free;
+            AccesTypeExpirationTime = null;
+            MarkAsModified(modifiedBy);
+        }
 
         private void ThrowIfEmailIsNotValid(string email)
         {

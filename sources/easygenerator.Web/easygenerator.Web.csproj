@@ -418,6 +418,7 @@
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinder.cs" />
     <Compile Include="Components\NavigationLink.cs" />
     <Compile Include="Components\RazorTemplateProvider.cs" />
+    <Compile Include="Components\Tasks\AccessTypeExpirationTask.cs" />
     <Compile Include="Components\Tasks\PasswordRecoveryTicketExpirationTask.cs" />
     <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraint.cs" />
     <Compile Include="Components\PhoneCodeCollection.cs" />

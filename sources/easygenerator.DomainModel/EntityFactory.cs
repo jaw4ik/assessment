@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System;
+using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel
 {
@@ -11,7 +12,7 @@ namespace easygenerator.DomainModel
         Answer Answer(string text, bool isCorrect, string createdBy);
         LearningContent LearningContent(string text, string createdBy);
         User User(string email, string password, string firstname, string lastname, string phone, string organization,
-            string country, string createdBy, UserSettings userSettings);
+            string country, string createdBy, UserSettings userSettings, AccessType accessType, DateTime? accesTypeExpirationTime);
         MailNotification MailNotification(string body, string subject, string from, string to, string cc = null, string bcc = null);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
@@ -50,9 +51,9 @@ namespace easygenerator.DomainModel
         }
 
         public User User(string email, string password, string firstname, string lastname, string phone, string organization,
-            string country, string createdBy, UserSettings userSettings)
+            string country, string createdBy, UserSettings userSettings, AccessType accessType, DateTime? accesTypeExpirationTime)
         {
-            return new User(email, password, firstname, lastname, phone, organization, country, createdBy, userSettings);
+            return new User(email, password, firstname, lastname, phone, organization, country, createdBy, userSettings, accessType, accesTypeExpirationTime);
         }
 
         public MailNotification MailNotification(string body, string subject, string from, string to, string cc = null, string bcc = null)

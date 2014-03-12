@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System;
+using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers
 {
@@ -12,6 +13,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
         private const string Phone = "+3801234567";
         private const string Country = "Ukraine";
         private const string Organization = "Easygenerator";
+        private const AccessType UserAccessType = AccessType.Starter;
 
         public static User CreateWithPassword(string password)
         {
@@ -48,10 +50,15 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(oraganization: organization);
         }
 
-        public static User Create(string email = Email, string password = Password, string firstname = FirstName, string lastname = LastName, string phone = Phone,
-            string oraganization = Organization, string country = Country, string createdBy = CreatedBy)
+        public static User CreateWithAccessType(AccessType accessType)
         {
-            return new User(email, password, firstname, lastname, phone, oraganization, country, createdBy, new UserSettings(createdBy, true));
+            return Create(accessType: accessType);
+        }
+
+        public static User Create(string email = Email, string password = Password, string firstname = FirstName, string lastname = LastName, string phone = Phone,
+            string oraganization = Organization, string country = Country, string createdBy = CreatedBy, AccessType accessType = UserAccessType, DateTime? accessTypeExpirationTime = null)
+        {
+            return new User(email, password, firstname, lastname, phone, oraganization, country, createdBy, new UserSettings(createdBy, true), accessType, accessTypeExpirationTime);
         }
     }
 }

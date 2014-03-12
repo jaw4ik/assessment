@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.Infrastructure;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 
@@ -83,7 +85,7 @@ namespace easygenerator.DomainModel.Tests
             var organization = "Easygenerator";
             var country = "some country";
 
-            var user = _entityFactory.User(email, password, firstname, lastname, phone, organization, country, ModifiedBy, UserSettingsObjectMother.Create());
+            var user = _entityFactory.User(email, password, firstname, lastname, phone, organization, country, ModifiedBy, UserSettingsObjectMother.Create(), AccessType.Starter, DateTimeWrapper.Now());
             user.Should().NotBeNull();
             user.Email.Should().Be(email);
             user.VerifyPassword(password).Should().BeTrue();

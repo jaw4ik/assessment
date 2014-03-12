@@ -159,6 +159,7 @@
     <Compile Include="Tasks\PasswordRecoveryTicketExpirationTaskTest.cs" />
     <Compile Include="Tasks\MailSenderTaskTest.cs" />
     <Compile Include="Tasks\SchedulerTest.cs" />
+    <Compile Include="Tasks\AccessTypeExpirationTaskTest.cs" />
     <Compile Include="Utils\ActionResultAssert.cs" />
     <Compile Include="Utils\ActionResultFluentAssertions.cs" />
     <Compile Include="Utils\DynamicFluentAssertions.cs" />

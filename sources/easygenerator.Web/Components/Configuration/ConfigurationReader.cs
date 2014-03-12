@@ -36,5 +36,13 @@ namespace easygenerator.Web.Components.Configuration
             }
         }
 
+        public virtual int TrialStarterPlanPeriod
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["TrialStarterPlanPeriod"]);
+            }
+        }
+
     }
 }

@@ -100,6 +100,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.Country).IsRequired();
             modelBuilder.Entity<User>().Property(e => e.Organization).IsRequired();
             modelBuilder.Entity<User>().Property(e => e.AccessType).IsRequired();
+            modelBuilder.Entity<User>().Property(e => e.AccesTypeExpirationTime);
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
 
             modelBuilder.Entity<UserSettings>().Property(e => e.IsShowIntroductionPage).IsRequired();

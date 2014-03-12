@@ -7,6 +7,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Tests.Utils;
@@ -134,7 +135,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            DateTimeWrapper.Now = () => DateTime.MinValue;
+            var expirationTime = DateTime.MinValue.AddMinutes(43200);
+
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), AccessType.Starter, expirationTime).Returns(user);
             
             //Act
             _controller.Signup(profile);
@@ -149,7 +153,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), Arg.Any<AccessType>(), Arg.Any<DateTime>()).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -173,7 +177,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.IsAuthenticated.Returns(true);
             _user.Identity.Name.Returns(tryItNowUsername);
             _userRepository.GetUserByEmail(tryItNowUsername).Returns((User)null);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), Arg.Any<AccessType>(), Arg.Any<DateTime>()).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -188,7 +192,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), Arg.Any<AccessType>(), Arg.Any<DateTime>()).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -203,7 +207,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), Arg.Any<AccessType>(), Arg.Any<DateTime>()).Returns(user);
 
             //Act
             var result = _controller.Signup(profile);
@@ -218,7 +222,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), Arg.Any<AccessType>(), Arg.Any<DateTime>()).Returns(user);
             //Act
             _controller.Signup(profile);
 

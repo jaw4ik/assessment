@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using System.Web.DynamicData;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
@@ -13,7 +10,6 @@ using easygenerator.Web.ViewModels.Account;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Extensions;
-using Microsoft.Ajax.Utilities;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -65,8 +61,9 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonError("Account with this email already exists");
             }
 
+            var trialPeriodExpires = DateTimeWrapper.Now().AddMinutes(43200);
             var user = _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone,
-                profile.Organization, profile.Country, profile.Email, new UserSettings(profile.Email, true));
+                profile.Organization, profile.Country, profile.Email, new UserSettings(profile.Email, true), AccessType.Starter, trialPeriodExpires);
 
             _repository.Add(user);
             _publisher.Publish(new UserSignedUpEvent(user, profile.PeopleBusyWithCourseDevelopmentAmount, profile.NeedAuthoringTool, profile.UsedAuthoringTool));

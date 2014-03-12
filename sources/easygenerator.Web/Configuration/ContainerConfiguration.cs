@@ -102,6 +102,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<Scheduler>().SingleInstance();
 
             builder.RegisterType<PasswordRecoveryTicketExpirationTask>().SingleInstance();
+            builder.RegisterType<AccessTypeExpirationTask>().SingleInstance();
             builder.RegisterType<MailSenderTask>().SingleInstance();
             builder.RegisterType<CacheExpirationTaskInvoker>().As<ITaskInvoker>().SingleInstance();
 
