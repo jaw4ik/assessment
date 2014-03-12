@@ -812,6 +812,7 @@
     <Content Include="Scripts\account\passwordrecovery.spec.js">
       <DependentUpon>passwordrecovery.js</DependentUpon>
     </Content>
+    <Content Include="App\specs.html" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jasmine\boot.js" />
     <Content Include="Scripts\jasmine\jasmine-html.js" />
@@ -820,6 +821,7 @@
     <Content Include="Scripts\jasmine\jasmine_favicon.png" />
     <Content Include="Scripts\jasmine\matchers.js" />
     <Content Include="App\specRunner.js" />
+    <Content Include="Scripts\jasmine\PhantomReporter.js" />
     <Content Include="Scripts\jasmine\utils.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -1558,7 +1560,6 @@
     <Content Include="App\repositories\objectiveRepository.spec.js">
       <DependentUpon>objectiveRepository.js</DependentUpon>
     </Content>
-    <None Include="App\specs.html" />
     <Content Include="App\localization\localizationManager.js" />
     <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />

@@ -131,11 +131,14 @@
         timer: new jasmine.Timer()
     });
 
+    var phantomReporter = new jasmineRequire.PhantomReporter();
+
     /**
      * The `jsApiReporter` also receives spec results, and is used by any environment that needs to extract the results  from JavaScript.
      */
     env.addReporter(jasmineInterface.jsApiReporter);
     env.addReporter(htmlReporter);
+    env.addReporter(phantomReporter);
 
     /**
      * Filter which specs will be run by matching the start of the full name against the `spec` query param.
