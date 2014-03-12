@@ -7,6 +7,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Models.Api;
