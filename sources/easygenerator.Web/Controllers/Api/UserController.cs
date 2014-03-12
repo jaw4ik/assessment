@@ -10,6 +10,7 @@ using easygenerator.Web.ViewModels.Account;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.ActionResults;
 using easygenerator.Web.Models.Api;
 using System;
@@ -26,13 +27,15 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ISignupFromTryItNowHandler _signupFromTryItNowHandler;
         private readonly IDomainEventPublisher<UserSignedUpEvent> _publisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
+        private readonly ConfigurationReader _configurationReader;
 
         public UserController(IUserRepository repository,
             IEntityFactory entityFactory,
             IAuthenticationProvider authenticationProvider,
             ISignupFromTryItNowHandler signupFromTryItNowHandler,
             IDomainEventPublisher<UserSignedUpEvent> publisher,
-            IMailSenderWrapper mailSenderWrapper)
+            IMailSenderWrapper mailSenderWrapper,
+            ConfigurationReader configurationReader)
         {
             _repository = repository;
             _entityFactory = entityFactory;
@@ -40,6 +43,7 @@ namespace easygenerator.Web.Controllers.Api
             _signupFromTryItNowHandler = signupFromTryItNowHandler;
             _publisher = publisher;
             _mailSenderWrapper = mailSenderWrapper;
+            _configurationReader = configurationReader;
         }
 
         [HttpPost]
@@ -146,7 +150,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonError("Account with this email already exists");
             }
 
-            var trialPeriodExpires = DateTimeWrapper.Now().AddMinutes(43200);
+            var trialPeriodExpires = DateTimeWrapper.Now().AddMinutes(_configurationReader.UserTrialPeriod);
             var user = _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone,
                 profile.Organization, profile.Country, profile.Email, new UserSettings(profile.Email, true), AccessType.Starter, trialPeriodExpires);
 

@@ -33,6 +33,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private ISignupFromTryItNowHandler _signupFromTryItNowHandler;
         private IDomainEventPublisher<UserSignedUpEvent> _publisher;
         private IMailSenderWrapper _mailSenderWrapper;
+        private ConfigurationReader _configurationReader;
 
         IPrincipal _user;
         HttpContextBase _context;
@@ -46,8 +47,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _signupFromTryItNowHandler = Substitute.For<ISignupFromTryItNowHandler>();
             _publisher = Substitute.For<IDomainEventPublisher<UserSignedUpEvent>>();
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
+            _configurationReader = Substitute.For<ConfigurationReader>();
 
-            _controller = new UserController(_userRepository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _publisher, _mailSenderWrapper);
+            _controller = new UserController(_userRepository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _publisher, _mailSenderWrapper, _configurationReader);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -330,10 +332,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Signup_ShouldAddUserToRepository()
         {
             //Arrange
+            _configurationReader.UserTrialPeriod.Returns(10);
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
             DateTimeWrapper.Now = () => DateTime.MinValue;
-            var expirationTime = DateTime.MinValue.AddMinutes(43200);
+            var expirationTime = DateTime.MinValue.AddMinutes(10);
 
             _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), AccessType.Starter, expirationTime).Returns(user);
             
