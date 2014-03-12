@@ -90,13 +90,6 @@ namespace easygenerator.DomainModel.Entities
             return AccessType >= accessType;
         }
 
-        public virtual void UpdateStarterPlanAccess(DateTime? expirationTime, string modifiedBy)
-        {
-            AccessType = AccessType.Starter;
-            AccesTypeExpirationTime = expirationTime;
-            MarkAsModified(modifiedBy);
-        }
-
         public virtual void DowngradeToFreeAccess(string modifiedBy)
         {
             AccessType = AccessType.Free;

@@ -552,25 +552,6 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
-        #region UpdateStarterPlanAccess
-
-        [TestMethod]
-        public void UpdateStarterPlanAccess_ShouldUpdateUserAccesTypeToStarter()
-        {
-            //Arrange
-            var user = UserObjectMother.CreateWithAccessType(AccessType.Free);
-
-            //Act
-            user.UpdateStarterPlanAccess(DateTime.MaxValue, "someUser");
-
-            //Assert
-            user.AccessType.Should().Be(AccessType.Starter);
-            user.AccesTypeExpirationTime.Should().Be(DateTime.MaxValue);
-            user.ModifiedBy.Should().Be("someUser");
-        }
-
-        #endregion
-
         #region DowngradeToFreeAccess
 
         [TestMethod]
