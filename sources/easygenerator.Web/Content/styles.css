@@ -1301,6 +1301,7 @@ span.top-navigation-item.current {
     font: 12px 'OpenSans';
     color: #303133;
     box-shadow: 2px 2px 7px #dddddd;
+    cursor: default;
 }
 
 .user-notification-viewer {
