@@ -166,6 +166,35 @@
         display: list-item;
     }
 
+    .header-menu-list-item.user-notification {
+        position: relative;
+        width: 60px;
+        padding: 20px 24px;
+    }
+
+    .user-notification-image {
+        width: 26px;
+        height: 18px;
+        background: url(../Content/images/sprites.png) -183px -250px no-repeat;
+    }
+
+    .header-menu-list-item.user-notification:hover {
+        background-color: #252525;
+    }
+
+    .header-menu-list-item.user-notification:hover:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 100%;
+        left: 50%;
+        margin-top: -1px;
+        margin-left: -4px;
+        border: 6px solid transparent;
+        border-top-color: #252525;
+    }
+
 .header-username {
     position: relative;
     padding-left: 30px;
@@ -1256,6 +1285,76 @@ span.top-navigation-item.current {
 }
 
 /*#endregion SORTABLE-LIST*/
+
+/*#region USER-NOTIFICATION*/
+
+.header-menu-list-item.user-notification:hover .user-notification-viewer {
+    display: block;
+    position: absolute;
+    width: 345px;
+    top: 58px;
+    left: -45px;
+    padding: 10px 10px 14px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    font: 12px 'OpenSans';
+    color: #303133;
+    box-shadow: 2px 2px 7px #dddddd;
+}
+
+.user-notification-viewer {
+    display: none;
+}
+
+.user-notification-header {
+    margin-bottom: 10px;
+}
+
+    .user-notification-header > div {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+.user-notification-header-image {
+    width: 53px;
+    height: 53px;
+    background: url(../Content/images/sprites.png) -210px -244px;
+}
+
+.user-notification-header-content {
+    margin-left: 10px;
+}
+
+.user-notification-title {
+    font: 13px 'OpenSans-Semibold';
+}
+.user-notification-sender {
+    display: block;
+    font-size: 11px;
+    color: #877f78;
+}
+
+.user-notification-content {
+    margin-bottom: 10px;
+}
+
+.user-notification-link-wrapper {
+    text-align: center;
+}
+
+.user-notification-link {
+    display: inline-block;
+    padding: 9px 25px;
+    font: 13px 'OpenSans-Semibold';
+    color: #50a6e9;
+    background-color: #f5fbfd;
+    border: 1px solid #d4d4d4;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/*#endregion USER-NOTIFICATION*/
 
 @media (max-width: 1200px ) {
 
