@@ -563,6 +563,7 @@
     <Compile Include="Storage\ImageValidator.cs" />
     <Compile Include="Storage\Storage.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
+    <Compile Include="Models\Api\UserProfile.cs" />
     <Compile Include="ViewModels\Objective\CreateObjectiveViewModel.cs" />
     <Content Include="App\repositories\templateRepository.js" />
     <Content Include="App\repositories\templateRepository.spec.js">

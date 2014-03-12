@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using easygenerator.Infrastructure;
@@ -97,6 +98,71 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
+        public virtual void UpdatePassword(string password, string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            PasswordHash = Cryptography.GetHash(password);
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void UpdateFirstName(string firstName, string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            FirstName = firstName;
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void UpdateLastName(string lastName, string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            LastName = lastName;
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void UpdatePhone(string phone, string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            Phone = phone;
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void UpdateOrganization(string organization, string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            Organization = organization;
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void UpdateCountry(string country, string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+            
+            RegionInfo info = new RegionInfo(country);
+            Country = info.EnglishName;
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void UpdatePlan(AccessType plan, string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+            
+            AccessType = plan;
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void UpdateExpirationDate(DateTime expirationDate, string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            AccesTypeExpirationTime = expirationDate;
+            MarkAsModified(modifiedBy);
+        }
+
         private void ThrowIfEmailIsNotValid(string email)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(email, "email");
@@ -126,6 +192,11 @@ namespace easygenerator.DomainModel.Entities
 
             if (password.Contains(" "))
                 throw new ArgumentException("Password should not contain whitespace symbols", "password");
+        }
+
+        private void ThrowIfModifiedByIsInvalid(string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
         }
     }
 }

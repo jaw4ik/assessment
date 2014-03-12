@@ -10,6 +10,10 @@ using easygenerator.Web.ViewModels.Account;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Components.ActionResults;
+using easygenerator.Web.Models.Api;
+using System;
+using System.Net;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -36,6 +40,87 @@ namespace easygenerator.Web.Controllers.Api
             _signupFromTryItNowHandler = signupFromTryItNowHandler;
             _publisher = publisher;
             _mailSenderWrapper = mailSenderWrapper;
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("api/user/update")]
+        public ActionResult Update(UserProfile profile)
+        {
+            if (string.IsNullOrEmpty(profile.Email))
+            {
+                return new BadRequestResult();
+            }
+
+            var user = _repository.GetUserByEmail(profile.Email);
+            if (user == null)
+            {
+                return new BadRequestResult();
+            }
+
+            UpdateUserProfile(user, profile);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        private void UpdateUserProfile(User user, UserProfile profile)
+        {
+            if (!string.IsNullOrEmpty(profile.Password))
+            {
+                user.UpdatePassword(profile.Password, profile.Email);
+            }
+            if (!string.IsNullOrEmpty(profile.FirstName))
+            {
+                user.UpdateFirstName(profile.FirstName, profile.Email);
+            }
+            if (!string.IsNullOrEmpty(profile.LastName))
+            {
+                user.UpdateLastName(profile.LastName, profile.Email);
+            }
+            if (!string.IsNullOrEmpty(profile.Phone))
+            {
+                user.UpdatePhone(profile.Phone, profile.Email);
+            }
+            if (!string.IsNullOrEmpty(profile.Organization))
+            {
+                user.UpdateOrganization(profile.Organization, profile.Email);
+            }
+            if (!string.IsNullOrEmpty(profile.Country))
+            {
+                user.UpdateCountry(profile.Country, profile.Email);
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("api/user/update-subscription")]
+        public ActionResult UpdateSubscription(string email, long? exp_date, AccessType? plan)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return new BadRequestResult();
+            }
+
+            var user = _repository.GetUserByEmail(email);
+            if (user == null)
+            {
+                return new BadRequestResult();
+            }
+
+            if (plan.HasValue)
+            {
+                if (!Enum.IsDefined(typeof(AccessType), plan.Value))
+                {
+                    return new BadRequestResult();
+                }
+                user.UpdatePlan(plan.Value, email);
+            }
+
+            if (exp_date.HasValue)
+            {
+                user.UpdateExpirationDate(new DateTime(exp_date.Value), email);  
+            }
+            
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
