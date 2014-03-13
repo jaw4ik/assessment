@@ -1,21 +1,22 @@
 ﻿define(['help/helpHint'], function (viewModel) {
     "use strict";
 
+    var
+        localizationManager = require('localization/localizationManager');
+
     describe('viewModel [helpHint]', function () {
 
-        var localizationManager = require('localization/localizationManager');
+        describe('title:', function () {
 
-        describe('title:', function() {
-
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.title).toBeObservable();
             });
 
         });
 
-        describe('text:', function() {
+        describe('text:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.text).toBeObservable();
             });
 
@@ -43,13 +44,13 @@
                 expect(viewModel.show).toBeFunction();
             });
 
-            describe('when help hint exists', function() {
+            describe('when help hint exists', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     viewModel.isHelpHintExist(true);
                 });
 
-                it('should set visible to true', function() {
+                it('should set visible to true', function () {
                     viewModel.visible(false);
                     viewModel.show();
                     expect(viewModel.visible()).toBeTruthy();
@@ -61,11 +62,11 @@
 
         describe('close:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.close).toBeFunction();
             });
 
-            describe('when help hint exists', function() {
+            describe('when help hint exists', function () {
 
                 beforeEach(function () {
                     viewModel.isHelpHintExist(true);
@@ -87,7 +88,7 @@
                 expect(viewModel.activate).toBeFunction();
             });
 
-            it('should set visible to false', function() {
+            it('should set visible to false', function () {
                 viewModel.visible(true);
                 viewModel.activate();
                 expect(viewModel.visible()).toBeFalsy();

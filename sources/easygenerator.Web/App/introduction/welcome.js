@@ -1,5 +1,6 @@
 ﻿define(['plugins/router', 'eventTracker', 'dataContext', 'httpWrapper', 'uiLocker', 'userContext'],
     function (router, eventTracker, dataContext, httpWrapper, uiLocker, userContext) {
+        "use strict";
 
         var
             events = {

@@ -2,7 +2,7 @@
     "use strict";
 
     var handleError = function (response) {
-        if (!_.isNullOrUndefined(response) && typeof response == "string") {
+        if (!_.isNullOrUndefined(response) && _.isString(response)) {
             notify.error(response);
         } else {
             notify.error(localizationManager.localize("responseFailed"));

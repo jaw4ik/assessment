@@ -1,7 +1,14 @@
 ﻿define(['routing/routerExtender'], function (extender) {
-    return {
-        execute: function() {
-            extender.execute();
-        }
+    "use strict";
+
+    var task = {
+        execute: execute
     };
+
+    return task;
+
+    function execute() {
+        extender.execute();
+    }
+
 });

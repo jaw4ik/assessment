@@ -1,10 +1,15 @@
 ﻿define(['errorHandling/errorHandlingConfiguration', 'errorHandling/globalErrorHandler'], function (errorHandlingConfiguration, globalErrorHandler) {
+    "use strict";
 
-    return {
-        execute: function () {
-            errorHandlingConfiguration.configure();
-            globalErrorHandler.subscribeOnAjaxErrorEvents();
-        }
+    var task = {
+        execute: execute
     };
+
+    return task;
+
+    function execute() {
+        errorHandlingConfiguration.configure();
+        globalErrorHandler.subscribeOnAjaxErrorEvents();
+    }
 
 })

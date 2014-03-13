@@ -1,11 +1,15 @@
 ﻿define(['durandal/composition'], function (composition) {
+    "use strict";
 
-    return {
-        execute: function () {
-            composition.addBindingHandler('autofocus');
-            composition.addBindingHandler('scrollToElement');
-            composition.addBindingHandler('placeholder');
-        }
+    var task = {
+        execute: execute
     };
 
+    return task;
+
+    function execute() {
+        composition.addBindingHandler('autofocus');
+        composition.addBindingHandler('scrollToElement');
+        composition.addBindingHandler('placeholder');
+    }
 })

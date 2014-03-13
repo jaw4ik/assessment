@@ -50,22 +50,24 @@
 
                 it('should reject promise with reason', function (done) {
                     var promise = httpWrapper.post();
-                    promise.fin(done);
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith(reason);
+                        done();
+                    });
 
                     var reason = "some reason";
 
                     post.reject(reason);
-
-                    expect(promise).toBeRejectedWith(reason);
                 });
 
                 it('should trigger \'httpWrapper:post-end\' event', function (done) {
                     var promise = httpWrapper.post();
-                    promise.fin(done);
+                    promise.fin(function () {
+                        expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-end');
+                        done();
+                    });
 
                     post.reject("some reason");
-
-                    expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-end');
                 });
             });
 
@@ -73,22 +75,24 @@
 
                 it('should trigger \'httpWrapper:post-end\' event', function (done) {
                     var promise = httpWrapper.post();
-                    promise.fin(done);
+                    promise.fin(function () {
+                        expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-end');
+                        done();
+                    });
 
                     post.resolve();
-
-                    expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-end');
                 });
 
                 describe('and response data is not an object', function () {
 
                     it('should reject promise', function (done) {
                         var promise = httpWrapper.post();
-                        promise.fin(done);
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response data is not an object');
+                            done();
+                        });
 
                         post.resolve();
-
-                        expect(promise).toBeRejectedWith('Response data is not an object');
                     });
 
                 });
@@ -112,12 +116,13 @@
                                 var message = "test message";
 
                                 var promise = httpWrapper.post();
-                                promise.fin(done);
+                                promise.fin(function () {
+                                    expect(localizationManager.localize).toHaveBeenCalledWith(resourceKey);
+                                    expect(promise).toBeRejected("test localizable value");
+                                    done();
+                                });
 
                                 post.resolve({ resourceKey: resourceKey, message: message });
-
-                                expect(localizationManager.localize).toHaveBeenCalledWith(resourceKey);
-                                expect(promise).toBeRejected("test localizable value");
                             });
 
                             it('should show error notification with localizable value', function (done) {
@@ -125,11 +130,12 @@
                                 var message = "test message";
 
                                 var promise = httpWrapper.post();
-                                promise.fin(done);
+                                promise.fin(function () {
+                                    expect(notify.error).toHaveBeenCalledWith("test localizable value");
+                                    done();
+                                });
 
                                 post.resolve({ resourceKey: resourceKey, message: message });
-
-                                expect(notify.error).toHaveBeenCalledWith("test localizable value");
                             });
                         });
 
@@ -141,22 +147,24 @@
                                     var message = "test message";
 
                                     var promise = httpWrapper.post();
-                                    promise.fin(done);
+                                    promise.fin(function () {
+                                        expect(promise).toBeRejectedWith(message);
+                                        done();
+                                    });
 
                                     post.resolve({ message: message });
-
-                                    expect(promise).toBeRejectedWith(message);
                                 });
 
                                 it('should show error notification with response message', function (done) {
                                     var message = "test message";
 
                                     var promise = httpWrapper.post();
-                                    promise.fin(done);
+                                    promise.fin(function () {
+                                        expect(notify.error).toHaveBeenCalledWith(message);
+                                        done();
+                                    });
 
                                     post.resolve({ message: message });
-
-                                    expect(notify.error).toHaveBeenCalledWith(message);
                                 });
                             });
 
@@ -168,29 +176,32 @@
 
                                 it('should show localized default error message', function (done) {
                                     var promise = httpWrapper.post();
-                                    promise.fin(done);
+                                    promise.fin(function () {
+                                        expect(localizationManager.localize).toHaveBeenCalledWith('responseFailed');
+                                        done();
+                                    });
 
                                     post.resolve({});
-
-                                    expect(localizationManager.localize).toHaveBeenCalledWith('responseFailed');
                                 });
 
                                 it('should reject promise with default message', function (done) {
                                     var promise = httpWrapper.post();
-                                    promise.fin(done);
+                                    promise.fin(function () {
+                                        expect(promise).toBeRejectedWith('failed');
+                                        done();
+                                    });
 
                                     post.resolve({});
-
-                                    expect(promise).toBeRejectedWith('failed');
                                 });
 
                                 it('should show error notification with default message', function (done) {
                                     var promise = httpWrapper.post();
-                                    promise.fin(done);
+                                    promise.fin(function () {
+                                        expect(notify.error).toHaveBeenCalledWith('failed');
+                                        done();
+                                    });
 
                                     post.resolve({});
-
-                                    expect(notify.error).toHaveBeenCalledWith('failed');
                                 });
                             });
                         });
@@ -200,13 +211,14 @@
 
                         it('should resolve promise with response data', function (done) {
                             var promise = httpWrapper.post();
-                            promise.fin(done);
+                            promise.fin(function () {
+                                expect(promise).toBeResolvedWith(data);
+                                done();
+                            });
 
                             var data = { title: 'title', description: 'description' };
 
                             post.resolve({ success: true, data: data });
-
-                            expect(promise).toBeResolvedWith(data);
                         });
 
                     });

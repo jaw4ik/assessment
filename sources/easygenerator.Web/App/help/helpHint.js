@@ -1,4 +1,5 @@
 ﻿define(['localization/localizationManager'], function (localizationManager) {
+    "use strict";
 
     var viewModel = {
         title: ko.observable(),

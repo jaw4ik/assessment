@@ -1,7 +1,8 @@
 ﻿define(['viewmodels/shell'], function (viewModel) {
     "use strict";
 
-    var router = require('plugins/router'),
+    var
+        router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         dataContext = require('dataContext'),
         userContext = require('userContext');
@@ -36,21 +37,28 @@
                 expect(viewModel.activate).toBeFunction();
             });
 
-            describe('when dataContext initialized', function() {
+            it('should return promise', function () {
+                expect(viewModel.activate()).toBePromise();
+            });
 
-                var dataContextDefer, routerActivateDefer;
-                beforeEach(function() {
+            describe('when dataContext initialized', function () {
+
+                var
+                    dataContextDefer,
+                    routerActivateDefer;
+
+                beforeEach(function () {
                     dataContextDefer = Q.defer();
                     routerActivateDefer = Q.defer();
-                    
+
                     spyOn(dataContext, 'initialize').and.returnValue(dataContextDefer.promise);
                     spyOn(router, 'activate').and.returnValue(routerActivateDefer.promise);
-                    
+
                     dataContextDefer.resolve();
                     routerActivateDefer.resolve();
                 });
 
-                describe('and user is anonymous', function() {
+                describe('and user is anonymous', function () {
 
                     beforeEach(function () {
                         userContext.identity = null;
@@ -64,7 +72,7 @@
                         });
                     });
 
-                    it('should set username to null', function(done) {
+                    it('should set username to null', function (done) {
                         var promise = viewModel.activate();
 
                         promise.fin(function () {
@@ -76,12 +84,12 @@
 
                 });
 
-                describe('and user is not anonymous', function() {
+                describe('and user is not anonymous', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         userContext.identity = {};
                     });
-                    
+
                     describe('and user does not have fullname', function () {
 
                         beforeEach(function () {
@@ -134,17 +142,13 @@
 
         describe('showNavigation:', function () {
 
-            it('should be defined', function () {
-                expect(viewModel.showNavigation).toBeDefined();
-            });
-
             it('should be function', function () {
                 expect(viewModel.showNavigation).toBeFunction();
             });
 
             describe('when activeModuleName is error page', function () {
 
-                describe('when error page 400', function () {
+                describe('and error page 400', function () {
 
                     it('should be return true', function () {
                         spyOn(viewModel, 'activeModuleName').and.returnValue('400');
@@ -153,7 +157,7 @@
 
                 });
 
-                describe('when error page 404', function () {
+                describe('and error page 404', function () {
 
                     it('should be return true', function () {
                         spyOn(viewModel, 'activeModuleName').and.returnValue('404');

@@ -37,13 +37,11 @@
 
                         describe('and when error handler is registered for this status', function () {
 
-                            var registeredErrorHandler = {
-                                handleError: function () { }
-                            };
+                            var registeredErrorHandler;
 
                             beforeEach(function () {
+                                registeredErrorHandler = jasmine.createSpyObj('registeredErrorHandler', ['handleError']);
                                 errorHandlerRegistrator.registeredHandlers[status] = registeredErrorHandler;
-                                spyOn(registeredErrorHandler, 'handleError');
                             });
 
                             it('should call handleError() method for registered error handler', function () {

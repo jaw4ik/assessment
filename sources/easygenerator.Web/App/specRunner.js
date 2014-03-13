@@ -23,26 +23,39 @@
 
 
         var specs = [
-        'viewmodels/shell.spec', // should be moved down
+        'bootstrapping/compositionTask.spec',
+        'bootstrapping/errorHandlingTask.spec',
+        'bootstrapping/knockoutBindingsTask.spec',
+        'bootstrapping/localizationTask.spec',
+        'bootstrapping/routingTask.spec',
+        'bootstrapping/viewLocatorTask.spec',
+        'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
+        'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
+        'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
+        'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
+        'errorHandling/errorHandlingConfiguration.spec',
+        'errorHandling/globalErrorHandler.spec',
+        'errorHandling/httpErrorHandlerRegistrator.spec',
         'help/helpHint.spec',
+        'introduction/welcome.spec',
+        'localization/localizationManager.spec',
+        'models/course.spec',
+ //       'repositories/answerRepository.spec',
+
+        /* UNSORTED SPECS */
+
+       //  'viewmodels/shell.spec', ajax request
         'guard.spec',
         'httpWrapper.spec',
         'notify.spec',
-        'models/course.spec',
-        'errorHandling/httpErrorHandlerRegistrator.spec',
-        'errorHandling/globalErrorHandler.spec',
-        'errorHandling/errorHandlingConfiguration.spec',
-        'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
-        'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
-        'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
-        'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
         'routing/routerExtender.spec',
-        'localization/localizationManager.spec',
         'services/deliverService.spec'
+
+
+        /* NOT MIGRATED SPECS */
        /*'repositories/courseRepository.spec',
        'repositories/objectiveRepository.spec',
        'repositories/questionRepository.spec',
-       'repositories/answerRepository.spec',
        'repositories/learningContentRepository.spec',
        'repositories/templateRepository.spec',
        'repositories/commentRepository.spec',
@@ -69,7 +82,6 @@
        '../Scripts/account/passwordrecovery.spec',
        '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec',
        'bootstrapper.spec',
-       'introduction/welcome.spec',
        'widgets/notifyViewer/viewmodel.spec',
        'widgets/uiLockViewer/viewmodel.spec',
        'uiLocker.spec',

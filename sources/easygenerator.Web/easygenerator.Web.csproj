@@ -174,10 +174,25 @@
       <DependentUpon>bootstrapper.js</DependentUpon>
     </Content>
     <Content Include="App\bootstrapping\compositionTask.js" />
+    <Content Include="App\bootstrapping\compositionTask.spec.js">
+      <DependentUpon>compositionTask.js</DependentUpon>
+    </Content>
     <Content Include="App\bootstrapping\errorHandlingTask.js" />
+    <Content Include="App\bootstrapping\knockoutBindingsTask.spec.js">
+      <DependentUpon>knockoutBindingsTask.js</DependentUpon>
+    </Content>
     <Content Include="App\bootstrapping\localizationTask.js" />
     <Content Include="App\bootstrapping\knockoutBindingsTask.js" />
+    <Content Include="App\bootstrapping\localizationTask.spec.js">
+      <DependentUpon>localizationTask.js</DependentUpon>
+    </Content>
+    <Content Include="App\bootstrapping\routingTask.spec.js">
+      <DependentUpon>routingTask.js</DependentUpon>
+    </Content>
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
+    <Content Include="App\bootstrapping\viewLocatorTask.spec.js">
+      <DependentUpon>viewLocatorTask.js</DependentUpon>
+    </Content>
     <Content Include="App\help\helpHintPositioning.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.spec.js">
@@ -814,6 +829,9 @@
       <DependentUpon>passwordrecovery.js</DependentUpon>
     </Content>
     <Content Include="App\specs.html" />
+    <Content Include="App\bootstrapping\errorHandlingTask.spec.js">
+      <DependentUpon>errorHandlingTask.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jasmine\boot.js" />
     <Content Include="Scripts\jasmine\jasmine-html.js" />

@@ -1,27 +1,30 @@
 ﻿define(['dataContext', 'httpWrapper', 'guard', 'models/answerOption'],
     function (dataContext, httpWrapper, guard, answerModel) {
+        "use strict";
 
-        var getCollection = function(questionId) {
-            return Q.fcall(function() {
-                guard.throwIfNotString(questionId, 'Question id is not a string');
+        var
+            getCollection = function (questionId) {
+                return Q.fcall(function () {
+                    guard.throwIfNotString(questionId, 'Question id is not a string');
 
-                return httpWrapper.post('api/answers', { questionId: questionId }).then(function(response) {
-                    guard.throwIfNotAnObject(response, 'Response is not an object');
-                    guard.throwIfNotArray(response.Answers, 'Answers is not an array');
+                    return httpWrapper.post('api/answers', { questionId: questionId }).then(function (response) {
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotArray(response.Answers, 'Answers is not an array');
 
-                    return _.map(response.Answers, function(answer) {
-                        return new answerModel({
-                            id: answer.Id,
-                            text: answer.Text,
-                            isCorrect: answer.IsCorrect,
-                            createdOn: answer.CreatedOn
+                        return _.map(response.Answers, function (answer) {
+                            return new answerModel({
+                                id: answer.Id,
+                                text: answer.Text,
+                                isCorrect: answer.IsCorrect,
+                                createdOn: answer.CreatedOn
+                            });
                         });
                     });
                 });
-            });
-        },
-            addAnswer = function(questionId, answer) {
-                return Q.fcall(function() {
+            },
+
+            addAnswer = function (questionId, answer) {
+                return Q.fcall(function () {
                     guard.throwIfNotString(questionId, 'Question id is not a string');
                     guard.throwIfNotAnObject(answer, 'Answer data is not an object');
                     guard.throwIfNotString(answer.text, 'Answer data text is not a string');
@@ -33,7 +36,7 @@
                         isCorrect: answer.isCorrect
                     };
 
-                    return httpWrapper.post('api/answer/create', data).then(function(response) {
+                    return httpWrapper.post('api/answer/create', data).then(function (response) {
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.Id, 'Answer id is not a string');
                         guard.throwIfNotString(response.CreatedOn, 'Answer creation date is not a string');
@@ -48,8 +51,9 @@
                     });
                 });
             },
-            removeAnswer = function(questionId, answerId) {
-                return Q.fcall(function() {
+
+            removeAnswer = function (questionId, answerId) {
+                return Q.fcall(function () {
                     guard.throwIfNotString(questionId, 'Question id is not a string');
                     guard.throwIfNotString(answerId, 'Answer id is not a string');
 
@@ -58,7 +62,7 @@
                         answerId: answerId
                     };
 
-                    return httpWrapper.post('api/answer/delete', data).then(function(response) {
+                    return httpWrapper.post('api/answer/delete', data).then(function (response) {
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -71,8 +75,9 @@
                     });
                 });
             },
-            updateAnswer = function(questionId, answerId, text, isCorrect) {
-                return Q.fcall(function() {
+
+            updateAnswer = function (questionId, answerId, text, isCorrect) {
+                return Q.fcall(function () {
                     guard.throwIfNotString(questionId, 'Question id is not a string');
                     guard.throwIfNotString(answerId, 'Answer id is not a string');
                     guard.throwIfNotString(text, 'Answer text is not a string');
@@ -84,7 +89,7 @@
                         isCorrect: isCorrect
                     };
 
-                    return httpWrapper.post('api/answer/update', data).then(function(response) {
+                    return httpWrapper.post('api/answer/update', data).then(function (response) {
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.ModifiedOn, 'Answer modification date is not a string');
 

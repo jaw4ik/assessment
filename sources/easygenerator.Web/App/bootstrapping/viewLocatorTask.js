@@ -1,9 +1,14 @@
 ﻿define(['durandal/viewLocator'], function (viewLocator) {
+    "use strict";
 
-    return {
-        execute: function () {
-            viewLocator.useConvention();
-        }
+    var task = {
+        execute: execute
     };
+
+    return task;
+
+    function execute() {
+        viewLocator.useConvention();
+    }
 
 })

@@ -1,4 +1,5 @@
 ﻿define(['errorHandling/httpErrorHandlerRegistrator'], function (errorHandlerRegistrator) {
+    "use strict";
 
     describe('[httpErrorHandlerRegistrator]', function () {
 
@@ -28,7 +29,7 @@
                         errorHandlerRegistrator.registerHandler(500, {});
                     };
 
-                    expect(f).toThrow();
+                    expect(f).toThrow('Error handler for status code 500 has already been registered.');
                 });
 
             });
@@ -44,7 +45,7 @@
                         errorHandlerRegistrator.registerHandler(100, {});
                     };
 
-                    expect(f).toThrow();
+                    expect(f).toThrow('Error handler has to expose \'handleError()\' method');
                 });
 
             });
