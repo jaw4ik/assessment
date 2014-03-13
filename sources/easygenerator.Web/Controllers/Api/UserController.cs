@@ -55,17 +55,18 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (string.IsNullOrEmpty(profile.Email))
             {
-                return new BadRequestResult();
+                return BadRequest("Not valid email");
             }
 
             var user = _repository.GetUserByEmail(profile.Email);
             if (user == null)
             {
-                return new BadRequestResult();
+                return BadRequest("User doesn’t exist");
             }
 
             UpdateUserProfile(user, profile);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+
+            return Success();
         }
 
         private void UpdateUserProfile(User user, UserProfile profile)
@@ -104,21 +105,22 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (string.IsNullOrEmpty(email))
             {
-                return new BadRequestResult();
+                return BadRequest("Not valid email");
             }
 
             var user = _repository.GetUserByEmail(email);
             if (user == null)
             {
-                return new BadRequestResult();
+                return BadRequest("User doesn’t exist");
             }
 
             if (plan.HasValue)
             {
                 if (!Enum.IsDefined(typeof(AccessType), plan.Value))
                 {
-                    return new BadRequestResult();
+                    return BadRequest("Plan is not valid");
                 }
+
                 user.UpdatePlan(plan.Value, email);
             }
 
@@ -127,7 +129,7 @@ namespace easygenerator.Web.Controllers.Api
                 user.UpdateExpirationDate(new DateTime(exp_date.Value), email);  
             }
             
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            return Success();
         }
 
         [HttpPost]

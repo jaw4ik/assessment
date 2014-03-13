@@ -195,11 +195,22 @@ namespace easygenerator.Web.Tests.Utils
             return new HttpNotFoundResultAssertions(value.Subject as HttpNotFoundResult);
         }
 
-        public static BadRequestResultAssertions BeBadRequestResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
+        public static BadRequestResultAssertions BeBadRequestResult(this ObjectAssertions value, string description = "", string reason = "", params object[] reasonArgs)
         {
             Execute.Assertion
                 .BecauseOf(reason, reasonArgs)
                 .ForCondition(value.Subject is BadRequestResult)
+                .FailWith("Expected \"BadRequestResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new BadRequestResultAssertions(value.Subject as BadRequestResult);
+        }
+
+        public static BadRequestResultAssertions BeBadRequestResultWithDescription(this ObjectAssertions value, string description = "", string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is BadRequestResult)
+                .ForCondition(((BadRequestResult)value.Subject).StatusDescription == description)
                 .FailWith("Expected \"BadRequestResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new BadRequestResultAssertions(value.Subject as BadRequestResult);
@@ -230,6 +241,17 @@ namespace easygenerator.Web.Tests.Utils
             Execute.Assertion
                 .BecauseOf(reason, reasonArgs)
                 .ForCondition(value.Subject is HttpStatusCodeResult)
+                .FailWith("Expected \"HttpStatusCodeResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new HttpStatusCodeResultAssertions(value.Subject as HttpStatusCodeResult);
+        }
+
+        public static HttpStatusCodeResultAssertions BeHttpStatusCodeResultWithStatus(this ObjectAssertions value, int status, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is HttpStatusCodeResult)
+                .ForCondition(((HttpStatusCodeResult)value.Subject).StatusCode == status)
                 .FailWith("Expected \"HttpStatusCodeResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new HttpStatusCodeResultAssertions(value.Subject as HttpStatusCodeResult);

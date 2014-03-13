@@ -14,5 +14,11 @@ namespace easygenerator.Web.Components.ActionResults
         {
 
         }
+
+        public BadRequestResult(string description)
+            : base(HttpStatusCode.BadRequest, description)
+        {
+
+        }
     }
 }

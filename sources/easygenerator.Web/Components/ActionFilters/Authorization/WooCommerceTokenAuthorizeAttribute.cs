@@ -40,7 +40,7 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
             var key = authorizationContext.HttpContext.Request.QueryString["key"];
             if (key == null || ConfigurationReader.WooCommerceConfiguration.ApiKey.Trim() != key.Trim())
             {
-                authorizationContext.Result = new HttpStatusCodeResult(HttpStatusCode.Forbidden, "key is not correct");
+                authorizationContext.Result = new HttpStatusCodeResult(HttpStatusCode.Forbidden, "Key is not correct");
             }
 
         }

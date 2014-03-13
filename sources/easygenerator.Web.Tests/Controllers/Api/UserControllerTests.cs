@@ -68,7 +68,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var profile = new UserProfile();
             var result = _controller.Update(profile);
 
-            result.Should().BeBadRequestResult();
+            result.Should().BeBadRequestResultWithDescription("Not valid email");
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var profile = new UserProfile(){Email = ""};
             var result = _controller.Update(profile);
 
-            result.Should().BeBadRequestResult();
+            result.Should().BeBadRequestResultWithDescription("Not valid email");
         }
 
         [TestMethod]
@@ -88,7 +88,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.Update(profile);
 
-            result.Should().BeBadRequestResult(); 
+            result.Should().BeBadRequestResultWithDescription("User doesn’t exist"); 
         }
 
         [TestMethod]
@@ -100,7 +100,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.Update(profile);
 
-            result.Should().BeHttpStatusCodeResult().And.StatusCode.Should().Be(200); ; ;
+            result.Should().BeHttpStatusCodeResultWithStatus(200);
         }
 
         [TestMethod]
@@ -183,16 +183,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void UpdateSubscription_ShouldReturnBadRequestResult_WhenUserEmailIsNull()
         {
             var result = _controller.UpdateSubscription(null, null, null);
-            
-            result.Should().BeBadRequestResult();
+
+            result.Should().BeBadRequestResultWithDescription("Not valid email");
         }
 
         [TestMethod]
         public void Updatesubscription_ShouldReturnBadRequestResult_WhenUserEmailIsEmpty()
         {
             var result = _controller.UpdateSubscription("", null, null);
-            
-            result.Should().BeBadRequestResult();
+
+            result.Should().BeBadRequestResultWithDescription("Not valid email");
         }
 
         [TestMethod]
@@ -202,20 +202,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _userRepository.GetUserByEmail(email).Returns((User)null);
 
             var result = _controller.UpdateSubscription(email, null, null);
-            
-            result.Should().BeBadRequestResult();
-        }
 
-        [TestMethod]
-        public void UpdateSubscription_ShouldReturnHttpStatusCodeOK_WhenUserExists()
-        {
-            const string email = "test@test.test";
-            var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(email).Returns(user);
-
-            var result = _controller.UpdateSubscription(email, null, null);
-            
-            result.Should().BeHttpStatusCodeResult().And.StatusCode.Should().Be(200); ; ;
+            result.Should().BeBadRequestResultWithDescription("User doesn’t exist");
         }
 
         [TestMethod]
@@ -226,8 +214,20 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _userRepository.GetUserByEmail(email).Returns(user);
 
             var result = _controller.UpdateSubscription(email, null, (AccessType?)6);
-            
-            result.Should().BeBadRequestResult();
+
+            result.Should().BeBadRequestResultWithDescription("Plan is not valid");
+        }
+
+        [TestMethod]
+        public void UpdateSubscription_ShouldReturnHttpStatusCodeOK_WhenUserExists()
+        {
+            const string email = "test@test.test";
+            var user = Substitute.For<User>();
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            var result = _controller.UpdateSubscription(email, null, null);
+
+            result.Should().BeHttpStatusCodeResultWithStatus(200);
         }
 
         [TestMethod]

@@ -38,9 +38,19 @@ namespace easygenerator.Web.Components
             return new JsonErrorResult(message, resourceKey);
         }
 
+        protected ActionResult Success()
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
         protected ActionResult BadRequest()
         {
             return new BadRequestResult();
+        }
+
+        protected ActionResult BadRequest(string description)
+        {
+            return new BadRequestResult(description);
         }
 
         protected string GetCurrentUsername()
