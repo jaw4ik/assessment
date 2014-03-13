@@ -308,7 +308,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
 
             //Act
-            var result = user.GetFullName();
+            var result = user.FullName;
 
             //Assert
             result.Should().Be(user.FirstName + " " + user.LastName);

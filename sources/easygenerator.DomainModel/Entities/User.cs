@@ -54,9 +54,12 @@ namespace easygenerator.DomainModel.Entities
             return Cryptography.VerifyHash(password, PasswordHash);
         }
 
-        public virtual string GetFullName()
+        public string FullName
         {
-            return (FirstName + " " + LastName).Trim();
+            get
+            {
+                return (FirstName + " " + LastName).Trim();
+            }
         }
 
         public virtual UserSettings UserSetting { get; private set; }

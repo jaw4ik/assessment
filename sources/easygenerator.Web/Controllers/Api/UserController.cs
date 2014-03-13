@@ -230,7 +230,7 @@ namespace easygenerator.Web.Controllers.Api
                 return Json(new { });
             }
 
-            return Json(new { email = user.Email, fullname = user.GetFullName(), accessType = user.AccessType });
+            return Json(new { email = user.Email, fullname = user.FullName, accessType = user.AccessType });
 
         }
 

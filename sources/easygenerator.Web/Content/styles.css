@@ -168,7 +168,7 @@
     .header-menu-list-item.user-notification {
         position: relative;
         width: 60px;
-        padding: 20px 24px;
+        padding: 19px 24px;
     }
 
     .user-notification-image {
@@ -1271,7 +1271,7 @@ span.top-navigation-item.current {
     display: block;
     position: absolute;
     width: 345px;
-    top: 58px;
+    top: 56px;
     left: -45px;
     padding: 10px 10px 14px;
     background-color: #fff;
@@ -1328,11 +1328,15 @@ span.top-navigation-item.current {
     padding: 9px 25px;
     font: 13px 'OpenSans-Semibold';
     color: #50a6e9;
-    background-color: #f5fbfd;
+    background-color: white;
     border: 1px solid #d4d4d4;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
 }
+
+    .user-notification-link:hover {
+        background-color: #f7f7f7;
+    }
 
 /*#endregion USER-NOTIFICATION*/
 
