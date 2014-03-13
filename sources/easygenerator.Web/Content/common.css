@@ -68,7 +68,6 @@ footer, header, menu, nav, section {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-    user-select: none;
 }
 
 article, aside, details, figcaption, figure,
@@ -134,21 +133,14 @@ a {
         text-decoration: none;
     }
 
-img:hover {
-    opacity: 1;
-    filter: alpha(opacity = 100);
-}
-
-ul.unstyled,
-ol.unstyled  {
-    margin-left: 0;
-    list-style: none;
-}
-
 h1 {
     font-size: 2.0em;
     -webkit-margin-before: 0.67em;
     -webkit-margin-after: 0.67em;
+}
+
+img:hover {
+    opacity: 1;
 }
 
 /*#endregion COMMON*/
@@ -173,11 +165,14 @@ h1 {
     float: right;
 }
 
+.unstyled {
+    list-style: none;
+}
+
 .selectable {
     -moz-user-select: text;
     -webkit-user-select: text;
     -ms-user-select: text;
-    user-select: text;
 }
 
 .preloader-block {

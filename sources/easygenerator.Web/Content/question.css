@@ -411,8 +411,6 @@
 .add-button:hover .question-learning-content-wrapper.enabled {
     border-style: solid;
     background-color: white;
-    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
 

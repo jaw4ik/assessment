@@ -152,8 +152,6 @@
     padding: 12px 40px 12px 20px;
     background: #fff;
     border: solid 1px #ccc;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
     border-radius: 5px;
     cursor: text;
 }
@@ -161,23 +159,17 @@
     .xapi-form-input-wrapper:hover,
     .xapi-form-input-wrapper.hover {
         outline: none;
-        -webkit-box-shadow: 0 0 3px #dedede;
-        -moz-box-shadow: 0 0 3px #dedede;
         box-shadow: 0 0 3px #dedede;
     }
 
     .xapi-form-input-wrapper.focus {
         outline: none;
         border: solid 1px #00a8ff;
-        -webkit-box-shadow: 0 0 2px #00a8ff;
-        -moz-box-shadow: 0 0 2px #00a8ff;
         box-shadow: 0 0 2px #00a8ff;
     }
 
 .xapi-form-row.error .xapi-form-input-wrapper {
     border: solid 1px #953b39;
-    -webkit-box-shadow: 0 0 2px #953b39;
-    -moz-box-shadow: 0 0 2px #953b39;
     box-shadow: 0 0 2px #953b39;
 }
 

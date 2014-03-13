@@ -37,16 +37,17 @@
             </div>
         </header>
         <!-- ko ifnot: isLoadingNewQuestion -->
+        <!-- ko if: learningContents.length > 0 -->
         <div class="learning-content-section">
             <div class="learning-content-title">
                 Learning content
             </div>
 
-            <!-- ko if: learningContents.length > 0 -->
             <!-- ko compose: 'learningContents.html'-->
             <!-- /ko -->
-            <!-- /ko -->
+
         </div>
+        <!-- /ko -->
         <div class="question-section">
             <div class="question-title selectable" data-bind="text: title">
                 question title

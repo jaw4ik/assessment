@@ -1,9 +1,7 @@
 ﻿.xapi-error-container {
     position: relative;
-
     max-width: 590px;
     height: 230px;
-
     margin: 120px auto;
 }
 
@@ -12,9 +10,7 @@
     float: left;
     width: 128px;
     height: 127px;
-
     margin: 0 19px 0 35px;
-
     background: url(img/xapierror.png) 0 0 no-repeat;
     background-size: 100%;
 }
@@ -24,44 +20,40 @@
     font-size: 24px;
     font-weight: normal;
     text-transform: uppercase;
-
     padding: 21px 0;
     margin: 0;
 }
+
 .xapi-error-container-description {
     font-family: Arial, sans-serif;
     font-size: 18px;
 }
 
 .xapi-error-container-button {
-    width: 268px;
     height: 48px;
-
-    opacity: 0.8;
-    filter: alpha(opacity=80);
-
-    color: #FFFFFF;
-    border: 1px solid;
-    outline: none;
-    font-size: 19px;
     line-height: 30px;
-
+    width: 268px;
     position: absolute;
     bottom: 0;
+    border: 1px solid black;
+    outline: none;
+    color: #FFFFFF;
+    font-size: 19px;
+    opacity: 0.8;
 }
+
     .xapi-error-container-button:hover {
         opacity: 1;
-        filter: alpha(opacity=100);
     }
 
-.xapi-error-container-button.restart {
-    background-color: #f26c4f;
-    border-color: #F38971;
-    left: 0;
-}
-.xapi-error-container-button.continue {
-    background-color: #343a41;
-    border-color: #62676B;
-    right: 0;
-}
-    
+    .xapi-error-container-button.restart {
+        background-color: #f26c4f;
+        border-color: #F38971;
+        left: 0;
+    }
+
+    .xapi-error-container-button.continue {
+        background-color: #343a41;
+        border-color: #62676B;
+        right: 0;
+    }

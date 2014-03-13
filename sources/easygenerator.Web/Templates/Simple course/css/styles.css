@@ -111,7 +111,6 @@ menu, ol, ul {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-    user-select: none;
 }
 
 .selectable,
@@ -119,7 +118,6 @@ menu, ol, ul {
     -moz-user-select: text;
     -webkit-user-select: text;
     -ms-user-select: text;
-    user-select: text;
 }
 
 input[type="radio"],
@@ -134,7 +132,6 @@ input[type="checkbox"] {
     height: 100%;
     width: 100%;
     opacity: 0;
-    filter: alpha(opacity=0);
 }
 
 .loader {
@@ -154,14 +151,13 @@ input[type="checkbox"] {
     background-repeat: no-repeat;
 }
 
-
 /*#region header css-styles*/
 
 .header {
     display: table;
     width: 100%;
     min-height: 40px;
-    padding: 5px 0px 5px 20px;
+    padding: 5px 0 5px 20px;
     background-color: #40494c;
     border-bottom: 3px solid black;
 }
@@ -270,7 +266,6 @@ input[type="checkbox"] {
         background: -webkit-linear-gradient(left, #c9e9e5 0%,#c9e9e5 16%,#cdeeaa 16%,#cdeeaa 33%,#f9f0a8 33%,#f9f0a8 50%,#e0cfdf 50%,#e0cfdf 66%,#faced2 66%,#faced2 83%,#bcd8f0 83%,#bcd8f0 100%);
         background: -ms-linear-gradient(left, #c9e9e5 0%,#c9e9e5 16%,#cdeeaa 16%,#cdeeaa 33%,#f9f0a8 33%,#f9f0a8 50%,#e0cfdf 50%,#e0cfdf 66%,#faced2 66%,#faced2 83%,#bcd8f0 83%,#bcd8f0 100%);
         background: linear-gradient(to right, #c9e9e5 0%,#c9e9e5 16%,#cdeeaa 16%,#cdeeaa 33%,#f9f0a8 33%,#f9f0a8 50%,#e0cfdf 50%,#e0cfdf 66%,#faced2 66%,#faced2 83%,#bcd8f0 83%,#bcd8f0 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9e9e5', endColorstr='#bcd8f0',GradientType=1 ); /* IE6-8 */
     }
 
 .course-name {
@@ -282,7 +277,7 @@ input[type="checkbox"] {
 .course-title {
     display: table-cell;
     vertical-align: middle;
-    min-height: 100px;
+    height: 100px;
     width: 100%;
     padding: 15px 0;
     margin: 0;
@@ -349,7 +344,6 @@ input[type="checkbox"] {
     background-color: #f58972;
     border: 1px solid #d77864;
     opacity: 0.8;
-    filter: alpha(opacity=80);
 }
 
     .red-btn:hover,
@@ -373,13 +367,11 @@ input[type="checkbox"] {
     background-color: #343a41;
     border: 1px solid #62676B;
     opacity: 0.8;
-    filter: alpha(opacity=80);
 }
 
     .grey-btn:hover,
     .grey-btn:active {
         opacity: 1;
-        filter: alpha(opacity=100);
     }
 
 /*#endregion action-buttons*/
@@ -428,7 +420,6 @@ input[type="checkbox"] {
     background: -o-linear-gradient(left, #41b7d8 0%,#3492ad 100%); /* Opera 11.10+ */
     background: -ms-linear-gradient(left, #41b7d8 0%,#3492ad 100%); /* IE10+ */
     background: linear-gradient(to right, #41b7d8 0%,#3492ad 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#41b7d8', endColorstr='#3492ad',GradientType=1 ); /* IE6-9 */
 }
 
 .objective-progressbar-score {
@@ -460,7 +451,6 @@ input[type="checkbox"] {
     text-transform: uppercase;
     color: #666;
     opacity: 0.6;
-    filter: alpha(opacity=60);
 }
 
     .navigation-link.disabled {
@@ -469,12 +459,10 @@ input[type="checkbox"] {
 
         .navigation-link.disabled:hover {
             opacity: 0.6;
-            filter: alpha(opacity=60);
         }
 
     .navigation-link:hover {
         opacity: 0.75;
-        filter: alpha(opacity=75);
     }
 
     .navigation-link > span {
@@ -539,7 +527,7 @@ input[type="checkbox"] {
     background-color: #F5FAFD;
     position: absolute;
     top: -1px;
-    left: 0px;
+    left: 0;
     -webkit-transform: rotate(45deg) skew(10deg, 10deg);
     -moz-transform: rotate(45deg) skew(10deg, 10deg);
     -ms-transform: rotate(45deg) skew(10deg, 10deg);
@@ -635,8 +623,7 @@ input[type="checkbox"] {
     padding: 0 0 40px;
     color: #666;
     font-size: 16px;
-    -ms-word-break: break-word;
-    word-break: break-word;
+    word-wrap: break-word;
 }
 
 .objective-start {
@@ -744,7 +731,7 @@ input[type="checkbox"] {
 /*#region question view*/
 
 .question .page-header {
-    padding: 0 10px 0 0px;
+    padding: 0 10px 0;
     margin-top: 15px;
     margin-bottom: 20px;
 }
@@ -876,7 +863,6 @@ input[type="checkbox"] {
 
     .btn-submit:hover {
         opacity: 1;
-        filter: alpha(opacity=100);
     }
 
 .result-block {
@@ -1027,6 +1013,8 @@ input[type="checkbox"] {
     }
 
         .learning-content-items .learning-content-item + .learning-content-item {
+            padding-top: 15px;
+            margin-top: 15px;
             border-top: solid 1px #e0e0e0;
         }
 

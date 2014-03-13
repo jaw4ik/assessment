@@ -103,8 +103,6 @@
     padding: 8px;
     background: #fff;
     border: solid 1px #bfbfbf;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
     border-radius: 3px;
     cursor: text;
 }
@@ -112,8 +110,6 @@
     .xapi-form-input-wrapper:hover,
     .xapi-form-input-wrapper.hover {
         outline: none;
-        -webkit-box-shadow: 0 0 3px #dedede;
-        -moz-box-shadow: 0 0 3px #dedede;
         box-shadow: 0 0 3px #dedede;
     }
 
@@ -121,15 +117,11 @@
     .xapi-form-input-wrapper.focus {
         outline: none;
         border: solid 1px #5698bb;
-        -webkit-box-shadow: 0 0 2px #5698bb;
-        -moz-box-shadow: 0 0 2px #5698bb;
         box-shadow: 0 0 2px #5698bb;
     }
 
 .xapi-form-row.error .xapi-form-input-wrapper {
     border: solid 1px #953b39;
-    -webkit-box-shadow: 0 0 2px #953b39;
-    -moz-box-shadow: 0 0 2px #953b39;
     box-shadow: 0 0 2px #953b39;
 }
 

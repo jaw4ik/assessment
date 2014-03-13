@@ -22,11 +22,8 @@
     height: 100%;
     padding-bottom: 85px;
     background: #F7F7F7;
-    -webkit-box-shadow: 3px 3px 3px #dedede;
-    -moz-box-shadow: 3px 3px 3px #dedede;
     box-shadow: 3px 3px 3px #dedede;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
     .navigation-tree.collapsed {
@@ -158,7 +155,7 @@
     }
 
     .navigation-tree-node .navigation-tree-node .navigation-tree-node .navigation-tree-node-caption-wrapper {
-        padding-left: 0px;
+        padding-left: 0;
         box-shadow: none;
     }
 
@@ -181,7 +178,7 @@
     .navigation-tree-node .navigation-tree-node:first-child .navigation-tree-node-caption-wrapper,
     .navigation-tree-node .navigation-tree-node .navigation-tree-node:first-child .navigation-tree-node-wrapper {
         border-top: none;
-        box-shadow: inset 0px 6px 6px -5px #E2E2E2;
+        box-shadow: inset 0 6px 6px -5px #E2E2E2;
     }
 
     .navigation-tree-node .navigation-tree-node:first-child .navigation-tree-node-caption-wrapper {
