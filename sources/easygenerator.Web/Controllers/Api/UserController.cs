@@ -5,6 +5,7 @@ using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
 using System.Web.Mvc;
@@ -48,6 +49,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [AllowAnonymous]
+        [WooCommerceTokenAuthorize]
         [Route("api/user/update")]
         public ActionResult Update(UserProfile profile)
         {
@@ -96,6 +98,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [AllowAnonymous]
+        [WooCommerceTokenAuthorize]
         [Route("api/user/update-subscription")]
         public ActionResult UpdateSubscription(string email, long? exp_date, AccessType? plan)
         {

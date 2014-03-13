@@ -384,6 +384,7 @@
     <Content Include="App\viewmodels\courses\deliveringActions\publish.js" />
     <Content Include="App\viewmodels\courses\deliveringActions\scormBuild.js" />
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
+    <Compile Include="Components\ActionFilters\Authorization\WooCommerceTokenAuthorizeAttribute.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransform.cs" />
     <Compile Include="Components\ActionFilters\Authorization\RequireAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
@@ -391,6 +392,7 @@
     <Compile Include="Components\ActionResults\ForbiddenResult.cs" />
     <Compile Include="Components\ActionResults\ImageResult.cs" />
     <Compile Include="Components\Configuration\MailChimpConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\WooCommerceConfigurationSection.cs" />
     <Compile Include="Components\HttpRuntimeWrapper.cs" />
     <Compile Include="BuildCourse\ICourseBuilder.cs" />
     <Compile Include="BuildCourse\PackageModelMapper.cs" />
@@ -564,7 +566,6 @@
     <Compile Include="Storage\Storage.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="Models\Api\UserProfile.cs" />
-    <Compile Include="ViewModels\Objective\CreateObjectiveViewModel.cs" />
     <Content Include="App\repositories\templateRepository.js" />
     <Content Include="App\repositories\templateRepository.spec.js">
       <DependentUpon>templateRepository.js</DependentUpon>
