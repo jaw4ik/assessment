@@ -23,12 +23,6 @@
 
 
         var specs = [
-        'bootstrapping/compositionTask.spec',
-        'bootstrapping/errorHandlingTask.spec',
-        'bootstrapping/knockoutBindingsTask.spec',
-        'bootstrapping/localizationTask.spec',
-        'bootstrapping/routingTask.spec',
-        'bootstrapping/viewLocatorTask.spec',
         'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
         'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
         'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
