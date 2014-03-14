@@ -196,7 +196,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.Update(profile);
 
-            result.Should().BeBadRequestResultWithDescription("Country doesn’t exist");
+            result.Should().BeBadRequestResultWithDescription("Country code passed in was invalid");
         }
 
         [TestMethod]

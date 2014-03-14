@@ -96,7 +96,7 @@ namespace easygenerator.Web.Controllers.Api
                 var country = PhoneCodeCollection.GetCountryByCode(profile.Country);
                 if (country == null)
                 {
-                    return BadRequest("Country doesn’t exist");
+                    return BadRequest("Country code passed in was invalid");
                 }
                 else
                 {
