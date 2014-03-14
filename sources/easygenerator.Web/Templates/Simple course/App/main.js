@@ -22,7 +22,7 @@ ko.bindingHandlers.context = {
 };
 
 define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'browserSupport', 'settingsReader', 'bootstrapper'],
-    function (app, viewLocator, system, modulesInitializer, getRootView, settingsReader, bootstrapper) {
+    function (app, viewLocator, system, modulesInitializer, browserSupport, settingsReader, bootstrapper) {
 
         app.title = 'easygenerator';
 
@@ -32,28 +32,40 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
             http: true
         });
 
+
         app.start().then(function () {
             bootstrapper.run();
+          
+            if (!browserSupport.isSupportedMobile && !browserSupport.isSupportedBrowser) {
+                app.setRoot(browserSupport.isMobileDevice ? 'viewmodels/notsupportedbrowserMobile' : 'viewmodels/notsupportedbrowser');
+                return;
+            }
+            var modules = [],
+                promises = [];
 
-            var modules = [];
+            promises.push(readTemplateSettings());
 
-            Q.allSettled([
+            promises.push(readPublishSettings());
 
-                settingsReader.readTemplateSettings().then(function (settings) {
+            Q.allSettled(promises).then(function () {
+                modulesInitializer.register(modules);
+                app.setRoot('viewmodels/shell');
+            });
+
+            function readTemplateSettings() {
+                return settingsReader.readTemplateSettings().then(function(settings) {
                     modules['modules/graphicalCustomization'] = settings.logo;
                     modules["xApi/xApiInitializer"] = settings.xApi;
-                }),
+                });
+            }
 
-                settingsReader.readPublishSettings().then(function (settings) {
+            function readPublishSettings() {
+                settingsReader.readPublishSettings().then(function(settings) {
                     _.each(settings.modules, function(module) {
                         modules[module.name] = true;
                     });
-                })
-            
-            ]).then(function () {
-                modulesInitializer.register(modules);
-                app.setRoot(getRootView);
-            });
+                });
+            }
         });
     }
 );

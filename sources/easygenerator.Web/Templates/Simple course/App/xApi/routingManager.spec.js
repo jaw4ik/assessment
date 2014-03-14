@@ -19,13 +19,22 @@
                     expect(router.map).toHaveBeenCalled();
                 });
 
-                it('should change routeGuard', function () {
+            });
+
+            describe('createGuard:', function () {
+
+                it('should be function', function () {
+                    expect(routingManager.createGuard).toBeFunction();
+                });
+
+                it('should change guardRoute', function () {
                     var guard = router.guardRoute;
-                    routingManager.mapRoutes();
+                    routingManager.createGuard();
                     expect(router.guardRoute).not.toBe(guard);
                 });
 
             });
+
 
             describe('removeRoutes:', function() {
 

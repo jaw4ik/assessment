@@ -21,13 +21,13 @@
                     expect(viewModel.usermail).toBeObservable();
                 });
 
-                describe('trim:', function() {
+                describe('trim:', function () {
 
-                    it('should be function', function() {
+                    it('should be function', function () {
                         expect(viewModel.usermail.trim).toBeFunction();
                     });
 
-                    it('should trim value', function() {
+                    it('should trim value', function () {
                         viewModel.usermail('     some text     ');
                         viewModel.usermail.trim();
                         expect(viewModel.usermail()).toBe('some text');
@@ -230,17 +230,17 @@
 
                 describe('when usermail or username are not valid', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         viewModel.usermail("not e-mail");
                         viewModel.username("          ");
                     });
 
-                    it('should mark username as modified', function() {
+                    it('should mark username as modified', function () {
                         spyOn(viewModel.username, 'markAsModified');
                         viewModel.login();
                         expect(viewModel.username.markAsModified).toHaveBeenCalled();
                     });
-                    
+
                     it('should mark usermail as modified', function () {
                         spyOn(viewModel.usermail, 'markAsModified');
                         viewModel.login();
@@ -259,13 +259,13 @@
                     it('should create actor data', function () {
                         spyOn(xApiInitializer, 'createActor');
                         viewModel.login();
-                        expect(xApiInitializer.createActor).toHaveBeenCalledWith(viewModel.username(), viewModel.usermail());
+                        expect(xApiInitializer.createActor).toHaveBeenCalledWith(viewModel.username, viewModel.usermail);
                     });
 
                     var xApiInitializerInitDefer, xApiInitializerInitPromise;
                     beforeEach(function () {
                         xApiInitializerInitDefer = Q.defer();
-                        xApiInitializerInitPromise = xApiInitializerInitDefer.promise.finally(function () { });;
+                        xApiInitializerInitPromise = xApiInitializerInitDefer.promise.finally(function () { });
                         spyOn(xApiInitializer, 'init').andReturn(xApiInitializerInitDefer.promise);
                     });
 
@@ -276,7 +276,7 @@
                         };
                         var
                             url = window.top.location.toString() + '?course_id=' + context.course.id,
-                            actor = xApiInitializer.createActor(viewModel.username(), viewModel.usermail());
+                            actor = xApiInitializer.createActor(viewModel.username, viewModel.usermail);
 
                         viewModel.login();
                         expect(xApiInitializer.init).toHaveBeenCalledWith(actor, context.course.title, url);
@@ -287,10 +287,10 @@
                         it('should turn off xApiInitializer', function () {
                             xApiInitializerInitDefer.reject();
                             viewModel.login();
-                            waitsFor(function() {
+                            waitsFor(function () {
                                 return !xApiInitializerInitPromise.isPending();
                             });
-                            runs(function() {
+                            runs(function () {
                                 expect(xApiInitializer.turnOff).toHaveBeenCalled();
                             });
                         });
@@ -299,10 +299,10 @@
                             spyOn(errorsHandler, 'handleError');
                             xApiInitializerInitDefer.reject("Some reason");
                             viewModel.login();
-                            waitsFor(function() {
+                            waitsFor(function () {
                                 return !xApiInitializerInitPromise.isPending();
                             });
-                            runs(function() {
+                            runs(function () {
                                 expect(errorsHandler.handleError).toHaveBeenCalledWith("Some reason");
                             });
                         });

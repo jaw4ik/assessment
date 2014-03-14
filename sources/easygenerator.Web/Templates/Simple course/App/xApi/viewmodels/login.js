@@ -1,25 +1,38 @@
 ﻿define(['plugins/router', 'eventManager', 'context', '../configuration/viewConstants', '../errorsHandler', 'xApi/xApiInitializer'],
-    function (router, eventManager, context, viewConstants, errorsHandler, xApiInitializer) {
+    function(router, eventManager, context, viewConstants, errorsHandler, xApiInitializer) {
 
         "use strict";
 
-        var
-            usermail = (function () {
-                var value = ko.observable('');
-                value.trim = function () {
-                    value(ko.utils.unwrapObservable(value).trim());
-                };
-                value.isValid = ko.computed(function () {
-                    return !!value() && viewConstants.patterns.email.test(value().trim());
-                });
-                value.isModified = ko.observable(false);
-                value.markAsModified = function () {
-                    value.isModified(true);
-                    return value;
-                };
+        var viewModel = {
+            activate: activate,
+            courseTitle: "\"" + context.course.title + "\"",
+            
+            usermail: usermail(),
+            username: username(),
+
+            skip: skip,
+            login: login
+        };
+
+        return viewModel;
+
+        function usermail() {
+            var value = ko.observable('');
+            value.trim = function() {
+                value(ko.utils.unwrapObservable(value).trim());
+            };
+            value.isValid = ko.computed(function() {
+                return !!value() && viewConstants.patterns.email.test(value().trim());
+            });
+            value.isModified = ko.observable(false);
+            value.markAsModified = function() {
+                value.isModified(true);
                 return value;
-            })(),
-            username = (function () {
+            };
+            return value;
+        }
+
+        function username () {
                 var value = ko.observable('');
                 value.trim = function () {
                     value(ko.utils.unwrapObservable(value).trim());
@@ -33,50 +46,43 @@
                     return value;
                 };
                 return value;
-            })(),
-
-            skip = function () {
-                xApiInitializer.turnOff();
-                startCourse();
-            },
-
-            login = function () {
-                if (usermail.isValid() && username.isValid()) {
-                    var title = context.course.title;
-                    var url = window.top.location.toString() + '?course_id=' + context.course.id;
-                    var actor = xApiInitializer.createActor(username(), usermail());
-                    xApiInitializer.init(actor, title, url).then(function () {
-                        startCourse();
-                    }).fail(function (reason) {
-                        xApiInitializer.turnOff();
-                        errorsHandler.handleError(reason);
-                    });
-                }
-                else {
-                    usermail.markAsModified();
-                    username.markAsModified();
-                }
-            },
-
-            startCourse = function () {
-                eventManager.courseStarted();
-                router.navigate('');
-            },
-
-            courseTitle = "\"" + context.course.title + "\"",
-
-            activate = function () {
-            };
-
-        return {
-            activate: activate,
-            courseTitle: courseTitle,
-
-            usermail: usermail,
-            username: username,
-
-            skip: skip,
-            login: login
         };
 
+        function skip () {
+            xApiInitializer.turnOff();
+            startCourse();
+        };
+
+        function login () {
+            if (viewModel.usermail.isValid() && viewModel.username.isValid()) {
+                var title = context.course.title;
+
+                var pageUrl = "";
+                if (window != window.top && ('referrer' in document)) {
+                    pageUrl = document.referrer;
+                } else {
+                    pageUrl = window.location.toString();
+                }
+
+                var url = pageUrl + '?course_id=' + context.course.id;
+                var actor = xApiInitializer.createActor(viewModel.username, viewModel.usermail);
+                xApiInitializer.init(actor, title, url).then(function () {
+                    startCourse();
+                }).fail(function (reason) {
+                    xApiInitializer.turnOff();
+                    errorsHandler.handleError(reason);
+                });
+            }
+            else {
+                viewModel.usermail.markAsModified();
+                viewModel.username.markAsModified();
+            }
+        };
+        
+        function startCourse () {
+            eventManager.courseStarted();
+            router.navigate('');
+        };
+
+        function activate () {};
     });
