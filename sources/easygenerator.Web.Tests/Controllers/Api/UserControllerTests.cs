@@ -164,7 +164,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
         
         [TestMethod]
-        public void Update_ShouldUpdateCountry_WhenUserProfileHasCountry()
+        public void Update_ShouldUpdateCountry_WhenUserProfileHasValidCountry()
         {
             var profile = new UserProfile() { Email = "test@test.test", Country = "UA" };
             var user = Substitute.For<User>();
@@ -172,7 +172,43 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.Update(profile);
 
-            user.Received().UpdateCountry(profile.Country, profile.Email);
+            user.Received().UpdateCountry("Ukraine", profile.Email);
+        }
+
+        [TestMethod]
+        public void Update_ShouldUpdateCountry_WhenUserProfileHasValidCountryLowCase()
+        {
+            var profile = new UserProfile() { Email = "test@test.test", Country = "ua" };
+            var user = Substitute.For<User>();
+            _userRepository.GetUserByEmail(profile.Email).Returns(user);
+
+            _controller.Update(profile);
+
+            user.Received().UpdateCountry("Ukraine", profile.Email);
+        }
+
+        [TestMethod]
+        public void Update_ShouldReturnBadRequestResult_UserProfileHasNotValidCountry()
+        {
+            var profile = new UserProfile() { Email = "test@test.test", Country = "11" };
+            var user = Substitute.For<User>();
+            _userRepository.GetUserByEmail(profile.Email).Returns(user);
+
+            var result = _controller.Update(profile);
+
+            result.Should().BeBadRequestResultWithDescription("Country doesn’t exist");
+        }
+
+        [TestMethod]
+        public void Update_ShouldReturnUnitedKingdom_UserProfileHasCountryCode_GB()
+        {
+            var profile = new UserProfile() { Email = "test@test.test", Country = "GB" };
+            var user = Substitute.For<User>();
+            _userRepository.GetUserByEmail(profile.Email).Returns(user);
+
+            var result = _controller.Update(profile);
+
+            user.Received().UpdateCountry("United Kingdom", profile.Email);
         }
 
         #endregion

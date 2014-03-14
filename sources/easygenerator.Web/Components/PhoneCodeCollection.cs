@@ -12,7 +12,18 @@ namespace easygenerator.Web.Components
 
         public static string GetCountryCode(string country)
         {
-            return CountriesInfo.SingleOrDefault(i => i.Key == country).Value.PhoneCode;
+            return CountriesInfo.SingleOrDefault(i => i.Key == country).Value.CountryCode;
+        }
+
+        public static string GetCountryByCode(string code)
+        {
+            code = code.ToUpper().Trim();
+            if (string.Equals(code, "GB"))
+                return "United Kingdom";
+            else
+            {
+                return CountriesInfo.SingleOrDefault(i => i.Value.CountryCode == code).Key;
+            }
         }
 
         private static readonly Dictionary<string, dynamic> CountriesInfo = new Dictionary<string, dynamic>()

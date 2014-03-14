@@ -63,13 +63,12 @@ namespace easygenerator.Web.Controllers.Api
             {
                 return BadRequest("User doesn’t exist");
             }
-
-            UpdateUserProfile(user, profile);
-
-            return Success();
+            
+            return UpdateUserProfile(user, profile);
+          
         }
 
-        private void UpdateUserProfile(User user, UserProfile profile)
+        private ActionResult UpdateUserProfile(User user, UserProfile profile)
         {
             if (!string.IsNullOrEmpty(profile.Password))
             {
@@ -91,10 +90,21 @@ namespace easygenerator.Web.Controllers.Api
             {
                 user.UpdateOrganization(profile.Organization, profile.Email);
             }
+
             if (!string.IsNullOrEmpty(profile.Country))
             {
-                user.UpdateCountry(profile.Country, profile.Email);
+                var country = PhoneCodeCollection.GetCountryByCode(profile.Country);
+                if (country == null)
+                {
+                    return BadRequest("Country doesn’t exist");
+                }
+                else
+                {
+                    user.UpdateCountry(country, profile.Email);
+                }
             }
+            
+            return Success();
         }
 
         [HttpPost]

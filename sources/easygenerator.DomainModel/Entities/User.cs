@@ -144,9 +144,8 @@ namespace easygenerator.DomainModel.Entities
         public virtual void UpdateCountry(string country, string modifiedBy)
         {
             ThrowIfModifiedByIsInvalid(modifiedBy);
-            
-            RegionInfo info = new RegionInfo(country);
-            Country = info.EnglishName;
+
+            Country = country;
             MarkAsModified(modifiedBy);
         }
 

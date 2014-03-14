@@ -827,7 +827,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Arrange
             var user = UserObjectMother.Create();
             //Act
-            user.UpdateCountry("UA", "someUser");
+            user.UpdateCountry("Ukraine", "someUser");
 
             //Assert
             user.Country.Should().Be("Ukraine");
