@@ -15,7 +15,7 @@ namespace easygenerator.Web.Configuration
             var accessTypeExpirationTask = DependencyResolver.Current.GetService<AccessTypeExpirationTask>();
 
             cacheScheduler.ScheduleTask(passwordRecoveryTicketExpirationTask, new TimeSpan(0, 0, 2, 0));
-            cacheScheduler.ScheduleTask(accessTypeExpirationTask, new TimeSpan(0, 0, 30, 0));
+            cacheScheduler.ScheduleTask(accessTypeExpirationTask, new TimeSpan(0, 0, 0, 30));
 
             if (mailSenderSettings.MailSenderSettings.Enable)
             {
