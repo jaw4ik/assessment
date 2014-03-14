@@ -593,7 +593,7 @@
         en: 'When you understand the big picture you can work a lot more effective with easygenerator.'
     },
     introStartButton: {
-        en: 'Start esygenerator'
+        en: 'Start easygenerator'
     },
     introDoNotShowAgain: {
         en: 'Do not show this starting page again'
