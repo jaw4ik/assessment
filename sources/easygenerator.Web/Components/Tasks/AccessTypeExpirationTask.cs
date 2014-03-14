@@ -17,7 +17,7 @@ namespace easygenerator.Web.Components.Tasks
 
         public void Execute()
         {
-            var users = _userRepository.GetCollection(user => user.AccesTypeExpirationTime < DateTimeWrapper.Now());
+            var users = _userRepository.GetCollection(user => user.AccesTypeExpirationTime.HasValue && user.AccesTypeExpirationTime < DateTimeWrapper.Now());
             if (users.Count == 0)
             {
                 return;
