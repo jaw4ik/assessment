@@ -87,7 +87,7 @@
         function learningContentExperienced(finishedEventData) {
             var result =
             {
-                duration: dateTimeConverter.timeToISODurationString(finishedEventData.spentTime),
+                duration: dateTimeConverter.timeToISODurationString(finishedEventData.spentTime)
             };
 
             var learningContentUrl = activityProvider.rootCourseUrl + '#objective/' + finishedEventData.objective.id + '/question/' + finishedEventData.question.id + '/learningContents';

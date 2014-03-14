@@ -6,7 +6,7 @@
         var modulesConfigs = [],
             modulesManager = {
                 register: register,
-                init: init,
+                init: init
             };
 
         return modulesManager;

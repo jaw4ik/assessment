@@ -89,7 +89,7 @@
                 objective = eventData.objective;
 
             var result = new resultModel({
-                duration: dateTimeConverter.timeToISODurationString(eventData.spentTime),
+                duration: dateTimeConverter.timeToISODurationString(eventData.spentTime)
             });
 
             var learningContentUrl = activityProvider.rootCourseUrl + '#objective/' + objective.id + '/question/' + question.id + '?learningContents';
