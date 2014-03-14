@@ -570,5 +570,270 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region UpdateFirstName
+        
+        [TestMethod]
+        public void UpdateFirstName_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateFirstName("test", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateFirstName_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateFirstName("test", String.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateFirstName_ShouldSetFirstName()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpdateFirstName("firstName", "someUser");
+
+            //Assert
+            user.FirstName.Should().Be("firstName");
+            user.ModifiedBy.Should().Be("someUser");
+        }
+
+        #endregion
+
+        #region UpdateLastName
+
+        [TestMethod]
+        public void UpdateLastName_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateLastName("test", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateLastName_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateLastName("test", String.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateLastName_ShouldSetLastName()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpdateLastName("lastName", "someUser");
+
+            //Assert
+            user.LastName.Should().Be("lastName");
+            user.ModifiedBy.Should().Be("someUser");
+        }
+
+        #endregion
+
+        #region UpdatePhone
+
+        [TestMethod]
+        public void UpdatePhone_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePhone("123456", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdatePhone_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePhone("123456", String.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdatePhone_ShouldSetPhone()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpdatePhone("123456", "someUser");
+
+            //Assert
+            user.Phone.Should().Be("123456");
+            user.ModifiedBy.Should().Be("someUser");
+        }
+
+        #endregion
+
+        #region UpdateOrganization
+
+        [TestMethod]
+        public void UpdateOrganization_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateOrganization("test", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateOrganization_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateOrganization("test", String.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateOrganization_ShouldSetOrganization()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpdateOrganization("organization", "someUser");
+
+            //Assert
+            user.Organization.Should().Be("organization");
+            user.ModifiedBy.Should().Be("someUser");
+        }
+
+        #endregion
+
+        #region UpdatePlan
+
+        [TestMethod]
+        public void UpdatePlan_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePlan(AccessType.Free, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdatePlan_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePlan(AccessType.Free, String.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdatePlan_ShouldSetAccessType()
+        {
+            //Arrange
+            var user = UserObjectMother.CreateWithAccessType(AccessType.Starter);
+
+            //Act
+            user.UpdatePlan(AccessType.Free, "someUser");
+
+            //Assert
+            user.AccessType.Should().Be(AccessType.Free);
+            user.ModifiedBy.Should().Be("someUser");
+        }
+
+        #endregion
+
+        #region UpdateExpirationDate
+
+        [TestMethod]
+        public void UpdateExpirationDate_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateExpirationDate(DateTime.Now, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateExpirationDate_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateExpirationDate(DateTime.Now, String.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateExpirationDate_ShouldSetExpirationDate()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var date = DateTime.Now;
+            //Act
+            user.UpdateExpirationDate(date, "someUser");
+
+            //Assert
+            user.AccesTypeExpirationTime.Should().Be(date);
+            user.ModifiedBy.Should().Be("someUser");
+        }
+
+        #endregion
+
+        #region UpdateCountry
+
+        [TestMethod]
+        public void UpdateCountry_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateCountry("UA", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateCountry_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateCountry("UA", String.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateCountry_ShouldSetCountry()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            //Act
+            user.UpdateCountry("UA", "someUser");
+
+            //Assert
+            user.Country.Should().Be("Ukraine");
+            user.ModifiedBy.Should().Be("someUser");
+        }
+
+        #endregion
     }
 }
