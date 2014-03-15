@@ -82,7 +82,7 @@
                     expect(xApiInitializer.initialize()).toBePromise();
                 });
 
-                it('should call routingNanager.createGuard method with login view if browser is not IE9', function () {
+                it('should call routingManager.createGuard method with login view if browser is not IE9', function () {
                     browserSupport.isIE9 = false;
 
                     spyOn(routingManager, 'createGuard');
@@ -96,7 +96,7 @@
                     });
                 });
 
-                it('should call routingNanager.createGuard method with xapierror view if browser is IE9', function () {
+                it('should call routingManager.createGuard method with xapierror view if browser is IE9', function () {
                     browserSupport.isIE9 = true;
 
                     spyOn(routingManager, 'createGuard');
@@ -110,7 +110,7 @@
                     });
                 });
 
-                it('should call routingNanager.mapRoute method', function () {
+                it('should call routingManager.mapRoute method', function () {
                     spyOn(routingManager, 'mapRoutes');
                     var settings = { lrs: { uri: window.location.protocol != "http:" ? "http:" : "https:" } };
                     var promise = xApiInitializer.initialize(settings);
