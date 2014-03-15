@@ -85,7 +85,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.Update(email);
 
-            result.Should().BeBadRequestResultWithDescription("User doesn’t exist");
+            result.Should().BeBadRequestResultWithDescription("User does not exist");
         }
 
         [TestMethod]
@@ -216,7 +216,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.Update(email, country: country);
 
-            result.Should().BeBadRequestResultWithDescription("Country code passed in was invalid");
+            result.Should().BeBadRequestResultWithDescription("Not valid country code");
         }
 
         [TestMethod]
@@ -260,7 +260,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.UpdateSubscription(email, null, null);
 
-            result.Should().BeBadRequestResultWithDescription("User doesn’t exist");
+            result.Should().BeBadRequestResultWithDescription("User does not exist");
         }
 
         [TestMethod]

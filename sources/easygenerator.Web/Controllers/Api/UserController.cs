@@ -57,22 +57,16 @@ namespace easygenerator.Web.Controllers.Api
             string country = "")
         {
             if (string.IsNullOrEmpty(email))
-            {
                 return BadRequest("Not valid email");
-            }
 
             var user = _repository.GetUserByEmail(email);
             if (user == null)
-            {
-                return BadRequest("User doesn’t exist");
-            }
+                return BadRequest("User does not exist");
 
             if (!string.IsNullOrEmpty(password))
             {
                 if (!user.IsPasswordValid(password))
-                {
                     return BadRequest("Not valid password");
-                }
 
                 user.UpdatePassword(password, email);
             }
@@ -96,9 +90,7 @@ namespace easygenerator.Web.Controllers.Api
             {
                 var countryName = PhoneCodeCollection.GetCountryByCode(country);
                 if (countryName == null)
-                {
-                    return BadRequest("Country code passed in was invalid");
-                }
+                    return BadRequest("Not valid country code");
 
                 user.UpdateCountry(countryName, email);
             }
@@ -120,15 +112,13 @@ namespace easygenerator.Web.Controllers.Api
             var user = _repository.GetUserByEmail(email);
             if (user == null)
             {
-                return BadRequest("User doesn’t exist");
+                return BadRequest("User does not exist");
             }
 
             if (plan.HasValue)
             {
                 if (!Enum.IsDefined(typeof(AccessType), plan.Value))
-                {
                     return BadRequest("Plan is not valid");
-                }
 
                 user.UpdatePlan(plan.Value, email);
             }
