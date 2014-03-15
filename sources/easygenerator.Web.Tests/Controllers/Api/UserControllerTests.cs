@@ -89,7 +89,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Update_ShouldReturnHttpStatusCodeOK_WhenUserExists()
+        public void Update_ShouldReturnSuccessResult_WhenUserExists()
         {
             const string email = "test@test.test";
             var user = Substitute.For<User>();
@@ -97,7 +97,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.Update(email);
 
-            result.Should().BeHttpStatusCodeResultWithStatus(200);
+            result.Should().BeSuccessResult();
         }
 
         [TestMethod]
@@ -276,7 +276,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void UpdateSubscription_ShouldReturnHttpStatusCodeOK_WhenUserExists()
+        public void UpdateSubscription_ShouldReturnSuccessResult_WhenUserExists()
         {
             const string email = "test@test.test";
             var user = Substitute.For<User>();
@@ -284,7 +284,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.UpdateSubscription(email, null, null);
 
-            result.Should().BeHttpStatusCodeResultWithStatus(200);
+            result.Should().BeSuccessResult();
         }
 
         [TestMethod]

@@ -135,6 +135,23 @@ namespace easygenerator.Web.Tests.Utils
         }
     }
 
+    public class SuccessResultAssertions : ObjectAssertions
+    {
+        public SuccessResultAssertions(SuccessResult subject)
+            : base(subject)
+        {
+
+        }
+
+        public SuccessResult And
+        {
+            get
+            {
+                return Subject as SuccessResult;
+            }
+        }
+    }
+
     public class ImageResultAssertions : ObjectAssertions
     {
         public ImageResultAssertions(ImageResult subject)
@@ -203,6 +220,16 @@ namespace easygenerator.Web.Tests.Utils
                 .FailWith("Expected \"BadRequestResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new BadRequestResultAssertions(value.Subject as BadRequestResult);
+        }
+
+        public static SuccessResultAssertions BeSuccessResult(this ObjectAssertions value, string description = "", string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is SuccessResult)
+                .FailWith("Expected \"SuccessResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new SuccessResultAssertions(value.Subject as SuccessResult);
         }
 
         public static BadRequestResultAssertions BeBadRequestResultWithDescription(this ObjectAssertions value, string description = "", string reason = "", params object[] reasonArgs)

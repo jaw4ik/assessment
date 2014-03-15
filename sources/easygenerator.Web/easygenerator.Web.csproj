@@ -385,6 +385,7 @@
     <Content Include="App\viewmodels\courses\deliveringActions\scormBuild.js" />
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
     <Compile Include="Components\ActionFilters\Authorization\WooCommerceTokenAuthorizeAttribute.cs" />
+    <Compile Include="Components\ActionResults\SuccessResult.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransform.cs" />
     <Compile Include="Components\ActionFilters\Authorization\RequireAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />

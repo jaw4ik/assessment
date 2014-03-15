@@ -38,9 +38,9 @@ namespace easygenerator.Web.Components
             return new JsonErrorResult(message, resourceKey);
         }
 
-        protected ActionResult Success()
+        protected ActionResult Success(string responseText)
         {
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            return new SuccessResult(responseText);
         }
 
         protected ActionResult BadRequest()

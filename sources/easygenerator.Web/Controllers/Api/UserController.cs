@@ -95,7 +95,7 @@ namespace easygenerator.Web.Controllers.Api
                 user.UpdateCountry(countryName, email);
             }
 
-            return Success();
+            return Success("true");
         }
 
         [HttpPost]
@@ -128,7 +128,7 @@ namespace easygenerator.Web.Controllers.Api
                 user.UpdateExpirationDate(new DateTime(exp_date.Value), email);
             }
 
-            return Success();
+            return Success("true");
         }
 
         [HttpPost]
