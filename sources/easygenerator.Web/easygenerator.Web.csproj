@@ -565,7 +565,6 @@
     <Compile Include="Storage\ImageValidator.cs" />
     <Compile Include="Storage\Storage.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
-    <Compile Include="Models\Api\UserProfile.cs" />
     <Content Include="App\repositories\templateRepository.js" />
     <Content Include="App\repositories\templateRepository.spec.js">
       <DependentUpon>templateRepository.js</DependentUpon>

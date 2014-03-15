@@ -1,10 +1,9 @@
-﻿using System;
+﻿using easygenerator.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using easygenerator.Infrastructure;
 
 
 namespace easygenerator.DomainModel.Entities
@@ -24,7 +23,7 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNullOrEmpty(phone, "phone");
             ArgumentValidation.ThrowIfNullOrEmpty(organization, "organization");
             ArgumentValidation.ThrowIfNullOrEmpty(country, "country");
-            
+
             Email = email;
             PasswordHash = Cryptography.GetHash(password);
             FirstName = firstname;
@@ -104,6 +103,7 @@ namespace easygenerator.DomainModel.Entities
         public virtual void UpdatePassword(string password, string modifiedBy)
         {
             ThrowIfModifiedByIsInvalid(modifiedBy);
+            ThrowIfPasswordIsNotValid(password);
 
             PasswordHash = Cryptography.GetHash(password);
             MarkAsModified(modifiedBy);
@@ -152,7 +152,7 @@ namespace easygenerator.DomainModel.Entities
         public virtual void UpdatePlan(AccessType plan, string modifiedBy)
         {
             ThrowIfModifiedByIsInvalid(modifiedBy);
-            
+
             AccessType = plan;
             MarkAsModified(modifiedBy);
         }
@@ -163,6 +163,12 @@ namespace easygenerator.DomainModel.Entities
 
             AccesTypeExpirationTime = expirationDate;
             MarkAsModified(modifiedBy);
+        }
+
+        public virtual bool IsPasswordValid(string password)
+        {
+            string errorMessage;
+            return IsPasswordValid(password, out errorMessage);
         }
 
         private void ThrowIfEmailIsNotValid(string email)
@@ -180,20 +186,53 @@ namespace easygenerator.DomainModel.Entities
         {
             ArgumentValidation.ThrowIfNullOrEmpty(password, "password");
 
+            string errorMessage;
+            if (!IsPasswordValid(password, out errorMessage))
+            {
+                throw new ArgumentException(errorMessage, "password");
+            }
+        }
+
+        private bool IsPasswordValid(string password, out string message)
+        {
+            message = string.Empty;
+            if (string.IsNullOrEmpty(password))
+            {
+                message = "Password cannot be empty";
+                return false;
+            }
+
             if (password.Length < 7)
-                throw new ArgumentException("Password should be longer then 7 symbols", "password");
+            {
+                message = "Password should be longer then 7 symbols";
+                return false;
+            }
 
             if (!Regex.IsMatch(password, @"\d"))
-                throw new ArgumentException("Password should contain at least one digit symbol", "password");
+            {
+                message = "Password should contain at least one digit symbol";
+                return false;
+            }
 
             if (!Regex.IsMatch(password, @"[A-Z]"))
-                throw new ArgumentException("Password should contain at least one upper case symbol", "password");
+            {
+                message = "Password should contain at least one upper case symbol";
+                return false;
+            }
 
             if (!Regex.IsMatch(password, @"[a-z]"))
-                throw new ArgumentException("Password should contain at least one lower case symbol", "password");
+            {
+                message = "Password should contain at least one lower case symbol";
+                return false;
+            }
 
             if (password.Contains(" "))
-                throw new ArgumentException("Password should not contain whitespace symbols", "password");
+            {
+                message = "Password should not contain whitespace symbols";
+                return false;
+            }
+
+            return true;
         }
 
         private void ThrowIfModifiedByIsInvalid(string modifiedBy)

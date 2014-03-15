@@ -1,9 +1,9 @@
-﻿using System;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using easygenerator.DomainModel.Tests.ObjectMothers;
+using System;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -571,8 +571,224 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region UpdatePassword
+
+        [TestMethod]
+        public void UpdatePassword_ShouldThrowArgumentException_WhenPasswordIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePassword(null, "admin");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void UpdatePassword_ShouldThrowArgumentException_WhenModifiedByIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePassword("Easy123!", null);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdatePassword_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePassword("Easy123!", string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdatePassword_ShouldThrowArgumentException_WhenPasswordIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePassword(string.Empty, "admin");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void UpdatePassword_ShouldThrowArgumentException_WhenPasswordShorterThanSevenSymbols()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePassword("qwe", "admin");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void UpdatePassword_ShouldThrowArgumentException_WhenPasswordHasNoDigitSymbol()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePassword("qwe", "admin");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void UpdatePassword_ShouldThrowArgumentException_WhenPasswordHasNoUpperCaseSymbol()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePassword("qweqwe", "admin");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void UpdatePassword_ShouldThrowArgumentException_WhenPasswordHasNoLowerCaseSymbol()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePassword("QWEQWE", "admin");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void UpdatePassword_ShouldThrowArgumentException_WhenPasswordHasWhitespaceSymbol()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePassword("qwe qwe", "admin");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void UpdatePassword_ShouldUpdatePasswordHash()
+        {
+            var user = UserObjectMother.Create();
+            const string password = "easyGenerAtoR123!";
+
+            user.UpdatePassword(password, "admin");
+
+            user.PasswordHash.Should().Be(Cryptography.GetHash(password));
+        }
+
+        [TestMethod]
+        public void UpdatePassword_ShouldUpdateMoidifiedBy()
+        {
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+            user.UpdatePassword("Easy123!", modifiedBy);
+
+            user.ModifiedBy.Should().Be(modifiedBy);
+        }
+
+        [TestMethod]
+        public void UpdatePassword_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+            user.UpdatePassword("Easy123!", modifiedBy);
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            user.UpdatePassword("Easy123!", modifiedBy);
+
+            user.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
+        #region IsPasswordValid
+
+        [TestMethod]
+        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordIsNull()
+        {
+            var user = UserObjectMother.Create();
+            const string password = null;
+
+            var result = user.IsPasswordValid(password);
+            result.Should().Be(false);
+        }
+
+        [TestMethod]
+        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+            const string password = "";
+
+            var result = user.IsPasswordValid(password);
+            result.Should().Be(false);
+        }
+
+        [TestMethod]
+        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordShorterThanSevenSymbols()
+        {
+            var user = UserObjectMother.Create();
+            const string password = "qweqweqeqweqweqw";
+
+            var result = user.IsPasswordValid(password);
+            result.Should().Be(false);
+        }
+
+        [TestMethod]
+        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordHasNoDigitSymbol()
+        {
+            var user = UserObjectMother.Create();
+            const string password = "qweqweqwe";
+
+            var result = user.IsPasswordValid(password);
+            result.Should().Be(false);
+        }
+
+        [TestMethod]
+        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordHasNoUpperCaseSymbol()
+        {
+            var user = UserObjectMother.Create();
+            const string password = "qweqweqwe";
+
+            var result = user.IsPasswordValid(password);
+            result.Should().Be(false);
+        }
+
+        [TestMethod]
+        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordHasNoLowerCaseSymbol()
+        {
+            var user = UserObjectMother.Create();
+            const string password = "QWEQWEQWE";
+
+            var result = user.IsPasswordValid(password);
+            result.Should().Be(false);
+        }
+
+        [TestMethod]
+        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordHasWhitespaceSymbol()
+        {
+            var user = UserObjectMother.Create();
+            const string password = "qwe qwe!";
+
+            var result = user.IsPasswordValid(password);
+            result.Should().Be(false);
+        }
+
+        [TestMethod]
+        public void IsPasswordValid_ShouldReturnTrue_WhenPasswordIsValid()
+        {
+            var user = UserObjectMother.Create();
+            const string password = "easyGenerAtoR123!";
+
+            var result= user.IsPasswordValid(password);
+            result.Should().Be(true);
+        }
+
+
+        #endregion
+
         #region UpdateFirstName
-        
+
         [TestMethod]
         public void UpdateFirstName_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
@@ -835,5 +1051,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
     }
 }

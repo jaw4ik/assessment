@@ -5,17 +5,14 @@ using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
+using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
-using System.Web.Mvc;
-using easygenerator.Web.Components.ActionFilters;
-using easygenerator.Web.Extensions;
-using easygenerator.Web.Components.Configuration;
-using easygenerator.Web.Components.ActionResults;
-using easygenerator.Web.Models.Api;
 using System;
-using System.Net;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -51,59 +48,61 @@ namespace easygenerator.Web.Controllers.Api
         [AllowAnonymous]
         [WooCommerceTokenAuthorize]
         [Route("api/user/update")]
-        public ActionResult Update(UserProfile profile)
+        public ActionResult Update(string email, 
+            string password = "",
+            string firstName = "", 
+            string lastName = "",
+            string phone = "", 
+            string organization = "", 
+            string country = "")
         {
-            if (string.IsNullOrEmpty(profile.Email))
+            if (string.IsNullOrEmpty(email))
             {
                 return BadRequest("Not valid email");
             }
 
-            var user = _repository.GetUserByEmail(profile.Email);
+            var user = _repository.GetUserByEmail(email);
             if (user == null)
             {
                 return BadRequest("User doesn’t exist");
             }
-            
-            return UpdateUserProfile(user, profile);
-          
-        }
 
-        private ActionResult UpdateUserProfile(User user, UserProfile profile)
-        {
-            if (!string.IsNullOrEmpty(profile.Password))
+            if (!string.IsNullOrEmpty(password))
             {
-                user.UpdatePassword(profile.Password, profile.Email);
-            }
-            if (!string.IsNullOrEmpty(profile.FirstName))
-            {
-                user.UpdateFirstName(profile.FirstName, profile.Email);
-            }
-            if (!string.IsNullOrEmpty(profile.LastName))
-            {
-                user.UpdateLastName(profile.LastName, profile.Email);
-            }
-            if (!string.IsNullOrEmpty(profile.Phone))
-            {
-                user.UpdatePhone(profile.Phone, profile.Email);
-            }
-            if (!string.IsNullOrEmpty(profile.Organization))
-            {
-                user.UpdateOrganization(profile.Organization, profile.Email);
-            }
+                if (!user.IsPasswordValid(password))
+                {
+                    return BadRequest("Not valid password");
+                }
 
-            if (!string.IsNullOrEmpty(profile.Country))
+                user.UpdatePassword(password, email);
+            }
+            if (!string.IsNullOrEmpty(firstName))
             {
-                var country = PhoneCodeCollection.GetCountryByCode(profile.Country);
-                if (country == null)
+                user.UpdateFirstName(firstName, email);
+            }
+            if (!string.IsNullOrEmpty(lastName))
+            {
+                user.UpdateLastName(lastName, email);
+            }
+            if (!string.IsNullOrEmpty(phone))
+            {
+                user.UpdatePhone(phone, email);
+            }
+            if (!string.IsNullOrEmpty(organization))
+            {
+                user.UpdateOrganization(organization, email);
+            }
+            if (!string.IsNullOrEmpty(country))
+            {
+                var countryName = PhoneCodeCollection.GetCountryByCode(country);
+                if (countryName == null)
                 {
                     return BadRequest("Country code passed in was invalid");
                 }
-                else
-                {
-                    user.UpdateCountry(country, profile.Email);
-                }
+
+                user.UpdateCountry(countryName, email);
             }
-            
+
             return Success();
         }
 
@@ -136,9 +135,9 @@ namespace easygenerator.Web.Controllers.Api
 
             if (exp_date.HasValue)
             {
-                user.UpdateExpirationDate(new DateTime(exp_date.Value), email);  
+                user.UpdateExpirationDate(new DateTime(exp_date.Value), email);
             }
-            
+
             return Success();
         }
 

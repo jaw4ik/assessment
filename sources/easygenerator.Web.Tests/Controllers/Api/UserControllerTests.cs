@@ -1,5 +1,4 @@
-﻿using System;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
@@ -9,18 +8,18 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Mail;
-using easygenerator.Web.Models.Api;
 using easygenerator.Web.Tests.Utils;
 using easygenerator.Web.ViewModels.Account;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -65,8 +64,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Update_ShouldReturnBadRequestResult_WhenUserEmailIsNull()
         {
-            var profile = new UserProfile();
-            var result = _controller.Update(profile);
+            var result = _controller.Update(null);
 
             result.Should().BeBadRequestResultWithDescription("Not valid email");
         }
@@ -74,8 +72,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Update_ShouldReturnBadRequestResult_WhenUserEmailIsEmpty()
         {
-            var profile = new UserProfile(){Email = ""};
-            var result = _controller.Update(profile);
+            var result = _controller.Update("");
 
             result.Should().BeBadRequestResultWithDescription("Not valid email");
         }
@@ -83,132 +80,156 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Update_ShouldReturnBadRequestResult_WhenUserDoesNotExists()
         {
-            var profile = new UserProfile() { Email = "test@test.test" };
-            _userRepository.GetUserByEmail(profile.Email).Returns((User)null);
+            const string email = "test@test.test";
+            _userRepository.GetUserByEmail(email).Returns((User)null);
 
-            var result = _controller.Update(profile);
+            var result = _controller.Update(email);
 
-            result.Should().BeBadRequestResultWithDescription("User doesn’t exist"); 
+            result.Should().BeBadRequestResultWithDescription("User doesn’t exist");
         }
 
         [TestMethod]
         public void Update_ShouldReturnHttpStatusCodeOK_WhenUserExists()
         {
-            var profile = new UserProfile() { Email = "test@test.test" };
+            const string email = "test@test.test";
             var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(profile.Email).Returns(user);
+            _userRepository.GetUserByEmail(email).Returns(user);
 
-            var result = _controller.Update(profile);
+            var result = _controller.Update(email);
 
             result.Should().BeHttpStatusCodeResultWithStatus(200);
         }
 
         [TestMethod]
-        public void Update_ShouldUpdatePassword_WhenUserProfileHasPassword()
+        public void Update_ShouldUpdatePassword_WhenPasswordDefinedAndValid()
         {
-            var profile = new UserProfile() { Email = "test@test.test", Password = "NewPassword111" };
+            const string email = "test@test.test";
+            const string password = "NewPassword111";
             var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(profile.Email).Returns(user);
+            user.IsPasswordValid(password).Returns(true);
+            _userRepository.GetUserByEmail(email).Returns(user);
 
-            _controller.Update(profile);
+            _controller.Update(email, password: password);
 
-            user.Received().UpdatePassword(profile.Password, profile.Email);
+            user.Received().UpdatePassword(password, email);
         }
 
         [TestMethod]
-        public void Update_ShouldUpdateFirstName_WhenUserProfileHasFirstName()
+        public void Update_ShouldReturnBadRequestResult_WhenPasswordDefinedAndNotValid()
         {
-            var profile = new UserProfile() { Email = "test@test.test", FirstName = "First Name" };
+            const string email = "test@test.test";
+            const string password = "NewPassword111";
             var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(profile.Email).Returns(user);
+            user.IsPasswordValid(password).Returns(false);
+            _userRepository.GetUserByEmail(email).Returns(user);
 
-             _controller.Update(profile);
+            var result = _controller.Update(email, password: password);
 
-             user.Received().UpdateFirstName(profile.FirstName, profile.Email);
+            result.Should().BeBadRequestResultWithDescription("Not valid password");
         }
 
         [TestMethod]
-        public void Update_ShouldUpdateLastName_WhenUserProfileHasLastName()
+        public void Update_ShouldUpdateFirstName_WhenFirstNameIsDefined()
         {
-            var profile = new UserProfile() { Email = "test@test.test", LastName = "Last Name" };
+            const string email = "test@test.test";
+            const string firstName = "First Name";
             var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(profile.Email).Returns(user);
+            _userRepository.GetUserByEmail(email).Returns(user);
 
-            _controller.Update(profile);
+            _controller.Update(email, firstName: firstName);
 
-            user.Received().UpdateLastName(profile.LastName, profile.Email);
+            user.Received().UpdateFirstName(firstName, email);
         }
 
         [TestMethod]
-        public void Update_ShouldUpdatePhone_WhenUserProfileHasPhone()
+        public void Update_ShouldUpdateLastName_WhenLastNameIsDefined()
         {
-            var profile = new UserProfile() { Email = "test@test.test", Phone = "123" };
+            const string email = "test@test.test";
+            const string lastName = "Last Name";
             var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(profile.Email).Returns(user);
+            _userRepository.GetUserByEmail(email).Returns(user);
 
-            _controller.Update(profile);
+            _controller.Update(email, lastName: lastName);
 
-            user.Received().UpdatePhone(profile.Phone, profile.Email);
+            user.Received().UpdateLastName(lastName, email);
         }
 
         [TestMethod]
-        public void Update_ShouldUpdateOrganization_WhenUserProfileHasOrganization()
+        public void Update_ShouldUpdatePhone_WhenPhoneIsDefined()
         {
-            var profile = new UserProfile() { Email = "test@test.test", Organization = "Test Organization" };
+            const string email = "test@test.test";
+            const string phone = "123";
             var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(profile.Email).Returns(user);
+            _userRepository.GetUserByEmail(email).Returns(user);
 
-            _controller.Update(profile);
+            _controller.Update(email, phone: phone);
 
-            user.Received().UpdateOrganization(profile.Organization, profile.Email);
-        }
-        
-        [TestMethod]
-        public void Update_ShouldUpdateCountry_WhenUserProfileHasValidCountry()
-        {
-            var profile = new UserProfile() { Email = "test@test.test", Country = "UA" };
-            var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(profile.Email).Returns(user);
-
-            _controller.Update(profile);
-
-            user.Received().UpdateCountry("Ukraine", profile.Email);
+            user.Received().UpdatePhone(phone, email);
         }
 
         [TestMethod]
-        public void Update_ShouldUpdateCountry_WhenUserProfileHasValidCountryLowCase()
+        public void Update_ShouldUpdateOrganization_WhenOrganizationIsDefined()
         {
-            var profile = new UserProfile() { Email = "test@test.test", Country = "ua" };
+            const string email = "test@test.test";
+            const string organization = "Test Organization";
             var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(profile.Email).Returns(user);
+            _userRepository.GetUserByEmail(email).Returns(user);
 
-            _controller.Update(profile);
+            _controller.Update(email, organization: organization);
 
-            user.Received().UpdateCountry("Ukraine", profile.Email);
+            user.Received().UpdateOrganization(organization, email);
         }
 
         [TestMethod]
-        public void Update_ShouldReturnBadRequestResult_UserProfileHasNotValidCountry()
+        public void Update_ShouldUpdateCountry_WhenCountryIsDefined()
         {
-            var profile = new UserProfile() { Email = "test@test.test", Country = "11" };
+            const string email = "test@test.test";
+            const string country = "UA";
             var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(profile.Email).Returns(user);
+            _userRepository.GetUserByEmail(email).Returns(user);
 
-            var result = _controller.Update(profile);
+            _controller.Update(email, country: country);
+
+            user.Received().UpdateCountry("Ukraine", email);
+        }
+
+        [TestMethod]
+        public void Update_ShouldUpdateCountry_WhenCountryIsDefinedAndLowCase()
+        {
+            const string email = "test@test.test";
+            const string country = "ua";
+            var user = Substitute.For<User>();
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            _controller.Update(email, country: country);
+
+            user.Received().UpdateCountry("Ukraine", email);
+        }
+
+        [TestMethod]
+        public void Update_ShouldReturnBadRequestResult_WhenCountryIsDefinedAndNotValid()
+        {
+            const string email = "test@test.test";
+            const string country = "11";
+            var user = Substitute.For<User>();
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            var result = _controller.Update(email, country: country);
 
             result.Should().BeBadRequestResultWithDescription("Country code passed in was invalid");
         }
 
         [TestMethod]
-        public void Update_ShouldReturnUnitedKingdom_UserProfileHasCountryCode_GB()
+        public void Update_ShouldReturnUnitedKingdom_WhenCountryCodeIs_GB()
         {
-            var profile = new UserProfile() { Email = "test@test.test", Country = "GB" };
+            const string email = "test@test.test";
+            const string country = "GB";
             var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(profile.Email).Returns(user);
+            _userRepository.GetUserByEmail(email).Returns(user);
 
-            var result = _controller.Update(profile);
+            var result = _controller.Update(email, country: country);
 
-            user.Received().UpdateCountry("United Kingdom", profile.Email);
+            user.Received().UpdateCountry("United Kingdom", email);
         }
 
         #endregion
@@ -376,7 +397,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var expirationTime = DateTime.MinValue.AddMinutes(10);
 
             _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), AccessType.Starter, expirationTime).Returns(user);
-            
+
             //Act
             _controller.Signup(profile);
 
