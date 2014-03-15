@@ -1341,6 +1341,9 @@
     <Content Include="Templates\Simple course\App\xApi\viewmodels\xAPIError.spec.js">
       <DependentUpon>xAPIError.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Simple course\App\xApi\viewmodels\xAPINotSupported.spec.js">
+      <DependentUpon>xAPINotSupported.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Simple course\App\xApi\views\login.html" />
     <Content Include="Templates\Simple course\App\xApi\views\xAPINotSupported.html" />
     <Content Include="Templates\Simple course\App\xApi\views\xAPIError.html" />
