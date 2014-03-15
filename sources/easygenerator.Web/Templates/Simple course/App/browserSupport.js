@@ -20,7 +20,8 @@
     }
 
     function isIE9() {
-        var tem, M = ua.match(/(chrome|safari|firefox|msie)\/?\s*([\d\.]+)/i) || [];
+        var N = navigator.appName, tem,
+            M = ua.match(/(chrome|safari|firefox|msie)\/?\s*([\d\.]+)/i) || [];
 
         M = M[2] ? [M[1], M[2]] : [N, navigator.appVersion, '-?'];
         if (M && (tem = ua.match(/version\/([\.\d]+)/i)) != null) M[2] = tem[1];
