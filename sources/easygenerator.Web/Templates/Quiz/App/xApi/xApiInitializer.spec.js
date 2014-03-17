@@ -1,5 +1,5 @@
-﻿define(['./xApiInitializer', 'eventManager', './routingManager', './requestManager', './activityProvider'],
-    function (xApiInitializer, eventManager, routingManager, requestManager, activityProvider) {
+﻿define(['./xApiInitializer', './routingManager', './requestManager', './activityProvider', 'browserSupport'],
+    function (xApiInitializer, routingManager, requestManager, activityProvider, browserSupport) {
 
         "use strict";
 
@@ -82,14 +82,42 @@
                     expect(xApiInitializer.initialize()).toBePromise();
                 });
 
-                it('should call routingNanager.mapRoute method', function() {
-                    spyOn(routingManager, 'mapRoutes');
-                    
-                    var promise = xApiInitializer.initialize();
-                    waitsFor(function() {
+                it('should call routingManager.createGuard method with login view if browser is not IE9', function () {
+                    browserSupport.isIE9 = false;
+
+                    spyOn(routingManager, 'createGuard');
+                    var settings = { lrs: { uri: window.location.protocol } };
+                    var promise = xApiInitializer.initialize(settings);
+                    waitsFor(function () {
                         return !promise.isPending();
                     });
-                    runs(function() {
+                    runs(function () {
+                        expect(routingManager.createGuard).toHaveBeenCalledWith(xApiInitializer, 'login');
+                    });
+                });
+
+                it('should call routingManager.createGuard method with xapierror view if browser is IE9', function () {
+                    browserSupport.isIE9 = true;
+
+                    spyOn(routingManager, 'createGuard');
+                    var settings = { lrs: { uri: window.location.protocol != "http:" ? "http:" : "https:" } };
+                    var promise = xApiInitializer.initialize(settings);
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(routingManager.createGuard).toHaveBeenCalledWith(xApiInitializer, 'xapinotsupported');
+                    });
+                });
+
+                it('should call routingManager.mapRoute method', function () {
+                    spyOn(routingManager, 'mapRoutes');
+                    var settings = { lrs: { uri: window.location.protocol != "http:" ? "http:" : "https:" } };
+                    var promise = xApiInitializer.initialize(settings);
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
                         expect(routingManager.mapRoutes).toHaveBeenCalled();
                     });
                 });

@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'eventManager', 'context'],
-    function(router, eventManager, context) {
+﻿define(['plugins/router', 'eventManager', 'context', 'xApi/xApiInitializer' ],
+    function (router, eventManager, context, xApiInitializer) {
 
         "use strict";
 
@@ -12,7 +12,8 @@
 
         return viewModel;
 
-        function skip () {
+        function skip() {
+            xApiInitializer.turnOff();
             startCourse();
         };
      

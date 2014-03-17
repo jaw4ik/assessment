@@ -1,4 +1,4 @@
-﻿define(['plugins/router', './configuration/routes'],
+﻿    define(['plugins/router', './configuration/routes'],
     function (router, routes) {
 
         "use strict";
@@ -6,23 +6,23 @@
         var
             existingGuard = null,
 
-            mapRoutes = function (activityManager) {
-                createGuard(activityManager);
+            mapRoutes = function () {
                 router.map(routes);
             },
 
-            removeRoutes = function() {
+            removeRoutes = function () {
                 removeGuard();
             },
 
-            createGuard = function (activityManager) {
+            createGuard = function (moduleInitializer, guardView) {
                 existingGuard = router.guardRoute;
                 router.guardRoute = function (model, route) {
-                    if (route.config.route == 'login') {
-                        return activityManager.getInitStatus() ? '' : true;
+                    
+                    if (route.config.route == guardView) {
+                        return moduleInitializer.getInitStatus() ? '' : true;
                     }
-                    if (!activityManager.getInitStatus()) {
-                        return 'login';
+                    if (!moduleInitializer.getInitStatus()) {
+                        return guardView;
                     }
                     if (_.isFunction(existingGuard)) {
                         return existingGuard(model, route);
@@ -30,14 +30,15 @@
                     return true;
                 };
             },
-            
+
             removeGuard = function () {
                 router.guardRoute = existingGuard;
             };
 
         return {
             mapRoutes: mapRoutes,
-            removeRoutes: removeRoutes
+            removeRoutes: removeRoutes,
+            createGuard: createGuard
         };
 
     }
