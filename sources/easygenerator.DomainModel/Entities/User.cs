@@ -13,7 +13,7 @@ namespace easygenerator.DomainModel.Entities
         protected internal User() { }
 
         protected internal User(string email, string password, string firstname, string lastname, string phone, string organization,
-            string country, string createdBy, UserSettings userSettings, AccessType accessType, DateTime? accesTypeExpirationTime)
+            string country, string createdBy, UserSettings userSettings, UserSubscription subscription)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -23,6 +23,7 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNullOrEmpty(phone, "phone");
             ArgumentValidation.ThrowIfNullOrEmpty(organization, "organization");
             ArgumentValidation.ThrowIfNullOrEmpty(country, "country");
+            ArgumentValidation.ThrowIfNull(subscription, "subscription");
 
             Email = email;
             PasswordHash = Cryptography.GetHash(password);
@@ -31,10 +32,9 @@ namespace easygenerator.DomainModel.Entities
             Phone = phone;
             Organization = organization;
             Country = country;
-            AccessType = accessType;
-            AccesTypeExpirationTime = accesTypeExpirationTime;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
             UserSetting = userSettings;
+            Subscription = subscription;
         }
 
         public string Email { get; protected set; }
@@ -45,8 +45,7 @@ namespace easygenerator.DomainModel.Entities
         public string Phone { get; private set; }
         public string Organization { get; private set; }
         public string Country { get; private set; }
-        public AccessType AccessType { get; protected internal set; }
-        public DateTime? AccesTypeExpirationTime { get; protected internal set; }
+        public virtual UserSubscription Subscription { get; protected internal set; }
 
         public virtual bool VerifyPassword(string password)
         {
@@ -90,14 +89,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual bool HasAccess(AccessType accessType)
         {
-            return AccessType >= accessType;
-        }
-
-        public virtual void DowngradeToFreeAccess(string modifiedBy)
-        {
-            AccessType = AccessType.Free;
-            AccesTypeExpirationTime = null;
-            MarkAsModified(modifiedBy);
+            return Subscription.AccessType >= accessType;
         }
 
         public virtual void UpdatePassword(string password, string modifiedBy)
@@ -146,22 +138,6 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Country = country;
-            MarkAsModified(modifiedBy);
-        }
-
-        public virtual void UpdatePlan(AccessType plan, string modifiedBy)
-        {
-            ThrowIfModifiedByIsInvalid(modifiedBy);
-
-            AccessType = plan;
-            MarkAsModified(modifiedBy);
-        }
-
-        public virtual void UpdateExpirationDate(DateTime expirationDate, string modifiedBy)
-        {
-            ThrowIfModifiedByIsInvalid(modifiedBy);
-
-            AccesTypeExpirationTime = expirationDate;
             MarkAsModified(modifiedBy);
         }
 
@@ -239,5 +215,6 @@ namespace easygenerator.DomainModel.Entities
         {
             ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
         }
+
     }
 }

@@ -120,12 +120,14 @@ namespace easygenerator.Web.Controllers.Api
                 if (!Enum.IsDefined(typeof(AccessType), plan.Value))
                     return BadRequest("Plan is not valid");
 
-                user.UpdatePlan(plan.Value, email);
-            }
-
-            if (exp_date.HasValue)
-            {
-                user.UpdateExpirationDate(new DateTime(exp_date.Value), email);
+                if (exp_date.HasValue)
+                {
+                    user.Subscription.UpdatePlan(plan.Value, new DateTime(exp_date.Value));
+                }
+                else
+                {
+                    user.Subscription.UpdatePlan(plan.Value, null);
+                }
             }
 
             return Success("true");
@@ -155,8 +157,9 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var trialPeriodExpires = DateTimeWrapper.Now().AddMinutes(_configurationReader.UserTrialPeriod);
+            var subscription = _entityFactory.UserSubscription(AccessType.Starter, trialPeriodExpires);
             var user = _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone,
-                profile.Organization, profile.Country, profile.Email, new UserSettings(profile.Email, true), AccessType.Starter, trialPeriodExpires);
+                profile.Organization, profile.Country, profile.Email, new UserSettings(profile.Email, true), subscription);
 
             _repository.Add(user);
             _publisher.Publish(new UserSignedUpEvent(user, profile.PeopleBusyWithCourseDevelopmentAmount, profile.NeedAuthoringTool, profile.UsedAuthoringTool));
@@ -234,7 +237,7 @@ namespace easygenerator.Web.Controllers.Api
                 return Json(new { });
             }
 
-            return Json(new { email = user.Email, fullname = user.FullName, accessType = user.AccessType });
+            return Json(new { email = user.Email, fullname = user.FullName, accessType = user.Subscription.AccessType });
 
         }
 

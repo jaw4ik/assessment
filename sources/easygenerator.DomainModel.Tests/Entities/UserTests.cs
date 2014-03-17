@@ -216,13 +216,23 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void User_ShouldThrowArgumentNullException_WhenOrganizationIsEmpty()
+        public void User_ShouldThrowArgumentException_WhenOrganizationIsEmpty()
         {
             //Arrange
             Action action = () => UserObjectMother.CreateWithOrganization("");
 
             //Act & Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentNullException_WhenSubscriptionIsNull()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithSubscription(null);
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("subscription");
         }
 
         [TestMethod]
@@ -499,7 +509,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var user = UserObjectMother.Create();
-            user.AccessType = AccessType.Free;
+            user.Subscription.AccessType = AccessType.Free;
 
             //Act
             var result = user.HasAccess(AccessType.Free);
@@ -513,7 +523,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var user = UserObjectMother.Create();
-            user.AccessType = AccessType.Free;
+            user.Subscription.AccessType = AccessType.Free;
 
             //Act
             var result = user.HasAccess(AccessType.Starter);
@@ -527,7 +537,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var user = UserObjectMother.Create();
-            user.AccessType = AccessType.Starter;
+            user.Subscription.AccessType = AccessType.Starter;
 
             //Act
             var result = user.HasAccess(AccessType.Free);
@@ -541,32 +551,13 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var user = UserObjectMother.Create();
-            user.AccessType = AccessType.Starter;
+            user.Subscription.AccessType = AccessType.Starter;
 
             //Act
             var result = user.HasAccess(AccessType.Starter);
 
             //Assert
             result.Should().BeTrue();
-        }
-
-        #endregion
-
-        #region DowngradeToFreeAccess
-
-        [TestMethod]
-        public void DowngradeToFreeAccess_ShouldSetFreeAccessType()
-        {
-            //Arrange
-            var user = UserObjectMother.CreateWithAccessType(AccessType.Starter);
-
-            //Act
-            user.DowngradeToFreeAccess("someUser");
-
-            //Assert
-            user.AccessType.Should().Be(AccessType.Free);
-            user.AccesTypeExpirationTime.Should().Be(null);
-            user.ModifiedBy.Should().Be("someUser");
         }
 
         #endregion
@@ -934,82 +925,6 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Assert
             user.Organization.Should().Be("organization");
-            user.ModifiedBy.Should().Be("someUser");
-        }
-
-        #endregion
-
-        #region UpdatePlan
-
-        [TestMethod]
-        public void UpdatePlan_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.UpdatePlan(AccessType.Free, null);
-
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
-        }
-
-        [TestMethod]
-        public void UpdatePlan_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.UpdatePlan(AccessType.Free, String.Empty);
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
-        }
-
-        [TestMethod]
-        public void UpdatePlan_ShouldSetAccessType()
-        {
-            //Arrange
-            var user = UserObjectMother.CreateWithAccessType(AccessType.Starter);
-
-            //Act
-            user.UpdatePlan(AccessType.Free, "someUser");
-
-            //Assert
-            user.AccessType.Should().Be(AccessType.Free);
-            user.ModifiedBy.Should().Be("someUser");
-        }
-
-        #endregion
-
-        #region UpdateExpirationDate
-
-        [TestMethod]
-        public void UpdateExpirationDate_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.UpdateExpirationDate(DateTime.Now, null);
-
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
-        }
-
-        [TestMethod]
-        public void UpdateExpirationDate_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.UpdateExpirationDate(DateTime.Now, String.Empty);
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
-        }
-
-        [TestMethod]
-        public void UpdateExpirationDate_ShouldSetExpirationDate()
-        {
-            //Arrange
-            var user = UserObjectMother.Create();
-            var date = DateTime.Now;
-            //Act
-            user.UpdateExpirationDate(date, "someUser");
-
-            //Assert
-            user.AccesTypeExpirationTime.Should().Be(date);
             user.ModifiedBy.Should().Be("someUser");
         }
 

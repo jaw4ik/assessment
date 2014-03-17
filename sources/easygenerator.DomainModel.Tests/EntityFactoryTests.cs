@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System;
+using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -84,8 +85,10 @@ namespace easygenerator.DomainModel.Tests
             var phone = "some phone";
             var organization = "Easygenerator";
             var country = "some country";
+            var subscription = UserSubscriptionObjectMother.Create(AccessType.Starter, DateTimeWrapper.Now());
 
-            var user = _entityFactory.User(email, password, firstname, lastname, phone, organization, country, ModifiedBy, UserSettingsObjectMother.Create(), AccessType.Starter, DateTimeWrapper.Now());
+            var user = _entityFactory.User(email, password, firstname, lastname, phone, organization, country, ModifiedBy, UserSettingsObjectMother.Create(), subscription);
+
             user.Should().NotBeNull();
             user.Email.Should().Be(email);
             user.VerifyPassword(password).Should().BeTrue();
@@ -106,6 +109,22 @@ namespace easygenerator.DomainModel.Tests
             imageFile.Title.Should().Be(imageTitle);
             imageFile.CreatedBy.Should().Be(createdBy);
             imageFile.ModifiedBy.Should().Be(createdBy);
+        }
+
+        [TestMethod]
+        public void UserSubscription_ShouldCreateUserSubscriptionObject()
+        {
+            //Arrange
+            var accessType = AccessType.Starter;
+            var expirationTime = DateTime.MaxValue;
+
+            //Act
+            var userSubscription = _entityFactory.UserSubscription(accessType, expirationTime);
+
+            //Assert
+            userSubscription.Should().NotBeNull();
+            userSubscription.AccessType.Should().Be(accessType);
+            userSubscription.ExpirationDate.Should().Be(expirationTime);
         }
     }
 }

@@ -65,7 +65,8 @@ namespace easygenerator.Web.Tests.Tasks
         {
             //Arrange
             DateTimeWrapper.Now = () => DateTime.MinValue;
-            var user = UserObjectMother.Create();
+            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Starter, DateTime.MinValue);
+            var user = UserObjectMother.CreateWithSubscription(userSubscription);
             DateTimeWrapper.Now = () => DateTime.MinValue.AddDays(31);
 
             _userRepository.GetCollection(Arg.Any<Func<User, bool>>()).Returns(new List<User>() { user });
@@ -74,9 +75,8 @@ namespace easygenerator.Web.Tests.Tasks
             _accessTypeExpirationTask.Execute();
 
             //Assert
-            user.AccessType.Should().Be(AccessType.Free);
-            user.AccesTypeExpirationTime.Should().Be(null);
-            user.ModifiedBy.Should().Be("AccessTypeExpirationTask");
+            user.Subscription.AccessType.Should().Be(AccessType.Free);
+            user.Subscription.ExpirationDate.Should().Be(null);
         }
 
         #endregion

@@ -13,7 +13,6 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
         private const string Phone = "+3801234567";
         private const string Country = "Ukraine";
         private const string Organization = "Easygenerator";
-        private const AccessType UserAccessType = AccessType.Starter;
 
         public static User CreateWithPassword(string password)
         {
@@ -50,15 +49,15 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(oraganization: organization);
         }
 
-        public static User CreateWithAccessType(AccessType accessType)
+        public static User Create(string email = Email, string password = Password, string firstname = FirstName, string lastname = LastName, string phone = Phone,
+            string oraganization = Organization, string country = Country, string createdBy = CreatedBy)
         {
-            return Create(accessType: accessType);
+            return new User(email, password, firstname, lastname, phone, oraganization, country, createdBy, new UserSettings(createdBy, true), UserSubscriptionObjectMother.Create());
         }
 
-        public static User Create(string email = Email, string password = Password, string firstname = FirstName, string lastname = LastName, string phone = Phone,
-            string oraganization = Organization, string country = Country, string createdBy = CreatedBy, AccessType accessType = UserAccessType, DateTime? accessTypeExpirationTime = null)
+        public static User CreateWithSubscription(UserSubscription subscription)
         {
-            return new User(email, password, firstname, lastname, phone, oraganization, country, createdBy, new UserSettings(createdBy, true), accessType, accessTypeExpirationTime);
+            return new User(Email, Password, FirstName, LastName, Phone, Organization, Country, CreatedBy, new UserSettings(CreatedBy, true), subscription);
         }
     }
 }

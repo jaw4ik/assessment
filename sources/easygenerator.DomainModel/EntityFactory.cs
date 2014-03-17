@@ -12,10 +12,11 @@ namespace easygenerator.DomainModel
         Answer Answer(string text, bool isCorrect, string createdBy);
         LearningContent LearningContent(string text, string createdBy);
         User User(string email, string password, string firstname, string lastname, string phone, string organization,
-            string country, string createdBy, UserSettings userSettings, AccessType accessType, DateTime? accesTypeExpirationTime);
+            string country, string createdBy, UserSettings userSettings, UserSubscription subscription);
         MailNotification MailNotification(string body, string subject, string from, string to, string cc = null, string bcc = null);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
+        UserSubscription UserSubscription(AccessType accessType, DateTime? expirationTime);
     }
 
     public class EntityFactory : IEntityFactory
@@ -51,9 +52,9 @@ namespace easygenerator.DomainModel
         }
 
         public User User(string email, string password, string firstname, string lastname, string phone, string organization,
-            string country, string createdBy, UserSettings userSettings, AccessType accessType, DateTime? accesTypeExpirationTime)
+            string country, string createdBy, UserSettings userSettings, UserSubscription subscription)
         {
-            return new User(email, password, firstname, lastname, phone, organization, country, createdBy, userSettings, accessType, accesTypeExpirationTime);
+            return new User(email, password, firstname, lastname, phone, organization, country, createdBy, userSettings, subscription);
         }
 
         public MailNotification MailNotification(string body, string subject, string from, string to, string cc = null, string bcc = null)
@@ -69,6 +70,11 @@ namespace easygenerator.DomainModel
         public ImageFile ImageFile(string title, string createdBy)
         {
             return new ImageFile(title, createdBy);
+        }
+
+        public UserSubscription UserSubscription(AccessType accessType, DateTime? expirationTime)
+        {
+            return new UserSubscription(accessType, expirationTime);
         }
     }
 }

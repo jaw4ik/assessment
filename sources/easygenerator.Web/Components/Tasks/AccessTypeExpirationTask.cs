@@ -17,7 +17,7 @@ namespace easygenerator.Web.Components.Tasks
 
         public void Execute()
         {
-            var users = _userRepository.GetCollection(user => user.AccesTypeExpirationTime.HasValue && user.AccesTypeExpirationTime < DateTimeWrapper.Now());
+            var users = _userRepository.GetCollection(user => user.Subscription.ExpirationDate.HasValue && user.Subscription.ExpirationDate < DateTimeWrapper.Now());
             if (users.Count == 0)
             {
                 return;
@@ -25,7 +25,7 @@ namespace easygenerator.Web.Components.Tasks
 
             foreach (var user in users)
             {
-                user.DowngradeToFreeAccess("AccessTypeExpirationTask");
+                user.Subscription.Downgrade();
             }
 
             _dataContext.Save();
