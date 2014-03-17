@@ -44,7 +44,15 @@
                 if (usermail.isValid() && username.isValid()) {
                     var course = repository.get();
                     var title = course.title;
-                    var url = window.top.location.toString() + '?course_id=' + course.id;
+
+                    var pageUrl = "";
+                    if (window != window.top && ('referrer' in document)) {
+                        pageUrl = document.referrer;
+                    } else {
+                        pageUrl = window.location.toString();
+                    }
+
+                    var url = pageUrl + '?course_id=' + context.course.id;
                     var actor = xApiInitializer.createActor(username(), usermail());
                     xApiInitializer.init(actor, title, url).then(function () {
                         startCourse();
