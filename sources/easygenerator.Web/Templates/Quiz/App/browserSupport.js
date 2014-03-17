@@ -20,7 +20,6 @@
     }
 
     function isIE9() {
-        return true;
         var N = navigator.appName, tem,
             M = ua.match(/(chrome|safari|firefox|msie)\/?\s*([\d\.]+)/i) || [];
 
