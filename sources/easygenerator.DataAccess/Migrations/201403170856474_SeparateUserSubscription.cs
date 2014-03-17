@@ -6,9 +6,9 @@ namespace easygenerator.DataAccess.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.Users", "ExpirationDate", c => c.DateTime());
+            AddColumn("dbo.Users", "ExpirationTime", c => c.DateTime());
 
-            Sql("UPDATE dbo.Users SET [ExpirationDate] = [AccesTypeExpirationTime]");
+            Sql("UPDATE dbo.Users SET [ExpirationTime] = [AccesTypeExpirationTime]");
 
             DropColumn("dbo.Users", "AccesTypeExpirationTime");
         }
@@ -17,9 +17,9 @@ namespace easygenerator.DataAccess.Migrations
         {
             AddColumn("dbo.Users", "AccesTypeExpirationTime", c => c.DateTime());
 
-            Sql("UPDATE dbo.Users SET [AccesTypeExpirationTime] = [ExpirationDate]");
+            Sql("UPDATE dbo.Users SET [AccesTypeExpirationTime] = [ExpirationTime]");
 
-            DropColumn("dbo.Users", "ExpirationDate");
+            DropColumn("dbo.Users", "ExpirationTime");
         }
     }
 }
