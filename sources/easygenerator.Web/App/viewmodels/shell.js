@@ -26,7 +26,8 @@
             navigation: ko.observableArray([]),
             isTryMode: false,
             username: null,
-            help: help
+            help: help,
+            notifications: ko.observableArray([])
         };
     
         viewModel.activeModuleName = ko.computed(function () {
@@ -52,7 +53,7 @@
 
         function showNavigation() {
             return _.contains(['404', '400'], this.activeModuleName());
-        };
+        }
 
         function activate () {
             return dataContext.initialize()
@@ -152,6 +153,6 @@
                         .mapUnknownRoutes('viewmodels/errors/404', '404')
                         .activate(viewModel.homeModuleName);
                 });
-        };
+        }
     }
 );

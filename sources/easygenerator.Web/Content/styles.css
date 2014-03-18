@@ -1281,7 +1281,7 @@ span.top-navigation-item.current {
     width: 345px;
     top: 56px;
     left: -45px;
-    padding: 10px 10px 14px;
+    padding: 10px 10px 0;
     background-color: #fff;
     border: 1px solid #ddd;
     border-top: none;
@@ -1293,6 +1293,10 @@ span.top-navigation-item.current {
 
 .user-notification-viewer {
     display: none;
+}
+
+.user-notification-wrapper {
+    margin-bottom: 14px;
 }
 
 .user-notification-header {
