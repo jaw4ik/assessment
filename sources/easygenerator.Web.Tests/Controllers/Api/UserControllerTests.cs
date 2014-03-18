@@ -315,6 +315,19 @@ namespace easygenerator.Web.Tests.Controllers.Api
             subscription.Received().UpdatePlan(AccessType.Starter, new DateTime(123456));
         }
 
+        [TestMethod]
+        public void UpdateSubscription_ShouldPublishSubscriptionPurchasedEvent()
+        {
+            const string email = "test@test.test";
+            var subscription = Substitute.For<UserSubscription>();
+            var user = UserObjectMother.CreateWithSubscription(subscription);
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            _controller.UpdateSubscription(email, (long?)123456, AccessType.Starter);            
+
+            _userSubscriptionPurchasedEventPublisher.Received().Publish(Arg.Is<UserSubscriptionPurchased>(_ => _.User == user));
+        }
+
         #endregion
 
         #region Signin
