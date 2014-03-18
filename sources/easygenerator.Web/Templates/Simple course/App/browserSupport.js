@@ -51,7 +51,6 @@
 
         //Android is supported but not chrome, opera or firefox
         if (ua.indexOf("android") != -1 &&
-            ua.indexOf("chrome") == -1 &&
             ua.indexOf("opera") == -1 &&
             ua.indexOf("firefox") == -1) {
             return true;
