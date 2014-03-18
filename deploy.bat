@@ -9,7 +9,7 @@ ECHO "Cleaning ..."
 RMDIR  /S /Q "%DeploymentDirectory%"
 
 ECHO "Building ..."
-%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.Web\easygenerator.Web.csproj /p:outdir="%DeploymentDirectory%\bin";webprojectoutputdir="%DeploymentDirectory%";debugsymbols=false;debugtype=none;TreatWarningsAsErrors=true /t:Clean,Build,TransformWebConfig /p:Configuration=Release
+"%PROGRAMFILES(x86)%\MSBuild\12.0\Bin\msbuild" sources\easygenerator.Web\easygenerator.Web.csproj /p:outdir="%DeploymentDirectory%\bin";webprojectoutputdir="%DeploymentDirectory%";debugsymbols=false;debugtype=none;TreatWarningsAsErrors=true /t:Clean,Build,TransformWebConfig /p:Configuration=Release
 
 IF NOT EXIST sources/easygenerator.Web/obj/Release/TransformWebConfig/transformed/Web.config GOTO ERROR
 
@@ -17,16 +17,20 @@ ECHO Creating "Download" directory ...
 IF NOT EXIST "%DeploymentDirectory%\Download" MKDIR "%DeploymentDirectory%\Download"
 
 ECHO "Building .Net unit tests"
-%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.DomainModel.Tests\easygenerator.DomainModel.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true /property:PreBuildEvent= /property:PostBuildEvent=
+"%PROGRAMFILES(x86)%\MSBuild\12.0\Bin\msbuild" sources\easygenerator.DomainModel.Tests\easygenerator.DomainModel.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true /property:PreBuildEvent= /property:PostBuildEvent=
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
-%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.Web.Tests\easygenerator.Web.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true /property:PreBuildEvent= /property:PostBuildEvent=
+"%PROGRAMFILES(x86)%\MSBuild\12.0\Bin\msbuild" sources\easygenerator.DataAccess.Tests\easygenerator.DataAccess.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true /property:PreBuildEvent= /property:PostBuildEvent=
+IF NOT %ERRORLEVEL% == 0 GOTO ERROR
+"%PROGRAMFILES(x86)%\MSBuild\12.0\Bin\msbuild" sources\easygenerator.Web.Tests\easygenerator.Web.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true /property:PreBuildEvent= /property:PostBuildEvent=
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 ECHO Running .Net unit tests...
 
-"%VS110COMNTOOLS%..\IDE\mstest.exe" /testcontainer:sources\easygenerator.DomainModel.Tests\bin\Debug\easygenerator.DomainModel.Tests.dll
+"%MSTestPath%\mstest.exe" /testcontainer:sources\easygenerator.DomainModel.Tests\bin\Debug\easygenerator.DomainModel.Tests.dll
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
-"%VS110COMNTOOLS%..\IDE\mstest.exe" /testcontainer:sources\easygenerator.Web.Tests\bin\Debug\easygenerator.Web.Tests.dll 
+"%MSTestPath%\mstest.exe" /testcontainer:sources\easygenerator.DataAccess.Tests\bin\Debug\easygenerator.DataAccess.Tests.dll 
+IF NOT %ERRORLEVEL% == 0 GOTO ERROR
+"%MSTestPath%\mstest.exe" /testcontainer:sources\easygenerator.Web.Tests\bin\Debug\easygenerator.Web.Tests.dll 
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 echo Running Jasmine tests...
