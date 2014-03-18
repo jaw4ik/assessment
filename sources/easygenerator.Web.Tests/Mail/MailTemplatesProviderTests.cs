@@ -1,9 +1,9 @@
-﻿using System;
+﻿using easygenerator.Web.Components;
+using easygenerator.Web.Components.Configuration.MailSender;
+using easygenerator.Web.Mail;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using easygenerator.Web.Components;
-using easygenerator.Web.Components.Configuration;
-using easygenerator.Web.Mail;
+using System;
 
 namespace easygenerator.Web.Tests.Mail
 {

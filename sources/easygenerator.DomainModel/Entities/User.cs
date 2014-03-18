@@ -94,8 +94,8 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void UpdatePassword(string password, string modifiedBy)
         {
-            ThrowIfModifiedByIsInvalid(modifiedBy);
             ThrowIfPasswordIsNotValid(password);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             PasswordHash = Cryptography.GetHash(password);
             MarkAsModified(modifiedBy);
@@ -103,6 +103,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void UpdateFirstName(string firstName, string modifiedBy)
         {
+            ArgumentValidation.ThrowIfNullOrEmpty(firstName, "firstName");
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             FirstName = firstName;
@@ -111,6 +112,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void UpdateLastName(string lastName, string modifiedBy)
         {
+            ArgumentValidation.ThrowIfNullOrEmpty(lastName, "lastName");
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             LastName = lastName;
@@ -119,6 +121,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void UpdatePhone(string phone, string modifiedBy)
         {
+            ArgumentValidation.ThrowIfNullOrEmpty(phone, "phone");
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Phone = phone;
@@ -127,6 +130,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void UpdateOrganization(string organization, string modifiedBy)
         {
+            ArgumentValidation.ThrowIfNullOrEmpty(organization, "organization");
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Organization = organization;
@@ -135,16 +139,11 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void UpdateCountry(string country, string modifiedBy)
         {
+            ArgumentValidation.ThrowIfNullOrEmpty(country, "country");
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Country = country;
             MarkAsModified(modifiedBy);
-        }
-
-        public virtual bool IsPasswordValid(string password)
-        {
-            string errorMessage;
-            return IsPasswordValid(password, out errorMessage);
         }
 
         private void ThrowIfEmailIsNotValid(string email)
@@ -162,59 +161,25 @@ namespace easygenerator.DomainModel.Entities
         {
             ArgumentValidation.ThrowIfNullOrEmpty(password, "password");
 
-            string errorMessage;
-            if (!IsPasswordValid(password, out errorMessage))
-            {
-                throw new ArgumentException(errorMessage, "password");
-            }
-        }
-
-        private bool IsPasswordValid(string password, out string message)
-        {
-            message = string.Empty;
-            if (string.IsNullOrEmpty(password))
-            {
-                message = "Password cannot be empty";
-                return false;
-            }
-
             if (password.Length < 7)
-            {
-                message = "Password should be longer then 7 symbols";
-                return false;
-            }
+                throw new ArgumentException("Password should be longer then 7 symbols", "password");
 
             if (!Regex.IsMatch(password, @"\d"))
-            {
-                message = "Password should contain at least one digit symbol";
-                return false;
-            }
+                throw new ArgumentException("Password should contain at least one digit symbol", "password");
 
             if (!Regex.IsMatch(password, @"[A-Z]"))
-            {
-                message = "Password should contain at least one upper case symbol";
-                return false;
-            }
+                throw new ArgumentException("Password should contain at least one upper case symbol", "password");
 
             if (!Regex.IsMatch(password, @"[a-z]"))
-            {
-                message = "Password should contain at least one lower case symbol";
-                return false;
-            }
+                throw new ArgumentException("Password should contain at least one lower case symbol", "password");
 
             if (password.Contains(" "))
-            {
-                message = "Password should not contain whitespace symbols";
-                return false;
-            }
-
-            return true;
+                throw new ArgumentException("Password should not contain whitespace symbols", "password");
         }
 
         private void ThrowIfModifiedByIsInvalid(string modifiedBy)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
         }
-
     }
 }

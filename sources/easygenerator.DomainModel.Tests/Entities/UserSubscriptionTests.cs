@@ -1,8 +1,8 @@
-﻿using System;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -94,6 +94,28 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Act & Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
+        }
+
+        [TestMethod]
+        public void UpdatePlan_ShouldThrowArgumentException_WhenExpirationDateIsLessThanMinimal()
+        {
+            //Arrange
+            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Starter, DateTime.MaxValue);
+            Action action = () => userSubscription.UpdatePlan(AccessType.Free, DateTime.MinValue);
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
+        }
+
+        [TestMethod]
+        public void UpdatePlan_ShouldThrowArgumentException_WhenAccessTypeHasInvalidValue()
+        {
+            //Arrange
+            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Starter, DateTime.MaxValue);
+            Action action = () => userSubscription.UpdatePlan((AccessType)100500, DateTime.MaxValue);
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("accessType");
         }
 
         #endregion

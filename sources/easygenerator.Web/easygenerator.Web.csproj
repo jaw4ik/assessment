@@ -414,7 +414,8 @@
     <Content Include="App\viewmodels\courses\deliveringActions\publish.js" />
     <Content Include="App\viewmodels\courses\deliveringActions\scormBuild.js" />
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
-    <Compile Include="Components\ActionFilters\Authorization\WooCommerceTokenAuthorizeAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttribute.cs" />
+    <Compile Include="Components\ActionResults\HttpStatusCodeWithMessageResult.cs" />
     <Compile Include="Components\ActionResults\SuccessResult.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransform.cs" />
     <Compile Include="Components\ActionFilters\Authorization\RequireAccessAttribute.cs" />
@@ -422,8 +423,10 @@
     <Compile Include="Components\ActionResults\BadRequestResult.cs" />
     <Compile Include="Components\ActionResults\ForbiddenResult.cs" />
     <Compile Include="Components\ActionResults\ImageResult.cs" />
+    <Compile Include="Components\Configuration\ExternalApi\ApiKeyCollection.cs" />
+    <Compile Include="Components\Configuration\ExternalApi\ApiKeyElement.cs" />
     <Compile Include="Components\Configuration\MailChimpConfigurationSection.cs" />
-    <Compile Include="Components\Configuration\WooCommerceConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\ExternalApi\ExternalApiSection.cs" />
     <Compile Include="Components\HttpRuntimeWrapper.cs" />
     <Compile Include="BuildCourse\ICourseBuilder.cs" />
     <Compile Include="BuildCourse\PackageModelMapper.cs" />
@@ -440,9 +443,9 @@
     <Compile Include="Components\AuthenticationProvider.cs" />
     <Compile Include="Components\Configuration\ConfigurationReader.cs" />
     <Compile Include="Components\Configuration\FileStorageConfigurationSection.cs" />
-    <Compile Include="Components\Configuration\MailSenderConfigurationSection.cs" />
-    <Compile Include="Components\Configuration\MailTemplate.cs" />
-    <Compile Include="Components\Configuration\MailTemplateCollection.cs" />
+    <Compile Include="Components\Configuration\MailSender\MailSenderConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\MailSender\MailTemplate.cs" />
+    <Compile Include="Components\Configuration\MailSender\MailTemplateCollection.cs" />
     <Compile Include="Components\ElmahLog.cs" />
     <Compile Include="Components\Http\HttpHelper.cs" />
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinderProvider.cs" />
@@ -1525,7 +1528,7 @@
     </Content>
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Error\ServerError.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Maintenance\PublishIsInProgress.cshtml" />
     <Content Include="Templates\Quiz\js\vendor.js.bundle">
       <SubType>Designer</SubType>

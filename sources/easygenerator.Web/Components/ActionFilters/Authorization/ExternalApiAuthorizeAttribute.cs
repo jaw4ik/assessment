@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.WebPages;
-using easygenerator.Web.Components.ActionResults;
+﻿using easygenerator.Web.Components.ActionResults;
 using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Components.Configuration.ExternalApi;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Components.ActionFilters.Authorization
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    public class WooCommerceTokenAuthorizeAttribute : FilterAttribute, IAuthorizationFilter
+    public class ExternalApiAuthorizeAttribute : FilterAttribute, IAuthorizationFilter
     {
-        private ConfigurationReader ConfigurationReader
+        public string ApiKeyName { get; set; }
+        public ConfigurationReader ConfigurationReader { get; set; }
+
+        public ExternalApiAuthorizeAttribute(string apiKeyName)
         {
-            get { return DependencyResolver.Current.GetService<ConfigurationReader>(); }
+            ApiKeyName = apiKeyName;
         }
 
         public void OnAuthorization(AuthorizationContext authorizationContext)
@@ -37,12 +37,18 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
                 throw new InvalidOperationException();
             }
 
-            var key = authorizationContext.HttpContext.Request.QueryString["key"];
-            if (key == null || ConfigurationReader.WooCommerceConfiguration.ApiKey.Trim() != key.Trim())
-            {
-                authorizationContext.Result = new HttpStatusCodeResult(HttpStatusCode.Forbidden, "Key is not correct");
-            }
 
+            var key = authorizationContext.HttpContext.Request.QueryString["key"];
+            var apiKeys = from ApiKeyElement e in ConfigurationReader.ExternalApi.ApiKeys
+                         where e.Name == ApiKeyName
+                         select e;
+
+            var apiKey = apiKeys.SingleOrDefault();
+
+            if (key == null || apiKey == null || apiKey.Value.Trim() != key.Trim())
+            {
+                authorizationContext.Result = new ForbiddenResult(message: "Key is not correct");
+            }
         }
     }
 }

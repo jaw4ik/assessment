@@ -1,9 +1,5 @@
 ﻿using easygenerator.Web.Components;
-using easygenerator.Web.Components.Configuration;
-using RazorEngine;
-using System.Collections.Generic;
-using System.IO;
-using System.Web.Hosting;
+using easygenerator.Web.Components.Configuration.MailSender;
 
 namespace easygenerator.Web.Mail
 {

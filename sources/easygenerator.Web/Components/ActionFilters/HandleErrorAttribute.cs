@@ -1,5 +1,6 @@
-﻿using System.Web.Mvc;
-using easygenerator.Web.Components.ActionResults;
+﻿using easygenerator.Web.Components.ActionResults;
+using System;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Components.ActionFilters
 {
@@ -7,6 +8,14 @@ namespace easygenerator.Web.Components.ActionFilters
     {
         public override void OnException(ExceptionContext filterContext)
         {
+            var exception = filterContext.Exception;
+            if (exception is ArgumentException)
+            {
+                filterContext.Result = new HttpStatusCodeWithMessageResult(422, exception.Message);
+                filterContext.ExceptionHandled = true;
+                return;
+            }
+
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
                 filterContext.Result = new JsonErrorResult(filterContext.Exception.Message);

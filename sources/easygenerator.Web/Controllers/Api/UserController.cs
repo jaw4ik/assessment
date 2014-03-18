@@ -49,7 +49,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [AllowAnonymous]
-        [WooCommerceTokenAuthorize]
+        [ExternalApiAuthorize("wooCommerce")]
         [Route("api/user/update")]
         public ActionResult Update(string email,
             string password = "",
@@ -60,17 +60,14 @@ namespace easygenerator.Web.Controllers.Api
             string country = "")
         {
             if (string.IsNullOrEmpty(email))
-                return BadRequest("Not valid email");
+                return UnprocessableEntity("Not valid email");
 
             var user = _repository.GetUserByEmail(email);
             if (user == null)
-                return BadRequest("User does not exist");
+                return UnprocessableEntity("User does not exist");
 
             if (!string.IsNullOrEmpty(password))
             {
-                if (!user.IsPasswordValid(password))
-                    return BadRequest("Not valid password");
-
                 user.UpdatePassword(password, email);
             }
             if (!string.IsNullOrEmpty(firstName))
@@ -93,7 +90,7 @@ namespace easygenerator.Web.Controllers.Api
             {
                 var countryName = PhoneCodeCollection.GetCountryByCode(country);
                 if (countryName == null)
-                    return BadRequest("Not valid country code");
+                    return UnprocessableEntity("Not valid country code");
 
                 user.UpdateCountry(countryName, email);
             }
@@ -103,26 +100,23 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [AllowAnonymous]
-        [WooCommerceTokenAuthorize]
+        [ExternalApiAuthorize("wooCommerce")]
         [Route("api/user/update-subscription")]
         public ActionResult UpdateSubscription(string email, long? exp_date, AccessType? plan)
         {
             if (string.IsNullOrEmpty(email))
             {
-                return BadRequest("Not valid email");
+                return UnprocessableEntity("Not valid email");
             }
 
             var user = _repository.GetUserByEmail(email);
             if (user == null)
             {
-                return BadRequest("User does not exist");
+                return UnprocessableEntity("User does not exist");
             }
 
             if (plan.HasValue)
             {
-                if (!Enum.IsDefined(typeof(AccessType), plan.Value))
-                    return BadRequest("Plan is not valid");
-
                 if (exp_date.HasValue)
                 {
                     user.Subscription.UpdatePlan(plan.Value, new DateTime(exp_date.Value));

@@ -1,6 +1,6 @@
 ﻿using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Components.Configuration.MailSender;
 using System.Collections.Generic;
-using System.Configuration;
 
 namespace easygenerator.Web.Mail
 {

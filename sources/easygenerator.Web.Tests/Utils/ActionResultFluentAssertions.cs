@@ -1,9 +1,7 @@
-﻿using System;
-using System.Net.Mime;
-using System.Web.Mvc;
-using easygenerator.Web.Components.ActionResults;
+﻿using easygenerator.Web.Components.ActionResults;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Tests.Utils
 {
@@ -232,13 +230,25 @@ namespace easygenerator.Web.Tests.Utils
             return new SuccessResultAssertions(value.Subject as SuccessResult);
         }
 
-        public static BadRequestResultAssertions BeBadRequestResultWithDescription(this ObjectAssertions value, string description = "", string reason = "", params object[] reasonArgs)
+        public static BadRequestResultAssertions BeBadRequestResultWithMessage(this ObjectAssertions value, string message = "", string reason = "", params object[] reasonArgs)
         {
             Execute.Assertion
                 .BecauseOf(reason, reasonArgs)
                 .ForCondition(value.Subject is BadRequestResult)
-                .ForCondition(((BadRequestResult)value.Subject).StatusDescription == description)
-                .FailWith("Expected \"BadRequestResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+                .ForCondition(((BadRequestResult)value.Subject).Message == message)
+                .FailWith("Expected \"BadRequestResult\" with message {0}, but got {1}", message, GetSubjectTypeErrorMessage(value.Subject));
+
+            return new BadRequestResultAssertions(value.Subject as BadRequestResult);
+        }
+
+        public static BadRequestResultAssertions BeUnprocessableEntityResultWithMessage(this ObjectAssertions value, string message = "", string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is HttpStatusCodeWithMessageResult)
+                .ForCondition(((HttpStatusCodeWithMessageResult)value.Subject).StatusCode == 422)
+                .ForCondition(((HttpStatusCodeWithMessageResult)value.Subject).Message == message)
+                .FailWith("Expected \"HttpStatusCodeWithMessageResult\" with status 422 and message {0}, but got {1}", message, GetSubjectTypeErrorMessage(value.Subject));
 
             return new BadRequestResultAssertions(value.Subject as BadRequestResult);
         }

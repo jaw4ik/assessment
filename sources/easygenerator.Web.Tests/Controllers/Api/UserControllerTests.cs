@@ -68,7 +68,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             var result = _controller.Update(null);
 
-            result.Should().BeBadRequestResultWithDescription("Not valid email");
+            result.Should().BeUnprocessableEntityResultWithMessage("Not valid email");
         }
 
         [TestMethod]
@@ -76,7 +76,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             var result = _controller.Update("");
 
-            result.Should().BeBadRequestResultWithDescription("Not valid email");
+            result.Should().BeUnprocessableEntityResultWithMessage("Not valid email");
         }
 
         [TestMethod]
@@ -87,7 +87,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.Update(email);
 
-            result.Should().BeBadRequestResultWithDescription("User does not exist");
+            result.Should().BeUnprocessableEntityResultWithMessage("User does not exist");
         }
 
         [TestMethod]
@@ -103,31 +103,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Update_ShouldUpdatePassword_WhenPasswordDefinedAndValid()
+        public void Update_ShouldUpdatePassword_WhenPasswordDefined()
         {
             const string email = "test@test.test";
             const string password = "NewPassword111";
             var user = Substitute.For<User>();
-            user.IsPasswordValid(password).Returns(true);
             _userRepository.GetUserByEmail(email).Returns(user);
 
             _controller.Update(email, password: password);
 
             user.Received().UpdatePassword(password, email);
-        }
-
-        [TestMethod]
-        public void Update_ShouldReturnBadRequestResult_WhenPasswordDefinedAndNotValid()
-        {
-            const string email = "test@test.test";
-            const string password = "NewPassword111";
-            var user = Substitute.For<User>();
-            user.IsPasswordValid(password).Returns(false);
-            _userRepository.GetUserByEmail(email).Returns(user);
-
-            var result = _controller.Update(email, password: password);
-
-            result.Should().BeBadRequestResultWithDescription("Not valid password");
         }
 
         [TestMethod]
@@ -218,7 +203,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.Update(email, country: country);
 
-            result.Should().BeBadRequestResultWithDescription("Not valid country code");
+            result.Should().BeUnprocessableEntityResultWithMessage("Not valid country code");
         }
 
         [TestMethod]
@@ -243,7 +228,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             var result = _controller.UpdateSubscription(null, null, null);
 
-            result.Should().BeBadRequestResultWithDescription("Not valid email");
+            result.Should().BeUnprocessableEntityResultWithMessage("Not valid email");
         }
 
         [TestMethod]
@@ -251,7 +236,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             var result = _controller.UpdateSubscription("", null, null);
 
-            result.Should().BeBadRequestResultWithDescription("Not valid email");
+            result.Should().BeUnprocessableEntityResultWithMessage("Not valid email");
         }
 
         [TestMethod]
@@ -262,19 +247,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.UpdateSubscription(email, null, null);
 
-            result.Should().BeBadRequestResultWithDescription("User does not exist");
-        }
-
-        [TestMethod]
-        public void UpdateSubscription_ShouldReturnBadRequestResult_WhenPlanIsNotDefinedInAccessType()
-        {
-            const string email = "test@test.test";
-            var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(email).Returns(user);
-
-            var result = _controller.UpdateSubscription(email, null, (AccessType?)6);
-
-            result.Should().BeBadRequestResultWithDescription("Plan is not valid");
+            result.Should().BeUnprocessableEntityResultWithMessage("User does not exist");
         }
 
         [TestMethod]
@@ -410,9 +383,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _configurationReader.UserTrialPeriod.Returns(10);
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            DateTimeWrapper.Now = () => DateTime.MinValue;
+            DateTimeWrapper.Now = () => DateTime.MaxValue.AddYears(-1);
 
-            var expirationTime = DateTime.MinValue.AddMinutes(10);
+            var expirationTime = DateTime.MaxValue.AddYears(-1).AddMinutes(10);
             var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Starter, expirationTime);
 
             _entityFactory.UserSubscription(AccessType.Starter, expirationTime).Returns(userSubscription);

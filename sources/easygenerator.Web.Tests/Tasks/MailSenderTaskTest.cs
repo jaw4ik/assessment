@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using easygenerator.DataAccess;
+﻿using easygenerator.DataAccess;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Components.Configuration.MailSender;
 using easygenerator.Web.Mail;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
+using System.Collections.Generic;
 
 namespace easygenerator.Web.Tests.Tasks
 {

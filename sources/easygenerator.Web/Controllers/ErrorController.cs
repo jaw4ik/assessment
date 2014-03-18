@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Net;
 using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers
@@ -19,7 +15,7 @@ namespace easygenerator.Web.Controllers
         public ActionResult ServerError()
         {
             Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            return View();
+            return View("Error");
         }
     }
 }

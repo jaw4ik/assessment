@@ -1,8 +1,7 @@
-﻿using System;
-using System.Net;
-using System.Web.Mvc;
-using easygenerator.DataAccess;
+﻿using easygenerator.DataAccess;
 using easygenerator.Web.Components.ActionResults;
+using System;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Components
 {
@@ -48,9 +47,14 @@ namespace easygenerator.Web.Components
             return new BadRequestResult();
         }
 
-        protected ActionResult BadRequest(string description)
+        protected ActionResult BadRequest(string message)
         {
-            return new BadRequestResult(description);
+            return new BadRequestResult(message);
+        }
+
+        protected ActionResult UnprocessableEntity(string message)
+        {
+            return new HttpStatusCodeWithMessageResult(422, message);
         }
 
         protected string GetCurrentUsername()

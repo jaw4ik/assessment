@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using easygenerator.DataAccess;
+﻿using easygenerator.DataAccess;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
@@ -9,6 +7,8 @@ using easygenerator.Web.Components.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
+using System.Collections.Generic;
 
 namespace easygenerator.Web.Tests.Tasks
 {
@@ -64,10 +64,10 @@ namespace easygenerator.Web.Tests.Tasks
         public void Execute_ShouldSetUserAccesTypeToFree_WhenCurrentAccessTypeExpired()
         {
             //Arrange
-            DateTimeWrapper.Now = () => DateTime.MinValue;
-            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Starter, DateTime.MinValue);
+            DateTimeWrapper.Now = () => DateTime.MaxValue.AddYears(-1);
+            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Starter, DateTime.MaxValue.AddYears(-1));
             var user = UserObjectMother.CreateWithSubscription(userSubscription);
-            DateTimeWrapper.Now = () => DateTime.MinValue.AddDays(31);
+            DateTimeWrapper.Now = () => DateTime.MaxValue.AddYears(-1).AddDays(31);
 
             _userRepository.GetCollection(Arg.Any<Func<User, bool>>()).Returns(new List<User>() { user });
 

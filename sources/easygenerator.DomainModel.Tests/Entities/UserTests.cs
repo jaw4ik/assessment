@@ -681,7 +681,6 @@ namespace easygenerator.DomainModel.Tests.Entities
             DateTimeWrapper.Now = () => DateTime.Now;
             const string modifiedBy = "admin";
             var user = UserObjectMother.Create();
-            user.UpdatePassword("Easy123!", modifiedBy);
 
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
@@ -690,91 +689,6 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             user.ModifiedOn.Should().Be(dateTime);
         }
-
-        #endregion
-
-        #region IsPasswordValid
-
-        [TestMethod]
-        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordIsNull()
-        {
-            var user = UserObjectMother.Create();
-            const string password = null;
-
-            var result = user.IsPasswordValid(password);
-            result.Should().Be(false);
-        }
-
-        [TestMethod]
-        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordIsEmpty()
-        {
-            var user = UserObjectMother.Create();
-            const string password = "";
-
-            var result = user.IsPasswordValid(password);
-            result.Should().Be(false);
-        }
-
-        [TestMethod]
-        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordShorterThanSevenSymbols()
-        {
-            var user = UserObjectMother.Create();
-            const string password = "qweqweqeqweqweqw";
-
-            var result = user.IsPasswordValid(password);
-            result.Should().Be(false);
-        }
-
-        [TestMethod]
-        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordHasNoDigitSymbol()
-        {
-            var user = UserObjectMother.Create();
-            const string password = "qweqweqwe";
-
-            var result = user.IsPasswordValid(password);
-            result.Should().Be(false);
-        }
-
-        [TestMethod]
-        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordHasNoUpperCaseSymbol()
-        {
-            var user = UserObjectMother.Create();
-            const string password = "qweqweqwe";
-
-            var result = user.IsPasswordValid(password);
-            result.Should().Be(false);
-        }
-
-        [TestMethod]
-        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordHasNoLowerCaseSymbol()
-        {
-            var user = UserObjectMother.Create();
-            const string password = "QWEQWEQWE";
-
-            var result = user.IsPasswordValid(password);
-            result.Should().Be(false);
-        }
-
-        [TestMethod]
-        public void IsPasswordValid_ShouldReturnFalse_WhenPasswordHasWhitespaceSymbol()
-        {
-            var user = UserObjectMother.Create();
-            const string password = "qwe qwe!";
-
-            var result = user.IsPasswordValid(password);
-            result.Should().Be(false);
-        }
-
-        [TestMethod]
-        public void IsPasswordValid_ShouldReturnTrue_WhenPasswordIsValid()
-        {
-            var user = UserObjectMother.Create();
-            const string password = "easyGenerAtoR123!";
-
-            var result= user.IsPasswordValid(password);
-            result.Should().Be(true);
-        }
-
 
         #endregion
 
@@ -801,17 +715,59 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void UpdateFirstName_ShouldSetFirstName()
+        public void UpdateFirstName_ShouldThrowArgumentNullException_WhenFirstNameIsNull()
         {
-            //Arrange
             var user = UserObjectMother.Create();
 
-            //Act
+            Action action = () => user.UpdateFirstName(null, "aaa");
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("firstName");
+        }
+
+        [TestMethod]
+        public void UpdateFirstName_ShouldThrowArgumentNullException_WhenFirstNameIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateFirstName("", "aaa");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("firstName");
+        }
+
+        [TestMethod]
+        public void UpdateFirstName_ShouldSetFirstName()
+        {
+            var user = UserObjectMother.Create();
+
             user.UpdateFirstName("firstName", "someUser");
 
-            //Assert
             user.FirstName.Should().Be("firstName");
             user.ModifiedBy.Should().Be("someUser");
+        }
+
+        [TestMethod]
+        public void UpdateFirstName_ShouldUpdateMoidifiedBy()
+        {
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+            user.UpdateFirstName("aaa", modifiedBy);
+
+            user.ModifiedBy.Should().Be(modifiedBy);
+        }
+
+        [TestMethod]
+        public void UpdateFirstName_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            user.UpdateFirstName("aaa", modifiedBy);
+
+            user.ModifiedOn.Should().Be(dateTime);
         }
 
         #endregion
@@ -839,6 +795,26 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
+        public void UpdateFirstName_ShouldThrowArgumentNullException_WhenLastNameIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateLastName(null, "aaa");
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("lastName");
+        }
+
+        [TestMethod]
+        public void UpdateFirstName_ShouldThrowArgumentNullException_WhenLastNameIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateLastName("", "aaa");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("lastName");
+        }
+
+        [TestMethod]
         public void UpdateLastName_ShouldSetLastName()
         {
             //Arrange
@@ -850,6 +826,31 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Assert
             user.LastName.Should().Be("lastName");
             user.ModifiedBy.Should().Be("someUser");
+        }
+
+        [TestMethod]
+        public void UpdateLastName_ShouldUpdateMoidifiedBy()
+        {
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+            user.UpdateLastName("aaa", modifiedBy);
+
+            user.ModifiedBy.Should().Be(modifiedBy);
+        }
+
+        [TestMethod]
+        public void UpdateLastName_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            user.UpdateLastName("aaa", modifiedBy);
+
+            user.ModifiedOn.Should().Be(dateTime);
         }
 
         #endregion
@@ -877,6 +878,26 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
+        public void UpdateFirstName_ShouldThrowArgumentNullException_WhenPhoneIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePhone(null, "aaa");
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("phone");
+        }
+
+        [TestMethod]
+        public void UpdateFirstName_ShouldThrowArgumentNullException_WhenPhoneIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdatePhone("", "aaa");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("phone");
+        }
+
+        [TestMethod]
         public void UpdatePhone_ShouldSetPhone()
         {
             //Arrange
@@ -888,6 +909,31 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Assert
             user.Phone.Should().Be("123456");
             user.ModifiedBy.Should().Be("someUser");
+        }
+
+        [TestMethod]
+        public void UpdatePhone_ShouldUpdateMoidifiedBy()
+        {
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+            user.UpdatePhone("aaa", modifiedBy);
+
+            user.ModifiedBy.Should().Be(modifiedBy);
+        }
+
+        [TestMethod]
+        public void UpdatePhone_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            user.UpdatePhone("aaa", modifiedBy);
+
+            user.ModifiedOn.Should().Be(dateTime);
         }
 
         #endregion
@@ -915,6 +961,26 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
+        public void UpdateFirstName_ShouldThrowArgumentNullException_WhenOrganizationIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateOrganization(null, "aaa");
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
+        public void UpdateFirstName_ShouldThrowArgumentNullException_WhenOrganizationIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateOrganization("", "aaa");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
         public void UpdateOrganization_ShouldSetOrganization()
         {
             //Arrange
@@ -926,6 +992,31 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Assert
             user.Organization.Should().Be("organization");
             user.ModifiedBy.Should().Be("someUser");
+        }
+
+        [TestMethod]
+        public void UpdateOrganization_ShouldUpdateMoidifiedBy()
+        {
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+            user.UpdateOrganization("aaa", modifiedBy);
+
+            user.ModifiedBy.Should().Be(modifiedBy);
+        }
+
+        [TestMethod]
+        public void UpdateOrganization_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            user.UpdateOrganization("aaa", modifiedBy);
+
+            user.ModifiedOn.Should().Be(dateTime);
         }
 
         #endregion
@@ -953,6 +1044,26 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
+        public void UpdateFirstName_ShouldThrowArgumentNullException_WhenCountryIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateCountry(null, "aaa");
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("country");
+        }
+
+        [TestMethod]
+        public void UpdateFirstName_ShouldThrowArgumentNullException_WhenCountryIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateCountry("", "aaa");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("country");
+        }
+
+        [TestMethod]
         public void UpdateCountry_ShouldSetCountry()
         {
             //Arrange
@@ -963,6 +1074,31 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Assert
             user.Country.Should().Be("Ukraine");
             user.ModifiedBy.Should().Be("someUser");
+        }
+
+        [TestMethod]
+        public void UpdateCountry_ShouldUpdateMoidifiedBy()
+        {
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+            user.UpdateCountry("aaa", modifiedBy);
+
+            user.ModifiedBy.Should().Be(modifiedBy);
+        }
+
+        [TestMethod]
+        public void UpdateCountry_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            user.UpdateCountry("aaa", modifiedBy);
+
+            user.ModifiedOn.Should().Be(dateTime);
         }
 
         #endregion

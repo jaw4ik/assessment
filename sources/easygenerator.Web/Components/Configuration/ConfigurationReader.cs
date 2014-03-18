@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using easygenerator.Web.Components.Configuration.ExternalApi;
+using easygenerator.Web.Components.Configuration.MailSender;
+using System.Configuration;
 
 namespace easygenerator.Web.Components.Configuration
 {
@@ -36,11 +38,11 @@ namespace easygenerator.Web.Components.Configuration
             }
         }
 
-        public virtual WooCommerceConfigurationSection WooCommerceConfiguration
+        public virtual ExternalApiSection ExternalApi
         {
             get
             {
-                return ConfigurationManager.GetSection("wooCommerce") as WooCommerceConfigurationSection;
+                return ConfigurationManager.GetSection("externalApi") as ExternalApiSection;
             }
         }
 

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Web.Mvc;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
-using easygenerator.Web.ViewModels.Account;
 using easygenerator.Web.Extensions;
+using System;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers
 {
