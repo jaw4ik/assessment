@@ -1,5 +1,5 @@
-﻿define(['./login', 'xApi/xApiInitializer', 'plugins/router', 'repositories/courseRepository', 'xApi/errorsHandler'],
-    function (viewModel, xApiInitializer, router, repository, errorsHandler) {
+﻿define(['./login', 'xApi/xApiInitializer', 'context', 'plugins/router', 'repositories/courseRepository', 'xApi/errorsHandler'],
+    function (viewModel, xApiInitializer, context, router, repository, errorsHandler) {
 
         "use strict";
 
@@ -278,6 +278,8 @@
                     });
 
                     it('should init xApiInitializer', function () {
+                        context.courseId = course.id;
+                        context.title = course.title;
                         var
                             url = window.top.location.toString() + '?course_id=' + course.id,
                             actor = xApiInitializer.createActor(viewModel.username(), viewModel.usermail());
