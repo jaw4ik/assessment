@@ -1,6 +1,7 @@
 ﻿using easygenerator.DataAccess;
 using easygenerator.Web.Components.ActionResults;
 using System;
+using System.Net;
 using System.Web.Mvc;
 
 namespace easygenerator.Web.Components
@@ -37,9 +38,9 @@ namespace easygenerator.Web.Components
             return new JsonErrorResult(message, resourceKey);
         }
 
-        protected ActionResult Success(string responseText)
+        protected ActionResult Success()
         {
-            return new SuccessResult(responseText);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         protected ActionResult BadRequest()

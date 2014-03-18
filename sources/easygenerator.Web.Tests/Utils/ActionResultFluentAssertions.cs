@@ -1,6 +1,7 @@
 ﻿using easygenerator.Web.Components.ActionResults;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
+using System.Net;
 using System.Web.Mvc;
 
 namespace easygenerator.Web.Tests.Utils
@@ -90,6 +91,23 @@ namespace easygenerator.Web.Tests.Utils
         }
     }
 
+    public class UnprocessableEntityResultAssertions : ObjectAssertions
+    {
+        public UnprocessableEntityResultAssertions(HttpStatusCodeResult subject)
+            : base(subject)
+        {
+
+        }
+
+        public HttpStatusCodeResult And
+        {
+            get
+            {
+                return Subject as HttpStatusCodeResult;
+            }
+        }
+    }
+
     public class FileResultAssertions : ObjectAssertions
     {
         public FileResultAssertions(FileResult subject)
@@ -135,17 +153,17 @@ namespace easygenerator.Web.Tests.Utils
 
     public class SuccessResultAssertions : ObjectAssertions
     {
-        public SuccessResultAssertions(SuccessResult subject)
+        public SuccessResultAssertions(HttpStatusCodeResult subject)
             : base(subject)
         {
 
         }
 
-        public SuccessResult And
+        public HttpStatusCodeResult And
         {
             get
             {
-                return Subject as SuccessResult;
+                return Subject as HttpStatusCodeResult;
             }
         }
     }
@@ -220,14 +238,15 @@ namespace easygenerator.Web.Tests.Utils
             return new BadRequestResultAssertions(value.Subject as BadRequestResult);
         }
 
-        public static SuccessResultAssertions BeSuccessResult(this ObjectAssertions value, string description = "", string reason = "", params object[] reasonArgs)
+        public static SuccessResultAssertions BeSuccessResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
         {
             Execute.Assertion
                 .BecauseOf(reason, reasonArgs)
-                .ForCondition(value.Subject is SuccessResult)
+                .ForCondition(value.Subject is HttpStatusCodeResult)
+                .ForCondition(((HttpStatusCodeResult)value.Subject).StatusCode == (int)HttpStatusCode.OK)
                 .FailWith("Expected \"SuccessResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
-            return new SuccessResultAssertions(value.Subject as SuccessResult);
+            return new SuccessResultAssertions(value.Subject as HttpStatusCodeResult);
         }
 
         public static BadRequestResultAssertions BeBadRequestResultWithMessage(this ObjectAssertions value, string message = "", string reason = "", params object[] reasonArgs)
@@ -241,7 +260,7 @@ namespace easygenerator.Web.Tests.Utils
             return new BadRequestResultAssertions(value.Subject as BadRequestResult);
         }
 
-        public static BadRequestResultAssertions BeUnprocessableEntityResultWithMessage(this ObjectAssertions value, string message = "", string reason = "", params object[] reasonArgs)
+        public static UnprocessableEntityResultAssertions BeUnprocessableEntityResultWithMessage(this ObjectAssertions value, string message = "", string reason = "", params object[] reasonArgs)
         {
             Execute.Assertion
                 .BecauseOf(reason, reasonArgs)
@@ -250,7 +269,7 @@ namespace easygenerator.Web.Tests.Utils
                 .ForCondition(((HttpStatusCodeWithMessageResult)value.Subject).Message == message)
                 .FailWith("Expected \"HttpStatusCodeWithMessageResult\" with status 422 and message {0}, but got {1}", message, GetSubjectTypeErrorMessage(value.Subject));
 
-            return new BadRequestResultAssertions(value.Subject as BadRequestResult);
+            return new UnprocessableEntityResultAssertions(value.Subject as HttpStatusCodeWithMessageResult);
         }
 
         public static FileResultAssertions BeFileResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)

@@ -95,7 +95,7 @@ namespace easygenerator.Web.Controllers.Api
                 user.UpdateCountry(countryName, email);
             }
 
-            return Success("true");
+            return Success();
         }
 
         [HttpPost]
@@ -129,7 +129,7 @@ namespace easygenerator.Web.Controllers.Api
 
             _userSubscriptionEventPublisher.Publish(new UserSubscriptionPurchased(user));
 
-            return Success("true");
+            return Success();
         }
 
         [HttpPost]
