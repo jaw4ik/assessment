@@ -64,22 +64,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Update
 
         [TestMethod]
-        public void Update_ShouldReturnBadRequestResult_WhenUserEmailIsNull()
-        {
-            var result = _controller.Update(null);
-
-            result.Should().BeUnprocessableEntityResultWithMessage("Not valid email");
-        }
-
-        [TestMethod]
-        public void Update_ShouldReturnBadRequestResult_WhenUserEmailIsEmpty()
-        {
-            var result = _controller.Update("");
-
-            result.Should().BeUnprocessableEntityResultWithMessage("Not valid email");
-        }
-
-        [TestMethod]
         public void Update_ShouldReturnBadRequestResult_WhenUserDoesNotExists()
         {
             const string email = "test@test.test";
@@ -222,22 +206,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #endregion
 
         #region Update Subscription
-
-        [TestMethod]
-        public void UpdateSubscription_ShouldReturnBadRequestResult_WhenUserEmailIsNull()
-        {
-            var result = _controller.UpdateSubscription(null, null, null);
-
-            result.Should().BeUnprocessableEntityResultWithMessage("Not valid email");
-        }
-
-        [TestMethod]
-        public void Updatesubscription_ShouldReturnBadRequestResult_WhenUserEmailIsEmpty()
-        {
-            var result = _controller.UpdateSubscription("", null, null);
-
-            result.Should().BeUnprocessableEntityResultWithMessage("Not valid email");
-        }
 
         [TestMethod]
         public void UpdateSubscription_ShouldReturnBadRequestResult_WhenUserDoesNotExists()

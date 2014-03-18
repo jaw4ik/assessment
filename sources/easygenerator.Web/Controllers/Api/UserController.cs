@@ -59,9 +59,6 @@ namespace easygenerator.Web.Controllers.Api
             string organization = "",
             string country = "")
         {
-            if (string.IsNullOrEmpty(email))
-                return UnprocessableEntity("Not valid email");
-
             var user = _repository.GetUserByEmail(email);
             if (user == null)
                 return UnprocessableEntity("User does not exist");
@@ -104,16 +101,9 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/user/update-subscription")]
         public ActionResult UpdateSubscription(string email, long? exp_date, AccessType? plan)
         {
-            if (string.IsNullOrEmpty(email))
-            {
-                return UnprocessableEntity("Not valid email");
-            }
-
             var user = _repository.GetUserByEmail(email);
             if (user == null)
-            {
                 return UnprocessableEntity("User does not exist");
-            }
 
             if (plan.HasValue)
             {

@@ -1,6 +1,7 @@
-﻿using System.Linq;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
+using System.Linq;
 
 namespace easygenerator.DataAccess.Repositories
 {
@@ -13,6 +14,7 @@ namespace easygenerator.DataAccess.Repositories
 
         public User GetUserByEmail(string email)
         {
+            ArgumentValidation.ThrowIfNullOrEmpty(email, "email");
             return _dataContext.GetSet<User>().SingleOrDefault(user => user.Email == email);
         }
     }
