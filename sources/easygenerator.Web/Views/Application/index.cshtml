@@ -33,6 +33,7 @@
     </script>
 
     @Scripts.Render("~/scripts/vendor")
+    <script src="signalr/hubs"></script>
 
     @if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
     {

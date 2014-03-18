@@ -16,7 +16,9 @@
             if (_.isString(user.email)) {
                 userContext.identity = {
                     email: user.email,
-                    fullname: user.fullname,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    fullname: (user.firstname + ' ' + user.lastname).trim(),
                     accessType: _.find(constants.accessType, function (item) { return item == user.accessType; })
                 };
             } else {

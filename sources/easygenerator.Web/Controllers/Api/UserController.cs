@@ -23,7 +23,8 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityFactory _entityFactory;
         private readonly IAuthenticationProvider _authenticationProvider;
         private readonly ISignupFromTryItNowHandler _signupFromTryItNowHandler;
-        private readonly IDomainEventPublisher<UserSignedUpEvent> _publisher;
+        private readonly IDomainEventPublisher<UserSignedUpEvent> _userSignedUpEventPublisher;
+        private readonly IDomainEventPublisher<UserSubscriptionPurchased> _userSubscriptionEventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly ConfigurationReader _configurationReader;
 
@@ -31,7 +32,8 @@ namespace easygenerator.Web.Controllers.Api
             IEntityFactory entityFactory,
             IAuthenticationProvider authenticationProvider,
             ISignupFromTryItNowHandler signupFromTryItNowHandler,
-            IDomainEventPublisher<UserSignedUpEvent> publisher,
+            IDomainEventPublisher<UserSignedUpEvent> userSignedUpEventPublisher,
+            IDomainEventPublisher<UserSubscriptionPurchased> userSubscriptionEventPublisher,
             IMailSenderWrapper mailSenderWrapper,
             ConfigurationReader configurationReader)
         {
@@ -39,7 +41,8 @@ namespace easygenerator.Web.Controllers.Api
             _entityFactory = entityFactory;
             _authenticationProvider = authenticationProvider;
             _signupFromTryItNowHandler = signupFromTryItNowHandler;
-            _publisher = publisher;
+            _userSignedUpEventPublisher = userSignedUpEventPublisher;
+            _userSubscriptionEventPublisher = userSubscriptionEventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
             _configurationReader = configurationReader;
         }
@@ -48,12 +51,12 @@ namespace easygenerator.Web.Controllers.Api
         [AllowAnonymous]
         [WooCommerceTokenAuthorize]
         [Route("api/user/update")]
-        public ActionResult Update(string email, 
+        public ActionResult Update(string email,
             string password = "",
-            string firstName = "", 
+            string firstName = "",
             string lastName = "",
-            string phone = "", 
-            string organization = "", 
+            string phone = "",
+            string organization = "",
             string country = "")
         {
             if (string.IsNullOrEmpty(email))
@@ -130,6 +133,8 @@ namespace easygenerator.Web.Controllers.Api
                 }
             }
 
+            _userSubscriptionEventPublisher.Publish(new UserSubscriptionPurchased(user));
+
             return Success("true");
         }
 
@@ -162,7 +167,7 @@ namespace easygenerator.Web.Controllers.Api
                 profile.Organization, profile.Country, profile.Email, new UserSettings(profile.Email, true), subscription);
 
             _repository.Add(user);
-            _publisher.Publish(new UserSignedUpEvent(user, profile.PeopleBusyWithCourseDevelopmentAmount, profile.NeedAuthoringTool, profile.UsedAuthoringTool));
+            _userSignedUpEventPublisher.Publish(new UserSignedUpEvent(user, profile.PeopleBusyWithCourseDevelopmentAmount, profile.NeedAuthoringTool, profile.UsedAuthoringTool));
 
             if (User.Identity.IsAuthenticated && _repository.GetUserByEmail(User.Identity.Name) == null)
             {
@@ -237,7 +242,7 @@ namespace easygenerator.Web.Controllers.Api
                 return Json(new { });
             }
 
-            return Json(new { email = user.Email, fullname = user.FullName, accessType = user.Subscription.AccessType });
+            return Json(new { email = user.Email, firstname = user.FirstName, lastname = user.LastName, accessType = user.Subscription.AccessType });
 
         }
 

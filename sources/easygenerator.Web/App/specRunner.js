@@ -34,6 +34,7 @@
         'introduction/welcome.spec',
         'localization/localizationManager.spec',
         'models/course.spec',
+        'user/subscriptionExpirationNotificationTask.spec',
  //       'repositories/answerRepository.spec',
 
         /* UNSORTED SPECS */

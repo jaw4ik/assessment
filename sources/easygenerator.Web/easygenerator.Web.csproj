@@ -75,10 +75,30 @@
     <Reference Include="Ionic.Zip">
       <HintPath>..\..\packages\DotNetZip.1.9.2\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.0.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.0.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.2.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="RazorEngine, Version=3.4.1.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -177,6 +197,7 @@
     <Content Include="App\bootstrapping\errorHandlingTask.js" />
     <Content Include="App\bootstrapping\localizationTask.js" />
     <Content Include="App\bootstrapping\knockoutBindingsTask.js" />
+    <Content Include="App\bootstrapping\schedulerTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
     <Content Include="App\help\helpHintPositioning.js" />
     <Content Include="App\models\comment.js" />
@@ -187,6 +208,11 @@
       <DependentUpon>routerExtender.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\commentRepository.js" />
+    <Content Include="App\scheduler.js" />
+    <Content Include="App\notifications\templates\expirationNotification.js" />
+    <Content Include="App\notifications\templates\expirationNotification.html">
+      <DependentUpon>expirationNotification.js</DependentUpon>
+    </Content>
     <Content Include="App\treeOfContent\commands\createQuestionCommand.js" />
     <Content Include="App\treeOfContent\commands\createQuestionCommand.spec.js">
       <DependentUpon>createQuestionCommand.js</DependentUpon>
@@ -235,6 +261,10 @@
     <Content Include="App\treeOfContent\treeOfContent.js" />
     <Content Include="App\treeOfContent\handlers\treeOfContentTraversal.js" />
     <Content Include="App\treeOfContent\handlers\treeOfContentAutoExpandHandler.js" />
+    <Content Include="App\user\subscriptionExpirationNotificationTask.js" />
+    <Content Include="App\user\subscriptionExpirationNotificationTask.spec.js">
+      <DependentUpon>subscriptionExpirationNotificationTask.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\common\contentField.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.spec.js">
@@ -431,6 +461,7 @@
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\ContainerConfiguration.cs" />
     <Compile Include="Configuration\FilterConfiguration.cs" />
+    <Compile Include="Configuration\OwinConfiguration.cs" />
     <Compile Include="Configuration\RouteConfiguration.cs" />
     <Compile Include="Configuration\TaskConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -523,6 +554,8 @@
     <Content Include="Content\panels.css" />
     <Content Include="Content\treeOfContent.css" />
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
+    <Compile Include="Hubs\SynchronizationEventHandler.cs" />
+    <Compile Include="Hubs\SyncHub.cs" />
     <Compile Include="Mail\MailNotificationManager.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -829,6 +862,8 @@
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.2.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-3.1.0.debug.js" />

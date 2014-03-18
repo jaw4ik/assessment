@@ -31,7 +31,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IEntityFactory _entityFactory;
         private IAuthenticationProvider _authenticationProvider;
         private ISignupFromTryItNowHandler _signupFromTryItNowHandler;
-        private IDomainEventPublisher<UserSignedUpEvent> _publisher;
+        private IDomainEventPublisher<UserSignedUpEvent> _userSignedUpEventPublisher;
+        private IDomainEventPublisher<UserSubscriptionPurchased> _userSubscriptionPurchasedEventPublisher;
         private IMailSenderWrapper _mailSenderWrapper;
         private ConfigurationReader _configurationReader;
 
@@ -45,11 +46,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory = Substitute.For<IEntityFactory>();
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _signupFromTryItNowHandler = Substitute.For<ISignupFromTryItNowHandler>();
-            _publisher = Substitute.For<IDomainEventPublisher<UserSignedUpEvent>>();
+            _userSignedUpEventPublisher = Substitute.For<IDomainEventPublisher<UserSignedUpEvent>>();
+            _userSubscriptionPurchasedEventPublisher = Substitute.For<IDomainEventPublisher<UserSubscriptionPurchased>>();
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
             _configurationReader = Substitute.For<ConfigurationReader>();
 
-            _controller = new UserController(_userRepository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _publisher, _mailSenderWrapper, _configurationReader);
+            _controller = new UserController(_userRepository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _userSignedUpEventPublisher, _userSubscriptionPurchasedEventPublisher, _mailSenderWrapper, _configurationReader);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -422,7 +424,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Signup(profile);
 
             //Assert
-            _publisher.Received().Publish
+            _userSignedUpEventPublisher.Received().Publish
                 (
                     Arg.Is<UserSignedUpEvent>(_ => _.User == user && _.UsedAuthoringTool == profile.UsedAuthoringTool && _.CourseDevelopersCount == profile.PeopleBusyWithCourseDevelopmentAmount
                     && _.WhenNeedAuthoringTool == profile.NeedAuthoringTool)
@@ -804,7 +806,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             result.Should().BeJsonResult().And.Data.ShouldBeSimilar(new
             {
                 email = user.Email,
-                fullname = user.FirstName + " " + user.LastName,
+                firstname = user.FirstName,
+                lastname = user.LastName,
                 accessType = user.Subscription.AccessType
             });
         }
