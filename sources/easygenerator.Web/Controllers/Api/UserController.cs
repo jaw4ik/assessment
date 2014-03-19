@@ -61,7 +61,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             var user = _repository.GetUserByEmail(email);
             if (user == null)
-                return UnprocessableEntity("User does not exist");
+                return UnprocessableEntity("User with specified email does not exist");
 
             if (!string.IsNullOrEmpty(password))
             {
@@ -103,7 +103,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             var user = _repository.GetUserByEmail(email);
             if (user == null)
-                return UnprocessableEntity("User does not exist");
+                return UnprocessableEntity("User with specified email does not exist");
 
             if (plan.HasValue)
             {

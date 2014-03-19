@@ -71,7 +71,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.Update(email);
 
-            result.Should().BeUnprocessableEntityResultWithMessage("User does not exist");
+            result.Should().BeUnprocessableEntityResultWithMessage("User with specified email does not exist");
         }
 
         [TestMethod]
@@ -215,7 +215,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.UpdateSubscription(email, null, null);
 
-            result.Should().BeUnprocessableEntityResultWithMessage("User does not exist");
+            result.Should().BeUnprocessableEntityResultWithMessage("User with specified email does not exist");
         }
 
         [TestMethod]

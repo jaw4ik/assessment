@@ -36,8 +36,7 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
             {
                 throw new InvalidOperationException();
             }
-
-
+            
             var key = authorizationContext.HttpContext.Request.QueryString["key"];
             var apiKeys = from ApiKeyElement e in ConfigurationReader.ExternalApi.ApiKeys
                          where e.Name == ApiKeyName

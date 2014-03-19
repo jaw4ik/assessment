@@ -162,7 +162,7 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNullOrEmpty(password, "password");
 
             if (password.Length < 7)
-                throw new ArgumentException("Password should be longer then 7 symbols", "password");
+                throw new ArgumentException("Password should be longer than 7 symbols", "password");
 
             if (!Regex.IsMatch(password, @"\d"))
                 throw new ArgumentException("Password should contain at least one digit symbol", "password");
