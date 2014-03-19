@@ -64,25 +64,20 @@ namespace easygenerator.Web.Controllers.Api
                 return UnprocessableEntity("User with specified email does not exist");
 
             if (!string.IsNullOrEmpty(password))
-            {
                 user.UpdatePassword(password, email);
-            }
+
             if (!string.IsNullOrEmpty(firstName))
-            {
                 user.UpdateFirstName(firstName, email);
-            }
+
             if (!string.IsNullOrEmpty(lastName))
-            {
                 user.UpdateLastName(lastName, email);
-            }
+
             if (!string.IsNullOrEmpty(phone))
-            {
                 user.UpdatePhone(phone, email);
-            }
+
             if (!string.IsNullOrEmpty(organization))
-            {
                 user.UpdateOrganization(organization, email);
-            }
+
             if (!string.IsNullOrEmpty(country))
             {
                 var countryName = PhoneCodeCollection.GetCountryByCode(country);
@@ -108,13 +103,9 @@ namespace easygenerator.Web.Controllers.Api
             if (plan.HasValue)
             {
                 if (exp_date.HasValue)
-                {
                     user.Subscription.UpdatePlan(plan.Value, new DateTime(exp_date.Value));
-                }
                 else
-                {
                     user.Subscription.UpdatePlan(plan.Value, null);
-                }
             }
 
             _userSubscriptionEventPublisher.Publish(new UserSubscriptionPurchased(user));
