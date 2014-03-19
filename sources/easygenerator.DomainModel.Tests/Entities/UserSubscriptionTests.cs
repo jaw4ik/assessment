@@ -101,7 +101,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Starter, DateTime.MaxValue);
-            Action action = () => userSubscription.UpdatePlan(AccessType.Free, DateTime.MinValue);
+            Action action = () => userSubscription.UpdatePlan(AccessType.Starter, DateTime.MinValue);
 
             //Act & Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
@@ -115,7 +115,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             Action action = () => userSubscription.UpdatePlan((AccessType)100500, DateTime.MaxValue);
 
             //Act & Assert
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("accessType");
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("plan");
         }
 
         #endregion
