@@ -259,7 +259,7 @@
                     it('should create actor data', function () {
                         spyOn(xApiInitializer, 'createActor');
                         viewModel.login();
-                        expect(xApiInitializer.createActor).toHaveBeenCalledWith(viewModel.username, viewModel.usermail);
+                        expect(xApiInitializer.createActor).toHaveBeenCalledWith(viewModel.username(), viewModel.usermail());
                     });
 
                     var xApiInitializerInitDefer, xApiInitializerInitPromise;
@@ -276,7 +276,7 @@
                         };
                         var
                             url = window.top.location.toString() + '?course_id=' + context.course.id,
-                            actor = xApiInitializer.createActor(viewModel.username, viewModel.usermail);
+                            actor = xApiInitializer.createActor(viewModel.username(), viewModel.usermail());
 
                         viewModel.login();
                         expect(xApiInitializer.init).toHaveBeenCalledWith(actor, context.course.title, url);
