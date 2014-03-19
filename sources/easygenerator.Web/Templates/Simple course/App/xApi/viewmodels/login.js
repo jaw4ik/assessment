@@ -65,7 +65,7 @@
                 }
 
                 var url = pageUrl + '?course_id=' + context.course.id;
-                var actor = xApiInitializer.createActor(viewModel.username, viewModel.usermail);
+                var actor = xApiInitializer.createActor(viewModel.username(), viewModel.usermail());
                 xApiInitializer.init(actor, title, url).then(function () {
                     startCourse();
                 }).fail(function (reason) {
