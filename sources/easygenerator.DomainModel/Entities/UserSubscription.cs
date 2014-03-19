@@ -40,7 +40,7 @@ namespace easygenerator.DomainModel.Entities
         private void ThrowIfSubscriptionPlanIsInvalid(AccessType plan)
         {
             if (!Enum.IsDefined(typeof(AccessType), plan))
-                throw new ArgumentException("Access type is invalid", "plan");
+                throw new ArgumentException("Subscription plan is invalid", "plan");
         }
 
         private void ThrowIfExpirationDateIsInvalid(AccessType accessType, DateTime? expirationDate)
