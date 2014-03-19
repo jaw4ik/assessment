@@ -43,11 +43,11 @@ namespace easygenerator.DomainModel.Entities
                 throw new ArgumentException("Subscription plan is invalid", "plan");
         }
 
-        private void ThrowIfExpirationDateIsInvalid(AccessType accessType, DateTime? expirationDate)
+        private void ThrowIfExpirationDateIsInvalid(AccessType plan, DateTime? expirationDate)
         {
-            if (accessType == AccessType.Free && expirationDate.HasValue)
+            if (plan == AccessType.Free && expirationDate.HasValue)
             {
-                throw new ArgumentException("Free access type subscription cannot have ExpirationDate", "expirationDate");
+                throw new ArgumentException("Free subscription plan cannot have ExpirationDate", "expirationDate");
             }
 
             if (expirationDate.HasValue && expirationDate.Value < SqlDateTime.MinValue.Value)
