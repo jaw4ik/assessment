@@ -11,7 +11,7 @@ namespace easygenerator.Web.Configuration
         {
             ModelBinderProviders.BinderProviders.Add(new EntityModelBinderProvider());
             ModelBinderProviders.BinderProviders.Add(new EntityCollectionModelBinderProvider());
-            ModelBinders.Binders.Add(typeof(DateTime), new DateTimeModelBinder());
+            ModelBinders.Binders.Add(typeof(DateTime?), new DateTimeModelBinder());
         }
     }
 }
