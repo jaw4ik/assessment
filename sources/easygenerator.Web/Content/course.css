@@ -397,6 +397,16 @@
     vertical-align: middle;
 }
 
+@media (max-width: 1200px) {
+    .package-action-btn-control {
+        display: block;
+    }
+
+    .package-action-btn-wrapper, .package-action-btn-message-wrapper {
+        display: block;
+    }
+}
+
 .package-action-access-message {
     color: #67799C;
     font-family: 'OpenSans';
