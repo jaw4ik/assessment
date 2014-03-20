@@ -132,6 +132,7 @@
     <Compile Include="BuildCourse\PackageModelMapperTests.cs" />
     <Compile Include="BuildCourse\PhysicalFileManagerTests.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransformTests.cs" />
+    <Compile Include="Components\ModelBinding\DateTimeModelBinderTests.cs" />
     <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraintTest.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\Api\AnswerControllerTests.cs" />

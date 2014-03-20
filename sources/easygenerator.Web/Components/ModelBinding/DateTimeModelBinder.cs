@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Components.ModelBinding
 {
@@ -17,11 +18,11 @@ namespace easygenerator.Web.Components.ModelBinding
             long ticks;
             if (long.TryParse(submittedValue, out ticks))
             {
-                return new System.DateTime(ticks);
+                return new DateTime(ticks);
             }
 
-            System.DateTime date;
-            if (!System.DateTime.TryParse(submittedValue, out date))
+            DateTime date;
+            if (!DateTime.TryParse(submittedValue, out date))
             {
                 return null;
             }
