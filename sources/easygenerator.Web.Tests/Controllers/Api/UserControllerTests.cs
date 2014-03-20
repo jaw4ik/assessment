@@ -272,6 +272,17 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void UpgradeToStarter_ShouldReturnUnprocessableEntityResult_WhenExpirationDateIsNull()
+        {
+            const string email = "test@test.test";
+            _userRepository.GetUserByEmail(email).Returns((User)null);
+
+            var result = _controller.UpgradeToStarter(email, null);
+
+            result.Should().BeUnprocessableEntityResultWithMessage("Expiration date is not specified or specified in wrong format");
+        }
+
+        [TestMethod]
         public void UpgradeToStarter_ShouldReturnSuccessResult_WhenUserExists()
         {
             const string email = "test@test.test";

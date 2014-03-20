@@ -111,13 +111,16 @@ namespace easygenerator.Web.Controllers.Api
         [AllowAnonymous]
         [ExternalApiAuthorize("wooCommerce")]
         [Route("api/user/subscription/starter")]
-        public ActionResult UpgradeToStarter(string email, DateTime expirationDate)
+        public ActionResult UpgradeToStarter(string email, DateTime? expirationDate)
         {
+            if (!expirationDate.HasValue)
+                return UnprocessableEntity("Expiration date is not specified or specified in wrong format");
+
             var user = _repository.GetUserByEmail(email);
             if (user == null)
                 return UnprocessableEntity("User with specified email does not exist");
 
-            user.Subscription.UpgradeToStarter(expirationDate);
+            user.Subscription.UpgradeToStarter(expirationDate.Value);
 
             _userSubscriptionEventPublisher.Publish(new UserSubscriptionPurchased(user));
 

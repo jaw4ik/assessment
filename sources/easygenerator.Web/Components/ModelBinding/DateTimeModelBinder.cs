@@ -26,7 +26,7 @@ namespace easygenerator.Web.Components.ModelBinding
                 return null;
             }
 
-            return bindingContext.ModelMetadata.Model;
+            return date;
         }
     }
 }
