@@ -1,29 +1,32 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using Autofac;
+﻿using Autofac;
 using Autofac.Builder;
 using Autofac.Integration.Mvc;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
+using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Http;
+using easygenerator.Infrastructure.Mail;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Components.Elmah;
 using easygenerator.Web.Components.ModelBinding;
-using System.Reflection;
-using System;
-using System.Collections.Generic;
 using easygenerator.Web.Components.RouteConstraints;
 using easygenerator.Web.Components.Tasks;
 using easygenerator.Web.Mail;
-using easygenerator.DomainModel.Events;
-using easygenerator.Web.Publish;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
-using easygenerator.Web.Components.Http;
+using easygenerator.Web.Publish;
 using easygenerator.Web.Storage;
+using easygenerator.Web.WooCommerce;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Configuration
 {
@@ -72,11 +75,11 @@ namespace easygenerator.Web.Configuration
 
             #region Mail sender dependecies
 
-            builder.RegisterType<MailTemplatesProvider>().SingleInstance();
+            builder.RegisterType<MailTemplatesProvider>().As<IMailTemplatesProvider>().SingleInstance();
             builder.RegisterType<MailNotificationManager>().As<IMailNotificationManager>().SingleInstance();
             builder.RegisterType<MailSender>().As<IMailSender>().SingleInstance();
             builder.RegisterType<MailSenderWrapper>().As<IMailSenderWrapper>().SingleInstance();
-            builder.RegisterType<MailSettings>().SingleInstance();
+            builder.RegisterType<MailSettings>().As<MailSettings>().As<IMailSettings>().SingleInstance();
             builder.RegisterType<MailSenderTask>().SingleInstance();
 
             #endregion
@@ -90,10 +93,23 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
+            #region WooCommerce dependencies
+
+            builder.RegisterType<WooCommerceApiService>().As<IWooCommerceApiService>().SingleInstance();
+
+            #endregion
+
+            #region Http requests sender dependencies
+
+            builder.RegisterType<HttpRequestsSenderTask>().SingleInstance();
+            builder.RegisterType<HttpRequestsManager>().As<IHttpRequestsManager>().SingleInstance();
+
+            #endregion
+
             #region NewsLetter
 
             builder.RegisterType<MailChimpSubscriptionManager>().As<INewsletterSubscriptionManager>().SingleInstance();
-            builder.RegisterType<HttpHelper>().As<HttpHelper>().SingleInstance();
+            builder.RegisterType<HttpClient>().As<HttpClient>().SingleInstance();
 
             #endregion
 
@@ -112,6 +128,12 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<Storage.Storage>().As<IStorage>();
 
             builder.RegisterType<ImageValidator>().As<IImageValidator>();
+
+            #region Log
+
+            builder.RegisterType<ElmahLog>().As<ILog>().SingleInstance();
+
+            #endregion 
 
             var container = builder.Build();
 

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace easygenerator.DataAccess
+namespace easygenerator.Infrastructure.Http
 {
-    public interface IUnitOfWork
+    public interface IHttpClientWrapper
     {
-        void Save();
     }
 }

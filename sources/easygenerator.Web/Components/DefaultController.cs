@@ -1,7 +1,7 @@
-﻿using easygenerator.DataAccess;
+﻿using System.Net;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components.ActionResults;
 using System;
-using System.Net;
 using System.Web.Mvc;
 
 namespace easygenerator.Web.Components

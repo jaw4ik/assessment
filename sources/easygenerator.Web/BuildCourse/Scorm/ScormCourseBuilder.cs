@@ -16,8 +16,8 @@ namespace easygenerator.Web.BuildCourse.Scorm
         private const string MetadataRazorTemplatePath = "~/BuildCourse/Scorm/Templates/metadata.cshtml";
         private const string JsFilesPath = "~/BuildCourse/Scorm/js";
 
-        public ScormCourseBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator, BuildContentProvider buildContentProvider, RazorTemplateProvider razorTemplateProvider)
-            : base(fileManager, buildPathProvider, buildPackageCreator, buildContentProvider)
+        public ScormCourseBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator, BuildContentProvider buildContentProvider, RazorTemplateProvider razorTemplateProvider, ILog logger)
+            : base(fileManager, buildPathProvider, buildPackageCreator, buildContentProvider, logger)
         {
             _razorTemplateProvider = razorTemplateProvider;
         }

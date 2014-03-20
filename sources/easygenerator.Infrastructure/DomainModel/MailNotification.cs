@@ -1,24 +1,26 @@
-﻿using easygenerator.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
-namespace easygenerator.DomainModel.Entities
+namespace easygenerator.Infrastructure.DomainModel
 {
-    public class MailNotification : Entity
+    public class MailNotification
     {
+        public Guid Id { get; private set; }
         public string Subject { get; private set; }
         public string ToEmailAddresses { get; private set; }
         public string CCEmailAddresses { get; private set; }
         public string BCCEmailAddresses { get; private set; }
         public string FromEmailAddress { get; private set; }
         public string Body { get; private set; }
+        public DateTime CreatedOn { get; private set; }
 
-        protected internal MailNotification() {}
+        protected internal MailNotification()
+        {
+            Id = Guid.NewGuid();
+            CreatedOn = DateTimeWrapper.Now();
+        }
 
         protected internal MailNotification(string body, string subject, string fromEmailAddress, string toEmailAddresses)
+            : this()
         {
             ArgumentValidation.ThrowIfNullOrEmpty(body, "body");
             ArgumentValidation.ThrowIfNullOrEmpty(subject, "subject");

@@ -1,7 +1,6 @@
 ﻿using System;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
-using easygenerator.Web.Components;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.BuildCourse
@@ -12,13 +11,15 @@ namespace easygenerator.Web.BuildCourse
         protected readonly BuildPathProvider BuildPathProvider;
         protected readonly BuildPackageCreator BuildPackageCreator;
         protected readonly BuildContentProvider BuildContentProvider;
+        protected readonly ILog Logger;
 
-        protected CourseBuilderBase(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator, BuildContentProvider buildContentProvider)
+        protected CourseBuilderBase(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator, BuildContentProvider buildContentProvider, ILog logger)
         {
             FileManager = fileManager;
             BuildPathProvider = buildPathProvider;
             BuildPackageCreator = buildPackageCreator;
             BuildContentProvider = buildContentProvider;
+            Logger = logger;
         }
 
         public virtual bool Build(Course course)
@@ -39,7 +40,7 @@ namespace easygenerator.Web.BuildCourse
             }
             catch (Exception exception)
             {
-                ElmahLog.LogException(exception);
+                Logger.LogException(exception);
                 isBuildSuccessful = false;
             }
 
@@ -50,7 +51,7 @@ namespace easygenerator.Web.BuildCourse
             }
             catch (Exception exception)
             {
-                ElmahLog.LogException(exception);
+                Logger.LogException(exception);
             }
 
             return isBuildSuccessful;

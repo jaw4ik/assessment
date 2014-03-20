@@ -1,8 +1,9 @@
-﻿using System.Configuration;
+﻿using easygenerator.Infrastructure.Mail;
+using System.Configuration;
 
 namespace easygenerator.Web.Components.Configuration.MailSender
 {
-    public class MailTemplate : ConfigurationElement
+    public class MailTemplate : ConfigurationElement, IMailTemplate
     {
         [ConfigurationProperty("name", IsRequired = true)]
         public string Name

@@ -1,5 +1,4 @@
-﻿using easygenerator.DataAccess;
-using easygenerator.DomainModel.Repositories;
+﻿using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.Web.Components.Tasks

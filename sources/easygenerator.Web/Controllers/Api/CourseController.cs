@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Threading;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
@@ -13,8 +10,6 @@ using easygenerator.Web.Components;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Publish;
-using Elmah;
-using Microsoft.Ajax.Utilities;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Extensions;
 

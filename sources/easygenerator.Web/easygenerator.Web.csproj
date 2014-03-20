@@ -182,6 +182,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Configuration\HttpRequestsSenderConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\WooCommerceConfigurationSection.cs" />
+    <Compile Include="Components\Tasks\HttpRequestsSenderTask.cs" />
+    <Compile Include="Components\Elmah\ElmahLog.cs" />
+    <Compile Include="Components\Elmah\SqlErrorLogExtended.cs" />
+    <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
+    <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Content Include="..\..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll">
       <Link>AutoMapper.Net4.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -445,8 +452,6 @@
     <Compile Include="Components\Configuration\MailSender\MailSenderConfigurationSection.cs" />
     <Compile Include="Components\Configuration\MailSender\MailTemplate.cs" />
     <Compile Include="Components\Configuration\MailSender\MailTemplateCollection.cs" />
-    <Compile Include="Components\ElmahLog.cs" />
-    <Compile Include="Components\Http\HttpHelper.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinder.cs" />
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinderProvider.cs" />
     <Compile Include="Components\ModelBinding\EntityModelBinder.cs" />
@@ -457,7 +462,7 @@
     <Compile Include="Components\Tasks\AccessTypeExpirationTask.cs" />
     <Compile Include="Components\Tasks\PasswordRecoveryTicketExpirationTask.cs" />
     <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraint.cs" />
-    <Compile Include="Components\PhoneCodeCollection.cs" />
+    <Compile Include="Components\CountriesInfo.cs" />
     <Compile Include="Components\Tasks\CacheExpirationTaskInvoker.cs" />
     <Compile Include="Components\Tasks\Scheduler.cs" />
     <Compile Include="Components\UrlHelperWrapper.cs" />
@@ -485,6 +490,7 @@
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\PublishedPackageController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
+    <Compile Include="DomainEvents\Handlers\RegisterWooCommerceUserHandler.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
     <Compile Include="DomainEvents\Handlers\SubscribeForNewslettersHandler.cs" />
@@ -560,9 +566,6 @@
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
     <Compile Include="Hubs\SynchronizationEventHandler.cs" />
     <Compile Include="Hubs\SyncHub.cs" />
-    <Compile Include="Mail\MailNotificationManager.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Mail\MailSender.cs" />
     <Compile Include="Mail\MailSettings.cs" />
     <Compile Include="Mail\MailSenderTask.cs" />
@@ -852,6 +855,7 @@
       <DependentUpon>passwordrecovery.js</DependentUpon>
     </Content>
     <Content Include="App\specs.html" />
+    <Content Include="Mail\MailTemplates\HttpRequestFailedTemplate.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jasmine\boot.js" />
     <Content Include="Scripts\jasmine\jasmine-html.js" />
@@ -1680,6 +1684,7 @@
     <Content Include="Views\Application\splash.cshtml" />
     <None Include="Web.AutoTests.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

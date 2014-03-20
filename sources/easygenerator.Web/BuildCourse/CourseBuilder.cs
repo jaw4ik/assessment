@@ -5,8 +5,8 @@ namespace easygenerator.Web.BuildCourse
 {
     public class CourseBuilder : CourseBuilderBase
     {
-        public CourseBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator, BuildContentProvider buildContentProvider)
-            : base(fileManager, buildPathProvider, buildPackageCreator, buildContentProvider)
+        public CourseBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator, BuildContentProvider buildContentProvider, ILog logger)
+            : base(fileManager, buildPathProvider, buildPackageCreator, buildContentProvider, logger)
         {
 
         }

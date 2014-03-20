@@ -1,27 +1,17 @@
 ﻿using System;
-using easygenerator.DataAccess;
-using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure.DomainModel;
 
-namespace easygenerator.Web.Mail
+namespace easygenerator.Infrastructure.Mail
 {
-    public interface IMailNotificationManager
-    {
-        void AddMailNotificationToQueue(string templateName, dynamic templateModel, string fromAddress = null);
-    }
-
     public class MailNotificationManager : IMailNotificationManager
     {
-        private readonly IEntityFactory _entityFactory;
-        private readonly MailSettings _senderSettings;
+        private readonly IMailSettings _senderSettings;
         private readonly IMailNotificationRepository _mailNotificationRepository;
         private readonly IUnitOfWork _dataContext;
-        private readonly MailTemplatesProvider _mailTemplatesProvider;
+        private readonly IMailTemplatesProvider _mailTemplatesProvider;
 
-        public MailNotificationManager(IEntityFactory factory, IMailNotificationRepository mailNotificationRepository, IUnitOfWork unitOfWork, MailSettings senderSettings, MailTemplatesProvider mailTemplatesProvider)
+        public MailNotificationManager(IMailNotificationRepository mailNotificationRepository, IUnitOfWork unitOfWork, IMailSettings senderSettings, IMailTemplatesProvider mailTemplatesProvider)
         {
-            _entityFactory = factory;
             _senderSettings = senderSettings;
             _mailNotificationRepository = mailNotificationRepository;
             _dataContext = unitOfWork;
@@ -42,7 +32,7 @@ namespace easygenerator.Web.Mail
 
             // override from address from settings with address specified in method parameter
             string fromEmail = !String.IsNullOrWhiteSpace(fromAddress) ? fromAddress : templateSettings.From;
-            return _entityFactory.MailNotification(emailBody, templateSettings.Subject, fromEmail,
+            return new MailNotification(emailBody, templateSettings.Subject, fromEmail,
                 templateSettings.To, templateSettings.Cc, templateSettings.Bcc);
         }
     }

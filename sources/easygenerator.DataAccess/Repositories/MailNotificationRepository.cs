@@ -1,23 +1,33 @@
 ﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Repositories;
-using System;
+using easygenerator.Infrastructure.DomainModel;
+using easygenerator.Infrastructure.Mail;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace easygenerator.DataAccess.Repositories
 {
-    public class MailNotificationRepository : Repository<MailNotification>, IMailNotificationRepository
+    public class MailNotificationRepository : IMailNotificationRepository
     {
+        protected readonly DatabaseContext _dataContext;
+
         public MailNotificationRepository(IDataContext dataContext)
-            : base(dataContext)
         {
+            _dataContext = (DatabaseContext)dataContext;
+        }
+
+        public void Add(MailNotification entity)
+        {
+            _dataContext.Set<MailNotification>().Add(entity);
+        }
+
+        public void Remove(MailNotification entity)
+        {
+            _dataContext.Set<MailNotification>().Remove(entity);
         }
 
         public ICollection<MailNotification> GetCollection(int batchSize)
         {
-            return _dataContext.GetSet<MailNotification>().OrderBy(_ => _.CreatedOn).Take(batchSize).ToList();
+            return _dataContext.Set<MailNotification>().OrderBy(_ => _.CreatedOn).Take(batchSize).ToList();
         }
     }
 }

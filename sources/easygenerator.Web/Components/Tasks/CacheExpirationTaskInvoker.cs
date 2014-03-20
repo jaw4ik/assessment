@@ -7,6 +7,12 @@ namespace easygenerator.Web.Components.Tasks
 {
     public class CacheExpirationTaskInvoker : ITaskInvoker
     {
+        private readonly ILog _logger;
+        public CacheExpirationTaskInvoker(ILog logger)
+        {
+            _logger = logger;
+        }
+
         private void CacheExpired(string k, object v, CacheItemRemovedReason r)
         {
             var task = (ITask)v;
@@ -16,7 +22,7 @@ namespace easygenerator.Web.Components.Tasks
             }
             catch (Exception e)
             {
-                ElmahLog.LogException(e);
+                _logger.LogException(e);
             }
             finally
             {

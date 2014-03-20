@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>Failed to send http request</title>
+</head>
+<body>
+    <span>Something went wrong while trying to send http request added by '@Model.ServiceName' service.</span>
+    <br />
+    <span>Request url: @Model.Url</span>
+    <br />
+    <span>Request verb: @Model.Verb</span>
+    <br />
+    <span>Request content: @Model.Content</span>
+    <br />
+    @if(@Model.SendAttempts > 0) {
+    <span>Number of attempts to send the request: @Model.SendAttempts</span>
+        <br />
+        <br />
+    }
+    <span>For more information, check the logs.</span>
+</body>
+</html>

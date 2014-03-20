@@ -1,8 +1,8 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.DomainModel;
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
-using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Mail
 {
@@ -18,6 +18,13 @@ namespace easygenerator.Web.Mail
 
     public class MailSender : IMailSender
     {
+        private readonly ILog _logger;
+
+        public MailSender(ILog logger)
+        {
+            _logger = logger;
+        }
+
         private const char AddressesSeparator = ';';
 
         public bool Send(MailNotification mail)
@@ -58,7 +65,7 @@ namespace easygenerator.Web.Mail
             }
             catch (Exception exception)
             {
-                ElmahLog.LogException(exception);
+                _logger.LogException(exception);
                 return false;
             }
             return true;

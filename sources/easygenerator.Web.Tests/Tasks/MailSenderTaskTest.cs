@@ -1,8 +1,7 @@
-﻿using easygenerator.DataAccess;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Repositories;
-using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.DomainModel;
+using easygenerator.Infrastructure.Mail;
+using easygenerator.Infrastructure.Tests.ObjectMothers;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Configuration.MailSender;
 using easygenerator.Web.Mail;

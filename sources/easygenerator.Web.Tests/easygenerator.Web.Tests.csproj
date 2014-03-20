@@ -156,6 +156,7 @@
     <Compile Include="Publish\PublishDispatcherTest.cs" />
     <Compile Include="Publish\CoursePublishingServiceTests.cs" />
     <Compile Include="Controllers\ReviewControllerTests.cs" />
+    <Compile Include="Tasks\HttpRequestsSenderTaskTests.cs" />
     <Compile Include="Tasks\PasswordRecoveryTicketExpirationTaskTest.cs" />
     <Compile Include="Tasks\MailSenderTaskTest.cs" />
     <Compile Include="Tasks\SchedulerTest.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Utils\ActionResultFluentAssertions.cs" />
     <Compile Include="Utils\DynamicFluentAssertions.cs" />
     <Compile Include="Utils\Extensions.cs" />
+    <Compile Include="WooCommerce\WooCommerceApiServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -183,6 +185,10 @@
     <ProjectReference Include="..\easygenerator.DomainModel\easygenerator.DomainModel.csproj">
       <Project>{B1A55D50-7948-471A-9FA8-403512C179A6}</Project>
       <Name>easygenerator.DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\easygenerator.Infrastructure.Tests\easygenerator.Infrastructure.Tests.csproj">
+      <Project>{97e87d9e-05fb-4082-8b09-2f1e07cdd392}</Project>
+      <Name>easygenerator.Infrastructure.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj">
       <Project>{E186A113-426B-4AB1-A4B1-5ECC54FA4E80}</Project>

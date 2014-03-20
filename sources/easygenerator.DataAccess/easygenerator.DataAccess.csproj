@@ -58,7 +58,6 @@
     <Compile Include="DataAccessModule.cs" />
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="DateTimeObjectMaterializer.cs" />
-    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IDataContext.cs" />
     <Compile Include="Migrations\201402251153129_ClearDefaultUserNameInUsersTable.cs" />
     <Compile Include="Migrations\201402251153129_ClearDefaultUserNameInUsersTable.Designer.cs">
@@ -80,9 +79,14 @@
     <Compile Include="Migrations\201403171357360_SeparateUserSubscription2.Designer.cs">
       <DependentUpon>201403171357360_SeparateUserSubscription2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201403191444493_CreateHttpRequestsTable.cs" />
+    <Compile Include="Migrations\201403191444493_CreateHttpRequestsTable.Designer.cs">
+      <DependentUpon>201403191444493_CreateHttpRequestsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
+    <Compile Include="Repositories\HttpRequestsReporitory.cs" />
     <Compile Include="Repositories\ImageFileRepository.cs" />
     <Compile Include="Repositories\MailNotificationRepository.cs" />
     <Compile Include="Repositories\ObjectiveRepository.cs" />
@@ -121,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201403171357360_SeparateUserSubscription2.resx">
       <DependentUpon>201403171357360_SeparateUserSubscription2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403191444493_CreateHttpRequestsTable.resx">
+      <DependentUpon>201403191444493_CreateHttpRequestsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -16,7 +16,7 @@
         <br />
         <label>Email Address: @Model.User.Email</label>
         <br />
-        <label>Phone Number: (@PhoneCodeCollection.GetPhoneCode(@Model.User.Country)) @Model.User.Phone.Replace(@PhoneCodeCollection.GetPhoneCode(@Model.User.Country),"")</label>
+        <label>Phone Number: (@CountriesInfo.GetCountryPhoneCode(@Model.User.Country)) @Model.User.Phone.Replace(@CountriesInfo.GetCountryPhoneCode(@Model.User.Country), "")</label>
         <br />
         <label>Country: @Model.User.Country</label>
         <br />

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.IO;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Infrastructure;
-using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Publish
 {
@@ -12,12 +10,14 @@ namespace easygenerator.Web.Publish
         private readonly BuildPathProvider _pathProvider;
         private readonly PhysicalFileManager _fileManager;
         private readonly IPublishDispatcher _publishDispatcher;
+        private readonly ILog _logger;
 
-        public CoursePublisher(PhysicalFileManager fileManager, BuildPathProvider pathProvider, IPublishDispatcher publishDispatcher)
+        public CoursePublisher(PhysicalFileManager fileManager, BuildPathProvider pathProvider, IPublishDispatcher publishDispatcher, ILog logger)
         {
             _pathProvider = pathProvider;
             _fileManager = fileManager;
             _publishDispatcher = publishDispatcher;
+            _logger = logger;
         }
 
         public bool Publish(Course course, string destinationDirectory)
@@ -41,7 +41,7 @@ namespace easygenerator.Web.Publish
             }
             catch (Exception exception)
             {
-                ElmahLog.LogException(exception);
+                _logger.LogException(exception);
                 return false;
             }
             finally

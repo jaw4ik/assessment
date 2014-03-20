@@ -3,30 +3,30 @@ using System.Linq;
 
 namespace easygenerator.Web.Components
 {
-    public class PhoneCodeCollection
+    public static class CountriesInfo
     {
-        public static string GetPhoneCode(string country)
+        public static string GetCountryPhoneCode(string countryName)
         {
-            return CountriesInfo.SingleOrDefault(i => i.Key == country).Value.PhoneCode;
+            return CountriesInfoDictionary.SingleOrDefault(i => i.Key == countryName).Value.PhoneCode;
         }
 
-        public static string GetCountryCode(string country)
+        public static string GetCountryCode(string countryName)
         {
-            return CountriesInfo.SingleOrDefault(i => i.Key == country).Value.CountryCode;
+            return CountriesInfoDictionary.SingleOrDefault(i => i.Key == countryName).Value.CountryCode;
         }
 
-        public static string GetCountryByCode(string code)
+        public static string GetCountryName(string countryCode)
         {
-            code = code.ToUpper().Trim();
-            if (string.Equals(code, "GB"))
+            countryCode = countryCode.ToUpper().Trim();
+            if (string.Equals(countryCode, "GB"))
                 return "United Kingdom";
             else
             {
-                return CountriesInfo.SingleOrDefault(i => i.Value.CountryCode == code).Key;
+                return CountriesInfoDictionary.SingleOrDefault(i => i.Value.CountryCode == countryCode).Key;
             }
         }
 
-        private static readonly Dictionary<string, dynamic> CountriesInfo = new Dictionary<string, dynamic>()
+        private static readonly Dictionary<string, dynamic> CountriesInfoDictionary = new Dictionary<string, dynamic>()
         {
             {"Afghanistan", new { PhoneCode = "+93", CountryCode = "AF" }},
             {"Albania", new { PhoneCode = "+355", CountryCode = "AL" }},

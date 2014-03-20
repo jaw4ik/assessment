@@ -49,7 +49,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             var packageModelSerializer = Substitute.For<PackageModelSerializer>();
             _buildContentProvider = Substitute.For<BuildContentProvider>(_fileManager, _buildPathProvider, packageModelSerializer, packageModelMapper);
 
-            _builder = new ScormCourseBuilder(_fileManager, _buildPathProvider, _buildPackageCreator, _buildContentProvider, _razorTemplateProvider);
+            _builder = new ScormCourseBuilder(_fileManager, _buildPathProvider, _buildPackageCreator, _buildContentProvider, _razorTemplateProvider, Substitute.For<ILog>());
         }
 
         #region Build

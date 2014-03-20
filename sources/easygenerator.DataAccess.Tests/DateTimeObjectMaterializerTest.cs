@@ -66,20 +66,6 @@ namespace easygenerator.DataAccess.Tests
         }
 
         [TestMethod]
-        public void Materialize_ShouldSetDateTimeKindToUtcForMailNotification()
-        {
-            //Arrange
-            var entity = MailNotificationObjectMother.Create();
-
-            //Act
-            DateTimeObjectMaterializer.Materialize(entity);
-
-            //Assert
-            entity.CreatedOn.Kind.Should().Be(DateTimeKind.Utc);
-            entity.ModifiedOn.Kind.Should().Be(DateTimeKind.Utc);
-        }
-
-        [TestMethod]
         public void Materialize_ShouldSetDateTimeKindToUtcForObjective()
         {
             //Arrange

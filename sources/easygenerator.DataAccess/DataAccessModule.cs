@@ -2,6 +2,10 @@
 using easygenerator.DataAccess.Repositories;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.DomainModel;
+using easygenerator.Infrastructure.Http;
+using easygenerator.Infrastructure.Mail;
 
 namespace easygenerator.DataAccess
 {
@@ -44,12 +48,14 @@ namespace easygenerator.DataAccess
                 .As<IQuerableRepository<PasswordRecoveryTicket>>();
 
             builder.RegisterType<MailNotificationRepository>()
-                .As<IMailNotificationRepository>()
-                .As<IQuerableRepository<MailNotification>>();
+                .As<IMailNotificationRepository>();
 
             builder.RegisterType<ImageFileRepository>()
                 .As<IImageFileRepository>()
                 .As<IQuerableRepository<ImageFile>>();
+
+            builder.RegisterType<HttpRequestsRepository>()
+                .As<IHttpRequestsRepository>();
 
             base.Load(builder);
         }

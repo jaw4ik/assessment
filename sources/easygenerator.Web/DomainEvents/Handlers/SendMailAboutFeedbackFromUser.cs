@@ -1,7 +1,6 @@
-﻿using System;
-using easygenerator.DomainModel.Events;
+﻿using easygenerator.DomainModel.Events;
 using easygenerator.Infrastructure;
-using easygenerator.Web.Mail;
+using easygenerator.Infrastructure.Mail;
 using System.Threading.Tasks;
 
 namespace easygenerator.Web.DomainEvents.Handlers

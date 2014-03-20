@@ -20,7 +20,7 @@ namespace easygenerator.Web.Tests.DomainEvents.Events
         public void UserSignedUpEvent_ShoulThrowArgumentNullException_WhenUserIsNull()
         {
             //Arrange
-            Action action = () => new UserSignedUpEvent(null, "test", "test", "test");
+            Action action = () => new UserSignedUpEvent(null, "abcABC123", "test", "test", "test");
 
             //Act & Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("user");
@@ -36,7 +36,7 @@ namespace easygenerator.Web.Tests.DomainEvents.Events
             var whenNeedAuthoringTool = "Now";
             var usedAuthoringTool = "powerpoint";
 
-            UserSignedUpEvent signedUpEvent = new UserSignedUpEvent(user, courseDevelopersCount, whenNeedAuthoringTool, usedAuthoringTool);
+            UserSignedUpEvent signedUpEvent = new UserSignedUpEvent(user, "abcABC123", courseDevelopersCount, whenNeedAuthoringTool, usedAuthoringTool);
 
             //Assert
             signedUpEvent.User.Should().Be(user);

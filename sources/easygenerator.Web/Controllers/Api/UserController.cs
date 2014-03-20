@@ -80,7 +80,7 @@ namespace easygenerator.Web.Controllers.Api
 
             if (!string.IsNullOrEmpty(country))
             {
-                var countryName = PhoneCodeCollection.GetCountryByCode(country);
+                var countryName = CountriesInfo.GetCountryName(country);
                 if (countryName == null)
                     return UnprocessableEntity("Not valid country code");
 
@@ -156,7 +156,7 @@ namespace easygenerator.Web.Controllers.Api
                 profile.Organization, profile.Country, profile.Email, new UserSettings(profile.Email, true), subscription);
 
             _repository.Add(user);
-            _userSignedUpEventPublisher.Publish(new UserSignedUpEvent(user, profile.PeopleBusyWithCourseDevelopmentAmount, profile.NeedAuthoringTool, profile.UsedAuthoringTool));
+            _userSignedUpEventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.PeopleBusyWithCourseDevelopmentAmount, profile.NeedAuthoringTool, profile.UsedAuthoringTool));
 
             if (User.Identity.IsAuthenticated && _repository.GetUserByEmail(User.Identity.Name) == null)
             {

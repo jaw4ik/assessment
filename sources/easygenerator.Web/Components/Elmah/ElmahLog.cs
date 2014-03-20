@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Web;
 using Elmah;
+using easygenerator.Infrastructure;
 
-namespace easygenerator.Web.Components
+namespace easygenerator.Web.Components.Elmah
 {
-    public class ElmahLog
+    public class ElmahLog : ILog
     {
-        public static void LogException(Exception e)
+        public void LogException(Exception e)
         {
             if (HttpContext.Current != null)
             {

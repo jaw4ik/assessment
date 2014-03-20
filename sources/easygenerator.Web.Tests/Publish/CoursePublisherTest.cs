@@ -32,7 +32,7 @@ namespace easygenerator.Web.Tests.Publish
             _fileManager = Substitute.For<PhysicalFileManager>();
             _pathProvider = new BuildPathProvider(_httpRuntimeWrapper);
             _publishDispatcher = Substitute.For<IPublishDispatcher>();
-            _publisher = new CoursePublisher(_fileManager, _pathProvider, _publishDispatcher);
+            _publisher = new CoursePublisher(_fileManager, _pathProvider, _publishDispatcher, Substitute.For<ILog>());
         }
 
         #region Publish

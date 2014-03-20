@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Mail;
+using easygenerator.Infrastructure.Mail;
 using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Mail
@@ -13,9 +14,9 @@ namespace easygenerator.Web.Mail
         private readonly IUrlHelperWrapper _urlHelperWrapper;
         private readonly IMailSender _mailSender;
         private readonly MailSettings _senderSettings;
-        private readonly MailTemplatesProvider _mailTemplatesProvider;
+        private readonly IMailTemplatesProvider _mailTemplatesProvider;
 
-        public MailSenderWrapper(IUrlHelperWrapper urlHelperWrapper, IMailSender mailSender, MailSettings senderSettings, MailTemplatesProvider mailTemplatesProvider)
+        public MailSenderWrapper(IUrlHelperWrapper urlHelperWrapper, IMailSender mailSender, MailSettings senderSettings, IMailTemplatesProvider mailTemplatesProvider)
         {
             _urlHelperWrapper = urlHelperWrapper;
             _mailSender = mailSender;

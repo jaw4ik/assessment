@@ -43,7 +43,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             var packageModelSerializer = Substitute.For<PackageModelSerializer>();
             _buildContentProvider = Substitute.For<BuildContentProvider>(_fileManager, _buildPathProvider, packageModelSerializer, packageModelMapper);
 
-            _builder = new CourseBuilder(_fileManager, _buildPathProvider, _buildPackageCreator, _buildContentProvider);
+            _builder = new CourseBuilder(_fileManager, _buildPathProvider, _buildPackageCreator, _buildContentProvider, Substitute.For<ILog>());
         }
 
         #region Build

@@ -1,12 +1,8 @@
-﻿using System.Web.Http;
+﻿using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Http;
 using easygenerator.Web.Components.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using easygenerator.Web.Components.Http;
 using easygenerator.Web.Newsletter.MailChimp.Entities;
-using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Newsletter.MailChimp
 {
@@ -17,7 +13,8 @@ namespace easygenerator.Web.Newsletter.MailChimp
         private const bool confirmationRequired = false;
 
         private readonly ConfigurationReader _configurationReader;
-        private readonly HttpHelper _httpHelper;
+        private readonly HttpClient _httpClient;
+        private readonly ILog _logger;
 
         private string _listId;
         private string ListIdForSubscription
@@ -40,10 +37,11 @@ namespace easygenerator.Web.Newsletter.MailChimp
             }
         }
 
-        public MailChimpSubscriptionManager(ConfigurationReader configurationReader, HttpHelper httpHelper)
+        public MailChimpSubscriptionManager(ConfigurationReader configurationReader, HttpClient httpClient, ILog logger)
         {
             _configurationReader = configurationReader;
-            _httpHelper = httpHelper;
+            _httpClient = httpClient;
+            _logger = logger;
         }
 
         public bool SubscribeForNewsletters(string userEmail, string firstname, string lastname)
@@ -53,13 +51,13 @@ namespace easygenerator.Web.Newsletter.MailChimp
                 try
                 {
                     var methodUrl = GetServiceMethodUrl(SubscribeMethodPath);
-                    var responseData = _httpHelper.Post<object, MailChimpSubscription>(methodUrl,
+                    var responseData = _httpClient.Post<MailChimpSubscription>(methodUrl,
                         new { apikey = ApiKey, id = ListIdForSubscription, email = new { email = userEmail }, merge_vars = new { fname = firstname, lname = lastname }, double_optin = confirmationRequired });
                     return string.Equals(responseData.Email, userEmail, StringComparison.CurrentCultureIgnoreCase);
                 }
                 catch (Exception exception)
                 {
-                    ElmahLog.LogException(exception);
+                    _logger.LogException(exception);
                     return false;
                 }
             }
@@ -69,7 +67,7 @@ namespace easygenerator.Web.Newsletter.MailChimp
         private string GetListIdForSubscription(string listName)
         {
             var methodUrl = GetServiceMethodUrl(GetListMethodPath);
-            var responseData = _httpHelper.Post<object, MailChimpLists>(methodUrl, new { apikey = ApiKey, filters = new { list_name = listName } });
+            var responseData = _httpClient.Post<MailChimpLists>(methodUrl, new { apikey = ApiKey, filters = new { list_name = listName } });
 
             if (responseData.Total > 1)
             {

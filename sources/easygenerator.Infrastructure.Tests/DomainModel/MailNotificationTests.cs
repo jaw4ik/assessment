@@ -1,14 +1,9 @@
-﻿using easygenerator.DomainModel.Tests.ObjectMothers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using easygenerator.Infrastructure.Tests.ObjectMothers;
 using FluentAssertions;
-using easygenerator.Infrastructure;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace easygenerator.DomainModel.Tests.Entities
+namespace easygenerator.Infrastructure.Tests.DomainModel
 {
     [TestClass]
     public class MailNotificationTests

@@ -1,6 +1,6 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using easygenerator.Infrastructure.DomainModel;
 
-namespace easygenerator.DomainModel.Tests.ObjectMothers
+namespace easygenerator.Infrastructure.Tests.ObjectMothers
 {
     public class MailNotificationObjectMother
     {

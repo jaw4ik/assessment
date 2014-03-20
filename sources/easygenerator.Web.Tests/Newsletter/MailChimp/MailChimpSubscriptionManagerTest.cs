@@ -1,7 +1,7 @@
-﻿using System.Activities;
-using System.Activities.Statements;
+﻿using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Http;
+using easygenerator.Infrastructure.Mail;
 using easygenerator.Web.Components.Configuration;
-using easygenerator.Web.Components.Http;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
 using easygenerator.Web.Newsletter.MailChimp.Entities;
@@ -10,10 +10,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NSubstitute.Exceptions;
 
 namespace easygenerator.Web.Tests.Newsletter.MailChimp
 {
@@ -23,7 +19,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         private INewsletterSubscriptionManager _subscriptionManager;
         private ConfigurationReader _configurationReader;
         private MailChimpConfigurationSection _mailChimpConfiguration;
-        private HttpHelper _httpHelper;
+        private HttpClient _httpClient;
 
         private const string emailToSubscribe = "test@easygenerator.com";
         private const string firstName = "firstName";
@@ -35,9 +31,8 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         [TestInitialize]
         public void InitializeManager()
         {
-
             _configurationReader = Substitute.For<ConfigurationReader>();
-            _httpHelper = Substitute.For<HttpHelper>();
+            _httpClient = Substitute.For<HttpClient>(Substitute.For<IMailNotificationManager>(), Substitute.For<IHttpRequestsManager>(), Substitute.For<ILog>());
 
             _mailChimpConfiguration = new MailChimpConfigurationSection()
             {
@@ -47,7 +42,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             };
             _configurationReader.MailChimpConfiguration.Returns(_mailChimpConfiguration);
 
-            _subscriptionManager = new MailChimpSubscriptionManager(_configurationReader, _httpHelper);
+            _subscriptionManager = new MailChimpSubscriptionManager(_configurationReader, _httpClient, Substitute.For<ILog>());
         }
 
         [TestMethod]
@@ -72,17 +67,16 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
 
             // Assert
-            _httpHelper.Received().Post<object, MailChimpLists>(Arg.Is(getListMethodPath), Arg.Any<object>());
+            _httpClient.Received().Post<MailChimpLists>(Arg.Is(getListMethodPath), Arg.Any<object>());
         }
 
         [TestMethod]
         public void SubscribeForNewsletters_ShouldReturnFalseIfExceptionWasThrownWhileGettingListId()
         {
             // Arrange
-            var mailChimpLists = new MailChimpLists();
-            mailChimpLists.Total = 0;
+            var mailChimpLists = new MailChimpLists { Total = 0 };
 
-            _httpHelper.Post<object, MailChimpLists>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
+            _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
 
             // Act
             var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
@@ -96,10 +90,9 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         public void SubscribeForNewsletters_ShouldReturnFalseIfListIsNotFound()
         {
             // Arrange
-            var mailChimpLists = new MailChimpLists();
-            mailChimpLists.Total = 0;
+            var mailChimpLists = new MailChimpLists { Total = 0 };
 
-            _httpHelper.Post<object, MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
+            _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
             var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
@@ -112,10 +105,9 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         public void SubscribeForNewsletters_ShouldReturnFalseIfMoreThanOneListWasFound()
         {
             // Arrange
-            var mailChimpLists = new MailChimpLists();
-            mailChimpLists.Total = 2;
+            var mailChimpLists = new MailChimpLists { Total = 2 };
 
-            _httpHelper.Post<object, MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
+            _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
             var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
@@ -128,29 +120,33 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         public void SubscribeForNewsletters_ShouldDoHttpPostToSubcribeEmail()
         {
             // Arrange
-            var mailChimpLists = new MailChimpLists();
-            mailChimpLists.Data = new List<MailChimpList> { new MailChimpList() { Id = "listId", Name = "listName" } };
-            mailChimpLists.Total = 1;
+            var mailChimpLists = new MailChimpLists
+            {
+                Data = new List<MailChimpList> { new MailChimpList() { Id = "listId", Name = "listName" } },
+                Total = 1
+            };
 
-            _httpHelper.Post<object, MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
+            _httpClient.Post<MailChimpLists>(null, (object)null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
             var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
 
             // Assert
-            _httpHelper.Received().Post<object, MailChimpSubscription>(Arg.Is(subscribeMethodPath), Arg.Any<object>());
+            _httpClient.Received().Post<MailChimpSubscription>(Arg.Is(subscribeMethodPath), Arg.Any<object>());
         }
 
         [TestMethod]
         public void SubscribeForNewsletters_ShouldReturnFalseIfExceptionWhilePostingSubsciption()
         {
             // Arrange
-            var mailChimpLists = new MailChimpLists();
-            mailChimpLists.Data = new List<MailChimpList> { new MailChimpList() { Id = "listId", Name = "listName" } };
-            mailChimpLists.Total = 1;
+            var mailChimpLists = new MailChimpLists
+            {
+                Data = new List<MailChimpList> { new MailChimpList() { Id = "listId", Name = "listName" } },
+                Total = 1
+            };
 
-            _httpHelper.Post<object, MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
-            _httpHelper.Post<object, MailChimpSubscription>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
+            _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
+            _httpClient.Post<MailChimpSubscription>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
 
             // Act
             var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
@@ -163,12 +159,14 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         public void SubscribeForNewsletters_ShouldReturnFalseIfEmailDoesntMatchWithEmailForSubscription()
         {
             // Arrange
-            var mailChimpLists = new MailChimpLists();
-            mailChimpLists.Data = new List<MailChimpList> { new MailChimpList() { Id = "listId", Name = "listName" } };
-            mailChimpLists.Total = 1;
+            var mailChimpLists = new MailChimpLists
+            {
+                Data = new List<MailChimpList> { new MailChimpList() { Id = "listId", Name = "listName" } },
+                Total = 1
+            };
 
-            _httpHelper.Post<object, MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
-            _httpHelper.Post<object, MailChimpSubscription>(null, null).Returns(new MailChimpSubscription() { Email = "someother@mail.com"} );
+            _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
+            _httpClient.Post<MailChimpSubscription>(null, null).Returns(new MailChimpSubscription() { Email = "someother@mail.com" });
 
             // Act
             var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);
@@ -181,12 +179,14 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         public void SubscribeForNewsletters_ShouldReturnTrueIfEmailMatchEmailForSubscription()
         {
             // Arrange
-            var mailChimpLists = new MailChimpLists();
-            mailChimpLists.Data = new List<MailChimpList> { new MailChimpList() { Id = "listId", Name = "listName" } };
-            mailChimpLists.Total = 1;
+            var mailChimpLists = new MailChimpLists
+            {
+                Data = new List<MailChimpList> { new MailChimpList() { Id = "listId", Name = "listName" } },
+                Total = 1
+            };
 
-            _httpHelper.Post<object, MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
-            _httpHelper.Post<object, MailChimpSubscription>(null, null).ReturnsForAnyArgs(new MailChimpSubscription() { Email = emailToSubscribe });
+            _httpClient.Post<MailChimpLists>(null, (object)null).ReturnsForAnyArgs(mailChimpLists);
+            _httpClient.Post<MailChimpSubscription>(null, (object)null).ReturnsForAnyArgs(new MailChimpSubscription() { Email = emailToSubscribe });
 
             // Act
             var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName);

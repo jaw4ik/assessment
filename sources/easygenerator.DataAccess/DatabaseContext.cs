@@ -1,11 +1,12 @@
-﻿using System;
+﻿using easygenerator.DataAccess.Migrations;
+using easygenerator.DomainModel.Entities;
+using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.DomainModel;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DataAccess.Migrations;
 
 namespace easygenerator.DataAccess
 {
@@ -123,16 +124,15 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Template>().HasMany(e => e.Courses);
 
             modelBuilder.Entity<MailNotification>().Property(e => e.Body).IsRequired();
-            // ignore useless properties for mail notification entities
-            modelBuilder.Entity<MailNotification>().Ignore(e => e.ModifiedOn);
-            modelBuilder.Entity<MailNotification>().Ignore(e => e.CreatedBy);
-            modelBuilder.Entity<MailNotification>().Ignore(e => e.ModifiedBy);
-            //
             modelBuilder.Entity<MailNotification>().Property(e => e.Subject).HasMaxLength(254).IsRequired();
             modelBuilder.Entity<MailNotification>().Property(e => e.ToEmailAddresses).HasMaxLength(511).IsRequired();
             modelBuilder.Entity<MailNotification>().Property(e => e.CCEmailAddresses).HasMaxLength(511);
             modelBuilder.Entity<MailNotification>().Property(e => e.BCCEmailAddresses).HasMaxLength(511);
             modelBuilder.Entity<MailNotification>().Property(e => e.FromEmailAddress).HasMaxLength(127).IsRequired();
+
+            modelBuilder.Entity<HttpRequest>().Property(e => e.Url).HasMaxLength(255).IsRequired();
+            modelBuilder.Entity<HttpRequest>().Property(e => e.Verb).HasMaxLength(15).IsRequired();
+            modelBuilder.Entity<HttpRequest>().Property(e => e.ServiceName).HasMaxLength(127).IsRequired();
 
             modelBuilder.Entity<ImageFile>().Property(e => e.Title).HasMaxLength(255).IsRequired();
 

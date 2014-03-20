@@ -33,10 +33,15 @@
     <OutputPath>bin\AutoTests\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,14 +54,32 @@
     <Compile Include="Constants.cs" />
     <Compile Include="DateTimeWrapper.cs" />
     <Compile Include="Cryptography.cs" />
+    <Compile Include="DomainModel\HttpRequest.cs" />
+    <Compile Include="DomainModel\MailNotification.cs" />
     <Compile Include="Errors.cs" />
+    <Compile Include="Http\HttpClient.cs" />
+    <Compile Include="Http\HttpRequestExceptionExtended.cs" />
+    <Compile Include="Http\HttpRequestsManager.cs" />
+    <Compile Include="Http\IHttpClientWrapper.cs" />
+    <Compile Include="Http\IHttpRequestsManager.cs" />
+    <Compile Include="Http\IHttpRequestsRepository.cs" />
+    <Compile Include="ILog.cs" />
     <Compile Include="IScheduler.cs" />
     <Compile Include="ITask.cs" />
     <Compile Include="ITaskInvoker.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Mail\IMailNotificationManager.cs" />
+    <Compile Include="Mail\IMailNotificationRepository.cs" />
+    <Compile Include="Mail\IMailSettings.cs" />
+    <Compile Include="Mail\IMailTemplate.cs" />
+    <Compile Include="Mail\IMailTemplatesProvider.cs" />
+    <Compile Include="Mail\MailNotificationManager.cs" />
     <Compile Include="PhysicalFileManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,6 +1,8 @@
-﻿using easygenerator.DataAccess;
+﻿using System.Linq;
+using easygenerator.DataAccess;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Mail;
 
 namespace easygenerator.Web.Mail
 {
@@ -22,7 +24,7 @@ namespace easygenerator.Web.Mail
         public void Execute()
         {
             var mailNotifications = _mailNotificationRepository.GetCollection(_senderSettings.MailSenderSettings.BatchSize);
-            if (mailNotifications == null)
+            if (mailNotifications == null || !mailNotifications.Any())
             {
                 return;
             }

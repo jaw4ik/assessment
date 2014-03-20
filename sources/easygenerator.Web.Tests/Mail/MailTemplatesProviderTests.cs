@@ -4,13 +4,14 @@ using easygenerator.Web.Mail;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
+using easygenerator.Infrastructure.Mail;
 
 namespace easygenerator.Web.Tests.Mail
 {
     [TestClass]
     public class MailTemplatesProviderTests
     {
-        private MailTemplatesProvider _mailTemplatesProvider;
+        private IMailTemplatesProvider _mailTemplatesProvider;
         private RazorTemplateProvider _razorTemplateProvider;
 
         [TestInitialize]
