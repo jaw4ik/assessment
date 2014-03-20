@@ -28,19 +28,12 @@ namespace easygenerator.DomainModel.Entities
             ExpirationDate = null;
         }
 
-        public virtual void UpdatePlan(AccessType accessType, DateTime? expirationDate = null)
+        public virtual void UpgradeToStarter(DateTime expirationDate)
         {
-            ThrowIfSubscriptionPlanIsInvalid(accessType);
-            ThrowIfExpirationDateIsInvalid(accessType, expirationDate);
+            ThrowIfExpirationDateIsInvalid(expirationDate);
 
-            AccessType = accessType;
+            AccessType = AccessType.Starter;
             ExpirationDate = expirationDate;
-        }
-
-        private void ThrowIfSubscriptionPlanIsInvalid(AccessType plan)
-        {
-            if (!Enum.IsDefined(typeof(AccessType), plan))
-                throw new ArgumentException("Subscription plan is invalid", "plan");
         }
 
         private void ThrowIfExpirationDateIsInvalid(AccessType plan, DateTime? expirationDate)
@@ -50,7 +43,12 @@ namespace easygenerator.DomainModel.Entities
                 throw new ArgumentException("Free subscription plan cannot have expiration date", "expirationDate");
             }
 
-            if (expirationDate.HasValue && expirationDate.Value < SqlDateTime.MinValue.Value)
+            ThrowIfExpirationDateIsInvalid(expirationDate);
+        }
+
+        private void ThrowIfExpirationDateIsInvalid(DateTime? expirationDate)
+        {
+            if (expirationDate.HasValue && expirationDate < SqlDateTime.MinValue.Value)
             {
                 throw new ArgumentException("Expiration date is invalid", "expirationDate");
             }

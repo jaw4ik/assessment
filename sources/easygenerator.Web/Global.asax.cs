@@ -1,10 +1,8 @@
-﻿using System;
+﻿using easygenerator.Web.Configuration;
+using System;
 using System.Globalization;
 using System.Threading;
 using System.Web.Mvc;
-using easygenerator.Web.Components;
-using easygenerator.Web.Components.ModelBinding;
-using easygenerator.Web.Configuration;
 
 namespace easygenerator.Web
 {
@@ -12,11 +10,9 @@ namespace easygenerator.Web
     {
         protected void Application_Start()
         {
-            ModelBinderProviders.BinderProviders.Add(new EntityModelBinderProvider());
-            ModelBinderProviders.BinderProviders.Add(new EntityCollectionModelBinderProvider());
-
             AreaRegistration.RegisterAllAreas();
 
+            ModelBinderConfiguration.Configure();
             BundleConfiguration.Configure();
             FilterConfiguration.Configure();
             ContainerConfiguration.Configure();

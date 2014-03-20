@@ -93,20 +93,31 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [AllowAnonymous]
         [ExternalApiAuthorize("wooCommerce")]
-        [Route("api/user/update-subscription")]
-        public ActionResult UpdateSubscription(string email, long? exp_date, AccessType? plan)
+        [Route("api/user/downgrade")]
+        public ActionResult Downgrade(string email)
         {
             var user = _repository.GetUserByEmail(email);
             if (user == null)
                 return UnprocessableEntity("User with specified email does not exist");
 
-            if (plan.HasValue)
-            {
-                if (exp_date.HasValue)
-                    user.Subscription.UpdatePlan(plan.Value, new DateTime(exp_date.Value));
-                else
-                    user.Subscription.UpdatePlan(plan.Value, null);
-            }
+            user.Subscription.Downgrade();
+
+            _userSubscriptionEventPublisher.Publish(new UserSubscriptionPurchased(user));
+
+            return Success();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("wooCommerce")]
+        [Route("api/user/subscription/starter")]
+        public ActionResult UpgradeToStarter(string email, DateTime expirationDate)
+        {
+            var user = _repository.GetUserByEmail(email);
+            if (user == null)
+                return UnprocessableEntity("User with specified email does not exist");
+
+            user.Subscription.UpgradeToStarter(expirationDate);
 
             _userSubscriptionEventPublisher.Publish(new UserSubscriptionPurchased(user));
 

@@ -205,66 +205,107 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region Update Subscription
+        #region Downgrade
 
         [TestMethod]
-        public void UpdateSubscription_ShouldReturnBadRequestResult_WhenUserDoesNotExists()
+        public void Downgrade_ShouldReturnUnprocessableEntityResult_WhenUserDoesNotExists()
         {
             const string email = "test@test.test";
             _userRepository.GetUserByEmail(email).Returns((User)null);
 
-            var result = _controller.UpdateSubscription(email, null, null);
+            var result = _controller.Downgrade(email);
 
             result.Should().BeUnprocessableEntityResultWithMessage("User with specified email does not exist");
         }
 
         [TestMethod]
-        public void UpdateSubscription_ShouldReturnSuccessResult_WhenUserExists()
+        public void Downgrade_ShouldReturnSuccessResult_WhenUserExists()
         {
             const string email = "test@test.test";
-            var user = Substitute.For<User>();
+            var user = UserObjectMother.CreateWithEmail(email);
             _userRepository.GetUserByEmail(email).Returns(user);
 
-            var result = _controller.UpdateSubscription(email, null, null);
+            var result = _controller.Downgrade(email);
 
             result.Should().BeSuccessResult();
         }
 
         [TestMethod]
-        public void UpdateSubscription_ShouldUpdateAccessType_WhenPlanIsDefinedInAccessType()
+        public void Downgrade_ShouldSetSubscriptionFreePlan()
         {
             const string email = "test@test.test";
             var subscription = Substitute.For<UserSubscription>();
             var user = UserObjectMother.CreateWithSubscription(subscription);
             _userRepository.GetUserByEmail(email).Returns(user);
 
-            _controller.UpdateSubscription(email, null, AccessType.Starter);
+            _controller.Downgrade(email);
 
-            subscription.Received().UpdatePlan(AccessType.Starter, null);
+            subscription.Received().Downgrade();
         }
 
         [TestMethod]
-        public void UpdateSubscription_ShouldUpdateExpirationDate_WhenSubscriptionHasExpirationDate()
+        public void Downgrade_ShouldPublishSubscriptionPurchasedEvent()
         {
             const string email = "test@test.test";
             var subscription = Substitute.For<UserSubscription>();
             var user = UserObjectMother.CreateWithSubscription(subscription);
             _userRepository.GetUserByEmail(email).Returns(user);
 
-            _controller.UpdateSubscription(email, (long?)123456, AccessType.Starter);
+            _controller.Downgrade(email);
 
-            subscription.Received().UpdatePlan(AccessType.Starter, new DateTime(123456));
+            _userSubscriptionPurchasedEventPublisher.Received().Publish(Arg.Is<UserSubscriptionPurchased>(_ => _.User == user));
+        }
+
+        #endregion
+
+        #region UpgradeToStarter
+
+        [TestMethod]
+        public void UpgradeToStarter_ShouldReturnUnprocessableEntityResult_WhenUserDoesNotExists()
+        {
+            const string email = "test@test.test";
+            _userRepository.GetUserByEmail(email).Returns((User)null);
+
+            var result = _controller.UpgradeToStarter(email, DateTime.MaxValue);
+
+            result.Should().BeUnprocessableEntityResultWithMessage("User with specified email does not exist");
         }
 
         [TestMethod]
-        public void UpdateSubscription_ShouldPublishSubscriptionPurchasedEvent()
+        public void UpgradeToStarter_ShouldReturnSuccessResult_WhenUserExists()
+        {
+            const string email = "test@test.test";
+            var user = UserObjectMother.CreateWithEmail(email);
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            var result = _controller.UpgradeToStarter(email, DateTime.MaxValue);
+
+            result.Should().BeSuccessResult();
+        }
+
+        [TestMethod]
+        public void UpgradeToStarter_ShouldSetSubscriptionStarterPlan()
+        {
+            const string email = "test@test.test";
+            DateTime expDate = DateTime.MaxValue;
+            var subscription = Substitute.For<UserSubscription>();
+            var user = UserObjectMother.CreateWithSubscription(subscription);
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            _controller.UpgradeToStarter(email, expDate);
+
+            subscription.Received().UpgradeToStarter(expDate);
+        }
+
+        [TestMethod]
+        public void UpgradeToStarter_ShouldPublishSubscriptionPurchasedEvent()
         {
             const string email = "test@test.test";
             var subscription = Substitute.For<UserSubscription>();
             var user = UserObjectMother.CreateWithSubscription(subscription);
             _userRepository.GetUserByEmail(email).Returns(user);
 
-            _controller.UpdateSubscription(email, (long?)123456, AccessType.Starter);            
+            _controller.UpgradeToStarter(email, DateTime.MaxValue);
 
             _userSubscriptionPurchasedEventPublisher.Received().Publish(Arg.Is<UserSubscriptionPurchased>(_ => _.User == user));
         }

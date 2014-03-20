@@ -56,66 +56,43 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
-        #region UpdatePlan
+        #region UpgradeToStarter
 
         [TestMethod]
-        public void UpdatePlan_ShouldSetAccessType()
+        public void UpgradeToStarter_ShouldThrowArgumentException_WhenExpirationDateIsLessThanMinimal()
         {
             //Arrange
-            var userSubscription = UserSubscriptionObjectMother.Create();
+            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Starter, DateTime.MaxValue);
+            Action action = () => userSubscription.UpgradeToStarter(DateTime.MinValue);
 
-            //Act
-            userSubscription.UpdatePlan(AccessType.Free);
-
-            //Assert
-            userSubscription.AccessType.Should().Be(AccessType.Free);
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
         }
 
         [TestMethod]
-        public void UpdatePlan_ShouldSetAccessTypeWithExpirationDate()
+        public void UpgradeToStarter_ShouldSetFreeAccessType()
         {
             //Arrange
-            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Free, null);
+            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Free);
 
             //Act
-            userSubscription.UpdatePlan(AccessType.Starter, DateTime.MaxValue);
+            userSubscription.UpgradeToStarter(DateTime.MaxValue);
 
             //Assert
             userSubscription.AccessType.Should().Be(AccessType.Starter);
+        }
+
+        [TestMethod]
+        public void UpgradeToStarter_ShouldSetExpirationDate()
+        {
+            //Arrange
+            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Free);
+
+            //Act
+            userSubscription.UpgradeToStarter(DateTime.MaxValue);
+
+            //Assert
             userSubscription.ExpirationDate.Should().Be(DateTime.MaxValue);
-        }
-
-        [TestMethod]
-        public void UpdatePlan_ShouldThrowArgumentException_WhenFreeAccessTypeHaveExpirationTime()
-        {
-            //Arrange
-            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Starter, DateTime.MaxValue);
-            Action action = () => userSubscription.UpdatePlan(AccessType.Free, DateTime.MaxValue);
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
-        }
-
-        [TestMethod]
-        public void UpdatePlan_ShouldThrowArgumentException_WhenExpirationDateIsLessThanMinimal()
-        {
-            //Arrange
-            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Starter, DateTime.MaxValue);
-            Action action = () => userSubscription.UpdatePlan(AccessType.Starter, DateTime.MinValue);
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
-        }
-
-        [TestMethod]
-        public void UpdatePlan_ShouldThrowArgumentException_WhenAccessTypeHasInvalidValue()
-        {
-            //Arrange
-            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Starter, DateTime.MaxValue);
-            Action action = () => userSubscription.UpdatePlan((AccessType)100500, DateTime.MaxValue);
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("plan");
         }
 
         #endregion
