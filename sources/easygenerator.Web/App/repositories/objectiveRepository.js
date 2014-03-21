@@ -49,8 +49,8 @@
                                     title: objective.title,
                                     image: constants.defaultObjectiveImage,
                                     questions: [],
-                                    createdOn: new Date(parseInt(response.CreatedOn.substr(6), 10)),
-                                    modifiedOn: new Date(parseInt(response.CreatedOn.substr(6), 10))
+                                    createdOn: new Date(response.CreatedOn),
+                                    modifiedOn: new Date(response.CreatedOn)
                                 });
 
                             dataContext.objectives.push(createdObjective);
@@ -82,7 +82,7 @@
                         guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
 
                         objective.title = obj.title;
-                        objective.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                        objective.modifiedOn = new Date(response.ModifiedOn);
 
                         app.trigger('objective:titleUpdated', objective);
 
@@ -134,7 +134,7 @@
                                 });
                             });
 
-                            objective.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                            objective.modifiedOn = new Date(response.ModifiedOn);
 
                             app.trigger('objective:questionsReordered', objective);
 

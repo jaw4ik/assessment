@@ -56,7 +56,7 @@
 
                         var
                             courseId = response.Id,
-                            createdOn = new Date(parseInt(response.CreatedOn.substr(6), 10)),
+                            createdOn = new Date(response.CreatedOn),
                             createdCourse = new CourseModel({
                                 id: courseId,
                                 title: title,
@@ -119,7 +119,7 @@
 
                     guard.throwIfNotAnObject(course, "Course doesn`t exist");
 
-                    course.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                    course.modifiedOn = new Date(response.ModifiedOn);
                     var relatedObjectives = _.filter(objectives, function (item) {
                         return !_.isUndefined(_.find(response.RelatedObjectives, function (relatedObjective) {
                             return item.id == relatedObjective.Id;
@@ -167,7 +167,7 @@
                         });
                     });
 
-                    course.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                    course.modifiedOn = new Date(response.ModifiedOn);
 
                     app.trigger('course:objectivesUnrelated', requestArgs.courseId, requestArgs.objectives);
 
@@ -197,7 +197,7 @@
                     guard.throwIfNotAnObject(course, 'Course does not exist in dataContext');
 
                     course.title = courseTitle;
-                    course.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                    course.modifiedOn = new Date(response.ModifiedOn);
 
                     app.trigger('course:titleUpdated', course);
 
@@ -234,7 +234,7 @@
                     guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
 
                     course.template = { id: template.id, name: template.name, image: template.image };
-                    course.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                    course.modifiedOn = new Date(response.ModifiedOn);
 
                     return {
                         modifiedOn: course.modifiedOn
@@ -259,7 +259,7 @@
 
                         guard.throwIfNotAnObject(course, 'Course does not exist in dataContext');
 
-                        var modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                        var modifiedOn = new Date(response.ModifiedOn);
 
                         course.introductionContent = introductionContent;
                         course.modifiedOn = modifiedOn;
@@ -296,7 +296,7 @@
                         });
                     });
 
-                    course.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                    course.modifiedOn = new Date(response.ModifiedOn);
 
                     app.trigger('course:objectivesReordered', course);
 

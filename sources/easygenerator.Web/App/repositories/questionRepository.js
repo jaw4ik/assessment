@@ -22,7 +22,7 @@
                         guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
 
                         var
-                            createdOn = new Date(parseInt(response.CreatedOn.substr(6), 10)),
+                            createdOn = new Date(response.CreatedOn),
                             createdQuestion = {
                                 id: response.Id,
                                 title: obj.title,
@@ -58,7 +58,7 @@
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
-                        var modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                        var modifiedOn = new Date(response.ModifiedOn);
 
                         var objective = _.find(dataContext.objectives, function (item) {
                             return item.id == objectiveId;
@@ -95,7 +95,7 @@
 
                         guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
 
-                        var modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                        var modifiedOn = new Date(response.ModifiedOn);
 
                         question.title = title;
                         question.modifiedOn = modifiedOn;
@@ -122,7 +122,7 @@
 
                         guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
 
-                        var modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                        var modifiedOn = new Date(response.ModifiedOn);
 
                         question.content = content;
                         question.modifiedOn = modifiedOn;

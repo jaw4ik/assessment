@@ -41,7 +41,7 @@
                         guard.throwIfNotString(response.Id, 'Answer id is not a string');
                         guard.throwIfNotString(response.CreatedOn, 'Answer creation date is not a string');
 
-                        var createdOn = new Date(parseInt(response.CreatedOn.substr(6), 10));
+                        var createdOn = new Date(response.CreatedOn);
                         updateQuestionModifiedOnDate(questionId, createdOn);
 
                         return {
@@ -66,7 +66,7 @@
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
-                        var modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                        var modifiedOn = new Date(response.ModifiedOn);
                         updateQuestionModifiedOnDate(questionId, modifiedOn);
 
                         return {
@@ -93,7 +93,7 @@
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.ModifiedOn, 'Answer modification date is not a string');
 
-                        var modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                        var modifiedOn = new Date(response.ModifiedOn);
                         updateQuestionModifiedOnDate(questionId, modifiedOn);
 
                         return {

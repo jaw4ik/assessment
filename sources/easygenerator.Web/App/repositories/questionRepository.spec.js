@@ -203,8 +203,8 @@
                                         expect(objective.questions[0]).toEqual({
                                             id: response.Id,
                                             title: question.title,
-                                            createdOn: utils.getDateFromString(response.CreatedOn),
-                                            modifiedOn: utils.getDateFromString(response.CreatedOn),
+                                            createdOn: new Date(response.CreatedOn),
+                                            modifiedOn: new Date(response.CreatedOn),
                                             learningContents: [],
                                             answerOptions: []
                                         });
@@ -218,7 +218,7 @@
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(objective.modifiedOn).toEqual(utils.getDateFromString(response.CreatedOn));
+                                        expect(objective.modifiedOn).toEqual(new Date(response.CreatedOn));
                                     });
                                 });
 
@@ -233,8 +233,8 @@
                                         expect(app.trigger).toHaveBeenCalledWith('question:created', objective.id, {
                                             id: response.Id,
                                             title: question.title,
-                                            createdOn: utils.getDateFromString(response.CreatedOn),
-                                            modifiedOn: utils.getDateFromString(response.CreatedOn),
+                                            createdOn: new Date(response.CreatedOn),
+                                            modifiedOn: new Date(response.CreatedOn),
                                             learningContents: [],
                                             answerOptions: []
                                         });
@@ -250,7 +250,7 @@
                                     runs(function () {
                                         var createdQuestion = promise.inspect().value;
                                         expect(createdQuestion.id).toEqual(response.Id);
-                                        expect(createdQuestion.createdOn).toEqual(utils.getDateFromString(response.CreatedOn));
+                                        expect(createdQuestion.createdOn).toEqual(new Date(response.CreatedOn));
                                     });
                                 });
 
@@ -435,7 +435,7 @@
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(dataContext.objectives[0].modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                                        expect(dataContext.objectives[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
                                     });
                                 });
 
@@ -457,7 +457,7 @@
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(promise).toBeResolvedWith(utils.getDateFromString(response.ModifiedOn));
+                                        expect(promise).toBeResolvedWith(new Date(response.ModifiedOn));
                                     });
                                 });
                             });
@@ -624,7 +624,7 @@
                                 });
                                 runs(function () {
                                     expect(dataContext.objectives[0].questions[0].title).toEqual(questionTitle);
-                                    expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                                    expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
                                 });
                             });
 
@@ -646,7 +646,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeResolvedWith(utils.getDateFromString(response.ModifiedOn));
+                                    expect(promise).toBeResolvedWith(new Date(response.ModifiedOn));
                                 });
                             });
 
@@ -803,7 +803,7 @@
                                 });
                                 runs(function () {
                                     expect(dataContext.objectives[0].questions[0].content).toEqual(questionContent);
-                                    expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                                    expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
                                 });
                             });
 
@@ -814,7 +814,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeResolvedWith(utils.getDateFromString(response.ModifiedOn));
+                                    expect(promise).toBeResolvedWith(new Date(response.ModifiedOn));
                                 });
                             });
 

@@ -4,7 +4,7 @@
 
         var buildCourse = function (courseId) {
             return invokeServiceMethod('course/build', { courseId: courseId }, function (responseData) {
-                return { packageUrl: responseData.PackageUrl, builtOn: new Date(parseInt(responseData.BuildOn.substr(6), 10)) };
+                return { packageUrl: responseData.PackageUrl, builtOn: new Date(responseData.BuildOn) };
             });
         };
 

@@ -227,7 +227,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(question.modifiedOn).toEqual(utils.getDateFromString(response.CreatedOn));
+                                expect(question.modifiedOn).toEqual(new Date(response.CreatedOn));
                             });
                         });
 
@@ -238,7 +238,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise).toBeResolvedWith({ id: response.Id, createdOn: utils.getDateFromString(response.CreatedOn) });
+                                expect(promise).toBeResolvedWith({ id: response.Id, createdOn: new Date(response.CreatedOn) });
                             });
                         });
 
@@ -410,7 +410,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                                expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
                             });
                         });
 
@@ -421,7 +421,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise).toBeResolvedWith({ modifiedOn: utils.getDateFromString(response.ModifiedOn) });
+                                expect(promise).toBeResolvedWith({ modifiedOn: new Date(response.ModifiedOn) });
                             });
                         });
 
@@ -601,7 +601,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(question.modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                            expect(question.modifiedOn).toEqual(new Date(response.ModifiedOn));
                         });
                     });
 
@@ -612,7 +612,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeResolvedWith({ modifiedOn: utils.getDateFromString(response.ModifiedOn) });
+                            expect(promise).toBeResolvedWith({ modifiedOn: new Date(response.ModifiedOn) });
                         });
                     });
 

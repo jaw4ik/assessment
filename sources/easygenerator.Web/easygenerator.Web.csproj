@@ -182,6 +182,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ActionResults\JsonDataResult.cs" />
     <Compile Include="Components\Configuration\HttpRequestsSenderConfigurationSection.cs" />
     <Compile Include="Components\Configuration\WooCommerceConfigurationSection.cs" />
     <Compile Include="Components\Tasks\HttpRequestsSenderTask.cs" />

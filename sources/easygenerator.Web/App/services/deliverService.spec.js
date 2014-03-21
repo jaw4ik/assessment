@@ -70,14 +70,14 @@
                     describe('and response.success is true', function () {
 
                         beforeEach(function () {
-                            post.resolve({ success: true, data: { PackageUrl: 'SomeUrl', BuildOn: '/Date(1378106938845)/' } });
+                            post.resolve({ success: true, data: { PackageUrl: 'SomeUrl', BuildOn: '1378106938845' } });
                         });
 
                         it('should resolve promise with true', function (done) {
                             var promise = service.buildCourse();
                             promise.fin(done);
 
-                            expect(promise).toBeResolvedWith({ packageUrl: 'SomeUrl', builtOn: new Date(parseInt('/Date(1378106938845)/'.substr(6), 10)) });
+                            expect(promise).toBeResolvedWith({ packageUrl: 'SomeUrl', builtOn: new Date('1378106938845') });
                         });
 
                     });

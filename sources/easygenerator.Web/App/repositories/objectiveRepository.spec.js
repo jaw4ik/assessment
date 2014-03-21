@@ -336,7 +336,7 @@
                                 runs(function () {
                                     var createdObjective = promise.inspect().value;
                                     expect(createdObjective.id).toEqual(response.Id);
-                                    expect(createdObjective.createdOn).toEqual(utils.getDateFromString(response.CreatedOn));
+                                    expect(createdObjective.createdOn).toEqual(new Date(response.CreatedOn));
                                 });
                             });
 
@@ -352,8 +352,8 @@
                                         id: response.Id,
                                         title: objectiveTitle,
                                         image: constants.defaultObjectiveImage,
-                                        createdOn: utils.getDateFromString(response.CreatedOn),
-                                        modifiedOn: utils.getDateFromString(response.CreatedOn),
+                                        createdOn: new Date(response.CreatedOn),
+                                        modifiedOn: new Date(response.CreatedOn),
                                         questions: []
                                     }));
                                 });
@@ -543,7 +543,7 @@
                                     runs(function () {
                                         expect(dataContext.objectives.length).toEqual(1);
                                         expect(dataContext.objectives[0].title).toEqual(objective.title);
-                                        expect(dataContext.objectives[0].modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                                        expect(dataContext.objectives[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
                                     });
                                 });
 
@@ -554,7 +554,7 @@
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(promise).toBeResolvedWith(utils.getDateFromString(response.ModifiedOn));
+                                        expect(promise).toBeResolvedWith(new Date(response.ModifiedOn));
                                     });
                                 });
 
@@ -888,7 +888,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(dataContext.objectives[0].modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                                    expect(dataContext.objectives[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
                                 });
                             });
 
@@ -915,7 +915,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeResolvedWith({ modifiedOn: utils.getDateFromString(response.ModifiedOn) });
+                                    expect(promise).toBeResolvedWith({ modifiedOn: new Date(response.ModifiedOn) });
                                 });
                             });
 

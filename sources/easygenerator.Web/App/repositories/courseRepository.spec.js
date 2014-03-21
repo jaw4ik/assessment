@@ -457,7 +457,7 @@
                                                 runs(function () {
                                                     var course = promise.inspect().value;
                                                     expect(course.id).toBe(courseId);
-                                                    expect(course.createdOn).toEqual(utils.getDateFromString(courseCreatedOn));
+                                                    expect(course.createdOn).toEqual(new Date(courseCreatedOn));
                                                 });
                                             });
 
@@ -476,8 +476,8 @@
                                                         id: courseId,
                                                         title: title,
                                                         template: template,
-                                                        createdOn: utils.getDateFromString(courseCreatedOn),
-                                                        modifiedOn: utils.getDateFromString(courseCreatedOn),
+                                                        createdOn: new Date(courseCreatedOn),
+                                                        modifiedOn: new Date(courseCreatedOn),
                                                         objectives: []
                                                     }));
                                                 });
@@ -495,8 +495,8 @@
                                                         id: courseId,
                                                         title: title,
                                                         template: template,
-                                                        createdOn: utils.getDateFromString(courseCreatedOn),
-                                                        modifiedOn: utils.getDateFromString(courseCreatedOn),
+                                                        createdOn: new Date(courseCreatedOn),
+                                                        modifiedOn: new Date(courseCreatedOn),
                                                         objectives: []
                                                     }));
                                                 });
@@ -795,7 +795,7 @@
 
                             beforeEach(function () {
                                 dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: [] }];
-                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: [{ Id: objectives[0].id }] });
+                                httpWrapperPost.resolve({ ModifiedOn: '1378106938845', RelatedObjectives: [{ Id: objectives[0].id }] });
                             });
 
                             it('should update expereince modifiedOn date', function () {
@@ -805,7 +805,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(dataContext.courses[0].modifiedOn).toEqual(utils.getDateFromString('/Date(1378106938845)/'));
+                                    expect(dataContext.courses[0].modifiedOn).toEqual(new Date('1378106938845'));
                                 });
                             });
 
@@ -828,7 +828,7 @@
                                 });
                                 runs(function () {
                                     expect(promise).toBeResolvedWith({
-                                        modifiedOn: utils.getDateFromString('/Date(1378106938845)/'),
+                                        modifiedOn: new Date('1378106938845'),
                                         relatedObjectives: [{ id: objectives[0].id }]
                                     });
                                 });
@@ -1046,7 +1046,7 @@
 
                             beforeEach(function () {
                                 dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: [] }];
-                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+                                httpWrapperPost.resolve({ ModifiedOn: '1378106938845' });
                             });
 
                             it('should update expereince modifiedOn date', function () {
@@ -1056,7 +1056,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(dataContext.courses[0].modifiedOn).toEqual(utils.getDateFromString('/Date(1378106938845)/'));
+                                    expect(dataContext.courses[0].modifiedOn).toEqual(new Date('1378106938845'));
                                 });
                             });
 
@@ -1078,7 +1078,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeResolvedWith(utils.getDateFromString('/Date(1378106938845)/'));
+                                    expect(promise).toBeResolvedWith(new Date('1378106938845'));
                                 });
                             });
 
@@ -1237,7 +1237,7 @@
                                     var
                                         newTitle = 'Some new title',
                                         newModifiedOnDate = "/Date(1378106938845)/",
-                                        parsedNewModifiedOnDate = new Date(parseInt(newModifiedOnDate.substr(6), 10)),
+                                        parsedNewModifiedOnDate = new Date(newModifiedOnDate),
                                         course = {
                                             id: 'Some id',
                                             title: 'Original title',
@@ -1500,7 +1500,7 @@
                                                 return !promise.isPending();
                                             });
                                             runs(function () {
-                                                expect(course.modifiedOn).toEqual(utils.getDateFromString(newModifiedOnDate));
+                                                expect(course.modifiedOn).toEqual(new Date(newModifiedOnDate));
                                             });
                                         });
 
@@ -1512,7 +1512,7 @@
                                                 return !promise.isPending();
                                             });
                                             runs(function () {
-                                                expect(promise).toBeResolvedWith({ modifiedOn: utils.getDateFromString(newModifiedOnDate) });
+                                                expect(promise).toBeResolvedWith({ modifiedOn: new Date(newModifiedOnDate) });
                                             });
                                         });
                                     });
@@ -1685,7 +1685,7 @@
                                             return !promise.isPending();
                                         });
                                         runs(function () {
-                                            expect(course.modifiedOn).toEqual(utils.getDateFromString(newModifiedDate));
+                                            expect(course.modifiedOn).toEqual(new Date(newModifiedDate));
                                         });
                                     });
 
@@ -1831,7 +1831,7 @@
                                     var newModifiedDate;
 
                                     beforeEach(function () {
-                                        newModifiedDate = "/Date(1378106938845)/";
+                                        newModifiedDate = "1378106938845";
                                         httpWrapperPost.resolve({ ModifiedOn: newModifiedDate });
                                     });
 
@@ -1874,7 +1874,7 @@
                                                 return !promise.isPending();
                                             });
                                             runs(function () {
-                                                expect(course.modifiedOn).toEqual(utils.getDateFromString(newModifiedDate));
+                                                expect(course.modifiedOn).toEqual(new Date(newModifiedDate));
                                             });
                                         });
 

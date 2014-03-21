@@ -1,10 +1,6 @@
 ﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/course', 'models/answerOption', 'models/learningContent', 'models/template', 'constants'],
     function (app, http, objectiveModel, ObjectiveModel, QuestionModel, CourseModel, AnswerOptionModel, LearningContentModel, TemplateModel, constants) {
 
-        function parseDateString(str) {
-            return new Date(parseInt(str.substr(6), 10));
-        }
-
         var
             objectives = [],
             courses = [],
@@ -47,16 +43,16 @@
                             objectives.push(new ObjectiveModel({
                                 id: item.Id,
                                 title: item.Title,
-                                createdOn: parseDateString(item.CreatedOn),
-                                modifiedOn: parseDateString(item.ModifiedOn),
+                                createdOn: new Date(item.CreatedOn),
+                                modifiedOn: new Date(item.ModifiedOn),
                                 image: constants.defaultObjectiveImage,
                                 questions: _.map(item.Questions, function (question) {
                                     return new QuestionModel({
                                         id: question.Id,
                                         title: question.Title,
                                         content: question.Content,
-                                        createdOn: parseDateString(question.CreatedOn),
-                                        modifiedOn: parseDateString(question.ModifiedOn)
+                                        createdOn: new Date(question.CreatedOn),
+                                        modifiedOn: new Date(question.ModifiedOn)
                                     });
                                 })
                             }));
@@ -73,15 +69,15 @@
                             courses.push(new CourseModel({
                                 id: item.Id.split('-').join(''),
                                 title: item.Title,
-                                createdOn: parseDateString(item.CreatedOn),
-                                modifiedOn: parseDateString(item.ModifiedOn),
+                                createdOn: new Date(item.CreatedOn),
+                                modifiedOn: new Date(item.ModifiedOn),
                                 objectives: _.map(item.RelatedObjectives, function (relatedObjective) {
                                     return _.find(objectives, function (objective) {
                                         return objective.id == relatedObjective.Id.split('-').join('');
                                     });
                                 }),
                                 publishedPackageUrl: item.PublishedPackageUrl,
-                                builtOn: _.isNullOrUndefined(item.builtOn) ? null : parseDateString(item.builtOn),
+                                builtOn: _.isNullOrUndefined(item.builtOn) ? null : new Date(item.builtOn),
                                 packageUrl: item.PackageUrl,
                                 reviewUrl: item.ReviewUrl,
                                 template: _.find(templates, function (tItem) {
