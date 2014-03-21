@@ -1,4 +1,4 @@
-﻿define(['user/subscriptionExpirationNotificationTask'],
+﻿define(['notifications/subscriptionExpirationNotificationTask'],
     function(task) {
 
         var shellViewModel = require('viewmodels/shell'),

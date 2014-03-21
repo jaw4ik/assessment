@@ -12,8 +12,7 @@ namespace easygenerator.DomainModel
         Comment Comment(string text, string createdBy);
         Answer Answer(string text, bool isCorrect, string createdBy);
         LearningContent LearningContent(string text, string createdBy);
-        User User(string email, string password, string firstname, string lastname, string phone, string organization,
-            string country, string createdBy, UserSettings userSettings);
+        User User(string email, string password, string firstname, string lastname, string phone, string organization, string country, string createdBy, UserSettings userSettings);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
     }

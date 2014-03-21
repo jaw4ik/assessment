@@ -8,11 +8,11 @@ using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Events
 {
-    public class UserSubscriptionPurchased
+    public abstract class UserEvent
     {
         public User User { get; private set; }
 
-        public UserSubscriptionPurchased(User user)
+        protected UserEvent(User user)
         {
             ThrowIfUserIsInvalid(user);
 

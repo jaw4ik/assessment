@@ -24,7 +24,7 @@
 
             beforeEach(function () {
                 ajax = $.Deferred();
-                spyOn($, 'ajax').andReturn(ajax.promise());
+                spyOn($, 'ajax').and.returnValue(ajax.promise());
             });
 
             it('should be function', function () {
@@ -37,112 +37,55 @@
 
             describe('when an error occured while getting user', function () {
 
-                beforeEach(function () {
+                beforeEach(function (done) {
                     ajax.reject();
+                    done();
                 });
 
-                it('should reject promise', function () {
+                it('should reject promise', function (done) {
                     var promise = userContext.identify();
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(promise).toBeRejected();
-                    });
+                    promise.fail(function () {                        
+                        done();
+                    }).done();
                 });
 
             });
 
             describe('when user email is not a string', function () {
 
-                it('should set a null identity', function () {
+                it('should set a null identity', function (done) {
+                    ajax.resolve({});
 
-                    var user = {
-                        fullname: 'fullname',
-                        accessType: 0
-                    };
-
-                    ajax.resolve(user);
-
-                    var promise = userContext.identify();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    userContext.identify().fin(function () {
                         expect(userContext.identity).toEqual(null);
-                    });
+                        done();
+                    }).done();
                 });
 
             });
 
-            describe('when user has free access', function () {
+            describe('when user email is a string', function () {
 
-                it('should set a free user identity', function () {
+                it('should set user identity', function (done) {
+                    ajax.resolve({ email: 'user@easygenerator.com', subscription: { accessType: 0 } });
 
-                    var user = {
-                        fullname: 'fullname',
-                        email: 'user@easygenerator.com',
-                        accessType: 0
-                    };
-
-                    ajax.resolve(user);
-
-                    var promise = userContext.identify();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(userContext.identity).toEqual({
-                            fullname: user.fullname,
-                            email: user.email,
-                            accessType: constants.accessType.free
-                        });
-                    });
+                    userContext.identify().fin(function () {
+                        expect(userContext.identity.__moduleId__).toEqual("models/user");
+                        done();
+                    }).done();
                 });
 
             });
 
-            describe('when user has starter access', function () {
-
-                it('should set a starter user identity', function () {
-
-                    var user = {
-                        fullname: 'fullname',
-                        email: 'user@easygenerator.com',
-                        accessType: 1
-                    };
-
-                    ajax.resolve(user);
-
-                    var promise = userContext.identify();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(userContext.identity).toEqual({
-                            fullname: user.fullname,
-                            email: user.email,
-                            accessType: constants.accessType.starter
-                        });
-                    });
-                });
-
-            });
-
-            it('should resolve promise', function () {
-                var promise = userContext.identify();
+            it('should resolve promise', function (done) {
                 ajax.resolve({});
 
-                waitsFor(function () {
-                    return !promise.isPending();
-                });
-                runs(function () {
+                var promise = userContext.identify();
+                promise.fin(function () {
                     expect(promise).toBeResolved();
-                });
+                    done();
+                }).done();
             });
 
         });
@@ -165,10 +108,26 @@
 
             });
 
+            describe('when user identity subscription is not an object', function () {
+
+                beforeEach(function () {
+                    userContext.identity = {};
+                });
+
+                it('should be false', function () {
+                    expect(userContext.hasStarterAccess()).toBeFalsy();
+                });
+
+            });
+
             describe('when user has free access type', function () {
 
                 beforeEach(function () {
-                    userContext.identity = { accessType: constants.accessType.free };
+                    userContext.identity = {
+                        subscription: {
+                            accessType: constants.accessType.free
+                        }
+                    };
                 });
 
                 it('should be false', function () {
@@ -180,7 +139,11 @@
             describe('when user has starter access type', function () {
 
                 beforeEach(function () {
-                    userContext.identity = { accessType: constants.accessType.starter };
+                    userContext.identity = {
+                        subscription: {
+                            accessType: constants.accessType.starter
+                        }
+                    };
                 });
 
                 it('should be false', function () {
@@ -190,6 +153,7 @@
             });
 
         });
+
     });
 
 })

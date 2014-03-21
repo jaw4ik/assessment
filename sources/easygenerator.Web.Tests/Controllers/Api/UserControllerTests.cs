@@ -1,8 +1,4 @@
-﻿using System;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
+﻿using System.Collections.Generic;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
@@ -11,6 +7,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Mail;
@@ -19,6 +16,11 @@ using easygenerator.Web.ViewModels.Account;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -31,14 +33,15 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IAuthenticationProvider _authenticationProvider;
         private ISignupFromTryItNowHandler _signupFromTryItNowHandler;
         private IDomainEventPublisher<UserSignedUpEvent> _userSignedUpEventPublisher;
-        private IDomainEventPublisher<UserSubscriptionPurchased> _userSubscriptionPurchasedEventPublisher;
+        private IDomainEventPublisher<UserDonwgraded> _userDonwgradedEventPublisher;
+        private IDomainEventPublisher<UserUpgradedToStarter> _userUpgradedToStarterEventPublisher;
         private IMailSenderWrapper _mailSenderWrapper;
+        private ConfigurationReader _configurationReader;
 
         IPrincipal _user;
         HttpContextBase _context;
 
         private readonly DateTime CurrentDate = new DateTime(2014, 3, 19);
-
         [TestInitialize]
         public void InitializeContext()
         {
@@ -47,17 +50,18 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _signupFromTryItNowHandler = Substitute.For<ISignupFromTryItNowHandler>();
             _userSignedUpEventPublisher = Substitute.For<IDomainEventPublisher<UserSignedUpEvent>>();
-            _userSubscriptionPurchasedEventPublisher = Substitute.For<IDomainEventPublisher<UserSubscriptionPurchased>>();
+            _userDonwgradedEventPublisher = Substitute.For<IDomainEventPublisher<UserDonwgraded>>();
+            _userUpgradedToStarterEventPublisher = Substitute.For<IDomainEventPublisher<UserUpgradedToStarter>>();
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
+            _configurationReader = Substitute.For<ConfigurationReader>();
 
-            _controller = new UserController(_userRepository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _userSignedUpEventPublisher, _userSubscriptionPurchasedEventPublisher, _mailSenderWrapper);
+            _controller = new UserController(_userRepository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _userSignedUpEventPublisher, _userDonwgradedEventPublisher, _userUpgradedToStarterEventPublisher, _mailSenderWrapper, _configurationReader);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
 
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
-
             DateTimeWrapper.Now = () => CurrentDate;
         }
 
@@ -244,7 +248,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Downgrade_ShouldPublishSubscriptionPurchasedEvent()
+        public void Downgrade_ShouldPublishUserDowngradedEvent()
         {
             const string email = "test@test.test";
             var user = Substitute.For<User>();
@@ -252,7 +256,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.Downgrade(email);
 
-            _userSubscriptionPurchasedEventPublisher.Received().Publish(Arg.Is<UserSubscriptionPurchased>(_ => _.User == user));
+            _userDonwgradedEventPublisher.Received().Publish(Arg.Is<UserDonwgraded>(_ => _.User == user));
         }
 
         #endregion
@@ -307,7 +311,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void UpgradeToStarter_ShouldPublishSubscriptionPurchasedEvent()
+        public void UpgradeToStarter_ShouldPublishUserUpgradedToStarterEvent()
         {
             const string email = "test@test.test";
             var user = Substitute.For<User>();
@@ -315,7 +319,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.UpgradeToStarter(email, DateTime.MaxValue);
 
-            _userSubscriptionPurchasedEventPublisher.Received().Publish(Arg.Is<UserSubscriptionPurchased>(_ => _.User == user));
+            _userUpgradedToStarterEventPublisher.Received().Publish(Arg.Is<UserUpgradedToStarter>(_ => _.User == user));
         }
 
         #endregion
@@ -805,7 +809,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
                 email = user.Email,
                 firstname = user.FirstName,
                 lastname = user.LastName,
-                accessType = user.AccessType
             });
         }
 

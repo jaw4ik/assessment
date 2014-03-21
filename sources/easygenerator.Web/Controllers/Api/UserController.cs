@@ -1,10 +1,9 @@
-﻿using System;
-using System.Web.Mvc;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
@@ -12,6 +11,8 @@ using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
+using System;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -23,24 +24,30 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IAuthenticationProvider _authenticationProvider;
         private readonly ISignupFromTryItNowHandler _signupFromTryItNowHandler;
         private readonly IDomainEventPublisher<UserSignedUpEvent> _userSignedUpEventPublisher;
-        private readonly IDomainEventPublisher<UserSubscriptionPurchased> _userSubscriptionEventPublisher;
+        private readonly IDomainEventPublisher<UserDonwgraded> _userDonwgradedEventPublisher;
+        private readonly IDomainEventPublisher<UserUpgradedToStarter> _userUpgradedToStarterEventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
+        private readonly ConfigurationReader _configurationReader;
 
         public UserController(IUserRepository repository,
             IEntityFactory entityFactory,
             IAuthenticationProvider authenticationProvider,
             ISignupFromTryItNowHandler signupFromTryItNowHandler,
             IDomainEventPublisher<UserSignedUpEvent> userSignedUpEventPublisher,
-            IDomainEventPublisher<UserSubscriptionPurchased> userSubscriptionEventPublisher,
-            IMailSenderWrapper mailSenderWrapper)
+            IDomainEventPublisher<UserDonwgraded> userDonwgradedEventPublisher,
+            IDomainEventPublisher<UserUpgradedToStarter> userUpgradedToStarterEventPublisher,
+            IMailSenderWrapper mailSenderWrapper,
+            ConfigurationReader configurationReader)
         {
             _repository = repository;
             _entityFactory = entityFactory;
             _authenticationProvider = authenticationProvider;
             _signupFromTryItNowHandler = signupFromTryItNowHandler;
             _userSignedUpEventPublisher = userSignedUpEventPublisher;
-            _userSubscriptionEventPublisher = userSubscriptionEventPublisher;
+            _userDonwgradedEventPublisher = userDonwgradedEventPublisher;
+            _userUpgradedToStarterEventPublisher = userUpgradedToStarterEventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
+            _configurationReader = configurationReader;
         }
 
         [HttpPost]
@@ -98,7 +105,7 @@ namespace easygenerator.Web.Controllers.Api
 
             user.DowngradePlanToFree();
 
-            _userSubscriptionEventPublisher.Publish(new UserSubscriptionPurchased(user));
+            _userDonwgradedEventPublisher.Publish(new UserDonwgraded(user));
 
             return Success();
         }
@@ -118,7 +125,7 @@ namespace easygenerator.Web.Controllers.Api
 
             user.UpgradePlanToStarter(expirationDate.Value);
 
-            _userSubscriptionEventPublisher.Publish(new UserSubscriptionPurchased(user));
+            _userUpgradedToStarterEventPublisher.Publish(new UserUpgradedToStarter(user));
 
             return Success();
         }
@@ -225,7 +232,7 @@ namespace easygenerator.Web.Controllers.Api
                 return Json(new { });
             }
 
-            return Json(new { email = user.Email, firstname = user.FirstName, lastname = user.LastName, accessType = user.AccessType });
+            return Json(new { email = user.Email, firstname = user.FirstName, lastname = user.LastName, subscription = new { accessType = user.AccessType, expirationDate = user.ExpirationDate } });
 
         }
 

@@ -1,6 +1,6 @@
-﻿define(['userContext', 'constants', 'notifications/expirationNotification', 'viewmodels/shell'], function (userContext, constants, ExpirationNotification, shellViewModel) {
+﻿define(['userContext', 'constants', 'notifications/subscriptionExpirationNotification', 'viewmodels/shell'], function (userContext, constants, SubscriptionExpirationNotification, shellViewModel) {
 
-    var notificationName = 'expirationNotification';
+    var notificationName = 'subscriptionExpirationNotification';
 
     return {
         execute: execute
@@ -35,7 +35,7 @@
             removeNotificationIfExists(currentNotification);
         }
 
-        var notification = new ExpirationNotification(notificationName, firstname, amountOfDays);
+        var notification = new SubscriptionExpirationNotification(notificationName, firstname, amountOfDays);
         shellViewModel.notifications.push(notification);
     }
 

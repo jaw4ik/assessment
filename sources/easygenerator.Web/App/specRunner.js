@@ -1,5 +1,7 @@
 ﻿function runSpecs(env) {
 
+    Q.stopUnhandledRejectionTracking();
+
     require.config({
         paths: {
             'text': '../Scripts/text',
@@ -33,8 +35,10 @@
         'help/helpHint.spec',
         'introduction/welcome.spec',
         'localization/localizationManager.spec',
+        'userContext.spec',
+        'models/user.spec',
         'models/course.spec',
-        'user/subscriptionExpirationNotificationTask.spec',
+        'notifications/subscriptionExpirationNotificationTask.spec',
  //       'repositories/answerRepository.spec',
 
         /* UNSORTED SPECS */
@@ -44,8 +48,11 @@
         'httpWrapper.spec',
         'notify.spec',
         'routing/routerExtender.spec',
-        'services/deliverService.spec'
+        'services/deliverService.spec',
 
+
+        'synchronization/handlers/userDowngraded.spec',
+        'synchronization/handlers/userUpgradedToStarter.spec'
 
         /* NOT MIGRATED SPECS */
        /*'repositories/courseRepository.spec',
@@ -80,7 +87,7 @@
        'widgets/notifyViewer/viewmodel.spec',
        'widgets/uiLockViewer/viewmodel.spec',
        'uiLocker.spec',
-       'userContext.spec',
+       
        'services/aim4YouService.spec',
        'viewmodels/courses/deliveringActions/publishToAim4You.spec',
        'viewmodels/common/contentField.spec',

@@ -16,9 +16,8 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'scheduler'],
-    function (system, app, bootstrapper, userContext) {
-
+define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'scheduler', 'synchronization/listener'],
+    function (system, app, bootstrapper, userContext, scheduler, synchronization) {
         if (!has('release')) {
             system.debug(true);
         }
@@ -34,10 +33,12 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'sched
 
         app.start().then(function () {
             bootstrapper.run();
-            userContext.identify().then(function () {
-                app.setRoot('viewmodels/shell');
+            return userContext.identify().then(function () {
+                return synchronization.start().then(function () {
+                    app.setRoot('viewmodels/shell');
+                });
             });
-        });
+        }).done();
 
     }
 );

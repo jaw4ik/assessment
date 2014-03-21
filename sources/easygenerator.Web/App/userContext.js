@@ -1,4 +1,4 @@
-﻿define(['constants'], function (constants) {
+﻿define(['constants', 'models/user'], function (constants, User) {
 
 
     var userContext = {
@@ -10,36 +10,22 @@
     return userContext;
 
     function identify() {
-        var deferred = Q.defer();
-
-        $.ajax({ url: 'api/identify', type: 'POST', contentType: 'application/json', dataType: 'json' }).done(function (user) {
-            if (_.isString(user.email)) {
-                userContext.identity = {
-                    email: user.email,
-                    firstname: user.firstname,
-                    lastname: user.lastname,
-                    fullname: (user.firstname + ' ' + user.lastname).trim(),
-                    accessType: _.find(constants.accessType, function (item) { return item == user.accessType; })
-                };
-            } else {
-                userContext.identity = null;
-            }
-
-            deferred.resolve();
-
-        }).fail(function () {
-            deferred.reject();
+        return Q($.ajax({
+            url: 'api/identify',
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: 'json'
+        })).then(function (user) {
+            userContext.identity = _.isString(user.email) ? new User(user) : null;
         });
-
-        return deferred.promise;
     }
 
     function hasStarterAccess() {
-        if (_.isNullOrUndefined(userContext.identity)) {
+        if (_.isNullOrUndefined(userContext.identity) || _.isNullOrUndefined(userContext.identity.subscription)) {
             return false;
         }
 
-        return userContext.identity.accessType == constants.accessType.starter;
-
+        return userContext.identity.subscription.accessType === constants.accessType.starter;
     }
+
 })

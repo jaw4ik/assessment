@@ -205,21 +205,38 @@
     <Content Include="App\bootstrapping\localizationTask.js" />
     <Content Include="App\bootstrapping\knockoutBindingsTask.js" />
     <Content Include="App\bootstrapping\schedulerTask.js" />
+    <Content Include="App\bootstrapping\synchronizationTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
     <Content Include="App\help\helpHintPositioning.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.spec.js">
       <DependentUpon>course.js</DependentUpon>
     </Content>
+    <Content Include="App\models\user.js" />
+    <Content Include="App\models\user.spec.js">
+      <DependentUpon>user.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\subscriptionExpirationNotification.html">
+      <DependentUpon>subscriptionExpirationNotification.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\subscriptionExpirationNotificationTask.spec.js">
+      <DependentUpon>subscriptionExpirationNotificationTask.js</DependentUpon>
+    </Content>
     <Content Include="App\routing\routerExtender.spec.js">
       <DependentUpon>routerExtender.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\commentRepository.js" />
     <Content Include="App\scheduler.js" />
-    <Content Include="App\notifications\expirationNotification.js" />
-    <Content Include="App\notifications\expirationNotification.html">
-      <DependentUpon>expirationNotification.js</DependentUpon>
+    <Content Include="App\notifications\subscriptionExpirationNotification.js" />
+    <Content Include="App\synchronization\handlers\userDowngraded.js" />
+    <Content Include="App\synchronization\handlers\userDowngraded.spec.js">
+      <DependentUpon>userDowngraded.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\userUpgradedToStarter.spec.js">
+      <DependentUpon>userUpgradedToStarter.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\userUpgradedToStarter.js" />
+    <Content Include="App\synchronization\listener.js" />
     <Content Include="App\treeOfContent\commands\createQuestionCommand.js" />
     <Content Include="App\treeOfContent\commands\createQuestionCommand.spec.js">
       <DependentUpon>createQuestionCommand.js</DependentUpon>
@@ -268,10 +285,7 @@
     <Content Include="App\treeOfContent\treeOfContent.js" />
     <Content Include="App\treeOfContent\handlers\treeOfContentTraversal.js" />
     <Content Include="App\treeOfContent\handlers\treeOfContentAutoExpandHandler.js" />
-    <Content Include="App\user\subscriptionExpirationNotificationTask.js" />
-    <Content Include="App\user\subscriptionExpirationNotificationTask.spec.js">
-      <DependentUpon>subscriptionExpirationNotificationTask.js</DependentUpon>
-    </Content>
+    <Content Include="App\notifications\subscriptionExpirationNotificationTask.js" />
     <Content Include="App\viewmodels\common\contentField.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.spec.js">
@@ -566,8 +580,8 @@
     <Content Include="Content\panels.css" />
     <Content Include="Content\treeOfContent.css" />
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
-    <Compile Include="Hubs\SynchronizationEventHandler.cs" />
-    <Compile Include="Hubs\SyncHub.cs" />
+    <Compile Include="Synchronization\UserEventHandler.cs" />
+    <Compile Include="Synchronization\UserHub.cs" />
     <Compile Include="Mail\MailSender.cs" />
     <Compile Include="Mail\MailSettings.cs" />
     <Compile Include="Mail\MailSenderTask.cs" />
