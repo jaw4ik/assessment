@@ -397,16 +397,6 @@
     vertical-align: middle;
 }
 
-@media (max-width: 1200px) {
-    .package-action-btn-control {
-        display: block;
-    }
-
-    .package-action-btn-wrapper, .package-action-btn-message-wrapper {
-        display: block;
-    }
-}
-
 .package-action-access-message {
     color: #67799C;
     font-family: 'OpenSans';
@@ -613,6 +603,25 @@
     .copy-link-description-holder.disabled {
         opacity: 0.4;
     }
+
+
+@media (max-width: 1200px) {
+    .package-action-btn-control {
+        display: block;
+    }
+
+    .package-action-access-message {
+        padding-left: 28px;
+    }
+
+        .package-action-access-message:before {
+            left: 0;
+        }
+
+    .package-action-btn-wrapper, .package-action-btn-message-wrapper {
+        display: block;
+    }
+}
 
 /*#endregion DELIVER STEP*/
 
