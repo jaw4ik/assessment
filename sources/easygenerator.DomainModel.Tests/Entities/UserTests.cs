@@ -1113,7 +1113,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
-        #region UpgratePlanToStarter
+        #region UpgradePlanToStarter
 
         [TestMethod]
         public void UpgradePlanToStarter_ShouldThrowArgumentException_WhenExpirationTimeLessThanSqlMinDate()
@@ -1124,7 +1124,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             DateTimeWrapper.MinValue = () => minDate;
 
             //Act
-            Action action = () => user.UpgratePlanToStarter(new DateTime(1999, 12, 30));
+            Action action = () => user.UpgradePlanToStarter(new DateTime(1999, 12, 30));
 
             //Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
@@ -1137,7 +1137,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var user = UserObjectMother.Create();
 
             //Act
-            user.UpgratePlanToStarter(DateTime.Now);
+            user.UpgradePlanToStarter(DateTime.Now);
 
             //Assert
             user.AccessType.Should().Be(AccessType.Starter);
@@ -1151,7 +1151,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var expirationDate = DateTime.MaxValue;
 
             //Act
-            user.UpgratePlanToStarter(expirationDate);
+            user.UpgradePlanToStarter(expirationDate);
 
             //Assert
             user.ExpirationDate.Should().Be(expirationDate);

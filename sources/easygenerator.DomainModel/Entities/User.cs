@@ -147,7 +147,7 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        public virtual void UpgratePlanToStarter(DateTime expirationDate)
+        public virtual void UpgradePlanToStarter(DateTime expirationDate)
         {
             ThrowIfExpirationDateIsInvalid(expirationDate);
 

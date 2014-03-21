@@ -116,7 +116,7 @@ namespace easygenerator.Web.Controllers.Api
             if (user == null)
                 return UnprocessableEntity("User with specified email does not exist");
 
-            user.UpgratePlanToStarter(expirationDate.Value);
+            user.UpgradePlanToStarter(expirationDate.Value);
 
             _userSubscriptionEventPublisher.Publish(new UserSubscriptionPurchased(user));
 

@@ -303,7 +303,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.UpgradeToStarter(email, expDate);
 
-            user.Received().UpgratePlanToStarter(expDate);
+            user.Received().UpgradePlanToStarter(expDate);
         }
 
         [TestMethod]
