@@ -140,47 +140,47 @@
         cursor: default;
     }
 
-        .header-menu-list-item.help:hover {
-            text-decoration: underline;
-            opacity: .5;
-        }
-
         .header-menu-list-item.help.disabled,
         .header-menu-list-item.help.disabled:hover {
             opacity: 0.2;
             text-decoration: none;
         }
 
-    .header-menu-list-item.profile {
-        position: relative;
-        max-width: 280px;
-        min-width: 75px;
-        padding: 19px 10px;
-        border-radius: 2px 2px 0 0;
-        border-bottom: 1px solid black;
-        cursor: default;
-    }
+.header-help-hint-btn:hover {
+    text-decoration: underline;
+    opacity: .5;
+}
 
-    .header-menu-list-item.istrymode {
-        display: list-item;
-    }
+.header-menu-list-item.profile {
+    position: relative;
+    max-width: 280px;
+    min-width: 75px;
+    padding: 19px 10px;
+    border-radius: 2px 2px 0 0;
+    border-bottom: 1px solid black;
+    cursor: default;
+}
 
-    .header-menu-list-item.user-notification {
-        position: relative;
-        width: 60px;
-        padding: 19px 24px;
-    }
+.header-menu-list-item.istrymode {
+    display: list-item;
+}
 
-    .user-notification-image {
-        width: 26px;
-        height: 18px;
-        background: url(../Content/images/sprites.png) -183px -250px no-repeat;
-    }
+.header-menu-list-item.user-notification {
+    position: relative;
+    width: 60px;
+    padding: 19px 24px;
+}
 
-    .header-menu-list-item.user-notification:hover,
-    .header-menu-list-item.user-notification.active {
-        background-color: #252525;
-    }
+.user-notification-image {
+    width: 26px;
+    height: 18px;
+    background: url(../Content/images/sprites.png) -183px -250px no-repeat;
+}
+
+.header-menu-list-item.user-notification:hover,
+.header-menu-list-item.user-notification.active {
+    background-color: #252525;
+}
 
     .header-menu-list-item.user-notification.active:after {
         content: '';
@@ -1322,6 +1322,7 @@ span.top-navigation-item.current {
 .user-notification-title {
     font: 13px 'OpenSans-Semibold';
 }
+
 .user-notification-sender {
     display: block;
     font-size: 11px;
