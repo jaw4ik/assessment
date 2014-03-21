@@ -3,7 +3,6 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
@@ -65,7 +64,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             var user = _repository.GetUserByEmail(email);
             if (user == null)
-                return UnprocessableEntity("User with specified email does not exist");
+                throw new ArgumentException("User with specified email does not exist", "email");
 
             if (!string.IsNullOrEmpty(password))
                 user.UpdatePassword(password, email);
@@ -86,7 +85,7 @@ namespace easygenerator.Web.Controllers.Api
             {
                 var countryName = CountriesInfo.GetCountryName(country);
                 if (countryName == null)
-                    return UnprocessableEntity("Not valid country code");
+                    throw new ArgumentException("Not valid country code", "country");
 
                 user.UpdateCountry(countryName, email);
             }
@@ -103,7 +102,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             var user = _repository.GetUserByEmail(email);
             if (user == null)
-                return UnprocessableEntity("User with specified email does not exist");
+                throw new ArgumentException("User with specified email does not exist", "email");
 
             user.DowngradePlanToFree();
 
@@ -120,11 +119,11 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult UpgradeToStarter(string email, DateTime? expirationDate)
         {
             if (!expirationDate.HasValue)
-                return UnprocessableEntity("Expiration date is not specified or specified in wrong format");
+                throw new ArgumentException("Expiration date is not specified or specified in wrong format", "expirationDate");
 
             var user = _repository.GetUserByEmail(email);
             if (user == null)
-                return UnprocessableEntity("User with specified email does not exist");
+                throw new ArgumentException("User with specified email does not exist", "email");
 
             user.UpgradePlanToStarter(expirationDate.Value);
 

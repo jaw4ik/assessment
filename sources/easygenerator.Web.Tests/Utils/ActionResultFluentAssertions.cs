@@ -260,18 +260,6 @@ namespace easygenerator.Web.Tests.Utils
             return new BadRequestResultAssertions(value.Subject as BadRequestResult);
         }
 
-        public static UnprocessableEntityResultAssertions BeUnprocessableEntityResultWithMessage(this ObjectAssertions value, string message = "", string reason = "", params object[] reasonArgs)
-        {
-            Execute.Assertion
-                .BecauseOf(reason, reasonArgs)
-                .ForCondition(value.Subject is HttpStatusCodeWithMessageResult)
-                .ForCondition(((HttpStatusCodeWithMessageResult)value.Subject).StatusCode == 422)
-                .ForCondition(((HttpStatusCodeWithMessageResult)value.Subject).Message == message)
-                .FailWith("Expected \"HttpStatusCodeWithMessageResult\" with status 422 and message {0}, but got {1}", message, GetSubjectTypeErrorMessage(value.Subject));
-
-            return new UnprocessableEntityResultAssertions(value.Subject as HttpStatusCodeWithMessageResult);
-        }
-
         public static FileResultAssertions BeFileResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
         {
             Execute.Assertion

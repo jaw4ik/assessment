@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
@@ -69,14 +68,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Update
 
         [TestMethod]
-        public void Update_ShouldReturnBadRequestResult_WhenUserDoesNotExists()
+        public void Update_ShouldThrowArgumentException_WhenUserDoesNotExists()
         {
             const string email = "test@test.test";
             _userRepository.GetUserByEmail(email).Returns((User)null);
 
-            var result = _controller.Update(email);
+            Action action = () => _controller.Update(email);
 
-            result.Should().BeUnprocessableEntityResultWithMessage("User with specified email does not exist");
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
         }
 
         [TestMethod]
@@ -183,16 +182,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Update_ShouldReturnBadRequestResult_WhenCountryIsDefinedAndNotValid()
+        public void Update_ShouldThrowArgumentException_WhenCountryIsDefinedAndNotValid()
         {
             const string email = "test@test.test";
             const string country = "11";
             var user = Substitute.For<User>();
             _userRepository.GetUserByEmail(email).Returns(user);
 
-            var result = _controller.Update(email, country: country);
+            Action action = () => _controller.Update(email, country: country);
 
-            result.Should().BeUnprocessableEntityResultWithMessage("Not valid country code");
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("country");
         }
 
         [TestMethod]
@@ -213,14 +212,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Downgrade
 
         [TestMethod]
-        public void Downgrade_ShouldReturnUnprocessableEntityResult_WhenUserDoesNotExists()
+        public void Downgrade_ShouldThrowArgumentException_WhenUserDoesNotExists()
         {
             const string email = "test@test.test";
             _userRepository.GetUserByEmail(email).Returns((User)null);
 
-            var result = _controller.Downgrade(email);
+            Action action = () => _controller.Downgrade(email);
 
-            result.Should().BeUnprocessableEntityResultWithMessage("User with specified email does not exist");
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
         }
 
         [TestMethod]
@@ -264,25 +263,25 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region UpgradeToStarter
 
         [TestMethod]
-        public void UpgradeToStarter_ShouldReturnUnprocessableEntityResult_WhenUserDoesNotExists()
+        public void UpgradeToStarter_ShouldThrowArgumentException_WhenUserDoesNotExists()
         {
             const string email = "test@test.test";
             _userRepository.GetUserByEmail(email).Returns((User)null);
 
-            var result = _controller.UpgradeToStarter(email, DateTime.MaxValue);
+            Action action = () => _controller.UpgradeToStarter(email, DateTime.MaxValue);
 
-            result.Should().BeUnprocessableEntityResultWithMessage("User with specified email does not exist");
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
         }
 
         [TestMethod]
-        public void UpgradeToStarter_ShouldReturnUnprocessableEntityResult_WhenExpirationDateIsNull()
+        public void UpgradeToStarter_ShouldThrowArgumentException_WhenExpirationDateIsNull()
         {
             const string email = "test@test.test";
             _userRepository.GetUserByEmail(email).Returns((User)null);
 
-            var result = _controller.UpgradeToStarter(email, null);
+            Action action = () => _controller.UpgradeToStarter(email, null);
 
-            result.Should().BeUnprocessableEntityResultWithMessage("Expiration date is not specified or specified in wrong format");
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
         }
 
         [TestMethod]

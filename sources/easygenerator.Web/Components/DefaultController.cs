@@ -1,7 +1,7 @@
-﻿using System.Net;
-using easygenerator.Infrastructure;
+﻿using easygenerator.Infrastructure;
 using easygenerator.Web.Components.ActionResults;
 using System;
+using System.Net;
 using System.Web.Mvc;
 
 namespace easygenerator.Web.Components
@@ -46,16 +46,6 @@ namespace easygenerator.Web.Components
         protected ActionResult BadRequest()
         {
             return new BadRequestResult();
-        }
-
-        protected ActionResult BadRequest(string message)
-        {
-            return new BadRequestResult(message);
-        }
-
-        protected ActionResult UnprocessableEntity(string message)
-        {
-            return new HttpStatusCodeWithMessageResult(422, message);
         }
 
         protected string GetCurrentUsername()
