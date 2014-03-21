@@ -1,13 +1,12 @@
-﻿using System;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Http;
-using easygenerator.Infrastructure.Mail;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.WooCommerce;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using HttpClient = easygenerator.Infrastructure.Http.HttpClient;
+using System;
 
 namespace easygenerator.Web.Tests.WooCommerce
 {
@@ -17,25 +16,24 @@ namespace easygenerator.Web.Tests.WooCommerce
         private readonly DateTime CurrentDate = new DateTime(2014, 3, 19);
 
         private ConfigurationReader _configurationReader;
-        private HttpClient _httpClient;
+        private IHttpRequestsManager _httpRequestsManager;
         private WooCommerceApiService _wooCommerceApiService;
 
         [TestInitialize]
         public void InitializeService()
         {
             _configurationReader = Substitute.For<ConfigurationReader>();
-            _httpClient = Substitute.For<HttpClient>(Substitute.For<IMailNotificationManager>(), Substitute.For<IHttpRequestsManager>(), Substitute.For<ILog>());
-            _wooCommerceApiService = new WooCommerceApiService(_configurationReader, _httpClient);
+            _httpRequestsManager = Substitute.For<IHttpRequestsManager>();
+            _wooCommerceApiService = new WooCommerceApiService(_configurationReader, _httpRequestsManager);
 
             DateTimeWrapper.Now = () => CurrentDate;
         }
 
         [TestMethod]
         public void WooCommerceApiService_ShouldCallHttpClientPostOrAddToQueueMethodWithCorrectData()
-        {
+        { 
             // Arrange
             var user = UserObjectMother.CreateWithCountry("Ukraine");
-            var password = "abcABC123";
             var serviceUrl = "serviceUrl";
             var methodPath = "api/user/create";
             var apiKey = "apiKey";
@@ -46,13 +44,27 @@ namespace easygenerator.Web.Tests.WooCommerce
             _configurationReader.WooCommerceConfiguration.Returns(condigurationSection);
 
             // Act
-            _wooCommerceApiService.RegisterUser(user, password);
+            _wooCommerceApiService.RegisterUser(user, "abcABC123");
 
             // Assert
-            _httpClient.Received().PostOrAddToQueueIfUnexpectedError(
+            _httpRequestsManager.Received().PostOrAddToQueueIfUnexpectedError(
                 serviceUrl + "/" + methodPath + "?key=" + apiKey,
                 Arg.Any<object>(),
                 serviceName);
+        }
+
+        [TestMethod]
+        public void WooCommerceApiService_ShouldNotCallHttpClientIfEnableIsFalse()
+        {
+            // Arrange
+            var condigurationSection = new WooCommerceConfigurationSection { ServiceUrl = "serviceUrl", ApiKey = "apiKey", Enabled = false };
+            _configurationReader.WooCommerceConfiguration.Returns(condigurationSection);
+
+            // Act
+            _wooCommerceApiService.RegisterUser(UserObjectMother.CreateWithCountry("Ukraine"), "abcABC123");
+
+            // Assert
+            _httpRequestsManager.DidNotReceive().PostOrAddToQueueIfUnexpectedError(Arg.Any<string>(), Arg.Any<object>(), Arg.Any<string>());
         }
     }
 }

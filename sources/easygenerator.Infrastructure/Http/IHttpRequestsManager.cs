@@ -2,6 +2,7 @@
 {
     public interface IHttpRequestsManager
     {
-        void AddHttpRequestToQueue(string url, string verb, string postJsonData, string serviceName, bool reportOnFailure = true);
+        void PostOrAddToQueueIfUnexpectedError(string url, object postJsonData, string serviceName,
+            bool reportOnFailure = true);
     }
 }

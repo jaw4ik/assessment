@@ -1,7 +1,4 @@
-﻿using System;
-using System.Activities.Statements;
-using System.Collections.ObjectModel;
-using easygenerator.Infrastructure;
+﻿using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Http;
 using easygenerator.Infrastructure.Mail;
 using easygenerator.Infrastructure.Tests.ObjectMothers;
@@ -10,7 +7,9 @@ using easygenerator.Web.Components.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using HttpClient = easygenerator.Infrastructure.Http.HttpClient;
 using HttpRequest = easygenerator.Infrastructure.DomainModel.HttpRequest;
 
@@ -27,6 +26,7 @@ namespace easygenerator.Web.Tests.Tasks
         private ConfigurationReader _configurationReader;
         private HttpRequestsSenderConfigurationSection _configurationSection;
         private ICollection<HttpRequest> _requests;
+        private ILog _logger;
 
         [TestInitialize]
         public void InitializeTask()
@@ -34,11 +34,12 @@ namespace easygenerator.Web.Tests.Tasks
             _unitOfWork = Substitute.For<IUnitOfWork>();
             _httpRequestsRepository = Substitute.For<IHttpRequestsRepository>();
             _mailNotificationManager = Substitute.For<IMailNotificationManager>();
-            _httpClient = Substitute.For<HttpClient>(_mailNotificationManager, Substitute.For<IHttpRequestsManager>(), Substitute.For<ILog>());
+            _httpClient = Substitute.For<HttpClient>();
             _configurationReader = Substitute.For<ConfigurationReader>();
             _configurationSection = new HttpRequestsSenderConfigurationSection();
             _configurationReader.HttpRequestsSenderConfiguration.Returns(_configurationSection);
-            _httpRequestsSenderTask = new HttpRequestsSenderTask(_unitOfWork, _httpRequestsRepository, _mailNotificationManager, _httpClient, _configurationReader, Substitute.For<ILog>());
+            _logger = Substitute.For<ILog>();
+            _httpRequestsSenderTask = new HttpRequestsSenderTask(_unitOfWork, _httpRequestsRepository, _mailNotificationManager, _httpClient, _configurationReader, _logger);
 
             _requests = new Collection<HttpRequest>();
         }
@@ -122,6 +123,23 @@ namespace easygenerator.Web.Tests.Tasks
 
             // Assert
             _httpRequestsRepository.DidNotReceive().Remove(httpRequest);
+        }
+
+        [TestMethod]
+        public void Execute_ShouldLogExceptionIfPostFailed()
+        {
+            // Arrange
+            var httpRequest = HttpRequestObjectMother.CreateWithVerb("POST");
+            _requests.Add(httpRequest);
+            _httpRequestsRepository.GetCollection(10, 10).Returns(_requests);
+            var ex = new Exception();
+            _httpClient.Post<object>(Arg.Any<string>(), Arg.Any<string>()).Returns(callInfo => { throw ex; });
+
+            // Act
+            _httpRequestsSenderTask.Execute();
+
+            // Assert
+            _logger.Received().LogException(ex);
         }
 
         [TestMethod]
@@ -210,7 +228,7 @@ namespace easygenerator.Web.Tests.Tasks
         {
             // Arrange
             var httpRequest = HttpRequestObjectMother.CreateWithVerb("POST");
-            
+
             _requests.Add(httpRequest);
             _httpRequestsRepository.GetCollection(10, 10).Returns(_requests);
 

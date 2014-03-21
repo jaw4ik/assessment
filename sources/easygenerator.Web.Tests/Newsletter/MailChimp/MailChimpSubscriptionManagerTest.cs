@@ -32,7 +32,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         public void InitializeManager()
         {
             _configurationReader = Substitute.For<ConfigurationReader>();
-            _httpClient = Substitute.For<HttpClient>(Substitute.For<IMailNotificationManager>(), Substitute.For<IHttpRequestsManager>(), Substitute.For<ILog>());
+            _httpClient = Substitute.For<HttpClient>();
 
             _mailChimpConfiguration = new MailChimpConfigurationSection()
             {

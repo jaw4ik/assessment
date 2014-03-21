@@ -57,7 +57,6 @@
     <Compile Include="Http\HttpClient.cs" />
     <Compile Include="Http\HttpRequestExceptionExtended.cs" />
     <Compile Include="Http\HttpRequestsManager.cs" />
-    <Compile Include="Http\IHttpClientWrapper.cs" />
     <Compile Include="Http\IHttpRequestsManager.cs" />
     <Compile Include="Http\IHttpRequestsRepository.cs" />
     <Compile Include="ILog.cs" />

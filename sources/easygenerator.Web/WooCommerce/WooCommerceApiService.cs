@@ -11,29 +11,32 @@ namespace easygenerator.Web.WooCommerce
         private const string ServiceName = "wooCommerce";
 
         private readonly ConfigurationReader _configurationReader;
-        private readonly HttpClient _httpClient;
+        private readonly IHttpRequestsManager _httpRequestsManager;
 
-        public WooCommerceApiService(ConfigurationReader configurationReader, HttpClient httpClient)
+        public WooCommerceApiService(ConfigurationReader configurationReader, IHttpRequestsManager httpRequestsManager)
         {
             _configurationReader = configurationReader;
-            _httpClient = httpClient;
+            _httpRequestsManager = httpRequestsManager;
         }
 
         public void RegisterUser(User user, string userPassword)
         {
-            var methodUrl = GetServiceMethodUrl(RegisterUserMethodPath);
-            var methodData = new
+            if (_configurationReader.WooCommerceConfiguration.Enabled)
             {
-                email = user.Email,
-                firstname = user.FirstName,
-                lastname = user.LastName,
-                password = userPassword,
-                organization = user.Organization,
-                country = CountriesInfo.GetCountryCode(user.Country),
-                phone = user.Phone
-            };
+                var methodUrl = GetServiceMethodUrl(RegisterUserMethodPath);
+                var methodData = new
+                {
+                    email = user.Email,
+                    firstname = user.FirstName,
+                    lastname = user.LastName,
+                    password = userPassword,
+                    organization = user.Organization,
+                    country = CountriesInfo.GetCountryCode(user.Country),
+                    phone = user.Phone
+                };
 
-            _httpClient.PostOrAddToQueueIfUnexpectedError(methodUrl, methodData, ServiceName);
+                _httpRequestsManager.PostOrAddToQueueIfUnexpectedError(methodUrl, methodData, ServiceName);
+            }
         }
 
         private string GetServiceMethodUrl(string methodPath)
