@@ -11,7 +11,8 @@
 
             beforeEach(function () {
                 notificationName = 'expiriationNotification';
-                userContext.identity = {};  
+                userContext.identity = {};
+                userContext.identity.subscription = {};
             });
 
             it('should be defined', function() {
@@ -41,7 +42,7 @@
                     describe('when user access type is free', function() {
 
                         beforeEach(function () {
-                            userContext.identity.accessType = constants.accessType.free;
+                            userContext.identity.subscription.accessType = constants.accessType.free;
                         });
 
                         it('should return undefined', function() {
@@ -70,10 +71,10 @@
 
                     describe('when user access type is not free', function() {
 
-                        describe('when expiry date is null', function () {
+                        describe('when expiration date is null', function () {
 
                             beforeEach(function () {
-                                userContext.identity.expirationDate = null;
+                                userContext.identity.subscription.expirationDate = null;
                             });
 
                             it('should be undefined', function() {
@@ -100,10 +101,10 @@
 
                         });
 
-                        describe('when expiry date is undefined', function () {
+                        describe('when expiration date is undefined', function () {
 
                             beforeEach(function () {
-                                userContext.identity.expirationDate = undefined;
+                                userContext.identity.subscription.expirationDate = undefined;
                             });
 
                             it('should be undefined', function () {
@@ -130,12 +131,12 @@
 
                         });
 
-                        describe('when expiry date more than 7', function () {
+                        describe('when expiration date more than 7', function () {
 
                             beforeEach(function () {
                                 var date = new Date();
                                 date.setDate(date.getDate() + 10);
-                                userContext.identity.expirationDate = date;
+                                userContext.identity.subscription.expirationDate = date;
                             });
 
                             it('should be undefined', function () {
@@ -162,18 +163,18 @@
 
                         });
 
-                        describe('when expiry date is correct', function () {
+                        describe('when expiration date is correct', function () {
 
                             beforeEach(function () {
                                 var date = new Date();
                                 date.setDate(date.getDate() + 5);
-                                userContext.identity.expirationDate = date;
+                                userContext.identity.subscription.expirationDate = date;
                                 userContext.identity.firstname = 'user';
                             });
 
                             describe('when notifications context already has notification', function() {
 
-                                describe('and when expiry date of this notification equal current expiry date', function() {
+                                describe('and when expiration date of this notification equal current expiration date', function() {
 
                                     beforeEach(function() {
                                         shellViewModel.notifications.push({
@@ -192,7 +193,7 @@
 
                             describe('when notifications context already has notification', function() {
 
-                                describe('and when expiry date of this notification not equal current expiry date', function () {
+                                describe('and when expiration date of this notification not equal current expiration date', function () {
 
                                     beforeEach(function () {
                                         shellViewModel.notifications([]);
@@ -206,7 +207,7 @@
                                     it('should remove this notification and add new notification', function () {
                                         var date = new Date();
                                         date.setDate(date.getDate() + 2);
-                                        userContext.identity.expirationDate = date;
+                                        userContext.identity.subscription.expirationDate = date;
                                         task.execute();
                                         expect(shellViewModel.notifications()[0].amountOfDays).toBe(2);
                                     });

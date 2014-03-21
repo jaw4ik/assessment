@@ -1,4 +1,5 @@
-﻿using easygenerator.Web.Components.ActionResults;
+﻿using System.Web.Helpers;
+using easygenerator.Web.Components.ActionResults;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
 using System.Net;
@@ -53,6 +54,23 @@ namespace easygenerator.Web.Tests.Utils
             get
             {
                 return Subject as JsonErrorResult;
+            }
+        }
+    }
+
+    public class JsonSuccessDataResultAssertions : ObjectAssertions
+    {
+
+        public JsonSuccessDataResultAssertions(JsonDataResult subject)
+            : base(subject)
+        {
+        }
+
+        public JsonDataResult And
+        {
+            get
+            {
+                return Subject as JsonDataResult;
             }
         }
     }
@@ -215,6 +233,16 @@ namespace easygenerator.Web.Tests.Utils
                 .FailWith("Expected \"JsonErrorResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new JsonErrorResultAssertions(value.Subject as JsonErrorResult);
+        }
+
+        public static JsonSuccessDataResultAssertions BeJsonDataResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is JsonDataResult)
+                .FailWith("Expected \"JsonDataResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new JsonSuccessDataResultAssertions(value.Subject as JsonDataResult);
         }
 
 

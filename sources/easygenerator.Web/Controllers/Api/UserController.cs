@@ -231,10 +231,10 @@ namespace easygenerator.Web.Controllers.Api
 
             if (user == null)
             {
-                return Json(new { });
+                return JsonDataResult(new { });
             }
 
-            return Json(new { email = user.Email, firstname = user.FirstName, lastname = user.LastName, subscription = new { accessType = user.AccessType, expirationDate = user.ExpirationDate } });
+            return JsonDataResult(new { email = user.Email, firstname = user.FirstName, lastname = user.LastName, subscription = new { accessType = user.AccessType, expirationDate = user.ExpirationDate } });
 
         }
 

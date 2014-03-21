@@ -789,7 +789,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Identify();
 
             //Assert
-            result.Should().BeJsonResult().And.Data.ShouldBeSimilar(new { });
+            result.Should().BeJsonDataResult().And.Data.ShouldBeSimilar(new { });
         }
 
         [TestMethod]
@@ -803,7 +803,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Identify();
 
             //Assert
-            result.Should().BeJsonResult().And.Data.ShouldBeSimilar(new
+            result.Should().BeJsonDataResult().And.Data.ShouldBeSimilar(new
             {
                 email = user.Email,
                 firstname = user.FirstName,

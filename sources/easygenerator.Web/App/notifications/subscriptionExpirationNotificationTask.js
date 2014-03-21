@@ -10,12 +10,11 @@
         if (_.isNullOrUndefined(userContext.identity)) {
             return;
         }
-
-        var
-            amountOfDays = moment(userContext.identity.expirationDate).diff(moment(), 'days'),
+        
+        var 
+            accessType = userContext.identity.subscription.accessType,
             firstname = userContext.identity.firstname,
-            accessType = userContext.identity.accessType,
-            currentNotification = _.find(shellViewModel.notifications(), function (item) {
+            currentNotification = _.find(shellViewModel.notifications(), function(item) {
                 return item.name = notificationName;
             });
 
@@ -24,7 +23,10 @@
             return;
         }
 
-        if (_.isNullOrUndefined(userContext.identity.expirationDate) || amountOfDays > 7 || amountOfDays < 0) {
+        var expirationDate = moment(userContext.identity.subscription.expirationDate),
+            amountOfDays = expirationDate.diff(moment(), 'days');
+
+        if (_.isNullOrUndefined(userContext.identity.subscription.expirationDate) || !expirationDate.isValid() || amountOfDays > 7 || amountOfDays < 0) {
             removeNotificationIfExists(currentNotification);
             return;
         }

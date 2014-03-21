@@ -38,6 +38,16 @@ namespace easygenerator.Web.Components
             return new JsonErrorResult(message, resourceKey);
         }
 
+        public ActionResult JsonDataResult(object data)
+        {
+            return new JsonDataResult(data);
+        }
+
+        public ActionResult JsonDataResult(object data, string contentType)
+        {
+            return new JsonDataResult(data, contentType);
+        }
+
         protected ActionResult Success()
         {
             return new HttpStatusCodeResult(HttpStatusCode.OK);
