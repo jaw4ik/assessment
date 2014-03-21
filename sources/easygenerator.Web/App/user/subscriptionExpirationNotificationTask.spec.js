@@ -48,6 +48,24 @@
                             expect(task.execute()).toBeUndefined();
                         });
 
+                        describe('when notification exists', function () {
+
+                            beforeEach(function () {
+                                shellViewModel.notifications([]);
+                                shellViewModel.notifications.push({
+                                    name: notificationName,
+                                    expirationDate: 5,
+                                    firstname: 'user'
+                                });
+                            });
+
+                            it('should remove notification', function () {
+                                task.execute();
+                                expect(shellViewModel.notifications().length).toBe(0);
+                            });
+
+                        });
+
                     });
 
                     describe('when user access type is not free', function() {
@@ -62,6 +80,24 @@
                                 expect(task.execute()).toBeUndefined();
                             });
 
+                            describe('when notification exists', function () {
+
+                                beforeEach(function () {
+                                    shellViewModel.notifications([]);
+                                    shellViewModel.notifications.push({
+                                        name: notificationName,
+                                        expirationDate: 5,
+                                        firstname: 'user'
+                                    });
+                                });
+
+                                it('should remove notification', function () {
+                                    task.execute();
+                                    expect(shellViewModel.notifications().length).toBe(0);
+                                });
+
+                            });
+
                         });
 
                         describe('when expiry date is undefined', function () {
@@ -74,16 +110,54 @@
                                 expect(task.execute()).toBeUndefined();
                             });
 
+                            describe('when notification exists', function () {
+
+                                beforeEach(function () {
+                                    shellViewModel.notifications([]);
+                                    shellViewModel.notifications.push({
+                                        name: notificationName,
+                                        expirationDate: 5,
+                                        firstname: 'user'
+                                    });
+                                });
+
+                                it('should remove notification', function () {
+                                    task.execute();
+                                    expect(shellViewModel.notifications().length).toBe(0);
+                                });
+
+                            });
+
                         });
 
                         describe('when expiry date more than 7', function () {
 
                             beforeEach(function () {
-                                userContext.identity.expirationDate = 10;
+                                var date = new Date();
+                                date.setDate(date.getDate() + 10);
+                                userContext.identity.expirationDate = date;
                             });
 
                             it('should be undefined', function () {
                                 expect(task.execute()).toBeUndefined();
+                            });
+
+                            describe('when notification exists', function () {
+
+                                beforeEach(function () {
+                                    shellViewModel.notifications([]);
+                                    shellViewModel.notifications.push({
+                                        name: notificationName,
+                                        expirationDate: 5,
+                                        firstname: 'user'
+                                    });
+                                });
+
+                                it('should remove notification', function () {
+                                    task.execute();
+                                    expect(shellViewModel.notifications().length).toBe(0);
+                                });
+
                             });
 
                         });
@@ -91,7 +165,9 @@
                         describe('when expiry date is correct', function () {
 
                             beforeEach(function () {
-                                userContext.identity.expirationDate = 5;
+                                var date = new Date();
+                                date.setDate(date.getDate() + 5);
+                                userContext.identity.expirationDate = date;
                                 userContext.identity.firstname = 'user';
                             });
 
@@ -128,9 +204,11 @@
                                     });
 
                                     it('should remove this notification and add new notification', function () {
-                                        userContext.identity.expirationDate = 2;
+                                        var date = new Date();
+                                        date.setDate(date.getDate() + 2);
+                                        userContext.identity.expirationDate = date;
                                         task.execute();
-                                        expect(shellViewModel.notifications()[0].expirationDate).toBe(2);
+                                        expect(shellViewModel.notifications()[0].amountOfDays).toBe(2);
                                     });
 
                                 });

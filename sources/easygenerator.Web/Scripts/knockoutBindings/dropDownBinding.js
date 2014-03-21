@@ -1,21 +1,25 @@
 ﻿ko.bindingHandlers.dropDown = {
 
     init: function (element) {
-        var elem = $(element),
+        var $element = $(element),
             html = $('html'),
-            dropDownHolder = 'header-menu-list-item',
-            dropDownList = 'dropdown-list';
+            $dropDownList = $element.find('ul');
 
-        elem.click(function (e) {
-            $('.' + dropDownList).toggle();
-            $('.' + dropDownHolder).toggleClass('active');
+        $element.click(function (e) {
+            _.each($('.dropdown-list'), function (item) {
+                if (item != $dropDownList[0]) {
+                    $(item).hide();
+                    $(item).closest('.dropdown-list-wrapper').removeClass('active');
+                }
+            });
+            $dropDownList.toggle();
+            $element.toggleClass('active');
             e.stopPropagation();
         });
 
         html.click(function () {
-            $('.' + dropDownList).hide();
-            $('.' + dropDownHolder).removeClass('active');
+            $dropDownList.hide();
+            $element.removeClass('active');
         });
-
     },
 };

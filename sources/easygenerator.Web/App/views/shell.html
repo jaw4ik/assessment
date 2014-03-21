@@ -22,15 +22,15 @@
                         <li class="header-menu-list-item help" data-bind="localize: { text: 'help' }, click: help.show, css: { disabled: !help.isHelpHintExist() || help.visible() }">Help</li>
                         <!-- ko ifnot: isTryMode -->
                         <!-- ko if: notifications().length != 0 -->
-                        <li class="header-menu-list-item user-notification" data-bind="outsideClick: {}">
+                        <li class="header-menu-list-item user-notification dropdown-list-wrapper" data-bind="dropDown: {}">
                             <div class="user-notification-image"></div>
-                            <div class="user-notification-viewer" data-bind="foreach: notifications, outsideclick: {action: hideNotification}">
+                            <ul class="dropdown-list user-notification-viewer" data-bind="foreach: notifications">
                                 <!-- ko compose: $data -->
                                 <!-- /ko -->
-                            </div>
+                            </ul>
                         </li>
                         <!-- /ko -->
-                        <li class="header-menu-list-item mode profile" data-bind="dropDown: {}">
+                        <li class="header-menu-list-item mode profile dropdown-list-wrapper" data-bind="dropDown: {}">
                             <div class="header-submenu-holder">
                                 <span class="header-submenu-expand-icon"></span>
                             </div>

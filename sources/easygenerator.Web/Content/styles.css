@@ -177,21 +177,25 @@
         background: url(../Content/images/sprites.png) -183px -250px no-repeat;
     }
 
-    .header-menu-list-item.user-notification:hover {
+    .header-menu-list-item.user-notification:hover,
+    .header-menu-list-item.user-notification.active {
         background-color: #252525;
     }
 
-    .header-menu-list-item.user-notification:hover:after {
+    .header-menu-list-item.user-notification.active:after {
         content: '';
         position: absolute;
-        width: 0;
-        height: 0;
+        width: 7px;
+        height: 7px;
         top: 100%;
         left: 50%;
-        margin-top: -1px;
-        margin-left: -4px;
-        border: 6px solid transparent;
-        border-top-color: #252525;
+        margin-top: -4px;
+        margin-left: -2px;
+        background-color: #252525;
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
     }
 
 .header-username {
@@ -1275,24 +1279,21 @@ span.top-navigation-item.current {
 
 /*#region USER-NOTIFICATION*/
 
-.header-menu-list-item.user-notification:hover .user-notification-viewer {
-    display: block;
+.user-notification-viewer {
+    display: none;
     position: absolute;
     width: 345px;
-    top: 56px;
+    top: 57px;
     left: -45px;
+    list-style-type: none;
     padding: 10px 10px 0;
     background-color: #fff;
     border: 1px solid #ddd;
     border-top: none;
     font: 12px 'OpenSans';
     color: #303133;
-    box-shadow: 2px 2px 7px #dddddd;
+    box-shadow: 1px 2px 5px #dddddd;
     cursor: default;
-}
-
-.user-notification-viewer {
-    display: none;
 }
 
 .user-notification-wrapper {

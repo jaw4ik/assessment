@@ -1,4 +1,4 @@
-﻿define(['userContext', 'constants', 'notifications/templates/expirationNotification', 'viewmodels/shell'], function (userContext, constants, ExpirationNotification, shellViewModel) {
+﻿define(['userContext', 'constants', 'notifications/expirationNotification', 'viewmodels/shell'], function (userContext, constants, ExpirationNotification, shellViewModel) {
 
     var notificationName = 'expirationNotification';
 
@@ -12,31 +12,38 @@
         }
 
         var
-            expirationDate = userContext.identity.expirationDate,
+            amountOfDays = moment(userContext.identity.expirationDate).diff(moment(), 'days'),
             firstname = userContext.identity.firstname,
-            accessType = userContext.identity.accessType
-        ;
-
-        if (accessType == constants.accessType.free) {
-            return;
-        }
-
-        if (_.isNullOrUndefined(expirationDate) || expirationDate > 7) {
-            return;
-        }
-
-        var notification = new ExpirationNotification(notificationName, firstname, expirationDate),
+            accessType = userContext.identity.accessType,
             currentNotification = _.find(shellViewModel.notifications(), function (item) {
                 return item.name = notificationName;
             });
 
-        if (!_.isNullOrUndefined(currentNotification) && currentNotification.expirationDate == expirationDate) {
+        if (accessType == constants.accessType.free) {
+            removeNotificationIfExists(currentNotification);
             return;
-        } else if (!_.isNullOrUndefined(currentNotification)) {
-            shellViewModel.notifications.remove(currentNotification);
         }
 
+        if (_.isNullOrUndefined(userContext.identity.expirationDate) || amountOfDays > 7 || amountOfDays < 0) {
+            removeNotificationIfExists(currentNotification);
+            return;
+        }
+
+        if (!_.isNullOrUndefined(currentNotification) && currentNotification.amountOfDays == amountOfDays) {
+            return;
+        } else {
+            removeNotificationIfExists(currentNotification);
+        }
+
+        var notification = new ExpirationNotification(notificationName, firstname, amountOfDays);
         shellViewModel.notifications.push(notification);
     }
 
-})
+    function removeNotificationIfExists(notification) {
+        if (!_.isNullOrUndefined(notification)) {
+            shellViewModel.notifications.remove(notification);
+        }
+        return;
+    }
+
+});
