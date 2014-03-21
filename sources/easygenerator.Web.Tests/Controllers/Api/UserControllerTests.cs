@@ -1,4 +1,9 @@
-﻿using easygenerator.DomainModel;
+﻿using System;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
@@ -6,7 +11,6 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
-using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Mail;
@@ -15,11 +19,6 @@ using easygenerator.Web.ViewModels.Account;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using System;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -34,10 +33,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IDomainEventPublisher<UserSignedUpEvent> _userSignedUpEventPublisher;
         private IDomainEventPublisher<UserSubscriptionPurchased> _userSubscriptionPurchasedEventPublisher;
         private IMailSenderWrapper _mailSenderWrapper;
-        private ConfigurationReader _configurationReader;
 
         IPrincipal _user;
         HttpContextBase _context;
+
+        private readonly DateTime CurrentDate = new DateTime(2014, 3, 19);
 
         [TestInitialize]
         public void InitializeContext()
@@ -49,15 +49,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _userSignedUpEventPublisher = Substitute.For<IDomainEventPublisher<UserSignedUpEvent>>();
             _userSubscriptionPurchasedEventPublisher = Substitute.For<IDomainEventPublisher<UserSubscriptionPurchased>>();
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
-            _configurationReader = Substitute.For<ConfigurationReader>();
 
-            _controller = new UserController(_userRepository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _userSignedUpEventPublisher, _userSubscriptionPurchasedEventPublisher, _mailSenderWrapper, _configurationReader);
+            _controller = new UserController(_userRepository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _userSignedUpEventPublisher, _userSubscriptionPurchasedEventPublisher, _mailSenderWrapper);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
 
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
+
+            DateTimeWrapper.Now = () => CurrentDate;
         }
 
 
@@ -222,7 +223,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Downgrade_ShouldReturnSuccessResult_WhenUserExists()
         {
             const string email = "test@test.test";
-            var user = UserObjectMother.CreateWithEmail(email);
+            var user = Substitute.For<User>();
             _userRepository.GetUserByEmail(email).Returns(user);
 
             var result = _controller.Downgrade(email);
@@ -234,21 +235,19 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Downgrade_ShouldSetSubscriptionFreePlan()
         {
             const string email = "test@test.test";
-            var subscription = Substitute.For<UserSubscription>();
-            var user = UserObjectMother.CreateWithSubscription(subscription);
+            var user = Substitute.For<User>();
             _userRepository.GetUserByEmail(email).Returns(user);
 
             _controller.Downgrade(email);
 
-            subscription.Received().Downgrade();
+            user.Received().DowngradePlanToFree();
         }
 
         [TestMethod]
         public void Downgrade_ShouldPublishSubscriptionPurchasedEvent()
         {
             const string email = "test@test.test";
-            var subscription = Substitute.For<UserSubscription>();
-            var user = UserObjectMother.CreateWithSubscription(subscription);
+            var user = Substitute.For<User>();
             _userRepository.GetUserByEmail(email).Returns(user);
 
             _controller.Downgrade(email);
@@ -299,21 +298,19 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             const string email = "test@test.test";
             DateTime expDate = DateTime.MaxValue;
-            var subscription = Substitute.For<UserSubscription>();
-            var user = UserObjectMother.CreateWithSubscription(subscription);
+            var user = Substitute.For<User>();
             _userRepository.GetUserByEmail(email).Returns(user);
 
             _controller.UpgradeToStarter(email, expDate);
 
-            subscription.Received().UpgradeToStarter(expDate);
+            user.Received().UpgratePlanToStarter(expDate);
         }
 
         [TestMethod]
         public void UpgradeToStarter_ShouldPublishSubscriptionPurchasedEvent()
         {
             const string email = "test@test.test";
-            var subscription = Substitute.For<UserSubscription>();
-            var user = UserObjectMother.CreateWithSubscription(subscription);
+            var user = Substitute.For<User>();
             _userRepository.GetUserByEmail(email).Returns(user);
 
             _controller.UpgradeToStarter(email, DateTime.MaxValue);
@@ -400,16 +397,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Signup_ShouldAddUserToRepository()
         {
             //Arrange
-            _configurationReader.UserTrialPeriod.Returns(10);
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            DateTimeWrapper.Now = () => DateTime.MaxValue.AddYears(-1);
 
-            var expirationTime = DateTime.MaxValue.AddYears(-1).AddMinutes(10);
-            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Starter, expirationTime);
-
-            _entityFactory.UserSubscription(AccessType.Starter, expirationTime).Returns(userSubscription);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), userSubscription).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -424,7 +415,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), Arg.Any<UserSubscription>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -448,7 +439,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.IsAuthenticated.Returns(true);
             _user.Identity.Name.Returns(tryItNowUsername);
             _userRepository.GetUserByEmail(tryItNowUsername).Returns((User)null);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), Arg.Any<UserSubscription>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -463,7 +454,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), Arg.Any<UserSubscription>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -478,7 +469,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), Arg.Any<UserSubscription>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
 
             //Act
             var result = _controller.Signup(profile);
@@ -493,7 +484,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>(), Arg.Any<UserSubscription>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
             //Act
             _controller.Signup(profile);
 
@@ -814,7 +805,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
                 email = user.Email,
                 firstname = user.FirstName,
                 lastname = user.LastName,
-                accessType = user.Subscription.AccessType
+                accessType = user.AccessType
             });
         }
 

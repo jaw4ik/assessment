@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using easygenerator.DomainModel.Events;
+﻿using easygenerator.DomainModel.Events;
 using Microsoft.AspNet.SignalR;
 
 namespace easygenerator.Web.Hubs
@@ -12,7 +8,7 @@ namespace easygenerator.Web.Hubs
         public void Handle(UserSubscriptionPurchased args)
         {
             var hubContext = GlobalHost.ConnectionManager.GetHubContext<SyncHub>();
-            hubContext.Clients.User(args.User.Email).subscriptionPurchased(new { type = args.User.Subscription.AccessType, expirationDate = args.User.Subscription.ExpirationDate });
+            hubContext.Clients.User(args.User.Email).subscriptionPurchased(new { type = args.User.AccessType, expirationDate = args.User.ExpirationDate });
         }
     }
 }

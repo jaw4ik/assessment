@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlTypes;
 
 namespace easygenerator.Infrastructure
 {
@@ -11,5 +12,7 @@ namespace easygenerator.Infrastructure
 
         public static Func<DateTime> Now = () => DateTime.UtcNow;
         public static DateTime InstanceStartTime { get; private set; }
+
+        public static Func<DateTime> MinValue = () => SqlDateTime.MinValue.Value;
     }
 }

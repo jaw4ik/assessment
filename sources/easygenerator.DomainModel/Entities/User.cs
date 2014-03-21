@@ -1,19 +1,21 @@
-﻿using easygenerator.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text.RegularExpressions;
-
+using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
     public class User : Entity
     {
+        private const int TrialPeriodDays = 30;
+
         protected internal User() { }
 
         protected internal User(string email, string password, string firstname, string lastname, string phone, string organization,
-            string country, string createdBy, UserSettings userSettings, UserSubscription subscription)
+            string country, string createdBy, UserSettings userSettings)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -23,7 +25,6 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNullOrEmpty(phone, "phone");
             ArgumentValidation.ThrowIfNullOrEmpty(organization, "organization");
             ArgumentValidation.ThrowIfNullOrEmpty(country, "country");
-            ArgumentValidation.ThrowIfNull(subscription, "subscription");
 
             Email = email;
             PasswordHash = Cryptography.GetHash(password);
@@ -34,7 +35,9 @@ namespace easygenerator.DomainModel.Entities
             Country = country;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
             UserSetting = userSettings;
-            Subscription = subscription;
+
+            AccessType = AccessType.Starter;
+            ExpirationDate = CreatedOn.AddDays(TrialPeriodDays);
         }
 
         public string Email { get; protected set; }
@@ -45,7 +48,8 @@ namespace easygenerator.DomainModel.Entities
         public string Phone { get; private set; }
         public string Organization { get; private set; }
         public string Country { get; private set; }
-        public virtual UserSubscription Subscription { get; protected internal set; }
+        public AccessType AccessType { get; protected internal set; }
+        public DateTime? ExpirationDate { get; protected internal set; }
 
         public virtual bool VerifyPassword(string password)
         {
@@ -54,10 +58,7 @@ namespace easygenerator.DomainModel.Entities
 
         public string FullName
         {
-            get
-            {
-                return (FirstName + " " + LastName).Trim();
-            }
+            get { return (FirstName + " " + LastName).Trim(); }
         }
 
         public virtual UserSettings UserSetting { get; private set; }
@@ -89,7 +90,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual bool HasAccess(AccessType accessType)
         {
-            return Subscription.AccessType >= accessType;
+            return AccessType >= accessType;
         }
 
         public virtual void UpdatePassword(string password, string modifiedBy)
@@ -146,6 +147,20 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
+        public virtual void UpgratePlanToStarter(DateTime expirationDate)
+        {
+            ThrowIfExpirationDateIsInvalid(expirationDate);
+
+            AccessType = AccessType.Starter;
+            ExpirationDate = expirationDate;
+        }
+
+        public virtual void DowngradePlanToFree()
+        {
+            AccessType = AccessType.Free;
+            ExpirationDate = null;
+        }
+
         private void ThrowIfEmailIsNotValid(string email)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(email, "email");
@@ -180,6 +195,14 @@ namespace easygenerator.DomainModel.Entities
         private void ThrowIfModifiedByIsInvalid(string modifiedBy)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
+        }
+
+        private static void ThrowIfExpirationDateIsInvalid(DateTime? expirationDate)
+        {
+            if (expirationDate < DateTimeWrapper.MinValue())
+            {
+                throw new ArgumentException("Expiration date is invalid", "expirationDate");
+            }
         }
     }
 }

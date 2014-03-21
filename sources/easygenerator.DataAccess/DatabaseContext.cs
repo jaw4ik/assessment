@@ -101,16 +101,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.Country).IsRequired();
             modelBuilder.Entity<User>().Property(e => e.Organization).IsRequired();
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
-            modelBuilder.Entity<User>().HasRequired(e => e.Subscription);
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));
 
             modelBuilder.Entity<UserSettings>().Property(e => e.IsShowIntroductionPage).IsRequired();
             modelBuilder.Entity<UserSettings>().HasRequired(e => e.User);
-
-            modelBuilder.Entity<UserSubscription>().Property(e => e.AccessType).IsRequired();
-            modelBuilder.Entity<UserSubscription>().Property(e => e.ExpirationDate).IsOptional();
-            modelBuilder.Entity<UserSubscription>().HasRequired(e => e.User).WithRequiredPrincipal(r => r.Subscription);
-            modelBuilder.Entity<UserSubscription>().Map(e => e.ToTable("Users"));
 
             modelBuilder.Entity<PasswordRecoveryTicket>().HasRequired(e => e.User);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);

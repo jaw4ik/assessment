@@ -1,14 +1,11 @@
-﻿using easygenerator.DataAccess;
+﻿using System;
+using System.Collections.Generic;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Tasks;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using System;
-using System.Collections.Generic;
 
 namespace easygenerator.Web.Tests.Tasks
 {
@@ -22,8 +19,6 @@ namespace easygenerator.Web.Tests.Tasks
         [TestInitialize]
         public void InitializePublisher()
         {
-            DateTimeWrapper.Now = () => DateTime.MaxValue;
-
             _unitOfWork = Substitute.For<IUnitOfWork>();
             _userRepository = Substitute.For<IUserRepository>();
 
@@ -33,10 +28,25 @@ namespace easygenerator.Web.Tests.Tasks
         #region Execute
 
         [TestMethod]
+        public void Execute_ShouldDowngradeUserPlanToFree_WhenCurrentAccessTypeExpired()
+        {
+            //Arrange
+            var user = Substitute.For<User>();
+
+            _userRepository.GetCollection(Arg.Any<Func<User, bool>>()).Returns(new List<User>() { user });
+
+            //Act
+            _accessTypeExpirationTask.Execute();
+
+            //Assert
+            user.Received().DowngradePlanToFree();
+        }
+
+        [TestMethod]
         public void Execute_ShouldSaveUnitOfWork_WhenSomeUsersWereUpdated()
         {
             //Arrange
-            var user = UserObjectMother.Create();
+            var user = Substitute.For<User>();
             _userRepository.GetCollection(Arg.Any<Func<User, bool>>()).Returns(new List<User>() { user });
 
             //Act
@@ -58,25 +68,6 @@ namespace easygenerator.Web.Tests.Tasks
 
             //Assert
             _unitOfWork.DidNotReceive().Save();
-        }
-
-        [TestMethod]
-        public void Execute_ShouldSetUserAccesTypeToFree_WhenCurrentAccessTypeExpired()
-        {
-            //Arrange
-            DateTimeWrapper.Now = () => DateTime.MaxValue.AddYears(-1);
-            var userSubscription = UserSubscriptionObjectMother.Create(AccessType.Starter, DateTime.MaxValue.AddYears(-1));
-            var user = UserObjectMother.CreateWithSubscription(userSubscription);
-            DateTimeWrapper.Now = () => DateTime.MaxValue.AddYears(-1).AddDays(31);
-
-            _userRepository.GetCollection(Arg.Any<Func<User, bool>>()).Returns(new List<User>() { user });
-
-            //Act
-            _accessTypeExpirationTask.Execute();
-
-            //Assert
-            user.Subscription.AccessType.Should().Be(AccessType.Free);
-            user.Subscription.ExpirationDate.Should().Be(null);
         }
 
         #endregion

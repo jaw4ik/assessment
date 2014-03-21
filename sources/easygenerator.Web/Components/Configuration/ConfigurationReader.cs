@@ -1,6 +1,6 @@
-﻿using easygenerator.Web.Components.Configuration.ExternalApi;
+﻿using System.Configuration;
+using easygenerator.Web.Components.Configuration.ExternalApi;
 using easygenerator.Web.Components.Configuration.MailSender;
-using System.Configuration;
 
 namespace easygenerator.Web.Components.Configuration
 {
@@ -61,14 +61,5 @@ namespace easygenerator.Web.Components.Configuration
                 return ConfigurationManager.GetSection("wooCommerce") as WooCommerceConfigurationSection;
             }
         }
-
-        public virtual int UserTrialPeriod
-        {
-            get
-            {
-                return int.Parse(ConfigurationManager.AppSettings["UserTrialPeriod"]);
-            }
-        }
-
     }
 }

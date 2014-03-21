@@ -1,5 +1,4 @@
-﻿using System;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers
 {
@@ -52,12 +51,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
         public static User Create(string email = Email, string password = Password, string firstname = FirstName, string lastname = LastName, string phone = Phone,
             string oraganization = Organization, string country = Country, string createdBy = CreatedBy)
         {
-            return new User(email, password, firstname, lastname, phone, oraganization, country, createdBy, new UserSettings(createdBy, true), UserSubscriptionObjectMother.Create());
-        }
-
-        public static User CreateWithSubscription(UserSubscription subscription)
-        {
-            return new User(Email, Password, FirstName, LastName, Phone, Organization, Country, CreatedBy, new UserSettings(CreatedBy, true), subscription);
+            return new User(email, password, firstname, lastname, phone, oraganization, country, createdBy, new UserSettings(createdBy, true));
         }
     }
 }

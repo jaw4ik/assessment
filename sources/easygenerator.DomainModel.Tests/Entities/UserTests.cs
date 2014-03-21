@@ -1,9 +1,9 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -11,6 +11,13 @@ namespace easygenerator.DomainModel.Tests.Entities
     public class UserTests
     {
         private const string CreatedBy = "easygenerator2@easygenerator.com";
+        private readonly DateTime CurrentDate = new DateTime(2014, 3, 19);
+
+        [TestInitialize]
+        public void InitializeContext()
+        {
+            DateTimeWrapper.Now = () => CurrentDate;
+        }
 
         #region Constructor
 
@@ -124,7 +131,6 @@ namespace easygenerator.DomainModel.Tests.Entities
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
         }
 
-
         [TestMethod]
         public void User_ShouldThrowArgumentNullException_WhenFirstNameIsNull()
         {
@@ -226,16 +232,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void User_ShouldThrowArgumentNullException_WhenSubscriptionIsNull()
-        {
-            //Arrange
-            Action action = () => UserObjectMother.CreateWithSubscription(null);
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("subscription");
-        }
-
-        [TestMethod]
         public void User_ShouldCreateUser()
         {
             //Arrange
@@ -246,7 +242,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var phone = "some phone";
             var organization = "Easygenerator";
             var country = "some country";
-            DateTimeWrapper.Now = () => DateTime.MaxValue;
+            var creationDate = CurrentDate;
 
             //Act
             var user = UserObjectMother.Create(email, password, firstname, lastname, phone, organization, country, CreatedBy);
@@ -260,16 +256,30 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.Phone.Should().Be(phone);
             user.Organization.Should().Be(organization);
             user.Country.Should().Be(country);
-            user.CreatedOn.Should().Be(DateTime.MaxValue);
-            user.ModifiedOn.Should().Be(DateTime.MaxValue);
+            user.CreatedOn.Should().Be(creationDate);
+            user.ModifiedOn.Should().Be(creationDate);
             user.CreatedBy.Should().Be(CreatedBy);
             user.ModifiedBy.Should().Be(CreatedBy);
             user.UserSetting.Id.Should().NotBeEmpty();
             user.UserSetting.IsShowIntroductionPage.Should().BeTrue();
             user.UserSetting.CreatedBy.Should().Be(CreatedBy);
-            user.UserSetting.CreatedOn.Should().Be(DateTime.MaxValue);
+            user.UserSetting.CreatedOn.Should().Be(creationDate);
             user.UserSetting.ModifiedBy.Should().Be(CreatedBy);
-            user.UserSetting.ModifiedOn.Should().Be(DateTime.MaxValue);
+            user.UserSetting.ModifiedOn.Should().Be(creationDate);
+        }
+
+        [TestMethod]
+        public void User_ShouldCreateUserWithStarterPlanAnd30DaysTrialPeriod()
+        {
+            //Arrange
+            var expirationDate = CurrentDate.AddDays(30);
+
+            //Act
+            var user = UserObjectMother.Create();
+
+            //Assert
+            user.AccessType.Should().Be(AccessType.Starter);
+            user.ExpirationDate.Should().Be(expirationDate);
         }
 
         #endregion
@@ -509,7 +519,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var user = UserObjectMother.Create();
-            user.Subscription.AccessType = AccessType.Free;
+            user.AccessType = AccessType.Free;
 
             //Act
             var result = user.HasAccess(AccessType.Free);
@@ -523,7 +533,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var user = UserObjectMother.Create();
-            user.Subscription.AccessType = AccessType.Free;
+            user.AccessType = AccessType.Free;
 
             //Act
             var result = user.HasAccess(AccessType.Starter);
@@ -537,7 +547,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var user = UserObjectMother.Create();
-            user.Subscription.AccessType = AccessType.Starter;
+            user.AccessType = AccessType.Starter;
 
             //Act
             var result = user.HasAccess(AccessType.Free);
@@ -551,7 +561,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var user = UserObjectMother.Create();
-            user.Subscription.AccessType = AccessType.Starter;
+            user.AccessType = AccessType.Starter;
 
             //Act
             var result = user.HasAccess(AccessType.Starter);
@@ -1103,5 +1113,80 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region UpgratePlanToStarter
+
+        [TestMethod]
+        public void UpgradePlanToStarter_ShouldThrowArgumentException_WhenExpirationTimeLessThanSqlMinDate()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var minDate = new DateTime(2000, 1, 1);
+            DateTimeWrapper.MinValue = () => minDate;
+
+            //Act
+            Action action = () => user.UpgratePlanToStarter(new DateTime(1999, 12, 30));
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
+        }
+
+        [TestMethod]
+        public void UpgradePlanToStarter_ShouldSetAccessTypeToStarter()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpgratePlanToStarter(DateTime.Now);
+
+            //Assert
+            user.AccessType.Should().Be(AccessType.Starter);
+        }
+
+        [TestMethod]
+        public void UpgradePlanToStarter_ShouldSetExpirationDate()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var expirationDate = DateTime.MaxValue;
+
+            //Act
+            user.UpgratePlanToStarter(expirationDate);
+
+            //Assert
+            user.ExpirationDate.Should().Be(expirationDate);
+        }
+
+        #endregion
+
+        #region DowngradePlanToFree
+
+        [TestMethod]
+        public void DowngradePlanToFree_ShouldSetAccessTypeToFree()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.DowngradePlanToFree();
+
+            //Assert
+            user.AccessType.Should().Be(AccessType.Free);
+        }
+
+        [TestMethod]
+        public void DowngradePlanToFree_ShouldResetExpirationDateToNull()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.DowngradePlanToFree();
+
+            //Assert
+            user.ExpirationDate.Should().Be(null);
+        }
+
+        #endregion
     }
 }

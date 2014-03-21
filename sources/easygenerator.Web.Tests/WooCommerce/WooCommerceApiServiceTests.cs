@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Tests.ObjectMothers;
+﻿using System;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Http;
 using easygenerator.Infrastructure.Mail;
@@ -13,6 +14,8 @@ namespace easygenerator.Web.Tests.WooCommerce
     [TestClass]
     public class WooCommerceApiServiceTests
     {
+        private readonly DateTime CurrentDate = new DateTime(2014, 3, 19);
+
         private ConfigurationReader _configurationReader;
         private HttpClient _httpClient;
         private WooCommerceApiService _wooCommerceApiService;
@@ -23,6 +26,8 @@ namespace easygenerator.Web.Tests.WooCommerce
             _configurationReader = Substitute.For<ConfigurationReader>();
             _httpClient = Substitute.For<HttpClient>(Substitute.For<IMailNotificationManager>(), Substitute.For<IHttpRequestsManager>(), Substitute.For<ILog>());
             _wooCommerceApiService = new WooCommerceApiService(_configurationReader, _httpClient);
+
+            DateTimeWrapper.Now = () => CurrentDate;
         }
 
         [TestMethod]

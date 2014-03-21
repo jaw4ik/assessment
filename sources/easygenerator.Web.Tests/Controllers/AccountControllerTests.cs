@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -8,12 +7,10 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
-using easygenerator.Web.ViewModels.Account;
-using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using easygenerator.Web.Components;
 using easygenerator.Web.Controllers;
 using easygenerator.Web.Tests.Utils;
-using easygenerator.Web.Components;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
 namespace easygenerator.Web.Tests.Controllers
@@ -21,6 +18,8 @@ namespace easygenerator.Web.Tests.Controllers
     [TestClass]
     public class AccountControllerTests
     {
+        private readonly DateTime CurrentDate = new DateTime(2014, 3, 19);
+
         private AccountController _controller;
 
         private IAuthenticationProvider _authenticationProvider;
@@ -42,6 +41,8 @@ namespace easygenerator.Web.Tests.Controllers
             _context.User.Returns(_user);
 
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
+
+            DateTimeWrapper.Now = () => CurrentDate;
         }
 
         #region PrivacyPolicy
@@ -336,14 +337,12 @@ namespace easygenerator.Web.Tests.Controllers
             ActionResultAssert.IsViewResult(result, "InvalidPasswordRecovery");
         }
 
-
         [TestMethod]
         public void PasswordRecovery_ShouldReturnRedirectToDefaultRoute_WhenTickenDefinedOnPost()
         {
             //Arrange
             var ticket = PasswordRecoveryTicketObjectMother.Create();
             var user = UserObjectMother.Create();
-
             user.AddPasswordRecoveryTicket(ticket);
 
             //Act
@@ -359,7 +358,6 @@ namespace easygenerator.Web.Tests.Controllers
             //Arrange
             var ticket = PasswordRecoveryTicketObjectMother.Create();
             var user = UserObjectMother.Create();
-
             user.AddPasswordRecoveryTicket(ticket);
 
             //Act

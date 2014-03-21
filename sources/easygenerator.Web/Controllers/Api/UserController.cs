@@ -1,9 +1,10 @@
-﻿using easygenerator.DomainModel;
+﻿using System;
+using System.Web.Mvc;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
@@ -11,8 +12,6 @@ using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
-using System;
-using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -26,7 +25,6 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IDomainEventPublisher<UserSignedUpEvent> _userSignedUpEventPublisher;
         private readonly IDomainEventPublisher<UserSubscriptionPurchased> _userSubscriptionEventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
-        private readonly ConfigurationReader _configurationReader;
 
         public UserController(IUserRepository repository,
             IEntityFactory entityFactory,
@@ -34,8 +32,7 @@ namespace easygenerator.Web.Controllers.Api
             ISignupFromTryItNowHandler signupFromTryItNowHandler,
             IDomainEventPublisher<UserSignedUpEvent> userSignedUpEventPublisher,
             IDomainEventPublisher<UserSubscriptionPurchased> userSubscriptionEventPublisher,
-            IMailSenderWrapper mailSenderWrapper,
-            ConfigurationReader configurationReader)
+            IMailSenderWrapper mailSenderWrapper)
         {
             _repository = repository;
             _entityFactory = entityFactory;
@@ -44,7 +41,6 @@ namespace easygenerator.Web.Controllers.Api
             _userSignedUpEventPublisher = userSignedUpEventPublisher;
             _userSubscriptionEventPublisher = userSubscriptionEventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
-            _configurationReader = configurationReader;
         }
 
         [HttpPost]
@@ -100,7 +96,7 @@ namespace easygenerator.Web.Controllers.Api
             if (user == null)
                 return UnprocessableEntity("User with specified email does not exist");
 
-            user.Subscription.Downgrade();
+            user.DowngradePlanToFree();
 
             _userSubscriptionEventPublisher.Publish(new UserSubscriptionPurchased(user));
 
@@ -120,7 +116,7 @@ namespace easygenerator.Web.Controllers.Api
             if (user == null)
                 return UnprocessableEntity("User with specified email does not exist");
 
-            user.Subscription.UpgradeToStarter(expirationDate.Value);
+            user.UpgratePlanToStarter(expirationDate.Value);
 
             _userSubscriptionEventPublisher.Publish(new UserSubscriptionPurchased(user));
 
@@ -150,10 +146,8 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonError("Account with this email already exists");
             }
 
-            var trialPeriodExpires = DateTimeWrapper.Now().AddMinutes(_configurationReader.UserTrialPeriod);
-            var subscription = _entityFactory.UserSubscription(AccessType.Starter, trialPeriodExpires);
             var user = _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone,
-                profile.Organization, profile.Country, profile.Email, new UserSettings(profile.Email, true), subscription);
+                profile.Organization, profile.Country, profile.Email, new UserSettings(profile.Email, true));
 
             _repository.Add(user);
             _userSignedUpEventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.PeopleBusyWithCourseDevelopmentAmount, profile.NeedAuthoringTool, profile.UsedAuthoringTool));
@@ -231,7 +225,7 @@ namespace easygenerator.Web.Controllers.Api
                 return Json(new { });
             }
 
-            return Json(new { email = user.Email, firstname = user.FirstName, lastname = user.LastName, accessType = user.Subscription.AccessType });
+            return Json(new { email = user.Email, firstname = user.FirstName, lastname = user.LastName, accessType = user.AccessType });
 
         }
 

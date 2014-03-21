@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Repositories;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.Web.Components.Tasks
@@ -16,7 +17,7 @@ namespace easygenerator.Web.Components.Tasks
 
         public void Execute()
         {
-            var users = _userRepository.GetCollection(user => user.Subscription.ExpirationDate.HasValue && user.Subscription.ExpirationDate < DateTimeWrapper.Now());
+            var users = _userRepository.GetCollection(IsUserSubscriptionExpired);
             if (users.Count == 0)
             {
                 return;
@@ -24,10 +25,15 @@ namespace easygenerator.Web.Components.Tasks
 
             foreach (var user in users)
             {
-                user.Subscription.Downgrade();
+                user.DowngradePlanToFree();
             }
 
             _dataContext.Save();
+        }
+
+        private static bool IsUserSubscriptionExpired(User user)
+        {
+            return user.ExpirationDate.HasValue && user.ExpirationDate < DateTimeWrapper.Now();
         }
     }
 }
