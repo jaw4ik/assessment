@@ -855,9 +855,6 @@
       <DependentUpon>passwordrecovery.js</DependentUpon>
     </Content>
     <Content Include="App\specs.html" />
-    <Content Include="App\scheduler.spec.js">
-      <DependentUpon>scheduler.js</DependentUpon>
-    </Content>
     <Content Include="Mail\MailTemplates\HttpRequestFailedTemplate.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jasmine\boot.js" />
