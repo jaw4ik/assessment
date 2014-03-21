@@ -51,6 +51,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CustomRequireHttps]
         [AllowAnonymous]
         [ExternalApiAuthorize("wooCommerce")]
         [Route("api/user/update")]
@@ -94,6 +95,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CustomRequireHttps]
         [AllowAnonymous]
         [ExternalApiAuthorize("wooCommerce")]
         [Route("api/user/downgrade")]
@@ -111,6 +113,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CustomRequireHttps]
         [AllowAnonymous]
         [ExternalApiAuthorize("wooCommerce")]
         [Route("api/user/subscription/starter")]
