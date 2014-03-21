@@ -128,6 +128,8 @@
     <Compile Include="BuildCourse\BuildPackageCreatorTests.cs" />
     <Compile Include="BuildCourse\PackageModelMapperTests.cs" />
     <Compile Include="BuildCourse\PhysicalFileManagerTests.cs" />
+    <Compile Include="Components\ActionFilters\CustomRequireHttpsAttributeTest.cs" />
+    <Compile Include="Components\ActionFilters\ForceHttpAttributeTests.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransformTests.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinderTests.cs" />
     <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraintTest.cs" />
@@ -161,6 +163,7 @@
     <Compile Include="Tasks\AccessTypeExpirationTaskTest.cs" />
     <Compile Include="Utils\ActionResultAssert.cs" />
     <Compile Include="Utils\ActionResultFluentAssertions.cs" />
+    <Compile Include="Utils\CustomObjectAssertions.cs" />
     <Compile Include="Utils\DynamicFluentAssertions.cs" />
     <Compile Include="Utils\Extensions.cs" />
     <Compile Include="WooCommerce\WooCommerceApiServiceTests.cs" />

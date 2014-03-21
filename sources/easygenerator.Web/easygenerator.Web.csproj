@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -422,6 +422,8 @@
     <Content Include="App\viewmodels\courses\deliveringActions\scormBuild.js" />
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttribute.cs" />
+    <Compile Include="Components\ActionFilters\CustomRequireHttpsAttribute.cs" />
+    <Compile Include="Components\ActionFilters\ForceHttpAttribute.cs" />
     <Compile Include="Components\ActionResults\HttpStatusCodeWithMessageResult.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransform.cs" />
     <Compile Include="Components\ActionFilters\Authorization\RequireAccessAttribute.cs" />

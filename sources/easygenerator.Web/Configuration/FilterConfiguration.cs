@@ -12,6 +12,7 @@ namespace easygenerator.Web.Configuration
 
             filters.Add(new HandleErrorAttribute());
             filters.Add(new ApplicationAuthorize());
+            filters.Add(new ForceHttpAttribute());
         }
     }
 }
