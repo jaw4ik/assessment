@@ -1,5 +1,5 @@
-﻿define(['./models/actor', './models/statement', './models/activity', './configuration/xApiSettings', 'eventManager', './requestManager', './constants', './errorsHandler', './utils/dateTimeConverter'],
-    function (actorModel, statementModel, activityModel, xApiSettings, eventManager, requestManager, constants, errorsHandler, dateTimeConverter) {
+﻿define(['./models/actor', './models/statement', './models/activity', './configuration/xApiSettings', 'eventManager', './requestManager', './constants', './errorsHandler', './utils/dateTimeConverter', 'xApi/statementQueue'],
+    function (actorModel, statementModel, activityModel, xApiSettings, eventManager, requestManager, constants, errorsHandler, dateTimeConverter, statementQueue) {
         "use strict";
 
         var subscriptions = [],
@@ -43,50 +43,32 @@
         }
 
         function sendCourseStarted() {
-            var statement = createStatement(constants.verbs.started);
-            requestManager.sendStatement(statement);
+            pushStatementIfSupported(createStatement(constants.verbs.started));
+        }
+
+        function pushStatementIfSupported(statement) {
+            statementQueue.push(statement);            
         }
 
         function sendCourseFinished(finishedEventData) {
-            var activity = createActivity(activityProvider.activityName);
-            return sendMasteredStatementsForObjectives(finishedEventData).then(function () {
-                if (_.isUndefined(finishedEventData) || _.isUndefined(finishedEventData.result)) {
-                    throw errorsHandler.errors.notEnoughDataInSettings;
-                }
-
-                var result = {
-                    score: finishedEventData.result
-                };
-
-                if (result.score >= xApiSettings.scoresDistribution.minScoreForPositiveResult) {
-                    return requestManager.sendStatement(createStatement(xApiSettings.scoresDistribution.positiveVerb, result, activity));
-                } else {
-                    return requestManager.sendStatement(createStatement(constants.verbs.failed, result, activity));
-                }
-            }).then(function () {
-                return requestManager.sendStatement(createStatement(constants.verbs.stopped, null, activity));
-            }).fail(function (error) {
-                errorsHandler.handleError(error);
+            var objectives = finishedEventData.objectives;
+            _.each(objectives, function (objective) {
+                var statement = createStatement(constants.verbs.mastered, { score: objective.score / 100 }, createActivityForObjective(objective.id, objective.title));
+                pushStatementIfSupported(statement);
             });
-        }
 
-        function sendMasteredStatementsForObjectives(finishedEventData) {
-            if (!_.isUndefined(finishedEventData.objectives) && _.isArray(finishedEventData.objectives) && finishedEventData.objectives.length > 0) {
-                var promises = [];
-                var objectives = finishedEventData.objectives;
-                _.each(objectives, function (objective) {
-                    var activity = createActivityForObjective(objective.id, objective.title);
-                    var statement = createStatement(constants.verbs.mastered, { score: objective.score / 100 }, activity);
-                    promises.push(requestManager.sendStatement(statement));
-                });
-                return Q.allSettled(promises);
-            }
-            return Q.fcall(function () { });
+            var result = {
+                score: finishedEventData.result
+            };
+
+            var verb = result.score >= xApiSettings.scoresDistribution.minScoreForPositiveResult ? xApiSettings.scoresDistribution.positiveVerb : constants.verbs.failed;
+
+            pushStatementIfSupported(createStatement(verb, result, createActivity(activityProvider.activityName)));
+            pushStatementIfSupported(createStatement(constants.verbs.stopped, null, createActivity(activityProvider.activityName)));
         }
 
         function learningContentExperienced(finishedEventData) {
-            var result =
-            {
+            var result = {
                 duration: dateTimeConverter.timeToISODurationString(finishedEventData.spentTime)
             };
 
@@ -101,12 +83,10 @@
             };
 
             var statement = createStatement(constants.verbs.experienced, result, object, context);
-            requestManager.sendStatement(statement);
+            pushStatementIfSupported(statement);
         }
 
         function sendAnsweredQuestionsStatements(finishedEventData) {
-            var promises = [];
-
             _.each(finishedEventData, function (item) {
                 var question = item.question;
                 var objective = item.objective;
@@ -143,10 +123,8 @@
                 };
 
                 var statement = createStatement(constants.verbs.answered, result, object, context);
-                promises.push(requestManager.sendStatement(statement));
+                pushStatementIfSupported(statement);
             });
-
-            return Q.allSettled(promises);
         }
 
         function createActor(name, email) {

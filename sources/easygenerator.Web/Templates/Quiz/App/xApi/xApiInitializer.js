@@ -18,11 +18,10 @@
         return xApiInitializer;
 
         function init(actorData, activityName, activityUrl) {
-            return Q.fcall(function () {
-                return requestManager.init(moduleSettings);
-            }).then(function () {
-                return activityProvider.init(actorData, activityName, activityUrl);
-            }).then(function () {
+            return Q.all([
+                requestManager.init(moduleSettings),
+                activityProvider.init(actorData, activityName, activityUrl)
+            ]).spread(function () {
                 isInitialized = true;
             });
         }

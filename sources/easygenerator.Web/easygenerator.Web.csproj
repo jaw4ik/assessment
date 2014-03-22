@@ -1088,6 +1088,7 @@
     <Content Include="Templates\Quiz\App\xApi\css\img\error-message.png" />
     <Content Include="Templates\Quiz\App\xApi\css\img\info-message.png" />
     <Content Include="Templates\Quiz\App\xApi\css\xAPINotSupported.css" />
+    <Content Include="Templates\Quiz\App\xApi\statementQueue.js" />
     <Content Include="Templates\Quiz\App\xApi\viewmodels\xAPINotSupported.js" />
     <Content Include="Templates\Quiz\App\xApi\viewmodels\xAPINotSupported.spec.js">
       <DependentUpon>xAPINotSupported.js</DependentUpon>
@@ -1129,9 +1130,6 @@
     <Content Include="Templates\Quiz\App\xApi\models\statement.js" />
     <Content Include="Templates\Quiz\App\xApi\models\verb.js" />
     <Content Include="Templates\Quiz\App\xApi\requestManager.js" />
-    <Content Include="Templates\Quiz\App\xApi\requestManager.spec.js">
-      <DependentUpon>requestManager.js</DependentUpon>
-    </Content>
     <Content Include="Templates\Quiz\App\xApi\routingManager.js" />
     <Content Include="Templates\Quiz\App\xApi\routingManager.spec.js">
       <DependentUpon>routingManager.js</DependentUpon>

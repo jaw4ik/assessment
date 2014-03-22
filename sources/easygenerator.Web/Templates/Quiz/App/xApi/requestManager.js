@@ -1,30 +1,29 @@
 ﻿define(['./configuration/xApiSettings', './base64', './errorsHandler'],
-    function (xApiSettings, base64, errorsHandler) {
+    function (defaults, base64, errorsHandler) {
 
-        var moduleSettings = null;
+        var lrsSettings = null;
+
         var eventManager = {
-            requestQueue: [],
             init: init,
             sendStatement: sendStatement
         };
         return eventManager;
 
         function init(settings) {
-            moduleSettings = settings;
+            lrsSettings = settings.lrs;
             return Q.fcall(function () {
                 initXDomainRequestTransport();
             });
         }
 
         function sendStatement(statement) {
-            return Q.fcall(function () {
-                var request = createRequest(statement);
+            var request = createRequest(statement);
 
-                if (!$.support.cors) {
-                    request = getOptionsForIEMode(request);
-                }
-                return $.ajax(request);
-            });
+            if (!$.support.cors) {
+                request = getOptionsForIEMode(request);
+            }
+
+            return Q($.ajax(request));
         }
 
         function initXDomainRequestTransport() {
@@ -125,7 +124,7 @@
         }
 
         function createRequest(statement) {
-            var lrsUrl = moduleSettings.lrs.uri;
+            var lrsUrl = lrsSettings.uri;
 
             if (lrsUrl.indexOf("/statements") === -1)
                 lrsUrl = lrsUrl + "/statements";
@@ -133,16 +132,16 @@
             var userName = '';
             var password = '';
 
-            if (moduleSettings.lrs.authenticationRequired) {
-                userName = moduleSettings.lrs.credentials.username;
-                password = moduleSettings.lrs.credentials.password;
+            if (lrsSettings.authenticationRequired) {
+                userName = lrsSettings.credentials.username;
+                password = lrsSettings.credentials.password;
             } else {
-                userName = xApiSettings.anonymousCredentials.username;
-                password = xApiSettings.anonymousCredentials.password;
+                userName = defaults.anonymousCredentials.username;
+                password = defaults.anonymousCredentials.password;
             }
 
             var headers = [];
-            headers["X-Experience-API-Version"] = xApiSettings.xApiVersion;
+            headers["X-Experience-API-Version"] = defaults.xApiVersion;
             headers["Content-Type"] = "application/json";
             var auth = "Basic " + base64.encode(userName + ':' + password);
             headers["Authorization"] = auth;
@@ -154,7 +153,7 @@
             options.data = JSON.stringify(statement);
             options.type = 'POST';
             options.headers = headers;
-            options.timeout = xApiSettings.timeout;
+            options.timeout = defaults.timeout;
             options.contentType = 'application/json';
             options.dataType = 'json';
             options.async = true;
