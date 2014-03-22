@@ -1,5 +1,5 @@
-﻿define(['./routingManager', './requestManager', './activityProvider', 'browserSupport'],
-    function (routingManager, requestManager, activityProvider, browserSupport) {
+﻿define(['./routingManager', './requestManager', './activityProvider', './statementQueueHandler', './configuration/xApiSettings', 'browserSupport'],
+    function (routingManager, requestManager, activityProvider, statementQueueHandler, xApiSettings, browserSupport) {
 
         "use strict";
 
@@ -20,9 +20,11 @@
         function init(actorData, activityName, activityUrl) {
             return Q.all([
                 requestManager.init(moduleSettings),
+                xApiSettings.init(moduleSettings),
                 activityProvider.init(actorData, activityName, activityUrl)
             ]).spread(function () {
                 isInitialized = true;
+                statementQueueHandler.handle();
             });
         }
 

@@ -1092,6 +1092,7 @@
     <Content Include="Templates\Quiz\App\xApi\css\img\info-message.png" />
     <Content Include="Templates\Quiz\App\xApi\css\xAPINotSupported.css" />
     <Content Include="Templates\Quiz\App\xApi\statementQueue.js" />
+    <Content Include="Templates\Quiz\App\xApi\statementQueueHandler.js" />
     <Content Include="Templates\Quiz\App\xApi\viewmodels\xAPINotSupported.js" />
     <Content Include="Templates\Quiz\App\xApi\viewmodels\xAPINotSupported.spec.js">
       <DependentUpon>xAPINotSupported.js</DependentUpon>

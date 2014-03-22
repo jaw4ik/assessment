@@ -1,11 +1,25 @@
 ﻿define([], function () {
 
-    var queue = ko.observableArray([]);
+    var
+        statements = ko.observableArray([])
+    ;
 
-    queue.subscribe(function(newValue) {
-        console.log(newValue);
-    });
+    var queue = {
+        statements: ko.computed({
+            read: statements
+        }),
+        enqueue: enqueue,
+        dequeue: dequeue
+    };
 
     return queue;
+
+    function enqueue(statement) {
+        statements.push(statement);
+    };
+
+    function dequeue() {
+        return statements.shift();
+    };
 
 })

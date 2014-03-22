@@ -47,7 +47,9 @@
         }
 
         function pushStatementIfSupported(statement) {
-            statementQueue.push(statement);            
+            if (_.contains(xApiSettings.xApi.allowedVerbs, statement.verb.display[xApiSettings.defaultLanguage])) {
+                statementQueue.enqueue(statement);
+            }
         }
 
         function sendCourseFinished(finishedEventData) {
@@ -65,6 +67,19 @@
 
             pushStatementIfSupported(createStatement(verb, result, createActivity(activityProvider.activityName)));
             pushStatementIfSupported(createStatement(constants.verbs.stopped, null, createActivity(activityProvider.activityName)));
+
+            // (^\ x_x /^)
+            statementQueue.enqueue(undefined);
+
+            var dfd = Q.defer();
+
+            statementQueue.statements.subscribe(function (newValue) {
+                if (newValue.length == 0) {
+                    dfd.resolve();
+                }
+            });
+
+            return dfd.promise;
         }
 
         function learningContentExperienced(finishedEventData) {
