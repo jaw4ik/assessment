@@ -3,19 +3,27 @@
 
         "use strict";
 
+        var xApiSettings = require('xApi/configuration/xApiSettings');
+
         describe('viewModel [xApiInitializer]', function () {
 
             it('should be defined', function () {
                 expect(xApiInitializer).toBeDefined();
             });
 
-            var requestManagerDefer, activityProviderDefer;
+            var requestManagerDefer,
+                activityProviderDefer,
+                xApiSettingsDefer;
+
             beforeEach(function () {
                 requestManagerDefer = Q.defer();
                 spyOn(requestManager, 'init').andReturn(requestManagerDefer.promise);
 
                 activityProviderDefer = Q.defer();
                 spyOn(activityProvider, 'init').andReturn(activityProviderDefer.promise);
+
+                xApiSettingsDefer = Q.defer();
+                spyOn(xApiSettings, 'init').andReturn(xApiSettingsDefer.promise);
             });
 
             describe('init:', function () {
@@ -28,9 +36,25 @@
                     expect(xApiInitializer.init()).toBePromise();
                 });
 
+                it('should init xApiSettings', function () {
+                    var promise = xApiInitializer.init();
+
+                    xApiSettingsDefer.resolve();
+                    requestManagerDefer.resolve();
+                    activityProviderDefer.resolve();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(xApiSettings.init).toHaveBeenCalled();
+                    });
+                });
+
                 it('should init requestManager', function () {
                     var promise = xApiInitializer.init();
 
+                    xApiSettingsDefer.resolve();
                     requestManagerDefer.resolve();
                     activityProviderDefer.resolve();
 
@@ -45,6 +69,7 @@
                 it('should init activityProvider', function () {
                     var promise = xApiInitializer.init();
 
+                    xApiSettingsDefer.resolve();
                     requestManagerDefer.resolve();
                     activityProviderDefer.resolve();
 
@@ -59,6 +84,7 @@
                 it('should set isInitialized to true', function () {
                     var promise = xApiInitializer.init();
 
+                    xApiSettingsDefer.resolve();
                     requestManagerDefer.resolve();
                     activityProviderDefer.resolve();
 
@@ -169,6 +195,7 @@
                     it('should return true', function () {
                         var promise = xApiInitializer.init();
 
+                        xApiSettingsDefer.resolve();
                         requestManagerDefer.resolve();
                         activityProviderDefer.resolve();
 

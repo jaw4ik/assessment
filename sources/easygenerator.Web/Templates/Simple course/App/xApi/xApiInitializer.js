@@ -1,12 +1,12 @@
-﻿define(['plugins/router', './routingManager', './requestManager', './activityProvider', 'browserSupport'],
-    function (router, routingManager, requestManager, activityProvider, browserSupport) {
+﻿define(['plugins/router', './routingManager', './requestManager', './activityProvider', 'browserSupport', 'xApi/configuration/xApiSettings'],
+    function (router, routingManager, requestManager, activityProvider, browserSupport, xApiSettings) {
 
         "use strict";
 
         var
             isInitialized = false,
             moduleSettings = null,
-            
+
             xApiInitializer = {
                 init: init,
                 getInitStatus: getInitStatus,
@@ -18,8 +18,9 @@
         return xApiInitializer;
 
         function init(actorData, activityName, activityUrl) {
-           
             return Q.fcall(function () {
+                return xApiSettings.init(moduleSettings);
+            }).then(function () {
                 return requestManager.init(moduleSettings);
             }).then(function () {
                 return activityProvider.init(actorData, activityName, activityUrl);
@@ -31,7 +32,7 @@
         function getInitStatus() {
             return isInitialized;
         }
-        
+
         function turnOff() {
             activityProvider.turnOffSubscriptions();
             routingManager.removeRoutes();

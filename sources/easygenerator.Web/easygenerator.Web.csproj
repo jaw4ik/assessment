@@ -1085,6 +1085,9 @@
     <Content Include="Templates\Quiz\App\windowOperations.spec.js">
       <DependentUpon>windowOperations.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Quiz\App\xApi\configuration\xApiSettings.spec.js">
+      <DependentUpon>xApiSettings.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\xApi\css\img\error-message.png" />
     <Content Include="Templates\Quiz\App\xApi\css\img\info-message.png" />
     <Content Include="Templates\Quiz\App\xApi\css\xAPINotSupported.css" />
@@ -1364,6 +1367,9 @@
     <Content Include="Templates\Simple course\App\xApi\configuration\routes.js" />
     <Content Include="Templates\Simple course\App\xApi\configuration\viewConstants.js" />
     <Content Include="Templates\Simple course\App\xApi\configuration\xApiSettings.js" />
+    <Content Include="Templates\Simple course\App\xApi\configuration\xApiSettings.spec.js">
+      <DependentUpon>xApiSettings.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Simple course\App\xApi\constants.js" />
     <Content Include="Templates\Simple course\App\xApi\css\img\error-message.png" />
     <Content Include="Templates\Simple course\App\xApi\css\img\icons-xApi.png" />
