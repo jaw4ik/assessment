@@ -781,7 +781,7 @@
                                 password: viewModel.lapPassword()
                             }
                         },
-                        allowedStatements: $.map(viewModel.statements, function (value, key) {
+                        allowedVerbs: $.map(viewModel.statements, function (value, key) {
                             return value() ? key : undefined;
                         })
                     },
@@ -817,9 +817,9 @@
                     viewModel.lapPassword(settings.xApi.lrs.credentials.password || '');
                     viewModel.logoUrl(settings.logo.url || '');
 
-                    if (settings.xApi.allowedStatements) {
+                    if (settings.xApi.allowedVerbs) {
                         $.each(viewModel.statements, function (key, value) {
-                            value($.inArray(key, settings.xApi.allowedStatements) > -1);
+                            value($.inArray(key, settings.xApi.allowedVerbs) > -1);
                         });
                     }
                 },

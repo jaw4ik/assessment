@@ -1,5 +1,5 @@
-﻿define(['./models/actor', './models/statement', './models/activity', 'eventManager', './requestManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './utils/dateTimeConverter'],
-    function (actorModel, statementModel, activityModel, eventManager, requestManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, dateTimeConverter) {
+﻿define(['./models/actor', './models/statement', './models/activity', 'eventManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './utils/dateTimeConverter', './statementQueue'],
+    function (actorModel, statementModel, activityModel, eventManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, dateTimeConverter, statementQueue) {
 
         "use strict";
 
@@ -43,45 +43,50 @@
             });
         }
 
+        function pushStatementIfSupported(statement) {
+            if (_.contains(xApiSettings.xApi.allowedVerbs, statement.verb.display[xApiSettings.defaultLanguage])) {
+                statementQueue.enqueue(statement);
+            }
+        }
+
         function sendCourseStarted() {
-            var statement = createStatement(constants.verbs.started);
-            return requestManager.sendStatement(statement);
+            pushStatementIfSupported(createStatement(constants.verbs.started));
         }
 
         function sendCourseFinished(finishedEventData) {
-            return sendMasteredStatementsForObjectives(finishedEventData.objectives).then(function () {
-                if (_.isUndefined(finishedEventData) || _.isUndefined(finishedEventData.result)) {
-                    throw errorsHandler.errors.notEnoughDataInSettings;
-                }
 
-                var result = new resultModel({
-                    score: new scoreModel(finishedEventData.result)
-                });
-
-                if (result.score.scaled >= xApiSettings.scoresDistribution.minScoreForPositiveResult) {
-                    return requestManager.sendStatement(createStatement(xApiSettings.scoresDistribution.positiveVerb, result));
-                } else {
-                    return requestManager.sendStatement(createStatement(constants.verbs.failed, result));
-                }
-            }).then(function () {
-                return requestManager.sendStatement(createStatement(constants.verbs.stopped));
-            }).fail(function (error) {
-                errorsHandler.handleError(error);
-            });
-        }
-
-        function sendMasteredStatementsForObjectives(objectives) {
-            if (!_.isUndefined(objectives) && _.isArray(objectives) && objectives.length > 0) {
-                var promises = _.map(objectives, function (objective) {
-                    var objectiveUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
-                    var object = createActivity(objectiveUrl, objective.title);
-                    var statement = createStatement(constants.verbs.mastered, new resultModel({ score: new scoreModel(objective.score / 100) }), object);
-                    return requestManager.sendStatement(statement);
-                });
-
-                return Q.allSettled(promises);
+            if (_.isUndefined(finishedEventData) || _.isUndefined(finishedEventData.result)) {
+                throw errorsHandler.errors.notEnoughDataInSettings;
             }
-            return Q.fcall(function () { });
+
+            if (!_.isUndefined(finishedEventData.objectives) && _.isArray(finishedEventData.objectives) && finishedEventData.objectives.length > 0) {
+                _.each(finishedEventData.objectives, function (objective) {
+                    var objectiveUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
+                    var statement = createStatement(constants.verbs.mastered, new resultModel({ score: new scoreModel(objective.score / 100) }), createActivity(objectiveUrl, objective.title));
+                    pushStatementIfSupported(statement);
+                });
+            }
+
+            var result = new resultModel({
+                score: new scoreModel(finishedEventData.result)
+            });
+
+            var resultVerb = result.score.scaled >= xApiSettings.scoresDistribution.minScoreForPositiveResult ? xApiSettings.scoresDistribution.positiveVerb : constants.verbs.failed;
+            pushStatementIfSupported(createStatement(resultVerb, result));
+            pushStatementIfSupported(createStatement(constants.verbs.stopped));
+
+            // (^\ x_x /^)
+            statementQueue.enqueue(undefined);
+
+            var dfd = Q.defer();
+
+            statementQueue.statements.subscribe(function (newValue) {
+                if (newValue.length == 0) {
+                    dfd.resolve();
+                }
+            });
+
+            return dfd.promise;
         }
 
         function learningContentExperienced(eventData) {
@@ -104,14 +109,13 @@
                 })
             });
 
-            var statement = createStatement(constants.verbs.experienced, result, object, context);
-            return requestManager.sendStatement(statement);
+            pushStatementIfSupported(createStatement(constants.verbs.experienced, result, object, context));
         }
 
         function sendAnsweredQuestionsStatements(eventData) {
             var question = eventData.question,
                 objective = eventData.objective;
-            
+
             var questionUrl = activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id;
             var result = new resultModel({
                 score: new scoreModel(question.score / 100),
@@ -146,9 +150,7 @@
                 })
             });
 
-            var statement = createStatement(constants.verbs.answered, result, object, context);
-
-            return requestManager.sendStatement(statement);
+            pushStatementIfSupported(createStatement(constants.verbs.answered, result, object, context));
         }
 
         function createActor(name, email) {

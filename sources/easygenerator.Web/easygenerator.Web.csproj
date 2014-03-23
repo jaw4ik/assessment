@@ -1404,6 +1404,8 @@
     <Content Include="Templates\Simple course\App\xApi\routingManager.spec.js">
       <DependentUpon>routingManager.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Simple course\App\xApi\statementQueue.js" />
+    <Content Include="Templates\Simple course\App\xApi\statementQueueHandler.js" />
     <Content Include="Templates\Simple course\App\xApi\utils\dateTimeConverter.js" />
     <Content Include="Templates\Simple course\App\xApi\utils\dateTimeConverter.spec.js" />
     <Content Include="Templates\Simple course\App\xApi\viewmodels\xAPINotSupported.js" />

@@ -1,5 +1,5 @@
-﻿define(['./models/actor', './models/statement', './models/activity', './configuration/xApiSettings', 'eventManager', './requestManager', './constants', './errorsHandler', './utils/dateTimeConverter', 'xApi/statementQueue'],
-    function (actorModel, statementModel, activityModel, xApiSettings, eventManager, requestManager, constants, errorsHandler, dateTimeConverter, statementQueue) {
+﻿define(['./models/actor', './models/statement', './models/activity', './configuration/xApiSettings', 'eventManager', './constants', './errorsHandler', './utils/dateTimeConverter', 'xApi/statementQueue'],
+    function (actorModel, statementModel, activityModel, xApiSettings, eventManager, constants, errorsHandler, dateTimeConverter, statementQueue) {
         "use strict";
 
         var subscriptions = [],
