@@ -980,8 +980,12 @@
     <Content Include="Content\font\buxtonsketch.woff" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Templates\Exam\App\bootstrapper.js" />
-    <Content Include="Templates\Exam\App\bootstrapper.spec.js" />
-    <Content Include="Templates\Exam\App\bootstrapper.tasks.js" />
+    <Content Include="Templates\Exam\App\bootstrapper.spec.js">
+      <DependentUpon>bootstrapper.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Exam\App\bootstrapper.tasks.js">
+      <DependentUpon>bootstrapper.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\bootstrapping\binderTask.js" />
     <Content Include="Templates\Exam\App\bootstrapping\browserSupportTask.js" />
     <Content Include="Templates\Exam\App\bootstrapping\viewLocatorTask.js" />
@@ -990,72 +994,109 @@
     <Content Include="Templates\Exam\App\configuration\settings.js" />
     <Content Include="Templates\Exam\App\context.js" />
     <Content Include="Templates\Exam\App\eventDataBuilders\courseEventDataBuilder.js" />
-    <Content Include="Templates\Exam\App\eventDataBuilders\courseEventDataBuilder.spec.js" />
-    <Content Include="Templates\Exam\App\eventDataBuilders\questionEventDataBuilder.js" />
-    <Content Include="Templates\Exam\App\eventDataBuilders\questionEventDataBuilder.spec.js" />
+    <Content Include="Templates\Exam\App\eventDataBuilders\courseEventDataBuilder.spec.js">
+      <DependentUpon>courseEventDataBuilder.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\eventManager.js" />
-    <Content Include="Templates\Exam\App\eventManager.spec.js" />
+    <Content Include="Templates\Exam\App\eventManager.spec.js">
+      <DependentUpon>eventManager.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\guard.js" />
-    <Content Include="Templates\Exam\App\guard.spec.js" />
+    <Content Include="Templates\Exam\App\guard.spec.js">
+      <DependentUpon>guard.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\main-built.js" />
     <Content Include="Templates\Exam\App\main.js" />
     <Content Include="Templates\Exam\App\models\answer.js" />
-    <Content Include="Templates\Exam\App\models\answer.spec.js" />
+    <Content Include="Templates\Exam\App\models\answer.spec.js">
+      <DependentUpon>answer.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\models\course.js" />
-    <Content Include="Templates\Exam\App\models\course.spec.js" />
-    <Content Include="Templates\Exam\App\models\learningContent.js" />
-    <Content Include="Templates\Exam\App\models\learningContent.spec.js" />
+    <Content Include="Templates\Exam\App\models\course.spec.js">
+      <DependentUpon>course.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\models\objective.js" />
-    <Content Include="Templates\Exam\App\models\objective.spec.js" />
+    <Content Include="Templates\Exam\App\models\objective.spec.js">
+      <DependentUpon>objective.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\models\question.js" />
-    <Content Include="Templates\Exam\App\models\question.spec.js" />
+    <Content Include="Templates\Exam\App\models\question.spec.js">
+      <DependentUpon>question.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\moduleLoader.js" />
-    <Content Include="Templates\Exam\App\moduleLoader.spec.js" />
+    <Content Include="Templates\Exam\App\moduleLoader.spec.js">
+      <DependentUpon>moduleLoader.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\modulesInitializer.js" />
-    <Content Include="Templates\Exam\App\modulesInitializer.spec.js" />
+    <Content Include="Templates\Exam\App\modulesInitializer.spec.js">
+      <DependentUpon>modulesInitializer.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\modules\graphicalCustomization.js" />
-    <Content Include="Templates\Exam\App\modules\graphicalCustomization.spec.js" />
+    <Content Include="Templates\Exam\App\modules\graphicalCustomization.spec.js">
+      <DependentUpon>graphicalCustomization.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\repositories\courseRepository.js" />
-    <Content Include="Templates\Exam\App\repositories\courseRepository.spec.js" />
-    <Content Include="Templates\Exam\App\repositories\learningContentRepository.js" />
-    <Content Include="Templates\Exam\App\repositories\learningContentRepository.spec.js" />
+    <Content Include="Templates\Exam\App\repositories\courseRepository.spec.js">
+      <DependentUpon>courseRepository.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\repositories\objectiveRepository.js" />
-    <Content Include="Templates\Exam\App\repositories\objectiveRepository.spec.js" />
+    <Content Include="Templates\Exam\App\repositories\objectiveRepository.spec.js">
+      <DependentUpon>objectiveRepository.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\repositories\questionRepository.js" />
-    <Content Include="Templates\Exam\App\repositories\questionRepository.spec.js" />
+    <Content Include="Templates\Exam\App\repositories\questionRepository.spec.js">
+      <DependentUpon>questionRepository.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\settingsReader.js" />
     <Content Include="Templates\Exam\App\specs.html" />
     <Content Include="Templates\Exam\App\viewmodels\404.js" />
-    <Content Include="Templates\Exam\App\viewmodels\404.spec.js" />
+    <Content Include="Templates\Exam\App\viewmodels\404.spec.js">
+      <DependentUpon>404.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\viewmodels\introduction.js" />
-    <Content Include="Templates\Exam\App\viewmodels\introduction.spec.js" />
-    <Content Include="Templates\Exam\App\viewmodels\learningContents.js" />
-    <Content Include="Templates\Exam\App\viewmodels\learningContents.spec.js" />
+    <Content Include="Templates\Exam\App\viewmodels\introduction.spec.js">
+      <DependentUpon>introduction.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\viewmodels\notsupportedbrowser.js" />
-    <Content Include="Templates\Exam\App\viewmodels\notsupportedbrowser.spec.js" />
+    <Content Include="Templates\Exam\App\viewmodels\notsupportedbrowser.spec.js">
+      <DependentUpon>notsupportedbrowser.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\viewmodels\questions.js" />
-    <Content Include="Templates\Exam\App\viewmodels\questions.spec.js" />
+    <Content Include="Templates\Exam\App\viewmodels\questions.spec.js">
+      <DependentUpon>questions.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\viewmodels\shell.js" />
-    <Content Include="Templates\Exam\App\viewmodels\shell.spec.js" />
+    <Content Include="Templates\Exam\App\viewmodels\shell.spec.js">
+      <DependentUpon>shell.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\viewmodels\summary.js" />
-    <Content Include="Templates\Exam\App\viewmodels\summary.spec.js" />
+    <Content Include="Templates\Exam\App\viewmodels\summary.spec.js">
+      <DependentUpon>summary.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\views\404.html" />
     <Content Include="Templates\Exam\App\views\introduction.html" />
-    <Content Include="Templates\Exam\App\views\learningContents.html" />
     <Content Include="Templates\Exam\App\views\notsupportedbrowser.html" />
     <Content Include="Templates\Exam\App\views\questions.html" />
     <Content Include="Templates\Exam\App\views\shell.html" />
     <Content Include="Templates\Exam\App\views\summary.html" />
     <Content Include="Templates\Exam\App\windowOperations.js" />
-    <Content Include="Templates\Exam\App\windowOperations.spec.js" />
+    <Content Include="Templates\Exam\App\windowOperations.spec.js">
+      <DependentUpon>windowOperations.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\xApi\activityProvider.js" />
-    <Content Include="Templates\Exam\App\xApi\activityProvider.spec.js" />
+    <Content Include="Templates\Exam\App\xApi\activityProvider.spec.js">
+      <DependentUpon>activityProvider.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\xApi\base64.js" />
-    <Content Include="Templates\Exam\App\xApi\base64.spec.js" />
+    <Content Include="Templates\Exam\App\xApi\base64.spec.js">
+      <DependentUpon>base64.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\xApi\configuration\routes.js" />
     <Content Include="Templates\Exam\App\xApi\configuration\viewConstants.js" />
     <Content Include="Templates\Exam\App\xApi\configuration\xApiSettings.js" />
-    <Content Include="Templates\Exam\App\xApi\configuration\xApiSettings.spec.js" />
+    <Content Include="Templates\Exam\App\xApi\configuration\xApiSettings.spec.js">
+      <DependentUpon>xApiSettings.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\xApi\constants.js" />
     <Content Include="Templates\Exam\App\xApi\css\img\error-message.png" />
     <Content Include="Templates\Exam\App\xApi\css\img\graphChart.png" />
@@ -1066,9 +1107,13 @@
     <Content Include="Templates\Exam\App\xApi\css\xAPIError.css" />
     <Content Include="Templates\Exam\App\xApi\css\xAPINotSupported.css" />
     <Content Include="Templates\Exam\App\xApi\errorsHandler.js" />
-    <Content Include="Templates\Exam\App\xApi\errorsHandler.spec.js" />
+    <Content Include="Templates\Exam\App\xApi\errorsHandler.spec.js">
+      <DependentUpon>errorsHandler.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\xApi\guard.js" />
-    <Content Include="Templates\Exam\App\xApi\guard.spec.js" />
+    <Content Include="Templates\Exam\App\xApi\guard.spec.js">
+      <DependentUpon>guard.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\xApi\models\activity.js" />
     <Content Include="Templates\Exam\App\xApi\models\activityDefinition.js" />
     <Content Include="Templates\Exam\App\xApi\models\actor.js" />
@@ -1079,23 +1124,35 @@
     <Content Include="Templates\Exam\App\xApi\models\verb.js" />
     <Content Include="Templates\Exam\App\xApi\requestManager.js" />
     <Content Include="Templates\Exam\App\xApi\routingManager.js" />
-    <Content Include="Templates\Exam\App\xApi\routingManager.spec.js" />
+    <Content Include="Templates\Exam\App\xApi\routingManager.spec.js">
+      <DependentUpon>routingManager.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\xApi\settings.js" />
     <Content Include="Templates\Exam\App\xApi\statementQueue.js" />
     <Content Include="Templates\Exam\App\xApi\statementQueueHandler.js" />
     <Content Include="Templates\Exam\App\xApi\utils\dateTimeConverter.js" />
-    <Content Include="Templates\Exam\App\xApi\utils\dateTimeConverter.spec.js" />
+    <Content Include="Templates\Exam\App\xApi\utils\dateTimeConverter.spec.js">
+      <DependentUpon>dateTimeConverter.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\xApi\viewmodels\login.js" />
-    <Content Include="Templates\Exam\App\xApi\viewmodels\login.spec.js" />
+    <Content Include="Templates\Exam\App\xApi\viewmodels\login.spec.js">
+      <DependentUpon>login.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\xApi\viewmodels\xAPIError.js" />
-    <Content Include="Templates\Exam\App\xApi\viewmodels\xAPIError.spec.js" />
+    <Content Include="Templates\Exam\App\xApi\viewmodels\xAPIError.spec.js">
+      <DependentUpon>xAPIError.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\xApi\viewmodels\xAPINotSupported.js" />
-    <Content Include="Templates\Exam\App\xApi\viewmodels\xAPINotSupported.spec.js" />
+    <Content Include="Templates\Exam\App\xApi\viewmodels\xAPINotSupported.spec.js">
+      <DependentUpon>xAPINotSupported.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\xApi\views\login.html" />
     <Content Include="Templates\Exam\App\xApi\views\xAPIError.html" />
     <Content Include="Templates\Exam\App\xApi\views\xAPINotSupported.html" />
     <Content Include="Templates\Exam\App\xApi\xApiInitializer.js" />
-    <Content Include="Templates\Exam\App\xApi\xApiInitializer.spec.js" />
+    <Content Include="Templates\Exam\App\xApi\xApiInitializer.spec.js">
+      <DependentUpon>xApiInitializer.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\content\1cfad92b55964ddca69134ac91077c95\c3f1dc4191c3463d9898501f891d2812\3f7ee936f63f4c3097fd4a71ad1b4970.html" />
     <Content Include="Templates\Exam\content\1cfad92b55964ddca69134ac91077c95\c3f1dc4191c3463d9898501f891d2812\bf804d7c8c8e472ca12c11668740e023.html" />
     <Content Include="Templates\Exam\content\893fec4c12a44115bfba0b93dff97caf\5b95975bbf964828b974580ff1c5af6f\04a63846b71c4e47a8883932be4a85a8.html" />

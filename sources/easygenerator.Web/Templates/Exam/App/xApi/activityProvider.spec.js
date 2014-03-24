@@ -72,18 +72,6 @@
                     });
                 });
 
-                it('should not send request to LRS when trigger "learningContentExperienced"', function () {
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        viewModel.turnOffSubscriptions();
-                        app.trigger("learningContentExperienced");
-                        
-                        expect(requestManager.sendStatement).not.toHaveBeenCalled();
-                    });
-                });
-
                 it('should not send request to LRS when trigger "questionSubmitted"', function () {
                     waitsFor(function () {
                         return !promise.isPending();

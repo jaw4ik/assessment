@@ -6,8 +6,7 @@
                 courseStarted: "courseStarted",
                 courseFinished: "courseFinished",
                 answersSubmitted: "answersSubmitted",
-                courseRestart: "courseRestart",
-                learningContentExperienced: "learningContentExperienced"
+                courseRestart: "courseRestart"
             },
 
             turnAllEventsOff = function () {
@@ -38,10 +37,6 @@
 
             answersSubmitted = function (data) {
                 app.trigger(events.answersSubmitted, data);
-            },
-
-            learningContentExperienced = function (data) {
-                app.trigger(events.learningContentExperienced, data);
             },
 
             executeAfterSubscribersDone = function (event, eventData, callback) {
@@ -76,8 +71,7 @@
             courseStarted: courseStarted,
             courseRestart: courseRestart,
             courseFinished: courseFinished,
-            answersSubmitted: answersSubmitted,
-            learningContentExperienced: learningContentExperienced
+            answersSubmitted: answersSubmitted
         };
     }
 );

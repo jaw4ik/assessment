@@ -45,11 +45,7 @@
                 }));
 
                 router.navigate('summary');
-            },
-            showLearningContents = function (item) {
-                activeQuestionId = item.id;
-                router.navigate('objective/' + item.objectiveId + '/question/' + item.id + '/learningContents');
-            },
+            },            
             mapQuestion = function (question) {
                 var mappedQuestion = {
                     id: question.id,
@@ -66,24 +62,11 @@
                                 this.isChecked(!this.isChecked());
                             }
                         };
-                    }),
-                    learningContents: question.learningContents
+                    })
                 };
 
                 return mappedQuestion;
-            },
-            compositionComplete = function () {
-                if (_.isNull(activeQuestionId)) {
-                    return;
-                }
-
-                var targetTopPosition = jQuery('#' + activeQuestionId).offset().top;
-                jQuery('html, body').animate({
-                    scrollTop: targetTopPosition - 5
-                });
-
-                activeQuestionId = null;
-            },
+            },            
             activate = function () {
                 var course = courseRepository.get();
 
@@ -119,9 +102,7 @@
             canActivate: canActivate,
             loadQuestions: loadQuestions,
             submit: submit,
-            showLearningContents: showLearningContents,
             activeQuestionId: activeQuestionId,
-            compositionComplete: compositionComplete,
 
             questions: displayedQuestions,
             totalQuestionsCount: totalQuestionsCount,

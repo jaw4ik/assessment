@@ -28,7 +28,6 @@
 
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(enqueueCourseStarted));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(enqueueCourseFinished));
-                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(learningContentExperienced));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(enqueueAnsweredQuestionsStatements));
             });
 
@@ -53,8 +52,6 @@
         }
 
         function enqueueCourseFinished(finishedEventData) {
-            debugger;
-
             enqueueObjectivesFinished(finishedEventData.objectives);
 
             var result = {
@@ -85,25 +82,6 @@
                 var statement = createStatement(constants.verbs.mastered, { score: objective.score / 100 }, createActivityForObjective(objective.id, objective.title));
                 pushStatementIfSupported(statement);
             });
-        }
-
-        function learningContentExperienced(finishedEventData) {
-            var result = {
-                duration: dateTimeConverter.timeToISODurationString(finishedEventData.spentTime)
-            };
-
-            var learningContentUrl = activityProvider.rootCourseUrl + '#objective/' + finishedEventData.objective.id + '/question/' + finishedEventData.question.id + '/learningContents';
-            var object = createActivity(finishedEventData.question.title, learningContentUrl);
-
-            var context = {
-                contextActivities: {
-                    parent: [createActivityForQuestion(finishedEventData.question.id, finishedEventData.question.title)],
-                    grouping: [createActivityForObjective(finishedEventData.objective.id, finishedEventData.objective.title)]
-                }
-            };
-
-            var statement = createStatement(constants.verbs.experienced, result, object, context);
-            pushStatementIfSupported(statement);
         }
 
         function enqueueAnsweredQuestionsStatements(finishedEventData) {

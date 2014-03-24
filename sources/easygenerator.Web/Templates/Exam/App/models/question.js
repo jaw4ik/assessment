@@ -1,5 +1,5 @@
-﻿define(['eventManager', 'guard', 'eventDataBuilders/questionEventDataBuilder', 'plugins/http', 'configuration/settings'],
-    function (eventManager, guard, eventDataBuilder, http, settings) {
+﻿define(['eventManager', 'guard', 'plugins/http', 'configuration/settings'],
+    function (eventManager, guard, http, settings) {
 
         var model = function (spec) {
             return {
@@ -9,11 +9,9 @@
                 hasContent: spec.hasContent,
                 score: spec.score,
                 answers: spec.answers,
-                learningContents: spec.learningContents,
                 isAnswered: false,
                 isCorrectAnswered: false,
                 submitAnswer: submitAnswer,
-                learningContentExperienced: learningContentExperienced,
                 loadContent: loadContent
             };
         };
@@ -28,12 +26,6 @@
             this.score = calculateScore(this.answers);
             this.isAnswered = true;
             this.isCorrectAnswered = this.score == 100;
-        };
-
-        var learningContentExperienced = function (spentTime) {
-            eventManager.learningContentExperienced(
-                eventDataBuilder.buildLearningContentExperiencedEventData(this, spentTime)
-            );
         };
 
         var loadContent = function () {

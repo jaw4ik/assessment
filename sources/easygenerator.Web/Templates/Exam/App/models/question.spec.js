@@ -1,7 +1,6 @@
 ﻿define(['models/question'], function (QuestionModel) {
 
-    var eventManager = require('eventManager'),
-        eventDataBuilder = require('eventDataBuilders/questionEventDataBuilder'),
+    var
         http = require('plugins/http'),
         settings = require('configuration/settings');
 
@@ -41,8 +40,7 @@
             title: 'title',
             hasContent: false,
             score: 0,
-            answers: answers,
-            learningContents: []
+            answers: answers
         };
         var question;
 
@@ -97,16 +95,6 @@
 
             it('should be equal to spec answers', function () {
                 expect(question.answers).toBe(spec.answers);
-            });
-        });
-
-        describe('learningContents:', function () {
-            it('should be defined', function () {
-                expect(question.learningContents).toBeDefined();
-            });
-
-            it('should be equal to spec learningContents', function () {
-                expect(question.learningContents).toBe(spec.learningContents);
             });
         });
 
@@ -188,28 +176,6 @@
             });
         });
 
-        describe('learningContentExperienced:', function () {
-            var eventData = {};
-            beforeEach(function () {
-                spyOn(eventManager, 'learningContentExperienced');
-                spyOn(eventDataBuilder, 'buildLearningContentExperiencedEventData').andReturn(eventData);
-            });
-
-            it('should be function', function () {
-                expect(question.learningContentExperienced).toBeFunction();
-            });
-
-            it('should call event data builder buildAnswersSubmittedEventData', function () {
-                question.learningContentExperienced({});
-                expect(eventDataBuilder.buildLearningContentExperiencedEventData).toHaveBeenCalled();
-            });
-
-            it('should call event manager learningContentExperienced', function () {
-                question.learningContentExperienced({});
-                expect(eventManager.learningContentExperienced).toHaveBeenCalledWith(eventData);
-            });
-        });
-
         describe('loadContent:', function () {
             var deferred = null;
             beforeEach(function () {
@@ -252,7 +218,7 @@
                         expect(http.get).not.toHaveBeenCalled();
                     });
                 });
-                
+
                 it('should not change question content', function () {
                     var promise = question.loadContent();
 
@@ -266,7 +232,7 @@
             });
 
             describe('and when question has content', function () {
-                beforeEach(function() {
+                beforeEach(function () {
                     question.hasContent = true;
                 });
 
@@ -324,7 +290,7 @@
                             expect(question.content).toBe(settings.questionContentNonExistError);
                         });
                     });
-                    
+
                     it('should resolve promise', function () {
                         var promise = question.loadContent();
                         deferred.reject();

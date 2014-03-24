@@ -107,18 +107,6 @@
                 });
             });
 
-            describe('learningContentExperienced', function () {
-
-                it('should be function', function () {
-                    expect(eventManager.learningContentExperienced).toBeFunction();
-                });
-
-                it('should call app.trigger event with parameter "learningContentExperienced"', function () {
-                    eventManager.learningContentExperienced({});
-                    expect(app.trigger).toHaveBeenCalledWith("learningContentExperienced", {});
-                });
-            });
-
             describe('courseFinished:', function () {
 
                 it('should return promise', function () {

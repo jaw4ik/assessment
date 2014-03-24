@@ -1,5 +1,5 @@
-﻿define(['models/course', 'models/objective', 'models/question', 'models/answer', 'models/learningContent'],
-    function (Course, Objective, Question, Answer, LearningContent) {
+﻿define(['models/course', 'models/objective', 'models/question', 'models/answer'],
+    function (Course, Objective, Question, Answer) {
 
         var
             courseId = '',
@@ -34,9 +34,6 @@
                                                 isCorrect: answer.isCorrect,
                                                 text: answer.text
                                             });
-                                        }),
-                                        learningContents: _.map(question.learningContents, function (learningContent) {
-                                            return new LearningContent({ id: learningContent.id });
                                         }),
                                         score: 0,
                                         hasContent: question.hasContent

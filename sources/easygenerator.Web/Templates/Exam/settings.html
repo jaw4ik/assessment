@@ -655,10 +655,10 @@
                     <div class="content-row">
                         <label data-bind="css: { disabled: !enableXAPI() }">
                             <span class="content-checkbox">
-                                <input type="checkbox" class="content-checkbox-input" data-bind="checked: statements.experienced, enable: enableXAPI">
+                                <input type="checkbox" class="content-checkbox-input" data-bind="checked: statements.passed, enable: enableXAPI">
                                 <span class="content-checkbox-checked"></span>
                             </span>
-                            <span class="input-label">Experienced</span>
+                            <span class="input-label">Passed</span>
                         </label>
                         <label class="content-col-right" data-bind="css: { disabled: !enableXAPI() }">
                             <span class="content-checkbox">
@@ -669,23 +669,12 @@
                         </label>
                     </div>
 
-                    <div class="content-row">
-                        <label data-bind="css: { disabled: !enableXAPI() }">
-                            <span class="content-checkbox">
-                                <input type="checkbox" class="content-checkbox-input" data-bind="checked: statements.passed, enable: enableXAPI">
-                                <span class="content-checkbox-checked"></span>
-                            </span>
-                            <span class="input-label">Passed</span>
-                        </label>
-                    </div>
-
-
                     <div class="content-splitter-line">
                         <span class="content-splitter-text">Easygenerator recommends</span>
                     </div>
                     <div class="content-row banner">
                         <a href="https://www.waxlrs.com/?utm_medium=affiliate&utm_source=easy_generator" target="_blank">
-                            <img src="../Simple course/img/saltbox-banner.png" class="saltbox-banner" alt="Saltbox banner" />
+                            <img src="../Exam/img/saltbox-banner.png" class="saltbox-banner" alt="Saltbox banner" />
                         </a>
                     </div>
                 </div>
@@ -727,7 +716,6 @@
                 statements: {
                     started: ko.observable(true),
                     stopped: ko.observable(true),
-                    experienced: ko.observable(true),
                     mastered: ko.observable(true),
                     answered: ko.observable(true),
                     passed: ko.observable(true),

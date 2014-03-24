@@ -25,11 +25,6 @@
                     "isCorrect": true,
                     "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
                 }],
-                learningContents: [{
-                    "id": 0
-                }, {
-                    "id": 1
-                }],
                 loadContent: function () { }
             },
             {
@@ -44,11 +39,6 @@
                     "id": 1,
                     "isCorrect": true,
                     "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
-                }],
-                learningContents: [{
-                    "id": 0
-                }, {
-                    "id": 1
                 }],
                 loadContent: function () { }
             }
@@ -108,38 +98,6 @@
 
         });
 
-        describe('compositionComplete:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.compositionComplete).toBeFunction();
-            });
-
-            beforeEach(function () {
-                spyOn(jQuery.fn, 'animate');
-                spyOn(jQuery.fn, 'offset').andReturn({ top: 100 });
-            });
-
-            describe('when redirect from learning content view', function () {
-
-                it('should scroll to active question', function () {
-                    viewModel.showLearningContents({ id: 1, objectiveId: 101 });
-                    viewModel.compositionComplete();
-                    expect(jQuery().animate).toHaveBeenCalled();
-                });
-
-            });
-
-            describe('when don\'t redirect from learning content view', function () {
-
-                it('should not scroll', function () {
-                    viewModel.compositionComplete();
-                    expect(jQuery().animate).not.toHaveBeenCalled();
-                });
-
-            });
-
-        });
-
         describe('submit:', function () {
 
             beforeEach(function () {
@@ -159,19 +117,6 @@
             it('should call course submit answers', function () {
                 viewModel.submit();
                 expect(course.submitAnswers).toHaveBeenCalled();
-            });
-        });
-
-        describe('showLearningContents:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.showLearningContents).toBeFunction();
-            });
-
-            it('should navigate to objective/:objectiveId/question/:questionid/learningContents', function () {
-                var learningContents = { objectiveId: 'obj1', id: 'ques1' };
-                viewModel.showLearningContents(learningContents);
-                expect(router.navigate).toHaveBeenCalledWith('objective/obj1/question/ques1/learningContents');
             });
         });
 
