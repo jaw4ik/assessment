@@ -27,12 +27,6 @@
                         "en-US": "failed"
                     }
                 },
-                completed: {
-                    id: "http://adlnet.gov/expapi/verbs/completed",
-                    display: {
-                        "en-US": "completed"
-                    }
-                },
                 experienced: {
                     id: "http://adlnet.gov/expapi/verbs/experienced",
                     display: {
