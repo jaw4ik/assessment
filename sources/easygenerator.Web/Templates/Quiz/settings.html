@@ -813,7 +813,11 @@
                 contentType: 'application/json',
                 dataType: 'json',
                 success: function (user) {
-                    viewModel.hasStarterPlan(user.subscription.accessType >= starterAccessType);
+                    if (user.hasOwnProperty('subscription') && user.subscription.hasOwnProperty('accessType')) {
+                        viewModel.hasStarterPlan(user.subscription.accessType >= starterAccessType);
+                    } else {
+                        viewModel.hasStarterPlan(false);
+                    }
                 },
                 error: function () {
                     viewModel.hasStarterPlan(false);
