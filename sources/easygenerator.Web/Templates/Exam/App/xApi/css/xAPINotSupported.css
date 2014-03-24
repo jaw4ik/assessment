@@ -16,7 +16,7 @@
     }
 
     .xapi-title:before {
-        content: url(img/graphChart.png?v=quiz);
+        content: url(img/graphChart.png?v=exam);
         display: block;
         width: 32px;
         height: 35px;
@@ -63,7 +63,7 @@
         margin-top: -16px;
         height: 32px;
         width: 32px;
-        background: url(img/error-message.png?v=quiz);
+        background: url(img/error-message.png?v=exam);
     }
 
 
