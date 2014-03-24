@@ -261,6 +261,10 @@
 }
 
 @media (min-width: 1550px) {
+
+    .content-area-wrapper {
+        padding-left: 50px;
+    }
     
     .navigation-tree-wrapper {
         display: block;
@@ -270,7 +274,7 @@
     }
 
     .content-wrapper {
-        max-width: 920px;
+        max-width: 930px;
     }
 
 }
