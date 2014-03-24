@@ -3,17 +3,18 @@
 }
 
 .intro-page.view-module {
-    padding-top: 20px;
+    padding-top: 255px;
     padding-left: 0;
     padding-right: 0;
     min-height: 980px;
-    position: relative;
     color: #303133;
 }
 
 .intro-header {
     width: 100%;
-    min-width: 980px;
+    position: absolute;
+    top: 0;
+    left: 0;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
     text-align: center;
 }

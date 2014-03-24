@@ -259,3 +259,18 @@
 .navigation-tree-node-caption-wrapper.disabled:hover .navigation-tree-node-icon.create:before {
     background: url('images/sprites.png') -59px -267px;
 }
+
+@media (min-width: 1550px) {
+    
+    .navigation-tree-wrapper {
+        display: block;
+        position: absolute;
+        top: 56px;
+        bottom: 0;
+    }
+
+    .content-wrapper {
+        max-width: 920px;
+    }
+
+}
