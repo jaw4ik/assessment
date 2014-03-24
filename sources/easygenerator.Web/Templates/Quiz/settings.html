@@ -638,10 +638,10 @@
                     <div class="content-row">
                         <label data-bind="css: { disabled: !enableXAPI() }">
                             <span class="content-checkbox">
-                                <input type="checkbox" class="content-checkbox-input" data-bind="checked: statements.attempted, enable: enableXAPI">
+                                <input type="checkbox" class="content-checkbox-input" data-bind="checked: statements.answered, enable: enableXAPI">
                                 <span class="content-checkbox-checked"></span>
                             </span>
-                            <span class="input-label">Attempted</span>
+                            <span class="input-label">Answered</span>
                         </label>
                         <label class="content-col-right" data-bind="css: { disabled: !enableXAPI() }">
                             <span class="content-checkbox">
@@ -685,17 +685,6 @@
                             <span class="input-label">Failed</span>
                         </label>
                     </div>
-
-                    <div class="content-row">
-                        <label data-bind="css: { disabled: !enableXAPI() }">
-                            <span class="content-checkbox">
-                                <input type="checkbox" class="content-checkbox-input" data-bind="checked: statements.answered, enable: enableXAPI">
-                                <span class="content-checkbox-checked"></span>
-                            </span>
-                            <span class="input-label">Answered</span>
-                        </label>
-                    </div>
-
 
                     <div class="content-splitter-line">
                         <span class="content-splitter-text">Easygenerator recommends</span>
@@ -744,7 +733,6 @@
                 statements: {
                     started: ko.observable(true),
                     stopped: ko.observable(true),
-                    attempted: ko.observable(true),
                     completed: ko.observable(true),
                     experienced: ko.observable(true),
                     mastered: ko.observable(true),

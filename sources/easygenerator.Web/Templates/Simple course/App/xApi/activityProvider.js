@@ -28,10 +28,10 @@
                 activityProvider.activityUrl = activityUrl;
                 activityProvider.rootCourseUrl = activityUrl != undefined ? activityUrl.split("?")[0].split("#")[0] : '';
 
-                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(sendCourseStarted));
-                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(enqueueCourseStarted));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(enqueueCourseFinished));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(learningContentExperienced));
-                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(sendAnsweredQuestionsStatements));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(enqueueAnsweredQuestionsStatements));
             });
         }
 
@@ -49,23 +49,16 @@
             }
         }
 
-        function sendCourseStarted() {
+        function enqueueCourseStarted() {
             pushStatementIfSupported(createStatement(constants.verbs.started));
         }
 
-        function sendCourseFinished(finishedEventData) {
-
+        function enqueueCourseFinished(finishedEventData) {
             if (_.isUndefined(finishedEventData) || _.isUndefined(finishedEventData.result)) {
                 throw errorsHandler.errors.notEnoughDataInSettings;
             }
 
-            if (!_.isUndefined(finishedEventData.objectives) && _.isArray(finishedEventData.objectives) && finishedEventData.objectives.length > 0) {
-                _.each(finishedEventData.objectives, function (objective) {
-                    var objectiveUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
-                    var statement = createStatement(constants.verbs.mastered, new resultModel({ score: new scoreModel(objective.score / 100) }), createActivity(objectiveUrl, objective.title));
-                    pushStatementIfSupported(statement);
-                });
-            }
+            enqueueObjectivesFinishedStatement(finishedEventData);
 
             var result = new resultModel({
                 score: new scoreModel(finishedEventData.result)
@@ -87,6 +80,16 @@
             });
 
             return dfd.promise;
+        }
+
+        function enqueueObjectivesFinishedStatement(finishedEventData) {
+            if (!_.isUndefined(finishedEventData.objectives) && _.isArray(finishedEventData.objectives) && finishedEventData.objectives.length > 0) {
+                _.each(finishedEventData.objectives, function (objective) {
+                    var objectiveUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
+                    var statement = createStatement(constants.verbs.mastered, new resultModel({ score: new scoreModel(objective.score / 100) }), createActivity(objectiveUrl, objective.title));
+                    pushStatementIfSupported(statement);
+                });
+            }
         }
 
         function learningContentExperienced(eventData) {
@@ -112,7 +115,7 @@
             pushStatementIfSupported(createStatement(constants.verbs.experienced, result, object, context));
         }
 
-        function sendAnsweredQuestionsStatements(eventData) {
+        function enqueueAnsweredQuestionsStatements(eventData) {
             var question = eventData.question,
                 objective = eventData.objective;
 

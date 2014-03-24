@@ -26,10 +26,10 @@
                 activityProvider.rootCourseUrl = activityUrl.split("?")[0].split("#")[0];
                 activityProvider.rootActivityUrl = activityProvider.rootCourseUrl + '#questions';
 
-                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(sendCourseStarted));
-                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(enqueueCourseStarted));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(enqueueCourseFinished));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(learningContentExperienced));
-                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(sendAnsweredQuestionsStatements));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(enqueueAnsweredQuestionsStatements));
             });
 
         }
@@ -42,7 +42,7 @@
             });
         }
 
-        function sendCourseStarted() {
+        function enqueueCourseStarted() {
             pushStatementIfSupported(createStatement(constants.verbs.started));
         }
 
@@ -52,12 +52,8 @@
             }
         }
 
-        function sendCourseFinished(finishedEventData) {
-            var objectives = finishedEventData.objectives;
-            _.each(objectives, function (objective) {
-                var statement = createStatement(constants.verbs.mastered, { score: objective.score / 100 }, createActivityForObjective(objective.id, objective.title));
-                pushStatementIfSupported(statement);
-            });
+        function enqueueCourseFinished(finishedEventData) {
+            enqueueObjectivesFinished(finishedEventData.objectives);
 
             var result = {
                 score: finishedEventData.result
@@ -82,6 +78,13 @@
             return dfd.promise;
         }
 
+        function enqueueObjectivesFinished(objectives) {
+            _.each(objectives, function (objective) {
+                var statement = createStatement(constants.verbs.mastered, { score: objective.score / 100 }, createActivityForObjective(objective.id, objective.title));
+                pushStatementIfSupported(statement);
+            });
+        }
+
         function learningContentExperienced(finishedEventData) {
             var result = {
                 duration: dateTimeConverter.timeToISODurationString(finishedEventData.spentTime)
@@ -101,7 +104,7 @@
             pushStatementIfSupported(statement);
         }
 
-        function sendAnsweredQuestionsStatements(finishedEventData) {
+        function enqueueAnsweredQuestionsStatements(finishedEventData) {
             _.each(finishedEventData, function (item) {
                 var question = item.question;
                 var objective = item.objective;

@@ -15,12 +15,6 @@
                         "en-US": "stopped"
                     }
                 },
-                attempted: {
-                    id: "http://adlnet.gov/expapi/verbs/attempted",
-                    display: {
-                        "en-US": "attempted"
-                    }
-                },
                 passed: {
                     id: "http://adlnet.gov/expapi/verbs/passed",
                     display: {
