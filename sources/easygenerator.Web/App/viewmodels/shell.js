@@ -26,8 +26,7 @@
             navigation: ko.observableArray([]),
             isTryMode: false,
             username: null,
-            help: help,
-            notifications: ko.observableArray([])
+            help: help
         };
     
         viewModel.activeModuleName = ko.computed(function () {

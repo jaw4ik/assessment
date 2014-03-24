@@ -1,7 +1,7 @@
 ﻿define(['notifications/subscriptionExpirationNotificationController'],
     function(controller) {
 
-        var shellViewModel = require('viewmodels/shell'),
+        var notifications = require('notifications/notification'),
             userContext = require('userContext'),
             constants = require('constants');
 
@@ -52,8 +52,8 @@
                         describe('when notification exists', function () {
 
                             beforeEach(function () {
-                                shellViewModel.notifications([]);
-                                shellViewModel.notifications.push({
+                                notifications.collection([]);
+                                notifications.collection.push({
                                     name: notificationName,
                                     expirationDate: 5,
                                     firstname: 'user'
@@ -62,7 +62,7 @@
 
                             it('should remove notification', function () {
                                 controller.execute();
-                                expect(shellViewModel.notifications().length).toBe(0);
+                                expect(notifications.collection().length).toBe(0);
                             });
 
                         });
@@ -84,8 +84,8 @@
                             describe('when notification exists', function () {
 
                                 beforeEach(function () {
-                                    shellViewModel.notifications([]);
-                                    shellViewModel.notifications.push({
+                                    notifications.collection([]);
+                                    notifications.collection.push({
                                         name: notificationName,
                                         expirationDate: 5,
                                         firstname: 'user'
@@ -94,7 +94,7 @@
 
                                 it('should remove notification', function () {
                                     controller.execute();
-                                    expect(shellViewModel.notifications().length).toBe(0);
+                                    expect(notifications.collection().length).toBe(0);
                                 });
 
                             });
@@ -114,8 +114,8 @@
                             describe('when notification exists', function () {
 
                                 beforeEach(function () {
-                                    shellViewModel.notifications([]);
-                                    shellViewModel.notifications.push({
+                                    notifications.collection([]);
+                                    notifications.collection.push({
                                         name: notificationName,
                                         expirationDate: 5,
                                         firstname: 'user'
@@ -124,7 +124,7 @@
 
                                 it('should remove notification', function () {
                                     controller.execute();
-                                    expect(shellViewModel.notifications().length).toBe(0);
+                                    expect(notifications.collection().length).toBe(0);
                                 });
 
                             });
@@ -146,8 +146,8 @@
                             describe('when notification exists', function () {
 
                                 beforeEach(function () {
-                                    shellViewModel.notifications([]);
-                                    shellViewModel.notifications.push({
+                                    notifications.collection([]);
+                                    notifications.collection.push({
                                         name: notificationName,
                                         expirationDate: 5,
                                         firstname: 'user'
@@ -156,7 +156,7 @@
 
                                 it('should remove notification', function () {
                                     controller.execute();
-                                    expect(shellViewModel.notifications().length).toBe(0);
+                                    expect(notifications.collection().length).toBe(0);
                                 });
 
                             });
@@ -177,7 +177,7 @@
                                 describe('and when expiration date of this notification equal current expiration date', function() {
 
                                     beforeEach(function() {
-                                        shellViewModel.notifications.push({
+                                        notifications.collection.push({
                                             name: notificationName,
                                             expirationDate: 5
                                         });
@@ -196,8 +196,8 @@
                                 describe('and when expiration date of this notification not equal current expiration date', function () {
 
                                     beforeEach(function () {
-                                        shellViewModel.notifications([]);
-                                        shellViewModel.notifications.push({
+                                        notifications.collection([]);
+                                        notifications.collection.push({
                                             name: notificationName,
                                             expirationDate: 5,
                                             firstname: 'user'
@@ -209,7 +209,7 @@
                                         date.setDate(date.getDate() + 2);
                                         userContext.identity.subscription.expirationDate = date;
                                         controller.execute();
-                                        expect(shellViewModel.notifications()[0].amountOfDays).toBe(2);
+                                        expect(notifications.collection()[0].amountOfDays).toBe(2);
                                     });
 
                                 });

@@ -2,22 +2,11 @@
 
     "use strict";
 
-    return function (name, firstname, amountOfDays) {
+    return function (name, firstname, amountOfDays, expirationDate) {
         this.name = name;
         this.firstname = firstname;
-        this.amountOfDayText = getExpirationDateString(amountOfDays);
         this.amountOfDays = amountOfDays;
+        this.isToday = expirationDate.toDateString() == (new Date()).toDateString();
     };
-
-    function getExpirationDateString(amountOfDays) {
-        switch (amountOfDays) {
-            case 0:
-                return 'today';
-            case 1:
-                return amountOfDays + ' day';
-            default:
-                return amountOfDays + ' days';
-        }
-    }
 
 });

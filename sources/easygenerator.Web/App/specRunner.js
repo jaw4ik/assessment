@@ -39,6 +39,7 @@
         'models/user.spec',
         'models/course.spec',
         'notifications/subscriptionExpirationNotificationController.spec',
+        'notifications/notification.spec',
  //       'repositories/answerRepository.spec',
 
         /* UNSORTED SPECS */

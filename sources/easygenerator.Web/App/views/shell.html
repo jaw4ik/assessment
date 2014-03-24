@@ -25,15 +25,10 @@
                                 <span class="header-help-hint-btn" data-bind="localize: { text: 'help' }, click: help.show, css: { disabled: !help.isHelpHintExist() || help.visible() }">Help</span>
                             </li>
                             <!-- ko ifnot: isTryMode -->
-                            <!-- ko if: notifications().length != 0 -->
-                            <li class="header-menu-list-item user-notification dropdown-list-wrapper" data-bind="dropDown: {}">
-                                <div class="user-notification-image"></div>
-                                <ul class="dropdown-list user-notification-viewer" data-bind="foreach: notifications">
-                                    <!-- ko compose: $data -->
-                                    <!-- /ko -->
-                                </ul>
+                            <li class="header-menu-list-item dropdown-list-wrapper">
+                                <!-- ko compose: 'notifications/notification' -->
+                                <!-- /ko -->
                             </li>
-                            <!-- /ko -->
                             <li class="header-menu-list-item mode profile" data-bind="dropDown: {}">
                                 <div class="header-submenu-holder">
                                     <span class="header-submenu-expand-icon"></span>
