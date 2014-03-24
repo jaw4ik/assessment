@@ -258,6 +258,7 @@
         -ms-transform: rotate(45deg);
         -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
+        z-index: 10;
     }
 
 .header-username {
@@ -1342,6 +1343,7 @@ span.top-navigation-item.current {
     color: #303133;
     box-shadow: 1px 2px 5px #dddddd;
     cursor: default;
+    z-index: 10;
 }
 
 .user-notification-wrapper {
