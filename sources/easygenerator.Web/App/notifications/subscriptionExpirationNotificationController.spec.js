@@ -1,11 +1,11 @@
-﻿define(['notifications/subscriptionExpirationNotificationTask'],
-    function(task) {
+﻿define(['notifications/subscriptionExpirationNotificationController'],
+    function(controller) {
 
         var shellViewModel = require('viewmodels/shell'),
             userContext = require('userContext'),
             constants = require('constants');
 
-        describe('task [subscriptionExpirationNotificationTask]', function () {
+        describe('controller [subscriptionExpirationNotificationController]', function () {
 
             var notificationName;
 
@@ -16,13 +16,13 @@
             });
 
             it('should be defined', function() {
-                expect(task).toBeDefined();
+                expect(controller).toBeDefined();
             });
 
             describe('execute:', function() {
 
                 it('should be function', function() {
-                    expect(task.execute).toBeFunction();
+                    expect(controller.execute).toBeFunction();
                 });
 
                 describe('when userContext.identity is null', function() {
@@ -32,7 +32,7 @@
                     });
 
                     it('should return undefined', function() {
-                        expect(task.execute()).toBeUndefined();
+                        expect(controller.execute()).toBeUndefined();
                     });
 
                 });
@@ -46,7 +46,7 @@
                         });
 
                         it('should return undefined', function() {
-                            expect(task.execute()).toBeUndefined();
+                            expect(controller.execute()).toBeUndefined();
                         });
 
                         describe('when notification exists', function () {
@@ -61,7 +61,7 @@
                             });
 
                             it('should remove notification', function () {
-                                task.execute();
+                                controller.execute();
                                 expect(shellViewModel.notifications().length).toBe(0);
                             });
 
@@ -78,7 +78,7 @@
                             });
 
                             it('should be undefined', function() {
-                                expect(task.execute()).toBeUndefined();
+                                expect(controller.execute()).toBeUndefined();
                             });
 
                             describe('when notification exists', function () {
@@ -93,7 +93,7 @@
                                 });
 
                                 it('should remove notification', function () {
-                                    task.execute();
+                                    controller.execute();
                                     expect(shellViewModel.notifications().length).toBe(0);
                                 });
 
@@ -108,7 +108,7 @@
                             });
 
                             it('should be undefined', function () {
-                                expect(task.execute()).toBeUndefined();
+                                expect(controller.execute()).toBeUndefined();
                             });
 
                             describe('when notification exists', function () {
@@ -123,7 +123,7 @@
                                 });
 
                                 it('should remove notification', function () {
-                                    task.execute();
+                                    controller.execute();
                                     expect(shellViewModel.notifications().length).toBe(0);
                                 });
 
@@ -140,7 +140,7 @@
                             });
 
                             it('should be undefined', function () {
-                                expect(task.execute()).toBeUndefined();
+                                expect(controller.execute()).toBeUndefined();
                             });
 
                             describe('when notification exists', function () {
@@ -155,7 +155,7 @@
                                 });
 
                                 it('should remove notification', function () {
-                                    task.execute();
+                                    controller.execute();
                                     expect(shellViewModel.notifications().length).toBe(0);
                                 });
 
@@ -184,7 +184,7 @@
                                     });
 
                                     it('should return undefined', function() {
-                                        expect(task.execute()).toBeUndefined();
+                                        expect(controller.execute()).toBeUndefined();
                                     });
 
                                 });
@@ -208,7 +208,7 @@
                                         var date = new Date();
                                         date.setDate(date.getDate() + 2);
                                         userContext.identity.subscription.expirationDate = date;
-                                        task.execute();
+                                        controller.execute();
                                         expect(shellViewModel.notifications()[0].amountOfDays).toBe(2);
                                     });
 

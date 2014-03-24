@@ -205,7 +205,7 @@
     <Content Include="App\bootstrapping\errorHandlingTask.js" />
     <Content Include="App\bootstrapping\localizationTask.js" />
     <Content Include="App\bootstrapping\knockoutBindingsTask.js" />
-    <Content Include="App\bootstrapping\schedulerTask.js" />
+    <Content Include="App\bootstrapping\notificationsTask.js" />
     <Content Include="App\bootstrapping\synchronizationTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
     <Content Include="App\help\helpHintPositioning.js" />
@@ -220,14 +220,13 @@
     <Content Include="App\notifications\subscriptionExpirationNotification.html">
       <DependentUpon>subscriptionExpirationNotification.js</DependentUpon>
     </Content>
-    <Content Include="App\notifications\subscriptionExpirationNotificationTask.spec.js">
-      <DependentUpon>subscriptionExpirationNotificationTask.js</DependentUpon>
+    <Content Include="App\notifications\subscriptionExpirationNotificationController.spec.js">
+      <DependentUpon>subscriptionExpirationNotificationController.js</DependentUpon>
     </Content>
     <Content Include="App\routing\routerExtender.spec.js">
       <DependentUpon>routerExtender.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\commentRepository.js" />
-    <Content Include="App\scheduler.js" />
     <Content Include="App\notifications\subscriptionExpirationNotification.js" />
     <Content Include="App\synchronization\handlers\userDowngraded.js" />
     <Content Include="App\synchronization\handlers\userDowngraded.spec.js">
@@ -286,7 +285,7 @@
     <Content Include="App\treeOfContent\treeOfContent.js" />
     <Content Include="App\treeOfContent\handlers\treeOfContentTraversal.js" />
     <Content Include="App\treeOfContent\handlers\treeOfContentAutoExpandHandler.js" />
-    <Content Include="App\notifications\subscriptionExpirationNotificationTask.js" />
+    <Content Include="App\notifications\subscriptionExpirationNotificationController.js" />
     <Content Include="App\viewmodels\common\contentField.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.spec.js">

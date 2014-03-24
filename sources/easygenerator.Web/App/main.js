@@ -16,8 +16,8 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'scheduler', 'synchronization/listener'],
-    function (system, app, bootstrapper, userContext, scheduler, synchronization) {
+define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synchronization/listener'],
+    function (system, app, bootstrapper, userContext, synchronization) {
         if (!has('release')) {
             system.debug(true);
         }

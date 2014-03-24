@@ -7,6 +7,8 @@
     };
 
     function execute() {
+        setTimeout(execute, 2000);
+
         if (_.isNullOrUndefined(userContext.identity)) {
             return;
         }

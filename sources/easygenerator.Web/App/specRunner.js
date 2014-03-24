@@ -38,7 +38,7 @@
         'userContext.spec',
         'models/user.spec',
         'models/course.spec',
-        'notifications/subscriptionExpirationNotificationTask.spec',
+        'notifications/subscriptionExpirationNotificationController.spec',
  //       'repositories/answerRepository.spec',
 
         /* UNSORTED SPECS */
