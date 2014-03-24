@@ -7,7 +7,7 @@ namespace easygenerator.DataAccess.Migrations
     {
         public override void Up()
         {
-            Sql("INSERT INTO dbo.Templates VALUES(NEWID(), 'Exam', '/Content/images/examTemplate.png', 'Use this when you want to create a final examination (with no explanations or learning content).', '/Templates/Exam/', 'admin@easygenerator.com', GETDATE(), 'admin@easygenerator.com', GETDATE())");
+            Sql("INSERT INTO dbo.Templates (Id, Name, Image, Description, PreviewUrl, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn) VALUES(NEWID(), 'Exam', '/Content/images/examTemplate.png', 'Use this when you want to create a final examination (with no explanations or learning content).', '/Templates/Exam/', 'admin@easygenerator.com', GETDATE(), 'admin@easygenerator.com', GETDATE())");
         }
         
         public override void Down()
