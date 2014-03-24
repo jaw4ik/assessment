@@ -15,8 +15,8 @@
 
         var viewModel = {
             children: ko.observableArray([]),
-            isExpanded: ko.observable(false),
-            isTreeVisible: ko.observable(false),
+            isExpanded: ko.observable(true),
+            isTreeVisible: ko.observable(true),
 
             expand: expand,
             collapse: collapse,

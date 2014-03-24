@@ -10,7 +10,8 @@
             onCollapsed: onCollapsed,
             isExpanded: ko.observable(false),
             reviewTabActivationData: ko.observable({}),
-            lastReviewTabActivationData: ko.observable(null)
+            lastReviewTabActivationData: ko.observable(null),
+            isViewReady: ko.observable(false)
         };
 
         viewModel.isReviewTabVisible = ko.computed(function () {
@@ -52,6 +53,14 @@
                     reviewUrl: course.reviewUrl
                 });
             }
+        });
+
+        router.on('router:route:activating').then(function() {
+            viewModel.isViewReady(false);
+        });
+
+        router.on('router:navigation:composition-complete').then(function () {
+            viewModel.isViewReady(true);
         });
 
         return viewModel;

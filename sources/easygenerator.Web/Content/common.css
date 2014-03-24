@@ -90,6 +90,11 @@ input::-moz-focus-inner {
 /*#endregion RESET CSS-STYLES IN FOREIGN BROWSERS */
 
 /*#region COMMON TAGS CSS-STYLES*/
+
+html {
+    overflow: hidden;
+}
+
 html, body {
     height: 100%;
     width: 100%;

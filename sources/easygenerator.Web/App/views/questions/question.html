@@ -1,14 +1,14 @@
 ﻿<section class="question view-module">
-    <div class="fixed-container">
-        <div class="content-holder">
-            <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize: { text: 'questionViewCaption' }">Question editor</div>
-            </div>
-        </div>
+    
+    <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateToObjective.bind($data), goBackLink: '#objective/' + objectiveId, goBackTooltip: goBackTooltip } } -->
+    <!-- /ko -->
 
-        <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateToObjective.bind($data), goBackLink: '#objective/' + objectiveId, goBackTooltip: goBackTooltip } } -->
-        <!-- /ko -->
+    <div class="content-holder">
+        <div class="page-view-caption clearfix">
+            <div class="page-view-caption-text" data-bind="localize: { text: 'questionViewCaption' }">Question editor</div>
+        </div>
     </div>
+
     <div class="content-holder">
 
         <header class="view-header">

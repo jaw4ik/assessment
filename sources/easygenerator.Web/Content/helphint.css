@@ -1,9 +1,6 @@
 ﻿/*#region Header Hint -----------------*/
 
 .help-hint {
-    position: fixed;
-    z-index: 150;
-    width: 100%;
     min-height: 73px;
     border-top: solid 1px #e5e2d3;
     border-bottom: solid 1px #e5e2d3;
@@ -12,7 +9,7 @@
 
 .help-hint-content {
     position: relative;
-    padding: 19px 0;
+    padding: 20px;
     font-size: 13px;
     font-family: 'OpenSans';
 }
@@ -71,7 +68,7 @@
 .help-hint-close {
     position: absolute;
     top: 15px;
-    right: 0;
+    right: 20px;
     padding-right: 25px;
     font-size: 11px;
     line-height: 18px;

@@ -1,66 +1,61 @@
-﻿<div class="navigation-tree-wrapper" data-bind="css: { expanded: isTreeVisible }">
+﻿<div class="tb-cell navigation-tree-wrapper" data-bind="css: { expanded: isTreeVisible }, expander: { isExpanded: isExpanded, minSize: 50, maxSize: 300, onCollapsed: onCollapsed }, cellSize: true">
 
-    <div class="navigation-tree" data-bind="slidingDialog: { isExpanded: isExpanded, position: '-250px', side: 'left', collapseOnOuterClick: false, onCollapsed: onCollapsed }, visible: isTreeVisible">
+    <div class="navigation-tree-wrapper-inner">
 
-        <div class="navigation-tree-header" data-bind="click: collapse, localize: { text: 'hideNavigationTree' }">Hide navigation</div>
+        <div class="navigation-tree-wrapper-absolute-holder">
 
-        <div class="navigation-tree-content">
-            <ul>
-                <li class="navigation-tree-node">
-                    <a class="navigation-tree-node-caption-wrapper" href="#course/create">
-                        <span class="navigation-tree-node-icon create"></span>
-                        <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createCourseTreeNodeTitle' }">Course</span>
-                    </a>
-                </li>
+            <div class="navigation-tree" data-bind="visible: isTreeVisible">
 
-                <!-- ko foreach: children -->
+                <div class="navigation-tree-header" data-bind="click: collapse, localize: { text: 'hideNavigationTree' }">Hide navigation</div>
 
-                <!-- ko compose: { model: $data, preserveContext: true }-->
-                <!-- /ko -->
-
-                <!-- /ko -->
-
-                <!-- ko ifnot: children().length -->
-                <li class="navigation-tree-node">
+                <div class="navigation-tree-content">
                     <ul>
                         <li class="navigation-tree-node">
-                            <div class="navigation-tree-node-caption-wrapper disabled">
+                            <a class="navigation-tree-node-caption-wrapper" href="#course/create">
                                 <span class="navigation-tree-node-icon create"></span>
-                                <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createObjectiveTreeNodeTitle' }">Learning objective</span>
-                            </div>
+                                <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createCourseTreeNodeTitle' }">Course</span>
+                            </a>
                         </li>
+                        <!-- ko foreach: children -->
+                            <!-- ko compose: { model: $data, preserveContext: true }-->
+                            <!-- /ko -->
+                        <!-- /ko -->
+                        <!-- ko ifnot: children().length -->
                         <li class="navigation-tree-node">
                             <ul>
                                 <li class="navigation-tree-node">
-                                    <div class="navigation-tree-node-wrapper">
-                                        <div class="navigation-tree-node-caption-wrapper disabled">
-                                            <span class="navigation-tree-node-icon create"></span>
-                                            <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createQuestionTreeNodeTitle' }">Question</span>
-                                        </div>
+                                    <div class="navigation-tree-node-caption-wrapper disabled">
+                                        <span class="navigation-tree-node-icon create"></span>
+                                        <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createObjectiveTreeNodeTitle' }">Learning objective</span>
                                     </div>
+                                </li>
+                                <li class="navigation-tree-node">
+                                    <ul>
+                                        <li class="navigation-tree-node">
+                                            <div class="navigation-tree-node-wrapper">
+                                                <div class="navigation-tree-node-caption-wrapper disabled">
+                                                    <span class="navigation-tree-node-icon create"></span>
+                                                    <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createQuestionTreeNodeTitle' }">Question</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
+                        <!-- /ko -->
                     </ul>
-                </li>
-                <!-- /ko -->
+                </div>
 
-            </ul>
+            </div>
+
+            <!-- ko ifnot: isExpanded -->
+            <div class="navigation-tree collapsed" data-bind="click: expand, localize: { title: 'openNavigationBar' }">&nbsp;</div>
+            <!-- /ko -->
+
         </div>
 
-
-
-
     </div>
-
-
-
-
-    <!-- ko ifnot: isExpanded -->
-    <div class="navigation-tree collapsed" data-bind="click: expand, localize: { title: 'openNavigationBar' }">
-    </div>
-    <!-- /ko -->
-
 
 </div>
 

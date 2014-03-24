@@ -1,8 +1,7 @@
 ﻿.course.view-module,
 .create-course.view-module {
-    min-width: 860px;
+    min-width: 640px;
 }
-
 /*#region DEFINE STEP*/
 .course .create-new-title {
     padding: 40px 0;
@@ -214,6 +213,7 @@
 .template-settings-block {
     float: right;
     width: 400px;
+    min-width: 335px;
 }
 
 .template-preview-link {
@@ -781,3 +781,4 @@
         margin-right: auto;
     }
 }
+

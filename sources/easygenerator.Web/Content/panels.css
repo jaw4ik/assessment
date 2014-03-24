@@ -1,10 +1,9 @@
 ﻿/*#region Panel*/
 
 .panel-right {
-    position: fixed;
-    top: 148px;
-    min-height: 100%;
-    height: 100%;
+    position: absolute;
+    top: 30px;
+    bottom: 0;
     width: 330px;
     z-index: 200;
     right: -300px;
@@ -17,10 +16,10 @@
     -webkit-transform: rotate(270.0deg);
     -ms-transform: rotate(270.0deg);
     transform: rotate(270.0deg);
-    -webkit-transform-origin: 300px 300px;
-    -ms-transform-origin: 300px 300px;
-    -moz-transform-origin: 300px 300px;
-    transform-origin: 300px 300px;
+    -webkit-transform-origin: 200px 200px;
+    -ms-transform-origin: 200px 200px;
+    -moz-transform-origin: 200px 200px;
+    transform-origin: 200px 200px;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     font-size: 14px;
@@ -28,7 +27,7 @@
     cursor: default;
     color: #5c5c5c;
     height: 30px;
-    margin-right: -229px;
+    margin-right: -30px;
 }
 
 .tab-header {
@@ -67,7 +66,6 @@
 
 .tab {
     position: absolute;
-    min-height: 490px;
     top: 0;
     bottom: 0;
     right: 0;
@@ -335,23 +333,23 @@
         position: absolute;
         width: 100%;
         top: 40px;
-        bottom: 325px;
+        bottom: 140px;
         overflow: auto;
     }
 
     .review-comments-section.empty .review-comments-block {
-        bottom: 293px;
+        bottom: 103px;
     }
 
     .review-comments-section .tab-content {
         bottom: 0;
-        height: 325px;
+        height: 140px;
         box-shadow: 0 0 5px 1px #CECECE;
         border-top: 1px solid #CECECE;
     }
 
     .review-comments-section.empty .tab-content {
-        height: 293px;
+        height: 103px;
     }
 
 .review-comments-block {

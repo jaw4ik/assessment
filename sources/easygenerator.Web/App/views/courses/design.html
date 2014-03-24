@@ -1,8 +1,8 @@
 ﻿<section class="course design view-module">
-    <div class="fixed-container">
-        <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateToCourses, goBackLink: '#courses', goBackTooltip: goBackTooltip } } -->
-        <!-- /ko -->
-    </div>
+
+    <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateToCourses, goBackLink: '#courses', goBackTooltip: goBackTooltip } } -->
+    <!-- /ko -->
+
     <div class="content-holder clearfix">
         <div class="template-settings-block">
             <h2 class="template-settings-title" data-bind="localize: { text: 'templateSettings' }">Template settings</h2>
@@ -26,7 +26,7 @@
                             &nbsp;
                         </div>
                     </div>
-                <div class="template-preview-link" data-bind="visible: previewDemoUrl, click: openPreview, localize: { text: 'previewTemplate' }">Preview template</div>
+                    <div class="template-preview-link" data-bind="visible: previewDemoUrl, click: openPreview, localize: { text: 'previewTemplate' }">Preview template</div>
                 </li>
                 <!-- /ko -->
                 <div class="choose-template-spinner" data-bind="visible: showProgress">

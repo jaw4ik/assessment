@@ -23,3 +23,7 @@
 .objective .main-content-list .open-item-btn {
     top: 32px;
 }
+
+.create-objective .create-form {
+    padding-bottom: 60px;
+}

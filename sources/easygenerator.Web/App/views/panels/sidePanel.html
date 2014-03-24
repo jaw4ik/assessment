@@ -1,4 +1,4 @@
-﻿<section class="panel-right" data-bind="slidingDialog: { isExpanded: isExpanded, position: '-300px', side: 'right', collapseOnOuterClick: true, onCollapsed: onCollapsed, cssClassOnExpanded: 'expanded' }">
+﻿<section class="panel-right" data-bind="slidingDialog: { isExpanded: isExpanded, position: '-300px', side: 'right', collapseOnOuterClick: true, onCollapsed: onCollapsed, cssClassOnExpanded: 'expanded' }, fixedPanel: isViewReady()">
     <div class="tab-headers-wrapper">
         <div class="tab-headers">
             <!-- ko if: isReviewTabVisible() -->
@@ -17,14 +17,14 @@
     </div>
     <div class="tab">
         <!-- ko if: _.isObject(activeTab()) -->
-            <!-- ko if: activeTab() === reviewTab && isReviewTabVisible() -->
-                <!-- ko compose: { model: reviewTab, cacheViews: false, activationData: reviewTabActivationData } -->
-                <!-- /ko -->
-            <!-- /ko -->
-            <!-- ko if: activeTab() === feedbackTab -->
-                <!-- ko compose: { model: feedbackTab, cacheViews: false } -->
-                <!-- /ko -->
-            <!-- /ko -->
+        <!-- ko if: activeTab() === reviewTab && isReviewTabVisible() -->
+        <!-- ko compose: { model: reviewTab, cacheViews: false, activationData: reviewTabActivationData } -->
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: activeTab() === feedbackTab -->
+        <!-- ko compose: { model: feedbackTab, cacheViews: false } -->
+        <!-- /ko -->
+        <!-- /ko -->
         <!-- /ko -->
     </div>
 </section>

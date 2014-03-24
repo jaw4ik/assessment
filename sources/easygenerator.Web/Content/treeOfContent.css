@@ -1,38 +1,42 @@
-﻿.navigation-tree-shown-mode .nav-back-holder {
-    left: 50px;
-}
-
-.navigation-tree-wrapper {
-    position: fixed;
-    top: 56px;
-    bottom: 0;
-    z-index: 200;
+﻿.navigation-tree-wrapper {
+    position: relative;
     width: 50px;
+    z-index: 20;
 }
 
     .navigation-tree-wrapper.expanded {
-        width: 18%;
-        min-width: 200px;
-        max-width: 300px;
+        box-shadow: 3px 3px 3px #dedede;
     }
+
+.navigation-tree-wrapper-inner {
+    position: relative;
+    height: 100%;
+}
+
+.navigation-tree-wrapper-absolute-holder {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
 
 .navigation-tree {
     position: relative;
     display: block;
     height: 100%;
-    padding-bottom: 85px;
     background: #F7F7F7;
-    box-shadow: 3px 3px 3px #dedede;
     overflow: hidden;
 }
 
     .navigation-tree.collapsed {
         width: 50px;
+        box-shadow: 3px 3px 3px #dedede;
     }
 
         .navigation-tree.collapsed:hover {
             cursor: default;
             width: 52px;
+            margin-right: -2px;
         }
 
         .navigation-tree.collapsed:after {
@@ -48,6 +52,8 @@
 
 .navigation-tree-header {
     position: relative;
+    width: 300px;
+    height: 48px;
     padding: 14px 0;
     text-align: center;
     background: #FFFFFF;
@@ -74,10 +80,12 @@
     }
 
 .navigation-tree-content {
-    height: 100%;
+    position: absolute;
+    top: 48px;
+    bottom: 0;
+    width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    border-bottom: 1px solid #E1E1E1;
 }
 
 

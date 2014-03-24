@@ -18,45 +18,43 @@
 <!--[if !IE 9]>
 <body>
 <!--<![endif]-->
-    <div class="app-wrapper">
-        <div class="content-container">
-            <div id="applicationHost">
-                <div class="icon-spinner-wrapper">
-                    <img src="~/Content/images/loader.gif" alt=""/>
-                </div>
-            </div>
+<div class="app-wrapper">
+    <div id="applicationHost">
+        <div class="icon-spinner-wrapper">
+            <img src="~/Content/images/loader.gif" alt="" />
         </div>
     </div>
+</div>
 
+<script type="text/javascript">
+    var CKEDITOR_BASEPATH = '/Scripts/ckeditor/';
+</script>
+
+@Scripts.Render("~/scripts/vendor")
+<script src="signalr/hubs"></script>
+
+@if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
+{
+    var userCultures = Request.UserLanguages.Select(l => l.Split(';')[0]).ToList();
     <script type="text/javascript">
-        var CKEDITOR_BASEPATH = '/Scripts/ckeditor/';
-    </script>
 
-    @Scripts.Render("~/scripts/vendor")
-    <script src="signalr/hubs"></script>
-
-    @if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
-    {
-        var userCultures = Request.UserLanguages.Select(l => l.Split(';')[0]).ToList();
-        <script type="text/javascript">
-
-            window.top.userCultures = [];
-            @for (var i = 0; i < userCultures.Count(); i++)
+        window.top.userCultures = [];
+        @for (var i = 0; i < userCultures.Count(); i++)
             {
                 <text>window.top.userCultures.push('@userCultures[i]');</text>;
             }
-        </script>
-    }
+    </script>
+}
 
-    @if (HttpContext.Current.IsDebuggingEnabled)
-    {
-        <script src="/Scripts/require.js" data-main="/App/main"></script>
-    }
-    else
-    {
-        var bundlePath = "/App/main-built.js?v=" + DateTimeWrapper.InstanceStartTime.Ticks;
-        <script type="text/javascript" src="@bundlePath"></script>
-    }
+@if (HttpContext.Current.IsDebuggingEnabled)
+{
+    <script src="/Scripts/require.js" data-main="/App/main"></script>
+}
+else
+{
+    var bundlePath = "/App/main-built.js?v=" + DateTimeWrapper.InstanceStartTime.Ticks;
+    <script type="text/javascript" src="@bundlePath"></script>
+}
 
 </body>
 </html>

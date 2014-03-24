@@ -1,13 +1,12 @@
 ﻿<section class="objective view-module">
-    <div class="fixed-container">
-        <div class="content-holder">
-            <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</div>
-            </div>
-        </div>
+    
+    <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateBack.bind($data), goBackLink: goBackLink, goBackTooltip: goBackTooltip } } -->
+    <!-- /ko -->
 
-        <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateBack.bind($data), goBackLink: goBackLink, goBackTooltip: goBackTooltip } } -->
-        <!-- /ko -->
+    <div class="content-holder">
+        <div class="page-view-caption clearfix">
+            <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</div>
+        </div>
     </div>
 
     <div class="content-holder">
@@ -24,7 +23,6 @@
             <!-- ko if: enableDeleteQuestions -->
             <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedQuestions, localize: { text: 'deleteSelected' }">Delete selected</span>
             <!-- /ko -->
-
             <!-- ko ifnot: enableDeleteQuestions -->
             <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
             <!-- /ko -->

@@ -1,19 +1,18 @@
 ﻿<section class="objectives view-module" data-bind="scrollToElement: {}">
-    <div class="fixed-container">
-        <div class="content-holder">
-            <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjectives' }">Learning objectives</div>
-            </div>
-            <div class="list-controls-holder">
-                <!-- ko if: enableDeleteObjectives -->
-                    <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedObjectives, localize: { text: 'deleteSelected' }">Delete selected</span>
-                <!-- /ko -->
+    
+    <div class="content-holder">
+        <div class="page-view-caption clearfix">
+            <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjectives' }">Learning objectives</div>
+        </div>
+        <div class="list-controls-holder">
+            <!-- ko if: enableDeleteObjectives -->
+                <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedObjectives, localize: { text: 'deleteSelected' }">Delete selected</span>
+            <!-- /ko -->
 
-                <!-- ko ifnot: enableDeleteObjectives -->
-                    <span class="selected-item-action delete delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
-                <!-- /ko -->
-                <div class="dotted-line"></div>
-            </div>
+            <!-- ko ifnot: enableDeleteObjectives -->
+                <span class="selected-item-action delete delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
+            <!-- /ko -->
+            <div class="dotted-line"></div>
         </div>
     </div>
 

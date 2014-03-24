@@ -1,8 +1,8 @@
 ﻿<section class="course deliver view-module">
-    <div class="fixed-container">
-        <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateToCourses, goBackLink: '#courses', goBackTooltip: goBackTooltip } } -->
-        <!-- /ko -->
-    </div>
+
+    <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateToCourses, goBackLink: '#courses', goBackTooltip: goBackTooltip } } -->
+    <!-- /ko -->
+
     <div class="content-holder">
         <div class="package-actions-holder clearfix">
             <div class="package-action-cell pull-right">
@@ -10,9 +10,8 @@
                     <h5 class="package-action-title" data-bind="localize: { text: 'downloadCourse' }"></h5>
                     <p class="package-action-desc" data-bind="localize: { text: 'downloadDescription' }"></p>
                     <!--*
-                * DOWNLOAD BUTTON CONDITIONS 
-                * -->
-
+                    * DOWNLOAD BUTTON CONDITIONS
+                    * -->
                     <!-- ko if: !isDeliveringInProgress() -->
                     <div class="package-action-btn btn grey download-btn round" data-bind="click: buildAction().downloadCourse">
                         <span class="btn-title" data-bind="localize: { text: 'courseDownloadAction' }"></span>
@@ -35,11 +34,9 @@
                     <h5 class="package-action-title" data-bind="localize: { text: 'downloadScorm12Package' }"></h5>
                     <p class="package-action-desc" data-bind="localize: { text: 'downloadScorm12PackageDescription' }"></p>
                     <!--*
-                * DOWNLOAD BUTTON CONDITIONS 
-                * -->
-
+                    * DOWNLOAD BUTTON CONDITIONS
+                    * -->
                     <!-- ko if: scormBuildAction() -->
-
                     <!-- ko if: !isDeliveringInProgress() -->
                     <div class="package-action-btn btn steel-blue download-scorm-btn round" data-bind="click: scormBuildAction().downloadCourse">
                         <span class="btn-title" data-bind="localize: { text: 'courseDownloadAction' }"></span>
@@ -59,7 +56,6 @@
                     <a id="scormPackageLink" style="display: none" data-bind="attr: { href: 'download/' + scormBuildAction().packageUrl() }"></a>
 
                     <!-- /ko -->
-
                     <!-- ko ifnot: scormBuildAction() -->
 
                     <div class="package-action-btn-control">
@@ -110,7 +106,6 @@
                     </div>
                     <!-- /ko -->
                     <!-- /ko -->
-
                     <!--*
                     * REPUBLISH BUTTON
                     * -->
@@ -188,7 +183,6 @@
                     </div>
                     <!-- /ko -->
                     <!-- /ko -->
-
                     <!-- ko ifnot: publishToAim4YouAction().isRegisteredOnAim4You -->
                     <p class="package-action-desc" data-bind="localize: { text: 'publishToAim4YouRegisterDescription' }">Register for the Aim4You learning store and start publishing</p>
                     <!-- ko ifnot: isDeliveringInProgress() -->

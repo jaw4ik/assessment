@@ -208,7 +208,6 @@
     <Content Include="App\bootstrapping\notificationsTask.js" />
     <Content Include="App\bootstrapping\synchronizationTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
-    <Content Include="App\help\helpHintPositioning.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.spec.js">
       <DependentUpon>course.js</DependentUpon>
@@ -894,6 +893,9 @@
     <Content Include="Scripts\knockout-3.1.0.js" />
     <Content Include="Scripts\knockout-sortable.js" />
     <Content Include="Scripts\knockout-sortable.min.js" />
+    <Content Include="Scripts\knockoutBindings\expanderBinding.js" />
+    <Content Include="Scripts\knockoutBindings\fixedPanelBinding.js" />
+    <Content Include="Scripts\knockoutBindings\layoutBinding.js" />
     <Content Include="Scripts\knockoutBindings\placeholderBinding.js" />
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
     <Content Include="Scripts\moment.js" />
@@ -1675,7 +1677,6 @@
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\objective.css" />
     <Content Include="Content\question.css" />
-    <Content Include="Content\objectives.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />

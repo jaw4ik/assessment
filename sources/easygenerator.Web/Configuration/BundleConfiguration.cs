@@ -59,7 +59,6 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/styles.css")
                 .Include("~/Content/question.css")
                 .Include("~/Content/objective.css")
-                .Include("~/Content/objectives.css")
                 .Include("~/Content/courses.css")
                 .Include("~/Content/course.css")
                 .Include("~/Scripts/ckeditor/Content.css")
