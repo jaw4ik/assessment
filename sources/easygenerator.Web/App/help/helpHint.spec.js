@@ -2,9 +2,15 @@
     "use strict";
 
     var
-        localizationManager = require('localization/localizationManager');
+        localizationManager = require('localization/localizationManager'),
+        constants = require('constants'),
+        app = require('durandal/app');
 
     describe('viewModel [helpHint]', function () {
+
+        beforeEach(function() {
+            spyOn(app, 'trigger');
+        });
 
         describe('title:', function () {
 
@@ -56,6 +62,11 @@
                     expect(viewModel.visible()).toBeTruthy();
                 });
 
+                it('should trigger event \'' + constants.messages.helpHint.shown + '\'', function () {
+                    viewModel.show();
+                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.helpHint.shown);
+                });
+
             });
 
         });
@@ -76,6 +87,11 @@
                     viewModel.visible(true);
                     viewModel.close();
                     expect(viewModel.visible()).toBeFalsy();
+                });
+
+                it('should trigger event \'' + constants.messages.helpHint.hidden + '\'', function () {
+                    viewModel.close();
+                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.helpHint.hidden);
                 });
 
             });

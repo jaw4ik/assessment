@@ -11,7 +11,7 @@
             isExpanded: ko.observable(false),
             reviewTabActivationData: ko.observable({}),
             lastReviewTabActivationData: ko.observable(null),
-            isViewReady: ko.observable(false)
+            lastAction: ko.observable(false)
         };
 
         viewModel.isReviewTabVisible = ko.computed(function () {
@@ -55,12 +55,19 @@
             }
         });
 
+        app.on(constants.messages.helpHint.shown, function () {
+            viewModel.lastAction(constants.messages.helpHint.shown);
+        });
+        app.on(constants.messages.helpHint.hidden, function () {
+            viewModel.lastAction(constants.messages.helpHint.hidden);
+        });
+
         router.on('router:route:activating').then(function() {
-            viewModel.isViewReady(false);
+            viewModel.lastAction('router:route:activating');
         });
 
         router.on('router:navigation:composition-complete').then(function () {
-            viewModel.isViewReady(true);
+            viewModel.lastAction('router:navigation:composition-complete');
         });
 
         return viewModel;

@@ -69,6 +69,10 @@
                     action: {
                         started: 'course:action-started'
                     }
+                },
+                helpHint: {
+                    shown: 'helphint:shown',
+                    hidden: 'helphint:hidden'
                 }
             },
 

@@ -1,4 +1,4 @@
-﻿define(['localization/localizationManager'], function (localizationManager) {
+﻿define(['durandal/app', 'localization/localizationManager', 'constants'], function (app, localizationManager, constants) {
     "use strict";
 
     var viewModel = {
@@ -17,12 +17,16 @@
     function show() {
         if (viewModel.isHelpHintExist()) {
             viewModel.visible(true);
+
+            app.trigger(constants.messages.helpHint.shown);
         }
     }
 
     function close() {
         if (viewModel.isHelpHintExist()) {
             viewModel.visible(false);
+
+            app.trigger(constants.messages.helpHint.hidden);
         }
     }
 

@@ -75,7 +75,7 @@
         <!-- ko compose: 'treeOfContent/treeOfContent' -->
         <!-- /ko -->
         <!-- /ko -->
-        <div class="tb-cell content-area-wrapper" data-bind="cellSize: { enabled: isViewReady(), resizeChild: true }, css: { 'navigation-tree-shown-mode': showTreeOfContent() }">
+        <div class="tb-cell content-area-wrapper" data-bind="cellSize: { enabled: isViewReady() && help.visible(), resizeChild: true }, css: { 'navigation-tree-shown-mode': showTreeOfContent() }">
             <div class="content-area">
                 <!-- ko if: showCourseNavigation -->
                 <div class="tb-row">
@@ -86,6 +86,10 @@
                 </div>
                 <!-- /ko -->
                 <div class="tb-row">
+                    <!-- ko compose: { model: 'help/helpHint', activationData: activeModuleName } -->
+                    <!-- /ko -->
+                </div>
+                <div class="tb-row">
                     <div class="tb-cell view-content-holder">
                         <div data-bind="widget: { kind: 'notifyViewer' }"></div>
                         <div class="view-content-holder">
@@ -94,8 +98,6 @@
                             </div>
                             <div class="view-content" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }">
                                 <div class="content-container">
-                                    <!-- ko compose: { model: 'help/helpHint', activationData: activeModuleName } -->
-                                    <!-- /ko -->
                                     <div class="content-wrapper">
                                         <div data-bind="router: { cacheViews: false }"></div>
                                         <div data-bind="widget: { kind: 'uiLockViewer' }"></div>
