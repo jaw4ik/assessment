@@ -53,6 +53,8 @@
         }
 
         function enqueueCourseFinished(finishedEventData) {
+            debugger;
+
             enqueueObjectivesFinished(finishedEventData.objectives);
 
             var result = {
@@ -64,9 +66,6 @@
             pushStatementIfSupported(createStatement(verb, result, createActivity(activityProvider.activityName)));
             pushStatementIfSupported(createStatement(constants.verbs.stopped, null, createActivity(activityProvider.activityName)));
 
-            // (^\ x_x /^)
-            statementQueue.enqueue(undefined);
-
             var dfd = Q.defer();
 
             statementQueue.statements.subscribe(function (newValue) {
@@ -74,6 +73,9 @@
                     dfd.resolve();
                 }
             });
+
+            // (^\ x_x /^)
+            statementQueue.enqueue(undefined);
 
             return dfd.promise;
         }

@@ -68,9 +68,6 @@
             pushStatementIfSupported(createStatement(resultVerb, result));
             pushStatementIfSupported(createStatement(constants.verbs.stopped));
 
-            // (^\ x_x /^)
-            statementQueue.enqueue(undefined);
-
             var dfd = Q.defer();
 
             statementQueue.statements.subscribe(function (newValue) {
@@ -78,6 +75,9 @@
                     dfd.resolve();
                 }
             });
+
+            // (^\ x_x /^)
+            statementQueue.enqueue(undefined);
 
             return dfd.promise;
         }
