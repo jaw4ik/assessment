@@ -649,7 +649,6 @@
       <DependentUpon>guard.js</DependentUpon>
     </Content>
     <Content Include="Content\account.css" />
-    <Content Include="Content\common_old.css" />
     <Content Include="Content\font\buxtonsketch.svg" />
     <Content Include="Content\font\opensans-italic.svg" />
     <Content Include="Content\font\opensans-regular.svg" />

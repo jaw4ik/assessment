@@ -188,6 +188,21 @@ img:hover {
     visibility: hidden;
 }
 
+.tb-row {
+    display: table-row;
+    vertical-align: top;
+}
+
+.tb-cell {
+    display: table-cell;
+    vertical-align: top;
+}
+
+    .tb-cell > .colspan-cell {
+        width: 100%;
+        position: absolute;
+    }
+
 /*#endregion COMMON CLASSES CSS-STYLES*/
 
 /*#region CURSOR*/
