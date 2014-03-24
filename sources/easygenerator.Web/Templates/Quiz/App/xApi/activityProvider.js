@@ -53,7 +53,6 @@
         }
 
         function enqueueCourseFinished(finishedEventData) {
-            debugger;
 
             enqueueObjectivesFinished(finishedEventData.objectives);
 
