@@ -20,6 +20,7 @@
                 '</div>' +
             '</div>' ),
         win = CKEDITOR.document.getWindow(),
+        editorsHolder = CKEDITOR.document.getById(CKEDITOR.config.editorsHolderId),
         pixelate = CKEDITOR.tools.cssLength;
 
     CKEDITOR.plugins.add( 'floatingspace', {
@@ -320,19 +321,19 @@
                      layout(evt);
                 }, 0);
                 editor.on( 'change', changeBuffer.input );
-                win.on( 'scroll', uiBuffer.input );
+                editorsHolder.on('scroll', uiBuffer.input);
                 win.on( 'resize', uiBuffer.input );
             } );
 
             editor.on( 'blur', function() {
                 floatSpace.hide();
                 editor.removeListener( 'change', changeBuffer.input );
-                win.removeListener( 'scroll', uiBuffer.input );
+                editorsHolder.removeListener('scroll', uiBuffer.input);
                 win.removeListener( 'resize', uiBuffer.input );
             } );
 
             editor.on( 'destroy', function() {
-                win.removeListener( 'scroll', uiBuffer.input );
+                editorsHolder.removeListener('scroll', uiBuffer.input);
                 win.removeListener( 'resize', uiBuffer.input );
                 floatSpace.clearCustomData();
                 floatSpace.remove();

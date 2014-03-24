@@ -19,9 +19,10 @@
         CKEDITOR.config.language = language;
 
         //Floating Space plugin settings
+        CKEDITOR.config.editorsHolderId = 'view_content';
         CKEDITOR.config.floatSpaceUpdateSettingsFunction = function () {
-            var landmarkContainer = $('.page-view-caption').closest('.fixed-container');
-            var offsetTop = parseInt(landmarkContainer.css('top')) + landmarkContainer.height();
+            var landmarkContainer = $('#' + CKEDITOR.config.editorsHolderId);
+            var offsetTop = parseInt(landmarkContainer.offset().top);
             if (!!offsetTop)
                 CKEDITOR.config.floatSpaceWindowOffsetTop = offsetTop;
         };
