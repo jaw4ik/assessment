@@ -45,13 +45,15 @@
 
 .xapi-form-info-text {
     display: block;
+    max-width: 562px;
     line-height: 1.5;
     position: relative;
     color: #555555;
-    padding-left: 51px;
+    padding-left: 62px;
     word-wrap: break-word;
     font-family: Arial, sans-serif;
     font-size: 14px;
+    text-align: justify;
 }
 
     .xapi-form-info-text:before {
@@ -65,6 +67,10 @@
         width: 32px;
         background: url(img/error-message.png?v=quiz);
     }
+
+.message-btn-holder {
+    text-align: center;
+}
 
 
 .message-btn-holder .btn {

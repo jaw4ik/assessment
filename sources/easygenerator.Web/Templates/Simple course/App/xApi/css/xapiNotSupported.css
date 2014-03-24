@@ -8,29 +8,31 @@
 /*#region form info text*/
 
 .xapi-message-info {
-    padding: 0 50px 0 0;
+    padding: 0 0 20px;
 }
 
 .xapi-message-title {
-    
+    text-align: center;
 }
 
 .xapi-message-text {
     width: 100%;
     line-height: normal;
     position: relative;
-    padding: 0 17px 0 74px;
+    padding-left: 62px;
     cursor: default;
+    text-align: justify;
+    max-width: 562px;
 }
 
 .xapi-message-text:before {
     content: '';
     display: block;
-    height: 38px;
-    width: 38px;
+    height: 32px;
+    width: 32px;
     position: absolute;
     top: 50%;
-    left: 18px;
+    left: 0px;
     margin-top: -19px;
     background: url(img/error-message.png);
 }
@@ -157,6 +159,7 @@
 /*#endregion input warning message*/
 
 .xapi-btn-container {
+    text-align: center;
     padding: 0 55px;
 }
 
