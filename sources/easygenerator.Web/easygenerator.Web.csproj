@@ -182,6 +182,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ActionResults\SslRequiredResult.cs" />
     <Compile Include="Components\Configuration\Aim4YouConfigurationSection.cs" />
     <Compile Include="Components\Configuration\ExternalApi\ApiKeyCollection.cs" />
     <Compile Include="Components\ActionResults\JsonDataResult.cs" />

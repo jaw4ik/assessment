@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Activities.Expressions;
+using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -71,7 +72,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters
             _customRequireHttpsAttribute.OnAuthorization(_authorizationContext);
 
             //Assert
-            _authorizationContext.Result.Should().NotBeOfType<ForbiddenResult>();
+            _authorizationContext.Result.Should().NotBeOfType<SslRequiredResult>();
         }
 
         [TestMethod]
@@ -85,7 +86,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters
             _customRequireHttpsAttribute.OnAuthorization(_authorizationContext);
 
             //Assert
-            _authorizationContext.Result.Should().BeOfType<ForbiddenResult>();
+            _authorizationContext.Result.Should().BeOfType<SslRequiredResult>();
         }
 
         #endregion
