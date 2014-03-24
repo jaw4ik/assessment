@@ -227,7 +227,7 @@
         en: 'Publish to Aim4You'
     },
     publishToAim4YouRegisterDescription: {
-        en: 'Register for the Aim4You learning store and start publishing'
+        en: 'Register your account at the Aim 4 You learning store and start publishing. <a href=\"http://www.aim4you.net/dashBoard/easygenerator\" target=\"_blank\">Learn more..</a>'
     },
     publishToAim4YouPublishDescription: {
         en: 'Publish the course to the Aim 4 You  instant learning store'
@@ -254,7 +254,7 @@
         en: 'Publish to Aim4You'
     },
     publishToCatalog: {
-        en: 'Publish to instant learning store'
+        en: 'Publish to the Aim 4 You Instant Learning store'
     },
     addCourseContent: {
         en: 'Add course introduction content'
@@ -269,7 +269,7 @@
     
     /* Resource section for model CreateObjective */
     createNewObjective: {
-        en: 'Create new learning objective'
+        en: 'Learning objective'
     },
     createObjectiveTip: {
         en: 'Type learning objective title here...'
@@ -284,7 +284,7 @@
         en: 'show other learning objectives'
     },
     createAndConnectLearningObjective: {
-        en: 'Create and connect learning objective'
+        en: 'Learning objective'
     },
     connectSelected: {
         en: 'Connect selected'
@@ -551,7 +551,7 @@
         en: 'Finish'
     },
     createObjectiveFromCourse: {
-        en: 'Create learning objective'
+        en: 'Learning objective'
     },
     connectedLearningObjectives: {
         en: 'Connected learning objectives'
@@ -1031,7 +1031,7 @@
         en: 'How to deliver the course to learners?'
     },
     deliverHelpHint: {
-        en: '<p>To publish this course on <strong>your own webserver</strong> - download course as HTML/JavaScript package;</p><p>To publish the course to an <strong>LMS</strong> - download the course as SCORM 1.2 package;</p><p>Or publish the course on <strong>easygenerator webserver</strong> - just get a link and share it with your learners.</p>'
+        en: '<p>To publish this course on <strong>your own webserver</strong> - download course as HTML/JavaScript package;</p><p>To publish the course to an <strong>LMS</strong> - download the course as SCORM 1.2 package;</p><p>To publish the course to the <strong>Aim 4 You Instant Learning store</strong> - just click the button and follow simple instructions.</p><p>Or publish the course on <strong>easygenerator webserver</strong> - just get a link and share it with your learners.</p>'
     },
     helpCloseButton: {
         en: 'Hide'
