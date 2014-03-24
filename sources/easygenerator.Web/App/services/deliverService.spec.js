@@ -561,16 +561,19 @@
                 expect(promise).toBePromise();
             });
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(http.post).toHaveBeenCalledWith('api/aim4you/publish', { courseId: course.id });
-                    });
+            it('should send request to \'\'', function (done) {
+
+                var promise = service.publishCourseToStore(course.id);
+
+                promise.fin(function () {
+                    expect(http.post).toHaveBeenCalledWith('api/aim4you/publish', { courseId: course.id });
+                    done();
                 });
 
-                expect(http.post).toHaveBeenCalledWith('course/publishToStore', { courseId: course.id });
+                post.resolve();
+
             });
+
 
             describe('and send request to server', function () {
 
