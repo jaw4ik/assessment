@@ -5,7 +5,7 @@
 }
 
     .navigation-tree-wrapper.expanded {
-        box-shadow: 3px 3px 3px #dedede;
+        box-shadow: 3px 1px 3px #dedede;
     }
 
 .navigation-tree-wrapper-inner {
@@ -30,7 +30,7 @@
 
     .navigation-tree.collapsed {
         width: 50px;
-        box-shadow: 3px 3px 3px #dedede;
+        box-shadow: 3px 1px 3px #dedede;
     }
 
         .navigation-tree.collapsed:hover {
