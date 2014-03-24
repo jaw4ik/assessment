@@ -952,6 +952,7 @@ span.top-navigation-item.current {
         background: #2f97e8;
         border-color: #2f97e8;
         border-bottom-color: #0094e0;
+        box-shadow: none;
     }
 
     .btn.blue:active,

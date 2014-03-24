@@ -84,7 +84,7 @@
                 that.deliveringState = constants.deliveringStates.publishing;
                 app.trigger(constants.messages.course.publish.started, that);
 
-                deliverService.publishCourse(that.id).then(function(publishInfo) {
+                return deliverService.publishCourse(that.id).then(function(publishInfo) {
                     that.publishedPackageUrl = publishInfo.publishedPackageUrl;
                     that.deliveringState = constants.deliveringStates.succeed;
                     app.trigger(constants.messages.course.publish.completed, that);
@@ -139,12 +139,12 @@
             that.build().then(function() {
                 that.deliveringState = constants.deliveringStates.publishing;
                 app.trigger(constants.messages.course.publishToAim4You.started, that);
-                deliverService.publishCourseToStore(that.id).then(function() {
+                return deliverService.publishCourseToStore(that.id).then(function() {
                     that.deliveringState = constants.deliveringStates.succeed;
                     app.trigger(constants.messages.course.publishToAim4You.completed, that);
                     deferred.resolve(that);
                 });
-            }).fail(function(message) {
+            }).fail(function (message) {
                 that.deliveringState = constants.deliveringStates.failed;
                 app.trigger(constants.messages.course.publishToAim4You.failed, that.id, message);
                 deferred.reject(message);

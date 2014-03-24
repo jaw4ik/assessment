@@ -94,6 +94,17 @@
             });
         });
 
+       app.on(constants.messages.course.publishToAim4You.completed, function (course) {
+            updateCourseViewModelIfExists(course.id, function (expVm) {
+                expVm.deliveringState(constants.deliveringStates.succeed);
+            });
+        });
+
+        app.on(constants.messages.course.publishToAim4You.failed, function (courseId) {
+            updateCourseViewModelIfExists(courseId, function (expVm) {
+                expVm.deliveringState(constants.deliveringStates.failed);
+            });
+        });
         //#endregion publish events
 
         return viewModel;

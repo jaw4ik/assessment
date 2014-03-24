@@ -38,6 +38,14 @@ namespace easygenerator.Web.Components.Configuration
             }
         }
 
+        public virtual Aim4YouConfigurationSection Aim4YouConfiguration
+        {
+            get
+            {
+                return ConfigurationManager.GetSection("aim4You") as Aim4YouConfigurationSection;
+            }
+        }
+
         public virtual ExternalApiSection ExternalApi
         {
             get

@@ -6,7 +6,7 @@
             publishToAim4You: 'Publish to Aim4You'
         };
 
-        var ctor = function(courseId) {
+        var ctor = function (courseId) {
             var viewModel = deliveringAcion(courseId);
 
             viewModel.isDelivering = ko.computed(function() {
@@ -40,7 +40,8 @@
                     viewModel.state(constants.registerOnAim4YouStates.success);
                     viewModel.isRegisteredOnAim4You(true);
                     viewModel.messageState(viewModel.infoMessageStates.registered);
-                }).fail(function () {
+                }).fail(function (message) {
+                    app.trigger(constants.messages.course.publishToAim4You.failed, courseId, message);
                     viewModel.state(constants.registerOnAim4YouStates.fail);
                 });
             };

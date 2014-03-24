@@ -161,7 +161,7 @@ namespace easygenerator.DomainModel.Entities
             PublishedOn = DateTimeWrapper.Now();
         }
 
-        #region Course template settings
+       #region Course template settings
 
         protected internal class CourseTemplateSettings : Entity
         {
@@ -212,6 +212,26 @@ namespace easygenerator.DomainModel.Entities
 
         #endregion
 
+        #region Aim4You integration
+
+        public virtual Aim4YouIntegration Aim4YouIntegration { get; private set; }
+
+        public virtual void RegisterOnAim4YOu(Guid aim4YouCourseId)
+        {
+            if (Aim4YouIntegration == null)
+            {
+                Aim4YouIntegration = new Aim4YouIntegration();
+            }
+            Aim4YouIntegration.UpdateAim4YouCourseId(aim4YouCourseId);
+        }
+
+        public bool IsRegisteredOnAimForYou()
+        {
+            return Aim4YouIntegration != null && !Aim4YouIntegration.Aim4YouCourseId.Equals(Guid.Empty);
+        }
+
+        #endregion
+
         private void ThrowIfCommentIsInvalid(Comment comment)
         {
             ArgumentValidation.ThrowIfNull(comment, "comment");
@@ -242,5 +262,18 @@ namespace easygenerator.DomainModel.Entities
         {
             ArgumentValidation.ThrowIfNullOrEmpty(packageUrl, "packageUrl");
         }
+    }
+
+    public class Aim4YouIntegration
+    {
+        public Guid Id { get; set; }
+        public Guid Aim4YouCourseId { get; private set; }
+
+        public virtual void UpdateAim4YouCourseId(Guid aim4YouCourseId)
+        {
+            Aim4YouCourseId = aim4YouCourseId;
+        }
+
+        public Course Course { get; set; }
     }
 }

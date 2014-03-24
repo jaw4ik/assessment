@@ -62,5 +62,15 @@ namespace easygenerator.Web.Components
         {
             return String.IsNullOrEmpty(User.Identity.Name) ? "Anonymous" : User.Identity.Name;
         }
+
+        public string GetCurrentDomain()
+        {
+            if (Request != null && Request.Url != null)
+            {
+                return Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Host +
+                       (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
+            }
+            return null;
+        }
     }
 }

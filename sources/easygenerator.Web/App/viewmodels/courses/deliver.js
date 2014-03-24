@@ -32,7 +32,8 @@
 
         app.on(constants.messages.course.build.failed, notifyError);
         app.on(constants.messages.course.publish.failed, notifyError);
-        app.on(constants.messages.course.scormBuild.failed, notifyError);
+        app.on(constants.messages.course.scormBuild.failed, notifyError);        
+        app.on(constants.messages.course.publishToAim4You.failed, notifyError);
         
         return viewModel;
 

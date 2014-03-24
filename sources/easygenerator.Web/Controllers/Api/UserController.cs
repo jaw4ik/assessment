@@ -9,6 +9,7 @@ using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Mail;
+using easygenerator.Web.Publish.Aim4You;
 using easygenerator.Web.ViewModels.Account;
 using System;
 using System.Web.Mvc;
@@ -26,6 +27,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IDomainEventPublisher<UserDonwgraded> _userDonwgradedEventPublisher;
         private readonly IDomainEventPublisher<UserUpgradedToStarter> _userUpgradedToStarterEventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
+        private readonly IAim4YouApiService _aim4YouService;
         private readonly ConfigurationReader _configurationReader;
 
         public UserController(IUserRepository repository,
@@ -36,7 +38,8 @@ namespace easygenerator.Web.Controllers.Api
             IDomainEventPublisher<UserDonwgraded> userDonwgradedEventPublisher,
             IDomainEventPublisher<UserUpgradedToStarter> userUpgradedToStarterEventPublisher,
             IMailSenderWrapper mailSenderWrapper,
-            ConfigurationReader configurationReader)
+            ConfigurationReader configurationReader,
+			IAim4YouApiService aim4YouService)
         {
             _repository = repository;
             _entityFactory = entityFactory;
@@ -46,6 +49,7 @@ namespace easygenerator.Web.Controllers.Api
             _userDonwgradedEventPublisher = userDonwgradedEventPublisher;
             _userUpgradedToStarterEventPublisher = userUpgradedToStarterEventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
+            _aim4YouService = aim4YouService;
             _configurationReader = configurationReader;
         }
 
@@ -219,7 +223,7 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new
             {
                 IsShowIntroductionPage = (user == null) || user.UserSetting.IsShowIntroductionPage,
-                IsRegisteredOnAim4You = false
+                IsRegisteredOnAim4You = user != null && _aim4YouService.IsUserRegistered(user.Email, GetCurrentDomain())
             });
         }
 

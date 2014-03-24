@@ -140,6 +140,11 @@ namespace easygenerator.Infrastructure
             return File.Exists(filePath);
         }
 
+        public virtual byte[] GetFileBytes(string filePath)
+        {
+            return File.ReadAllBytes(filePath);
+        }
+
         public virtual string GetFileContentType(string filePath)
         {
             var fileInfo = new FileInfo(filePath);

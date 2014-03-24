@@ -1,4 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Web;
+using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
 
@@ -6,26 +11,120 @@ namespace easygenerator.Infrastructure.Http
 {
     public class HttpClient
     {
-        public virtual TResponse Post<TResponse>(string url, object postData)
+        public virtual TResponse Post<TResponse>(string url, object postData, string userName = null, string password = null)
         {
-            return Post<TResponse>(url, JsonConvert.SerializeObject(postData));
+            return Post<TResponse>(url, JsonConvert.SerializeObject(postData), userName, password);
         }
 
-        public virtual TResponse Post<TResponse>(string url, string postJsonData)
+        public virtual TResponse Post<TResponse>(string url, string postJsonData, string userName = null, string password = null)
+        {
+            return DoHttpAction<TResponse>(url, postJsonData, client => client.PostAsync(url, new StringContent(postJsonData, Encoding.UTF8, "application/json")).Result, userName, password);
+        }
+
+        public virtual TResponse Get<TResponse>(string url, Dictionary<string, string> queryStringParameters, string userName = null, string password = null)
+        {
+            return DoHttpAction<TResponse>(url, null, client =>
+            {
+                var uriBuilder = new UriBuilder(url);
+                if (queryStringParameters != null)
+                {
+                    var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+
+                    foreach (var queryStringParameter in queryStringParameters)
+                    {
+                        query[queryStringParameter.Key] = queryStringParameter.Value;
+                    }
+
+                    uriBuilder.Query = query.ToString();
+                }
+                
+                return client.GetAsync(uriBuilder.ToString()).Result;
+            }, userName, password);
+        }
+
+        protected virtual TResponse DoHttpAction<TResponse>(string url, string requestData, Func<System.Net.Http.HttpClient, HttpResponseMessage> getHttpResponseFunc, string userName = null, string password = null)
         {
             using (var client = new System.Net.Http.HttpClient(new HttpClientHandler() { UseProxy = false }))
             {
-                HttpResponseMessage response = client.PostAsync(url, new StringContent(postJsonData, Encoding.UTF8, "application/json")).Result;
+                client.Timeout = new TimeSpan(0, 2, 30);
+                if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
+                {
+                    client.DefaultRequestHeaders.Authorization = GetBasicAuthenticationHeader(userName, password);
+                }
+
+                HttpResponseMessage response = getHttpResponseFunc(client);
                 string responseBody = response.Content.ReadAsStringAsync().Result;
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    throw new HttpRequestExceptionExtended(url, postJsonData, response.RequestMessage.ToString(), response.StatusCode,
+                    throw new HttpRequestExceptionExtended(url, requestData, response.RequestMessage.ToString(), response.StatusCode,
                         response.ReasonPhrase, responseBody);
                 }
 
                 return JsonConvert.DeserializeObject<TResponse>(responseBody);
             }
+        }
+
+        public virtual void PostFileInChunks(string url, string fileName, byte[] fileData, string userName = null, string password = null, Dictionary<string, string> fileChunkHeaders = null)
+        {
+            var chunks = new Dictionary<int, byte[]>();
+            var chunksCounter = 0;
+            const int bufferSize = 100 * 1024;
+
+            while (chunksCounter * bufferSize < fileData.Length)
+            {
+                chunks.Add(chunksCounter + 1, fileData.Skip(chunksCounter * bufferSize).Take(bufferSize).ToArray());
+                chunksCounter++;
+            }
+
+            using (var client = new System.Net.Http.HttpClient(new HttpClientHandler() { UseProxy = false }))
+            {
+                if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
+                {
+                    client.DefaultRequestHeaders.Authorization = GetBasicAuthenticationHeader(userName, password);
+                }
+
+                while (chunks.Any())
+                {
+                    var chunk = chunks.First();
+                    var fileContent = new ByteArrayContent(chunk.Value);
+                    fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment") { FileName = fileName };
+                    fileContent.Headers.Add("ChunkId", chunk.Key.ToString("d8"));
+                    fileContent.Headers.Add("IsCompleted", chunks.Count() == 1 ? "true" : "false");
+
+                    if (fileChunkHeaders != null)
+                    {
+                        foreach (var header in fileChunkHeaders)
+                        {
+                            fileContent.Headers.Add(header.Key, header.Value);
+                        }
+                    }
+
+                    using (var content = new MultipartFormDataContent())
+                    {
+                        content.Add(fileContent);
+
+                        HttpResponseMessage response = client.PostAsync(url, content).Result;
+                        if (response.IsSuccessStatusCode)
+                        {
+                            chunks.Remove(chunk.Key);
+                        }
+                        else
+                        {
+                            string responseBody = response.Content.ReadAsStringAsync().Result;
+                            throw new HttpRequestException(string.Format("Reason: {0}. Response body: {1}.",
+                                response.ReasonPhrase, responseBody));
+                        }
+                    }
+                }
+            }
+        }
+
+        private AuthenticationHeaderValue GetBasicAuthenticationHeader(string userName, string password)
+        {
+            string credentials = string.Format("{0}:{1}", userName, password);
+            string base64Credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(credentials));
+            return new AuthenticationHeaderValue("Basic", base64Credentials);
         }
     }
 }

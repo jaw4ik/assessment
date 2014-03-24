@@ -131,7 +131,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Build(null);
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Course is not found");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseNotFoundError);
         }
 
         [TestMethod]
@@ -144,7 +144,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Build(CourseObjectMother.Create());
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Build failed");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseDeliverActionFailedError);
         }
 
         [TestMethod]
@@ -176,7 +176,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Build(null);
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Course is not found");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseNotFoundError);
         }
 
         [TestMethod]
@@ -189,7 +189,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.ScormBuild(CourseObjectMother.Create());
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Build failed");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseDeliverActionFailedError);
         }
 
         [TestMethod]
@@ -233,7 +233,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Publish(CourseObjectMother.Create());
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoursePublishFailedError);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseDeliverActionFailedError);
         }
 
         [TestMethod]
@@ -276,7 +276,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.PublishForReview(CourseObjectMother.Create());
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoursePublishFailedError);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseDeliverActionFailedError);
         }
 
         [TestMethod]

@@ -561,10 +561,13 @@
                 expect(promise).toBePromise();
             });
 
-            it('should send request', function (done) {
-                post.resolve();
-                var promise = service.publishCourseToStore(course.id).fin(function () { });
-                promise.fin(done);
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(http.post).toHaveBeenCalledWith('api/aim4you/publish', { courseId: course.id });
+                    });
+                });
 
                 expect(http.post).toHaveBeenCalledWith('course/publishToStore', { courseId: course.id });
             });

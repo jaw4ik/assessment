@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
@@ -58,91 +59,47 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess();
         }
 
-        [HttpPost]
-        public ActionResult Build(Course course)
+        private ActionResult DoDeliverAction(Course course, Func<bool> deliverAction, Func<ActionResult> getSuccessResultAction)
         {
             if (course == null)
             {
                 return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
             }
 
-            var result = _builder.Build(course);
+            var result = deliverAction();
 
             if (!result)
             {
-                return JsonError("Build failed");
+                return JsonLocalizableError(Errors.CourseDeliverActionFailedError, Errors.CourseDeliverActionFailedResourceKey);
             }
 
-            return JsonSuccess(new
-                {
-                    PackageUrl = course.PackageUrl,
-                    BuildOn = course.BuildOn
-                });
+            return getSuccessResultAction();
+        }
+
+        [HttpPost]
+        public ActionResult Build(Course course)
+        {
+            return DoDeliverAction(course, () => _builder.Build(course), () => JsonSuccess(new { PackageUrl = course.PackageUrl, BuildOn = course.BuildOn }));
         }
 
         [HttpPost, RequireAccess(AccessType = AccessType.Starter, ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseScormResourceKey)]
         public ActionResult ScormBuild(Course course)
         {
-            if (course == null)
-            {
-                return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
-            }
-
-            var result = _scormCourseBuilder.Build(course);
-
-            if (!result)
-            {
-                return JsonError("Build failed");
-            }
-
-            return JsonSuccess(new
-            {
-                ScormPackageUrl = course.ScormPackageUrl
-            });
+            return DoDeliverAction(course, () => _scormCourseBuilder.Build(course), () => JsonSuccess(new { ScormPackageUrl = course.ScormPackageUrl }));
         }
 
         [HttpPost]
         [Route("course/publish")]
         public ActionResult Publish(Course course)
         {
-            if (course == null)
-            {
-                return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
-            }
-
-            var result = _coursePublishingService.Publish(course);
-
-            if (!result)
-            {
-                return JsonLocalizableError(Errors.CoursePublishFailedError, Errors.CoursePublishFailedResourceKey);
-            }
-
-            return JsonSuccess(new
-                {
-                    PublishedPackageUrl = _coursePublishingService.GetPublishedPackageUrl(course.Id.ToString())
-                });
+            return DoDeliverAction(course, () => _coursePublishingService.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = _coursePublishingService.GetPublishedPackageUrl(course.Id.ToString()) }));
         }
 
         [HttpPost]
         [Route("course/publishForReview")]
         public ActionResult PublishForReview(Course course)
         {
-            if (course == null)
-            {
-                return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
-            }
-
-            var result = _coursePublishingService.Publish(course);
-
-            if (!result)
-            {
-                return JsonLocalizableError(Errors.CoursePublishFailedError, Errors.CoursePublishFailedResourceKey);
-            }
-
-            return JsonSuccess(new
-            {
-                ReviewUrl = _coursePublishingService.GetCourseReviewUrl(course.Id.ToString())
-            });
+            return DoDeliverAction(course, () => _coursePublishingService.Publish(course), () => JsonSuccess(new { ReviewUrl = _coursePublishingService.GetCourseReviewUrl(course.Id.ToString()) }));
         }
 
         [HttpPost]
@@ -302,7 +259,6 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }
-
         [HttpPost]
         [Route("api/course/updateobjectivesorder")]
         public ActionResult UpdateObjectivesOrderedList(Course course, ICollection<Objective> objectives)

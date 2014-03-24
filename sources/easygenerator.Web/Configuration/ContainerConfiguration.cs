@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
+using easygenerator.Web.Publish.Aim4You;
 
 namespace easygenerator.Web.Configuration
 {
@@ -92,6 +93,14 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PublishIsInProgressConstraint>();
 
             #endregion
+
+            #region Aim4You dependencies
+
+            builder.RegisterType<Aim4YouApiService>().As<IAim4YouApiService>().SingleInstance();
+            builder.RegisterType<Aim4YouCoursePublisher>().As<IAim4YouCoursePublisher>().SingleInstance();
+            builder.RegisterType<Aim4YouHttpClient>().As<Aim4YouHttpClient>().SingleInstance();
+
+            #endregion 
 
             #region WooCommerce dependencies
 

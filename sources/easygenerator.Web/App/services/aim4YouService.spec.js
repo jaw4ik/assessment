@@ -23,7 +23,7 @@
                 expect(service.register()).toBePromise();
             });
 
-            it('should send request to server to api/registerUserOnAim4You', function () {
+            it('should send request to server to api/aim4you/registerUser', function () {
                 var promise = service.register();
 
                 httpPost.resolve();
@@ -32,7 +32,7 @@
                     return !promise.isPending();
                 });
                 runs(function () {
-                    expect(http.post).toHaveBeenCalledWith('api/registerUserOnAim4You');
+                    expect(http.post).toHaveBeenCalledWith('api/aim4you/registerUser');
                 });
             });
 

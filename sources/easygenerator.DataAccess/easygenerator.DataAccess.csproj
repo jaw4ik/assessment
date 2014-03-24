@@ -80,6 +80,10 @@
     <Compile Include="Migrations\201403191444493_CreateHttpRequestsTable.Designer.cs">
       <DependentUpon>201403191444493_CreateHttpRequestsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201403240739097_CreateAim4YouIntegrationTable.cs" />
+    <Compile Include="Migrations\201403240739097_CreateAim4YouIntegrationTable.Designer.cs">
+      <DependentUpon>201403240739097_CreateAim4YouIntegrationTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
@@ -125,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201403191444493_CreateHttpRequestsTable.resx">
       <DependentUpon>201403191444493_CreateHttpRequestsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403240739097_CreateAim4YouIntegrationTable.resx">
+      <DependentUpon>201403240739097_CreateAim4YouIntegrationTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

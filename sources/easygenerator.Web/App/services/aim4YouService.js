@@ -8,7 +8,7 @@
         return Q.fcall(function() {
             var defer = Q.defer();
 
-            http.post('api/registerUserOnAim4You').done(function(response) {
+            http.post('api/aim4you/registerUser').done(function(response) {
                 if (_.isUndefined(response)) {
                     defer.reject('Response has invalid format');
                 } else if (response.success) {

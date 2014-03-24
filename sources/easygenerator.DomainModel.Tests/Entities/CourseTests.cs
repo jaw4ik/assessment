@@ -650,7 +650,10 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create();
             var template = TemplateObjectMother.Create();
             const string json = "{ url: \"http://google.com\"";
-            course.TemplateSettings = new List<Course.CourseTemplateSettings>() { CourseTemplateSettingsObjectMother.Create(course, template, json) };
+            course.TemplateSettings = new List<Course.CourseTemplateSettings>()
+            {
+                CourseTemplateSettingsObjectMother.Create(course, template, json)
+            };
 
             //Act
             var settings = course.GetTemplateSettings(template);
@@ -683,7 +686,10 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create();
             var template = TemplateObjectMother.Create();
             const string settings = "settings";
-            course.TemplateSettings = new Collection<Course.CourseTemplateSettings>() { CourseTemplateSettingsObjectMother.Create(course, template, "previous settings") };
+            course.TemplateSettings = new Collection<Course.CourseTemplateSettings>()
+            {
+                CourseTemplateSettingsObjectMother.Create(course, template, "previous settings")
+            };
 
             //Act
             course.SaveTemplateSettings(template, settings);
@@ -742,7 +748,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             var dateTime = DateTime.Now.AddDays(1);
             DateTimeWrapper.Now = () => dateTime;
-            
+
             //Act
             course.UpdateIntroductionContent(content, user);
 
@@ -841,7 +847,8 @@ namespace easygenerator.DomainModel.Tests.Entities
             var objective1 = ObjectiveObjectMother.Create();
             var objectiveCollection = new List<Objective>()
             {
-                objective,objective1
+                objective,
+                objective1
             };
             var result = String.Join(",", objectiveCollection.ConvertAll(o => o.Id.ToString()).ToArray());
             //Act
@@ -994,5 +1001,41 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion RelatedObjectives
 
+        #region Aim4YouIntegration
+
+        [TestMethod]
+        public void IsRegisteredOnAimForYou_ShouldReturnFalseIfAim4YouIntegrationIsNull()
+        {
+            var course = CourseObjectMother.Create();
+
+            course.IsRegisteredOnAimForYou().Should().Be(false);
+        }
+
+        [TestMethod]
+        public void IsRegisteredOnAimForYou_ShouldReturnFalseIfAim4YouIntegrationIsNotNullButAim4YouCourseIsEmptyGuid()
+        {
+            var course = CourseObjectMother.CreateWithAim4YouIntegration(Guid.Empty);
+
+            course.IsRegisteredOnAimForYou().Should().Be(false);
+        }
+
+        [TestMethod]
+        public void IsRegisteredOnAimForYou_ShouldReturnTrueIfAim4YouIntegrationIsNotNullAndAim4YouCourseIsNonEmptyGuid()
+        {
+            var course = CourseObjectMother.CreateWithAim4YouIntegration();
+
+            course.IsRegisteredOnAimForYou().Should().Be(true);
+        }
+
+        [TestMethod]
+        public void Aim4YouCourseId_ShouldBeSameAsWasRegistered()
+        {
+            Guid aim4YouCourseId = Guid.NewGuid();
+            var course = CourseObjectMother.CreateWithAim4YouIntegration(aim4YouCourseId);
+
+            course.Aim4YouIntegration.Aim4YouCourseId.Should().Be(aim4YouCourseId);
+        }
+
+        #endregion    }
     }
 }

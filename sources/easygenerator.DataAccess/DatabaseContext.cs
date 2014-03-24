@@ -74,6 +74,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Course>().HasMany(e => e.CommentsCollection).WithRequired(e => e.Course).WillCascadeOnDelete(true);
             modelBuilder.Entity<Course>().Property(e => e.ObjectivesOrder).IsOptional();
 
+            modelBuilder.Entity<Aim4YouIntegration>().HasKey(e => new { e.Id });
+            modelBuilder.Entity<Aim4YouIntegration>().Property(e => e.Aim4YouCourseId).IsRequired();
+            modelBuilder.Entity<Aim4YouIntegration>().HasRequired(e => e.Course);
+
             modelBuilder.Entity<Course.CourseTemplateSettings>().Property(e => e.Settings);
             modelBuilder.Entity<Course.CourseTemplateSettings>().HasRequired(e => e.Course);
             modelBuilder.Entity<Course.CourseTemplateSettings>().HasRequired(e => e.Template);

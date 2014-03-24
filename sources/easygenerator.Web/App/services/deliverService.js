@@ -27,7 +27,7 @@
         };
 
         var publishCourseToStore = function (courseId) {
-            return invokeServiceMethod('course/publishToStore', { courseId: courseId }, function () { });
+            return invokeServiceMethod('api/aim4you/publish', { courseId: courseId }, function () { });
         };
 
         var invokeServiceMethod = function (methodPath, methodArgs, responseDataExtractor) {
