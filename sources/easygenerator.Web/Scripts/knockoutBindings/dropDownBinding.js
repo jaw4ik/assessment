@@ -1,9 +1,14 @@
 ﻿ko.bindingHandlers.dropDown = {
 
-    init: function (element) {
+    init: function (element, valueAccessor) {
         var $element = $(element),
             html = $('html'),
-            $dropDownList = $element.find('ul');
+            $dropDownList = $element.find('ul'),
+            isExpanded = valueAccessor().isExpanded;
+
+        if (isExpanded) {
+            toggleDropDown();
+        }
 
         $element.click(function (e) {
             _.each($('.dropdown-list'), function (item) {
@@ -12,8 +17,7 @@
                     $(item).closest('.dropdown-list-wrapper').removeClass('active');
                 }
             });
-            $dropDownList.toggle();
-            $element.toggleClass('active');
+            toggleDropDown();
             e.stopPropagation();
         });
 
@@ -21,5 +25,11 @@
             $dropDownList.hide();
             $element.removeClass('active');
         });
-    },
+
+        function toggleDropDown() {
+            $dropDownList.toggle();
+            $element.toggleClass('active');
+        }
+        
+    }
 };
