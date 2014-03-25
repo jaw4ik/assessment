@@ -1445,8 +1445,6 @@ span.top-navigation-item.current {
     width: 345px;
     top: 57px;
     left: -45px;
-    list-style-type: none;
-    padding: 10px 10px 0;
     background-color: #fff;
     border: 1px solid #ddd;
     border-top: none;
@@ -1455,6 +1453,25 @@ span.top-navigation-item.current {
     box-shadow: 1px 2px 5px #dddddd;
     cursor: default;
     z-index: 200;
+}
+
+.user-notification-list {
+    list-style-type: none;
+    padding: 10px 10px 0;
+}
+
+.user-notification-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 17px;
+    height: 17px;
+    border: 1px solid #ddd;
+    background: url(../Content/images/sprites.png) -79px -267px;
+}
+
+.user-notification-close-btn:hover{
+    background-color: #f7f7f7
 }
 
 .user-notification-wrapper {

@@ -1,9 +1,12 @@
 ﻿<section>
-    <div class="header-menu-list-item user-notification dropdown-list-wrapper" data-bind="dropDown: { isExpanded: true }, visible: isVisible">
+    <div class="header-menu-list-item user-notification" data-bind="notifications: { isExpanded: isVisible }, visible: isVisible">
         <div class="user-notification-image"></div>
-        <ul class="dropdown-list user-notification-viewer" data-bind="foreach: collection">
-            <!-- ko compose: $data -->
-            <!-- /ko -->
-        </ul>
+        <div class="user-notification-viewer">
+            <div class="user-notification-close-btn"></div>
+            <ul class="user-notification-list" data-bind="foreach: collection">
+                <!-- ko compose: $data -->
+                <!-- /ko -->
+            </ul>
+        </div>
     </div>
 </section>

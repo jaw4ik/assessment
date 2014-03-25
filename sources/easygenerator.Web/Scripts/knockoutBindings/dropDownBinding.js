@@ -3,12 +3,7 @@
     init: function (element, valueAccessor) {
         var $element = $(element),
             html = $('html'),
-            $dropDownList = $element.find('ul'),
-            isExpanded = valueAccessor().isExpanded;
-
-        if (isExpanded) {
-            toggleDropDown();
-        }
+            $dropDownList = $element.find('ul');
 
         $element.click(function (e) {
             _.each($('.dropdown-list'), function (item) {
