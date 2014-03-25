@@ -353,7 +353,7 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
             // Act
             var result = _aim4YouApiService.DeployCourse(Guid.NewGuid());
             // Assert
-            _aim4YouHttpClient.Received().Get<bool>(deployCourseMethodPath, Arg.Any<Dictionary<string, string>>(), userName, password);
+            _aim4YouHttpClient.Received().GetWithNoReply(deployCourseMethodPath, Arg.Any<Dictionary<string, string>>(), userName, password);
         }
 
         [TestMethod]
@@ -361,7 +361,7 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
         {
             // Arrange
             var ex = new Exception();
-            _aim4YouHttpClient.Get<bool>(deployCourseMethodPath, Arg.Any<Dictionary<string, string>>(), userName, password).Returns(x => { throw ex; });
+            _aim4YouHttpClient.When(_ => _.GetWithNoReply(deployCourseMethodPath, Arg.Any<Dictionary<string, string>>(), userName, password)).Do(x => { throw ex; });
             // Act
             _aim4YouApiService.DeployCourse(Guid.NewGuid());
             // Assert
@@ -372,18 +372,7 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
         public void DeployCourse_ShouldReturnFalseIfExceptionWasThrown()
         {
             // Arrange
-            _aim4YouHttpClient.Get<bool>(deployCourseMethodPath, Arg.Any<Dictionary<string, string>>(), userName, password).Returns(x => { throw new Exception(); });
-            // Act
-            var result = _aim4YouApiService.DeployCourse(Guid.NewGuid());
-            // Assert
-            result.Should().Be(false);
-        }
-
-        [TestMethod]
-        public void DeployCourse_ShouldReturnFalseIfApiReturnedFalse()
-        {
-            // Arrange
-            _aim4YouHttpClient.Get<bool>(deployCourseMethodPath, Arg.Any<Dictionary<string, string>>(), userName, password).Returns(false);
+            _aim4YouHttpClient.When(_ => _.GetWithNoReply(deployCourseMethodPath, Arg.Any<Dictionary<string, string>>(), userName, password)).Do(x => { throw new Exception(); });
             // Act
             var result = _aim4YouApiService.DeployCourse(Guid.NewGuid());
             // Assert

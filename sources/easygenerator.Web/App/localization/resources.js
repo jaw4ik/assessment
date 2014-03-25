@@ -236,7 +236,7 @@
         en: 'A confirmation email was sent. Click on the link in this mail to activate your account.'
     },
     publishToAim4YouSuccessMessage: {
-        en: 'Your course is successfully  published. Check your email for more details.'
+        en: 'Your course is successfully uploaded. You will receive an email with more details after the publication is finished.'
     },
     publishToAim4YouInfoMessage: {
         en: 'You have not confirmed your registration with Aim4You. In order to publish you have to click on the link in the confirmation email to activate your account.'

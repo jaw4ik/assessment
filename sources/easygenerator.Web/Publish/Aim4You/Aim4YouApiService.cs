@@ -16,7 +16,7 @@ namespace easygenerator.Web.Publish.Aim4You
         private const string DeployCourseMethodPath = "api/CourseDeploy";
 
         private readonly ConfigurationReader _configurationReader;
-        private readonly Aim4YouHttpClient _httpHelper;
+        private readonly Aim4YouHttpClient _httpClient;
         private readonly ILog _logger;
         private readonly string _serviceLogin;
         private readonly string _servicePassword;
@@ -24,7 +24,7 @@ namespace easygenerator.Web.Publish.Aim4You
         public Aim4YouApiService(ConfigurationReader configurationReader, Aim4YouHttpClient httpHelper, ILog logger)
         {
             _configurationReader = configurationReader;
-            _httpHelper = httpHelper;
+            _httpClient = httpHelper;
             _serviceLogin = _configurationReader.Aim4YouConfiguration.UserName;
             _servicePassword = _configurationReader.Aim4YouConfiguration.Password;
             _logger = logger;
@@ -35,7 +35,7 @@ namespace easygenerator.Web.Publish.Aim4You
             return WrapServiceException(() =>
             {
                 var methodUrl = GetServiceMethodUrl(RegisterUserMethodPath);
-                var responseData = _httpHelper.Post<Aim4YouUser>(methodUrl, new { Email = userEmail, UserName = userEmail, Domain = domain }, _serviceLogin, _servicePassword);
+                var responseData = _httpClient.Post<Aim4YouUser>(methodUrl, new { Email = userEmail, UserName = userEmail, Domain = domain }, _serviceLogin, _servicePassword);
                 return string.Equals(responseData.Email, userEmail, StringComparison.CurrentCultureIgnoreCase);
             });
         }
@@ -49,7 +49,7 @@ namespace easygenerator.Web.Publish.Aim4You
                 methodParameters["userid"] = userEmail;
                 methodParameters["domain"] = domain;
 
-                var responseData = _httpHelper.Get<string>(methodUrl, methodParameters, _serviceLogin, _servicePassword);
+                var responseData = _httpClient.Get<string>(methodUrl, methodParameters, _serviceLogin, _servicePassword);
                 // according to documentation -1 will be returned if user doesn't exist.
                 return !string.Equals(responseData, "-1");
             });
@@ -60,7 +60,7 @@ namespace easygenerator.Web.Publish.Aim4You
             return WrapServiceException<Guid?>(() =>
             {
                 var methodUrl = GetServiceMethodUrl(RegisterCourseMethodPath);
-                var responseData = _httpHelper.Post<Aim4YouCourse>(methodUrl, new { Course = courseTitle, UserName = userEmail, CourseId = courseId }, _serviceLogin, _servicePassword);
+                var responseData = _httpClient.Post<Aim4YouCourse>(methodUrl, new { Course = courseTitle, UserName = userEmail, CourseId = courseId }, _serviceLogin, _servicePassword);
                 if (responseData.CourseId != Guid.Empty)
                 {
                     return responseData.CourseId;
@@ -77,7 +77,7 @@ namespace easygenerator.Web.Publish.Aim4You
                 var methodParameters = new Dictionary<string, string>();
                 methodParameters["courseid"] = aim4YouCourseId.ToString();
 
-                var responseData = _httpHelper.Get<bool>(methodUrl, methodParameters, _serviceLogin, _servicePassword);
+                var responseData = _httpClient.Get<bool>(methodUrl, methodParameters, _serviceLogin, _servicePassword);
                 return responseData;
             });
         }
@@ -87,7 +87,7 @@ namespace easygenerator.Web.Publish.Aim4You
             return WrapServiceException(() =>
             {
                 var methodUrl = GetServiceMethodUrl(UploadCourseMethodPath);
-                _httpHelper.PostCourseInChunks(methodUrl, courseId.ToString(), courseTitle, courseBytes, _serviceLogin, _servicePassword);
+                _httpClient.PostCourseInChunks(methodUrl, courseId.ToString(), courseTitle, courseBytes, _serviceLogin, _servicePassword);
                 return true;
             });
         }
@@ -100,8 +100,8 @@ namespace easygenerator.Web.Publish.Aim4You
                 var methodParameters = new Dictionary<string, string>();
                 methodParameters["courseid"] = courseId.ToString();
 
-                var responseData = _httpHelper.Get<bool>(methodUrl, methodParameters, _serviceLogin, _servicePassword);
-                return responseData;
+                _httpClient.GetWithNoReply(methodUrl, methodParameters, _serviceLogin, _servicePassword);
+                return true;
             });
         }
 
