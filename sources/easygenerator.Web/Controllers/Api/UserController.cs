@@ -116,6 +116,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CustomRequireHttps]
         [AllowAnonymous]
         [ExternalApiAuthorize("wooCommerce")]
         [Route("api/user/subscription/starter")]
