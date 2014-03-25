@@ -1,39 +1,30 @@
-﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Repositories;
+﻿using System.Data.SqlClient;
 using easygenerator.Infrastructure;
+using easygenerator.Web.Components.Configuration;
 
 namespace easygenerator.Web.Components.Tasks
 {
-    public class AccessTypeExpirationTask : ITask
+    public class AccessTypeExpirationTask : SqlCommandTask
     {
-        private readonly IUnitOfWork _dataContext;
-        private readonly IUserRepository _userRepository;
-
-        public AccessTypeExpirationTask(IUnitOfWork unitOfWork, IUserRepository userRepository)
+        public AccessTypeExpirationTask(ConfigurationReader configurationReader)
+            : base(configurationReader)
         {
-            _dataContext = unitOfWork;
-            _userRepository = userRepository;
         }
 
-        public void Execute()
+        protected override string GetQueryString()
         {
-            var users = _userRepository.GetCollection(IsUserSubscriptionExpired);
-            if (users.Count == 0)
-            {
-                return;
-            }
-
-            foreach (var user in users)
-            {
-                user.DowngradePlanToFree();
-            }
-
-            _dataContext.Save();
+            return "UPDATE dbo.Users " +
+                   "SET AccessType = 0, " +
+                   "ExpirationDate = NULL " +
+                   "WHERE ExpirationDate < @ExpirationDate";
         }
 
-        private static bool IsUserSubscriptionExpired(User user)
+        protected override SqlParameter[] GetParameters()
         {
-            return user.ExpirationDate.HasValue && user.ExpirationDate < DateTimeWrapper.Now();
+            return new[]
+            {
+                new SqlParameter("@ExpirationDate", DateTimeWrapper.Now())
+            };
         }
     }
 }

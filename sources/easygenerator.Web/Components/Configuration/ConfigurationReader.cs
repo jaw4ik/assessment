@@ -62,12 +62,17 @@ namespace easygenerator.Web.Components.Configuration
             }
         }
 
-        public virtual  WooCommerceConfigurationSection WooCommerceConfiguration
+        public virtual WooCommerceConfigurationSection WooCommerceConfiguration
         {
             get
             {
                 return ConfigurationManager.GetSection("wooCommerce") as WooCommerceConfigurationSection;
             }
+        }
+
+        public virtual string ConnectionString
+        {
+            get { return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString; }
         }
     }
 }

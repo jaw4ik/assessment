@@ -191,6 +191,7 @@
     <Compile Include="Components\Tasks\HttpRequestsSenderTask.cs" />
     <Compile Include="Components\Elmah\ElmahLog.cs" />
     <Compile Include="Components\Elmah\SqlErrorLogExtended.cs" />
+    <Compile Include="Components\Tasks\SqlCommandTask.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Content Include="..\..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll">

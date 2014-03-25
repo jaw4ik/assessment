@@ -160,10 +160,8 @@
     <Compile Include="Publish\CoursePublishingServiceTests.cs" />
     <Compile Include="Controllers\ReviewControllerTests.cs" />
     <Compile Include="Tasks\HttpRequestsSenderTaskTests.cs" />
-    <Compile Include="Tasks\PasswordRecoveryTicketExpirationTaskTest.cs" />
     <Compile Include="Tasks\MailSenderTaskTest.cs" />
     <Compile Include="Tasks\SchedulerTest.cs" />
-    <Compile Include="Tasks\AccessTypeExpirationTaskTest.cs" />
     <Compile Include="Utils\ActionResultAssert.cs" />
     <Compile Include="Utils\ActionResultFluentAssertions.cs" />
     <Compile Include="Utils\CustomObjectAssertions.cs" />

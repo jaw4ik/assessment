@@ -73,7 +73,6 @@
     <Compile Include="Repositories\ITemplateRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Handlers\SignupFromTryItNowHandler.cs" />
-    <Compile Include="Repositories\IPasswordRecoveryTicketRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj">
