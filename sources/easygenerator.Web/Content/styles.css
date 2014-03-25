@@ -123,7 +123,7 @@
 .content-holder {
     position: relative;
     max-width: 920px;
-    min-width: 600px;
+    min-width: 650px;
     margin: 0 auto;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -393,6 +393,12 @@
 
 .nav-back-holder:hover .nav-back-title {
     opacity: 1;
+}
+
+@media (max-width: 1150px) {
+    .nav-back-holder {
+        display: none;
+    }
 }
 
 .top-navigation-item {
@@ -1620,12 +1626,6 @@ span.top-navigation-item.current {
     }
 
     /*#endregion HEADER*/
-
-    /*#region LAYOUT*/
-    .content-holder {
-        max-width: 700px;
-    }
-    /*#endregion LAYOUT*/
 
 }
 

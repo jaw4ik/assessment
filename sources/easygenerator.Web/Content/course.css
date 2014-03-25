@@ -89,16 +89,13 @@
 }
 
 .choose-template-holder {
-    min-width: 250px;
-    max-width: 49%;
-    margin-right: 415px;
+    float: left;
+    width: 48%;
+    min-width: 315px;
+    margin-right: 20px;
     font-family: 'OpenSans';
     color: #303133;
 }
-
-    .choose-template-holder.gorizontal {
-        max-width: none;
-    }
 
 .template-settings-title,
 .choose-template-title {
@@ -189,6 +186,7 @@
 .template-info-wrapper {
     margin-left: 115px;
     word-wrap: break-word;
+    padding-bottom: 20px;
 }
 
 .template-title {
@@ -212,9 +210,10 @@
 }
 
 .template-settings-block {
-    float: right;
-    width: 400px;
-    min-width: 335px;
+    float: left;
+    width: 48%;
+    max-width: 400px;
+    min-width: 315px;
 }
 
 .template-preview-link {
@@ -774,19 +773,3 @@
     }
 
 /*#endregion COURSE CONTENT*/
-
-
-@media (min-width: 1000px) {
-
-    .template-settings-block {
-        width: 49%;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        padding-left: 20px;
-    }
-
-    .choose-template-holder {
-        margin-right: auto;
-    }
-}
