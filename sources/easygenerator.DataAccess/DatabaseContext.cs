@@ -14,6 +14,8 @@ namespace easygenerator.DataAccess
     {
         static DatabaseContext()
         {
+            var _ = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
+
             try
             {
                 Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, Configuration>());
