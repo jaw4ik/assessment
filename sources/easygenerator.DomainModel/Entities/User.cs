@@ -10,7 +10,7 @@ namespace easygenerator.DomainModel.Entities
 {
     public class User : Entity
     {
-        private const int TrialPeriodDays = 30;
+        private const int TrialPeriodDays = 14;
 
         protected internal User() { }
 

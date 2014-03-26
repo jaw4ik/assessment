@@ -269,10 +269,10 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void User_ShouldCreateUserWithStarterPlanAnd30DaysTrialPeriod()
+        public void User_ShouldCreateUserWithStarterPlanAnd14DaysTrialPeriod()
         {
             //Arrange
-            var expirationDate = CurrentDate.AddDays(30);
+            var expirationDate = CurrentDate.AddDays(14);
 
             //Act
             var user = UserObjectMother.Create();
