@@ -140,6 +140,23 @@
 
                 var today = new Date();
 
+                describe('and expiration date is null', function () {
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.starter,
+                                expirationDate: null
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasStarterAccess()).toBeFalsy();
+                    });
+
+                });
+
                 describe('and expiration date has expired', function () {
 
                     var yesterday = new Date();

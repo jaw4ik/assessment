@@ -556,6 +556,20 @@ namespace easygenerator.DomainModel.Tests.Entities
             result.Should().BeFalse();
         }
 
+        [TestMethod]
+        public void HasStarterAccess_ShouldReturnFalse_WhenUserAccessTypeIsStarterButExpirationDateIsNotSet()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Starter;
+            user.ExpirationDate = null;
+            //Act
+            var result = user.HasStarterAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
         #endregion
 
         #region UpdatePassword

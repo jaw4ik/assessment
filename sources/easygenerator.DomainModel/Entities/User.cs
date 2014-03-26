@@ -96,7 +96,7 @@ namespace easygenerator.DomainModel.Entities
         private bool IsAccessExpired()
         {
             if(!ExpirationDate.HasValue)
-                return false;
+                return true;
 
             return ExpirationDate.Value < DateTimeWrapper.Now();
         }
