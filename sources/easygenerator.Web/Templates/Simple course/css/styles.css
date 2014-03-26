@@ -731,7 +731,7 @@ input[type="checkbox"] {
 /*#region question view*/
 
 .question .page-header {
-    padding: 0 10px 0;
+    padding: 0 10px 0 0;
     margin-top: 15px;
     margin-bottom: 20px;
 }
