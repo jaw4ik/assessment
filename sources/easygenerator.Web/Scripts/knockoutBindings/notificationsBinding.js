@@ -31,7 +31,7 @@
             $notification = $element.find('.user-notification-viewer'),
             isExpanded = valueAccessor().isExpanded;
 
-        if (isExpanded) {
+        if (isExpanded()) {
             $notification.show();
             $element.addClass('active');
         }
