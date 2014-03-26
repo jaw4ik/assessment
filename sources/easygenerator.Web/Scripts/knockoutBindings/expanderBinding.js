@@ -4,9 +4,11 @@
             $element = $(element),
             isExpanded = valueAccessor().isExpanded(),
             minSize = valueAccessor().minSize,
-            maxSize = valueAccessor().maxSize;
+            maxSize = valueAccessor().maxSize,
+                
+            initialWidth = isExpanded ? maxSize : minSize;
 
-        $element.width(isExpanded ? maxSize : minSize);
+        $element.width(initialWidth).css('min-width', initialWidth);
     },
     update: function (element, valueAccessor) {
         var
@@ -25,6 +27,7 @@
 
         var animateSettings = {};
         animateSettings['width'] = widthToResize + 'px';
+        animateSettings['min-width'] = widthToResize + 'px';
 
         var animation = $element.finish().animate(animateSettings, speed);
 
