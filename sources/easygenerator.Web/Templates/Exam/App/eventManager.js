@@ -5,8 +5,7 @@
             events = {
                 courseStarted: "courseStarted",
                 courseFinished: "courseFinished",
-                answersSubmitted: "answersSubmitted",
-                courseRestart: "courseRestart"
+                answersSubmitted: "answersSubmitted"
             },
 
             turnAllEventsOff = function () {
@@ -29,10 +28,6 @@
 
             courseFinished = function (data, callback) {
                 return executeAfterSubscribersDone(events.courseFinished, data, callback);
-            },
-
-            courseRestart = function () {
-                app.trigger(events.courseRestart);
             },
 
             answersSubmitted = function (data) {
@@ -69,7 +64,6 @@
             subscribeForEvent: subscribeForEvent,
 
             courseStarted: courseStarted,
-            courseRestart: courseRestart,
             courseFinished: courseFinished,
             answersSubmitted: answersSubmitted
         };

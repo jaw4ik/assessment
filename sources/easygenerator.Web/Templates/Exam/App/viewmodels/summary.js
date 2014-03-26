@@ -3,14 +3,6 @@
         var objectives = [],
             overallScore = 0,
 
-            tryAgain = function () {
-                var course = repository.get();
-                course.restart();
-
-                this.status(this.statuses.readyToFinish);
-                router.navigate('questions');
-            },
-
             statuses = {
                 readyToFinish: 'readyToFinish',
                 sendingRequests: 'sendingRequests',
@@ -61,7 +53,6 @@
             objectives: objectives,
             overallScore: overallScore,
             courseTitle: context.title,
-            tryAgain: tryAgain,
             finish: finish,
             status: status,
             statuses: statuses

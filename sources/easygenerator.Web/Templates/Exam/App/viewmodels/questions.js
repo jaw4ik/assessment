@@ -1,113 +1,115 @@
 ﻿define(['durandal/app', 'plugins/router', 'eventManager', 'configuration/settings', 'repositories/questionRepository', 'repositories/courseRepository'],
     function (app, router, eventManager, settings, questionRepository, courseRepository) {
 
-        var displayedQuestions = ko.observableArray(),
-            totalQuestionsCount = 0,
-            isFullyLoaded = ko.observable(false),
-            allQuestions = [],
-            activeQuestionId = null,
-            loadedQuestionsCount = 0,
-            courseTitle = '',
-            loadQuestions = function () {
-                var questionsToLoadContent = [],
-                    questionsToLoadCount = loadedQuestionsCount + settings.loadingQuestionsInStepCount;
+        var self = {
+            questions: [],
+            loadedQuestionsCount: 0
+        };
 
-                for (var i = loadedQuestionsCount; i < questionsToLoadCount; i++) {
-                    if (i > allQuestions.length - 1) {
-                        isFullyLoaded(true);
-                        break;
-                    }
+        var viewModel = {
+            courseTitle: '',
 
-                    questionsToLoadContent.push(allQuestions[i]);
-                    loadedQuestionsCount++;
-                }
+            questions: ko.observableArray([]),
+            totalQuestionsCount: 0,
+            loadQuestions: loadQuestions,
+            isFullyLoaded: ko.observable(false),
 
-                return questionRepository.loadQuestionContentCollection(questionsToLoadContent)
-                    .then(function (questions) {
-                        _.each(questions, function (question) {
-                            displayedQuestions.push(mapQuestion(question));
-                        });
-                    });
-            },
-            submit = function () {
-                var course = courseRepository.get();
-                course.submitAnswers(_.map(displayedQuestions(), function (question) {
-                    return {
-                        question: questionRepository.get(question.objectiveId, question.id),
-                        checkedAnswersIds: _.chain(question.answers)
-                            .filter(function (item) {
-                                return item.isChecked();
-                            })
-                            .map(function (item) {
-                                return item.id;
-                            }).value()
-                    };
-                }));
+            submit: submit,
 
-                router.navigate('summary');
-            },            
-            mapQuestion = function (question) {
-                var mappedQuestion = {
-                    id: question.id,
-                    objectiveId: question.objectiveId,
-                    title: question.title,
-                    hasContent: question.hasContent,
-                    content: question.content,
-                    answers: _.map(question.answers, function (answer) {
-                        return {
-                            id: answer.id,
-                            text: answer.text,
-                            isChecked: ko.observable(false),
-                            toggleCheck: function () {
-                                this.isChecked(!this.isChecked());
-                            }
-                        };
-                    })
+            activate: activate,
+            canActivate: canActivate
+        }
+
+        return viewModel;
+
+        function submit() {
+            var course = courseRepository.get();
+            course.submitAnswers(_.map(viewModel.questions(), function (question) {
+                return {
+                    question: questionRepository.get(question.objectiveId, question.id),
+                    checkedAnswersIds: _.chain(question.answers)
+                        .filter(function (item) {
+                            return item.isChecked();
+                        })
+                        .map(function (item) {
+                            return item.id;
+                        }).value()
                 };
+            }));
 
-                return mappedQuestion;
-            },            
-            activate = function () {
-                var course = courseRepository.get();
+            router.navigate('summary');
+        }
 
-                if (course == null) {
-                    router.navigate('404');
-                    return;
+
+        function loadQuestions() {
+            var
+                questionsToLoadContent = [],
+                questionsToLoadCount = self.loadedQuestionsCount + settings.loadingQuestionsInStepCount
+            ;
+            for (var i = self.loadedQuestionsCount; i < questionsToLoadCount; i++) {
+                if (i > viewModel.totalQuestionsCount - 1) {
+                    viewModel.isFullyLoaded(true);
+                    break;
                 }
 
-                allQuestions = _.map(course.getAllQuestions(), function (question) {
-                    return mapQuestion(question);
-                });
+                questionsToLoadContent.push(self.questions[i]);
+                self.loadedQuestionsCount++;
+            }
 
-                allQuestions = _.shuffle(allQuestions);
-                this.totalQuestionsCount = allQuestions.length;
-                this.courseTitle = course.title;
-            },
-            canActivate = function () {
-                var course = courseRepository.get();
-                return !course.isAnswered;
-            },
-            setInitialSettings = function () {
-                displayedQuestions([]);
-                allQuestions = [];
-                isFullyLoaded(false);
-                activeQuestionId = null;
-                loadedQuestionsCount = 0;
+            return questionRepository.loadQuestionContentCollection(questionsToLoadContent)
+                .then(function (questions) {
+                    _.each(questions, function (question) {
+                        viewModel.questions.push(mapQuestion(question));
+                    });
+                });
+        }
+
+
+        function mapQuestion(question) {
+            var mappedQuestion = {
+                id: question.id,
+                objectiveId: question.objectiveId,
+                title: question.title,
+                hasContent: question.hasContent,
+                content: question.content,
+                answers: _.map(question.answers, function (answer) {
+                    return {
+                        id: answer.id,
+                        text: answer.text,
+                        isChecked: ko.observable(false),
+                        toggleCheck: function () {
+                            this.isChecked(!this.isChecked());
+                        }
+                    };
+                })
             };
 
-        app.on(eventManager.events.courseRestart, setInitialSettings);
+            return mappedQuestion;
+        }
 
-        return {
-            activate: activate,
-            canActivate: canActivate,
-            loadQuestions: loadQuestions,
-            submit: submit,
-            activeQuestionId: activeQuestionId,
 
-            questions: displayedQuestions,
-            totalQuestionsCount: totalQuestionsCount,
-            isFullyLoaded: isFullyLoaded,
-            courseTitle: courseTitle
-        };
+        function canActivate() {
+            var course = courseRepository.get();
+            return !course.isAnswered;
+        }
+
+        function activate() {
+            var course = courseRepository.get();
+
+            if (course == null) {
+                router.navigate('404');
+                return;
+            }
+
+            self.questions = _.map(course.getAllQuestions(), function (question) {
+                return mapQuestion(question);
+            });
+
+            self.questions = _.shuffle(self.questions);
+
+            viewModel.totalQuestionsCount = self.questions.length;
+            viewModel.courseTitle = course.title;
+        }
+
     }
 );

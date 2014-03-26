@@ -13,7 +13,8 @@
             </header>
             <div class="xapi-form-holder">
                 <div class="xapi-form-info-message">
-                    <span class="xapi-form-info-text">Please enter your credentials and click "Start and report my progress" to enable progress tracking. Otherwise, click "Do not report, just start".
+                    <span class="xapi-form-info-text">
+                        Please enter your credentials and click "Start and report my progress" to enable progress tracking. Otherwise, click "Do not report, just start".
                     </span>
                 </div>
                 <div class="xapi-form-row name" data-bind="css: { error: !username.isValid() && username.isModified() }">
@@ -40,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="summary-btn-holder clearfix">
+                <div class="xapi-form-btn-holder clearfix">
                     <a class="link default pull-left" data-bind="click: skip">Do not report, just start</a>
                     <a class="btn default pull-right" data-bind="click: login">Start and report my progress</a>
                 </div>

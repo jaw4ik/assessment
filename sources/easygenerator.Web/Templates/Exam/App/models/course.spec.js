@@ -7,7 +7,6 @@
 
         beforeEach(function () {
             spyOn(eventManager, 'courseStarted');
-            spyOn(eventManager, 'courseRestart');
             spyOn(eventManager, 'answersSubmitted');
         });
 
@@ -185,28 +184,6 @@
             it('should set isAnswered to false', function () {
                 course.isAnswered = true;
                 course.start();
-                expect(course.isAnswered).toBeFalsy();
-            });
-        });
-
-        describe('restart:', function () {
-            it('should be function', function () {
-                expect(course.restart).toBeFunction();
-            });
-
-            it('should call event manager course restart', function () {
-                course.restart();
-                expect(eventManager.courseRestart).toHaveBeenCalled();
-            });
-
-            it('should call event manager course started', function () {
-                course.restart();
-                expect(eventManager.courseStarted).toHaveBeenCalled();
-            });
-
-            it('should set isAnswered to false', function () {
-                course.isAnswered = true;
-                course.restart();
                 expect(course.isAnswered).toBeFalsy();
             });
         });

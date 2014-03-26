@@ -138,9 +138,9 @@
                     defer = Q.defer();
 
                     spyOn(courseRepository, 'get').andReturn(course);
-                    app.trigger(eventManager.events.courseRestart);
-                    viewModel.activate();
                     spyOn(questionRepository, 'loadQuestionContentCollection').andReturn(defer.promise);
+
+                    viewModel.activate();
                 });
 
                 it('should load question content', function () {
@@ -185,14 +185,15 @@
 
             describe('when not all questions can be loaded at one step', function () {
                 var defer;
+
                 beforeEach(function () {
                     settings.loadingQuestionsInStepCount = 1;
                     defer = Q.defer();
 
                     spyOn(courseRepository, 'get').andReturn(course);
-                    app.trigger(eventManager.events.courseRestart);
-                    viewModel.activate();
                     spyOn(questionRepository, 'loadQuestionContentCollection').andReturn(defer.promise);
+
+                    viewModel.activate();
                 });
 
                 it('should load question content', function () {
@@ -209,6 +210,7 @@
 
                 it('should not change isFullyLoaded', function () {
                     viewModel.isFullyLoaded(false);
+                    viewModel.totalQuestionsCount = 10;
 
                     var promise = viewModel.loadQuestions();
                     defer.resolve();
@@ -223,6 +225,7 @@
 
                 describe('and when content of question is loaded', function () {
                     it('should add one question to questions collection', function () {
+                        viewModel.questions([]);
                         var promise = viewModel.loadQuestions();
                         defer.resolve([questions[0]]);
 
@@ -307,22 +310,6 @@
                     expect(result).toBeTruthy();
                 });
             });
-        });
-
-        describe('when course is reset', function () {
-
-            it('should clear questions collection', function () {
-                viewModel.questions([{}]);
-                app.trigger(eventManager.events.courseRestart);
-                expect(viewModel.questions().length).toBe(0);
-            });
-
-            it('should set isFullyLoaded to false', function () {
-                viewModel.isFullyLoaded(true);
-                app.trigger(eventManager.events.courseRestart);
-                expect(viewModel.isFullyLoaded()).toBeFalsy();
-            });
-
         });
 
     });

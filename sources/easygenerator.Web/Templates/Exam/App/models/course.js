@@ -13,7 +13,6 @@
             this.finish = finish;
             this.calculateScore = calculateScore;
             this.start = start;
-            this.restart = restart;
             this.submitAnswers = submitAnswers;
             this.loadContent = loadContent;
         }
@@ -54,11 +53,6 @@
             this.isAnswered = false;
             this.score = 0;
             eventManager.courseStarted();
-        };
-
-        var restart = function () {
-            eventManager.courseRestart();
-            this.start();
         };
 
         var calculateScore = function () {

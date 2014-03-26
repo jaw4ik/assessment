@@ -12,7 +12,6 @@
         var course = {
             calculateScore: function () { },
             finish: function () { },
-            restart: function () { },
             objectives: [{
                 id: 'id',
                 title: 'titile',
@@ -111,30 +110,7 @@
             });
 
         });
-
-        describe('tryAgain:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.tryAgain).toBeFunction();
-            });
-
-            beforeEach(function () {
-                spyOn(router, 'navigate');
-                spyOn(course, 'restart');
-                spyOn(repository, 'get').andReturn(course);
-            });
-
-            it('should call course restart', function () {
-                viewModel.tryAgain();
-                expect(course.restart).toHaveBeenCalled();
-            });
-
-            it('should navigate to \'questions\'', function () {
-                viewModel.tryAgain();
-                expect(router.navigate).toHaveBeenCalledWith('questions');
-            });
-        });
-
+        
         describe('finish:', function () {
 
             beforeEach(function () {

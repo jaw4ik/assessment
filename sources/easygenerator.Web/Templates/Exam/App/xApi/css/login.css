@@ -201,8 +201,15 @@
     background: url(img/icons-xApi.png?v=exam) -6px -67px;
 }
 
-.summary-btn-holder .btn {
+.xapi-form-btn-holder .btn {
     font-size: 20px;
+    color: #5C6572;
+    display: inline-block;
+    font-size: 20px;
+    text-align: center;
+    -ms-text-shadow: 1px 1px 1px #FFFFFF;
+    text-shadow: 1px 1px 1px #FFFFFF;
+    width: 49%;
 }
 
 .link.default {
