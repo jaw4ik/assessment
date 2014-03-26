@@ -447,7 +447,7 @@
     <Compile Include="Components\ActionFilters\ForceHttpAttribute.cs" />
     <Compile Include="Components\ActionResults\HttpStatusCodeWithMessageResult.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransform.cs" />
-    <Compile Include="Components\ActionFilters\Authorization\RequireAccessAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\RequireStarterAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
     <Compile Include="Components\ActionResults\BadRequestResult.cs" />
     <Compile Include="Components\ActionResults\ForbiddenResult.cs" />
@@ -481,7 +481,6 @@
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinder.cs" />
     <Compile Include="Components\NavigationLink.cs" />
     <Compile Include="Components\RazorTemplateProvider.cs" />
-    <Compile Include="Components\Tasks\AccessTypeExpirationTask.cs" />
     <Compile Include="Components\Tasks\PasswordRecoveryTicketExpirationTask.cs" />
     <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraint.cs" />
     <Compile Include="Components\CountriesInfo.cs" />

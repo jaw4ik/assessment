@@ -38,7 +38,7 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(true);
         }
 
-        [HttpPost, RequireAccess(AccessType = AccessType.Starter, ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseCommentsErrorMessage)]
+        [HttpPost, RequireStarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseCommentsErrorMessage)]
         [Route("api/comments")]
         public ActionResult GetComments(Course course)
         {

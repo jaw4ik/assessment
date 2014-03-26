@@ -82,7 +82,7 @@ namespace easygenerator.Web.Controllers.Api
             return DoDeliverAction(course, () => _builder.Build(course), () => JsonSuccess(new { PackageUrl = course.PackageUrl, BuildOn = course.BuildOn }));
         }
 
-        [HttpPost, RequireAccess(AccessType = AccessType.Starter, ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseScormResourceKey)]
+        [HttpPost, RequireStarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseScormResourceKey)]
         public ActionResult ScormBuild(Course course)
         {
             return DoDeliverAction(course, () => _scormCourseBuilder.Build(course), () => JsonSuccess(new { ScormPackageUrl = course.ScormPackageUrl }));

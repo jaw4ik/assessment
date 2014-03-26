@@ -10,9 +10,8 @@ using easygenerator.Web.Components.ActionResults;
 namespace easygenerator.Web.Components.ActionFilters.Authorization
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    public class RequireAccessAttribute : FilterAttribute, IAuthorizationFilter
+    public class RequireStarterAccessAttribute : FilterAttribute, IAuthorizationFilter
     {
-        public AccessType AccessType { get; set; }
         public string ErrorMessageResourceKey { get; set; }
         public IUserRepository UserRepository { get; set; }
 
@@ -38,7 +37,7 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
             }
 
             var user = UserRepository.GetUserByEmail(httpContext.User.Identity.Name);
-            if (!user.HasAccess(AccessType))
+            if (!user.HasStarterAccess())
             {
                 authorizationContext.Result = new ForbiddenResult(ErrorMessageResourceKey);
             }

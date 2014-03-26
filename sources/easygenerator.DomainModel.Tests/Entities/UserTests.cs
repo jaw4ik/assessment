@@ -515,59 +515,45 @@ namespace easygenerator.DomainModel.Tests.Entities
         #region HasStarterAccess
 
         [TestMethod]
-        public void HasAccess_ShouldReturnTrue_WhenCheckForFreeAccessAndUserHasFreeAccessType()
+        public void HasStarterAccess_ShouldReturnFalse_WhenUserHasFreeAccessType()
         {
             //Arrange
             var user = UserObjectMother.Create();
             user.AccessType = AccessType.Free;
 
             //Act
-            var result = user.HasAccess(AccessType.Free);
-
-            //Assert
-            result.Should().BeTrue();
-        }
-
-        [TestMethod]
-        public void HasAccess_ShouldReturnFalse_WhenCheckForStarterAccessAndUserHasFreeAccessType()
-        {
-            //Arrange
-            var user = UserObjectMother.Create();
-            user.AccessType = AccessType.Free;
-
-            //Act
-            var result = user.HasAccess(AccessType.Starter);
+            var result = user.HasStarterAccess();
 
             //Assert
             result.Should().BeFalse();
         }
 
         [TestMethod]
-        public void HasAccess_ShouldReturnTrue_WhenCheckForFreeAccessAndUserAccessTypeIsStarter()
+        public void HasStarterAccess_ShouldReturnTrue_WhenUserAccessTypeIsStarter()
         {
             //Arrange
             var user = UserObjectMother.Create();
             user.AccessType = AccessType.Starter;
 
             //Act
-            var result = user.HasAccess(AccessType.Free);
+            var result = user.HasStarterAccess();
 
             //Assert
             result.Should().BeTrue();
         }
 
         [TestMethod]
-        public void HasAccess_ShouldReturnTrue_WhenCheckForStarterAccessAndUserAccessTypeIsStarter()
+        public void HasStarterAccess_ShouldReturnFalse_WhenUserAccessTypeIsStarterButAccessExpired()
         {
             //Arrange
             var user = UserObjectMother.Create();
             user.AccessType = AccessType.Starter;
-
+            DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
             //Act
-            var result = user.HasAccess(AccessType.Starter);
+            var result = user.HasStarterAccess();
 
             //Assert
-            result.Should().BeTrue();
+            result.Should().BeFalse();
         }
 
         #endregion

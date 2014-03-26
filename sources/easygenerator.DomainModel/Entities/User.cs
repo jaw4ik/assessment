@@ -88,9 +88,17 @@ namespace easygenerator.DomainModel.Entities
             PasswordRecoveryTicketCollection.Remove(ticket);
         }
 
-        public virtual bool HasAccess(AccessType accessType)
+        public virtual bool HasStarterAccess()
         {
-            return AccessType >= accessType;
+            return AccessType == AccessType.Starter && !IsAccessExpired();
+        }
+
+        private bool IsAccessExpired()
+        {
+            if(!ExpirationDate.HasValue)
+                return false;
+
+            return ExpirationDate.Value < DateTimeWrapper.Now();
         }
 
         public virtual void UpdatePassword(string password, string modifiedBy)

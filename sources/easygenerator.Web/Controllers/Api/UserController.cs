@@ -39,7 +39,7 @@ namespace easygenerator.Web.Controllers.Api
             IDomainEventPublisher<UserUpgradedToStarter> userUpgradedToStarterEventPublisher,
             IMailSenderWrapper mailSenderWrapper,
             ConfigurationReader configurationReader,
-			IAim4YouApiService aim4YouService)
+            IAim4YouApiService aim4YouService)
         {
             _repository = repository;
             _entityFactory = entityFactory;
