@@ -55,7 +55,6 @@ namespace easygenerator.Web.Tests.Controllers
             //Arrange
             _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
             _coursePublishingService.GetPublishedResourcePhysicalPath(Arg.Any<string>()).Returns("filePath");
-            _physicalFileManager.GetFileContentType(Arg.Any<string>()).Returns("text/html");
             //Act
             var result = _controller.GetPublishedResource("packageId", "resourceId");
 

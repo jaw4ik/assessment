@@ -50,7 +50,7 @@ namespace easygenerator.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            return File(filePath, _physicalFileManager.GetFileContentType(filePath));
+            return File(filePath, MimeMapping.GetMimeMapping(filePath));
         }
     }
 }

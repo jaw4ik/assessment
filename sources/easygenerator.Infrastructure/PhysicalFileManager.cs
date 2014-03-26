@@ -145,24 +145,6 @@ namespace easygenerator.Infrastructure
             return File.ReadAllBytes(filePath);
         }
 
-        public virtual string GetFileContentType(string filePath)
-        {
-            var fileInfo = new FileInfo(filePath);
-            switch (fileInfo.Extension.ToLower())
-            {
-                case ".png": return "image/png";
-                case ".jpg": return "image/jpeg";
-                case ".jpeg": return "image/jpeg";
-                case ".gif": return "image/gif";
-                case ".html": return "text/html";
-                case ".css": return "text/css";
-                case ".js": return "application/javascript";
-                case ".woff": return "application/font-woff";
-                default:
-                    throw new NotSupportedException("The Specified File Type Is Not Supported");
-            }
-        }
-
         public virtual void ExtractArchiveToDirectory(string archivePath, string destinationPath)
         {
             ZipFile.ExtractToDirectory(archivePath, destinationPath);
