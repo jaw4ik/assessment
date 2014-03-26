@@ -1,0 +1,25 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+
+	<UsingTask TaskName="RidoTasks.trx2html" 
+			   AssemblyFile="..\tools\RidoTasks.dll" />
+
+
+<Target Name="AfterDropBuild">
+
+    <CallTarget Targets="CreateTRXReports" />
+
+</Target>
+
+<Target Name="CreateTRXReports">
+
+   <CreateItem Include="$(DropLocation)\$(BuildNumber)\TestResults\*.trx">
+
+  <Output TaskParameter="Include" ItemName="trxfiles"/>
+
+</CreateItem>
+
+<RidoTasks.trx2html FileName="%(trxfiles.Identity)" />
+
+</Target>
+</Project>
+

@@ -1,0 +1,14 @@
+0.3.0.0
+First Version published @ GotDotNet
+Announce here http://blogs.msdn.com/rido/archive/2006/05/23/trx2html.aspx
+Current Project HomePage http://trx2html.codeplex.com
+
+0.4.0.0
+Added MSBuild Task, and demo code to include in TeamBuild
+
+0.5.0.0
+added support for VS2008
+
+0.6.0.0
+Issues in Firefox solved (thanks to cravens)
+Support for VS2010
