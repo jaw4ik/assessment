@@ -26,7 +26,6 @@
 
         it('should upgrade user to starter plan', function () {
             userContext.identity = jasmine.createSpyObj('identity', ['upgradeToStarter']);
-            userContext.identity.subscription = { accessType: 1 }; // to remove errors from task scheduler in tests
             handler('2014-03-19T12:49:34.7396182Z');
             expect(userContext.identity.upgradeToStarter).toHaveBeenCalled();
         });

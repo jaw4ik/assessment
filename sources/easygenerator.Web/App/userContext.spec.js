@@ -45,7 +45,7 @@
                 it('should reject promise', function (done) {
                     var promise = userContext.identify();
 
-                    promise.fail(function () {                        
+                    promise.fail(function () {
                         done();
                     }).done();
                 });
@@ -120,7 +120,7 @@
 
             });
 
-            describe('when user has free access type', function () {
+            describe('when user has free subscription', function () {
 
                 beforeEach(function () {
                     userContext.identity = {
@@ -136,18 +136,48 @@
 
             });
 
-            describe('when user has starter access type', function () {
+            describe('when user has starter subscription', function () {
 
-                beforeEach(function () {
-                    userContext.identity = {
-                        subscription: {
-                            accessType: constants.accessType.starter
-                        }
-                    };
+                var today = new Date();
+
+                describe('and expiration date has expired', function () {
+
+                    var yesterday = new Date();
+                    yesterday.setDate(today.getDate() - 1);
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.starter,
+                                expirationDate: yesterday
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasStarterAccess()).toBeFalsy();
+                    });
+
                 });
 
-                it('should be false', function () {
-                    expect(userContext.hasStarterAccess()).toBeTruthy();
+                describe('and expiration date has not yet expired', function () {
+
+                    var tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
+                    
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.starter,
+                                expirationDate: tomorrow
+                            }
+                        };
+                    });
+
+                    it('should be true', function () {
+                        expect(userContext.hasStarterAccess()).toBeTruthy();
+                    });
+
                 });
 
             });

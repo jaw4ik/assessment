@@ -21,11 +21,13 @@
     }
 
     function hasStarterAccess() {
-        if (_.isNullOrUndefined(userContext.identity) || _.isNullOrUndefined(userContext.identity.subscription)) {
+        var identity = userContext.identity;
+        if (_.isNullOrUndefined(identity) || _.isNullOrUndefined(identity.subscription)) {
             return false;
         }
 
-        return userContext.identity.subscription.accessType === constants.accessType.starter;
+        var subscription = identity.subscription;
+        return subscription.accessType === constants.accessType.starter && subscription.expirationDate >= new Date();
     }
 
 })
