@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <bundle minify="true" runOnBuild="true" output="vendor.js">
-  <file>/Templates/Quiz/js/jquery-1.9.1.js</file>
-  <file>/Templates/Quiz/js/bootstrap.min.js</file>
-  <file>/Templates/Quiz/js/knockout-2.2.1.js</file>
-  <file>/Templates/Quiz/js/knockoutBindings/focusHandlerBinding.js</file>
-  <file>/Templates/Quiz/js/knockoutBindings/scrollBinding.js</file>
-  <file>/Templates/Quiz/js/circleProgressBinding.js</file>
-  <file>/Templates/Quiz/js/q.js</file>
-  <file>/Templates/Quiz/js/underscore-1.5.1.js</file>
-  <file>/Templates/Quiz/js/underscore.extensions.js</file>  
+  <file>./jquery-1.9.1.js</file>
+  <file>./bootstrap.min.js</file>
+  <file>./knockout-2.2.1.js</file>
+  <file>./knockoutBindings/focusHandlerBinding.js</file>
+  <file>./knockoutBindings/scrollBinding.js</file>
+  <file>./circleProgressBinding.js</file>
+  <file>./q.js</file>
+  <file>./underscore-1.5.1.js</file>
+  <file>./underscore.extensions.js</file>  
 </bundle>

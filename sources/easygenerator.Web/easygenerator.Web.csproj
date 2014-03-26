@@ -1528,10 +1528,10 @@
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>
     <Content Include="Templates\Quiz\js\vendor.min.js">
-      <DependentUpon>vendor.js.bundle</DependentUpon>
+      <DependentUpon>vendor.js</DependentUpon>
     </Content>
     <Content Include="Templates\Quiz\js\vendor.min.js.map">
-      <DependentUpon>vendor.js.bundle</DependentUpon>
+      <DependentUpon>vendor.min.js</DependentUpon>
     </Content>
     <Content Include="Templates\Quiz\publishSettings.js" />
     <Content Include="Templates\Quiz\settings.html" />
@@ -1793,7 +1793,7 @@
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>
     <Content Include="Templates\Simple course\js\vendor.min.js">
-      <DependentUpon>vendor.js.bundle</DependentUpon>
+      <DependentUpon>vendor.js</DependentUpon>
     </Content>
     <Content Include="Templates\Simple course\publishSettings.js" />
     <Content Include="Templates\Simple course\settings.html" />
@@ -1866,7 +1866,7 @@
     </Content>
     <None Include="Templates\Simple course\js\vendor.js.bundle" />
     <Content Include="Templates\Simple course\js\vendor.min.js.map">
-      <DependentUpon>vendor.js.bundle</DependentUpon>
+      <DependentUpon>vendor.min.js</DependentUpon>
     </Content>
     <None Include="weyland-config.js" />
   </ItemGroup>
