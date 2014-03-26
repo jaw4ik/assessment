@@ -92,7 +92,7 @@ input::-moz-focus-inner {
 /*#region COMMON TAGS CSS-STYLES*/
 
 html {
-    overflow: hidden;
+    overflow-y: hidden;
 }
 
 html, body {
