@@ -267,6 +267,10 @@
 
 @media (min-width: 1550px) {
 
+    .nav-back-holder {
+        left: 48px;
+    }
+
     .navigation-tree-wrapper {
         display: block;
         position: absolute;
