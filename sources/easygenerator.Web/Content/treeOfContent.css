@@ -5,7 +5,7 @@
 }
 
     .navigation-tree-wrapper.expanded {
-        box-shadow: 3px 1px 3px #dedede;
+        border-right: 1px solid #dedede;
     }
 
 .navigation-tree-wrapper-inner {
@@ -30,7 +30,7 @@
 
     .navigation-tree.collapsed {
         width: 50px;
-        box-shadow: 3px 1px 3px #dedede;
+        border-right: 1px solid #dedede;
     }
 
         .navigation-tree.collapsed:hover {
@@ -88,6 +88,9 @@
     overflow-y: auto;
 }
 
+    .navigation-tree-content > ul {
+        border-bottom: 1px solid #E1E1E1;
+    }
 
 .navigation-tree-node-container {
     list-style: none;
@@ -97,8 +100,6 @@
     display: table;
     table-layout: fixed;
     width: 100%;
-    border-bottom: 1px solid #E1E1E1;
-    border-top: 1px solid #FFFFFF;
 }
 
     .navigation-tree-node-caption-wrapper.disabled {
@@ -265,7 +266,7 @@
     .content-area-wrapper {
         padding-left: 50px;
     }
-    
+
     .navigation-tree-wrapper {
         display: block;
         position: absolute;
@@ -276,5 +277,4 @@
     .content-wrapper {
         max-width: 930px;
     }
-
 }
