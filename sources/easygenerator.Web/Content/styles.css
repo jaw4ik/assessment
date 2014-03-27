@@ -139,7 +139,7 @@
 /*#region HEADER */
 
 .header {
-    min-width: 900px;
+    min-width: 700px;
     background-color: rgb(57, 57,57);
     font-family: 'OpenSans';
 }
@@ -356,7 +356,7 @@
     display: block;
     position: absolute;
     top: 0;
-    left: 0;
+    left: 48px;
     width: 78px;
     height: 100%;
     color: rgb(163, 180, 200);

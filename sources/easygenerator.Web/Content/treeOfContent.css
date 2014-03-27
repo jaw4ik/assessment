@@ -131,9 +131,13 @@
     color: #303133;
 }
 
-.navigation-tree-node-caption-wrapper.expanded .navigation-tree-node-caption {
-    color: #111111;
+.navigation-tree-node-caption-wrapper.expanded {
+    border-bottom: 1px solid #dedede;
 }
+
+    .navigation-tree-node-caption-wrapper.expanded .navigation-tree-node-caption {
+        color: #111111;
+    }
 
 .navigation-tree-node-caption-wrapper.active .navigation-tree-node-caption {
     cursor: default;
@@ -262,10 +266,6 @@
 }
 
 @media (min-width: 1550px) {
-
-    .content-area-wrapper {
-        padding-left: 50px;
-    }
 
     .navigation-tree-wrapper {
         display: block;
