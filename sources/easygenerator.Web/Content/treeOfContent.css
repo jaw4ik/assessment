@@ -267,7 +267,7 @@
 
 @media (min-width: 1550px) {
 
-    .nav-back-holder {
+    .navigation-tree-shown-mode .nav-back-holder {
         left: 48px;
     }
 
