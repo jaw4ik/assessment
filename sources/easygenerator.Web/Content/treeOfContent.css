@@ -100,6 +100,9 @@
     display: table;
     table-layout: fixed;
     width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
     .navigation-tree-node-caption-wrapper.disabled {
@@ -114,10 +117,10 @@
         }
 
     .navigation-tree-node-caption-wrapper.active {
-        background-color: #e1e9bc !important;
-        border-bottom: 2px solid #adc733 !important;
+        background-color: #fffddd !important;
+        border-top: 1px solid #dedede !important;
+        border-bottom: 3px solid #adc733 !important;
     }
-
 
 .navigation-tree-node-caption {
     position: relative;
@@ -237,7 +240,7 @@
     .navigation-tree-node-icon.create:before {
         width: 15px;
         height: 15px;
-        background: url('images/sprites.png') -59px -267px;
+        background: url('images/sprites.png') -270px -249px
     }
 
     .navigation-tree-node-icon.expand:before {
@@ -256,14 +259,6 @@
     .navigation-tree-node-icon.collapse:hover {
         background-color: #E8E8E8;
     }
-
-.navigation-tree-node-caption-wrapper:hover .navigation-tree-node-icon.create:before {
-    background: url('images/sprites.png') -35px -267px;
-}
-
-.navigation-tree-node-caption-wrapper.disabled:hover .navigation-tree-node-icon.create:before {
-    background: url('images/sprites.png') -59px -267px;
-}
 
 @media (min-width: 1550px) {
 
