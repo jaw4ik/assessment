@@ -12,18 +12,10 @@
         Dear <span data-bind="text: firstname">User</span>, your "Starter plan" subscription will expire
         <span data-bind="visible: (amountOfDays != 0) || (amountOfDays == 0 && !isToday)">in</span>
         <strong>
-            <!--ko if: amountOfDays == 0 && isToday -->
-            <span>today</span>
-            <!-- /ko -->
-            <!--ko if: amountOfDays == 0 && !isToday -->
-            <span>1 day</span>
-            <!-- /ko -->
-            <!--ko if: amountOfDays == 1 && !isToday -->
-            <span>1 day</span>
-            <!-- /ko -->
-            <!--ko if: amountOfDays > 1 -->
-            <span data-bind="text: amountOfDays"></span>
-            days<!-- /ko --></strong>.
+            <!--ko if: amountOfDays == 0 && isToday --><span>today</span><!-- /ko -->
+            <!--ko if: amountOfDays == 0 && !isToday --><span>1 day</span><!-- /ko -->
+            <!--ko if: amountOfDays == 1 && !isToday --><span>1 day</span><!-- /ko -->
+            <!--ko if: amountOfDays > 1 --><span data-bind="text: amountOfDays"></span>days<!-- /ko --></strong>.
         If you want to extend the usage of this license, you have to purchase a license for the next period.
         Please extend your subscription by purchasing the license.
     </div>
