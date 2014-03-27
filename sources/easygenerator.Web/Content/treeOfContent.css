@@ -240,7 +240,7 @@
     .navigation-tree-node-icon.create:before {
         width: 15px;
         height: 15px;
-        background: url('images/sprites.png') -270px -249px
+        background: url('images/sprites.png') -268px -249px
     }
 
     .navigation-tree-node-icon.expand:before {
