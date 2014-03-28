@@ -17,7 +17,8 @@
         {
             route: 'summary',
             moduleId: 'viewmodels/summary',
-            title: 'Summary'
+            title: 'Summary',
+            rootLinkDisabled: true
         },
         {
             route: '404',
