@@ -198,15 +198,16 @@
         cursor: default;
     }
 
-        .header-menu-list-item.help.disabled,
-        .header-menu-list-item.help.disabled:hover {
-            opacity: 0.2;
-            text-decoration: none;
-        }
 
 .header-help-hint-btn:hover {
     text-decoration: underline;
     opacity: .5;
+}
+
+.header-help-hint-btn.disabled,
+.header-help-hint-btn.disabled:hover {
+    opacity: 0.2;
+    text-decoration: none;
 }
 
 .header-menu-list-item.profile {
@@ -1471,9 +1472,9 @@ span.top-navigation-item.current {
     background: url(../Content/images/sprites.png) -79px -267px;
 }
 
-.user-notification-close-btn:hover{
-    background-color: #f7f7f7
-}
+    .user-notification-close-btn:hover {
+        background-color: #f7f7f7;
+    }
 
 .user-notification-wrapper {
     margin-bottom: 14px;
