@@ -414,19 +414,19 @@
     font-family: 'OpenSans';
 }
 
-a.top-navigation-item:hover {
-    background: rgb(46,46,46);
-}
-
-.top-navigation-item.current {
-    background: rgb(37,37,37);
-    color: #ffffff;
-    font-family: 'OpenSans-Semibold';
-}
-
-    .top-navigation-item.current.cursor-pointer {
-        cursor: pointer;
+    .top-navigation-item:hover {
+        background: rgb(46,46,46);
     }
+
+    .top-navigation-item.current {
+        background: rgb(37,37,37);
+        color: #ffffff;
+        font-family: 'OpenSans-Semibold';
+    }
+
+        .top-navigation-item.current.cursor-pointer {
+            cursor: pointer;
+        }
 
 span.top-navigation-item.current {
     cursor: default;
