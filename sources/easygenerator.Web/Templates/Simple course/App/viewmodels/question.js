@@ -8,6 +8,7 @@
             content: null,
             answers: [],
             learningContents: [],
+            isExpanded: ko.observable(),
             isAnswered: ko.observable(false),
             isCorrect: ko.observable(false),
             startTime: null,
@@ -15,13 +16,15 @@
 
             submit: submit,
             checkItem: checkItem,
+            toggleExpand: toggleExpand,
             tryAnswerAgain: tryAnswerAgain,
             activate: activate,
             deactivate: deactivate
         };
 
         viewModel.isLoadingNewQuestion = ko.computed(function () {
-           return router.isNavigating();
+            viewModel.isExpanded(true);
+            return router.isNavigating();
         });
 
         viewModel.isNextQuestionAvailable = function () {
@@ -99,17 +102,21 @@
             item.isChecked(!item.isChecked());
         }
 
+        function toggleExpand() {
+            return viewModel.isExpanded(!viewModel.isExpanded());
+        };
+
         function submit() {
             var question = repository.get(viewModel.objective.id, viewModel.questionId);
 
             question.submitAnswer(
-                _.chain(viewModel.answers)
-                .filter(function (item) {
-                    return item.isChecked();
-                })
-                .map(function (item) {
-                    return item.id;
-                }).value());
+				_.chain(viewModel.answers)
+				.filter(function (item) {
+				    return item.isChecked();
+				})
+				.map(function (item) {
+				    return item.id;
+				}).value());
 
             viewModel.isAnswered(question.isAnswered);
             viewModel.isCorrect(question.isCorrectAnswered);

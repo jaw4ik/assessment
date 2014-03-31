@@ -39,11 +39,13 @@
         <!-- ko ifnot: isLoadingNewQuestion -->
         <!-- ko if: learningContents.length > 0 -->
         <div class="learning-content-section">
-            <div class="learning-content-title">
+            <div class="learning-content-title" data-bind="click: toggleExpand, css: { 'expanded' : isExpanded }">
                 Learning content
             </div>
-
-            <!-- ko compose: 'learningContents.html'-->
+            
+            <!-- ko if: isExpanded -->
+                <!-- ko compose: 'learningContents.html'-->
+                <!-- /ko -->
             <!-- /ko -->
 
         </div>
