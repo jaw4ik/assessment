@@ -18,12 +18,7 @@ namespace easygenerator.Web.Components
         public static string GetCountryName(string countryCode)
         {
             countryCode = countryCode.ToUpper().Trim();
-            if (string.Equals(countryCode, "GB"))
-                return "United Kingdom";
-            else
-            {
-                return CountriesInfoDictionary.SingleOrDefault(i => i.Value.CountryCode == countryCode).Key;
-            }
+            return CountriesInfoDictionary.SingleOrDefault(i => i.Value.CountryCode == countryCode).Key;
         }
 
         private static readonly Dictionary<string, dynamic> CountriesInfoDictionary = new Dictionary<string, dynamic>()
@@ -83,7 +78,6 @@ namespace easygenerator.Web.Components
             {"Ecuador", new { PhoneCode = "+593", CountryCode = "EC" }},
             {"Egypt", new { PhoneCode = "+20", CountryCode = "EG" }},
             {"El Salvador", new { PhoneCode = "+503", CountryCode = "SV" }},
-            {"England", new { PhoneCode = "+44", CountryCode = "GB" }},
             {"Equatorial Guinea", new { PhoneCode = "+240", CountryCode = "GQ" }},
             {"Eritrea", new { PhoneCode = "+291", CountryCode = "ER" }},
             {"Estonia", new { PhoneCode = "+372", CountryCode = "EE" }},
@@ -124,7 +118,6 @@ namespace easygenerator.Web.Components
             {"Kiribati", new { PhoneCode = "+686", CountryCode = "KI" }},
             {"Korea, North", new { PhoneCode = "+850", CountryCode = "KP" }},
             {"Korea, South", new { PhoneCode = "+82", CountryCode = "KR" }},
-            {"Kosovo", new { PhoneCode = "+381", CountryCode = "RS" }},
             {"Kuwait", new { PhoneCode = "+965", CountryCode = "KW" }},
             {"Kyrgyzstan", new { PhoneCode = "+996", CountryCode = "KG" }},
             {"Laos", new { PhoneCode = "+856", CountryCode = "LA" }},
@@ -186,7 +179,6 @@ namespace easygenerator.Web.Components
             {"Samoa", new { PhoneCode = "+685", CountryCode = "WS" }},
             {"San Marino", new { PhoneCode = "+378", CountryCode = "SM" }},
             {"Saudi Arabia", new { PhoneCode = "+966", CountryCode = "SA" }},
-            {"Scotland", new { PhoneCode = "+44", CountryCode = "GB" }},
             {"Senegal", new { PhoneCode = "+221", CountryCode = "SN" }},
             {"Serbia", new { PhoneCode = "+381", CountryCode = "RS" }},
             {"Seychelles", new { PhoneCode = "+248", CountryCode = "SC" }},
@@ -227,7 +219,6 @@ namespace easygenerator.Web.Components
             {"Vatican City", new { PhoneCode = "+379", CountryCode = "VA" }},
             {"Venezuela", new { PhoneCode = "+58", CountryCode = "VE" }},
             {"Vietnam", new { PhoneCode = "+84", CountryCode = "VN" }},
-            {"Wales", new { PhoneCode = "+44", CountryCode = "GB" }},
             {"Yemen", new { PhoneCode = "+967", CountryCode = "YE" }},
             {"Zambia", new { PhoneCode = "+260", CountryCode = "ZM" }},
             {"Zimbabwe", new { PhoneCode = "+263", CountryCode = "ZW" }}

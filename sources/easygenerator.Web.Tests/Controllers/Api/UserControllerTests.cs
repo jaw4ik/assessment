@@ -196,19 +196,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("country");
         }
 
-        [TestMethod]
-        public void Update_ShouldReturnUnitedKingdom_WhenCountryCodeIs_GB()
-        {
-            const string email = "test@test.test";
-            const string country = "GB";
-            var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(email).Returns(user);
-
-            var result = _controller.Update(email, country: country);
-
-            user.Received().UpdateCountry("United Kingdom", email);
-        }
-
         #endregion
 
         #region Downgrade
