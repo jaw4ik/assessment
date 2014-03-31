@@ -210,9 +210,9 @@
 }
 
 .template-settings-block {
-    float: left;
+    float: right;
     width: 48%;
-    max-width: 400px;
+    max-width: 450px;
     min-width: 315px;
 }
 
