@@ -88,10 +88,6 @@
                     router.on('router:route:activating').then(function () {
                         viewModel.isViewReady(false);
 
-                        composition.current.complete(function () {
-                            viewModel.isViewReady(true);
-                        });
-
                         var activeModuleId = router.routeData().moduleName;
                         var hasCourseId = router.routeData().courseId != null;
 

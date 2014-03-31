@@ -94,7 +94,7 @@
                             <div class="view-content" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }">
                                 <div class="content-container">
                                     <div class="content-wrapper">
-                                        <div data-bind="router: { cacheViews: false }"></div>
+                                        <div data-bind="router: { cacheViews: false, transition: 'defaultRouterTransition' }"></div>
                                         <div data-bind="widget: { kind: 'uiLockViewer' }"></div>
                                     </div>
                                 </div>
