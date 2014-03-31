@@ -13,6 +13,10 @@
     position: absolute;
 }
 
+.notify-holder {
+    height: 0;
+}
+
 .notify-wrapper {
     width: 100%;
     display: inline-block;

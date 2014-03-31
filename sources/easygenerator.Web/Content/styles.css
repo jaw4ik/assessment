@@ -1455,7 +1455,7 @@ span.top-navigation-item.current {
     min-height: 38px;
     width: 345px;
     top: 57px;
-    left: -45px;
+    right: -45px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-top: none;
