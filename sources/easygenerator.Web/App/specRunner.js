@@ -53,6 +53,7 @@
 
         'viewmodels/courses/createCourse.spec',
         'viewmodels/courses/courses.spec',
+        'viewmodels/courses/course.spec',
 
 
         'synchronization/handlers/userDowngraded.spec',
@@ -73,7 +74,7 @@
        'viewmodels/questions/answers.spec',
        'viewmodels/questions/learningContents.spec',
        
-       'viewmodels/courses/course.spec',
+       
        'viewmodels/courses/design.spec',
        'viewmodels/courses/deliver.spec',
        'viewmodels/courses/deliveringActions/deliveringAction.spec',
