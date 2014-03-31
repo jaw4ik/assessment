@@ -10863,10 +10863,10 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
         return _.isUndefined(obj) || _.isNull(obj);
     };
 
-    _.isEmptyHtmlText = function(obj) {
-        var removeTagsRegex = /<\s*p\s*>(\s|&nbsp;|<\/?\s?br\s?\/?>)*<\s*\/p\s*>|<\s*p\s*\/>|(\s|&nbsp;|<\/?\s?br\s?\/?>)*/g;
-        var textWithoutTagsAndWhiteSpace = obj.replace(removeTagsRegex, '').trim();
-        return _.isEmpty(textWithoutTagsAndWhiteSpace);
+    var htmlText = $('<div/>');
+
+    _.isEmptyHtmlText = function (obj) {
+        return _.isEmpty(htmlText.html(obj).text().trim());
     };
 
 })();
