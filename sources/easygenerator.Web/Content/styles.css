@@ -48,6 +48,15 @@
     overflow: auto;
 }
 
+    .view-content-holder .view-content-holder:before {
+        content: '';
+        display: block;
+        margin: 0 35px;
+        position: relative;
+        max-width: 920px;
+        min-width: 650px;
+    }
+
 .content-wrapper {
     min-width: 600px;
     max-width: 1280px;

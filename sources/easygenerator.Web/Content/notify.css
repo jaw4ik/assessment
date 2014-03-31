@@ -7,10 +7,22 @@
         position: relative;
     }
 
+.notification-holder {
+    top: 0;
+    width: 100%;
+    position: absolute;
+}
+
+.notify-wrapper {
+    width: 100%;
+    display: inline-block;
+}
+
 .notification-container {
     margin-top: 6px;
     position: absolute;
     right: 0;
+    top: -17px;
     z-index: 150;
 }
 
@@ -79,14 +91,14 @@
     color: #b94a48;
 }
 
-    .notification.info .notification-text:after {
-        background-position: -240px -196px;
-    }
+.notification.info .notification-text:after {
+    background-position: -240px -196px;
+}
 
-    .notification.success .notification-text:after {
-        background-position: -180px -196px;
-    }
+.notification.success .notification-text:after {
+    background-position: -180px -196px;
+}
 
-    .notification.error .notification-text:after {
-        background-position: -211px -196px;
-    }
+.notification.error .notification-text:after {
+    background-position: -211px -196px;
+}
