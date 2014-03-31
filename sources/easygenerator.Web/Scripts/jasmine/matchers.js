@@ -241,7 +241,7 @@ function toBeObservableArray(util, customEqualityTesters) {
         compare: function (actual) {
 
             var result = {};
-            result.pass = ko.isObservable(actual) && utils.equals(ko.unwrap(actual), jasmine.any(Array), customEqualityTesters);
+            result.pass = ko.isObservable(actual) && util.equals(ko.unwrap(actual), jasmine.any(Array), customEqualityTesters);
 
             if (result.pass) {
                 result.message = "Ok";
@@ -279,9 +279,9 @@ function toBeArray(util, customEqualityTesters) {
             var result = {};
 
             if (hasLengthRestriction) {
-                result.pass = utils.equals(ko.unwrap(actual), jasmine.any(Array), customEqualityTesters) && actual.length === length;
+                result.pass = util.equals(ko.unwrap(actual), jasmine.any(Array), customEqualityTesters) && actual.length === length;
             } else {
-                result.pass = utils.equals(ko.unwrap(actual), jasmine.any(Array), customEqualityTesters);
+                result.pass = util.equals(ko.unwrap(actual), jasmine.any(Array), customEqualityTesters);
             }
 
             if (result.pass) {
@@ -304,7 +304,7 @@ function toBeString(util, customEqualityTesters) {
         compare: function (actual) {
 
             var result = {};
-            result.pass = utils.equals(ko.unwrap(actual), jasmine.any(String), customEqualityTesters);
+            result.pass = util.equals(ko.unwrap(actual), jasmine.any(String), customEqualityTesters);
 
             if (result.pass) {
                 result.message = "Ok";

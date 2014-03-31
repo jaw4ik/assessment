@@ -51,6 +51,8 @@
         'routing/routerExtender.spec',
         'services/deliverService.spec',
 
+        'viewmodels/courses/createCourse.spec',
+
 
         'synchronization/handlers/userDowngraded.spec',
         'synchronization/handlers/userUpgradedToStarter.spec'
@@ -77,7 +79,7 @@
        'viewmodels/courses/deliveringActions/build.spec',
        'viewmodels/courses/deliveringActions/publish.spec',
        'viewmodels/courses/deliveringActions/scormBuild.spec',
-       'viewmodels/courses/createCourse.spec',       
+       
        '../Scripts/account/signup.spec',
        '../Scripts/account/signin.spec',
        '../Scripts/review/review.spec',
