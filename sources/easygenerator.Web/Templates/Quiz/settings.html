@@ -815,8 +815,7 @@
                 dataType: 'json',
                 success: function (user) {
                     if (user.hasOwnProperty('subscription') && user.subscription.hasOwnProperty('accessType')) {
-                        var currDate = new Date();
-                        var hasStarterAccess = user.subscription.accessType == starterAccessType && user.subscription.expirationDate >= currDate.toISOString();
+                        var hasStarterAccess = user.subscription.accessType == starterAccessType && new Date(user.subscription.expirationDate) >= new Date();
                         viewModel.hasStarterPlan(hasStarterAccess);
                     } else {
                         viewModel.hasStarterPlan(false);
