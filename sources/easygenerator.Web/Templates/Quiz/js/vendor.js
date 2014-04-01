@@ -12864,7 +12864,7 @@ return Q;
     };
 
     _.isEmptyHtmlText = function (obj) {
-        var removeTagsRegex = /<\s*p\s*>(\s|&nbsp;|<\/?\s?br\s?\/?>)*<\s*\/p\s*>|<\s*p\s*\/>|(\s|&nbsp;|<\/?\s?br\s?\/?>)*/g;
+        var removeTagsRegex = /<\s*p?|(div)?\s*>(\s|&nbsp;|<\/?\s?br\s?\/?>)*<\s*\/p?|(div)?\s*>|<\s*p?|(div)?\s*\/>|(\s|&nbsp;|<\/?\s?br\s?\/?>)*/g;
         var textWithoutTagsAndWhiteSpace = obj.replace(removeTagsRegex, '').trim();
         return _.isEmpty(textWithoutTagsAndWhiteSpace);
     };
