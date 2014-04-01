@@ -1459,6 +1459,7 @@ span.top-navigation-item.current {
     background-color: #fff;
     border: 1px solid #ddd;
     border-top: none;
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
     font-size: 12px;
     font-family: 'OpenSans';
     color: #303133;

@@ -100,7 +100,7 @@
     display: table;
     table-layout: fixed;
     width: 100%;
-    border-left: 2px solid white;
+    border-left: 3px solid white;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -115,16 +115,18 @@
         .navigation-tree-node-caption-wrapper.disabled:hover .navigation-tree-node-icon {
             background-color: inherit;
             cursor: default;
+            border-left-color: transparent;
         }
 
     .navigation-tree-node-caption-wrapper:hover {
         border-left-color: #E8E8E8;
+        background-color: #E8E8E8;
     }
 
     .navigation-tree-node-caption-wrapper.active {
         background-color: #fffddd !important;
         border-top: 1px solid #dedede !important;
-        border-left: 2px solid #f59957;
+        border-left: 3px solid #f59957;
         border-bottom: 1px solid #dedede !important;
     }
 
