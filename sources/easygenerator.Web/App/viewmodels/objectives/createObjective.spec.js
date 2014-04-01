@@ -2,12 +2,14 @@
     function (viewModel) {
         "use strict";
 
-        var router = require('plugins/router'),
+        var
+            router = require('plugins/router'),
             notify = require('notify'),
             uiLocker = require('uiLocker'),
             courseRepository = require('repositories/courseRepository'),
             eventTracker = require('eventTracker'),
-            localizationManager = require('localization/localizationManager');
+            localizationManager = require('localization/localizationManager'),
+            backButton = require('controls/backButton/backButton');
 
         describe('viewModel [createObjective]', function () {
 
@@ -245,42 +247,28 @@
                 });
             });
 
-            describe('navigateBack:', function () {
+            describe('navigateToCourseEvent:', function() {
 
-                describe('when contextCourseId is not string', function () {
-
-                    beforeEach(function () {
-                        viewModel.contextCourseId = null;
-                    });
-
-                    it('should send event \'Navigate to objectives\'', function () {
-                        viewModel.navigateBack();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives');
-                    });
-
-                    it('should navigate to #objectives', function () {
-                        viewModel.navigateBack();
-                        expect(router.navigate).toHaveBeenCalledWith('objectives');
-                    });
-
+                it('should be function', function() {
+                    expect(viewModel.navigateToCourseEvent).toBeFunction();
                 });
 
-                describe('when contextCourseId is string', function () {
+                it('should send event \'Navigate to course\'', function () {
+                    viewModel.navigateToCourseEvent();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to course');
+                });
 
-                    beforeEach(function () {
-                        viewModel.contextCourseId = 'id';
-                    });
+            });
 
-                    it('should send event \'Navigate to course\'', function () {
-                        viewModel.navigateBack();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to course');
-                    });
+            describe('navigateToObjectivesEvent:', function () {
 
-                    it('should navigate to #course/id', function () {
-                        viewModel.navigateBack();
-                        expect(router.navigate).toHaveBeenCalledWith('course/' + viewModel.contextCourseId);
-                    });
+                it('should be function', function () {
+                    expect(viewModel.navigateToObjectivesEvent).toBeFunction();
+                });
 
+                it('should send event \'Navigate to objectives\'', function () {
+                    viewModel.navigateToObjectivesEvent();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives');
                 });
 
             });
@@ -324,27 +312,16 @@
                         });
                     });
 
-                    it('should set goBackTooltip to \'Back to objectives\'', function () {
-                        spyOn(localizationManager, 'localize').andReturn('text');
+                    it('should enable back button', function () {
+                        spyOn(backButton, 'enable');
+                        spyOn(localizationManager, 'localize').and.returnValue('text');
 
                         var promise = viewModel.activate();
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeResolved();
-                            expect(viewModel.goBackTooltip).toEqual('text text');
-                        });
-                    });
-
-                    it('should set goBackLink to objectives', function () {
-                        var promise = viewModel.activate();
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeResolved();
-                            expect(viewModel.goBackLink).toEqual('#objectives');
+                            expect(backButton.enable).toHaveBeenCalledWith('text text', 'objectives', viewModel.navigateToObjectivesEvent);
                         });
                     });
 
@@ -454,27 +431,16 @@
                                 });
                             });
                             
-                            it('should set goBackTooltip to \'Back to course\'', function () {
-                                spyOn(localizationManager, 'localize').andReturn('text');
-                                
+                            it('should enable back button', function () {
+                                spyOn(backButton, 'enable');
+                                spyOn(localizationManager, 'localize').and.returnValue('text');
+
                                 var promise = viewModel.activate(queryParams);
-                                waitsFor(function () {
+                                waitsFor(function() {
                                     return !promise.isPending();
                                 });
-                                runs(function () {
-                                    expect(promise).toBeResolved();
-                                    expect(viewModel.goBackTooltip).toEqual('text' + ' \'' + course.title + '\'');
-                                });
-                            });
-                            
-                            it('should set goBackLink to course', function () {
-                                var promise = viewModel.activate(queryParams);
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeResolved();
-                                    expect(viewModel.goBackLink).toEqual('#course/' + course.id);
+                                runs(function() {
+                                    expect(backButton.enable).toHaveBeenCalledWith('text' + ' \'' + course.title + '\'', 'course/' + course.id, viewModel.navigateToCourseEvent);
                                 });
                             });
 
@@ -516,27 +482,16 @@
                             });
                         });
 
-                        it('should set goBackTooltip to \'Back to objectives\'', function () {
-                            spyOn(localizationManager, 'localize').andReturn('text');
+                        it('should enable back button', function () {
+                            spyOn(backButton, 'enable');
+                            spyOn(localizationManager, 'localize').and.returnValue('text');
 
                             var promise = viewModel.activate(queryParams);
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise).toBeResolved();
-                                expect(viewModel.goBackTooltip).toEqual('text text');
-                            });
-                        });
-
-                        it('should set goBackLink to objectives', function () {
-                            var promise = viewModel.activate(queryParams);
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeResolved();
-                                expect(viewModel.goBackLink).toEqual('#objectives');
+                                expect(backButton.enable).toHaveBeenCalledWith('text text', 'objectives', viewModel.navigateToObjectivesEvent);
                             });
                         });
 
@@ -574,12 +529,6 @@
             describe('contextCourseId:', function () {
                 it('should be defined', function () {
                     expect(viewModel.contextCourseId).toBeDefined();
-                });
-            });
-
-            describe('goBackTooltip:', function () {
-                it('should be defined', function () {
-                    expect(viewModel.goBackTooltip).toBeDefined();
                 });
             });
 

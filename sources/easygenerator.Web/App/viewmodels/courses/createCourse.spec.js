@@ -7,7 +7,8 @@
         uiLocker = require('uiLocker'),
         repository = require('repositories/courseRepository'),
         templateRepository = require('repositories/templateRepository'),
-        localizationManager = require('localization/localizationManager')
+        localizationManager = require('localization/localizationManager'),
+        backButton = require('controls/backButton/backButton')
     ;
 
     describe('viewModel [createCourse]', function () {
@@ -98,14 +99,6 @@
                     expect(viewModel.title.isValid()).toBeFalsy();
                 });
 
-            });
-
-        });
-
-        describe('goBackTooltip:', function () {
-
-            it('should be defined', function () {
-                expect(viewModel.goBackTooltip).toBeDefined();
             });
 
         });
@@ -326,15 +319,15 @@
 
         });
 
-        describe('navigateToCourses:', function () {
+        describe('navigateToCoursesEvent:', function () {
 
             it('should be function', function () {
-                expect(viewModel.navigateToCourses).toBeFunction();
+                expect(viewModel.navigateToCoursesEvent).toBeFunction();
             });
 
-            it('should navigate to #courses', function () {
-                viewModel.navigateToCourses();
-                expect(router.navigate).toHaveBeenCalledWith('courses');
+            it('should send event \'Navigate to courses\'', function () {
+                viewModel.navigateToCoursesEvent();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to courses');
             });
 
         });
@@ -350,10 +343,11 @@
                 expect(result).toBePromise();
             });
 
-            it('should set goBackTooltip', function () {
+            it('should enable back button', function () {
+                spyOn(backButton, 'enable');
                 spyOn(localizationManager, 'localize').and.returnValue('text');
-                viewModel.activate();
-                expect(viewModel.goBackTooltip).toEqual('text text');
+                viewModel.activate('SomeId');
+                expect(backButton.enable).toHaveBeenCalledWith('text text', 'courses', viewModel.navigateToCoursesEvent);
             });
 
             it('should clear title field', function () {

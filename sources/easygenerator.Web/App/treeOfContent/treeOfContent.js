@@ -29,10 +29,12 @@
         function expand() {
             viewModel.isExpanded(true);
             viewModel.isTreeVisible(true);
+            app.trigger('treeOfContent:expanded');
         }
 
         function collapse() {
             viewModel.isExpanded(false);
+            app.trigger('treeOfContent:collapsed');
         }
 
         function onCollapsed() {

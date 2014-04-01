@@ -1,9 +1,7 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/deliverService', 'viewmodels/objectives/objectiveBrief',
-        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext'],
-    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext) {
+        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'controls/backButton/backButton'],
+    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, backButton) {
         "use strict";
-
-        var goBackTooltip = '';
 
         var
             events = {
@@ -53,8 +51,7 @@
 
             navigateToObjectiveDetails: navigateToObjectiveDetails,
             navigateToCreateObjective: navigateToCreateObjective,
-            goBackTooltip: goBackTooltip,
-            navigateToCourses: navigateToCourses,
+            navigateToCoursesEvent: navigateToCoursesEvent,
 
             toggleObjectiveSelection: toggleObjectiveSelection,
             startEditTitle: startEditTitle,
@@ -87,9 +84,8 @@
 
         return viewModel;
 
-        function navigateToCourses() {
+        function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);
-            router.navigate('courses');
         }
 
         function navigateToObjectiveDetails(objective) {
@@ -252,7 +248,9 @@
 
         function activate(courseId) {
             viewModel.language(localizationManager.currentLanguage);
-            viewModel.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
+
+            var goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
+            backButton.enable(goBackTooltip, 'courses', navigateToCoursesEvent);
 
             var that = viewModel;
             return repository.getById(courseId).then(function (course) {

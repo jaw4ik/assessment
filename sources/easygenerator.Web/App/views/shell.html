@@ -97,7 +97,9 @@
                             </div>
                             <div class="view-content" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }">
                                 <div class="content-container">
-                                    <div class="content-wrapper">
+                                    <!-- ko compose: { model: 'controls/backButton/backButton' } -->
+                                    <!-- /ko -->
+                                    <div class="tb-cell content-wrapper">
                                         <div data-bind="router: { cacheViews: false, transition: 'defaultRouterTransition' }"></div>
                                         <div data-bind="widget: { kind: 'uiLockViewer' }"></div>
                                     </div>

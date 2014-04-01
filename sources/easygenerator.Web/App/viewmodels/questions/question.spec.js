@@ -9,7 +9,8 @@ define(function (require) {
         objectiveRepository = require('repositories/objectiveRepository'),
         notify = require('notify'),
         http = require('plugins/http'),
-        localizationManager = require('localization/localizationManager');
+        localizationManager = require('localization/localizationManager'),
+        backButton = require('controls/backButton/backButton');
 
     var question = {
         id: '1',
@@ -122,29 +123,17 @@ define(function (require) {
             });
         });
 
-        describe('goBackTooltip:', function () {
-            it('should be defined', function () {
-                expect(viewModel.goBackTooltip).toBeDefined();
-            });
-        });
-
-        describe('navigateToObjective:', function() {
+        describe('navigateToObjectiveEvent:', function() {
 
             it('should be function', function () {
-                expect(viewModel.navigateToObjective).toBeFunction();
+                expect(viewModel.navigateToObjectiveEvent).toBeFunction();
             });
 
             it('should send event \'Navigate to courses\'', function () {
-                viewModel.navigateToObjective();
+                viewModel.navigateToObjectiveEvent();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective');
             });
 
-            it('should navigate to objective', function () {
-                viewModel.objectiveId = 'Id1';
-                
-                viewModel.navigateToObjective();
-                expect(router.navigateWithQueryString).toHaveBeenCalledWith('objective/Id1');
-            });
         });
 
         describe('questionTitleMaxLength:', function () {
@@ -417,22 +406,53 @@ define(function (require) {
                     expect(viewModel.learningContents).toBeDefined();
                 });
             });
-            
-            it('should set goBackTooltip to objective', function () {
-                spyOn(localizationManager, 'localize').andReturn('text');
 
-                var promise = viewModel.activate(objective.id, question.id);
+            describe('when queryParams is undefined', function() {
 
-                getObjectiveByIdDeferred.resolve(objectiveFull);
-                getQuestionByIdDeferred.resolve(question);
+                var queryParams = undefined;
 
-                waitsFor(function () {
-                    return !promise.isPending();
+                it('should enable back button with constant visibility', function () {
+                    spyOn(backButton, 'enable');
+                    spyOn(localizationManager, 'localize').and.returnValue('text');
+
+                    var promise = viewModel.activate(objective.id, question.id, queryParams);
+
+                    getObjectiveByIdDeferred.resolve(objectiveFull);
+                    getQuestionByIdDeferred.resolve(question);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(backButton.enable).toHaveBeenCalledWith('text' + ' \'' + objectiveFull.title + '\'', 'objective/' + objectiveFull.id, viewModel.navigateToObjectiveEvent, true);
+                    });
                 });
-                runs(function () {
-                    expect(viewModel.goBackTooltip).toBe('text' + ' \'' + objectiveFull.title + '\'');
-                });
+
             });
+
+            describe('when queryParams is defined', function () {
+
+                var queryParams = { courseId: '1' };
+
+                it('should enable back button without constant visibility', function () {
+                    spyOn(backButton, 'enable');
+                    spyOn(localizationManager, 'localize').and.returnValue('text');
+
+                    var promise = viewModel.activate(objective.id, question.id, queryParams);
+
+                    getObjectiveByIdDeferred.resolve(objectiveFull);
+                    getQuestionByIdDeferred.resolve(question);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(backButton.enable).toHaveBeenCalledWith('text' + ' \'' + objectiveFull.title + '\'', 'objective/' + objectiveFull.id, viewModel.navigateToObjectiveEvent, false);
+                    });
+                });
+
+            });
+
         });
 
         describe('language:', function () {

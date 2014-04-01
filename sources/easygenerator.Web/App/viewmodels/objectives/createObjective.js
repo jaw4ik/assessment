@@ -1,5 +1,6 @@
-﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'notify', 'uiLocker', 'localization/localizationManager', 'repositories/courseRepository'],
-    function (objectiveRepository, router, eventTracker, constants, notify, uiLocker, localizationManager, courseRepository) {
+﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'notify', 'uiLocker', 'localization/localizationManager',
+    'repositories/courseRepository', 'controls/backButton/backButton'],
+    function (objectiveRepository, router, eventTracker, constants, notify, uiLocker, localizationManager, courseRepository, backButton) {
 
         var
             events = {
@@ -13,11 +14,9 @@
             };
 
         var title = ko.observable(''),
-            goBackTooltip = '',
-            goBackLink = '',
             contextCourseId = null,
             contextCourseTitle = null;
-        
+
         title.isValid = ko.computed(function () {
             var length = title().trim().length;
             return length > 0 && length <= constants.validation.objectiveTitleMaxLength;
@@ -25,14 +24,12 @@
 
         var isTitleEditing = ko.observable(false),
 
-            navigateBack = function () {
-                if (_.isString(this.contextCourseId)) {
-                    sendEvent(events.navigateToCourse);
-                    router.navigate('course/' + this.contextCourseId);
-                } else {
-                    sendEvent(events.navigateToObjectives);
-                    router.navigate('objectives');
-                }
+            navigateToCourseEvent = function () {
+                sendEvent(events.navigateToCourse);
+            },
+
+            navigateToObjectivesEvent = function () {
+                sendEvent(events.navigateToObjectives);
             },
 
             activate = function (queryParams) {
@@ -43,7 +40,7 @@
                 that.title('');
 
                 if (!_.isNullOrUndefined(queryParams) && _.isString(queryParams.courseId)) {
-                    return courseRepository.getById(queryParams.courseId).then(function(course) {
+                    return courseRepository.getById(queryParams.courseId).then(function (course) {
                         if (_.isNull(course)) {
                             router.replace('404');
                             return;
@@ -52,14 +49,14 @@
                         that.contextCourseId = course.id;
                         that.contextCourseTitle = course.title;
 
-                        that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + course.title + '\'';
-                        that.goBackLink = '#course/' + course.id;
+                        var goBackTooltip = localizationManager.localize('backTo') + ' \'' + course.title + '\'';
+                        backButton.enable(goBackTooltip, 'course/' + course.id, navigateToCourseEvent);
                     });
                 }
-                
+
                 return Q.fcall(function () {
-                    that.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('learningObjectives');
-                    that.goBackLink = '#objectives';
+                    var goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('learningObjectives');
+                    backButton.enable(goBackTooltip, 'objectives', navigateToObjectivesEvent);
                 });
             },
 
@@ -86,7 +83,7 @@
                     }
                 });
             };
-        
+
         function navigateToObjectiveEditor(createdObjective) {
             var navigateUrl = 'objective/' + createdObjective.id;
             uiLocker.unlock();
@@ -104,11 +101,10 @@
             objectiveTitleMaxLength: constants.validation.objectiveTitleMaxLength,
             isTitleEditing: isTitleEditing,
 
-            goBackTooltip: goBackTooltip,
-            goBackLink: goBackLink,
-
             activate: activate,
-            navigateBack: navigateBack,
+
+            navigateToCourseEvent: navigateToCourseEvent,
+            navigateToObjectivesEvent: navigateToObjectivesEvent,
             createAndContinue: createAndContinue
         };
     }

@@ -11,7 +11,8 @@
             repository = require('repositories/courseRepository'),
             eventTracker = require('eventTracker'),
             localizationManager = require('localization/localizationManager'),
-            clientContext = require('clientContext');
+            clientContext = require('clientContext'),
+            backButton = require('controls/backButton/backButton');
 
         describe('viewModel [deliver]', function () {
             var course = {
@@ -34,27 +35,15 @@
                 });
             });
 
-            describe('goBackTooltip:', function () {
-                it('should be defined', function () {
-                    expect(viewModel.goBackTooltip).toBeDefined();
-                });
-            });
-
-            describe('navigateToCourses:', function () {
+            describe('navigateToCoursesEvent:', function () {
 
                 it('should be function', function () {
-                    expect(viewModel.navigateToCourses).toBeFunction();
+                    expect(viewModel.navigateToCoursesEvent).toBeFunction();
                 });
 
                 it('should send event \'Navigate to courses\'', function () {
-                    viewModel.navigateToCourses();
+                    viewModel.navigateToCoursesEvent();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to courses');
-                });
-
-                it('should navigate to #courses', function () {
-                    spyOn(router, "navigate");
-                    viewModel.navigateToCourses();
-                    expect(router.navigate).toHaveBeenCalledWith('courses');
                 });
 
             });
@@ -175,10 +164,11 @@
                     expect(userContext.identify).toHaveBeenCalled();
                 });
 
-                it('should set goBackTooltip', function () {
-                    spyOn(localizationManager, 'localize').andReturn('text');
+                it('should enable back button', function () {
+                    spyOn(backButton, 'enable');
+                    spyOn(localizationManager, 'localize').and.returnValue('text');
                     viewModel.activate('SomeId');
-                    expect(viewModel.goBackTooltip).toEqual('text text');
+                    expect(backButton.enable).toHaveBeenCalledWith('text text', 'courses', viewModel.navigateToCoursesEvent);
                 });
                 
                 describe('when user is re-identified', function () {

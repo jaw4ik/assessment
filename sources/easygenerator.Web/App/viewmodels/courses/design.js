@@ -1,9 +1,7 @@
-﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext'],
-    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext) {
+﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'controls/backButton/backButton'],
+    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, backButton) {
 
-        var goBackTooltip = '',
-
-            events = {
+        var events = {
                 navigateToCourses: 'Navigate to courses',
                 updateCourseTemplate: 'Change course template to'
             };
@@ -16,21 +14,20 @@
             showProgress: ko.observable(false),
             selectTemplate: selectTemplate,
 
-            goBackTooltip: goBackTooltip,
-            navigateToCourses: navigateToCourses,
+            navigateToCoursesEvent: navigateToCoursesEvent,
 
             activate: activate
         };
 
         return viewModel;
 
-        function navigateToCourses() {
+        function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);
-            router.navigate('courses');
         }
 
         function activate(courseId) {
-            viewModel.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
+            var goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
+            backButton.enable(goBackTooltip, 'courses', navigateToCoursesEvent);
 
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;

@@ -2,14 +2,16 @@
     function (viewModel) {
         "use strict";
 
-        var router = require('plugins/router'),
+        var
+            router = require('plugins/router'),
             eventTracker = require('eventTracker'),
             constants = require('constants'),
             repository = require('repositories/courseRepository'),
             objectiveRepository = require('repositories/objectiveRepository'),
             notify = require('notify'),
             localizationManager = require('localization/localizationManager'),
-            clientContext = require('clientContext');
+            clientContext = require('clientContext'),
+            backButton = require('controls/backButton/backButton');
 
         describe('viewModel [course]', function () {
             var
@@ -43,28 +45,15 @@
                 expect(viewModel).toBeObject();
             });
 
-            describe('goBackTooltip:', function () {
-
-                it('should be defined', function () {
-                    expect(viewModel.goBackTooltip).toBeDefined();
-                });
-
-            });
-
-            describe('navigateToCourses:', function () {
+            describe('navigateToCoursesEvent:', function () {
 
                 it('should be function', function () {
-                    expect(viewModel.navigateToCourses).toBeFunction();
+                    expect(viewModel.navigateToCoursesEvent).toBeFunction();
                 });
 
                 it('should send event \'Navigate to courses\'', function () {
-                    viewModel.navigateToCourses();
+                    viewModel.navigateToCoursesEvent();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to courses');
-                });
-
-                it('should navigate to #courses', function () {
-                    viewModel.navigateToCourses();
-                    expect(router.navigate).toHaveBeenCalledWith('courses');
                 });
 
             });
@@ -911,9 +900,10 @@
                     expect(repository.getById).toHaveBeenCalledWith(id);
                 });
 
-                it('should set goBackTooltip', function () {
+                it('should enable back button', function () {
+                    spyOn(backButton, 'enable');
                     viewModel.activate('SomeId');
-                    expect(viewModel.goBackTooltip).toEqual('text text');
+                    expect(backButton.enable).toHaveBeenCalledWith('text text', 'courses', viewModel.navigateToCoursesEvent);
                 });
 
                 describe('when course does not exist', function () {

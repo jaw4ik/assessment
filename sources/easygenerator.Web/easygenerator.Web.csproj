@@ -198,6 +198,8 @@
       <Link>AutoMapper.Net4.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="App\controls\backButton\backButton.html" />
+    <Content Include="App\controls\backButton\backButton.js" />
     <Content Include="App\bootstrapper.js" />
     <Content Include="App\bootstrapper.spec.js">
       <DependentUpon>bootstrapper.js</DependentUpon>
@@ -550,7 +552,6 @@
     <Content Include="App\viewmodels\questions\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
     </Content>
-    <Content Include="App\views\common\back.html" />
     <Content Include="App\views\courses\deliver.html" />
     <Content Include="App\views\courses\design.html" />
     <Content Include="App\views\courses\course.html" />

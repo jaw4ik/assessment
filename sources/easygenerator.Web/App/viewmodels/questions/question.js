@@ -1,8 +1,8 @@
 ﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningContents', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningContent',
-        'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify', 'repositories/answerRepository',
-        'repositories/learningContentRepository', 'clientContext', 'viewmodels/common/contentField'],
-    function (vmAnswers, vmLearningContents, router, eventTracker, answerOptionModel, learningContentModel, localizationManager, constants, questionRepository, objectiveRepository,
-        system, notify, answerRepository, learningContentRepository, clientContext, vmContentField) {
+        'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify',
+        'repositories/answerRepository', 'repositories/learningContentRepository', 'clientContext', 'viewmodels/common/contentField', 'controls/backButton/backButton'],
+    function (vmAnswers, vmLearningContents, router, eventTracker, answerOptionModel, learningContentModel, localizationManager, constants, questionRepository,
+        objectiveRepository, system, notify, answerRepository, learningContentRepository, clientContext, vmContentField, backButton) {
         "use strict";
         var
             events = {
@@ -37,7 +37,6 @@
             questionId = '',
             title = ko.observable(''),
             language = ko.observable(),
-            goBackTooltip = '',
             isCreatedQuestion = ko.observable(false);
 
         title.isEditing = ko.observable();
@@ -47,9 +46,8 @@
         });
 
         var
-            navigateToObjective = function () {
+            navigateToObjectiveEvent = function () {
                 eventTracker.publish(events.navigateToObjective);
-                router.navigateWithQueryString('objective/' + this.objectiveId);
             },
 
             startEditQuestionTitle = function () {
@@ -83,7 +81,7 @@
             answers = null,
             learningContents = null,
 
-            activate = function (objId, quesId) {
+            activate = function (objId, quesId, queryParams) {
                 objectiveId = objId;
                 questionId = quesId;
                 this.language(localizationManager.currentLanguage);
@@ -94,7 +92,11 @@
                 var that = this;
                 return objectiveRepository.getById(objId).then(function (objective) {
                     that.objectiveId = objective.id;
-                    that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + objective.title + '\'';
+
+                    var
+                        goBackTooltip = localizationManager.localize('backTo') + ' \'' + objective.title + '\'',
+                        alwaysVisible = _.isNullOrUndefined(queryParams);
+                    backButton.enable(goBackTooltip, 'objective/' + objective.id, navigateToObjectiveEvent, alwaysVisible);
 
                     return questionRepository.getById(objectiveId, questionId).then(function (question) {
                         that.isCreatedQuestion(lastCreatedQuestionId === question.id);
@@ -130,8 +132,7 @@
 
             activate: activate,
 
-            goBackTooltip: goBackTooltip,
-            navigateToObjective: navigateToObjective,
+            navigateToObjectiveEvent: navigateToObjectiveEvent,
 
             startEditQuestionTitle: startEditQuestionTitle,
             endEditQuestionTitle: endEditQuestionTitle,

@@ -1,5 +1,6 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository',
+    'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'controls/backButton/backButton'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, backButton) {
         "use strict";
 
         var
@@ -21,15 +22,14 @@
                 currentLanguage: '',
                 contextCourseId: null,
                 contextCourseTitle: null,
-                goBackTooltip: '',
-                goBackLink: '',
 
                 questions: ko.observableArray([]),
 
                 startEditTitle: startEditTitle,
                 endEditTitle: endEditTitle,
 
-                navigateBack: navigateBack,
+                navigateToCourseEvent: navigateToCourseEvent,
+                navigateToObjectivesEvent: navigateToObjectivesEvent,
                 navigateToEditQuestion: navigateToEditQuestion,
 
                 createQuestion: createQuestion,
@@ -145,14 +145,12 @@
             eventTracker.publish(question.isSelected() ? events.selectQuestion : events.unselectQuestion);
         }
 
-        function navigateBack() {
-            if (_.isNull(viewModel.contextCourseId)) {
-                eventTracker.publish(events.navigateToObjectives);
-                router.navigate('objectives');
-            } else {
-                eventTracker.publish(events.navigateToCourse);
-                router.navigate('course/' + viewModel.contextCourseId);
-            }
+        function navigateToCourseEvent() {
+            eventTracker.publish(events.navigateToCourse);
+        }
+
+        function navigateToObjectivesEvent() {
+            eventTracker.publish(events.navigateToObjectives);
         }
 
         function activate(objId, queryParams) {
@@ -161,8 +159,9 @@
             if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.courseId)) {
                 viewModel.contextCourseId = null;
                 viewModel.contextCourseTitle = null;
-                viewModel.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('learningObjectives');
-                viewModel.goBackLink = '#objectives';
+
+                var goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('learningObjectives');
+                backButton.enable(goBackTooltip, 'objectives', navigateToObjectivesEvent, true);
 
                 return initObjectiveInfo(objId);
             }
@@ -171,8 +170,8 @@
                 viewModel.contextCourseId = course.id;
                 viewModel.contextCourseTitle = course.title;
 
-                viewModel.goBackTooltip = localizationManager.localize('backTo') + ' \'' + course.title + '\'';
-                viewModel.goBackLink = '#course/' + course.id;
+                var goBackTooltip = localizationManager.localize('backTo') + ' \'' + course.title + '\'';
+                backButton.enable(goBackTooltip, 'course/' + course.id, navigateToCourseEvent());
 
                 return initObjectiveInfo(objId);
             }).fail(function (reason) {
@@ -217,7 +216,7 @@
             });
         }
 
-        function showNotification(date) {
+        function showNotification() {
             notify.saved();
         }
 

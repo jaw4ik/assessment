@@ -1,11 +1,10 @@
 ﻿define(['durandal/app', 'repositories/courseRepository', 'plugins/router', 'constants', 'viewmodels/courses/deliveringActions/build',
         'viewmodels/courses/deliveringActions/scormBuild', 'viewmodels/courses/deliveringActions/publish', 'userContext',
-        'viewmodels/courses/deliveringActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'notify'],
+        'viewmodels/courses/deliveringActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'notify', 'controls/backButton/backButton'],
     function (app, repository, router, constants, buildDeliveringAction, scormBuildDeliveringAction, publishDeliveringAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker, notify) {
+        clientContext, localizationManager, eventTracker, notify, backButton) {
 
-        var goBackTooltip = '',
-            events = {
+        var events = {
                 navigateToCourses: 'Navigate to courses'
             };
 
@@ -18,8 +17,7 @@
             publishAction: ko.observable(),
             publishToAim4YouAction: ko.observable(),
 
-            goBackTooltip: goBackTooltip,
-            navigateToCourses: navigateToCourses,
+            navigateToCoursesEvent: navigateToCoursesEvent,
 
             activate: activate
         };
@@ -37,9 +35,8 @@
         
         return viewModel;
 
-        function navigateToCourses() {
+        function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);
-            router.navigate('courses');
         }
 
         function notifyError(courseId, message) {
@@ -49,7 +46,8 @@
         }
 
         function activate(courseId) {
-            viewModel.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
+            var goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
+            backButton.enable(goBackTooltip, 'courses', navigateToCoursesEvent);
 
             return userContext.identify().then(function () {
                 return repository.getById(courseId).then(function (course) {

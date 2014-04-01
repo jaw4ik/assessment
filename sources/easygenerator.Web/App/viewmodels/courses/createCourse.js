@@ -1,15 +1,13 @@
-﻿define(['repositories/courseRepository', 'repositories/templateRepository', 'plugins/router', 'constants', 'eventTracker', 'uiLocker', 'localization/localizationManager'],
-    function (repository, templateRepository, router, constants, eventTracker, uiLocker, localizationManager) {
+﻿define(['repositories/courseRepository', 'repositories/templateRepository', 'plugins/router', 'constants', 'eventTracker', 'uiLocker', 'localization/localizationManager', 'controls/backButton/backButton'],
+    function (repository, templateRepository, router, constants, eventTracker, uiLocker, localizationManager, backButton) {
 
         var
             events = {
                 createAndContinue: "Create course and open its properties",
                 chooseTemplate: "Choose template",
-                defineTitle: "Define title"
+                defineTitle: "Define title",
+                navigateToCourses: 'Navigate to courses'
             },
-            
-
-            goBackTooltip = '',
 
             templates = ko.observableArray(),
             
@@ -52,8 +50,8 @@
                 }
             },
 
-            navigateToCourses = function () {
-                router.navigate('courses');
+            navigateToCoursesEvent = function () {
+                eventTracker.publish(events.navigateToCourses);
             },
 
             createAndContinue = function () {
@@ -88,7 +86,9 @@
             },
 
             activate = function () {
-                this.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
+                var goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
+                backButton.enable(goBackTooltip, 'courses', navigateToCoursesEvent);
+
                 this.title('');
 
                 var that = this;
@@ -103,7 +103,7 @@
 
         return {
             activate: activate,
-            navigateToCourses: navigateToCourses,
+            navigateToCoursesEvent: navigateToCoursesEvent,
             createAndContinue: createAndContinue,
             getSelectedTemplate: getSelectedTemplate,
             resetTemplatesSelection: resetTemplatesSelection,
@@ -112,7 +112,6 @@
             title: title,
             templates: templates,
             courseTitleMaxLength: constants.validation.courseTitleMaxLength,
-            goBackTooltip: goBackTooltip,
             isFormFilled: isFormFilled
         };
     }
