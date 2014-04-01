@@ -9,24 +9,30 @@
         </div>
     </div>
     <div class="user-notification-content">
-        Dear <span data-bind="text: firstname">User</span>, your "Starter plan" subscription will expire
+        Hi <span data-bind="text: firstname">User</span>, your Starter Plan expires
         <span data-bind="visible: (amountOfDays != 0) || (amountOfDays == 0 && !isToday)">in</span>
         <!--ko if: amountOfDays == 0 && isToday -->
-            <span class="bold">today</span>.
+        <span class="bold">today</span>.
         <!-- /ko -->
         <!--ko if: amountOfDays == 0 && !isToday -->
-            <span class="bold">1 day</span>.
+        <span class="bold">1 day</span>.
         <!-- /ko -->
         <!--ko if: amountOfDays == 1 && !isToday -->
-            <span class="bold">1 day</span>.
+        <span class="bold">1 day</span>.
         <!-- /ko -->
         <!--ko if: amountOfDays > 1 -->
-            <span class="bold" data-bind="text: amountOfDays">5</span><span class="bold"> days</span>.
+        <span class="bold" data-bind="text: amountOfDays">5</span><span class="bold"> days</span>.
         <!-- /ko -->
-        If you want to extend the usage of this license, you have to purchase a license for the next period.
-        Please extend your subscription by purchasing the license.
+        <p>
+            Please note, you will be automatically downgraded to the Free Plan, if you don’t make the payment in time.
+            More info on pricing plans <a class="user-notification-link" href="http://www.easygenerator.com/pricing/">here</a>.
+        </p>
     </div>
-    <div class="user-notification-link-wrapper">
-        <a class="user-notification-link" href="http://www.easygenerator.com/order-now/" target="_blank">Go to purchase</a>
+    <div class="user-notification-btn-wrapper">
+        <a class="user-notification-btn" href="http://www.easygenerator.com/order-now/" target="_blank">Pay Now</a>
+    </div>
+    <div class="user-notification-mail">
+        <p>Any issues with your credit card and need more time?</p>
+        <p>Please contact: <a class="user-notification-link" href="mailto:support@easygenerator.com">support@easygenerator.com</a></p>
     </div>
 </li>
