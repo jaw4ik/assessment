@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="user-notification-content">
-        Hi <span data-bind="text: firstname">User</span>, your Starter Plan expires
+        <p>Hi <span data-bind="text: firstname">User</span>,</p> Your Starter Plan expires
         <span data-bind="visible: (amountOfDays != 0) || (amountOfDays == 0 && !isToday)">in</span>
         <!--ko if: amountOfDays == 0 && isToday -->
         <span class="bold">today</span>.
@@ -23,7 +23,7 @@
         <!--ko if: amountOfDays > 1 -->
         <span class="bold" data-bind="text: amountOfDays">5</span><span class="bold"> days</span>.
         <!-- /ko -->
-        <p>
+        <p class="user-notification-pricing">
             Please note, you will be automatically downgraded to the Free Plan, if you don’t make the payment in time.
             More info on pricing plans <a class="user-notification-link" href="http://www.easygenerator.com/pricing/">here</a>.
         </p>

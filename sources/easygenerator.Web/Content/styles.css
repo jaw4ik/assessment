@@ -1523,6 +1523,10 @@ span.top-navigation-item.current {
     font-family: 'OpenSans-Semibold';
 }
 
+.user-notification-pricing {
+    margin-top: 5px;
+}
+
 .user-notification-btn-wrapper {
     text-align: center;
 }
