@@ -101,7 +101,6 @@
     table-layout: fixed;
     width: 100%;
     border: 1px solid transparent;
-    border-left: 3px solid white;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -119,23 +118,29 @@
             border-left-color: transparent;
         }
 
-    .navigation-tree-node-caption-wrapper:hover {
-        border-color: #E8E8E8;
-        background-color: #E8E8E8;
-    }
-
     .navigation-tree-node-caption-wrapper.active {
+        position: relative;
         background-color: #fffddd !important;
         border-top: 1px solid #dedede !important;
-        border-left: 3px solid #f59957;
         border-bottom: 1px solid #dedede !important;
     }
+
+        .navigation-tree-node-caption-wrapper.active:after {
+            content: '';
+            display: block;
+            height: 100%;
+            width: 3px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #f59957;
+        }
 
 .navigation-tree-node-caption {
     position: relative;
     display: block;
     width: 100%;
-    padding: 12px 5px;
+    padding: 12px 5px 12px 8px;
     word-wrap: break-word;
     font-size: 12px;
     font-family: 'OpenSans';
@@ -152,7 +157,7 @@
 
 .navigation-tree-node-caption-wrapper.active .navigation-tree-node-caption {
     cursor: default;
-    padding: 12px 5px;
+    padding: 12px 5px 12px 8px;
 }
 
     .navigation-tree-node-caption-wrapper.active .navigation-tree-node-caption:hover {
