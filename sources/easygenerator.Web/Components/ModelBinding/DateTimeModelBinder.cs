@@ -27,7 +27,7 @@ namespace easygenerator.Web.Components.ModelBinding
                 return null;
             }
 
-            return date;
+            return date.ToUniversalTime();
         }
     }
 }
