@@ -100,6 +100,7 @@
     display: table;
     table-layout: fixed;
     width: 100%;
+    border: 1px solid transparent;
     border-left: 3px solid white;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -119,7 +120,7 @@
         }
 
     .navigation-tree-node-caption-wrapper:hover {
-        border-left-color: #E8E8E8;
+        border-color: #E8E8E8;
         background-color: #E8E8E8;
     }
 
@@ -132,10 +133,9 @@
 
 .navigation-tree-node-caption {
     position: relative;
-    display: inline-block;
+    display: block;
     width: 100%;
     padding: 12px 5px;
-    line-height: 15px;
     word-wrap: break-word;
     font-size: 12px;
     font-family: 'OpenSans';
@@ -152,7 +152,7 @@
 
 .navigation-tree-node-caption-wrapper.active .navigation-tree-node-caption {
     cursor: default;
-    padding: 12px 5px 11px;
+    padding: 12px 5px;
 }
 
     .navigation-tree-node-caption-wrapper.active .navigation-tree-node-caption:hover {
