@@ -1,9 +1,11 @@
 ﻿define(['plugins/router'], function (router) {
     var selector = '.navigation-tree-node-caption-wrapper';
+    var activeSelector = selector + '.active';
 
     return {
         handle: function () {
-            $(selector).removeClass('active');
+
+            $(activeSelector).removeClass('active');
 
             var activeInstruction = router.activeInstruction();
             if (activeInstruction && activeInstruction.fragment) {
@@ -28,12 +30,14 @@
     };
 
     function highlightElementWithUrl(url) {
-        var $element = $('[href="' + url + '"]');
+        if ($(activeSelector).length === 0) {
+            var $element = $('[href="' + url + '"]');
 
-        if ($element.hasClass(selector)) {
-            $element.addClass('active');
-        } else {
-            $element.closest(selector).addClass('active');
+            if ($element.hasClass(selector)) {
+                $element.addClass('active');
+            } else {
+                $element.closest(selector).addClass('active');
+            }
         }
     }
 
