@@ -60,6 +60,8 @@
         'viewmodels/courses/deliveringActions/deliveringAction.spec',
         'viewmodels/courses/deliveringActions/build.spec',
 
+        'viewmodels/objectives/objectives.spec',
+
         'synchronization/handlers/userDowngraded.spec',
         'synchronization/handlers/userUpgradedToStarter.spec'
 
@@ -70,7 +72,6 @@
        'repositories/learningContentRepository.spec',
        'repositories/templateRepository.spec',
        'repositories/commentRepository.spec',
-       'viewmodels/objectives/objectives.spec',
        'viewmodels/objectives/objective.spec',
        'viewmodels/objectives/objectiveBrief.spec',
        'viewmodels/objectives/createObjective.spec',
