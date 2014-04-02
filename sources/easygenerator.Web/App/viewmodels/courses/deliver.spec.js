@@ -20,7 +20,7 @@
                 title: 'title',
             };
 
-            beforeEach(function() {
+            beforeEach(function () {
                 spyOn(notify, 'error');
                 spyOn(eventTracker, 'publish');
             });
@@ -76,7 +76,7 @@
 
             describe('publishToAim4YouAction:', function () {
 
-                it('should be observable', function() {
+                it('should be observable', function () {
                     expect(viewModel.publishToAim4YouAction).toBeObservable();
                 });
 
@@ -127,7 +127,7 @@
                         expect(viewModel.isDeliveringInProgress()).toBe(true);
                     });
                 });
-                
+
                 describe('when publish to Aim4You action is defined and is delivering', function () {
                     it('should return true', function () {
                         viewModel.buildAction({ isDelivering: ko.observable(false) });
@@ -147,8 +147,10 @@
                 beforeEach(function () {
                     getById = Q.defer();
                     identify = Q.defer();
-                    spyOn(repository, 'getById').andReturn(getById.promise);
-                    spyOn(userContext, 'identify').andReturn(identify.promise);
+                    spyOn(repository, 'getById').and.returnValue(getById.promise);
+                    spyOn(userContext, 'identify').and.returnValue(identify.promise);
+                    spyOn(backButton, 'enable');
+                    spyOn(localizationManager, 'localize').and.returnValue('text');
                 });
 
                 it('should be a function', function () {
@@ -165,29 +167,24 @@
                 });
 
                 it('should enable back button', function () {
-                    spyOn(backButton, 'enable');
-                    spyOn(localizationManager, 'localize').and.returnValue('text');
                     viewModel.activate('SomeId');
                     expect(backButton.enable).toHaveBeenCalledWith('text text', 'courses', viewModel.navigateToCoursesEvent);
                 });
-                
+
                 describe('when user is re-identified', function () {
 
                     beforeEach(function () {
                         identify.resolve();
                     });
 
-                    it('should get course from repository', function () {
+                    it('should get course from repository', function (done) {
                         var id = 'courseId';
-                        var promise = identify.promise.fin(function () { });
 
                         viewModel.activate(id);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        identify.promise.fin(function () {
                             expect(repository.getById).toHaveBeenCalledWith(id);
+                            done();
                         });
                     });
 
@@ -197,26 +194,21 @@
                             getById.reject('reason');
                         });
 
-                        it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                        it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
                             router.activeItem.settings.lifecycleData = null;
 
-                            var promise = viewModel.activate('courseId');
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            viewModel.activate('courseId').fin(function () {
                                 expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                                done();
                             });
                         });
 
-                        it('should reject promise', function () {
+                        it('should reject promise', function (done) {
                             var promise = viewModel.activate('courseId');
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            promise.fin(function () {
                                 expect(promise).toBeRejectedWith('reason');
+                                done();
                             });
                         });
                     });
@@ -225,86 +217,61 @@
 
                         beforeEach(function () {
                             getById.resolve(course);
+                            spyOn(clientContext, 'set');
                         });
 
-                        it('should define publish action', function () {
+                        it('should define publish action', function (done) {
                             viewModel.id = undefined;
 
-                            var promise = viewModel.activate(course.id);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            viewModel.activate(course.id).fin(function () {
                                 expect(viewModel.publishAction()).toBeDefined();
+                                done();
                             });
                         });
 
-                        it('should define build action', function () {
+                        it('should define build action', function (done) {
                             viewModel.id = undefined;
 
-                            var promise = viewModel.activate(course.id);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            viewModel.activate(course.id).fin(function () {
                                 expect(viewModel.buildAction()).toBeDefined();
+                                done();
                             });
                         });
 
-                        it('should set courseId', function() {
+                        it('should set courseId', function (done) {
                             viewModel.courseId = '';
-                            var promise = viewModel.activate(course.id);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            viewModel.activate(course.id).fin(function () {
                                 expect(viewModel.courseId).toBe(course.id);
+                                done();
                             });
                         });
 
-                        it('should set course id as the last visited in client context', function () {
-                            spyOn(clientContext, 'set');
-                            var promise = viewModel.activate(course.id);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                        it('should set course id as the last visited in client context', function (done) {
+                            viewModel.activate(course.id).fin(function () {
                                 expect(clientContext.set).toHaveBeenCalledWith('lastVistedCourse', course.id);
+                                done();
                             });
                         });
 
-                        it('should reset last visited objective in client context', function () {
-                            spyOn(clientContext, 'set');
-                            var promise = viewModel.activate(course.id);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                        it('should reset last visited objective in client context', function (done) {
+                            viewModel.activate(course.id).fin(function () {
                                 expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', null);
+                                done();
                             });
                         });
 
                         describe('and user has starter access', function () {
 
                             beforeEach(function () {
-                                spyOn(userContext, 'hasStarterAccess').andReturn(true);
+                                spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
                             });
 
-                            it('should define scorm build action', function () {
+                            it('should define scorm build action', function (done) {
                                 viewModel.scormBuildAction(undefined);
 
-                                var promise = viewModel.activate(course.id);
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                viewModel.activate(course.id).fin(function () {
                                     expect(viewModel.scormBuildAction()).toBeDefined();
+                                    done();
                                 });
                             });
 
@@ -313,32 +280,26 @@
                         describe('and user does not have starter access', function () {
 
                             beforeEach(function () {
-                                spyOn(userContext, 'hasStarterAccess').andReturn(false);
+                                spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
                             });
 
-                            it('should not define scorm build action', function () {
+                            it('should not define scorm build action', function (done) {
                                 viewModel.scormBuildAction({ isDelivering: ko.observable(false) });
 
-                                var promise = viewModel.activate(course.id);
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                viewModel.activate(course.id).fin(function () {
                                     expect(viewModel.scormBuildAction()).not.toBeDefined();
+                                    done();
                                 });
                             });
 
                         });
 
-                        it('should resolve promise', function () {
+                        it('should resolve promise', function (done) {
                             var promise = viewModel.activate(course.id);
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            promise.fin(function () {
                                 expect(promise).toBeResolved();
+                                done();
                             });
                         });
 
@@ -410,7 +371,7 @@
                 });
 
             });
-            
+
             describe('when current course scorm build failed', function () {
 
                 var message = "message";
