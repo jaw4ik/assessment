@@ -1,7 +1,14 @@
-﻿define(['httpWrapper', 'guard', 'models/comment'], function (httpWrapper, guard, Comment) {
+﻿define(['httpWrapper', 'guard', 'models/comment'],
+    function (httpWrapper, guard, Comment) {
+        "use strict";
 
-    var
-        getCollection = function (courseId) {
+        var repository = {
+            getCollection: getCollection
+        };
+
+        return repository;
+
+        function getCollection(courseId) {
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id is not a string');
 
@@ -20,8 +27,5 @@
             });
         };
 
-    return {
-        getCollection: getCollection
-    };
-
-});
+    }
+);

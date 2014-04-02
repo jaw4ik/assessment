@@ -1,145 +1,148 @@
-﻿define(['repositories/commentRepository'], function (commentRepository) {
+﻿define(['repositories/commentRepository'], function (repository) {
     "use strict";
 
     var httpWrapper = require('httpWrapper');
 
     describe('repository [commentRepository]', function () {
 
-        it('should be defined', function () {
-            expect(commentRepository).toBeDefined();
-        });
-
         var post;
 
         beforeEach(function () {
             post = Q.defer();
-            spyOn(httpWrapper, 'post').andReturn(post.promise);
+            spyOn(httpWrapper, 'post').and.returnValue(post.promise);
+        });
+
+        it('should be defined', function () {
+            expect(repository).toBeDefined();
         });
 
         describe('getCollection:', function () {
 
             it('should be function', function () {
-                expect(commentRepository.getCollection).toBeFunction();
+                expect(repository.getCollection).toBeFunction();
             });
 
             it('should return promise', function () {
-                expect(commentRepository.getCollection()).toBePromise();
+                expect(repository.getCollection()).toBePromise();
             });
 
-            describe('when courseId is not a string', function () {
+            describe('when course id is undefined', function () {
 
-                it('should reject promise', function () {
-                    var promise = commentRepository.getCollection(null);
+                it('should reject promise', function (done) {
+                    var promise = repository.getCollection(undefined);
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course id is not a string');
+                        done();
                     });
                 });
 
             });
 
-            describe('when courseId is string', function () {
+            describe('when course id is null', function () {
 
-                it('should send request to \'api/comments\'', function () {
-                    var promise = commentRepository.getCollection('courseId');
-                    post.resolve();
+                it('should reject promise', function (done) {
+                    var promise = repository.getCollection(null);
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/comments', { courseId: 'courseId' });
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Course id is not a string');
+                        done();
                     });
                 });
 
-                describe('and when request was not successful', function () {
+            });
+
+            describe('when course id is not a string', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.getCollection({});
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Course id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            it('should send request to \'api/comments\'', function () {
+                var courseId = 'SomeId';
+                var promise = repository.getCollection(courseId);
+
+                promise.fin(function () {
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/comments', { courseId: courseId });
+                    done();
+                });
+
+                post.reject('Boetz eto zalet');
+            });
+
+            describe('when comments received from server', function () {
+
+                describe('and response is not an object', function () {
 
                     it('should reject promise', function () {
-                        var promise = commentRepository.getCollection('courseId');
+                        var promise = repository.getCollection('123123132123');
 
-                        var reason = 'some reason';
-                        post.reject(reason);
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejectedWith(reason);
-                        });
+                        post.resolve('Boetz eto zalet');
                     });
 
                 });
 
-                describe('and when request was successful', function () {
+                describe('and response.Comments is undefined', function () {
 
-                    describe('and response is not an object', function () {
+                    it('should reject promise', function () {
+                        var promise = repository.getCollection('123123132123');
 
-                        it('should reject promise', function () {
-                            var promise = commentRepository.getCollection('courseId');
-
-                            post.resolve(null);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeRejectedWith('Response is not an object');
-                            });
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Comments is not an array');
+                            done();
                         });
 
+                        post.resolve({});
                     });
 
-                    describe('and response.Comments is not an array', function () {
+                });
 
-                        it('should reject promise', function () {
-                            var promise = commentRepository.getCollection('courseId');
+                describe('and response.Comments is not an Array', function () {
 
-                            post.resolve({ Comments: 'string' });
+                    it('should reject promise', function () {
+                        var promise = repository.getCollection('123123132123');
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeRejectedWith('Comments is not an array');
-                            });
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Comments is not an array');
+                            done();
                         });
 
+                        post.resolve({ Comments: 'trololo' });
                     });
 
-                    describe('and response data is correct', function() {
-                        
-                        it('should resolve promise', function() {
-                            var promise = commentRepository.getCollection('courseId');
+                });
 
-                            post.resolve({ Comments: [] });
+                it('should resolve promise with mapped comments array', function () {
+                    var comments = [
+                    {
+                        Id: 'qwe',
+                        Text: 'fghsdhdfgh',
+                        CreatedOn: new Date().toISOString()
+                    }];
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeResolved();
-                            });
-                        });
+                    var promise = repository.getCollection('123123132123');
 
-                        it('should map comments', function() {
-                            var promise = commentRepository.getCollection('courseId');
-
-                            var comments = [{ Id: '0', Text: 'comment1', CreatedOn: '01.02.2014' }];
-                            post.resolve({ Comments: comments });
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeResolvedWith([{ id: '0', createdOn: '01.02.2014', text: 'comment1'}]);
-                            });
-                        });
-
+                    promise.fin(function () {
+                        expect(promise.inspect().value.length).toEqual(1);
+                        expect(promise.inspect().value[0].id).toEqual(comments[0].Id);
+                        expect(promise.inspect().value[0].text).toEqual(comments[0].Text);
+                        expect(promise.inspect().value[0].createdOn).toEqual(comments[0].CreatedOn);
+                        done();
                     });
 
+                    post.resolve({ Comments: comments });
                 });
 
             });

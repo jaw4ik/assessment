@@ -35,11 +35,12 @@
         'help/helpHint.spec',
         'localization/localizationManager.spec',
         'userContext.spec',
-        'models/user.spec',
         'models/course.spec',
+        'models/user.spec',
         'notifications/subscriptionExpirationNotificationController.spec',
         'notifications/notification.spec',
         'repositories/answerRepository.spec',
+        'repositories/commentRepository.spec',
 
         /* UNSORTED SPECS */
 
@@ -71,7 +72,6 @@
        'repositories/questionRepository.spec',
        'repositories/learningContentRepository.spec',
        'repositories/templateRepository.spec',
-       'repositories/commentRepository.spec',
        'viewmodels/objectives/objectiveBrief.spec',
        'viewmodels/objectives/createObjective.spec',
        'viewmodels/questions/question.spec',
