@@ -9,7 +9,8 @@
         notify = require('notify'),
         localizationManager = require('localization/localizationManager'),
         clientContext = require('clientContext'),
-        backButton = require('controls/backButton/backButton');
+        backButton = require('controls/backButton/backButton')
+    ;
 
     describe('viewModel [design]', function () {
 
@@ -23,9 +24,9 @@
             getTemplateCollectionDefer = Q.defer();
             updateCourseTemplateDefer = Q.defer();
 
-            spyOn(courseRepository, 'getById').andReturn(getCourseDefer.promise);
-            spyOn(courseRepository, 'updateCourseTemplate').andReturn(updateCourseTemplateDefer.promise);
-            spyOn(templateRepository, 'getCollection').andReturn(getTemplateCollectionDefer.promise);
+            spyOn(courseRepository, 'getById').and.returnValue(getCourseDefer.promise);
+            spyOn(courseRepository, 'updateCourseTemplate').and.returnValue(updateCourseTemplateDefer.promise);
+            spyOn(templateRepository, 'getCollection').and.returnValue(getTemplateCollectionDefer.promise);
 
             spyOn(router, 'replace');
             spyOn(eventTracker, 'publish');
@@ -68,7 +69,9 @@
             it('should enable back button', function () {
                 spyOn(backButton, 'enable');
                 spyOn(localizationManager, 'localize').and.returnValue('text');
+
                 viewModel.activate('SomeId');
+
                 expect(backButton.enable).toHaveBeenCalledWith('text text', 'courses', viewModel.navigateToCoursesEvent);
             });
 
@@ -78,26 +81,21 @@
                     getCourseDefer.reject('reason');
                 });
 
-                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
                     router.activeItem.settings.lifecycleData = null;
 
-                    var promise = viewModel.activate('courseId');
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    viewModel.activate('courseId').fin(function () {
                         expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                        done();
                     });
                 });
 
-                it('should reject promise', function () {
+                it('should reject promise', function (done) {
                     var promise = viewModel.activate('courseId');
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    promise.fin(function () {
                         expect(promise).toBeRejectedWith('reason');
+                        done();
                     });
                 });
             });
@@ -113,72 +111,58 @@
                     course = { id: 'courseId', template: template };
 
                 beforeEach(function () {
+                    spyOn(clientContext, 'set');
                     getCourseDefer.resolve(course);
                 });
 
-                it('should get collection of templates from repository', function () {
-                    var promise = viewModel.activate(course.id);
+                it('should get collection of templates from repository', function (done) {
                     getTemplateCollectionDefer.reject();
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    viewModel.activate(course.id).fin(function () {
                         expect(templateRepository.getCollection).toHaveBeenCalled();
+                        done();
                     });
                 });
 
-                it('should set course id as the last visited in client context', function () {
-                    spyOn(clientContext, 'set');
-                    var promise = viewModel.activate(course.id);
+                it('should set course id as the last visited in client context', function (done) {
                     getTemplateCollectionDefer.reject();
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    viewModel.activate(course.id).fin(function () {
                         expect(clientContext.set).toHaveBeenCalledWith('lastVistedCourse', course.id);
+                        done();
                     });
                 });
 
-                it('should reset last visited objective in client context', function () {
-                    spyOn(clientContext, 'set');
-                    var promise = viewModel.activate(course.id);
+                it('should reset last visited objective in client context', function (done) {
                     getTemplateCollectionDefer.reject();
-                    
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+
+                    viewModel.activate(course.id).fin(function () {
                         expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', null);
+                        done();
                     });
                 });
 
                 describe('and an error occured when getting templates', function () {
+
                     beforeEach(function () {
                         getTemplateCollectionDefer.reject('reason');
                     });
 
-                    it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                    it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
                         router.activeItem.settings.lifecycleData = null;
 
-                        var promise = viewModel.activate(course.id);
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        viewModel.activate(course.id).fin(function () {
                             expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                            done();
                         });
                     });
 
-                    it('should reject promise', function () {
+                    it('should reject promise', function (done) {
                         var promise = viewModel.activate(course.id);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        promise.fin(function () {
                             expect(promise).toBeRejectedWith('reason');
+                            done();
                         });
                     });
 
@@ -189,43 +173,44 @@
                     beforeEach(function () {
                         getTemplateCollectionDefer.resolve(templates);
 
-                        function toBeTemplate(actual, value) {
-                            var valueJson = JSON.stringify(value);
-                            var actualJson = JSON.stringify(actual);
-                            this.message = function () {
-                                return "Expected template to be " + valueJson + ", but it is " + actualJson;
-                            };
+                        jasmine.addMatchers({
+                            toBeTemplate: function () {
+                                return {
+                                    compare: function (actual, expected) {
+                                        var expectedJson = JSON.stringify(expected);
+                                        var actualJson = JSON.stringify(actual);
 
-                            return actualJson == valueJson;
-                        }
+                                        var result = {
+                                            pass: (expectedJson == expectedJson)
+                                        }
 
-                        this.addMatchers({
-                            toBeTemplate: function (value) {
-                                return toBeTemplate.apply(this, [this.actual, value]);
+                                        if (result.pass) {
+                                            result.message = "Ok";
+                                        } else {
+                                            result.message = "Expected template to be " + expectedJson + ", but it is " + actualJson;
+                                        }
+
+                                        return result;
+                                    }
+                                }
                             }
                         });
                     });
 
-                    it('should set a list of available templates', function () {
-                        var promise = viewModel.activate(course.id);
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                    it('should set a list of available templates', function (done) {
+                        viewModel.activate(course.id).fin(function () {
                             expect(viewModel.templates[0]).toBeTemplate(templates[0]);
                             expect(viewModel.templates[1]).toBeTemplate(templates[1]);
+                            done();
                         });
                     });
 
                     describe('should map templates:', function () {
 
-                        beforeEach(function () {
-                            var promise = viewModel.activate();
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                        beforeEach(function (done) {
+                            viewModel.activate().fin(function () {
                                 template = viewModel.templates[0];
+                                done();
                             });
                         });
 
@@ -263,17 +248,17 @@
 
                         describe('openPreview:', function () {
 
-                            it('should be function', function () {
-                                expect(template.openPreview).toBeFunction();
-                            });
-
                             var event = {
                                 stopPropagation: function () { }
                             };
 
-                            beforeEach(function() {
+                            beforeEach(function () {
                                 spyOn(event, 'stopPropagation');
-                                spyOn(router, 'openUrl').andCallFake(function() { });
+                                spyOn(router, 'openUrl').and.callFake(function () { });
+                            });
+
+                            it('should be function', function () {
+                                expect(template.openPreview).toBeFunction();
                             });
 
                             it('should stop propagation', function () {
@@ -290,14 +275,10 @@
 
                     });
 
-                    it('should set currentTemplate', function () {
-                        var promise = viewModel.activate(course.id);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                    it('should set currentTemplate', function (done) {
+                        viewModel.activate(course.id).fin(function () {
                             expect(viewModel.currentTemplate()).toBeTemplate(template);
+                            done();
                         });
                     });
 
@@ -364,55 +345,47 @@
 
                 describe('and template was changed', function () {
 
-                    var promise,
-                        modifiedOn;
+                    var modifiedOn;
 
                     beforeEach(function () {
-                        promise = updateCourseTemplateDefer.promise.finally(function () { });
                         modifiedOn = new Date();
 
                         updateCourseTemplateDefer.resolve({ modifiedOn: modifiedOn });
                     });
 
-                    it('should show update notification', function () {
+                    it('should show update notification', function (done) {
                         viewModel.currentTemplate({ id: '' });
 
                         viewModel.selectTemplate({ id: 'templateId' });
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        updateCourseTemplateDefer.promise.fin(function () {
                             expect(notify.saved).toHaveBeenCalled();
+                            done();
                         });
                     });
 
-                    it('should change current template', function () {
+                    it('should change current template', function (done) {
                         var template = { id: 'templateId' };
                         viewModel.currentTemplate({ id: '' });
 
                         viewModel.selectTemplate(template);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        updateCourseTemplateDefer.promise.fin(function () {
                             expect(viewModel.currentTemplate()).toBe(template);
+                            done();
                         });
                     });
 
-                    it('should hide progress bar', function () {
+                    it('should hide progress bar', function (done) {
                         var template = { id: 'templateId' };
                         viewModel.currentTemplate({ id: '' });
                         viewModel.showProgress(true);
 
                         viewModel.selectTemplate(template);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        updateCourseTemplateDefer.promise.fin(function () {
                             expect(viewModel.showProgress()).toBeFalsy();
+                            done();
                         });
                     });
 
@@ -420,25 +393,20 @@
 
                 describe('and template was not changed', function () {
 
-                    var promise;
-
                     beforeEach(function () {
-                        promise = updateCourseTemplateDefer.promise.finally(function () { });
                         updateCourseTemplateDefer.reject();
                     });
 
-                    it('should hide progress bar', function () {
+                    it('should hide progress bar', function (done) {
                         var template = { id: 'templateId' };
                         viewModel.currentTemplate({ id: '' });
                         viewModel.showProgress(true);
 
                         viewModel.selectTemplate(template);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        updateCourseTemplateDefer.promise.fin(function () {
                             expect(viewModel.showProgress()).toBeFalsy();
+                            done();
                         });
                     });
 
