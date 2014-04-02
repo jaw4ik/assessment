@@ -171,7 +171,7 @@
                 viewModel.contextCourseTitle = course.title;
 
                 var goBackTooltip = localizationManager.localize('backTo') + ' \'' + course.title + '\'';
-                backButton.enable(goBackTooltip, 'course/' + course.id, navigateToCourseEvent());
+                backButton.enable(goBackTooltip, 'course/' + course.id, navigateToCourseEvent);
 
                 return initObjectiveInfo(objId);
             }).fail(function (reason) {

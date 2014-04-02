@@ -37,7 +37,7 @@
                 spyOn(router, 'navigateWithQueryString');
                 spyOn(router, 'navigate');
                 spyOn(router, 'replace');
-                spyOn(router, 'activeInstruction').andReturn(instruction);
+                spyOn(router, 'activeInstruction').and.returnValue(instruction);
             });
 
             it('is object', function () {
@@ -54,64 +54,60 @@
 
                     deferred = Q.defer();
                     getCourseDeferred = Q.defer();
-                    spyOn(repository, 'getById').andReturn(deferred.promise);
-                    spyOn(courseRepository, 'getById').andReturn(getCourseDeferred.promise);
+                    spyOn(repository, 'getById').and.returnValue(deferred.promise);
+                    spyOn(courseRepository, 'getById').and.returnValue(getCourseDeferred.promise);
                 });
 
                 it('should be a function', function () {
                     expect(viewModel.activate).toBeFunction();
                 });
 
-                it('should set client context with current objective id', function () {
+                it('should set client context with current objective id', function (done) {
                     spyOn(clientContext, 'set');
-                    var promise = viewModel.activate(objective.id, null);
                     deferred.resolve();
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', objective.id);
-                    });
+                    var promise = viewModel.activate(objective.id, null);
 
+                    promise.fin(function () {
+                        expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', objective.id);
+                        done();
+                    });
                 });
 
                 describe('when queryParams are null', function () {
 
-                    it('should set contextExpperienceId to null', function () {
-                        var promise = viewModel.activate(objective.id, null);
+                    it('should set contextExpperienceId to null', function (done) {
                         deferred.resolve(null);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        var promise = viewModel.activate(objective.id, null);
+                        
+                        promise.fin(function () {
                             expect(viewModel.contextCourseId).toBeNull();
+                            done();
                         });
                     });
 
-                    it('should set contextExpperienceTitle to null', function () {
-                        var promise = viewModel.activate(objective.id, null);
+                    it('should set contextExpperienceTitle to null', function (done) {
                         deferred.resolve(null);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        var promise = viewModel.activate(objective.id, null);
+                        
+                        promise.fin(function () {
                             expect(viewModel.contextCourseTitle).toBeNull();
+                            done();
                         });
                     });
 
-                    it('should enable back button', function () {
+                    it('should enable back button', function (done) {
                         spyOn(backButton, 'enable');
                         spyOn(localizationManager, 'localize').and.returnValue('text');
+                        deferred.resolve(null);
 
                         var promise = viewModel.activate(objective.id, null);
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+
+                        promise.fin(function () {
                             expect(backButton.enable).toHaveBeenCalledWith('text text', 'objectives', viewModel.navigateToObjectivesEvent, true);
+                            done();
                         });
                     });
 
@@ -121,25 +117,21 @@
                             deferred.reject('reason');
                         });
 
-                        it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                        it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
                             router.activeItem.settings.lifecycleData = null;
 
                             var promise = viewModel.activate(objective.id, null);
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            promise.fin(function () {
                                 expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                                done();
                             });
                         });
 
-                        it('should reject promise', function () {
+                        it('should reject promise', function (done) {
                             var promise = viewModel.activate(objective.id, null);
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            promise.fin(function () {
                                 expect(promise).toBeRejectedWith('reason');
+                                done();
                             });
                         });
                     });
@@ -153,16 +145,14 @@
                             expect(viewModel.activate('id', null)).toBePromise();
                         });
 
-                        it('should set objective title', function () {
+                        it('should set objective title', function (done) {
                             viewModel.title('');
 
                             var promise = viewModel.activate(objective.id, null);
 
-                            waitsFor(function () {
-                                return promise.isFulfilled();
-                            });
-                            runs(function () {
+                            promise.fin(function () {
                                 expect(viewModel.title()).toBe(objective.title);
+                                done();
                             });
                         });
 
@@ -172,24 +162,22 @@
                             expect(viewModel.currentLanguage).not.toBeNull();
                         });
 
-                        it('should initialize questions collection', function () {
+                        it('should initialize questions collection', function (done) {
                             viewModel.questions([]);
                             var promise = viewModel.activate(objective.id, null);
-                            waitsFor(function () {
-                                return promise.isFulfilled();
-                            });
-                            runs(function () {
+
+                            promise.fin(function () {
                                 expect(viewModel.questions().length).toBe(objective.questions.length);
+                                done();
                             });
                         });
 
-                        it('should sort questions asc', function () {
+                        it('should sort questions asc', function (done) {
                             var promise = viewModel.activate(objective.id, null);
-                            waitsFor(function () {
-                                return promise.isFulfilled();
-                            });
-                            runs(function () {
+
+                            promise.fin(function () {
                                 expect(viewModel.questions).toBeSortedAsc('title');
+                                done();
                             });
                         });
 
@@ -201,40 +189,35 @@
                     describe('when courseId is not string', function () {
                         var queryParams = { courseId: null };
 
-                        it('should set contextExpperienceId to null', function () {
-                            var promise = viewModel.activate(objective.id, queryParams);
+                        it('should set contextExpperienceId to null', function (done) {
                             deferred.resolve(null);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            var promise = viewModel.activate(objective.id, queryParams);
+                            
+                            promise.fin(function () {
                                 expect(viewModel.contextCourseId).toBeNull();
+                                done();
                             });
                         });
 
-                        it('should set contextExpperienceTitle to null', function () {
-                            var promise = viewModel.activate(objective.id, queryParams);
+                        it('should set contextExpperienceTitle to null', function (done) {
                             deferred.resolve(null);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            var promise = viewModel.activate(objective.id, queryParams);
+                            
+                            promise.fin(function () {
                                 expect(viewModel.contextCourseTitle).toBeNull();
+                                done();
                             });
                         });
 
-                        it('should enable back button', function () {
+                        it('should enable back button', function (done) {
+                            deferred.resolve(null);
                             spyOn(backButton, 'enable');
                             spyOn(localizationManager, 'localize').and.returnValue('text');
 
                             var promise = viewModel.activate(objective.id, queryParams);
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            promise.fin(function () {
                                 expect(backButton.enable).toHaveBeenCalledWith('text text', 'objectives', viewModel.navigateToObjectivesEvent, true);
+                                done();
                             });
                         });
 
@@ -244,25 +227,21 @@
                                 deferred.reject('reason');
                             });
 
-                            it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                            it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
                                 router.activeItem.settings.lifecycleData = null;
 
                                 var promise = viewModel.activate(objective.id, queryParams);
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                promise.fin(function () {
                                     expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                                    done();
                                 });
                             });
 
-                            it('should reject promise', function () {
+                            it('should reject promise', function (done) {
                                 var promise = viewModel.activate(objective.id, queryParams);
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                promise.fin(function () {
                                     expect(promise).toBeRejectedWith('reason');
+                                    done();
                                 });
                             });
                         });
@@ -276,16 +255,13 @@
                                 expect(viewModel.activate('id', queryParams)).toBePromise();
                             });
 
-                            it('should set objective title', function () {
+                            it('should set objective title', function (done) {
                                 viewModel.title('');
 
                                 var promise = viewModel.activate(objective.id, queryParams);
-
-                                waitsFor(function () {
-                                    return promise.isFulfilled();
-                                });
-                                runs(function () {
+                                promise.fin(function () {
                                     expect(viewModel.title()).toBe(objective.title);
+                                    done();
                                 });
                             });
 
@@ -295,24 +271,22 @@
                                 expect(viewModel.currentLanguage).not.toBeNull();
                             });
 
-                            it('should initialize questions collection', function () {
+                            it('should initialize questions collection', function (done) {
                                 viewModel.questions([]);
                                 var promise = viewModel.activate(objective.id, queryParams);
-                                waitsFor(function () {
-                                    return promise.isFulfilled();
-                                });
-                                runs(function () {
+
+                                promise.fin(function () {
                                     expect(viewModel.questions().length).toBe(objective.questions.length);
+                                    done();
                                 });
                             });
 
-                            it('should sort questions asc', function () {
+                            it('should sort questions asc', function (done) {
                                 var promise = viewModel.activate(objective.id, queryParams);
-                                waitsFor(function () {
-                                    return promise.isFulfilled();
-                                });
-                                runs(function () {
+
+                                promise.fin(function () {
                                     expect(viewModel.questions).toBeSortedAsc('title');
+                                    done();
                                 });
                             });
 
@@ -335,25 +309,23 @@
                                     deferred.reject('reason');
                                 });
 
-                                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
                                     router.activeItem.settings.lifecycleData = null;
 
                                     var promise = viewModel.activate(objective.id, queryParams);
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
+
+                                    promise.fin(function () {
                                         expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                                        done();
                                     });
                                 });
 
-                                it('should reject promise', function () {
+                                it('should reject promise', function (done) {
                                     var promise = viewModel.activate(objective.id, queryParams);
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
+
+                                    promise.fin(function () {
                                         expect(promise).toBeRejectedWith('reason');
+                                        done();
                                     });
                                 });
                             });
@@ -367,49 +339,43 @@
                                     expect(viewModel.activate('id', queryParams)).toBePromise();
                                 });
 
-                                it('should set contextExpperienceId', function () {
+                                it('should set contextExpperienceId', function (done) {
                                     var promise = viewModel.activate('id', queryParams);
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
+
+                                    promise.fin(function () {
                                         expect(viewModel.contextCourseId).toBe(course.id);
+                                        done();
                                     });
                                 });
 
-                                it('should set contextExpperienceTitle', function () {
+                                it('should set contextExpperienceTitle', function (done) {
                                     var promise = viewModel.activate('id', queryParams);
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
+
+                                    promise.fin(function () {
                                         expect(viewModel.contextCourseTitle).toBe(course.title);
+                                        done();
                                     });
                                 });
 
-                                it('should enable back button', function () {
+                                it('should enable back button', function (done) {
                                     spyOn(backButton, 'enable');
                                     spyOn(localizationManager, 'localize').and.returnValue('text');
 
                                     var promise = viewModel.activate('id', queryParams);
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
+                                    promise.fin(function () {
                                         expect(backButton.enable).toHaveBeenCalledWith('text' + ' \'' + course.title + '\'', 'course/' + course.id, viewModel.navigateToCourseEvent);
+                                        done();
                                     });
                                 });
 
-                                it('should set objective title', function () {
+                                it('should set objective title', function (done) {
                                     viewModel.title('');
 
                                     var promise = viewModel.activate(objective.id, queryParams);
 
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
+                                    promise.fin(function () {
                                         expect(viewModel.title()).toBe(objective.title);
+                                        done();
                                     });
                                 });
 
@@ -419,24 +385,22 @@
                                     expect(viewModel.currentLanguage).not.toBeNull();
                                 });
 
-                                it('should initialize questions collection', function () {
+                                it('should initialize questions collection', function (done) {
                                     viewModel.questions([]);
                                     var promise = viewModel.activate(objective.id, queryParams);
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
+
+                                    promise.fin(function () {
                                         expect(viewModel.questions().length).toBe(objective.questions.length);
+                                        done();
                                     });
                                 });
 
-                                it('should sort questions asc', function () {
+                                it('should sort questions asc', function (done) {
                                     var promise = viewModel.activate(objective.id, queryParams);
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
+
+                                    promise.fin(function () {
                                         expect(viewModel.questions).toBeSortedAsc('title');
+                                        done();
                                     });
                                 });
 
@@ -448,45 +412,41 @@
                                 getCourseDeferred.reject('reason');
                             });
 
-                            it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                            it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
                                 router.activeItem.settings.lifecycleData = null;
 
                                 var promise = viewModel.activate('id', queryParams);
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                
+                                promise.fin(function () {
                                     expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                                    done();
                                 });
                             });
 
-                            it('should reject promise', function () {
+                            it('should reject promise', function (done) {
                                 var promise = viewModel.activate('id', queryParams);
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+
+                                promise.fin(function () {
                                     expect(promise).toBeRejectedWith('reason');
+                                    done();
                                 });
                             });
 
-                            it('should set contextCourseId to null', function () {
+                            it('should set contextCourseId to null', function (done) {
                                 var promise = viewModel.activate('id', queryParams);
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+
+                                promise.fin(function () {
                                     expect(viewModel.contextCourseId).toBeNull();
+                                    done();
                                 });
                             });
 
-                            it('should set contextCourseTitle to null', function () {
+                            it('should set contextCourseTitle to null', function (done) {
                                 var promise = viewModel.activate('id', queryParams);
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+
+                                promise.fin(function () {
                                     expect(viewModel.contextCourseTitle).toBeNull();
+                                    done();
                                 });
                             });
                         });
@@ -586,8 +546,8 @@
                     updateDeferred = Q.defer();
                     getByIdDeferred = Q.defer();
 
-                    spyOn(repository, 'updateObjective').andReturn(updateDeferred.promise);
-                    spyOn(repository, 'getById').andReturn(getByIdDeferred.promise);
+                    spyOn(repository, 'updateObjective').and.returnValue(updateDeferred.promise);
+                    spyOn(repository, 'getById').and.returnValue(getByIdDeferred.promise);
 
                     spyOn(notify, 'saved');
                 });
@@ -616,36 +576,33 @@
                         getByIdDeferred.resolve(objective);
                     });
 
-                    it('should not send event', function () {
+                    it('should not send event', function (done) {
                         viewModel.endEditTitle();
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+
+                        promise.fin(function () {
                             expect(promise).toBeResolved();
                             expect(eventTracker.publish).not.toHaveBeenCalled();
+                            done();
                         });
                     });
 
-                    it('should not show notification', function () {
+                    it('should not show notification', function (done) {
                         viewModel.endEditTitle();
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+
+                        promise.fin(function () {
                             expect(promise).toBeResolved();
                             expect(notify.saved).not.toHaveBeenCalled();
+                            done();
                         });
                     });
 
-                    it('should not update question in repository', function () {
+                    it('should not update question in repository', function (done) {
                         viewModel.endEditTitle();
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+
+                        promise.fin(function () {
                             expect(promise).toBeResolved();
                             expect(repository.updateObjective).not.toHaveBeenCalled();
+                            done();
                         });
                     });
                 });
@@ -660,45 +617,41 @@
                         getByIdDeferred.resolve(objective);
                     });
 
-                    it('should send event \'Update objective title\'', function () {
+                    it('should send event \'Update objective title\'', function (done) {
                         viewModel.endEditTitle();
-                        waitsFor(function () {
-                            return !getPromise.isPending();
-                        });
-                        runs(function () {
+
+                        getPromise.fin(function () {
                             expect(getPromise).toBeResolved();
                             expect(eventTracker.publish).toHaveBeenCalledWith('Update objective title');
+                            done();
                         });
                     });
 
                     describe('and when title is valid', function () {
 
-                        it('should update objective in repository', function () {
+                        it('should update objective in repository', function (done) {
                             viewModel.endEditTitle();
-                            waitsFor(function () {
-                                return !getPromise.isPending();
-                            });
-                            runs(function () {
+
+                            getPromise.fin(function () {
                                 expect(getPromise).toBeResolved();
                                 expect(repository.updateObjective).toHaveBeenCalled();
-                                expect(repository.updateObjective.mostRecentCall.args[0].title).toEqual(newTitle);
+                                expect(repository.updateObjective.calls.mostRecent().args[0].title).toEqual(newTitle);
+                                done();
                             });
                         });
 
                         describe('and when objective updated successfully', function () {
 
-                            it('should update notificaion', function () {
-                                viewModel.endEditTitle();
-
-                                var promise = updateDeferred.promise.finally(function () { });
+                            it('should update notificaion', function (done) {
+                                var promise = updateDeferred.promise.fin(function () { });
                                 updateDeferred.resolve(new Date());
 
-                                waitsFor(function () {
-                                    return !getPromise.isPending() && !promise.isPending();
-                                });
-                                runs(function () {
+                                viewModel.endEditTitle();
+
+                                promise.fin(function () {
                                     expect(promise).toBeResolved();
                                     expect(notify.saved).toHaveBeenCalled();
+                                    done();
                                 });
                             });
 
@@ -708,15 +661,13 @@
 
                     describe('and when title is not valid', function () {
 
-                        it('should revert objective title value', function () {
+                        it('should revert objective title value', function (done) {
                             viewModel.title('');
                             viewModel.endEditTitle();
 
-                            waitsFor(function () {
-                                return !getPromise.isPending();
-                            });
-                            runs(function () {
+                            getPromise.fin(function () {
                                 expect(viewModel.title()).toBe(objective.title);
+                                done();
                             });
                         });
 
@@ -788,7 +739,7 @@
                 beforeEach(function () {
                     addQuestionDefer = Q.defer();
 
-                    spyOn(questionRepository, 'addQuestion').andReturn(addQuestionDefer.promise);
+                    spyOn(questionRepository, 'addQuestion').and.returnValue(addQuestionDefer.promise);
                     spyOn(uiLocker, 'lock');
                     spyOn(uiLocker, 'unlock');
                     spyOn(clientContext, 'set');
@@ -807,105 +758,74 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question');
                 });
 
-                it('should add question to repository', function () {
+                it('should add question to repository', function (done) {
                     var title = 'some title';
 
-                    spyOn(localizationManager, 'localize').andReturn(title);
+                    spyOn(localizationManager, 'localize').and.returnValue(title);
                     viewModel.objectiveId = 'SomeId';
-
-                    var promise = viewModel.createQuestion().fin(function () { });
-
                     addQuestionDefer.resolve();
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    viewModel.createQuestion().fin(function() {
                         expect(questionRepository.addQuestion).toHaveBeenCalledWith(viewModel.objectiveId, { title: title });
+                        done();
                     });
                 });
 
-                it('should lock content', function () {
+                it('should lock content', function (done) {
                     viewModel.objectiveId = 'SomeId';
-
-                    var promise = viewModel.createQuestion().fin(function () { });
-
                     addQuestionDefer.resolve();
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    viewModel.createQuestion().fin(function() {
                         expect(uiLocker.lock).toHaveBeenCalled();
+                        done();
                     });
                 });
 
                 describe('when question added', function () {
 
-                    it('should navigate to question editor with query string', function () {
+                    it('should navigate to question editor with query string', function (done) {
                         var createdQuestionId = 'SomeId';
-
-                        var promise = viewModel.createQuestion().fin(function () { });
-
                         addQuestionDefer.resolve({ id: createdQuestionId });
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        viewModel.createQuestion().fin(function() {
                             expect(router.navigate).toHaveBeenCalledWith('#objective/' + viewModel.objectiveId + '/question/' + createdQuestionId + '?' + instruction.queryString);
+                            done();
                         });
                     });
 
 
-                    it('should unlock content', function () {
+                    it('should unlock content', function (done) {
                         var createdQuestionId = 'SomeId';
-
-                        var promise = viewModel.createQuestion().fin(function () { });
-
                         addQuestionDefer.resolve({ id: createdQuestionId });
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        viewModel.createQuestion().fin(function() {
                             expect(uiLocker.lock).toHaveBeenCalled();
+                            done();
                         });
                     });
 
-                    it('should set lastCreatedQuestionId in client context', function () {
+                    it('should set lastCreatedQuestionId in client context', function (done) {
                         var createdQuestionId = 'SomeId';
-
-                        var promise = viewModel.createQuestion().fin(function () { });
-
                         addQuestionDefer.resolve({ id: createdQuestionId });
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        viewModel.createQuestion().fin(function() {
                             expect(clientContext.set).toHaveBeenCalledWith('lastCreatedQuestionId', createdQuestionId);
+                            done();
                         });
                     });
                 });
 
                 describe('when adding question failed', function () {
 
-                    it('should unlock content', function () {
-                        var promise = viewModel.createQuestion().fin(function () { });
-
+                    it('should unlock content', function (done) {
                         addQuestionDefer.reject();
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        viewModel.createQuestion().fin(function () {
                             expect(uiLocker.lock).toHaveBeenCalled();
+                            done();
                         });
                     });
-
                 });
-
             });
 
             describe('deleteSelectedQuestions', function () {
@@ -914,7 +834,7 @@
 
                 beforeEach(function () {
                     removeQuestions = Q.defer();
-                    spyOn(questionRepository, 'removeQuestions').andReturn(removeQuestions.promise);
+                    spyOn(questionRepository, 'removeQuestions').and.returnValue(removeQuestions.promise);
                 });
 
                 it('should be a function', function () {
@@ -955,34 +875,25 @@
 
                     describe('and when questions deleted successfully', function () {
 
-                        it('should delete selected questions from viewModel', function () {
-                            var promise = removeQuestions.promise.finally(function () { });
+                        it('should delete selected questions from viewModel', function (done) {
                             removeQuestions.resolve();
-
                             viewModel.deleteSelectedQuestions();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            
+                            removeQuestions.promise.finally(function () {
                                 expect(viewModel.questions().length).toBe(0);
+                                done();
                             });
                         });
 
-                        it('should update notificaion', function () {
-                            var promise = removeQuestions.promise.finally(function () { });
+                        it('should update notificaion', function (done) {
                             removeQuestions.resolve(new Date());
-
                             viewModel.deleteSelectedQuestions();
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            removeQuestions.promise.finally(function () {
                                 expect(notify.saved).toHaveBeenCalled();
+                                done();
                             });
                         });
-
                     });
                 });
 
@@ -1183,7 +1094,7 @@
                 });
 
                 it('should send event \'Change order of questions\'', function () {
-                    spyOn(repository, 'updateQuestionsOrder').andReturn(Q.defer().promise);
+                    spyOn(repository, 'updateQuestionsOrder').and.returnValue(Q.defer().promise);
 
                     viewModel.updateQuestionsOrder();
 
@@ -1191,7 +1102,7 @@
                 });
 
                 it('should update questions order', function () {
-                    spyOn(repository, 'updateQuestionsOrder').andReturn(Q.defer().promise);
+                    spyOn(repository, 'updateQuestionsOrder').and.returnValue(Q.defer().promise);
 
                     var questions = [{ isSelected: ko.observable(false) }];
                     viewModel.questions(questions);
@@ -1204,21 +1115,17 @@
 
                 describe('when update questions order is succeed', function() {
 
-                    it('should notify saved', function () {
+                    it('should notify saved', function (done) {
                         var deferred = Q.defer();
                         deferred.resolve();
-                        var promise = deferred.promise.finally(function () { });
-
-                        spyOn(repository, 'updateQuestionsOrder').andReturn(deferred.promise);
+                        spyOn(repository, 'updateQuestionsOrder').and.returnValue(deferred.promise);
                         spyOn(notify, 'saved');
 
                         viewModel.updateQuestionsOrder();
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        deferred.promise.finally(function () {
                             expect(notify.saved).toHaveBeenCalled();
+                            done();
                         });
                     });
 
@@ -1226,26 +1133,20 @@
 
                 describe('when update questions order is failed', function () {
 
-                    it('should not notify saved', function () {
+                    it('should not notify saved', function (done) {
                         var deferred = Q.defer();
                         deferred.reject();
-                        var promise = deferred.promise.finally(function () { });
-
-                        spyOn(repository, 'updateQuestionsOrder').andReturn(deferred.promise);
+                        spyOn(repository, 'updateQuestionsOrder').and.returnValue(deferred.promise);
                         spyOn(notify, 'saved');
 
                         viewModel.updateQuestionsOrder();
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        deferred.promise.finally(function () {
                             expect(notify.saved).not.toHaveBeenCalled();
+                            done();
                         });
                     });
-
                 });
-
             });
         });
     }
