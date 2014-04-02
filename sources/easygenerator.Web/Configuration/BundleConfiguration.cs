@@ -67,7 +67,6 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/common.css")
                 .Include("~/Content/account.css")
                 .Include("~/Content/helphint.css")
-                .Include("~/Content/introduction.css")
                 .Include("~/Content/treeOfContent.css")
                 .Include("~/Content/panels.css");
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());

@@ -23,6 +23,8 @@ ECHO "Building .Net unit tests"
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 "%PROGRAMFILES(x86)%\MSBuild\12.0\Bin\msbuild" sources\easygenerator.DataAccess.Tests\easygenerator.DataAccess.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true /property:PreBuildEvent= /property:PostBuildEvent=
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
+"%PROGRAMFILES(x86)%\MSBuild\12.0\Bin\msbuild" sources\easygenerator.Infrastructure.Tests\easygenerator.Infrastructure.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true /property:PreBuildEvent= /property:PostBuildEvent=
+IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 "%PROGRAMFILES(x86)%\MSBuild\12.0\Bin\msbuild" sources\easygenerator.Web.Tests\easygenerator.Web.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true /property:PreBuildEvent= /property:PostBuildEvent=
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
@@ -30,6 +32,8 @@ ECHO Running .Net unit tests...
 "%MSTestPath%\mstest.exe" /testcontainer:sources\easygenerator.DomainModel.Tests\bin\Debug\easygenerator.DomainModel.Tests.dll
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 "%MSTestPath%\mstest.exe" /testcontainer:sources\easygenerator.DataAccess.Tests\bin\Debug\easygenerator.DataAccess.Tests.dll 
+IF NOT %ERRORLEVEL% == 0 GOTO ERROR
+"%MSTestPath%\mstest.exe" /testcontainer:sources\easygenerator.Infrastructure.Tests\bin\easygenerator.Infrastructure.Tests.dll 
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 "%MSTestPath%\mstest.exe" /testcontainer:sources\easygenerator.Web.Tests\bin\Debug\easygenerator.Web.Tests.dll 
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR

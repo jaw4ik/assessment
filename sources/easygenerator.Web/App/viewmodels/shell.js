@@ -9,7 +9,6 @@
         };
 
         var
-            introductionPage = 'welcome',
             objectivesModules = ['objectives', 'objective', 'createObjective', 'createQuestion', 'question'],
             coursesModules = ['courses', 'createCourse', 'course', 'design', 'deliver'];
 
@@ -58,10 +57,6 @@
             return dataContext.initialize()
                 .then(function () {
                     router.guardRoute = function (routeInfo, params) {
-                        if (dataContext.userSettings.isShowIntroduction && clientContext.get('isShowIntroductionPage')) {
-                            clientContext.set('isShowIntroductionPage', false);
-                            return introductionPage;
-                        }
 
                         if (requestsCounter() == 0) {
                             return true;

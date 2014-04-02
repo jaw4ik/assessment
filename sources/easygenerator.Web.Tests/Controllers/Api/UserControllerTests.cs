@@ -392,7 +392,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
 
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -407,7 +407,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -431,7 +431,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.IsAuthenticated.Returns(true);
             _user.Identity.Name.Returns(tryItNowUsername);
             _userRepository.GetUserByEmail(tryItNowUsername).Returns((User)null);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -446,7 +446,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -461,7 +461,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
 
             //Act
             var result = _controller.Signup(profile);
@@ -476,7 +476,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email, Arg.Any<UserSettings>()).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
             //Act
             _controller.Signup(profile);
 
@@ -661,108 +661,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             result.Should().BeJsonSuccessResult();
         }
 
-        [TestMethod]
-        public void GetCurrentUserInfo_ShouldReturnIsShowIntroductionPageTrue_WhenUserIsAnonymous()
-        {
-            //Arrange
-
-
-            //Act
-            var result = _controller.GetCurrentUserInfo();
-
-            //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { IsShowIntroductionPage = true });
-        }
-
-        [TestMethod]
-        public void GetCurrentUserInfo_ShouldReturnIsShowIntroductionPageTrue_WhenUserIsNotAnonymousAndNotClickDoNotShowAgain()
-        {
-            //Arrange
-            const string email = "easygenerator@eg.com";
-            _user.Identity.Name.Returns(email);
-            _userRepository.GetUserByEmail(email).Returns(UserObjectMother.Create());
-
-            //Act
-            var result = _controller.GetCurrentUserInfo();
-            _aim4YouService.IsUserRegistered(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
-            //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { IsShowIntroductionPage = true });
-        }
-
-        [TestMethod]
-        public void GetCurrentUserInfo_ShouldReturnIsShowIntroductionPageTrue_WhenUserIsNotAnonymousAndClickDoNotShowAgain()
-        {
-            //Arrange
-            const string email = "easygenerator@eg.com";
-            var user = UserObjectMother.Create();
-            _user.Identity.Name.Returns(email);
-            _userRepository.GetUserByEmail(email).Returns(user);
-            user.UserSetting.UpdateIsShowIntroduction(false);
-
-            //Act
-            var result = _controller.GetCurrentUserInfo();
-
-            //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { IsShowIntroductionPage = false });
-        }
-
         #endregion
-
-        #region SetIsShowIntroductionPage
-
-        [TestMethod]
-        public void SetIsShowIntroductionPage_ShouldReturnJsonSuccessResult()
-        {
-            //Arrange
-            const string email = "easygenerator@eg.com";
-            _user.Identity.Name.Returns(email);
-            _userRepository.GetUserByEmail(email).Returns(UserObjectMother.Create());
-
-            //Act
-            var result = _controller.SetIsShowIntroductionPage(true);
-
-            //Assert
-            result.Should().BeJsonSuccessResult();
-
-        }
-
-        [TestMethod]
-        public void SetIsShowIntroductionPage_ShouldSetIsShowIntroductionPageToTrue_WhenUserIsNotCheckedDoNotShowAgain()
-        {
-            //Arrange
-            const string email = "easygenerator@eg.com";
-            var user = UserObjectMother.Create();
-            _user.Identity.Name.Returns(email);
-            _userRepository.GetUserByEmail(email).Returns(user);
-            user.UserSetting.UpdateIsShowIntroduction(false);
-
-            //Act
-            _controller.SetIsShowIntroductionPage(true);
-
-            //Assert
-            user.UserSetting.IsShowIntroductionPage.Should().BeTrue();
-
-        }
-
-        [TestMethod]
-        public void SetIsShowIntroductionPage_ShouldSetIsShowIntroductionPageToTrue_WhenUserIsCheckedDoNotShowAgain()
-        {
-            //Arrange
-            const string email = "easygenerator@eg.com";
-            var user = UserObjectMother.Create();
-            _user.Identity.Name.Returns(email);
-            _userRepository.GetUserByEmail(email).Returns(user);
-            user.UserSetting.UpdateIsShowIntroduction(true);
-
-            //Act
-            _controller.SetIsShowIntroductionPage(false);
-
-            //Assert
-            user.UserSetting.IsShowIntroductionPage.Should().BeFalse();
-
-        }
-
-        #endregion SetIsShowIntroductionPage
 
         #region Identify
 

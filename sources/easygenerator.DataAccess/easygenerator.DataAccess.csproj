@@ -92,6 +92,10 @@
     <Compile Include="Migrations\201403310838198_RemoveCountriesThatArePartsOfUK.Designer.cs">
       <DependentUpon>201403310838198_RemoveCountriesThatArePartsOfUK.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201404021048168_RemoveIntroductionPage.cs" />
+    <Compile Include="Migrations\201404021048168_RemoveIntroductionPage.Designer.cs">
+      <DependentUpon>201404021048168_RemoveIntroductionPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
@@ -146,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201403310838198_RemoveCountriesThatArePartsOfUK.resx">
       <DependentUpon>201403310838198_RemoveCountriesThatArePartsOfUK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404021048168_RemoveIntroductionPage.resx">
+      <DependentUpon>201404021048168_RemoveIntroductionPage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -312,11 +312,6 @@
     </Content>
     <Content Include="App\help\helpHint.js" />
     <Content Include="App\help\helpHint.html" />
-    <Content Include="App\introduction\welcome.spec.js">
-      <DependentUpon>welcome.js</DependentUpon>
-    </Content>
-    <Content Include="App\introduction\welcome.html" />
-    <Content Include="App\introduction\welcome.js" />
     <Content Include="App\repositories\courseRepository.spec.js">
       <DependentUpon>courseRepository.js</DependentUpon>
     </Content>
@@ -574,7 +569,6 @@
     <Content Include="Content\images\emptyList.png" />
     <Content Include="Content\images\enabled.png" />
     <Content Include="Content\images\examTemplate.png" />
-    <Content Include="Content\images\intro-page.png" />
     <Content Include="Content\images\objective.png" />
     <Content Include="Content\images\oops.png" />
     <Content Include="Content\images\package-preloader.gif" />
@@ -582,7 +576,6 @@
     <Content Include="Content\images\publish-loader.GIF" />
     <Content Include="Content\images\review-sprites.png" />
     <Content Include="Content\images\tree.png" />
-    <Content Include="Content\introduction.css" />
     <Content Include="Content\review.css" />
     <Content Include="Content\panels.css" />
     <Content Include="Content\treeOfContent.css" />

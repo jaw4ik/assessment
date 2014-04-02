@@ -160,7 +160,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var user = _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone,
-                profile.Organization, profile.Country, profile.Email, new UserSettings(profile.Email, true));
+                profile.Organization, profile.Country, profile.Email);
 
             _repository.Add(user);
             _userSignedUpEventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.PeopleBusyWithCourseDevelopmentAmount, profile.NeedAuthoringTool, profile.UsedAuthoringTool));
@@ -222,7 +222,6 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(new
             {
-                IsShowIntroductionPage = (user == null) || user.UserSetting.IsShowIntroductionPage,
                 IsRegisteredOnAim4You = user != null && _aim4YouService.IsUserRegistered(user.Email, GetCurrentDomain())
             });
         }
@@ -242,15 +241,5 @@ namespace easygenerator.Web.Controllers.Api
 
         }
 
-        [HttpPost]
-        public ActionResult SetIsShowIntroductionPage(bool isShowIntroduction)
-        {
-            var user = _repository.GetUserByEmail(GetCurrentUsername());
-            if (user != null && user.UserSetting.IsShowIntroductionPage != isShowIntroduction)
-            {
-                user.UserSetting.UpdateIsShowIntroduction(isShowIntroduction);
-            }
-            return JsonSuccess();
-        }
     }
 }

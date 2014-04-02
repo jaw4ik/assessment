@@ -44,7 +44,6 @@ namespace easygenerator.DataAccess
         public DbSet<LearningContent> LearningContents { get; set; }
         public DbSet<Template> Templates { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<UserSettings> UserSettings { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Entity
@@ -109,9 +108,6 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.Organization).IsRequired();
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));
-
-            modelBuilder.Entity<UserSettings>().Property(e => e.IsShowIntroductionPage).IsRequired();
-            modelBuilder.Entity<UserSettings>().HasRequired(e => e.User);
 
             modelBuilder.Entity<PasswordRecoveryTicket>().HasRequired(e => e.User);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);

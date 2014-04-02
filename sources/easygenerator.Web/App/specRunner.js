@@ -33,7 +33,6 @@
         'errorHandling/globalErrorHandler.spec',
         'errorHandling/httpErrorHandlerRegistrator.spec',
         'help/helpHint.spec',
-        'introduction/welcome.spec',
         'localization/localizationManager.spec',
         'userContext.spec',
         'models/user.spec',

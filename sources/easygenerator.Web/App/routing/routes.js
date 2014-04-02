@@ -83,14 +83,6 @@
                 settings: {
                     localizationKey: 'course'
                 }
-             },
-            {
-                route: 'welcome',
-                moduleId: 'introduction/welcome',
-                title: 'Welcome page',
-                settings: {
-                    localizationKey: 'introWelcomePageTitle'
-                }
             }
         ];
     }

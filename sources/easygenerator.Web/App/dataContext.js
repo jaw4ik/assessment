@@ -6,7 +6,6 @@
             courses = [],
             templates = [],
             userSettings = {
-                isShowIntroduction: true,
                 isRegisteredOnAim4You: false
             },
 
@@ -96,7 +95,6 @@
                         cache: false
                     }).then(function (response) {
                         if (response.data) {
-                            userSettings.isShowIntroduction = response.data.IsShowIntroductionPage;
                             userSettings.isRegisteredOnAim4You = response.data.IsRegisteredOnAim4You;
                         }
                     });
