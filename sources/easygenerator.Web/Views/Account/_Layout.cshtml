@@ -10,9 +10,6 @@
     <div class="account-nav">
         <ul class="account-nav-list">
             <li class="account-nav-item">
-                @Html.NavigationLink(Resources.TryNow, "TryWithoutSignup", "Account", "account-link-try-now")
-            </li>
-            <li class="account-nav-item">
                 @if (this.ViewContext.RouteData.GetRequiredString("controller") == "Account" && (this.ViewContext.RouteData.GetRequiredString("action") == "SignUp" || this.ViewContext.RouteData.GetRequiredString("action") == "SignUpSecondStep"))
                 {
                     @Html.Label(Resources.SignUp, null, new { @class = "account-link-sign-up active" })

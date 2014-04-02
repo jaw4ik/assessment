@@ -20,7 +20,7 @@ namespace easygenerator.Web.Controllers
             }
             else
             {
-                return RedirectToRoute("TryWithoutSignup");
+                return RedirectToRoute("SignUp");
             }
         }
     }

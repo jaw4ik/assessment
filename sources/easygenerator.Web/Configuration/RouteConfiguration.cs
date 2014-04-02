@@ -194,7 +194,7 @@ namespace easygenerator.Web.Configuration
                 url: "api/course/{courseId}/template/{templateId}",
                 defaults: new { controller = "Course", action = "TemplateSettings" }
             );
-            
+
             #region Publish routes
 
             routes.MapRoute(
@@ -290,11 +290,6 @@ namespace easygenerator.Web.Configuration
                 name: "SignOut",
                 url: "signout",
                 defaults: new { controller = "Account", action = "SignOut" });
-
-            routes.MapRoute(
-                name: "TryWithoutSignup",
-                url: "try",
-                defaults: new { controller = "Account", action = "TryWithoutSignup" });
 
             routes.MapRoute(
                 name: "LaunchTryMode",
