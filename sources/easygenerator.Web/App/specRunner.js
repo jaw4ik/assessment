@@ -57,6 +57,8 @@
         'viewmodels/courses/design.spec',
         'viewmodels/courses/deliver.spec',
 
+        'viewmodels/courses/deliveringActions/deliveringAction.spec',
+        'viewmodels/courses/deliveringActions/build.spec',
 
         'synchronization/handlers/userDowngraded.spec',
         'synchronization/handlers/userUpgradedToStarter.spec'
@@ -77,8 +79,8 @@
        'viewmodels/questions/learningContents.spec',
        
                     
-       'viewmodels/courses/deliveringActions/deliveringAction.spec',
-       'viewmodels/courses/deliveringActions/build.spec',
+       
+       
        'viewmodels/courses/deliveringActions/publish.spec',
        'viewmodels/courses/deliveringActions/scormBuild.spec',
        

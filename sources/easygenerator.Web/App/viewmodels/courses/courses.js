@@ -270,7 +270,7 @@
             var expVm = _.find(viewModel.courses(), function (item) {
                 return item.id == courseId;
             });
-
+            
             if (_.isObject(expVm)) {
                 handler(expVm);
             }
