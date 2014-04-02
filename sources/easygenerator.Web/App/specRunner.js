@@ -41,6 +41,7 @@
         'notifications/notification.spec',
         'repositories/answerRepository.spec',
         'repositories/commentRepository.spec',
+        //'repositories/courseRepository.spec',
 
         /* UNSORTED SPECS */
 
@@ -49,7 +50,7 @@
         'httpWrapper.spec',
         'notify.spec',
         'routing/routerExtender.spec',
-        'services/deliverService.spec',
+        //'services/deliverService.spec',
 
         'viewmodels/courses/createCourse.spec',
         'viewmodels/courses/courses.spec',
@@ -67,7 +68,7 @@
         'synchronization/handlers/userUpgradedToStarter.spec'
 
         /* NOT MIGRATED SPECS */
-       /*'repositories/courseRepository.spec',
+       /*
        'repositories/objectiveRepository.spec',
        'repositories/questionRepository.spec',
        'repositories/learningContentRepository.spec',
