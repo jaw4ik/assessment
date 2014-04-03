@@ -1,8 +1,8 @@
 ﻿.objective .create-new-title {
-    padding: 32px  0
+    padding: 32px 0;
 }
 
-.objective .main-content-list-holder, .objective .list-controls-holder {
+.objective .main-content-list-holder {
     max-width: none;
 }
 
@@ -20,9 +20,6 @@
     padding-bottom: 6px;
 }
 
-.objective .main-content-list .open-item-btn {
-    top: 32px;
-}
 
 .create-objective .create-form {
     padding-bottom: 60px;

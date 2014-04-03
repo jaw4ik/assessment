@@ -1,60 +1,53 @@
 ﻿<section class="objectives view-module" data-bind="scrollToElement: {}">
-    
-    <div class="content-holder">
+
+    <div class="content-holder resizable">
         <div class="page-view-caption clearfix">
             <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjectives' }">Learning objectives</div>
         </div>
-        <div class="list-controls-holder">
-            <!-- ko if: enableDeleteObjectives -->
-                <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedObjectives, localize: { text: 'deleteSelected' }">Delete selected</span>
-            <!-- /ko -->
-
-            <!-- ko ifnot: enableDeleteObjectives -->
-                <span class="selected-item-action delete delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
-            <!-- /ko -->
-            <div class="dotted-line"></div>
-        </div>
-    </div>
-
-    <div class="content-holder resizable">
-        <div class="main-content-list-holder">
-            <div class="create-new-holder">
-                <a href="#objective/create" class="create-new-title" data-bind="click: navigateToCreation">
-                    <span class="create-new-icon">&nbsp;</span>
-                    <span data-bind="localize: { text: 'createNewObjective' }"></span>
-                </a>
-                <div class="dotted-line"></div>
+        <div class="view-list-actions-holder">
+            <div class="list-item-action create">
+                <button class="create-item-btn" data-bind="click: navigateToCreation">
+                    <span class="create-item-btn-caption" data-bind="localize: { text: 'createNewObjective' }">Learning objective</span>
+                </button>
             </div>
-            <ul class="unstyled main-content-list">
-                <!-- ko foreach: objectives -->
-                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
-                    <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
-                        <div class="list-item-checkbox" data-bind="">
-                            <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
-                                <input class="custom-checkbox" type="checkbox" />
-                            </span>
-                        </div>
-                        <div class="list-item-logo">
-                            <img class="list-item-logo-image" alt="" data-bind="attr: { src: image }" src="" />
-                        </div>
-                        <div class="list-item-info">
-                            <div class="list-item-title">
-                                <span class="selectable" data-bind="text: title"></span>
-                            </div>
-                            <div class="list-item-saved">
-                                <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="open-item-btn">
-                        <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToDetails, attr: { href: '#objective/' + id }">
-                            <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
-                        </a>
-                    </div>
-                </li>
+            <div class="list-item-action delete">
+                <!-- ko if: enableDeleteObjectives -->
+                <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedObjectives, localize: { text: 'deleteSelected' }">Delete selected</span>
                 <!-- /ko -->
-            </ul>
+                <!-- ko ifnot: enableDeleteObjectives -->
+                <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
+                <!-- /ko -->
+            </div>
         </div>
+        <ul class="unstyled main-content-list">
+            <!-- ko foreach: objectives -->
+            <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
+                <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
+                    <div class="list-item-checkbox" data-bind="">
+                        <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
+                            <input class="custom-checkbox" type="checkbox" />
+                        </span>
+                    </div>
+                    <div class="list-item-logo">
+                        <img class="list-item-logo-image" alt="" data-bind="attr: { src: image }" src="" />
+                    </div>
+                    <div class="list-item-info">
+                        <div class="list-item-title">
+                            <span class="selectable" data-bind="text: title"></span>
+                        </div>
+                        <div class="list-item-saved">
+                            <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="open-item-btn">
+                    <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToDetails, attr: { href: '#objective/' + id }">
+                        <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
+                    </a>
+                </div>
+            </li>
+            <!-- /ko -->
+        </ul>
     </div>
 
 </section>

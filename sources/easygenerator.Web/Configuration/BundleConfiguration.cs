@@ -55,6 +55,7 @@ namespace easygenerator.Web.Configuration
 
             var stylesBundle = new StyleBundle("~/Content/css")
                 .Include("~/Content/durandal.css")
+                .Include("~/Content/common.css")
                 .Include("~/Content/styles.css")
                 .Include("~/Content/question.css")
                 .Include("~/Content/objective.css")
@@ -64,7 +65,6 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/ckeditor.css")
                 .Include("~/Content/notify.css")
                 .Include("~/Content/selectbox.css")
-                .Include("~/Content/common.css")
                 .Include("~/Content/account.css")
                 .Include("~/Content/helphint.css")
                 .Include("~/Content/treeOfContent.css")
@@ -73,8 +73,8 @@ namespace easygenerator.Web.Configuration
             bundles.Add(stylesBundle);
 
             bundles.Add(new StyleBundle("~/Content/reviewcss")
-                    .Include("~/Content/styles.css")
                     .Include("~/Content/common.css")
+                    .Include("~/Content/styles.css")
                     .Include("~/Content/review.css")
                 );
         }

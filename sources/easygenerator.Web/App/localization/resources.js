@@ -305,7 +305,7 @@
         en: 'Type course title here...'
     },
     createNewCourse: {
-        en: 'Create new course'
+        en: 'New course'
     },
     chooseTemplate: {
         en: 'Choose template'
@@ -422,7 +422,7 @@
         en: 'Related question'
     },
     createNewQuestion: {
-        en: 'Create new question'
+        en: 'New question'
     },
     savedAt: {
         en: 'Saved at'

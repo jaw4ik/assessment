@@ -8,15 +8,10 @@
     padding: 40px 0;
 }
 
-.course .main-content-list-holder,
-.course .list-controls-holder {
-    min-width: 73%;
-}
-
 .course .main-content-list-holder {
-    float: right;
-    width: 73%;
-}
+    min-width: 72%;
+    width: 72%;
+    float: right;}
 
 .objectives-filters-holder {
     width: 100%;
@@ -25,6 +20,7 @@
 .objectives-filters-block {
     float: left;
     width: 26.5%;
+    padding-top: 15px;
 }
 
 .objectives-filters-title {
@@ -723,7 +719,6 @@
 
 .course-introduction-wrapper {
     margin-top: 6px;
-    margin-bottom: 15px;
 }
 
 .course-introduction-content-wrapper {

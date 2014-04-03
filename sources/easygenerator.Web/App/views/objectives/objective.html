@@ -1,5 +1,5 @@
 ﻿<section class="objective view-module">
-    
+
     <div class="content-holder">
         <div class="page-view-caption clearfix">
             <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</div>
@@ -16,25 +16,25 @@
                 </div>
             </div>
         </header>
-        <div class="list-controls-holder">
-            <!-- ko if: enableDeleteQuestions -->
-            <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedQuestions, localize: { text: 'deleteSelected' }">Delete selected</span>
-            <!-- /ko -->
-            <!-- ko ifnot: enableDeleteQuestions -->
-            <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
-            <!-- /ko -->
-            <div class="dotted-line"></div>
-        </div>
 
         <div class="content-holder resizable">
             <div class="main-content-list-holder">
-                <div class="create-new-holder">
-                    <a href="#" class="create-new-title" data-bind="click: createQuestion">
-                        <span class="create-new-icon">&nbsp;</span>
-                        <span data-bind="localize: { text: 'createNewQuestion' }"></span>
-                    </a>
-                    <div class="dotted-line"></div>
+                <div class="view-list-actions-holder">
+                    <div class="list-item-action create">
+                        <button class="create-item-btn" data-bind="click: createQuestion">
+                            <span class="create-item-btn-caption" data-bind="localize: { text: 'createNewQuestion' }">New question</span>
+                        </button>
+                    </div>
+                    <div class="list-item-action delete">
+                        <!-- ko if: enableDeleteQuestions -->
+                        <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedQuestions, localize: { text: 'deleteSelected' }">Delete selected</span>
+                        <!-- /ko -->
+                        <!-- ko ifnot: enableDeleteQuestions -->
+                        <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
+                        <!-- /ko -->
+                    </div>
                 </div>
+
                 <ul class="unstyled main-content-list" data-bind="sortable: { data: questions, afterMove: updateQuestionsOrder, isEnabled: isSortingEnabled }">
                     <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
                         <div class="list-item-content-holder" data-bind="click: $parent.toggleQuestionSelection">

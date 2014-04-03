@@ -59,29 +59,29 @@
                     </div>
                 </aside>
                 <div class="main-content-list-holder">
-                    <div class="list-controls-holder clearfix">
-                        <!-- ko if: objectivesMode() == objectivesListModes.display -->
-                        <!-- ko if: canDisconnectObjectives() -->
-                        <span class="selected-item-action disconnect enabled" data-bind="click: disconnectSelectedObjectives, localize: { text: 'disconnectSelected' }"></span>
-                        <!-- /ko -->
-                        <!-- ko ifnot: canDisconnectObjectives()-->
-                        <span class="selected-item-action disconnect disabled" data-bind="localize: { text: 'disconnectSelected' }"></span>
-                        <!-- /ko -->
-                        <!--/ko -->
-                        <!-- ko if: objectivesMode() == objectivesListModes.appending -->
-                        <span class="selected-item-action add" data-bind="css: { enabled: canConnectObjectives(), disabled: !canConnectObjectives() }, click: connectObjectives, localize: { text: 'connectSelected' }"></span>
-                        <!-- /ko -->
-                        <div class="dotted-line"></div>
+                    <div class="view-list-actions-holder">
+                        <div class="list-item-action create">
+                            <!-- ko if: objectivesMode() == objectivesListModes.display -->
+                            <button class="create-item-btn" data-bind="click: navigateToCreateObjective">
+                                <span class="create-item-btn-caption" data-bind="localize: { text: 'createAndConnectLearningObjective' }">Learning objective</span>
+                            </button>
+                            <!-- /ko -->
+                        </div>
+                        <div class="list-item-action delete">
+                            <!-- ko if: objectivesMode() == objectivesListModes.display -->
+                            <!-- ko if: canDisconnectObjectives() -->
+                            <span class="selected-item-action disconnect enabled" data-bind="click: disconnectSelectedObjectives, localize: { text: 'disconnectSelected' }"></span>
+                            <!-- /ko -->
+                            <!-- ko ifnot: canDisconnectObjectives()-->
+                            <span class="selected-item-action disconnect disabled" data-bind="localize: { text: 'disconnectSelected' }"></span>
+                            <!-- /ko -->
+                            <!--/ko -->
+                            <!-- ko if: objectivesMode() == objectivesListModes.appending -->
+                            <span class="selected-item-action add" data-bind="css: { enabled: canConnectObjectives(), disabled: !canConnectObjectives() }, click: connectObjectives, localize: { text: 'connectSelected' }"></span>
+                            <!-- /ko -->
+                        </div>
                     </div>
-                    <!-- ko if: objectivesMode() == objectivesListModes.display -->
-                    <div class="create-new-holder">
-                        <a href="#" class="create-new-title" data-bind="click: navigateToCreateObjective, attr: { href: '#objective/create?courseId=' + id }">
-                            <span class="create-new-icon">&nbsp;</span>
-                            <span data-bind="localize: { text: 'createAndConnectLearningObjective' }"></span>
-                        </a>
-                        <div class="dotted-line"></div>
-                    </div>
-                    <!-- /ko -->
+
                     <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
                     <div class="empty-list-wrapper">
                         <div class="empty-list" data-bind="localize: { text: 'noLearningObjectivesToConnect' }"></div>

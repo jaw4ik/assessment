@@ -1,33 +1,29 @@
 ﻿<section class="courses view-module" data-bind="scrollToElement: {}">
-    
-    <div class="content-holder">
+
+    <div class="content-holder resizable">
+
         <div class="page-view-caption clearfix">
             <div class="page-view-caption-text" data-bind="localize: { text: 'courses' }">Courses</div>
         </div>
-        <div class="list-controls-holder">
-            <!-- ko if: enableDeleteCourses -->
-                <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedCourses, localize: { text: 'deleteSelected' }">Delete selected</span>
-            <!-- /ko -->
-
-            <!-- ko ifnot: enableDeleteCourses -->
-                <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
-            <!-- /ko -->
-            <div class="dotted-line"></div>
-        </div>
-    </div>
-
-    <div class="content-holder resizable">
-        <div class="main-content-list-holder">
-            <div class="create-new-holder">
-                <a href="#course/create" class="create-new-title" data-bind="click: navigateToCreation">
-                    <span class="create-new-icon">&nbsp;</span>
-                    <span data-bind="localize: { text: 'createNewCourse' }"></span>
-                </a>
-                <div class="dotted-line"></div>
+        <div class="view-list-actions-holder">
+            <div class="list-item-action create">
+                <button class="create-item-btn" data-bind="click: navigateToCreation">
+                    <span class="create-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
+                </button>
             </div>
-            <ul class="unstyled main-content-list">
-                <!-- ko foreach: courses -->
-                  <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
+            <div class="list-item-action delete">
+                <!-- ko if: enableDeleteCourses -->
+                <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedCourses, localize: { text: 'deleteSelected' }">Delete selected</span>
+                <!-- /ko -->
+                <!-- ko ifnot: enableDeleteCourses -->
+                <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
+                <!-- /ko -->
+            </div>
+        </div>
+        <ul class="unstyled main-content-list">
+            <!-- ko foreach: courses -->
+            <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
+                <div class="overflow-wrapper">
                     <div class="list-item-content-holder" data-bind="click: $parent.toggleSelection">
                         <div class="list-item-checkbox">
                             <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
@@ -88,9 +84,9 @@
                     <!-- ko if: showStatus() -->
                     <div class="course-status-container" data-bind="event: { mouseover: $parent.enableOpenCourse }">
                         <!-- ko if: deliveringState() === $parent.states.building || deliveringState() === $parent.states.publishing -->
-                            <div class="course-text-holder building">
-                                <span class="course-text" data-bind="localize: { text: deliveringState() === $parent.states.building ? 'assembling' : 'publishing' }"></span>
-                            </div>
+                        <div class="course-text-holder building">
+                            <span class="course-text" data-bind="localize: { text: deliveringState() === $parent.states.building ? 'assembling' : 'publishing' }"></span>
+                        </div>
                         <!-- /ko -->
                         <!-- ko if: deliveringState() === $parent.states.succeed -->
                         <div class="course-text-holder complete">
@@ -105,10 +101,10 @@
                     </div>
                     <!-- /ko -->
                     <!-- link to render package url to and click after assembling -->
-                    <a id="packageLink" style="display:none" data-bind="attr: { id: 'packageLink_' + id, href: 'download/' + packageUrl() }"></a>   
-                </li>
-                <!-- /ko -->
-            </ul>
-        </div>
+                    <a id="packageLink" style="display:none" data-bind="attr: { id: 'packageLink_' + id, href: 'download/' + packageUrl() }"></a>
+                </div>
+            </li>
+            <!-- /ko -->
+        </ul>
     </div>
 </section>
