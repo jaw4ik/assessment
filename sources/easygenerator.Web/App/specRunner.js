@@ -60,6 +60,7 @@
 
         'viewmodels/courses/deliveringActions/deliveringAction.spec',
         'viewmodels/courses/deliveringActions/build.spec',
+        'viewmodels/courses/deliveringActions/publish.spec',
 
         'viewmodels/objectives/objectives.spec',
         'viewmodels/objectives/objective.spec',
@@ -82,7 +83,7 @@
                     
        
        
-       'viewmodels/courses/deliveringActions/publish.spec',
+       
        'viewmodels/courses/deliveringActions/scormBuild.spec',
        
        '../Scripts/account/signup.spec',

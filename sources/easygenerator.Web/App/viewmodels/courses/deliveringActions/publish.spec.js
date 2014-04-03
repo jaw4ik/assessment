@@ -35,7 +35,7 @@
                     });
 
                 });
-                
+
                 describe('when course isn\'t published previously', function () {
 
                     it('should set state to \'failed\'', function () {
@@ -105,7 +105,7 @@
                     expect(viewModel.courseId).toBe(courseId);
                 });
             });
-            
+
             describe('isActive:', function () {
                 it('should be observable', function () {
                     expect(viewModel.isActive).toBeObservable();
@@ -168,8 +168,8 @@
                     coursePublishDefer = Q.defer();
                     courseRepositoryGetByIdPromise = courseRepositoryGetByIdDefer.promise;
                     coursePublishPromise = coursePublishDefer.promise;
-                    spyOn(repository, 'getById').andReturn(courseRepositoryGetByIdPromise);
-                    spyOn(course, 'publish').andReturn(coursePublishPromise);
+                    spyOn(repository, 'getById').and.returnValue(courseRepositoryGetByIdPromise);
+                    spyOn(course, 'publish').and.returnValue(coursePublishPromise);
                 });
 
                 it('should be a function', function () {
@@ -197,17 +197,12 @@
                         expect(viewModel.isActive()).toBeTruthy();
                     });
 
-                    it('should start publish of current course', function () {
+                    it('should start publish of current course', function (done) {
                         courseRepositoryGetByIdDefer.resolve(course);
                         coursePublishDefer.resolve();
-                        var promise = viewModel.publishCourse();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-
-                        runs(function () {
+                        viewModel.publishCourse().fin(function () {
                             expect(course.publish).toHaveBeenCalled();
+                            done();
                         });
                     });
 
@@ -217,15 +212,10 @@
                             coursePublishDefer.resolve();
                         });
 
-                        it('should set isActive() to false', function () {
-                            var promise = viewModel.publishCourse();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-
-                            runs(function () {
+                        it('should set isActive() to false', function (done) {
+                            viewModel.publishCourse().fin(function () {
                                 expect(viewModel.isActive()).toBeFalsy();
+                                done();
                             });
                         });
                     });
@@ -236,15 +226,10 @@
                             coursePublishDefer.reject();
                         });
 
-                        it('should set isActive() to false', function () {
-                            var promise = viewModel.publishCourse();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-
-                            runs(function () {
+                        it('should set isActive() to false', function (done) {
+                            viewModel.publishCourse().fin(function () {
                                 expect(viewModel.isActive()).toBeFalsy();
+                                done();
                             });
                         });
                     });
@@ -313,7 +298,8 @@
                         it('should not change action state', function () {
                             viewModel.courseId = course.id;
                             viewModel.state(constants.deliveringStates.notStarted);
-                            app.trigger(constants.messages.course.build.started, course);
+
+                            viewModel.courseBuildStarted(course);
 
                             expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
                         });
@@ -328,7 +314,8 @@
                         it('should change action state to \'building\'', function () {
                             viewModel.courseId = course.id;
                             viewModel.state('');
-                            app.trigger(constants.messages.course.build.started, course);
+
+                            viewModel.courseBuildStarted(course);
 
                             expect(viewModel.state()).toEqual(constants.deliveringStates.building);
                         });
@@ -339,7 +326,8 @@
                     it('should not change action state', function () {
                         viewModel.courseId = course.id;
                         viewModel.state(constants.deliveringStates.notStarted);
-                        app.trigger(constants.messages.course.build.started, { id: '100500' });
+
+                        viewModel.courseBuildStarted({ id: '100500' });
 
                         expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
                     });
@@ -360,7 +348,8 @@
                         it('should not change action state', function () {
                             viewModel.courseId = course.id;
                             viewModel.state(constants.deliveringStates.notStarted);
-                            app.trigger(constants.messages.course.build.failed, course);
+
+                            viewModel.courseBuildFailed(course.id);
 
                             expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
                         });
@@ -369,7 +358,7 @@
                             viewModel.courseId = course.id;
                             viewModel.packageUrl('packageUrl');
 
-                            app.trigger(constants.messages.course.build.failed, course.id);
+                            viewModel.courseBuildFailed(course.id);
 
                             expect(viewModel.packageUrl()).toEqual('packageUrl');
                         });
@@ -384,7 +373,8 @@
                         it('should change action state to \'failed\'', function () {
                             viewModel.courseId = course.id;
                             viewModel.state('');
-                            app.trigger(constants.messages.course.build.failed, course.id);
+
+                            viewModel.courseBuildFailed(course.id);
 
                             expect(viewModel.state()).toEqual(constants.deliveringStates.failed);
                         });
@@ -393,7 +383,7 @@
                             viewModel.courseId = course.id;
                             viewModel.packageUrl('packageUrl');
 
-                            app.trigger(constants.messages.course.build.failed, course.id);
+                            viewModel.courseBuildFailed(course.id);
 
                             expect(viewModel.packageUrl()).toEqual('');
                         });
@@ -401,10 +391,12 @@
                 });
 
                 describe('and when course is any other course', function () {
+
                     it('should not change action state', function () {
                         viewModel.courseId = course.id;
                         viewModel.state(constants.deliveringStates.notStarted);
-                        app.trigger(constants.messages.course.build.failed, { id: '100500' });
+
+                        viewModel.courseBuildFailed('100500');
 
                         expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
                     });
@@ -413,10 +405,11 @@
                         viewModel.courseId = course.id;
                         viewModel.packageUrl('packageUrl');
 
-                        app.trigger(constants.messages.course.build.failed, '100500');
+                        viewModel.courseBuildFailed('100500');
 
                         expect(viewModel.packageUrl()).toEqual('packageUrl');
                     });
+
                 });
 
             });
@@ -424,23 +417,29 @@
             describe('when course publish was started', function () {
 
                 describe('and when course is current course', function () {
+
                     it('should change action state to \'publishing\'', function () {
                         viewModel.courseId = course.id;
                         viewModel.state('');
-                        app.trigger(constants.messages.course.publish.started, course);
+
+                        viewModel.coursePublishStarted(course);
 
                         expect(viewModel.state()).toEqual(constants.deliveringStates.publishing);
                     });
+
                 });
 
                 describe('and when course is any other course', function () {
+
                     it('should not change action state', function () {
                         viewModel.courseId = course.id;
                         viewModel.state(constants.deliveringStates.notStarted);
-                        app.trigger(constants.messages.course.publish.started, { id: '100500' });
+
+                        viewModel.coursePublishStarted({ id: '100500' });
 
                         expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
                     });
+
                 });
 
             });
@@ -448,12 +447,13 @@
             describe('when course publish completed', function () {
 
                 describe('and when course is current course', function () {
+
                     it('should update action state to \'success\'', function () {
                         viewModel.courseId = course.id;
                         viewModel.state('');
-
                         course.buildingStatus = constants.deliveringStates.succeed;
-                        app.trigger(constants.messages.course.publish.completed, course);
+
+                        viewModel.coursePublishCompleted(course);
 
                         expect(viewModel.state()).toEqual(constants.deliveringStates.succeed);
                     });
@@ -461,12 +461,13 @@
                     it('should update action packageUrl to the corresponding one', function () {
                         viewModel.courseId = course.id;
                         viewModel.packageUrl('');
-
                         course.publishedPackageUrl = "http://xxx.com";
-                        app.trigger(constants.messages.course.publish.completed, course);
+
+                        viewModel.coursePublishCompleted(course);
 
                         expect(viewModel.packageUrl()).toEqual(course.publishedPackageUrl);
                     });
+
                 });
 
                 describe('and when course is any other course', function () {
@@ -474,7 +475,8 @@
                     it('should not update action state', function () {
                         viewModel.courseId = course.id;
                         viewModel.state(constants.deliveringStates.notStarted);
-                        app.trigger(constants.messages.course.publish.completed, { id: '100500' });
+
+                        viewModel.coursePublishCompleted({ id: '100500' });
 
                         expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
                     });
@@ -482,7 +484,8 @@
                     it('should not update current publishedPackageUrl', function () {
                         viewModel.courseId = course.id;
                         viewModel.packageUrl('http://xxx.com');
-                        app.trigger(constants.messages.course.publish.completed, { id: '100500' });
+
+                        viewModel.coursePublishCompleted({ id: '100500' });
 
                         expect(viewModel.packageUrl()).toEqual("http://xxx.com");
                     });
@@ -493,13 +496,12 @@
             describe('when course publish failed', function () {
 
                 describe('and when course is current course', function () {
-                    var message = "message";
 
                     it('should update action state to \'failed\'', function () {
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        app.trigger(constants.messages.course.publish.failed, course.id, message);
+                        viewModel.coursePublishFailed(course.id);
 
                         expect(viewModel.state()).toEqual(constants.deliveringStates.failed);
                     });
@@ -508,18 +510,19 @@
                         viewModel.courseId = course.id;
                         viewModel.packageUrl('publishedPackageUrl');
 
-                        app.trigger(constants.messages.course.publish.failed, course.id, message);
+                        viewModel.coursePublishFailed(course.id);
 
                         expect(viewModel.packageUrl()).toEqual('');
                     });
                 });
 
                 describe('and when course is any other course', function () {
+
                     it('should not update publish action state to \'failed\'', function () {
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        app.trigger(constants.messages.course.publish.failed, '100500');
+                        viewModel.coursePublishFailed('100500');
 
                         expect(viewModel.state()).toEqual('');
                     });
@@ -528,10 +531,11 @@
                         viewModel.courseId = course.id;
                         viewModel.packageUrl('packageUrl');
 
-                        app.trigger(constants.messages.course.publish.failed, '100500');
+                        viewModel.coursePublishFailed('100500');
 
                         expect(viewModel.packageUrl()).toEqual('packageUrl');
                     });
+
                 });
 
             });

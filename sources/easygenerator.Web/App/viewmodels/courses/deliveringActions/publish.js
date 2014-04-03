@@ -39,43 +39,51 @@
 
             //#region App-wide events
 
-            app.on(constants.messages.course.build.started).then(function (course) {
+
+            viewModel.courseBuildStarted = function (course) {
                 if (course.id !== viewModel.courseId || !viewModel.isActive())
                     return;
 
                 viewModel.state(constants.deliveringStates.building);
-            });
+            }
 
-            app.on(constants.messages.course.build.failed, function (courseid) {
+            viewModel.courseBuildFailed = function (courseid) {
                 if (courseid !== viewModel.courseId || !viewModel.isActive())
                     return;
 
                 viewModel.state(constants.deliveringStates.failed);
                 viewModel.packageUrl('');
-            });
+            }
 
-            app.on(constants.messages.course.publish.started).then(function (course) {
+            viewModel.coursePublishStarted = function (course) {
                 if (course.id !== viewModel.courseId)
                     return;
 
                 viewModel.state(constants.deliveringStates.publishing);
-            });
+            }
 
-            app.on(constants.messages.course.publish.completed, function (course) {
+            viewModel.coursePublishCompleted = function (course) {
                 if (course.id !== viewModel.courseId)
                     return;
 
                 viewModel.state(constants.deliveringStates.succeed);
                 viewModel.packageUrl(course.publishedPackageUrl);
-            });
+            }
 
-            app.on(constants.messages.course.publish.failed, function (courseid) {
+            viewModel.coursePublishFailed = function (courseid) {
                 if (courseid !== viewModel.courseId)
                     return;
 
                 viewModel.state(constants.deliveringStates.failed);
                 viewModel.packageUrl('');
-            });
+            }
+
+            app.on(constants.messages.course.build.started).then(viewModel.courseBuildStarted);
+            app.on(constants.messages.course.build.failed).then(viewModel.courseBuildFailed);
+
+            app.on(constants.messages.course.publish.started).then(viewModel.coursePublishStarted);
+            app.on(constants.messages.course.publish.completed).then(viewModel.coursePublishCompleted);
+            app.on(constants.messages.course.publish.failed).then(viewModel.coursePublishFailed);
 
             //#endregion
 
