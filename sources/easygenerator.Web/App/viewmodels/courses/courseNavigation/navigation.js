@@ -1,11 +1,11 @@
-﻿define(['viewmodels/courses/courseNavigation/items/create', 'viewmodels/courses/courseNavigation/items/design', 'viewmodels/courses/courseNavigation/items/deliver'],
-    function (CreateNavigationItem, DesignNavigationItem, DeliverNavigationItem) {
+﻿define(['viewmodels/courses/courseNavigation/items/create', 'viewmodels/courses/courseNavigation/items/design', 'viewmodels/courses/courseNavigation/items/publish'],
+    function (CreateNavigationItem, DesignNavigationItem, PublishNavigationItem) {
         var items = [];
         var activate = function () {
             this.items = [
                 new CreateNavigationItem(),
                 new DesignNavigationItem(),
-                new DeliverNavigationItem()
+                new PublishNavigationItem()
             ];
         };
 

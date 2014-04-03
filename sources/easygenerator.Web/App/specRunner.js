@@ -56,7 +56,7 @@
         'viewmodels/courses/courses.spec',
         'viewmodels/courses/course.spec',
         'viewmodels/courses/design.spec',
-        'viewmodels/courses/deliver.spec',
+        'viewmodels/courses/publish.spec',
 
         'viewmodels/courses/deliveringActions/deliveringAction.spec',
         'viewmodels/courses/deliveringActions/build.spec',
@@ -106,7 +106,7 @@
        'viewmodels/courses/courseComments.spec',
        'viewmodels/courses/courseNavigation/items/create.spec',
        'viewmodels/courses/courseNavigation/items/design.spec',
-       'viewmodels/courses/courseNavigation/items/deliver.spec',
+       'viewmodels/courses/courseNavigation/items/publish.spec',
        'viewmodels/courses/courseNavigation/items/navigationItem.spec',
        'viewmodels/courses/courseNavigation/navigation.spec',
        'treeOfContent/CourseTreeNode.spec',

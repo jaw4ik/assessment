@@ -77,9 +77,9 @@
                 }
             },
             {
-                route: 'deliver/:courseId',
-                moduleId: 'viewmodels/courses/deliver',
-                title: 'Deliver Course',
+                route: 'publish/:courseId',
+                moduleId: 'viewmodels/courses/publish',
+                title: 'Publish Course',
                 settings: {
                     localizationKey: 'course'
                 }

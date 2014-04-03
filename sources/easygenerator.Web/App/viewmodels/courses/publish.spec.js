@@ -1,4 +1,4 @@
-﻿define(['viewmodels/courses/deliver'],
+﻿define(['viewmodels/courses/publish'],
     function (viewModel) {
         "use strict";
 
@@ -14,7 +14,7 @@
             clientContext = require('clientContext'),
             backButton = require('controls/backButton/backButton');
 
-        describe('viewModel [deliver]', function () {
+        describe('viewModel [publish]', function () {
             var course = {
                 id: 'testCourseId',
                 title: 'title',

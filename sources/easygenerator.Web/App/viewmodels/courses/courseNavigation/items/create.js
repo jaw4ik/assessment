@@ -4,7 +4,7 @@
              NavigationItem.call(this, 'course', 'courseCreateItem', 'Navigate to create course');
 
              this.isActive = ko.computed(function () {
-                 return router.routeData().moduleName != "design" && router.routeData().moduleName != "deliver";
+                 return router.routeData().moduleName != "design" && router.routeData().moduleName != "publish";
              });
          };
      });

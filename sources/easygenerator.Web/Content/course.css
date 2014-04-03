@@ -241,9 +241,9 @@
 
 /*#endregion DESIGN STEP*/
 
-/*#region DELIVER STEP*/
+/*#region PUBLISH STEP*/
 
-.view-module.deliver {
+.view-module.publish {
     padding-top: 20px;
 }
 
@@ -652,7 +652,7 @@
     }
 }
 
-/*#endregion DELIVER STEP*/
+/*#endregion PUBLISH STEP*/
 
 /*#region Template selector*/
 

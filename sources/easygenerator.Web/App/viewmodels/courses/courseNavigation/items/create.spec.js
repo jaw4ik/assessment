@@ -29,17 +29,17 @@
                 });
             });
 
-            describe('when module name is equal to \'deliver\'', function () {
+            describe('when module name is equal to \'publish\'', function () {
                 it('should be false', function () {
                     router.routeData({
                         courseId: 'courseId',
-                        moduleName: 'deliver'
+                        moduleName: 'publish'
                     });
                     expect(navigationItem.isActive()).toBeFalsy();
                 });
             });
             
-            describe('when module name is not equal to \'design\' and \'deliver\'', function () {
+            describe('when module name is not equal to \'design\' and \'publish\'', function () {
                 it('should be true', function () {
                     router.routeData({
                         courseId: 'courseId',
