@@ -265,6 +265,12 @@
     hideCourseContent: {
         en: 'Hide course introduction content'
     },
+    startFromHere: {
+        en: 'Start from here'
+    },
+    courseListIsEmpty: {
+        en: 'Course list is empty'
+    },
     /* End resource section for model Courses */
     
     /* Resource section for model CreateObjective */

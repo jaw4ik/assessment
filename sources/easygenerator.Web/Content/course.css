@@ -11,7 +11,8 @@
 .course .main-content-list-holder {
     min-width: 72%;
     width: 72%;
-    float: right;}
+    float: right;
+}
 
 .objectives-filters-holder {
     width: 100%;
@@ -358,11 +359,35 @@
         background: url('images/sprites.png');
     }
 
-    /*package conditions*/
-
-    .package-action-btn.publish-btn .btn-title:before {
-        background-position: -128px -76px;
+    .package-action-btn.green {
+        text-shadow: 0 1px 1px rgba(0,0,0,.4);
+        background: #b0c93e;
+        border-color: #b0c93e;
+        border-bottom-color: #899d30;
     }
+
+        .package-action-btn.green:hover,
+        .package-action-btn.green.active,
+        .package-action-btn.green:active {
+            background: #bdd93d;
+            border-color: #bdd93d;
+            border-bottom-color: #899d30;
+            box-shadow: none;
+        }
+
+        .package-action-btn.green:active,
+        .package-action-btn.green.disabled,
+        .package-action-btn.green.disabled:hover,
+        .package-action-btn.green.disabled:active {
+            background: #b0c93e;
+            border-color: #98ae35;
+        }
+
+        /*package conditions*/
+
+        .package-action-btn.publish-btn .btn-title:before {
+            background-position: -128px -76px;
+        }
 
     .package-action-btn.creating-btn .btn-title:before {
         background: url('images/package-preloader.gif') no-repeat;

@@ -560,6 +560,7 @@
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
     <Content Include="Content\durandal.css" />
+    <Content Include="Content\font\rabiohead.svg" />
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\account\sign-up.png" />
     <Content Include="Content\images\blue-loader.GIF" />
@@ -878,6 +879,9 @@
     </Content>
     <Content Include="App\specs.html" />
     <Content Include="Mail\MailTemplates\HttpRequestFailedTemplate.cshtml" />
+    <Content Include="Content\font\rabiohead.eot" />
+    <Content Include="Content\font\rabiohead.ttf" />
+    <Content Include="Content\font\rabiohead.woff" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\durandal\transitions\defaultRouterTransition.js" />
     <Content Include="Scripts\jasmine\boot.js" />

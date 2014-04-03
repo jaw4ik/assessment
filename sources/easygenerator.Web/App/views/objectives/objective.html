@@ -21,9 +21,19 @@
             <div class="main-content-list-holder">
                 <div class="view-list-actions-holder">
                     <div class="list-item-action create">
-                        <button class="create-item-btn" data-bind="click: createQuestion">
-                            <span class="create-item-btn-caption" data-bind="localize: { text: 'createNewQuestion' }">New question</span>
-                        </button>
+                        <div class="create-item-btn-wrapper">
+                            <button class="create-item-btn" data-bind="click: createQuestion">
+                                <span class="create-item-btn-caption" data-bind="localize: { text: 'createNewQuestion' }">New question</span>
+                            </button>
+                            <!-- ko if: questions().length < 1 -->
+                            <div class="tip-arrow-holder">
+                                <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                    <div class="list-item-action empty">
+                        &nbsp;
                     </div>
                     <div class="list-item-action delete">
                         <!-- ko if: enableDeleteQuestions -->
@@ -34,6 +44,12 @@
                         <!-- /ko -->
                     </div>
                 </div>
+                
+                <!-- ko if: questions().length < 1 -->
+                <div class="empty-list-wrapper">
+                    <span class="empty-list" data-bind="localize: { text: 'questionListIsEmpty'}">Question list is empty</span>
+                </div>
+                <!-- /ko -->
 
                 <ul class="unstyled main-content-list" data-bind="sortable: { data: questions, afterMove: updateQuestionsOrder, isEnabled: isSortingEnabled }">
                     <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">

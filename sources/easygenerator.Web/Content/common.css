@@ -43,6 +43,14 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Rabiohead';
+    src: url('./font/rabiohead.eot');
+    src: url('./font/rabiohead.eot?#iefix') format('embedded-opentype'), url('./font/rabiohead.woff') format('woff'), url('./font/rabiohead.ttf') format('truetype'), url('./font/rabiohead.svg#Rabiohead') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*#endregion FONTS CONNECTIONS*/
 
 /*#region RESET CSS-STYLES IN FOREIGN BROWSERS */
@@ -204,13 +212,3 @@ img:hover {
     }
 
 /*#endregion COMMON CLASSES CSS-STYLES*/
-
-/*#region CURSOR*/
-.cursor-default {
-    cursor: default;
-}
-
-.cursor-pointer {
-    cursor: pointer;
-}
-/*#endregion CURSOR*/

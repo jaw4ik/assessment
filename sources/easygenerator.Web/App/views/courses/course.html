@@ -62,10 +62,20 @@
                     <div class="view-list-actions-holder">
                         <div class="list-item-action create">
                             <!-- ko if: objectivesMode() == objectivesListModes.display -->
-                            <button class="create-item-btn" data-bind="click: navigateToCreateObjective">
-                                <span class="create-item-btn-caption" data-bind="localize: { text: 'createAndConnectLearningObjective' }">Learning objective</span>
-                            </button>
+                            <div class="create-item-btn-wrapper">
+                                <button class="create-item-btn" data-bind="click: navigateToCreateObjective">
+                                    <span class="create-item-btn-caption" data-bind="localize: { text: 'createAndConnectLearningObjective' }">Learning objective</span>
+                                </button>
+                                <!-- ko if: connectedObjectives().length < 1 -->
+                                <div class="tip-arrow-holder">
+                                    <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
+                                </div>
+                                <!-- /ko -->
+                            </div>
                             <!-- /ko -->
+                        </div>
+                        <div class="list-item-action empty">
+                            &nbsp;
                         </div>
                         <div class="list-item-action delete">
                             <!-- ko if: objectivesMode() == objectivesListModes.display -->
@@ -85,6 +95,11 @@
                     <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
                     <div class="empty-list-wrapper">
                         <div class="empty-list" data-bind="localize: { text: 'noLearningObjectivesToConnect' }"></div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: connectedObjectives().length == 0 && objectivesMode() == objectivesListModes.display -->
+                    <div class="empty-list-wrapper">
+                        <span class="empty-list" data-bind="localize: { text: 'learningObjectiveListIsEmpty'}">Learning objective list is empty</span>
                     </div>
                     <!-- /ko -->
                     <!-- ko if: (objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->

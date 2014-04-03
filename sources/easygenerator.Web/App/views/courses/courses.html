@@ -7,9 +7,19 @@
         </div>
         <div class="view-list-actions-holder">
             <div class="list-item-action create">
-                <button class="create-item-btn" data-bind="click: navigateToCreation">
-                    <span class="create-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
-                </button>
+                <div class="create-item-btn-wrapper">
+                    <button class="create-item-btn" data-bind="click: navigateToCreation">
+                        <span class="create-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
+                    </button>
+                    <!-- ko if: courses().length < 1 -->
+                    <div class="tip-arrow-holder">
+                        <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <div class="list-item-action empty">
+                &nbsp;
             </div>
             <div class="list-item-action delete">
                 <!-- ko if: enableDeleteCourses -->
@@ -21,6 +31,11 @@
             </div>
         </div>
         <ul class="unstyled main-content-list">
+            <!-- ko if: courses().length < 1 -->
+            <li class="empty-list-wrapper">
+                <span class="empty-list" data-bind="localize: { text: 'courseListIsEmpty'}">Course list is empty</span>
+            </li>
+            <!-- /ko -->
             <!-- ko foreach: courses -->
             <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
                 <div class="overflow-wrapper">
