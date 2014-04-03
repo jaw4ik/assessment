@@ -2,9 +2,9 @@
     function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, backButton) {
 
         var events = {
-                navigateToCourses: 'Navigate to courses',
-                updateCourseTemplate: 'Change course template to'
-            };
+            navigateToCourses: 'Navigate to courses',
+            updateCourseTemplate: 'Change course template to'
+        };
 
         var viewModel = {
             courseId: '',
@@ -69,12 +69,14 @@
             eventTracker.publish(events.updateCourseTemplate + ' \'' + template.name + '\'');
             viewModel.showProgress(true);
 
-            courseRepository.updateCourseTemplate(viewModel.courseId, template.id).then(function (response) {
-                viewModel.currentTemplate(template);
-                notify.saved();
-            }).finally(function () {
-                viewModel.showProgress(false);
-            });
+            courseRepository.updateCourseTemplate(viewModel.courseId, template.id)
+                .then(function () {
+                    viewModel.currentTemplate(template);
+                    notify.saved();
+                    viewModel.showProgress(false);
+                }).fail(function () {
+                    viewModel.showProgress(false);
+                });
 
         }
 
