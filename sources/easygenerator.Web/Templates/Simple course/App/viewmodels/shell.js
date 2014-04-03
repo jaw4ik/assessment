@@ -3,7 +3,7 @@
 
         return {
             router: router,
-            cssName: ko.computed(function() {
+            cssName: ko.computed(function () {
                 var activeItem = router.activeItem();
                 if (_.isObject(activeItem)) {
                     var moduleId = activeItem.__moduleId__;
@@ -18,7 +18,7 @@
                     rootLinkEnabled: true,
                     navigationEnabled: true
                 };
-                
+
                 var activeInstruction = router.activeInstruction();
                 if (_.isObject(activeInstruction)) {
                     settings.rootLinkEnabled = !activeInstruction.config.rootLinkDisabled;
@@ -26,14 +26,14 @@
                 }
                 return settings;
             },
-            
+
             logoUrl: ko.observable(''),
             isNavigatingToAnotherView: ko.observable(false),
 
 
             activate: function () {
                 var that = this;
-                
+
                 router.on('router:route:activating').then(function (newView) {
                     var currentView = router.activeItem();
                     if (newView && currentView && newView.__moduleId__ === currentView.__moduleId__) {
@@ -46,18 +46,19 @@
                     });
                 });
                 
-                return context.initialize().then(function (dataContext) {
-                    app.title = dataContext.course.title;
 
-                    return modulesInitializer.init().then(function () {
-                        
-                        that.logoUrl(graphicalCustomisation.settings.logoUrl);
+                return modulesInitializer.init().then(function () {
+                    that.logoUrl(graphicalCustomisation.settings.logoUrl);
+
+                    return context.initialize().then(function (dataContext) {
+                        app.title = dataContext.course.title;
 
                         return router.map(routes)
                             .buildNavigationModel()
                             .mapUnknownRoutes('viewmodels/404', '404')
                             .activate('');
                     });
+
                 });
             }
         };

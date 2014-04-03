@@ -14,9 +14,9 @@
             expect(viewModel).toBeDefined();
         });
 
-        describe('logoUrl:', function() {
+        describe('logoUrl:', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.logoUrl).toBeDefined();
             });
 
@@ -27,7 +27,7 @@
                 expect(viewModel.isNavigatingToAnotherView).toBeObservable();
             });
         });
-        
+
         describe('activate:', function () {
 
             it('should be function', function () {
@@ -35,67 +35,66 @@
             });
 
             var routerActivateDefer, contextInititalizeDefer;
+            var modulesInitializerDefer;
             beforeEach(function () {
                 routerActivateDefer = Q.defer();
                 spyOn(router, 'activate').andReturn(routerActivateDefer.promise);
                 routerActivateDefer.resolve();
-                
+
                 contextInititalizeDefer = Q.defer();
                 spyOn(context, 'initialize').andReturn(contextInititalizeDefer.promise);
+                modulesInitializerDefer = Q.defer();
+                spyOn(modulesInitializer, 'init').andReturn(modulesInitializerDefer.promise);
                 contextInititalizeDefer.resolve({ course: { title: 'Course title' } });
             });
-
+            
             it('should initialize context', function () {
                 viewModel.activate();
-                expect(context.initialize).toHaveBeenCalled();
+                expect(modulesInitializer.init).toHaveBeenCalled();
             });
 
-            describe('when context initialized', function () {
-
-                var modulesInitializerDefer;
-                beforeEach(function() {
-                    modulesInitializerDefer = Q.defer();
-                    spyOn(modulesInitializer, 'init').andReturn(modulesInitializerDefer.promise);
+            describe('and when modules initialized', function () {
+                beforeEach(function () {
                     modulesInitializerDefer.resolve();
                 });
 
-                it('should set application title', function() {
+                it('should set logoUrl', function () {
+                    graphicalCustomization.settings.logoUrl = 'some/url';
                     var promise = viewModel.activate();
 
-                    waitsFor(function() {
+                    waitsFor(function () {
                         return !promise.isPending();
                     });
-                    runs(function() {
-                        expect(app.title).toBe('Course title');
+                    runs(function () {
+                        expect(viewModel.logoUrl()).toBe(graphicalCustomization.settings.logoUrl);
                     });
                 });
 
-                it('should initialize modules', function() {
+                it('should initialize context', function () {
                     var promise = viewModel.activate();
 
-                    waitsFor(function() {
+                    waitsFor(function () {
                         return !promise.isPending();
                     });
-                    runs(function() {
-                        expect(modulesInitializer.init).toHaveBeenCalled();
+                    runs(function () {
+                        expect(context.initialize).toHaveBeenCalled();
                     });
                 });
 
-                describe('and when modules initialized', function() {
+                describe('and when context initialized', function () {
 
-                    it('should set logoUrl', function () {
-                        graphicalCustomization.settings.logoUrl = 'some/url';
+                    it('should set application title', function () {
                         var promise = viewModel.activate();
 
-                        waitsFor(function() {
+                        waitsFor(function () {
                             return !promise.isPending();
                         });
-                        runs(function() {
-                            expect(viewModel.logoUrl()).toBe(graphicalCustomization.settings.logoUrl);
+                        runs(function () {
+                            expect(app.title).toBe('Course title');
                         });
                     });
 
-                    it('should activate router', function() {
+                    it('should activate router', function () {
                         var promise = viewModel.activate();
 
                         waitsFor(function () {
