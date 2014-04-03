@@ -41,7 +41,7 @@
         'notifications/notification.spec',
         'repositories/answerRepository.spec',
         'repositories/commentRepository.spec',
-        //'repositories/courseRepository.spec',
+        'repositories/courseRepository.spec',
 
         /* UNSORTED SPECS */
 
@@ -50,7 +50,7 @@
         'httpWrapper.spec',
         'notify.spec',
         'routing/routerExtender.spec',
-        //'services/deliverService.spec',
+        //'services/deliverService.spec',       Failing tests here <<<      Review later
 
         'viewmodels/courses/createCourse.spec',
         'viewmodels/courses/courses.spec',
