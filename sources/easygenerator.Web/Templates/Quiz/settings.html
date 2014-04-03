@@ -609,7 +609,7 @@
                         <label for="masteryScore" class="content-label spinner-label">Mastery score (for each learning objective):</label>
                         <div data-trigger="spinner" class="spinner" data-bind="spinner: masteryScore">
                             <a class="spinner-button spinner-down" data-spin="down"></a>
-                            <input type="text" maxlength="3" id="masteryScore" class="content-text-input" data-rule="percent" data-bind="value: masteryScore, valueUpdate: 'afterkeydown', number: {}">
+                            <input type="text" maxlength="3" id="masteryScore" class="content-text-input" data-rule="quantity" data-max="100" data-min="0" data-bind="value: masteryScore, valueUpdate: 'afterkeydown', number: {}">
                             <a class="spinner-button spinner-up" data-spin="up"></a>
                         </div>
 
