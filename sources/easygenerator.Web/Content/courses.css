@@ -154,10 +154,10 @@
 }
 
 /*
- * Open link action
+ * View course action
 */
 
-.course-action-open-link {
+.course-action-view-course {
     display: table-cell;
     text-align: left;
     vertical-align: middle;
@@ -167,11 +167,11 @@
     width: 5%;
 }
 
-.open-link-title {
+.view-course-title {
     color: #215daf;
 }
 
-    .open-link-title:hover {
+    .view-course-title:hover {
         text-decoration: underline;
     }
 

@@ -123,8 +123,8 @@
                         <div class="copy-link-input-wrapper">
                             <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: publishAction().packageUrl(), css: { selectable: !isDeliveringInProgress() }, selectTextBinding: publishAction().state() === states.succeed" />
                         </div>
-                        <div class="open-link-btn-wrapper">
-                            <div class="open-link-description-wrapper">
+                        <div class="view-course-btn-wrapper">
+                            <div class="view-course-description-wrapper">
                                 <div class="action-explanation-tooltip-container" data-bind="visible: !isDeliveringInProgress()">
                                     <div class="action-explanation-tooltip-wrapper">
                                         <div class="action-explanation-tooltip">
@@ -134,13 +134,13 @@
                                     </div>
                                 </div>
                                 <!-- ko ifnot: isDeliveringInProgress() -->
-                                <a class="open-link-btn" data-bind="click: publishAction().openPublishedCourse, attr: { href: publishAction().packageUrl() }">
-                                    <span class="open-link-text" data-bind="localize: { text: 'viewCourse' }"></span>
+                                <a class="view-course-btn" data-bind="click: publishAction().openPublishedCourse, attr: { href: publishAction().packageUrl() }">
+                                    <span class="view-course-text" data-bind="localize: { text: 'viewCourse' }"></span>
                                 </a>
                                 <!-- /ko -->
                                 <!-- ko if: isDeliveringInProgress() -->
-                                <a class="open-link-btn" href="javascript: return false;">
-                                    <span class="open-link-text" data-bind="localize: { text: 'viewCourse' }"></span>
+                                <a class="view-course-btn" href="javascript: return false;">
+                                    <span class="view-course-text" data-bind="localize: { text: 'viewCourse' }"></span>
                                 </a>
                                 <!-- /ko -->
                             </div>
