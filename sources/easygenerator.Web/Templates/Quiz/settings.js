@@ -13,5 +13,8 @@
           "authenticationRequired": false
         },
         "allowedVerbs": []
+    },
+    "masteryScore": {
+        "score": ""
     }
 }

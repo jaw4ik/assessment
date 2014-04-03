@@ -71,8 +71,8 @@
 
         .info-tooltip-wrapper {
             display: none;
-            max-width: 355px;
             width: 97%;
+            max-width: 355px;
             position: absolute;
             top: 100%;
             right: 5px;
@@ -159,6 +159,17 @@
             background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAQCAYAAAAbBi9cAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MkFGQUJGNTA4OEI2MTFFM0FFRTM4RDdFNTVGRkIyREEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MkFGQUJGNTE4OEI2MTFFM0FFRTM4RDdFNTVGRkIyREEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoyQUZBQkY0RTg4QjYxMUUzQUVFMzhEN0U1NUZGQjJEQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoyQUZBQkY0Rjg4QjYxMUUzQUVFMzhEN0U1NUZGQjJEQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PkB0g9oAAAEVSURBVHjaYnRxcWGgADACcR4Qx7NQYIgAEC8GYh8gzifXIGUg3g7EqkC8F4gnM5FhiBkQH4Ma8gKI43bv3v2fVIN8gXgfEIsB8S8gDgAa8gwkQYpBGUC8Hoi5ofw0ID4Jk2QiMmbagHg6EDNDxXqBeCGyIkKBzQbE7kCsgiQGCuRydIX4DOID4nVA7ATExVCX6QBxJBD/RVeMzWsgMQsg9ocawgj1ygEgBqXejww4NCEDXSC+BcTHQTECxLlA/A+KQeJPcTkf3WvzoYkNBIKgYQSKLQ4g3o0vMJnQAtYQTd4HGtCTCUUtskFaOMJsNzGJjAmKTYB4NhZ5UKbcQ4xBLFDvRELZP4D4PzRgQQluErHJHiDAAGbxLotMtU2/AAAAAElFTkSuQmCC) no-repeat;
         }
 
+        .page-title.masteryscore:before {
+            content: '';
+            display: block;
+            height: 16px;
+            width: 16px;
+            position: absolute;
+            top: 2px;
+            left: 0;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzRBMTRCNzNCQTZCMTFFM0E4M0ZEQ0VFQTEzRkQ2NUEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzRBMTRCNzRCQTZCMTFFM0E4M0ZEQ0VFQTEzRkQ2NUEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDNEExNEI3MUJBNkIxMUUzQTgzRkRDRUVBMTNGRDY1QSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDNEExNEI3MkJBNkIxMUUzQTgzRkRDRUVBMTNGRDY1QSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PpqsSnsAAAC9SURBVHjaYnRxcWEgAXQBcSkS/xsTA2mAB4hnALEyEBsAMRcLA+ngAxDfA2J+EIeJgUKAywAvIH6Hho1JMUAAiB8CsSsUvwViTmwKQWEwH4i5kcTWQekvQHwWyv6OzwsJQHwVqlgUiO1ICQNYLEwA4o9Qp/MT0GMBxOVAzIFsACnAAYpRXNAAxD+B2B6Iz5PjhQIkMZgBoJR2BspWIWQArmRrTG5CojglkmQAeiL5CsSfsaj9AZVDBt8AAgwAmXEglrnEt3gAAAAASUVORK5CYII=') no-repeat;
+        }
+
         .content-container {
             border: 1px solid #c7c7c7;
             border-bottom-color: #a0a0a0;
@@ -235,8 +246,12 @@
 
         .content-col-right {
             float: right;
-            width: 65%;
+            width: 63%;
         }
+
+            .content-col-right.spinner {
+                position: relative;
+            }
 
         .content-text-input {
             width: 100%;
@@ -275,12 +290,14 @@
 
         .content-label {
             display: block;
-            width: 30.5%;
+            width: 33%;
             float: left;
             padding: 6px 0;
-            -ms-word-break: break-all;
-            word-break: break-all;
         }
+
+            .content-label.spinner-label {
+                width: 75%;
+            }
 
         .save-btn-wrapper {
             padding: 10px 0 0;
@@ -501,6 +518,37 @@
                 .logo-unavailable .text a {
                     color: #0084D3;
                 }
+
+        .spinner {
+            position: relative;
+            width: 56px;
+            overflow: hidden;
+        }
+
+        .spinner-button {
+            display: block;
+            position: absolute;
+            right: 1px;
+            width: 18px;
+            height: 14px;
+            border-left: 1px solid #e6e6e6;
+            cursor: default;
+        }
+
+            .spinner-button:hover {
+                background-color: #f2f2f2;
+            }
+
+        .spinner-down {
+            bottom: 1px;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDI3QUM4RDhCQTZDMTFFMzg3N0VCOTIxRjBFQjI2NkYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDI3QUM4RDlCQTZDMTFFMzg3N0VCOTIxRjBFQjI2NkYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowMjdBQzhENkJBNkMxMUUzODc3RUI5MjFGMEVCMjY2RiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowMjdBQzhEN0JBNkMxMUUzODc3RUI5MjFGMEVCMjY2RiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pp5wfnsAAAAjSURBVHjaYmBgYGgC4v84cCMDFDTik8SmCEMSWRGKJECAAQBRAw/+aVnzSAAAAABJRU5ErkJggg==') 4px 4px no-repeat;
+            border-top: 1px solid #e6e6e6;
+        }
+
+        .spinner-up {
+            top: 1px;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjhDQjdDMUVCQTZCMTFFM0FGQ0JBNEI5NUFDQUMwRDEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjhDQjdDMUZCQTZCMTFFM0FGQ0JBNEI5NUFDQUMwRDEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGOENCN0MxQ0JBNkIxMUUzQUZDQkE0Qjk1QUNBQzBEMSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGOENCN0MxREJBNkIxMUUzQUZDQkE0Qjk1QUNBQzBEMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pv7gns8AAAAiSURBVHjaYmBABQ1QjBWAJP5DMYaiRiRJDEXYJOGKAAIMAL09D/dXRHEOAAAAAElFTkSuQmCC') 4px 5px no-repeat;
+        }
     </style>
 </head>
 <body>
@@ -549,6 +597,22 @@
                             <a target="_blank" href="http://www.easygenerator.com/order-now/">upgrade your account</a>
                             in order to set custom course logo
                         </div>
+                    </div>
+                </div>
+                <div class="content-header">
+                    <div class="page-title-wrapper">
+                        <h1 class="page-title masteryscore">Mastery score settings</h1>
+                    </div>
+                </div>
+                <div class="content-wrapper">
+                    <div class="content-row top-row">
+                        <label for="masteryScore" class="content-label spinner-label">Mastery score (for each learning objective):</label>
+                        <div data-trigger="spinner" class="spinner" data-bind="spinner: masteryScore">
+                            <a class="spinner-button spinner-down" data-spin="down"></a>
+                            <input type="text" maxlength="3" id="masteryScore" class="content-text-input" data-rule="percent" data-bind="value: masteryScore, valueUpdate: 'afterkeydown', number: {}">
+                            <a class="spinner-button spinner-up" data-spin="up"></a>
+                        </div>
+
                     </div>
                 </div>
                 <div class="content-header">
@@ -656,10 +720,10 @@
                     <div class="content-row">
                         <label data-bind="css: { disabled: !enableXAPI() }">
                             <span class="content-checkbox">
-                                <input type="checkbox" class="content-checkbox-input" data-bind="checked: statements.passed, enable: enableXAPI">
+                                <input type="checkbox" class="content-checkbox-input" data-bind="checked: statements.experienced, enable: enableXAPI">
                                 <span class="content-checkbox-checked"></span>
                             </span>
-                            <span class="input-label">Passed</span>
+                            <span class="input-label">Experienced</span>
                         </label>
                         <label class="content-col-right" data-bind="css: { disabled: !enableXAPI() }">
                             <span class="content-checkbox">
@@ -670,12 +734,23 @@
                         </label>
                     </div>
 
+                    <div class="content-row">
+                        <label data-bind="css: { disabled: !enableXAPI() }">
+                            <span class="content-checkbox">
+                                <input type="checkbox" class="content-checkbox-input" data-bind="checked: statements.passed, enable: enableXAPI">
+                                <span class="content-checkbox-checked"></span>
+                            </span>
+                            <span class="input-label">Passed</span>
+                        </label>
+                    </div>
+
+
                     <div class="content-splitter-line">
                         <span class="content-splitter-text">Easygenerator recommends</span>
                     </div>
                     <div class="content-row banner">
                         <a href="https://www.waxlrs.com/?utm_medium=affiliate&utm_source=easy_generator" target="_blank">
-                            <img src="../Exam/img/saltbox-banner.png" class="saltbox-banner" alt="Saltbox banner" />
+                            <img src="../Simple course/img/saltbox-banner.png" class="saltbox-banner" alt="Saltbox banner" />
                         </a>
                     </div>
                 </div>
@@ -685,6 +760,8 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.0.0/knockout-min.js"></script>
+    <!--<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>-->
+    <script src="https://rawgithub.com/xixilive/jquery-spinner/master/src/jquery.spinner.js" type="text/javascript"></script>
 
     <script>
         function getURLParameter(name) {
@@ -717,11 +794,13 @@
                 statements: {
                     started: ko.observable(true),
                     stopped: ko.observable(true),
+                    experienced: ko.observable(true),
                     mastered: ko.observable(true),
                     answered: ko.observable(true),
                     passed: ko.observable(true),
                     failed: ko.observable(true)
-                }
+                },
+                masteryScore: ko.observable('100')
             };
 
             viewModel.credentialsEnabled = ko.computed(function () {
@@ -755,6 +834,9 @@
                             return value() ? key : undefined;
                         })
                     },
+                    masteryScore: {
+                        score: viewModel.masteryScore()
+                    }
                 };
 
                 viewModel.isFailed(false);
@@ -778,7 +860,7 @@
                     try {
                         settings = JSON.parse(json);
                     } catch (e) {
-                        settings = { xApi: { lrs: { credentials: {} } } };
+                        settings = { logo: {}, xApi: { lrs: { credentials: {} } }, masteryScore: {} };
                     }
                     viewModel.enableXAPI(settings.xApi.enabled || false);
                     viewModel.lrsUrl(settings.xApi.lrs.uri || '');
@@ -786,6 +868,7 @@
                     viewModel.lapLogin(settings.xApi.lrs.credentials.username || '');
                     viewModel.lapPassword(settings.xApi.lrs.credentials.password || '');
                     viewModel.logoUrl(settings.logo.url || '');
+                    viewModel.masteryScore(settings.masteryScore.score || '100');
 
                     if (settings.xApi.allowedVerbs) {
                         $.each(viewModel.statements, function (key, value) {
@@ -822,6 +905,35 @@
                 update: function (element, valueAccessor) {
                     var value = valueAccessor();
                     ko.unwrap(value) ? $(element).fadeIn() : $(element).fadeOut();
+                }
+            };
+
+            ko.bindingHandlers.number = {
+                init: function (element) {
+                    var $element = $(element),
+                        maxValue = 100;
+                    $element.on('keydown', function (e) {
+                        var key = e.charCode || e.keyCode || 0;
+                        return (key == 8 || key == 9 || key == 46 || (key >= 37 && key <= 40) ||
+                                (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
+                    });
+                    $element.on('keyup', function () {
+                        if ($(this).val() > maxValue) {
+                            $(this).val(maxValue);
+                        }
+                    });
+                }
+            };
+
+            ko.bindingHandlers.spinner = {
+                init: function (element, valueAccessor) {
+                    var masteryScore = valueAccessor();
+
+                    $(element)
+                        .spinner('changed', function (e, newValue) {
+                            masteryScore(newValue);
+                        });
+
                 }
             };
 
