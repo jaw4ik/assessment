@@ -7,15 +7,14 @@
     describe('viewModel [objectives]', function () {
 
         var course = {
-            calculateScore: function () {
-            },
+            score: ko.observable(100),
             finish: function () {
             },
-            objectives: [{
+            objectives: ko.observableArray([{
                 id: 'id',
                 title: 'titile',
-                score: 75
-            }]
+                score: ko.observable(75)
+            }])
         };
 
         it('should be defined', function () {
@@ -81,16 +80,9 @@
                     spyOn(repository, 'get').andReturn(course);
                 });
 
-                it('should call course calculate score', function () {
-                    spyOn(course, 'calculateScore');
-
-                    viewModel.activate();
-                    expect(course.calculateScore).toHaveBeenCalled();
-                });
-
                 it('should set course score', function () {
                     viewModel.score = 0;
-                    course.score = 55;
+                    course.score(55);
 
                     viewModel.activate();
                     expect(viewModel.score).toBe(55);
@@ -101,12 +93,11 @@
 
                     viewModel.activate();
                     expect(viewModel.objectives.length).toBe(1);
-                    expect(viewModel.objectives[0].id).toBe(course.objectives[0].id);
-                    expect(viewModel.objectives[0].title).toBe(course.objectives[0].title);
-                    expect(viewModel.objectives[0].score).toBe(course.objectives[0].score);
+                    expect(viewModel.objectives[0].id).toBe(course.objectives()[0].id);
+                    expect(viewModel.objectives[0].title).toBe(course.objectives()[0].title);
+                    expect(viewModel.objectives[0].score).toBe(course.objectives()[0].score());
                 });
             });
-
         });
 
         describe('finish:', function () {
@@ -138,9 +129,9 @@
 
             });
 
-            describe('when status is ready to finish', function() {
+            describe('when status is ready to finish', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     viewModel.status(viewModel.statuses.readyToFinish);
                 });
 
@@ -161,7 +152,7 @@
                 });
 
                 describe('and course finished', function () {
-                    
+
                     beforeEach(function () {
                         spyOn(windowOperations, 'close');
                         spyOn(course, 'finish').andCallFake(function (callback) {

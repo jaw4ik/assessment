@@ -1,22 +1,28 @@
-﻿define([],
-    function () {
+﻿define(['modules/courseSettings'],
+    function (courseSettings) {
 
-        function Objective(spec) {
-            this.id = spec.id;
-            this.title = spec.title;
-            this.image = spec.image;
-            this.questions = spec.questions;
-            this.score = spec.score;
-            this.calculateScore = calculateScore;
-        }
+        var ctor = function (spec) {
 
-        var calculateScore = function () {
-            var result = _.reduce(this.questions, function (memo, question) { return memo + question.score; }, 0);
-            var questionsLength = this.questions.length;
-            this.score = questionsLength == 0 ? 0 : result / questionsLength;
-            
+            var objective = {
+                id: spec.id,
+                title: spec.title,
+                image: spec.image,
+                questions: ko.observableArray(spec.questions)
+            };
+
+            objective.score = ko.computed(function () {
+                var result = _.reduce(objective.questions(), function (memo, question) { return memo + question.score(); }, 0);
+                var questionsLength = objective.questions().length;
+                return questionsLength == 0 ? 0 : result / questionsLength;
+            });
+
+            objective.isCompleted = ko.computed(function () {
+                return objective.score() >= courseSettings.masteryScore.score;
+            });
+
+            return objective;
         };
 
-        return Objective;
+        return ctor;
     }
 );

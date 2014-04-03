@@ -2,14 +2,14 @@
 
     var buildCourseFinishedEventData = function (course) {
         guard.throwIfNotAnObject(course, 'Course is not an object');
-
         return {
-            result: Math.round(course.score) / 100,
+            result: Math.round(course.score()) / 100,
+            isCompleted: course.isCompleted(),
             objectives: _.map(course.objectives, function (objective) {
                 return {
                     id: objective.id,
                     title: objective.title,
-                    score: objective.score
+                    score: objective.score()
                 };
             })
         };

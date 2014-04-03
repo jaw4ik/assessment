@@ -6,7 +6,7 @@
             objectiveId: spec.objectiveId,
             title: spec.title,
             hasContent: spec.hasContent,
-            score: spec.score,
+            score: ko.observable(spec.score),
             answers: spec.answers,
             learningContents: spec.learningContents,
             isAnswered: false,
@@ -23,9 +23,9 @@
             answer.isChecked = _.contains(checkedAnswerIds, answer.id);
         });
 
-        this.score = calculateScore(this.answers);
+        this.score(calculateScore(this.answers));
         this.isAnswered = true;
-        this.isCorrectAnswered = this.score == 100;
+        this.isCorrectAnswered = this.score() == 100;
 
         eventManager.answersSubmitted(
             eventDataBuilder.buildAnswersSubmittedEventData(this)

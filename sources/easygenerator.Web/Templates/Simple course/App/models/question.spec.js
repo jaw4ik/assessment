@@ -79,12 +79,12 @@
         });
 
         describe('score:', function () {
-            it('should be defined', function () {
-                expect(question.score).toBeDefined();
+            it('should be observable', function () {
+                expect(question.score).toBeObservable();
             });
 
             it('should be equal to spec score', function () {
-                expect(question.score).toBe(spec.score);
+                expect(question.score()).toBe(spec.score);
             });
         });
 
@@ -148,9 +148,9 @@
                 describe('when all answers checked correct', function () {
                     var answersIds = ['0', '2'];
                     it('should set score to 100', function () {
-                        question.score = 0;
+                        question.score(0);
                         question.submitAnswer(['0', '2']);
-                        expect(question.score).toBe(100);
+                        expect(question.score()).toBe(100);
                     });
 
                     it('should set isCorrectAnswered to true', function () {
@@ -173,9 +173,9 @@
                 describe('when answers checked partually correct', function () {
                     var answersIds = ['0', '1'];
                     it('should set score to 0', function () {
-                        question.score = 0;
+                        question.score(0);
                         question.submitAnswer(answersIds);
-                        expect(question.score).toBe(0);
+                        expect(question.score()).toBe(0);
                     });
 
                     it('should set isCorrectAnswered to false', function () {
@@ -198,9 +198,9 @@
                 describe('when answers checked incorrect', function () {
                     var answersIds = ['1', '3'];
                     it('should set score to 0', function () {
-                        question.score = 0;
+                        question.score(0);
                         question.submitAnswer(answersIds);
-                        expect(question.score).toBe(0);
+                        expect(question.score()).toBe(0);
                     });
 
                     it('should set isCorrectAnswered to false', function () {

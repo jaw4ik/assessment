@@ -18,11 +18,7 @@
             id: 'id',
             title: 'title',
             hasIntroductionContent: false,
-            score: 0,
-            objectives: [
-                { score: 0, calculateScore: function () { } },
-                { score: 100, calculateScore: function () { } }
-            ]
+            objectives: []
         };
 
         beforeEach(function () {
@@ -59,15 +55,6 @@
             });
         });
 
-        describe('score:', function () {
-            it('should be defined', function () {
-                expect(course.score).toBeDefined();
-            });
-
-            it('should be equal to spec score', function () {
-                expect(course.score).toBe(spec.score);
-            });
-        });
 
         describe('objectives:', function () {
             it('should be defined', function () {
@@ -75,42 +62,80 @@
             });
 
             it('should be equal to spec objectives', function () {
-                expect(course.objectives).toBe(spec.objectives);
+                expect(course.objectives()).toBe(spec.objectives);
             });
         });
 
-        describe('calculateScore:', function () {
-            it('should be function', function () {
-                expect(course.calculateScore).toBeFunction();
+        describe('score:', function () {
+            it('should be computed', function () {
+                expect(course.score).toBeComputed();
             });
 
             beforeEach(function () {
-                spyOn(spec.objectives[0], 'calculateScore');
-                spyOn(spec.objectives[1], 'calculateScore');
+                course.objectives.removeAll();
             });
 
-            it('should call calculate score for each objective', function () {
-                course.calculateScore();
+            describe('when course has objectives', function () {
 
-                expect(spec.objectives[0].calculateScore).toHaveBeenCalled();
-                expect(spec.objectives[0].calculateScore).toHaveBeenCalled();
-            });
-
-            it('should set score', function () {
-                course.score = 0;
-
-                course.calculateScore();
-                expect(course.score).toBe(50);
-            });
-            
-            describe('when course has no objectives', function () {
-
-                it('should set score to zero', function () {
-                    course.objectives = [];
-                    course.calculateScore();
-                    expect(course.score).toBe(0);
+                beforeEach(function () {
+                    course.objectives.removeAll();
                 });
 
+                it('should have value', function () {
+                    course.objectives.push({ score: ko.observable(0), isCompleted: ko.observable(false) });
+                    course.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true) });
+
+                    expect(course.score()).toBe(50);
+                });
+            });
+
+            describe('when course has no objectives', function () {
+
+                beforeEach(function () {
+                    course.objectives.removeAll();
+                });
+
+                it('should be 0', function () {
+                    expect(course.score()).toBe(0);
+                });
+            });
+        });
+
+        describe('isCompleted:', function () {
+            it('should be computed', function () {
+                expect(course.isCompleted).toBeComputed();
+            });
+
+            beforeEach(function () {
+                course.objectives.removeAll();
+            });
+
+            describe('when course has at least one not passed objective', function () {
+
+                beforeEach(function () {
+                    course.objectives.removeAll();
+                });
+
+                it('should be false', function () {
+                    course.objectives.push({ score: ko.observable(0), isCompleted: ko.observable(false) });
+                    course.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true) });
+
+                    expect(course.isCompleted()).toBeFalsy();
+                });
+            });
+
+            describe('when all objectives are passed', function () {
+
+                beforeEach(function () {
+                    course.objectives.removeAll();
+                });
+
+                it('should be true', function () {
+                    course.objectives.push({ score: ko.observable(80), isCompleted: ko.observable(true) });
+                    course.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true) });
+
+                    expect(course.isCompleted()).toBeTruthy();
+                });
             });
         });
 

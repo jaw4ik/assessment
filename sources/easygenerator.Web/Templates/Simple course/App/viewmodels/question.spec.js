@@ -21,16 +21,15 @@
                     { id: '1' },
                     { id: '2' }
                 ],
+                learningContentExperienced: function () {
+                },
                 submitAnswer: function () {
                 },
-                learningContentExperienced: function () {
-                }
             },
             objective = {
                 id: '1',
                 title: 'Objective title',
-                score: 80,
-                calculateScore: function () { }
+                score: ko.observable(80)
             };
         
 
@@ -246,27 +245,15 @@
                         });
                     });
 
-                    it('should calculate objective score', function () {
-                        spyOn(objective, 'calculateScore');
-                        var promise = viewModel.activate();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(objective.calculateScore).toHaveBeenCalled();
-                        });
-                    });
-
                     it('should set current objective score to objectiveScore variable', function () {
-                        objective.score = 75;
+                        objective.score(75);
                         var promise = viewModel.activate();
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.objectiveScore()).toBe(objective.score);
+                            expect(viewModel.objectiveScore()).toBe(objective.score());
                         });
                     });
 
@@ -693,20 +680,12 @@
                 expect(viewModel.isCorrect()).toBe(question.isCorrectAnswered);
             });
 
-            it('should calculate objective score', function () {
-                spyOn(objective, 'calculateScore');
-
-                viewModel.submit();
-
-                expect(objective.calculateScore).toHaveBeenCalled();
-            });
-
             it('should set current objective score to objectiveScore variable', function () {
-                objective.score = 23;
+                objective.score(23);
 
                 viewModel.submit();
 
-                expect(viewModel.objectiveScore()).toBe(objective.score);
+                expect(viewModel.objectiveScore()).toBe(objective.score());
             });
         });
 

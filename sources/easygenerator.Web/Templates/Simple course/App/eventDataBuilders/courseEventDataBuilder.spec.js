@@ -3,11 +3,12 @@
     describe('[courseEventDataBuilder]', function () {
 
         var course = {
-            score: 100,
+            score: ko.observable(100),
+            isCompleted: ko.observable(true),
             objectives: [{
                 id: 'id',
                 title: 'title',
-                score: 100
+                score: ko.observable(100)
             }]
         };
 
@@ -30,12 +31,13 @@
                 it('should return object', function () {
                     var data = eventDataBuilder.buildCourseFinishedEventData(course);
 
-                    expect(data.result).toBe(1);
+                    expect(data.result).toBe(course.score() / 100);
+                    expect(data.isCompleted).toBe(course.isCompleted());
 
                     expect(data.objectives.length).toBe(1);
                     expect(data.objectives[0].id).toBe(course.objectives[0].id);
                     expect(data.objectives[0].title).toBe(course.objectives[0].title);
-                    expect(data.objectives[0].score).toBe(course.objectives[0].score);
+                    expect(data.objectives[0].score).toBe(course.objectives[0].score());
                 });
 
             });

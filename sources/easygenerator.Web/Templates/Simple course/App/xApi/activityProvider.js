@@ -19,7 +19,7 @@
 
         function init(actorData, activityName, activityUrl) {
             return Q.fcall(function () {
-                if (_.isUndefined(xApiSettings.scoresDistribution.minScoreForPositiveResult) || _.isUndefined(xApiSettings.scoresDistribution.positiveVerb)) {
+                if (_.isUndefined(xApiSettings.scoresDistribution.positiveVerb)) {
                     throw errorsHandler.errors.notEnoughDataInSettings;
                 }
 
@@ -64,7 +64,7 @@
                 score: new scoreModel(finishedEventData.result)
             });
 
-            var resultVerb = result.score.scaled >= xApiSettings.scoresDistribution.minScoreForPositiveResult ? xApiSettings.scoresDistribution.positiveVerb : constants.verbs.failed;
+            var resultVerb = finishedEventData.isCompleted ? xApiSettings.scoresDistribution.positiveVerb : constants.verbs.failed;
             pushStatementIfSupported(createStatement(resultVerb, result));
             pushStatementIfSupported(createStatement(constants.verbs.stopped));
 

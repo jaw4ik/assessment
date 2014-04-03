@@ -24,7 +24,7 @@
                 }
             });
         }
-        
+
         function dispose() {
             if (initialized) {
                 apiWrapper.doLMSFinish();
@@ -35,6 +35,7 @@
             apiWrapper.doLMSSetValue("cmi.core.score.min", "0");
             apiWrapper.doLMSSetValue("cmi.core.score.max", "100");
             apiWrapper.doLMSSetValue("cmi.core.score.raw", finishedEventData.result * 100);
+            apiWrapper.doLMSSetValue("cmi.core.lesson_status", finishedEventData.isCompleted ? "passed" : "failed");
 
             apiWrapper.doLMSCommit();
         }

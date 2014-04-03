@@ -28,7 +28,7 @@
 
                 describe('and when objective is not found', function () {
                     beforeEach(function () {
-                        context.course.objectives = [];
+                        context.course.objectives = ko.observableArray([]);
                     });
 
                     it('should return null', function () {
@@ -40,7 +40,7 @@
                 describe('and when objective is found', function () {
                     var objective = { id: objectiveId };
                     beforeEach(function () {
-                        context.course.objectives = [objective];
+                        context.course.objectives = ko.observableArray([objective]);
                     });
 
                     it('should return objective', function () {

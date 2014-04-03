@@ -23,7 +23,7 @@
             describe('when objective with specified id exists', function () {
                 var objective = {
                     id: "1",
-                    questions: [{ id: "1" }, { id: "2" }, { id: "3" }]
+                    questions: ko.observableArray([{ id: "1" }, { id: "2" }, { id: "3" }])
                 };
 
                 beforeEach(function () {

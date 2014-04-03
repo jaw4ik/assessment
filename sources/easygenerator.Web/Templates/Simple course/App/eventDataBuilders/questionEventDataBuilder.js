@@ -16,7 +16,7 @@
                         text: item.text
                     };
                 }),
-                score: question.score,
+                score: question.score(),
                 selectedAnswersIds: getItemsIds(question.answers, function (item) {
                     return item.isChecked;
                 }),

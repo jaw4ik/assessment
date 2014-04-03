@@ -40,21 +40,10 @@
                     eventMangerDefer = Q.defer();
                     spyOn(eventmanager, 'subscribeForEvent').andReturn(eventMangerDefer.promise);
                     promise = viewModel.init(actorData, activityName, activityUrl);
-                    xApiSettings.scoresDistribution.minScoreForPositiveResult = 1;
                     xApiSettings.scoresDistribution.positiveVerb = constants.verbs.passed;
                 });
 
                 describe('when not enough data in xApiSettings', function () {
-
-                    it('should throw exception if minimum score of positive result equals \'undefined\'', function () {
-                        xApiSettings.scoresDistribution.minScoreForPositiveResult = undefined;
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejectedWith(errorsHandler.errors.notEnoughDataInSettings);
-                        });
-                    });
 
                     it('should throw exception if positiveVerb equals \'undefined\'', function () {
                         xApiSettings.scoresDistribution.positiveVerb = undefined;

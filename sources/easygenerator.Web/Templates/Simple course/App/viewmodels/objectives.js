@@ -14,21 +14,18 @@
             status = ko.observable(statuses.readyToFinish),
 
             activate = function () {
-
                 var course = repository.get();
                 if (course == null) {
                     router.navigate('404');
                     return;
                 }
 
-                course.calculateScore();
-
-                this.score = course.score;
-                this.objectives = _.map(course.objectives, function (item) {
+                this.score = course.score();
+                this.objectives = _.map(course.objectives(), function (item) {
                     return {
                         id: item.id,
                         title: item.title,
-                        score: item.score,
+                        score: item.score(),
                         image: item.image,
                         questions: item.questions,
                     };

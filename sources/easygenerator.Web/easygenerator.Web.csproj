@@ -1568,11 +1568,17 @@
     <Content Include="Templates\Simple course\App\main-built.js" />
     <Content Include="Templates\Simple course\App\main.js" />
     <Content Include="Templates\Simple course\App\models\answer.js" />
+    <Content Include="Templates\Simple course\App\models\answer.spec.js">
+      <DependentUpon>answer.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Simple course\App\models\course.js" />
     <Content Include="Templates\Simple course\App\models\course.spec.js">
       <DependentUpon>course.js</DependentUpon>
     </Content>
     <Content Include="Templates\Simple course\App\models\learningContent.js" />
+    <Content Include="Templates\Simple course\App\models\learningContent.spec.js">
+      <DependentUpon>learningContent.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Simple course\App\models\objective.js" />
     <Content Include="Templates\Simple course\App\models\objective.spec.js">
       <DependentUpon>objective.js</DependentUpon>
@@ -1588,6 +1594,10 @@
     <Content Include="Templates\Simple course\App\modulesInitializer.js" />
     <Content Include="Templates\Simple course\App\modulesInitializer.spec.js">
       <DependentUpon>modulesInitializer.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Simple course\App\modules\courseSettings.js" />
+    <Content Include="Templates\Simple course\App\modules\courseSettings.spec.js">
+      <DependentUpon>courseSettings.js</DependentUpon>
     </Content>
     <Content Include="Templates\Simple course\App\modules\graphicalCustomization.js" />
     <Content Include="Templates\Simple course\App\modules\graphicalCustomization.spec.js">

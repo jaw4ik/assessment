@@ -23,7 +23,6 @@ ko.bindingHandlers.context = {
 
 define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'browserSupport', 'settingsReader', 'bootstrapper'],
     function (app, viewLocator, system, modulesInitializer, browserSupport, settingsReader, bootstrapper) {
-
         app.title = 'easygenerator';
 
         app.configurePlugins({
@@ -53,8 +52,9 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
             });
 
             function readTemplateSettings() {
-                return settingsReader.readTemplateSettings().then(function(settings) {
+                return settingsReader.readTemplateSettings().then(function (settings) {
                     modules['modules/graphicalCustomization'] = settings.logo;
+                    modules['modules/courseSettings'] = settings.masteryScore;
                     modules["xApi/xApiInitializer"] = settings.xApi;
                 });
             }

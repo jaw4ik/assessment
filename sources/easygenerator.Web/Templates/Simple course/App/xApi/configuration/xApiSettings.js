@@ -3,7 +3,6 @@
 
         var settings = {
             scoresDistribution: {
-                minScoreForPositiveResult: 1,
                 positiveVerb: constants.verbs.passed
             },
 

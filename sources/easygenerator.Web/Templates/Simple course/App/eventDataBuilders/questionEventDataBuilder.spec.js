@@ -33,7 +33,7 @@
             objectiveId: 'objId',
             title: 'title',
             hasContent: false,
-            score: 0,
+            score: ko.observable(100),
             answers: answers,
             learningContents: []
         };
@@ -95,7 +95,7 @@
                         expect(data.question.answers[3].id).toBe(answers[3].id);
                         expect(data.question.answers[3].text).toBe(answers[3].text);
 
-                        expect(data.question.score).toBe(question.score);
+                        expect(data.question.score).toBe(question.score());
                         expect(data.question.selectedAnswersIds[0]).toBe('0');
                         expect(data.question.selectedAnswersIds[1]).toBe('3');
                         expect(data.question.correctAnswersIds[0]).toBe('0');

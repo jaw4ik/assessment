@@ -49,10 +49,36 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                app.trigger("courseFinished", { result: 0.5 });
+                                app.trigger("courseFinished", { result: 0.5, isComleted: false });
                                 expect(apiWrapper.doLMSSetValue).toHaveBeenCalledWith("cmi.core.score.min", "0");
                                 expect(apiWrapper.doLMSSetValue).toHaveBeenCalledWith("cmi.core.score.max", "100");
                                 expect(apiWrapper.doLMSSetValue).toHaveBeenCalledWith("cmi.core.score.raw", 50);
+                            });
+                        });
+
+                        describe('when course is completed', function() {
+                            it('should send complete status LMS', function () {
+                                var promise = scormInitializer.initialize();
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    app.trigger("courseFinished", { result: 0.5, isComleted: true });
+                                    expect(apiWrapper.doLMSSetValue).toHaveBeenCalledWith("cmi.success_status", "complete");
+                                });
+                            });
+                        });
+
+                        describe('when course is not completed', function () {
+                            it('should send failed status LMS', function () {
+                                var promise = scormInitializer.initialize();
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    app.trigger("courseFinished", { result: 0.5, isComleted: false });
+                                    expect(apiWrapper.doLMSSetValue).toHaveBeenCalledWith("cmi.success_status", "failed");
+                                });
                             });
                         });
 
