@@ -196,7 +196,7 @@
     downloadDescription: {
         en: 'Download the course in order to publish  it on your own webserver'
     },
-    openLinkDescription: {
+    viewCourseDescription: {
         en: 'Open link to view the course'
     },
     publishCourse: {
@@ -577,8 +577,8 @@
     disconnectSelectedObjectives: {
         en: 'Disconnect selected learning objective(s)'
     },
-    openLink: {
-        en: 'Open link'
+    viewCourse: {
+        en: 'View course'
     },
     templateSettings: {
         en: 'Course template settings:'

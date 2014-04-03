@@ -128,19 +128,19 @@
                                 <div class="action-explanation-tooltip-container" data-bind="visible: !isDeliveringInProgress()">
                                     <div class="action-explanation-tooltip-wrapper">
                                         <div class="action-explanation-tooltip">
-                                            <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'openLinkDescription' }"></span>
+                                            <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'viewCourseDescription' }"></span>
                                             <div class="action-explanation-tooltip-triangle"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- ko ifnot: isDeliveringInProgress() -->
                                 <a class="open-link-btn" data-bind="click: publishAction().openPublishedCourse, attr: { href: publishAction().packageUrl() }">
-                                    <span class="open-link-text" data-bind="localize: { text: 'openLink' }"></span>
+                                    <span class="open-link-text" data-bind="localize: { text: 'viewCourse' }"></span>
                                 </a>
                                 <!-- /ko -->
                                 <!-- ko if: isDeliveringInProgress() -->
                                 <a class="open-link-btn" href="javascript: return false;">
-                                    <span class="open-link-text" data-bind="localize: { text: 'openLink' }"></span>
+                                    <span class="open-link-text" data-bind="localize: { text: 'viewCourse' }"></span>
                                 </a>
                                 <!-- /ko -->
                             </div>
