@@ -157,14 +157,14 @@
     updatingStatus: {
         en: 'updating...'
     },
-    courseDefine: {
-        en: '1. Develop'
+    courseCreateItem: {
+        en: '1. Create'
     },
-    courseDesign: {
+    courseDesignItem: {
         en: '2. Design'
     },
-    courseDeliver: {
-        en: '3. Deliver'
+    coursePublishItem: {
+        en: '3. Publish'
     },
     publishOnline: {
         en: 'Publish online'
