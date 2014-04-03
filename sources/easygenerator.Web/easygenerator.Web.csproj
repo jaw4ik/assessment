@@ -377,9 +377,6 @@
     <Content Include="App\viewmodels\courses\courseComments.spec.js">
       <DependentUpon>courseComments.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\develop.spec.js">
-      <DependentUpon>develop.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\courseNavigation\items\deliver.spec.js">
       <DependentUpon>deliver.js</DependentUpon>
     </Content>
@@ -388,12 +385,15 @@
     </Content>
     <Content Include="App\viewmodels\courses\courseNavigation\items\deliver.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\items\design.js" />
+    <Content Include="App\viewmodels\courses\courseNavigation\items\create.spec.js">
+      <DependentUpon>create.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\courseNavigation\items\navigationItem.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\items\navigationItem.spec.js">
       <DependentUpon>navigationItem.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\courseNavigation\navigation.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\develop.js" />
+    <Content Include="App\viewmodels\courses\courseNavigation\items\create.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\navigation.spec.js">
       <DependentUpon>navigation.js</DependentUpon>
     </Content>

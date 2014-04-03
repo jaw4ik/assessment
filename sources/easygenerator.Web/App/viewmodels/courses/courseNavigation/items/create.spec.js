@@ -1,9 +1,9 @@
-﻿define(['viewmodels/courses/courseNavigation/items/develop', 'plugins/router'],
-    function (DevelopNavigationItemViewModel, router) {
+﻿define(['viewmodels/courses/courseNavigation/items/create', 'plugins/router'],
+    function (CreateNavigationItemViewModel, router) {
 
-        describe('viewmodel [developNavigationItem]', function () {
+        describe('viewmodel [createNavigationItem]', function () {
             it('should be defined', function () {
-                expect(DevelopNavigationItemViewModel).toBeDefined();
+                expect(CreateNavigationItemViewModel).toBeDefined();
             });
         });
 
@@ -12,7 +12,7 @@
 
             beforeEach(function() {
                 router.routeData({});
-                navigationItem = new DevelopNavigationItemViewModel();
+                navigationItem = new CreateNavigationItemViewModel();
             });
             
             it('should be computed', function () {

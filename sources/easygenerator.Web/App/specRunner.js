@@ -104,7 +104,7 @@
        'viewmodels/panels/tabs/reviewTab.spec',
        'viewmodels/panels/tabs/feedbackTab.spec',
        'viewmodels/courses/courseComments.spec',
-       'viewmodels/courses/courseNavigation/items/develop.spec',
+       'viewmodels/courses/courseNavigation/items/create.spec',
        'viewmodels/courses/courseNavigation/items/design.spec',
        'viewmodels/courses/courseNavigation/items/deliver.spec',
        'viewmodels/courses/courseNavigation/items/navigationItem.spec',
