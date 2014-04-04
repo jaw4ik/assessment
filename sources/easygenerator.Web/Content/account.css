@@ -809,14 +809,37 @@ body.try {
         box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset;
     }
 
-    .user-form-btn.disabled {
+    .user-form-btn.btn.disabled {
         opacity: 0.6;
     }
 
+    .user-form-btn.green {
+        background: none repeat scroll 0 0 #B0C93E;
+        border-color: #B0C93E #B0C93E #899D30;
+    }
+
+        .user-form-btn.green:hover,
+        .user-form-btn.green.active,
+        .user-form-btn.green.active:hover,
+        .user-form-btn.green:active,
+        .user-form-btn.green:active:hover {
+            background: none repeat scroll 0 0 #BDD93D;
+            border-color: #BDD93D #BDD93D #899D30;
+        }
+
+        .user-form-btn.green.disabled,
+        .user-form-btn.green.disabled:hover,
+        .user-form-btn.green.disabled:active {
+            background: none repeat scroll 0 0 #B0C93E;
+            border-color: #98AE35;
+            color: white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+            opacity: 0.6;
+        }
+
 /*#endregion Form Button*/
-
 /*#region LOGIN*/
-
 .view-module.log-in .user-form-row.submit {
     padding-top: 10px;
 }
