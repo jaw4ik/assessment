@@ -4,6 +4,7 @@
 
         var course = {
             score: 100,
+            isCompleted: true,
             objectives: [{
                 id: 'id',
                 title: 'title',
@@ -32,7 +33,7 @@
                     var data = eventDataBuilder.buildCourseFinishedEventData(course);
 
                     expect(data.result).toBe(1);
-
+                    expect(data.isCompleted).toBe(course.isCompleted);
                     expect(data.objectives.length).toBe(1);
                     expect(data.objectives[0].id).toBe(course.objectives[0].id);
                     expect(data.objectives[0].title).toBe(course.objectives[0].title);

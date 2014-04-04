@@ -1,4 +1,4 @@
-﻿define(['models/objective'], function (ObjectiveModel) {
+﻿define(['models/objective', 'modules/courseSettings'], function (ObjectiveModel, courseSettings) {
 
     describe('model [objective]', function () {
 
@@ -14,7 +14,6 @@
             id: 'id',
             title: 'title',
             image: 'image',
-            score: 0,
             questions: []
         };
         var objective;
@@ -58,8 +57,18 @@
                 expect(objective.score).toBeDefined();
             });
 
-            it('should be equal to spec score', function () {
-                expect(objective.score).toBe(spec.score);
+            it('should be equal to be 0', function () {
+                expect(objective.score).toBe(0);
+            });
+        });
+
+        describe('isCompleted:', function () {
+            it('should be defined', function () {
+                expect(objective.isCompleted).toBeDefined();
+            });
+
+            it('should be equal to be false', function () {
+                expect(objective.isCompleted).toBe(false);
             });
         });
 
@@ -79,7 +88,7 @@
                 expect(objective.calculateScore).toBeFunction();
             });
 
-            it('should set score', function() {
+            it('should set score', function () {
                 objective.score = 0;
                 objective.questions = [{ score: 0 }, { score: 100 }];
 
@@ -87,14 +96,42 @@
                 expect(objective.score).toBe(50);
             });
 
-            describe('when objective has no questions', function () {
+            describe('when score is less than mastery score', function () {
+                it('should set isCompleted to false', function () {
+                    courseSettings.masteryScore.score = 80;
+                    objective.isCompleted = true;
+                    objective.questions = [{ score: 50 }];
 
+                    objective.calculateScore();
+                    expect(objective.isCompleted).toBe(false);
+                });
+            });
+
+            describe('when score is more than mastery score', function () {
+                it('should set isCompleted to true', function () {
+                    courseSettings.masteryScore.score = 80;
+                    objective.isCompleted = true;
+                    objective.questions = [{ score: 100 }];
+
+                    objective.calculateScore();
+                    expect(objective.isCompleted).toBe(true);
+                });
+            });
+
+            describe('when objective has no questions', function () {
                 it('should set score to zero', function () {
+                    objective.score = 100;
                     objective.questions = [];
                     objective.calculateScore();
                     expect(objective.score).toBe(0);
                 });
 
+                it('should set isCompleted to false', function () {
+                    objective.isCompleted = true;
+                    objective.questions = [];
+                    objective.calculateScore();
+                    expect(objective.isCompleted).toBe(false);
+                });
             });
 
         });

@@ -17,7 +17,7 @@
 
         function init(actorData, activityName, activityUrl) {
             return Q.fcall(function () {
-                if (_.isUndefined(xApiSettings.scoresDistribution.minScoreForPositiveResult) || _.isUndefined(xApiSettings.scoresDistribution.positiveVerb)) {
+                if (_.isUndefined(xApiSettings.scoresDistribution.positiveVerb)) {
                     throw errorsHandler.errors.notEnoughDataInSettings;
                 }
 
@@ -59,8 +59,8 @@
             var result = {
                 score: finishedEventData.result
             };
-
-            var verb = result.score >= xApiSettings.scoresDistribution.minScoreForPositiveResult ? xApiSettings.scoresDistribution.positiveVerb : constants.verbs.failed;
+          
+            var verb = finishedEventData.isCompleted ? xApiSettings.scoresDistribution.positiveVerb : constants.verbs.failed;
 
             pushStatementIfSupported(createStatement(verb, result, createActivity(activityProvider.activityName)));
             pushStatementIfSupported(createStatement(constants.verbs.stopped, null, createActivity(activityProvider.activityName)));

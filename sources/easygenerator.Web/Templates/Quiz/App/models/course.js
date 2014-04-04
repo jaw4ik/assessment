@@ -7,7 +7,8 @@
             this.hasIntroductionContent = spec.hasIntroductionContent;
             this.content = null;
             this.objectives = spec.objectives;
-            this.score = spec.score;
+            this.score = 0;
+            this.isCompleted = false;
             this.isAnswered = false;
             this.getAllQuestions = getAllQuestions;
             this.finish = finish;
@@ -50,7 +51,7 @@
             );
         };
 
-        var start = function() {
+        var start = function () {
             this.isAnswered = false;
             this.score = 0;
             eventManager.courseStarted();
@@ -68,7 +69,15 @@
             }, 0);
 
             var objectivesLength = this.objectives.length;
-            this.score = objectivesLength == 0 ? 0 : result / objectivesLength;
+            if (objectivesLength > 0) {
+                this.score = result / objectivesLength;
+                this.isCompleted = !_.some(this.objectives, function (objective) {
+                    return !objective.isCompleted;
+                });
+            } else {
+                this.score = 0;
+                this.isCompleted = false;
+            }
         };
 
         var loadContent = function () {
