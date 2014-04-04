@@ -274,6 +274,11 @@
         background-color: #E8E8E8;
     }
 
+    .navigation-tree-node-icon.locked:before {
+        margin-top: -2px;
+        background-position: -37px -294px;
+    }
+
 @media (min-width: 1550px) {
 
     .nav-back-wrapper {
