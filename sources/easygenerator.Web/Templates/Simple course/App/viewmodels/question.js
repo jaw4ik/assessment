@@ -1,5 +1,5 @@
-﻿define(['eventManager', 'plugins/router', 'repositories/questionRepository', 'repositories/objectiveRepository', 'modules/questionsNavigation', 'repositories/learningContentRepository'],
-	function (eventManager, router, repository, objectiveRepository, navigationModule, learningContentRepository) {
+﻿define(['eventManager', 'plugins/router', 'repositories/questionRepository', 'repositories/objectiveRepository', 'modules/questionsNavigation'],
+	function (eventManager, router, repository, objectiveRepository, navigationModule) {
 	    var viewModel = {
 	        objective: null,
 	        objectiveScore: ko.observable(0),
