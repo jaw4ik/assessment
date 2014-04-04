@@ -9,7 +9,8 @@
                 title: 'title',
                 score: 100
             }],
-            getAllQuestions: function () { }
+            getAllQuestions: function () { },
+            isCompleted: true
         };
 
         describe('buildCourseFinishedEventData:', function () {
@@ -32,6 +33,7 @@
                     var data = eventDataBuilder.buildCourseFinishedEventData(course);
 
                     expect(data.result).toBe(1);
+                    expect(data.isCompleted).toBeTruthy();
 
                     expect(data.objectives.length).toBe(1);
                     expect(data.objectives[0].id).toBe(course.objectives[0].id);

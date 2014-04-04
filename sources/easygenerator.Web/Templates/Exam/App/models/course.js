@@ -15,6 +15,7 @@
             this.start = start;
             this.submitAnswers = submitAnswers;
             this.loadContent = loadContent;
+            this.isCompleted = false;
         }
 
         function getAllQuestions() {
@@ -62,7 +63,15 @@
             }, 0);
 
             var objectivesLength = this.objectives.length;
-            this.score = objectivesLength == 0 ? 0 : result / objectivesLength;
+            if (objectivesLength > 0) {
+                this.score = result / objectivesLength;
+                this.isCompleted = !_.some(this.objectives, function (objective) {
+                    return !objective.isCompleted;
+                });
+            } else {
+                this.score = 0;
+                this.isCompleted = false;
+            }
         };
 
         var loadContent = function () {

@@ -169,7 +169,6 @@
 
                 it('should set isCompleted to false', function () {
                     course.isCompleted = true;
-                    debugger;
                     course.calculateScore();
                     expect(course.isCompleted).toBe(false);
                 });

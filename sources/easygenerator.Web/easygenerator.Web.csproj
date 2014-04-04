@@ -1033,6 +1033,10 @@
     <Content Include="Templates\Exam\App\modulesInitializer.spec.js">
       <DependentUpon>modulesInitializer.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Exam\App\modules\courseSettings.js" />
+    <Content Include="Templates\Exam\App\modules\courseSettings.spec.js">
+      <DependentUpon>courseSettings.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Exam\App\modules\graphicalCustomization.js" />
     <Content Include="Templates\Exam\App\modules\graphicalCustomization.spec.js">
       <DependentUpon>graphicalCustomization.js</DependentUpon>

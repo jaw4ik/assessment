@@ -1,5 +1,7 @@
 ﻿define(['models/objective'], function (ObjectiveModel) {
 
+    var courseSettings = require('modules/courseSettings');
+
     describe('model [objective]', function () {
 
         it('should be defined', function () {
@@ -87,16 +89,70 @@
                 expect(objective.score).toBe(50);
             });
 
-            describe('when objective has no questions', function () {
+            describe('calculateScore:', function () {
 
-                it('should set score to zero', function () {
-                    objective.questions = [];
+                it('should be function', function () {
+                    expect(objective.calculateScore).toBeFunction();
+                });
+
+                it('should set score', function () {
+                    objective.score = 0;
+                    objective.questions = [{ score: 0 }, { score: 100 }];
+
                     objective.calculateScore();
-                    expect(objective.score).toBe(0);
+                    expect(objective.score).toBe(50);
+                });
+
+                describe('when score is less than mastery score', function () {
+                    it('should set isCompleted to false', function () {
+                        courseSettings.masteryScore.score = 80;
+                        objective.isCompleted = true;
+                        objective.questions = [{ score: 50 }];
+
+                        objective.calculateScore();
+                        expect(objective.isCompleted).toBe(false);
+                    });
+                });
+
+                describe('when score is more than mastery score', function () {
+                    it('should set isCompleted to true', function () {
+                        courseSettings.masteryScore.score = 80;
+                        objective.isCompleted = true;
+                        objective.questions = [{ score: 100 }];
+
+                        objective.calculateScore();
+                        expect(objective.isCompleted).toBe(true);
+                    });
+                });
+
+                describe('when objective has no questions', function () {
+                    it('should set score to zero', function () {
+                        objective.score = 100;
+                        objective.questions = [];
+                        objective.calculateScore();
+                        expect(objective.score).toBe(0);
+                    });
+
+                    it('should set isCompleted to false', function () {
+                        objective.isCompleted = true;
+                        objective.questions = [];
+                        objective.calculateScore();
+                        expect(objective.isCompleted).toBe(false);
+                    });
                 });
 
             });
 
+        });
+
+        describe('isCompleted:', function () {
+            it('should be defined', function () {
+                expect(objective.isCompleted).toBeDefined();
+            });
+
+            it('should be equal to be false', function () {
+                expect(objective.isCompleted).toBe(false);
+            });
         });
     });
 });

@@ -5,6 +5,7 @@
 
         return {
             result: Math.round(course.score) / 100,
+            isCompleted: course.isCompleted,
             objectives: _.map(course.objectives, function (objective) {
                 return {
                     id: objective.id,

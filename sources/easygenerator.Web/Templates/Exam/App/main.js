@@ -46,6 +46,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
                 return settingsReader.readTemplateSettings().then(function (settings) {
                     modules['modules/graphicalCustomization'] = settings.logo;
                     modules["xApi/xApiInitializer"] = settings.xApi;
+                    modules['modules/courseSettings'] = settings.masteryScore;
                 });
             }
 
