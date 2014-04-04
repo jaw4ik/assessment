@@ -44,8 +44,13 @@
             </div>
             
             <!-- ko if: isExpanded -->
-                <!-- ko compose: 'learningContents.html'-->
-                <!-- /ko -->
+            <section id="learning-contents" class="learning-contents">
+                <ul class="learning-content-items unstyled">
+                    <!-- ko foreach: learningContents-->
+                    <li class="learning-content-item" data-bind="html: content"></li>
+                    <!-- /ko -->
+                </ul>
+            </section>
             <!-- /ko -->
 
         </div>
@@ -56,7 +61,7 @@
             </div>
             <!-- ko if: content -->
             <div class="question-content-wrapper">
-                <div class="question-content" data-bind="compose: { model: { url: content }, strategy: 'strategies/externalContentStrategy' }"></div>
+                <div class="question-content" data-bind="html: content"></div>
             </div>
             <!-- /ko -->
             <ul class="question-answers-list" data-bind="foreach: answers">

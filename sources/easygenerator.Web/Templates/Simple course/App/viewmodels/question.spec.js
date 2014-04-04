@@ -25,13 +25,14 @@
                 },
                 submitAnswer: function () {
                 },
+                load: function () { }
             },
             objective = {
                 id: '1',
                 title: 'Objective title',
                 score: ko.observable(80)
             };
-        
+
 
         beforeEach(function () {
             spyOn(router, 'navigate');
@@ -112,7 +113,7 @@
         });
 
         describe('isLoadingNewQuestion:', function () {
-            it('should be defined computed', function() {
+            it('should be defined computed', function () {
                 expect(viewModel.isLoadingNewQuestion).toBeComputed();
             });
         });
@@ -173,7 +174,6 @@
         });
 
         describe('activate:', function () {
-
             it('should be a function', function () {
                 expect(viewModel.activate).toBeFunction();
             });
@@ -230,12 +230,16 @@
 
                 describe('and when question is found', function () {
 
+                    var loadQuestionDeferred;
                     beforeEach(function () {
+                        loadQuestionDeferred = Q.defer();
+                        spyOn(question, 'load').andReturn(loadQuestionDeferred.promise);
                         spyOn(repository, 'get').andReturn(question);
                     });
 
                     it('should not navigate', function () {
                         var promise = viewModel.activate(objective.id, question.id);
+                        loadQuestionDeferred.resolve();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -248,6 +252,7 @@
                     it('should set current objective score to objectiveScore variable', function () {
                         objective.score(75);
                         var promise = viewModel.activate();
+                        loadQuestionDeferred.resolve();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -260,6 +265,7 @@
                     it('should get navigation context from navigation module for correct objective and question', function () {
                         spyOn(navigationModule, "getNavigationContext");
                         var promise = viewModel.activate(objective.id, question.id);
+                        loadQuestionDeferred.resolve();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -280,6 +286,7 @@
                         spyOn(navigationModule, 'getNavigationContext').andReturn(navigationContext);
 
                         var promise = viewModel.activate(objective.id, question.id);
+                        loadQuestionDeferred.resolve();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -293,6 +300,7 @@
                         viewModel.questionId = null;
 
                         var promise = viewModel.activate(objective.id, question.id);
+                        loadQuestionDeferred.resolve();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -306,6 +314,7 @@
                         viewModel.title = null;
 
                         var promise = viewModel.activate(objective.id, question.id);
+                        loadQuestionDeferred.resolve();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -319,6 +328,7 @@
                         viewModel.answers = null;
 
                         var promise = viewModel.activate(objective.id, question.id);
+                        loadQuestionDeferred.resolve();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -332,6 +342,7 @@
                         viewModel.answers = null;
 
                         var promise = viewModel.activate(objective.id, question.id);
+                        loadQuestionDeferred.resolve();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -347,6 +358,7 @@
                         viewModel.answers = null;
 
                         var promise = viewModel.activate(objective.id, question.id);
+                        loadQuestionDeferred.resolve();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -362,6 +374,7 @@
                         viewModel.answers = null;
 
                         var promise = viewModel.activate(objective.id, question.id);
+                        loadQuestionDeferred.resolve();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -375,62 +388,11 @@
                         });
                     });
 
-                    it('should set learningContents', function () {
-                        viewModel.learningContents = null;
-
-                        var promise = viewModel.activate(objective.id, question.id);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(viewModel.learningContents.length).toBe(2);
-
-                            expect(viewModel.learningContents[0].view).toBe('content/' + objective.id + '/' + question.id + '/1');
-                            expect(viewModel.learningContents[1].view).toBe('content/' + objective.id + '/' + question.id + '/2');
-                        });
-                    });
-
-                    describe('and question has content', function () {
-
-                        it('should set content path', function () {
-                            viewModel.content = null;
-                            question.hasContent = true;
-
-                            var promise = viewModel.activate(objective.id, question.id);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.content).toBe('content/' + objective.id + '/' + question.id + '/content');
-                            });
-                        });
-
-                    });
-
-                    describe('and question has not content', function () {
-
-                        it('should set content to empty', function () {
-                            viewModel.content = null;
-                            question.hasContent = false;
-
-                            var promise = viewModel.activate(objective.id, question.id);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.content).toBe('');
-                            });
-                        });
-
-                    });
-
                     it('should set isAnswered', function () {
                         viewModel.isAnswered(null);
 
                         var promise = viewModel.activate(objective.id, question.id);
+                        loadQuestionDeferred.resolve();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -444,6 +406,7 @@
                         viewModel.isCorrect(null);
 
                         var promise = viewModel.activate(objective.id, question.id);
+                        loadQuestionDeferred.resolve();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -457,12 +420,58 @@
                         viewModel.startTime = null;
 
                         var promise = viewModel.activate(objective.id, question.id);
+                        loadQuestionDeferred.resolve();
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
                             expect(viewModel.startTime).not.toBeNull();
+                        });
+                    });
+
+                    it('should load question', function () {
+                        var promise = viewModel.activate(objective.id, question.id);
+                        loadQuestionDeferred.resolve();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(question.load).toHaveBeenCalled();
+                        });
+                    });
+
+                    describe('and when question loaded', function () {
+                        it('should set content', function () {
+                            question.content = 'content';
+                            viewModel.content = '';
+                            var promise = viewModel.activate(objective.id, question.id);
+                            loadQuestionDeferred.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.content).toBe(question.content);
+                            });
+                        });
+
+                        it('should set learning contents', function () {
+                            question.learningContents = [{ content: 'c1' }, { content: 'c2' }];
+                            viewModel.learningContents.splice(0, viewModel.learningContents.length);
+
+                            var promise = viewModel.activate(objective.id, question.id);
+                            loadQuestionDeferred.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.learningContents.length).toBe(2);
+                                expect(viewModel.learningContents[0].content).toBe(question.learningContents[0].content);
+                                expect(viewModel.learningContents[1].content).toBe(question.learningContents[1].content);
+                            });
                         });
                     });
 

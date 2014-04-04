@@ -24,5 +24,15 @@
                 expect(learningContent.id).toBe(spec.id);
             });
         });
+
+        describe('content:', function () {
+            it('should be defined', function () {
+                expect(learningContent.content).toBeDefined();
+            });
+
+            it('should be null', function () {
+                expect(learningContent.content).toBe(null);
+            });
+        });
     });
 });

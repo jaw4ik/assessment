@@ -1634,7 +1634,6 @@
     </Content>
     <Content Include="Templates\Simple course\App\settingsReader.js" />
     <Content Include="Templates\Simple course\App\specs.html" />
-    <Content Include="Templates\Simple course\App\strategies\externalContentStrategy.js" />
     <Content Include="Templates\Simple course\App\viewmodels\404.js" />
     <Content Include="Templates\Simple course\App\viewmodels\introduction.js" />
     <Content Include="Templates\Simple course\App\viewmodels\introduction.spec.js">
@@ -1653,7 +1652,6 @@
     <Content Include="Templates\Simple course\App\viewmodels\shell.js" />
     <Content Include="Templates\Simple course\App\views\404.html" />
     <Content Include="Templates\Simple course\App\views\introduction.html" />
-    <Content Include="Templates\Simple course\App\views\learningContents.html" />
     <Content Include="Templates\Simple course\App\views\notsupportedbrowser.html" />
     <Content Include="Templates\Simple course\App\views\notsupportedbrowserMobile.html" />
     <Content Include="Templates\Simple course\App\views\objectives.html" />
