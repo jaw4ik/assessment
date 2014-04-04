@@ -50,7 +50,7 @@
         'httpWrapper.spec',
         'notify.spec',
         'routing/routerExtender.spec',
-        //'services/deliverService.spec',       Failing tests here <<<      Review later
+        //'services/publishService.spec',       Failing tests here <<<      Review later
 
         'viewmodels/courses/createCourse.spec',
         'viewmodels/courses/courses.spec',
@@ -58,9 +58,9 @@
         'viewmodels/courses/design.spec',
         'viewmodels/courses/publish.spec',
 
-        'viewmodels/courses/deliveringActions/deliveringAction.spec',
-        'viewmodels/courses/deliveringActions/build.spec',
-        'viewmodels/courses/deliveringActions/publish.spec',
+        'viewmodels/courses/publishingActions/publishingAction.spec',
+        'viewmodels/courses/publishingActions/build.spec',
+        'viewmodels/courses/publishingActions/publish.spec',
 
         'viewmodels/objectives/objectives.spec',
         'viewmodels/objectives/objective.spec',
@@ -84,7 +84,7 @@
        
        
        
-       'viewmodels/courses/deliveringActions/scormBuild.spec',
+       'viewmodels/courses/publishingActions/scormBuild.spec',
        
        '../Scripts/account/signup.spec',
        '../Scripts/account/signin.spec',
@@ -98,7 +98,7 @@
        'uiLocker.spec',
        
        'services/aim4YouService.spec',
-       'viewmodels/courses/deliveringActions/publishToAim4You.spec',
+       'viewmodels/courses/publishingActions/publishToAim4You.spec',
        'viewmodels/common/contentField.spec',
        'viewmodels/panels/sidePanel.spec',
        'viewmodels/panels/tabs/reviewTab.spec',

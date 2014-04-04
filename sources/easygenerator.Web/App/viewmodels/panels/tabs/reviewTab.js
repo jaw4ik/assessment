@@ -10,15 +10,15 @@
             activate: activate,
             reviewUrl: ko.observable(),
             state: ko.observable(),
-            states: constants.deliveringStates,
+            states: constants.publishingStates,
             openCourseReviewUrl: openCourseReviewUrl,
             updateCourseForReview: updateCourseForReview,
             isActive: ko.observable(false),
             courseId: null
         };
 
-        viewModel.isDelivering = ko.computed(function () {
-            return this.state() === constants.deliveringStates.building || this.state() === constants.deliveringStates.publishing;
+        viewModel.isPublishing = ko.computed(function () {
+            return this.state() === constants.publishingStates.building || this.state() === constants.publishingStates.publishing;
         }, viewModel);
 
         viewModel.reviewUrlExists = ko.computed(function () {
@@ -31,28 +31,28 @@
             if (course.id !== viewModel.courseId || !viewModel.isActive())
                 return;
 
-            viewModel.state(constants.deliveringStates.building);
+            viewModel.state(constants.publishingStates.building);
         });
 
         app.on(constants.messages.course.build.failed, function (courseid) {
             if (courseid !== viewModel.courseId || !viewModel.isActive())
                 return;
 
-            viewModel.state(constants.deliveringStates.failed);
+            viewModel.state(constants.publishingStates.failed);
         });
 
         app.on(constants.messages.course.publishForReview.started, function (course) {
             if (course.id !== viewModel.courseId)
                 return;
 
-            viewModel.state(constants.deliveringStates.publishing);
+            viewModel.state(constants.publishingStates.publishing);
         });
 
         app.on(constants.messages.course.publishForReview.completed, function (course) {
             if (course.id !== viewModel.courseId)
                 return;
 
-            viewModel.state(constants.deliveringStates.succeed);
+            viewModel.state(constants.publishingStates.succeed);
             viewModel.reviewUrl(course.reviewUrl);
         });
 
@@ -60,7 +60,7 @@
             if (courseid !== viewModel.courseId)
                 return;
 
-            viewModel.state(constants.deliveringStates.failed);
+            viewModel.state(constants.publishingStates.failed);
         });
 
         //#endregion
@@ -68,7 +68,7 @@
         return viewModel;
 
         function openCourseReviewUrl() {
-            if (viewModel.reviewUrlExists() && !viewModel.isDelivering()) {
+            if (viewModel.reviewUrlExists() && !viewModel.isPublishing()) {
                 router.openUrl(viewModel.reviewUrl());
             }
         }
@@ -100,7 +100,7 @@
 
                     viewModel.courseId = data.courseId;
                     viewModel.reviewUrl(data.reviewUrl);
-                    viewModel.state(viewModel.reviewUrlExists() ? constants.deliveringStates.succeed : constants.deliveringStates.failed);
+                    viewModel.state(viewModel.reviewUrlExists() ? constants.publishingStates.succeed : constants.publishingStates.failed);
                 });
             });
         }

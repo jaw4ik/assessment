@@ -1,4 +1,4 @@
-﻿define(['localization/localizationManager', 'constants', 'dataContext', 'viewmodels/courses/deliveringActions/publishToAim4You', 'eventTracker', 'services/aim4YouService', 'notify', 'repositories/courseRepository', 'durandal/app', 'userContext'],
+﻿define(['localization/localizationManager', 'constants', 'dataContext', 'viewmodels/courses/publishingActions/publishToAim4You', 'eventTracker', 'services/aim4YouService', 'notify', 'repositories/courseRepository', 'durandal/app', 'userContext'],
     function (localizationManager, constants, dataContext, publishToAim4You, eventTracker, aim4YouService, notify, courseRepository, app, userContext) {
 
         describe('viewModel [publishToAim4You]', function () {
@@ -33,19 +33,19 @@
 
             });
 
-            describe('isDelivering', function () {
+            describe('isPublishing', function () {
 
                 it('should be computed', function () {
-                    expect(viewModel.isDelivering).toBeComputed();
+                    expect(viewModel.isPublishing).toBeComputed();
                 });
 
                 describe('when state is \'building\'', function () {
                     beforeEach(function () {
-                        viewModel.state(constants.deliveringStates.building);
+                        viewModel.state(constants.publishingStates.building);
                     });
 
                     it('should return true', function () {
-                        expect(viewModel.isDelivering()).toBeTruthy();
+                        expect(viewModel.isPublishing()).toBeTruthy();
                     });
                 });
 
@@ -53,11 +53,11 @@
 
                     describe('when state is \'publishing\'', function () {
                         beforeEach(function () {
-                            viewModel.state(constants.deliveringStates.publishing);
+                            viewModel.state(constants.publishingStates.publishing);
                         });
 
                         it('should return true', function () {
-                            expect(viewModel.isDelivering()).toBeTruthy();
+                            expect(viewModel.isPublishing()).toBeTruthy();
                         });
                     });
 
@@ -67,7 +67,7 @@
                         });
 
                         it('should return false', function () {
-                            expect(viewModel.isDelivering()).toBeFalsy();
+                            expect(viewModel.isPublishing()).toBeFalsy();
                         });
                     });
 
@@ -76,11 +76,11 @@
                 describe('when state is \'publishing\'', function () {
 
                     beforeEach(function () {
-                        viewModel.state(constants.deliveringStates.publishing);
+                        viewModel.state(constants.publishingStates.publishing);
                     });
 
                     it('should return true', function () {
-                        expect(viewModel.isDelivering()).toBeTruthy();
+                        expect(viewModel.isPublishing()).toBeTruthy();
                     });
 
                 });
@@ -88,11 +88,11 @@
                 describe('when state is not \'publushing\'', function () {
 
                     beforeEach(function () {
-                        viewModel.state(constants.deliveringStates.notStarted);
+                        viewModel.state(constants.publishingStates.notStarted);
                     });
 
                     it('should return false', function () {
-                        expect(viewModel.isDelivering()).toBeFalsy();
+                        expect(viewModel.isPublishing()).toBeFalsy();
                     });
 
                 });
@@ -104,7 +104,7 @@
                     });
 
                     it('should return true', function () {
-                        expect(viewModel.isDelivering()).toBeTruthy();
+                        expect(viewModel.isPublishing()).toBeTruthy();
                     });
 
                 });
@@ -116,7 +116,7 @@
                     });
 
                     it('should return true', function () {
-                        expect(viewModel.isDelivering()).toBeFalsy();
+                        expect(viewModel.isPublishing()).toBeFalsy();
                     });
 
                 });
@@ -232,7 +232,7 @@
                 describe('when registration in progress', function () {
 
                     beforeEach(function () {
-                        viewModel.state(constants.deliveringStates.building);
+                        viewModel.state(constants.publishingStates.building);
                     });
 
                     describe('and when user is registered in Aim4You', function () {
@@ -487,10 +487,10 @@
 
                         it('should not change action state', function () {
                             viewModel.courseId = course.id;
-                            viewModel.state(constants.deliveringStates.notStarted);
+                            viewModel.state(constants.publishingStates.notStarted);
                             app.trigger(constants.messages.course.build.started, course);
 
-                            expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
+                            expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                         });
                     });
 
@@ -505,7 +505,7 @@
                             viewModel.state('');
                             app.trigger(constants.messages.course.build.started, course);
 
-                            expect(viewModel.state()).toEqual(constants.deliveringStates.building);
+                            expect(viewModel.state()).toEqual(constants.publishingStates.building);
                         });
                     });
                 });
@@ -513,10 +513,10 @@
                 describe('and when course is any other course', function () {
                     it('should not change action state', function () {
                         viewModel.courseId = course.id;
-                        viewModel.state(constants.deliveringStates.notStarted);
+                        viewModel.state(constants.publishingStates.notStarted);
                         app.trigger(constants.messages.course.build.started, { id: '100500' });
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
                 });
 
@@ -534,10 +534,10 @@
 
                         it('should not change action state', function () {
                             viewModel.courseId = course.id;
-                            viewModel.state(constants.deliveringStates.notStarted);
+                            viewModel.state(constants.publishingStates.notStarted);
                             app.trigger(constants.messages.course.build.failed, course);
 
-                            expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
+                            expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                         });
 
                         it('should not clear package url', function () {
@@ -561,7 +561,7 @@
                             viewModel.state('');
                             app.trigger(constants.messages.course.build.failed, course.id);
 
-                            expect(viewModel.state()).toEqual(constants.deliveringStates.failed);
+                            expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                         });
                     });
                 });
@@ -569,10 +569,10 @@
                 describe('and when course is any other course', function () {
                     it('should not change action state', function () {
                         viewModel.courseId = course.id;
-                        viewModel.state(constants.deliveringStates.notStarted);
+                        viewModel.state(constants.publishingStates.notStarted);
                         app.trigger(constants.messages.course.build.failed, { id: '100500' });
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
 
                     it('should not clear package url', function () {
@@ -595,17 +595,17 @@
                         viewModel.state('');
                         app.trigger(constants.messages.course.publishToAim4You.started, course);
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.publishing);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.publishing);
                     });
                 });
 
                 describe('and when course is any other course', function () {
                     it('should not change action state', function () {
                         viewModel.courseId = course.id;
-                        viewModel.state(constants.deliveringStates.notStarted);
+                        viewModel.state(constants.publishingStates.notStarted);
                         app.trigger(constants.messages.course.publishToAim4You.started, { id: '100500' });
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
                 });
 
@@ -618,10 +618,10 @@
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        course.buildingStatus = constants.deliveringStates.succeed;
+                        course.buildingStatus = constants.publishingStates.succeed;
                         app.trigger(constants.messages.course.publishToAim4You.completed, course);
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.succeed);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.succeed);
                     });
                 });
 
@@ -629,10 +629,10 @@
 
                     it('should not update action state', function () {
                         viewModel.courseId = course.id;
-                        viewModel.state(constants.deliveringStates.notStarted);
+                        viewModel.state(constants.publishingStates.notStarted);
                         app.trigger(constants.messages.course.publishToAim4You.completed, { id: '100500' });
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
 
                 });
@@ -650,7 +650,7 @@
 
                         app.trigger(constants.messages.course.publishToAim4You.failed, course.id, message);
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.failed);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                     });
                 });
 

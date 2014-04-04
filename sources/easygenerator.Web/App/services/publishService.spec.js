@@ -1,11 +1,11 @@
-﻿define(['services/deliverService'], function (service) {
+﻿define(['services/publishService'], function (service) {
     "use strict";
 
     var
         localizationManager = require('localization/localizationManager'),
         http = require('plugins/http');
 
-    describe('service [deliverCourse]', function () {
+    describe('service [publishCourse]', function () {
 
         describe('buildCourse:', function () {
 

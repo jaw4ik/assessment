@@ -1,5 +1,5 @@
-﻿define(['localization/localizationManager','constants', 'dataContext', 'viewmodels/courses/deliveringActions/deliveringAction', 'eventTracker', 'services/aim4YouService', 'repositories/courseRepository', 'notify', 'durandal/app', 'userContext'],
-    function (localizationManager, constants, dataContext, deliveringAcion, eventTracker, aim4YouService, courseRepository, notify, app, userContext) {
+﻿define(['localization/localizationManager','constants', 'dataContext', 'viewmodels/courses/publishingActions/publishingAction', 'eventTracker', 'services/aim4YouService', 'repositories/courseRepository', 'notify', 'durandal/app', 'userContext'],
+    function (localizationManager, constants, dataContext, publishingAction, eventTracker, aim4YouService, courseRepository, notify, app, userContext) {
 
         var events = {
             registerToAim4You: 'Register to Aim4You',
@@ -7,11 +7,11 @@
         };
 
         var ctor = function (courseId) {
-            var viewModel = deliveringAcion(courseId);
+            var viewModel = publishingAction(courseId);
 
-            viewModel.isDelivering = ko.computed(function() {
-                return this.state() === constants.deliveringStates.building
-                    || this.state() === constants.deliveringStates.publishing
+            viewModel.isPublishing = ko.computed(function() {
+                return this.state() === constants.publishingStates.building
+                    || this.state() === constants.publishingStates.publishing
                     || this.state() === constants.registerOnAim4YouStates.inProgress;
             }, viewModel);
 
@@ -28,7 +28,7 @@
             viewModel.isRegisteredOnAim4You = ko.observable(dataContext.userSettings.isRegisteredOnAim4You);
 
             viewModel.register = function () {
-                if (viewModel.isDelivering() || viewModel.isRegisteredOnAim4You()) {
+                if (viewModel.isPublishing() || viewModel.isRegisteredOnAim4You()) {
                     return;
                 }
                 
@@ -70,35 +70,35 @@
                 if (course.id !== viewModel.courseId || !viewModel.isActive()) {
                     return;
                 }
-                viewModel.state(constants.deliveringStates.building);
+                viewModel.state(constants.publishingStates.building);
             });
 
             app.on(constants.messages.course.build.failed, function (courseid) {
                 if (courseid !== viewModel.courseId || !viewModel.isActive()) {
                     return;
                 }
-                viewModel.state(constants.deliveringStates.failed);
+                viewModel.state(constants.publishingStates.failed);
             });
 
             app.on(constants.messages.course.publishToAim4You.started).then(function (course) {
                 if (course.id !== viewModel.courseId) {
                     return;
                 }
-                viewModel.state(constants.deliveringStates.publishing);
+                viewModel.state(constants.publishingStates.publishing);
             });
 
             app.on(constants.messages.course.publishToAim4You.completed, function (course) {
                 if (course.id !== viewModel.courseId) {
                     return;
                 }
-                viewModel.state(constants.deliveringStates.succeed);
+                viewModel.state(constants.publishingStates.succeed);
             });
 
             app.on(constants.messages.course.publishToAim4You.failed, function (courseid) {
                 if (courseid !== viewModel.courseId) {
                     return;
                 }
-                viewModel.state(constants.deliveringStates.failed);
+                viewModel.state(constants.publishingStates.failed);
             });
             
             app.on(constants.messages.course.action.started, function (courseid) {

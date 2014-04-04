@@ -4,7 +4,7 @@
         var viewModel = {
             state: ko.observable(),
             packageUrl: ko.observable(packageUrl),
-            isDelivering: ko.observable(false),
+            isPublishing: ko.observable(false),
             isActive: ko.observable(false),
             courseId: courseId
         };

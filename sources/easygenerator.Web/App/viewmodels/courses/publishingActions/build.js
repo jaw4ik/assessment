@@ -1,5 +1,5 @@
-﻿define(['constants', 'viewmodels/courses/deliveringActions/deliveringAction', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'dom'],
-    function (constants, deliveringAction, app, notify, eventTracker, repository, dom) {
+﻿define(['constants', 'viewmodels/courses/publishingActions/publishingAction', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'dom'],
+    function (constants, publishingAction, app, notify, eventTracker, repository, dom) {
 
         var
            events = {
@@ -8,10 +8,10 @@
 
         var ctor = function (courseId, packageUrl) {
 
-            var viewModel = deliveringAction(courseId, packageUrl);
+            var viewModel = publishingAction(courseId, packageUrl);
 
-            viewModel.isDelivering = ko.computed(function () {
-                return this.state() === constants.deliveringStates.building;
+            viewModel.isPublishing = ko.computed(function () {
+                return this.state() === constants.publishingStates.building;
             }, viewModel);
 
             viewModel.downloadCourse = function () {
@@ -38,14 +38,14 @@
                 if (course.id !== viewModel.courseId || !viewModel.isActive())
                     return;
 
-                viewModel.state(constants.deliveringStates.building);
+                viewModel.state(constants.publishingStates.building);
             }
 
             viewModel.courseBuildFailed = function (courseid) {
                 if (courseid !== viewModel.courseId || !viewModel.isActive())
                     return;
 
-                viewModel.state(constants.deliveringStates.failed);
+                viewModel.state(constants.publishingStates.failed);
                 viewModel.packageUrl('');
             }
 
@@ -53,7 +53,7 @@
                 if (course.id !== viewModel.courseId || !viewModel.isActive())
                     return;
 
-                viewModel.state(constants.deliveringStates.succeed);
+                viewModel.state(constants.publishingStates.succeed);
                 viewModel.packageUrl(course.packageUrl);
             }
 

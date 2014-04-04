@@ -144,7 +144,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Build(CourseObjectMother.Create());
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseDeliverActionFailedError);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoursePublishActionFailedError);
         }
 
         [TestMethod]
@@ -189,7 +189,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.ScormBuild(CourseObjectMother.Create());
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseDeliverActionFailedError);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoursePublishActionFailedError);
         }
 
         [TestMethod]
@@ -233,7 +233,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Publish(CourseObjectMother.Create());
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseDeliverActionFailedError);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoursePublishActionFailedError);
         }
 
         [TestMethod]
@@ -276,7 +276,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.PublishForReview(CourseObjectMother.Create());
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseDeliverActionFailedError);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoursePublishActionFailedError);
         }
 
         [TestMethod]

@@ -84,7 +84,7 @@
                             <!-- /ko -->
                             <div class="course-action disabled" data-bind="css: { 'package-link': publishPackageExists() }">
                                 <!-- ko if: publishPackageExists() -->
-                                <input class="package-link-input" type="text" readonly="readonly" data-bind="value: publishedPackageUrl, selectTextBinding: deliveringState() === $parent.states.succeed" />
+                                <input class="package-link-input" type="text" readonly="readonly" data-bind="value: publishedPackageUrl, selectTextBinding: publishingState() === $parent.states.succeed" />
                                 <!-- /ko -->
                             </div>
                             <!-- ko if: publishPackageExists() -->
@@ -98,17 +98,17 @@
                     </div>
                     <!-- ko if: showStatus() -->
                     <div class="course-status-container" data-bind="event: { mouseover: $parent.enableOpenCourse }">
-                        <!-- ko if: deliveringState() === $parent.states.building || deliveringState() === $parent.states.publishing -->
+                        <!-- ko if: publishingState() === $parent.states.building || publishingState() === $parent.states.publishing -->
                         <div class="course-text-holder building">
-                            <span class="course-text" data-bind="localize: { text: deliveringState() === $parent.states.building ? 'assembling' : 'publishing' }"></span>
+                            <span class="course-text" data-bind="localize: { text: publishingState() === $parent.states.building ? 'assembling' : 'publishing' }"></span>
                         </div>
                         <!-- /ko -->
-                        <!-- ko if: deliveringState() === $parent.states.succeed -->
+                        <!-- ko if: publishingState() === $parent.states.succeed -->
                         <div class="course-text-holder complete">
                             <span class="course-text" data-bind="localize: { text: 'courseCompleteStatus' }"></span>
                         </div>
                         <!-- /ko -->
-                        <!-- ko if: deliveringState() === $parent.states.failed -->
+                        <!-- ko if: publishingState() === $parent.states.failed -->
                         <div class="course-text-holder failed">
                             <span class="course-text" data-bind="localize: { text: 'courseFailedStatus' }"></span>
                         </div>

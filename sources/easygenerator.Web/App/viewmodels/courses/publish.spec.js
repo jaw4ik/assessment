@@ -50,8 +50,8 @@
 
             describe('states:', function () {
 
-                it('should be equal to allowed deliver states', function () {
-                    expect(viewModel.states).toEqual(constants.deliveringStates);
+                it('should be equal to allowed publish states', function () {
+                    expect(viewModel.states).toEqual(constants.publishingStates);
                 });
 
             });
@@ -82,59 +82,59 @@
 
             });
 
-            describe('isDeliveringProcessInProgress:', function () {
+            describe('isPublishingProcessInProgress:', function () {
 
                 it('should be computed', function () {
-                    expect(viewModel.isDeliveringInProgress).toBeComputed();
+                    expect(viewModel.isPublishingInProgress).toBeComputed();
                 });
 
-                describe('when all actions are not delivering', function () {
+                describe('when all actions are not publishing', function () {
                     it('should return false', function () {
-                        viewModel.buildAction({ isDelivering: ko.observable(false) });
-                        viewModel.scormBuildAction({ isDelivering: ko.observable(false) });
-                        viewModel.publishAction({ isDelivering: ko.observable(false) });
-                        viewModel.publishToAim4YouAction({ isDelivering: ko.observable(false) });
-                        expect(viewModel.isDeliveringInProgress()).toBeFalsy();
+                        viewModel.buildAction({ isPublishing: ko.observable(false) });
+                        viewModel.scormBuildAction({ isPublishing: ko.observable(false) });
+                        viewModel.publishAction({ isPublishing: ko.observable(false) });
+                        viewModel.publishToAim4YouAction({ isPublishing: ko.observable(false) });
+                        expect(viewModel.isPublishingInProgress()).toBeFalsy();
                     });
                 });
 
-                describe('when build action is defined and is delivering', function () {
+                describe('when build action is defined and is publishing', function () {
                     it('should return true', function () {
-                        viewModel.buildAction({ isDelivering: ko.observable(true) });
-                        viewModel.scormBuildAction({ isDelivering: ko.observable(false) });
-                        viewModel.publishAction({ isDelivering: ko.observable(false) });
-                        viewModel.publishToAim4YouAction({ isDelivering: ko.observable(false) });
-                        expect(viewModel.isDeliveringInProgress()).toBe(true);
+                        viewModel.buildAction({ isPublishing: ko.observable(true) });
+                        viewModel.scormBuildAction({ isPublishing: ko.observable(false) });
+                        viewModel.publishAction({ isPublishing: ko.observable(false) });
+                        viewModel.publishToAim4YouAction({ isPublishing: ko.observable(false) });
+                        expect(viewModel.isPublishingInProgress()).toBe(true);
                     });
                 });
 
-                describe('when scorm build action is defined and is delivering', function () {
+                describe('when scorm build action is defined and is publishing', function () {
                     it('should return true', function () {
-                        viewModel.buildAction({ isDelivering: ko.observable(false) });
-                        viewModel.scormBuildAction({ isDelivering: ko.observable(true) });
-                        viewModel.publishAction({ isDelivering: ko.observable(false) });
-                        viewModel.publishToAim4YouAction({ isDelivering: ko.observable(false) });
-                        expect(viewModel.isDeliveringInProgress()).toBe(true);
+                        viewModel.buildAction({ isPublishing: ko.observable(false) });
+                        viewModel.scormBuildAction({ isPublishing: ko.observable(true) });
+                        viewModel.publishAction({ isPublishing: ko.observable(false) });
+                        viewModel.publishToAim4YouAction({ isPublishing: ko.observable(false) });
+                        expect(viewModel.isPublishingInProgress()).toBe(true);
                     });
                 });
 
-                describe('when publish action is defined and is delivering', function () {
+                describe('when publish action is defined and is publishing', function () {
                     it('should return true', function () {
-                        viewModel.buildAction({ isDelivering: ko.observable(false) });
-                        viewModel.scormBuildAction({ isDelivering: ko.observable(false) });
-                        viewModel.publishAction({ isDelivering: ko.observable(true) });
-                        viewModel.publishToAim4YouAction({ isDelivering: ko.observable(false) });
-                        expect(viewModel.isDeliveringInProgress()).toBe(true);
+                        viewModel.buildAction({ isPublishing: ko.observable(false) });
+                        viewModel.scormBuildAction({ isPublishing: ko.observable(false) });
+                        viewModel.publishAction({ isPublishing: ko.observable(true) });
+                        viewModel.publishToAim4YouAction({ isPublishing: ko.observable(false) });
+                        expect(viewModel.isPublishingInProgress()).toBe(true);
                     });
                 });
 
-                describe('when publish to Aim4You action is defined and is delivering', function () {
+                describe('when publish to Aim4You action is defined and is publishing', function () {
                     it('should return true', function () {
-                        viewModel.buildAction({ isDelivering: ko.observable(false) });
-                        viewModel.scormBuildAction({ isDelivering: ko.observable(false) });
-                        viewModel.publishAction({ isDelivering: ko.observable(false) });
-                        viewModel.publishToAim4YouAction({ isDelivering: ko.observable(true) });
-                        expect(viewModel.isDeliveringInProgress()).toBe(true);
+                        viewModel.buildAction({ isPublishing: ko.observable(false) });
+                        viewModel.scormBuildAction({ isPublishing: ko.observable(false) });
+                        viewModel.publishAction({ isPublishing: ko.observable(false) });
+                        viewModel.publishToAim4YouAction({ isPublishing: ko.observable(true) });
+                        expect(viewModel.isPublishingInProgress()).toBe(true);
                     });
                 });
             });
@@ -284,7 +284,7 @@
                             });
 
                             it('should not define scorm build action', function (done) {
-                                viewModel.scormBuildAction({ isDelivering: ko.observable(false) });
+                                viewModel.scormBuildAction({ isPublishing: ko.observable(false) });
 
                                 viewModel.activate(course.id).fin(function () {
                                     expect(viewModel.scormBuildAction()).not.toBeDefined();

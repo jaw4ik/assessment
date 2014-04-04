@@ -1,5 +1,5 @@
-﻿define(['viewmodels/courses/deliveringActions/build', 'constants', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'dom'],
-    function (buildDeliveringAction, constants, app, notify, eventTracker, repository, dom) {
+﻿define(['viewmodels/courses/publishingActions/build', 'constants', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'dom'],
+    function (buildPublishingAction, constants, app, notify, eventTracker, repository, dom) {
 
         describe('viewModel [build]', function () {
 
@@ -11,7 +11,7 @@
             ;
 
             beforeEach(function () {
-                viewModel = buildDeliveringAction(courseId, packageUrl);
+                viewModel = buildPublishingAction(courseId, packageUrl);
                 spyOn(eventTracker, 'publish');
                 spyOn(notify, 'hide');
                 spyOn(dom, 'clickElementById');
@@ -47,18 +47,18 @@
                 });
             });
 
-            describe('isDelivering', function () {
+            describe('isPublishing', function () {
                 it('should be computed', function () {
-                    expect(viewModel.isDelivering).toBeComputed();
+                    expect(viewModel.isPublishing).toBeComputed();
                 });
 
                 describe('when state is \'building\'', function () {
                     beforeEach(function () {
-                        viewModel.state(constants.deliveringStates.building);
+                        viewModel.state(constants.publishingStates.building);
                     });
 
                     it('should return true', function () {
-                        expect(viewModel.isDelivering()).toBeTruthy();
+                        expect(viewModel.isPublishing()).toBeTruthy();
                     });
                 });
 
@@ -68,7 +68,7 @@
                     });
 
                     it('should return true', function () {
-                        expect(viewModel.isDelivering()).toBeFalsy();
+                        expect(viewModel.isPublishing()).toBeFalsy();
                     });
                 });
             });
@@ -214,7 +214,7 @@
                     });
                 });
 
-                describe('when deliver process is running', function () {
+                describe('when publish process is running', function () {
 
                     beforeEach(function () {
                         viewModel.isActive(true);
@@ -261,7 +261,7 @@
 
                             viewModel.courseBuildStarted(course);
 
-                            expect(viewModel.state()).toEqual(constants.deliveringStates.building);
+                            expect(viewModel.state()).toEqual(constants.publishingStates.building);
                         });
 
                     });
@@ -322,11 +322,11 @@
                             viewModel.courseId = course.id;
                             viewModel.state('');
 
-                            course.buildingStatus = constants.deliveringStates.succeed;
+                            course.buildingStatus = constants.publishingStates.succeed;
 
                             viewModel.courseBuildCompleted(course);
 
-                            expect(viewModel.state()).toEqual(constants.deliveringStates.succeed);
+                            expect(viewModel.state()).toEqual(constants.publishingStates.succeed);
                         });
 
                         it('should update current package url to the corresponding one', function () {
@@ -410,7 +410,7 @@
 
                             viewModel.courseBuildFailed(course.id);
 
-                            expect(viewModel.state()).toEqual(constants.deliveringStates.failed);
+                            expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                         });
 
                         it('should remove package url', function () {

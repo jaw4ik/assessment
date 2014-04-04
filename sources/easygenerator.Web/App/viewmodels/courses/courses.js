@@ -27,7 +27,7 @@
             navigateToDetails: navigateToDetails,
             navigateToObjectives: navigateToObjectives,
 
-            states: constants.deliveringStates,
+            states: constants.publishingStates,
             downloadCourse: downloadCourse,
             enableOpenCourse: enableOpenCourse,
             
@@ -50,7 +50,7 @@
 
         app.on(constants.messages.course.build.started).then(function (course) {
             updateCourseViewModelIfExists(course.id, function (expVm) {
-                expVm.deliveringState(constants.deliveringStates.building);
+                expVm.publishingState(constants.publishingStates.building);
                 expVm.showStatus(true);
             });
         });
@@ -58,14 +58,14 @@
         app.on(constants.messages.course.build.completed, function (course) {
             updateCourseViewModelIfExists(course.id, function (expVm) {
 
-                expVm.deliveringState(constants.deliveringStates.succeed);
+                expVm.publishingState(constants.publishingStates.succeed);
                 expVm.packageUrl(course.packageUrl);
             });
         });
 
         app.on(constants.messages.course.build.failed, function (courseId) {
             updateCourseViewModelIfExists(courseId, function (expVm) {
-                expVm.deliveringState(constants.deliveringStates.failed);
+                expVm.publishingState(constants.publishingStates.failed);
                 expVm.packageUrl('');
             });
         });
@@ -75,34 +75,34 @@
         //#region publish events
         app.on(constants.messages.course.publish.started).then(function (course) {
             updateCourseViewModelIfExists(course.id, function (expVm) {
-                expVm.deliveringState(constants.deliveringStates.publishing);
+                expVm.publishingState(constants.publishingStates.publishing);
                 expVm.showStatus(true);
             });
         });
 
         app.on(constants.messages.course.publish.completed, function (course) {
             updateCourseViewModelIfExists(course.id, function (expVm) {
-                expVm.deliveringState(constants.deliveringStates.succeed);
+                expVm.publishingState(constants.publishingStates.succeed);
                 expVm.publishedPackageUrl(course.publishedPackageUrl);
             });
         });
 
         app.on(constants.messages.course.publish.failed, function (courseId) {
             updateCourseViewModelIfExists(courseId, function (expVm) {
-                expVm.deliveringState(constants.deliveringStates.failed);
+                expVm.publishingState(constants.publishingStates.failed);
                 expVm.publishedPackageUrl('');
             });
         });
 
        app.on(constants.messages.course.publishToAim4You.completed, function (course) {
             updateCourseViewModelIfExists(course.id, function (expVm) {
-                expVm.deliveringState(constants.deliveringStates.succeed);
+                expVm.publishingState(constants.publishingStates.succeed);
             });
         });
 
         app.on(constants.messages.course.publishToAim4You.failed, function (courseId) {
             updateCourseViewModelIfExists(courseId, function (expVm) {
-                expVm.deliveringState(constants.deliveringStates.failed);
+                expVm.publishingState(constants.publishingStates.failed);
             });
         });
         //#endregion publish events
@@ -134,8 +134,8 @@
         }
 
         function publishCourse(exp) {
-            if (exp.deliveringState() !== constants.deliveringStates.building && exp.deliveringState() !== constants.deliveringStates.publishing) {
-                exp.deliveringState(constants.deliveringStates.building);
+            if (exp.publishingState() !== constants.publishingStates.building && exp.publishingState() !== constants.publishingStates.publishing) {
+                exp.publishingState(constants.publishingStates.building);
                 notify.hide();
                 eventTracker.publish(events.publishCourse);
                 if (exp.isSelected()) {
@@ -152,8 +152,8 @@
         }
         
         function downloadCourse(exp) {
-            if (exp.deliveringState() !== constants.deliveringStates.building && exp.deliveringState() !== constants.deliveringStates.publishing) {
-                exp.deliveringState(constants.deliveringStates.building);
+            if (exp.publishingState() !== constants.publishingStates.building && exp.publishingState() !== constants.publishingStates.publishing) {
+                exp.publishingState(constants.publishingStates.building);
                 notify.hide();
                 eventTracker.publish(events.downloadCourse);
                 if (exp.isSelected()) {
@@ -172,7 +172,7 @@
         }
 
         function enableOpenCourse(course) {
-            if (course.deliveringState() !== constants.deliveringStates.building && course.deliveringState() !== constants.deliveringStates.publishing) {
+            if (course.publishingState() !== constants.publishingStates.building && course.publishingState() !== constants.publishingStates.publishing) {
                 course.showStatus(false);
             }
         }
@@ -224,7 +224,7 @@
                 course.title = item.title;
                 course.image = item.template.image;
                 course.objectives = item.objectives;
-                course.deliveringState = ko.observable(item.deliveringState);
+                course.publishingState = ko.observable(item.publishingState);
                 course.packageUrl = ko.observable(item.packageUrl);
                 course.publishedPackageUrl = ko.observable(item.publishedPackageUrl);
                 course.modifiedOn = item.modifiedOn;
@@ -235,9 +235,9 @@
                     return !_.isNullOrUndefined(this.publishedPackageUrl()) && !_.isEmptyOrWhitespace(this.publishedPackageUrl());
                 }, course);
 
-                var storageItem = storage[item.id] || { showStatus: false, deliveringState: constants.deliveringStates.notStarted };
-                var showStatus = storageItem.showStatus || (item.deliveringState === constants.deliveringStates.building || item.deliveringState === constants.deliveringStates.publishing ||
-                     item.deliveringState !== storageItem.deliveringState);
+                var storageItem = storage[item.id] || { showStatus: false, publishingState: constants.publishingStates.notStarted };
+                var showStatus = storageItem.showStatus || (item.publishingState === constants.publishingStates.building || item.publishingState === constants.publishingStates.publishing ||
+                     item.publishingState !== storageItem.publishingState);
                 course.showStatus(showStatus);
                 
                 return course;
@@ -249,7 +249,7 @@
             _.each(viewModel.courses(), function (item) {
                 storage[item.id] = {
                     showStatus: item.showStatus(),
-                    deliveringState: item.deliveringState()
+                    publishingState: item.publishingState()
                 };
             });
         };

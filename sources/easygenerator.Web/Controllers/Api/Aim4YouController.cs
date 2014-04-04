@@ -33,7 +33,7 @@ namespace easygenerator.Web.Controllers.Api
             {
                 return JsonSuccess(true);
             }
-            return JsonLocalizableError(Errors.CourseDeliverActionFailedError, Errors.CourseDeliverActionFailedResourceKey);
+            return JsonLocalizableError(Errors.CoursePublishActionFailedError, Errors.CoursePublishActionFailedResourceKey);
         }
 
         [HttpPost]
@@ -49,7 +49,7 @@ namespace easygenerator.Web.Controllers.Api
 
             if (!result)
             {
-                return JsonLocalizableError(Errors.CourseDeliverActionFailedError, Errors.CourseDeliverActionFailedResourceKey);
+                return JsonLocalizableError(Errors.CoursePublishActionFailedError, Errors.CoursePublishActionFailedResourceKey);
             }
 
             return JsonSuccess(true);

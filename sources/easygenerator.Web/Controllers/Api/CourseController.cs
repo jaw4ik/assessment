@@ -59,18 +59,18 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess();
         }
 
-        private ActionResult DoDeliverAction(Course course, Func<bool> deliverAction, Func<ActionResult> getSuccessResultAction)
+        private ActionResult DoPublishAction(Course course, Func<bool> publishAction, Func<ActionResult> getSuccessResultAction)
         {
             if (course == null)
             {
                 return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
             }
 
-            var result = deliverAction();
+            var result = publishAction();
 
             if (!result)
             {
-                return JsonLocalizableError(Errors.CourseDeliverActionFailedError, Errors.CourseDeliverActionFailedResourceKey);
+                return JsonLocalizableError(Errors.CoursePublishActionFailedError, Errors.CoursePublishActionFailedResourceKey);
             }
 
             return getSuccessResultAction();
@@ -79,27 +79,27 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult Build(Course course)
         {
-            return DoDeliverAction(course, () => _builder.Build(course), () => JsonSuccess(new { PackageUrl = course.PackageUrl, BuildOn = course.BuildOn }));
+            return DoPublishAction(course, () => _builder.Build(course), () => JsonSuccess(new { PackageUrl = course.PackageUrl, BuildOn = course.BuildOn }));
         }
 
         [HttpPost, RequireStarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseScormResourceKey)]
         public ActionResult ScormBuild(Course course)
         {
-            return DoDeliverAction(course, () => _scormCourseBuilder.Build(course), () => JsonSuccess(new { ScormPackageUrl = course.ScormPackageUrl }));
+            return DoPublishAction(course, () => _scormCourseBuilder.Build(course), () => JsonSuccess(new { ScormPackageUrl = course.ScormPackageUrl }));
         }
 
         [HttpPost]
         [Route("course/publish")]
         public ActionResult Publish(Course course)
         {
-            return DoDeliverAction(course, () => _coursePublishingService.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = _coursePublishingService.GetPublishedPackageUrl(course.Id.ToString()) }));
+            return DoPublishAction(course, () => _coursePublishingService.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = _coursePublishingService.GetPublishedPackageUrl(course.Id.ToString()) }));
         }
 
         [HttpPost]
         [Route("course/publishForReview")]
         public ActionResult PublishForReview(Course course)
         {
-            return DoDeliverAction(course, () => _coursePublishingService.Publish(course), () => JsonSuccess(new { ReviewUrl = _coursePublishingService.GetCourseReviewUrl(course.Id.ToString()) }));
+            return DoPublishAction(course, () => _coursePublishingService.Publish(course), () => JsonSuccess(new { ReviewUrl = _coursePublishingService.GetCourseReviewUrl(course.Id.ToString()) }));
         }
 
         [HttpPost]

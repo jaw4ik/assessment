@@ -236,6 +236,9 @@
     </Content>
     <Content Include="App\repositories\commentRepository.js" />
     <Content Include="App\notifications\subscriptionExpirationNotification.js" />
+    <Content Include="App\services\publishService.spec.js">
+      <DependentUpon>publishService.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\userDowngraded.js" />
     <Content Include="App\synchronization\handlers\userDowngraded.spec.js">
       <DependentUpon>userDowngraded.js</DependentUpon>
@@ -400,18 +403,18 @@
     <Content Include="App\viewmodels\courses\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\deliveringActions\deliveringAction.js" />
-    <Content Include="App\viewmodels\courses\deliveringActions\deliveringAction.spec.js">
-      <DependentUpon>deliveringAction.js</DependentUpon>
+    <Content Include="App\viewmodels\courses\publishingActions\publishingAction.spec.js">
+      <DependentUpon>publishingAction.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\deliveringActions\publish.spec.js">
+    <Content Include="App\viewmodels\courses\publishingActions\publishingAction.js" />
+    <Content Include="App\viewmodels\courses\publishingActions\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\deliveringActions\publishToAim4You.js" />
-    <Content Include="App\viewmodels\courses\deliveringActions\publishToAim4You.spec.js">
+    <Content Include="App\viewmodels\courses\publishingActions\publishToAim4You.js" />
+    <Content Include="App\viewmodels\courses\publishingActions\publishToAim4You.spec.js">
       <DependentUpon>publishToAim4You.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\deliveringActions\scormBuild.spec.js">
+    <Content Include="App\viewmodels\courses\publishingActions\scormBuild.spec.js">
       <DependentUpon>scormBuild.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\panels\sidePanel.spec.js">
@@ -434,12 +437,12 @@
     <Content Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App\viewmodels\courses\deliveringActions\build.js" />
-    <Content Include="App\viewmodels\courses\deliveringActions\build.spec.js">
+    <Content Include="App\viewmodels\courses\publishingActions\build.js" />
+    <Content Include="App\viewmodels\courses\publishingActions\build.spec.js">
       <DependentUpon>build.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\deliveringActions\publish.js" />
-    <Content Include="App\viewmodels\courses\deliveringActions\scormBuild.js" />
+    <Content Include="App\viewmodels\courses\publishingActions\publish.js" />
+    <Content Include="App\viewmodels\courses\publishingActions\scormBuild.js" />
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttribute.cs" />
     <Compile Include="Components\ActionFilters\CustomRequireHttpsAttribute.cs" />
@@ -520,10 +523,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Content Include="App\bootstrapping\routingTask.js" />
-    <Content Include="App\services\deliverService.js" />
-    <Content Include="App\services\deliverService.spec.js">
-      <DependentUpon>deliverService.js</DependentUpon>
-    </Content>
+    <Content Include="App\services\publishService.js" />
     <Content Include="App\uiLocker.js" />
     <Content Include="App\uiLocker.spec.js">
       <DependentUpon>uiLocker.js</DependentUpon>

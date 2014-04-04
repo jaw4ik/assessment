@@ -1,12 +1,12 @@
-﻿define(['viewmodels/courses/deliveringActions/deliveringAction'], function (deliveringAction) {
+﻿define(['viewmodels/courses/publishingActions/publishingAction'], function (publishingAction) {
 
-    describe('[deliveringAction]', function () {
+    describe('[publishingAction]', function () {
         var viewModel,
             packageUrl = 'someUrl',
             courseId = 'id';
 
         beforeEach(function () {
-            viewModel = deliveringAction(courseId, packageUrl);
+            viewModel = publishingAction(courseId, packageUrl);
         });
 
         it('should be object', function () {
@@ -19,9 +19,9 @@
             });
         });
 
-        describe('isDelivering:', function () {
+        describe('isPublishing:', function () {
             it('should be observable', function () {
-                expect(viewModel.isDelivering).toBeObservable();
+                expect(viewModel.isPublishing).toBeObservable();
             });
         });
         

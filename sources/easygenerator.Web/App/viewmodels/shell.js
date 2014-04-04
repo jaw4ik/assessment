@@ -10,7 +10,7 @@
 
         var
             objectivesModules = ['objectives', 'objective', 'createObjective', 'createQuestion', 'question'],
-            coursesModules = ['courses', 'createCourse', 'course', 'design', 'deliver'];
+            coursesModules = ['courses', 'createCourse', 'course', 'design', 'publish'];
 
         var requestsCounter = ko.observable(0);
 

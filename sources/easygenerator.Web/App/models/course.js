@@ -1,5 +1,5 @@
-﻿define(['models/entity', 'durandal/app', 'constants', 'services/deliverService'],
-    function (EntityModel, app, constants, deliverService) {
+﻿define(['models/entity', 'durandal/app', 'constants', 'services/publishService'],
+    function (EntityModel, app, constants, publishService) {
         "use strict";
 
         function Course(spec) {
@@ -14,29 +14,29 @@
             this.template = spec.template;
             this.publishedPackageUrl = spec.publishedPackageUrl;
             this.reviewUrl = spec.reviewUrl;
-            this.deliveringState = constants.deliveringStates.notStarted;
+            this.publishingState = constants.publishingStates.notStarted;
             this.introductionContent = spec.introductionContent;
         };
         
         Course.prototype.build = function () {
             var that = this;
             var deferred = Q.defer();
-            if (that.deliveringState == constants.deliveringStates.building || that.deliveringState == constants.deliveringStates.publishing) {
+            if (that.publishingState == constants.publishingStates.building || that.publishingState == constants.publishingStates.publishing) {
                 deferred.reject('Course is already building or publishing.');
             }
         
-            that.deliveringState = constants.deliveringStates.building;
+            that.publishingState = constants.publishingStates.building;
             app.trigger(constants.messages.course.build.started, that);
             app.trigger(constants.messages.course.action.started, that.id);
 
-            deliverService.buildCourse(that.id).then(function (buildInfo) {
+            publishService.buildCourse(that.id).then(function (buildInfo) {
                 that.packageUrl = buildInfo.packageUrl;
                 that.builtOn = buildInfo.builtOn;
-                that.deliveringState = constants.deliveringStates.succeed;
+                that.publishingState = constants.publishingStates.succeed;
                 app.trigger(constants.messages.course.build.completed, that);
                 deferred.resolve(that);
             }).fail(function (message) {
-                that.deliveringState = constants.deliveringStates.failed;
+                that.publishingState = constants.publishingStates.failed;
                 that.packageUrl = '';
                 app.trigger(constants.messages.course.build.failed, that.id, message);
                 deferred.reject(message);
@@ -48,21 +48,21 @@
         Course.prototype.scormBuild = function () {
             var that = this;
             var deferred = Q.defer();
-            if (that.deliveringState == constants.deliveringStates.building || that.deliveringState == constants.deliveringStates.publishing) {
+            if (that.publishingState == constants.publishingStates.building || that.publishingState == constants.publishingStates.publishing) {
                 deferred.reject('Course is already building or publishing.');
             }
 
-            that.deliveringState = constants.deliveringStates.building;
+            that.publishingState = constants.publishingStates.building;
             app.trigger(constants.messages.course.scormBuild.started, that);
             app.trigger(constants.messages.course.action.started, that.id);
 
-            deliverService.scormBuildCourse(that.id).then(function (buildInfo) {
+            publishService.scormBuildCourse(that.id).then(function (buildInfo) {
                 that.scormPackageUrl = buildInfo.scormPackageUrl;
-                that.deliveringState = constants.deliveringStates.succeed;
+                that.publishingState = constants.publishingStates.succeed;
                 app.trigger(constants.messages.course.scormBuild.completed, that);
                 deferred.resolve(that);
             }).fail(function (message) {
-                that.deliveringState = constants.deliveringStates.failed;
+                that.publishingState = constants.publishingStates.failed;
                 that.scormPackageUrl = '';
                 app.trigger(constants.messages.course.scormBuild.failed, that.id, message);
                 deferred.reject(message);
@@ -76,22 +76,22 @@
             var that = this;
             var deferred = Q.defer();
 
-            if (that.deliveringState == constants.deliveringStates.building || that.deliveringState == constants.deliveringStates.publishing) {
+            if (that.publishingState == constants.publishingStates.building || that.publishingState == constants.publishingStates.publishing) {
                 deferred.reject('Course is already building or publishing.');
             }
 
             that.build().then(function() {
-                that.deliveringState = constants.deliveringStates.publishing;
+                that.publishingState = constants.publishingStates.publishing;
                 app.trigger(constants.messages.course.publish.started, that);
 
-                return deliverService.publishCourse(that.id).then(function(publishInfo) {
+                return publishService.publishCourse(that.id).then(function(publishInfo) {
                     that.publishedPackageUrl = publishInfo.publishedPackageUrl;
-                    that.deliveringState = constants.deliveringStates.succeed;
+                    that.publishingState = constants.publishingStates.succeed;
                     app.trigger(constants.messages.course.publish.completed, that);
                     deferred.resolve(that);
                 });
             }).fail(function (message) {
-                that.deliveringState = constants.deliveringStates.failed;
+                that.publishingState = constants.publishingStates.failed;
                 that.publishedPackageUrl = '';
                 app.trigger(constants.messages.course.publish.failed, that.id, message);
                 deferred.reject(message);
@@ -104,22 +104,22 @@
             var that = this;
             var deferred = Q.defer();
 
-            if (that.deliveringState == constants.deliveringStates.building || that.deliveringState == constants.deliveringStates.publishing) {
+            if (that.publishingState == constants.publishingStates.building || that.publishingState == constants.publishingStates.publishing) {
                 deferred.reject('Course is already building or publishing.');
             }
 
             that.build().then(function () {
-                that.deliveringState = constants.deliveringStates.publishing;
+                that.publishingState = constants.publishingStates.publishing;
                 app.trigger(constants.messages.course.publishForReview.started, that);
 
-                return deliverService.publishCourseForReview(that.id).then(function (publishInfo) {
+                return publishService.publishCourseForReview(that.id).then(function (publishInfo) {
                     that.reviewUrl = publishInfo.reviewUrl;
-                    that.deliveringState = constants.deliveringStates.succeed;
+                    that.publishingState = constants.publishingStates.succeed;
                     app.trigger(constants.messages.course.publishForReview.completed, that);
                     deferred.resolve(that);
                 });
             }).fail(function (message) {
-                that.deliveringState = constants.deliveringStates.failed;
+                that.publishingState = constants.publishingStates.failed;
                 that.reviewUrl = '';
                 app.trigger(constants.messages.course.publishForReview.failed, that.id, message);
                 deferred.reject(message);
@@ -132,20 +132,20 @@
             var that = this;
             var deferred = Q.defer();
             
-            if (that.deliveringState == constants.deliveringStates.building || that.deliveringState == constants.deliveringStates.publishing) {
+            if (that.publishingState == constants.publishingStates.building || that.publishingState == constants.publishingStates.publishing) {
                 deferred.reject('Course is already building or publishing to Aim4You.');
             }
             
             that.build().then(function() {
-                that.deliveringState = constants.deliveringStates.publishing;
+                that.publishingState = constants.publishingStates.publishing;
                 app.trigger(constants.messages.course.publishToAim4You.started, that);
-                return deliverService.publishCourseToStore(that.id).then(function() {
-                    that.deliveringState = constants.deliveringStates.succeed;
+                return publishService.publishCourseToStore(that.id).then(function() {
+                    that.publishingState = constants.publishingStates.succeed;
                     app.trigger(constants.messages.course.publishToAim4You.completed, that);
                     deferred.resolve(that);
                 });
             }).fail(function (message) {
-                that.deliveringState = constants.deliveringStates.failed;
+                that.publishingState = constants.publishingStates.failed;
                 app.trigger(constants.messages.course.publishToAim4You.failed, that.id, message);
                 deferred.reject(message);
             });

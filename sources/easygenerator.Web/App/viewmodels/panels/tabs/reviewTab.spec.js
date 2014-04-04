@@ -27,18 +27,18 @@
                 expect(viewModel).toBeObject();
             });
 
-            describe('isDelivering:', function () {
+            describe('isPublishing:', function () {
                 it('should be computed', function () {
-                    expect(viewModel.isDelivering).toBeComputed();
+                    expect(viewModel.isPublishing).toBeComputed();
                 });
 
                 describe('when state is \'building\'', function () {
                     beforeEach(function () {
-                        viewModel.state(constants.deliveringStates.building);
+                        viewModel.state(constants.publishingStates.building);
                     });
 
                     it('should return true', function () {
-                        expect(viewModel.isDelivering()).toBeTruthy();
+                        expect(viewModel.isPublishing()).toBeTruthy();
                     });
                 });
 
@@ -46,11 +46,11 @@
 
                     describe('when state is \'publishing\'', function () {
                         beforeEach(function () {
-                            viewModel.state(constants.deliveringStates.publishing);
+                            viewModel.state(constants.publishingStates.publishing);
                         });
 
                         it('should return true', function () {
-                            expect(viewModel.isDelivering()).toBeTruthy();
+                            expect(viewModel.isPublishing()).toBeTruthy();
                         });
                     });
 
@@ -60,7 +60,7 @@
                         });
 
                         it('should return false', function () {
-                            expect(viewModel.isDelivering()).toBeFalsy();
+                            expect(viewModel.isPublishing()).toBeFalsy();
                         });
                     });
 
@@ -85,10 +85,10 @@
                         viewModel.reviewUrl('someUrl');
                     });
 
-                    describe('when course is not delivering', function () {
+                    describe('when course is not publishing', function () {
 
                         beforeEach(function () {
-                            viewModel.state(constants.deliveringStates.failed);
+                            viewModel.state(constants.publishingStates.failed);
                         });
 
                         it('should open course review url', function () {
@@ -98,10 +98,10 @@
 
                     });
 
-                    describe('when course is delivering', function () {
+                    describe('when course is publishing', function () {
 
                         beforeEach(function () {
-                            viewModel.state(constants.deliveringStates.building);
+                            viewModel.state(constants.publishingStates.building);
                         });
 
                         it('should not open link', function () {
@@ -217,7 +217,7 @@
                     });
                 });
 
-                describe('when deliver process is running', function () {
+                describe('when publish process is running', function () {
                     beforeEach(function () {
                         viewModel.isActive(true);
                     });
@@ -400,7 +400,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(viewModel.state()).toBe(constants.deliveringStates.succeed);
+                                    expect(viewModel.state()).toBe(constants.publishingStates.succeed);
                                 });
                             });
                         });
@@ -418,7 +418,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(viewModel.state()).toBe(constants.deliveringStates.failed);
+                                    expect(viewModel.state()).toBe(constants.publishingStates.failed);
                                 });
                             });
                         });
@@ -447,10 +447,10 @@
 
                         it('should not change  state', function () {
                             viewModel.courseId = course.id;
-                            viewModel.state(constants.deliveringStates.notStarted);
+                            viewModel.state(constants.publishingStates.notStarted);
                             app.trigger(constants.messages.course.build.started, course);
 
-                            expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
+                            expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                         });
                     });
 
@@ -465,7 +465,7 @@
                             viewModel.state('');
                             app.trigger(constants.messages.course.build.started, course);
 
-                            expect(viewModel.state()).toEqual(constants.deliveringStates.building);
+                            expect(viewModel.state()).toEqual(constants.publishingStates.building);
                         });
                     });
                 });
@@ -473,10 +473,10 @@
                 describe('and when course is any other course', function () {
                     it('should not change  state', function () {
                         viewModel.courseId = course.id;
-                        viewModel.state(constants.deliveringStates.notStarted);
+                        viewModel.state(constants.publishingStates.notStarted);
                         app.trigger(constants.messages.course.build.started, { id: '100500' });
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
                 });
 
@@ -494,10 +494,10 @@
 
                         it('should not change  state', function () {
                             viewModel.courseId = course.id;
-                            viewModel.state(constants.deliveringStates.notStarted);
+                            viewModel.state(constants.publishingStates.notStarted);
                             app.trigger(constants.messages.course.build.failed, course.id);
 
-                            expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
+                            expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                         });
                     });
 
@@ -512,7 +512,7 @@
                             viewModel.state('');
                             app.trigger(constants.messages.course.build.failed, course.id);
 
-                            expect(viewModel.state()).toEqual(constants.deliveringStates.failed);
+                            expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                         });
                     });
                 });
@@ -520,10 +520,10 @@
                 describe('and when course is any other course', function () {
                     it('should not change state', function () {
                         viewModel.courseId = course.id;
-                        viewModel.state(constants.deliveringStates.notStarted);
+                        viewModel.state(constants.publishingStates.notStarted);
                         app.trigger(constants.messages.course.build.failed, { id: '100500' });
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
 
                     it('should not clear courseReviewUrl', function () {
@@ -546,17 +546,17 @@
                         viewModel.state('');
                         app.trigger(constants.messages.course.publishForReview.started, course);
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.publishing);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.publishing);
                     });
                 });
 
                 describe('and when course is any other course', function () {
                     it('should not change state', function () {
                         viewModel.courseId = course.id;
-                        viewModel.state(constants.deliveringStates.notStarted);
+                        viewModel.state(constants.publishingStates.notStarted);
                         app.trigger(constants.messages.course.publishForReview.started, { id: '100500' });
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
                 });
 
@@ -569,10 +569,10 @@
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        course.buildingStatus = constants.deliveringStates.succeed;
+                        course.buildingStatus = constants.publishingStates.succeed;
                         app.trigger(constants.messages.course.publishForReview.completed, course);
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.succeed);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.succeed);
                     });
 
                     it('should update courseReviewUrl to the corresponding one', function () {
@@ -591,10 +591,10 @@
 
                     it('should not update state', function () {
                         viewModel.courseId = course.id;
-                        viewModel.state(constants.deliveringStates.notStarted);
+                        viewModel.state(constants.publishingStates.notStarted);
                         app.trigger(constants.messages.course.publishForReview.completed, { id: '100500' });
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
 
                     it('should not update current courseReviewUrl', function () {
@@ -619,7 +619,7 @@
 
                         app.trigger(constants.messages.course.publishForReview.failed, course.id, message);
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.failed);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                     });
                 });
 

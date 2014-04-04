@@ -13,7 +13,7 @@
                 byTitleDesc: 'byTitleDesc'
             },
 
-            deliveringStates: {
+            publishingStates: {
                 building: 'building',
                 publishing: 'publishing',
                 succeed: 'succeed',

@@ -1,7 +1,7 @@
-﻿define(['viewmodels/courses/deliveringActions/scormBuild', 'constants', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'dom'],
-    function (scormBuildDeliveringAction, constants, app, notify, eventTracker, repository, dom) {
+﻿define(['viewmodels/courses/publishingActions/scormBuild', 'constants', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'dom'],
+    function (scormBuildPublishingAction, constants, app, notify, eventTracker, repository, dom) {
 
-        describe('delivering action [scormBuild]', function () {
+        describe('publishing action [scormBuild]', function () {
 
             var viewModel,
                 packageUrl = 'someUrl',
@@ -13,7 +13,7 @@
                 };
 
             beforeEach(function () {
-                viewModel = scormBuildDeliveringAction(courseId, packageUrl);
+                viewModel = scormBuildpublishingAction(courseId, packageUrl);
                 spyOn(eventTracker, 'publish');
                 spyOn(notify, 'hide');
                 spyOn(dom, 'clickElementById');
@@ -29,18 +29,18 @@
                 });
             });
             
-            describe('isDelivering', function () {
+            describe('isPublishing', function () {
                 it('should be computed', function () {
-                    expect(viewModel.isDelivering).toBeComputed();
+                    expect(viewModel.isPublishing).toBeComputed();
                 });
 
                 describe('when state is \'building\'', function () {
                     beforeEach(function () {
-                        viewModel.state(constants.deliveringStates.building);
+                        viewModel.state(constants.publishingStates.building);
                     });
 
                     it('should return true', function () {
-                        expect(viewModel.isDelivering()).toBeTruthy();
+                        expect(viewModel.isPublishing()).toBeTruthy();
                     });
                 });
 
@@ -50,7 +50,7 @@
                     });
 
                     it('should return true', function () {
-                        expect(viewModel.isDelivering()).toBeFalsy();
+                        expect(viewModel.isPublishing()).toBeFalsy();
                     });
                 });
             });
@@ -251,7 +251,7 @@
                         viewModel.state('');
                         app.trigger(constants.messages.course.scormBuild.started, course);
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.building);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.building);
                     });
                 });
 
@@ -275,10 +275,10 @@
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        course.buildingStatus = constants.deliveringStates.succeed;
+                        course.buildingStatus = constants.publishingStates.succeed;
                         app.trigger(constants.messages.course.scormBuild.completed, course);
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.succeed);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.succeed);
                     });
 
                     it('should update current scorm build package url to the corresponding one', function () {
@@ -296,10 +296,10 @@
 
                     it('should not update action state', function () {
                         viewModel.courseId = course.id;
-                        viewModel.state(constants.deliveringStates.notStarted);
+                        viewModel.state(constants.publishingStates.notStarted);
                         app.trigger(constants.messages.course.scormBuild.completed, { id: '100500' });
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.notStarted);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
 
                     it('should not update current publishedPackageUrl', function () {
@@ -324,7 +324,7 @@
 
                         app.trigger(constants.messages.course.scormBuild.failed, course.id, message);
 
-                        expect(viewModel.state()).toEqual(constants.deliveringStates.failed);
+                        expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                     });
 
                     it('should remove scorm build package url', function () {

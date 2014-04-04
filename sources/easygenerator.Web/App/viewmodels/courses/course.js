@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/deliverService', 'viewmodels/objectives/objectiveBrief',
+﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
         'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'controls/backButton/backButton'],
     function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, backButton) {
         "use strict";

@@ -76,8 +76,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             // Act
             var result = _aim4YouController.RegisterUser();
             // Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseDeliverActionFailedError);
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.CourseDeliverActionFailedResourceKey);  
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoursePublishActionFailedError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.CoursePublishActionFailedResourceKey);  
         }
 
         #endregion
@@ -107,8 +107,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _aim4YouController.Publish(CourseObjectMother.Create());
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseDeliverActionFailedError);
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.CourseDeliverActionFailedResourceKey);  
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoursePublishActionFailedError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.CoursePublishActionFailedResourceKey);  
         }
 
         [TestMethod]
