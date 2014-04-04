@@ -868,7 +868,11 @@
                     viewModel.lapLogin(settings.xApi.lrs.credentials.username || '');
                     viewModel.lapPassword(settings.xApi.lrs.credentials.password || '');
                     viewModel.logoUrl(settings.logo.url || '');
-                    viewModel.masteryScore(settings.masteryScore.score || '100');
+                    if (settings.masteryScore.score >= 0 && settings.masteryScore.score <= 100) {
+                        viewModel.masteryScore(settings.masteryScore.score);
+                    } else {
+                        viewModel.masteryScore(100);
+                    }
 
                     if (settings.xApi.allowedVerbs) {
                         $.each(viewModel.statements, function (key, value) {

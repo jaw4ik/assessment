@@ -1,5 +1,5 @@
-﻿define(['xApi/activityProvider', './requestManager'],
-    function (viewModel, requestManager) {
+﻿define(['xApi/activityProvider', './requestManager', './configuration/xApiSettings', './errorsHandler', 'eventManager', 'xApi/constants'],
+    function (viewModel, requestManager, xApiSettings, errorsHandler, eventManager, constants) {
         "use strict";
         var app = require('durandal/app');
         
@@ -10,7 +10,7 @@
             });
 
             describe('actor', function() {
-                it('should be defined', function() {
+                it('should be defined', function () {
                     expect(viewModel.actor).toBeDefined();
                 });
             });
@@ -41,6 +41,102 @@
 
                 it('should return promise', function() {
                     expect(viewModel.init()).toBePromise();
+                });
+
+                var actorData, activityName, activityUrl, activityUrlResult, eventMangerDefer, promise;
+
+                beforeEach(function () {
+                    actorData = { name: 'actor' };
+                    activityName = 'activityName';
+                    activityUrl = 'activityUrl/#url?querystring';
+                    activityUrlResult = 'activityUrl/';
+                });
+
+                describe('when not enough data in xApiSettings', function () {
+                    it('should reject promise', function () {
+                        xApiSettings.scoresDistribution.positiveVerb = undefined;
+                        promise = viewModel.init(actorData, activityName, activityUrl);
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith(errorsHandler.errors.notEnoughDataInSettings);
+                        });
+                    });
+                });
+
+                describe('when enough data in xApiSettings', function () {
+
+                    beforeEach(function () {
+                        eventMangerDefer = Q.defer();
+                        spyOn(eventManager, 'subscribeForEvent').andReturn(eventMangerDefer.promise);
+                        promise = viewModel.init(actorData, activityName, activityUrl);
+                        xApiSettings.scoresDistribution.positiveVerb = constants.verbs.passed;
+                    });
+
+                    it('shoud set actor', function () {
+                        waitsFor(function() {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.actor).toBe(actorData);
+                        });
+                    });
+
+                    it('shoud set activityName', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.activityName).toBe(activityName);
+                        });
+                    });
+
+                    it('shoud set rootCourseUrl', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.rootCourseUrl).toBe(activityUrlResult);
+                        });
+                    });
+
+                    it('shoul set rootActivityUrl', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.rootActivityUrl).toBe(activityUrlResult + '#questions');
+                        });
+                    });
+
+                    it('should subscribe event courseStarted', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(eventManager.subscribeForEvent).toHaveBeenCalledWith(eventManager.events.courseStarted);
+                        });
+                    });
+
+                    it('should subscribe event answersSubmitted', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(eventManager.subscribeForEvent).toHaveBeenCalledWith(eventManager.events.answersSubmitted);
+                        });
+                    });
+
+                    it('should subscribe event courseFinished', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(eventManager.subscribeForEvent).toHaveBeenCalledWith(eventManager.events.courseFinished);
+                        });
+                    });
+
                 });
 
             });
