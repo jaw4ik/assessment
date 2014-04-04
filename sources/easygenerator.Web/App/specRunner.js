@@ -44,7 +44,8 @@
         'repositories/answerRepository.spec', 
         'repositories/commentRepository.spec',
         'repositories/courseRepository.spec',
-
+        'repositories/learningContentRepository.spec',
+        
         /* UNSORTED SPECS */
 
        //  'viewmodels/shell.spec', ajax request
@@ -74,7 +75,6 @@
        /*
        'repositories/objectiveRepository.spec',
        'repositories/questionRepository.spec',
-       'repositories/learningContentRepository.spec',
        'repositories/templateRepository.spec',
        'viewmodels/objectives/objectiveBrief.spec',
        'viewmodels/objectives/createObjective.spec',

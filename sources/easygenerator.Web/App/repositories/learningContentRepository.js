@@ -1,102 +1,113 @@
 ﻿define(['dataContext', 'httpWrapper', 'guard', 'models/learningContent'],
     function (dataContext, httpWrapper, guard, learningContentModel) {
+        "use strict";
 
-        var
-            getCollection = function (questionId) {
-                return Q.fcall(function () {
-                    guard.throwIfNotString(questionId, 'Question id is not a string');
+        var repository = {
+            getCollection: getCollection,
 
-                    return httpWrapper.post('api/learningContents', { questionId: questionId }).then(function (response) {
-                        guard.throwIfNotAnObject(response, 'Response is not an object');
-                        guard.throwIfNotArray(response.LearningContents, 'Learning content is not an array');
+            addLearningContent: addLearningContent,
+            removeLearningContent: removeLearningContent,
 
-                        return _.map(response.LearningContents, function (learningContent) {
-                            return new learningContentModel({
-                                id: learningContent.Id,
-                                text: learningContent.Text,
-                                createdOn: learningContent.CreatedOn
-                            });
+            updateText: updateText
+        };
+
+        return repository;
+
+        function getCollection(questionId) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(questionId, 'Question id is not a string');
+
+                return httpWrapper.post('api/learningContents', { questionId: questionId }).then(function (response) {
+                    guard.throwIfNotAnObject(response, 'Response is not an object');
+                    guard.throwIfNotArray(response.LearningContents, 'Learning content is not an array');
+
+                    return _.map(response.LearningContents, function (learningContent) {
+                        return new learningContentModel({
+                            id: learningContent.Id,
+                            text: learningContent.Text,
+                            createdOn: learningContent.CreatedOn
                         });
                     });
                 });
-            },
+            });
+        }
 
-            addLearningContent = function (questionId, learningContent) {
-                return Q.fcall(function () {
-                    guard.throwIfNotString(questionId, 'Question id is not a string');
-                    guard.throwIfNotAnObject(learningContent, 'Learning content data is not an object');
-                    guard.throwIfNotString(learningContent.text, 'Learning content text is not a string');
+        function addLearningContent(questionId, learningContent) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(questionId, 'Question id is not a string');
+                guard.throwIfNotAnObject(learningContent, 'Learning content data is not an object');
+                guard.throwIfNotString(learningContent.text, 'Learning content text is not a string');
 
-                    var data = {
-                        questionId: questionId,
-                        text: learningContent.text
+                var data = {
+                    questionId: questionId,
+                    text: learningContent.text
+                };
+
+                return httpWrapper.post('api/learningContent/create', data).then(function (response) {
+                    guard.throwIfNotAnObject(response, 'Response is not an object');
+                    guard.throwIfNotString(response.Id, 'Learning content id is not a string');
+                    guard.throwIfNotString(response.CreatedOn, 'Learning content creation date is not a string');
+
+                    var createdOn = new Date(response.CreatedOn);
+                    updateQuestionModifiedOnDate(questionId, createdOn);
+
+                    return {
+                        id: response.Id,
+                        createdOn: createdOn
                     };
-
-                    return httpWrapper.post('api/learningContent/create', data).then(function (response) {
-                        guard.throwIfNotAnObject(response, 'Response is not an object');
-                        guard.throwIfNotString(response.Id, 'Learning content id is not a string');
-                        guard.throwIfNotString(response.CreatedOn, 'Learning content creation date is not a string');
-
-                        var createdOn = new Date(response.CreatedOn);
-                        updateQuestionModifiedOnDate(questionId, createdOn);
-
-                        return {
-                            id: response.Id,
-                            createdOn: createdOn
-                        };
-                    });
                 });
-            },
+            });
+        }
 
-            removeLearningContent = function (questionId, learningContentId) {
-                return Q.fcall(function () {
+        function removeLearningContent(questionId, learningContentId) {
+            return Q.fcall(function () {
 
-                    guard.throwIfNotString(questionId, 'Question id is not a string');
-                    guard.throwIfNotString(learningContentId, 'Learning content id is not a string');
+                guard.throwIfNotString(questionId, 'Question id is not a string');
+                guard.throwIfNotString(learningContentId, 'Learning content id is not a string');
 
-                    var data = {
-                        questionId: questionId,
-                        learningContentId: learningContentId
+                var data = {
+                    questionId: questionId,
+                    learningContentId: learningContentId
+                };
+
+                return httpWrapper.post('api/learningContent/delete', data).then(function (response) {
+                    guard.throwIfNotAnObject(response, 'Response is not an object');
+                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+
+                    var modifiedOn = new Date(response.ModifiedOn);
+                    updateQuestionModifiedOnDate(questionId, modifiedOn);
+
+                    return {
+                        modifiedOn: modifiedOn
                     };
-
-                    return httpWrapper.post('api/learningContent/delete', data).then(function (response) {
-                        guard.throwIfNotAnObject(response, 'Response is not an object');
-                        guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
-
-                        var modifiedOn = new Date(response.ModifiedOn);
-                        updateQuestionModifiedOnDate(questionId, modifiedOn);
-
-                        return {
-                            modifiedOn: modifiedOn
-                        };
-                    });
                 });
-            },
+            });
+        }
 
-            updateText = function (questionId, learningContentId, text) {
-                return Q.fcall(function () {
-                    guard.throwIfNotString(questionId, 'Question id is not a string');
-                    guard.throwIfNotString(learningContentId, 'Learning content id is not a string');
-                    guard.throwIfNotString(text, 'Learning content text is not a string');
+        function updateText(questionId, learningContentId, text) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(questionId, 'Question id is not a string');
+                guard.throwIfNotString(learningContentId, 'Learning content id is not a string');
+                guard.throwIfNotString(text, 'Learning content text is not a string');
 
-                    var data = {
-                        learningContentId: learningContentId,
-                        text: text
+                var data = {
+                    learningContentId: learningContentId,
+                    text: text
+                };
+
+                return httpWrapper.post('api/learningContent/updateText', data).then(function (response) {
+                    guard.throwIfNotAnObject(response, 'Response is not an object');
+                    guard.throwIfNotString(response.ModifiedOn, 'Learning content modification date is not a string');
+
+                    var modifiedOn = new Date(response.ModifiedOn);
+                    updateQuestionModifiedOnDate(questionId, modifiedOn);
+
+                    return {
+                        modifiedOn: modifiedOn
                     };
-
-                    return httpWrapper.post('api/learningContent/updateText', data).then(function (response) {
-                        guard.throwIfNotAnObject(response, 'Response is not an object');
-                        guard.throwIfNotString(response.ModifiedOn, 'Learning content modification date is not a string');
-
-                        var modifiedOn = new Date(response.ModifiedOn);
-                        updateQuestionModifiedOnDate(questionId, modifiedOn);
-
-                        return {
-                            modifiedOn: modifiedOn
-                        };
-                    });
                 });
-            };
+            });
+        }
 
         function updateQuestionModifiedOnDate(questionId, modifiedOn) {
             var question = getQuestion(questionId);
@@ -118,12 +129,5 @@
             });
         }
 
-        return {
-            getCollection: getCollection,
-
-            addLearningContent: addLearningContent,
-            removeLearningContent: removeLearningContent,
-
-            updateText: updateText
-        };
-    });
+    }
+);
