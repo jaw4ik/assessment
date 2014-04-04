@@ -78,7 +78,7 @@
                 }
 
                 uiLocker.lock();
-                objectiveRepository.addObjective({ title: title() }).then(function (createdObjective) {
+                return objectiveRepository.addObjective({ title: title() }).then(function (createdObjective) {
                     title('');
                     if (_.isString(that.contextCourseId)) {
                         objectiveRepository.getById(createdObjective.id).then(function (objective) {

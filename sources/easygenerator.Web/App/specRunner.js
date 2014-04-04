@@ -67,17 +67,18 @@
 
         'viewmodels/objectives/objectives.spec',
         'viewmodels/objectives/objective.spec',
+        'viewmodels/objectives/createObjective.spec',
 
         'synchronization/handlers/userDowngraded.spec',
         'synchronization/handlers/userUpgradedToStarter.spec'
-
+        
         /* NOT MIGRATED SPECS */
        /*
        'repositories/objectiveRepository.spec',
        'repositories/questionRepository.spec',
        'repositories/templateRepository.spec',
        'viewmodels/objectives/objectiveBrief.spec',
-       'viewmodels/objectives/createObjective.spec',
+
        'viewmodels/questions/question.spec',
        'viewmodels/questions/answers.spec',
        'viewmodels/questions/learningContents.spec',
