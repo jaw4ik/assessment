@@ -290,6 +290,7 @@
         position: absolute;
         top: 56px;
         bottom: 0;
+        z-index: 300;
     }
 
     .content-wrapper {

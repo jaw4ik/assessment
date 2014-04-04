@@ -271,6 +271,12 @@
     courseListIsEmpty: {
         en: 'Course list is empty'
     },
+    upgradeNowBtn: {
+        en: 'Upgrade now'
+    },
+    limitCoursesInformerText: {
+        en: '<span class=\"bold\">Starter user</span> is able to have not more than <span class=\"bold\">10</span> courses at once'
+    },
     /* End resource section for model Courses */
     
     /* Resource section for model CreateObjective */

@@ -7,7 +7,7 @@
         <div class="view-list-actions-holder">
             <div class="list-item-action create">
                 <div class="create-item-btn-wrapper">
-                    <button class="create-item-btn" data-bind="click: navigateToCreation">
+                    <button class="create-item-btn btn green" data-bind="click: navigateToCreation">
                         <span class="create-item-btn-caption" data-bind="localize: { text: 'createNewObjective' }">Learning objective</span>
                     </button>
                     <!-- ko if: objectives().length < 1 -->
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="open-item-btn">
-                    <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToDetails, attr: { href: '#objective/' + id }">
+                    <a href="#" class="cursor-pointer light-green btn btn-small open-btn" data-bind="click: $parent.navigateToDetails, attr: { href: '#objective/' + id }">
                         <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
                     </a>
                 </div>

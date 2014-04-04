@@ -63,7 +63,7 @@
                         <div class="list-item-action create">
                             <!-- ko if: objectivesMode() == objectivesListModes.display -->
                             <div class="create-item-btn-wrapper">
-                                <button class="create-item-btn" data-bind="click: navigateToCreateObjective">
+                                <button class="create-item-btn btn green" data-bind="click: navigateToCreateObjective">
                                     <span class="create-item-btn-caption" data-bind="localize: { text: 'createAndConnectLearningObjective' }">Learning objective</span>
                                 </button>
                                 <!-- ko if: connectedObjectives().length < 1 -->
@@ -133,7 +133,7 @@
                                 </div>
                             </div>
                             <div class="open-item-btn">
-                                <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent), attr: { href: '#objective/' + id + '?courseId=' + $parent.id }">
+                                <a href="#" class="cursor-pointer light-green btn btn-small open-btn" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent), attr: { href: '#objective/' + id + '?courseId=' + $parent.id }">
                                     <span class="open-btn-text" data-bind="localize: { text: 'open' }"></span>
                                 </a>
                             </div>
@@ -162,7 +162,7 @@
                                 </div>
                             </div>
                             <div class="open-item-btn">
-                                <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent), attr: { href: '#objective/' + id + '?courseId=' + $parent.id }">
+                                <a href="#" class="cursor-pointer light-green btn btn-small open-btn" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent), attr: { href: '#objective/' + id + '?courseId=' + $parent.id }">
                                     <span class="open-btn-text" data-bind="localize: { text: 'open' }"></span>
                                 </a>
                             </div>

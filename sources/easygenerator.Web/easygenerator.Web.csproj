@@ -570,6 +570,7 @@
     <Content Include="Content\images\emptyList.png" />
     <Content Include="Content\images\enabled.png" />
     <Content Include="Content\images\examTemplate.png" />
+    <Content Include="Content\images\locker.png" />
     <Content Include="Content\images\objective.png" />
     <Content Include="Content\images\oops.png" />
     <Content Include="Content\images\package-preloader.gif" />

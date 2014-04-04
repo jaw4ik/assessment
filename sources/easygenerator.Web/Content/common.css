@@ -188,6 +188,10 @@ img:hover {
     -ms-user-select: text;
 }
 
+.bold {
+    font-family: 'OpenSans-Semibold';
+}
+
 .preloader-block {
     height: 1px;
     width: 1px;

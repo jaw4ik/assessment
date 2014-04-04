@@ -359,26 +359,25 @@
         background: url('images/sprites.png');
     }
 
-    .package-action-btn.green {
+    .package-action-btn.btn.green {
         text-shadow: 0 1px 1px rgba(0,0,0,.4);
         background: #b0c93e;
         border-color: #b0c93e;
         border-bottom-color: #899d30;
     }
 
-        .package-action-btn.green:hover,
-        .package-action-btn.green.active,
-        .package-action-btn.green:active {
+        .package-action-btn.btn.green:hover,
+        .package-action-btn.btn.green.active,
+        .package-action-btn.btn.green:active {
             background: #bdd93d;
             border-color: #bdd93d;
             border-bottom-color: #899d30;
-            box-shadow: none;
         }
 
-        .package-action-btn.green:active,
-        .package-action-btn.green.disabled,
-        .package-action-btn.green.disabled:hover,
-        .package-action-btn.green.disabled:active {
+        .package-action-btn.btn.green:active,
+        .package-action-btn.btn.green.disabled,
+        .package-action-btn.btn.green.disabled:hover,
+        .package-action-btn.btn.green.disabled:active {
             background: #b0c93e;
             border-color: #98ae35;
         }
