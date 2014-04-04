@@ -74,7 +74,7 @@
                 title(title().trim());
 
                 if (!title.isValid()) {
-                    return;
+                    return Q.fcall(function() {});
                 }
 
                 uiLocker.lock();
