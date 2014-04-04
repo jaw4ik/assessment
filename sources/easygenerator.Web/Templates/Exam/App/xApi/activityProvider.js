@@ -58,7 +58,7 @@
                 score: finishedEventData.result
             };
 
-            var verb = result.score >= xApiSettings.scoresDistribution.minScoreForPositiveResult ? xApiSettings.scoresDistribution.positiveVerb : constants.verbs.failed;
+            var verb = finishedEventData.isCompleted ? xApiSettings.scoresDistribution.positiveVerb : constants.verbs.failed;
 
             pushStatementIfSupported(createStatement(verb, result, createActivity(activityProvider.activityName)));
             pushStatementIfSupported(createStatement(constants.verbs.stopped, null, createActivity(activityProvider.activityName)));

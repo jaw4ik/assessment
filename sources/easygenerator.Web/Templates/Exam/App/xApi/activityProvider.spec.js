@@ -9,6 +9,30 @@
                 expect(viewModel).toBeDefined();
             });
 
+            describe('actor', function() {
+                it('should be defined', function() {
+                    expect(viewModel.actor).toBeDefined();
+                });
+            });
+
+            describe('activityName', function () {
+                it('should be defined', function() {
+                    expect(viewModel.activityName).toBeDefined();
+                });
+            });
+
+            describe('rootCourseUrl', function () {
+                it('should be defined', function() {
+                    expect(viewModel.rootCourseUrl).toBeDefined();
+                });
+            });
+
+            describe('rootActivityUrl', function () {
+                it('should be defined', function() {
+                    expect(viewModel.rootActivityUrl).toBeDefined();
+                });
+            });
+
             describe('init:', function () {
 
                 it('should be function', function() {
