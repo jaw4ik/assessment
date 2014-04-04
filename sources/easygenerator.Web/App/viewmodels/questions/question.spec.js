@@ -10,7 +10,8 @@ define(function (require) {
         notify = require('notify'),
         http = require('plugins/http'),
         localizationManager = require('localization/localizationManager'),
-        backButton = require('controls/backButton/backButton');
+        BackButton = require('models/backButton')
+    ;
 
     var question = {
         id: '1',
@@ -123,7 +124,7 @@ define(function (require) {
             });
         });
 
-        describe('navigateToObjectiveEvent:', function() {
+        describe('navigateToObjectiveEvent:', function () {
 
             it('should be function', function () {
                 expect(viewModel.navigateToObjectiveEvent).toBeFunction();
@@ -184,7 +185,7 @@ define(function (require) {
                 expect(viewModel.title.isEditing()).toBeFalsy();
             });
 
-            it('should trim title', function() {
+            it('should trim title', function () {
                 viewModel.title('    Some title    ');
                 viewModel.endEditQuestionTitle();
                 expect(viewModel.title()).toEqual('Some title');
@@ -327,12 +328,12 @@ define(function (require) {
             it('should be a function', function () {
                 expect(viewModel.activate).toBeFunction();
             });
-            
+
             describe('when objective not found', function () {
-                beforeEach(function() {
+                beforeEach(function () {
                     getObjectiveByIdDeferred.reject('reason');
                 });
-                
+
                 it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
                     router.activeItem.settings.lifecycleData = null;
 
@@ -347,7 +348,7 @@ define(function (require) {
 
                 it('should reject promise', function () {
                     var promise = viewModel.activate('objectiveId', 'questionId');
-                    
+
                     waitsFor(function () {
                         return !promise.isPending();
                     });
@@ -364,7 +365,7 @@ define(function (require) {
                     getObjectiveByIdDeferred.resolve(objective);
                     getQuestionByIdDeferred.reject('reason');
                 });
-                
+
                 it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
                     router.activeItem.settings.lifecycleData = null;
 
@@ -379,7 +380,7 @@ define(function (require) {
 
                 it('should reject promise', function () {
                     var promise = viewModel.activate('objectiveId', 'questionId');
-                    
+
                     waitsFor(function () {
                         return !promise.isPending();
                     });
@@ -407,15 +408,18 @@ define(function (require) {
                 });
             });
 
-            describe('when queryParams is undefined', function() {
+            var queryString;
+            describe('when queryString in null', function() {
 
-                var queryParams = undefined;
+                beforeEach(function() {
+                    queryString = null;
+                });
 
-                it('should enable back button with constant visibility', function () {
-                    spyOn(backButton, 'enable');
+                it('should configure back button that it always visible', function () {
+                    spyOn(viewModel.backButtonData, 'configure');
                     spyOn(localizationManager, 'localize').and.returnValue('text');
 
-                    var promise = viewModel.activate(objective.id, question.id, queryParams);
+                    var promise = viewModel.activate(objective.id, question.id, queryString);
 
                     getObjectiveByIdDeferred.resolve(objectiveFull);
                     getQuestionByIdDeferred.resolve(question);
@@ -424,21 +428,23 @@ define(function (require) {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(backButton.enable).toHaveBeenCalledWith('text' + ' \'' + objectiveFull.title + '\'', 'objective/' + objectiveFull.id, viewModel.navigateToObjectiveEvent, true);
+                        expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + objectiveFull.title + '\'', url: 'objective/' + objectiveFull.id, callback: viewModel.navigateToObjectiveEvent, alwaysVisible: true });
                     });
                 });
 
             });
 
-            describe('when queryParams is defined', function () {
+            describe('when queryString in not null', function() {
 
-                var queryParams = { courseId: '1' };
+                beforeEach(function() {
+                    queryString = {};
+                });
 
-                it('should enable back button without constant visibility', function () {
-                    spyOn(backButton, 'enable');
+                it('should configure back button that it not always visible', function () {
+                    spyOn(viewModel.backButtonData, 'configure');
                     spyOn(localizationManager, 'localize').and.returnValue('text');
 
-                    var promise = viewModel.activate(objective.id, question.id, queryParams);
+                    var promise = viewModel.activate(objective.id, question.id, queryString);
 
                     getObjectiveByIdDeferred.resolve(objectiveFull);
                     getQuestionByIdDeferred.resolve(question);
@@ -447,7 +453,7 @@ define(function (require) {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(backButton.enable).toHaveBeenCalledWith('text' + ' \'' + objectiveFull.title + '\'', 'objective/' + objectiveFull.id, viewModel.navigateToObjectiveEvent, false);
+                        expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + objectiveFull.title + '\'', url: 'objective/' + objectiveFull.id, callback: viewModel.navigateToObjectiveEvent, alwaysVisible: false });
                     });
                 });
 
@@ -457,11 +463,11 @@ define(function (require) {
 
         describe('language:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.language).toBeObservable();
             });
 
-        });        
+        });
 
         describe('eventTracker:', function () {
 
@@ -470,10 +476,10 @@ define(function (require) {
             });
 
         });
-        
+
         describe('localizationManager', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.localizationManager).toBeDefined();
             });
 
@@ -481,7 +487,7 @@ define(function (require) {
 
         describe('isCreatedQuestion:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.isCreatedQuestion).toBeObservable();
             });
 
@@ -489,8 +495,16 @@ define(function (require) {
 
         describe('questionContent:', function () {
 
-            it('should be object', function() {
+            it('should be object', function () {
                 expect(viewModel.questionContent).toBeObject();
+            });
+
+        });
+
+        describe('backButtonData:', function () {
+
+            it('should be instance of BackButton', function () {
+                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
             });
 
         });

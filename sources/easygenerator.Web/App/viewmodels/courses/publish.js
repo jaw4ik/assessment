@@ -1,8 +1,8 @@
 ﻿define(['durandal/app', 'repositories/courseRepository', 'plugins/router', 'constants', 'viewmodels/courses/publishingActions/build',
         'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
-        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'notify', 'controls/backButton/backButton'],
+        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'notify', 'models/backButton'],
     function (app, repository, router, constants, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker, notify, backButton) {
+        clientContext, localizationManager, eventTracker, notify, BackButton) {
 
         var events = {
                 navigateToCourses: 'Navigate to courses'
@@ -19,7 +19,13 @@
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
-            activate: activate
+            activate: activate,
+
+            backButtonData: new BackButton({
+                url: 'courses',
+                backViewName: localizationManager.localize('courses'),
+                callback: navigateToCoursesEvent
+            })
         };
 
         viewModel.isPublishingInProgress = ko.computed(function () {
@@ -46,8 +52,6 @@
         }
 
         function activate(courseId) {
-            var goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
-            backButton.enable(goBackTooltip, 'courses', navigateToCoursesEvent);
 
             return userContext.identify().then(function () {
                 return repository.getById(courseId).then(function (course) {

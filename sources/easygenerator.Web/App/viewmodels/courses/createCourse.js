@@ -1,5 +1,5 @@
-﻿define(['repositories/courseRepository', 'repositories/templateRepository', 'plugins/router', 'constants', 'eventTracker', 'uiLocker', 'localization/localizationManager', 'controls/backButton/backButton'],
-    function (repository, templateRepository, router, constants, eventTracker, uiLocker, localizationManager, backButton) {
+﻿define(['repositories/courseRepository', 'repositories/templateRepository', 'plugins/router', 'constants', 'eventTracker', 'uiLocker', 'localization/localizationManager', 'models/backButton'],
+    function (repository, templateRepository, router, constants, eventTracker, uiLocker, localizationManager, BackButton) {
 
         var
             events = {
@@ -86,8 +86,6 @@
             },
 
             activate = function () {
-                var goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
-                backButton.enable(goBackTooltip, 'courses', navigateToCoursesEvent);
 
                 this.title('');
 
@@ -112,7 +110,13 @@
             title: title,
             templates: templates,
             courseTitleMaxLength: constants.validation.courseTitleMaxLength,
-            isFormFilled: isFormFilled
+            isFormFilled: isFormFilled,
+
+            backButtonData: new BackButton({
+                url: 'courses',
+                backViewName: localizationManager.localize('courses'),
+                callback: navigateToCoursesEvent
+            })
         };
     }
 );

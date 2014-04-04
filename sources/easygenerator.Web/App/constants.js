@@ -73,6 +73,10 @@
                 helpHint: {
                     shown: 'helphint:shown',
                     hidden: 'helphint:hidden'
+                },
+                treeOfContent: {
+                    expanded: 'treeOfContent:expanded',
+                    collapsed: 'treeOfContent:collapsed'
                 }
             },
 

@@ -12,7 +12,8 @@
             notify = require('notify'),
             uiLocker = require('uiLocker'),
             clientContext = require('clientContext'),
-            backButton = require('controls/backButton/backButton');
+            BackButton = require('models/backButton')
+        ;
 
         describe('viewModel [objective]', function () {
 
@@ -98,15 +99,15 @@
                         });
                     });
 
-                    it('should enable back button', function (done) {
-                        spyOn(backButton, 'enable');
+                    it('should configure back button', function (done) {
+                        spyOn(viewModel.backButtonData, 'configure');
                         spyOn(localizationManager, 'localize').and.returnValue('text');
                         deferred.resolve(null);
 
                         var promise = viewModel.activate(objective.id, null);
 
                         promise.fin(function () {
-                            expect(backButton.enable).toHaveBeenCalledWith('text text', 'objectives', viewModel.navigateToObjectivesEvent, true);
+                            expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: 'text', url: 'objectives', callback: viewModel.navigateToObjectivesEvent, alwaysVisible: true });
                             done();
                         });
                     });
@@ -209,14 +210,14 @@
                             });
                         });
 
-                        it('should enable back button', function (done) {
+                        it('should configure back button', function (done) {
                             deferred.resolve(null);
-                            spyOn(backButton, 'enable');
+                            spyOn(viewModel.backButtonData, 'configure');
                             spyOn(localizationManager, 'localize').and.returnValue('text');
 
                             var promise = viewModel.activate(objective.id, queryParams);
                             promise.fin(function () {
-                                expect(backButton.enable).toHaveBeenCalledWith('text text', 'objectives', viewModel.navigateToObjectivesEvent, true);
+                                expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: 'text', url: 'objectives', callback: viewModel.navigateToObjectivesEvent, alwaysVisible: true });
                                 done();
                             });
                         });
@@ -357,13 +358,13 @@
                                     });
                                 });
 
-                                it('should enable back button', function (done) {
-                                    spyOn(backButton, 'enable');
+                                it('should configure back button', function (done) {
+                                    spyOn(viewModel.backButtonData, 'configure');
                                     spyOn(localizationManager, 'localize').and.returnValue('text');
 
                                     var promise = viewModel.activate('id', queryParams);
                                     promise.fin(function () {
-                                        expect(backButton.enable).toHaveBeenCalledWith('text' + ' \'' + course.title + '\'', 'course/' + course.id, viewModel.navigateToCourseEvent);
+                                        expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + course.title + '\'', url: 'course/' + course.id, callback: viewModel.navigateToCourseEvent, alwaysVisible: false });
                                         done();
                                     });
                                 });
@@ -1147,6 +1148,14 @@
                         });
                     });
                 });
+            });
+
+            describe('backButtonData:', function () {
+
+                it('should be instance of BackButton', function () {
+                    expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
+                });
+
             });
         });
     }

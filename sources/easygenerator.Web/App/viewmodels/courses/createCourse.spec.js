@@ -8,7 +8,7 @@
         repository = require('repositories/courseRepository'),
         templateRepository = require('repositories/templateRepository'),
         localizationManager = require('localization/localizationManager'),
-        backButton = require('controls/backButton/backButton')
+        BackButton = require('models/backButton')
     ;
 
     describe('viewModel [createCourse]', function () {
@@ -343,13 +343,6 @@
                 expect(result).toBePromise();
             });
 
-            it('should enable back button', function () {
-                spyOn(backButton, 'enable');
-                spyOn(localizationManager, 'localize').and.returnValue('text');
-                viewModel.activate('SomeId');
-                expect(backButton.enable).toHaveBeenCalledWith('text text', 'courses', viewModel.navigateToCoursesEvent);
-            });
-
             it('should clear title field', function () {
                 viewModel.title('Some title');
                 viewModel.activate();
@@ -483,6 +476,20 @@
 
                 });
             });
+        });
+
+        describe('backButtonData:', function () {
+
+            it('should be instance of BackButton', function () {
+                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
+            });
+
+            it('should be configured', function () {
+                expect(viewModel.backButtonData.url).toBe('courses');
+                expect(viewModel.backButtonData.backViewName).toBe(localizationManager.localize('courses'));
+                expect(viewModel.backButtonData.callback).toBe(viewModel.navigateToCoursesEvent);
+            });
+
         });
 
     });

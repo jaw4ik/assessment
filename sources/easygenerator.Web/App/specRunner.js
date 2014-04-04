@@ -39,7 +39,9 @@
         'models/user.spec',
         'notifications/subscriptionExpirationNotificationController.spec',
         'notifications/notification.spec',
-        'repositories/answerRepository.spec',
+        'widgets/backButton/viewmodel.spec',
+        
+        'repositories/answerRepository.spec', 
         'repositories/commentRepository.spec',
         'repositories/courseRepository.spec',
 

@@ -1,8 +1,8 @@
 ﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningContents', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningContent',
         'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify',
-        'repositories/answerRepository', 'repositories/learningContentRepository', 'clientContext', 'viewmodels/common/contentField', 'controls/backButton/backButton'],
+        'repositories/answerRepository', 'repositories/learningContentRepository', 'clientContext', 'viewmodels/common/contentField', 'models/backButton'],
     function (vmAnswers, vmLearningContents, router, eventTracker, answerOptionModel, learningContentModel, localizationManager, constants, questionRepository,
-        objectiveRepository, system, notify, answerRepository, learningContentRepository, clientContext, vmContentField, backButton) {
+        objectiveRepository, system, notify, answerRepository, learningContentRepository, clientContext, vmContentField, BackButton) {
         "use strict";
         var
             events = {
@@ -93,10 +93,12 @@
                 return objectiveRepository.getById(objId).then(function (objective) {
                     that.objectiveId = objective.id;
 
-                    var
-                        goBackTooltip = localizationManager.localize('backTo') + ' \'' + objective.title + '\'',
-                        alwaysVisible = _.isNullOrUndefined(queryParams);
-                    backButton.enable(goBackTooltip, 'objective/' + objective.id, navigateToObjectiveEvent, alwaysVisible);
+                    that.backButtonData.configure({
+                        url: 'objective/' + objective.id,
+                        backViewName: '\'' + objective.title + '\'',
+                        callback: navigateToObjectiveEvent,
+                        alwaysVisible: _.isNullOrUndefined(queryParams) || !_.isString(queryParams.courseId)
+                    });
 
                     return questionRepository.getById(objectiveId, questionId).then(function (question) {
                         that.isCreatedQuestion(lastCreatedQuestionId === question.id);
@@ -141,7 +143,9 @@
             answers: answers,
             learningContents: learningContents,
             localizationManager: localizationManager,
-            isCreatedQuestion: isCreatedQuestion
+            isCreatedQuestion: isCreatedQuestion,
+
+            backButtonData: new BackButton({})
         };
     }
 );

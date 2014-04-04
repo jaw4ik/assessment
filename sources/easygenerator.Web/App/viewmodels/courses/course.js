@@ -1,6 +1,6 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
-        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'controls/backButton/backButton'],
-    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, backButton) {
+        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'models/backButton'],
+    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, BackButton) {
         "use strict";
 
         var
@@ -63,7 +63,13 @@
             disconnectSelectedObjectives: disconnectSelectedObjectives,
             reorderObjectives: reorderObjectives,
             isSortingEnabled: ko.observable(true),
-            activate: activate
+            activate: activate,
+
+            backButtonData: new BackButton({
+                url: 'courses',
+                backViewName: localizationManager.localize('courses'),
+                callback: navigateToCoursesEvent
+            })
         };
 
         viewModel.canDisconnectObjectives = ko.computed(function () {
@@ -248,9 +254,6 @@
 
         function activate(courseId) {
             viewModel.language(localizationManager.currentLanguage);
-
-            var goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
-            backButton.enable(goBackTooltip, 'courses', navigateToCoursesEvent);
 
             var that = viewModel;
             return repository.getById(courseId).then(function (course) {

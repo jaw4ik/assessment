@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'controls/backButton/backButton'],
-    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, backButton) {
+﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'models/backButton'],
+    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, BackButton) {
 
         var events = {
             navigateToCourses: 'Navigate to courses',
@@ -16,7 +16,13 @@
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
-            activate: activate
+            activate: activate,
+
+            backButtonData: new BackButton({
+                url: 'courses',
+                backViewName: localizationManager.localize('courses'),
+                callback: navigateToCoursesEvent
+            })
         };
 
         return viewModel;
@@ -26,8 +32,6 @@
         }
 
         function activate(courseId) {
-            var goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
-            backButton.enable(goBackTooltip, 'courses', navigateToCoursesEvent);
 
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;

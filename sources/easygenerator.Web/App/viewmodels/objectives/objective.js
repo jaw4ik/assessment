@@ -1,6 +1,6 @@
 ﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository',
-    'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'controls/backButton/backButton'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, backButton) {
+    'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'models/backButton'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, BackButton) {
         "use strict";
 
         var
@@ -37,7 +37,9 @@
                 toggleQuestionSelection: toggleQuestionSelection,
                 updateQuestionsOrder: updateQuestionsOrder,
 
-                activate: activate
+                activate: activate,
+
+                backButtonData: new BackButton({})
             };
 
         viewModel.title.isEditing = ko.observable();
@@ -160,8 +162,12 @@
                 viewModel.contextCourseId = null;
                 viewModel.contextCourseTitle = null;
 
-                var goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('learningObjectives');
-                backButton.enable(goBackTooltip, 'objectives', navigateToObjectivesEvent, true);
+                viewModel.backButtonData.configure({
+                    url: 'objectives',
+                    backViewName: localizationManager.localize('learningObjectives'),
+                    callback: navigateToObjectivesEvent,
+                    alwaysVisible: true
+                });
 
                 return initObjectiveInfo(objId);
             }
@@ -170,8 +176,12 @@
                 viewModel.contextCourseId = course.id;
                 viewModel.contextCourseTitle = course.title;
 
-                var goBackTooltip = localizationManager.localize('backTo') + ' \'' + course.title + '\'';
-                backButton.enable(goBackTooltip, 'course/' + course.id, navigateToCourseEvent);
+                viewModel.backButtonData.configure({
+                    url: 'course/' + course.id,
+                    backViewName: '\'' + course.title + '\'',
+                    callback: navigateToCourseEvent,
+                    alwaysVisible: false
+                });
 
                 return initObjectiveInfo(objId);
             }).fail(function (reason) {

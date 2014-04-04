@@ -14,7 +14,8 @@
         toBeObservableArray: toBeObservableArray,
         toBeComputed: toBeComputed,
         toBeArray: toBeArray,
-        toBeString: toBeString
+        toBeString: toBeString,
+        toBeInstanceOf: toBeInstanceOf
     };
 }
 
@@ -311,6 +312,28 @@ function toBeString(util, customEqualityTesters) {
             } else {
                 result.message = "Expected to be string";
             }
+            return result;
+        }
+    };
+}
+
+function toBeInstanceOf(util, customEqualityTesters) {
+    return {
+        compare: function (actual, value) {
+
+            var result = {
+                pass: false
+            };
+
+            if (_.isNullOrUndefined(actual)) {
+                result.message = "Expected to be defined";
+            } else if (!(actual instanceof value)) {
+                result.message = "Expected to be instance of specified type";
+            } else {
+                result.message = "Ok";
+                result.pass = true;
+            }
+            
             return result;
         }
     };

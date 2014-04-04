@@ -9,7 +9,7 @@
         notify = require('notify'),
         localizationManager = require('localization/localizationManager'),
         clientContext = require('clientContext'),
-        backButton = require('controls/backButton/backButton')
+        BackButton = require('models/backButton')
     ;
 
     describe('viewModel [design]', function () {
@@ -64,15 +64,6 @@
                 var courseId = 'courseId';
                 viewModel.activate(courseId);
                 expect(courseRepository.getById).toHaveBeenCalledWith(courseId);
-            });
-
-            it('should enable back button', function () {
-                spyOn(backButton, 'enable');
-                spyOn(localizationManager, 'localize').and.returnValue('text');
-
-                viewModel.activate('SomeId');
-
-                expect(backButton.enable).toHaveBeenCalledWith('text text', 'courses', viewModel.navigateToCoursesEvent);
             });
 
             describe('when course was not found', function () {
@@ -444,6 +435,20 @@
 
             it('should be defined', function () {
                 expect(viewModel.templates).toBeDefined();
+            });
+
+        });
+
+        describe('backButtonData:', function () {
+
+            it('should be instance of BackButton', function () {
+                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
+            });
+
+            it('should be configured', function () {
+                expect(viewModel.backButtonData.url).toBe('courses');
+                expect(viewModel.backButtonData.backViewName).toBe(localizationManager.localize('courses'));
+                expect(viewModel.backButtonData.callback).toBe(viewModel.navigateToCoursesEvent);
             });
 
         });

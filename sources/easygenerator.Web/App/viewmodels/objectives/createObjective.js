@@ -1,6 +1,6 @@
 ﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'notify', 'uiLocker', 'localization/localizationManager',
-    'repositories/courseRepository', 'controls/backButton/backButton'],
-    function (objectiveRepository, router, eventTracker, constants, notify, uiLocker, localizationManager, courseRepository, backButton) {
+    'repositories/courseRepository', 'models/backButton'],
+    function (objectiveRepository, router, eventTracker, constants, notify, uiLocker, localizationManager, courseRepository, BackButton) {
 
         var
             events = {
@@ -38,7 +38,7 @@
                 that.contextCourseId = null;
                 that.contextCourseTitle = null;
                 that.title('');
-
+                
                 if (!_.isNullOrUndefined(queryParams) && _.isString(queryParams.courseId)) {
                     return courseRepository.getById(queryParams.courseId).then(function (course) {
                         if (_.isNull(course)) {
@@ -49,14 +49,22 @@
                         that.contextCourseId = course.id;
                         that.contextCourseTitle = course.title;
 
-                        var goBackTooltip = localizationManager.localize('backTo') + ' \'' + course.title + '\'';
-                        backButton.enable(goBackTooltip, 'course/' + course.id, navigateToCourseEvent);
+                        that.backButtonData.configure({
+                            url: 'course/' + course.id,
+                            backViewName: '\'' + course.title + '\'',
+                            callback: navigateToCourseEvent,
+                            alwaysVisible: false
+                        });
                     });
                 }
 
                 return Q.fcall(function () {
-                    var goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('learningObjectives');
-                    backButton.enable(goBackTooltip, 'objectives', navigateToObjectivesEvent);
+                    that.backButtonData.configure({
+                        url: 'objectives',
+                        backViewName: localizationManager.localize('learningObjectives'),
+                        callback: navigateToObjectivesEvent,
+                        alwaysVisible: true
+                    });
                 });
             },
 
@@ -105,7 +113,9 @@
 
             navigateToCourseEvent: navigateToCourseEvent,
             navigateToObjectivesEvent: navigateToObjectivesEvent,
-            createAndContinue: createAndContinue
+            createAndContinue: createAndContinue,
+
+            backButtonData: new BackButton({})
         };
     }
 );

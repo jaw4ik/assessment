@@ -198,8 +198,6 @@
       <Link>AutoMapper.Net4.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="App\controls\backButton\backButton.html" />
-    <Content Include="App\controls\backButton\backButton.js" />
     <Content Include="App\bootstrapper.js" />
     <Content Include="App\bootstrapper.spec.js">
       <DependentUpon>bootstrapper.js</DependentUpon>
@@ -212,6 +210,7 @@
     <Content Include="App\bootstrapping\localizationTask.js" />
     <Content Include="App\bootstrapping\knockoutBindingsTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
+    <Content Include="App\models\backButton.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.spec.js">
       <DependentUpon>course.js</DependentUpon>
@@ -434,6 +433,11 @@
     <Content Include="App\views\panels\sidePanel.html" />
     <Content Include="App\views\panels\tabs\feedbackTab.html" />
     <Content Include="App\views\panels\tabs\reviewTab.html" />
+    <Content Include="App\widgets\backButton\view.html" />
+    <Content Include="App\widgets\backButton\viewmodel.js" />
+    <Content Include="App\widgets\backButton\viewmodel.spec.js">
+      <DependentUpon>viewmodel.js</DependentUpon>
+    </Content>
     <Content Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
       <SubType>Designer</SubType>
     </Content>

@@ -4,12 +4,12 @@
 
         var
             router = require('plugins/router'),
-            notify = require('notify'),
             uiLocker = require('uiLocker'),
             courseRepository = require('repositories/courseRepository'),
             eventTracker = require('eventTracker'),
             localizationManager = require('localization/localizationManager'),
-            backButton = require('controls/backButton/backButton');
+            BackButton = require('models/backButton')
+        ;
 
         describe('viewModel [createObjective]', function () {
 
@@ -312,16 +312,15 @@
                         });
                     });
 
-                    it('should enable back button', function () {
-                        spyOn(backButton, 'enable');
+                    it('should configure back button', function (done) {
+                        spyOn(viewModel.backButtonData, 'configure');
                         spyOn(localizationManager, 'localize').and.returnValue('text');
 
                         var promise = viewModel.activate();
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(backButton.enable).toHaveBeenCalledWith('text text', 'objectives', viewModel.navigateToObjectivesEvent);
+
+                        promise.fin(function () {
+                            expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: 'text', url: 'objectives', callback: viewModel.navigateToObjectivesEvent, alwaysVisible: true });
+                            done();
                         });
                     });
 
@@ -430,17 +429,15 @@
                                     expect(viewModel.contextCourseTitle).toBe(course.title);
                                 });
                             });
-                            
-                            it('should enable back button', function () {
-                                spyOn(backButton, 'enable');
+
+                            it('should configure back button', function (done) {
+                                spyOn(viewModel.backButtonData, 'configure');
                                 spyOn(localizationManager, 'localize').and.returnValue('text');
 
                                 var promise = viewModel.activate(queryParams);
-                                waitsFor(function() {
-                                    return !promise.isPending();
-                                });
-                                runs(function() {
-                                    expect(backButton.enable).toHaveBeenCalledWith('text' + ' \'' + course.title + '\'', 'course/' + course.id, viewModel.navigateToCourseEvent);
+                                promise.fin(function () {
+                                    expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + course.title + '\'', url: 'course/' + course.id, callback: viewModel.navigateToCourseEvent, alwaysVisible: false });
+                                    done();
                                 });
                             });
 
@@ -482,16 +479,16 @@
                             });
                         });
 
-                        it('should enable back button', function () {
-                            spyOn(backButton, 'enable');
+                        it('should configure back button', function (done) {
+                            spyOn(viewModel.backButtonData, 'configure');
                             spyOn(localizationManager, 'localize').and.returnValue('text');
+                            deferred.resolve(null);
 
                             var promise = viewModel.activate(queryParams);
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(backButton.enable).toHaveBeenCalledWith('text text', 'objectives', viewModel.navigateToObjectivesEvent);
+
+                            promise.fin(function () {
+                                expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: 'text', url: 'objectives', callback: viewModel.navigateToObjectivesEvent, alwaysVisible: true });
+                                done();
                             });
                         });
 
@@ -530,6 +527,14 @@
                 it('should be defined', function () {
                     expect(viewModel.contextCourseId).toBeDefined();
                 });
+            });
+
+            describe('backButtonData:', function () {
+
+                it('should be instance of BackButton', function () {
+                    expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
+                });
+
             });
 
         });

@@ -1,6 +1,7 @@
 ﻿define([
     'durandal/app',
     'plugins/router',
+    'constants',
     'treeOfContent/handlers/treeOfContentEventHandler',
     'treeOfContent/handlers/treeOfContentAutoExpandHandler',
     'treeOfContent/handlers/treeOfContentHighlightHandler',
@@ -11,7 +12,7 @@
     'text!treeOfContent/RelatedObjectiveTreeNode.html',
     'text!treeOfContent/QuestionTreeNode.html'],
 
-    function (app, router, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, courseRepository, CourseTreeNode) {
+    function (app, router, constants, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, courseRepository, CourseTreeNode) {
 
         var viewModel = {
             children: ko.observableArray([]),
@@ -29,12 +30,12 @@
         function expand() {
             viewModel.isExpanded(true);
             viewModel.isTreeVisible(true);
-            app.trigger('treeOfContent:expanded');
+            app.trigger(constants.messages.treeOfContent.expanded);
         }
 
         function collapse() {
             viewModel.isExpanded(false);
-            app.trigger('treeOfContent:collapsed');
+            app.trigger(constants.messages.treeOfContent.collapsed);
         }
 
         function onCollapsed() {
@@ -75,7 +76,6 @@
                     .map(function (course) { return new CourseTreeNode(course.id, course.title, '#course/' + course.id); })
                     .value();
 
-
                 viewModel.children(array);
 
                 return treeOfContentAutoExpandHandler.handle(viewModel, router.routeData());
@@ -86,4 +86,4 @@
             treeOfContentHighlightHandler.handle();
         }
 
-    })
+    });
