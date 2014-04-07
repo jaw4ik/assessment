@@ -171,8 +171,8 @@ define(function (require) {
                 updateDeferred = Q.defer();
                 getByIdDeferred = Q.defer();
 
-                spyOn(questionRepository, 'updateTitle').andReturn(updateDeferred.promise);
-                spyOn(questionRepository, 'getById').andReturn(getByIdDeferred.promise);
+                spyOn(questionRepository, 'updateTitle').and.returnValue(updateDeferred.promise);
+                spyOn(questionRepository, 'getById').and.returnValue(getByIdDeferred.promise);
             });
 
             it('should be function', function () {
@@ -199,37 +199,34 @@ define(function (require) {
                     getByIdDeferred.resolve(question);
                 });
 
-                it('should not send event', function () {
+                it('should not send event', function (done) {
                     viewModel.endEditQuestionTitle();
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+
+                    promise.fin(function () {
                         expect(promise).toBeResolved();
                         expect(eventTracker.publish).not.toHaveBeenCalled();
+                        done();
                     });
                 });
 
-                it('should not show notification', function () {
+                it('should not show notification', function (done) {
                     spyOn(notify, 'saved');
                     viewModel.endEditQuestionTitle();
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+
+                    promise.fin(function () {
                         expect(promise).toBeResolved();
                         expect(notify.saved).not.toHaveBeenCalled();
+                        done();
                     });
                 });
 
-                it('should not update question in repository', function () {
+                it('should not update question in repository', function (done) {
                     viewModel.endEditQuestionTitle();
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+
+                    promise.fin(function () {
                         expect(promise).toBeResolved();
                         expect(questionRepository.updateTitle).not.toHaveBeenCalled();
+                        done();
                     });
                 });
             });
@@ -244,34 +241,32 @@ define(function (require) {
                     getByIdDeferred.resolve(question);
                 });
 
-                it('should send event \'Update question title\'', function () {
+                it('should send event \'Update question title\'', function (done) {
                     viewModel.endEditQuestionTitle();
-                    waitsFor(function () {
-                        return !getPromise.isPending();
-                    });
-                    runs(function () {
+
+                    getPromise.fin(function () {
                         expect(getPromise).toBeResolved();
                         expect(eventTracker.publish).toHaveBeenCalledWith('Update question title');
+                        done();
                     });
                 });
 
                 describe('and when title is valid', function () {
 
-                    it('should update question in repository', function () {
+                    it('should update question in repository', function (done) {
                         viewModel.endEditQuestionTitle();
-                        waitsFor(function () {
-                            return !getPromise.isPending();
-                        });
-                        runs(function () {
+
+                        getPromise.fin(function () {
                             expect(getPromise).toBeResolved();
                             expect(questionRepository.updateTitle).toHaveBeenCalled();
-                            expect(questionRepository.updateTitle.mostRecentCall.args[1]).toEqual(newTitle);
+                            expect(questionRepository.updateTitle.calls.mostRecent().args[1]).toEqual(newTitle);
+                            done();
                         });
                     });
 
                     describe('and when question updated successfully', function () {
 
-                        it('should update notificaion', function () {
+                        it('should update notificaion', function (done) {
                             spyOn(notify, 'saved');
 
                             viewModel.endEditQuestionTitle();
@@ -279,12 +274,10 @@ define(function (require) {
                             var promise = updateDeferred.promise.finally(function () { });
                             updateDeferred.resolve(question);
 
-                            waitsFor(function () {
-                                return !getPromise.isPending() && !promise.isPending();
-                            });
-                            runs(function () {
+                            Q.all(getPromise, promise).fin(function () {
                                 expect(promise).toBeResolved();
                                 expect(notify.saved).toHaveBeenCalled();
+                                done();
                             });
                         });
 
@@ -294,15 +287,13 @@ define(function (require) {
 
                 describe('and when title is not valid', function () {
 
-                    it('should revert quiestion title value', function () {
+                    it('should revert quiestion title value', function (done) {
                         viewModel.title('');
                         viewModel.endEditQuestionTitle();
 
-                        waitsFor(function () {
-                            return !getPromise.isPending();
-                        });
-                        runs(function () {
+                        getPromise.fin(function () {
                             expect(viewModel.title()).toBe(question.title);
+                            done();
                         });
                     });
 
@@ -319,8 +310,8 @@ define(function (require) {
                 getQuestionByIdDeferred = Q.defer();
                 getObjectiveByIdDeferred = Q.defer();
 
-                spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferred.promise);
-                spyOn(objectiveRepository, 'getById').andReturn(getObjectiveByIdDeferred.promise);
+                spyOn(questionRepository, 'getById').and.returnValue(getQuestionByIdDeferred.promise);
+                spyOn(objectiveRepository, 'getById').and.returnValue(getObjectiveByIdDeferred.promise);
 
                 spyOn(http, 'post');
             });
@@ -334,26 +325,21 @@ define(function (require) {
                     getObjectiveByIdDeferred.reject('reason');
                 });
 
-                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
                     router.activeItem.settings.lifecycleData = null;
 
-                    var promise = viewModel.activate('objectiveId', 'questionId');
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    viewModel.activate('objectiveId', 'questionId').fin(function () {
                         expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                        done();
                     });
                 });
 
-                it('should reject promise', function () {
+                it('should reject promise', function (done) {
                     var promise = viewModel.activate('objectiveId', 'questionId');
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    promise.fin(function () {
                         expect(promise).toBeRejectedWith('reason');
+                        done();
                     });
                 });
 
@@ -366,45 +352,38 @@ define(function (require) {
                     getQuestionByIdDeferred.reject('reason');
                 });
 
-                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
                     router.activeItem.settings.lifecycleData = null;
 
-                    var promise = viewModel.activate('objectiveId', 'questionId');
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    viewModel.activate('objectiveId', 'questionId').fin(function () {
                         expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                        done();
                     });
                 });
 
-                it('should reject promise', function () {
+                it('should reject promise', function (done) {
                     var promise = viewModel.activate('objectiveId', 'questionId');
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    promise.fin(function () {
                         expect(promise).toBeRejectedWith('reason');
+                        done();
                     });
                 });
 
             });
 
-            it('should initialize fields', function () {
-                var promise = viewModel.activate(objective.id, question.id);
-
+            it('should initialize fields', function (done) {
                 getObjectiveByIdDeferred.resolve(objectiveFull);
                 getQuestionByIdDeferred.resolve(question);
 
-                waitsFor(function () {
-                    return !promise.isPending();
-                });
-                runs(function () {
+                var promise = viewModel.activate(objective.id, question.id);
+
+                promise.fin(function () {
                     expect(viewModel.objectiveId).toBe(objectiveFull.id);
                     expect(viewModel.title()).toBe(question.title);
                     expect(viewModel.answers).toBeDefined();
                     expect(viewModel.learningContents).toBeDefined();
+                    done();
                 });
             });
 
@@ -415,45 +394,39 @@ define(function (require) {
                     queryString = null;
                 });
 
-                it('should configure back button that it always visible', function () {
+                it('should configure back button that it always visible', function (done) {
                     spyOn(viewModel.backButtonData, 'configure');
                     spyOn(localizationManager, 'localize').and.returnValue('text');
-
-                    var promise = viewModel.activate(objective.id, question.id, queryString);
-
                     getObjectiveByIdDeferred.resolve(objectiveFull);
                     getQuestionByIdDeferred.resolve(question);
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    var promise = viewModel.activate(objective.id, question.id, queryString);
+
+                    promise.fin(function () {
                         expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + objectiveFull.title + '\'', url: 'objective/' + objectiveFull.id, callback: viewModel.navigateToObjectiveEvent, alwaysVisible: true });
+                        done();
                     });
                 });
 
             });
 
-            describe('when queryString in not null', function() {
+            describe('when queryString contains courseId', function() {
 
                 beforeEach(function() {
-                    queryString = {};
+                    queryString = {
+                        courseId: 'courseId'
+                };
                 });
 
-                it('should configure back button that it not always visible', function () {
+                it('should configure back button that it not always visible', function (done) {
                     spyOn(viewModel.backButtonData, 'configure');
                     spyOn(localizationManager, 'localize').and.returnValue('text');
-
-                    var promise = viewModel.activate(objective.id, question.id, queryString);
-
                     getObjectiveByIdDeferred.resolve(objectiveFull);
                     getQuestionByIdDeferred.resolve(question);
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    viewModel.activate(objective.id, question.id, queryString).fin(function () {
                         expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + objectiveFull.title + '\'', url: 'objective/' + objectiveFull.id, callback: viewModel.navigateToObjectiveEvent, alwaysVisible: false });
+                        done();
                     });
                 });
 
