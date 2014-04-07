@@ -1076,7 +1076,7 @@ span.top-navigation-item.current {
 
 /*light-green button*/
 .btn.light-green {
-    background: #a3d47c;
+    background: #8ec165;
     border-color: #93c66a;
     text-shadow: none;
 }
@@ -1084,8 +1084,8 @@ span.top-navigation-item.current {
     .btn.light-green:hover,
     .btn.light-green.active,
     .btn.light-green.active:active {
-        background: #8ec165;
-        border-color: #93c66a;
+        background: #7fac5a;
+        border-color: #7ba757;
     }
 
     .btn.light-green:active,
