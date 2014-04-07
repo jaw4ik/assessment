@@ -16,7 +16,7 @@
                 }, 0);
 
                 var objectivesLength = course.objectives().length;
-                return objectivesLength == 0 ? 0 : result / objectivesLength;
+                return objectivesLength == 0 ? 0 : Math.floor(result / objectivesLength);
             });
 
             course.isCompleted = ko.computed(function () {

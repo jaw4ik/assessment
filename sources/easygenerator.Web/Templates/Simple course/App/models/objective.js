@@ -13,7 +13,7 @@
             objective.score = ko.computed(function () {
                 var result = _.reduce(objective.questions(), function (memo, question) { return memo + question.score(); }, 0);
                 var questionsLength = objective.questions().length;
-                return questionsLength == 0 ? 0 : result / questionsLength;
+                return questionsLength == 0 ? 0 : Math.floor(result / questionsLength);
             });
 
             objective.isCompleted = ko.computed(function () {

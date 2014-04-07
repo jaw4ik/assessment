@@ -129,6 +129,17 @@
                     expect(course.score).toBe(50);
                 });
 
+                describe('when score value is fraction', function () {
+                    it('should round score to floor', function () {
+                        course.score = 0;
+                        spec.objectives[0].score = 0;
+                        spec.objectives[1].score = 67;
+
+                        course.calculateScore();
+                        expect(course.score).toBe(33);
+                    });
+                });
+
                 describe('when course has incompleted objective', function () {
                     beforeEach(function () {
                         course.objectives[0].isCompleted = false;

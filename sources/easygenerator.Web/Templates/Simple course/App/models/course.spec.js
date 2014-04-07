@@ -87,6 +87,16 @@
 
                     expect(course.score()).toBe(50);
                 });
+
+                describe('when value is fraction', function() {
+                    it('should round value to floor', function() {
+                        course.objectives.push({ score: ko.observable(0), isCompleted: ko.observable(false) });
+                        course.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true) });
+                        course.objectives.push({ score: ko.observable(67), isCompleted: ko.observable(true) });
+
+                        expect(course.score()).toBe(55);
+                    });
+                });
             });
 
             describe('when course has no objectives', function () {

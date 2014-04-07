@@ -20,13 +20,13 @@
                 <div class="objective-progress">
                     <div class="objective-progressbar-holder">
                         <div class="objective-progressbar-inside">
-                            <div class="objective-progressbar-score" data-bind="style: { width: 100 - Math.round(objectiveScore()) + '%' }" style="width: 0%;">&nbsp;</div>
+                            <div class="objective-progressbar-score" data-bind="style: { width: 100 - objectiveScore() + '%' }" style="width: 0%;">&nbsp;</div>
                         </div>
                         <div class="objective-progressbar-wrapper">
                             <div class="objective-progressbar-border"></div>
                         </div>
                     </div>
-                    <span class="objective-progress-score" data-bind="text: Math.round(objectiveScore()) + '%'">0%</span>
+                    <span class="objective-progress-score" data-bind="text: objectiveScore() + '%'">0%</span>
                 </div>
             </div>
             <div class="questions-navigation-container">

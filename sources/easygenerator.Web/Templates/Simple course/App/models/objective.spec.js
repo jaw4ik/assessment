@@ -74,6 +74,16 @@
 
                     expect(objective.score()).toBe(50);
                 });
+
+                describe('when score value is fraction', function() {
+                    it('should round value to floor', function () {
+                        objective.questions.push({ score: ko.observable(0) });
+                        objective.questions.push({ score: ko.observable(100) });
+                        objective.questions.push({ score: ko.observable(67) });
+
+                        expect(objective.score()).toBe(55);
+                    });
+                });
             });
 
             describe('when objective has no questions', function () {

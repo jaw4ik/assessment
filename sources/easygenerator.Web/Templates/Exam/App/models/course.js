@@ -64,7 +64,7 @@
 
             var objectivesLength = this.objectives.length;
             if (objectivesLength > 0) {
-                this.score = result / objectivesLength;
+                this.score = Math.floor(result / objectivesLength);
                 this.isCompleted = !_.some(this.objectives, function (objective) {
                     return !objective.isCompleted;
                 });

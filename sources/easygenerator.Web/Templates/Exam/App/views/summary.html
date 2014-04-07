@@ -3,7 +3,7 @@
         <div class="clearfix summary-progress inline">
             <div class="circle-progressbar-wrapper">
                 <canvas class="circle-progressbar" width="90" height="90" data-bind="circleProgress: { progress: overallScore }"></canvas>
-                <span class="progress-score" data-bind="text: Math.round(overallScore) + '%'"></span>
+                <span class="progress-score" data-bind="text: overallScore + '%'"></span>
             </div>
             <div class="page-title">Results</div>
         </div>
@@ -28,7 +28,7 @@
                     </div>
                     <div class="progressbar-holder">
                         <div class="progressbar-informer-wrapper">
-                            <div class="progressbar-informer" data-bind="text: Math.round(score) + '%'"></div>
+                            <div class="progressbar-informer" data-bind="text: score + '%'"></div>
                             <div class="progressbar-triangle-border">
                                 <div class="progressbar-triangle">
                                 </div>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="progressbar-block">
                             <div class="progressbar-bg-line"></div>
-                            <div class="progressbar-score-line" data-bind="style: { width: score + '%', display: Math.round(score) < 1 ? 'none' : 'block' }"></div>
+                            <div class="progressbar-score-line" data-bind="style: { width: score + '%', display: score < 1 ? 'none' : 'block' }"></div>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@
         guard.throwIfNotAnObject(course, 'Course is not an object');
 
         return {
-            result: Math.round(course.score) / 100,
+            result: course.score / 100,
             isCompleted: course.isCompleted,
             objectives: _.map(course.objectives, function (objective) {
                 return {

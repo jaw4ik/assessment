@@ -96,6 +96,16 @@
                 expect(objective.score).toBe(50);
             });
 
+            describe('when score value is fraction', function() {
+                it('should round score to floor', function() {
+                    objective.score = 0;
+                    objective.questions = [{ score: 0 }, { score: 100 }, { score: 67 }];
+
+                    objective.calculateScore();
+                    expect(objective.score).toBe(55);
+                });
+            });
+
             describe('when score is less than mastery score', function () {
                 it('should set isCompleted to false', function () {
                     courseSettings.masteryScore.score = 80;
