@@ -5,13 +5,13 @@
         describe('viewModel [objectiveBrief]', function () {
 
             it('should be a constructor function', function () {
-                expect(viewModel).toEqual(jasmine.any(Function));
+                expect(viewModel).toBeFunction();
             });
 
             describe('when create an instance', function () {
 
                 it('should return an object', function () {
-                    expect(viewModel({})).toEqual(jasmine.any(Object));
+                    expect(viewModel({})).toBeObject();
                 });
 
                 it('should expose id', function () {
