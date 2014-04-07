@@ -40,12 +40,12 @@
         'notifications/subscriptionExpirationNotificationController.spec',
         'notifications/notification.spec',
         'widgets/backButton/viewmodel.spec',
-        
-        'repositories/answerRepository.spec', 
+
+        'repositories/answerRepository.spec',
         'repositories/commentRepository.spec',
         'repositories/courseRepository.spec',
         'repositories/learningContentRepository.spec',
-        
+
         /* UNSORTED SPECS */
 
        //  'viewmodels/shell.spec', ajax request
@@ -65,6 +65,7 @@
         'viewmodels/courses/publishingActions/build.spec',
         'viewmodels/courses/publishingActions/publish.spec',
         'viewmodels/courses/publishingActions/scormBuild.spec',
+        'viewmodels/courses/publishingActions/publishToAim4You.spec',
 
         'viewmodels/objectives/objectives.spec',
         'viewmodels/objectives/objective.spec',
@@ -73,7 +74,7 @@
 
         'synchronization/handlers/userDowngraded.spec',
         'synchronization/handlers/userUpgradedToStarter.spec'
-        
+
         /* NOT MIGRATED SPECS */
        /*
        'repositories/objectiveRepository.spec',
@@ -97,7 +98,7 @@
        'uiLocker.spec',
        
        'services/aim4YouService.spec',
-       'viewmodels/courses/publishingActions/publishToAim4You.spec',
+       
        'viewmodels/common/contentField.spec',
        'viewmodels/panels/sidePanel.spec',
        'viewmodels/panels/tabs/reviewTab.spec',

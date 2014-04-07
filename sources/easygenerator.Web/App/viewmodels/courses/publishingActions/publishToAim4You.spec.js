@@ -18,7 +18,7 @@
                 spyOn(notify, 'error');
 
                 serviceRegisterDefer = Q.defer();
-                spyOn(aim4YouService, 'register').andReturn(serviceRegisterDefer.promise);
+                spyOn(aim4YouService, 'register').and.returnValue(serviceRegisterDefer.promise);
             });
 
             it('should be object', function () {
@@ -169,7 +169,7 @@
 
                 describe('when user to be in try mode', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         userContext.identity = null;
                     });
 
@@ -182,7 +182,7 @@
 
                 describe('when user to not be in try mode', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         userContext.identity = {};
                     });
 
@@ -305,35 +305,28 @@
                                 serviceRegisterDefer.resolve();
                             });
 
-                            it('should stop registration', function () {
-                                var promise = viewModel.register();
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                            it('should stop registration', function (done) {
+                                viewModel.register().fin(function () {
                                     expect(viewModel.state()).toBe(constants.registerOnAim4YouStates.success);
+                                    done();
                                 });
                             });
 
-                            it('should update isRegisteredOnAim4You to true', function () {
+                            it('should update isRegisteredOnAim4You to true', function (done) {
                                 viewModel.isRegisteredOnAim4You(false);
-                                var promise = viewModel.register();
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+
+                                viewModel.register().fin(function () {
                                     expect(viewModel.isRegisteredOnAim4You()).toBeTruthy();
+                                    done();
                                 });
                             });
 
-                            it('should show confirm registration message', function () {
+                            it('should show confirm registration message', function (done) {
                                 viewModel.messageState(viewModel.infoMessageStates.none);
-                                var promise = viewModel.register();
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+
+                                viewModel.register().fin(function () {
                                     expect(viewModel.messageState()).toBe(viewModel.infoMessageStates.registered);
+                                    done();
                                 });
                             });
 
@@ -345,13 +338,10 @@
                                 serviceRegisterDefer.reject();
                             });
 
-                            it('should stop registration', function () {
-                                var promise = viewModel.register();
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                            it('should stop registration', function (done) {
+                                viewModel.register().fin(function () {
                                     expect(viewModel.state()).toBe(constants.registerOnAim4YouStates.fail);
+                                    done();
                                 });
                             });
 
@@ -385,8 +375,8 @@
                     beforeEach(function () {
                         courseRepositoryDefer = Q.defer();
                         coursePublishToStoreDefer = Q.defer();
-                        spyOn(courseRepository, 'getById').andReturn(courseRepositoryDefer.promise);
-                        spyOn(course, 'publishToStore').andReturn(coursePublishToStoreDefer.promise);
+                        spyOn(courseRepository, 'getById').and.returnValue(courseRepositoryDefer.promise);
+                        spyOn(course, 'publishToStore').and.returnValue(coursePublishToStoreDefer.promise);
                         viewModel.isActive(false);
                     });
 
@@ -409,15 +399,13 @@
                         expect(viewModel.publishToAim4You()).toBePromise();
                     });
 
-                    it('should start publishToStore to current course', function () {
+                    it('should start publishToStore to current course', function (done) {
                         courseRepositoryDefer.resolve(course);
                         coursePublishToStoreDefer.resolve();
-                        var promise = viewModel.publishToAim4You();
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+
+                        viewModel.publishToAim4You().fin(function () {
                             expect(course.publishToStore).toHaveBeenCalled();
+                            done();
                         });
                     });
 
@@ -428,25 +416,18 @@
                             coursePublishToStoreDefer.resolve();
                         });
 
-                        it('should set publishing active to false', function () {
-                            var promise = viewModel.publishToAim4You();
-                            viewModel.isActive(true);
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                        it('should set publishing active to false', function (done) {
+                            viewModel.publishToAim4You().fin(function () {
                                 expect(viewModel.isActive()).toBeFalsy();
+                                done();
                             });
                         });
 
-                        it('should show publish success message', function () {
+                        it('should show publish success message', function (done) {
                             viewModel.messageState(viewModel.infoMessageStates.none);
-                            var promise = viewModel.publishToAim4You();
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            viewModel.publishToAim4You().fin(function () {
                                 expect(viewModel.messageState()).toBe(viewModel.infoMessageStates.published);
+                                done();
                             });
                         });
 
@@ -459,14 +440,10 @@
                             coursePublishToStoreDefer.reject();
                         });
 
-                        it('should set publishing active to false', function () {
-                            var promise = viewModel.publishToAim4You();
-                            viewModel.isActive(true);
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                        it('should set publishing active to false', function (done) {
+                            viewModel.publishToAim4You().fin(function () {
                                 expect(viewModel.isActive()).toBeFalsy();
+                                done();
                             });
                         });
 
@@ -488,7 +465,8 @@
                         it('should not change action state', function () {
                             viewModel.courseId = course.id;
                             viewModel.state(constants.publishingStates.notStarted);
-                            app.trigger(constants.messages.course.build.started, course);
+
+                            viewModel.courseBuildStarted(course);
 
                             expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                         });
@@ -503,7 +481,8 @@
                         it('should change action state to \'building\'', function () {
                             viewModel.courseId = course.id;
                             viewModel.state('');
-                            app.trigger(constants.messages.course.build.started, course);
+
+                            viewModel.courseBuildStarted(course);
 
                             expect(viewModel.state()).toEqual(constants.publishingStates.building);
                         });
@@ -511,13 +490,16 @@
                 });
 
                 describe('and when course is any other course', function () {
+
                     it('should not change action state', function () {
                         viewModel.courseId = course.id;
                         viewModel.state(constants.publishingStates.notStarted);
-                        app.trigger(constants.messages.course.build.started, { id: '100500' });
+
+                        viewModel.courseBuildStarted({ id: '100500' });
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
+
                 });
 
             });
@@ -535,7 +517,8 @@
                         it('should not change action state', function () {
                             viewModel.courseId = course.id;
                             viewModel.state(constants.publishingStates.notStarted);
-                            app.trigger(constants.messages.course.build.failed, course);
+
+                            viewModel.courseBuildFailed(course.id);
 
                             expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                         });
@@ -544,7 +527,7 @@
                             viewModel.courseId = course.id;
                             viewModel.packageUrl('packageUrl');
 
-                            app.trigger(constants.messages.course.build.failed, course.id);
+                            viewModel.courseBuildFailed(course.id);
 
                             expect(viewModel.packageUrl()).toEqual('packageUrl');
                         });
@@ -559,7 +542,8 @@
                         it('should change action state to \'failed\'', function () {
                             viewModel.courseId = course.id;
                             viewModel.state('');
-                            app.trigger(constants.messages.course.build.failed, course.id);
+
+                            viewModel.courseBuildFailed(course.id);
 
                             expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                         });
@@ -570,7 +554,8 @@
                     it('should not change action state', function () {
                         viewModel.courseId = course.id;
                         viewModel.state(constants.publishingStates.notStarted);
-                        app.trigger(constants.messages.course.build.failed, { id: '100500' });
+
+                        viewModel.courseBuildFailed({ id: '100500' });
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
@@ -579,7 +564,7 @@
                         viewModel.courseId = course.id;
                         viewModel.packageUrl('packageUrl');
 
-                        app.trigger(constants.messages.course.build.failed, '100500');
+                        viewModel.courseBuildFailed({ id: '100500' });
 
                         expect(viewModel.packageUrl()).toEqual('packageUrl');
                     });
@@ -590,23 +575,29 @@
             describe('when course publish to Aim4You was started', function () {
 
                 describe('and when course is current course', function () {
+
                     it('should change action state to \'publishing\'', function () {
                         viewModel.courseId = course.id;
                         viewModel.state('');
-                        app.trigger(constants.messages.course.publishToAim4You.started, course);
+
+                        viewModel.publishToAim4YouStarted(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.publishing);
                     });
+
                 });
 
                 describe('and when course is any other course', function () {
+
                     it('should not change action state', function () {
                         viewModel.courseId = course.id;
                         viewModel.state(constants.publishingStates.notStarted);
-                        app.trigger(constants.messages.course.publishToAim4You.started, { id: '100500' });
+
+                        viewModel.publishToAim4YouStarted({ id: '100500' });
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
+
                 });
 
             });
@@ -614,15 +605,18 @@
             describe('when course publish to Aim4You completed', function () {
 
                 describe('and when course is current course', function () {
+
                     it('should update action state to \'success\'', function () {
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
                         course.buildingStatus = constants.publishingStates.succeed;
-                        app.trigger(constants.messages.course.publishToAim4You.completed, course);
+
+                        viewModel.publishToAim4YouCompleted(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.succeed);
                     });
+
                 });
 
                 describe('and when course is any other course', function () {
@@ -630,7 +624,8 @@
                     it('should not update action state', function () {
                         viewModel.courseId = course.id;
                         viewModel.state(constants.publishingStates.notStarted);
-                        app.trigger(constants.messages.course.publishToAim4You.completed, { id: '100500' });
+
+                        viewModel.publishToAim4YouCompleted({ id: '100500' });
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
@@ -642,13 +637,12 @@
             describe('when course publish to Aim4You failed', function () {
 
                 describe('and when course is current course', function () {
-                    var message = "message";
 
                     it('should update action state to \'failed\'', function () {
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        app.trigger(constants.messages.course.publishToAim4You.failed, course.id, message);
+                        viewModel.publishToAim4YouFailed(course.id);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                     });
@@ -659,7 +653,7 @@
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        app.trigger(constants.messages.course.publishToAim4You.failed, '100500');
+                        viewModel.publishToAim4YouFailed('100500');
 
                         expect(viewModel.state()).toEqual('');
                     });
@@ -668,7 +662,7 @@
                         viewModel.courseId = course.id;
                         viewModel.packageUrl('packageUrl');
 
-                        app.trigger(constants.messages.course.publishToAim4You.failed, '100500');
+                        viewModel.publishToAim4YouFailed('100500');
 
                         expect(viewModel.packageUrl()).toEqual('packageUrl');
                     });
@@ -679,7 +673,7 @@
             describe('when some action was started', function () {
 
                 it('should hide info message', function () {
-                    app.trigger(constants.messages.course.action.started, course);
+                    viewModel.courseActionStarted(course);
                     expect(viewModel.messageState()).toEqual(viewModel.infoMessageStates.none);
                 });
 
