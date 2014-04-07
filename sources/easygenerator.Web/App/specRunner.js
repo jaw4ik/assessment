@@ -73,6 +73,7 @@
         'viewmodels/objectives/objectiveBrief.spec',
 
         'viewmodels/questions/question.spec',
+        'viewmodels/questions/answers.spec',
 
         'synchronization/handlers/userDowngraded.spec',
         'synchronization/handlers/userUpgradedToStarter.spec'
@@ -83,9 +84,7 @@
        'repositories/questionRepository.spec',
        'repositories/templateRepository.spec',
 
-       'viewmodels/questions/answers.spec',
        'viewmodels/questions/learningContents.spec',
-              
        
        '../Scripts/account/signup.spec',
        '../Scripts/account/signin.spec',
