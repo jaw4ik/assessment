@@ -763,6 +763,10 @@ span.top-navigation-item.current {
     padding-bottom: 30px;
 }
 
+.main-content-list li{
+    margin-bottom: 10px;
+}
+
 .main-content-list-item {
     position: relative;
     -moz-box-sizing: border-box;
@@ -773,7 +777,6 @@ span.top-navigation-item.current {
     border: 1px solid #e8e8e8;
     border-radius: 3px;
     cursor: default;
-    margin-bottom: 10px;
 }
 
     .main-content-list-item.selected {
@@ -946,6 +949,15 @@ span.top-navigation-item.current {
 }
 
 /*#endregion PAGE CONTENT LIST*/
+
+/*#region SORTABLE-LIST*/
+
+.sortable-list-placeholder {
+    border: 1px dashed #2db7ff;
+    border-radius: 4px;
+}
+
+/*#endregion SORTABLE-LIST*/
 
 /*#region FOOTER*/
 
@@ -1627,15 +1639,6 @@ span.top-navigation-item.current {
     }
 
 /*#endregion ENTITY CONTENT*/
-
-/*#region SORTABLE-LIST*/
-
-.sortable-list-placeholder {
-    border: 1px dashed #2db7ff;
-    border-radius: 4px;
-}
-
-/*#endregion SORTABLE-LIST*/
 
 /*#region USER-NOTIFICATION*/
 
