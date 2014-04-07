@@ -16,7 +16,7 @@ namespace easygenerator.Web.Components.ActionResults
         public override void ExecuteResult(ControllerContext context)
         {
             var data = new { success = true, data = Data };
-            new JsonDataResult(data).ExecuteResult(context);
+            new JsonDataResult(data, ContentType).ExecuteResult(context);
         }
     }
 }

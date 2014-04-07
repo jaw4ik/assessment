@@ -67,6 +67,7 @@ namespace easygenerator.Web.Components.ActionResults
                 case ".jpg": return "image/jpeg";
                 case ".jpeg": return "image/jpeg";
                 case ".gif": return "image/gif";
+                case ".bmp": return "image/bmp";
                 default:
                     throw new NotSupportedException();
             }

@@ -7,7 +7,7 @@ namespace easygenerator.DomainModel.Entities
 {
     public class ImageFile : Entity
     {
-        private static readonly string[] imageFileExtensions = { ".gif", ".jpeg", ".jpg", ".png" };
+        private static readonly string[] imageFileExtensions = { ".gif", ".jpeg", ".jpg", ".png", ".bmp" };
 
         protected internal ImageFile() { }
 
