@@ -68,7 +68,6 @@
         'viewmodels/objectives/objectives.spec',
         'viewmodels/objectives/objective.spec',
         'viewmodels/objectives/createObjective.spec',
-        'viewmodels/objectives/objectiveBrief.spec',
 
         'synchronization/handlers/userDowngraded.spec',
         'synchronization/handlers/userUpgradedToStarter.spec'
