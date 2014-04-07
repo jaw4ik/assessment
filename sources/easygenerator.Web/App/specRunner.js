@@ -69,6 +69,7 @@
         'viewmodels/objectives/objectives.spec',
         'viewmodels/objectives/objective.spec',
         'viewmodels/objectives/createObjective.spec',
+        'viewmodels/objectives/objectiveBrief.spec',
 
         'synchronization/handlers/userDowngraded.spec',
         'synchronization/handlers/userUpgradedToStarter.spec'
@@ -78,7 +79,6 @@
        'repositories/objectiveRepository.spec',
        'repositories/questionRepository.spec',
        'repositories/templateRepository.spec',
-       'viewmodels/objectives/objectiveBrief.spec',
 
        'viewmodels/questions/question.spec',
        'viewmodels/questions/answers.spec',

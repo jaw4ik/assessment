@@ -736,7 +736,7 @@
 
             });
 
-            it('should send request to \'api/learningContent/updateText\'', function () {
+            it('should send request to \'api/learningContent/updateText\'', function (done) {
                 var
                     questionId = 'asdasdasd',
                     learningContentId = 'asdadsadfghfgh',

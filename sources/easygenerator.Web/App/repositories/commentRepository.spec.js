@@ -65,7 +65,7 @@
 
             });
 
-            it('should send request to \'api/comments\'', function () {
+            it('should send request to \'api/comments\'', function (done) {
                 var courseId = 'SomeId';
                 var promise = repository.getCollection(courseId);
 
@@ -81,7 +81,7 @@
 
                 describe('and response is not an object', function () {
 
-                    it('should reject promise', function () {
+                    it('should reject promise', function (done) {
                         var promise = repository.getCollection('123123132123');
 
                         promise.fin(function () {
@@ -96,7 +96,7 @@
 
                 describe('and response.Comments is undefined', function () {
 
-                    it('should reject promise', function () {
+                    it('should reject promise', function (done) {
                         var promise = repository.getCollection('123123132123');
 
                         promise.fin(function () {
@@ -111,7 +111,7 @@
 
                 describe('and response.Comments is not an Array', function () {
 
-                    it('should reject promise', function () {
+                    it('should reject promise', function (done) {
                         var promise = repository.getCollection('123123132123');
 
                         promise.fin(function () {
@@ -124,7 +124,7 @@
 
                 });
 
-                it('should resolve promise with mapped comments array', function () {
+                it('should resolve promise with mapped comments array', function (done) {
                     var comments = [
                     {
                         Id: 'qwe',
