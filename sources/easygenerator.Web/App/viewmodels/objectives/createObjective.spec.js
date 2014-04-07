@@ -367,10 +367,9 @@
 
                                 var promise = viewModel.activate(queryParams);
                                 promise.fin(function () {
-                                    expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + course.title + '\'', url: 'course/' + course.id, callback: viewModel.navigateToCourseEvent, alwaysVisible: false });
-                                    done();
-                                });
-                                    done();
+                                        expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + course.title + '\'', url: 'course/' + course.id, callback: viewModel.navigateToCourseEvent, alwaysVisible: false });
+                                        done();
+                                    });
                                 });
 
                             it('should clear title', function (done) {
