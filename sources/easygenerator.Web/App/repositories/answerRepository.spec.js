@@ -354,7 +354,7 @@
 
                 describe('and question not found in dataContext', function () {
 
-                    it('should reject promise', function () {
+                    it('should reject promise', function (done) {
                         dataContext.objectives = [];
 
                         var receivedAnswer = {

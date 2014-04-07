@@ -13,7 +13,7 @@
                 };
 
             beforeEach(function () {
-                viewModel = scormBuildpublishingAction(courseId, packageUrl);
+                viewModel = scormBuildPublishingAction(courseId, packageUrl);
                 spyOn(eventTracker, 'publish');
                 spyOn(notify, 'hide');
                 spyOn(dom, 'clickElementById');
@@ -28,7 +28,7 @@
                     expect(viewModel.state).toBeObservable();
                 });
             });
-            
+
             describe('isPublishing', function () {
                 it('should be computed', function () {
                     expect(viewModel.isPublishing).toBeComputed();
@@ -137,8 +137,8 @@
                     courseScormBuildDefer = Q.defer();
                     courseRepositoryGetByIdPromise = courseRepositoryGetByIdDefer.promise;
                     courseScormBuildPromise = courseScormBuildDefer.promise;
-                    spyOn(repository, 'getById').andReturn(courseRepositoryGetByIdPromise);
-                    spyOn(course, 'scormBuild').andReturn(courseScormBuildPromise);
+                    spyOn(repository, 'getById').and.returnValue(courseRepositoryGetByIdPromise);
+                    spyOn(course, 'scormBuild').and.returnValue(courseScormBuildPromise);
                 });
 
                 it('should be a function', function () {
@@ -166,17 +166,13 @@
                         expect(viewModel.isActive()).toBe(true);
                     });
 
-                    it('should start scorm build of current course', function () {
+                    it('should start scorm build of current course', function (done) {
                         courseRepositoryGetByIdDefer.resolve(course);
                         courseScormBuildDefer.resolve();
-                        var promise = viewModel.downloadCourse();
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-
-                        runs(function () {
+                        viewModel.downloadCourse().fin(function () {
                             expect(course.scormBuild).toHaveBeenCalled();
+                            done();
                         });
                     });
 
@@ -186,52 +182,42 @@
                             courseScormBuildDefer.resolve();
                         });
 
-                        it('should click dom element \'scormPackageLink\'', function () {
-                            var promise = viewModel.downloadCourse();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-
-                            runs(function () {
+                        it('should click dom element \'scormPackageLink\'', function (done) {
+                            viewModel.downloadCourse().fin(function () {
                                 expect(dom.clickElementById).toHaveBeenCalledWith('scormPackageLink');
+                                done();
                             });
                         });
 
-                        it('should set isActive() to false', function () {
-                            var promise = viewModel.downloadCourse();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-
-                            runs(function () {
+                        it('should set isActive() to false', function (done) {
+                            viewModel.downloadCourse().fin(function () {
                                 expect(viewModel.isActive()).toBeFalsy();
+                                done();
                             });
                         });
+
                     });
 
                     describe('when course scorm build failed', function () {
+
                         beforeEach(function () {
                             courseRepositoryGetByIdDefer.resolve(course);
                             courseScormBuildDefer.reject();
                         });
 
-                        it('should set isActive() to false', function () {
-                            var promise = viewModel.downloadCourse();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-
-                            runs(function () {
+                        it('should set isActive() to false', function (done) {
+                            viewModel.downloadCourse().fin(function () {
                                 expect(viewModel.isActive()).toBeFalsy();
+                                done();
                             });
                         });
+
                     });
+
                 });
 
                 describe('when action is active', function () {
+
                     beforeEach(function () {
                         viewModel.isActive(true);
                     });
@@ -240,26 +226,32 @@
                         viewModel.downloadCourse();
                         expect(eventTracker.publish).not.toHaveBeenCalledWith('Download SCORM 1.2 course');
                     });
+
                 });
+
             });
 
             describe('when course scorm build was started', function () {
 
                 describe('and when course is current course', function () {
+
                     it('should change action state to \'building\'', function () {
                         viewModel.courseId = course.id;
                         viewModel.state('');
-                        app.trigger(constants.messages.course.scormBuild.started, course);
+
+                        viewModel.scromBuildStarted(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.building);
                     });
+
                 });
 
                 describe('and when course is any other course', function () {
                     it('should not change scorm build action state', function () {
                         viewModel.courseId = course.id;
                         viewModel.state('');
-                        app.trigger(constants.messages.course.scormBuild.started, { id: '100500' });
+
+                        viewModel.scromBuildStarted({ id: '100500' });
 
                         expect(viewModel.state()).toEqual('');
                     });
@@ -276,7 +268,7 @@
                         viewModel.state('');
 
                         course.buildingStatus = constants.publishingStates.succeed;
-                        app.trigger(constants.messages.course.scormBuild.completed, course);
+                        viewModel.scromBuildCompleted(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.succeed);
                     });
@@ -286,7 +278,7 @@
                         viewModel.packageUrl('');
 
                         course.scormPackageUrl = "http://xxx.com";
-                        app.trigger(constants.messages.course.scormBuild.completed, course);
+                        viewModel.scromBuildCompleted(course);
 
                         expect(viewModel.packageUrl()).toEqual(course.scormPackageUrl);
                     });
@@ -297,7 +289,8 @@
                     it('should not update action state', function () {
                         viewModel.courseId = course.id;
                         viewModel.state(constants.publishingStates.notStarted);
-                        app.trigger(constants.messages.course.scormBuild.completed, { id: '100500' });
+
+                        viewModel.scromBuildCompleted({ id: '100500' });
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
@@ -305,7 +298,8 @@
                     it('should not update current publishedPackageUrl', function () {
                         viewModel.courseId = course.id;
                         viewModel.packageUrl("http://xxx.com");
-                        app.trigger(constants.messages.course.scormBuild.completed, { id: '100500' });
+
+                        viewModel.scromBuildCompleted({ id: '100500' });
 
                         expect(viewModel.packageUrl()).toEqual("http://xxx.com");
                     });
@@ -316,13 +310,12 @@
             describe('when course scorm build failed', function () {
 
                 describe('and when course is current course', function () {
-                    var message = "message";
 
                     it('should update scorm build action state to \'failed\'', function () {
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        app.trigger(constants.messages.course.scormBuild.failed, course.id, message);
+                        viewModel.scrormBuildFailed(course.id);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                     });
@@ -331,18 +324,20 @@
                         viewModel.courseId = course.id;
                         viewModel.packageUrl('publishedPackageUrl');
 
-                        app.trigger(constants.messages.course.scormBuild.failed, course.id, message);
+                        viewModel.scrormBuildFailed(course.id);
 
                         expect(viewModel.packageUrl()).toEqual('');
                     });
+
                 });
 
                 describe('and when course is any other course', function () {
+
                     it('should not update scorm build action state to \'failed\'', function () {
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        app.trigger(constants.messages.course.scormBuild.failed, '100500');
+                        viewModel.scrormBuildFailed('100500');
 
                         expect(viewModel.state()).toEqual('');
                     });
@@ -351,10 +346,11 @@
                         viewModel.courseId = course.id;
                         viewModel.packageUrl('packageUrl');
 
-                        app.trigger(constants.messages.course.scormBuild.failed, '100500');
+                        viewModel.scrormBuildFailed('100500');
 
                         expect(viewModel.packageUrl()).toEqual('packageUrl');
                     });
+
                 });
 
             });

@@ -33,28 +33,32 @@
 
             //#region App-wide events
 
-            app.on(constants.messages.course.scormBuild.started).then(function (course) {
+            viewModel.scromBuildStarted = function (course) {
                 if (course.id !== viewModel.courseId)
                     return;
 
                 viewModel.state(constants.publishingStates.building);
-            });
+            }
 
-            app.on(constants.messages.course.scormBuild.completed, function (course) {
+            viewModel.scromBuildCompleted = function (course) {
                 if (course.id !== viewModel.courseId)
                     return;
 
                 viewModel.state(constants.publishingStates.succeed);
                 viewModel.packageUrl(course.scormPackageUrl);
-            });
+            }
 
-            app.on(constants.messages.course.scormBuild.failed, function (courseid) {
-                if (courseid !== viewModel.courseId)
+            viewModel.scrormBuildFailed = function (id) {
+                if (id !== viewModel.courseId)
                     return;
 
                 viewModel.state(constants.publishingStates.failed);
                 viewModel.packageUrl('');
-            });
+            }
+
+            app.on(constants.messages.course.scormBuild.started).then(viewModel.scromBuildStarted);
+            app.on(constants.messages.course.scormBuild.completed).then(viewModel.scromBuildCompleted);
+            app.on(constants.messages.course.scormBuild.failed).then(viewModel.scrormBuildFailed);
 
             //#endregion
 

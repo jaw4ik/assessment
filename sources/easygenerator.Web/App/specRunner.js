@@ -64,6 +64,7 @@
         'viewmodels/courses/publishingActions/publishingAction.spec',
         'viewmodels/courses/publishingActions/build.spec',
         'viewmodels/courses/publishingActions/publish.spec',
+        'viewmodels/courses/publishingActions/scormBuild.spec',
 
         'viewmodels/objectives/objectives.spec',
         'viewmodels/objectives/objective.spec',
@@ -82,12 +83,7 @@
        'viewmodels/questions/question.spec',
        'viewmodels/questions/answers.spec',
        'viewmodels/questions/learningContents.spec',
-       
-                    
-       
-       
-       
-       'viewmodels/courses/publishingActions/scormBuild.spec',
+              
        
        '../Scripts/account/signup.spec',
        '../Scripts/account/signin.spec',
