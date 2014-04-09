@@ -4,6 +4,7 @@
     var
         httpWrapper = require('httpWrapper'),
         dataContext = require('dataContext'),
+        constants = require('constants'),
         app = require('durandal/app');
 
     describe('repository [courseRepository]', function () {
@@ -434,7 +435,7 @@
 
                     promise.fin(function () {
                         expect(app.trigger).toHaveBeenCalled();
-                        expect(app.trigger.calls.mostRecent().args[0]).toEqual('course:created');
+                        expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.created);
                         expect(app.trigger.calls.mostRecent().args[1].id).toEqual(CourseId);
                         expect(app.trigger.calls.mostRecent().args[1].title).toEqual(mappedCourse.title);
                         expect(app.trigger.calls.mostRecent().args[1].template.id).toEqual(mappedCourse.template.id);
@@ -563,7 +564,7 @@
                     var promise = repository.removeCourse(courseId);
 
                     promise.fin(function () {
-                        expect(app.trigger).toHaveBeenCalledWith('course:deleted', courseId);
+                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.deleted, courseId);
                         done();
                     });
 
@@ -787,7 +788,7 @@
 
                     promise.fin(function () {
                         expect(app.trigger).toHaveBeenCalled();
-                        expect(app.trigger.calls.mostRecent().args[0]).toEqual('course:objectivesRelated');
+                        expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.objectivesRelated);
                         expect(app.trigger.calls.mostRecent().args[1]).toEqual(courseId);
                         expect(app.trigger.calls.mostRecent().args[2].length).toEqual(1);
                         expect(app.trigger.calls.mostRecent().args[2][0].id).toEqual(objectives[0].id);
@@ -1004,7 +1005,7 @@
                     post.resolve({ ModifiedOn: new Date().toISOString() });
                 });
 
-                it('should trigger course:objectivesRelated event', function (done) {
+                it('should trigger course:objectivesUnrelated event', function (done) {
                     var
                         courseId = 'adsasdasd',
                         objectives = [{ id: 'obj1' }, { id: 'obj2' }];
@@ -1015,7 +1016,7 @@
 
                     promise.fin(function () {
                         expect(app.trigger).toHaveBeenCalled();
-                        expect(app.trigger.calls.mostRecent().args[0]).toEqual('course:objectivesUnrelated');
+                        expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.objectivesUnrelated);
                         expect(app.trigger.calls.mostRecent().args[1]).toEqual(courseId);
                         expect(app.trigger.calls.mostRecent().args[2].length).toEqual(1);
                         expect(app.trigger.calls.mostRecent().args[2][0]).toEqual(objectives[0].id);
@@ -1242,7 +1243,7 @@
 
                     promise.fin(function () {
                         expect(app.trigger).toHaveBeenCalled();
-                        expect(app.trigger.calls.mostRecent().args[0]).toEqual('course:titleUpdated');
+                        expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.titleUpdated);
                         expect(app.trigger.calls.mostRecent().args[1].id).toEqual(courseId);
                         expect(app.trigger.calls.mostRecent().args[1].title).toEqual(courseTitle);
                         expect(app.trigger.calls.mostRecent().args[1].modifiedOn).toEqual(modifiedDate);
@@ -1888,7 +1889,7 @@
 
                     promise.fin(function () {
                         expect(app.trigger).toHaveBeenCalled();
-                        expect(app.trigger.calls.mostRecent().args[0]).toEqual('course:objectivesReordered');
+                        expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.objectivesReordered);
                         expect(app.trigger.calls.mostRecent().args[1].id).toEqual(courseId);
                         expect(app.trigger.calls.mostRecent().args[1].modifiedOn).toEqual(modifiedOnDate);
                         expect(app.trigger.calls.mostRecent().args[1].objectives[0].id).toEqual(objectives[0].id);

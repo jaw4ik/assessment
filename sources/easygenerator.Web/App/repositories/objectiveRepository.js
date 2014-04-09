@@ -89,7 +89,7 @@
                     objective.title = obj.title;
                     objective.modifiedOn = new Date(response.ModifiedOn);
 
-                    app.trigger('objective:titleUpdated', objective);
+                    app.trigger(constants.messages.objective.titleUpdated, objective);
 
                     return objective.modifiedOn;
                 });
@@ -138,7 +138,7 @@
 
                     objective.modifiedOn = new Date(response.ModifiedOn);
 
-                    app.trigger('objective:questionsReordered', objective);
+                    app.trigger(constants.messages.objective.questionsReordered, objective);
 
                     return {
                         modifiedOn: objective.modifiedOn

@@ -89,7 +89,7 @@
 
                     dataContext.courses.push(createdCourse);
 
-                    app.trigger('course:created', createdCourse);
+                    app.trigger(constants.messages.course.created, createdCourse);
 
                     return {
                         id: createdCourse.id,
@@ -108,7 +108,7 @@
                         return course.id === courseId;
                     });
 
-                    app.trigger('course:deleted', courseId);
+                    app.trigger(constants.messages.course.deleted, courseId);
                 });
             });
         }
@@ -147,7 +147,7 @@
                         course.objectives.push(objective);
                     });
 
-                    app.trigger('course:objectivesRelated', requestArgs.courseId, relatedObjectives);
+                    app.trigger(constants.messages.course.objectivesRelated, requestArgs.courseId, relatedObjectives);
 
                     return {
                         modifiedOn: course.modifiedOn,
@@ -186,7 +186,7 @@
 
                     course.modifiedOn = new Date(response.ModifiedOn);
 
-                    app.trigger('course:objectivesUnrelated', requestArgs.courseId, requestArgs.objectives);
+                    app.trigger(constants.messages.course.objectivesUnrelated, requestArgs.courseId, requestArgs.objectives);
 
                     return course.modifiedOn;
                 });
@@ -216,7 +216,7 @@
                     course.title = courseTitle;
                     course.modifiedOn = new Date(response.ModifiedOn);
 
-                    app.trigger('course:titleUpdated', course);
+                    app.trigger(constants.messages.course.titleUpdated, course);
 
                     return course.modifiedOn;
                 });
@@ -315,7 +315,7 @@
 
                     course.modifiedOn = new Date(response.ModifiedOn);
 
-                    app.trigger('course:objectivesReordered', course);
+                    app.trigger(constants.messages.course.objectivesReordered, course);
 
                     return course.modifiedOn;
                 });

@@ -5,6 +5,7 @@
         var
             httpWrapper = require('httpWrapper'),
             dataContext = require('dataContext'),
+            constants = require('constants'),
             app = require('durandal/app')
         ;
 
@@ -230,7 +231,7 @@
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(app.trigger).toHaveBeenCalledWith('question:created', objective.id, {
+                                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.created, objective.id, {
                                             id: response.Id,
                                             title: question.title,
                                             createdOn: new Date(response.CreatedOn),
@@ -446,7 +447,7 @@
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(app.trigger).toHaveBeenCalledWith('questions:deleted', objective.id, questionIds);
+                                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.deleted, objective.id, questionIds);
                                     });
                                 });
 
@@ -635,7 +636,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(app.trigger).toHaveBeenCalledWith('question:titleUpdated', dataContext.objectives[0].questions[0]);
+                                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.titleUpdated, dataContext.objectives[0].questions[0]);
                                 });
                             });
 

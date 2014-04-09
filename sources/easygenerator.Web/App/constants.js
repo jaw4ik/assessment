@@ -44,6 +44,13 @@
                     identified: 'user:identified'
                 },
                 course: {
+                    created: 'course:created',
+                    deleted: 'course:deleted',
+                    titleUpdated: 'course:titleUpdated',
+                    objectivesRelated: 'course:objectivesRelated',
+                    objectivesUnrelated: 'course:objectivesUnrelated',
+                    objectivesReordered: 'course:objectivesReordered',
+
                     build: {
                         started: 'course:build-started',
                         completed: 'course:build-completed',
@@ -72,6 +79,15 @@
                     action: {
                         started: 'course:action-started'
                     }
+                },
+                objective: {
+                    titleUpdated: 'objective:titleUpdated',
+                    questionsReordered: 'objective:questionsReordered'
+                },
+                question: {
+                    created: 'question:created',
+                    deleted: 'questions:deleted',
+                    titleUpdated: 'question:titleUpdated'
                 },
                 helpHint: {
                     shown: 'helphint:shown',

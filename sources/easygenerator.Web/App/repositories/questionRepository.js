@@ -36,7 +36,7 @@
                         objective.modifiedOn = createdOn;
                         objective.questions.push(createdQuestion);
 
-                        app.trigger('question:created', objectiveId, createdQuestion);
+                        app.trigger(constants.messages.question.created, objectiveId, createdQuestion);
 
                         return {
                             id: createdQuestion.id,
@@ -71,7 +71,7 @@
                             return _.indexOf(questionIds, item.id) != -1;
                         });
 
-                        app.trigger('questions:deleted', objectiveId, questionIds);
+                        app.trigger(constants.messages.question.deleted, objectiveId, questionIds);
 
                         return modifiedOn;
                     });
@@ -100,7 +100,7 @@
                         question.title = title;
                         question.modifiedOn = modifiedOn;
 
-                        app.trigger('question:titleUpdated', question);
+                        app.trigger(constants.messages.question.titleUpdated, question);
 
                         return modifiedOn;
                     });

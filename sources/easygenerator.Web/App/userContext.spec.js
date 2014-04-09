@@ -95,7 +95,7 @@
                 var promise = userContext.identify();
                 promise.fin(function () {
                     done();
-                    expect(app.trigger()).toHaveBeenCalledWith(constants.messages.user.identified);
+                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.identified);
                 }).done();
             });
 

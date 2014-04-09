@@ -457,7 +457,7 @@
                     var promise = repository.updateObjective(obj);
 
                     promise.fin(function () {
-                        expect(app.trigger).toHaveBeenCalledWith('objective:titleUpdated', dataContext.objectives[0]);
+                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.objective.titleUpdated, dataContext.objectives[0]);
                         done();
                     });
 
@@ -756,7 +756,7 @@
                     var promise = repository.updateQuestionsOrder(objectiveId, [{ id: questionId1 }, { id: questionId2 }]);
 
                     promise.fin(function () {
-                        expect(app.trigger).toHaveBeenCalledWith('objective:questionsReordered', dataContext.objectives[0]);
+                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.objective.questionsReordered, dataContext.objectives[0]);
                         done();
                     });
 
