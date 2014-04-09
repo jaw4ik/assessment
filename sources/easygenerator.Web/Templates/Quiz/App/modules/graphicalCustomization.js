@@ -11,7 +11,7 @@
         var that = this;
         return Q.fcall(function () {
             if (!_.isEmptyOrWhitespace(settings.url)) {
-                that.settings.logoUrl = settings.url + '?width=300&height=50';
+                that.settings.logoUrl = settings.url;
             }
         });
     }
