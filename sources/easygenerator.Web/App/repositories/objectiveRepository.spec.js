@@ -1,934 +1,790 @@
-﻿define(['repositories/objectiveRepository', 'models/objective'],
-    function (objectiveRepository, ObjectiveModel) {
-        "use strict";
+﻿define(['repositories/objectiveRepository'], function (repository) {
+    "use strict";
 
-        var
-           constants = require('constants'),
-           httpWrapper = require('httpWrapper'),
-           dataContext = require('dataContext'),
-           app = require('durandal/app')
-        ;
+    var
+       constants = require('constants'),
+       httpWrapper = require('httpWrapper'),
+       dataContext = require('dataContext'),
+       app = require('durandal/app')
+    ;
 
-        describe('repository [objectiveRepository]', function () {
+    describe('repository [objectiveRepository]', function () {
 
-            var post;
+        var post;
 
-            beforeEach(function () {
-                post = $.Deferred();
-                spyOn(httpWrapper, 'post').andReturn(post.promise());
-                spyOn(app, 'trigger');
+        beforeEach(function () {
+            post = Q.defer();
+            spyOn(httpWrapper, 'post').and.returnValue(post.promise);
+            spyOn(app, 'trigger');
+        });
+
+        it('should be object', function () {
+            expect(repository).toBeObject();
+        });
+
+        describe('getCollection:', function () {
+
+            it('should be function', function () {
+                expect(repository.getCollection).toBeFunction();
             });
 
-            it('should be object', function () {
-                expect(objectiveRepository).toBeObject();
+            it('should return promise', function () {
+                expect(repository.getCollection()).toBePromise();
             });
 
-            describe('getCollection:', function () {
+            it('should send request to \'api/objectives\'', function (done) {
+                var promise = repository.getCollection();
 
-                it('should be function', function () {
-                    expect(objectiveRepository.getCollection).toBeFunction();
+                promise.fin(function () {
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objectives');
+                    done();
                 });
 
-                it('should return promise', function () {
-                    expect(objectiveRepository.getCollection()).toBePromise();
-                });
+                post.reject('blablabla');
+            });
 
-                it('should send request to server to api/objectives', function () {
-                    var promise = objectiveRepository.getCollection();
+            describe('when objectives received from server', function () {
+
+                it('should resolve promise with objectives from dataContext', function (done) {
+                    var promise = repository.getCollection();
+
+                    dataContext.objectives = [{ id: 'obj1' }, { id: 'obj2' }];
+
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith(dataContext.objectives);
+                        done();
+                    });
 
                     post.resolve();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/objectives');
-                    });
-                });
-
-                describe('and request failed', function () {
-                    var reason = 'reason';
-                    beforeEach(function () {
-                        post.reject(reason);
-                    });
-
-                    it('should reject promise with reason', function () {
-                        var promise = objectiveRepository.getCollection();
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejectedWith(reason);
-                        });
-                    });
-
-                });
-
-                describe('and request succeed', function () {
-
-                    beforeEach(function () {
-                        post.resolve();
-                    });
-
-                    it('should resolve promise with objectives collection', function () {
-                        var objectives = [{ id: 1 }, { id: 2 }];
-                        dataContext.objectives = objectives;
-
-                        var promise = objectiveRepository.getCollection();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeResolvedWith(objectives);
-                        });
-                    });
-
-                });
-            });
-            
-            describe('getById:', function () {
-
-                it('should be function', function () {
-                    expect(objectiveRepository.getById).toBeFunction();
-                });
-
-                it('should return promise', function () {
-                    expect(objectiveRepository.getById()).toBePromise();
-                });
-
-                describe('when id is not a string', function () {
-
-                    it('should reject promise with \'Objective id (string) was expected\'', function () {
-                        var promise = objectiveRepository.getById();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejectedWith('Objective id (string) was expected');
-                        });
-                    });
-
-                    it('should not send request to server to api/objectiveExists', function () {
-                        var promise = objectiveRepository.getById();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(httpWrapper.post).not.toHaveBeenCalled();
-                        });
-                    });
-
-                });
-
-                describe('when id is a string', function () {
-                    var objectiveId = 'id';
-
-                    it('should send request to server to api/objectiveExists', function () {
-                        var promise = objectiveRepository.getById(objectiveId);
-
-                        post.resolve();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/objectiveExists', { courseId: objectiveId });
-                        });
-                    });
-
-                    describe('and request failed', function () {
-                        var reason = 'reason';
-
-                        it('should reject promise with reason', function () {
-                            var promise = objectiveRepository.getById(objectiveId);
-                            post.reject(reason);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeRejectedWith(reason);
-                            });
-                        });
-
-                    });
-
-                    describe('and request succeed', function () {
-
-                        beforeEach(function() {
-                            post.resolve();
-                        });
-
-                        describe('and when objective does not exist', function () {
-
-                            it('should reject promise with \'Objective with this id is not found\'', function () {
-                                dataContext.objectives = [];
-                                var promise = objectiveRepository.getById('');
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeRejectedWith('Objective with this id is not found');
-                                });
-                            });
-
-                        });
-
-                        describe('and when objective exists', function () {
-
-                            it('should be resolved with objective from dataContext', function () {
-                                var objective = { id: '0' };
-                                dataContext.objectives = [objective];
-
-                                var promise = objectiveRepository.getById('0');
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeResolvedWith(objective);
-                                });
-                            });
-
-                        });
-
-                    });
-
-                });
-
-            });
-
-            describe('addObjective:', function () {
-
-                it('should be function', function () {
-                    expect(objectiveRepository.addObjective).toBeFunction();
-                });
-
-                it('should return promise', function () {
-                    expect(objectiveRepository.addObjective()).toBePromise();
-                });
-
-                describe('when objective data is not an object', function () {
-
-                    it('should reject promise', function () {
-                        var promise = objectiveRepository.addObjective();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejectedWith('Objective data is not an object');
-                        });
-                    });
-
-                });
-
-                describe('when objective data is an object', function () {
-
-                    it('should send request to server to api/objective/create', function () {
-                        var objective = {};
-                        var promise = objectiveRepository.addObjective(objective);
-
-                        post.reject();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/create', objective);
-                        });
-                    });
-
-                    describe('and request to server was not successful', function () {
-
-                        it('should reject promise', function () {
-                            var reason = 'reason';
-                            var promise = objectiveRepository.addObjective({});
-
-                            post.reject(reason);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeRejectedWith(reason);
-                            });
-                        });
-
-                    });
-
-                    describe('and request to server was successful', function () {
-
-                        describe('and response is not an object', function () {
-
-                            it('should reject promise', function () {
-                                var promise = objectiveRepository.addObjective({});
-
-                                post.resolve();
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeRejectedWith('Response is not an object');
-                                });
-                            });
-
-                        });
-
-                        describe('and response does not have an id of created objective', function () {
-
-                            it('should reject promise', function () {
-                                var promise = objectiveRepository.addObjective({});
-
-                                post.resolve({ CreatedOn: '' });
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeRejectedWith('Objective Id is not a string');
-                                });
-                            });
-
-                        });
-
-                        describe('and response does not have an objective creation date', function () {
-
-                            it('should reject promise', function () {
-                                var promise = objectiveRepository.addObjective({});
-
-                                post.resolve({ Id: '' });
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeRejectedWith('Objective creation date is not a string');
-                                });
-                            });
-
-                        });
-
-                        describe('and response has id and creation date', function () {
-
-                            var objectiveTitle = 'objectiveTitle';
-                            var response = {
-                                Id: 'objectiveId',
-                                CreatedOn: "/Date(1378106938845)/"
-                            };
-
-                            beforeEach(function () {
-                                dataContext.objectives = [];
-                                post.resolve(response);
-                            });
-
-                            it('should resolve promise with objective', function () {
-                                var promise = objectiveRepository.addObjective({});
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    var createdObjective = promise.inspect().value;
-                                    expect(createdObjective.id).toEqual(response.Id);
-                                    expect(createdObjective.createdOn).toEqual(new Date(response.CreatedOn));
-                                });
-                            });
-
-                            it('should add objective to dataContext', function () {
-                                var promise = objectiveRepository.addObjective({ title: objectiveTitle });
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(dataContext.objectives.length).toEqual(1);
-                                    expect(dataContext.objectives[0]).toEqual(new ObjectiveModel({
-                                        id: response.Id,
-                                        title: objectiveTitle,
-                                        image: constants.defaultObjectiveImage,
-                                        createdOn: new Date(response.CreatedOn),
-                                        modifiedOn: new Date(response.CreatedOn),
-                                        questions: []
-                                    }));
-                                });
-                            });
-
-                        });
-
-                    });
-
-                });
-
-            });
-
-            describe("updateObjective:", function () {
-
-                it('should be function', function () {
-                    expect(objectiveRepository.updateObjective).toBeFunction();
-                });
-
-                it('should return promise', function () {
-                    expect(objectiveRepository.updateObjective()).toBePromise();
-                });
-
-                describe('when objective is not an object', function () {
-
-                    it('should reject promise', function () {
-                        var promise = objectiveRepository.updateObjective();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejectedWith('Objective data has invalid format');
-                        });
-                    });
-
-                });
-
-                describe('when objective id is not a string', function () {
-
-                    it('should reject promise', function () {
-                        var promise = objectiveRepository.updateObjective({ id: function () { }, title: '' });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejected('Objective data has invalid format');
-                        });
-                    });
-
-                });
-
-                describe('when objective title is not a string', function () {
-
-                    it('should reject promise', function () {
-                        var promise = objectiveRepository.updateObjective({ id: '', title: function () { } });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejected('Objective data has invalid format');
-                        });
-                    });
-
-                });
-
-                describe('when objective data has id and title', function () {
-
-                    it('should send request to server to api/objective/update', function () {
-                        var objective = { id: '', title: '', createdOn: '' };
-
-                        httpWrapper.post.reset();
-                        var promise = objectiveRepository.updateObjective(objective);
-
-                        post.reject();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/update', {
-                                objectiveId: objective.id,
-                                title: objective.title
-                            });
-                        });
-                    });
-
-                    describe('and request to server was not successful', function () {
-
-                        var objective = { id: 'objectiveId', title: 'objectiveTitle' };
-
-                        it('should reject promise', function () {
-                            var reason = 'reason';
-                            var promise = objectiveRepository.updateObjective(objective);
-
-                            post.reject(reason);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeRejectedWith(reason);
-                            });
-                        });
-
-                    });
-
-                    describe('and request to server was successful', function () {
-
-                        var objective = { id: 'objectiveId', title: 'objectiveTitle' };
-
-                        describe('and response is not an object', function () {
-
-                            it('should reject promise', function () {
-                                var promise = objectiveRepository.updateObjective(objective);
-
-                                post.resolve();
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeRejectedWith('Response is not an object');
-                                });
-                            });
-
-                        });
-
-                        describe('and response does not have objective modification date', function () {
-
-                            it('should reject promise', function () {
-                                var promise = objectiveRepository.updateObjective(objective);
-
-                                post.resolve({});
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeRejectedWith('Response does not have modification date');
-                                });
-                            });
-
-                        });
-
-                        describe('and response has modification date', function () {
-
-                            var response = { ModifiedOn: "/Date(1378106938845)/" };
-
-                            beforeEach(function () {
-                                post.resolve(response);
-                            });
-
-                            describe('and objective does not exist in dataContext', function () {
-
-                                beforeEach(function () {
-                                    dataContext.objectives = [];
-                                });
-
-                                it('should reject promise', function () {
-                                    var promise = objectiveRepository.updateObjective(objective);
-
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(promise).toBeRejectedWith('Objective does not exist in dataContext');
-                                    });
-                                });
-
-                            });
-
-                            describe('and objective exists in dataContext', function () {
-
-                                beforeEach(function () {
-                                    dataContext.objectives = [{ id: objective.id, title: 'objective title' }];
-                                });
-
-                                it('should update title and modification date', function () {
-                                    var promise = objectiveRepository.updateObjective(objective);
-
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(dataContext.objectives.length).toEqual(1);
-                                        expect(dataContext.objectives[0].title).toEqual(objective.title);
-                                        expect(dataContext.objectives[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
-                                    });
-                                });
-
-                                it('should resolve promise with modification date', function () {
-                                    var promise = objectiveRepository.updateObjective(objective);
-
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(promise).toBeResolvedWith(new Date(response.ModifiedOn));
-                                    });
-                                });
-
-                                it('should trigger event \'objective:titleUpdated\'', function () {
-                                    var promise = objectiveRepository.updateObjective(objective);
-
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(app.trigger).toHaveBeenCalledWith('objective:titleUpdated', dataContext.objectives[0]);
-                                    });
-                                });
-
-                            });
-
-                        });
-
-                    });
-
-                });
-
-            });
-
-            describe('removeObjective:', function () {
-
-                it('should be function', function () {
-                    expect(objectiveRepository.removeObjective).toBeFunction();
-                });
-
-                it('should return promise', function () {
-                    var result = objectiveRepository.removeObjective();
-                    expect(result).toBePromise();
-                });
-
-                describe('when objective id is not a string', function () {
-
-                    it('should reject promise', function () {
-                        var promise = objectiveRepository.removeObjective();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejected();
-                        });
-                    });
-
-                    it('should not send request to server to api/objective/delete', function () {
-                        var promise = objectiveRepository.removeObjective();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(httpWrapper.post).not.toHaveBeenCalled();
-                        });
-                    });
-
-                });
-
-                describe('when objective id is a string', function () {
-
-                    it('should send request to server to api/objective/delete', function () {
-                        var objectiveId = 'id';
-                        var promise = objectiveRepository.removeObjective(objectiveId);
-
-                        post.reject();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/delete', {
-                                objectiveId: objectiveId
-                            });
-                        });
-                    });
-
-                    describe('and request to server was not successful', function () {
-
-                        it('should reject promise', function () {
-                            var reason = 'reason';
-                            var promise = objectiveRepository.removeObjective('id');
-
-                            post.reject(reason);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeRejectedWith(reason);
-                            });
-                        });
-
-                    });
-
-
-                    describe('and request to server was successful', function () {
-
-                        it('should remove objective from dataContext', function () {
-                            var objectiveId = 'id';
-                            dataContext.objectives = [{ id: objectiveId }];
-
-                            var promise = objectiveRepository.removeObjective(objectiveId);
-
-                            post.resolve();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(dataContext.objectives.length).toEqual(0);
-                            });
-                        });
-
-                        it('should resolve promise', function () {
-                            var promise = objectiveRepository.removeObjective('id');
-
-                            post.resolve();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeResolved();
-                            });
-                        });
-
-                    });
-
-                });
-            });
-
-            describe('updateQuestionsOrder', function () {
-
-                it('should be a function', function () {
-                    expect(objectiveRepository.updateQuestionsOrder).toBeFunction();
-                });
-
-                it('should return promise', function () {
-                    var result = objectiveRepository.updateQuestionsOrder();
-                    expect(result).toBePromise();
-                });
-
-                describe('when objectiveId is not a string', function () {
-
-                    it('should reject promise', function () {
-                        var promise = objectiveRepository.updateQuestionsOrder();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejected();
-                        });
-                    });
-
-                    it('should not send request to server', function () {
-                        var promise = objectiveRepository.updateQuestionsOrder();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(httpWrapper.post).not.toHaveBeenCalled();
-                        });
-                    });
-
-                });
-
-                describe('when questions is not array', function () {
-
-                    it('should reject promise', function () {
-                        var promise = objectiveRepository.updateQuestionsOrder('objectiveId');
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejected();
-                        });
-                    });
-
-                    it('should not send request to server', function () {
-                        var promise = objectiveRepository.updateQuestionsOrder('objectiveId');
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(httpWrapper.post).not.toHaveBeenCalled();
-                        });
-                    });
-
-                });
-
-                it('should send request \'api/objective/updatequestionsorder\' to server', function () {
-                    var objectiveId = 'objectiveId',
-                        questions = [
-                            { id: '1', title: 'someTitle' },
-                            { id: '2', title: 'someTitle' }
-                        ];
-                    post.reject();
-                    var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/updatequestionsorder', {
-                            objectiveId: objectiveId,
-                            questions: ['1', '2']
-                        });
-                    });
-
-                });
-
-                describe('when request to server is failed', function () {
-
-                    it('should reject promise', function () {
-                        var objectiveId = 'objectiveId',
-                            questions = [];
-                        post.reject('reason');
-                        var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejectedWith('reason');
-                        });
-
-                    });
-
-                });
-
-                describe('when request to server is succeed', function () {
-
-                    describe('and response is not an object', function () {
-
-                        it('should reject promise', function () {
-                            var objectiveId = 'objectiveId',
-                                questions = [];
-                            post.resolve();
-                            var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeRejectedWith('Response is not an object');
-                            });
-
-                        });
-
-                    });
-
-                    describe('and response does not have modification date', function () {
-
-                        it('should reject promise', function () {
-                            var objectiveId = 'objectiveId',
-                                questions = [];
-                            post.resolve({});
-                            var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeRejectedWith('Response does not have modification date');
-                            });
-
-                        });
-
-                    });
-
-                    describe('and response has modification date', function () {
-
-                        var response = { ModifiedOn: "/Date(1378106938845)/" };
-
-                        beforeEach(function () {
-                            post.resolve(response);
-                        });
-
-                        describe('and objective does not exist in dataContext', function () {
-
-                            it('should reject promise', function () {
-                                var objectiveId = 'objectiveId',
-                                    questions = [];
-                                dataContext.objectives = [];
-                                var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeRejectedWith('Objective does not exist in dataContext');
-                                });
-                            });
-
-                        });
-
-                        describe('and objective exists in dataContext', function () {
-
-                            beforeEach(function () {
-                                dataContext.objectives = [{ id: 'objectiveId', title: 'objective title', questions: [{ id: '2' }, { id: '1' }] }];
-                            });
-
-                            it('should update order of questions for objective', function() {
-                                var objectiveId = 'objectiveId',
-                                    questions = [{ id: '1' }, { id: '2' }];
-                                var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
-                                
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(dataContext.objectives[0].questions.length).toBe(2);
-                                    expect(dataContext.objectives[0].questions[0].id).toBe('1');
-                                    expect(dataContext.objectives[0].questions[1].id).toBe('2');
-                                });
-                            });
-
-                            it('should update modification date', function () {
-                                var objectiveId = 'objectiveId',
-                                    questions = [];
-                                var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(dataContext.objectives[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
-                                });
-                            });
-
-                            it('should trigger event \'objective:questionsReordered\'', function () {
-                                var objectiveId = 'objectiveId',
-                                    questions = [];
-                                var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(app.trigger).toHaveBeenCalledWith('objective:questionsReordered', dataContext.objectives[0]);
-                                });
-                            });
-
-
-                            it('should resolve promise with modification date', function () {
-                                var objectiveId = 'objectiveId',
-                                    questions = [];
-                                var promise = objectiveRepository.updateQuestionsOrder(objectiveId, questions);
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeResolvedWith({ modifiedOn: new Date(response.ModifiedOn) });
-                                });
-                            });
-
-                        });
-
-                    });
-
                 });
 
             });
 
         });
 
-    }
+        describe('getById:', function () {
 
-);
+            it('should be function', function () {
+                expect(repository.getById).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(repository.getById()).toBePromise();
+            });
+
+            describe('when objective id is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.getById(undefined);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective id (string) was expected');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when objective id is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.getById(null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective id (string) was expected');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when objective id is not a string', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.getById({});
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective id (string) was expected');
+                        done();
+                    });
+                });
+
+            });
+
+            it('should send request to \'api/objectiveExists\'', function () {
+                var objectiveId = 'sadasda';
+                var promise = repository.getById(objectiveId);
+
+                promise.fin(function () {
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objectiveExists', { objectiveId: objectiveId });
+                    done();
+                });
+
+                post.reject('lomai menya polnostju');
+            });
+
+            describe('when objective exists on server', function () {
+
+                describe('and objective not found in repository', function () {
+
+                    it('should reject promise', function (done) {
+                        var objectiveId = 'sadasda';
+                        dataContext.objectives = [];
+
+                        var promise = repository.getById(objectiveId);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Objective with this id is not found');
+                            done();
+                        });
+
+                        post.resolve();
+                    });
+
+                });
+
+                it('should resolve promise with objective from dataContext', function (done) {
+                    var objectiveId = 'sadasda';
+                    dataContext.objectives = [{ id: objectiveId, test: 'test' }];
+
+                    var promise = repository.getById(objectiveId);
+
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith(dataContext.objectives[0]);
+                        done();
+                    });
+
+                    post.resolve();
+                });
+
+            });
+
+        });
+
+        describe('addObjective:', function () {
+
+            it('should be function', function () {
+                expect(repository.addObjective).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(repository.addObjective()).toBePromise();
+            });
+
+            describe('when objective is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.addObjective(undefined);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective data is not an object');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when objective is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.addObjective(null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective data is not an object');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when objective is not an object', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.addObjective('asdasdasd');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective data is not an object');
+                        done();
+                    });
+                });
+
+            });
+
+            it('should send request to \'api/objective/create\'', function () {
+                var objective = { test: 'test' };
+                var promise = repository.addObjective(objective);
+
+                promise.fin(function () {
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/create', objective);
+                    done();
+                });
+
+                post.reject('lomai menya polnostju');
+            });
+
+            describe('when objective successfully added on server', function () {
+
+                describe('and response is not an object', function () {
+
+                    it('should reject promise', function (done) {
+                        var objective = { test: 'test' };
+                        var promise = repository.addObjective(objective);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+
+                        post.resolve('lomai menya polnostju');
+                    });
+
+                });
+
+                describe('and response.Id is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var objective = { test: 'test' };
+                        var promise = repository.addObjective(objective);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Objective Id is not a string');
+                            done();
+                        });
+
+                        post.resolve({ CreatedOn: 'dasdasd' });
+                    });
+
+                });
+
+                describe('and response.CreatedOn is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var objective = { test: 'test' };
+                        var promise = repository.addObjective(objective);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Objective creation date is not a string');
+                            done();
+                        });
+
+                        post.resolve({ Id: 'dasdasd' });
+                    });
+
+                });
+
+                it('should add objective to dataContext', function (done) {
+                    var objective = { test: 'test', title: 'asdasdasdhfghfgh' },
+                        objectiveId = 'dasdasd',
+                        createdOn = new Date();
+
+                    dataContext.objectives = [];
+
+                    var promise = repository.addObjective(objective);
+
+                    promise.fin(function () {
+                        expect(dataContext.objectives.length).toEqual(1);
+                        expect(dataContext.objectives[0].id).toEqual(objectiveId);
+                        expect(dataContext.objectives[0].title).toEqual(objective.title);
+                        expect(dataContext.objectives[0].image).toEqual(constants.defaultObjectiveImage);
+                        expect(dataContext.objectives[0].createdOn).toEqual(createdOn);
+                        expect(dataContext.objectives[0].modifiedOn).toEqual(createdOn);
+                        done();
+                    });
+
+                    post.resolve({ Id: objectiveId, CreatedOn: createdOn.toISOString() });
+                });
+
+                it('should resolve promise with received data', function (done) {
+                    var objective = { test: 'test', title: 'asdasdasdhfghfgh' },
+                        objectiveId = 'dasdasd',
+                        createdOn = new Date();
+
+                    dataContext.objectives = [];
+
+                    var promise = repository.addObjective(objective);
+
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith({ id: objectiveId, createdOn: createdOn.toISOString() })
+                        done();
+                    });
+
+                    post.resolve({ Id: objectiveId, CreatedOn: createdOn.toISOString() });
+                });
+
+            });
+
+        });
+
+        describe('updateObjective:', function () {
+
+            it('should be function', function () {
+                expect(repository.updateObjective).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(repository.updateObjective()).toBePromise();
+            });
+
+            describe('when objective is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateObjective(undefined);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective data has invalid format');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when objective is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateObjective(null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective data has invalid format');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when objective is not an object', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateObjective('asdasdasd');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective data has invalid format');
+                        done();
+                    });
+                });
+
+            });
+
+            it('should send request to \'api/objective/update\'', function (done) {
+                var obj = { id: 'asdadasd', title: 'asdasdadsasdas' };
+
+                var promise = repository.updateObjective(obj);
+
+                promise.fin(function () {
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/update', { objectiveId: obj.id, title: obj.title });
+                    done();
+                });
+
+                post.reject('lomai menya polnostju');
+            });
+
+            describe('when objective successfully updaed on server', function () {
+
+                describe('and response is not an object', function () {
+
+                    it('should reject promise', function (done) {
+                        var obj = { id: 'asdadasd', title: 'asdasdadsasdas' };
+                        var promise = repository.updateObjective(obj);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+
+                        post.resolve('lomai menya polnostju');
+                    });
+
+                });
+
+                describe('and response has no modification date', function () {
+
+                    it('should reject promise', function (done) {
+                        var obj = { id: 'asdadasd', title: 'asdasdadsasdas' };
+                        var promise = repository.updateObjective(obj);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response does not have modification date');
+                            done();
+                        });
+
+                        post.resolve({});
+                    });
+
+                });
+
+                describe('and objective not found in dataContext', function () {
+
+                    it('should reject promise', function (done) {
+                        var obj = { id: 'asdadasd', title: 'asdasdadsasdas' },
+                            modifiedOn = new Date();
+
+                        dataContext.objectives = [];
+
+                        var promise = repository.updateObjective(obj);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Objective does not exist in dataContext');
+                            done();
+                        });
+
+                        post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                    });
+
+                });
+
+                it('should update objective in dataContext', function (done) {
+                    var obj = { id: 'asdadasd', title: 'asdasdadsasdas' },
+                        modifiedOn = new Date();
+
+                    dataContext.objectives = [{ id: obj.id, title: '', modifiedOn: '' }];
+
+                    var promise = repository.updateObjective(obj);
+
+                    promise.fin(function () {
+                        expect(dataContext.objectives[0].title).toEqual(obj.title);
+                        expect(dataContext.objectives[0].modifiedOn).toEqual(modifiedOn);
+                        done();
+                    });
+
+                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                });
+
+                it('should send objective:titleUpdated event', function (done) {
+                    var obj = { id: 'asdadasd', title: 'asdasdadsasdas' },
+                        modifiedOn = new Date();
+
+                    dataContext.objectives = [{ id: obj.id, title: '', modifiedOn: '' }];
+
+                    var promise = repository.updateObjective(obj);
+
+                    promise.fin(function () {
+                        expect(app.trigger).toHaveBeenCalledWith('objective:titleUpdated', dataContext.objectives[0]);
+                        done();
+                    });
+
+                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                });
+
+                it('should resolve promise with modification date', function (done) {
+                    var obj = { id: 'asdadasd', title: 'asdasdadsasdas' },
+                        modifiedOn = new Date();
+
+                    dataContext.objectives = [{ id: obj.id, title: '', modifiedOn: '' }];
+
+                    var promise = repository.updateObjective(obj);
+
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith(modifiedOn);
+                        done();
+                    });
+
+                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                });
+
+            });
+
+        });
+
+        describe('removeObjective:', function () {
+
+            it('should be function', function () {
+                expect(repository.removeObjective).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(repository.removeObjective()).toBePromise();
+            });
+
+            describe('when objective is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.removeObjective(undefined);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective id was expected');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when objective is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.removeObjective(null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective id was expected');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when objective is not a string', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.removeObjective({});
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective id was expected');
+                        done();
+                    });
+                });
+
+            });
+
+            it('should send request to \'api/objective/delete\'', function (done) {
+                var objectiveId = 'asdadsasdasd';
+                var promise = repository.removeObjective(objectiveId);
+
+                promise.fin(function () {
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/delete', { objectiveId: objectiveId });
+                    done();
+                });
+
+                post.reject('lomai menya polnostju');
+            });
+
+            describe('when objective successfully deleted from server', function () {
+
+                it('should remove objective from dataContext', function (done) {
+                    var objectiveId = 'asdadsasdasd';
+                    dataContext.objectives = [{ id: objectiveId }];
+
+                    var promise = repository.removeObjective(objectiveId);
+
+                    promise.fin(function () {
+                        expect(dataContext.objectives.length).toEqual(0);
+                        done();
+                    });
+
+                    post.resolve();
+                });
+
+            });
+
+        });
+
+        describe('updateQuestionsOrder:', function () {
+
+            it('should be function', function () {
+                expect(repository.updateQuestionsOrder).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(repository.updateQuestionsOrder()).toBePromise();
+            });
+
+
+            describe('when objective is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateQuestionsOrder(undefined, []);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective id (string) was expected');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when objective is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateQuestionsOrder(null, []);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective id (string) was expected');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when objective is not a string', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateQuestionsOrder({}, []);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective id (string) was expected');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when questions undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateQuestionsOrder('asdadads', undefined);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Questions is not array');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when questions null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateQuestionsOrder('asdadads', null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Questions is not array');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when questions is not an array', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateQuestionsOrder('asdadads', {});
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Questions is not array');
+                        done();
+                    });
+                });
+
+            });
+
+            it('should send request to \'api/objective/updatequestionsorder\'', function (done) {
+                var objectiveId = 'dfhsfgsfgh',
+                    questionId = 'asdasdasd';
+
+                var promise = repository.updateQuestionsOrder(objectiveId, [{ id: questionId }]);
+
+                promise.fin(function () {
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/updatequestionsorder', { objectiveId: objectiveId, questions: [questionId] });
+                    done();
+                });
+
+                post.reject('lomai menya polnostju');
+            });
+
+            describe('when questions order successfully updated on server', function () {
+
+                describe('and response is not an object', function () {
+
+                    it('should reject promise', function (done) {
+                        var objectiveId = 'dfhsfgsfgh',
+                            questionId = 'asdasdasd';
+
+                        var promise = repository.updateQuestionsOrder(objectiveId, [{ id: questionId }]);
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+
+                        post.resolve('lomai menya polnostju');
+                    });
+
+                });
+
+                describe('and response has no modification date', function () {
+
+                    it('should reject promise', function (done) {
+                        var objectiveId = 'dfhsfgsfgh',
+                            questionId = 'asdasdasd';
+
+                        var promise = repository.updateQuestionsOrder(objectiveId, [{ id: questionId }]);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response does not have modification date');
+                            done();
+                        });
+
+                        post.resolve({});
+                    });
+
+                });
+
+                describe('and objective not found in dataContext', function () {
+
+                    it('should reject promise', function (done) {
+                        var objectiveId = 'dfhsfgsfgh',
+                            questionId = 'asdasdasd',
+                            modifiedOn = new Date();
+
+                        dataContext.objectives = [];
+
+                        var promise = repository.updateQuestionsOrder(objectiveId, [{ id: questionId }]);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Objective does not exist in dataContext');
+                            done();
+                        });
+
+                        post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                    });
+
+                });
+
+                it('should update objective in dataContext', function (done) {
+                    var objectiveId = 'dfhsfgsfgh',
+                        questionId1 = 'asdasdasd',
+                        questionId2 = 'asdasdasd2',
+                        modifiedOn = new Date();
+
+                    dataContext.objectives = [{ id: objectiveId, questions: [{ id: questionId2 }, { id: questionId1 }] }];
+
+                    var promise = repository.updateQuestionsOrder(objectiveId, [{ id: questionId1 }, { id: questionId2 }]);
+
+                    promise.fin(function () {
+                        expect(dataContext.objectives[0].questions[0].id).toEqual(questionId1);
+                        expect(dataContext.objectives[0].questions[1].id).toEqual(questionId2);
+                        done();
+                    });
+
+                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                });
+
+                it('should trigger objective:questionsReordered event', function (done) {
+                    var objectiveId = 'dfhsfgsfgh',
+                        questionId1 = 'asdasdasd',
+                        questionId2 = 'asdasdasd2',
+                        modifiedOn = new Date();
+
+                    dataContext.objectives = [{ id: objectiveId, questions: [{ id: questionId2 }, { id: questionId1 }] }];
+
+                    var promise = repository.updateQuestionsOrder(objectiveId, [{ id: questionId1 }, { id: questionId2 }]);
+
+                    promise.fin(function () {
+                        expect(app.trigger).toHaveBeenCalledWith('objective:questionsReordered', dataContext.objectives[0]);
+                        done();
+                    });
+
+                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                });
+
+                it('should resolve promise with modification date', function (done) {
+                    var objectiveId = 'dfhsfgsfgh',
+                        questionId1 = 'asdasdasd',
+                        questionId2 = 'asdasdasd2',
+                        modifiedOn = new Date();
+
+                    dataContext.objectives = [{ id: objectiveId, questions: [{ id: questionId2 }, { id: questionId1 }] }];
+
+                    var promise = repository.updateQuestionsOrder(objectiveId, [{ id: questionId1 }, { id: questionId2 }]);
+
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith({ modifiedOn: modifiedOn });
+                    done();
+                });
+
+                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+            });
+
+        });
+
+    });
+
+});
+
+});

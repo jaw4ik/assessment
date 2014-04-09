@@ -45,6 +45,7 @@
         'repositories/commentRepository.spec',
         'repositories/courseRepository.spec',
         'repositories/learningContentRepository.spec',
+        'repositories/objectiveRepository.spec',
 
         /* UNSORTED SPECS */
 
@@ -80,7 +81,6 @@
 
         /* NOT MIGRATED SPECS */
        /*
-       'repositories/objectiveRepository.spec',
        'repositories/questionRepository.spec',
        'repositories/templateRepository.spec',
 
