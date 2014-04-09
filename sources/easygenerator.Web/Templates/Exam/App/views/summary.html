@@ -37,6 +37,9 @@
                         <div class="progressbar-block">
                             <div class="progressbar-bg-line"></div>
                             <div class="progressbar-score-line" data-bind="style: { width: score + '%', display: score < 1 ? 'none' : 'block' }"></div>
+                            <div class="progressbar-masteryscore-indicator" data-bind="style: { left: $parent.masteryScore + '%' }">
+                                <div class="progressbar-masteryscore-indicator-value"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,8 @@
-﻿define(['durandal/app', 'plugins/router', 'context', 'eventManager', 'windowOperations', 'repositories/courseRepository'],
-    function (app, router, context, eventManager, windowOperations, repository) {
+﻿define(['durandal/app', 'plugins/router', 'context', 'eventManager', 'windowOperations', 'repositories/courseRepository', 'modules/courseSettings'],
+    function (app, router, context, eventManager, windowOperations, repository, courseSettings) {
         var objectives = [],
             overallScore = 0,
+            masteryScore = 0,
 
             statuses = {
                 readyToFinish: 'readyToFinish',
@@ -33,6 +34,7 @@
                 course.calculateScore();
 
                 this.overallScore = course.score;
+                this.masteryScore = courseSettings.masteryScore.score;
                 this.objectives = _.map(course.objectives, function (item) {
                     return {
                         id: item.id,
@@ -52,6 +54,7 @@
 
             objectives: objectives,
             overallScore: overallScore,
+            masteryScore: masteryScore,
             courseTitle: context.title,
             finish: finish,
             status: status,

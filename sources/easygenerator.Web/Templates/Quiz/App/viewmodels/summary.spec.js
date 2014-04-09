@@ -5,6 +5,7 @@
         viewModel = require('viewmodels/summary'),
         router = require('plugins/router'),
         windowOperations = require('windowOperations'),
+        courseSettings = require('modules/courseSettings'),
         repository = require('repositories/courseRepository');
 
     describe('viewModel [summary]', function () {
@@ -22,6 +23,18 @@
 
         it('should be defined', function () {
             expect(viewModel).toBeDefined();
+        });
+
+        describe('overallScore:', function () {
+            it('should be defined', function () {
+                expect(viewModel.overallScore).toBeDefined();
+            });
+        });
+
+        describe('masteryScore:', function () {
+            it('should be defined', function () {
+                expect(viewModel.masteryScore).toBeDefined();
+            });
         });
 
         describe('canActivate:', function () {
@@ -97,6 +110,14 @@
 
                     viewModel.activate();
                     expect(viewModel.overallScore).toBe(55);
+                });
+
+                it('should set masteryScore', function () {
+                    viewModel.masteryScore = 0;
+                    courseSettings.masteryScore = { score: 55 };
+
+                    viewModel.activate();
+                    expect(viewModel.masteryScore).toBe(55);
                 });
 
                 it('should map objectives collection', function () {

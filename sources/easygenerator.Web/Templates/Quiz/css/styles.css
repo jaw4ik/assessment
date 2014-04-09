@@ -803,6 +803,22 @@ body {
     box-shadow: 0 1px 1px rgba(234, 243, 197, 1) inset;
 }
 
+
+.progressbar-masteryscore-indicator {
+    position: absolute;
+    top: -3px;
+    margin-left: -4px;
+    height: 16px;
+    width: 8px;
+}
+
+.progressbar-masteryscore-indicator-value {
+    margin: 0 auto;
+    height: 100%;
+    width: 2px;
+    background-color: rgb(128,128,128);
+}
+
 .summary-btn-holder {
     width: 100%;
     padding-top: 25px;
