@@ -274,8 +274,17 @@
     upgradeNowBtn: {
         en: 'Upgrade now'
     },
-    limitCoursesInformerText: {
-        en: '<span class=\"bold\">Starter user</span> is able to have not more than <span class=\"bold\">10</span> courses at once'
+    limitCoursesInformerTextForStarter: {
+        en: '<span class=\"bold\">Starter user</span> is able to have not more than'
+    },
+    limitCoursesInformerTextForFreeUser: {
+        en: '<span class=\"bold\">Free user</span> is able to have not more than'
+    },
+    limitCoursesInformerTextEnd: {
+        en: 'courses at once.'
+    },
+    upgradeToNextPlanToCreateMoreCoursesErrorMessage: {
+        en: 'Please upgrade your account to next plan to be able to create more courses.'
     },
     /* End resource section for model Courses */
     

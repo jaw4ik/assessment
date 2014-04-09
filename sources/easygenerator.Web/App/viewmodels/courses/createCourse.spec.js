@@ -3,12 +3,14 @@
 
     var
         router = require('plugins/router'),
+        userContext = require('userContext'),
         eventTracker = require('eventTracker'),
         uiLocker = require('uiLocker'),
         repository = require('repositories/courseRepository'),
         templateRepository = require('repositories/templateRepository'),
         localizationManager = require('localization/localizationManager'),
-        BackButton = require('models/backButton')
+        BackButton = require('models/backButton'),
+        limitCoursesAmount = require('authorization/limitCoursesAmount')
     ;
 
     describe('viewModel [createCourse]', function () {
@@ -332,7 +334,33 @@
 
         });
 
+        describe('isAvailable:', function () {
+
+            it('should be boolean', function () {
+                expect(viewModel.isAvailable).toBeTruthy();
+            });
+
+        });
+
+        describe('hasStarterAccess:', function () {
+
+            it('should be boolean', function () {
+                expect(viewModel.hasStarterAccess).toBeTruthy();
+            });
+
+        });
+        
         describe('activate:', function () {
+
+            var identifyUserDeferred, getTemplatesDeferred;
+
+            beforeEach(function () {
+                identifyUserDeferred = Q.defer();
+                getTemplatesDeferred = Q.defer();
+                
+                spyOn(userContext, 'identify').and.returnValue(identifyUserDeferred.promise);
+                spyOn(templateRepository, 'getCollection').and.returnValue(getTemplatesDeferred.promise);
+            });
 
             it('should be function', function () {
                 expect(viewModel.activate).toBeFunction();
@@ -349,24 +377,60 @@
                 expect(viewModel.title()).toBe('');
             });
 
-            var getTemplatesDeferred, getTemplatesPromise;
+            it('should identify user', function (done) {
+               
+                identifyUserDeferred.resolve();
+                getTemplatesDeferred.resolve([]);
 
-            beforeEach(function () {
-                getTemplatesDeferred = Q.defer();
-
-                spyOn(templateRepository, 'getCollection').and.returnValue(getTemplatesDeferred.promise);
-                getTemplatesPromise = getTemplatesDeferred.promise.fin(function () { });
+                viewModel.activate().fin(function () {
+                    expect(userContext.identify).toHaveBeenCalled();
+                    done();
+                });
             });
 
-            it('should get templates from repository', function (done) {
+            describe('when user identified successfully', function () {
+
+                beforeEach(function () {
+                    identifyUserDeferred.resolve();
+                    getTemplatesDeferred.resolve([]);
+                });
+
+                it('should set isAvailable', function (done) {
+                    spyOn(limitCoursesAmount, 'checkAccess').and.returnValue(false);
+
+                    viewModel.activate().fin(function () {
+                        expect(viewModel.isAvailable).toBe(limitCoursesAmount.checkAccess());
+                        done();
+                    });
+                });
+
+                it('should set hasStarterAccess', function (done) {
+                    spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
+
+                    viewModel.activate().fin(function () {
+                        expect(viewModel.hasStarterAccess).toBe(userContext.hasStarterAccess());
+                        done();
+                    });
+                });
+               
+            });
+
+            it('and should get templates from repository', function (done) {
+
+                identifyUserDeferred.resolve();
                 getTemplatesDeferred.resolve([]);
+
                 viewModel.activate().fin(function () {
                     expect(templateRepository.getCollection).toHaveBeenCalled();
                     done();
                 });
             });
 
-            describe('when get templates from repository', function () {
+            describe('and when get templates from repository', function () {
+
+                beforeEach(function () {
+                    identifyUserDeferred.resolve();
+                });
 
                 describe('and when received templates successfully', function () {
                     beforeEach(function () {
@@ -473,7 +537,6 @@
                             done();
                         });
                     });
-
                 });
             });
         });

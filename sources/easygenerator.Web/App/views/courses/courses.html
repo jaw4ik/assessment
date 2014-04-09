@@ -8,7 +8,7 @@
         <div class="view-list-actions-holder">
             <div class="list-item-action create">
                 <div class="create-item-btn-wrapper">
-                    <button class="create-item-btn btn green" data-bind="click: navigateToCreation">
+                    <button class="create-item-btn btn green" data-bind="click: navigateToCreation, css:{ disabled: !isCreateCourseAvailable() }">
                         <span class="create-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
                     </button>
                     <!-- ko if: courses().length < 1 -->
@@ -19,19 +19,29 @@
                 </div>
             </div>
             <div class="list-item-action informer">
-                <div class="limit-courses-informer-wrapper" style="display: none;">
+                <!-- ko ifnot: isCreateCourseAvailable -->
+                <div class="limit-courses-informer-wrapper">
                     <div class="triangle-wrapper">
                         <div class="triangle-border"></div>
                     </div>
                     <div class="limit-courses-informer">
-                        <div class="limit-courses-informer-text" data-bind="localize: { html : 'limitCoursesInformerText' }">
-                            Starter user is able to have not more than <span class="bold">10</span> courses at once
+                        <div class="limit-courses-informer-text">
+                            <!-- ko if: hasStarterAccess -->
+                                <span data-bind="localize: { html : 'limitCoursesInformerTextForStarter' }"></span>
+                            <span class="bold" data-bind="html: coursesStarterLimit">50</span>
+                            <!-- /ko -->
+                            <!-- ko ifnot: hasStarterAccess -->
+                                <span data-bind="localize: { html : 'limitCoursesInformerTextForFreeUser' }"></span>
+                            <span class="bold" data-bind="html: coursesFreeLimit">50</span>
+                            <!-- /ko -->
+                            <span data-bind="localize: { html : 'limitCoursesInformerTextEnd' }"></span>
                         </div>
                         <div class="limit-courses-infomer-btn-holder">
-                            <a href="#" class="upgrade-user-btn btn green" data-bind="localize: { text : 'upgradeNowBtn' }">Upgrade now</a>
+                            <a href="http://www.easygenerator.com/order-now/" target="_blank" class="upgrade-user-btn btn green" data-bind="localize: { text : 'upgradeNowBtn' }">Upgrade now</a>
                         </div>
                     </div>
                 </div>
+                <!-- /ko -->
             </div>
             <div class="list-item-action delete">
                 <!-- ko if: enableDeleteCourses -->

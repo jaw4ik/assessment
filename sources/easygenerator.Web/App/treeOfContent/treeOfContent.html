@@ -11,10 +11,18 @@
                 <div class="navigation-tree-content">
                     <ul>
                         <li class="navigation-tree-node">
+                            <!-- ko if: isCreateCourseAvailable -->
                             <a class="navigation-tree-node-caption-wrapper" href="#course/create">
                                 <span class="navigation-tree-node-icon create"></span>
                                 <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createCourseTreeNodeTitle' }">Course</span>
                             </a>
+                            <!-- /ko -->
+                            <!-- ko ifnot: isCreateCourseAvailable -->
+                            <div class="navigation-tree-node-caption-wrapper disabled">
+                                <span class="navigation-tree-node-icon create locked"></span>
+                                <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createCourseTreeNodeTitle' }">Course</span>
+                            </div>
+                            <!-- /ko -->
                         </li>
                         <!-- ko foreach: children -->
                             <!-- ko compose: { model: $data, preserveContext: true }-->

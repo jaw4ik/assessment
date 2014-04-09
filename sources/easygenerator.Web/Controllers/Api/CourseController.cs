@@ -35,6 +35,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [LimitCoursesAmount]
         public ActionResult Create(string title, Template template)
         {
             var course = _entityFactory.Course(title, template, GetCurrentUsername());
@@ -82,7 +83,7 @@ namespace easygenerator.Web.Controllers.Api
             return DoPublishAction(course, () => _builder.Build(course), () => JsonSuccess(new { PackageUrl = course.PackageUrl, BuildOn = course.BuildOn }));
         }
 
-        [HttpPost, RequireStarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseScormResourceKey)]
+        [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseScormResourceKey)]
         public ActionResult ScormBuild(Course course)
         {
             return DoPublishAction(course, () => _scormCourseBuilder.Build(course), () => JsonSuccess(new { ScormPackageUrl = course.ScormPackageUrl }));
@@ -259,6 +260,7 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }
+       
         [HttpPost]
         [Route("api/course/updateobjectivesorder")]
         public ActionResult UpdateObjectivesOrderedList(Course course, ICollection<Objective> objectives)

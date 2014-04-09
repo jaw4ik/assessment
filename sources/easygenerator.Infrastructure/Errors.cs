@@ -31,5 +31,7 @@ namespace easygenerator.Infrastructure
 
         public const string UpgradeToStarterPlanToUseScormResourceKey = "upgradeToStarterPlanToUseScormErrorMessage";
         public const string UpgradeToStarterPlanToUseCommentsErrorMessage = "upgradeToStarterPlanToUseCommentsErrorMessage";
+
+        public const string UpgradeToNextPlanToCreateMoreCoursesErrorMessage = "upgradeToNextPlanToCreateMoreCoursesErrorMessage";
     }
 }

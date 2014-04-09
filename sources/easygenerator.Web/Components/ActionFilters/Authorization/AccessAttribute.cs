@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
@@ -9,8 +6,7 @@ using easygenerator.Web.Components.ActionResults;
 
 namespace easygenerator.Web.Components.ActionFilters.Authorization
 {
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    public class RequireStarterAccessAttribute : FilterAttribute, IAuthorizationFilter
+    public abstract class AccessAttribute : FilterAttribute, IAuthorizationFilter
     {
         public string ErrorMessageResourceKey { get; set; }
         public IUserRepository UserRepository { get; set; }
@@ -37,10 +33,17 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
             }
 
             var user = UserRepository.GetUserByEmail(httpContext.User.Identity.Name);
-            if (!user.HasStarterAccess())
+            if (!CheckAccess(authorizationContext, user))
             {
-                authorizationContext.Result = new ForbiddenResult(ErrorMessageResourceKey);
+                Reject(authorizationContext);
             }
+        }
+
+        protected abstract bool CheckAccess(AuthorizationContext authorizationContext, User user);
+
+        protected void Reject(AuthorizationContext authorizationContext)
+        {
+            authorizationContext.Result = new ForbiddenResult(ErrorMessageResourceKey);
         }
     }
 }

@@ -2,6 +2,7 @@
     'durandal/app',
     'plugins/router',
     'constants',
+    'authorization/limitCoursesAmount',
     'treeOfContent/handlers/treeOfContentEventHandler',
     'treeOfContent/handlers/treeOfContentAutoExpandHandler',
     'treeOfContent/handlers/treeOfContentHighlightHandler',
@@ -12,12 +13,15 @@
     'text!treeOfContent/RelatedObjectiveTreeNode.html',
     'text!treeOfContent/QuestionTreeNode.html'],
 
-    function (app, router, constants, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, courseRepository, CourseTreeNode) {
+function (app, router, constants, limitCoursesAmount, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, courseRepository, CourseTreeNode) {
 
         var viewModel = {
             children: ko.observableArray([]),
             isExpanded: ko.observable(true),
             isTreeVisible: ko.observable(true),
+            isCreateCourseAvailable: ko.observable(true),
+
+            checkLimitCoursesAmount: checkLimitCoursesAmount,
 
             expand: expand,
             collapse: collapse,
@@ -42,6 +46,12 @@
             viewModel.isTreeVisible(false);
         }
 
+        function checkLimitCoursesAmount() {
+            console.log("checkLimitCoursesAmount");
+            viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
+        }
+
+
         var self = {
             handler: treeOfContentEventHandler()
         };
@@ -60,6 +70,10 @@
         app.on('course:objectivesUnrelated', self.handler.objectivesUnrelated);
         app.on('course:objectivesReordered', self.handler.objectivesReordered);
 
+        app.on('user:identified', viewModel.checkLimitCoursesAmount);
+        app.on('course:created', viewModel.checkLimitCoursesAmount);
+        app.on('course:deleted', viewModel.checkLimitCoursesAmount);
+
         router.routeData.subscribe(function (navigationContext) {
             treeOfContentAutoExpandHandler.handle(viewModel, navigationContext).then(function () {
                 treeOfContentHighlightHandler.handle();
@@ -69,6 +83,7 @@
         return viewModel;
 
         function activate() {
+
             return courseRepository.getCollection().then(function (courses) {
 
                 var array = _.chain(courses)
@@ -84,6 +99,7 @@
 
         function compositionComplete() {
             treeOfContentHighlightHandler.handle();
+            viewModel.checkLimitCoursesAmount();
         }
 
     });

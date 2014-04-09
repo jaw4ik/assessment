@@ -182,6 +182,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\LimitCoursesAmountAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\StarterAccessAttribute.cs" />
     <Compile Include="Components\ActionResults\SslRequiredResult.cs" />
     <Compile Include="Components\Configuration\Aim4YouConfigurationSection.cs" />
     <Compile Include="Components\Configuration\ExternalApi\ApiKeyCollection.cs" />
@@ -210,6 +213,7 @@
     <Content Include="App\bootstrapping\localizationTask.js" />
     <Content Include="App\bootstrapping\knockoutBindingsTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
+    <Content Include="App\authorization\limitCoursesAmount.js" />
     <Content Include="App\models\backButton.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.spec.js">
@@ -453,7 +457,6 @@
     <Compile Include="Components\ActionFilters\ForceHttpAttribute.cs" />
     <Compile Include="Components\ActionResults\HttpStatusCodeWithMessageResult.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransform.cs" />
-    <Compile Include="Components\ActionFilters\Authorization\RequireStarterAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
     <Compile Include="Components\ActionResults\BadRequestResult.cs" />
     <Compile Include="Components\ActionResults\ForbiddenResult.cs" />
@@ -2064,6 +2067,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Components\ActionFilters\Features\" />
     <Folder Include="PublishedPackages\" />
   </ItemGroup>
   <PropertyGroup>

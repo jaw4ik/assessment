@@ -1,4 +1,4 @@
-﻿define(['constants', 'models/user'], function (constants, User) {
+﻿define(['durandal/app', 'constants', 'models/user'], function (app, constants, User) {
 
 
     var userContext = {
@@ -15,8 +15,9 @@
             type: 'POST',
             contentType: 'application/json',
             dataType: 'json'
-        })).then(function (user) {
+        })).then(function(user) {
             userContext.identity = _.isString(user.email) ? new User(user) : null;
+            app.trigger(constants.messages.user.identified, user);
         });
     }
 

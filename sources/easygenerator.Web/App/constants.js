@@ -40,6 +40,9 @@
             },
 
             messages: {
+                user: {
+                    identified: 'user:identified'
+                },
                 course: {
                     build: {
                         started: 'course:build-started',

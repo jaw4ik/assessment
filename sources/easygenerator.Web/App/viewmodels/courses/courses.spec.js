@@ -6,10 +6,12 @@
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         dataContext = require('dataContext'),
+        userContext = require('userContext'),
         CourseModel = require('models/course'),
         constants = require('constants'),
         localizationManage = require('localization/localizationManager'),
-        notify = require('notify')
+        notify = require('notify'),
+        limitCoursesAmount = require('authorization/limitCoursesAmount')
     ;
 
     var
@@ -55,6 +57,22 @@
 
         });
 
+        describe('isCreateCourseAvailable:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.isCreateCourseAvailable).toBeObservable();
+            });
+
+        });
+
+        describe('hasStarterAccess:', function () {
+
+            it('should be boolean', function () {
+                expect(viewModel.hasStarterAccess).toBeTruthy();
+            });
+
+        });
+
         describe('states:', function () {
 
             it('should be defined', function () {
@@ -73,12 +91,27 @@
 
         describe('activate:', function () {
 
+            var identifyUserDeferred;
+
+            beforeEach(function () {
+                
+                dataContext.courses = courses;
+
+                identifyUserDeferred = Q.defer();
+
+                spyOn(userContext, 'identify').and.returnValue(identifyUserDeferred.promise);
+            });
+
+            it('should return promise', function () {
+                var result = viewModel.activate();
+                expect(result).toBePromise();
+            });
+
             it('should be a function', function () {
                 expect(viewModel.activate).toBeFunction();
             });
 
             it('should take data from dataContext', function () {
-                dataContext.courses = courses;
                 viewModel.activate();
                 expect(viewModel.courses().length).toEqual(3);
             });
@@ -87,6 +120,52 @@
                 viewModel.currentLanguage = null;
                 viewModel.activate();
                 expect(viewModel.currentLanguage).toBe(localizationManage.currentLanguage);
+            });
+
+            it('should identify user', function (done) {
+
+                identifyUserDeferred.resolve();
+
+                viewModel.activate().fin(function () {
+                    expect(userContext.identify).toHaveBeenCalled();
+                    done();
+                });
+            });
+
+            describe('when user identified successfully', function () {
+
+                beforeEach(function () {
+                    identifyUserDeferred.resolve();
+                });
+
+                it('should subscribe on courses array change', function () {
+                    spyOn(viewModel.courses, 'subscribe');
+
+                    viewModel.activate().fin(function () {
+                        expect(viewModel.courses.subscribe).toHaveBeenCalled();
+                        done();
+                    });
+
+                });
+
+                it('should set isCreateCourseAvailable', function (done) {
+                    spyOn(limitCoursesAmount, 'checkAccess').and.returnValue(false);
+
+                    viewModel.activate().fin(function () {
+                        expect(viewModel.isCreateCourseAvailable()).toBe(limitCoursesAmount.checkAccess());
+                        done();
+                    });
+                });
+
+                it('should set hasStarterAccess', function (done) {
+                    spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
+
+                    viewModel.activate().fin(function () {
+                        expect(viewModel.hasStarterAccess).toBe(userContext.hasStarterAccess());
+                        done();
+                    });
+                });
+
             });
 
             describe('when previous showStatus is not set', function () {
@@ -839,7 +918,7 @@
                     courseVm = {
                         id: 'courseId',
                         packageUrl: ko.observable('packageUrl'),
-                        publishingState: ko.observable(constants.publishingStates.inProgress),
+                        publishingState: ko.observable(constants.publishingStates.inProgress)
                     };
                     viewModel.courses([courseVm]);
                 });
@@ -952,7 +1031,7 @@
                     courseVm = {
                         id: 'courseId',
                         publishedPackageUrl: ko.observable('packageUrl'),
-                        publishingState: ko.observable(constants.publishingStates.inProgress),
+                        publishingState: ko.observable(constants.publishingStates.inProgress)
                     };
                     viewModel.courses([courseVm]);
                 });

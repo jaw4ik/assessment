@@ -598,7 +598,7 @@ span.top-navigation-item.current {
     display: table-cell;
     padding: 6px 0;
     padding-left: 40px;
-    padding-right: 10px;
+    padding-right: 5px;
     color: #917f5d;
     font-size: 13px;
 }

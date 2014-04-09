@@ -1,5 +1,5 @@
-﻿define(['repositories/courseRepository', 'repositories/templateRepository', 'plugins/router', 'constants', 'eventTracker', 'uiLocker', 'localization/localizationManager', 'models/backButton'],
-    function (repository, templateRepository, router, constants, eventTracker, uiLocker, localizationManager, BackButton) {
+﻿define(['repositories/courseRepository', 'repositories/templateRepository', 'plugins/router', 'userContext', 'constants', 'eventTracker', 'uiLocker', 'localization/localizationManager', 'models/backButton', 'authorization/limitCoursesAmount'],
+function (repository, templateRepository, router, userContext, constants, eventTracker, uiLocker, localizationManager, BackButton, limitCoursesAmount) {
 
         var
             events = {
@@ -85,17 +85,24 @@
                 };
             },
 
-            activate = function () {
+            isAvailable = true,
+            hasStarterAccess = true,
 
+            activate = function () {
                 this.title('');
 
                 var that = this;
-                return templateRepository.getCollection().then(function (templatesResponse) {
-                    that.templates(_.chain(templatesResponse)
-                        .map(mapTemplate)
-                        .sortBy(function (item) {
-                            return item.name.toLowerCase();
+                return userContext.identify().then(function () {
+                    that.isAvailable = limitCoursesAmount.checkAccess();
+                    that.hasStarterAccess = userContext.hasStarterAccess();
+
+                    return templateRepository.getCollection().then(function(templatesResponse) {
+                        that.templates(_.chain(templatesResponse)
+                            .map(mapTemplate)
+                            .sortBy(function(item) {
+                                return item.name.toLowerCase();
                         }).value());
+                    });
                 });
             };
 
@@ -111,6 +118,11 @@
             templates: templates,
             courseTitleMaxLength: constants.validation.courseTitleMaxLength,
             isFormFilled: isFormFilled,
+            isAvailable: isAvailable,
+            hasStarterAccess: hasStarterAccess,
+
+            coursesFreeLimit: limitCoursesAmount.getFreeLimit(),
+            coursesStarterLimit: limitCoursesAmount.getStarterLimit(),
 
             backButtonData: new BackButton({
                 url: 'courses',

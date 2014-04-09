@@ -1,20 +1,31 @@
 ﻿<section id="createCourse" class="view-module create-course">
-    <div class="view-locker" style="display: none;">
+    <!-- ko ifnot: isAvailable-->
+    <div class="view-locker">
         <div class="view-locker-text-aligner">
             <p>
-                <span class="view-locker-text" data-bind="localize: { html :'limitCoursesInformerText' }">ad</span>
+                <span class="view-locker-text" >
+                    <!-- ko if: hasStarterAccess -->
+                        <span data-bind="localize: { html : 'limitCoursesInformerTextForStarter' }"></span>
+                        <span class="bold" data-bind="text: coursesStarterLimit">50</span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: hasStarterAccess -->
+                        <span data-bind="localize: { html : 'limitCoursesInformerTextForFreeUser' }"></span>
+                        <span class="bold" data-bind="text: coursesFreeLimit">10</span>
+                    <!-- /ko -->
+                    <span data-bind="localize: { html : 'limitCoursesInformerTextEnd' }"></span>
+                </span>
             </p>
-            <a href="#" class="upgrade-user-btn btn green" data-bind="localize: { text : 'upgradeNowBtn' }">Upgrade now</a>
+            <a href="http://www.easygenerator.com/order-now/" target="_blank" class="upgrade-user-btn btn green" data-bind="localize: { text : 'upgradeNowBtn' }">Upgrade now</a>
         </div>
     </div>
+    <!-- /ko -->
     <div class="content-holder">
         <div class="page-view-caption clearfix">
             <div class="page-view-caption-text" data-bind="localize: { text: 'createCourseViewCaption' }">Create course</div>
         </div>
     </div>
-
+ 
     <div class="content-holder">
-
         <form class="form-create">
             <div class="form-create-title">
                 <div class="form-create-title-circle blue number">

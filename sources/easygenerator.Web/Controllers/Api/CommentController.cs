@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
-using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Extensions;
 
@@ -38,7 +34,7 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(true);
         }
 
-        [HttpPost, RequireStarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseCommentsErrorMessage)]
+        [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseCommentsErrorMessage)]
         [Route("api/comments")]
         public ActionResult GetComments(Course course)
         {

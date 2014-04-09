@@ -1,10 +1,10 @@
 ﻿define(['userContext'], function (userContext) {
 
+
     describe('[userContext]', function () {
 
-        var
-            constants = require('constants')
-        ;
+        var app = require('durandal/app'),
+            constants = require('constants');
 
         it('should be object', function () {
             expect(userContext).toBeObject();
@@ -85,6 +85,17 @@
                 promise.fin(function () {
                     expect(promise).toBeResolved();
                     done();
+                }).done();
+            });
+
+            it('should trigger event', function (done) {
+                spyOn(app, 'trigger');
+                ajax.resolve({});
+
+                var promise = userContext.identify();
+                promise.fin(function () {
+                    done();
+                    expect(app.trigger()).toHaveBeenCalledWith(constants.messages.user.identified);
                 }).done();
             });
 

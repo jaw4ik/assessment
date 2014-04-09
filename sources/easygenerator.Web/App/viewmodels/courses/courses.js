@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 'dom'],
-    function (app, dataContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, dom) {
+﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 'dom', 'authorization/limitCoursesAmount'],
+    function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, dom, limitCoursesAmount) {
         "use strict";
 
         var
@@ -30,7 +30,7 @@
             states: constants.publishingStates,
             downloadCourse: downloadCourse,
             enableOpenCourse: enableOpenCourse,
-            
+
             publishCourse: publishCourse,
             openPublishedCourse: openPublishedCourse,
 
@@ -39,7 +39,14 @@
             currentLanguage: '',
 
             activate: activate,
-            deactivate: deactivate
+            deactivate: deactivate,
+
+            isCreateCourseAvailable: ko.observable(true),
+
+            hasStarterAccess: true,
+
+            coursesFreeLimit: limitCoursesAmount.getFreeLimit(),
+            coursesStarterLimit: limitCoursesAmount.getStarterLimit()
         };
 
         viewModel.enableDeleteCourses = ko.computed(function () {
@@ -119,8 +126,10 @@
         }
 
         function navigateToCreation() {
-            eventTracker.publish(events.navigateToCreateCourse);
-            router.navigate('course/create');
+            if (viewModel.isCreateCourseAvailable()) {
+                eventTracker.publish(events.navigateToCreateCourse);
+                router.navigate('course/create');
+            }
         }
 
         function navigateToDetails(course) {
@@ -208,6 +217,7 @@
         }
 
         function activate() {
+
             var sortedCourses = _.sortBy(dataContext.courses, function (course) {
                 return -course.createdOn;
             });
@@ -242,6 +252,14 @@
                 
                 return course;
             }));
+
+            return userContext.identify().then(function() {
+                viewModel.courses.subscribe(function() {
+                    viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
+                });
+                viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
+                viewModel.hasStarterAccess = userContext.hasStarterAccess();
+            });
         }
 
         function deactivate() {
