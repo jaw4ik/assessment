@@ -15,8 +15,8 @@
                 endEditText: 'Event \'End edit text\''
             },
             repository = {
-                updateContent: function() {
-                    return Q.fcall(function() { });
+                updateContent: function () {
+                    return Q.fcall(function () { });
                 }
             };
 
@@ -83,10 +83,10 @@
                 });
             });
         });
-        
+
         describe('beginEditText:', function () {
 
-            beforeEach(function() {
+            beforeEach(function () {
                 viewModel = ctor(null, events);
             });
 
@@ -99,7 +99,7 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith(events.beginEditText);
             });
         });
-        
+
         describe('endEditText:', function () {
 
             beforeEach(function () {
@@ -148,7 +148,7 @@
                 expect(viewModel.hasFocus()).toBe(true);
             });
         });
-        
+
         describe('isExpanded:', function () {
 
             beforeEach(function () {
@@ -160,19 +160,19 @@
             });
 
             describe('when contructor takes true', function () {
-                
+
                 beforeEach(function () {
                     viewModel = ctor([], events, true);
                 });
-                
+
                 it('should be true', function () {
                     expect(viewModel.isExpanded()).toBeTruthy();
                 });
-                
+
             });
 
             describe('when contructor takes false', function () {
-                
+
                 beforeEach(function () {
                     viewModel = ctor([], events, false);
                 });
@@ -214,7 +214,7 @@
             });
 
         });
-        
+
         describe('isContentDefined:', function () {
 
             beforeEach(function () {
@@ -251,15 +251,15 @@
 
             beforeEach(function () {
                 updateTextDefer = Q.defer();
-                spyOn(repository, 'updateContent').andReturn(updateTextDefer.promise);
+                spyOn(repository, 'updateContent').and.returnValue(updateTextDefer.promise);
                 viewModel = ctor(null, events, true, repository.updateContent);
             });
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.updateText).toBeFunction();
             });
 
-            describe('when text is empty', function() {
+            describe('when text is empty', function () {
 
                 it('should set text to null', function () {
                     viewModel.text('');
@@ -269,9 +269,9 @@
 
             });
 
-            describe('when current text equal previous text', function() {
+            describe('when current text equal previous text', function () {
 
-                it('should not be promise', function() {
+                it('should not be promise', function () {
                     viewModel.text('some text');
                     viewModel.originalText('some text');
                     expect(viewModel.updateText()).toBeUndefined();
@@ -281,43 +281,37 @@
 
             describe('when current text is not equal previous text', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     viewModel.text('some new text');
                     viewModel.originalText('some old text');
                 });
 
-                it('should return promise', function() {
+                it('should return promise', function () {
                     expect(viewModel.updateText()).toBePromise();
                 });
 
-                it('should be call update content function', function() {
+                it('should be call update content function', function () {
                     viewModel.updateText();
                     expect(repository.updateContent).toHaveBeenCalledWith(viewModel.text());
                 });
 
                 describe('when content is updated', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         updateTextDefer.resolve();
                     });
 
-                    it('should update previous text to current text', function() {
-                        var promise = viewModel.updateText();
-                        waitsFor(function() {
-                            return !promise.isPending();
-                        });
-                        runs(function() {
+                    it('should update previous text to current text', function (done) {
+                        viewModel.updateText().fin(function () {
                             expect(viewModel.originalText()).toBe(viewModel.text());
+                            done();
                         });
                     });
 
-                    it('should show notification', function() {
-                        var promise = viewModel.updateText();
-                        waitsFor(function() {
-                            return !promise.isPending();
-                        });
-                        runs(function() {
+                    it('should show notification', function (done) {
+                        viewModel.updateText().fin(function () {
                             expect(notify.saved).toHaveBeenCalled();
+                            done();
                         });
                     });
 

@@ -6,7 +6,7 @@
             beforeEach(function () {
                 getById = Q.defer();
                 router.routeData({ courseId: 'courseId' });
-                spyOn(repository, 'getById').andReturn(getById.promise);
+                spyOn(repository, 'getById').and.returnValue(getById.promise);
             });
 
             it('should be object', function () {
@@ -130,16 +130,12 @@
                     expect(viewModel.activate()).toBePromise();
                 });
 
-                it('should clear active tab', function () {
+                it('should clear active tab', function (done) {
                     viewModel.activeTab({});
 
-                    var promise = viewModel.activate();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    viewModel.activate().fin(function () {
                         expect(viewModel.activeTab()).toBe(null);
+                        done();
                     });
                 });
 
@@ -224,25 +220,19 @@
                         router.routeData({ courseId: null });
                     });
 
-                    it('should set lastReviewTabActivationData to null', function () {
-                        var promise = viewModel.reviewTabActivationData();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                    it('should set lastReviewTabActivationData to null', function (done) {
+                        viewModel.reviewTabActivationData().fin(function () {
                             expect(viewModel.lastReviewTabActivationData()).toBe(null);
+                            done();
                         });
                     });
 
-                    it('should resolve promise with null', function () {
+                    it('should resolve promise with null', function (done) {
                         var promise = viewModel.reviewTabActivationData();
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        promise.fin(function () {
                             expect(promise).toBeResolvedWith(null);
+                            done();
                         });
                     });
                 });
@@ -254,50 +244,44 @@
 
                     describe('and when lastReviewTabActivationData is null', function () {
                         beforeEach(function () {
-                            spyOn(viewModel, 'lastReviewTabActivationData').andReturn(null);
+                            spyOn(viewModel, 'lastReviewTabActivationData').and.returnValue(null);
                         });
 
-                        it('should get course from repository', function () {
-                            var promise = viewModel.reviewTabActivationData();
+                        it('should get course from repository', function (done) {
                             getById.resolve();
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            viewModel.reviewTabActivationData().fin(function () {
                                 expect(repository.getById).toHaveBeenCalledWith(courseId);
+                                done();
                             });
                         });
 
                         describe('when course exists', function () {
 
-                            it('should update lastReviewTabActivationData', function () {
+                            it('should update lastReviewTabActivationData', function (done) {
                                 var
                                     promise = viewModel.reviewTabActivationData(),
                                     course = { reviewUrl: '', id: 'someId' };
 
                                 getById.resolve(course);
 
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                promise.fin(function () {
                                     expect(promise).toBeResolvedWith({
                                         courseId: course.id,
                                         reviewUrl: course.reviewUrl
                                     });
+                                    done();
                                 });
                             });
 
-                            it('should resolve promise', function () {
-                                var promise = viewModel.reviewTabActivationData();
+                            it('should resolve promise', function (done) {
                                 getById.resolve({ id: 'courseId', reviewUrl: '' });
 
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                var promise = viewModel.reviewTabActivationData();
+
+                                promise.fin(function () {
                                     expect(promise).toBeResolved();
+                                    done();
                                 });
                             });
 
@@ -309,79 +293,67 @@
 
                         describe('and when lastReviewTabActivationData courseId equals to current courseId', function () {
                             beforeEach(function () {
-                                spyOn(viewModel, 'lastReviewTabActivationData').andReturn({ courseId: courseId });
+                                spyOn(viewModel, 'lastReviewTabActivationData').and.returnValue({ courseId: courseId });
                             });
 
-                            it('should not get course from repository', function () {
-                                var promise = viewModel.reviewTabActivationData();
+                            it('should not get course from repository', function (done) {
                                 getById.resolve();
 
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                viewModel.reviewTabActivationData().fin(function () {
                                     expect(repository.getById).not.toHaveBeenCalledWith(courseId);
+                                    done();
                                 });
                             });
 
-                            it('should return lastReviewTabActivationData', function () {
+                            it('should return lastReviewTabActivationData', function (done) {
                                 var promise = viewModel.reviewTabActivationData();
 
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                promise.fin(function () {
                                     expect(promise).toBeResolvedWith(viewModel.lastReviewTabActivationData());
+                                    done();
                                 });
                             });
                         });
 
                         describe('and when lastReviewTabActivationData courseId is not equal to current courseId', function () {
                             beforeEach(function () {
-                                spyOn(viewModel, 'lastReviewTabActivationData').andReturn({ courseId: '100500' });
+                                spyOn(viewModel, 'lastReviewTabActivationData').and.returnValue({ courseId: '100500' });
                             });
 
-                            it('should get course from repository', function () {
-                                var promise = viewModel.reviewTabActivationData();
+                            it('should get course from repository', function (done) {
                                 getById.resolve();
 
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                viewModel.reviewTabActivationData().fin(function () {
                                     expect(repository.getById).toHaveBeenCalledWith(courseId);
+                                    done();
                                 });
                             });
 
                             describe('when course exists', function () {
 
-                                it('should update lastReviewTabActivationData', function () {
+                                it('should update lastReviewTabActivationData', function (done) {
                                     var
                                         promise = viewModel.reviewTabActivationData(),
                                         course = { reviewUrl: '', id: 'someId' };
 
                                     getById.resolve(course);
 
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
+                                    promise.fin(function () {
                                         expect(promise).toBeResolvedWith({
                                             courseId: course.id,
                                             reviewUrl: course.reviewUrl
                                         });
+                                        done();
                                     });
                                 });
 
-                                it('should resolve promise', function () {
+                                it('should resolve promise', function (done) {
                                     var promise = viewModel.reviewTabActivationData();
                                     getById.resolve({ id: 'courseId', reviewUrl: '' });
 
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
+                                    promise.fin(function () {
                                         expect(promise).toBeResolved();
+                                        done();
                                     });
                                 });
 

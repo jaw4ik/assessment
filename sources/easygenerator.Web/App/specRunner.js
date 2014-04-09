@@ -76,6 +76,11 @@
         'viewmodels/questions/question.spec',
         'viewmodels/questions/answers.spec',
 
+        'viewmodels/common/contentField.spec',
+        'viewmodels/panels/sidePanel.spec',
+        'viewmodels/panels/tabs/reviewTab.spec',
+        'viewmodels/panels/tabs/feedbackTab.spec',
+
         'synchronization/handlers/userDowngraded.spec',
         'synchronization/handlers/userUpgradedToStarter.spec',
 
@@ -109,10 +114,10 @@
        
        'services/aim4YouService.spec',
        
-       'viewmodels/common/contentField.spec',
-       'viewmodels/panels/sidePanel.spec',
-       'viewmodels/panels/tabs/reviewTab.spec',
-       'viewmodels/panels/tabs/feedbackTab.spec',
+       
+       
+       
+       
        'viewmodels/courses/courseComments.spec',
        'viewmodels/courses/courseNavigation/items/create.spec',
        'viewmodels/courses/courseNavigation/items/design.spec',

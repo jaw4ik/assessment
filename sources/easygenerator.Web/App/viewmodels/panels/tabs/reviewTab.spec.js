@@ -14,8 +14,7 @@
             var course = {
                 id: 'someId',
                 reviewUrl: 'url',
-                publishForReview: function () {
-                }
+                publishForReview: function () { }
             };
 
             beforeEach(function () {
@@ -140,8 +139,8 @@
                     publishForReviewDefer = Q.defer();
                     getByIdPromise = getByIdDefer.promise;
                     pblishForReviewPromise = publishForReviewDefer.promise;
-                    spyOn(repository, 'getById').andReturn(getByIdPromise);
-                    spyOn(course, 'publishForReview').andReturn(pblishForReviewPromise);
+                    spyOn(repository, 'getById').and.returnValue(getByIdPromise);
+                    spyOn(course, 'publishForReview').and.returnValue(pblishForReviewPromise);
                 });
 
                 it('should be a function', function () {
@@ -164,17 +163,12 @@
                         expect(viewModel.isActive()).toBeTruthy();
                     });
 
-                    it('should start publish for review of current course', function () {
+                    it('should start publish for review of current course', function (done) {
                         getByIdDefer.resolve(course);
                         publishForReviewDefer.resolve();
-                        var promise = viewModel.updateCourseForReview();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-
-                        runs(function () {
+                        viewModel.updateCourseForReview().fin(function () {
                             expect(course.publishForReview).toHaveBeenCalled();
+                            done();
                         });
                     });
 
@@ -184,15 +178,10 @@
                             publishForReviewDefer.resolve();
                         });
 
-                        it('should set isActive() to false', function () {
-                            var promise = viewModel.updateCourseForReview();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-
-                            runs(function () {
+                        it('should set isActive() to false', function (done) {
+                            viewModel.updateCourseForReview().fin(function () {
                                 expect(viewModel.isActive()).toBeFalsy();
+                                done();
                             });
                         });
                     });
@@ -203,15 +192,10 @@
                             publishForReviewDefer.reject();
                         });
 
-                        it('should set isActive() to false', function () {
-                            var promise = viewModel.updateCourseForReview();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-
-                            runs(function () {
+                        it('should set isActive() to false', function (done) {
+                            viewModel.updateCourseForReview().fin(function () {
                                 expect(viewModel.isActive()).toBeFalsy();
+                                done();
                             });
                         });
                     });
@@ -298,8 +282,8 @@
                     getCommentsCollectionDefer = Q.defer();
                     userContextIdentityDefer = Q.defer();
 
-                    spyOn(commentRepository, 'getCollection').andReturn(getCommentsCollectionDefer.promise);
-                    spyOn(userContext, 'identify').andReturn(userContextIdentityDefer.promise);
+                    spyOn(commentRepository, 'getCollection').and.returnValue(getCommentsCollectionDefer.promise);
+                    spyOn(userContext, 'identify').and.returnValue(userContextIdentityDefer.promise);
 
                     userContextIdentityDefer.resolve();
                 });
@@ -313,32 +297,33 @@
                 });
 
                 describe('when activation data is not an object', function () {
-                    it('should reject promise with \'Activation data promise is not an object\'', function () {
+
+                    it('should reject promise with \'Activation data promise is not an object\'', function (done) {
                         var promise = viewModel.activate(null);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        promise.fin(function () {
                             expect(promise).toBeRejectedWith('Activation data promise is not an object');
+                            done();
                         });
                     });
+
                 });
 
                 describe('when activation data is an object', function () {
 
                     describe('and activation data courseId is not a string', function () {
-                        it('should reject promise with \'Course id is not a string\'', function () {
-                            var promise = viewModel.activate(dataPromise);
+
+                        it('should reject promise with \'Course id is not a string\'', function (done) {
                             dataDeferred.resolve({ courseId: null });
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            var promise = viewModel.activate(dataPromise);
+
+                            promise.fin(function () {
                                 expect(promise).toBeRejectedWith('Course id is not a string');
+                                done();
                             });
                         });
+
                     });
 
                     describe('and activation data courseId is a string', function () {
@@ -349,40 +334,32 @@
                             dataDeferred.resolve(activationData);
                         });
 
-                        it('should send event \'Open review tab\'', function () {
-                            var promise = viewModel.activate(dataPromise);
+                        it('should send event \'Open review tab\'', function (done) {
                             getCommentsCollectionDefer.reject();
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            viewModel.activate(dataPromise).fin(function () {
                                 expect(eventTracker.publish).toHaveBeenCalledWith('Open review tab');
+                                done();
                             });
                         });
 
-                        it('should set courseId to corresponding value', function () {
-                            var promise = viewModel.activate(dataPromise);
+                        it('should set courseId to corresponding value', function (done) {
                             getCommentsCollectionDefer.reject();
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            viewModel.activate(dataPromise).fin(function () {
                                 expect(viewModel.courseId).toBe(activationData.courseId);
+                                done();
                             });
                         });
 
-                        it('should set reviewUrl to corresponding value', function () {
+                        it('should set reviewUrl to corresponding value', function (done) {
                             activationData.reviewUrl = 'url';
-                            var promise = viewModel.activate(dataPromise);
+
                             getCommentsCollectionDefer.reject();
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            viewModel.activate(dataPromise).fin(function () {
                                 expect(viewModel.reviewUrl()).toBe(activationData.reviewUrl);
+                                done();
                             });
                         });
 
@@ -391,16 +368,13 @@
                                 activationData.reviewUrl = 'url';
                             });
 
-                            it('should set state to succeed', function () {
-                                var promise = viewModel.activate(dataPromise);
+                            it('should set state to succeed', function (done) {
                                 dataDeferred.resolve(activationData);
                                 getCommentsCollectionDefer.reject();
 
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                viewModel.activate(dataPromise).fin(function () {
                                     expect(viewModel.state()).toBe(constants.publishingStates.succeed);
+                                    done();
                                 });
                             });
                         });
@@ -410,17 +384,15 @@
                                 activationData.reviewUrl = null;
                             });
 
-                            it('should set state to failed', function () {
-                                var promise = viewModel.activate(dataPromise);
+                            it('should set state to failed', function (done) {
                                 getCommentsCollectionDefer.reject();
 
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                viewModel.activate(dataPromise).fin(function () {
                                     expect(viewModel.state()).toBe(constants.publishingStates.failed);
+                                    done();
                                 });
                             });
+
                         });
 
                     });

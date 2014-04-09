@@ -44,85 +44,63 @@
                 expect(viewModel.activate).toBeFunction();
             });
 
-            it('should send event \'Open feedback form\'', function () {
-                var promise = viewModel.activate();
-                waitsFor(function () {
-                    return !promise.isPending();
-                });
-                runs(function () {
+            it('should send event \'Open feedback form\'', function (done) {
+                viewModel.activate().fin(function () {
                     expect(eventTracker.publish).toHaveBeenCalledWith('Open feedback form');
+                    done();
                 });
             });
 
-            it('should clear previous error message', function () {
+            it('should clear previous error message', function (done) {
                 viewModel.isFeedbackMessageErrorVisible(null);
-                
-                var promise = viewModel.activate();
-                waitsFor(function () {
-                    return !promise.isPending();
-                });
-                runs(function () {
+
+                viewModel.activate().fin(function () {
                     expect(viewModel.isFeedbackMessageErrorVisible()).toBe(false);
+                    done();
                 });
             });
 
-            describe('when user is anonymous', function() {
+            describe('when user is anonymous', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     userContext.identity = null;
                 });
 
-                it('should set isTryMode to true', function() {
-                    var promise = viewModel.activate();
-                    
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                it('should set isTryMode to true', function (done) {
+                    viewModel.activate().fin(function () {
                         expect(viewModel.isTryMode).toBeTruthy();
+                        done();
                     });
                 });
 
-                it('should set userEmail to null', function() {
-                    var promise = viewModel.activate();
-                    
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                it('should set userEmail to null', function (done) {
+                    viewModel.activate().fin(function () {
                         expect(viewModel.userEmail).toBeNull();
+                        done();
                     });
                 });
 
             });
 
-            describe('when user is not anonymous', function() {
+            describe('when user is not anonymous', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     userContext.identity = {
                         email: 'some_user@easygenerator.com'
                     };
                 });
 
-                it('should set isTryMode to false', function() {
-                    var promise = viewModel.activate();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                it('should set isTryMode to false', function (done) {
+                    viewModel.activate().fin(function () {
                         expect(viewModel.isTryMode).toBeFalsy();
+                        done();
                     });
                 });
 
-                it('should set userEmail', function() {
-                    var promise = viewModel.activate();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                it('should set userEmail', function (done) {
+                    viewModel.activate().fin(function () {
                         expect(viewModel.userEmail).toBe(userContext.identity.email);
+                        done();
                     });
                 });
 
@@ -150,7 +128,7 @@
 
                 beforeEach(function () {
                     feedbackDefer = Q.defer();
-                    spyOn(httpWrapper, 'post').andReturn(feedbackDefer.promise);
+                    spyOn(httpWrapper, 'post').and.returnValue(feedbackDefer.promise);
                     spyOn(notify, 'success');
                     viewModel.feedbackMessageFromUser('some message');
                 });
@@ -196,25 +174,17 @@
                         feedbackDefer.resolve();
                     });
 
-                    it('should clear feedback message', function () {
-                        var promise = viewModel.sendFeedback();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                    it('should clear feedback message', function (done) {
+                        viewModel.sendFeedback().fin(function () {
                             expect(viewModel.feedbackMessageFromUser()).toBe('');
+                            done();
                         });
                     });
 
-                    it('should clear feedback email', function () {
-                        var promise = viewModel.sendFeedback();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                    it('should clear feedback email', function (done) {
+                        viewModel.sendFeedback().fin(function () {
                             expect(viewModel.feedbackEmail()).toBe('');
+                            done();
                         });
                     });
 
