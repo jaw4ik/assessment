@@ -22,7 +22,7 @@
             it('should update question title in index', function () {
                 var questionTreeNode1 = { id: 'id', title: ko.observable('title') };
                 var questionTreeNode2 = { id: 'id', title: ko.observable('title') };
-                spyOn(treeOfContentTraversal, 'getQuestionTreeNodeCollection').andReturn([questionTreeNode1, questionTreeNode2]);
+                spyOn(treeOfContentTraversal, 'getQuestionTreeNodeCollection').and.returnValue([questionTreeNode1, questionTreeNode2]);
 
                 handler.questionTitleUpdated({ id: 'id', title: 'updated title' });
 
@@ -43,7 +43,7 @@
                 it('should add question to the objective', function () {
                     var objectiveTreeNode1 = { id: 'objectiveId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
                     var objectiveTreeNode2 = { id: 'objectiveId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
-                    spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').andReturn([objectiveTreeNode1, objectiveTreeNode2]);
+                    spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').and.returnValue([objectiveTreeNode1, objectiveTreeNode2]);
 
                     handler.questionCreated('objectiveId', { id: 'questionId', title: 'title' });
 
@@ -58,7 +58,7 @@
                 it('should not add question to the objective', function () {
                     var objectiveTreeNode1 = { id: 'objectiveId', children: ko.observableArray([]), isExpanded: ko.observable(false) };
                     var objectiveTreeNode2 = { id: 'objectiveId', children: ko.observableArray([]), isExpanded: ko.observable(false) };
-                    spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').andReturn([objectiveTreeNode1, objectiveTreeNode2]);
+                    spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').and.returnValue([objectiveTreeNode1, objectiveTreeNode2]);
 
                     handler.questionCreated('objectiveId', { id: 'questionId', title: 'title' });
 
@@ -80,7 +80,7 @@
             it('should remove question from objective in index', function () {
                 var objectiveTreeNode1 = { id: 'objectiveId', children: ko.observableArray([{ id: 'questionId_#1', title: 'title' }, { id: 'questionId_#2', title: 'title' }, { id: 'questionId_#3', title: 'title' }]) };
                 var objectiveTreeNode2 = { id: 'objectiveId', children: ko.observableArray([{ id: 'questionId_#1', title: 'title' }, { id: 'questionId_#2', title: 'title' }, { id: 'questionId_#3', title: 'title' }]) };
-                spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').andReturn([objectiveTreeNode1, objectiveTreeNode2]);
+                spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').and.returnValue([objectiveTreeNode1, objectiveTreeNode2]);
 
                 handler.questionsDeleted('objectiveId', ['questionId_#1', 'questionId_#3']);
 
@@ -98,7 +98,7 @@
 
             it('should reorder questions in objective in index', function () {
                 var objectiveTreeNode1 = { id: 'objectiveId', children: ko.observableArray([{ id: 'questionId_#1', title: 'title' }, { id: 'questionId_#2', title: 'title' }, { id: 'questionId_#3', title: 'title' }]) };
-                spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').andReturn([objectiveTreeNode1]);
+                spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').and.returnValue([objectiveTreeNode1]);
 
                 handler.questionsReordered({ id: 'objectiveId', questions: [{ id: 'questionId_#3' }, { id: 'questionId_#1' }, { id: 'questionId_#2' }] });
 
@@ -118,7 +118,7 @@
             it('should update objective title in index', function () {
                 var objectiveTreeNode1 = { id: 'id', title: ko.observable('title') };
                 var objectiveTreeNode2 = { id: 'id', title: ko.observable('title') };
-                spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').andReturn([objectiveTreeNode1, objectiveTreeNode2]);
+                spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').and.returnValue([objectiveTreeNode1, objectiveTreeNode2]);
 
                 handler.objectiveTitleUpdated({ id: 'id', title: 'updated title' });
 
@@ -140,7 +140,7 @@
                 it('should relate objectives to the course', function () {
                     var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
 
-                    spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').andReturn([courseTreeNode1]);
+                    spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
 
                     handler.objectivesRelated('courseId', [{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }]);
 
@@ -156,7 +156,7 @@
                 it('should not relate objectives to the course', function () {
                     var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([]), isExpanded: ko.observable(false) };
 
-                    spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').andReturn([courseTreeNode1]);
+                    spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
 
                     handler.objectivesRelated('courseId', [{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }]);
 
@@ -175,7 +175,7 @@
             it('should unrelate objectives from the course', function () {
                 var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }, { id: 'objectiveId_#3', title: 'title' }]) };
 
-                spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').andReturn([courseTreeNode1]);
+                spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
 
                 handler.objectivesUnrelated('courseId', ['objectiveId_#1', 'objectiveId_#3']);
 
@@ -193,7 +193,7 @@
             it('should reorder objective', function () {
                 var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }, { id: 'objectiveId_#3', title: 'title' }]) }
 
-                spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').andReturn([courseTreeNode1]);
+                spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
 
                 handler.objectivesReordered({ id: 'courseId', objectives: [{ id: 'objectiveId_#3', title: 'title' }, { id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }] });
 
@@ -212,7 +212,7 @@
 
             it('should add course to the tree of content', function () {
                 var treeOfContent = { children: ko.observableArray() };
-                spyOn(treeOfContentTraversal, 'getTreeOfContent').andReturn(treeOfContent);
+                spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
 
                 handler.courseCreated({ id: 'courseId', title: 'title' });
 
@@ -229,7 +229,7 @@
 
             it('should remove question from objective in index', function () {
                 var treeOfContent = { children: ko.observableArray([{ id: 'courseId' }, { id: '-' }]) };
-                spyOn(treeOfContentTraversal, 'getTreeOfContent').andReturn(treeOfContent);
+                spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
 
                 handler.courseDeleted('courseId');
 
@@ -248,7 +248,7 @@
             it('should update objective title in index', function () {
                 var courseTreeNode1 = { id: 'id', title: ko.observable('title') };
                 var courseTreeNode2 = { id: 'id', title: ko.observable('title') };
-                spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').andReturn([courseTreeNode1, courseTreeNode2]);
+                spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1, courseTreeNode2]);
 
                 handler.courseTitleUpdated({ id: 'id', title: 'updated title' });
 

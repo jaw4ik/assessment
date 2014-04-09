@@ -20,14 +20,12 @@
 
                 describe('and course was not found', function () {
 
-                    it('should resolve promise', function () {
+                    it('should resolve promise', function (done) {
                         var promise = handler.handle({ children: ko.observableArray([]) }, ['courseId']);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        promise.fin(function () {
                             expect(promise).toBeResolved();
+                            done();
                         });
                     });
 
@@ -40,33 +38,26 @@
 
                     beforeEach(function () {
                         var courseTreeNodeExpand = Q.defer();
-                        spyOn(courseTreeNode, 'expand').andReturn(courseTreeNodeExpand.promise);
+                        spyOn(courseTreeNode, 'expand').and.returnValue(courseTreeNodeExpand.promise);
 
                         courseTreeNodeExpand.resolve();
                     });
 
-                    it('should expand course', function () {
-                        var promise = handler.handle(treeOfContent, { courseId: 'courseId' });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                    it('should expand course', function (done) {
+                        handler.handle(treeOfContent, { courseId: 'courseId' }).fin(function () {
                             expect(courseTreeNode.expand).toHaveBeenCalled();
+                            done();
                         });
-
                     });
 
                     describe('and course was expanded', function () {
 
-                        it('should resolve promise', function () {
+                        it('should resolve promise', function (done) {
                             var promise = handler.handle(treeOfContent, { courseId: 'courseId' });
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            promise.fin(function () {
                                 expect(promise).toBeResolved();
+                                done();
                             });
                         });
 
@@ -92,8 +83,8 @@
 
                     treeOfContent = { children: ko.observableArray([courseTreeNode]) };
 
-                    spyOn(courseTreeNode, 'expand').andReturn(courseTreeNodeExpand.promise);
-                    spyOn(objectiveTreeNode, 'expand').andReturn(objectiveTreeNodeExpand.promise);
+                    spyOn(courseTreeNode, 'expand').and.returnValue(courseTreeNodeExpand.promise);
+                    spyOn(objectiveTreeNode, 'expand').and.returnValue(objectiveTreeNodeExpand.promise);
 
                     courseTreeNodeExpand.resolve();
                     objectiveTreeNodeExpand.resolve();
@@ -101,40 +92,32 @@
 
                 describe('and objective was not found', function () {
 
-                    it('should resolve promise', function () {
+                    it('should resolve promise', function (done) {
                         var promise = handler.handle(treeOfContent, { courseId: 'courseId', objectiveId: '-' });
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        promise.fin(function () {
                             expect(promise).toBeResolved();
+                            done();
                         });
                     });
 
                 });
 
-                it('should expand objective', function () {
-                    var promise = handler.handle(treeOfContent, { courseId: 'courseId', objectiveId: 'objectiveId' });
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                it('should expand objective', function (done) {
+                    handler.handle(treeOfContent, { courseId: 'courseId', objectiveId: 'objectiveId' }).fin(function () {
                         expect(objectiveTreeNode.expand).toHaveBeenCalled();
+                        done();
                     });
                 });
 
                 describe('and objective was expanded', function () {
 
-                    it('should resolve promise', function () {
+                    it('should resolve promise', function (done) {
                         var promise = handler.handle(treeOfContent, { courseId: 'courseId', objectiveId: 'objectiveId' });
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        promise.fin(function () {
                             expect(objectiveTreeNode.expand).toHaveBeenCalled();
+                            done();
                         });
                     });
 
@@ -145,28 +128,24 @@
 
             describe('when context is not specified', function () {
 
-                it('should resolve promise', function () {
+                it('should resolve promise', function (done) {
                     var promise = handler.handle({ children: ko.observableArray([]) });
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    promise.fin(function () {
                         expect(promise).toBeResolved();
+                        done();
                     });
                 });
             });
 
             describe('when context is empty', function () {
 
-                it('should resolve promise', function () {
+                it('should resolve promise', function (done) {
                     var promise = handler.handle({ children: ko.observableArray([]) }, {});
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    promise.fin(function () {
                         expect(promise).toBeResolved();
+                        done();
                     });
                 });
 
@@ -174,14 +153,12 @@
 
             describe('when tree of content is not specified', function () {
 
-                it('should resolve promise', function () {
+                it('should resolve promise', function (done) {
                     var promise = handler.handle(undefined, { courseId: '-' });
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    promise.fin(function () {
                         expect(promise).toBeResolved();
+                        done();
                     });
                 });
 

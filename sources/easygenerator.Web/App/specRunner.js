@@ -77,7 +77,17 @@
         'viewmodels/questions/answers.spec',
 
         'synchronization/handlers/userDowngraded.spec',
-        'synchronization/handlers/userUpgradedToStarter.spec'
+        'synchronization/handlers/userUpgradedToStarter.spec',
+
+
+        'treeOfContent/CourseTreeNode.spec',
+        'treeOfContent/RelatedObjectiveTreeNode.spec',
+        'treeOfContent/QuestionTreeNode.spec',
+        'treeOfContent/commands/createQuestionCommand.spec',
+        'treeOfContent/handlers/treeOfContentEventHandler.spec',
+        'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
+        'treeOfContent/queries/getCourseByIdQuery.spec',
+        'treeOfContent/queries/getObjectiveByIdQuery.spec'
 
         /* NOT MIGRATED SPECS */
        /*
@@ -109,14 +119,9 @@
        'viewmodels/courses/courseNavigation/items/publish.spec',
        'viewmodels/courses/courseNavigation/items/navigationItem.spec',
        'viewmodels/courses/courseNavigation/navigation.spec',
-       'treeOfContent/CourseTreeNode.spec',
-       'treeOfContent/RelatedObjectiveTreeNode.spec',
-       'treeOfContent/QuestionTreeNode.spec',
-       'treeOfContent/commands/createQuestionCommand.spec',
-       'treeOfContent/handlers/treeOfContentEventHandler.spec',
-       'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
-       'treeOfContent/queries/getCourseByIdQuery.spec',
-       'treeOfContent/queries/getObjectiveByIdQuery.spec'*/
+       
+                    
+       */
         ];
 
         require(specs, function () {

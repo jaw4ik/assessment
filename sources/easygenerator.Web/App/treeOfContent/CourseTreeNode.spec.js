@@ -32,18 +32,25 @@
                 courseTreeNode = new CourseTreeNode();
 
                 execute = Q.defer();
-                spyOn(getCourseByIdQuery, 'execute').andReturn(execute.promise);
+                spyOn(getCourseByIdQuery, 'execute').and.returnValue(execute.promise);
 
-                function toBeObjectiveTreeNode(actual) {
-                    this.message = function () {
-                        return "Expected to be toBeObjectiveTreeNode";
-                    };
-
-                    return actual.id && actual.url && ko.isObservable(actual.title);
-                }
-                this.addMatchers({
+                jasmine.addMatchers({
                     toBeObjectiveTreeNode: function () {
-                        return toBeObjectiveTreeNode.apply(this, [this.actual]);
+                        return {
+                            compare: function (actual) {
+                                var result = {
+                                    pass: actual.id && actual.url && ko.isObservable(actual.title)
+                                }
+
+                                if (result.pass) {
+                                    result.message = "Ok";
+                                } else {
+                                    result.message = "Expected to be ObjectiveTreeNode";
+                                }
+
+                                return result;
+                            }
+                        }
                     }
                 });
 
@@ -63,33 +70,24 @@
                     courseTreeNode.children([]);
                 });
 
-                it('should get children', function () {
+                it('should get children', function (done) {
                     execute.resolve({ objectives: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
 
-                    var promise = courseTreeNode.expand();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    courseTreeNode.expand().fin(function () {
                         expect(courseTreeNode.children()[0]).toBeObjectiveTreeNode();
                         expect(courseTreeNode.children()[1]).toBeObjectiveTreeNode();
+                        done();
                     });
                 });
 
-                it('should mark node as expanded', function () {
+                it('should mark node as expanded', function (done) {
                     execute.resolve({ objectives: [] });
                     courseTreeNode.isExpanded(false);
 
-                    var promise = courseTreeNode.expand();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    courseTreeNode.expand().fin(function () {
                         expect(courseTreeNode.isExpanded()).toBeTruthy();
+                        done();
                     });
-
                 });
             });
 
@@ -99,33 +97,24 @@
                     courseTreeNode.children([{}, {}]);
                 });
 
-                it('should not get children', function () {
+                it('should not get children', function (done) {
                     execute.resolve({ objectives: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
 
-                    var promise = courseTreeNode.expand();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    courseTreeNode.expand().fin(function () {
                         expect(getCourseByIdQuery.execute).not.toHaveBeenCalled();
+                        done();
                     });
                 });
 
 
-                it('should mark node as expanded', function () {
+                it('should mark node as expanded', function (done) {
                     execute.resolve({ objectives: [] });
                     courseTreeNode.isExpanded(false);
 
-                    var promise = courseTreeNode.expand();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    courseTreeNode.expand().fin(function () {
                         expect(courseTreeNode.isExpanded()).toBeTruthy();
+                        done();
                     });
-
                 });
 
             });

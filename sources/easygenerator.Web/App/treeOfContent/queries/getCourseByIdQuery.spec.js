@@ -18,14 +18,12 @@
 
             describe('when id is not a string', function () {
 
-                it('should reject promise with \'Course id (string) was expected\'', function () {
+                it('should reject promise with \'Course id (string) was expected\'', function (done) {
                     var promise = getCourseByIdQuery.execute();
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course id (string) was expected');
+                        done();
                     });
                 });
 
@@ -34,32 +32,28 @@
 
             describe('when course does not exist', function () {
 
-                it('should reject promise with \'Course with this id is not found\'', function () {
+                it('should reject promise with \'Course with this id is not found\'', function (done) {
                     dataContext.courses = [];
                     var promise = getCourseByIdQuery.execute('');
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course with this id is not found');
+                        done();
                     });
                 });
 
             });
 
 
-            it('should resolve promise with course from dataContext', function () {
+            it('should resolve promise with course from dataContext', function (done) {
                 var course = { id: 'id' };
                 dataContext.courses = [course];
 
                 var promise = getCourseByIdQuery.execute('id');
 
-                waitsFor(function () {
-                    return !promise.isPending();
-                });
-                runs(function () {
+                promise.fin(function () {
                     expect(promise).toBeResolvedWith(course);
+                    done();
                 });
             });
 
