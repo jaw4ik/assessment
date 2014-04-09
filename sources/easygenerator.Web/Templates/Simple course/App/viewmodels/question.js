@@ -1,8 +1,9 @@
-﻿define(['eventManager', 'plugins/router', 'repositories/questionRepository', 'repositories/objectiveRepository', 'modules/questionsNavigation'],
-	function (eventManager, router, repository, objectiveRepository, navigationModule) {
+﻿define(['eventManager', 'plugins/router', 'repositories/questionRepository', 'repositories/objectiveRepository', 'modules/questionsNavigation','modules/courseSettings'],
+	function (eventManager, router, repository, objectiveRepository, navigationModule, courseSettings) {
 	    var viewModel = {
 	        objective: null,
 	        objectiveScore: ko.observable(0),
+	        masteryScore: 0,
 	        questionId: null,
 	        title: '',
 	        content: null,
@@ -69,7 +70,7 @@
 	            }
 
 	            viewModel.objectiveScore(viewModel.objective.score());
-
+	            viewModel.masteryScore = courseSettings.masteryScore.score;
 	            viewModel.navigationContext = navigationModule.getNavigationContext(objectiveId, questionId, questionUrlBuilder);
 	            viewModel.questionId = questionId;
 	            viewModel.title = question.title;
@@ -88,7 +89,7 @@
 	            return question.load().then(function () {
 	                viewModel.content = question.content;
 	                viewModel.learningContents = _.map(question.learningContents, function (item) {
-	                	return { content: item.content };
+	                    return { content: item.content };
 	                });
 	            });
 	        });

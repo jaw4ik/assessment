@@ -3,6 +3,7 @@
     var router = require('plugins/router'),
         repository = require('repositories/questionRepository'),
         navigationModule = require('modules/questionsNavigation'),
+        courseSettings = require('modules/courseSettings'),
         objectiveRepository = require('repositories/objectiveRepository');
 
     describe('viewModel [question]', function () {
@@ -54,6 +55,14 @@
 
             it('should be observable', function () {
                 expect(viewModel.objectiveScore).toBeObservable();
+            });
+
+        });
+
+        describe('masteryScore:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.masteryScore).toBeDefined();
             });
 
         });
@@ -259,6 +268,20 @@
                         });
                         runs(function () {
                             expect(viewModel.objectiveScore()).toBe(objective.score());
+                        });
+                    });
+
+                    it('should set mastery score', function () {
+                        viewModel.masteryScore = 0;
+                        courseSettings.masteryScore.score = 55;
+                        var promise = viewModel.activate();
+                        loadQuestionDeferred.resolve();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.masteryScore).toBe(55);
                         });
                     });
 
