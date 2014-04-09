@@ -1050,7 +1050,7 @@
             var imageUploader = {
                 apiUrl: baseURL + '/storage/image/upload',
                 maxFileSize: 10, //MB
-                supportedExtensions: ['jpeg', 'jpg', 'png', 'bmp'],
+                supportedExtensions: ['jpeg', 'jpg', 'png', 'bmp', 'gif'],
                 somethingWentWrongMessage: { title: 'Something went wrong', description: 'Please, try again' },
 
                 status: {
@@ -1078,8 +1078,7 @@
                         this.$input.attr('disabled', true).closest('.image-upload-button').addClass('disabled');
                     },
                     submit: function () {
-                        $('#logoForm').submit();
-                        //this.$input[0].form.submit();
+                        this.$input[0].form.submit();
                         this.disable();
                         imageUploader.status.loading();
                     },
@@ -1125,7 +1124,7 @@
                         fileExtension = file.name.split('.').pop().toLowerCase();
 
                     if ($.inArray(fileExtension, imageUploader.supportedExtensions) === -1) {
-                        imageUploader.status.fail({ title: 'Unsupported image format', description: '(Supported formats: ' + imageUploader.supportedExtensions.join(', ') + ')' });
+                        imageUploader.status.fail({ title: 'Unsupported image format', description: '(Allowed formats: ' + imageUploader.supportedExtensions.join(', ') + ')' });
                         return;
                     }
                     if (file.size > imageUploader.maxFileSize * 1024 * 1024) {

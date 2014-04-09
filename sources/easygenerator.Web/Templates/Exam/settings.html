@@ -1038,7 +1038,7 @@
             var imageUploader = {
                 apiUrl: baseURL + '/storage/image/upload',
                 maxFileSize: 10, //MB
-                supportedExtensions: ['jpeg', 'jpg', 'png', 'bmp'],
+                supportedExtensions: ['jpeg', 'jpg', 'png', 'bmp', 'gif'],
                 somethingWentWrongMessage: { title: 'Something went wrong', description: 'Please, try again' },
 
                 status: {
@@ -1112,7 +1112,7 @@
                         fileExtension = file.name.split('.').pop().toLowerCase();
 
                     if ($.inArray(fileExtension, imageUploader.supportedExtensions) === -1) {
-                        imageUploader.status.fail({ title: 'Unsupported image format', description: '(Supported formats: ' + imageUploader.supportedExtensions.join(', ') + ')' });
+                        imageUploader.status.fail({ title: 'Unsupported image format', description: '(Allowed formats: ' + imageUploader.supportedExtensions.join(', ') + ')' });
                         return;
                     }
                     if (file.size > imageUploader.maxFileSize * 1024 * 1024) {
