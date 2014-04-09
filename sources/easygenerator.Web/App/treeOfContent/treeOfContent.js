@@ -47,7 +47,6 @@ function (app, router, constants, limitCoursesAmount, treeOfContentEventHandler,
         }
 
         function checkLimitCoursesAmount() {
-            console.log("checkLimitCoursesAmount");
             viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
         }
 
@@ -56,23 +55,23 @@ function (app, router, constants, limitCoursesAmount, treeOfContentEventHandler,
             handler: treeOfContentEventHandler()
         };
 
-        app.on('question:created', self.handler.questionCreated);
-        app.on('questions:deleted', self.handler.questionsDeleted);
-        app.on('question:titleUpdated', self.handler.questionTitleUpdated);
+        app.on(constants.messages.question.created, self.handler.questionCreated);
+        app.on(constants.messages.question.deleted, self.handler.questionsDeleted);
+        app.on(constants.messages.question.titleUpdated, self.handler.questionTitleUpdated);
 
-        app.on('objective:titleUpdated', self.handler.objectiveTitleUpdated);
-        app.on('objective:questionsReordered', self.handler.questionsReordered);
+        app.on(constants.messages.objective.titleUpdated, self.handler.objectiveTitleUpdated);
+        app.on(constants.messages.objective.questionsReordered, self.handler.questionsReordered);
 
-        app.on('course:created', self.handler.courseCreated);
-        app.on('course:deleted', self.handler.courseDeleted);
-        app.on('course:titleUpdated', self.handler.courseTitleUpdated);
-        app.on('course:objectivesRelated', self.handler.objectivesRelated);
-        app.on('course:objectivesUnrelated', self.handler.objectivesUnrelated);
-        app.on('course:objectivesReordered', self.handler.objectivesReordered);
+        app.on(constants.messages.course.created, self.handler.courseCreated);
+        app.on(constants.messages.course.deleted, self.handler.courseDeleted);
+        app.on(constants.messages.course.titleUpdated, self.handler.courseTitleUpdated);
+        app.on(constants.messages.course.objectivesRelated, self.handler.objectivesRelated);
+        app.on(constants.messages.course.objectivesUnrelated, self.handler.objectivesUnrelated);
+        app.on(constants.messages.course.objectivesReordered, self.handler.objectivesReordered);
 
-        app.on('user:identified', viewModel.checkLimitCoursesAmount);
-        app.on('course:created', viewModel.checkLimitCoursesAmount);
-        app.on('course:deleted', viewModel.checkLimitCoursesAmount);
+        app.on(constants.messages.user.identified, viewModel.checkLimitCoursesAmount);
+        app.on(constants.messages.course.created, viewModel.checkLimitCoursesAmount);
+        app.on(constants.messages.course.deleted, viewModel.checkLimitCoursesAmount);
 
         router.routeData.subscribe(function (navigationContext) {
             treeOfContentAutoExpandHandler.handle(viewModel, navigationContext).then(function () {
