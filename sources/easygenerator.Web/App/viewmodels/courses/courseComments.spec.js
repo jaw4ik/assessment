@@ -32,19 +32,17 @@
 
                 beforeEach(function () {
                     userContextIdentityDefer = Q.defer();
-                    spyOn(userContext, 'identify').andReturn(userContextIdentityDefer.promise);
+                    spyOn(userContext, 'identify').and.returnValue(userContextIdentityDefer.promise);
                 });
 
                 describe('when courseId is not a string', function () {
 
-                    it('should reject promise', function () {
+                    it('should reject promise', function (done) {
                         var promise = viewModel.activate({});
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        promise.fin(function () {
                             expect(promise).toBeRejectedWith('Course id is not a string');
+                            done();
                         });
                     });
 
@@ -61,29 +59,26 @@
                         expect(result).toBePromise();
                     });
 
-                    it('should set comment loading flag', function () {
+                    it('should set comment loading flag', function (done) {
                         viewModel.isCommentsLoading(false);
-                        var promise = viewModel.activate('123');
+                        userContextIdentityDefer.reject();
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        viewModel.activate('123');
+
+                        userContextIdentityDefer.promise.fin(function () {
                             expect(viewModel.isCommentsLoading()).toBeTruthy();
+                            done();
                         });
                     });
 
-                    it('should update user identity', function () {
-                        var promise = userContextIdentityDefer.promise.fin(function () { });
-                        viewModel.activate('123');
-
+                    it('should update user identity', function (done) {
                         userContextIdentityDefer.reject();
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        viewModel.activate('123');
+
+                        userContextIdentityDefer.promise.fin(function () {
                             expect(userContext.identify).toHaveBeenCalled();
+                            done();
                         });
                     });
 
@@ -93,17 +88,12 @@
                             userContextIdentityDefer.reject();
                         });
 
-                        it('should set comments loading flag to false', function () {
+                        it('should set comments loading flag to false', function (done) {
                             viewModel.isCommentsLoading(true);
-                            var promise = userContextIdentityDefer.promise.fin(function () { });
-
                             viewModel.activate('123');
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            userContextIdentityDefer.promise.fin(function () {
                                 expect(viewModel.isCommentsLoading()).toBeFalsy();
+                                done();
                             });
                         });
                     });
@@ -116,39 +106,34 @@
                             userContextIdentityDefer.resolve();
 
                             getCommentsDefer = Q.defer();
-
-                            spyOn(commentRepository, 'getCollection').andReturn(getCommentsDefer.promise);
+                            spyOn(commentRepository, 'getCollection').and.returnValue(getCommentsDefer.promise);
                         });
 
-                        it('should update hasAccessToComments', function () {
+                        it('should update hasAccessToComments', function (done) {
+                            spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
+
                             viewModel.hasAccessToComments(true);
-                            spyOn(userContext, 'hasStarterAccess').andReturn(false);
-                            var promise = userContextIdentityDefer.promise.fin(function () { });
+
                             viewModel.activate('123');
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            userContextIdentityDefer.promise.fin(function () {
                                 expect(viewModel.hasAccessToComments()).toBeFalsy();
+                                done();
                             });
                         });
 
                         describe('and user has no starter access', function () {
 
                             beforeEach(function () {
-                                spyOn(userContext, 'hasStarterAccess').andReturn(false);
+                                spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
                             });
 
-                            it('should not receive comments from repository', function () {
-                                var promise = userContextIdentityDefer.promise.fin(function () { });
+                            it('should not receive comments from repository', function (done) {
                                 viewModel.activate('123');
 
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                userContextIdentityDefer.promise.fin(function () {
                                     expect(commentRepository.getCollection).not.toHaveBeenCalled();
+                                    done();
                                 });
                             });
 
@@ -157,18 +142,15 @@
                         describe('and user has starter access', function () {
 
                             beforeEach(function () {
-                                spyOn(userContext, 'hasStarterAccess').andReturn(true);
+                                spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
                             });
 
-                            it('should receive comments from repository', function () {
-                                var promise = userContextIdentityDefer.promise.fin(function () { });
+                            it('should receive comments from repository', function (done) {
                                 viewModel.activate('123');
 
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
+                                userContextIdentityDefer.promise.fin(function () {
                                     expect(commentRepository.getCollection).toHaveBeenCalledWith('123');
+                                    done();
                                 });
                             });
 
@@ -180,16 +162,13 @@
                                     getCommentsDefer.resolve(comments);
                                 });
 
-                                it('should update comments in viewModel', function () {
+                                it('should update comments in viewModel', function (done) {
                                     viewModel.comments([]);
-                                    var promise = userContextIdentityDefer.promise.fin(function () { });
                                     viewModel.activate('123');
 
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
+                                    viewModel.activate('123').fin(function () {
                                         expect(viewModel.comments()).toEqual(comments);
+                                        done();
                                     });
                                 });
 
@@ -201,16 +180,11 @@
                                     getCommentsDefer.reject();
                                 });
 
-                                it('should update comments in viewModel', function () {
+                                it('should update comments in viewModel', function (done) {
                                     viewModel.isCommentsLoading(true);
-                                    var promise = userContextIdentityDefer.promise.fin(function () { });
-                                    viewModel.activate('123');
-
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
+                                    viewModel.activate('123').fin(function () {
                                         expect(viewModel.isCommentsLoading()).toBeFalsy();
+                                        done();
                                     });
                                 });
 

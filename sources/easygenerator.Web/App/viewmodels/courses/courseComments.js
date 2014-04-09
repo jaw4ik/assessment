@@ -16,7 +16,7 @@
 
                 viewModel.isCommentsLoading(true);
 
-                userContext.identify().then(function () {
+                return userContext.identify().then(function () {
                     viewModel.hasAccessToComments(userContext.hasStarterAccess());
 
                     if (userContext.hasStarterAccess()) {
@@ -24,7 +24,7 @@
                             viewModel.comments(comments);
                         });
                     }
-                }).fin(function() {
+                }).fin(function () {
                     viewModel.isCommentsLoading(false);
                 });
             });

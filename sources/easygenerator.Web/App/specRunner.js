@@ -76,10 +76,12 @@
         'viewmodels/questions/question.spec',
         'viewmodels/questions/answers.spec',
 
-        'viewmodels/common/contentField.spec',
-        'viewmodels/panels/sidePanel.spec',
-        'viewmodels/panels/tabs/reviewTab.spec',
-        'viewmodels/panels/tabs/feedbackTab.spec',
+        //'viewmodels/common/contentField.spec',
+        //'viewmodels/panels/sidePanel.spec',
+        //'viewmodels/panels/tabs/reviewTab.spec',
+        //'viewmodels/panels/tabs/feedbackTab.spec',
+
+        'viewmodels/courses/courseComments.spec',
 
         'synchronization/handlers/userDowngraded.spec',
         'synchronization/handlers/userUpgradedToStarter.spec',
@@ -118,7 +120,7 @@
        
        
        
-       'viewmodels/courses/courseComments.spec',
+       
        'viewmodels/courses/courseNavigation/items/create.spec',
        'viewmodels/courses/courseNavigation/items/design.spec',
        'viewmodels/courses/courseNavigation/items/publish.spec',
