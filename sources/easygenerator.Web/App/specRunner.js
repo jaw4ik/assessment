@@ -76,10 +76,10 @@
         'viewmodels/questions/question.spec',
         'viewmodels/questions/answers.spec',
 
-        //'viewmodels/common/contentField.spec',
+        'viewmodels/common/contentField.spec',
         //'viewmodels/panels/sidePanel.spec',
-        //'viewmodels/panels/tabs/reviewTab.spec',
-        //'viewmodels/panels/tabs/feedbackTab.spec',
+        'viewmodels/panels/tabs/reviewTab.spec',
+        'viewmodels/panels/tabs/feedbackTab.spec',
 
         'viewmodels/courses/courseComments.spec',
 
