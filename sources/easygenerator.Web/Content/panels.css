@@ -416,16 +416,16 @@
 }
 
     .review-not-paid-message:before {
-        background: url("images/sprites.png") repeat scroll -3px 51px rgba(0, 0, 0, 0);
+        background: url("images/sprites.png") repeat scroll -2px 57px rgba(0,0,0,0);
         content: "";
         display: block;
-        height: 36px;
+        height: 30px;
         left: 50%;
         margin-left: -5px;
         position: absolute;
         top: 50%;
         margin-top: -38px;
-        width: 26px;
+        width: 30px;
     }
 
     .review-not-paid-message a {
