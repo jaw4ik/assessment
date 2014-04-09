@@ -1,9 +1,10 @@
-﻿define(['context', 'repositories/courseRepository', 'plugins/router', 'windowOperations'],
-    function (context, repository, router, windowOperations) {
+﻿define(['context', 'repositories/courseRepository', 'plugins/router', 'windowOperations', 'modules/courseSettings'],
+    function (context, repository, router, windowOperations, courseSettings) {
 
         var
             objectives = [],
             score = 0,
+            masteryScore = 0,
             courseTitle = "\"" + context.course.title + "\"",
 
             statuses = {
@@ -21,6 +22,7 @@
                 }
 
                 this.score = course.score();
+                this.masteryScore = courseSettings.masteryScore.score;
                 this.objectives = _.map(course.objectives(), function (item) {
                     return {
                         id: item.id,
@@ -54,6 +56,7 @@
             finish: finish,
 
             score: score,
+            masteryScore: masteryScore,
             objectives: objectives,
             status: status,
             statuses: statuses

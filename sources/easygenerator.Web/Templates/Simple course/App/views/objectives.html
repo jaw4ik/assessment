@@ -31,6 +31,10 @@
                             <div class="objective-progressbar-holder">
                                 <div class="objective-progressbar-inside">
                                     <div class="objective-progressbar-score" data-bind="style: { width: 100 - score + '%' }" style="width: 0%;">&nbsp;</div>
+                                    <div class="objective-progressbar-masteryscore-indicator" data-bind="style: { left: $parent.masteryScore + '%' }">
+                                        <div class="objective-progressbar-masteryscore-indicator-value"></div>
+                                        <div class="objective-progressbar-masteryscore-indicator-tooltip" data-bind="text: $parent.masteryScore + '%'"></div>
+                                    </div>
                                 </div>
                                 <div class="objective-progressbar-wrapper">
                                     <div class="objective-progressbar-border"></div>

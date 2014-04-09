@@ -2,6 +2,7 @@
 
     var repository = require('repositories/courseRepository'),
         router = require('plugins/router'),
+        courseSettings = require('modules/courseSettings'),
         windowOperations = require('windowOperations');
 
     describe('viewModel [objectives]', function () {
@@ -25,6 +26,14 @@
 
             it('should be defined', function () {
                 expect(viewModel.score).toBeDefined();
+            });
+
+        });
+
+        describe('masteryScore:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.masteryScore).toBeDefined();
             });
 
         });
@@ -80,12 +89,20 @@
                     spyOn(repository, 'get').andReturn(course);
                 });
 
-                it('should set course score', function () {
+                it('should set score', function () {
                     viewModel.score = 0;
                     course.score(55);
 
                     viewModel.activate();
                     expect(viewModel.score).toBe(55);
+                });
+
+                it('should set masteryScore', function () {
+                    viewModel.masteryScore = 0;
+                    courseSettings.masteryScore = { score: 55 };
+
+                    viewModel.activate();
+                    expect(viewModel.masteryScore).toBe(55);
                 });
 
                 it('should map objectives collection', function () {
