@@ -97,6 +97,9 @@
     changeOrderTooltip: {
         en: 'Change order by Drag & Drop'
     },
+    previewCourse: {
+        en: 'Preview course'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
