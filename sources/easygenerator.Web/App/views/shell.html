@@ -74,10 +74,19 @@
             <div class="content-area">
                 <!-- ko if: showCourseNavigation -->
                 <div class="tb-row">
-                    <nav class="tb-cell">
-                        <!-- ko compose: 'viewmodels/courses/courseNavigation/navigation' -->
-                        <!-- /ko -->
-                    </nav>
+                    <div class="tb-cell">
+                        <div class="course-action-header">
+                            <div class="course-action-holder">
+                                <div class="course-preview-holder">
+                                    <button class="action-item-btn preview-course btn dark-blue">
+                                        <span class="action-item-btn-caption">Preview course</span>
+                                    </button>
+                                </div>
+                                <!-- ko compose: 'viewmodels/courses/courseNavigation/navigation' -->
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /ko -->
                 <div class="tb-row">

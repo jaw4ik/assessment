@@ -1,3 +1,6 @@
-﻿<div class="course-navigation-holder">
-    <!-- ko foreach: $data.items --><a class="course-navigation-item" href="#" data-bind="click: navigate, css: { 'active': isActive, 'cursor-default': isRootView }, attr: { href: navigationLink }, localize: { text: title }"></a><!-- /ko -->
-</div>
+﻿<nav class="course-navigation-holder">
+    <!-- ko foreach: $data.items -->
+    <a class="course-navigation-item" href="#" data-bind="click: navigate, css: { 'active': isActive, 'cursor-default': isRootView }, attr: { href: navigationLink }, localize: { text: title }"></a>
+    <!-- /ko -->
+</nav>
+
