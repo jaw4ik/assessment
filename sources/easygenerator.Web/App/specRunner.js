@@ -87,6 +87,11 @@
         'synchronization/handlers/userDowngraded.spec',
         'synchronization/handlers/userUpgradedToStarter.spec',
 
+        'bootstrapper.spec',
+        'uiLocker.spec',
+        'widgets/notifyViewer/viewmodel.spec',
+       'widgets/uiLockViewer/viewmodel.spec',
+
 
         'treeOfContent/CourseTreeNode.spec',
         'treeOfContent/RelatedObjectiveTreeNode.spec',
@@ -108,10 +113,9 @@
        '../Scripts/account/signupsecondstep.spec',
        '../Scripts/account/passwordrecovery.spec',
        '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec',
-       'bootstrapper.spec',
-       'widgets/notifyViewer/viewmodel.spec',
-       'widgets/uiLockViewer/viewmodel.spec',
-       'uiLocker.spec',
+       
+       
+       
        
        'services/aim4YouService.spec',
        

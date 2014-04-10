@@ -21,7 +21,7 @@
                     expect(viewModel.prototype.enabled).toBeDefined();
                 });
 
-                it('should set notifications', function() {
+                it('should set notifications', function () {
                     viewModel.prototype.activate();
                     expect(viewModel.prototype.notifications).toBeDefined();
                 });
@@ -50,7 +50,7 @@
                 });
 
                 beforeEach(function () {
-                    spyOn($.fn, 'hide').andReturn($.fn);
+                    spyOn($.fn, 'hide').and.returnValue($.fn);
                     spyOn($.fn, 'fadeIn');
                 });
 
@@ -64,14 +64,14 @@
 
                 });
 
-                describe('when node type is 1', function() {
-                    
+                describe('when node type is 1', function () {
+
                     it('should hide notice', function () {
                         viewModel.prototype.addNotice({ nodeType: 1 });
                         expect($.fn.hide).toHaveBeenCalled();
                     });
 
-                    it('should add show notice animation to queue', function() {
+                    it('should add show notice animation to queue', function () {
                         spyOn(viewModel.queue, 'push');
                         var notice = { nodeType: 1 };
                         viewModel.prototype.addNotice(notice);
@@ -88,13 +88,13 @@
                     expect(viewModel.prototype.removeNotice).toBeFunction();
                 });
 
-                beforeEach(function() {
+                beforeEach(function () {
                     spyOn($.fn, 'fadeOut');
                 });
 
                 describe('when node type is not 1', function () {
 
-                    it('should not hide notice', function() {
+                    it('should not hide notice', function () {
                         viewModel.prototype.removeNotice({ nodeType: 0 });
                         expect($.fn.fadeOut).not.toHaveBeenCalled();
                     });
@@ -102,7 +102,7 @@
                 });
 
                 describe('when node type is not 1', function () {
-                    
+
                     it('should add hide notice animation to queue', function () {
                         spyOn(viewModel.queue, 'push');
                         var notice = { nodeType: 1 };
@@ -116,17 +116,17 @@
 
         });
 
-        describe('showItem:', function() {
+        describe('showItem:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.showItem).toBeFunction();
             });
 
-            it('should return promise', function() {
+            it('should return promise', function () {
                 expect(viewModel.showItem()).toBePromise();
             });
 
-            it('should fade in item', function() {
+            it('should fade in item', function () {
                 spyOn($.fn, 'fadeIn');
                 viewModel.showItem();
                 expect($.fn.fadeIn).toHaveBeenCalled();
@@ -134,17 +134,17 @@
 
         });
 
-        describe('hideItem:', function() {
+        describe('hideItem:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.hideItem).toBeFunction();
             });
 
-            it('should return promise', function() {
+            it('should return promise', function () {
                 expect(viewModel.hideItem()).toBePromise();
             });
 
-            it('should fade out item', function() {
+            it('should fade out item', function () {
                 spyOn($.fn, 'fadeOut');
                 viewModel.hideItem();
                 expect($.fn.fadeOut).toHaveBeenCalled();
@@ -152,23 +152,20 @@
 
         });
 
-        describe('queue:', function() {
+        describe('queue:', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.queue).toBeDefined();
             });
 
-            it('should call pushed function', function () {
+            it('should call pushed function', function (done) {
                 var obj = { func: function () { } };
                 spyOn(obj, 'func');
                 viewModel.queue.promise = Q();
-                
-                var promise = viewModel.queue.push(obj.func);
-                waitsFor(function() {
-                    return !promise.isPending();
-                });
-                runs(function () {
+
+                viewModel.queue.push(obj.func).fin(function () {
                     expect(obj.func).toHaveBeenCalled();
+                    done();
                 });
             });
 

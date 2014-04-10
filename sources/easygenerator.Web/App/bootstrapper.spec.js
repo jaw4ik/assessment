@@ -2,7 +2,7 @@
 
     describe('[bootstrapper]', function () {
 
-        it('should be object', function() {
+        it('should be object', function () {
             expect(bootstrapper).toBeObject();
         });
 
@@ -29,7 +29,7 @@
                 spyOn(task1, 'execute');
                 spyOn(task2, 'execute');
 
-                spyOn(tasks, 'getCollection').andReturn([task1, task2]);
+                spyOn(tasks, 'getCollection').and.returnValue([task1, task2]);
 
                 bootstrapper.run();
 
@@ -42,11 +42,11 @@
                 it('should log message', function () {
                     var task1 = createNonExecutableTask();
                     var task2 = createExecutableTask();
-                    
-                    spyOn(tasks, 'getCollection').andReturn([task1, task2]);
-                    
+
+                    spyOn(tasks, 'getCollection').and.returnValue([task1, task2]);
+
                     bootstrapper.run();
-                    
+
                     expect(system.log).toHaveBeenCalled();
                 });
 
