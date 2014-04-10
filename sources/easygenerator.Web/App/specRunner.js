@@ -90,8 +90,14 @@
         'bootstrapper.spec',
         'uiLocker.spec',
         'widgets/notifyViewer/viewmodel.spec',
-       'widgets/uiLockViewer/viewmodel.spec',
+        'widgets/uiLockViewer/viewmodel.spec',
 
+
+        'viewmodels/courses/courseNavigation/items/create.spec',
+        'viewmodels/courses/courseNavigation/items/design.spec',
+        'viewmodels/courses/courseNavigation/items/publish.spec',
+        'viewmodels/courses/courseNavigation/items/navigationItem.spec',
+        'viewmodels/courses/courseNavigation/navigation.spec',
 
         'treeOfContent/CourseTreeNode.spec',
         'treeOfContent/RelatedObjectiveTreeNode.spec',
@@ -117,18 +123,7 @@
        
        
        
-       'services/aim4YouService.spec',
-       
-       
-       
-       
-       
-       
-       'viewmodels/courses/courseNavigation/items/create.spec',
-       'viewmodels/courses/courseNavigation/items/design.spec',
-       'viewmodels/courses/courseNavigation/items/publish.spec',
-       'viewmodels/courses/courseNavigation/items/navigationItem.spec',
-       'viewmodels/courses/courseNavigation/navigation.spec',
+       'services/aim4YouService.spec',       
        
                     
        */
