@@ -75,6 +75,7 @@
 
         'viewmodels/questions/question.spec',
         'viewmodels/questions/answers.spec',
+        'viewmodels/questions/learningContents.spec',
 
         'viewmodels/common/contentField.spec',
         'viewmodels/panels/sidePanel.spec',
@@ -100,9 +101,7 @@
        /*
        'repositories/questionRepository.spec',
        'repositories/templateRepository.spec',
-
-       'viewmodels/questions/learningContents.spec',
-       
+                    
        '../Scripts/account/signup.spec',
        '../Scripts/account/signin.spec',
        '../Scripts/review/review.spec',

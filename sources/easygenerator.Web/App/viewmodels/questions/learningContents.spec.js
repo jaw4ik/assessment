@@ -71,7 +71,7 @@
                 learningContent = { id: ko.observable(''), text: ko.observable('') };
 
                 removeLearningContent = Q.defer();
-                spyOn(repository, 'removeLearningContent').andReturn(removeLearningContent.promise);
+                spyOn(repository, 'removeLearningContent').and.returnValue(removeLearningContent.promise);
             });
 
             it('should be function', function () {
@@ -104,18 +104,15 @@
                     expect(viewModel.learningContents().length).toEqual(0);
                 });
 
-                it('should show notification', function () {
-                    var promise = removeLearningContent.promise.fin(function () { });
+                it('should show notification', function (done) {
                     viewModel.learningContents([learningContent]);
                     removeLearningContent.resolve({ modifiedOn: new Date() });
 
                     viewModel.removeLearningContent(learningContent);
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    removeLearningContent.promise.fin(function () {
                         expect(notify.saved).toHaveBeenCalled();
+                        done();
                     });
                 });
                 
@@ -142,18 +139,15 @@
                     expect(viewModel.learningContents().length).toEqual(1);
                 });
 
-                it('should not show notification', function () {
-                    var promise = removeLearningContent.promise.fin(function () { });
+                it('should not show notification', function (done) {
                     viewModel.learningContents([learningContent]);
                     removeLearningContent.resolve({ modifiedOn: new Date() });
 
                     viewModel.removeLearningContent(learningContent);
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
+                    removeLearningContent.promise.fin(function () {
                         expect(notify.saved).not.toHaveBeenCalled();
+                        done();
                     });
                 });
 
@@ -177,19 +171,16 @@
                         expect(viewModel.learningContents().length).toEqual(0);
                     });
 
-                    it('should show notification', function () {
-                        var promise = removeLearningContent.promise.fin(function () { });
+                    it('should show notification', function (done) {
                         viewModel.learningContents([learningContent]);
                         removeLearningContent.resolve({ modifiedOn: new Date() });
 
                         viewModel.removeLearningContent(learningContent);
                         learningContent.id('id');
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        removeLearningContent.promise.fin(function () {
                             expect(notify.saved).toHaveBeenCalled();
+                            done();
                         });
                     });
                     
@@ -217,7 +208,7 @@
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
                 removeLearningContent = Q.defer();
-                spyOn(repository, 'removeLearningContent').andReturn(removeLearningContent.promise);
+                spyOn(repository, 'removeLearningContent').and.returnValue(removeLearningContent.promise);
             });
 
             it('should be function', function () {
@@ -243,19 +234,16 @@
                         expect(repository.removeLearningContent).toHaveBeenCalledWith(questionId, learningContent.id());
                     });
 
-                    it('should show notification', function () {
-                        var promise = removeLearningContent.promise.fin(function () { });
+                    it('should show notification', function (done) {
                         var learningContent = { id: ko.observable('learningContentId'), text: ko.observable('') };
                         viewModel.learningContents([learningContent]);
                         removeLearningContent.resolve(new Date());
 
                         viewModel.endEditText(learningContent);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        removeLearningContent.promise.fin(function () {
                             expect(notify.saved).toHaveBeenCalled();
+                            done();
                         });
                     });
 
@@ -300,8 +288,8 @@
                 addLearningContent = Q.defer();
                 updateLearningContentText = Q.defer();
 
-                spyOn(repository, 'addLearningContent').andReturn(addLearningContent.promise);
-                spyOn(repository, 'updateText').andReturn(updateLearningContentText.promise);
+                spyOn(repository, 'addLearningContent').and.returnValue(addLearningContent.promise);
+                spyOn(repository, 'updateText').and.returnValue(updateLearningContentText.promise);
             });
 
             it('should be function', function () {
@@ -331,47 +319,36 @@
                             learningContent.originalText = 'text2';
                         });
 
-                        it('should update learning content text in the repository', function () {
-                            var promise = updateLearningContentText.promise.fin(function () { });
+                        it('should update learning content text in the repository', function (done) {
                             updateLearningContentText.resolve();
 
                             viewModel.updateText(learningContent);
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            updateLearningContentText.promise.fin(function () {
                                 expect(repository.updateText).toHaveBeenCalledWith(questionId, learningContent.id(), learningContent.text());
+                                done();
                             });
                         });
 
-                        it('should show notification', function () {
-                            var promise = updateLearningContentText.promise.fin(function () { });
-
+                        it('should show notification', function (done) {
                             updateLearningContentText.resolve({ modifiedOn: new Date() });
 
                             viewModel.updateText(learningContent);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            
+                            updateLearningContentText.promise.fin(function () {
                                 expect(notify.saved).toHaveBeenCalled();
+                                done();
                             });
                         });
 
-                        it('should update learning content original text', function () {
-                            var promise = updateLearningContentText.promise.fin(function () { });
-
+                        it('should update learning content original text', function (done) {
                             updateLearningContentText.resolve(new Date());
 
                             viewModel.updateText(learningContent);
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+                            updateLearningContentText.promise.fin(function () {
                                 expect(learningContent.originalText).toBe(learningContent.text());
+                                done();
                             });
                         });
 
@@ -393,52 +370,40 @@
                         expect(repository.addLearningContent).toHaveBeenCalledWith(questionId, { text: learningContent.text() });
                     });
 
-                    it('should update learning content id in the viewModel', function () {
-                        var promise = addLearningContent.promise.fin(function () { });
+                    it('should update learning content id in the viewModel', function (done) {
                         addLearningContent.resolve({ id: id, createdOn: new Date() });
 
                         viewModel.updateText(learningContent);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        addLearningContent.promise.fin(function () {
                             expect(learningContent.id()).toEqual(id);
+                            done();
                         });
                     });
 
 
-                    it('should show notification', function () {
-                        var promise = addLearningContent.promise.fin(function () { });
+                    it('should show notification', function (done) {
                         addLearningContent.resolve({ id: id, createdOn: new Date() });
                         viewModel.updateText(learningContent);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        addLearningContent.promise.fin(function () {
                             expect(notify.saved).toHaveBeenCalled();
+                            done();
                         });
                     });
 
-                    it('should set learning content original text', function () {
-                        var promise = addLearningContent.promise.fin(function () { });
+                    it('should set learning content original text', function (done) {
                         addLearningContent.resolve({ id: id, createdOn: new Date() });
 
                         viewModel.updateText(learningContent);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        addLearningContent.promise.fin(function () {
                             expect(learningContent.originalText).toBe(learningContent.text());
+                            done();
                         });
                     });
-
                 });
-
             });
-
         });
 
         describe('isExpanded:', function () {
