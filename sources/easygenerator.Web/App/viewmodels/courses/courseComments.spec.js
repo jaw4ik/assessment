@@ -89,9 +89,7 @@
                         });
 
                         it('should set comments loading flag to false', function (done) {
-                            viewModel.isCommentsLoading(true);
-                            viewModel.activate('123');
-                            userContextIdentityDefer.promise.fin(function () {
+                            viewModel.activate('123').fin(function () {
                                 expect(viewModel.isCommentsLoading()).toBeFalsy();
                                 done();
                             });

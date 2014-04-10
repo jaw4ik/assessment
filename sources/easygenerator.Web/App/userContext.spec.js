@@ -3,8 +3,10 @@
 
     describe('[userContext]', function () {
 
-        var app = require('durandal/app'),
-            constants = require('constants');
+        var
+            app = require('durandal/app'),
+            constants = require('constants')
+        ;
 
         it('should be object', function () {
             expect(userContext).toBeObject();
@@ -25,6 +27,7 @@
             beforeEach(function () {
                 ajax = $.Deferred();
                 spyOn($, 'ajax').and.returnValue(ajax.promise());
+                spyOn(app, 'trigger');
             });
 
             it('should be function', function () {
@@ -89,13 +92,11 @@
             });
 
             it('should trigger event', function (done) {
-                spyOn(app, 'trigger');
                 ajax.resolve({});
 
-                var promise = userContext.identify();
-                promise.fin(function () {
+                userContext.identify().fin(function () {
+                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.identified, {});
                     done();
-                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.identified);
                 }).done();
             });
 
@@ -192,7 +193,7 @@
 
                     var tomorrow = new Date();
                     tomorrow.setDate(today.getDate() + 1);
-                    
+
                     beforeEach(function () {
                         userContext.identity = {
                             subscription: {

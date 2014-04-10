@@ -1,5 +1,4 @@
-﻿define(['constants', 'durandal/app', 'viewmodels/panels/tabs/reviewTab', 'viewmodels/panels/tabs/feedbackTab', 'repositories/courseRepository',
-        'plugins/router'],
+﻿define(['constants', 'durandal/app', 'viewmodels/panels/tabs/reviewTab', 'viewmodels/panels/tabs/feedbackTab', 'repositories/courseRepository', 'plugins/router'],
     function (constants, app, reviewTab, feedbackTab, repository, router) {
         var viewModel = {
             activeTab: ko.observable(),
@@ -18,29 +17,31 @@
             return router.routeData().courseId != null;
         });
 
-        viewModel.reviewTabActivationData = ko.computed(function () {
-            var courseId = router.routeData().courseId;
-            return Q.fcall(function () {
-                if (courseId == null) {
-                    return null;
-                }
+        viewModel.reviewTabActivationData = ko.computed({
+            read: function () {
+                var courseId = router.routeData().courseId;
+                return Q.fcall(function () {
+                    if (courseId == null) {
+                        return null;
+                    }
 
-                if (viewModel.lastReviewTabActivationData() == null ||
-                    (viewModel.lastReviewTabActivationData() != null && viewModel.lastReviewTabActivationData().courseId != courseId)) {
+                    if (viewModel.lastReviewTabActivationData() == null ||
+                        (viewModel.lastReviewTabActivationData() != null && viewModel.lastReviewTabActivationData().courseId != courseId)) {
+                        return repository.getById(courseId).then(function (course) {
+                            var data = {
+                                courseId: course.id,
+                                reviewUrl: course.reviewUrl
+                            };
+                            viewModel.lastReviewTabActivationData(data);
 
-                    return repository.getById(courseId).then(function (course) {
-                        var data = {
-                            courseId: course.id,
-                            reviewUrl: course.reviewUrl
-                        };
-                        viewModel.lastReviewTabActivationData(data);
+                            return data;
+                        });
+                    }
 
-                        return data;
-                    });
-                }
-
-                return viewModel.lastReviewTabActivationData();
-            });
+                    return viewModel.lastReviewTabActivationData();
+                });
+            },
+            deferEvaluation: true
         });
 
         app.on(constants.messages.course.publishForReview.completed, function (course) {
@@ -62,7 +63,7 @@
             viewModel.lastAction(constants.messages.helpHint.hidden);
         });
 
-        router.on('router:route:activating').then(function() {
+        router.on('router:route:activating').then(function () {
             viewModel.lastAction('router:route:activating');
         });
 
@@ -71,7 +72,7 @@
         });
 
         return viewModel;
-        
+
         function activate() {
             return Q.fcall(function () {
                 viewModel.activeTab(null);
