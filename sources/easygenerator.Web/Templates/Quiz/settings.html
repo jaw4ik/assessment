@@ -244,6 +244,10 @@
                 padding: 0 0 5px;
             }
 
+            .content-row.logo {
+                padding: 0;
+            }
+
         .content-col-right {
             float: right;
             width: 63%;
@@ -418,7 +422,7 @@
             width: 300px;
             height: 50px;
             float: left;
-            margin-right: 10px;
+            margin: 0 10px 10px 0;
             border: #e0dede 1px dashed;
         }
 
@@ -584,8 +588,12 @@
 
         .image-upload-button {
             position: relative;
-            display: block;
+            display: inline-block;
+            float: left;
             height: 20px;
+            width: 92px;
+            padding: 5px 0;
+            margin-bottom: 10px;
             overflow: hidden;
             cursor: default;
             border: 1px solid;
@@ -594,7 +602,6 @@
             background-color: #F4F4F4;
             color: #313131;
             text-align: center;
-            padding: 5px 0;
         }
 
             .image-upload-button.disabled {
@@ -648,7 +655,7 @@
                             <input type="text" class="content-text-input" id="imgUrl" data-bind="value: logo.url, valueUpdate: ['afterkeydown', 'afterpaste'], enable: hasStarterPlan" />
                         </div>
                     </div>
-                    <div class="content-row">
+                    <div class="content-row logo">
                         <div class="logo-wrapper">
                             <div class="logo-content default" data-bind="style: { display: logo.hasLogo() ? 'none' : 'block' }">
                                 <span class="logo-default-text">Your logo will appear here</span><br />
