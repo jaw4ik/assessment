@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'dataContext', 'httpWrapper', 'guard', 'repositories/objectiveRepository', 'durandal/system'], function (app, dataContext, httpWrapper, guard, objectiveRepository, system) {
+﻿define(['durandal/app', 'dataContext', 'constants', 'httpWrapper', 'guard', 'repositories/objectiveRepository', 'durandal/system'], function (app, dataContext, constants, httpWrapper, guard, objectiveRepository, system) {
 
     var
         addQuestion = function (objectiveId, obj) {
