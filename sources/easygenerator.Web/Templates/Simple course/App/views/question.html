@@ -80,7 +80,7 @@
 
         <!-- ko if: !isAnswered() -->
         <div class="btn-submit-wrapper" data-bind="visible: !isAnswered()">
-            <a href="#" class="small-page-action-btn blue-btn" data-bind="click: submit">Submit</a>
+            <a href="#" class="small-page-action-btn submit-btn" data-bind="click: submit">Submit</a>
         </div>
         <!-- /ko -->
         <!-- ko if: isCorrectAnswered() -->
@@ -89,7 +89,7 @@
                 <span class="result-text">Correct answer</span>
             </div>
             <div class="result-btn-holder">
-                <button class="small-page-action-btn blue-btn" data-bind="click: navigateNext, text: isNextQuestionAvailable() ? 'Next' : 'Go to learning objectives'">Next</button>
+                <button class="small-page-action-btn next-question-btn correct" data-bind="click: navigateNext, text: isNextQuestionAvailable() ? 'Next' : 'Go to learning objectives'">Next</button>
             </div>
         </div>
         <!-- /ko -->
@@ -99,10 +99,10 @@
                 <span class="result-text">Incorrect answer</span>
             </div>
             <div class="result-btn-holder">
-                <button class="small-page-action-btn red-btn" data-bind="click: tryAnswerAgain">Try again</button><!--
+                <button class="small-page-action-btn try-again-btn" data-bind="click: tryAnswerAgain">Try again</button><!--
                     --><span class="feedback-btn-whitespace"></span><!--
                         -->
-                <button class="small-page-action-btn grey-btn" data-bind="click: navigateNext, text: isNextQuestionAvailable() ? 'Next question' : 'Go to learning objectives'">Next question</button>
+                <button class="small-page-action-btn next-question-btn incorrect" data-bind="click: navigateNext, text: isNextQuestionAvailable() ? 'Next question' : 'Go to learning objectives'">Next question</button>
             </div>
         </div>
         <!-- /ko -->

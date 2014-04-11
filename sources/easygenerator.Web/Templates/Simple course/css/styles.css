@@ -339,6 +339,50 @@ input[type="checkbox"] {
     font-size: 20px;
 }
 
+.start-btn,
+.submit-btn,
+.correct.next-question-btn {
+    color: white;
+    background-color: #41b7d8;
+    border: 1px solid #3ba5c3;
+}
+
+    .start-btn:hover,
+    .start-btn:active,
+    .submit-btn:hover,
+    .submit-btn:active,
+    .correct.next-question-btn:hover,
+    .correct.next-question-btn:active {
+        background-color: #0088ae;
+    }
+
+.incorrect.next-question-btn {
+    color: white;
+    background-color: #343a41;
+    border: 1px solid #62676B;
+    opacity: 0.8;
+}
+
+    .incorrect.next-question-btn:hover,
+    .incorrect.next-question-btn:active {
+        opacity: 1;
+    }
+
+.finish-btn,
+.try-again-btn {
+    color: white;
+    background-color: #f58972;
+    border: 1px solid #d77864;
+    opacity: 0.8;
+}
+
+    .finish-btn:hover,
+    .finish-btn:active,
+    .try-again-btn:hover,
+    .try-again-btn:active {
+        background-color: #f26c4f;
+    }
+
 .red-btn {
     color: white;
     background-color: #f58972;
@@ -349,29 +393,6 @@ input[type="checkbox"] {
     .red-btn:hover,
     .red-btn:active {
         background-color: #f26c4f;
-    }
-
-.blue-btn {
-    color: white;
-    background-color: #41b7d8;
-    border: 1px solid #3ba5c3;
-}
-
-    .blue-btn:hover,
-    .blue-btn:active {
-        background-color: #0088ae;
-    }
-
-.grey-btn {
-    color: white;
-    background-color: #343a41;
-    border: 1px solid #62676B;
-    opacity: 0.8;
-}
-
-    .grey-btn:hover,
-    .grey-btn:active {
-        opacity: 1;
     }
 
 /*#endregion action-buttons*/
