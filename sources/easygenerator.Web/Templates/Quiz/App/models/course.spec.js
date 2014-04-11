@@ -325,13 +325,13 @@
             });
         });
 
-        describe('getAllQuestions:', function () {
-            it('should be function', function () {
-                expect(course.getAllQuestions).toBeFunction();
+        describe('allQuestions:', function () {
+            it('should be defined', function () {
+                expect(course.allQuestions).toBeDefined();
             });
 
             it('should return all questions', function () {
-                var result = course.getAllQuestions();
+                var result = course.allQuestions;
                 expect(result.length).toBe(2);
             });
         });

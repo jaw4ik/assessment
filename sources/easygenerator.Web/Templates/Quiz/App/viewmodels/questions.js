@@ -92,11 +92,10 @@
                     return;
                 }
 
-                allQuestions = _.map(course.getAllQuestions(), function (question) {
+                allQuestions = _.map(course.allQuestions, function (question) {
                     return mapQuestion(question);
                 });
 
-                allQuestions = _.shuffle(allQuestions);
                 this.totalQuestionsCount = allQuestions.length;
                 this.courseTitle = course.title;
             },

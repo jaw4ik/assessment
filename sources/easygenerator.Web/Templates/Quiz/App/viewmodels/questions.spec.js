@@ -68,7 +68,7 @@
         };
 
         beforeEach(function () {
-            spyOn(course, 'getAllQuestions').andReturn(questions);
+            course.allQuestions = questions;
             spyOn(router, 'navigate');
         });
 

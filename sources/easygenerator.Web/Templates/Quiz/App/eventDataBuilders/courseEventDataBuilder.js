@@ -19,7 +19,7 @@
     var buildAnswersSubmittedEventData = function (course) {
         guard.throwIfNotAnObject(course, 'Course is not an object');
 
-        return _.map(course.getAllQuestions(), function (question) {
+        return _.map(course.allQuestions, function (question) {
             return buildAnswersSubmittedDataForQuestion(question);
         });
     };

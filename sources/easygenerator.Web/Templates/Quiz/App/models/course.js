@@ -10,7 +10,7 @@
             this.score = 0;
             this.isCompleted = false;
             this.isAnswered = false;
-            this.getAllQuestions = getAllQuestions;
+            this.allQuestions = getAllQuestions(spec.objectives);
             this.finish = finish;
             this.calculateScore = calculateScore;
             this.start = start;
@@ -19,14 +19,14 @@
             this.loadContent = loadContent;
         }
 
-        function getAllQuestions() {
+        function getAllQuestions(objectives) {
             var questionsList = [];
 
-            _.each(this.objectives, function (objective) {
+            _.each(objectives, function (objective) {
                 questionsList = questionsList.concat(objective.questions);
             });
 
-            return questionsList;
+            return _.shuffle(questionsList);
         }
 
         var finish = function (callback) {
