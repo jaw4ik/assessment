@@ -9,7 +9,6 @@
                 title: 'title',
                 score: 100
             }],
-            getAllQuestions: function () { },
             isCompleted: true
         };
 
@@ -71,7 +70,7 @@
                 };
 
                 beforeEach(function () {
-                    spyOn(course, 'getAllQuestions').andReturn([question]);
+                    course.allQuestions = [question];
                     spyOn(objectiveRepository, 'get').andReturn(objective);
                 });
 

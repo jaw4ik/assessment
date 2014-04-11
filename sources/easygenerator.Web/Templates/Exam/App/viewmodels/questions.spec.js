@@ -47,7 +47,6 @@
         var course = {
             start: function () { },
             reset: function () { },
-            getAllQuestions: function () { },
             submitAnswers: function () { },
             objectives: [{
                 "id": 0,
@@ -58,7 +57,7 @@
         };
 
         beforeEach(function () {
-            spyOn(course, 'getAllQuestions').andReturn(questions);
+            course.allQuestions = questions;
             spyOn(router, 'navigate');
         });
 

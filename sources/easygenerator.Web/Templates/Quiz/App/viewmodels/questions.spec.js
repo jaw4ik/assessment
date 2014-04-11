@@ -57,7 +57,6 @@
         var course = {
             start: function () { },
             reset: function () { },
-            getAllQuestions: function () { },
             submitAnswers: function () { },
             objectives: [{
                 "id": 0,

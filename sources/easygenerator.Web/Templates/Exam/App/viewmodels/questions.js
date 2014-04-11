@@ -101,11 +101,9 @@
                 return;
             }
 
-            self.questions = _.map(course.getAllQuestions(), function (question) {
+            self.questions = _.map(course.allQuestions, function (question) {
                 return mapQuestion(question);
             });
-
-            self.questions = _.shuffle(self.questions);
 
             viewModel.totalQuestionsCount = self.questions.length;
             viewModel.courseTitle = course.title;

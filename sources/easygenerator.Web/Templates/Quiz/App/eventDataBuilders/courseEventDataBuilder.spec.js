@@ -9,8 +9,7 @@
                 id: 'id',
                 title: 'title',
                 score: 100
-            }],
-            getAllQuestions: function () { }
+            }]
         };
 
         describe('buildCourseFinishedEventData:', function () {
