@@ -1,0 +1,23 @@
+﻿<section class="bg-dialog-wrapper" data-bind="dialog: {}">
+    <div class="dialog dialog-wrapper">
+        <div class="create-course-dialog-header">
+            <img src="/Content/images/dialog-header.png" />
+        </div>
+        <div class="create-course-dialog-content">
+            <div class="create-course-image-wrapper">
+                <span class="create-course-image"></span>
+            </div>
+            <h1 class="create-course-title" data-bind="localize: { text: 'createCourseDialogTitle' }"></h1>
+            <div class="create-course-description" data-bind="localize: { text: 'createCourseDialogDescription' }"></div>
+        </div>
+        <div class="create-course-dialog-footer">
+            <div class="create-course-action-wrapper">
+                <div class="create-item-btn-wrapper">
+                    <button class="create-item-btn btn green big hideDialog" data-bind="click: navigateToCreateCourse">
+                        <span class="create-item-btn-caption" data-bind="localize: { text: 'createCourseViewCaption' }"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

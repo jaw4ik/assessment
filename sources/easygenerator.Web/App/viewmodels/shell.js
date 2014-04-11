@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'help/helpHint'],
-    function (app, composition, router, routes, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, help) {
+﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'help/helpHint', 'plugins/dialog'],
+    function (app, composition, router, routes, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, help, dialog) {
 
         "use strict";
 
@@ -38,6 +38,13 @@
             return '';
         });
 
+        viewModel.isViewReady.subscribe(function(value) {
+            if (value && !_.isNullOrUndefined(clientContext.get('showCreateCoursePopup'))) {
+                dialog.show('dialogs/createCourse').then(function() {
+                    clientContext.set('showCreateCoursePopup', null);
+                });
+            }
+        });
 
         app.on('httpWrapper:post-begin').then(function () {
             requestsCounter(requestsCounter() + 1);

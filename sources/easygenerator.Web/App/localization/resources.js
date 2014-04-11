@@ -1083,7 +1083,16 @@
     },
     openNavigationBar: {
         en: 'Open navigation bar'
-    }
+    },
     /* End resource section for model Navigation tree */
+    
+    /* Resource section for model Dialogs window */
+    createCourseDialogDescription: {
+        en: 'An eLearning experience can be a course, a quiz, a learning nugget, or anything else you come up with.'
+    },
+    createCourseDialogTitle: {
+        en: '1.Create your first course'
+    }
+    /* End resource section for model Dialogs window */
            
 });

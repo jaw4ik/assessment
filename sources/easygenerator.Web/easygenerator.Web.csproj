@@ -214,6 +214,13 @@
     <Content Include="App\bootstrapping\knockoutBindingsTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
     <Content Include="App\authorization\limitCoursesAmount.js" />
+    <Content Include="App\dialogs\createCourse.html">
+      <DependentUpon>createCourse.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\createCourse.js" />
+    <Content Include="App\dialogs\createCourse.spec.js">
+      <DependentUpon>createCourse.js</DependentUpon>
+    </Content>
     <Content Include="App\models\backButton.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.spec.js">
@@ -581,6 +588,7 @@
     <Content Include="Content\images\objective.png" />
     <Content Include="Content\images\oops.png" />
     <Content Include="Content\images\package-preloader.gif" />
+    <Content Include="Content\images\dialog-header.png" />
     <Content Include="Content\images\processSteps.png" />
     <Content Include="Content\images\publish-loader.GIF" />
     <Content Include="Content\images\review-sprites.png" />
@@ -920,6 +928,7 @@
     <Content Include="Scripts\knockoutBindings\layoutBinding.js" />
     <Content Include="Scripts\knockoutBindings\notificationsBinding.js" />
     <Content Include="Scripts\knockoutBindings\placeholderBinding.js" />
+    <Content Include="Scripts\knockoutBindings\dialogBinding.js" />
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />

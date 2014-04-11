@@ -40,6 +40,7 @@
         'notifications/subscriptionExpirationNotificationController.spec',
         'notifications/notification.spec',
         'widgets/backButton/viewmodel.spec',
+        'dialogs/createCourse.spec',
 
         'repositories/answerRepository.spec',
         'repositories/commentRepository.spec',

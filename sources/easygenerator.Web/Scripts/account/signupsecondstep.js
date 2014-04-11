@@ -40,6 +40,7 @@ app.signUpSecondStepModel = function () {
                     app.trackEvent(app.constants.events.signupSecondStep, { username: response.data }),
                     app.trackPageview(app.constants.pageviewUrls.signupSecondStep)
                     ).done(function () {
+                        localStorage.setItem('showCreateCoursePopup', true);
                         app.openHomePage();
                     });
             }).fail(function () {
