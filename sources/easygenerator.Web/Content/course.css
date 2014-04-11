@@ -360,6 +360,7 @@
     }
 
     .package-action-btn.btn.green {
+        color: white;
         text-shadow: 0 1px 1px rgba(0,0,0,.4);
         background: #b0c93e;
         border-color: #b0c93e;
@@ -378,8 +379,10 @@
         .package-action-btn.btn.green.disabled,
         .package-action-btn.btn.green.disabled:hover,
         .package-action-btn.btn.green.disabled:active {
+            color: white;
             background: #b0c93e;
             border-color: #98ae35;
+            opacity: 0.3;
         }
 
         /*package conditions*/
