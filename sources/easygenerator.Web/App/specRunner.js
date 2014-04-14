@@ -50,14 +50,14 @@
 
         /* UNSORTED SPECS */
 
-       //  'viewmodels/shell.spec', ajax request
         'guard.spec',
         'httpWrapper.spec',
         'notify.spec',
         'routing/routerExtender.spec',
-        //'services/publishService.spec',       Failing tests here <<<      Review later
+        'services/publishService.spec',
         'services/aim4YouService.spec',
 
+        'viewmodels/shell.spec',
         'viewmodels/courses/createCourse.spec',
         'viewmodels/courses/courses.spec',
         'viewmodels/courses/course.spec',
@@ -115,18 +115,8 @@
        'repositories/questionRepository.spec',
        'repositories/templateRepository.spec',
                     
-
-             
-       
-       
-       
-       
-       
-       
-             
-       
-                    
        */
+
         '../Scripts/account/signup.spec',
         '../Scripts/account/signin.spec',
         '../Scripts/account/passwordrecovery.spec',

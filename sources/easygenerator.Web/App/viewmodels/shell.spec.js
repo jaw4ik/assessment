@@ -5,7 +5,9 @@
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         dataContext = require('dataContext'),
-        userContext = require('userContext');
+        userContext = require('userContext')
+
+    ;
 
     describe('viewModel [shell]', function () {
 
@@ -33,6 +35,14 @@
 
         describe('activate:', function () {
 
+            var dataContextDefer;
+
+            beforeEach(function () {
+                dataContextDefer = Q.defer();
+                spyOn(dataContext, 'initialize').and.returnValue(dataContextDefer.promise);
+                dataContextDefer.resolve();
+            });
+
             it('should be function', function () {
                 expect(viewModel.activate).toBeFunction();
             });
@@ -43,18 +53,11 @@
 
             describe('when dataContext initialized', function () {
 
-                var
-                    dataContextDefer,
-                    routerActivateDefer;
+                var routerActivateDefer;
 
                 beforeEach(function () {
-                    dataContextDefer = Q.defer();
                     routerActivateDefer = Q.defer();
-
-                    spyOn(dataContext, 'initialize').and.returnValue(dataContextDefer.promise);
                     spyOn(router, 'activate').and.returnValue(routerActivateDefer.promise);
-
-                    dataContextDefer.resolve();
                     routerActivateDefer.resolve();
                 });
 
