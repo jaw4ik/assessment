@@ -38,7 +38,7 @@
                 that.contextCourseId = null;
                 that.contextCourseTitle = null;
                 that.title('');
-                
+
                 if (!_.isNullOrUndefined(queryParams) && _.isString(queryParams.courseId)) {
                     return courseRepository.getById(queryParams.courseId).then(function (course) {
                         if (_.isNull(course)) {
@@ -74,15 +74,15 @@
                 title(title().trim());
 
                 if (!title.isValid()) {
-                    return Q.fcall(function() {});
+                    return Q.fcall(function () { });
                 }
 
                 uiLocker.lock();
                 return objectiveRepository.addObjective({ title: title() }).then(function (createdObjective) {
                     title('');
                     if (_.isString(that.contextCourseId)) {
-                        objectiveRepository.getById(createdObjective.id).then(function (objective) {
-                            courseRepository.relateObjectives(that.contextCourseId, [objective]).then(function () {
+                        return objectiveRepository.getById(createdObjective.id).then(function (objective) {
+                            return courseRepository.relateObjectives(that.contextCourseId, [objective]).then(function () {
                                 navigateToObjectiveEditor.call(that, createdObjective);
                             });
                         });
