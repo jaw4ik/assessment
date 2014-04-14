@@ -6,7 +6,7 @@
 
         beforeEach(function () {
             httpPost = $.Deferred();
-            spyOn(http, 'post').andReturn(httpPost.promise());
+            spyOn(http, 'post').and.returnValue(httpPost.promise());
         });
 
         it('should be defined', function () {
@@ -23,16 +23,12 @@
                 expect(service.register()).toBePromise();
             });
 
-            it('should send request to server to api/aim4you/registerUser', function () {
-                var promise = service.register();
-
+            it('should send request to server to api/aim4you/registerUser', function (done) {
                 httpPost.resolve();
 
-                waitsFor(function () {
-                    return !promise.isPending();
-                });
-                runs(function () {
+                service.register().fin(function () {
                     expect(http.post).toHaveBeenCalledWith('api/aim4you/registerUser');
+                    done();
                 });
             });
 
@@ -44,13 +40,12 @@
                         httpPost.resolve(undefined);
                     });
 
-                    it('should reject promise with \'Response has invalid format\'', function () {
+                    it('should reject promise with \'Response has invalid format\'', function (done) {
                         var promise = service.register();
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+
+                        promise.fin(function () {
                             expect(promise).toBeRejectedWith('Response has invalid format');
+                            done();
                         });
                     });
 
@@ -62,25 +57,22 @@
                         httpPost.resolve({ success: true });
                     });
 
-                    it('should update isRegisteredInAim4You in dataContext to true', function () {
+                    it('should update isRegisteredInAim4You in dataContext to true', function (done) {
                         dataContext.userSettings.isRegisteredOnAim4You = false;
-                        var promise = service.register();
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+                        service.register().fin(function () {
                             expect(dataContext.userSettings.isRegisteredOnAim4You).toBeTruthy();
+                            done();
                         });
                     });
 
-                    it('should resolve promise', function () {
+                    it('should resolve promise', function (done) {
                         var promise = service.register();
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
+
+
+                        promise.fin(function () {
                             expect(promise).toBeResolved();
+                            done();
                         });
                     });
 
@@ -94,13 +86,12 @@
                             httpPost.resolve({ success: false, message: 'some error' });
                         });
 
-                        it('should reject promise with \'some error\'', function () {
+                        it('should reject promise with \'some error\'', function (done) {
                             var promise = service.register();
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
+
+                            promise.fin(function () {
                                 expect(promise).toBeRejectedWith('some error');
+                                done();
                             });
                         });
 

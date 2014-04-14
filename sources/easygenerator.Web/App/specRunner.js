@@ -56,6 +56,7 @@
         'notify.spec',
         'routing/routerExtender.spec',
         //'services/publishService.spec',       Failing tests here <<<      Review later
+        'services/aim4YouService.spec',
 
         'viewmodels/courses/createCourse.spec',
         'viewmodels/courses/courses.spec',
@@ -123,8 +124,7 @@
        
        
        
-       
-       'services/aim4YouService.spec',       
+             
        
                     
        */
