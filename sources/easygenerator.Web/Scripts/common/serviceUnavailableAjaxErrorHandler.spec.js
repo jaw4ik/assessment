@@ -13,7 +13,7 @@
             var ajaxErrorHandler;
             beforeEach(function () {
                 spyOn(app, 'reload');
-                spyOn($.fn, 'ajaxError').andCallFake(function (arg) {
+                spyOn($.fn, 'ajaxError').and.callFake(function (arg) {
                     ajaxErrorHandler = arg;
                 });
             });
@@ -24,7 +24,7 @@
 
             describe('and when document ajax error triggered', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     errorHandler.subscribeOnGlobalErrorEvents();
                 });
 
@@ -43,7 +43,7 @@
                             expect(app.reload).toHaveBeenCalled();
                         });
                     });
-                    
+
                 });
 
             });

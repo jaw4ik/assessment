@@ -1,4 +1,4 @@
-﻿define([], function() {
+﻿define([], function () {
     "use strict";
 
     var viewModel = app.passwordRecoveryViewModel();
@@ -7,10 +7,10 @@
 
         describe('password:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.password).toBeObservable();
             });
-            
+
             describe('hasUpperAndLowerCaseLetters:', function () {
 
                 it('should be computed', function () {
@@ -119,12 +119,12 @@
 
         describe('isPasswordVisible:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.isPasswordVisible).toBeObservable();
             });
 
         });
-        
+
         describe('isPasswordEditing:', function () {
 
             it('should be observable', function () {
@@ -135,22 +135,22 @@
 
         describe('showHidePassword:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.showHidePassword).toBeFunction();
             });
 
-            describe('when password visible', function() {
+            describe('when password visible', function () {
 
-                it('should hide password', function() {
+                it('should hide password', function () {
                     viewModel.isPasswordVisible(true);
-                    
+
                     viewModel.showHidePassword();
 
                     expect(viewModel.isPasswordVisible()).toBeFalsy();
                 });
 
             });
-            
+
             describe('when password hidden', function () {
 
                 it('should show password', function () {
@@ -162,12 +162,12 @@
                 });
 
             });
-            
+
         });
 
         describe('errorMessage:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.errorMessage).toBeObservable();
             });
 
@@ -175,13 +175,13 @@
 
         describe('hasError:', function () {
 
-            it('should be computed', function() {
+            it('should be computed', function () {
                 expect(viewModel.hasError).toBeComputed();
             });
 
             describe('when errorMessage is empty', function () {
 
-                it('should return false', function() {
+                it('should return false', function () {
                     viewModel.errorMessage('');
 
                     var result = viewModel.hasError();
@@ -190,7 +190,7 @@
                 });
 
             });
-            
+
             describe('when errorMessage is not empty', function () {
 
                 it('should return true', function () {
@@ -202,18 +202,18 @@
                 });
 
             });
-            
+
         });
 
         describe('canSubmit:', function () {
 
-            it('should be computed', function() {
+            it('should be computed', function () {
                 expect(viewModel.canSubmit).toBeComputed();
             });
 
-            describe('when password is valid', function() {
+            describe('when password is valid', function () {
 
-                it('should return true', function() {
+                it('should return true', function () {
                     viewModel.password('Easy123');
 
                     var result = viewModel.canSubmit();
@@ -236,7 +236,7 @@
             });
 
         });
-        
+
     });
-    
+
 });

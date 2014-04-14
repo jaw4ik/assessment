@@ -1,7 +1,7 @@
 ﻿var app = app || {};
 
 app.signupModel = function () {
-    
+
     var digitRegex = /\d/,
         whitespaceRegex = /\s/;
 
@@ -87,7 +87,7 @@ app.signupModel = function () {
             isUserNameValidating(false);
         });
     },
-        
+
     validateFirstName = function () {
         lastValidateFirstName = firstName().trim();
         firstName(firstName().trim());
@@ -97,7 +97,7 @@ app.signupModel = function () {
     onFocusFirstName = function () {
         isFirstNameErrorVisible(false);
     },
-        
+
     validateLastName = function () {
         lastValidateLastName = lastName().trim();
         lastName(lastName().trim());
@@ -142,29 +142,29 @@ app.signupModel = function () {
             && !whitespaceRegex.test(password());
     });
 
-    password.hasUpperAndLowerCaseLetters = ko.computed(function() {
+    password.hasUpperAndLowerCaseLetters = ko.computed(function () {
         return password().toLowerCase() != password()
             && password().toUpperCase() != password();
     });
 
-    password.hasNumbers = ko.computed(function() {
+    password.hasNumbers = ko.computed(function () {
         return digitRegex.test(password());
     });
 
-    password.hasSpaces = ko.computed(function() {
+    password.hasSpaces = ko.computed(function () {
         return !whitespaceRegex.test(password())
             && password().length != 0;
     });
 
-    password.hasMoreThanSevenSymbols = ko.computed(function() {
+    password.hasMoreThanSevenSymbols = ko.computed(function () {
         return password().length >= 7;
     });
 
-    firstName.isValid = ko.computed(function() {
+    firstName.isValid = ko.computed(function () {
         return !_.isEmptyOrWhitespace(firstName());
     });
 
-    lastName.isValid = ko.computed(function() {
+    lastName.isValid = ko.computed(function () {
         return !_.isEmptyOrWhitespace(lastName());
     });
 

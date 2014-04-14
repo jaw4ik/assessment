@@ -108,19 +108,18 @@
         'treeOfContent/handlers/treeOfContentEventHandler.spec',
         'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
         'treeOfContent/queries/getCourseByIdQuery.spec',
-        'treeOfContent/queries/getObjectiveByIdQuery.spec'
+        'treeOfContent/queries/getObjectiveByIdQuery.spec',
 
         /* NOT MIGRATED SPECS */
        /*
        'repositories/questionRepository.spec',
        'repositories/templateRepository.spec',
                     
-       '../Scripts/account/signup.spec',
-       '../Scripts/account/signin.spec',
-       '../Scripts/review/review.spec',
-       '../Scripts/account/signupsecondstep.spec',
-       '../Scripts/account/passwordrecovery.spec',
-       '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec',
+
+             
+       
+       
+       
        
        
        
@@ -128,6 +127,12 @@
        
                     
        */
+        '../Scripts/account/signup.spec',
+        '../Scripts/account/signin.spec',
+        '../Scripts/account/passwordrecovery.spec',
+        '../Scripts/account/signupsecondstep.spec',
+        '../Scripts/review/review.spec',
+        '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
         ];
 
         require(specs, function () {

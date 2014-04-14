@@ -78,15 +78,15 @@
 
         });
 
-        describe('firstName:', function() {
+        describe('firstName:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.firstName).toBeObservable();
             });
 
-            describe('isValid:', function() {
+            describe('isValid:', function () {
 
-                it('should be computed', function() {
+                it('should be computed', function () {
                     expect(viewModel.firstName.isValid).toBeComputed();
                 });
 
@@ -112,12 +112,12 @@
 
         });
 
-        describe('lastName:', function() {
+        describe('lastName:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.lastName).toBeObservable();
             });
-            
+
             describe('isValid:', function () {
 
                 it('should be computed', function () {
@@ -126,7 +126,7 @@
 
             });
 
-            describe('when empty', function() {
+            describe('when empty', function () {
 
                 it('should be not valid', function () {
                     viewModel.lastName('');
@@ -135,9 +135,9 @@
 
             });
 
-            describe('when not empty', function() {
+            describe('when not empty', function () {
 
-                it('should be valid', function() {
+                it('should be valid', function () {
                     viewModel.lastName('lastName');
                     expect(viewModel.lastName.isValid()).toBeTruthy();
                 });
@@ -235,7 +235,7 @@
                     expect(viewModel.country.isValid()).toBeFalsy();
                 });
 
-                it('should set country error message visible to true', function() {
+                it('should set country error message visible to true', function () {
                     viewModel.isCountryErrorVisible(false);
                     viewModel.country(undefined);
                     expect(viewModel.isCountryErrorVisible()).toBeTruthy();
@@ -355,7 +355,7 @@
                 });
 
             });
-            
+
             describe('when lastName not valid', function () {
 
                 it('should be not valid', function () {
@@ -466,46 +466,46 @@
             });
 
             describe('hasUpperAndLowerCaseLetters:', function () {
-                
+
                 it('should be computed', function () {
                     expect(viewModel.password.hasUpperAndLowerCaseLetters).toBeComputed();
                 });
 
-                describe('when password has uppercase and lowercase letters', function() {
+                describe('when password has uppercase and lowercase letters', function () {
 
-                    it('should return true', function() {
+                    it('should return true', function () {
                         viewModel.password('SomePassword');
                         expect(viewModel.password.hasUpperAndLowerCaseLetters()).toBeTruthy();
                     });
 
                 });
-                
+
                 describe('when password not has uppercase and lowercase letters', function () {
-                    
+
                     it('should return false', function () {
                         viewModel.password('111');
                         expect(viewModel.password.hasUpperAndLowerCaseLetters()).toBeFalsy();
                     });
-                    
+
                 });
 
             });
-            
+
             describe('hasNumbers:', function () {
 
                 it('should be computed', function () {
                     expect(viewModel.password.hasNumbers).toBeComputed();
                 });
 
-                describe('when password has number', function() {
+                describe('when password has number', function () {
 
-                    it('should return true', function() {
+                    it('should return true', function () {
                         viewModel.password('111asd');
                         expect(viewModel.password.hasNumbers()).toBeTruthy();
                     });
 
                 });
-                
+
                 describe('when password not has number', function () {
 
                     it('should return false', function () {
@@ -516,22 +516,22 @@
                 });
 
             });
-            
+
             describe('hasSpaces:', function () {
 
                 it('should be computed', function () {
                     expect(viewModel.password.hasSpaces).toBeComputed();
                 });
 
-                describe('when password not has spaces', function() {
+                describe('when password not has spaces', function () {
 
-                    it('should return true', function() {
+                    it('should return true', function () {
                         viewModel.password('abcANC123');
                         expect(viewModel.password.hasSpaces()).toBeTruthy();
                     });
 
                 });
-                
+
                 describe('when password has spaces', function () {
 
                     it('should return false', function () {
@@ -542,7 +542,7 @@
                 });
 
             });
-            
+
             describe('hasMoreThanSevenSymbols:', function () {
 
                 it('should be computed', function () {
@@ -566,7 +566,7 @@
                     });
 
                 });
-                
+
             });
 
             describe('when is empty', function () {
@@ -720,15 +720,15 @@
 
                 it('should not set \"userExists\"', function () {
                     viewModel.userExists(null);
-                    spyOn(viewModel, "userPreciselyExists").andReturn(true);
+                    spyOn(viewModel, "userPreciselyExists").and.returnValue(true);
 
                     viewModel.checkUserExists();
                     expect(viewModel.userExists()).toBeNull();
                 });
 
                 it('should not send request to server', function () {
-                    spyOn($, 'ajax').andReturn($.Deferred().promise());
-                    spyOn(viewModel, "userPreciselyExists").andReturn(true);
+                    spyOn($, 'ajax').and.returnValue($.Deferred().promise());
+                    spyOn(viewModel, "userPreciselyExists").and.returnValue(true);
 
                     viewModel.checkUserExists();
                     expect($.ajax).not.toHaveBeenCalled();
@@ -739,7 +739,7 @@
             describe('when user name is empty', function () {
 
                 it('should set \"userExists\" false', function () {
-                    spyOn($, 'ajax').andReturn($.Deferred().promise());
+                    spyOn($, 'ajax').and.returnValue($.Deferred().promise());
                     viewModel.userName('');
                     viewModel.userExists(null);
                     viewModel.checkUserExists();
@@ -748,7 +748,7 @@
                 });
 
                 it('should not send request to server', function () {
-                    spyOn($, 'ajax').andReturn($.Deferred().promise());
+                    spyOn($, 'ajax').and.returnValue($.Deferred().promise());
                     viewModel.userName('');
                     viewModel.checkUserExists();
 
@@ -760,7 +760,7 @@
             describe('when user name is not e-mail', function () {
 
                 it('should set \"userExists\" false', function () {
-                    spyOn($, 'ajax').andReturn($.Deferred().promise());
+                    spyOn($, 'ajax').and.returnValue($.Deferred().promise());
                     viewModel.userName('invalid mail');
                     viewModel.userExists(null);
                     viewModel.checkUserExists();
@@ -769,7 +769,7 @@
                 });
 
                 it('should not send request to server', function () {
-                    spyOn($, 'ajax').andReturn($.Deferred().promise());
+                    spyOn($, 'ajax').and.returnValue($.Deferred().promise());
                     viewModel.userName('invalid mail');
                     viewModel.checkUserExists();
 
@@ -781,7 +781,7 @@
             describe('when user name is valid e-mail', function () {
 
                 it('should call \"/api/user/exists"', function () {
-                    spyOn($, 'ajax').andReturn($.Deferred().promise());
+                    spyOn($, 'ajax').and.returnValue($.Deferred().promise());
                     viewModel.userName('user@mail.com');
                     viewModel.checkUserExists();
 
@@ -793,7 +793,7 @@
                 });
 
                 it('should set \"isUserValidating\" true', function () {
-                    spyOn($, 'ajax').andReturn($.Deferred().promise());
+                    spyOn($, 'ajax').and.returnValue($.Deferred().promise());
                     viewModel.userName('user@mail.com');
                     viewModel.isUserNameValidating(null);
 
@@ -806,72 +806,60 @@
 
             describe('when request succeed', function () {
 
-                var deferred,
-                    promise;
+                var deferred;
 
                 beforeEach(function () {
                     deferred = $.Deferred(),
-                    promise = deferred.promise().always(function () { });
-                    spyOn($, 'ajax').andReturn(deferred.promise());
+                    spyOn($, 'ajax').and.returnValue(deferred.promise());
                 });
 
                 describe('and user exists', function () {
 
-                    it('should set \"userExists\" true', function () {
+                    it('should set \"userExists\" true', function (done) {
                         viewModel.userName('user@mail.com');
                         viewModel.userExists(null);
                         deferred.resolve({ data: true });
 
                         viewModel.checkUserExists();
 
-                        waitsFor(function () {
-                            return promise.state() != "pending";
-                        });
-
-                        runs(function () {
+                        deferred.promise().always(function () {
                             expect(viewModel.userExists()).toBeTruthy();
+                            done();
                         });
                     });
 
-                    it('should change \"userPreciselyExists\" in true', function () {
+                    it('should change \"userPreciselyExists\" in true', function (done) {
                         viewModel.userName('user@mail.com');
                         viewModel.userExists(null);
                         deferred.resolve({ data: true });
 
                         viewModel.checkUserExists();
 
-                        waitsFor(function () {
-                            return promise.state() != "pending";
-                        });
-
-                        runs(function () {
+                        deferred.promise().always(function () {
                             expect(viewModel.userPreciselyExists()).toBeTruthy();
+                            done();
                         });
                     });
 
                     describe('and userName is changed', function () {
 
-                        it('should change \"userPreciselyExists\" in false', function () {
+                        it('should change \"userPreciselyExists\" in false', function (done) {
                             viewModel.userName('user@mail.com');
                             viewModel.userExists(null);
                             deferred.resolve({ data: true });
 
                             viewModel.checkUserExists();
 
-                            waitsFor(function () {
-                                return promise.state() != "pending";
-                            });
-
-                            runs(function () {
+                            deferred.promise().always(function () {
                                 viewModel.userName('newMail');
                                 expect(viewModel.userPreciselyExists()).toBeFalsy();
+                                done();
                             });
-
                         });
 
                     });
 
-                    it('should set \"isUserNameValidating\" false', function () {
+                    it('should set \"isUserNameValidating\" false', function (done) {
                         viewModel.userName('user@mail.com');
                         viewModel.isUserNameValidating(null);
                         viewModel.userExists(null);
@@ -879,12 +867,9 @@
 
                         viewModel.checkUserExists();
 
-                        waitsFor(function () {
-                            return promise.state() != "pending";
-                        });
-
-                        runs(function () {
+                        deferred.promise().always(function () {
                             expect(viewModel.isUserNameValidating()).toBeFalsy();
+                            done();
                         });
                     });
 
@@ -892,35 +877,29 @@
 
                 describe('and user not exists', function () {
 
-                    it('should set \"userExists\" false', function () {
+                    it('should set \"userExists\" false', function (done) {
                         viewModel.userName('user@mail.com');
                         viewModel.userExists(null);
                         deferred.resolve({ data: false });
 
                         viewModel.checkUserExists();
 
-                        waitsFor(function () {
-                            return promise.state() != "pending";
-                        });
-
-                        runs(function () {
+                        deferred.promise().always(function () {
                             expect(viewModel.userExists()).toBeFalsy();
+                            done();
                         });
                     });
 
-                    it('should set \"isUserNameValidating\" false', function () {
+                    it('should set \"isUserNameValidating\" false', function (done) {
                         viewModel.userName('user@mail.com');
                         viewModel.isUserNameValidating(null);
                         deferred.resolve({ data: false });
 
                         viewModel.checkUserExists();
 
-                        waitsFor(function () {
-                            return promise.state() != "pending";
-                        });
-
-                        runs(function () {
+                        deferred.promise().always(function () {
                             expect(viewModel.isUserNameValidating()).toBeFalsy();
+                            done();
                         });
                     });
 
@@ -956,14 +935,14 @@
                 };
 
                 spyOn(app, 'assingLocation');
-                spyOn(app, 'getLocationHref').andReturn(currentHref);
+                spyOn(app, 'getLocationHref').and.returnValue(currentHref);
                 spyOn(app.clientSessionContext, 'set');
 
                 trackEventDefer = jQuery.Deferred();
-                spyOn(app, 'trackEvent').andReturn(trackEventDefer.promise);
+                spyOn(app, 'trackEvent').and.returnValue(trackEventDefer.promise);
 
                 trackPageviewDefer = jQuery.Deferred();
-                spyOn(app, 'trackPageview').andReturn(trackPageviewDefer.promise);
+                spyOn(app, 'trackPageview').and.returnValue(trackPageviewDefer.promise);
             });
 
             it('should be a function', function () {
@@ -975,33 +954,25 @@
                 expect(app.clientSessionContext.set).toHaveBeenCalledWith(app.constants.userSignUpFirstStepData, data);
             });
 
-            it('should send event \'Sign up (1st step)\'', function () {
-                viewModel.signUp();
-
-                var promise = trackEventDefer.promise().always(function () { });
-
+            it('should send event \'Sign up (1st step)\'', function (done) {
                 trackEventDefer.reject();
 
-                waitsFor(function () {
-                    return promise.state() != 'pending';
-                });
-                runs(function () {
+                viewModel.signUp();
+
+                trackEventDefer.promise().always(function () {
                     expect(app.trackEvent).toHaveBeenCalledWith('Sign up (1st step)', { username: data.email });
+                    done();
                 });
             });
 
-            it('should track pageview', function () {
-                viewModel.signUp();
-
-                var promise = trackPageviewDefer.promise().always(function () { });
-
+            it('should track pageview', function (done) {
                 trackPageviewDefer.reject();
 
-                waitsFor(function () {
-                    return promise.state() != 'pending';
-                });
-                runs(function () {
+                viewModel.signUp();
+
+                trackPageviewDefer.promise().always(function () {
                     expect(app.trackPageview).toHaveBeenCalledWith(app.constants.pageviewUrls.signupFirstStep);
+                    done();
                 });
             });
 
@@ -1012,40 +983,36 @@
                     trackPageviewDefer.resolve();
                 });
 
-                it('should assing window location', function () {
+                it('should assing window location', function (done) {
                     viewModel.signUp();
 
                     var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
                     var trackEventPromise = trackEventDefer.promise().always(function () { });
 
-                    waitsFor(function () {
-                        return trackPageviewPromise.state() != 'pending' && trackEventPromise.state() != 'pending';
-                    });
-                    runs(function () {
+                    $.when(trackPageviewPromise, trackEventPromise).always(function () {
                         expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                        done();
                     });
                 });
 
             });
 
-            describe('when event send and pageview not tracked', function() {
-                
+            describe('when event send and pageview not tracked', function () {
+
                 beforeEach(function () {
                     trackEventDefer.resolve();
                     trackPageviewDefer.reject();
                 });
 
-                it('should assing window location', function () {
-                    viewModel.signUp();
-
+                it('should assing window location', function (done) {
                     var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
                     var trackEventPromise = trackEventDefer.promise().always(function () { });
 
-                    waitsFor(function () {
-                        return trackPageviewPromise.state() != 'pending' && trackEventPromise.state() != 'pending';
-                    });
-                    runs(function () {
+                    viewModel.signUp();
+
+                    $.when(trackPageviewPromise, trackEventPromise).always(function () {
                         expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                        done();
                     });
                 });
 
@@ -1058,17 +1025,15 @@
                     trackPageviewDefer.resolve();
                 });
 
-                it('should assing window location', function () {
-                    viewModel.signUp();
-
+                it('should assing window location', function (done) {
                     var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
                     var trackEventPromise = trackEventDefer.promise().always(function () { });
 
-                    waitsFor(function () {
-                        return trackPageviewPromise.state() != 'pending' && trackEventPromise.state() != 'pending';
-                    });
-                    runs(function () {
+                    viewModel.signUp();
+
+                    $.when(trackPageviewPromise, trackEventPromise).always(function () {
                         expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                        done();
                     });
                 });
 
@@ -1081,17 +1046,15 @@
                     trackPageviewDefer.reject();
                 });
 
-                it('should assing window location', function () {
-                    viewModel.signUp();
-
+                it('should assing window location', function (done) {
                     var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
                     var trackEventPromise = trackEventDefer.promise().always(function () { });
 
-                    waitsFor(function () {
-                        return trackPageviewPromise.state() != 'pending' && trackEventPromise.state() != 'pending';
-                    });
-                    runs(function () {
+                    viewModel.signUp();
+
+                    $.when(trackPageviewPromise, trackEventPromise).always(function () {
                         expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                        done();
                     });
                 });
 
@@ -1106,7 +1069,7 @@
             });
 
         });
-        
+
         describe('isLastNameErrorVisible:', function () {
 
             it('should be observable', function () {
@@ -1160,7 +1123,7 @@
             });
 
         });
-        
+
         describe('onFocusLastName:', function () {
 
             it('should be function', function () {

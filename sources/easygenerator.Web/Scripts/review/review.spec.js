@@ -100,7 +100,7 @@
 
             beforeEach(function () {
                 addCommentDeferred = $.Deferred();
-                spyOn($, "ajax").andReturn(addCommentDeferred.promise());
+                spyOn($, "ajax").and.returnValue(addCommentDeferred.promise());
             });
 
             it('should be function', function () {
@@ -222,19 +222,14 @@
 
                     describe('when request failed', function () {
 
-                        beforeEach(function () {
+                        beforeEach(function (done) {
                             addCommentDeferred.reject();
+                            done();
                         });
 
                         it('should set isFailed to true', function () {
                             viewModel.addComment(courseId);
-
-                            waitsFor(function () {
-                                return addCommentDeferred.state() !== "pending";
-                            });
-                            runs(function () {
-                                expect(viewModel.isFailed()).toBeTruthy();
-                            });
+                            expect(viewModel.isFailed()).toBeTruthy();
                         });
 
                     });
@@ -243,77 +238,61 @@
 
                         describe('and response is not an object', function () {
 
-                            beforeEach(function () {
+                            beforeEach(function (done) {
                                 addCommentDeferred.resolve();
+                                done();
                             });
 
                             it('should throw exception', function () {
                                 var f = function () {
                                     viewModel.addComment(courseId);
                                 };
-
-                                waitsFor(function () {
-                                    return addCommentDeferred.state() !== "pending";
-                                });
-                                runs(function () {
-                                    expect(f).toThrow('Response is not an object');
-                                });
+                                expect(f).toThrow('Response is not an object');
                             });
 
                         });
 
                         describe('and response is not successful', function () {
 
-                            beforeEach(function () {
+                            beforeEach(function (done) {
                                 addCommentDeferred.resolve({ success: false });
+                                done();
                             });
 
                             it('should set isFailed to true', function () {
                                 viewModel.addComment(courseId);
-
-                                waitsFor(function () {
-                                    return addCommentDeferred.state() !== "pending";
-                                });
-                                runs(function () {
-                                    expect(viewModel.isFailed()).toBeTruthy();
-                                });
+                                expect(viewModel.isFailed()).toBeTruthy();
                             });
 
                         });
 
                         describe('and response is successful', function () {
 
-                            beforeEach(function () {
+                            beforeEach(function (done) {
                                 addCommentDeferred.resolve({ success: true });
+                                done();
                             });
 
                             it('should clear text', function () {
                                 viewModel.addComment(courseId);
-
-                                waitsFor(function () {
-                                    return addCommentDeferred.state() !== "pending";
-                                });
-                                runs(function () {
-                                    expect(viewModel.text()).toBe('');
-                                });
+                                expect(viewModel.text()).toBe('');
                             });
 
                             it('should set isSaved to true', function () {
                                 viewModel.addComment(courseId);
-
-                                waitsFor(function () {
-                                    return addCommentDeferred.state() !== "pending";
-                                });
-                                runs(function () {
-                                    expect(viewModel.isSaved()).toBeTruthy();
-                                });
+                                expect(viewModel.isSaved()).toBeTruthy();
                             });
+
                         });
+
                     });
+
                 });
 
             });
+
         });
+
     });
 
 });

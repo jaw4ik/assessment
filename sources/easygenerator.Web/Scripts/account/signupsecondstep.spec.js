@@ -65,7 +65,7 @@
             var ajax;
             beforeEach(function () {
                 ajax = $.Deferred();
-                spyOn($, 'ajax').andReturn(ajax.promise());
+                spyOn($, 'ajax').and.returnValue(ajax.promise());
                 spyOn(app, 'assingLocation');
             });
 
@@ -92,7 +92,7 @@
                 });
 
                 it('should get user data from client session context', function () {
-                    spyOn(app.clientSessionContext, 'get').andReturn({});
+                    spyOn(app.clientSessionContext, 'get').and.returnValue({});
                     viewModel.signUp();
 
                     expect(app.clientSessionContext.get).toHaveBeenCalledWith(app.constants.userSignUpFirstStepData);
@@ -100,7 +100,7 @@
 
                 describe('and when user data is null', function () {
                     beforeEach(function () {
-                        spyOn(app.clientSessionContext, 'get').andReturn(null);
+                        spyOn(app.clientSessionContext, 'get').and.returnValue(null);
                     });
 
                     it('should throw exception \'User sign up data is not defined\'', function () {
@@ -115,7 +115,7 @@
                     var data;
                     beforeEach(function () {
                         var userData = { email: 'user@email.com', password: 'abcABC123!@#', fullName: 'user', phone: '+380971234567', organization: 'ism', country: 'Ukraine' };
-                        spyOn(app.clientSessionContext, 'get').andReturn(userData);
+                        spyOn(app.clientSessionContext, 'get').and.returnValue(userData);
 
                         data = {
                             email: userData.email, password: userData.password, fullName: userData.fullName, phone: userData.phone, organization: userData.organization, country: userData.country,
@@ -146,142 +146,93 @@
                         var trackEventDefer, trackPageviewDefer;;
                         var username;
 
-                        beforeEach(function () {
+                        beforeEach(function (done) {
                             trackEventDefer = jQuery.Deferred();
-                            spyOn(app, 'trackEvent').andReturn(trackEventDefer.promise);
+                            spyOn(app, 'trackEvent')(trackEventDefer.promise);
 
                             trackPageviewDefer = jQuery.Deferred();
-                            spyOn(app, 'trackPageview').andReturn(trackPageviewDefer.promise);
+                            spyOn(app, 'trackPageview').and.returnValue(trackPageviewDefer.promise);
 
                             spyOn(app.clientSessionContext, 'remove');
                             username = 'username@easygenerator.com';
 
-                            ajax.resolve({ data: 'username@easygenerator.com' });
-
                             spyOn(app, 'openHomePage');
+
+                            ajax.resolve({ data: 'username@easygenerator.com' });
+                            done();
                         });
 
                         it('should remove user data from client session context', function () {
                             viewModel.signUp();
-
-                            waitsFor(function () {
-                                return ajax.state() === "resolved";
-                            });
-                            runs(function () {
-                                expect(app.clientSessionContext.remove).toHaveBeenCalledWith(app.constants.userSignUpFirstStepData);
-                            });
+                            expect(app.clientSessionContext.remove).toHaveBeenCalledWith(app.constants.userSignUpFirstStepData);
                         });
 
                         it('should track event \'Sign up (2nd step)\'', function () {
                             viewModel.signUp();
-
-                            waitsFor(function () {
-                                return ajax.state() === "resolved";
-                            });
-                            runs(function () {
-                                expect(app.trackEvent).toHaveBeenCalledWith('Sign up (2nd step)', { username: username });
-                            });
+                            expect(app.trackEvent).toHaveBeenCalledWith('Sign up (2nd step)', { username: username });
                         });
 
                         it('should track pageview', function () {
                             viewModel.signUp();
-
-                            waitsFor(function () {
-                                return ajax.state() !== "pending";
-                            });
-                            runs(function () {
-                                expect(app.trackPageview).toHaveBeenCalledWith(app.constants.pageviewUrls.signupSecondStep);
-                            });
+                            expect(app.trackPageview).toHaveBeenCalledWith(app.constants.pageviewUrls.signupSecondStep);
                         });
 
-                        describe('when event sent and pageview tracked', function() {
+                        describe('when event sent and pageview tracked', function () {
 
-                            beforeEach(function() {
+                            beforeEach(function (done) {
                                 trackEventDefer.resolve();
                                 trackPageviewDefer.resolve();
+                                done();
                             });
 
                             it('should redirect to home page', function () {
                                 viewModel.signUp();
-
-                                var trackEventPromise = trackEventDefer.promise().always();
-                                var trackPageviewPromise = trackPageviewDefer.promise().always();
-
-                                waitsFor(function () {
-                                    return trackEventPromise.state() !== 'pending' && trackPageviewPromise.state() !== 'pending';
-                                });
-                                runs(function () {
-                                    expect(app.openHomePage).toHaveBeenCalled();
-                                });
+                                expect(app.openHomePage).toHaveBeenCalled();
                             });
 
                         });
 
                         describe('when event sent and pageview not tracked', function () {
 
-                            beforeEach(function () {
+                            beforeEach(function (done) {
                                 trackEventDefer.resolve();
                                 trackPageviewDefer.reject();
+                                done();
                             });
 
                             it('should redirect to home page', function () {
                                 viewModel.signUp();
-
-                                var trackEventPromise = trackEventDefer.promise().always();
-                                var trackPageviewPromise = trackPageviewDefer.promise().always();
-
-                                waitsFor(function () {
-                                    return trackEventPromise.state() !== 'pending' && trackPageviewPromise.state() !== 'pending';
-                                });
-                                runs(function () {
-                                    expect(app.openHomePage).toHaveBeenCalled();
-                                });
+                                expect(app.openHomePage).toHaveBeenCalled();
                             });
 
                         });
 
                         describe('when event not sent and pageview tracked', function () {
 
-                            beforeEach(function () {
+                            beforeEach(function (done) {
                                 trackEventDefer.reject();
                                 trackPageviewDefer.resolve();
+                                done();
                             });
 
                             it('should redirect to home page', function () {
                                 viewModel.signUp();
-
-                                var trackEventPromise = trackEventDefer.promise().always();
-                                var trackPageviewPromise = trackPageviewDefer.promise().always();
-
-                                waitsFor(function () {
-                                    return trackEventPromise.state() !== 'pending' && trackPageviewPromise.state() !== 'pending';
-                                });
-                                runs(function () {
-                                    expect(app.openHomePage).toHaveBeenCalled();
-                                });
+                                expect(app.openHomePage).toHaveBeenCalled();
                             });
 
                         });
 
                         describe('when event not sent and pageview not tracked', function () {
 
-                            beforeEach(function () {
+                            beforeEach(function (done) {
                                 trackEventDefer.reject();
                                 trackPageviewDefer.reject();
+                                done();
                             });
 
                             it('should redirect to home page', function () {
                                 viewModel.signUp();
-
-                                var trackEventPromise = trackEventDefer.promise().always();
-                                var trackPageviewPromise = trackPageviewDefer.promise().always();
-
-                                waitsFor(function () {
-                                    return trackEventPromise.state() !== 'pending' && trackPageviewPromise.state() !== 'pending';
-                                });
-                                runs(function () {
-                                    expect(app.openHomePage).toHaveBeenCalled();
-                                });
+                                expect(app.openHomePage).toHaveBeenCalled();
                             });
 
                         });
@@ -290,19 +241,14 @@
 
                     describe('and request fails', function () {
 
-                        beforeEach(function () {
+                        beforeEach(function (done) {
                             ajax.reject();
+                            done();
                         });
 
                         it('should reset isSignupRequestPending to false', function () {
                             viewModel.signUp();
-
-                            waitsFor(function () {
-                                return ajax.state() !== "pending";
-                            });
-                            runs(function () {
-                                expect(viewModel.isSignupRequestPending()).toBeFalsy();
-                            });
+                            expect(viewModel.isSignupRequestPending()).toBeFalsy();
                         });
 
                     });
@@ -329,7 +275,7 @@
             });
 
             it('should get user data from client session context', function () {
-                spyOn(app.clientSessionContext, 'get').andReturn(null);
+                spyOn(app.clientSessionContext, 'get').and.returnValue(null);
                 viewModel.isInitializationContextCorrect();
 
                 expect(app.clientSessionContext.get).toHaveBeenCalledWith(app.constants.userSignUpFirstStepData);
@@ -337,7 +283,7 @@
 
             describe('and when user data is null', function () {
                 beforeEach(function () {
-                    spyOn(app.clientSessionContext, 'get').andReturn(null);
+                    spyOn(app.clientSessionContext, 'get').and.returnValue(null);
                 });
 
                 it('should return false', function () {
@@ -348,7 +294,7 @@
 
             describe('and when user data is object', function () {
                 beforeEach(function () {
-                    spyOn(app.clientSessionContext, 'get').andReturn({});
+                    spyOn(app.clientSessionContext, 'get').and.returnValue({});
                 });
 
                 it('should return true', function () {

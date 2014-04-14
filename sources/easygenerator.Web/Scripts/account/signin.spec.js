@@ -286,7 +286,7 @@
 
             beforeEach(function () {
                 ajax = $.Deferred();
-                spyOn($, "ajax").andReturn(ajax.promise());
+                spyOn($, "ajax").and.returnValue(ajax.promise());
             });
 
             it('should be function', function () {
@@ -409,18 +409,16 @@
 
                 describe('when request failed', function () {
 
-                    it('should display message with an error', function () {
-                        var message = "message";
+                    var message = "message";
+
+                    beforeEach(function (done) {
                         ajax.reject(message);
+                        done();
+                    });
 
+                    it('should display message with an error', function () {
                         viewModel.submit();
-
-                        waitsFor(function () {
-                            return ajax.state() !== "pending";
-                        });
-                        runs(function () {
-                            expect(viewModel.errorMessage()).toEqual(message);
-                        });
+                        expect(viewModel.errorMessage()).toEqual(message);
                     });
 
                 });
@@ -429,19 +427,17 @@
 
                     describe('and response is not an object', function () {
 
-                        it('should throw exception', function () {
+                        beforeEach(function (done) {
                             ajax.resolve();
+                            done();
+                        });
 
+                        it('should throw exception', function () {
                             var f = function () {
                                 viewModel.submit();
                             };
 
-                            waitsFor(function () {
-                                return ajax.state() !== "pending";
-                            });
-                            runs(function () {
-                                expect(f).toThrow('Response is not an object');
-                            });
+                            expect(f).toThrow('Response is not an object');
                         });
 
                     });
@@ -450,37 +446,34 @@
 
                         describe('and message does not exist', function () {
 
-                            it('should throw exception', function () {
+                            beforeEach(function (done) {
                                 ajax.resolve({ success: false });
+                                done();
+                            });
 
+                            it('should throw exception', function () {
                                 var f = function () {
                                     viewModel.submit();
                                 };
 
-                                waitsFor(function () {
-                                    return ajax.state() !== "pending";
-                                });
-                                runs(function () {
-                                    expect(f).toThrow("Error message is not defined");
-                                });
+                                expect(f).toThrow("Error message is not defined");
                             });
 
                         });
 
                         describe('and message exists', function () {
 
-                            it('should display message with an error', function () {
-                                var message = 'message';
-                                ajax.resolve({ success: false, message: message });
+                            var message = 'message';
 
+                            beforeEach(function (done) {
+                                ajax.resolve({ success: false, message: message });
+                                done();
+                            });
+
+                            it('should display message with an error', function () {
                                 viewModel.submit();
 
-                                waitsFor(function () {
-                                    return ajax.state() !== "pending";
-                                });
-                                runs(function () {
-                                    expect(viewModel.errorMessage()).toEqual(message);
-                                });
+                                expect(viewModel.errorMessage()).toEqual(message);
                             });
 
                         });
@@ -490,47 +483,38 @@
 
                         var trackEvent;
 
-                        beforeEach(function () {
+                        beforeEach(function (done) {
                             trackEvent = $.Deferred();
-                            spyOn(app, 'trackEvent').andReturn(trackEvent.promise());
+                            spyOn(app, 'trackEvent').and.returnValue(trackEvent.promise());
 
                             ajax.resolve({ success: true });
+                            done();
                         });
 
                         it('should track event \'Sign in\'', function () {
                             viewModel.submit();
-
-                            waitsFor(function () {
-                                return ajax.state() !== "pending";
-                            });
-                            runs(function () {
-                                expect(app.trackEvent).toHaveBeenCalledWith('Sign in', { username: username });
-                            });
+                            expect(app.trackEvent).toHaveBeenCalledWith('Sign in', { username: username });
                         });
 
                         describe('and event is tracked', function () {
 
-                            beforeEach(function () {
+                            beforeEach(function (done) {
                                 trackEvent.resolve();
+                                spyOn(app, 'openHomePage');
+                                done();
                             });
 
                             it('should redirect to home page', function () {
-                                spyOn(app, 'openHomePage');
-
                                 viewModel.submit();
-
-                                waitsFor(function () {
-                                    return ajax.state() !== "pending";
-                                });
-                                runs(function () {
-                                    expect(app.openHomePage).toHaveBeenCalled();
-                                });
+                                expect(app.openHomePage).toHaveBeenCalled();
                             });
 
                         });
 
                     });
+
                 });
+
             });
 
         });
