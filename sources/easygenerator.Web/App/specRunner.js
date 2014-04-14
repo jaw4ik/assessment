@@ -48,6 +48,7 @@
             'repositories/learningContentRepository.spec',
             'repositories/objectiveRepository.spec',
             'repositories/templateRepository.spec',
+            'repositories/questionRepository.spec',
 
             'guard.spec',
             'httpWrapper.spec',
@@ -108,12 +109,6 @@
             'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
             'treeOfContent/queries/getCourseByIdQuery.spec',
             'treeOfContent/queries/getObjectiveByIdQuery.spec',
-
-            /* NOT MIGRATED SPECS */
-            /*
-            'repositories/questionRepository.spec',
-       
-            */
 
             '../Scripts/account/signup.spec',
             '../Scripts/account/signin.spec',
