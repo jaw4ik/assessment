@@ -17,12 +17,17 @@
 
         var previewCourse = function () {
             eventTracker.publish(events.previewCourse);
-            router.openUrl('/preview/' + router.routeData().courseId);
+            router.openUrl(coursePreviewLink());
         };
+
+        var coursePreviewLink = ko.computed(function () {
+            return '/preview/' + router.routeData().courseId;
+        });
 
         return {
             activate: activate,
             previewCourse: previewCourse,
+            coursePreviewLink: coursePreviewLink,
             navigationItems: navigationItems
         };
 

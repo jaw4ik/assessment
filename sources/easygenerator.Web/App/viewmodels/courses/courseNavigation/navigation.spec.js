@@ -49,5 +49,21 @@
                     expect(router.openUrl).toHaveBeenCalledWith('/preview/' + courseId);
                 });
             });
+
+
+            describe('coursePreviewLink:', function () {
+                it('should be computed', function () {
+                    expect(navigation.coursePreviewLink).toBeComputed();
+                });
+
+                it('should be \'/preview/\' + courseId', function () {
+                    var courseId = 'courseId';
+                    router.routeData({
+                        courseId: courseId
+                    });
+
+                    expect(navigation.coursePreviewLink()).toBe('/preview/' + courseId);
+                });
+            });
         });
     });
