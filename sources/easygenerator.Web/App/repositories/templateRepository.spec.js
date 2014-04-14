@@ -1,111 +1,109 @@
-﻿define(['repositories/templateRepository'],
-    function (repository) {
-        "use strict";
+﻿define(['repositories/templateRepository'], function (repository) {
+    "use strict";
 
-        var
-           dataContext = require('dataContext');
+    var
+       dataContext = require('dataContext')
+    ;
 
-        describe('repository [templateRepository]', function () {
+    describe('repository [templateRepository]', function () {
 
-            it('should be object', function () {
-                expect(repository).toBeObject();
+        it('should be object', function () {
+            expect(repository).toBeObject();
+        });
+
+        describe('getCollection:', function () {
+
+            it('should be function', function () {
+                expect(repository.getCollection).toBeFunction();
             });
 
-            describe('getCollection:', function () {
+            it('should be resolved with templates collection', function (done) {
+                var templatesList = [{ id: "1", name: "Default" }, { id: "2", name: "Quiz" }];
+                dataContext.templates = templatesList;
 
-                it('should be function', function () {
-                    expect(repository.getCollection).toBeFunction();
+                var promise = repository.getCollection();
+
+                promise.fin(function () {
+                    expect(promise).toBeResolvedWith(templatesList);
+                    done();
+                });
+            });
+
+        });
+
+        describe('getById:', function () {
+
+            it('should be function', function () {
+                expect(repository.getById).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                var result = repository.getById('0');
+                expect(result).toBePromise();
+            });
+
+            describe('when arguments not valid', function () {
+
+                describe('and when Id is undefined', function () {
+
+                    it('should throw exception', function () {
+                        var f = function () { repository.getById(); };
+                        expect(f).toThrow();
+                    });
+
                 });
 
-                it('should be resolved with templates collection', function () {
-                    var templatesList = [{ id: "1", name: "Default" }, { id: "2", name: "Quiz" }];
-                    dataContext.templates = templatesList;
+                describe('and when Id is null', function () {
 
-                    var promise = repository.getCollection();
+                    it('should throw exception', function () {
+                        var f = function () { repository.getById(null); };
+                        expect(f).toThrow();
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(promise).toBeResolvedWith(templatesList);
                     });
                 });
 
             });
 
-            describe('getById:', function () {
+            describe('when arguments are valid', function () {
 
-                it('should be function', function () {
-                    expect(repository.getById).toBeFunction();
-                });
-                
                 it('should return promise', function () {
                     var result = repository.getById('0');
                     expect(result).toBePromise();
                 });
 
-                describe('when arguments not valid', function () {
+                describe('and when template does not exist', function () {
 
-                    describe('and when Id is undefined', function () {
-                        it('should throw exception', function () {
-                            var f = function () { repository.getById(); };
-                            expect(f).toThrow();
-                        });
-                    });
+                    it('should be rejected', function (done) {
+                        dataContext.templates = [];
+                        var promise = repository.getById('-1');
 
-                    describe('and when Id is null', function () {
-                        it('should throw exception', function () {
-                            var f = function () { repository.getById(null); };
-                            expect(f).toThrow();
+                        promise.fin(function () {
+                            expect(promise).toBeRejected();
+                            done();
                         });
                     });
 
                 });
 
-                describe('when arguments are valid', function () {
+                describe('and when template exists', function () {
 
-                    it('should return promise', function () {
-                        var result = repository.getById('0');
-                        expect(result).toBePromise();
-                    });
+                    it('should be resolved with template from dataContext', function (done) {
+                        var template = { id: '0', name: 'Quizz' };
+                        dataContext.templates = [template];
 
-                    describe('and when template does not exist', function () {
+                        var promise = repository.getById('0');
 
-                        it('should be rejected', function () {
-                            dataContext.templates = [];
-                            var promise = repository.getById('-1');
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeRejected();
-                            });
+                        promise.fin(function () {
+                            expect(promise).toBeResolvedWith(template);
+                            done();
                         });
-
-                    });
-
-                    describe('and when template exists', function () {
-
-                        it('should be resolved with template from dataContext', function () {
-                            var template = { id: '0', name: 'Quizz' };
-                            dataContext.templates = [template];
-
-                            var promise = repository.getById('0');
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeResolvedWith(template);
-                            });
-                        });
-
                     });
 
                 });
 
             });
+
         });
-    }
-);
+
+    });
+});
