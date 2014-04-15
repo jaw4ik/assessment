@@ -12,5 +12,6 @@
         composition.addBindingHandler('scrollToElement');
         composition.addBindingHandler('placeholder');
         composition.addBindingHandler('dialog');
+        composition.addBindingHandler('ckeditor');
     }
 })
