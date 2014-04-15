@@ -278,13 +278,13 @@
         en: 'Upgrade now'
     },
     limitCoursesInformerTextForStarter: {
-        en: '<span class=\"bold\">Starter user</span> is able to have not more than'
+        en: 'You have reached the limit of'
     },
     limitCoursesInformerTextForFreeUser: {
-        en: '<span class=\"bold\">Free user</span> is able to have not more than'
+        en: 'You have reached the limit of'
     },
     limitCoursesInformerTextEnd: {
-        en: 'courses at once.'
+        en: 'courses.'
     },
     upgradeToNextPlanToCreateMoreCoursesErrorMessage: {
         en: 'Please upgrade your account to next plan to be able to create more courses.'
