@@ -50,19 +50,87 @@
                 expect(viewModel.title).toBeObservable();
             });
 
-            it('should be validatable', function () {
-                expect(viewModel.title.isValid).toBeComputed();
+            describe('isValid:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.title.isValid).toBeComputed();
+                });
+
             });
 
-            it('should be editable', function () {
-                expect(viewModel.title.isEditing).toBeObservable();
+            describe('isEditing:', function() {
+
+                it('should be observable', function() {
+                    expect(viewModel.title.isEditing).toBeObservable();
+                });
+
+                describe('when init', function() {
+
+                    beforeEach(function() {
+                        viewModel.title.init();
+                    });
+
+                    describe('and when value changed to true', function() {
+
+                        beforeEach(function() {
+                            viewModel.title.isEditing(true);
+                        });
+
+                        it('should send event \'Define title\'', function () {
+                            expect(eventTracker.publish).toHaveBeenCalledWith('Define title');
+                        });
+
+                    });
+
+                });
+
             });
 
-            describe('when start editing', function () {
+            
 
-                it('should send event \'Define title\'', function () {
+            describe('startEditing:', function () {
+
+                it('should be function', function() {
+                    expect(viewModel.title.startEditing).toBeFunction();
+                });
+
+                it('should set isEditing to true', function() {
+                    viewModel.title.isEditing(false);
                     viewModel.title.startEditing();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Define title');
+                    expect(viewModel.title.isEditing()).toBeTruthy();
+                });
+
+            });
+
+            describe('init:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.title.init).toBeFunction();
+                });
+
+                it('should clear title', function () {
+                    viewModel.title('some value');
+                    viewModel.title.init();
+                    expect(viewModel.title()).toBe('');
+                });
+
+                it('should subscribe to isEditing observable', function () {
+                    viewModel.title.init();
+                    expect(viewModel.title.isEditingSubscription).toBeDefined();
+                });
+
+            });
+
+            describe('dispose:', function() {
+
+                it('should be function', function() {
+                    expect(viewModel.title.dispose).toBeFunction();
+                });
+
+                it('should dispose isEditing subscription', function() {
+                    spyOn(viewModel.title.isEditingSubscription, 'dispose');
+                    viewModel.title.dispose();
+                    expect(viewModel.title.isEditingSubscription.dispose).toHaveBeenCalled();
                 });
 
             });
@@ -349,7 +417,21 @@
             });
 
         });
-        
+
+        describe('backButtonData:', function () {
+
+            it('should be instance of BackButton', function () {
+                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
+            });
+
+            it('should be configured', function () {
+                expect(viewModel.backButtonData.url).toBe('courses');
+                expect(viewModel.backButtonData.backViewName).toBe(localizationManager.localize('courses'));
+                expect(viewModel.backButtonData.callback).toBe(viewModel.navigateToCoursesEvent);
+            });
+
+        });
+
         describe('activate:', function () {
 
             var identifyUserDeferred, getTemplatesDeferred;
@@ -357,7 +439,7 @@
             beforeEach(function () {
                 identifyUserDeferred = Q.defer();
                 getTemplatesDeferred = Q.defer();
-                
+
                 spyOn(userContext, 'identify').and.returnValue(identifyUserDeferred.promise);
                 spyOn(templateRepository, 'getCollection').and.returnValue(getTemplatesDeferred.promise);
             });
@@ -371,14 +453,14 @@
                 expect(result).toBePromise();
             });
 
-            it('should clear title field', function () {
-                viewModel.title('Some title');
+            it('should init title field', function () {
+                spyOn(viewModel.title, 'init');
                 viewModel.activate();
-                expect(viewModel.title()).toBe('');
+                expect(viewModel.title.init).toHaveBeenCalled();
             });
 
             it('should identify user', function (done) {
-               
+
                 identifyUserDeferred.resolve();
                 getTemplatesDeferred.resolve([]);
 
@@ -412,7 +494,7 @@
                         done();
                     });
                 });
-               
+
             });
 
             it('and should get templates from repository', function (done) {
@@ -541,16 +623,16 @@
             });
         });
 
-        describe('backButtonData:', function () {
+        describe('deactivate:', function() {
 
-            it('should be instance of BackButton', function () {
-                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
+            it('should be function', function() {
+                expect(viewModel.deactivate).toBeFunction();
             });
 
-            it('should be configured', function () {
-                expect(viewModel.backButtonData.url).toBe('courses');
-                expect(viewModel.backButtonData.backViewName).toBe(localizationManager.localize('courses'));
-                expect(viewModel.backButtonData.callback).toBe(viewModel.navigateToCoursesEvent);
+            it('should dispose title', function() {
+                spyOn(viewModel.title, 'dispose');
+                viewModel.deactivate();
+                expect(viewModel.title.dispose).toHaveBeenCalled();
             });
 
         });
