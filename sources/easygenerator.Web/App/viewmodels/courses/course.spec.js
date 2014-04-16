@@ -316,7 +316,7 @@
 
                 });
 
-                it('should send event \'Navigate to Objective details\'', function () {
+                it('should send event \'Navigate to objective details\'', function () {
                     viewModel.navigateToObjectiveDetails({ id: 1 });
                     expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective details');
                 });

@@ -11,7 +11,7 @@
                 selectQuestion: "Select question",
                 unselectQuestion: "Unselect question",
                 deleteSelectedQuestions: "Delete question",
-                navigateToCourse: "Navigate to course",
+                navigateToCourse: "Navigate to course details",
                 navigateToObjectives: "Navigate to objectives",
                 changeQuestionsOrder: "Change order of questions"
             },

@@ -45,9 +45,9 @@
                     expect(viewModel.navigateToCreation).toBeFunction();
                 });
 
-                it('should send event \'Navigate to Objective creation\'', function () {
+                it('should send event \'Navigate to create objective\'', function () {
                     viewModel.navigateToCreation();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Objective creation');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create objective');
                 });
 
                 it('should navigate to 404', function () {
@@ -63,9 +63,9 @@
                     expect(viewModel.navigateToCreation).toBeFunction();
                 });
 
-                it('should send event \'Navigate to Objective details\'', function () {
+                it('should send event \'Navigate to objective details\'', function () {
                     viewModel.navigateToDetails({ id: 1 });
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Objective details');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective details');
                 });
 
                 it('should navigate to #/objective/{id}', function () {
@@ -82,9 +82,9 @@
                     expect(viewModel.navigateToCourses).toBeFunction();
                 });
 
-                it('should send event \'Navigate to Courses\'', function () {
+                it('should send event \'Navigate to courses\'', function () {
                     viewModel.navigateToCourses();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Courses');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to courses');
                 });
 
                 it('should navigate to #/courses', function () {

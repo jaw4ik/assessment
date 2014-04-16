@@ -5,7 +5,7 @@
         var
             events = {
                 navigateToObjectives: 'Navigate to objectives',
-                navigateToCourse: 'Navigate to course',
+                navigateToCourse: 'Navigate to course details',
                 createAndContinue: "Create learning objective and open it properties"
             },
 

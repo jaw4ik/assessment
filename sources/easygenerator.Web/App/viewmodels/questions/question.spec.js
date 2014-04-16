@@ -130,9 +130,9 @@ define(function (require) {
                 expect(viewModel.navigateToObjectiveEvent).toBeFunction();
             });
 
-            it('should send event \'Navigate to courses\'', function () {
+            it('should send event \'Navigate to objective details\'', function () {
                 viewModel.navigateToObjectiveEvent();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective details');
             });
 
         });

@@ -1027,9 +1027,9 @@
                     expect(viewModel.navigateToCourseEvent).toBeFunction();
                 });
 
-                it('should send event \'Navigate to course\'', function () {
+                it('should send event \'Navigate to course details\'', function () {
                     viewModel.navigateToCourseEvent();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to course');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to course details');
                 });
 
             });

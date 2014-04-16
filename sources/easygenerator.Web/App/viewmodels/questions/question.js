@@ -19,7 +19,7 @@
                 deleteLearningContent: 'Delete learning content',
                 startEditingLearningContent: 'Start editing learning content',
                 EndEditingLearningContent: 'End editing learning content',
-                navigateToObjective: 'Navigate to objective'
+                navigateToObjective: 'Navigate to objective details'
             },
 
             sendEvent = function (eventName) {

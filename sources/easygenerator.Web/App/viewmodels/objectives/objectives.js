@@ -4,9 +4,9 @@
 
         var
             events = {
-                navigateToCreation: "Navigate to Objective creation",
-                navigateToDetails: "Navigate to Objective details",
-                navigateToCourses: "Navigate to Courses",
+                navigateToCreation: "Navigate to create objective",
+                navigateToDetails: "Navigate to objective details",
+                navigateToCourses: "Navigate to courses",
                 selectObjective: "Select Objective",
                 unselectObjective: "Unselect Objective",
                 deleteObjectives: "Delete selected objectives"
