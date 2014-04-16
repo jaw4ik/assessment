@@ -119,6 +119,11 @@ namespace easygenerator.Web.Controllers
             return RedirectToRoute("Default");
         }
 
+        [Route("account/upgrade")]
+        public ActionResult UpgradeAccount()
+        {
+            return Redirect("http://www.easygenerator.com/order-now");
+        }
 
         private bool IsExistingUserAuthenticated()
         {

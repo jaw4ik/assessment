@@ -203,6 +203,23 @@ namespace easygenerator.Web.Tests.Utils
         }
     }
 
+    public class RedirectResultAssertions : ObjectAssertions
+    {
+        public RedirectResultAssertions(RedirectResult subject)
+            : base(subject)
+        {
+
+        }
+
+        public RedirectResult And
+        {
+            get
+            {
+                return Subject as RedirectResult;
+            }
+        }
+    }
+
     public static class ActionResultFluentAssertions
     {
         public static JsonResultAssertions BeJsonResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
@@ -337,6 +354,16 @@ namespace easygenerator.Web.Tests.Utils
                 .FailWith("Expected \"ImageResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new ImageResultAssertions(value.Subject as ImageResult);
+        }
+
+        public static RedirectResultAssertions BeRedirectResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is RedirectResult)
+                .FailWith("Expected \"RedirectResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new RedirectResultAssertions(value.Subject as RedirectResult);
         }
 
 

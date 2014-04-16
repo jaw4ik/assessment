@@ -10,6 +10,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Controllers;
 using easygenerator.Web.Tests.Utils;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
@@ -380,6 +381,23 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             user.Received().RecoverPasswordUsingTicket(ticket, "NewPassword123123");
+        }
+
+        #endregion
+
+        #region UpgradeAccount
+
+        [TestMethod]
+        public void UpgradeAccount_ShouldReturnRedirectResult()
+        {
+            //Arrange
+
+
+            //Act
+            var result = _controller.UpgradeAccount();
+
+            //Assert
+            result.Should().BeRedirectResult();
         }
 
         #endregion
