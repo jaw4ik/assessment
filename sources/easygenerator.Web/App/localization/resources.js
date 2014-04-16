@@ -325,6 +325,9 @@
     connectExistingLearningObjectives: {
         en: 'Connect existing'
     },
+    finishConnectingLearningObjectives: {
+        en: 'Finish connecting'
+    },
     /* End resource section for model CreateObjective */
     
     /* Resource section for model CreateCourse */
