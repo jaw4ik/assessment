@@ -68,11 +68,6 @@
                             <button class="action-item-btn connect-item btn" data-bind="click: showAllAvailableObjectives">
                                 <span class="action-item-btn-caption" data-bind="localize: { text: 'connectExistingLearningObjectives' }">Connect existing</span>
                             </button>
-                            <!-- ko if: connectedObjectives().length < 1 -->
-                            <div class="tip-arrow-holder">
-                                <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
-                            </div>
-                            <!-- /ko -->
                         </div>
                         <!-- /ko -->
                     </div>
@@ -82,6 +77,11 @@
                             <button class="action-item-btn create-item btn green" data-bind="click: navigateToCreateObjective">
                                 <span class="action-item-btn-caption" data-bind="localize: { text: 'createAndConnectLearningObjective' }">Learning objective</span>
                             </button>
+                            <!-- ko if: connectedObjectives().length < 1 -->
+                            <div class="tip-arrow-holder right">
+                                <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
+                            </div>
+                            <!-- /ko -->
                         </div>
                         <!-- /ko -->
                         <!-- ko if: objectivesMode() == objectivesListModes.appending -->
