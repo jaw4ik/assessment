@@ -1381,6 +1381,7 @@ span.top-navigation-item.current {
 .btn.connect-item {
     background: #5bc0de;
     border-color: #52adc8;
+    text-shadow: none;
 }
 
     .btn.finish-item:hover,
