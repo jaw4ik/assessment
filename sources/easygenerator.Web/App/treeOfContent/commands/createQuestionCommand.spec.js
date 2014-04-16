@@ -5,7 +5,8 @@
         localizationManager = require('localization/localizationManager'),
         router = require('plugins/router'),
         uiLocker = require('uiLocker'),
-        clientContext = require('clientContext')
+        clientContext = require('clientContext'),
+        eventTracker = require('eventTracker')
     ;
 
     describe('command [createQuestionCommand]', function () {
@@ -30,6 +31,12 @@
 
             it('should return promise', function () {
                 expect(command.execute()).toBePromise();
+            });
+
+            it('should send event \'Create new question\'', function () {
+                spyOn(eventTracker, 'publish');
+                command.execute();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Create new question', 'Tree of content');
             });
 
             it('should lock content', function () {

@@ -7,7 +7,7 @@
         <div class="navigation-tree-node-icon collapse" data-bind="click: collapse"></div>
         <!-- /ko -->
 
-        <a href="#" class="navigation-tree-node-caption" data-bind="text: title, attr: { href: url }"></a>
+        <a href="#" class="navigation-tree-node-caption" data-bind="click: navigateToObjective, text: title, attr: { href: url }"></a>
     </div>
 
     <ul data-bind="visible: isExpanded">

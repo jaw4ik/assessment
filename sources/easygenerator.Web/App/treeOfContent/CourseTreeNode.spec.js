@@ -1,7 +1,9 @@
 ﻿define(['treeOfContent/CourseTreeNode'], function (CourseTreeNode) {
 
     var
-        getCourseByIdQuery = require('treeOfContent/queries/getCourseByIdQuery')
+        getCourseByIdQuery = require('treeOfContent/queries/getCourseByIdQuery'),
+        eventTracker = require('eventTracker'),
+        router = require('plugins/router')
     ;
 
     describe('[CourseTreeNode]', function () {
@@ -21,6 +23,8 @@
             expect(courseTreeNode.isExpanded).toBeObservable();
             expect(courseTreeNode.expand).toBeFunction();
             expect(courseTreeNode.collapse).toBeFunction();
+            expect(courseTreeNode.navigateToCourse).toBeFunction();
+            expect(courseTreeNode.navigateToCreateObjective).toBeFunction();
         });
 
         describe('expand:', function () {
@@ -139,6 +143,58 @@
                 courseTreeNode.collapse();
 
                 expect(courseTreeNode.isExpanded()).toBeFalsy();
+            });
+
+        });
+
+        describe('navigateToCourse:', function () {
+            
+            var courseTreeNode;
+
+            beforeEach(function () {
+                courseTreeNode = new CourseTreeNode('id', 'title', 'url');
+            });
+
+            it('should be function', function() {
+                expect(courseTreeNode.navigateToCourse).toBeFunction();
+            });
+
+            it('should send event \'Navigate to course details\'', function () {
+                spyOn(eventTracker, 'publish');
+                courseTreeNode.navigateToCourse();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to course details', 'Tree of content');
+            });
+
+            it('should navigate to course details', function () {
+                spyOn(router, 'navigate');
+                courseTreeNode.navigateToCourse();
+                expect(router.navigate).toHaveBeenCalledWith(courseTreeNode.url);
+            });
+
+        });
+
+        describe('navigateToCreateObjective:', function () {
+            
+            var courseTreeNode;
+
+            beforeEach(function () {
+                courseTreeNode = new CourseTreeNode('id', 'title', 'url');
+            });
+
+            it('should be function', function () {
+                expect(courseTreeNode.navigateToCreateObjective).toBeFunction();
+            });
+
+            it('should send event \'Navigate to course details\'', function () {
+                spyOn(eventTracker, 'publish');
+                courseTreeNode.navigateToCreateObjective();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create objective', 'Tree of content');
+            });
+
+            it('should navigate to course details', function () {
+                spyOn(router, 'navigate');
+                courseTreeNode.navigateToCreateObjective();
+                expect(router.navigate).toHaveBeenCalledWith('objective/create?courseId=' + courseTreeNode.id);
             });
 
         });

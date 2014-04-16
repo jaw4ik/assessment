@@ -7,12 +7,12 @@
         <div class="navigation-tree-node-icon collapse" data-bind="click: collapse"></div>
         <!-- /ko -->
 
-        <a href="#" class="navigation-tree-node-caption" data-bind="text: title, attr: { href: url }"></a>
+        <a href="#" class="navigation-tree-node-caption" data-bind="click: navigateToCourse, text: title, attr: { href: url }"></a>
     </div>
 
     <ul data-bind="visible: isExpanded">
         <li class="navigation-tree-node">
-            <a class="navigation-tree-node-caption-wrapper" data-bind="attr: { href: '#objective/create?courseId=' + id }">
+            <a class="navigation-tree-node-caption-wrapper" data-bind="click: navigateToCreateObjective, attr: { href: '#objective/create?courseId=' + id }">
                 <span class="navigation-tree-node-icon create"></span>
                 <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createObjectiveTreeNodeTitle' }">Learning objective</span>
             </a>

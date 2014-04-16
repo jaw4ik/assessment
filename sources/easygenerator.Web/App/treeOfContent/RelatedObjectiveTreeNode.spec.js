@@ -2,7 +2,9 @@
 
     var
         getObjectiveByIdQuery = require('treeOfContent/queries/getObjectiveByIdQuery'),
-        createQuestionCommand = require('treeOfContent/commands/createQuestionCommand')
+        createQuestionCommand = require('treeOfContent/commands/createQuestionCommand'),
+        eventTracker = require('eventTracker'),
+        router = require('plugins/router')
     ;
 
     describe('[RelatedObjectiveTreeNode]', function () {
@@ -24,6 +26,7 @@
             expect(objectiveTreeNode.expand).toBeFunction();
             expect(objectiveTreeNode.collapse).toBeFunction();
             expect(objectiveTreeNode.createQuestion).toBeFunction();
+            expect(objectiveTreeNode.navigateToObjective).toBeFunction();
         });
 
         describe('expand:', function () {
@@ -150,6 +153,32 @@
             it('should execute createQuestionCommand', function () {
                 objectiveTreeNode.createQuestion();
                 expect(createQuestionCommand.execute).toHaveBeenCalledWith('id', 'courseId');
+            });
+
+        });
+
+        describe('navigateToObjective:', function () {
+            
+            var objectiveTreeNode;
+
+            beforeEach(function () {
+                objectiveTreeNode = new RelatedObjectiveTreeNode('id', 'courseId');
+            });
+
+            it('should be function', function() {
+                expect(objectiveTreeNode.navigateToObjective).toBeFunction();
+            });
+
+            it('should send event \'Navigate to objective details\'', function () {
+                spyOn(eventTracker, 'publish');
+                objectiveTreeNode.navigateToObjective();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective details', 'Tree of content');
+            });
+
+            it('should navigate to objective details', function () {
+                spyOn(router, 'navigate');
+                objectiveTreeNode.navigateToObjective();
+                expect(router.navigate).toHaveBeenCalledWith(objectiveTreeNode.url);
             });
 
         });

@@ -1,5 +1,6 @@
 ﻿define([
     'durandal/app',
+    'eventTracker',
     'plugins/router',
     'constants',
     'authorization/limitCoursesAmount',
@@ -13,7 +14,7 @@
     'text!treeOfContent/RelatedObjectiveTreeNode.html',
     'text!treeOfContent/QuestionTreeNode.html'],
 
-function (app, router, constants, limitCoursesAmount, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, courseRepository, CourseTreeNode) {
+function (app, eventTracker, router, constants, limitCoursesAmount, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, courseRepository, CourseTreeNode) {
 
         var viewModel = {
             children: ko.observableArray([]),
@@ -28,16 +29,20 @@ function (app, router, constants, limitCoursesAmount, treeOfContentEventHandler,
             onCollapsed: onCollapsed,
 
             activate: activate,
-            compositionComplete: compositionComplete
+            compositionComplete: compositionComplete,
+
+            navigateToCreateCourse: navigateToCreateCourse
         };
 
         function expand() {
+            eventTracker.publish('Expand navigation bar');
             viewModel.isExpanded(true);
             viewModel.isTreeVisible(true);
             app.trigger(constants.messages.treeOfContent.expanded);
         }
 
         function collapse() {
+            eventTracker.publish('Collapse navigation bar');
             viewModel.isExpanded(false);
             app.trigger(constants.messages.treeOfContent.collapsed);
         }
@@ -101,4 +106,9 @@ function (app, router, constants, limitCoursesAmount, treeOfContentEventHandler,
             viewModel.checkLimitCoursesAmount();
         }
 
-    });
+        function navigateToCreateCourse() {
+            eventTracker.publish('Navigate to create course', 'Tree of content');
+            router.navigate('course/create');
+        }
+
+});

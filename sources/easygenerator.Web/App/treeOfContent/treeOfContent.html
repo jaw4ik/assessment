@@ -12,7 +12,7 @@
                     <ul>
                         <li class="navigation-tree-node">
                             <!-- ko if: isCreateCourseAvailable -->
-                            <a class="navigation-tree-node-caption-wrapper" href="#course/create">
+                            <a class="navigation-tree-node-caption-wrapper" href="#course/create" data-bind="click: navigateToCreateCourse">
                                 <span class="navigation-tree-node-icon create"></span>
                                 <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createCourseTreeNodeTitle' }">Course</span>
                             </a>
