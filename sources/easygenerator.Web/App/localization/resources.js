@@ -328,6 +328,12 @@
     finishConnectingLearningObjectives: {
         en: 'Finish connecting'
     },
+    otherObjectives: {
+        en: 'Other learning objectives'
+    },
+    connectedObjectives: {
+        en: 'All connected learning objectives'
+    },
     /* End resource section for model CreateObjective */
     
     /* Resource section for model CreateCourse */
