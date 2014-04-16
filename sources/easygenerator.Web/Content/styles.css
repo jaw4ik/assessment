@@ -621,7 +621,7 @@ span.top-navigation-item.current {
     display: table;
     height: 40px;
     width: 100%;
-    max-width: 540px;
+    max-width: 415px;
     padding: 4px 10px;
     border: 1px solid #faebcc;
     border-radius: 4px;
@@ -633,7 +633,7 @@ span.top-navigation-item.current {
     display: table-cell;
     padding: 6px 0;
     padding-left: 40px;
-    padding-right: 5px;
+    padding-right: 10px;
     color: #917f5d;
     font-size: 13px;
 }
