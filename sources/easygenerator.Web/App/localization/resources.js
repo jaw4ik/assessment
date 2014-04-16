@@ -322,6 +322,9 @@
     defineLerningObjectiveTitle: {
         en: 'Define learning objective'
     },
+    connectExistingLearningObjectives: {
+        en: 'Connect existing'
+    },
     /* End resource section for model CreateObjective */
     
     /* Resource section for model CreateCourse */
