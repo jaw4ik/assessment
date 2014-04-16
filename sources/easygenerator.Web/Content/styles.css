@@ -576,7 +576,8 @@ span.top-navigation-item.current {
     vertical-align: middle;
 }
 
-    .list-item-action.create {
+    .list-item-action.create,
+    .list-item-action.connect-objectives {
         display: table-cell;
         height: 40px;
         width: 1px;
@@ -660,6 +661,7 @@ span.top-navigation-item.current {
 .list-item-action.delete {
     width: 1px;
     white-space: nowrap;
+    padding-left: 20px;
 }
 
 /*#endregion VIEW-LIST-OPTIONS*/
@@ -1143,7 +1145,7 @@ span.top-navigation-item.current {
         border-color: #93c66a;
     }
 
-/*light-green button*/
+/*green button*/
 .btn.green {
     background: #65bd77;
     border: 1px solid #61b472;
@@ -1343,6 +1345,10 @@ span.top-navigation-item.current {
 /*#endregion action button*/
 
 /*create list item button*/
+.btn.create-item {
+    width: 187px;
+    margin-left: 20px;
+}
 
 .action-item-btn.create-item .action-item-btn-caption {
     padding-left: 28px;
@@ -1363,6 +1369,50 @@ span.top-navigation-item.current {
 .action-item-btn.create-item.disabled .action-item-btn-caption:before {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAYFBMVEXR0dH////R0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHY2Njb29ve3t7m5ubr6+vv7+/39/dxoFW5AAAAH3RSTlMAAAEeHy8xMjM0NXN5j5WhoqSlprS1t7u/yMzQ3eXu9wPQUQAAAI1JREFUeF5tkOsOgyAMRgtMJ6uyeWGgVnn/txwFXRbc+UE+jpa0hUSNvXM93mMUgoXq/EGnsqqs/2IrVmryP0xKgDQpzkRzCkZC4xNrCGtODWCpEIZSDeDiSeGA4sWBvaoXVxFtIWxEXDtCW77VwqNU+mx12fflbLUc6PZ37IgypzFpOYzUOLr3E7WEqD5oyxii52xiswAAAABJRU5ErkJggg==');
 }
+
+/*connect and finish connecting objectives list item button*/
+
+.btn.finish-item {
+    width: 161px;
+}
+
+.btn.connect-item {
+    width: 187px;
+}
+
+.btn.finish-item, 
+.btn.connect-item {
+    background: #5bc0de;
+    border-color: #52adc8;
+}
+
+    .btn.finish-item:hover,
+    .btn.finish-item.active,
+    .btn.finish-item.active:active,
+    .btn.connect-item:hover,
+    .btn.connect-item.active,
+    .btn.connect-item.active:active {
+        background: #46b3d4;
+        border-color: #52adc8;
+        box-shadow: none;
+    }
+
+.action-item-btn.connect-item .action-item-btn-caption {
+    padding-left: 28px;
+}
+
+    .action-item-btn.connect-item .action-item-btn-caption:before {
+        content: '';
+        display: block;
+        height: 18px;
+        width: 18px;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -9px;
+        background-image: url('images/sprites.png');
+        background-position: -430px -302px;
+    }
 
 /*preview course item button*/
 

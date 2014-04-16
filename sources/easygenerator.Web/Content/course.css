@@ -9,68 +9,8 @@
 }
 
 .course .main-content-list-holder {
-    min-width: 72%;
-    width: 72%;
-    float: right;
+    max-width: 100%;
 }
-
-.objectives-filters-holder {
-    width: 100%;
-}
-
-.objectives-filters-block {
-    float: left;
-    width: 26.5%;
-    padding-top: 15px;
-}
-
-.objectives-filters-title {
-    margin-top: -2px;
-    padding-left: 34px;
-    color: #303133;
-    font-family: 'OpenSans-Semibold';
-    font-size: 14px;
-    font-weight: normal;
-    cursor: default;
-}
-
-.objectives-filters-controls {
-    padding: 12px 8px;
-}
-
-.filter-radio-control {
-    padding: 10px 0;
-}
-
-.filter-radio-label {
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-    padding-left: 25px;
-    color: #303133;
-    font-size: 13px;
-    font-family: 'OpenSans';
-}
-
-    .filter-radio-label:before {
-        content: '';
-        display: block;
-        height: 15px;
-        width: 15px;
-        position: absolute;
-        top: 3px;
-        left: 0;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        border: 1px solid #cccccc;
-        border-radius: 8px;
-        background: white;
-    }
-
-    .filter-radio-label.checked:before {
-        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPBAMAAADJ+Ih5AAAAIVBMVEX///8AqP8AqP8AqP8AqP8AqP8AqP8AqP8AqP8AqP8AqP/YvdT0AAAACnRSTlMAANRW+VfWVFX6+3I1MwAAAERJREFUeF59zKENwCAURVFWIIQBCChcR8DiGKKiK3QERrlTEj6GnxCuOnnimUN2puFSXPjhEWQIggpFLx2awH/v9nNrADLiDCGmCPA1AAAAAElFTkSuQmCC') center center no-repeat;
-    }
 
 .course .main-content-list .list-item-logo,
 .course .main-content-list .list-item-logo-image {
