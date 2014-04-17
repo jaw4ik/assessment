@@ -22,7 +22,7 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
         private PhysicalFileManager _physicalFileManager;
         private BuildPathProvider _buildPathProvider;
         private IAim4YouApiService _aim4YouApiService;
-        private string userEmail = "easygenerator@eg.com";
+        private const string userEmail = "easygenerator@eg.com";
 
         [TestInitialize]
         public void InitializePublisher()
@@ -36,13 +36,58 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
         #region PublishCourse
 
         [TestMethod]
+        public void PublishCourse_ShouldCheckIfUserIsRegisteredOnAim4You()
+        {
+            // Arrange
+            Guid aim4YouCourseId = Guid.NewGuid();
+            var course = CourseObjectMother.CreateWithAim4YouIntegration(aim4YouCourseId);
+
+            // Act
+            _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
+
+            // Assert
+            _aim4YouApiService.Received().IsUserRegistered(userEmail, Arg.Any<string>());
+        }
+
+        [TestMethod]
+        public void PublishCourse_ShouldRegisterUser_WhenUserIsNotRegisteredOnAim4You()
+        {
+            // Arrange
+            Guid aim4YouCourseId = Guid.NewGuid();
+            var course = CourseObjectMother.CreateWithAim4YouIntegration(aim4YouCourseId);
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(false);
+            // Act
+            _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
+
+            // Assert
+            _aim4YouApiService.Received().RegisterUser(userEmail, Arg.Any<string>());
+        }
+
+        [TestMethod]
+        public void PublishCourse_ShouldReturnFalse_WhenUserRegistrationFailed()
+        {
+            // Arrange
+            Guid aim4YouCourseId = Guid.NewGuid();
+            var course = CourseObjectMother.CreateWithAim4YouIntegration(aim4YouCourseId);
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(false);
+            _aim4YouApiService.RegisterUser(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
+            // Act
+            var result = _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
+
+            // Assert
+            result.Should().Be(false);
+        }
+
+
+        [TestMethod]
         public void PublishCourse_ShouldCheckIfCourseIsRegisteredOnAim4You_IfCourseAim4YouCourseIdExist()
         {
             // Arrange
             Guid aim4YouCourseId = Guid.NewGuid();
             var course = CourseObjectMother.CreateWithAim4YouIntegration(aim4YouCourseId);
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(true);
             // Act
-            _aim4YouCoursePublisher.PublishCourse(userEmail, course);
+            _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
 
             // Assert
             _aim4YouApiService.Received().IsCourseRegistered(aim4YouCourseId);
@@ -53,8 +98,9 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
         {
             // Arrange
             var course = CourseObjectMother.Create();
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(true);
             // Act
-            _aim4YouCoursePublisher.PublishCourse(userEmail, course);
+            _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
 
             // Assert
             _aim4YouApiService.Received().RegisterCourse(userEmail, course.Id, course.Title);
@@ -67,10 +113,11 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
             // Arrange
             Guid aim4YouCourseId = Guid.NewGuid();
             var course = CourseObjectMother.CreateWithAim4YouIntegration(aim4YouCourseId);
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(true);
             _aim4YouApiService.IsCourseRegistered(aim4YouCourseId).Returns(true);
 
             // Act
-            _aim4YouCoursePublisher.PublishCourse(userEmail, course);
+            _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
 
             // Assert
             _aim4YouApiService.DidNotReceive().RegisterCourse(userEmail, course.Id, course.Title);
@@ -82,10 +129,11 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
             // Arrange
             Guid aim4YouCourseId = Guid.NewGuid();
             var course = CourseObjectMother.CreateWithAim4YouIntegration(aim4YouCourseId);
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(true);
             _aim4YouApiService.IsCourseRegistered(aim4YouCourseId).Returns(false);
 
             // Act
-            _aim4YouCoursePublisher.PublishCourse(userEmail, course);
+            _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
 
             // Assert
             _aim4YouApiService.Received().RegisterCourse(userEmail, course.Id, course.Title);
@@ -96,10 +144,11 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
         {
             // Arrange
             var course = CourseObjectMother.Create();
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(true);
             _aim4YouApiService.RegisterCourse(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<string>()).Returns((Guid?)null);
 
             // Act
-            var result = _aim4YouCoursePublisher.PublishCourse(userEmail, course);
+            var result = _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
 
             // Assert
             result.Should().Be(false);
@@ -111,11 +160,12 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
             // Arrange
             var course = Substitute.For<Course>();
             Guid aim4YouCourseId = Guid.NewGuid();
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(true);
 
             _aim4YouApiService.RegisterCourse(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<string>()).Returns(aim4YouCourseId);
 
             // Act
-            _aim4YouCoursePublisher.PublishCourse(userEmail, course);
+            _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
 
             // Assert
             course.Received().RegisterOnAim4YOu(aim4YouCourseId);
@@ -128,12 +178,13 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
             var aim4YouCourseId = Guid.NewGuid();
             var course = Substitute.For<Course>();
             var aim4YouIntegration = new Aim4YouIntegration();
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(true);
             aim4YouIntegration.UpdateAim4YouCourseId(aim4YouCourseId);
             course.Aim4YouIntegration.Returns(aim4YouIntegration);
             _aim4YouApiService.IsCourseRegistered(aim4YouCourseId).Returns(true);
 
             // Act
-            _aim4YouCoursePublisher.PublishCourse(userEmail, course);
+            _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
 
             // Assert
             course.Received().RegisterOnAim4YOu(aim4YouCourseId);
@@ -145,11 +196,12 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
             // Arrange
             var course = CourseObjectMother.Create();
             var aim4YouCourseId = Guid.NewGuid();
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(true);
             _aim4YouApiService.RegisterCourse(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<string>()).Returns(aim4YouCourseId);
             _aim4YouApiService.UploadCourse(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns(false);
 
             // Act
-            var result = _aim4YouCoursePublisher.PublishCourse(userEmail, course);
+            var result = _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
 
             // Assert
             _aim4YouApiService.Received().UploadCourse(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<byte[]>());
@@ -162,11 +214,12 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
             // Arrange
             var course = CourseObjectMother.Create();
             var aim4YouCourseId = Guid.NewGuid();
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(true);
             _aim4YouApiService.RegisterCourse(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<string>()).Returns(aim4YouCourseId);
             _aim4YouApiService.UploadCourse(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns(true);
 
             // Act
-            var result = _aim4YouCoursePublisher.PublishCourse(userEmail, course);
+            var result = _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
 
             // Assert
             _aim4YouApiService.Received().DeployCourse(Arg.Any<Guid>());
@@ -178,12 +231,13 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
             // Arrange
             var course = CourseObjectMother.Create();
             var aim4YouCourseId = Guid.NewGuid();
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(true);
             _aim4YouApiService.RegisterCourse(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<string>()).Returns(aim4YouCourseId);
             _aim4YouApiService.UploadCourse(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns(false);
             _aim4YouApiService.DeployCourse(Arg.Any<Guid>()).Returns(true);
 
             // Act
-            var result = _aim4YouCoursePublisher.PublishCourse(userEmail, course);
+            var result = _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
 
             // Assert
             result.Should().Be(false);
@@ -195,12 +249,13 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
             // Arrange
             var course = CourseObjectMother.Create();
             var aim4YouCourseId = Guid.NewGuid();
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(true);
             _aim4YouApiService.RegisterCourse(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<string>()).Returns(aim4YouCourseId);
             _aim4YouApiService.UploadCourse(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns(true);
             _aim4YouApiService.DeployCourse(Arg.Any<Guid>()).Returns(false);
 
             // Act
-            var result = _aim4YouCoursePublisher.PublishCourse(userEmail, course);
+            var result = _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
 
             // Assert
             result.Should().Be(false);
@@ -212,12 +267,13 @@ namespace easygenerator.Web.Tests.Publish.Aim4You
             // Arrange
             var course = CourseObjectMother.Create();
             var aim4YouCourseId = Guid.NewGuid();
+            _aim4YouApiService.IsUserRegistered(userEmail, Arg.Any<string>()).Returns(true);
             _aim4YouApiService.RegisterCourse(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<string>()).Returns(aim4YouCourseId);
             _aim4YouApiService.UploadCourse(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns(true);
             _aim4YouApiService.DeployCourse(Arg.Any<Guid>()).Returns(true);
 
             // Act
-            var result = _aim4YouCoursePublisher.PublishCourse(userEmail, course);
+            var result = _aim4YouCoursePublisher.PublishCourse(userEmail, course, null);
 
             // Assert
             result.Should().Be(true);

@@ -154,19 +154,16 @@
                 <!-- ko ifnot: publishToAim4YouAction().isTryMode -->
                 <div class="package-action-item bottom-package-action">
                     <h5 class="package-action-title" data-bind="localize: { text: 'publishToCatalog' }">Publish to Aim4You</h5>
-
-                    <!-- ko if: publishToAim4YouAction().isRegisteredOnAim4You -->
                     <p class="package-action-desc" data-bind="localize: { text: 'publishToAim4YouPublishDescription' }">Publish the course to Aim4You course store</p>
                     <!-- ko ifnot: isPublishingInProgress() -->
-                    <div class="package-action-btn btn orange publish-btn round" data-bind="click: publishToAim4YouAction().publishToAim4You">
-                        <span class="btn-title" data-bind="localize: { text: 'publishToStore' }">Publish</span>
-                    </div>
+                        <div class="package-action-btn btn orange publish-btn round" data-bind="click: publishToAim4YouAction().publishToAim4You">
+                            <span class="btn-title" data-bind="localize: { text: 'publishToStore' }">Publish</span>
+                        </div>
                     <!-- /ko -->
                     <!-- ko if: isPublishingInProgress() && !publishToAim4YouAction().isPublishing()  -->
-                    <div class="package-action-btn btn orange publish-btn disabled round">
-                        <span class="btn-title" data-bind="localize: { text: 'publishToStore' }">Publish</span>
-                    </div>
-                    <!-- /ko -->
+                        <div class="package-action-btn btn orange publish-btn disabled round">
+                            <span class="btn-title" data-bind="localize: { text: 'publishToStore' }">Publish</span>
+                        </div>
                     <!-- /ko -->
                     <!-- ko if: isPublishingInProgress() -->
                     <!-- ko if: publishToAim4YouAction().state() === states.building -->
@@ -177,24 +174,6 @@
                     <!-- ko if: publishToAim4YouAction().state() === states.publishing -->
                     <div class="package-action-btn btn orange creating-btn active round">
                         <span class="btn-title" data-bind="localize: { text: 'publishing' }"></span>
-                    </div>
-                    <!-- /ko -->
-                    <!-- /ko -->
-                    <!-- ko ifnot: publishToAim4YouAction().isRegisteredOnAim4You -->
-                    <p class="package-action-desc" data-bind="localize: { html: 'publishToAim4YouRegisterDescription' }">Register for the Aim4You learning store and start publishing</p>
-                    <!-- ko ifnot: isPublishingInProgress() -->
-                    <div class="package-action-btn btn orange round register-btn" data-bind="click: publishToAim4YouAction().register">
-                        <span class="btn-title" data-bind="localize: { text: 'register' }">Register</span>
-                    </div>
-                    <!-- /ko -->
-                    <!-- ko if: isPublishingInProgress() && !publishToAim4YouAction().isPublishing() -->
-                    <div class="package-action-btn btn orange register-btn disabled round">
-                        <span class="btn-title" data-bind="localize: { text: 'register' }">Register</span>
-                    </div>
-                    <!-- /ko -->
-                    <!-- ko if: isPublishingInProgress() && publishToAim4YouAction().isPublishing() -->
-                    <div class="package-action-btn btn orange creating-btn active round">
-                        <span class="btn-title" data-bind="localize: { text: 'register' }">Register</span>
                     </div>
                     <!-- /ko -->
                     <!-- /ko -->

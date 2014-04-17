@@ -16,24 +16,11 @@ namespace easygenerator.Web.Controllers.Api
     [NoCache]
     public class Aim4YouController : DefaultController
     {
-        private readonly IAim4YouApiService _aim4YouService;
         private readonly IAim4YouCoursePublisher _aim4YouPublisher;
 
-        public Aim4YouController(IAim4YouApiService aim4YouService, IAim4YouCoursePublisher aim4YouPublisher)
+        public Aim4YouController(IAim4YouCoursePublisher aim4YouPublisher)
         {
-            _aim4YouService = aim4YouService;
             _aim4YouPublisher = aim4YouPublisher;
-        }
-
-        [HttpPost]
-        [Route("api/aim4you/registerUser")]
-        public ActionResult RegisterUser()
-        {
-            if (_aim4YouService.RegisterUser(GetCurrentUsername(), GetCurrentDomain()))
-            {
-                return JsonSuccess(true);
-            }
-            return JsonLocalizableError(Errors.CoursePublishActionFailedError, Errors.CoursePublishActionFailedResourceKey);
         }
 
         [HttpPost]
@@ -45,7 +32,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
             }
 
-            var result = _aim4YouPublisher.PublishCourse(GetCurrentUsername(), course);
+            var result = _aim4YouPublisher.PublishCourse(GetCurrentUsername(), course, GetCurrentDomain());
 
             if (!result)
             {

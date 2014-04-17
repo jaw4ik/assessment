@@ -5,9 +5,6 @@
             objectives = [],
             courses = [],
             templates = [],
-            userSettings = {
-                isRegisteredOnAim4You: false
-            },
 
             initialize = function () {
                 var that = this;
@@ -86,18 +83,6 @@
                             }));
                         });
                     });
-                }).then(function () {
-                    return $.ajax({
-                        url: 'api/user',
-                        type: 'GET',
-                        contentType: 'application/json',
-                        dataType: 'json',
-                        cache: false
-                    }).then(function (response) {
-                        if (response.data) {
-                            userSettings.isRegisteredOnAim4You = response.data.IsRegisteredOnAim4You;
-                        }
-                    });
                 }).fail(function () {
                     app.showMessage("Failed to initialize datacontext.");
                 });
@@ -107,7 +92,6 @@
             initialize: initialize,
             objectives: objectives,
             courses: courses,
-            templates: templates,
-            userSettings: userSettings
+            templates: templates
         };
     });

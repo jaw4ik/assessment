@@ -18,8 +18,13 @@ namespace easygenerator.Web.Publish.Aim4You
             _fileManager = fileManager;
         }
 
-        public bool PublishCourse(string userEmail, Course course)
+        public bool PublishCourse(string userEmail, Course course, string domain)
         {
+            if (!CheckRegistration(userEmail, domain))
+            {
+                return false;
+            }
+
             Guid? aim4YouCourseId = null;
 
             #region Determine aim4You course id
@@ -48,6 +53,11 @@ namespace easygenerator.Web.Publish.Aim4You
             }
 
             return false;
+        }
+
+        private bool CheckRegistration(string userEmail, string domain)
+        {
+            return _aim4YouApiService.IsUserRegistered(userEmail, domain) || _aim4YouApiService.RegisterUser(userEmail, domain);
         }
 
         private byte[] GetCourseBytes(Course course)

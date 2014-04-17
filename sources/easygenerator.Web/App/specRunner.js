@@ -55,7 +55,6 @@
             'notify.spec',
             'routing/routerExtender.spec',
             'services/publishService.spec',
-            'services/aim4YouService.spec',
 
             'viewmodels/shell.spec',
             'viewmodels/courses/createCourse.spec',

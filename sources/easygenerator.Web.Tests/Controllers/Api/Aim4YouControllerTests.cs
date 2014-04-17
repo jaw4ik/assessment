@@ -39,48 +39,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
 
-            _aim4YouController = new Aim4YouController(_aim4YouService, _aim4YouPublisher);
+            _aim4YouController = new Aim4YouController(_aim4YouPublisher);
             _aim4YouController.ControllerContext = new ControllerContext(_context, new RouteData(), _aim4YouController);
         }
 
-        #region RegisterUser
-
-        [TestMethod]
-        public void RegisterUser_ShouldCallRegisterUserOfAim4YouService()
-        {
-            // Arrange
-            _user.Identity.Name.Returns(userName);
-            // Act
-            var result = _aim4YouController.RegisterUser();
-            // Assert
-            _aim4YouService.Received().RegisterUser(userName, Arg.Any<string>());
-        }
-
-        [TestMethod]
-        public void RegisterUser_ShouldReturnSucessResult_IfRegisterUserReturnedTrue()
-        {
-            // Arrange
-            _user.Identity.Name.Returns(userName);
-            _aim4YouService.RegisterUser(userName, Arg.Any<string>()).Returns(true);
-            // Act
-            var result = _aim4YouController.RegisterUser();
-            // Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeEquivalentTo(true);
-        }
-
-        [TestMethod]
-        public void RegisterUser_ShouldReturnJsonLocalizableErrorWiCorrectErrors_IfRegisterUserReturnedFalse()
-        {
-            // Arrange
-            _aim4YouService.RegisterUser(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
-            // Act
-            var result = _aim4YouController.RegisterUser();
-            // Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoursePublishActionFailedError);
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.CoursePublishActionFailedResourceKey);  
-        }
-
-        #endregion
 
         #region Publish
 
@@ -94,14 +56,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseNotFoundError);
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.CourseNotFoundResourceKey);  
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.CourseNotFoundResourceKey);
         }
 
         [TestMethod]
         public void Publish_ShouldReturnJsonErrorResult_WhenPublishFails()
         {
             //Arrange
-            _aim4YouPublisher.PublishCourse(Arg.Any<string>(), Arg.Any<Course>()).Returns(false);
+            _aim4YouPublisher.PublishCourse(Arg.Any<string>(), Arg.Any<Course>(),Arg.Any<string>()).Returns(false);
 
             //Act
             var result = _aim4YouController.Publish(CourseObjectMother.Create());
@@ -116,7 +78,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _aim4YouPublisher.PublishCourse(Arg.Any<string>(), course).Returns(true);
+            _aim4YouPublisher.PublishCourse(Arg.Any<string>(), course, Arg.Any<string>()).Returns(true);
 
             //Act
             var result = _aim4YouController.Publish(course);

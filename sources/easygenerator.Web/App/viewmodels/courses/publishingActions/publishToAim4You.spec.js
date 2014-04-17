@@ -1,5 +1,5 @@
-﻿define(['localization/localizationManager', 'constants', 'dataContext', 'viewmodels/courses/publishingActions/publishToAim4You', 'eventTracker', 'services/aim4YouService', 'notify', 'repositories/courseRepository', 'durandal/app', 'userContext'],
-    function (localizationManager, constants, dataContext, publishToAim4You, eventTracker, aim4YouService, notify, courseRepository, app, userContext) {
+﻿define(['localization/localizationManager', 'constants', 'dataContext', 'viewmodels/courses/publishingActions/publishToAim4You', 'eventTracker', 'notify', 'repositories/courseRepository', 'durandal/app', 'userContext'],
+    function (localizationManager, constants, dataContext, publishToAim4You, eventTracker, notify, courseRepository, app, userContext) {
 
         describe('viewModel [publishToAim4You]', function () {
 
@@ -18,7 +18,6 @@
                 spyOn(notify, 'error');
 
                 serviceRegisterDefer = Q.defer();
-                spyOn(aim4YouService, 'register').and.returnValue(serviceRegisterDefer.promise);
             });
 
             it('should be object', function () {
@@ -195,163 +194,6 @@
 
             });
 
-            describe('isRegisteredOnAim4You', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.isRegisteredOnAim4You).toBeObservable();
-                });
-
-                describe('when user is registered in Aim4You', function () {
-
-                    it('should be true', function () {
-                        dataContext.userSettings.isRegisteredOnAim4You = true;
-                        var view = publishToAim4You(courseId);
-                        expect(view.isRegisteredOnAim4You()).toBeTruthy();
-                    });
-
-                });
-
-                describe('when user is not registered in Aim4You', function () {
-
-                    it('should be false', function () {
-                        dataContext.userSettings.isRegisteredOnAim4You = false;
-                        var view = publishToAim4You(courseId);
-                        expect(view.isRegisteredOnAim4You()).toBeFalsy();
-                    });
-
-                });
-
-            });
-
-            describe('register:', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.register).toBeFunction();
-                });
-
-                describe('when registration in progress', function () {
-
-                    beforeEach(function () {
-                        viewModel.state(constants.publishingStates.building);
-                    });
-
-                    describe('and when user is registered in Aim4You', function () {
-
-                        beforeEach(function () {
-                            viewModel.isRegisteredOnAim4You(true);
-                        });
-
-                        it('should return undefined', function () {
-                            expect(viewModel.register()).toBeUndefined();
-                        });
-
-                    });
-
-                    describe('when user is not registered on Aim4You', function () {
-
-                        beforeEach(function () {
-                            viewModel.isRegisteredOnAim4You(false);
-                        });
-
-                        it('should return undefined', function () {
-                            expect(viewModel.register()).toBeUndefined();
-                        });
-
-                    });
-
-                });
-
-                describe('when registration is not in progress', function () {
-
-                    describe('when user is registered on Aim4You', function () {
-                        beforeEach(function () {
-                            viewModel.isRegisteredOnAim4You(true);
-                        });
-
-                        it('should return undefined', function () {
-                            expect(viewModel.register()).toBeUndefined();
-                        });
-                    });
-
-                    describe('when user is not registered on Aim4You', function () {
-
-                        beforeEach(function () {
-                            viewModel.isRegisteredOnAim4You(false);
-                        });
-
-                        it('should hide notify', function () {
-                            viewModel.register();
-                            expect(notify.hide).toHaveBeenCalled();
-                        });
-
-                        it('should send event \'Register to Aim4You\'', function () {
-                            viewModel.register();
-                            expect(eventTracker.publish).toHaveBeenCalledWith('Register to Aim4You');
-                        });
-
-                        it('should start registration', function () {
-                            viewModel.state(null);
-                            viewModel.register();
-                            expect(viewModel.state()).toBeTruthy(constants.registerOnAim4YouStates.inProgress);
-                        });
-
-                        it('should return promise', function () {
-                            expect(viewModel.register()).toBePromise();
-                        });
-
-                        describe('when registration is success', function () {
-
-                            beforeEach(function () {
-                                serviceRegisterDefer.resolve();
-                            });
-
-                            it('should stop registration', function (done) {
-                                viewModel.register().fin(function () {
-                                    expect(viewModel.state()).toBe(constants.registerOnAim4YouStates.success);
-                                    done();
-                                });
-                            });
-
-                            it('should update isRegisteredOnAim4You to true', function (done) {
-                                viewModel.isRegisteredOnAim4You(false);
-
-                                viewModel.register().fin(function () {
-                                    expect(viewModel.isRegisteredOnAim4You()).toBeTruthy();
-                                    done();
-                                });
-                            });
-
-                            it('should show confirm registration message', function (done) {
-                                viewModel.messageState(viewModel.infoMessageStates.none);
-
-                                viewModel.register().fin(function () {
-                                    expect(viewModel.messageState()).toBe(viewModel.infoMessageStates.registered);
-                                    done();
-                                });
-                            });
-
-                        });
-
-                        describe('when registration is fail', function () {
-
-                            beforeEach(function () {
-                                serviceRegisterDefer.reject();
-                            });
-
-                            it('should stop registration', function (done) {
-                                viewModel.register().fin(function () {
-                                    expect(viewModel.state()).toBe(constants.registerOnAim4YouStates.fail);
-                                    done();
-                                });
-                            });
-
-                        });
-                    });
-
-                });
-
-            });
-
             describe('publishToAim4You', function () {
 
                 it('should be function', function () {
@@ -381,7 +223,7 @@
                     });
 
                     it('should hide notify', function () {
-                        viewModel.register();
+                        viewModel.publishToAim4You();
                         expect(notify.hide).toHaveBeenCalled();
                     });
 

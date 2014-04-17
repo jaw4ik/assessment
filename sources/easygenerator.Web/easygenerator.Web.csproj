@@ -315,9 +315,6 @@
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.spec.js">
       <DependentUpon>forbiddenHttpErrorHandler.js</DependentUpon>
     </Content>
-    <Content Include="App\services\aim4YouService.spec.js">
-      <DependentUpon>aim4YouService.js</DependentUpon>
-    </Content>
     <Content Include="App\userContext.js" />
     <Content Include="App\userContext.spec.js">
       <DependentUpon>userContext.js</DependentUpon>
@@ -385,7 +382,6 @@
     <Compile Include="BuildCourse\Scorm\Models\ManifestModel.cs" />
     <Compile Include="BuildCourse\Scorm\Models\MetadataModel.cs" />
     <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
-    <Content Include="App\services\aim4YouService.js" />
     <Content Include="App\viewmodels\common\contentField.spec.js">
       <DependentUpon>contentField.js</DependentUpon>
     </Content>

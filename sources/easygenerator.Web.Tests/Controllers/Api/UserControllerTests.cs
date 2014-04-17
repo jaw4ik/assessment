@@ -628,41 +628,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region GetCurrentUserInfo
-
-        [TestMethod]
-        public void GetCurrentUserInfo_ShouldReturnJsonSuccess_WhenUserIsNotAuthenticated()
-        {
-            //Arrange
-            _user.Identity.IsAuthenticated.Returns(false);
-
-            //Act
-            var result = _controller.GetCurrentUserInfo();
-
-            //Assert
-            result.Should().BeJsonSuccessResult();
-        }
-
-        [TestMethod]
-        public void GetCurrentUserInfo_ShouldReturnJsonSuccess_WhenUserDoesNotExist()
-        {
-            //Arrange
-            const string userName = "5B63B14B-AB18-4B20-B6C8-D67AD769B337";
-
-            _user.Identity.IsAuthenticated.Returns(true);
-            _user.Identity.Name.Returns(userName);
-
-            _userRepository.GetUserByEmail(userName).Returns((User)null);
-
-            //Act
-            var result = _controller.GetCurrentUserInfo();
-
-            //Assert
-            result.Should().BeJsonSuccessResult();
-        }
-
-        #endregion
-
         #region Identify
 
         [TestMethod]
@@ -700,65 +665,5 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
-
-
-        [TestMethod]
-        public void GetCurrentUserInfo_ShouldReturnIsRegisteredOnAim4YouFalse_WhenUserIsAnonymous()
-        {
-            //Arrange
-            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns((User)null);
-
-            //Act
-            var result = _controller.GetCurrentUserInfo();
-
-            //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { IsRegisteredOnAim4You = false });
-        }
-
-        [TestMethod] 
-        public void GetCurrentUserInfo_ShouldCallAim4YouServiceToGetIsRegisteredOnAim4You_WhenUserIsNotAnonymous()
-        {
-            //Arrange
-            var user = UserObjectMother.Create();
-            _user.Identity.Name.Returns(user.Email);
-            _userRepository.GetUserByEmail(user.Email).Returns(user);
-
-            //Act
-            var result = _controller.GetCurrentUserInfo();
-
-            //Assert
-            _aim4YouService.Received().IsUserRegistered(user.Email, null);
-        }
-
-        [TestMethod]
-        public void GetCurrentUserInfo_ShouldReturnIsRegisteredOnAim4YouTrue_WhenUserIsNotAnonymousAndAim4YouServiceReturnedTrue()
-        {
-            //Arrange
-            var user = UserObjectMother.Create();
-            _user.Identity.Name.Returns(user.Email);
-            _userRepository.GetUserByEmail(user.Email).Returns(user);
-            _aim4YouService.IsUserRegistered(user.Email, null).Returns(true);
-            //Act
-            var result = _controller.GetCurrentUserInfo();
-
-            //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { IsRegisteredOnAim4You = true });
-        }
-
-
-        [TestMethod]
-        public void GetCurrentUserInfo_ShouldReturnIsRegisteredOnAim4Youfalse_WhenUserIsNotAnonymousAndAim4YouServiceReturnedFalse()
-        {
-            //Arrange
-            var user = UserObjectMother.Create();
-            _user.Identity.Name.Returns(user.Email);
-            _userRepository.GetUserByEmail(user.Email).Returns(user);
-            _aim4YouService.IsUserRegistered(user.Email, null).Returns(false);
-            //Act
-            var result = _controller.GetCurrentUserInfo();
-
-            //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { IsRegisteredOnAim4You = false });
-        }
     }
 }

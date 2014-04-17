@@ -1,5 +1,5 @@
-﻿define(['localization/localizationManager', 'constants', 'dataContext', 'viewmodels/courses/publishingActions/publishingAction', 'eventTracker', 'services/aim4YouService', 'repositories/courseRepository', 'notify', 'durandal/app', 'userContext'],
-    function (localizationManager, constants, dataContext, publishingAction, eventTracker, aim4YouService, courseRepository, notify, app, userContext) {
+﻿define(['localization/localizationManager', 'constants', 'dataContext', 'viewmodels/courses/publishingActions/publishingAction', 'eventTracker', 'repositories/courseRepository', 'notify', 'durandal/app', 'userContext'],
+    function (localizationManager, constants, dataContext, publishingAction, eventTracker, courseRepository, notify, app, userContext) {
 
         var events = {
             registerToAim4You: 'Register to Aim4You',
@@ -17,34 +17,12 @@
 
             viewModel.infoMessageStates = {
                 none: 'none',
-                registered: 'registered',
                 published: 'published'
             };
 
             viewModel.messageState = ko.observable(viewModel.infoMessageStates.none);
 
             viewModel.isTryMode = !_.isObject(userContext.identity);
-
-            viewModel.isRegisteredOnAim4You = ko.observable(dataContext.userSettings.isRegisteredOnAim4You);
-
-            viewModel.register = function () {
-                if (viewModel.isPublishing() || viewModel.isRegisteredOnAim4You()) {
-                    return;
-                }
-
-                notify.hide();
-                eventTracker.publish(events.registerToAim4You);
-                viewModel.state(constants.registerOnAim4YouStates.inProgress);
-
-                return aim4YouService.register().then(function () {
-                    viewModel.state(constants.registerOnAim4YouStates.success);
-                    viewModel.isRegisteredOnAim4You(true);
-                    viewModel.messageState(viewModel.infoMessageStates.registered);
-                }).fail(function (message) {
-                    app.trigger(constants.messages.course.publishToAim4You.failed, courseId, message);
-                    viewModel.state(constants.registerOnAim4YouStates.fail);
-                });
-            };
 
             viewModel.publishToAim4You = function () {
                 if (viewModel.isActive()) {

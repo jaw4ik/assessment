@@ -214,18 +214,6 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(exists);
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult GetCurrentUserInfo()
-        {
-            var user = _repository.GetUserByEmail(GetCurrentUsername());
-
-            return JsonSuccess(new
-            {
-                IsRegisteredOnAim4You = user != null && _aim4YouService.IsUserRegistered(user.Email, GetCurrentDomain())
-            });
-        }
-
         [HttpPost]
         [Route("api/identify")]
         public ActionResult Identify()
