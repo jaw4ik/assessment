@@ -953,7 +953,9 @@
                     viewModel.lapLogin(settings.xApi.lrs.credentials.username || '');
                     viewModel.lapPassword(settings.xApi.lrs.credentials.password || '');
                     viewModel.logo.url(settings.logo.url || '');
-                    if (settings.masteryScore.score >= 0 && settings.masteryScore.score <= 100) {
+                    if (typeof settings.masteryScore != 'undefined' &&
+                        settings.masteryScore.score >= 0
+                        && settings.masteryScore.score <= 100) {
                         viewModel.masteryScore(settings.masteryScore.score);
                     } else {
                         viewModel.masteryScore(100);
