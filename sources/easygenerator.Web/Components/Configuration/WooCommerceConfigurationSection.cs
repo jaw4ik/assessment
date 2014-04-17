@@ -40,5 +40,32 @@ namespace easygenerator.Web.Components.Configuration
                 this["apiKey"] = value;
             }
         }
+
+        [ConfigurationProperty("autologinKey", IsRequired = true)]
+        public string AutologinKey
+        {
+            get
+            {
+                return (string)this["autologinKey"];
+            }
+            set
+            {
+                this["autologinKey"] = value;
+            }
+        }
+
+        [ConfigurationProperty("autologinVector", IsRequired = true)]
+        public string AutologinVector
+        {
+            get
+            {
+                return (string)this["autologinVector"];
+            }
+            set
+            {
+                this["autologinVector"] = value;
+            }
+        }
+
     }
 }

@@ -100,7 +100,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<Aim4YouCoursePublisher>().As<IAim4YouCoursePublisher>().SingleInstance();
             builder.RegisterType<Aim4YouHttpClient>().As<Aim4YouHttpClient>().SingleInstance();
 
-            #endregion 
+            #endregion
 
             #region WooCommerce dependencies
 
@@ -136,12 +136,13 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<Storage.Storage>().As<IStorage>();
 
             builder.RegisterType<ImageValidator>().As<IImageValidator>();
+            builder.RegisterType<WooCommerceAutologinUrlProvider>().As<IWooCommerceAutologinUrlProvider>();
 
             #region Log
 
             builder.RegisterType<ElmahLog>().As<ILog>().SingleInstance();
 
-            #endregion 
+            #endregion
 
             var container = builder.Build();
 

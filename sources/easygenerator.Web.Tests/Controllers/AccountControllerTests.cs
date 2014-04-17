@@ -10,6 +10,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Controllers;
 using easygenerator.Web.Tests.Utils;
+using easygenerator.Web.WooCommerce;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
@@ -25,6 +26,7 @@ namespace easygenerator.Web.Tests.Controllers
 
         private IAuthenticationProvider _authenticationProvider;
         private IUserRepository _userRepository;
+        private IWooCommerceAutologinUrlProvider _wooCommerceAutologinUrlProvider;
 
         IPrincipal _user;
         HttpContextBase _context;
@@ -35,7 +37,8 @@ namespace easygenerator.Web.Tests.Controllers
         {
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _userRepository = Substitute.For<IUserRepository>();
-            _controller = new AccountController(_authenticationProvider, _userRepository);
+            _wooCommerceAutologinUrlProvider = Substitute.For<IWooCommerceAutologinUrlProvider>();
+            _controller = new AccountController(_authenticationProvider, _userRepository, _wooCommerceAutologinUrlProvider);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -391,13 +394,14 @@ namespace easygenerator.Web.Tests.Controllers
         public void UpgradeAccount_ShouldReturnRedirectResult()
         {
             //Arrange
-
+            const string url = "http://xxx.com";
+            _wooCommerceAutologinUrlProvider.GetAutologinUrl(Arg.Any<string>()).Returns(url);
 
             //Act
             var result = _controller.UpgradeAccount();
 
             //Assert
-            result.Should().BeRedirectResult();
+            result.Should().BeRedirectResult().And.Url.Should().Be(url);
         }
 
         #endregion

@@ -5,6 +5,7 @@ using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Extensions;
 using System;
 using System.Web.Mvc;
+using easygenerator.Web.WooCommerce;
 
 namespace easygenerator.Web.Controllers
 {
@@ -13,11 +14,13 @@ namespace easygenerator.Web.Controllers
     {
         private readonly IAuthenticationProvider _authenticationProvider;
         private readonly IUserRepository _repository;
+        private readonly IWooCommerceAutologinUrlProvider _wooCommerceAutologinUrlProvider;
 
-        public AccountController(IAuthenticationProvider authenticationProvider, IUserRepository repository)
+        public AccountController(IAuthenticationProvider authenticationProvider, IUserRepository repository, IWooCommerceAutologinUrlProvider wooCommerceAutologinUrlProvider)
         {
             _authenticationProvider = authenticationProvider;
             _repository = repository;
+            _wooCommerceAutologinUrlProvider = wooCommerceAutologinUrlProvider;
         }
 
         [NoCache]
@@ -122,7 +125,7 @@ namespace easygenerator.Web.Controllers
         [Route("account/upgrade")]
         public ActionResult UpgradeAccount()
         {
-            return Redirect("http://www.easygenerator.com/order-now");
+            return Redirect(_wooCommerceAutologinUrlProvider.GetAutologinUrl(User.Identity.Name));
         }
 
         private bool IsExistingUserAuthenticated()

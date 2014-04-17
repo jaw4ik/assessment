@@ -203,6 +203,7 @@
     <Compile Include="Components\Tasks\SqlCommandTask.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
+    <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
     <Content Include="App\bootstrapper.js" />
     <Content Include="App\bootstrapper.spec.js">
       <DependentUpon>bootstrapper.js</DependentUpon>
