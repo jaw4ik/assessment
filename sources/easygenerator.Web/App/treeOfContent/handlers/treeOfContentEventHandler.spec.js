@@ -132,21 +132,44 @@
         describe('objectivesRelated:', function () {
 
             it('should be function', function () {
-                expect(handler.objectivesRelated).toBeFunction();
+                expect(handler.objectiveRelated).toBeFunction();
             });
 
             describe('when course is expanded', function () {
 
-                it('should relate objectives to the course', function () {
-                    var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
+                describe('when index is undefined', function() {
 
-                    spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
+                    it('should relate objective to the course in the last position', function () {
+                        var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
 
-                    handler.objectivesRelated('courseId', [{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }]);
+                        spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
 
-                    expect(courseTreeNode1.children().length).toEqual(2);
-                    expect(courseTreeNode1.children()[0].id).toEqual('objectiveId_#1');
-                    expect(courseTreeNode1.children()[1].id).toEqual('objectiveId_#2');
+                        courseTreeNode1.children.push({ id: 'objectiveId_#1', title: 'title' });
+
+                        handler.objectiveRelated('courseId', { id: 'objectiveId_#2', title: 'title' });
+
+                        expect(courseTreeNode1.children().length).toEqual(2);
+                        expect(courseTreeNode1.children()[1].id).toEqual('objectiveId_#2');
+                    });
+
+                });
+
+                describe('when index is defined', function () {
+
+                    it('should relate objective to the course in the last position', function () {
+                        var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
+
+                        spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
+
+                        courseTreeNode1.children.push({ id: 'objectiveId_#1', title: 'title' });
+                        courseTreeNode1.children.push({ id: 'objectiveId_#2', title: 'title' });
+
+                        handler.objectiveRelated('courseId', { id: 'objectiveId_#3', title: 'title' }, 1);
+
+                        expect(courseTreeNode1.children().length).toEqual(3);
+                        expect(courseTreeNode1.children()[1].id).toEqual('objectiveId_#3');
+                    });
+
                 });
 
             });
@@ -158,7 +181,7 @@
 
                     spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
 
-                    handler.objectivesRelated('courseId', [{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }]);
+                    handler.objectiveRelated('courseId', [{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }]);
 
                     expect(courseTreeNode1.children().length).toEqual(0);
                 });

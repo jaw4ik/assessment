@@ -579,129 +579,6 @@
                 });
             });
 
-            describe('connectObjectives:', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.connectObjectives).toBeFunction();
-                });
-
-                it('should send event \'Connect selected objectives to course\'', function () {
-                    viewModel.connectObjectives();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Connect selected objectives to course');
-                });
-
-                describe('when no objectives selected', function () {
-
-                    beforeEach(function () {
-                        var objectivesList = [
-                                { isSelected: ko.observable(false) }
-                        ];
-                        viewModel.availableObjectives(objectivesList);
-                        viewModel.connectedObjectives([]);
-                        spyOn(repository, 'relateObjectives');
-                    });
-
-                    it('should not call repository relateObjectives method', function () {
-                        viewModel.connectObjectives();
-                        expect(repository.relateObjectives).not.toHaveBeenCalled();
-                    });
-
-                    it('should not affect related objectives', function () {
-                        viewModel.showConnectedObjectives();
-                        expect(viewModel.connectedObjectives().length).toBe(0);
-                    });
-                });
-
-                describe('when there are objectives selected', function () {
-                    var availableObjectives,
-                        relateObjectivesDefer,
-
-                        selectedObjective = { id: '2', title: 'D' },
-                        notSelectedObjective = { id: '3', title: 'B' };
-
-                    beforeEach(function () {
-                        availableObjectives = [
-                            { isSelected: ko.observable(true), _original: selectedObjective },
-                            { isSelected: ko.observable(false), _original: notSelectedObjective }
-                        ];
-                        viewModel.availableObjectives(availableObjectives);
-                        viewModel.connectedObjectives([]);
-
-                        relateObjectivesDefer = Q.defer();
-
-                        spyOn(repository, 'relateObjectives').and.returnValue(relateObjectivesDefer.promise);
-                    });
-
-                    it('should call relateObjectives repository function with selected objectives', function () {
-                        viewModel.connectObjectives();
-                        expect(repository.relateObjectives).toHaveBeenCalledWith(viewModel.id, [selectedObjective]);
-                    });
-
-                    describe('and objectives were connected successfully', function () {
-
-                        it('should call \'notify.info\' function', function (done) {
-                            relateObjectivesDefer.resolve({ modifiedOn: new Date(), relatedObjectives: [] });
-
-                            viewModel.connectObjectives();
-
-                            relateObjectivesDefer.promise.fin(function () {
-                                expect(notify.saved).toHaveBeenCalled();
-                                done();
-                            });
-                        });
-
-                        it('should update related objectives', function (done) {
-                            availableObjectives = [
-                               { isSelected: ko.observable(true), _original: selectedObjective },
-                               { isSelected: ko.observable(false), _original: notSelectedObjective },
-                               { isSelected: ko.observable(true), _original: { id: '3', title: 'E' } }
-                            ];
-                            viewModel.availableObjectives(availableObjectives);
-
-                            relateObjectivesDefer.resolve({ modifiedOn: new Date(), relatedObjectives: [selectedObjective] });
-
-                            viewModel.connectObjectives();
-
-                            relateObjectivesDefer.promise.fin(function () {
-                                expect(viewModel.connectedObjectives().length).toBe(1);
-                                expect(viewModel.connectedObjectives()[0].id).toBe(selectedObjective.id);
-                                done();
-                            });
-                        });
-
-                        it('should remove connected objectives from available objectives collection', function (done) {
-
-                            relateObjectivesDefer.resolve({ modifiedOn: new Date(), relatedObjectives: [selectedObjective] });
-
-                            viewModel.connectObjectives();
-
-                            relateObjectivesDefer.promise.fin(function () {
-                                expect(viewModel.availableObjectives().length).toBe(1);
-                                expect(viewModel.availableObjectives()[0]._original).toBe(notSelectedObjective);
-                                done();
-                            });
-                        });
-
-                        describe('and when selected objectives count differs from successfully connected objectives count', function () {
-
-                            it('shoul show \'objectivesNotFoundError\' notification', function (done) {
-                                relateObjectivesDefer.resolve({ modifiedOn: new Date(), relatedObjectives: [] });
-
-                                viewModel.connectObjectives();
-
-                                relateObjectivesDefer.promise.fin(function () {
-                                    expect(notify.error).toHaveBeenCalledWith(localizationManager.localize('objectivesNotFoundError'));
-                                    done();
-                                });
-                            });
-
-                        });
-
-                    });
-
-                });
-            });
-
             describe('connectedObjectives:', function () {
 
                 it('should be observable', function () {
@@ -1104,6 +981,176 @@
                     expect(viewModel.backButtonData.url).toBe('courses');
                     expect(viewModel.backButtonData.backViewName).toBe(localizationManager.localize('courses'));
                     expect(viewModel.backButtonData.callback).toBe(viewModel.navigateToCoursesEvent);
+                });
+
+            });
+
+            describe('disconnectObjective:', function () {
+
+                beforeEach(function () {
+                    viewModel.id = 'courseId';
+                });
+
+                it('should be function', function() {
+                    expect(viewModel.disconnectObjective).toBeFunction();
+                });
+
+                describe('when objective is not related to course', function() {
+
+                    var objective;
+
+                    beforeEach(function() {
+                        objective = {
+                            title: 'abc'
+                        };
+                        viewModel.availableObjectives.push(objective);
+                        spyOn(repository, 'unrelateObjectives');
+                    });
+
+                    it('should not send event \'Unrelate objectives from course\'', function () {
+                        viewModel.disconnectObjective({ item: objective });
+                        expect(eventTracker.publish).not.toHaveBeenCalledWith('Unrelate objectives from course');
+                    });
+
+                    it('should not call updateObjectiveOrder repository function with selected objectives', function () {
+                        viewModel.disconnectObjective({ item: objective });
+                        expect(repository.unrelateObjectives).not.toHaveBeenCalled();
+                    });
+
+                });
+
+                describe('when objective is related to course', function() {
+                    
+                    var unrelateObjectives,
+                        objective;
+
+                    beforeEach(function () {
+                        objective = {
+                            id: '0', isSelected: ko.observable(false)
+                        };
+
+                        viewModel.connectedObjectives.push(objective);
+                        unrelateObjectives = Q.defer();
+
+                        spyOn(repository, 'unrelateObjectives').and.returnValue(unrelateObjectives.promise);
+                    });
+
+                    it('should send event \'Unrelate objectives from course\'', function () {
+                        viewModel.disconnectObjective({ item: objective });
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Unrelate objectives from course');
+                    });
+
+                    it('should call repository \"unrelateObjectives\" method', function () {
+                        viewModel.disconnectObjective({ item: objective });
+                        expect(repository.unrelateObjectives).toHaveBeenCalledWith('courseId', [objective]);
+                    });
+
+                    describe('and unrelate objective succeed', function () {
+
+                        beforeEach(function () {
+                            unrelateObjectives.resolve(new Date());
+                        });
+
+                        it('should call \'notify.info\' function', function (done) {
+                            viewModel.disconnectObjective({ item: objective });
+
+                            unrelateObjectives.promise.finally(function () {
+                                expect(notify.saved).toHaveBeenCalled();
+                                done();
+                            });
+                        });
+
+                    });
+
+                });
+
+            });
+
+            describe('connectObjective:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.connectObjective).toBeFunction();
+                });
+
+                it('should send event \'Connect selected objectives to course\'', function () {
+                    viewModel.connectObjective({});
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Connect selected objectives to course');
+                });
+
+                describe('when objective already exists in connected objectives', function () {
+
+                    var orderObjectiveDefer, objective1, objective2;
+
+                    beforeEach(function () {
+                        objective1 = {
+                            id: '0',
+                            isSelected: function () { }
+                        };
+                        objective2 = {
+                            id: '1',
+                            isSelected: function () { }
+                        };
+                        viewModel.connectedObjectives([]);
+                        viewModel.connectedObjectives.push(objective1);
+                        viewModel.connectedObjectives.push(objective2);
+                        orderObjectiveDefer = Q.defer();
+                        spyOn(repository, 'updateObjectiveOrder').and.returnValue(orderObjectiveDefer.promise);
+                        spyOn(repository, 'relateObjective').and.callFake();
+                    });
+
+                    it('should send event \'Change order of learning objectives\'', function () {
+                        viewModel.connectObjective({ item: objective1, targetIndex: 1, sourceIndex: 0 });
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Change order of learning objectives');
+                    });
+
+                    it('should call updateObjectiveOrder repository function with selected objectives', function () {
+                        viewModel.connectObjective({ item: objective1, targetIndex: 1, sourceIndex: 0 });
+                        expect(repository.updateObjectiveOrder).toHaveBeenCalledWith(viewModel.id, [{ id: '1' }, { id: '0' }]);
+                    });
+
+                    it('should not send event \'Connect selected objectives to course\'', function () {
+                        viewModel.connectObjective({ item: objective1, targetIndex: 1, sourceIndex: 0 });
+                        expect(eventTracker.publish).not.toHaveBeenCalledWith('Connect selected objectives to course');
+                    });
+
+                    it('should not call updateObjectiveOrder repository function with selected objectives', function () {
+                        viewModel.connectObjective({ item: objective1, targetIndex: 1, sourceIndex: 0 });
+                        expect(repository.relateObjective).not.toHaveBeenCalled();
+                    });
+
+                });
+
+                describe('when objective not exists in connected objectives', function () {
+
+                    var relateObjectiveDefer;
+
+                    beforeEach(function () {
+                        viewModel.connectedObjectives([]);
+
+                        relateObjectiveDefer = Q.defer();
+
+                        spyOn(repository, 'relateObjective').and.returnValue(relateObjectiveDefer.promise);
+                    });
+
+                    it('should call relateObjectives repository function with selected objectives', function () {
+                        viewModel.connectObjective({ item: { id: '0' }, targetIndex: 5 });
+                        expect(repository.relateObjective).toHaveBeenCalledWith(viewModel.id, { id: '0' }, 5);
+                    });
+
+                    describe('and objectives were connected successfully', function() {
+
+                        it('should call \'notify.info\' function', function(done) {
+                            relateObjectiveDefer.resolve({ modifiedOn: new Date() });
+                            viewModel.connectObjective({ item: { id: '0' }, targetIndex: 5 });
+
+                            relateObjectiveDefer.promise.fin(function () {
+                                expect(notify.saved).toHaveBeenCalled();
+                                done();
+                            });
+                        });
+
+                    });
+
                 });
 
             });

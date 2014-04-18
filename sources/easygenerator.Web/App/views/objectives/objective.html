@@ -51,7 +51,7 @@
                 </div>
                 <!-- /ko -->
 
-                <ul class="unstyled main-content-list" data-bind="sortable: { data: questions, afterMove: updateQuestionsOrder, isEnabled: isSortingEnabled }">
+                <ul class="unstyled main-content-list" data-bind="sortable: { data: questions, afterMove: updateQuestionsOrder, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon'}}">
                     <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
                         <div class="list-item-content-holder" data-bind="click: $parent.toggleQuestionSelection">
                             <div class="list-item-drag-icon-wrapper">

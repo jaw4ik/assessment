@@ -55,9 +55,6 @@
                         <span class="selected-item-action disconnect disabled" data-bind="localize: { text: 'disconnectSelected' }"></span>
                         <!-- /ko -->
                         <!--/ko -->
-                        <!-- ko if: objectivesMode() == objectivesListModes.appending -->
-                        <span class="selected-item-action add" data-bind="css: { enabled: canConnectObjectives(), disabled: !canConnectObjectives() }, click: connectObjectives, localize: { text: 'connectSelected' }"></span>
-                        <!-- /ko -->
                     </div>
                     <div class="list-item-action empty">
                         &nbsp;
@@ -94,19 +91,13 @@
                     </div>
                 </div>
 
-                <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
-                <div class="empty-list-wrapper">
-                    <div class="empty-list" data-bind="localize: { text: 'noLearningObjectivesToConnect' }"></div>
-                </div>
-                <!-- /ko -->
                 <!-- ko if: connectedObjectives().length == 0 && objectivesMode() == objectivesListModes.display -->
                 <div class="empty-list-wrapper">
                     <span class="empty-list" data-bind="localize: { text: 'learningObjectiveListIsEmpty'}">Learning objective list is empty</span>
                 </div>
                 <!-- /ko -->
-                <!-- ko if: (objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
-                <!--ko if: objectivesMode() == objectivesListModes.display-->
-                <ul class="unstyled main-content-list" data-bind="sortable: { data: connectedObjectives, afterMove: reorderObjectives, isEnabled: isSortingEnabled }">
+                <!--ko if: objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0-->
+                <ul class="unstyled main-content-list" data-bind="sortable: { data: connectedObjectives, afterMove: reorderObjectives, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon'} }">
                     <li class="main-content-list-item" data-bind="css: { selected: isSelected }">
                         <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
                             <div class="list-item-drag-icon-wrapper">
@@ -130,7 +121,7 @@
                                     <span class="selectable" data-bind="text: title"></span>
                                 </div>
                                 <div class="list-item-saved">
-                                    <span data-bind="localize: { text: 'lastEdited' }">Last edited: </span><span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                    <span data-bind="localize: { text: 'lastEdited' }">Last edited: </span><span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
                                 </div>
                             </div>
                         </div>
@@ -143,34 +134,76 @@
                 </ul>
                 <!-- /ko -->
                 <!--ko ifnot: objectivesMode() == objectivesListModes.display-->
-                <ul class="unstyled main-content-list" data-bind="foreach: availableObjectives">
-                    <li class="main-content-list-item" data-bind="css: { selected: isSelected }">
-                        <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
-                            <div class="list-item-checkbox">
-                                <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
-                                    <input class="custom-checkbox" type="checkbox" />
-                                </span>
-                            </div>
-                            <div class="list-item-logo">
-                                <img class="list-item-logo-image" alt="" src="" data-bind="attr: { src: image }" />
-                            </div>
-                            <div class="list-item-info">
-                                <div class="list-item-title">
-                                    <span class="selectable" data-bind="text: title"></span>
-                                </div>
-                                <div class="list-item-saved">
-                                    <span data-bind="localize: { text: 'lastEdited' }">Last edited: </span><span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                <div class="connecting-objectives-holder">
+                    <div class="connecting-objectives-item">
+                        <div class="other-objectives-title">
+                            <div data-bind="localize: { text: 'otherObjectives' }"></div>
+                        </div>
+                        <div class="connecting-objectives-item-container" data-bind="css: { 'for-drag': availableObjectives().length == 0 }">
+                            <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
+                            <div class="empty-list-wrapper connecting-objectives">
+                                <div class="empty-list-info">
+                                    <div class="empty-list connecting-objectives" data-bind="localize: { text: 'allObjectivesConnected' }"></div>
                                 </div>
                             </div>
+                            <!-- /ko -->
+                            <ul class="unstyled main-content-list connectedSortable" data-bind="css: { 'list-for-drag': availableObjectives().length == 0 }, sortable: { data: availableObjectives, beforeMove: disconnectObjective,  options: { connectWith: '.connectedSortable' } }">
+                                <li class="main-content-list-item" data-bind="css: { selected: isSelected }">
+                                    <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
+                                        <div class="list-item-logo">
+                                            <img class="list-item-logo-image" alt="" src="" data-bind="attr: { src: image }" />
+                                        </div>
+                                        <div class="list-item-info">
+                                            <div class="list-item-title">
+                                                <span data-bind="text: title"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="open-item-btn">
-                            <a href="#" class="cursor-pointer light-green btn btn-small open-btn" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent), attr: { href: '#objective/' + id + '?courseId=' + $parent.id }">
-                                <span class="open-btn-text" data-bind="localize: { text: 'open' }"></span>
-                            </a>
+                    </div>
+                    <div class="connecting-objectives-item empty">
+                        &nbsp;
+                    </div>
+                    <div class="connecting-objectives-item">
+                        <div class="connected-objectives-title">
+                            <div class="connected-objectives-title-text" data-bind="localize: { text: 'connectedObjectives' }"></div>
                         </div>
-                    </li>
-                </ul>
-                <!-- /ko -->
+                        <div class="connecting-objectives-item-container" data-bind="css: { 'for-drag': connectedObjectives().length == 0 }">
+                            <!-- ko if: objectivesMode() == objectivesListModes.appending -->
+                            <div class="empty-list-wrapper connecting-objectives connected" data-bind="css: { hint: connectedObjectives().length > 0 }">
+                                <div class=" empty-list-info">
+                                    <div class="empty-list-image"></div>
+                                    <div class="empty-list-caption"><span data-bind="localize: { html: 'dragAndDropObjectivesHere' }"></span></div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <ul class="unstyled main-content-list connectedSortable" data-bind="css: { 'list-for-drag': connectedObjectives().length == 0 }, sortable: { data: connectedObjectives, beforeMove: connectObjective, options: { connectWith: '.connectedSortable' } }">
+                                <li class="main-content-list-item" data-bind="css: { selected: isSelected }">
+                                    <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
+                                        <div class="list-item-drag-icon-wrapper">
+                                            <!-- ko if: $parent.isSortingEnabled() -->
+                                            <span class="list-item-drag-icon" data-bind="stopEventPropagation: { event: 'click' }, localize: { title: 'changeOrderTooltip' }"></span>
+                                            <!-- /ko -->
+                                            <!-- ko ifnot: $parent.isSortingEnabled() -->
+                                            <span class="list-item-drag-icon disabled" data-bind="stopEventPropagation: { event: 'click' }"></span>
+                                            <!-- /ko -->
+                                        </div>
+                                        <div class="list-item-logo">
+                                            <img class="list-item-logo-image" alt="" src="" data-bind="attr: { src: image }" />
+                                        </div>
+                                        <div class="list-item-info">
+                                            <div class="list-item-title">
+                                                <span data-bind="text: title"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <!-- /ko -->
             </div>
         </div>

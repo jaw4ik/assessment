@@ -58,7 +58,6 @@
             endEditTitle: endEditTitle,
             showAllAvailableObjectives: showAllAvailableObjectives,
             showConnectedObjectives: showConnectedObjectives,
-            connectObjectives: connectObjectives,
             courseTitleMaxLength: constants.validation.courseTitleMaxLength,
             disconnectSelectedObjectives: disconnectSelectedObjectives,
             reorderObjectives: reorderObjectives,
@@ -69,7 +68,10 @@
                 url: 'courses',
                 backViewName: localizationManager.localize('courses'),
                 callback: navigateToCoursesEvent
-            })
+            }),
+
+            connectObjective: connectObjective,
+            disconnectObjective: disconnectObjective
         };
 
         viewModel.canDisconnectObjectives = ko.computed(function () {
@@ -201,33 +203,36 @@
             viewModel.objectivesMode(viewModel.objectivesListModes.display);
         }
 
-        function connectObjectives() {
-            eventTracker.publish(events.connectSelectedObjectivesToCourse);
-            var that = viewModel;
-
-            var objectivesToRelate = _.chain(that.availableObjectives()).filter(function (item) {
-                return item.isSelected();
-            }).pluck('_original').value();
-
-            if (objectivesToRelate.length == 0) {
+        function connectObjective(objective) {
+            if (_.contains(viewModel.connectedObjectives(), objective.item)) {
+                var objectives = _.map(viewModel.connectedObjectives(), function(item) {
+                    return {
+                        id: item.id
+                    };
+                });
+                objectives.splice(objective.sourceIndex, 1);
+                objectives.splice(objective.targetIndex, 0, { id: objective.item.id });
+                eventTracker.publish(events.changeOrderObjectives);
+                repository.updateObjectiveOrder(viewModel.id, objectives).then(function () {
+                    notify.saved(); 
+                });
                 return;
             }
 
-            repository.relateObjectives(that.id, objectivesToRelate).then(function (response) {
-                that.connectedObjectives(_.chain(that.connectedObjectives()).union(response.relatedObjectives).map(function (item) {
-                    return objectiveBrief(item);
-                }).value());
-
-                that.availableObjectives(that.availableObjectives().filter(function (item) {
-                    return !_.contains(response.relatedObjectives, item._original);
-                }));
-
+            eventTracker.publish(events.connectSelectedObjectivesToCourse);
+            repository.relateObjective(viewModel.id, objective.item, objective.targetIndex).then(function (response) {
                 notify.saved();
-
-                if (objectivesToRelate.length != response.relatedObjectives.length) {
-                    notify.error(localizationManager.localize('objectivesNotFoundError'));
-                }
             });
+        }
+
+        function disconnectObjective(objective) {
+            if (_.contains(viewModel.availableObjectives(), objective.item)) {
+                return;
+            }
+            eventTracker.publish(events.unrelateObjectivesFromCourse);
+            repository.unrelateObjectives(viewModel.id, [objective.item]).then(function () {
+                    notify.saved();
+                });
         }
 
         function disconnectSelectedObjectives() {
@@ -277,6 +282,6 @@
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
                 throw reason;
             });
-        };
+        }
     }
 );

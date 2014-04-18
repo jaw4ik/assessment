@@ -13,7 +13,6 @@
             placeholder: 'sortable-list-placeholder',
             forcePlaceholderSize: true,
             containment: 'body',
-            handle: '.list-item-drag-icon',
             tolerance: 'pointer',
             cursor: 'move',
             start: function(e, ui) {

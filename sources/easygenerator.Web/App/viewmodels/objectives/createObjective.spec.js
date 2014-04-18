@@ -87,7 +87,7 @@
                     getObjectiveDefer = Q.defer();
                     spyOn(repository, 'addObjective').and.returnValue(addObjective.promise);
                     spyOn(repository, 'getById').and.returnValue(getObjectiveDefer.promise);
-                    spyOn(courseRepository, 'relateObjectives').and.returnValue(relateObjectiveDefer.promise);
+                    spyOn(courseRepository, 'relateObjective').and.returnValue(relateObjectiveDefer.promise);
                 });
 
                 it('should be function', function () {
@@ -181,7 +181,7 @@
                                 addObjective.resolve(objective);
 
                                 viewModel.createAndContinue().fin(function () {
-                                    expect(courseRepository.relateObjectives).toHaveBeenCalledWith(viewModel.contextCourseId, [objective]);
+                                    expect(courseRepository.relateObjective).toHaveBeenCalledWith(viewModel.contextCourseId, objective);
                                     done();
                                 });
                             });

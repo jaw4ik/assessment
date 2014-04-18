@@ -70,7 +70,7 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
         app.on(constants.messages.course.created, self.handler.courseCreated);
         app.on(constants.messages.course.deleted, self.handler.courseDeleted);
         app.on(constants.messages.course.titleUpdated, self.handler.courseTitleUpdated);
-        app.on(constants.messages.course.objectivesRelated, self.handler.objectivesRelated);
+        app.on(constants.messages.course.objectiveRelated, self.handler.objectiveRelated);
         app.on(constants.messages.course.objectivesUnrelated, self.handler.objectivesUnrelated);
         app.on(constants.messages.course.objectivesReordered, self.handler.objectivesReordered);
 

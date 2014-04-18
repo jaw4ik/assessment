@@ -11,7 +11,7 @@
             updateCourseTemplate: updateCourseTemplate,
             removeCourse: removeCourse,
 
-            relateObjectives: relateObjectives,
+            relateObjective: relateObjective,
             unrelateObjectives: unrelateObjectives,
             updateIntroductionContent: updateIntroductionContent,
             updateObjectiveOrder: updateObjectiveOrder
@@ -113,22 +113,21 @@
             });
         }
 
-        function relateObjectives(courseId, objectives) {
-            return Q.fcall(function () {
+
+        function relateObjective(courseId, objective, targetIndex) {
+            return Q.fcall(function() {
                 guard.throwIfNotString(courseId, 'Course id is not valid');
-                guard.throwIfNotArray(objectives, 'Objectives to relate are not array');
+                guard.throwIfNotAnObject(objective, 'Objective is not an object');
 
                 var requestArgs = {
                     courseId: courseId,
-                    objectives: _.map(objectives, function (item) {
-                        return item.id;
-                    })
+                    objectiveId: objective.id,
+                    index: targetIndex
                 };
 
-                return httpWrapper.post('api/course/relateObjectives', requestArgs).then(function (response) {
+                return httpWrapper.post('api/course/relateObjective', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
-                    guard.throwIfNotArray(response.RelatedObjectives, 'Response does not have related objectives collection');
 
                     var course = _.find(dataContext.courses, function (exp) {
                         return exp.id == courseId;
@@ -137,21 +136,17 @@
                     guard.throwIfNotAnObject(course, "Course doesn`t exist");
 
                     course.modifiedOn = new Date(response.ModifiedOn);
-                    var relatedObjectives = _.filter(objectives, function (item) {
-                        return !_.isUndefined(_.find(response.RelatedObjectives, function (relatedObjective) {
-                            return item.id == relatedObjective.Id;
-                        }));
-                    });
-
-                    _.each(relatedObjectives, function (objective) {
+                    
+                    if (!_.isNullOrUndefined(targetIndex)) {
+                        course.objectives.splice(targetIndex, 0, objective);
+                    } else {
                         course.objectives.push(objective);
-                    });
+                    }
 
-                    app.trigger(constants.messages.course.objectivesRelated, requestArgs.courseId, relatedObjectives);
+                    app.trigger(constants.messages.course.objectiveRelated, requestArgs.courseId, objective, targetIndex);
 
                     return {
-                        modifiedOn: course.modifiedOn,
-                        relatedObjectives: relatedObjectives
+                        modifiedOn: course.modifiedOn
                     };
                 });
             });

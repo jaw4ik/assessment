@@ -12,7 +12,7 @@
             courseDeleted: courseDeleted,
             courseTitleUpdated: courseTitleUpdated,
 
-            objectivesRelated: objectivesRelated,
+            objectiveRelated: objectiveRelated,
             objectivesUnrelated: objectivesUnrelated,
             objectivesReordered: objectivesReordered,
             objectiveTitleUpdated: objectiveTitleUpdated
@@ -37,12 +37,14 @@
             });
         }
 
-        function objectivesRelated(courseId, objectives) {
+        function objectiveRelated(courseId, objective, index) {
             _.each(treeOfContentTraversal.getCourseTreeNodeCollection(courseId), function (courseTreeNode) {
                 if (courseTreeNode.isExpanded()) {
-                    _.each(objectives, function (objective) {
+                    if (!_.isNullOrUndefined(index)) {
+                        courseTreeNode.children.splice(index, 0, new ObjectiveTreeNode(objective.id, courseId, objective.title, "#objective/" + objective.id + "?courseId=" + courseId));
+                    } else {
                         courseTreeNode.children.push(new ObjectiveTreeNode(objective.id, courseId, objective.title, "#objective/" + objective.id + "?courseId=" + courseId));
-                    });
+                    }
                 }
             });
         }

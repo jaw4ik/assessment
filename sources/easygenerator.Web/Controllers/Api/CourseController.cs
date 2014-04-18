@@ -24,14 +24,16 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ICourseRepository _repository;
         private readonly ICoursePublishingService _coursePublishingService;
         private readonly IScormCourseBuilder _scormCourseBuilder;
+        private readonly IObjectiveRepository _objectiveRepository;
 
-        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory, ICoursePublishingService publishingService)
+        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory, ICoursePublishingService publishingService, IObjectiveRepository objectiveRepository)
         {
             _builder = courseBuilder;
             _repository = repository;
             _entityFactory = entityFactory;
             _coursePublishingService = publishingService;
             _scormCourseBuilder = scormCourseBuilder;
+            _objectiveRepository = objectiveRepository;
         }
 
         [HttpPost]
@@ -162,34 +164,29 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult RelateObjectives(Course course, ICollection<Objective> objectives)
+        [Route("api/course/relateObjective")]
+        public ActionResult RelateObjectives(Course course, Objective objective, int? index)
         {
             if (course == null)
             {
                 return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
             }
 
-            if (objectives.Count == 0)
+            if (objective == null)
             {
-                return JsonLocalizableError(Errors.ObjectivesNotFoundError, Errors.ObjectivesNotFoundResourceKey);
+                return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
             }
 
-            foreach (Objective objective in objectives)
-            {
-                course.RelateObjective(objective, GetCurrentUsername());
-            }
+            course.RelateObjective(objective, index, GetCurrentUsername());
 
             return JsonSuccess(new
             {
-                ModifiedOn = course.ModifiedOn,
-                RelatedObjectives = objectives.Select(obj => new
-                {
-                    Id = obj.Id.ToNString()
-                })
+                ModifiedOn = course.ModifiedOn
             });
         }
 
         [HttpPost]
+        [Route("api/course/unrelateObjectives")]
         public ActionResult UnrelateObjectives(Course course, ICollection<Objective> objectives)
         {
             if (course == null)

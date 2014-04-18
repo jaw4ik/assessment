@@ -24,17 +24,18 @@ namespace easygenerator.Web.Tests.Controllers.Api
     [TestClass]
     public class CourseControllerTests
     {
-        private const string CreatedBy = "easygenerator@easygenerator.com";
+        const string CreatedBy = "easygenerator@easygenerator.com";
 
         CourseController _controller;
         ICourseBuilder _builder;
-        private IScormCourseBuilder _scormCourseBuilder;
+        IScormCourseBuilder _scormCourseBuilder;
         IEntityFactory _entityFactory;
         ICourseRepository _repository;
         IPrincipal _user;
         HttpContextBase _context;
-        private ICoursePublishingService _coursePublishingService;
-
+        ICoursePublishingService _coursePublishingService;
+        IObjectiveRepository _objectiveRepository;
+             
         [TestInitialize]
         public void InitializeContext()
         {
@@ -43,13 +44,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _builder = Substitute.For<ICourseBuilder>();
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
             _coursePublishingService = Substitute.For<ICoursePublishingService>();
+            _objectiveRepository = Substitute.For<IObjectiveRepository>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _coursePublishingService);
+            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _coursePublishingService, _objectiveRepository);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -423,10 +425,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             _user.Identity.Name.Returns("Test user");
             var course = CourseObjectMother.Create();
-            var relatedObjectives = new List<Objective>() { ObjectiveObjectMother.Create() };
+            var relatedObjective =ObjectiveObjectMother.Create();
 
             //Act
-            var result = _controller.RelateObjectives(course, relatedObjectives);
+            var result = _controller.RelateObjectives(course, relatedObjective, null);
 
             //Assert
             ActionResultAssert.IsJsonSuccessResult(result);
@@ -442,10 +444,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var objective = ObjectiveObjectMother.Create();
 
             //Act
-            _controller.RelateObjectives(course, new List<Objective>() { objective });
+            _controller.RelateObjectives(course, objective, null);
 
             //Assert
-            course.Received().RelateObjective(objective, user);
+            course.Received().RelateObjective(objective, null, user);
         }
 
         [TestMethod]
@@ -455,7 +457,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var objective = ObjectiveObjectMother.Create();
 
             //Act
-            var result = _controller.RelateObjectives(null, new List<Objective>() { objective });
+            var result = _controller.RelateObjectives(null, objective, null);
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Course is not found");
@@ -470,11 +472,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var objective = ObjectiveObjectMother.Create();
 
             //Act
-            var result = _controller.RelateObjectives(course, new List<Objective>() { });
+            var result = _controller.RelateObjectives(course, null, null);
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objectives are not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectivesNotFoundError");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
         }
 
         #endregion

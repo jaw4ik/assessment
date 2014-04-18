@@ -246,7 +246,7 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdateTemplate(TemplateObjectMother.Create(name: "Default"), "SomeUser");
-            course.RelateObjective(objective, "SomeUser");
+            course.RelateObjective(objective, null, "SomeUser");
 
             return course;
         }

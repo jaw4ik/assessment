@@ -18,6 +18,179 @@
     height: 80px;
 }
 
+/* connecting/disconnecting objectives from the course*/
+
+.connecting-objectives-holder {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.connecting-objectives-holder .main-content-list .list-item-logo {
+    width: 70px;
+    height: 50px;
+}
+
+.connecting-objectives-holder .main-content-list .list-item-logo-image {
+    width: 60px;
+    height: 60px;
+    margin-left: 10px;
+}
+
+.connecting-objectives-holder .main-content-list .list-item-info {
+    padding-right: 14px;
+}
+
+.connecting-objectives-holder .main-content-list .list-item-content-holder {
+    cursor: move;
+}
+
+.connecting-objectives-item {
+    display: table-cell;
+    min-width: 300px;
+}
+
+.connecting-objectives-item-container {
+    padding: 10px;
+    height: 528px;
+    overflow-y: auto;
+    border-left: 1px solid #e8e8e8;
+    border-right: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.connecting-objectives-item-container.for-drag {
+    position: relative;
+}
+
+.connecting-objectives-item.empty {
+    border: none;
+    padding: 0;
+    width: 20px;
+    min-width: 0;
+}
+
+.empty-list-wrapper.connecting-objectives {
+    width: 100%;
+    height: 100%;
+    display: table;
+    padding-top: 0;
+}
+
+    .empty-list-wrapper.connecting-objectives.connected {
+        border: 2px dashed #e8e8e8;    
+    }
+
+        .empty-list-wrapper.connecting-objectives.connected.hint {
+            height: 80px;
+            margin-bottom: 10px;    
+        }
+
+.empty-list-info {
+    display: table-cell;
+    vertical-align: middle;    
+}
+
+    .hint .empty-list-info {
+        text-align: left;
+        padding-left: 15px;
+        position: relative;
+    }
+
+.empty-list.connecting-objectives {
+    font-size: 16px;
+    padding-left: 30px;
+}
+
+.connecting-objectives .empty-list-image {
+    display: inline-block;
+    height: 60px;
+    width: 63px;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA8CAYAAADRy2JxAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NkJFREU4ODNDNjIwMTFFMzgzNjREODhFNUZCNkVEMzYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NkJFREU4ODRDNjIwMTFFMzgzNjREODhFNUZCNkVEMzYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2QkVERTg4MUM2MjAxMUUzODM2NEQ4OEU1RkI2RUQzNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2QkVERTg4MkM2MjAxMUUzODM2NEQ4OEU1RkI2RUQzNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PhVabG8AAAP8SURBVHja7FpNTBNBFH5LWwoFpYGIRoSUQC2EciEmKJZogt7UgycTvemFqFyVaDAmavFk/Em8aKIJKicvmniwJCpoJJF4kEqBKhWIiTXERhBaCqxvlm3SDt2ybXe3226/5AvlTXe7386bee/NDONyDbGgPniRbcjfQl/o6Nif9o8UgDpRj3yBNMn5I2oVT9CKfIbUyfUDeur/APJTBoSakXvi2I8hbyPPKSF+FHk4A+IdyEGBtrNIN/K+ltw+Gnd5L9CkeB0//lvldHsae5EHErTfVPAFmPgI0MaHQtnFH0Q6VSKeYBvyFdKqJbencwDQqnjFxny/QnF/sxB7C2lXWryPp2zgc3SSXLmEvjMw8D4gdV6vebfPi0+Ai0g2RTrzPa8MGpD7tCb+KtKPHEN+QIaRd6Sc7V0pPphXAeE9cfScR5YjT0kR5/tV2uudCdpOIr8ib6QjPhNw8vW9I0Fcj1l3XFxcgnB4BcrKtkSbryOnkX3ZMubf8RHGkcxFa2ssjI6O4wsI002XkMZsEE96vD3Vi4PBELjdk8CyG6LA02wQ70j3BnNzf8Dnm6HNx4VyDr1axWM+n9JNpqZmuLFfXm6mkzUP8nFOp7cs+r3bPQGh0DLd1IusTKbnTyBPy/mwkR6WqlIjWF4OcxNgS4sdGIaJmHcgHyKPihVvQR7KRg8IBP6C1+sDq7U22nyEzwC7cr6qm57+CX7/HG0mGeAZTZS0Y2OTXBJEgewDWDcTTyYJRk7iWOcol/iVlVVu/K+urkWbi0h00cRixvz8P5iY+E6b2zWzksOyG44hMGJm+3o5H0qOUEejtLQEbLY62jwoJs47s7nH9XodNDfbQKeLcfIQcijn3b6x0QomUzFtJvv9EzktvqZmJ1RWVtDme8gHYjK8j6DcZuQFKW9mNm+FujoLbX7JJzmi0ts3PGVD1EQnmfjCQgPY7TYoKIhJH37RdUrOuT0pZJqadoPRWEg3kbLWr9Z6fggSr9sJYmFhEYaHP3Ofa2ur6Vo+kqk+SnYxQ7GStqGhfldV1fa07lVRYQaLpZo2P0d2p7KSo1hJ6/F4oaSkmJuoUkFRkZFzdya2ShiH9WXsuFDVmB8Z+QI+3ywsLQVnk7mOTGxkgjMYDHTTNWRQMAFS24T17dsPwj4c891RQ2OQmg8YfvIiZ3TiJTEElyHBmr0Y8b08lQh1yYIcSuwRaHsC65sWkI54NeMK/7cz4gGkfOdfSpeo4ZLlYZ28ALIi2wjr5/MMYoWLne0VKWkp+HA4JLPL60mp4lNpSdsrFJulRP5MjlahppI2Gm8T7dWRNimWvTJe0ubdPi8+82OeHO59rcLntCsh3gxZuiubd/u8ePH4L8AA4qYAdhcbKK8AAAAASUVORK5CYII=') /*images/drag-and-drop.png*/;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+    .hint .empty-list-image {
+        height: 48px;
+        width: 50px;
+        position: absolute;
+    }
+
+.empty-list-caption {
+    padding-top: 6px;
+    text-align: center;
+    font-family: 'Rabiohead', 'Sans-Serif';
+    font-size: 26px;
+    color: #7b7b7b;
+}
+
+    .hint .empty-list-caption {
+        padding-top: 0;
+        font-size: 24px;
+    }
+
+.other-objectives-title {
+    background-color: #f5f5f5;
+    color: #333333;
+    font-family: 'OpenSans';
+    font-size: 14px;
+    padding: 9px 20px;
+    border: 1px solid #e8e8e8;
+    width: 100%;
+}
+
+.connected-objectives-title {
+    background-color: #8ec165;
+    color: white;
+    font-family: 'OpenSans';
+    font-size: 14px;
+    padding: 9px 20px 9px 50px;
+    position: relative;
+    border: 1px solid #8ec165;
+    width: 100%;
+}
+
+.connected-objectives-title-text:before {
+        content: '';
+        display: block;
+        height: 18px;
+        width: 18px;
+        position: absolute;
+        left: 27px;
+        background-image: url('images/sprites.png');
+        background-position: -414px -320px;
+}
+
+.list-for-drag {
+    position: absolute;
+    top: 10px;
+    height: 96% !important;
+    width: 95%;
+}
+
+@media (max-width: 1170px) {
+    .hint .empty-list-image {
+        height: 43px;
+        width: 35px;
+    }
+
+    .hint .empty-list-caption {
+        font-size: 20px;
+    }
+}
+
+@media (max-height: 768px) {
+    .connecting-objectives-item-container {
+        height: 255px;
+    }
+
+    .list-for-drag {
+        height: 92% !important;
+    }
+}
+
 /*#endregion DEFINE STEP*/
 
 /*#region DESIGN STEP*/

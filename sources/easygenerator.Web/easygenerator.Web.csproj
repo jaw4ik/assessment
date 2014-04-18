@@ -580,6 +580,7 @@
     <Content Include="Content\images\build-loader.gif" />
     <Content Include="Content\images\disabled.png" />
     <Content Include="Content\images\download-scorm-loader.GIF" />
+    <Content Include="Content\images\drag-and-drop.png" />
     <Content Include="Content\images\emptyList.png" />
     <Content Include="Content\images\enabled.png" />
     <Content Include="Content\images\examTemplate.png" />

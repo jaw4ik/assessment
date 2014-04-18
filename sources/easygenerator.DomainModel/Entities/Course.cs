@@ -61,7 +61,7 @@ namespace easygenerator.DomainModel.Entities
             get { return GetOrderedRelatedObjectives().AsEnumerable(); }
         }
 
-        public virtual void RelateObjective(Objective objective, string modifiedBy)
+        public virtual void RelateObjective(Objective objective, int? index, string modifiedBy)
         {
             ThrowIfObjectiveIsInvalid(objective);
             ThrowIfModifiedByIsInvalid(modifiedBy);
@@ -69,7 +69,14 @@ namespace easygenerator.DomainModel.Entities
             if (!RelatedObjectivesCollection.Contains(objective))
             {
                 var objectives = GetOrderedRelatedObjectives();
-                objectives.Add(objective);
+                if (index.HasValue)
+                {
+                    objectives.Insert(index.Value, objective);
+                }
+                else
+                {
+                    objectives.Add(objective);
+                }
                 UpdateObjectivesOrder(objectives, modifiedBy);
 
                 RelatedObjectivesCollection.Add(objective);
@@ -98,7 +105,7 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        private ICollection<Objective> GetOrderedRelatedObjectives()
+        private IList<Objective> GetOrderedRelatedObjectives()
         {
             if (ObjectivesOrder == null)
             {

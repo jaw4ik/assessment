@@ -303,7 +303,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdateIntroductionContent("some course content", "SomeUser");
             course.UpdateTemplate(TemplateObjectMother.Create(name: "Default"), "SomeUser");
-            course.RelateObjective(objective, "SomeUser");
+            course.RelateObjective(objective, null, "SomeUser");
 
             return course;
         }

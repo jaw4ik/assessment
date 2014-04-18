@@ -166,18 +166,6 @@ namespace easygenerator.Web.Configuration
             );
 
             routes.MapRoute(
-                name: "CourseRelateObjectives",
-                url: "api/course/relateObjectives",
-                defaults: new { controller = "Course", action = "RelateObjectives" }
-            );
-
-            routes.MapRoute(
-                name: "CourseUnrelateObjectives",
-                url: "api/course/unrelateObjectives",
-                defaults: new { controller = "Course", action = "UnrelateObjectives" }
-            );
-
-            routes.MapRoute(
                 name: "BuildCourse",
                 url: "course/build",
                 defaults: new { controller = "Course", action = "Build" }

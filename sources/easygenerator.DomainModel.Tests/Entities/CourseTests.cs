@@ -82,7 +82,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create();
 
             //Act
-            Action action = () => course.RelateObjective(null, ModifiedBy);
+            Action action = () => course.RelateObjective(null, null, ModifiedBy);
 
             //Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("objective");
@@ -97,7 +97,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
-            course.RelateObjective(objective, ModifiedBy);
+            course.RelateObjective(objective, null, ModifiedBy);
 
             //Assert
             course.ModifiedOn.Should().Be(DateTime.MaxValue);
@@ -111,14 +111,14 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create();
 
             //Act
-            course.RelateObjective(objective, ModifiedBy);
+            course.RelateObjective(objective, null, ModifiedBy);
 
             //Assert
             course.RelatedObjectives.Should().Contain(objective);
         }
 
         [TestMethod]
-        public void RelateObjective_ShouldUpdateObjectivesOrderedList()
+        public void RelateObjective_ShouldUpdateObjectivesOrderedListAndInsertToEnd()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -133,7 +133,32 @@ namespace easygenerator.DomainModel.Tests.Entities
             objectiveCollection.Add(objective1);
             var result = String.Join(",", objectiveCollection.ConvertAll(o => o.Id.ToString()).ToArray());
             //Act
-            course.RelateObjective(objective1, ModifiedBy);
+            course.RelateObjective(objective1, null, ModifiedBy);
+
+            //Assert
+            course.ObjectivesOrder.Should().Be(result);
+        }
+
+        [TestMethod]
+        public void RelateObjective_ShouldUpdateObjectivesOrderedListAndInsertToPosition()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+            var objective1 = ObjectiveObjectMother.Create();
+            var objective2 = ObjectiveObjectMother.Create();
+            const int position = 1;
+            course.RelatedObjectivesCollection = new Collection<Objective>()
+            {
+                objective,
+                objective1
+            };
+            var objectiveCollection = new List<Objective>() { objective, objective1 };
+            course.UpdateObjectivesOrder(objectiveCollection, ModifiedBy);
+            objectiveCollection.Insert(position, objective2);
+            var result = String.Join(",", objectiveCollection.ConvertAll(o => o.Id.ToString()).ToArray());
+            //Act
+            course.RelateObjective(objective2, 1, ModifiedBy);
 
             //Assert
             course.ObjectivesOrder.Should().Be(result);
@@ -145,7 +170,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var objective = ObjectiveObjectMother.Create();
             var course = CourseObjectMother.Create();
 
-            Action action = () => course.RelateObjective(objective, null);
+            Action action = () => course.RelateObjective(objective, null, null);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
         }
@@ -156,7 +181,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var objective = ObjectiveObjectMother.Create();
             var course = CourseObjectMother.Create();
 
-            Action action = () => course.RelateObjective(objective, string.Empty);
+            Action action = () => course.RelateObjective(objective, null, string.Empty);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
         }
@@ -168,7 +193,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create();
             var user = "Some user";
 
-            course.RelateObjective(objective, user);
+            course.RelateObjective(objective, null, user);
 
             course.ModifiedBy.Should().Be(user);
         }
@@ -196,7 +221,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Arrange
             var objective = ObjectiveObjectMother.Create();
             var course = CourseObjectMother.Create();
-            course.RelateObjective(objective, ModifiedBy);
+            course.RelateObjective(objective, null, ModifiedBy);
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
@@ -212,7 +237,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Arrange
             var objective = ObjectiveObjectMother.Create();
             var course = CourseObjectMother.Create();
-            course.RelateObjective(objective, ModifiedBy);
+            course.RelateObjective(objective, null, ModifiedBy);
 
             //Act
             course.UnrelateObjective(objective, ModifiedBy);
@@ -245,7 +270,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var objective = ObjectiveObjectMother.Create();
             var course = CourseObjectMother.Create();
-            course.RelateObjective(objective, ModifiedBy);
+            course.RelateObjective(objective, null, ModifiedBy);
 
             Action action = () => course.UnrelateObjective(objective, null);
 
@@ -257,7 +282,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var objective = ObjectiveObjectMother.Create();
             var course = CourseObjectMother.Create();
-            course.RelateObjective(objective, ModifiedBy);
+            course.RelateObjective(objective, null, ModifiedBy);
 
             Action action = () => course.UnrelateObjective(objective, string.Empty);
 
@@ -269,7 +294,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var objective = ObjectiveObjectMother.Create();
             var course = CourseObjectMother.Create();
-            course.RelateObjective(objective, ModifiedBy);
+            course.RelateObjective(objective, null, ModifiedBy);
             var user = "Some user";
 
             course.UnrelateObjective(objective, user);
