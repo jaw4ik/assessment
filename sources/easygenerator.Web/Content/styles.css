@@ -2096,7 +2096,7 @@ span.top-navigation-item.current {
 
 .create-course-description {
     display: inline-block;
-    width: 253px;
+    width: 263px;
     line-height: 24px;
     margin-left: 6px;
 }
@@ -2107,6 +2107,11 @@ span.top-navigation-item.current {
     top: 50%;
     margin-left: -90px;
     margin-top: -22px;
+}
+
+.modalBlockout {
+    background-color: #323a45;
+    opacity: 0.8 !important;
 }
 
 /*#endregion DIALOGS STYLE*/

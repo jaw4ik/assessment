@@ -334,6 +334,12 @@
     connectedObjectives: {
         en: 'All connected learning objectives'
     },
+    allObjectivesConnected: {
+        en: 'All learning objectives are already connected'
+    },
+    dragAndDropObjectivesHere: {
+        en: '<b>DRAG AND DROP</b><br>your learning objectives here'
+    },
     /* End resource section for model CreateObjective */
     
     /* Resource section for model CreateCourse */
@@ -1100,7 +1106,7 @@
     
     /* Resource section for model Dialogs window */
     createCourseDialogDescription: {
-        en: 'An eLearning experience can be a course, a quiz, a learning nugget, or anything else you come up with.'
+        en: 'It can be a simple course, a quiz or an exam.'
     },
     createCourseDialogTitle: {
         en: '1.Create your first course'
