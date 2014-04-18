@@ -646,7 +646,7 @@ body.try {
 /*#region Password Requirements*/
 
 .password-requirements {
-    display: none;
+    visibility: hidden;
     margin-top: 2px;
     width: 553px;
     font: 12px 'OpenSans';
@@ -654,7 +654,7 @@ body.try {
 }
 
     .password-requirements.visible {
-        display: block;
+        visibility: visible;
     }
 
     .password-requirements .password-requirements-item {
