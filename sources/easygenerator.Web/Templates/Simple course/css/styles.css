@@ -556,21 +556,6 @@ input[type="checkbox"] {
         padding: 0 13px;
     }
 
-.navigation-link-left-image {
-    display: inline-block;
-    width: 57px;
-    height: 57px;
-    vertical-align: top;
-    background-image: url(../img/back-btn.png);
-    background-repeat: no-repeat;
-}
-
-.question .navigation-link-left-image,
-.feedback .navigation-link-left-image,
-.learning-contents .navigation-link-left-image {
-    background-position: 0 0;
-}
-
 .navigation-home-link {
     display: table-cell;
     width: 55px;
