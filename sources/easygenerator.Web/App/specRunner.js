@@ -90,6 +90,7 @@
 
             'bootstrapper.spec',
             'uiLocker.spec',
+            'ping.spec',
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
 

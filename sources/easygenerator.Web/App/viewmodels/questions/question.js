@@ -1,8 +1,8 @@
 ﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningContents', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningContent',
         'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify',
-        'repositories/answerRepository', 'repositories/learningContentRepository', 'clientContext', 'viewmodels/common/contentField', 'models/backButton'],
+        'repositories/answerRepository', 'repositories/learningContentRepository', 'clientContext', 'viewmodels/common/contentField', 'ping', 'models/backButton'],
     function (vmAnswers, vmLearningContents, router, eventTracker, answerOptionModel, learningContentModel, localizationManager, constants, questionRepository,
-        objectiveRepository, system, notify, answerRepository, learningContentRepository, clientContext, vmContentField, BackButton) {
+        objectiveRepository, system, notify, answerRepository, learningContentRepository, clientContext, vmContentField, ping, BackButton) {
         "use strict";
         var
             events = {
@@ -25,7 +25,7 @@
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName);
             };
-        
+
         var eventsForQuestionContent = {
             addContent: 'Add extra question content',
             beginEditText: 'Start editing question content',
@@ -81,6 +81,10 @@
             answers = null,
             learningContents = null,
 
+            canActivate = function () {
+                return ping.execute();
+            },
+
             activate = function (objId, quesId, queryParams) {
                 objectiveId = objId;
                 questionId = quesId;
@@ -132,6 +136,7 @@
             language: language,
             eventTracker: eventTracker,
 
+            canActivate: canActivate,
             activate: activate,
 
             navigateToObjectiveEvent: navigateToObjectiveEvent,

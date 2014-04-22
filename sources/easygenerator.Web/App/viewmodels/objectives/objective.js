@@ -1,6 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository',
-    'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'models/backButton'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, BackButton) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'ping', 'models/backButton'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton) {
         "use strict";
 
         var
@@ -37,6 +36,7 @@
                 toggleQuestionSelection: toggleQuestionSelection,
                 updateQuestionsOrder: updateQuestionsOrder,
 
+                canActivate: canActivate,
                 activate: activate,
 
                 backButtonData: new BackButton({})
@@ -155,6 +155,10 @@
             eventTracker.publish(events.navigateToObjectives);
         }
 
+        function canActivate() {
+            return ping.execute();
+        }
+
         function activate(objId, queryParams) {
             viewModel.currentLanguage = localizationManager.currentLanguage;
 
@@ -194,7 +198,7 @@
                     clientContext.set('lastVisitedObjective', id);
                     viewModel.objectiveId = objective.id;
                     viewModel.title(objective.title);
-  
+
                     var array = _.map(objective.questions, function (question) {
                         return {
                             id: question.id,
@@ -212,11 +216,11 @@
                 });
             }
         }
-        
+
         function getEditQuestionLink(questionId) {
             var queryString = router.activeInstruction().queryString;
             queryString = _.isNullOrUndefined(queryString) ? '' : '?' + queryString;
-            
+
             return '#objective/' + viewModel.objectiveId + '/question/' + questionId + queryString;
         }
 

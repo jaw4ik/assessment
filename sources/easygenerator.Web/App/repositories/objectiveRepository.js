@@ -14,10 +14,9 @@
         return repository;
 
         function getCollection() {
+
             return Q.fcall(function () {
-                return httpWrapper.post('api/objectives').then(function () {
-                    return dataContext.objectives;
-                });
+                return dataContext.objectives;
             });
         }
 
@@ -25,19 +24,13 @@
             return Q.fcall(function () {
                 guard.throwIfNotString(id, 'Objective id (string) was expected');
 
-                var requestArgs = {
-                    objectiveId: id
-                };
-
-                return httpWrapper.post('api/objectiveExists', requestArgs).then(function () {
-                    var result = _.find(dataContext.objectives, function (item) {
-                        return item.id === id;
-                    });
-
-                    guard.throwIfNotAnObject(result, 'Objective with this id is not found');
-
-                    return result;
+                var result = _.find(dataContext.objectives, function (item) {
+                    return item.id === id;
                 });
+
+                guard.throwIfNotAnObject(result, 'Objective with this id is not found');
+
+                return result;
             });
         }
 

@@ -12,7 +12,8 @@
             notify = require('notify'),
             uiLocker = require('uiLocker'),
             clientContext = require('clientContext'),
-            BackButton = require('models/backButton')
+            BackButton = require('models/backButton'),
+            ping = require('ping')
         ;
 
         describe('viewModel [objective]', function () {
@@ -31,7 +32,7 @@
                 ]
             };
 
-            var instruction = { queryString: 'courseId=id1'};
+            var instruction = { queryString: 'courseId=id1' };
 
             beforeEach(function () {
                 spyOn(eventTracker, 'publish');
@@ -43,6 +44,62 @@
 
             it('is object', function () {
                 expect(viewModel).toBeObject();
+            });
+
+            describe('canActivate:', function () {
+
+                var dfd;
+
+                beforeEach(function () {
+                    dfd = Q.defer();
+                    spyOn(ping, 'execute').and.returnValue(dfd.promise);
+                });
+
+                it('should be function', function () {
+                    expect(viewModel.canActivate).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(viewModel.canActivate()).toBePromise();
+                });
+
+                it('should ping', function () {
+                    viewModel.canActivate();
+                    expect(ping.execute).toHaveBeenCalled();
+                });
+
+                describe('when ping failed', function () {
+
+                    beforeEach(function () {
+                        dfd.reject();
+                    });
+
+                    it('should reject promise', function (done) {
+                        var promise = viewModel.canActivate();
+                        promise.fin(function () {
+                            expect(promise).toBeRejected();
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when ping succeed', function () {
+
+                    beforeEach(function () {
+                        dfd.resolve();
+                    });
+
+                    it('should reject promise', function (done) {
+                        var promise = viewModel.canActivate();
+                        promise.fin(function () {
+                            expect(promise).toBeResolved();
+                            done();
+                        });
+                    });
+
+                });
+
             });
 
             describe('activate:', function () {
@@ -81,7 +138,7 @@
                         deferred.resolve(null);
 
                         var promise = viewModel.activate(objective.id, null);
-                        
+
                         promise.fin(function () {
                             expect(viewModel.contextCourseId).toBeNull();
                             done();
@@ -92,7 +149,7 @@
                         deferred.resolve(null);
 
                         var promise = viewModel.activate(objective.id, null);
-                        
+
                         promise.fin(function () {
                             expect(viewModel.contextCourseTitle).toBeNull();
                             done();
@@ -193,7 +250,7 @@
                         it('should set contextExpperienceId to null', function (done) {
                             deferred.resolve(null);
                             var promise = viewModel.activate(objective.id, queryParams);
-                            
+
                             promise.fin(function () {
                                 expect(viewModel.contextCourseId).toBeNull();
                                 done();
@@ -203,7 +260,7 @@
                         it('should set contextExpperienceTitle to null', function (done) {
                             deferred.resolve(null);
                             var promise = viewModel.activate(objective.id, queryParams);
-                            
+
                             promise.fin(function () {
                                 expect(viewModel.contextCourseTitle).toBeNull();
                                 done();
@@ -417,7 +474,7 @@
                                 router.activeItem.settings.lifecycleData = null;
 
                                 var promise = viewModel.activate('id', queryParams);
-                                
+
                                 promise.fin(function () {
                                     expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
                                     done();
@@ -766,7 +823,7 @@
                     viewModel.objectiveId = 'SomeId';
                     addQuestionDefer.resolve();
 
-                    viewModel.createQuestion().fin(function() {
+                    viewModel.createQuestion().fin(function () {
                         expect(questionRepository.addQuestion).toHaveBeenCalledWith(viewModel.objectiveId, { title: title });
                         done();
                     });
@@ -776,7 +833,7 @@
                     viewModel.objectiveId = 'SomeId';
                     addQuestionDefer.resolve();
 
-                    viewModel.createQuestion().fin(function() {
+                    viewModel.createQuestion().fin(function () {
                         expect(uiLocker.lock).toHaveBeenCalled();
                         done();
                     });
@@ -788,7 +845,7 @@
                         var createdQuestionId = 'SomeId';
                         addQuestionDefer.resolve({ id: createdQuestionId });
 
-                        viewModel.createQuestion().fin(function() {
+                        viewModel.createQuestion().fin(function () {
                             expect(router.navigate).toHaveBeenCalledWith('#objective/' + viewModel.objectiveId + '/question/' + createdQuestionId + '?' + instruction.queryString);
                             done();
                         });
@@ -799,7 +856,7 @@
                         var createdQuestionId = 'SomeId';
                         addQuestionDefer.resolve({ id: createdQuestionId });
 
-                        viewModel.createQuestion().fin(function() {
+                        viewModel.createQuestion().fin(function () {
                             expect(uiLocker.lock).toHaveBeenCalled();
                             done();
                         });
@@ -809,7 +866,7 @@
                         var createdQuestionId = 'SomeId';
                         addQuestionDefer.resolve({ id: createdQuestionId });
 
-                        viewModel.createQuestion().fin(function() {
+                        viewModel.createQuestion().fin(function () {
                             expect(clientContext.set).toHaveBeenCalledWith('lastCreatedQuestionId', createdQuestionId);
                             done();
                         });
@@ -879,7 +936,7 @@
                         it('should delete selected questions from viewModel', function (done) {
                             removeQuestions.resolve();
                             viewModel.deleteSelectedQuestions();
-                            
+
                             removeQuestions.promise.finally(function () {
                                 expect(viewModel.questions().length).toBe(0);
                                 done();
@@ -1114,7 +1171,7 @@
                     expect(repository.updateQuestionsOrder).toHaveBeenCalledWith(objective.id, questions);
                 });
 
-                describe('when update questions order is succeed', function() {
+                describe('when update questions order is succeed', function () {
 
                     it('should notify saved', function (done) {
                         var deferred = Q.defer();

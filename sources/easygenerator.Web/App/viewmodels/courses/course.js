@@ -1,6 +1,6 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
-        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'models/backButton'],
-    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, BackButton) {
+        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'ping', 'models/backButton'],
+    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, ping, BackButton) {
         "use strict";
 
         var
@@ -62,6 +62,9 @@
             disconnectSelectedObjectives: disconnectSelectedObjectives,
             reorderObjectives: reorderObjectives,
             isSortingEnabled: ko.observable(true),
+
+
+            canActivate: canActivate,
             activate: activate,
 
             backButtonData: new BackButton({
@@ -205,7 +208,7 @@
 
         function connectObjective(objective) {
             if (_.contains(viewModel.connectedObjectives(), objective.item)) {
-                var objectives = _.map(viewModel.connectedObjectives(), function(item) {
+                var objectives = _.map(viewModel.connectedObjectives(), function (item) {
                     return {
                         id: item.id
                     };
@@ -214,7 +217,7 @@
                 objectives.splice(objective.targetIndex, 0, { id: objective.item.id });
                 eventTracker.publish(events.changeOrderObjectives);
                 repository.updateObjectiveOrder(viewModel.id, objectives).then(function () {
-                    notify.saved(); 
+                    notify.saved();
                 });
                 return;
             }
@@ -231,8 +234,8 @@
             }
             eventTracker.publish(events.unrelateObjectivesFromCourse);
             repository.unrelateObjectives(viewModel.id, [objective.item]).then(function () {
-                    notify.saved();
-                });
+                notify.saved();
+            });
         }
 
         function disconnectSelectedObjectives() {
@@ -255,6 +258,10 @@
             repository.updateObjectiveOrder(viewModel.id, viewModel.connectedObjectives()).then(function () {
                 notify.saved();
             });
+        }
+
+        function canActivate() {
+            return ping.execute();
         }
 
         function activate(courseId) {

@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 'dom', 'authorization/limitCoursesAmount'],
-    function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, dom, limitCoursesAmount) {
+﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 'dom', 'authorization/limitCoursesAmount', 'ping'],
+    function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, dom, limitCoursesAmount, ping) {
         "use strict";
 
         var
@@ -38,6 +38,7 @@
             lastVistedCourseId: '',
             currentLanguage: '',
 
+            canActivate: canActivate,
             activate: activate,
             deactivate: deactivate,
 
@@ -101,7 +102,7 @@
             });
         });
 
-       app.on(constants.messages.course.publishToAim4You.completed, function (course) {
+        app.on(constants.messages.course.publishToAim4You.completed, function (course) {
             updateCourseViewModelIfExists(course.id, function (expVm) {
                 expVm.publishingState(constants.publishingStates.succeed);
             });
@@ -151,15 +152,15 @@
                     exp.isSelected(false);
                 }
 
-                return courseRepository.getById(exp.id).then(function(course) {
+                return courseRepository.getById(exp.id).then(function (course) {
                     return course.publish();
-                }).fail(function(reason) {
+                }).fail(function (reason) {
                     notifyError(reason);
                     eventTracker.publish(events.coursePublishFailed);
                 });
             }
         }
-        
+
         function downloadCourse(exp) {
             if (exp.publishingState() !== constants.publishingStates.building && exp.publishingState() !== constants.publishingStates.publishing) {
                 exp.publishingState(constants.publishingStates.building);
@@ -169,11 +170,11 @@
                     exp.isSelected(false);
                 }
 
-                return courseRepository.getById(exp.id).then(function(course) {
-                    return course.build().then(function() {
+                return courseRepository.getById(exp.id).then(function (course) {
+                    return course.build().then(function () {
                         dom.clickElementById('packageLink_' + exp.id);
                     });
-                }).fail(function(reason) {
+                }).fail(function (reason) {
                     eventTracker.publish(events.courseBuildFailed);
                     notifyError(reason);
                 });
@@ -208,12 +209,16 @@
             if (selectedCourse.objectives.length > 0) {
                 notifyError(localizationManager.localize('courseCannotBeDeleted'));
                 return;
-            }            
+            }
 
             courseRepository.removeCourse(selectedCourse.id).then(function () {
                 viewModel.courses(_.without(viewModel.courses(), selectedCourse));
                 notify.saved();
             });
+        }
+
+        function canActivate() {
+            return ping.execute();
         }
 
         function activate() {
@@ -226,7 +231,7 @@
             viewModel.currentLanguage = localizationManager.currentLanguage;
 
             clientContext.set('lastVistedCourse', null);
-            
+
             viewModel.courses(_.map(sortedCourses, function (item) {
                 var course = {};
 
@@ -240,7 +245,7 @@
                 course.modifiedOn = item.modifiedOn;
                 course.isSelected = ko.observable(false);
                 course.showStatus = ko.observable();
-                
+
                 course.publishPackageExists = ko.computed(function () {
                     return !_.isNullOrUndefined(this.publishedPackageUrl()) && !_.isEmptyOrWhitespace(this.publishedPackageUrl());
                 }, course);
@@ -249,12 +254,12 @@
                 var showStatus = storageItem.showStatus || (item.publishingState === constants.publishingStates.building || item.publishingState === constants.publishingStates.publishing ||
                      item.publishingState !== storageItem.publishingState);
                 course.showStatus(showStatus);
-                
+
                 return course;
             }));
 
-            return userContext.identify().then(function() {
-                viewModel.courses.subscribe(function() {
+            return userContext.identify().then(function () {
+                viewModel.courses.subscribe(function () {
                     viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
                 });
                 viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
@@ -271,7 +276,7 @@
                 };
             });
         };
-        
+
         function notifyError(message) {
             if (!_.isNullOrUndefined(message)) {
                 notify.error(message);
@@ -279,7 +284,7 @@
         }
 
         function openPublishedCourse(course) {
-            if(course.publishPackageExists()) {
+            if (course.publishPackageExists()) {
                 router.openUrl(course.publishedPackageUrl());
             }
         }
@@ -288,7 +293,7 @@
             var expVm = _.find(viewModel.courses(), function (item) {
                 return item.id == courseId;
             });
-            
+
             if (_.isObject(expVm)) {
                 handler(expVm);
             }

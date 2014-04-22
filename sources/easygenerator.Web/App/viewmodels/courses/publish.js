@@ -1,12 +1,12 @@
 ﻿define(['durandal/app', 'repositories/courseRepository', 'plugins/router', 'constants', 'viewmodels/courses/publishingActions/build',
         'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
-        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'notify', 'models/backButton'],
+        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'notify', 'ping', 'models/backButton'],
     function (app, repository, router, constants, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker, notify, BackButton) {
+        clientContext, localizationManager, eventTracker, notify, ping, BackButton) {
 
         var events = {
-                navigateToCourses: 'Navigate to courses'
-            };
+            navigateToCourses: 'Navigate to courses'
+        };
 
         var viewModel = {
             courseId: '',
@@ -19,6 +19,7 @@
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
+            canActivate: canActivate,
             activate: activate,
 
             backButtonData: new BackButton({
@@ -36,9 +37,9 @@
 
         app.on(constants.messages.course.build.failed, notifyError);
         app.on(constants.messages.course.publish.failed, notifyError);
-        app.on(constants.messages.course.scormBuild.failed, notifyError);        
+        app.on(constants.messages.course.scormBuild.failed, notifyError);
         app.on(constants.messages.course.publishToAim4You.failed, notifyError);
-        
+
         return viewModel;
 
         function navigateToCoursesEvent() {
@@ -51,12 +52,16 @@
             }
         }
 
+        function canActivate() {
+            return ping.execute();
+        }
+
         function activate(courseId) {
 
             return userContext.identify().then(function () {
                 return repository.getById(courseId).then(function (course) {
                     viewModel.courseId = course.id;
-                    
+
                     clientContext.set('lastVistedCourse', course.id);
                     clientContext.set('lastVisitedObjective', null);
 

@@ -1,5 +1,5 @@
-﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext'],
-    function (constants, eventTracker, router, objectiveRepository, courseRepository, notify, localizationManager, clientContext) {
+﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 'ping'],
+    function (constants, eventTracker, router, objectiveRepository, courseRepository, notify, localizationManager, clientContext, ping) {
         "use strict";
 
         var
@@ -25,6 +25,7 @@
             deleteSelectedObjectives: deleteSelectedObjectives,
             toggleObjectiveSelection: toggleObjectiveSelection,
 
+            canActivate: canActivate,
             activate: activate
         };
 
@@ -96,6 +97,9 @@
             });
         }
 
+        function canActivate() {
+            return ping.execute();
+        }
 
         function activate() {
 

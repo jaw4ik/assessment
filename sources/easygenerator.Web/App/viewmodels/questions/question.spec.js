@@ -10,6 +10,7 @@ define(function (require) {
         notify = require('notify'),
         http = require('plugins/http'),
         localizationManager = require('localization/localizationManager'),
+        ping = require('ping'),
         BackButton = require('models/backButton')
     ;
 
@@ -301,6 +302,62 @@ define(function (require) {
             });
         });
 
+        describe('canActivate:', function () {
+
+            var dfd;
+
+            beforeEach(function () {
+                dfd = Q.defer();
+                spyOn(ping, 'execute').and.returnValue(dfd.promise);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.canActivate).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(viewModel.canActivate()).toBePromise();
+            });
+
+            it('should ping', function () {
+                viewModel.canActivate();
+                expect(ping.execute).toHaveBeenCalled();
+            });
+
+            describe('when ping failed', function () {
+
+                beforeEach(function () {
+                    dfd.reject();
+                });
+
+                it('should reject promise', function (done) {
+                    var promise = viewModel.canActivate();
+                    promise.fin(function () {
+                        expect(promise).toBeRejected();
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when ping succeed', function () {
+
+                beforeEach(function () {
+                    dfd.resolve();
+                });
+
+                it('should reject promise', function (done) {
+                    var promise = viewModel.canActivate();
+                    promise.fin(function () {
+                        expect(promise).toBeResolved();
+                        done();
+                    });
+                });
+
+            });
+
+        });
+
         describe('activate:', function () {
 
             var getQuestionByIdDeferred;
@@ -388,9 +445,9 @@ define(function (require) {
             });
 
             var queryString;
-            describe('when queryString in null', function() {
+            describe('when queryString in null', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     queryString = null;
                 });
 
@@ -410,12 +467,12 @@ define(function (require) {
 
             });
 
-            describe('when queryString contains courseId', function() {
+            describe('when queryString contains courseId', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     queryString = {
                         courseId: 'courseId'
-                };
+                    };
                 });
 
                 it('should configure back button that it not always visible', function (done) {

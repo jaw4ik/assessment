@@ -8,6 +8,7 @@
             courseRepository = require('repositories/courseRepository'),
             eventTracker = require('eventTracker'),
             localizationManager = require('localization/localizationManager'),
+            ping = require('ping'),
             BackButton = require('models/backButton')
         ;
 
@@ -107,7 +108,7 @@
                 });
 
                 describe('when title is valid', function () {
-                    
+
                     beforeEach(function () {
                         viewModel.title('Some valid text');
                     });
@@ -208,9 +209,9 @@
                 });
             });
 
-            describe('navigateToCourseEvent:', function() {
+            describe('navigateToCourseEvent:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(viewModel.navigateToCourseEvent).toBeFunction();
                 });
 
@@ -234,6 +235,62 @@
 
             });
 
+            describe('canActivate:', function () {
+
+                var dfd;
+
+                beforeEach(function () {
+                    dfd = Q.defer();
+                    spyOn(ping, 'execute').and.returnValue(dfd.promise);
+                });
+
+                it('should be function', function () {
+                    expect(viewModel.canActivate).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(viewModel.canActivate()).toBePromise();
+                });
+
+                it('should ping', function () {
+                    viewModel.canActivate();
+                    expect(ping.execute).toHaveBeenCalled();
+                });
+
+                describe('when ping failed', function () {
+
+                    beforeEach(function () {
+                        dfd.reject();
+                    });
+
+                    it('should reject promise', function (done) {
+                        var promise = viewModel.canActivate();
+                        promise.fin(function () {
+                            expect(promise).toBeRejected();
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when ping succeed', function () {
+
+                    beforeEach(function () {
+                        dfd.resolve();
+                    });
+
+                    it('should reject promise', function (done) {
+                        var promise = viewModel.canActivate();
+                        promise.fin(function () {
+                            expect(promise).toBeResolved();
+                            done();
+                        });
+                    });
+
+                });
+
+            });
+
             describe('activate:', function () {
 
                 var getCourseDeferred;
@@ -251,7 +308,7 @@
                     expect(result).toBePromise();
                 });
 
-                describe('when query params are null', function() {
+                describe('when query params are null', function () {
 
                     it('should set contextExpperienceId to null', function (done) {
                         viewModel.activate().fin(function () {
@@ -274,10 +331,10 @@
                         var promise = viewModel.activate();
 
                         promise.fin(function () {
-                                expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: 'text', url: 'objectives', callback: viewModel.navigateToObjectivesEvent, alwaysVisible: true });
-                                done();
-                            });
+                            expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: 'text', url: 'objectives', callback: viewModel.navigateToObjectivesEvent, alwaysVisible: true });
+                            done();
                         });
+                    });
 
                     it('should clear title', function (done) {
                         viewModel.title('Some text');
@@ -360,17 +417,17 @@
                                     done();
                                 });
                             });
-                            
+
                             it('should configure back button', function (done) {
                                 spyOn(viewModel.backButtonData, 'configure');
                                 spyOn(localizationManager, 'localize').and.returnValue('text');
 
                                 var promise = viewModel.activate(queryParams);
                                 promise.fin(function () {
-                                        expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + course.title + '\'', url: 'course/' + course.id, callback: viewModel.navigateToCourseEvent, alwaysVisible: false });
-                                        done();
-                                    });
+                                    expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + course.title + '\'', url: 'course/' + course.id, callback: viewModel.navigateToCourseEvent, alwaysVisible: false });
+                                    done();
                                 });
+                            });
 
                             it('should clear title', function (done) {
                                 viewModel.title('Some text');
@@ -403,14 +460,14 @@
                         it('should configure back button', function (done) {
                             spyOn(viewModel.backButtonData, 'configure');
                             spyOn(localizationManager, 'localize').and.returnValue('text');
-                            
+
                             var promise = viewModel.activate(queryParams);
 
                             promise.fin(function () {
-                                    expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: 'text', url: 'objectives', callback: viewModel.navigateToObjectivesEvent, alwaysVisible: true });
-                                    done();
-                                });
+                                expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: 'text', url: 'objectives', callback: viewModel.navigateToObjectivesEvent, alwaysVisible: true });
+                                done();
                             });
+                        });
 
                         it('should clear title', function (done) {
                             viewModel.title('Some text');
@@ -449,7 +506,7 @@
 
                 it('should be instance of BackButton', function () {
                     expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
-        });
+                });
 
             });
 

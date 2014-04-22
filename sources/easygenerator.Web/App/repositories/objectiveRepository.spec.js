@@ -32,17 +32,6 @@
                 expect(repository.getCollection()).toBePromise();
             });
 
-            it('should send request to \'api/objectives\'', function (done) {
-                var promise = repository.getCollection();
-
-                promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objectives');
-                    done();
-                });
-
-                post.reject('blablabla');
-            });
-
             describe('when objectives received from server', function () {
 
                 it('should resolve promise with objectives from dataContext', function (done) {
@@ -54,8 +43,6 @@
                         expect(promise).toBeResolvedWith(dataContext.objectives);
                         done();
                     });
-
-                    post.resolve();
                 });
 
             });
@@ -82,7 +69,6 @@
                         done();
                     });
                 });
-
             });
 
             describe('when objective id is null', function () {
@@ -111,18 +97,6 @@
 
             });
 
-            it('should send request to \'api/objectiveExists\'', function () {
-                var objectiveId = 'sadasda';
-                var promise = repository.getById(objectiveId);
-
-                promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objectiveExists', { objectiveId: objectiveId });
-                    done();
-                });
-
-                post.reject('lomai menya polnostju');
-            });
-
             describe('when objective exists on server', function () {
 
                 describe('and objective not found in repository', function () {
@@ -137,8 +111,6 @@
                             expect(promise).toBeRejectedWith('Objective with this id is not found');
                             done();
                         });
-
-                        post.resolve();
                     });
 
                 });
@@ -153,8 +125,6 @@
                         expect(promise).toBeResolvedWith(dataContext.objectives[0]);
                         done();
                     });
-
-                    post.resolve();
                 });
 
             });
@@ -775,16 +745,16 @@
 
                     promise.fin(function () {
                         expect(promise).toBeResolvedWith({ modifiedOn: modifiedOn });
-                    done();
+                        done();
+                    });
+
+                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
                 });
 
-                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
             });
 
         });
 
     });
-
-});
 
 });

@@ -1,6 +1,5 @@
-﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'notify', 'uiLocker', 'localization/localizationManager',
-    'repositories/courseRepository', 'models/backButton'],
-    function (objectiveRepository, router, eventTracker, constants, notify, uiLocker, localizationManager, courseRepository, BackButton) {
+﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'notify', 'uiLocker', 'localization/localizationManager', 'repositories/courseRepository', 'ping', 'models/backButton'],
+    function (objectiveRepository, router, eventTracker, constants, notify, uiLocker, localizationManager, courseRepository, ping, BackButton) {
 
         var
             events = {
@@ -68,6 +67,10 @@
                 });
             },
 
+            canActivate = function () {
+                return ping.execute();
+            },
+
             createAndContinue = function () {
                 sendEvent(events.createAndContinue);
                 var that = this;
@@ -109,6 +112,7 @@
             objectiveTitleMaxLength: constants.validation.objectiveTitleMaxLength,
             isTitleEditing: isTitleEditing,
 
+            canActivate: canActivate,
             activate: activate,
 
             navigateToCourseEvent: navigateToCourseEvent,

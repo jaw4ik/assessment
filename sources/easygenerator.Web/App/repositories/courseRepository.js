@@ -21,9 +21,7 @@
 
         function getCollection() {
             return Q.fcall(function () {
-                return httpWrapper.post('api/courses').then(function () {
-                    return dataContext.courses;
-                });
+                return dataContext.courses;
             });
         }
 
@@ -31,21 +29,15 @@
             return Q.fcall(function () {
                 guard.throwIfNotString(id, 'Course id (string) was expected');
 
-                var requestArgs = {
-                    courseId: id
+                var result = _.find(dataContext.courses, function (item) {
+                    return item.id === id;
+                });
+
+                if (_.isUndefined(result)) {
+                    throw 'Course with this id is not found';
                 };
 
-                return httpWrapper.post('api/courseExists', requestArgs).then(function () {
-                    var result = _.find(dataContext.courses, function (item) {
-                        return item.id === id;
-                    });
-
-                    if (_.isUndefined(result)) {
-                        throw 'Course with this id is not found';
-                    };
-
-                    return result;
-                });
+                return result;
             });
         }
 
@@ -115,7 +107,7 @@
 
 
         function relateObjective(courseId, objective, targetIndex) {
-            return Q.fcall(function() {
+            return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id is not valid');
                 guard.throwIfNotAnObject(objective, 'Objective is not an object');
 
@@ -136,7 +128,7 @@
                     guard.throwIfNotAnObject(course, "Course doesn`t exist");
 
                     course.modifiedOn = new Date(response.ModifiedOn);
-                    
+
                     if (!_.isNullOrUndefined(targetIndex)) {
                         course.objectives.splice(targetIndex, 0, objective);
                     } else {

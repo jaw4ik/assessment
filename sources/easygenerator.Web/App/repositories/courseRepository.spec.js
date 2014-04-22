@@ -31,17 +31,6 @@
                 expect(repository.getCollection()).toBePromise();
             });
 
-            it('should send request to \'api/courses\'', function (done) {
-                var promise = repository.getCollection();
-
-                promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/courses');
-                    done();
-                });
-
-                post.reject('He`s dead Jim');
-            });
-
             it('should resolve promise with existing courses', function (done) {
                 dataContext.courses = [{ test1: 'test1' }, { test2: 'test2' }];
 
@@ -51,9 +40,8 @@
                     expect(promise.inspect().value).toEqual(dataContext.courses);
                     done();
                 });
-
-                post.resolve();
             });
+
         });
 
         describe('getById:', function () {
@@ -105,18 +93,6 @@
 
             });
 
-            it('should send request to \'api/courseExists\'', function (done) {
-                var courseId = 'sdfgsdfg';
-                var promise = repository.getById(courseId);
-
-                promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/courseExists', { courseId: courseId });
-                    done();
-                });
-
-                post.reject('He`s dead Jim');
-            });
-
             describe('when course exists on server', function () {
 
                 describe('when course not found in dataContext', function () {
@@ -131,8 +107,6 @@
                             expect(promise).toBeRejectedWith('Course with this id is not found');
                             done();
                         });
-
-                        post.resolve();
                     });
 
                 });
@@ -147,8 +121,6 @@
                         expect(promise.inspect().value).toEqual(course);
                         done();
                     });
-
-                    post.resolve();
                 });
 
             });
@@ -575,8 +547,8 @@
 
         });
 
-        describe('relateObjective:', function() {
-            
+        describe('relateObjective:', function () {
+
             it('should be function', function () {
                 expect(repository.relateObjective).toBeFunction();
             });

@@ -9,6 +9,7 @@
         repository = require('repositories/courseRepository'),
         templateRepository = require('repositories/templateRepository'),
         localizationManager = require('localization/localizationManager'),
+        ping = require('ping'),
         BackButton = require('models/backButton'),
         limitCoursesAmount = require('authorization/limitCoursesAmount')
     ;
@@ -58,21 +59,21 @@
 
             });
 
-            describe('isEditing:', function() {
+            describe('isEditing:', function () {
 
-                it('should be observable', function() {
+                it('should be observable', function () {
                     expect(viewModel.title.isEditing).toBeObservable();
                 });
 
-                describe('when init', function() {
+                describe('when init', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         viewModel.title.init();
                     });
 
-                    describe('and when value changed to true', function() {
+                    describe('and when value changed to true', function () {
 
-                        beforeEach(function() {
+                        beforeEach(function () {
                             viewModel.title.isEditing(true);
                         });
 
@@ -86,15 +87,15 @@
 
             });
 
-            
+
 
             describe('startEditing:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(viewModel.title.startEditing).toBeFunction();
                 });
 
-                it('should set isEditing to true', function() {
+                it('should set isEditing to true', function () {
                     viewModel.title.isEditing(false);
                     viewModel.title.startEditing();
                     expect(viewModel.title.isEditing()).toBeTruthy();
@@ -121,13 +122,13 @@
 
             });
 
-            describe('dispose:', function() {
+            describe('dispose:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(viewModel.title.dispose).toBeFunction();
                 });
 
-                it('should dispose isEditing subscription', function() {
+                it('should dispose isEditing subscription', function () {
                     spyOn(viewModel.title.isEditingSubscription, 'dispose');
                     viewModel.title.dispose();
                     expect(viewModel.title.isEditingSubscription.dispose).toHaveBeenCalled();
@@ -432,6 +433,62 @@
 
         });
 
+        describe('canActivate:', function () {
+
+            var dfd;
+
+            beforeEach(function () {
+                dfd = Q.defer();
+                spyOn(ping, 'execute').and.returnValue(dfd.promise);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.canActivate).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(viewModel.canActivate()).toBePromise();
+            });
+
+            it('should ping', function () {
+                viewModel.canActivate();
+                expect(ping.execute).toHaveBeenCalled();
+            });
+
+            describe('when ping failed', function () {
+
+                beforeEach(function () {
+                    dfd.reject();
+                });
+
+                it('should reject promise', function (done) {
+                    var promise = viewModel.canActivate();
+                    promise.fin(function () {
+                        expect(promise).toBeRejected();
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when ping succeed', function () {
+
+                beforeEach(function () {
+                    dfd.resolve();
+                });
+
+                it('should reject promise', function (done) {
+                    var promise = viewModel.canActivate();
+                    promise.fin(function () {
+                        expect(promise).toBeResolved();
+                        done();
+                    });
+                });
+
+            });
+
+        });
+
         describe('activate:', function () {
 
             var identifyUserDeferred, getTemplatesDeferred;
@@ -623,13 +680,13 @@
             });
         });
 
-        describe('deactivate:', function() {
+        describe('deactivate:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.deactivate).toBeFunction();
             });
 
-            it('should dispose title', function() {
+            it('should dispose title', function () {
                 spyOn(viewModel.title, 'dispose');
                 viewModel.deactivate();
                 expect(viewModel.title.dispose).toHaveBeenCalled();

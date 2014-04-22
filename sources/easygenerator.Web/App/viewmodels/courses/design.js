@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'models/backButton'],
-    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, BackButton) {
+﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'ping', 'models/backButton'],
+    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, ping, BackButton) {
 
         var events = {
             navigateToCourses: 'Navigate to courses',
@@ -16,6 +16,7 @@
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
+            canActivate: canActivate,
             activate: activate,
 
             backButtonData: new BackButton({
@@ -29,6 +30,10 @@
 
         function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);
+        }
+
+        function canActivate() {
+            return ping.execute();
         }
 
         function activate(courseId) {

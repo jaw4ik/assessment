@@ -197,6 +197,7 @@
     <Compile Include="Components\ActionResults\JsonDataResult.cs" />
     <Compile Include="Components\Configuration\HttpRequestsSenderConfigurationSection.cs" />
     <Compile Include="Components\Configuration\WooCommerceConfigurationSection.cs" />
+    <Compile Include="Components\PingHttpHandler.cs" />
     <Compile Include="Components\Tasks\HttpRequestsSenderTask.cs" />
     <Compile Include="Components\Elmah\ElmahLog.cs" />
     <Compile Include="Components\Elmah\SqlErrorLogExtended.cs" />
@@ -246,6 +247,10 @@
     </Content>
     <Content Include="App\notifications\subscriptionExpirationNotificationController.spec.js">
       <DependentUpon>subscriptionExpirationNotificationController.js</DependentUpon>
+    </Content>
+    <Content Include="App\ping.js" />
+    <Content Include="App\ping.spec.js">
+      <DependentUpon>ping.js</DependentUpon>
     </Content>
     <Content Include="App\routing\routerExtender.spec.js">
       <DependentUpon>routerExtender.js</DependentUpon>

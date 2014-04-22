@@ -11,7 +11,8 @@
         constants = require('constants'),
         localizationManage = require('localization/localizationManager'),
         notify = require('notify'),
-        limitCoursesAmount = require('authorization/limitCoursesAmount')
+        limitCoursesAmount = require('authorization/limitCoursesAmount'),
+        ping = require('ping')
     ;
 
     var
@@ -89,12 +90,68 @@
 
         });
 
+        describe('canActivate:', function () {
+
+            var dfd;
+
+            beforeEach(function () {
+                dfd = Q.defer();
+                spyOn(ping, 'execute').and.returnValue(dfd.promise);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.canActivate).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(viewModel.canActivate()).toBePromise();
+            });
+
+            it('should ping', function () {
+                viewModel.canActivate();
+                expect(ping.execute).toHaveBeenCalled();
+            });
+
+            describe('when ping failed', function () {
+
+                beforeEach(function () {
+                    dfd.reject();
+                });
+
+                it('should reject promise', function (done) {
+                    var promise = viewModel.canActivate();
+                    promise.fin(function () {
+                        expect(promise).toBeRejected();
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when ping succeed', function () {
+
+                beforeEach(function () {
+                    dfd.resolve();
+                });
+
+                it('should reject promise', function (done) {
+                    var promise = viewModel.canActivate();
+                    promise.fin(function () {
+                        expect(promise).toBeResolved();
+                        done();
+                    });
+                });
+
+            });
+
+        });
+
         describe('activate:', function () {
 
             var identifyUserDeferred;
 
             beforeEach(function () {
-                
+
                 dataContext.courses = courses;
 
                 identifyUserDeferred = Q.defer();

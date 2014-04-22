@@ -1,5 +1,5 @@
-﻿define(['repositories/courseRepository', 'repositories/templateRepository', 'plugins/router', 'userContext', 'constants', 'eventTracker', 'uiLocker', 'localization/localizationManager', 'models/backButton', 'authorization/limitCoursesAmount'],
-function (repository, templateRepository, router, userContext, constants, eventTracker, uiLocker, localizationManager, BackButton, limitCoursesAmount) {
+﻿define(['repositories/courseRepository', 'repositories/templateRepository', 'plugins/router', 'userContext', 'constants', 'eventTracker', 'uiLocker', 'localization/localizationManager', 'ping', 'models/backButton', 'authorization/limitCoursesAmount'],
+function (repository, templateRepository, router, userContext, constants, eventTracker, uiLocker, localizationManager, ping, BackButton, limitCoursesAmount) {
 
     var
         events = {
@@ -21,7 +21,7 @@ function (repository, templateRepository, router, userContext, constants, eventT
             value.startEditing = function () {
                 value.isEditing(true);
             };
-            value.init = function() {
+            value.init = function () {
                 value('');
                 value.isEditingSubscription = value.isEditing.subscribe(function (varValue) {
                     if (varValue) {
@@ -29,7 +29,7 @@ function (repository, templateRepository, router, userContext, constants, eventT
                     }
                 });
             };
-            value.dispose = function() {
+            value.dispose = function () {
                 value.isEditingSubscription.dispose();
             };
             return value;
@@ -98,6 +98,10 @@ function (repository, templateRepository, router, userContext, constants, eventT
         isAvailable = true,
         hasStarterAccess = true,
 
+        canActivate = function () {
+            return ping.execute();
+        },
+
         activate = function () {
             this.title.init();
 
@@ -115,12 +119,13 @@ function (repository, templateRepository, router, userContext, constants, eventT
                 });
             });
         },
-        
-        deactivate = function() {
+
+        deactivate = function () {
             this.title.dispose();
         };
 
     return {
+        canActivate: canActivate,
         activate: activate,
         deactivate: deactivate,
         navigateToCoursesEvent: navigateToCoursesEvent,
