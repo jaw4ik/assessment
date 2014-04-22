@@ -1,4 +1,9 @@
-﻿html, body, iframe, div {
+﻿html, body {
+    height: 100%;
+    width: 100%;
+}
+
+html, body, iframe, div {
     margin: 0;
     padding: 0;
     border: none;

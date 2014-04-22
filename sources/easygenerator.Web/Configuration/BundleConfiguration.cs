@@ -83,8 +83,6 @@ namespace easygenerator.Web.Configuration
                 );
 
             bundles.Add(new StyleBundle("~/Content/preview/css")
-                    .Include("~/Content/common.css")
-                    .Include("~/Content/styles.css")
                     .Include("~/Content/preview.css")
                 );
         }
