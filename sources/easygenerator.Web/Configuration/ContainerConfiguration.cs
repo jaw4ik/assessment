@@ -19,6 +19,7 @@ using easygenerator.Web.Components.Tasks;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
+using easygenerator.Web.Preview;
 using easygenerator.Web.Publish;
 using easygenerator.Web.Storage;
 using easygenerator.Web.WooCommerce;
@@ -82,6 +83,12 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<MailSenderWrapper>().As<IMailSenderWrapper>().SingleInstance();
             builder.RegisterType<MailSettings>().As<MailSettings>().As<IMailSettings>().SingleInstance();
             builder.RegisterType<MailSenderTask>().SingleInstance();
+
+            #endregion
+
+            #region Preview
+
+            builder.RegisterType<CoursePreviewBuilder>().As<ICoursePreviewBuilder>();
 
             #endregion
 

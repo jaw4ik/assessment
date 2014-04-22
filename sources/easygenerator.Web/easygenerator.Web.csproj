@@ -201,6 +201,9 @@
     <Compile Include="Components\Elmah\ElmahLog.cs" />
     <Compile Include="Components\Elmah\SqlErrorLogExtended.cs" />
     <Compile Include="Components\Tasks\SqlCommandTask.cs" />
+    <Compile Include="Controllers\PreviewController.cs" />
+    <Compile Include="Preview\CoursePreviewBuilder.cs" />
+    <Compile Include="Preview\ICoursePreviewBuilder.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
@@ -593,6 +596,7 @@
     <Content Include="Content\images\publish-loader.GIF" />
     <Content Include="Content\images\review-sprites.png" />
     <Content Include="Content\images\tree.png" />
+    <Content Include="Content\preview.css" />
     <Content Include="Content\review.css" />
     <Content Include="Content\panels.css" />
     <Content Include="Content\treeOfContent.css" />
@@ -1891,6 +1895,7 @@
     <Content Include="Templates\Simple course\js\vendor.min.js.map">
       <DependentUpon>vendor.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Preview\PreviewCourse.cshtml" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
@@ -2065,6 +2070,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\ActionFilters\Features\" />
+    <Folder Include="PreviewPackages\" />
     <Folder Include="PublishedPackages\" />
   </ItemGroup>
   <PropertyGroup>

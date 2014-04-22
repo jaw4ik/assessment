@@ -1,0 +1,10 @@
+﻿html, body, iframe, div {
+    margin: 0;
+    padding: 0;
+    border: none;
+    overflow: hidden;
+}
+
+iframe {
+    overflow: visible;
+}

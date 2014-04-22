@@ -47,241 +47,239 @@ namespace easygenerator.Web.Tests.BuildCourse
 
         #region AddBuildContentToPackageDirectory
 
-            #region Add template directory
+        #region Add template directory
 
-            [TestMethod]
-            public void AddBuildContentToPackageDirectory_ShouldCopyTemplateToBuildDirectory()
-            {
-                //Arrange
-                var buildDirectory = "SomeDirectoryPath";
-                var templateDirectory = "SomeTemplatePath";
-                //var buildId = GetBuildId();
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldCopyTemplateToBuildDirectory()
+        {
+            //Arrange
+            var buildDirectory = "SomeDirectoryPath";
+            var templateDirectory = "SomeTemplatePath";
 
-                _buildPathProvider.GetTemplateDirectoryName(_course.Template.Name).Returns(templateDirectory);
-                _buildPathProvider.GetBuildDirectoryName(Arg.Any<string>()).Returns(buildDirectory);
+            _buildPathProvider.GetTemplateDirectoryName(_course.Template.Name).Returns(templateDirectory);
 
-                //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(buildDirectory, _course, Arg.Any<string>());
 
-                //Assert
-                _fileManager.Received().CopyDirectory(templateDirectory, buildDirectory);
-            }
+            //Assert
+            _fileManager.Received().CopyDirectory(templateDirectory, buildDirectory);
+        }
 
-            #endregion
+        #endregion
 
-            #region Add course content
+        #region Add course content
 
-            [TestMethod]
-            public void AddBuildContentToPackageDirectory_ShouldDeleteContentDirectory()
-            {
-                //Arrange
-                var contentDirectory = "SomeContentPath";
-                _buildPathProvider.GetContentDirectoryName(Arg.Any<string>()).Returns(contentDirectory);
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldDeleteContentDirectory()
+        {
+            //Arrange
+            var contentDirectory = "SomeContentPath";
+            _buildPathProvider.GetContentDirectoryName(Arg.Any<string>()).Returns(contentDirectory);
 
-                //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
-                //Assert
-                _fileManager.Received().DeleteDirectory(contentDirectory);
-            }
+            //Assert
+            _fileManager.Received().DeleteDirectory(contentDirectory);
+        }
 
-            [TestMethod]
-            public void AddBuildContentToPackageDirectory_ShouldCreateContentDirectory()
-            {
-                //Arrange
-                var contentDirectory = "SomeContentPath";
-                _buildPathProvider.GetContentDirectoryName(Arg.Any<string>()).Returns(contentDirectory);
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldCreateContentDirectory()
+        {
+            //Arrange
+            var contentDirectory = "SomeContentPath";
+            _buildPathProvider.GetContentDirectoryName(Arg.Any<string>()).Returns(contentDirectory);
 
-                //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
-                //Assert
-                _fileManager.Received().CreateDirectory(contentDirectory);
-            }
+            //Assert
+            _fileManager.Received().CreateDirectory(contentDirectory);
+        }
 
-            [TestMethod]
-            public void AddBuildContentToPackageDirectory_ShouldWriteCourseIntroductionContentToFile_WhenCourseContentIsDefined()
-            {
-                //Arrange
-                var courseContentPath = "SomePath";
-                _buildPathProvider.GetCourseIntroductionContentFileName(Arg.Any<string>()).Returns(courseContentPath);
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldWriteCourseIntroductionContentToFile_WhenCourseContentIsDefined()
+        {
+            //Arrange
+            var courseContentPath = "SomePath";
+            _buildPathProvider.GetCourseIntroductionContentFileName(Arg.Any<string>()).Returns(courseContentPath);
 
-                //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
-                //Assert
-                _fileManager.Received().WriteToFile(courseContentPath, _course.IntroductionContent);
+            //Assert
+            _fileManager.Received().WriteToFile(courseContentPath, _course.IntroductionContent);
 
-            }
+        }
 
-            [TestMethod]
-            public void AddBuildContentToPackageDirectory_ShouldNotWriteCourseIntroductionContentToFile_WhenCourseContentIsNull()
-            {
-                //Arrange
-                var courseContentPath = "SomePath";
-                _buildPathProvider.GetCourseIntroductionContentFileName(Arg.Any<string>()).Returns(courseContentPath);
-                _course.UpdateIntroductionContent(null, "SomeUser");
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldNotWriteCourseIntroductionContentToFile_WhenCourseContentIsNull()
+        {
+            //Arrange
+            var courseContentPath = "SomePath";
+            _buildPathProvider.GetCourseIntroductionContentFileName(Arg.Any<string>()).Returns(courseContentPath);
+            _course.UpdateIntroductionContent(null, "SomeUser");
 
-                //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
-                //Assert
-                _fileManager.DidNotReceive().WriteToFile(courseContentPath, _course.IntroductionContent);
-            }   
+            //Assert
+            _fileManager.DidNotReceive().WriteToFile(courseContentPath, _course.IntroductionContent);
+        }
 
-            [TestMethod]
-            public void AddBuildContentToPackageDirectory_ShouldCreateObjectiveDirectory()
-            {
-                //Arrange
-                var objectiveDirectory = "SomeObjectivePath";
-                _buildPathProvider.GetObjectiveDirectoryName(Arg.Any<string>(), _course.RelatedObjectives.ToArray()[0].Id.ToNString()).Returns(objectiveDirectory);
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldCreateObjectiveDirectory()
+        {
+            //Arrange
+            var objectiveDirectory = "SomeObjectivePath";
+            _buildPathProvider.GetObjectiveDirectoryName(Arg.Any<string>(), _course.RelatedObjectives.ToArray()[0].Id.ToNString()).Returns(objectiveDirectory);
 
-                //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
-                //Assert
-                _fileManager.Received().CreateDirectory(objectiveDirectory);
-            }
+            //Assert
+            _fileManager.Received().CreateDirectory(objectiveDirectory);
+        }
 
-            [TestMethod]
-            public void AddBuildContentToPackageDirectory_ShouldCreateQuestionDirectory()
-            {
-                //Arrange
-                var questionDirectory = "SomeQuestionPath";
-                _buildPathProvider.GetQuestionDirectoryName(Arg.Any<string>(),
-                    _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
-                    _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
-                    .Returns(questionDirectory);
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldCreateQuestionDirectory()
+        {
+            //Arrange
+            var questionDirectory = "SomeQuestionPath";
+            _buildPathProvider.GetQuestionDirectoryName(Arg.Any<string>(),
+                _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
+                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
+                .Returns(questionDirectory);
 
-                //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
-                //Assert
-                _fileManager.Received().CreateDirectory(questionDirectory);
-            }
+            //Assert
+            _fileManager.Received().CreateDirectory(questionDirectory);
+        }
 
-            [TestMethod]
-            public void AddBuildContentToPackageDirectory_ShouldWriteQuestionContentToFile_WhenQuestionContentIsDefined()
-            {
-                //Arrange
-                var questionContentPath = "SomePath";
-                _buildPathProvider.GetQuestionContentFileName(Arg.Any<string>(),
-                    _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
-                    _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
-                    .Returns(questionContentPath);
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldWriteQuestionContentToFile_WhenQuestionContentIsDefined()
+        {
+            //Arrange
+            var questionContentPath = "SomePath";
+            _buildPathProvider.GetQuestionContentFileName(Arg.Any<string>(),
+                _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
+                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
+                .Returns(questionContentPath);
 
-                //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
-                //Assert
-                _fileManager.Received().WriteToFile(questionContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Content);
-            }
+            //Assert
+            _fileManager.Received().WriteToFile(questionContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Content);
+        }
 
-            [TestMethod]
-            public void AddBuildContentToPackageDirectory_ShouldNotWriteQuestionContentToFile_WhenQuestionContentIsNull()
-            {
-                //Arrange
-                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].UpdateContent(null, "SomeUser");
-                var questionContentPath = "SomePath";
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldNotWriteQuestionContentToFile_WhenQuestionContentIsNull()
+        {
+            //Arrange
+            _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].UpdateContent(null, "SomeUser");
+            var questionContentPath = "SomePath";
 
-                _buildPathProvider.GetQuestionContentFileName(Arg.Any<string>(),
-                    _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
-                    _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
-                    .Returns(questionContentPath);
+            _buildPathProvider.GetQuestionContentFileName(Arg.Any<string>(),
+                _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
+                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
+                .Returns(questionContentPath);
 
-                //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
-                //Assert
-                _fileManager.DidNotReceive().WriteToFile(questionContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Content);
-            }
+            //Assert
+            _fileManager.DidNotReceive().WriteToFile(questionContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Content);
+        }
 
-            [TestMethod]
-            public void AddBuildContentToPackageDirectory_ShouldWriteLearningContentsToFile()
-            {
-                //Arrange
-                var learningContentsFilePath = "SomeELearningContentsPath";
-                _buildPathProvider.GetLearningContentFileName(Arg.Any<string>(),
-                    _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
-                    _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString(),
-                    _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0].Id.ToNString())
-                    .Returns(learningContentsFilePath);
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldWriteLearningContentsToFile()
+        {
+            //Arrange
+            var learningContentsFilePath = "SomeELearningContentsPath";
+            _buildPathProvider.GetLearningContentFileName(Arg.Any<string>(),
+                _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
+                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString(),
+                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0].Id.ToNString())
+                .Returns(learningContentsFilePath);
 
-                //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
-                //Assert
-                _fileManager.Received().WriteToFile(learningContentsFilePath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0].Text);
-            }
+            //Assert
+            _fileManager.Received().WriteToFile(learningContentsFilePath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0].Text);
+        }
 
-            #endregion
+        #endregion
 
-            #region Add course data file
+        #region Add course data file
 
-            [TestMethod]
-            public void AddBuildContentToPackageDirectory_ShouldWriteSerializedPackageModelToFile()
-            {
-                //Arrange
-                var packageModelFilePath = "SomePackageModelPath";
-                var serializedPackageModel = "SomePackageModelData";
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldWriteSerializedPackageModelToFile()
+        {
+            //Arrange
+            var packageModelFilePath = "SomePackageModelPath";
+            var serializedPackageModel = "SomePackageModelData";
 
-                _buildPathProvider.GetDataFileName(Arg.Any<string>()).Returns(packageModelFilePath);
-                _packageModelSerializer.Serialize(_coursePackageModel).Returns(serializedPackageModel);
+            _buildPathProvider.GetDataFileName(Arg.Any<string>()).Returns(packageModelFilePath);
+            _packageModelSerializer.Serialize(_coursePackageModel).Returns(serializedPackageModel);
 
-                //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
-                //Assert
-                _packageModelSerializer.Received().Serialize(_coursePackageModel);
-                _fileManager.Received().WriteToFile(packageModelFilePath, serializedPackageModel);
-            }
+            //Assert
+            _packageModelSerializer.Received().Serialize(_coursePackageModel);
+            _fileManager.Received().WriteToFile(packageModelFilePath, serializedPackageModel);
+        }
 
-            #endregion
+        #endregion
 
-            #region Add template settings file
+        #region Add template settings file
 
-            [TestMethod]
-            public void AddBuildContentToPackageDirectory_ShouldWriteCourseTemplateSettingsToFile()
-            {
-                //Arrange
-                string settingsFileName = "settingsFileName";
-                string settings = "settings";
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldWriteCourseTemplateSettingsToFile()
+        {
+            //Arrange
+            string settingsFileName = "settingsFileName";
+            string settings = "settings";
 
-                var course = Substitute.For<Course>();
-                course.Template.Returns(Substitute.For<Template>());
-                course.GetTemplateSettings(Arg.Any<Template>()).Returns(settings);
+            var course = Substitute.For<Course>();
+            course.Template.Returns(Substitute.For<Template>());
+            course.GetTemplateSettings(Arg.Any<Template>()).Returns(settings);
 
-                _packageModelMapper.MapCourse(course).Returns(_coursePackageModel);
-                _buildPathProvider.GetSettingsFileName(Arg.Any<string>()).Returns(settingsFileName);
+            _packageModelMapper.MapCourse(course).Returns(_coursePackageModel);
+            _buildPathProvider.GetSettingsFileName(Arg.Any<string>()).Returns(settingsFileName);
 
-                //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), course, Arg.Any<string>());
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), course, Arg.Any<string>());
 
-                //Assert
-                _fileManager.Received().WriteToFile(settingsFileName, settings);
-            }
+            //Assert
+            _fileManager.Received().WriteToFile(settingsFileName, settings);
+        }
 
-            [TestMethod]
-            public void AddBuildContentToPackageDirectory_ShouldWriteEmptyCourseTemplateSettingsToFile_WhenTemplateSettingsDoNotExist()
-            {
-                //Arrange
-                const string settingsFileName = "settingsFileName";
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldWriteEmptyCourseTemplateSettingsToFile_WhenTemplateSettingsDoNotExist()
+        {
+            //Arrange
+            const string settingsFileName = "settingsFileName";
 
-                var course = Substitute.For<Course>();
-                course.Template.Returns(Substitute.For<Template>());
-                course.GetTemplateSettings(course.Template).Returns((string)null);
+            var course = Substitute.For<Course>();
+            course.Template.Returns(Substitute.For<Template>());
+            course.GetTemplateSettings(course.Template).Returns((string)null);
 
-                _packageModelMapper.MapCourse(course).Returns(_coursePackageModel);
-                _buildPathProvider.GetSettingsFileName(Arg.Any<string>()).Returns(settingsFileName);
+            _packageModelMapper.MapCourse(course).Returns(_coursePackageModel);
+            _buildPathProvider.GetSettingsFileName(Arg.Any<string>()).Returns(settingsFileName);
 
-                //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
-                //Assert
-                _fileManager.Received().WriteToFile(settingsFileName, String.Empty);
-            }
+            //Assert
+            _fileManager.Received().WriteToFile(settingsFileName, String.Empty);
+        }
 
-            #endregion
+        #endregion
 
         #endregion
 

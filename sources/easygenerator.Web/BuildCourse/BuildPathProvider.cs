@@ -10,6 +10,7 @@ namespace easygenerator.Web.BuildCourse
         private string TemplatesPath { get; set; }
         private string DownloadPath { get; set; }
         private string PublishPath { get; set; }
+        private string PreviewPath { get; set; }
 
         public BuildPathProvider(HttpRuntimeWrapper httpRuntimeWrapper)
         {
@@ -18,6 +19,7 @@ namespace easygenerator.Web.BuildCourse
             TemplatesPath = Path.Combine(WebsitePath, "Templates");
             DownloadPath = Path.Combine(WebsitePath, "Download");
             PublishPath = Path.Combine(WebsitePath, "PublishedPackages");
+            PreviewPath = Path.Combine(WebsitePath, "PreviewPackages");
         }
 
         public virtual string GetBuildDirectoryName(string buildId)
@@ -25,64 +27,68 @@ namespace easygenerator.Web.BuildCourse
             return Path.Combine(BuildPath, buildId);
         }
 
-        public virtual string GetCourseIntroductionContentFileName(string buildId)
+        #region Build Content
+
+        public virtual string GetContentDirectoryName(string buildDirectory)
         {
-            return Path.Combine(GetContentDirectoryName(buildId), "content" + ".html");
+            return Path.Combine(buildDirectory, "content");
         }
+
+        public virtual string GetCourseIntroductionContentFileName(string buildDirectory)
+        {
+            return Path.Combine(GetContentDirectoryName(buildDirectory), "content" + ".html");
+        }
+
+        public virtual string GetObjectiveDirectoryName(string buildDirectory, string objectiveId)
+        {
+            return Path.Combine(GetContentDirectoryName(buildDirectory), objectiveId);
+        }
+
+        public virtual string GetQuestionDirectoryName(string buildDirectory, string objectiveId, string questionId)
+        {
+            return Path.Combine(GetObjectiveDirectoryName(buildDirectory, objectiveId), questionId);
+        }
+
+        public virtual string GetLearningContentFileName(string buildDirectory, string objectiveId, string questionId, string learningContentId)
+        {
+            return Path.Combine(GetQuestionDirectoryName(buildDirectory, objectiveId, questionId), learningContentId + ".html");
+        }
+
+        public virtual string GetQuestionContentFileName(string buildDirectory, string objectiveId, string questionId)
+        {
+            return Path.Combine(GetQuestionDirectoryName(buildDirectory, objectiveId, questionId), "content" + ".html");
+        }
+
+        public virtual string GetDataFileName(string buildDirectory)
+        {
+            return Path.Combine(GetContentDirectoryName(buildDirectory), "data.js");
+        }
+
+        public virtual string GetSettingsFileName(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "settings.js");
+        }
+
+        public virtual string GetPublishSettingsFileName(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "publishSettings.js");
+        }
+
+        #endregion
 
         public virtual string GetTemplateDirectoryName(string templateName)
         {
             return Path.Combine(TemplatesPath, templateName);
         }
 
-        public virtual string GetObjectiveDirectoryName(string buildId, string objectiveId)
+        public virtual string GetDownloadPath()
         {
-            return Path.Combine(GetContentDirectoryName(buildId), objectiveId);
-        }
-
-        public virtual string GetQuestionDirectoryName(string buildId, string objectiveId, string questionId)
-        {
-            return Path.Combine(GetObjectiveDirectoryName(buildId, objectiveId), questionId);
-        }
-
-        public virtual string GetLearningContentFileName(string buildId, string objectiveId, string questionId, string learningContentId)
-        {
-            return Path.Combine(GetQuestionDirectoryName(buildId, objectiveId, questionId), learningContentId + ".html");
-        }
-
-        public virtual string GetQuestionContentFileName(string buildId, string objectiveId, string questionId)
-        {
-            return Path.Combine(GetQuestionDirectoryName(buildId, objectiveId, questionId), "content" + ".html");
-        }
-
-        public virtual string GetDataFileName(string buildId)
-        {
-            return Path.Combine(GetContentDirectoryName(buildId), "data.js");
-        }
-
-        public virtual string GetSettingsFileName(string buildId)
-        {
-            return Path.Combine(GetBuildDirectoryName(buildId), "settings.js");
-        }
-
-        public virtual string GetPublishSettingsFileName(string buildId)
-        {
-            return Path.Combine(GetBuildDirectoryName(buildId), "publishSettings.js");
+            return DownloadPath;
         }
 
         public virtual string GetBuildPackageFileName(string buildId)
         {
             return Path.Combine(DownloadPath, buildId + ".zip");
-        }
-
-        public virtual string GetContentDirectoryName(string buildId)
-        {
-            return Path.Combine(BuildPath, buildId, "content");
-        }
-
-        public virtual string GetDownloadPath()
-        {
-            return DownloadPath;
         }
 
         public virtual string GetPublishFolderPath(string courseId)
@@ -93,6 +99,16 @@ namespace easygenerator.Web.BuildCourse
         public virtual string GetPublishedResourcePath(string resourcePath)
         {
             return Path.Combine(PublishPath, resourcePath);
+        }
+
+        public virtual string GetPreviewFolderPath(string courseId)
+        {
+            return Path.Combine(PreviewPath, courseId);
+        }
+
+        public virtual string GetPreviewResourcePath(string resourcePath)
+        {
+            return Path.Combine(PreviewPath, resourcePath);
         }
 
         public virtual string GetBuildedPackagePath(string packagePath)

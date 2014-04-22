@@ -75,7 +75,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             //Arrange
             _buildPathProvider.GetBuildDirectoryName(Arg.Any<string>()).Returns("SomeBuildPath");
             _buildPathProvider.GetBuildPackageFileName(Arg.Any<string>()).Returns("SomePackageFileName");
-           
+
             //Act
             _builder.Build(_course);
 

@@ -1,0 +1,19 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=640,maximum-scale=1.0">
+    <meta name="description" content="">
+    <title>easygenerator</title>
+
+    @Styles.Render("~/Content/preview/css")
+</head>
+<body>
+    <iframe src="@ViewBag.PreviewCourseUrl" frameborder="0" width="100%" height="100%"></iframe>
+
+    @Scripts.Render("~/bundles/scripts/preview")
+</body>
+</html>

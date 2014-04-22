@@ -52,6 +52,10 @@ namespace easygenerator.Web.Configuration
                    .Include("~/scripts/knockoutBindings/placeholderBinding.js")
                );
 
+            bundles.Add(new ScriptBundle("~/bundles/scripts/preview")
+                   .Include("~/scripts/jquery-{version}.js")
+                   .Include("~/scripts/knockout-{version}.js")
+               );
 
             var stylesBundle = new StyleBundle("~/Content/css")
                 .Include("~/Content/durandal.css")
@@ -76,6 +80,12 @@ namespace easygenerator.Web.Configuration
                     .Include("~/Content/common.css")
                     .Include("~/Content/styles.css")
                     .Include("~/Content/review.css")
+                );
+
+            bundles.Add(new StyleBundle("~/Content/preview/css")
+                    .Include("~/Content/common.css")
+                    .Include("~/Content/styles.css")
+                    .Include("~/Content/preview.css")
                 );
         }
     }

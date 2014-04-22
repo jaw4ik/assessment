@@ -32,7 +32,7 @@ namespace easygenerator.Web.BuildCourse
             {
                 CreatePackageDirectory(buildId);
 
-                BuildContentProvider.AddBuildContentToPackageDirectory(buildId, course, GetPublishSettings());
+                BuildContentProvider.AddBuildContentToPackageDirectory(BuildPathProvider.GetBuildDirectoryName(buildId), course, GetPublishSettings());
                 OnAfterBuildContentAdded(course, buildId);
 
                 CreatePackageFromDirectory(buildId);
