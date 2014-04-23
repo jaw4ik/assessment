@@ -467,7 +467,7 @@ span.top-navigation-item.current {
 }
 
     .course-action-item.course-navigation {
-        width: 170px;
+        width: 160px;
         line-height: 46px;
     }
 
@@ -483,6 +483,7 @@ span.top-navigation-item.current {
         }
 
     .course-action-item.course-preview {
+        margin-left: 30px;
         text-align: left;
         background-color: #f7f6f5;
         border-left: 1px solid rgb(206,206,206);
