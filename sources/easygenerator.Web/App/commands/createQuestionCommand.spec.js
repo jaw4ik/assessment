@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/commands/createQuestionCommand'], function (command) {
+﻿define(['commands/createQuestionCommand'], function (command) {
 
     var
         questionRepository = require('repositories/questionRepository'),
@@ -36,7 +36,15 @@
             it('should send event \'Create new question\'', function () {
                 spyOn(eventTracker, 'publish');
                 command.execute();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Create new question', 'Tree of content');
+                expect(eventTracker.publish.calls.mostRecent().args[0]).toEqual('Create new question');
+            });
+
+            describe('when event category is defined', function () {
+                it('should send event \'Create new question\' with defined event category ', function () {
+                    spyOn(eventTracker, 'publish');
+                    command.execute('objectiveId', 'courseId', 'Event category');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Create new question', 'Event category');
+                });
             });
 
             it('should lock content', function () {
@@ -56,13 +64,22 @@
                     addQuestion.resolve({ id: 'questionId' });
                 });
 
-                it('should navigate to this question', function (done) {
-                    command.execute('objectiveId', 'courseId').fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('#objective/objectiveId/question/questionId?courseId=courseId');
+                it('should navigate to this question', function () {
+                    command.execute('objectiveId').fin(function () {
+                        expect(router.navigate).toHaveBeenCalledWith('#objective/objectiveId/question/questionId');
                         done();
                     });
                 });
 
+                describe('and courseId is defined', function() {
+                    it('should navigate to this question with courseId in query string', function (done) {
+                        command.execute('objectiveId', 'courseId').fin(function () {
+                            expect(router.navigate).toHaveBeenCalledWith('#objective/objectiveId/question/questionId?courseId=courseId');
+                            done();
+                        });
+                    });
+                });
+                
                 it('should unlock content', function (done) {
                     command.execute('objectiveId').fin(function () {
                         expect(uiLocker.unlock).toHaveBeenCalled();

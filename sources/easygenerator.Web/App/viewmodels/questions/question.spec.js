@@ -11,7 +11,9 @@ define(function (require) {
         http = require('plugins/http'),
         localizationManager = require('localization/localizationManager'),
         ping = require('ping'),
-        BackButton = require('models/backButton')
+        BackButton = require('models/backButton'),
+        createQuestionCommand = require('commands/createQuestionCommand'),
+        clientContext = require('clientContext')
     ;
 
     var question = {
@@ -298,6 +300,31 @@ define(function (require) {
                         });
                     });
 
+                });
+            });
+        });
+
+        describe('createNewQuestion:', function () {
+
+            beforeEach(function () {
+                viewModel.objectiveId = 'objectiveId';
+                spyOn(createQuestionCommand, 'execute');
+            });
+
+            it('should execute createQuestionCommand', function () {
+                viewModel.createNewQuestion();
+                expect(createQuestionCommand.execute.calls.mostRecent().args[0]).toEqual('objectiveId');
+            });
+
+            describe('when courseId is defined in query params', function() {
+                beforeEach(function() {
+                    var instruction = { queryParams: { courseId: 'courseId' } };
+                    spyOn(router, "activeInstruction").and.returnValue(instruction);
+                });
+
+                it('should call command with courseId', function () {
+                    viewModel.createNewQuestion();
+                    expect(createQuestionCommand.execute).toHaveBeenCalledWith('objectiveId', 'courseId');
                 });
             });
         });

@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/TreeNode', 'treeOfContent/QuestionTreeNode', 'treeOfContent/queries/getObjectiveByIdQuery', 'treeOfContent/commands/createQuestionCommand', 'eventTracker', 'plugins/router'],
+﻿define(['treeOfContent/TreeNode', 'treeOfContent/QuestionTreeNode', 'treeOfContent/queries/getObjectiveByIdQuery', 'commands/createQuestionCommand', 'eventTracker', 'plugins/router'],
     function (TreeNode, QuestionTreeNode, getObjectiveByIdQuery, createQuestionCommand, eventTracker, router) {
 
         return function (objectiveId, courseId, title, url) {
@@ -42,7 +42,7 @@
         }
 
         function createQuestion() {
-            createQuestionCommand.execute(this.id, this.courseId);
+            createQuestionCommand.execute(this.id, this.courseId, 'Tree of content');
         }
 
         function navigateToObjective() {

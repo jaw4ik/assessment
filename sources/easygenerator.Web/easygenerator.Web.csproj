@@ -269,8 +269,8 @@
     </Content>
     <Content Include="App\synchronization\handlers\userUpgradedToStarter.js" />
     <Content Include="App\synchronization\listener.js" />
-    <Content Include="App\treeOfContent\commands\createQuestionCommand.js" />
-    <Content Include="App\treeOfContent\commands\createQuestionCommand.spec.js">
+    <Content Include="App\commands\createQuestionCommand.js" />
+    <Content Include="App\commands\createQuestionCommand.spec.js">
       <DependentUpon>createQuestionCommand.js</DependentUpon>
     </Content>
     <Content Include="App\treeOfContent\CourseTreeNode.html">
@@ -584,6 +584,7 @@
     <Content Include="Content\font\rabiohead.svg" />
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\account\sign-up.png" />
+    <Content Include="Content\images\addQuestion.png" />
     <Content Include="Content\images\blue-loader.GIF" />
     <Content Include="Content\images\build-loader.gif" />
     <Content Include="Content\images\disabled.png" />
@@ -594,6 +595,7 @@
     <Content Include="Content\images\examTemplate.png" />
     <Content Include="Content\images\locker.png" />
     <Content Include="Content\images\objective.png" />
+    <Content Include="Content\images\ok.png" />
     <Content Include="Content\images\oops.png" />
     <Content Include="Content\images\package-preloader.gif" />
     <Content Include="Content\images\dialog-header.png" />
@@ -601,6 +603,7 @@
     <Content Include="Content\images\publish-loader.GIF" />
     <Content Include="Content\images\review-sprites.png" />
     <Content Include="Content\images\tree.png" />
+    <Content Include="Content\images\warning.png" />
     <Content Include="Content\preview.css" />
     <Content Include="Content\review.css" />
     <Content Include="Content\panels.css" />

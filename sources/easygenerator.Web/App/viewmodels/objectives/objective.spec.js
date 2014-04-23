@@ -13,6 +13,7 @@
             uiLocker = require('uiLocker'),
             clientContext = require('clientContext'),
             BackButton = require('models/backButton'),
+            createQuestionCommand = require('commands/createQuestionCommand'),
             ping = require('ping')
         ;
 
@@ -792,101 +793,29 @@
 
             describe('createQuestion:', function () {
 
-                var addQuestionDefer;
-
                 beforeEach(function () {
-                    addQuestionDefer = Q.defer();
-
-                    spyOn(questionRepository, 'addQuestion').and.returnValue(addQuestionDefer.promise);
-                    spyOn(uiLocker, 'lock');
-                    spyOn(uiLocker, 'unlock');
-                    spyOn(clientContext, 'set');
+                    viewModel.objectiveId = 'objectiveId';
+                    spyOn(createQuestionCommand, 'execute');
                 });
 
-                it('should be function', function () {
-                    expect(viewModel.createQuestion).toBeFunction();
-                });
-
-                it('should return promise', function () {
-                    expect(viewModel.createQuestion()).toBePromise();
-                });
-
-                it('should send event \'Create new question\'', function () {
+                it('should execute createQuestionCommand', function () {
                     viewModel.createQuestion();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Create new question');
+                    expect(createQuestionCommand.execute.calls.mostRecent().args[0]).toEqual('objectiveId');
                 });
 
-                it('should add question to repository', function (done) {
-                    var title = 'some title';
-
-                    spyOn(localizationManager, 'localize').and.returnValue(title);
-                    viewModel.objectiveId = 'SomeId';
-                    addQuestionDefer.resolve();
-
-                    viewModel.createQuestion().fin(function () {
-                        expect(questionRepository.addQuestion).toHaveBeenCalledWith(viewModel.objectiveId, { title: title });
-                        done();
-                    });
-                });
-
-                it('should lock content', function (done) {
-                    viewModel.objectiveId = 'SomeId';
-                    addQuestionDefer.resolve();
-
-                    viewModel.createQuestion().fin(function () {
-                        expect(uiLocker.lock).toHaveBeenCalled();
-                        done();
-                    });
-                });
-
-                describe('when question added', function () {
-
-                    it('should navigate to question editor with query string', function (done) {
-                        var createdQuestionId = 'SomeId';
-                        addQuestionDefer.resolve({ id: createdQuestionId });
-
-                        viewModel.createQuestion().fin(function () {
-                            expect(router.navigate).toHaveBeenCalledWith('#objective/' + viewModel.objectiveId + '/question/' + createdQuestionId + '?' + instruction.queryString);
-                            done();
-                        });
+                describe('when courseId is defined in query params', function () {
+                    beforeEach(function () {
+                        instruction.queryParams = { courseId: 'courseId' };
                     });
 
-
-                    it('should unlock content', function (done) {
-                        var createdQuestionId = 'SomeId';
-                        addQuestionDefer.resolve({ id: createdQuestionId });
-
-                        viewModel.createQuestion().fin(function () {
-                            expect(uiLocker.lock).toHaveBeenCalled();
-                            done();
-                        });
-                    });
-
-                    it('should set lastCreatedQuestionId in client context', function (done) {
-                        var createdQuestionId = 'SomeId';
-                        addQuestionDefer.resolve({ id: createdQuestionId });
-
-                        viewModel.createQuestion().fin(function () {
-                            expect(clientContext.set).toHaveBeenCalledWith('lastCreatedQuestionId', createdQuestionId);
-                            done();
-                        });
-                    });
-                });
-
-                describe('when adding question failed', function () {
-
-                    it('should unlock content', function (done) {
-                        addQuestionDefer.reject();
-
-                        viewModel.createQuestion().fin(function () {
-                            expect(uiLocker.lock).toHaveBeenCalled();
-                            done();
-                        });
+                    it('should call command with courseId', function () {
+                        viewModel.createQuestion();
+                        expect(createQuestionCommand.execute).toHaveBeenCalledWith('objectiveId', 'courseId');
                     });
                 });
             });
 
-            describe('deleteSelectedQuestions', function () {
+            describe('deleteSelectedQuestions:', function () {
 
                 var removeQuestions;
 

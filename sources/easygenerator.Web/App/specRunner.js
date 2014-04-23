@@ -101,10 +101,11 @@
             'viewmodels/courses/courseNavigation/items/navigationItem.spec',
             'viewmodels/courses/courseNavigation/navigation.spec',
 
+            'commands/createQuestionCommand.spec',
+
             'treeOfContent/CourseTreeNode.spec',
             'treeOfContent/RelatedObjectiveTreeNode.spec',
             'treeOfContent/QuestionTreeNode.spec',
-            'treeOfContent/commands/createQuestionCommand.spec',
             'treeOfContent/handlers/treeOfContentEventHandler.spec',
             'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
             'treeOfContent/queries/getCourseByIdQuery.spec',

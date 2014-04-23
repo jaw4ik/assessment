@@ -1,11 +1,12 @@
 ﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningContents', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningContent',
         'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify',
-        'repositories/answerRepository', 'repositories/learningContentRepository', 'clientContext', 'viewmodels/common/contentField', 'ping', 'models/backButton'],
+        'repositories/answerRepository', 'repositories/learningContentRepository', 'clientContext', 'viewmodels/common/contentField', 'ping', 'models/backButton', 'commands/createQuestionCommand'],
     function (vmAnswers, vmLearningContents, router, eventTracker, answerOptionModel, learningContentModel, localizationManager, constants, questionRepository,
-        objectiveRepository, system, notify, answerRepository, learningContentRepository, clientContext, vmContentField, ping, BackButton) {
+        objectiveRepository, system, notify, answerRepository, learningContentRepository, clientContext, vmContentField, ping, BackButton, createQuestionCommand) {
         "use strict";
         var
             events = {
+                createNewQuestion: "Create new question",
                 updateQuestionTitle: 'Update question title',
 
                 addAnswerOption: 'Add answer option',
@@ -14,7 +15,7 @@
                 deleteAnswerOption: 'Delete answer option',
                 startEditingAnswerOption: 'Start editing answer option',
                 endEditingAnswerOption: 'End editing answer option',
-
+                
                 addLearningContent: 'Add learning content',
                 deleteLearningContent: 'Delete learning content',
                 startEditingLearningContent: 'Start editing learning content',
@@ -77,6 +78,14 @@
                 });
             },
 
+            createNewQuestion = function () {
+                var params = router.activeInstruction().queryParams;
+                var courseId = _.isNullOrUndefined(params) ? null : params.courseId;
+
+                return createQuestionCommand.execute(this.objectiveId, courseId);
+            },
+
+            
             questionContent = null,
             answers = null,
             learningContents = null,
@@ -143,6 +152,7 @@
 
             startEditQuestionTitle: startEditQuestionTitle,
             endEditQuestionTitle: endEditQuestionTitle,
+            createNewQuestion: createNewQuestion,
 
             questionContent: questionContent,
             answers: answers,

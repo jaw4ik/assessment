@@ -2,7 +2,7 @@
 
     var
         getObjectiveByIdQuery = require('treeOfContent/queries/getObjectiveByIdQuery'),
-        createQuestionCommand = require('treeOfContent/commands/createQuestionCommand'),
+        createQuestionCommand = require('commands/createQuestionCommand'),
         eventTracker = require('eventTracker'),
         router = require('plugins/router')
     ;
@@ -152,7 +152,7 @@
 
             it('should execute createQuestionCommand', function () {
                 objectiveTreeNode.createQuestion();
-                expect(createQuestionCommand.execute).toHaveBeenCalledWith('id', 'courseId');
+                expect(createQuestionCommand.execute).toHaveBeenCalledWith('id', 'courseId', 'Tree of content');
             });
 
         });

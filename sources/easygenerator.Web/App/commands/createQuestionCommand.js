@@ -2,13 +2,15 @@
     function (questionRepository, localizationManager, uiLocker, clientContext, eventTracker, router) {
 
         return {
-            execute: function (objectiveId, courseId) {
-                eventTracker.publish('Create new question', 'Tree of content');
+            execute: function (objectiveId, courseId, eventCategory) {
+                eventTracker.publish('Create new question', eventCategory);
                 uiLocker.lock();
                 return questionRepository.addQuestion(objectiveId, { title: localizationManager.localize('newQuestionTitle') }).then(function(question) {
                     clientContext.set('lastCreatedQuestionId', question.id);
                     uiLocker.unlock();
-                    router.navigate('#objective/' + objectiveId + '/question/' + question.id + '?courseId=' + courseId);
+
+                    var queryString = _.isNullOrUndefined(courseId) ? "" : '?courseId=' + courseId;
+                    router.navigate('#objective/' + objectiveId + '/question/' + question.id + queryString);
                 }).fail(function() {
                     uiLocker.unlock();
                 });

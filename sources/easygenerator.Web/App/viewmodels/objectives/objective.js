@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'ping', 'models/backButton'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'ping', 'models/backButton', 'commands/createQuestionCommand'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton, createQuestionCommand) {
         "use strict";
 
         var
@@ -98,23 +98,10 @@
         }
 
         function createQuestion() {
-            eventTracker.publish(events.createNewQuestion);
-            uiLocker.lock();
-            return Q.fcall(function () {
-                var newQuestion = {
-                    title: localizationManager.localize('newQuestionTitle')
-                };
+            var params = router.activeInstruction().queryParams;
+            var courseId = _.isNullOrUndefined(params) ? null : params.courseId;
 
-                return questionRepository.addQuestion(viewModel.objectiveId, newQuestion)
-                    .then(function (createdQuestion) {
-                        clientContext.set('lastCreatedQuestionId', createdQuestion.id);
-                        uiLocker.unlock();
-                        router.navigate(getEditQuestionLink(createdQuestion.id));
-                    })
-                    .fail(function () {
-                        uiLocker.unlock();
-                    });
-            });
+            return createQuestionCommand.execute(viewModel.objectiveId, courseId);
         }
 
         function deleteSelectedQuestions() {
