@@ -944,6 +944,10 @@
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\preview\preview.js" />
+    <Content Include="Scripts\preview\preview.spec.js">
+      <DependentUpon>preview.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\review\common.js" />
@@ -2077,6 +2081,7 @@
     <Folder Include="Components\ActionFilters\Features\" />
     <Folder Include="PreviewPackages\" />
     <Folder Include="PublishedPackages\" />
+    <Folder Include="Views\PreviewHub\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

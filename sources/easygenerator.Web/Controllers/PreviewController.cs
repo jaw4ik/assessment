@@ -1,13 +1,15 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Preview;
+using System;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers
 {
@@ -31,7 +33,20 @@ namespace easygenerator.Web.Controllers
         }
 
         [Route("preview/{courseId}")]
-        public async Task<ActionResult> PreviewCourse(Course course)
+        public ActionResult PreviewCourse(Course course)
+        {
+            if (course == null)
+            {
+                return new HttpNotFoundResult();
+            }
+
+            ViewBag.Url = GetPreviewBuildUrl(course.Id);
+            return View();
+        }
+
+        [HttpPost]
+        [Route("preview/build/{courseId}")]
+        public async Task<ActionResult> BuildCoursePreview(Course course)
         {
             if (course == null)
             {
@@ -45,8 +60,10 @@ namespace easygenerator.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
 
-            ViewBag.PreviewCourseUrl = GetPreviewUrl(course.Id.ToString());
-            return View();
+            return new JsonResult()
+            {
+                Data = GetPreviewUrl(course.Id.ToString())
+            };
         }
 
         [Route("storage/preview/{courseId}/{*resourceUrl}")]
@@ -81,6 +98,11 @@ namespace easygenerator.Web.Controllers
         private string GetPreviewUrl(string courseId)
         {
             return _urlHelper.ToAbsoluteUrl(string.Format("~/storage/preview/{0}/", courseId));
+        }
+
+        private string GetPreviewBuildUrl(Guid courseId)
+        {
+            return _urlHelper.ToAbsoluteUrl(string.Format("~/preview/build/{0}/", courseId.ToNString()));
         }
 
         public string GetPreviewResourcePhysicalPath(string resourceUrl)

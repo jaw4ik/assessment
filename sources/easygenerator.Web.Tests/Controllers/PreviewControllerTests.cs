@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using easygenerator.DomainModel.Tests.ObjectMothers;
+﻿using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.Components;
@@ -10,6 +8,8 @@ using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace easygenerator.Web.Tests.Controllers
 {
@@ -36,70 +36,102 @@ namespace easygenerator.Web.Tests.Controllers
         #region PreviewCourse
 
         [TestMethod]
-        public async Task PreviewCourse_ShouldReturnNotFound_WhenCourseIsNull()
+        public void PreviewCourse_ShouldReturnNotFound_WhenCourseIsNull()
         {
             //Arrange
 
             //Act
-            var result = await _controller.PreviewCourse(null);
+            var result = _controller.PreviewCourse(null);
 
             //Assert
             result.Should().BeHttpNotFoundResult();
         }
 
         [TestMethod]
-        public void PreviewCourse_ShouldBuildCourseForPreview()
+        public void PeviewCourse_ShouldSetViewBagUrl()
+        {
+            //arrange
+            var course = CourseObjectMother.Create();
+            const string url = "url";
+            _urlHelper.ToAbsoluteUrl(Arg.Any<string>()).Returns(url);
+
+            //Act
+            _controller.PreviewCourse(course);
+
+            //Assert
+            Assert.AreEqual(_controller.ViewBag.Url, url);
+        }
+
+        [TestMethod]
+        public void PeviewCourse_ShouldReturnView()
+        {
+            //arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = _controller.PreviewCourse(course);
+
+            //Assert
+            result.Should().BeViewResult();
+        }
+
+        #endregion
+
+        #region BuildCoursePreview
+
+        [TestMethod]
+        public async Task BuildCoursePreview_ShouldReturnNotFound_WhenCourseIsNull()
+        {
+            //Arrange
+
+            //Act
+            var result = await _controller.BuildCoursePreview(null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
+        }
+
+        [TestMethod]
+        public void BuildCoursePreview_ShouldBuildCourseForPreview()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            
+
             //Act
-            _controller.PreviewCourse(course);
+             _controller.BuildCoursePreview(course);
 
             //Assert
             _coursePreviewBuilder.Received().Build(course);
         }
 
         [TestMethod]
-        public async Task PreviewCourse_ShouldReturnServerError_WhenCourseIsFailedToBuild()
+        public async Task BuildCoursePreview_ShouldReturnServerError_WhenCourseIsFailedToBuild()
         {
             //Arrange
             var course = CourseObjectMother.Create();
             _coursePreviewBuilder.Build(course).Returns(Task.FromResult(false));
 
             //Act
-            var result = await _controller.PreviewCourse(course);
+            var result = await _controller.BuildCoursePreview(course);
 
             //Assert
             result.Should().BeHttpStatusCodeResultWithStatus((int)HttpStatusCode.InternalServerError);
         }
 
         [TestMethod]
-        public async Task PreviewCourse_ShouldReturnView_WhenCourseIsSucceedToBuild()
+        public async Task BuildCoursePreview_ShouldReturnJson_WhenCourseIsSucceedToBuild()
         {
             //Arrange
             var course = CourseObjectMother.Create();
             _coursePreviewBuilder.Build(course).Returns(Task.FromResult(true));
-            
-            //Act
-            var result = await _controller.PreviewCourse(course);
-
-            //Assert
-            ActionResultAssert.IsViewResult(result);
-        }
-
-        [TestMethod]
-        public async Task PreviewCourse_ShouldSetPreviewCourseUrl_WhenCourseSucceedToBuild()
-        {
-            //Arrange
-            var course = CourseObjectMother.Create();
-            _coursePreviewBuilder.Build(course).Returns(Task.FromResult(true));
+            const string url = "url";
+            _urlHelper.ToAbsoluteUrl(Arg.Any<string>()).Returns(url);
 
             //Act
-            await _controller.PreviewCourse(course);
+            var result = await _controller.BuildCoursePreview(course);
 
             //Assert
-            Assert.IsNotNull(_controller.ViewBag.PreviewCourseUrl);
+            result.Should().BeJsonResultWithData(url);
         }
 
         #endregion

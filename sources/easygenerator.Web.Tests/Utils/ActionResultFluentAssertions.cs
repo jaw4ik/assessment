@@ -1,5 +1,4 @@
-﻿using System.Web.Helpers;
-using easygenerator.Web.Components.ActionResults;
+﻿using easygenerator.Web.Components.ActionResults;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
 using System.Net;
@@ -20,6 +19,23 @@ namespace easygenerator.Web.Tests.Utils
             get
             {
                 return Subject as JsonResult;
+            }
+        }
+    }
+
+    public class ViewResultAssertions : ObjectAssertions
+    {
+
+        public ViewResultAssertions(ViewResult subject)
+            : base(subject)
+        {
+        }
+
+        public ViewResult And
+        {
+            get
+            {
+                return Subject as ViewResult;
             }
         }
     }
@@ -230,6 +246,27 @@ namespace easygenerator.Web.Tests.Utils
                 .FailWith("Expected \"JsonResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new JsonResultAssertions(value.Subject as JsonResult);
+        }
+
+        public static JsonResultAssertions BeJsonResultWithData(this ObjectAssertions value, object data = null, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is JsonResult)
+                .ForCondition(((JsonResult)value.Subject).Data == data)
+                .FailWith("Expected \"JsonResult\", but got {0}",  GetSubjectTypeErrorMessage(value.Subject));
+
+            return new JsonResultAssertions(value.Subject as JsonResult);
+        }
+
+        public static ViewResultAssertions BeViewResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is ViewResult)
+                .FailWith("Expected \"ViewResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new ViewResultAssertions(value.Subject as ViewResult);
         }
 
         public static JsonSuccessResultAssertions BeJsonSuccessResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)

@@ -1,5 +1,5 @@
-﻿using System.Web.Optimization;
-using easygenerator.Web.Components.BundleTransforms;
+﻿using easygenerator.Web.Components.BundleTransforms;
+using System.Web.Optimization;
 
 namespace easygenerator.Web.Configuration
 {
@@ -55,6 +55,10 @@ namespace easygenerator.Web.Configuration
             bundles.Add(new ScriptBundle("~/bundles/scripts/preview")
                    .Include("~/scripts/jquery-{version}.js")
                    .Include("~/scripts/knockout-{version}.js")
+                   .IncludeDirectory("~/scripts/preview", "*.js")
+                   .IncludeDirectory("~/scripts/common", "*.js")
+                   .Include("~/scripts/underscore.js")
+                   .Include("~/scripts/underscore.extensions.js")
                );
 
             var stylesBundle = new StyleBundle("~/Content/css")

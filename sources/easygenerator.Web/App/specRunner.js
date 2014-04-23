@@ -115,6 +115,7 @@
             '../Scripts/account/passwordrecovery.spec',
             '../Scripts/account/signupsecondstep.spec',
             '../Scripts/review/review.spec',
+            '../Scripts/preview/preview.spec',
             '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
         ];
 
