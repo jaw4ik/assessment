@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 'dom', 'authorization/limitCoursesAmount', 'ping'],
-    function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, dom, limitCoursesAmount, ping) {
+﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'ping'],
+    function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount, ping) {
         "use strict";
 
         var
@@ -20,14 +20,24 @@
 
 
         var viewModel = {
+            states: constants.publishingStates,
+
             courses: ko.observableArray([]),
+            isCreateCourseAvailable: ko.observable(true),
+            lastVistedCourseId: '',
+
+            currentLanguage: '',
+
+            hasStarterAccess: true,
+            coursesFreeLimit: limitCoursesAmount.getFreeLimit(),
+            coursesStarterLimit: limitCoursesAmount.getStarterLimit(),
+
             toggleSelection: toggleSelection,
 
             navigateToCreation: navigateToCreation,
             navigateToDetails: navigateToDetails,
             navigateToObjectives: navigateToObjectives,
 
-            states: constants.publishingStates,
             downloadCourse: downloadCourse,
             enableOpenCourse: enableOpenCourse,
 
@@ -35,87 +45,124 @@
             openPublishedCourse: openPublishedCourse,
 
             deleteSelectedCourses: deleteSelectedCourses,
-            lastVistedCourseId: '',
-            currentLanguage: '',
 
             canActivate: canActivate,
             activate: activate,
             deactivate: deactivate,
 
-            isCreateCourseAvailable: ko.observable(true),
+            courseBuildStarted: courseBuildStarted,
+            courseBuildCompleted: courseBuildCompleted,
+            courseBuildFailed: courseBuildFailed,
+            courseScormBuildCompleted: courseScormBuildCompleted,
+            courseScormBuildFailed: courseScormBuildFailed,
 
-            hasStarterAccess: true,
-
-            coursesFreeLimit: limitCoursesAmount.getFreeLimit(),
-            coursesStarterLimit: limitCoursesAmount.getStarterLimit()
+            coursePublishStarted: coursePublishStarted,
+            coursePublishCompleted: coursePublishCompleted,
+            coursePublishFailed: coursePublishFailed,
+            coursePublishToAim4YouStarted: coursePublishToAim4YouStarted,
+            coursePublishToAim4YouCompleted: coursePublishToAim4YouCompleted,
+            coursePublishToAim4YouFailed: coursePublishToAim4YouFailed
         };
 
         viewModel.enableDeleteCourses = ko.computed(function () {
             return getSelectedCourses().length > 0;
         });
 
+        app.on(constants.messages.course.build.started).then(viewModel.courseBuildStarted);
+        app.on(constants.messages.course.build.completed).then(viewModel.courseBuildCompleted);
+        app.on(constants.messages.course.build.failed).then(viewModel.courseBuildFailed);
+        app.on(constants.messages.course.scormBuild.completed).then(viewModel.courseScormBuildCompleted);
+        app.on(constants.messages.course.scormBuild.failed).then(viewModel.courseScormBuildFailed);
+
+        app.on(constants.messages.course.publish.started).then(viewModel.coursePublishStarted);
+        app.on(constants.messages.course.publish.completed).then(viewModel.coursePublishCompleted);
+        app.on(constants.messages.course.publish.failed).then(viewModel.coursePublishFailed);
+        app.on(constants.messages.course.publishToAim4You.started).then(viewModel.coursePublishToAim4YouStarted);
+        app.on(constants.messages.course.publishToAim4You.completed).then(viewModel.coursePublishToAim4YouCompleted);
+        app.on(constants.messages.course.publishToAim4You.failed).then(viewModel.coursePublishToAim4YouFailed);
+
+        return viewModel;
+
+
         //#region build events
 
-        app.on(constants.messages.course.build.started).then(function (course) {
+        function courseBuildStarted(course) {
             updateCourseViewModelIfExists(course.id, function (expVm) {
                 expVm.publishingState(constants.publishingStates.building);
                 expVm.showStatus(true);
             });
-        });
+        };
 
-        app.on(constants.messages.course.build.completed, function (course) {
+        function courseBuildCompleted(course) {
             updateCourseViewModelIfExists(course.id, function (expVm) {
-
                 expVm.publishingState(constants.publishingStates.succeed);
-                expVm.packageUrl(course.packageUrl);
+                expVm.packageUrl(course.build.packageUrl);
             });
-        });
+        };
 
-        app.on(constants.messages.course.build.failed, function (courseId) {
-            updateCourseViewModelIfExists(courseId, function (expVm) {
+        function courseBuildFailed(course) {
+            updateCourseViewModelIfExists(course.id, function (expVm) {
                 expVm.publishingState(constants.publishingStates.failed);
                 expVm.packageUrl('');
             });
-        });
+        };
+
+        function courseScormBuildCompleted(course) {
+            updateCourseViewModelIfExists(course.id, function (expVm) {
+                expVm.publishingState(constants.publishingStates.succeed);
+            });
+        };
+
+        function courseScormBuildFailed(course) {
+            updateCourseViewModelIfExists(course.id, function (expVm) {
+                expVm.publishingState(constants.publishingStates.failed);
+            });
+        };
 
         //#endregion build events
 
         //#region publish events
-        app.on(constants.messages.course.publish.started).then(function (course) {
+
+        function coursePublishStarted(course) {
             updateCourseViewModelIfExists(course.id, function (expVm) {
                 expVm.publishingState(constants.publishingStates.publishing);
                 expVm.showStatus(true);
             });
-        });
+        };
 
-        app.on(constants.messages.course.publish.completed, function (course) {
+        function coursePublishCompleted(course) {
             updateCourseViewModelIfExists(course.id, function (expVm) {
                 expVm.publishingState(constants.publishingStates.succeed);
-                expVm.publishedPackageUrl(course.publishedPackageUrl);
+                expVm.publishedPackageUrl(course.publish.packageUrl);
             });
-        });
+        };
 
-        app.on(constants.messages.course.publish.failed, function (courseId) {
-            updateCourseViewModelIfExists(courseId, function (expVm) {
+        function coursePublishFailed(course) {
+            updateCourseViewModelIfExists(course.id, function (expVm) {
                 expVm.publishingState(constants.publishingStates.failed);
                 expVm.publishedPackageUrl('');
             });
-        });
+        };
 
-        app.on(constants.messages.course.publishToAim4You.completed, function (course) {
+        function coursePublishToAim4YouStarted(course) {
+            updateCourseViewModelIfExists(course.id, function (expVm) {
+                expVm.publishingState(constants.publishingStates.publishing);
+            });
+        };
+
+        function coursePublishToAim4YouCompleted(course) {
             updateCourseViewModelIfExists(course.id, function (expVm) {
                 expVm.publishingState(constants.publishingStates.succeed);
             });
-        });
+        };
 
-        app.on(constants.messages.course.publishToAim4You.failed, function (courseId) {
-            updateCourseViewModelIfExists(courseId, function (expVm) {
+        function coursePublishToAim4YouFailed(course) {
+            updateCourseViewModelIfExists(course.id, function (expVm) {
                 expVm.publishingState(constants.publishingStates.failed);
             });
-        });
-        //#endregion publish events
+        };
 
-        return viewModel;
+        //#endregion publish events
 
         function toggleSelection(course) {
             if (!course.isSelected())
@@ -170,9 +217,9 @@
                     exp.isSelected(false);
                 }
 
-                return courseRepository.getById(exp.id).then(function (course) {
-                    return course.build().then(function () {
-                        dom.clickElementById('packageLink_' + exp.id);
+                return courseRepository.getById(exp.id).then(function(course) {
+                    return course.build().then(function(courseInfo) {
+                        fileHelper.downloadFile('download/' + courseInfo.build.packageUrl);
                     });
                 }).fail(function (reason) {
                     eventTracker.publish(events.courseBuildFailed);
@@ -239,9 +286,9 @@
                 course.title = item.title;
                 course.image = item.template.image;
                 course.objectives = item.objectives;
-                course.publishingState = ko.observable(item.publishingState);
-                course.packageUrl = ko.observable(item.packageUrl);
-                course.publishedPackageUrl = ko.observable(item.publishedPackageUrl);
+                course.publishingState = ko.observable(item.getState());
+                course.packageUrl = ko.observable(item.build.packageUrl);
+                course.publishedPackageUrl = ko.observable(item.publish.packageUrl);
                 course.modifiedOn = item.modifiedOn;
                 course.isSelected = ko.observable(false);
                 course.showStatus = ko.observable();
@@ -251,8 +298,8 @@
                 }, course);
 
                 var storageItem = storage[item.id] || { showStatus: false, publishingState: constants.publishingStates.notStarted };
-                var showStatus = storageItem.showStatus || (item.publishingState === constants.publishingStates.building || item.publishingState === constants.publishingStates.publishing ||
-                     item.publishingState !== storageItem.publishingState);
+                var showStatus = storageItem.showStatus || (item.getState() === constants.publishingStates.building || item.getState() === constants.publishingStates.publishing ||
+                     item.getState() !== storageItem.publishingState);
                 course.showStatus(showStatus);
 
                 return course;

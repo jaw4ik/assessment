@@ -9,150 +9,209 @@
             this.title = spec.title;
             this.objectives = spec.objectives;
             this.builtOn = spec.builtOn;
-            this.packageUrl = spec.packageUrl;
-            this.scormPackageUrl = spec.scormPackageUrl;
             this.template = spec.template;
-            this.publishedPackageUrl = spec.publishedPackageUrl;
-            this.reviewUrl = spec.reviewUrl;
-            this.publishingState = constants.publishingStates.notStarted;
             this.introductionContent = spec.introductionContent;
-        };
-        
-        Course.prototype.build = function () {
-            var that = this;
-            var deferred = Q.defer();
-            if (that.publishingState == constants.publishingStates.building || that.publishingState == constants.publishingStates.publishing) {
-                deferred.reject('Course is already building or publishing.');
-            }
-        
-            that.publishingState = constants.publishingStates.building;
-            app.trigger(constants.messages.course.build.started, that);
-            app.trigger(constants.messages.course.action.started, that.id);
 
-            publishService.buildCourse(that.id).then(function (buildInfo) {
-                that.packageUrl = buildInfo.packageUrl;
-                that.builtOn = buildInfo.builtOn;
-                that.publishingState = constants.publishingStates.succeed;
-                app.trigger(constants.messages.course.build.completed, that);
-                deferred.resolve(that);
-            }).fail(function (message) {
-                that.publishingState = constants.publishingStates.failed;
-                that.packageUrl = '';
-                app.trigger(constants.messages.course.build.failed, that.id, message);
-                deferred.reject(message);
+            this.build = buildingActionBase.call(this, buildActionHandler, spec.packageUrl);
+            this.scormBuild = actionBase.call(this, scormBuildActionHandler, spec.scormPackageUrl);
+            this.publish = buildingActionBase.call(this, publishActionHandler, spec.publishedPackageUrl);
+            this.publishForReview = buildingActionBase.call(this, publishForReviewActionHandler, spec.reviewUrl);
+            this.publishToStore = buildingActionBase.call(this, publishToStoreActionHandler);
+
+            this.getState = getState;
+        };
+
+        return Course;
+
+
+        function actionBase(actionHandler, packageUrl) {
+            var course = this;
+
+            var self = function () {
+                app.trigger(constants.messages.course.action.started, course);
+
+                return actionHandler.call(course, self);
+            };
+            self.packageUrl = packageUrl;
+            self.state = constants.publishingStates.notStarted;
+            self.setState = function (value) {
+                this.state = course._lastState = value;
+            };
+
+            return self;
+        };
+
+        function buildingActionBase(actionHandler, packageUrl) {
+            var course = this;
+
+            var self = function () {
+                app.trigger(constants.messages.course.action.started, course);
+
+                return buildPackage.call(course, self).then(function (buildInfo) {
+                    return actionHandler.call(course, self, buildInfo);
+                });
+            };
+            self.packageUrl = packageUrl;
+            self.state = constants.publishingStates.notStarted;
+            self.setState = function (value) {
+                this.state = course._lastState = value;
+            };
+
+            return self;
+        };
+
+        function getState() {
+            return this._lastState;
+        }
+
+        function buildPackage(action) {
+            var that = this;
+            return Q.fcall(function () {
+                if (action.state === constants.publishingStates.building) {
+                    throw 'Course is already building.';
+                }
+
+                action.setState(constants.publishingStates.building);
+                app.trigger(constants.messages.course.build.started, that);
+
+                return publishService.buildCourse(that.id).then(function (buildInfo) {
+                    that.builtOn = buildInfo.builtOn;
+
+                    action.setState(constants.publishingStates.succeed);
+                    app.trigger(constants.messages.course.build.completed, that);
+
+                    return buildInfo;
+                }).fail(function (message) {
+                    action.setState(constants.publishingStates.failed);
+                    app.trigger(constants.messages.course.build.failed, that, message);
+
+                    throw message;
+                });
             });
-            
-            return deferred.promise;
         };
-        
-        Course.prototype.scormBuild = function () {
+
+
+        /*-------------Actions handlers--------------*/
+
+        function buildActionHandler(action, buildInfo) {
             var that = this;
-            var deferred = Q.defer();
-            if (that.publishingState == constants.publishingStates.building || that.publishingState == constants.publishingStates.publishing) {
-                deferred.reject('Course is already building or publishing.');
-            }
+            return Q.fcall(function () {
+                if (action.state === constants.publishingStates.building) {
+                    throw 'Course is already building.';
+                }
 
-            that.publishingState = constants.publishingStates.building;
-            app.trigger(constants.messages.course.scormBuild.started, that);
-            app.trigger(constants.messages.course.action.started, that.id);
-
-            publishService.scormBuildCourse(that.id).then(function (buildInfo) {
-                that.scormPackageUrl = buildInfo.scormPackageUrl;
-                that.publishingState = constants.publishingStates.succeed;
-                app.trigger(constants.messages.course.scormBuild.completed, that);
-                deferred.resolve(that);
-            }).fail(function (message) {
-                that.publishingState = constants.publishingStates.failed;
-                that.scormPackageUrl = '';
-                app.trigger(constants.messages.course.scormBuild.failed, that.id, message);
-                deferred.reject(message);
+                action.packageUrl = buildInfo.packageUrl;
+                return that;
             });
+        }
 
-            return deferred.promise;
-        };
-        
-
-        Course.prototype.publish = function () {
+        function scormBuildActionHandler(action) {
             var that = this;
-            var deferred = Q.defer();
+            return Q.fcall(function () {
+                if (action.state === constants.publishingStates.building) {
+                    throw 'Course is already building.';
+                }
 
-            if (that.publishingState == constants.publishingStates.building || that.publishingState == constants.publishingStates.publishing) {
-                deferred.reject('Course is already building or publishing.');
-            }
+                action.setState(constants.publishingStates.building);
+                app.trigger(constants.messages.course.scormBuild.started, that);
 
-            that.build().then(function() {
-                that.publishingState = constants.publishingStates.publishing;
+                return publishService.scormBuildCourse(that.id).then(function (buildInfo) {
+                    action.packageUrl = buildInfo.scormPackageUrl;
+
+                    action.setState(constants.publishingStates.succeed);
+                    app.trigger(constants.messages.course.scormBuild.completed, that);
+
+                    return that;
+                }).fail(function (message) {
+                    action.packageUrl = '';
+
+                    action.setState(constants.publishingStates.failed);
+                    app.trigger(constants.messages.course.scormBuild.failed, that, message);
+
+                    throw message;
+                });
+            });
+        };
+
+        function publishActionHandler(action) {
+            var that = this;
+            return Q.fcall(function () {
+                if (action.state === constants.publishingStates.publishing) {
+                    throw 'Course is already publishing.';
+                }
+
+                action.setState(constants.publishingStates.publishing);
                 app.trigger(constants.messages.course.publish.started, that);
 
-                return publishService.publishCourse(that.id).then(function(publishInfo) {
-                    that.publishedPackageUrl = publishInfo.publishedPackageUrl;
-                    that.publishingState = constants.publishingStates.succeed;
+                return publishService.publishCourse(that.id).then(function (publishInfo) {
+                    action.packageUrl = publishInfo.publishedPackageUrl;
+
+                    action.setState(constants.publishingStates.succeed);
                     app.trigger(constants.messages.course.publish.completed, that);
-                    deferred.resolve(that);
+
+                    return that;
+                }).fail(function (message) {
+                    action.packageUrl = '';
+
+                    action.setState(constants.publishingStates.failed);
+                    app.trigger(constants.messages.course.publish.failed, that, message);
+
+                    throw message;
                 });
-            }).fail(function (message) {
-                that.publishingState = constants.publishingStates.failed;
-                that.publishedPackageUrl = '';
-                app.trigger(constants.messages.course.publish.failed, that.id, message);
-                deferred.reject(message);
             });
-                        
-            return deferred.promise;
         };
-        
-        Course.prototype.publishForReview = function () {
+
+        function publishForReviewActionHandler(action) {
             var that = this;
-            var deferred = Q.defer();
+            return Q.fcall(function () {
+                if (action.state === constants.publishingStates.publishing) {
+                    throw 'Course is already publishing.';
+                }
 
-            if (that.publishingState == constants.publishingStates.building || that.publishingState == constants.publishingStates.publishing) {
-                deferred.reject('Course is already building or publishing.');
-            }
-
-            that.build().then(function () {
-                that.publishingState = constants.publishingStates.publishing;
+                action.setState(constants.publishingStates.publishing);
                 app.trigger(constants.messages.course.publishForReview.started, that);
 
                 return publishService.publishCourseForReview(that.id).then(function (publishInfo) {
-                    that.reviewUrl = publishInfo.reviewUrl;
-                    that.publishingState = constants.publishingStates.succeed;
+                    action.packageUrl = publishInfo.reviewUrl;
+
+                    action.setState(constants.publishingStates.succeed);
                     app.trigger(constants.messages.course.publishForReview.completed, that);
-                    deferred.resolve(that);
-                });
-            }).fail(function (message) {
-                that.publishingState = constants.publishingStates.failed;
-                that.reviewUrl = '';
-                app.trigger(constants.messages.course.publishForReview.failed, that.id, message);
-                deferred.reject(message);
-            });
 
-            return deferred.promise;
+                    return that;
+                }).fail(function (message) {
+                    action.packageUrl = '';
+
+                    action.setState(constants.publishingStates.failed);
+                    app.trigger(constants.messages.course.publishForReview.failed, that, message);
+
+                    throw message;
+                });
+            });
         };
 
-        Course.prototype.publishToStore = function() {
+        function publishToStoreActionHandler(action) {
             var that = this;
-            var deferred = Q.defer();
-            
-            if (that.publishingState == constants.publishingStates.building || that.publishingState == constants.publishingStates.publishing) {
-                deferred.reject('Course is already building or publishing to Aim4You.');
-            }
-            
-            that.build().then(function() {
-                that.publishingState = constants.publishingStates.publishing;
-                app.trigger(constants.messages.course.publishToAim4You.started, that);
-                return publishService.publishCourseToStore(that.id).then(function() {
-                    that.publishingState = constants.publishingStates.succeed;
-                    app.trigger(constants.messages.course.publishToAim4You.completed, that);
-                    deferred.resolve(that);
-                });
-            }).fail(function (message) {
-                that.publishingState = constants.publishingStates.failed;
-                app.trigger(constants.messages.course.publishToAim4You.failed, that.id, message);
-                deferred.reject(message);
-            });
+            return Q.fcall(function () {
+                if (action.state === constants.publishingStates.publishing) {
+                    throw 'Course is already publishing to Aim4You.';
+                }
 
-            return deferred.promise;
+                action.setState(constants.publishingStates.publishing);
+                app.trigger(constants.messages.course.publishToAim4You.started, that);
+
+                return publishService.publishCourseToStore(that.id).then(function () {
+                    action.setState(constants.publishingStates.succeed);
+                    app.trigger(constants.messages.course.publishToAim4You.completed, that);
+
+                    return that;
+                }).fail(function (message) {
+                    action.setState(constants.publishingStates.failed, that.publishToStore);
+                    app.trigger(constants.messages.course.publishToAim4You.failed, that, message);
+
+                    throw message;
+                });
+            });
         };
-            
-        return Course;
+
     }
 );

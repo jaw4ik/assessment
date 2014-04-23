@@ -30,7 +30,7 @@
                         return repository.getById(courseId).then(function (course) {
                             var data = {
                                 courseId: course.id,
-                                reviewUrl: course.reviewUrl
+                                reviewUrl: course.publishForReview.packageUrl
                             };
                             viewModel.lastReviewTabActivationData(data);
 
@@ -51,7 +51,7 @@
             if (viewModel.lastReviewTabActivationData() != null) {
                 viewModel.lastReviewTabActivationData({
                     courseId: course.id,
-                    reviewUrl: course.reviewUrl
+                    reviewUrl: course.publishForReview.packageUrl
                 });
             }
         });

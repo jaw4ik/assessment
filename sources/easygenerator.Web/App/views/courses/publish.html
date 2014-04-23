@@ -24,8 +24,6 @@
                         <span class="btn-title" data-bind="localize: { text: 'assembling' }"></span>
                     </div>
                     <!-- /ko -->
-                    <!-- link to render package url to and click after assembling -->
-                    <a id="packageLink" style="display: none" data-bind="attr: { href: 'download/' + buildAction().packageUrl() }"></a>
                 </div>
                 <div class="package-action-item bottom-package-action pull-right">
                     <h5 class="package-action-title" data-bind="localize: { text: 'downloadScorm12Package' }"></h5>
@@ -49,8 +47,6 @@
                         <span class="btn-title" data-bind="localize: { text: 'assembling' }"></span>
                     </div>
                     <!-- /ko -->
-                    <!-- link to render package url to and click after assembling -->
-                    <a id="scormPackageLink" style="display: none" data-bind="attr: { href: 'download/' + scormBuildAction().packageUrl() }"></a>
 
                     <!-- /ko -->
                     <!-- ko ifnot: scormBuildAction() -->

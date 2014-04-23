@@ -1,9 +1,10 @@
 ﻿define([], function () {
-    var ctor = function (courseId, packageUrl) {
+
+    var ctor = function (courseId, action) {
 
         var viewModel = {
-            state: ko.observable(),
-            packageUrl: ko.observable(packageUrl),
+            state: ko.observable(action.state),
+            packageUrl: ko.observable(action.packageUrl),
             isPublishing: ko.observable(false),
             isActive: ko.observable(false),
             courseId: courseId

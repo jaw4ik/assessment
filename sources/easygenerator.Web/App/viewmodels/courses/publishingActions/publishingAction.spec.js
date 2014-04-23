@@ -1,12 +1,13 @@
 ﻿define(['viewmodels/courses/publishingActions/publishingAction'], function (publishingAction) {
 
     describe('[publishingAction]', function () {
-        var viewModel,
-            packageUrl = 'someUrl',
-            courseId = 'id';
+        var
+            viewModel,
+            courseId = 'id',
+            action = { state: 'someState', packageUrl: 'some/package/url' };
 
         beforeEach(function () {
-            viewModel = publishingAction(courseId, packageUrl);
+            viewModel = publishingAction(courseId, action);
         });
 
         it('should be object', function () {
@@ -14,9 +15,15 @@
         });
 
         describe('state:', function () {
+
             it('should be observable', function () {
                 expect(viewModel.state).toBeObservable();
             });
+
+            it('should be equal to ctor \'state\' parameter', function () {
+                expect(viewModel.state()).toBe(action.state);
+            });
+
         });
 
         describe('isPublishing:', function () {
@@ -36,8 +43,8 @@
                 expect(viewModel.packageUrl).toBeObservable();
             });
 
-            it('should be equal to cror parameter', function () {
-                expect(viewModel.packageUrl()).toBe(packageUrl);
+            it('should be equal to ctor \'action.packageUrl\' parameter', function () {
+                expect(viewModel.packageUrl()).toBe(action.packageUrl);
             });
         });
 
@@ -46,7 +53,7 @@
                 expect(viewModel.courseId).toBeDefined();
             });
 
-            it('should be equal to cror parameter', function () {
+            it('should be equal to ctor \'id\' parameter', function () {
                 expect(viewModel.courseId).toBe(courseId);
             });
         });

@@ -1,22 +1,20 @@
-﻿define(['viewmodels/courses/publishingActions/scormBuild', 'constants', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'dom'],
-    function (scormBuildPublishingAction, constants, app, notify, eventTracker, repository, dom) {
+﻿define(['viewmodels/courses/publishingActions/scormBuild', 'models/course', 'constants', 'durandal/app', 'notify', 'eventTracker', 'fileHelper'],
+    function (scormBuildPublishingAction, Course, constants, app, notify, eventTracker, fileHelper) {
 
         describe('publishing action [scormBuild]', function () {
 
-            var viewModel,
-                packageUrl = 'someUrl',
-                courseId = 'courseId',
-                course = {
-                    id: 'courseId',
-                    scormBuild: function () {
-                    }
-                };
+            var
+                viewModel,
+                course = new Course({
+                    id: 'someId'
+                });
 
             beforeEach(function () {
-                viewModel = scormBuildPublishingAction(courseId, packageUrl);
+                course.scormBuild.url = 'scormBuildUrl';
+                viewModel = scormBuildPublishingAction(course);
                 spyOn(eventTracker, 'publish');
                 spyOn(notify, 'hide');
-                spyOn(dom, 'clickElementById');
+                spyOn(fileHelper, 'downloadFile').and.callFake(function () { });
             });
 
             it('should be object', function () {
@@ -59,10 +57,6 @@
                 it('should be observable', function () {
                     expect(viewModel.packageUrl).toBeObservable();
                 });
-
-                it('should be equal to cror parameter', function () {
-                    expect(viewModel.packageUrl()).toBe(packageUrl);
-                });
             });
 
             describe('courseId:', function () {
@@ -70,8 +64,8 @@
                     expect(viewModel.courseId).toBeDefined();
                 });
 
-                it('should be equal to cror parameter', function () {
-                    expect(viewModel.courseId).toBe(courseId);
+                it('should be equal to ctor parameter', function () {
+                    expect(viewModel.courseId).toBe(course.id);
                 });
             });
 
@@ -127,17 +121,12 @@
 
             describe('downloadCourse:', function () {
 
-                var courseRepositoryGetByIdDefer;
-                var courseRepositoryGetByIdPromise;
                 var courseScormBuildDefer;
                 var courseScormBuildPromise;
 
                 beforeEach(function () {
-                    courseRepositoryGetByIdDefer = Q.defer();
                     courseScormBuildDefer = Q.defer();
-                    courseRepositoryGetByIdPromise = courseRepositoryGetByIdDefer.promise;
                     courseScormBuildPromise = courseScormBuildDefer.promise;
-                    spyOn(repository, 'getById').and.returnValue(courseRepositoryGetByIdPromise);
                     spyOn(course, 'scormBuild').and.returnValue(courseScormBuildPromise);
                 });
 
@@ -167,7 +156,6 @@
                     });
 
                     it('should start scorm build of current course', function (done) {
-                        courseRepositoryGetByIdDefer.resolve(course);
                         courseScormBuildDefer.resolve();
 
                         viewModel.downloadCourse().fin(function () {
@@ -178,13 +166,12 @@
 
                     describe('when course scorm build finished successfully', function () {
                         beforeEach(function () {
-                            courseRepositoryGetByIdDefer.resolve(course);
-                            courseScormBuildDefer.resolve();
+                            courseScormBuildDefer.resolve({ scormBuild: { packageUrl: 'scorm_package_url' } });
                         });
 
-                        it('should click dom element \'scormPackageLink\'', function (done) {
+                        it('should download file', function (done) {
                             viewModel.downloadCourse().fin(function () {
-                                expect(dom.clickElementById).toHaveBeenCalledWith('scormPackageLink');
+                                expect(fileHelper.downloadFile).toHaveBeenCalledWith('download/scorm_package_url');
                                 done();
                             });
                         });
@@ -200,9 +187,17 @@
 
                     describe('when course scorm build failed', function () {
 
+                        var message = 'Some error message';
                         beforeEach(function () {
-                            courseRepositoryGetByIdDefer.resolve(course);
-                            courseScormBuildDefer.reject();
+                            courseScormBuildDefer.reject(message);
+                        });
+
+                        it('should show error notification', function (done) {
+                            spyOn(notify, 'error');
+                            viewModel.downloadCourse().fin(function () {
+                                expect(notify.error).toHaveBeenCalledWith(message);
+                                done();
+                            });
                         });
 
                         it('should set isActive() to false', function (done) {
@@ -277,10 +272,10 @@
                         viewModel.courseId = course.id;
                         viewModel.packageUrl('');
 
-                        course.scormPackageUrl = "http://xxx.com";
+                        course.scormBuild.packageUrl = "http://xxx.com";
                         viewModel.scromBuildCompleted(course);
 
-                        expect(viewModel.packageUrl()).toEqual(course.scormPackageUrl);
+                        expect(viewModel.packageUrl()).toEqual(course.scormBuild.packageUrl);
                     });
                 });
 
@@ -315,7 +310,7 @@
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        viewModel.scrormBuildFailed(course.id);
+                        viewModel.scrormBuildFailed(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                     });
@@ -324,7 +319,7 @@
                         viewModel.courseId = course.id;
                         viewModel.packageUrl('publishedPackageUrl');
 
-                        viewModel.scrormBuildFailed(course.id);
+                        viewModel.scrormBuildFailed(course);
 
                         expect(viewModel.packageUrl()).toEqual('');
                     });
@@ -337,7 +332,7 @@
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        viewModel.scrormBuildFailed('100500');
+                        viewModel.scrormBuildFailed({ id: '100500' });
 
                         expect(viewModel.state()).toEqual('');
                     });
@@ -346,7 +341,7 @@
                         viewModel.courseId = course.id;
                         viewModel.packageUrl('packageUrl');
 
-                        viewModel.scrormBuildFailed('100500');
+                        viewModel.scrormBuildFailed({ id: '100500' });
 
                         expect(viewModel.packageUrl()).toEqual('packageUrl');
                     });

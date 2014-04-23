@@ -228,6 +228,7 @@
     <Content Include="App\dialogs\createCourse.spec.js">
       <DependentUpon>createCourse.js</DependentUpon>
     </Content>
+    <Content Include="App\fileHelper.js" />
     <Content Include="App\models\backButton.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.spec.js">
@@ -327,7 +328,6 @@
     <Content Include="App\userContext.spec.js">
       <DependentUpon>userContext.js</DependentUpon>
     </Content>
-    <Content Include="App\dom.js" />
     <Content Include="App\help\helpHint.spec.js">
       <DependentUpon>helpHint.js</DependentUpon>
     </Content>

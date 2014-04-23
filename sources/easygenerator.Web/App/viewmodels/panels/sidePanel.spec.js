@@ -6,7 +6,8 @@
         repository = require('repositories/courseRepository'),
         router = require('plugins/router'),
         reviewTab = require('viewmodels/panels/tabs/reviewTab'),
-        notify = require('notify')
+        notify = require('notify'),
+        Course = require('models/course')
     ;
 
 
@@ -83,7 +84,7 @@
 
         describe('when course publishForReview completed', function () {
 
-            var course = { id: 'id' };
+            var course = new Course({ id: 'id' });
 
             describe('and when course is current course', function () {
 
@@ -99,10 +100,10 @@
                     it('should update lastReviewTabActivationData.reviewUrl to the corresponding one', function () {
                         viewModel.lastReviewTabActivationData().reviewUrl = '';
 
-                        course.reviewUrl = 'url';
+                        course.publishForReview.packageUrl = 'url';
                         app.trigger(constants.messages.course.publishForReview.completed, course);
 
-                        expect(viewModel.lastReviewTabActivationData().reviewUrl).toEqual(course.reviewUrl);
+                        expect(viewModel.lastReviewTabActivationData().reviewUrl).toEqual(course.publishForReview.packageUrl);
                     });
                 });
 
@@ -112,7 +113,7 @@
                     });
 
                     it('should not change lastReviewTabActivationData', function () {
-                        course.reviewUrl = 'someUrl';
+                        course.publishForReview.packageUrl = 'someUrl';
 
                         app.trigger(constants.messages.course.publishForReview.completed, course);
 
@@ -271,21 +272,21 @@
                         it('should update lastReviewTabActivationData', function (done) {
                             var
                                 promise = viewModel.reviewTabActivationData(),
-                                course = { reviewUrl: '', id: 'someId' };
+                                course = { id: 'someId', publishForReview: { packageUrl: 'some/package/url' } };
 
                             getById.resolve(course);
 
                             promise.fin(function () {
                                 expect(promise).toBeResolvedWith({
                                     courseId: course.id,
-                                    reviewUrl: course.reviewUrl
+                                    reviewUrl: course.publishForReview.packageUrl
                                 });
                                 done();
                             });
                         });
 
                         it('should resolve promise', function (done) {
-                            getById.resolve({ id: 'courseId', reviewUrl: '' });
+                            getById.resolve({ id: 'courseId', publishForReview: { packageUrl: '' } });
 
                             var promise = viewModel.reviewTabActivationData();
 
@@ -344,14 +345,14 @@
                             it('should update lastReviewTabActivationData', function (done) {
                                 var
                                     promise = viewModel.reviewTabActivationData(),
-                                    course = { reviewUrl: '', id: 'someId' };
+                                    course = { id: 'someId', publishForReview: { packageUrl: 'some/package/url' } };
 
                                 getById.resolve(course);
 
                                 promise.fin(function () {
                                     expect(promise).toBeResolvedWith({
                                         courseId: course.id,
-                                        reviewUrl: course.reviewUrl
+                                        reviewUrl: course.publishForReview.packageUrl
                                     });
                                     done();
                                 });
@@ -359,7 +360,7 @@
 
                             it('should resolve promise', function (done) {
                                 var promise = viewModel.reviewTabActivationData();
-                                getById.resolve({ id: 'courseId', reviewUrl: '' });
+                                getById.resolve({ id: 'courseId', publishForReview: { packageUrl: '' } });
 
                                 promise.fin(function () {
                                     expect(promise).toBeResolved();

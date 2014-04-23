@@ -6,16 +6,16 @@
             repository = require('repositories/courseRepository'),
             commentRepository = require('repositories/commentRepository'),
             eventTracker = require('eventTracker'),
-            app = require('durandal/app'),
-            userContext = require('userContext');
+            userContext = require('userContext'),
+            notify = require('notify'),
+            Course = require('models/course');
 
         describe('viewModel [reviewTab]', function () {
 
-            var course = {
+            var course = new Course({
                 id: 'someId',
-                reviewUrl: 'url',
-                publishForReview: function () { }
-            };
+                reviewUrl: 'url'
+            });
 
             beforeEach(function () {
                 spyOn(router, 'openUrl');
@@ -187,9 +187,19 @@
                     });
 
                     describe('when course publish failed', function () {
+
+                        var message = 'Some error message';
                         beforeEach(function () {
                             getByIdDefer.resolve(course);
-                            publishForReviewDefer.reject();
+                            publishForReviewDefer.reject(message);
+                        });
+
+                        it('should show error notification', function (done) {
+                            spyOn(notify, 'error');
+                            viewModel.updateCourseForReview().fin(function () {
+                                expect(notify.error).toHaveBeenCalledWith(message);
+                                done();
+                            });
                         });
 
                         it('should set isActive() to false', function (done) {
@@ -411,31 +421,35 @@
 
                 describe('and when course is current course', function () {
 
-                    describe('and when  is not active', function () {
+                    beforeEach(function () {
+                        viewModel.courseId = course.id;
+                    });
+
+                    describe('and when course.build state is not ' + constants.publishingStates.building, function () {
 
                         beforeEach(function () {
-                            viewModel.isActive(false);
+                            course.publishForReview.state = '';
                         });
 
-                        it('should not change  state', function () {
-                            viewModel.courseId = course.id;
+                        it('should not change state', function () {
                             viewModel.state(constants.publishingStates.notStarted);
-                            app.trigger(constants.messages.course.build.started, course);
+
+                            viewModel.courseBuildStarted(course);
 
                             expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                         });
                     });
 
-                    describe('and when  is active', function () {
+                    describe('and when course.build state is ' + constants.publishingStates.building, function () {
 
                         beforeEach(function () {
-                            viewModel.isActive(true);
+                            course.publishForReview.state = constants.publishingStates.building;
                         });
 
-                        it('should change  state to \'building\'', function () {
-                            viewModel.courseId = course.id;
+                        it('should change  state to ' + constants.publishingStates.building, function () {
                             viewModel.state('');
-                            app.trigger(constants.messages.course.build.started, course);
+
+                            viewModel.courseBuildStarted(course);
 
                             expect(viewModel.state()).toEqual(constants.publishingStates.building);
                         });
@@ -443,10 +457,15 @@
                 });
 
                 describe('and when course is any other course', function () {
-                    it('should not change  state', function () {
-                        viewModel.courseId = course.id;
+
+                    beforeEach(function () {
+                        viewModel.courseId = '100500';
+                    });
+
+                    it('should not change state', function () {
                         viewModel.state(constants.publishingStates.notStarted);
-                        app.trigger(constants.messages.course.build.started, { id: '100500' });
+
+                        viewModel.courseBuildStarted(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
@@ -458,31 +477,35 @@
 
                 describe('and when course is current course', function () {
 
-                    describe('and when is not active', function () {
+                    beforeEach(function () {
+                        viewModel.courseId = course.id;
+                    });
+
+                    describe('and when course.build state is not ' + constants.publishingStates.failed, function () {
 
                         beforeEach(function () {
-                            viewModel.isActive(false);
+                            course.publishForReview.state = '';
                         });
 
-                        it('should not change  state', function () {
-                            viewModel.courseId = course.id;
+                        it('should not change state', function () {
                             viewModel.state(constants.publishingStates.notStarted);
-                            app.trigger(constants.messages.course.build.failed, course.id);
+
+                            viewModel.courseBuildFailed(course);
 
                             expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                         });
                     });
 
-                    describe('and when is active', function () {
+                    describe('and when course.build state is ' + constants.publishingStates.failed, function () {
 
                         beforeEach(function () {
-                            viewModel.isActive(true);
+                            course.publishForReview.state = constants.publishingStates.failed;
                         });
 
-                        it('should change state to \'failed\'', function () {
-                            viewModel.courseId = course.id;
+                        it('should change state to ' + constants.publishingStates.failed, function () {
                             viewModel.state('');
-                            app.trigger(constants.messages.course.build.failed, course.id);
+
+                            viewModel.courseBuildFailed(course);
 
                             expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                         });
@@ -490,19 +513,23 @@
                 });
 
                 describe('and when course is any other course', function () {
+
+                    beforeEach(function () {
+                        viewModel.courseId = '100500';
+                    });
+
                     it('should not change state', function () {
-                        viewModel.courseId = course.id;
                         viewModel.state(constants.publishingStates.notStarted);
-                        app.trigger(constants.messages.course.build.failed, { id: '100500' });
+
+                        viewModel.courseBuildFailed(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
 
                     it('should not clear courseReviewUrl', function () {
-                        viewModel.courseId = course.id;
                         viewModel.reviewUrl('url');
 
-                        app.trigger(constants.messages.course.build.failed, '100500');
+                        viewModel.courseBuildFailed(course);
 
                         expect(viewModel.reviewUrl()).toEqual('url');
                     });
@@ -513,20 +540,30 @@
             describe('when course publishForReview was started', function () {
 
                 describe('and when course is current course', function () {
-                    it('should change state to \'publishing\'', function () {
+
+                    beforeEach(function () {
                         viewModel.courseId = course.id;
+                    });
+
+                    it('should change state to ' + constants.publishingStates.publishing, function () {
                         viewModel.state('');
-                        app.trigger(constants.messages.course.publishForReview.started, course);
+
+                        viewModel.coursePublishForReviewStarted(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.publishing);
                     });
                 });
 
                 describe('and when course is any other course', function () {
+
+                    beforeEach(function () {
+                        viewModel.courseId = '100500';
+                    });
+
                     it('should not change state', function () {
-                        viewModel.courseId = course.id;
                         viewModel.state(constants.publishingStates.notStarted);
-                        app.trigger(constants.messages.course.publishForReview.started, { id: '100500' });
+
+                        viewModel.coursePublishForReviewStarted(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
@@ -537,42 +574,47 @@
             describe('when course publishForReview completed', function () {
 
                 describe('and when course is current course', function () {
-                    it('should update state to \'success\'', function () {
+
+                    beforeEach(function () {
                         viewModel.courseId = course.id;
+                    });
+
+                    it('should update state to ' + constants.publishingStates.succeed, function () {
                         viewModel.state('');
 
-                        course.buildingStatus = constants.publishingStates.succeed;
-                        app.trigger(constants.messages.course.publishForReview.completed, course);
+                        viewModel.coursePublishForReviewCompleted(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.succeed);
                     });
 
                     it('should update courseReviewUrl to the corresponding one', function () {
-                        viewModel.courseId = course.id;
                         viewModel.reviewUrl('');
-                        course.reviewUrl = 'someUrl';
+                        course.publishForReview.packageUrl = 'someUrl';
 
-                        course.publishedPackageUrl = 'url';
-                        app.trigger(constants.messages.course.publishForReview.completed, course);
+                        viewModel.coursePublishForReviewCompleted(course);
 
-                        expect(viewModel.reviewUrl()).toEqual(course.reviewUrl);
+                        expect(viewModel.reviewUrl()).toEqual(course.publishForReview.packageUrl);
                     });
                 });
 
                 describe('and when course is any other course', function () {
 
+                    beforeEach(function () {
+                        viewModel.courseId = '100500';
+                    });
+
                     it('should not update state', function () {
-                        viewModel.courseId = course.id;
                         viewModel.state(constants.publishingStates.notStarted);
-                        app.trigger(constants.messages.course.publishForReview.completed, { id: '100500' });
+                        
+                        viewModel.coursePublishForReviewCompleted(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
 
                     it('should not update current courseReviewUrl', function () {
-                        viewModel.courseId = course.id;
                         viewModel.reviewUrl('url');
-                        app.trigger(constants.messages.course.publishForReview.completed, { id: '100500' });
+                        
+                        viewModel.coursePublishForReviewCompleted(course);
 
                         expect(viewModel.reviewUrl()).toEqual("url");
                     });
@@ -583,24 +625,30 @@
             describe('when course publishForReview failed', function () {
 
                 describe('and when course is current course', function () {
-                    var message = "message";
+
+                    beforeEach(function () {
+                        viewModel.courseId = course.id;
+                    });
 
                     it('should update state to \'failed\'', function () {
-                        viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        app.trigger(constants.messages.course.publishForReview.failed, course.id, message);
+                        viewModel.coursePublishForReviewFailed(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                     });
                 });
 
                 describe('and when course is any other course', function () {
+
+                    beforeEach(function () {
+                        viewModel.courseId = '100500';
+                    });
+
                     it('should not update publish state to \'failed\'', function () {
-                        viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        app.trigger(constants.messages.course.publishForReview.failed, '100500');
+                        viewModel.coursePublishForReviewFailed(course);
 
                         expect(viewModel.state()).toEqual('');
                     });

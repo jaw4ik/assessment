@@ -5,34 +5,22 @@
         router = require('plugins/router'),
         constants = require('constants'),
         userContext = require('userContext'),
-        notify = require('notify'),
-        app = require('durandal/app'),
         repository = require('repositories/courseRepository'),
         eventTracker = require('eventTracker'),
         localizationManager = require('localization/localizationManager'),
         clientContext = require('clientContext'),
         ping = require('ping'),
-        BackButton = require('models/backButton');
+        BackButton = require('models/backButton'),
+        Course = require('models/course');
 
     describe('viewModel [publish]', function () {
-        var course = {
+        var course = new Course({
             id: 'testCourseId',
             title: 'title',
-        };
+        });
 
         beforeEach(function () {
-            spyOn(notify, 'error');
             spyOn(eventTracker, 'publish');
-        });
-
-        it('should be object', function () {
-            expect(viewModel).toBeObject();
-        });
-
-        describe('courseId:', function () {
-            it('should be defined', function () {
-                expect(viewModel.courseId).toBeDefined();
-            });
         });
 
         describe('navigateToCoursesEvent:', function () {
@@ -373,100 +361,6 @@
 
         });
 
-        describe('when current course build failed', function () {
-
-            var message = "message";
-
-            describe('and when message is defined', function () {
-                it('should show notification', function () {
-                    viewModel.courseId = 'id';
-                    app.trigger(constants.messages.course.build.failed, viewModel.courseId, message);
-                    expect(notify.error).toHaveBeenCalledWith(message);
-                });
-            });
-
-            describe('and when message is not defined', function () {
-                it('should not show notification', function () {
-                    viewModel.courseId = 'id';
-                    app.trigger(constants.messages.course.build.failed, viewModel.courseId);
-                    expect(notify.error).not.toHaveBeenCalled();
-                });
-            });
-
-        });
-
-        describe('when any other course build failed', function () {
-
-            it('should not show notification', function () {
-                viewModel.courseId = 'id';
-                app.trigger(constants.messages.course.build.failed, '100500');
-                expect(notify.error).not.toHaveBeenCalled();
-            });
-
-        });
-
-        describe('when current course publish failed', function () {
-
-            var message = "message";
-
-            describe('and when message is defined', function () {
-                it('should show notification', function () {
-                    viewModel.courseId = 'id';
-                    app.trigger(constants.messages.course.publish.failed, viewModel.courseId, message);
-                    expect(notify.error).toHaveBeenCalledWith(message);
-                });
-            });
-
-            describe('and when message is not defined', function () {
-                it('should not show notification', function () {
-                    viewModel.courseId = 'id';
-                    app.trigger(constants.messages.course.publish.failed, viewModel.courseId);
-                    expect(notify.error).not.toHaveBeenCalled();
-                });
-            });
-        });
-
-        describe('when any other course build failed', function () {
-
-            it('should not show notification', function () {
-                viewModel.courseId = 'id';
-                app.trigger(constants.messages.course.publish.failed, '100500');
-                expect(notify.error).not.toHaveBeenCalled();
-            });
-
-        });
-
-        describe('when current course scorm build failed', function () {
-
-            var message = "message";
-
-            describe('and when message is defined', function () {
-                it('should show notification', function () {
-                    viewModel.courseId = 'id';
-                    app.trigger(constants.messages.course.scormBuild.failed, viewModel.courseId, message);
-                    expect(notify.error).toHaveBeenCalledWith(message);
-                });
-            });
-
-            describe('and when message is not defined', function () {
-                it('should not show notification', function () {
-                    viewModel.courseId = 'id';
-                    app.trigger(constants.messages.course.scormBuild.failed, viewModel.courseId);
-                    expect(notify.error).not.toHaveBeenCalled();
-                });
-            });
-        });
-
-        describe('when any other course scorm build failed', function () {
-
-            it('should not show notification', function () {
-                viewModel.courseId = 'id';
-                app.trigger(constants.messages.course.scormBuild.failed, '100500');
-                expect(notify.error).not.toHaveBeenCalled();
-            });
-
-        });
     });
 
-}
-);
+});

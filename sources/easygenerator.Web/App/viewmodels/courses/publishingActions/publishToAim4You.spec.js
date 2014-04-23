@@ -1,18 +1,18 @@
-﻿define(['localization/localizationManager', 'constants', 'dataContext', 'viewmodels/courses/publishingActions/publishToAim4You', 'eventTracker', 'notify', 'repositories/courseRepository', 'durandal/app', 'userContext'],
-    function (localizationManager, constants, dataContext, publishToAim4You, eventTracker, notify, courseRepository, app, userContext) {
+﻿define(['localization/localizationManager', 'models/course', 'constants', 'dataContext', 'viewmodels/courses/publishingActions/publishToAim4You', 'eventTracker',
+    'notify', 'durandal/app', 'userContext'],
+    function (localizationManager, Course, constants, dataContext, publishToAim4You, eventTracker, notify, app, userContext) {
 
         describe('viewModel [publishToAim4You]', function () {
 
-            var viewModel,
-                courseId = 'courseId',
-                course = {
-                    id: 'someId',
-                    publishToStore: function () { }
-                },
+            var
+                viewModel,
+                course = new Course({
+                    id: 'someId'
+                }),
                 serviceRegisterDefer;
 
             beforeEach(function () {
-                viewModel = publishToAim4You(courseId);
+                viewModel = publishToAim4You(course);
                 spyOn(eventTracker, 'publish');
                 spyOn(notify, 'hide');
                 spyOn(notify, 'error');
@@ -122,23 +122,13 @@
 
             });
 
-            describe('packageUrl:', function () {
-                it('should be observable', function () {
-                    expect(viewModel.packageUrl).toBeObservable();
-                });
-
-                it('should be equal to cror parameter', function () {
-                    expect(viewModel.packageUrl()).toBeUndefined();
-                });
-            });
-
             describe('courseId:', function () {
                 it('should be defined', function () {
                     expect(viewModel.courseId).toBeDefined();
                 });
 
-                it('should be equal to cror parameter', function () {
-                    expect(viewModel.courseId).toBe(courseId);
+                it('should be equal to ctor parameter', function () {
+                    expect(viewModel.courseId).toBe(course.id);
                 });
             });
 
@@ -173,7 +163,7 @@
                     });
 
                     it('should be true', function () {
-                        var view = publishToAim4You(courseId);
+                        var view = publishToAim4You(course);
                         expect(view.isTryMode).toBeTruthy();
                     });
 
@@ -186,7 +176,7 @@
                     });
 
                     it('should be false', function () {
-                        var view = publishToAim4You(courseId);
+                        var view = publishToAim4You(course);
                         expect(view.isTryMode).toBeFalsy();
                     });
 
@@ -211,13 +201,10 @@
 
                 describe('when publishing is not active', function () {
 
-                    var courseRepositoryDefer,
-                        coursePublishToStoreDefer;
+                    var coursePublishToStoreDefer;
 
                     beforeEach(function () {
-                        courseRepositoryDefer = Q.defer();
                         coursePublishToStoreDefer = Q.defer();
-                        spyOn(courseRepository, 'getById').and.returnValue(courseRepositoryDefer.promise);
                         spyOn(course, 'publishToStore').and.returnValue(coursePublishToStoreDefer.promise);
                         viewModel.isActive(false);
                     });
@@ -242,7 +229,6 @@
                     });
 
                     it('should start publishToStore to current course', function (done) {
-                        courseRepositoryDefer.resolve(course);
                         coursePublishToStoreDefer.resolve();
 
                         viewModel.publishToAim4You().fin(function () {
@@ -254,7 +240,6 @@
                     describe('when course published to store successfully', function () {
 
                         beforeEach(function () {
-                            courseRepositoryDefer.resolve(course);
                             coursePublishToStoreDefer.resolve();
                         });
 
@@ -277,9 +262,16 @@
 
                     describe('when course published to store fail', function () {
 
+                        var message = 'Some error message';
                         beforeEach(function () {
-                            courseRepositoryDefer.resolve(course);
-                            coursePublishToStoreDefer.reject();
+                            coursePublishToStoreDefer.reject(message);
+                        });
+
+                        it('should show error notification', function (done) {
+                            viewModel.publishToAim4You().fin(function () {
+                                expect(notify.error).toHaveBeenCalledWith(message);
+                                done();
+                            });
                         });
 
                         it('should set publishing active to false', function (done) {
@@ -298,14 +290,17 @@
 
                 describe('and when course is current course', function () {
 
-                    describe('and when action is not active', function () {
+                    beforeEach(function() {
+                        viewModel.courseId = course.id;
+                    });
+
+                    describe('and when course.publishToStore state is not ' + constants.publishingStates.building, function () {
 
                         beforeEach(function () {
-                            viewModel.isActive(false);
+                            course.publishToStore.state = '';
                         });
 
                         it('should not change action state', function () {
-                            viewModel.courseId = course.id;
                             viewModel.state(constants.publishingStates.notStarted);
 
                             viewModel.courseBuildStarted(course);
@@ -314,14 +309,13 @@
                         });
                     });
 
-                    describe('and when action is active', function () {
+                    describe('and when course.publishToStore state is ' + constants.publishingStates.building, function () {
 
                         beforeEach(function () {
-                            viewModel.isActive(true);
+                            course.publishToStore.state = constants.publishingStates.building;
                         });
 
-                        it('should change action state to \'building\'', function () {
-                            viewModel.courseId = course.id;
+                        it('should change action state to ' + constants.publishingStates.building, function () {
                             viewModel.state('');
 
                             viewModel.courseBuildStarted(course);
@@ -333,11 +327,14 @@
 
                 describe('and when course is any other course', function () {
 
+                    beforeEach(function() {
+                        viewModel.courseId = '100500';
+                    });
+
                     it('should not change action state', function () {
-                        viewModel.courseId = course.id;
                         viewModel.state(constants.publishingStates.notStarted);
 
-                        viewModel.courseBuildStarted({ id: '100500' });
+                        viewModel.courseBuildStarted(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
@@ -350,42 +347,43 @@
 
                 describe('and when course is current course', function () {
 
-                    describe('and when action is not active', function () {
+                    beforeEach(function () {
+                        viewModel.courseId = course.id;
+                    });
+
+                    describe('and when course.publishToStore state is not ' + constants.publishingStates.failed, function () {
 
                         beforeEach(function () {
-                            viewModel.isActive(false);
+                            course.publishToStore.state = '';
                         });
 
                         it('should not change action state', function () {
-                            viewModel.courseId = course.id;
                             viewModel.state(constants.publishingStates.notStarted);
 
-                            viewModel.courseBuildFailed(course.id);
+                            viewModel.courseBuildFailed(course);
 
                             expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                         });
 
                         it('should not clear package url', function () {
-                            viewModel.courseId = course.id;
                             viewModel.packageUrl('packageUrl');
 
-                            viewModel.courseBuildFailed(course.id);
+                            viewModel.courseBuildFailed(course);
 
                             expect(viewModel.packageUrl()).toEqual('packageUrl');
                         });
                     });
 
-                    describe('and when action is active', function () {
+                    describe('and when course.publishToStore state is ' + constants.publishingStates.failed, function () {
 
                         beforeEach(function () {
-                            viewModel.isActive(true);
+                            course.publishToStore.state = constants.publishingStates.failed;
                         });
 
-                        it('should change action state to \'failed\'', function () {
-                            viewModel.courseId = course.id;
+                        it('should change action state to ' + constants.publishingStates.failed, function () {
                             viewModel.state('');
 
-                            viewModel.courseBuildFailed(course.id);
+                            viewModel.courseBuildFailed(course);
 
                             expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                         });
@@ -393,20 +391,23 @@
                 });
 
                 describe('and when course is any other course', function () {
+
+                    beforeEach(function () {
+                        viewModel.courseId = '100500';
+                    });
+
                     it('should not change action state', function () {
-                        viewModel.courseId = course.id;
                         viewModel.state(constants.publishingStates.notStarted);
 
-                        viewModel.courseBuildFailed({ id: '100500' });
+                        viewModel.courseBuildFailed(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.notStarted);
                     });
 
                     it('should not clear package url', function () {
-                        viewModel.courseId = course.id;
                         viewModel.packageUrl('packageUrl');
 
-                        viewModel.courseBuildFailed({ id: '100500' });
+                        viewModel.courseBuildFailed(course);
 
                         expect(viewModel.packageUrl()).toEqual('packageUrl');
                     });
@@ -484,7 +485,7 @@
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        viewModel.publishToAim4YouFailed(course.id);
+                        viewModel.publishToAim4YouFailed(course);
 
                         expect(viewModel.state()).toEqual(constants.publishingStates.failed);
                     });
@@ -495,7 +496,7 @@
                         viewModel.courseId = course.id;
                         viewModel.state('');
 
-                        viewModel.publishToAim4YouFailed('100500');
+                        viewModel.publishToAim4YouFailed({ id: '100500' });
 
                         expect(viewModel.state()).toEqual('');
                     });
@@ -504,7 +505,7 @@
                         viewModel.courseId = course.id;
                         viewModel.packageUrl('packageUrl');
 
-                        viewModel.publishToAim4YouFailed('100500');
+                        viewModel.publishToAim4YouFailed({ id: '100500' });
 
                         expect(viewModel.packageUrl()).toEqual('packageUrl');
                     });

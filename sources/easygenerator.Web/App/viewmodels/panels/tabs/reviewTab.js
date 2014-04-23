@@ -7,14 +7,22 @@
         };
 
         var viewModel = {
-            activate: activate,
+            states: constants.publishingStates,
+
+            courseId: null,
             reviewUrl: ko.observable(),
             state: ko.observable(),
-            states: constants.publishingStates,
+            isActive: ko.observable(false),
+
+            activate: activate,
             openCourseReviewUrl: openCourseReviewUrl,
             updateCourseForReview: updateCourseForReview,
-            isActive: ko.observable(false),
-            courseId: null
+
+            courseBuildStarted: courseBuildStarted,
+            courseBuildFailed: courseBuildFailed,
+            coursePublishForReviewStarted: coursePublishForReviewStarted,
+            coursePublishForReviewCompleted: coursePublishForReviewCompleted,
+            coursePublishForReviewFailed: coursePublishForReviewFailed
         };
 
         viewModel.isPublishing = ko.computed(function () {
@@ -25,47 +33,54 @@
             return !_.isNullOrUndefined(this.reviewUrl()) && !_.isEmptyOrWhitespace(this.reviewUrl());
         }, viewModel);
 
+        app.on(constants.messages.course.build.started).then(viewModel.courseBuildStarted);
+        app.on(constants.messages.course.build.failed).then(viewModel.courseBuildFailed);
+        app.on(constants.messages.course.publishForReview.started).then(viewModel.coursePublishForReviewStarted);
+        app.on(constants.messages.course.publishForReview.completed).then(viewModel.coursePublishForReviewCompleted);
+        app.on(constants.messages.course.publishForReview.failed).then(viewModel.coursePublishForReviewFailed);
+
+        return viewModel;
+
+
         //#region App-wide events
 
-        app.on(constants.messages.course.build.started).then(function (course) {
-            if (course.id !== viewModel.courseId || !viewModel.isActive())
+        function courseBuildStarted(course) {
+            if (course.id !== viewModel.courseId || course.publishForReview.state != constants.publishingStates.building)
                 return;
 
             viewModel.state(constants.publishingStates.building);
-        });
+        };
 
-        app.on(constants.messages.course.build.failed, function (courseid) {
-            if (courseid !== viewModel.courseId || !viewModel.isActive())
+        function courseBuildFailed(course) {
+            if (course.id !== viewModel.courseId || course.publishForReview.state != constants.publishingStates.failed)
                 return;
 
             viewModel.state(constants.publishingStates.failed);
-        });
+        };
 
-        app.on(constants.messages.course.publishForReview.started, function (course) {
+        function coursePublishForReviewStarted(course) {
             if (course.id !== viewModel.courseId)
                 return;
 
             viewModel.state(constants.publishingStates.publishing);
-        });
+        };
 
-        app.on(constants.messages.course.publishForReview.completed, function (course) {
+        function coursePublishForReviewCompleted(course) {
             if (course.id !== viewModel.courseId)
                 return;
 
             viewModel.state(constants.publishingStates.succeed);
-            viewModel.reviewUrl(course.reviewUrl);
-        });
+            viewModel.reviewUrl(course.publishForReview.packageUrl);
+        };
 
-        app.on(constants.messages.course.publishForReview.failed, function (courseid) {
-            if (courseid !== viewModel.courseId)
+        function coursePublishForReviewFailed(course) {
+            if (course.id !== viewModel.courseId)
                 return;
 
             viewModel.state(constants.publishingStates.failed);
-        });
+        };
 
         //#endregion
-
-        return viewModel;
 
         function openCourseReviewUrl() {
             if (viewModel.reviewUrlExists() && !viewModel.isPublishing()) {
@@ -82,7 +97,9 @@
             eventTracker.publish(events.updateCourseForReview);
 
             return repository.getById(viewModel.courseId).then(function (course) {
-                return course.publishForReview().fin(function () {
+                return course.publishForReview().fail(function (message) {
+                    notify.error(message);
+                }).fin(function () {
                     viewModel.isActive(false);
                 });
             });

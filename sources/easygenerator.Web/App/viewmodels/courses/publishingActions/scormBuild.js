@@ -1,19 +1,32 @@
-﻿define(['constants', 'viewmodels/courses/publishingActions/publishingAction', 'durandal/app', 'notify', 'eventTracker', 'repositories/courseRepository', 'dom'],
-    function (constants, publishingAction, app, notify, eventTracker, repository, dom) {
+﻿define(['constants', 'viewmodels/courses/publishingActions/publishingAction', 'durandal/app', 'notify', 'eventTracker', 'fileHelper'],
+    function (constants, publishingAction, app, notify, eventTracker, fileHelper) {
 
         var
             events = {
                 downloadScormCourse: 'Download SCORM 1.2 course'
             };
 
-        var ctor = function (courseId, packageUrl) {
-            var viewModel = publishingAction(courseId, packageUrl);
+        var ctor = function (course) {
+            var viewModel = publishingAction(course.id, course.scormBuild);
 
             viewModel.isPublishing = ko.computed(function () {
                 return this.state() === constants.publishingStates.building;
             }, viewModel);
 
-            viewModel.downloadCourse = function () {
+            viewModel.downloadCourse = downloadCourse;
+
+            viewModel.scromBuildStarted = scromBuildStarted;
+            viewModel.scromBuildCompleted = scromBuildCompleted;
+            viewModel.scrormBuildFailed = scrormBuildFailed;
+
+            app.on(constants.messages.course.scormBuild.started).then(viewModel.scromBuildStarted);
+            app.on(constants.messages.course.scormBuild.completed).then(viewModel.scromBuildCompleted);
+            app.on(constants.messages.course.scormBuild.failed).then(viewModel.scrormBuildFailed);
+
+            return viewModel;
+
+
+            function downloadCourse() {
                 if (viewModel.isActive())
                     return undefined;
 
@@ -22,47 +35,42 @@
                 notify.hide();
                 eventTracker.publish(events.downloadScormCourse);
 
-                return repository.getById(viewModel.courseId).then(function (course) {
-                    return course.scormBuild().then(function () {
-                        dom.clickElementById('scormPackageLink');
-                    }).fin(function () {
-                        viewModel.isActive(false);
-                    });
+                return course.scormBuild().then(function (courseInfo) {
+                    fileHelper.downloadFile('download/' + courseInfo.scormBuild.packageUrl);
+                }).fail(function (message) {
+                    notify.error(message);
+                }).fin(function () {
+                    viewModel.isActive(false);
                 });
             };
 
             //#region App-wide events
 
-            viewModel.scromBuildStarted = function (course) {
+            function scromBuildStarted(course) {
                 if (course.id !== viewModel.courseId)
                     return;
 
                 viewModel.state(constants.publishingStates.building);
-            }
+            };
 
-            viewModel.scromBuildCompleted = function (course) {
+            function scromBuildCompleted(course) {
                 if (course.id !== viewModel.courseId)
                     return;
 
                 viewModel.state(constants.publishingStates.succeed);
-                viewModel.packageUrl(course.scormPackageUrl);
-            }
+                viewModel.packageUrl(course.scormBuild.packageUrl);
+            };
 
-            viewModel.scrormBuildFailed = function (id) {
-                if (id !== viewModel.courseId)
+            function scrormBuildFailed(course) {
+                if (course.id !== viewModel.courseId)
                     return;
 
                 viewModel.state(constants.publishingStates.failed);
                 viewModel.packageUrl('');
-            }
-
-            app.on(constants.messages.course.scormBuild.started).then(viewModel.scromBuildStarted);
-            app.on(constants.messages.course.scormBuild.completed).then(viewModel.scromBuildCompleted);
-            app.on(constants.messages.course.scormBuild.failed).then(viewModel.scrormBuildFailed);
+            };
 
             //#endregion
 
-            return viewModel;
         };
 
         return ctor;

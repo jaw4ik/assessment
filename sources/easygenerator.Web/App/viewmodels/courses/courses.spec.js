@@ -241,7 +241,7 @@
                 describe('and publishingState is \"Not started\"', function () {
 
                     beforeEach(function () {
-                        dataCourse.publishingState = constants.publishingStates.notStarted;
+                        spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.notStarted);
                     });
 
                     it('should set current showStatus to \"false\"', function () {
@@ -255,7 +255,7 @@
                 describe('and publishingState is \"building\"', function () {
 
                     beforeEach(function () {
-                        dataCourse.publishingState = constants.publishingStates.building;
+                        spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.building);
                     });
 
                     it('should set current showStatus to \"true\"', function () {
@@ -269,7 +269,7 @@
                 describe('and publishingState is \"Failed\"', function () {
 
                     beforeEach(function () {
-                        dataCourse.publishingState = constants.publishingStates.failed;
+                        spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.failed);
                     });
 
                     it('should set current showStatus to \"true\"', function () {
@@ -283,7 +283,7 @@
                 describe('and publishingState is \"Succeed\"', function () {
 
                     beforeEach(function () {
-                        dataCourse.publishingState = constants.publishingStates.succeed;
+                        spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.succeed);
                     });
 
                     it('should set current showStatus to \"true\"', function () {
@@ -319,7 +319,7 @@
                     describe('and publishingState is not changed', function () {
 
                         beforeEach(function () {
-                            dataCourse.publishingState = constants.publishingStates.notStarted;
+                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.notStarted);
                         });
 
                         it('should set current showStatus to \"false\"', function () {
@@ -333,7 +333,7 @@
                     describe('and publishingState is changed', function () {
 
                         beforeEach(function () {
-                            dataCourse.publishingState = constants.publishingStates.succeed;
+                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.succeed);
                         });
 
                         it('should set current showStatus to \"true\"', function () {
@@ -356,7 +356,7 @@
                     describe('and publishingState is not changed', function () {
 
                         beforeEach(function () {
-                            dataCourse.publishingState = constants.publishingStates.building;
+                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.building);
                         });
 
                         it('should set current showStatus to \"true\"', function () {
@@ -370,7 +370,7 @@
                     describe('and publishingState is changed', function () {
 
                         beforeEach(function () {
-                            dataCourse.publishingState = constants.publishingStates.succeed;
+                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.succeed);
                         });
 
                         it('should set current showStatus to \"true\"', function () {
@@ -393,7 +393,7 @@
                     describe('and publishingState is not changed', function () {
 
                         beforeEach(function () {
-                            dataCourse.publishingState = constants.publishingStates.failed;
+                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.failed);
                         });
 
                         it('should set current showStatus to \"false\"', function () {
@@ -407,7 +407,7 @@
                     describe('and publishingState is changed', function () {
 
                         beforeEach(function () {
-                            dataCourse.publishingState = constants.publishingStates.succeed;
+                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.succeed);
                         });
 
                         it('should set current showStatus to \"true\"', function () {
@@ -430,7 +430,7 @@
                     describe('and publishingState is not changed', function () {
 
                         beforeEach(function () {
-                            dataCourse.publishingState = constants.publishingStates.succeed;
+                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.succeed);
                         });
 
                         it('should set current showStatus to \"false\"', function () {
@@ -444,7 +444,7 @@
                     describe('and publishingState is changed', function () {
 
                         beforeEach(function () {
-                            dataCourse.publishingState = constants.publishingStates.failed;
+                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.failed);
                         });
 
                         it('should set current showStatus to \"true\"', function () {
@@ -907,22 +907,22 @@
                 });
 
                 it('should change status of corresponding course to \'building\'', function () {
-                    app.trigger(constants.messages.course.build.started, { id: courseVm.id });
+                    viewModel.courseBuildStarted({ id: courseVm.id });
                     expect(courseVm.publishingState()).toEqual(constants.publishingStates.building);
                 });
 
                 it('should show building status for corresponding course', function () {
-                    app.trigger(constants.messages.course.build.started, { id: courseVm.id });
+                    viewModel.courseBuildStarted({ id: courseVm.id });
                     expect(courseVm.showStatus()).toBeTruthy();
                 });
 
                 it('should not change status of other courses', function () {
-                    app.trigger(constants.messages.course.build.started, { id: '100500' });
+                    viewModel.courseBuildStarted({ id: '100500' });
                     expect(courseVm.publishingState()).toEqual(constants.publishingStates.notStarted);
                 });
 
                 it('should not show building status for other courses', function () {
-                    app.trigger(constants.messages.course.build.started, { id: '100500' });
+                    viewModel.courseBuildStarted({ id: '100500' });
                     expect(courseVm.showStatus()).toBeFalsy();
                 });
 
@@ -942,25 +942,25 @@
                 });
 
                 it('should change status of the corresponding course to \'success\'', function () {
-                    app.trigger(constants.messages.course.build.completed, { id: courseVm.id });
+                    viewModel.courseBuildCompleted({ id: courseVm.id, build: { packageUrl: '' } });
                     expect(courseVm.publishingState()).toEqual(constants.publishingStates.succeed);
                 });
 
                 it('should change packageUrl of the corresponding course', function () {
                     var packageUrl = "http://xxx.com";
-                    app.trigger(constants.messages.course.build.completed, { id: courseVm.id, packageUrl: packageUrl });
+                    viewModel.courseBuildCompleted({ id: courseVm.id, build: { packageUrl: packageUrl } });
 
                     expect(courseVm.packageUrl()).toEqual(packageUrl);
                 });
 
                 it('should not change status of other courses', function () {
-                    app.trigger(constants.messages.course.build.completed, { id: '100500' });
+                    viewModel.courseBuildCompleted({ id: '100500' });
                     expect(courseVm.publishingState()).toEqual(constants.publishingStates.inProgress);
                 });
 
                 it('should not change packageUrl of other courses', function () {
                     var packageUrl = "http://xxx.com";
-                    app.trigger(constants.messages.course.build.completed, { id: '100500', packageUrl: packageUrl });
+                    viewModel.courseBuildCompleted({ id: '100500', packageUrl: packageUrl });
 
                     expect(courseVm.packageUrl()).toEqual('packageUrl');
                 });
@@ -981,22 +981,22 @@
                 });
 
                 it('should change status of the corresponding course to \'failed\'', function () {
-                    app.trigger(constants.messages.course.build.failed, courseVm.id);
+                    viewModel.courseBuildFailed({ id: courseVm.id });
                     expect(courseVm.publishingState()).toEqual(constants.publishingStates.failed);
                 });
 
                 it('should remove packageUrl of the corresponding course', function () {
-                    app.trigger(constants.messages.course.build.failed, courseVm.id);
+                    viewModel.courseBuildFailed({ id: courseVm.id });
                     expect(courseVm.packageUrl()).toEqual("");
                 });
 
                 it('should not change status of other courses', function () {
-                    app.trigger(constants.messages.course.build.failed, '100500');
+                    viewModel.courseBuildFailed({ id: '100500' });
                     expect(courseVm.publishingState()).toEqual(constants.publishingStates.inProgress);
                 });
 
                 it('should not remove packageUrl of other courses', function () {
-                    app.trigger(constants.messages.course.build.failed, '100500');
+                    viewModel.courseBuildFailed({ id: '100500' });
                     expect(courseVm.packageUrl()).toEqual("packageUrl");
                 });
 
@@ -1020,22 +1020,22 @@
                 });
 
                 it('should change publishingState of corresponding course to \'publishing\'', function () {
-                    app.trigger(constants.messages.course.publish.started, { id: courseVm.id });
+                    viewModel.coursePublishStarted({ id: courseVm.id });
                     expect(courseVm.publishingState()).toEqual(constants.publishingStates.publishing);
                 });
 
                 it('should show publishingState for corresponding course', function () {
-                    app.trigger(constants.messages.course.publish.started, { id: courseVm.id });
+                    viewModel.coursePublishStarted({ id: courseVm.id });
                     expect(courseVm.showStatus()).toBeTruthy();
                 });
 
                 it('should not change publishingState of other courses', function () {
-                    app.trigger(constants.messages.course.publish.started, { id: '100500' });
+                    viewModel.coursePublishStarted({ id: '100500' });
                     expect(courseVm.publishingState()).toEqual(constants.publishingStates.notStarted);
                 });
 
                 it('should not show publishingState for other courses', function () {
-                    app.trigger(constants.messages.course.publish.started, { id: '100500' });
+                    viewModel.coursePublishStarted({ id: '100500' });
                     expect(courseVm.showStatus()).toBeFalsy();
                 });
 
@@ -1055,25 +1055,25 @@
                 });
 
                 it('should change publishingState of the corresponding course to \'success\'', function () {
-                    app.trigger(constants.messages.course.publish.completed, { id: courseVm.id });
+                    viewModel.coursePublishCompleted({ id: courseVm.id, publish: { packageUrl: constants.publishingStates.succeed } });
                     expect(courseVm.publishingState()).toEqual(constants.publishingStates.succeed);
                 });
 
                 it('should change publishedPackageUrl of the corresponding course', function () {
                     var publishedPackageUrl = "http://xxx.com";
-                    app.trigger(constants.messages.course.publish.completed, { id: courseVm.id, publishedPackageUrl: publishedPackageUrl });
+                    viewModel.coursePublishCompleted({ id: courseVm.id, publish: { packageUrl: publishedPackageUrl } });
 
                     expect(courseVm.publishedPackageUrl()).toEqual(publishedPackageUrl);
                 });
 
                 it('should not change publishingState of other courses', function () {
-                    app.trigger(constants.messages.course.publish.completed, { id: '100500' });
+                    viewModel.coursePublishCompleted({ id: '100500' });
                     expect(courseVm.publishingState()).toEqual(constants.publishingStates.inProgress);
                 });
 
                 it('should not change publishedPackageUrl of other courses', function () {
                     var publishedPackageUrl = "http://xxx.com";
-                    app.trigger(constants.messages.course.publish.completed, { id: '100500', publishedPackageUrl: publishedPackageUrl });
+                    viewModel.coursePublishCompleted({ id: '100500', publish: { packageUrl: publishedPackageUrl } });
 
                     expect(courseVm.publishedPackageUrl()).toEqual('packageUrl');
                 });
@@ -1094,22 +1094,22 @@
                 });
 
                 it('should change publishingState of the corresponding course to \'failed\'', function () {
-                    app.trigger(constants.messages.course.publish.failed, courseVm.id);
+                    viewModel.coursePublishFailed({ id: courseVm.id });
                     expect(courseVm.publishingState()).toEqual(constants.publishingStates.failed);
                 });
 
                 it('should remove publishedPackageUrl of the corresponding course', function () {
-                    app.trigger(constants.messages.course.publish.failed, courseVm.id);
+                    viewModel.coursePublishFailed({ id: courseVm.id });
                     expect(courseVm.publishedPackageUrl()).toEqual("");
                 });
 
                 it('should not change publishingState of other courses', function () {
-                    app.trigger(constants.messages.course.publish.failed, '100500');
+                    viewModel.coursePublishFailed({ id: '100500' });
                     expect(courseVm.publishingState()).toEqual(constants.publishingStates.inProgress);
                 });
 
                 it('should not remove publishedPackageUrl of other courses', function () {
-                    app.trigger(constants.messages.course.publish.failed, '100500');
+                    viewModel.coursePublishFailed({ id: '100500' });
                     expect(courseVm.publishedPackageUrl()).toEqual("packageUrl");
                 });
 
