@@ -415,8 +415,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Assert
             _userSignedUpEventPublisher.Received().Publish
                 (
-                    Arg.Is<UserSignedUpEvent>(_ => _.User == user && _.UsedAuthoringTool == profile.UsedAuthoringTool && _.CourseDevelopersCount == profile.PeopleBusyWithCourseDevelopmentAmount
-                    && _.WhenNeedAuthoringTool == profile.NeedAuthoringTool)
+                    Arg.Is<UserSignedUpEvent>(_ => _.User == user && _.CourseDevelopersCount == profile.PeopleBusyWithCourseDevelopmentAmount && _.RequestIntroductionDemo == profile.RequestIntroductionDemo)
                 );
         }
 
@@ -496,8 +495,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
                 Organization = "ism",
                 Password = "UserPassword777",
                 PeopleBusyWithCourseDevelopmentAmount = "5",
-                NeedAuthoringTool = "Now",
-                UsedAuthoringTool = "powerpoint"
+                RequestIntroductionDemo = true
             };
         }
         #endregion

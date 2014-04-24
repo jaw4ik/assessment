@@ -339,15 +339,6 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How do you author courses today?.
-        /// </summary>
-        public static string HowAuthorTodayQuestion {
-            get {
-                return ResourceManager.GetString("HowAuthorTodayQuestion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to How many people at your company are authoring courses?.
         /// </summary>
         public static string HowManyPeopleQuestion {
@@ -717,11 +708,11 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How soon do you need an authoring tool?.
+        ///   Looks up a localized string similar to Would you like an introduction demo?.
         /// </summary>
-        public static string WhenDoYouNeedToolQuestion {
+        public static string WouldYouLikeAnIntroductionDemo {
             get {
-                return ResourceManager.GetString("WhenDoYouNeedToolQuestion", resourceCulture);
+                return ResourceManager.GetString("WouldYouLikeAnIntroductionDemo", resourceCulture);
             }
         }
     }

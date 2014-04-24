@@ -868,11 +868,8 @@
     howManyPeopleQuestion: {
         en: 'How many people at your company are authoring courses?'
     },
-    whenDoYouNeedToolQuestion: {
-        en: 'How soon do you need an authoring tool?'
-    },
-    howAuthorTodayQuestion: {
-        en: 'How do you author courses today?'
+    wouldYouLikeAnIntroductionDemo: {
+        en: 'Would you like an introduction demo?'
     },
     chooseAnswer: {
         en: 'Choose answer'

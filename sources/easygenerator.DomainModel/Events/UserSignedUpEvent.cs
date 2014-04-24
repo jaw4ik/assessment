@@ -8,10 +8,9 @@ namespace easygenerator.DomainModel.Events
         public User User { get; private set; }
         public string UserPassword { get; private set; }
         public string CourseDevelopersCount { get; private set; }
-        public string WhenNeedAuthoringTool { get; private set; }
-        public string UsedAuthoringTool { get; private set; }
+        public bool RequestIntroductionDemo { get; private set; }
 
-        public UserSignedUpEvent(User user, string userPassword, string courseDevelopersCount, string whenNeedAuthoringTool, string usedAuthoringTool)
+        public UserSignedUpEvent(User user, string userPassword, string courseDevelopersCount, bool requestIntroductionDemo)
         {
             ThrowIfUserIsInvalid(user);
             ArgumentValidation.ThrowIfNullOrEmpty(userPassword, "userPassword");
@@ -19,8 +18,7 @@ namespace easygenerator.DomainModel.Events
             User = user;
             UserPassword = userPassword;
             CourseDevelopersCount = courseDevelopersCount;
-            WhenNeedAuthoringTool = whenNeedAuthoringTool;
-            UsedAuthoringTool = usedAuthoringTool;
+            RequestIntroductionDemo = requestIntroductionDemo;
         }
 
         private void ThrowIfUserIsInvalid(User user)

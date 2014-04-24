@@ -221,9 +221,6 @@ your password.</value>
   <data name="HidePassword" xml:space="preserve">
     <value>Hide password</value>
   </data>
-  <data name="HowAuthorTodayQuestion" xml:space="preserve">
-    <value>How do you author courses today?</value>
-  </data>
   <data name="HowManyPeopleQuestion" xml:space="preserve">
     <value>How many people at your company are authoring courses?</value>
   </data>
@@ -347,7 +344,7 @@ your password.</value>
   <data name="VariantMore3Months" xml:space="preserve">
     <value>&gt;3 months</value>
   </data>
-  <data name="WhenDoYouNeedToolQuestion" xml:space="preserve">
-    <value>How soon do you need an authoring tool?</value>
+  <data name="WouldYouLikeAnIntroductionDemo" xml:space="preserve">
+    <value>Would you like an introduction demo?</value>
   </data>
 </root>

@@ -163,7 +163,7 @@ namespace easygenerator.Web.Controllers.Api
                 profile.Organization, profile.Country, profile.Email);
 
             _repository.Add(user);
-            _userSignedUpEventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.PeopleBusyWithCourseDevelopmentAmount, profile.NeedAuthoringTool, profile.UsedAuthoringTool));
+            _userSignedUpEventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.PeopleBusyWithCourseDevelopmentAmount, profile.RequestIntroductionDemo));
 
             if (User.Identity.IsAuthenticated && _repository.GetUserByEmail(User.Identity.Name) == null)
             {

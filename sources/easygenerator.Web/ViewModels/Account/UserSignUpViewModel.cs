@@ -17,7 +17,6 @@ namespace easygenerator.Web.ViewModels.Account
         public string Country { get; set; }
 
         public string PeopleBusyWithCourseDevelopmentAmount { get; set; }
-        public string NeedAuthoringTool { get; set; }
-        public string UsedAuthoringTool { get; set; }
+        public bool RequestIntroductionDemo { get; set; }
     }
 }
