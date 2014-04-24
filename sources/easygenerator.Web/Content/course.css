@@ -504,7 +504,7 @@
 }
 
 .package-action-slider-nav-prew {
-  background: url('images/carousel.png') no-repeat scroll 0px 0 rgba(0, 0, 0, 0);
+  background: url('images/slider.png') no-repeat scroll 0px 0 rgba(0, 0, 0, 0);
     display: block;
     width: 10px;
     height: 16px;
@@ -517,7 +517,7 @@
 }
 
 .package-action-slider-nav-next {
-    background: url('images/carousel.png') no-repeat scroll -10px 0 rgba(0, 0, 0, 0);
+    background: url('images/slider.png') no-repeat scroll -10px 0 rgba(0, 0, 0, 0);
     display: block;
     width: 10px;
     height: 16px;
@@ -540,7 +540,7 @@
 }
 
 .package-action-slider-nav-link {
-    background: url("images/carousel.png") no-repeat scroll -20px -3px rgba(0, 0, 0, 0);
+    background: url("images/slider.png") no-repeat scroll -20px -3px rgba(0, 0, 0, 0);
     display: inline-block;
     height: 10px;
     overflow: hidden;
