@@ -974,6 +974,7 @@
     <Content Include="Scripts\knockoutBindings\notificationsBinding.js" />
     <Content Include="Scripts\knockoutBindings\placeholderBinding.js" />
     <Content Include="Scripts\knockoutBindings\dialogBinding.js" />
+    <Content Include="Scripts\knockoutBindings\sliderBinding.js" />
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />

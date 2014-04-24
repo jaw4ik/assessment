@@ -227,13 +227,34 @@
         en: 'Please upgrade your account to \"Starter plan\" to be able to download the course as a SCORM package.'
     },
     upgradeToStarterPlanToUseScormMessage: {
-        en: 'Starter plan users only. Please, <a href=\"/account/upgrade\" target=\"_blank\">upgrade</a> to use this functionality'
+        en: 'You have to <a target=\"_blank\" href=\"http://staging.easygenerator.com/account/upgrade\">upgrade your account</a> in order to<br/>download SCORM 1.2 package'
     },
     publishToAim4You: {
         en: 'Publish to Aim4You'
     },
     publishToAim4YouPublishDescription: {
         en: 'with our partner Aim 4 You'
+    },
+    publishToAim4YouSlideText: {
+        en: 'One click publishing'
+    },
+    publishToAim4YouSlideText1: {
+        en: 'Free hosting'
+    },
+    publishToAim4YouSlideText2: {
+        en: 'Security'
+    },
+    publishToAim4YouSlideText3: {
+        en: 'eCommerce  for  course'
+    },
+    publishToAim4YouListText: {
+        en: 'Using Aim4You, no Learning Management System or hosting services are required.'
+    },
+    publishToAim4YouListText1: {
+        en: 'Aim4You offers a directory service. You can showcase your content and can invite anyone to join.'
+    },
+    publishToAim4YouListText2: {
+        en: 'Simply secure your content and easily manage access to your content.'
     },
     publishToAim4YouConfirmSendMessage: {
         en: 'A confirmation email was sent. Click on the link in this mail to activate your account.'
@@ -242,7 +263,7 @@
         en: 'Your course is successfully uploaded. You will receive an email with more details after the publication is finished.'
     },
     publishToAim4YouInfoMessage: {
-        en: 'You have not confirmed your registration with Aim4You. In order to publish you have to click on the link in the confirmation email to activate your account.'
+        en: 'You have not confirmed your registration with Aim 4 You. In order to publish you have to click on the link in the confirmation email to activate your account.'
     },
     publishToAim4YouSendAgain: {
         en: 'Send the confirmation email again'
@@ -254,7 +275,7 @@
         en: 'Register'
     },
     publishToStore: {
-        en: 'Publish to Aim4You'
+        en: 'Publish to Aim 4 You'
     },
     publishToCatalog: {
         en: 'Publish and Sell your online course'

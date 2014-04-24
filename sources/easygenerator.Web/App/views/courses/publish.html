@@ -10,25 +10,41 @@
                         <span class="package-action-subtitle" data-bind="localize: { text: 'publishToAim4YouPublishDescription' }"></span>
                     </div>
                     <div class="package-action-body">
-                        <div class="package-action-slider-wrapper">
+                        <div class="package-action-slider-wrapper" data-bind="slider:true">
                             <ul class="package-action-slider slides">
-                                <li class="package-action-slider-item active slide"><img src="/Content/images/Aim4YouPublish/Slide01.png" /><span class="package-action-slider-item-description">One click publishing</span></li>
-                                <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide01.png" /><span class="package-action-slider-item-description">One click publishing</span></li>
-                                <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide01.png" /><span class="package-action-slider-item-description">One click publishing</span></li>
+                                <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide01.png" /><span class="package-action-slider-item-description" data-bind="localize: { text: 'publishToAim4YouSlideText' }"></span></li>
+                                <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide02.png" /><span class="package-action-slider-item-description" data-bind="localize: { text: 'publishToAim4YouSlideText1' }"></span></li>
+                                <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide03.png" /><span class="package-action-slider-item-description" data-bind="localize: { text: 'publishToAim4YouSlideText2' }"></span></li>
+                                <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide04.png" /><span class="package-action-slider-item-description" data-bind="localize: { text: 'publishToAim4YouSlideText3' }"></span></li>
                             </ul>
                             <div class="package-action-slider-arrows">
-                                <a class="package-action-slider-nav-prew slider-nav-prew" href=""></a>
-                                <a class="package-action-slider-nav-next slider-nav-next" href=""></a>
+                                <a class="package-action-slider-nav-prew slider-nav-prew" href="javascript:void(0)"></a>
+                                <a class="package-action-slider-nav-next slider-nav-next" href="javascript:void(0)"></a>
                             </div>
                             <div class="package-action-slider-nav slider-nav-links">
-                                <a class="package-action-slider-nav-link slider-nav-link" href=""></a>
+                                <a class="package-action-slider-nav-link slider-nav-link" href="javascript:void(0)"></a>
                             </div>
                         </div>
                         <div class="package-action-description">
                             <ul class="package-action-description-list">
-                                <li><img class="package-action-description-list-image" src="/Content/images/Aim4YouPublish/List01.png" /><p class="package-action-description-list-description">Using Aim4You, no Learning Management System or hosting services are required.</p></li>
-                                <li><img class="package-action-description-list-image" src="/Content/images/Aim4YouPublish/List02.png" /><p class="package-action-description-list-description">Aim4You offers a directory service. You can showcase your content and can invite anyone to join.</p></li>
-                                <li><img class="package-action-description-list-image" src="/Content/images/Aim4YouPublish/List03.png" /><p class="package-action-description-list-description">Simply secure your content and easily manage access to your content.</p></li>
+                                <li>
+                                    <div class="package-action-description-list-image-wrapper">
+                                        <img src="/Content/images/Aim4YouPublish/List01.png" />
+                                    </div>
+                                    <div class="package-action-description-list-description" data-bind="localize: { text: 'publishToAim4YouListText' }"></div>
+                                </li>
+                                <li>
+                                    <div class="package-action-description-list-image-wrapper">
+                                        <img src="/Content/images/Aim4YouPublish/List02.png" />
+                                    </div>
+                                    <div class="package-action-description-list-description" data-bind="localize: { text: 'publishToAim4YouListText1' }"></div>
+                                </li>
+                                <li>
+                                    <div class="package-action-description-list-image-wrapper">
+                                        <img  src="/Content/images/Aim4YouPublish/List03.png" />
+                                    </div>
+                                    <div class="package-action-description-list-description" data-bind="localize: { text: 'publishToAim4YouListText2' }"></div>
+                                </li>
                             </ul>
                         </div>
                         <div class="package-action-btn-holder">
@@ -72,14 +88,6 @@
                                 </div>
                                 <div class="view-course-btn-wrapper">
                                     <div class="view-course-description-wrapper">
-                                        <div class="action-explanation-tooltip-container" data-bind="visible: !isPublishingInProgress()">
-                                            <div class="action-explanation-tooltip-wrapper">
-                                                <div class="action-explanation-tooltip">
-                                                    <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'viewCourseDescription' }"></span>
-                                                    <div class="action-explanation-tooltip-triangle"></div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <!-- ko ifnot: isPublishingInProgress() -->
                                         <a class="view-course-btn" data-bind="click: publishAction().openPublishedCourse, attr: { href: publishAction().packageUrl() }">
                                             <span class="view-course-text" data-bind="localize: { text: 'viewCourse' }"></span>
