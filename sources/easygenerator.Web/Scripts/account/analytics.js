@@ -31,11 +31,14 @@
 
                         properties.Email = username;
                     }
-                    mixpanel.track(eventName, properties, function () {
-                        deferred.resolve();
-                    });
+                    mixpanel.track(eventName, properties, resolve);
+                    _.delay(resolve, application.constants.timeout.mixpanel);
 
                 } else {
+                    resolve();
+                }
+
+                function resolve() {
                     deferred.resolve();
                 }
 
@@ -51,11 +54,14 @@
                 var gaq = window._gaq;
 
                 if (gaq) {
-                    gaq.push(['_set', 'hitCallback', function () {
-                        deferred.resolve();
-                    }]);
+                    gaq.push(['_set', 'hitCallback', resolve]);
                     gaq.push(['_trackEvent', 'Account', eventName]);
+                    _.delay(resolve, application.constants.timeout.googleAnalytics);
                 } else {
+                    resolve();
+                }
+
+                function resolve() {
                     deferred.resolve();
                 }
 
@@ -66,11 +72,14 @@
                 var gaq = window._gaq;
 
                 if (gaq) {
-                    gaq.push(['_set', 'hitCallback', function () {
-                        deferred.resolve();
-                    }]);
+                    gaq.push(['_set', 'hitCallback', resolve]);
                     gaq.push(['_trackPageview', url]);
+                    _.delay(resolve, application.constants.timeout.googleAnalytics);
                 } else {
+                    resolve();
+                }
+
+                function resolve() {
                     deferred.resolve();
                 }
 

@@ -7,6 +7,11 @@ app.constants.events = {
     signupSecondStep: 'Sign up (2nd step)'
 };
 
+app.constants.timeout = {
+    mixpanel: 10000,
+    googleAnalytics: 10000
+};
+
 app.constants.pageviewUrls = {
     signupFirstStep: '/signup/step1.html',
     signupSecondStep: '/signup/step2.html'
