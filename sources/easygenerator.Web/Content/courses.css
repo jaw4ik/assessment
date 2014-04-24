@@ -13,6 +13,7 @@
     top: 50%;
     right: 50px;
     margin-top: -15px;
+    padding-right: 10px;
     text-align: right;
 }
 
@@ -29,6 +30,7 @@
 }
 
 .course-actions-panel .course-action-btn {
+    background-color: white;
     border: 1px solid #b7b7b7;
 }
 

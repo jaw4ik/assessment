@@ -289,6 +289,9 @@
     upgradeToNextPlanToCreateMoreCoursesErrorMessage: {
         en: 'Please upgrade your account to next plan to be able to create more courses.'
     },
+    relatedLearningObjectives: {
+        en: 'Related learning objectives'
+    },
     /* End resource section for model Courses */
     
     /* Resource section for model CreateObjective */

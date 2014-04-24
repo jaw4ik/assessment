@@ -286,6 +286,7 @@ input[type="checkbox"] {
 
 .course-caption {
     width: 100%;
+    line-height: 1.45;
     font-weight: normal;
     word-wrap: break-word;
 }

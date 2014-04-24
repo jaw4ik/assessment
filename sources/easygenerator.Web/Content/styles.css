@@ -947,8 +947,8 @@ span.top-navigation-item.current {
 .main-content-list .list-item-open {
     display: table-cell;
     vertical-align: middle;
-    width: 85px;
-    padding-right: 10px;
+    width: 95px;
+    padding-right: 20px;
     text-align: right;
 }
 
@@ -975,7 +975,7 @@ span.top-navigation-item.current {
         top: 50%;
         left: 50%;
         margin-top: -6px;
-        margin-left: -4px;
+        margin-left: -3px;
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAMCAMAAABoQAyvAAAAXVBMVEX///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8/beDHAAAAHnRSTlMA/q+y8fsIaTH8Ku5gWD1Q63I353rme+pzNjxiWlK9ElnwAAAASElEQVR4Xi2NRw4AMQgDQ9r23pv//8wlVrjMSDZgoh0MxyF0lN6jamlzAylo5QiZaPUCrJQN2FN0QE7llcu3rj/54MuVaD/yB62CA2C2xXtpAAAAAElFTkSuQmCC');
     }
 
