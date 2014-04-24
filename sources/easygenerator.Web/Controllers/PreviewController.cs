@@ -1,113 +1,101 @@
-﻿using easygenerator.DomainModel.Entities;
-using easygenerator.Infrastructure;
-using easygenerator.Web.BuildCourse;
-using easygenerator.Web.Components;
-using easygenerator.Web.Components.ActionFilters;
-using easygenerator.Web.Extensions;
-using easygenerator.Web.Preview;
-using System;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using easygenerator.DomainModel.Entities;
+using easygenerator.Infrastructure;
+using easygenerator.Web.BuildCourse;
+using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Components.ActionResults;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace easygenerator.Web.Controllers
 {
     [NoCache]
     public class PreviewController : Controller
     {
-        private readonly ICoursePreviewBuilder _coursePreviewBuilder;
-        private readonly BuildPathProvider _pathProvider;
-        private readonly IUrlHelperWrapper _urlHelper;
+        private readonly BuildPathProvider _buildPathProvider;
         private readonly PhysicalFileManager _physicalFileManager;
+        private readonly PackageModelMapper _packageModelMapper;
 
-        public PreviewController(ICoursePreviewBuilder coursePreviewBuilder,
-                                 BuildPathProvider pathProvider,
-                                 IUrlHelperWrapper urlHelper,
-                                 PhysicalFileManager physicalFileManager)
+        public PreviewController(BuildPathProvider buildPathProvider,
+                                 PhysicalFileManager physicalFileManager,
+                                 PackageModelMapper packageModelMapper)
         {
-            _coursePreviewBuilder = coursePreviewBuilder;
-            _pathProvider = pathProvider;
-            _urlHelper = urlHelper;
+            _buildPathProvider = buildPathProvider;
             _physicalFileManager = physicalFileManager;
+            _packageModelMapper = packageModelMapper;
         }
 
-        [Route("preview/{courseId}")]
-        public ActionResult PreviewCourse(Course course)
+
+        [Route("preview/{courseId}/settings.js")]
+        public ActionResult GetPreviewCourseSettings(Course course)
         {
             if (course == null)
-            {
-                return new HttpNotFoundResult();
-            }
+                return HttpNotFound();
 
-            ViewBag.Url = GetPreviewBuildUrl(course.Id);
-            return View();
+            return Content(course.GetTemplateSettings(course.Template), "application/json");
         }
 
-        [HttpPost]
-        [Route("preview/build/{courseId}")]
-        public async Task<ActionResult> BuildCoursePreview(Course course)
+        [Route("preview/{courseId}/content/content.html")]
+        public ActionResult GetPreviewCourseContent(Course course)
         {
             if (course == null)
-            {
-                return new HttpNotFoundResult();
-            }
+                return HttpNotFound();
 
-            var buildSuccess = await _coursePreviewBuilder.Build(course);
-
-            if (!buildSuccess)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
-            }
-
-            return new JsonResult()
-            {
-                Data = GetPreviewUrl(course.Id.ToString())
-            };
+            return Content(course.IntroductionContent);
         }
 
-        [Route("storage/preview/{courseId}/{*resourceUrl}")]
-        public ActionResult GetPreviewResource(string courseId, string resourceUrl)
+        [Route("preview/{courseId}/content/{objectiveId}/{questionId}/content.html")]
+        public ActionResult GetPreviewQuestionContent(Question question)
         {
-            // redirect to correct url, should contain '/' in the end, to correctly process links to package files.
-            if (string.IsNullOrEmpty(resourceUrl))
-            {
-                if (HttpContext != null && HttpContext.Request != null && HttpContext.Request.Url != null)
-                {
-                    if (!HttpContext.Request.Url.AbsolutePath.EndsWith("/"))
-                    {
-                        return Redirect(GetPreviewUrl(courseId));
-                    }
-                }
-                else
-                {
-                    return new EmptyResult();
-                }
-            }
+            if (question == null)
+                return HttpNotFound();
 
-            string resourcePath = string.Format("{0}/{1}", courseId, string.IsNullOrWhiteSpace(resourceUrl) ? "index.html" : resourceUrl);
-            var filePath = GetPreviewResourcePhysicalPath(resourcePath);
+            return Content(question.Content);
+        }
+
+        [Route("preview/{courseId}/content/{objectiveId}/{questionId}/{learningContentId}.html")]
+        public ActionResult GetPreviewLearningContent(LearningContent learningContent)
+        {
+            if (learningContent == null)
+                return HttpNotFound();
+
+            return Content(learningContent.Text);
+        }
+
+        [Route("preview/{courseId}/content/data.js")]
+        public ActionResult GetPreviewCourseData(Course course)
+        {
+            if (course == null)
+                return HttpNotFound();
+
+            return new JsonDataResult(
+                _packageModelMapper.MapCourse(course),
+                settings: new JsonSerializerSettings()
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                });
+        }
+
+        [ResourceUrlProcessor]
+        [Route("preview/{courseId}/{*resourceUrl}")]
+        public ActionResult GetPreviewResource(Course course, string resourceUrl)
+        {
+            if (course == null)
+                return HttpNotFound();
+
+            var resourcePath = String.IsNullOrWhiteSpace(resourceUrl) ? "index.html" : resourceUrl.Replace("/", "\\");
+            var templateDirectory = _buildPathProvider.GetTemplateDirectoryName(course.Template.Name);
+            var filePath = Path.Combine(templateDirectory, resourcePath);
+
             if (!_physicalFileManager.FileExists(filePath))
             {
-                return new HttpNotFoundResult();
+                return HttpNotFound();
             }
 
             return File(filePath, MimeMapping.GetMimeMapping(filePath));
-        }
-
-        private string GetPreviewUrl(string courseId)
-        {
-            return _urlHelper.ToAbsoluteUrl(string.Format("~/storage/preview/{0}/", courseId));
-        }
-
-        private string GetPreviewBuildUrl(Guid courseId)
-        {
-            return _urlHelper.ToAbsoluteUrl(string.Format("~/preview/build/{0}/", courseId.ToNString()));
-        }
-
-        public string GetPreviewResourcePhysicalPath(string resourceUrl)
-        {
-            return _pathProvider.GetPreviewResourcePath(resourceUrl.Replace("/", "\\"));
         }
     }
 }

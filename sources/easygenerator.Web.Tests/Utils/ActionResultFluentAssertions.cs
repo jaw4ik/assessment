@@ -40,6 +40,23 @@ namespace easygenerator.Web.Tests.Utils
         }
     }
 
+    public class ContentResultAssertions : ObjectAssertions
+    {
+
+        public ContentResultAssertions(ContentResult subject)
+            : base(subject)
+        {
+        }
+
+        public ContentResult And
+        {
+            get
+            {
+                return Subject as ContentResult;
+            }
+        }
+    }
+
     public class JsonSuccessResultAssertions : ObjectAssertions
     {
 
@@ -236,6 +253,23 @@ namespace easygenerator.Web.Tests.Utils
         }
     }
 
+    public class EmptyResultAssertions : ObjectAssertions
+    {
+        public EmptyResultAssertions(EmptyResult subject)
+            : base(subject)
+        {
+
+        }
+
+        public EmptyResult And
+        {
+            get
+            {
+                return Subject as EmptyResult;
+            }
+        }
+    }
+
     public static class ActionResultFluentAssertions
     {
         public static JsonResultAssertions BeJsonResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
@@ -254,9 +288,30 @@ namespace easygenerator.Web.Tests.Utils
                 .BecauseOf(reason, reasonArgs)
                 .ForCondition(value.Subject is JsonResult)
                 .ForCondition(((JsonResult)value.Subject).Data == data)
-                .FailWith("Expected \"JsonResult\", but got {0}",  GetSubjectTypeErrorMessage(value.Subject));
+                .FailWith("Expected \"JsonResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new JsonResultAssertions(value.Subject as JsonResult);
+        }
+
+        public static ContentResultAssertions BeContentResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is ContentResult)
+                .FailWith("Expected \"ContentResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new ContentResultAssertions(value.Subject as ContentResult);
+        }
+
+        public static ContentResultAssertions BeContentResultWithValue(this ObjectAssertions value, string content = null, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is ContentResult)
+                .ForCondition(((ContentResult)value.Subject).Content == content)
+                .FailWith("Expected \"ContentResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new ContentResultAssertions(value.Subject as ContentResult);
         }
 
         public static ViewResultAssertions BeViewResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
@@ -267,6 +322,16 @@ namespace easygenerator.Web.Tests.Utils
                 .FailWith("Expected \"ViewResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new ViewResultAssertions(value.Subject as ViewResult);
+        }
+
+        public static EmptyResultAssertions BeEmptyResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is EmptyResult)
+                .FailWith("Expected \"ViewResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new EmptyResultAssertions(value.Subject as EmptyResult);
         }
 
         public static JsonSuccessResultAssertions BeJsonSuccessResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
@@ -403,6 +468,16 @@ namespace easygenerator.Web.Tests.Utils
             return new RedirectResultAssertions(value.Subject as RedirectResult);
         }
 
+        public static RedirectResultAssertions BeRedirectResultWithUrl(this ObjectAssertions value, string url = null, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is RedirectResult)
+                  .ForCondition(((RedirectResult)value.Subject).Url == url)
+                .FailWith("Expected \"RedirectResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new RedirectResultAssertions(value.Subject as RedirectResult);
+        }
 
         private static string GetSubjectTypeErrorMessage(object subject)
         {

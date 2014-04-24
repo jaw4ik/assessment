@@ -191,6 +191,7 @@
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCoursesAmountAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\StarterAccessAttribute.cs" />
+    <Compile Include="Components\ActionFilters\ResourceUrlProcessorAttribute.cs" />
     <Compile Include="Components\ActionResults\SslRequiredResult.cs" />
     <Compile Include="Components\Configuration\Aim4YouConfigurationSection.cs" />
     <Compile Include="Components\Configuration\ExternalApi\ApiKeyCollection.cs" />
@@ -211,8 +212,6 @@
     <Compile Include="Import\PublishedCourse\PublishedCourseImporter.cs" />
     <Compile Include="Import\PublishedCourse\PublishedCourseStructureReader.cs" />
     <Compile Include="Controllers\PreviewController.cs" />
-    <Compile Include="Preview\CoursePreviewBuilder.cs" />
-    <Compile Include="Preview\ICoursePreviewBuilder.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
@@ -621,7 +620,6 @@
     <Content Include="Content\images\sprites_32.png" />
     <Content Include="Content\images\tree.png" />
     <Content Include="Content\images\warning.png" />
-    <Content Include="Content\preview.css" />
     <Content Include="Content\review.css" />
     <Content Include="Content\panels.css" />
     <Content Include="Content\treeOfContent.css" />
@@ -979,10 +977,6 @@
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\preview\preview.js" />
-    <Content Include="Scripts\preview\preview.spec.js">
-      <DependentUpon>preview.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\review\common.js" />
@@ -1939,7 +1933,6 @@
     <Content Include="Templates\Simple course\js\vendor.min.js.map">
       <DependentUpon>vendor.min.js</DependentUpon>
     </Content>
-    <Content Include="Views\Preview\PreviewCourse.cshtml" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
@@ -2113,7 +2106,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\ActionFilters\Features\" />
     <Folder Include="PreviewPackages\" />
     <Folder Include="PublishedPackages\" />
     <Folder Include="Views\PreviewHub\" />

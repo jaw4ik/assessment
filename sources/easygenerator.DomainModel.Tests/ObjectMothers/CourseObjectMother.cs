@@ -1,5 +1,5 @@
-﻿using System;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers

@@ -132,6 +132,7 @@
     <Compile Include="BuildCourse\PackageModelMapperTests.cs" />
     <Compile Include="Components\ActionFilters\CustomRequireHttpsAttributeTest.cs" />
     <Compile Include="Components\ActionFilters\ForceHttpAttributeTests.cs" />
+    <Compile Include="Components\ActionFilters\ResourceUrlProcessorAttributeTests.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransformTests.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinderTests.cs" />
     <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraintTest.cs" />
@@ -163,7 +164,6 @@
     <Compile Include="Import\PublishedCourse\ImportContentReaderTests.cs" />
     <Compile Include="Mail\MailTemplatesProviderTests.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManagerTest.cs" />
-    <Compile Include="Preview\CoursePreviewBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Publish\Aim4You\Aim4YouApiServiceTests.cs" />
     <Compile Include="Publish\Aim4You\Aim4YouCoursePublisherTests.cs" />

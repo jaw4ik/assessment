@@ -10,7 +10,6 @@ namespace easygenerator.Web.BuildCourse
         private string TemplatesPath { get; set; }
         private string DownloadPath { get; set; }
         private string PublishPath { get; set; }
-        private string PreviewPath { get; set; }
 
         public BuildPathProvider(HttpRuntimeWrapper httpRuntimeWrapper)
         {
@@ -19,7 +18,6 @@ namespace easygenerator.Web.BuildCourse
             TemplatesPath = Path.Combine(WebsitePath, "Templates");
             DownloadPath = Path.Combine(WebsitePath, "Download");
             PublishPath = Path.Combine(WebsitePath, "PublishedPackages");
-            PreviewPath = Path.Combine(WebsitePath, "PreviewPackages");
         }
 
         public virtual string GetBuildDirectoryName(string buildId)
@@ -99,16 +97,6 @@ namespace easygenerator.Web.BuildCourse
         public virtual string GetPublishedResourcePath(string resourcePath)
         {
             return Path.Combine(PublishPath, resourcePath);
-        }
-
-        public virtual string GetPreviewFolderPath(string courseId)
-        {
-            return Path.Combine(PreviewPath, courseId);
-        }
-
-        public virtual string GetPreviewResourcePath(string resourcePath)
-        {
-            return Path.Combine(PreviewPath, resourcePath);
         }
 
         public virtual string GetBuildedPackagePath(string packagePath)

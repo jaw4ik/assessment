@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Caching;
-using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace easygenerator.Web.Components.ActionResults

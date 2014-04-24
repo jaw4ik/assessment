@@ -1,15 +1,13 @@
-﻿using easygenerator.DomainModel.Tests.ObjectMothers;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.Components;
 using easygenerator.Web.Controllers;
-using easygenerator.Web.Preview;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace easygenerator.Web.Tests.Controllers
 {
@@ -17,121 +15,188 @@ namespace easygenerator.Web.Tests.Controllers
     public class PreviewControllerTests
     {
         private PreviewController _controller;
-        private ICoursePreviewBuilder _coursePreviewBuilder;
-        private BuildPathProvider _pathProvider;
-        private IUrlHelperWrapper _urlHelper;
+        private BuildPathProvider _buildPathProvider;
         private PhysicalFileManager _physicalFileManager;
+        private PackageModelMapper _packageModelMapper;
 
         [TestInitialize]
         public void Initialize()
         {
-            _coursePreviewBuilder = Substitute.For<ICoursePreviewBuilder>();
-            _pathProvider = Substitute.For<BuildPathProvider>(Substitute.For<HttpRuntimeWrapper>());
-            _urlHelper = Substitute.For<IUrlHelperWrapper>();
+            _buildPathProvider = Substitute.For<BuildPathProvider>(Substitute.For<HttpRuntimeWrapper>());
             _physicalFileManager = Substitute.For<PhysicalFileManager>();
+            _packageModelMapper = Substitute.For<PackageModelMapper>();
 
-            _controller = new PreviewController(_coursePreviewBuilder, _pathProvider, _urlHelper, _physicalFileManager);
+            _controller = new PreviewController(_buildPathProvider, _physicalFileManager, _packageModelMapper);
         }
 
-        #region PreviewCourse
+        #region GetPreviewCourseSettings
 
         [TestMethod]
-        public void PreviewCourse_ShouldReturnNotFound_WhenCourseIsNull()
+        public void GetPreviewCourseSettings_ShouldReturnHttpNotFoundCodeResult_WhenCourseDoesNotExist()
         {
             //Arrange
 
             //Act
-            var result = _controller.PreviewCourse(null);
+            var result = _controller.GetPreviewCourseSettings(null);
 
             //Assert
             result.Should().BeHttpNotFoundResult();
         }
 
+
         [TestMethod]
-        public void PeviewCourse_ShouldSetViewBagUrl()
+        public void GetPreviewCourseSettings_ShouldGetRemplateSettings()
         {
-            //arrange
-            var course = CourseObjectMother.Create();
-            const string url = "url";
-            _urlHelper.ToAbsoluteUrl(Arg.Any<string>()).Returns(url);
+            //Arrange
+            var course = Substitute.For<Course>();
 
             //Act
-            _controller.PreviewCourse(course);
+            _controller.GetPreviewCourseSettings(course);
 
             //Assert
-            Assert.AreEqual(_controller.ViewBag.Url, url);
+            course.Received().GetTemplateSettings(course.Template);
         }
 
         [TestMethod]
-        public void PeviewCourse_ShouldReturnView()
+        public void GetPreviewCourseSettings_ShouldReturnContentResult()
         {
-            //arrange
+            //Arrange
             var course = CourseObjectMother.Create();
 
             //Act
-            var result = _controller.PreviewCourse(course);
+            var result = _controller.GetPreviewCourseSettings(course);
 
             //Assert
-            result.Should().BeViewResult();
+            result.Should().BeContentResult();
         }
 
         #endregion
 
-        #region BuildCoursePreview
+        #region GetPreviewCourseContent
 
         [TestMethod]
-        public async Task BuildCoursePreview_ShouldReturnNotFound_WhenCourseIsNull()
+        public void GetPreviewCourseContent_ShouldReturnHttpNotFoundCodeResult_WhenCourseDoesNotExist()
         {
             //Arrange
 
             //Act
-            var result = await _controller.BuildCoursePreview(null);
+            var result = _controller.GetPreviewCourseContent(null);
 
             //Assert
             result.Should().BeHttpNotFoundResult();
         }
 
         [TestMethod]
-        public void BuildCoursePreview_ShouldBuildCourseForPreview()
+        public void GetPreviewCourseContent_ShouldReturnContentResult()
         {
             //Arrange
             var course = CourseObjectMother.Create();
 
             //Act
-             _controller.BuildCoursePreview(course);
+            var result = _controller.GetPreviewCourseContent(course);
 
             //Assert
-            _coursePreviewBuilder.Received().Build(course);
+            result.Should().BeContentResultWithValue(course.IntroductionContent);
+        }
+
+        #endregion
+
+        #region GetPreviewQuestionContent
+
+        [TestMethod]
+        public void GetPreviewQuestionContent_ShouldReturnHttpNotFoundCodeResult_WhenCourseDoesNotExist()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.GetPreviewQuestionContent(null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
         }
 
         [TestMethod]
-        public async Task BuildCoursePreview_ShouldReturnServerError_WhenCourseIsFailedToBuild()
+        public void GetPreviewQuestionContent_ShouldReturnContentResult()
         {
             //Arrange
-            var course = CourseObjectMother.Create();
-            _coursePreviewBuilder.Build(course).Returns(Task.FromResult(false));
+            var question = QuestionObjectMother.Create();
 
             //Act
-            var result = await _controller.BuildCoursePreview(course);
+            var result = _controller.GetPreviewQuestionContent(question);
 
             //Assert
-            result.Should().BeHttpStatusCodeResultWithStatus((int)HttpStatusCode.InternalServerError);
+            result.Should().BeContentResultWithValue(question.Content);
+        }
+
+        #endregion
+
+        #region GetPreviewLearningContent
+
+        [TestMethod]
+        public void GetPreviewLearningContent_ShouldReturnHttpNotFoundCodeResult_WhenCourseDoesNotExist()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.GetPreviewLearningContent(null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
         }
 
         [TestMethod]
-        public async Task BuildCoursePreview_ShouldReturnJson_WhenCourseIsSucceedToBuild()
+        public void GetPreviewLearningContentt_ShouldReturnContentResult()
+        {
+            //Arrange
+            var learningContent = LearningContentObjectMother.Create("text");
+
+            //Act
+            var result = _controller.GetPreviewLearningContent(learningContent);
+
+            //Assert
+            result.Should().BeContentResultWithValue(learningContent.Text);
+        }
+
+        #endregion
+
+        #region GetPreviewCourseData
+
+        [TestMethod]
+        public void GetPreviewCourseData_ShouldReturnHttpNotFoundCodeResult_WhenCourseDoesNotExist()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.GetPreviewCourseData(null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
+        }
+
+        [TestMethod]
+        public void GetPreviewCourseData_ShouldMapCourse()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _coursePreviewBuilder.Build(course).Returns(Task.FromResult(true));
-            const string url = "url";
-            _urlHelper.ToAbsoluteUrl(Arg.Any<string>()).Returns(url);
 
             //Act
-            var result = await _controller.BuildCoursePreview(course);
+            _controller.GetPreviewCourseData(course);
 
             //Assert
-            result.Should().BeJsonResultWithData(url);
+            _packageModelMapper.Received().MapCourse(course);
+        }
+
+        [TestMethod]
+        public void GetPreviewCourseData_ShouldReturnJsonResult()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = _controller.GetPreviewCourseData(course);
+
+            //Assert
+            result.Should().BeJsonDataResult();
         }
 
         #endregion
@@ -142,10 +207,25 @@ namespace easygenerator.Web.Tests.Controllers
         public void GetPreviewResource_ShouldReturnHttpNotFoundCodeResult_WhenResourceDoesNotExist()
         {
             //Arrange
+            var course = CourseObjectMother.Create();
             _physicalFileManager.FileExists(Arg.Any<string>()).Returns(false);
 
             //Act
-            var result = _controller.GetPreviewResource("courseId", "resourceId");
+            var result = _controller.GetPreviewResource(course, "resourceId");
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
+        }
+
+        [TestMethod]
+        public void GetPreviewResource_ShouldReturnHttpNotFoundCodeResult_WhenCourseDoesNotExist()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
+
+            //Act
+            var result = _controller.GetPreviewResource(null, "resourceId");
 
             //Assert
             result.Should().BeHttpNotFoundResult();
@@ -155,42 +235,28 @@ namespace easygenerator.Web.Tests.Controllers
         public void GetPreviewResource_ShouldReturnFilePathResult_WhenResourceExists()
         {
             //Arrange
+            var course = CourseObjectMother.Create();
             _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
-            _pathProvider.GetPreviewResourcePath(Arg.Any<string>()).Returns("filePath");
 
             //Act
-            var result = _controller.GetPreviewResource("courseId", "resourceId");
+            var result = _controller.GetPreviewResource(course, "resourceId");
 
             //Assert
             result.Should().BeFilePathResult();
         }
 
         [TestMethod]
-        public void GetPreviewResource_ShouldGetResource_WhenResourceIsCalled()
+        public void GetPreviewResource_ShouldGetTemplateDirectory()
         {
             //Arrange
+            var course = CourseObjectMother.Create();
             _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
-            _pathProvider.GetPreviewResourcePath(Arg.Any<string>()).Returns("filePath");
 
             //Act
-            _controller.GetPreviewResource("courseId", "resourceId");
+            _controller.GetPreviewResource(course, "resourceId");
 
             //Assert
-            _pathProvider.Received().GetPreviewResourcePath("courseId\\resourceId");
-        }
-
-        [TestMethod]
-        public void GetPreviewResource_ShouldGetStartPage_WhenResourceIsNotCalled()
-        {
-            //Arrange
-            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
-            _pathProvider.GetPreviewResourcePath(Arg.Any<string>()).Returns("filePath");
-
-            //Act
-            _controller.GetPreviewResource("courseId", " ");
-
-            //Assert
-            _pathProvider.Received().GetPreviewResourcePath("courseId\\index.html");
+            _buildPathProvider.Received().GetTemplateDirectoryName(course.Template.Name);
         }
 
         #endregion

@@ -8,11 +8,13 @@ namespace easygenerator.Web.Components.ActionResults
     {
         public object Data { get; set; }
         public string ContentType { get; set; }
+        public JsonSerializerSettings Settings { get; private set; }
 
-        public JsonDataResult(object data = null, string contentType = null)
+        public JsonDataResult(object data = null, string contentType = null, JsonSerializerSettings settings = null)
         {
             Data = data;
             ContentType = contentType;
+            Settings = settings;
         }
 
         public override void ExecuteResult(ControllerContext context)
@@ -27,7 +29,7 @@ namespace easygenerator.Web.Components.ActionResults
                 return;
 
             response.Clear();
-            response.Write(JsonConvert.SerializeObject(Data));
+            response.Write(JsonConvert.SerializeObject(Data, Settings));
         }
     }
 }

@@ -300,40 +300,6 @@ namespace easygenerator.Web.Tests.BuildCourse
 
         #endregion
 
-        #region GetPreviewFolderPath
-
-        [TestMethod]
-        public void GetPreviewFolderPath_ShouldReturnCoursePreviewFolder()
-        {
-            //Arrange
-            var courseId = "courseId";
-
-            //Act
-            var result = _buildPathProvider.GetPreviewFolderPath(courseId);
-
-            //Assert
-            result.Should().Be(PreviewPath + "\\courseId");
-        }
-
-        #endregion
-
-        #region GetPreviewResourcePath
-
-        [TestMethod]
-        public void GetPreviewResourcePath_ShouldReturnPreviewResource()
-        {
-            //Arrange
-            var resource = "resource";
-
-            //Act
-            var result = _buildPathProvider.GetPreviewResourcePath(resource);
-
-            //Assert
-            result.Should().Be(PreviewPath + "\\resource");
-        }
-
-        #endregion
-
         #region GetBuildedPackagePath
 
         [TestMethod]
