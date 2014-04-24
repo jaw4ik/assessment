@@ -14,7 +14,7 @@
             <form id="signUpForm" data-bind="focusHandler: {}" action="#" method="post">
                 <div class="user-column">
                     <div class="user-form-row-combiner">
-                        <div class="user-form-row" data-bind="css: { error: isFirstNameErrorVisible(), success: !isFirstNameErrorVisible() && firstName.isValid() }">
+                        <div class="user-form-row pull-left" data-bind="css: { error: isFirstNameErrorVisible(), success: !isFirstNameErrorVisible() && firstName.isValid() }">
                             <div class="user-form-input-holder">
                                 <span class="user-form-input-wrapper"></span>
                                 <input tabindex="1" class="user-form-input" type="text" placeholder="@Resources.FirstNameCaption" name="firstName" data-bind="value: firstName, valueUpdate: 'afterkeydown', event: { blur: validateFirstName, focus: onFocusFirstName }, placeholder: {}" ondrop="return false;" />
@@ -28,6 +28,7 @@
                             </div>
                             <span class="user-form-message" data-bind="visible: isLastNameErrorVisible()">@Resources.EnterValidLastName</span>
                         </div>
+                        <div class="clearfix"></div>
                     </div>
                     <div class="user-form-row" data-bind="css: { error: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), success: !isUserNameValidating() && !isUserNameEditing() && userName.isValid() }">
                         <div class="user-form-input-holder email">
@@ -35,7 +36,7 @@
                             <input tabindex="2" class="user-form-input" type="text" name="email" autocomplete="off" placeholder="@Resources.EmailCaption" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists }, hasFocus: isUserNameEditing, placeholder: {}" ondrop="return false;" />
                         </div>
                         <span class="form-validation-message" data-bind="visible: isUserNameValidating()">@Resources.Checking</span>
-                        <span class="user-form-message" data-bind="visible: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), text: userExists() ? '@Resources.AccountAlreadyExists    ' : '@Resources.EnterValidEmailMessage    '"></span>
+                        <span class="user-form-message" data-bind="visible: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), text: userExists() ? '@Resources.AccountAlreadyExists' : '@Resources.EnterValidEmailMessage' "></span>
                     </div>
                     <div class="user-form-row" data-bind="css: { error: !password.isValid() && password().length > 0, success: password.isValid() }">
                         <div class="user-form-input-holder password">
