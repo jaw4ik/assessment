@@ -597,6 +597,9 @@
     <Content Include="Content\images\Aim4YouPublish\List02.png" />
     <Content Include="Content\images\Aim4YouPublish\List03.png" />
     <Content Include="Content\images\Aim4YouPublish\Slide01.png" />
+    <Content Include="Content\images\Aim4YouPublish\Slide02.png" />
+    <Content Include="Content\images\Aim4YouPublish\Slide03.png" />
+    <Content Include="Content\images\Aim4YouPublish\Slide04.png" />
     <Content Include="Content\images\blue-loader.GIF" />
     <Content Include="Content\images\build-loader.gif" />
     <Content Include="Content\images\slider.png" />
