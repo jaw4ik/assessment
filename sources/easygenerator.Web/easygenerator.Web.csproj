@@ -585,8 +585,14 @@
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\account\sign-up.png" />
     <Content Include="Content\images\addQuestion.png" />
+    <Content Include="Content\images\Aim4YouPublish\List01.png" />
+    <Content Include="Content\images\Aim4YouPublish\List02.png" />
+    <Content Include="Content\images\Aim4YouPublish\List03.png" />
+    <Content Include="Content\images\Aim4YouPublish\Slide01.png" />
     <Content Include="Content\images\blue-loader.GIF" />
     <Content Include="Content\images\build-loader.gif" />
+    <Content Include="Content\images\carousel.png" />
+    <Content Include="Content\images\collapse-btn-icon.png" />
     <Content Include="Content\images\disabled.png" />
     <Content Include="Content\images\download-scorm-loader.GIF" />
     <Content Include="Content\images\drag-and-drop.png" />
@@ -602,6 +608,8 @@
     <Content Include="Content\images\processSteps.png" />
     <Content Include="Content\images\publish-loader.GIF" />
     <Content Include="Content\images\review-sprites.png" />
+    <Content Include="Content\images\sprites_24.png" />
+    <Content Include="Content\images\sprites_32.png" />
     <Content Include="Content\images\tree.png" />
     <Content Include="Content\images\warning.png" />
     <Content Include="Content\preview.css" />
