@@ -168,7 +168,7 @@ namespace easygenerator.DomainModel.Entities
             PublishedOn = DateTimeWrapper.Now();
         }
 
-       #region Course template settings
+        #region Course template settings
 
         protected internal class CourseTemplateSettings : Entity
         {

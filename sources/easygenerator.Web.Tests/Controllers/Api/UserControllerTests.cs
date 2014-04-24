@@ -9,6 +9,7 @@ using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Import.PublishedCourse;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Publish.Aim4You;
 using easygenerator.Web.Tests.Utils;
@@ -38,6 +39,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IMailSenderWrapper _mailSenderWrapper;
         private IAim4YouApiService _aim4YouService;
         private ConfigurationReader _configurationReader;
+        private PublishedCourseImporter _publishedCourseImporter;
+        private ICourseRepository _courseRepository;
 
         IPrincipal _user;
         HttpContextBase _context;
@@ -56,7 +59,21 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
             _configurationReader = Substitute.For<ConfigurationReader>();
             _aim4YouService = Substitute.For<IAim4YouApiService>();
-            _controller = new UserController(_userRepository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _userSignedUpEventPublisher, _userDonwgradedEventPublisher, _userUpgradedToStarterEventPublisher, _mailSenderWrapper, _configurationReader, _aim4YouService);
+            _publishedCourseImporter = Substitute.For<PublishedCourseImporter>();
+            _courseRepository = Substitute.For<ICourseRepository>();
+
+            _controller = new UserController(_userRepository,
+                _entityFactory,
+                _authenticationProvider,
+                _signupFromTryItNowHandler, 
+                _userSignedUpEventPublisher,
+                _userDonwgradedEventPublisher,
+                _userUpgradedToStarterEventPublisher, 
+                _mailSenderWrapper, 
+                _configurationReader, 
+                _aim4YouService,
+                _publishedCourseImporter,
+                _courseRepository);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -483,6 +500,25 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _context.Session[Constants.SessionConstants.UserSignUpModel].Should().Be(null);
         }
 
+        [TestMethod]
+        public void Signup_ShouldCreateSampleCourse()
+        {
+            //Arrange
+            var profile = GetTestUserSignUpViewModel();
+            var user = UserObjectMother.Create(profile.Email, profile.Password);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
+
+            var course = CourseObjectMother.Create();
+            _publishedCourseImporter.Import(Arg.Any<string>(), profile.Email).Returns(course);
+
+            //Act
+            _controller.Signup(profile);
+
+            //Assert
+            _publishedCourseImporter.Received().Import(Arg.Any<string>(), profile.Email);
+            _courseRepository.Received().Add(course);
+        }
+
         private UserSignUpViewModel GetTestUserSignUpViewModel()
         {
             return new UserSignUpViewModel()
@@ -498,6 +534,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
                 RequestIntroductionDemo = true
             };
         }
+
         #endregion
 
         #region Forgot password

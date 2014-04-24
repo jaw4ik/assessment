@@ -24,16 +24,14 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ICourseRepository _repository;
         private readonly ICoursePublishingService _coursePublishingService;
         private readonly IScormCourseBuilder _scormCourseBuilder;
-        private readonly IObjectiveRepository _objectiveRepository;
 
-        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory, ICoursePublishingService publishingService, IObjectiveRepository objectiveRepository)
+        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory, ICoursePublishingService publishingService)
         {
             _builder = courseBuilder;
             _repository = repository;
             _entityFactory = entityFactory;
             _coursePublishingService = publishingService;
             _scormCourseBuilder = scormCourseBuilder;
-            _objectiveRepository = objectiveRepository;
         }
 
         [HttpPost]
@@ -257,7 +255,7 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }
-       
+
         [HttpPost]
         [Route("api/course/updateobjectivesorder")]
         public ActionResult UpdateObjectivesOrderedList(Course course, ICollection<Objective> objectives)
@@ -269,7 +267,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.UpdateObjectivesOrder(objectives, GetCurrentUsername());
 
-            return JsonSuccess(new {ModifiedOn = course.ModifiedOn});
+            return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }
 
     }

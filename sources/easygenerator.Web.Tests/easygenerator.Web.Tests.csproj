@@ -130,7 +130,6 @@
     <Compile Include="BuildCourse\BuildPathProviderTests.cs" />
     <Compile Include="BuildCourse\BuildPackageCreatorTests.cs" />
     <Compile Include="BuildCourse\PackageModelMapperTests.cs" />
-    <Compile Include="BuildCourse\PhysicalFileManagerTests.cs" />
     <Compile Include="Components\ActionFilters\CustomRequireHttpsAttributeTest.cs" />
     <Compile Include="Components\ActionFilters\ForceHttpAttributeTests.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransformTests.cs" />
@@ -154,6 +153,13 @@
     <Compile Include="Controllers\PreviewControllerTests.cs" />
     <Compile Include="Controllers\PublishedPackageControllerTest.cs" />
     <Compile Include="DomainEvents\Events\UserSignedUpEventTest.cs" />
+    <Compile Include="Import\PublishedCourse\EntityReaders\CourseEntityReaderTests.cs" />
+    <Compile Include="Import\PublishedCourse\EntityReaders\ObjectiveEntityReaderTests.cs" />
+    <Compile Include="Import\PublishedCourse\EntityReaders\QuestionEntityReaderTests.cs" />
+    <Compile Include="Import\PublishedCourse\EntityReaders\AnswerEntityReaderTests.cs" />
+    <Compile Include="Import\PublishedCourse\EntityReaders\LearningContentEntityReaderTests.cs" />
+    <Compile Include="Import\PublishedCourse\PublishedCourseImporterTests.cs" />
+    <Compile Include="Import\PublishedCourse\PublishedCourseStructureReaderTests.cs" />
     <Compile Include="Mail\MailTemplatesProviderTests.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManagerTest.cs" />
     <Compile Include="Preview\CoursePreviewBuilderTests.cs" />

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.IO.Compression;
 
 namespace easygenerator.Infrastructure
@@ -103,6 +102,16 @@ namespace easygenerator.Infrastructure
                 throw new ArgumentException();
 
             File.WriteAllText(path, content);
+        }
+
+        public virtual string ReadAllFromFile(string fileName)
+        {
+            if (FileExists(fileName))
+            {
+                return File.ReadAllText(fileName);
+            }
+
+            throw new ArgumentException(String.Format("File {0} not found", fileName));
         }
 
         public virtual void DeleteFile(string path)

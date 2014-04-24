@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel;
+﻿using System.IO;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
@@ -8,6 +9,7 @@ using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Import.PublishedCourse;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Publish.Aim4You;
 using easygenerator.Web.ViewModels.Account;
@@ -28,6 +30,8 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IDomainEventPublisher<UserUpgradedToStarter> _userUpgradedToStarterEventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly IAim4YouApiService _aim4YouService;
+        private readonly PublishedCourseImporter _publishedCourseImporter;
+        private readonly ICourseRepository _courseRepository;
         private readonly ConfigurationReader _configurationReader;
 
         public UserController(IUserRepository repository,
@@ -39,7 +43,9 @@ namespace easygenerator.Web.Controllers.Api
             IDomainEventPublisher<UserUpgradedToStarter> userUpgradedToStarterEventPublisher,
             IMailSenderWrapper mailSenderWrapper,
             ConfigurationReader configurationReader,
-            IAim4YouApiService aim4YouService)
+            IAim4YouApiService aim4YouService,
+            PublishedCourseImporter publishedCourseImporter,
+            ICourseRepository courseRepository)
         {
             _repository = repository;
             _entityFactory = entityFactory;
@@ -50,6 +56,8 @@ namespace easygenerator.Web.Controllers.Api
             _userUpgradedToStarterEventPublisher = userUpgradedToStarterEventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
             _aim4YouService = aim4YouService;
+            _publishedCourseImporter = publishedCourseImporter;
+            _courseRepository = courseRepository;
             _configurationReader = configurationReader;
         }
 
@@ -171,6 +179,9 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             _authenticationProvider.SignIn(profile.Email, true);
+
+            var course = _publishedCourseImporter.Import(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample Course"), profile.Email);
+            _courseRepository.Add(course);
 
             return JsonSuccess(profile.Email);
         }

@@ -24,18 +24,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
     [TestClass]
     public class CourseControllerTests
     {
-        const string CreatedBy = "easygenerator@easygenerator.com";
+        private const string CreatedBy = "easygenerator@easygenerator.com";
 
         CourseController _controller;
         ICourseBuilder _builder;
-        IScormCourseBuilder _scormCourseBuilder;
+        private IScormCourseBuilder _scormCourseBuilder;
         IEntityFactory _entityFactory;
         ICourseRepository _repository;
         IPrincipal _user;
         HttpContextBase _context;
-        ICoursePublishingService _coursePublishingService;
-        IObjectiveRepository _objectiveRepository;
-             
+        private ICoursePublishingService _coursePublishingService;
         [TestInitialize]
         public void InitializeContext()
         {
@@ -44,14 +42,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _builder = Substitute.For<ICourseBuilder>();
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
             _coursePublishingService = Substitute.For<ICoursePublishingService>();
-            _objectiveRepository = Substitute.For<IObjectiveRepository>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _coursePublishingService, _objectiveRepository);
+            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _coursePublishingService);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -749,5 +746,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion UpdateObjectivesOrder
+
     }
 }

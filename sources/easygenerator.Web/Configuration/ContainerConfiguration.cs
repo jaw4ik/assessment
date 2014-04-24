@@ -16,6 +16,8 @@ using easygenerator.Web.Components.Elmah;
 using easygenerator.Web.Components.ModelBinding;
 using easygenerator.Web.Components.RouteConstraints;
 using easygenerator.Web.Components.Tasks;
+using easygenerator.Web.Import.PublishedCourse;
+using easygenerator.Web.Import.PublishedCourse.EntityReaders;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
@@ -60,6 +62,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<SignupFromTryItNowHandler>().As<ISignupFromTryItNowHandler>();
             builder.RegisterType<ConfigurationReader>();
             builder.RegisterType<RazorTemplateProvider>().SingleInstance();
+            builder.RegisterType<FileCache>();
 
             builder.RegisterModule(new DataAccessModule());
 
@@ -136,6 +139,18 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PasswordRecoveryTicketExpirationTask>().SingleInstance();
             builder.RegisterType<MailSenderTask>().SingleInstance();
             builder.RegisterType<CacheExpirationTaskInvoker>().As<ITaskInvoker>().SingleInstance();
+
+            #endregion
+
+            #region Import
+
+            builder.RegisterType<PublishedCourseStructureReader>();
+            builder.RegisterType<CourseEntityReader>();
+            builder.RegisterType<ObjectiveEntityReader>();
+            builder.RegisterType<QuestionEntityReader>();
+            builder.RegisterType<AnswerEntityReader>();
+            builder.RegisterType<LearningContentEntityReader>();
+            builder.RegisterType<PublishedCourseImporter>();
 
             #endregion
 
