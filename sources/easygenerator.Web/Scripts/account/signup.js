@@ -36,6 +36,7 @@ app.signupModel = function () {
         showHidePassword: showHidePassword,
 
         signUp: signUp,
+        isSignupRequestPending: ko.observable(false)
     };
 
     viewModel.userName.isValid = ko.computed(function () {
@@ -144,6 +145,12 @@ app.signupModel = function () {
     }
 
     function signUp() {
+        if (viewModel.isSignupRequestPending()) {
+            return;
+        }
+
+        viewModel.isSignupRequestPending(true);
+
         var data = {
             email: viewModel.userName().trim().toLowerCase(),
             password: viewModel.password(),
@@ -157,6 +164,7 @@ app.signupModel = function () {
             .done(function () {
                 var href = app.getLocationHref();
                 app.assingLocation(href.slice(0, href.lastIndexOf('/')) + '/signupsecondstep');
+                viewModel.isSignupRequestPending(false);
             });
     }
 

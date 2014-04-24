@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="formBtn">
-                    <input type="button" class="orange btn user-form-btn" value="@Resources.Finish" data-bind="click: signUp, css: { 'disabled': isSignupRequestPending() || !isFormValid() }">
+                    <input type="button" class="orange btn user-form-btn" value="@Resources.Finish" data-bind="click: signUp, css: { 'disabled': isSignupRequestPending() || !isFormValid() }, enable: !isSignupRequestPending() && isFormValid()">
                 </div>
             </div>
         </div>
