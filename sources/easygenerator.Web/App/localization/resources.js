@@ -134,7 +134,10 @@
         en: 'Course'
     },
     courseDownloadAction: {
-        en: 'Download'
+        en: 'Download as HTML'
+    },
+    courseDownloadScormAction: {
+        en: 'Download as SCORM 1.2'
     },
     courseFailedStatus: {
         en: 'failed'
@@ -191,7 +194,7 @@
         en: 'Share this link with your learners'
     },
     publishOnlineDesciption: {
-        en: 'Publish the course on easygenerator webserver'
+        en: 'Use easygenerator server'
     },
     republishOnlineDescription: {
         en: 'Republish the course on easygenerator webserver'
@@ -203,13 +206,13 @@
         en: 'Open link to view the course'
     },
     publishCourse: {
-        en: 'Publish the course'
+        en: 'Get a link instantly and share'
     },
     downloadCourse: {
-        en: 'Download the course'
+        en: 'Publish to your own server or Dropbox'
     },
     downloadScorm12Package: {
-        en: 'Download SCORM 1.2 package'
+        en: 'Publish to LMS'
     },
     downloadScorm12PackageDescription: {
         en: 'Download the course as SCORM 1.2 package in order to publish it to LMS'
@@ -224,16 +227,13 @@
         en: 'Please upgrade your account to \"Starter plan\" to be able to download the course as a SCORM package.'
     },
     upgradeToStarterPlanToUseScormMessage: {
-        en: 'You have to <a href=\"/account/upgrade\" target=\"_blank\">upgrade your account</a> in order to publish to \"SCORM 1.2\"'
+        en: 'Starter plan users only. Please, <a href=\"/account/upgrade\" target=\"_blank\">upgrade</a> to use this functionality'
     },
     publishToAim4You: {
         en: 'Publish to Aim4You'
     },
-    publishToAim4YouRegisterDescription: {
-        en: 'Register your account at the Aim 4 You learning store and start publishing. <a href=\"http://www.aim4you.net/dashBoard/easygenerator\" target=\"_blank\">Learn more..</a>'
-    },
     publishToAim4YouPublishDescription: {
-        en: 'Publish the course to the Aim 4 You  instant learning store'
+        en: 'with our partner Aim 4 You'
     },
     publishToAim4YouConfirmSendMessage: {
         en: 'A confirmation email was sent. Click on the link in this mail to activate your account.'
@@ -257,7 +257,7 @@
         en: 'Publish to Aim4You'
     },
     publishToCatalog: {
-        en: 'Publish to the Aim 4 You Instant Learning store'
+        en: 'Publish and Sell your online course'
     },
     addCourseContent: {
         en: 'Add course introduction content'

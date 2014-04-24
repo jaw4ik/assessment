@@ -20,21 +20,6 @@
         <div class="content-holder resizable">
             <div class="main-content-list-holder">
                 <div class="view-list-actions-holder">
-                    <div class="list-item-action create">
-                        <div class="action-item-btn-wrapper">
-                            <button class="action-item-btn create-item btn green" data-bind="click: createQuestion">
-                                <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewQuestion' }">New question</span>
-                            </button>
-                            <!-- ko if: questions().length < 1 -->
-                            <div class="tip-arrow-holder">
-                                <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
-                            </div>
-                            <!-- /ko -->
-                        </div>
-                    </div>
-                    <div class="list-item-action empty">
-                        &nbsp;
-                    </div>
                     <div class="list-item-action delete">
                         <!-- ko if: enableDeleteQuestions -->
                         <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedQuestions, localize: { text: 'deleteSelected' }">Delete selected</span>
@@ -43,8 +28,23 @@
                         <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
                         <!-- /ko -->
                     </div>
+                    <div class="list-item-action empty">
+                        &nbsp;
+                    </div>
+                    <div class="list-item-action create">
+                        <div class="action-item-btn-wrapper">
+                            <button class="action-item-btn create-item btn green" data-bind="click: createQuestion">
+                                <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewQuestion' }">New question</span>
+                            </button>
+                            <!-- ko if: questions().length < 1 -->
+                            <div class="tip-arrow-holder right">
+                                <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
                 </div>
-                
+
                 <!-- ko if: questions().length < 1 -->
                 <div class="empty-list-wrapper">
                     <span class="empty-list" data-bind="localize: { text: 'questionListIsEmpty'}">Question list is empty</span>
@@ -52,8 +52,8 @@
                 <!-- /ko -->
 
                 <ul class="unstyled main-content-list" data-bind="sortable: { data: questions, afterMove: updateQuestionsOrder, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon'}}">
-                    <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
-                        <div class="list-item-content-holder" data-bind="click: $parent.toggleQuestionSelection">
+                    <li class="main-content-list-item draggable" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
+                        <div class="list-item-content-holder" data-bind="click: $parent.navigateToEditQuestion.bind($parent)">
                             <div class="list-item-drag-icon-wrapper">
                                 <!-- ko if: $parent.isSortingEnabled() -->
                                 <span class="list-item-drag-icon" data-bind="stopEventPropagation: { event: 'click' }, localize: { title: 'changeOrderTooltip' }"></span>
@@ -62,11 +62,7 @@
                                 <span class="list-item-drag-icon disabled" data-bind="stopEventPropagation: { event: 'click' }"></span>
                                 <!-- /ko -->
                             </div>
-                            <div class="list-item-checkbox" data-bind="">
-                                <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
-                                    <input class="custom-checkbox" type="checkbox" />
-                                </span>
-                            </div>
+                            <div class="list-item-checkbox">&nbsp;</div>
                             <div class="list-item-logo">
                                 <img class="list-item-logo-image" alt="" src="../../../Content/images/multichoice-question.png" />
                             </div>
@@ -78,12 +74,15 @@
                                     <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
                                 </div>
                             </div>
+                            <div class="list-item-open">
+                                <div class="list-item-open-btn course-action-btn">
+                                    <div class="list-action-tooltip" data-bind="localize: { text: 'open' }">Open</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="open-item-btn">
-                            <a href="#" class="cursor-pointer light-green btn btn-small open-btn" data-bind="click: $parent.navigateToEditQuestion.bind($parent), attr: { href: editLink }">
-                                <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
-                            </a>
-                        </div>
+                        <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }, click: $parent.toggleQuestionSelection">
+                            <input class="custom-checkbox" type="checkbox" />
+                        </span>
                     </li>
                 </ul>
             </div>
