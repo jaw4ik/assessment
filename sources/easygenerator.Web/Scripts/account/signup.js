@@ -2,248 +2,162 @@
 
 app.signupModel = function () {
 
+    var self = {
+        lastValidatedUserName: null,
+        lastValidateFirstName: null,
+        lastValidateLastName: null,
+    };
+
     var digitRegex = /\d/,
         whitespaceRegex = /\s/;
 
-    var
-        userName = ko.observable(''),
-        password = ko.observable(''),
-        firstName = ko.observable(''),
-        lastName = ko.observable(''),
-        phone = ko.observable(''),
-        organization = ko.observable(''),
-        country = ko.observable(null),
-        isLicenseAgreed = ko.observable(false),
-        isUserNameEditing = ko.observable(false),
-        isUserNameValidating = ko.observable(false),
-        isPasswordEditing = ko.observable(false),
-        isPasswordVisible = ko.observable(false),
-        isFirstNameErrorVisible = ko.observable(false),
-        isLastNameErrorVisible = ko.observable(false),
-        isPhoneErrorVisible = ko.observable(false),
-        isOrganizationErrorVisible = ko.observable(false),
-        isCountrySuccessVisible = ko.observable(false),
-        isCountryErrorVisible = ko.observable(false),
-        lastValidateCountry = null,
-        userExists = ko.observable(false),
-        isFormValid = null,
-        lastValidatedUserName = null,
-        lastValidateFirstName = null,
-        lastValidateLastName = null,
-        lastValidatePhone = null,
-        lastValidateOrganization = null,
-        phoneCode = ko.observable('+ ( ... )'),
+    var viewModel = {
+        firstName: ko.observable(''),
+        lastName: ko.observable(''),
+        userName: ko.observable(''),
+        password: ko.observable(''),
+        isLicenseAgreed: ko.observable(false),
 
-    userPreciselyExists = ko.computed(function () {
-        return userExists() && userName().trim().toLowerCase() === lastValidatedUserName;
-    }),
+        userExists: ko.observable(false),
+        checkUserExists: checkUserExists,
 
-    showHidePassword = function () {
-        isPasswordVisible(!isPasswordVisible());
-    },
+        isUserNameEditing: ko.observable(false),
+        isUserNameValidating: ko.observable(false),
+        isPasswordEditing: ko.observable(false),
+        isFirstNameErrorVisible: ko.observable(false),
+        isLastNameErrorVisible: ko.observable(false),
+        onFocusFirstName: onFocusFirstName,
+        onFocusLastName: onFocusLastName,
 
-    signUp = function () {
+        validateFirstName: validateFirstName,
+        validateLastName: validateLastName,
+
+        isPasswordVisible: ko.observable(false),
+        showHidePassword: showHidePassword,
+
+        signUp: signUp,
+    };
+
+    viewModel.userName.isValid = ko.computed(function () {
+        var mailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/,
+            length = viewModel.userName().trim().length;
+        return length > 0 && length < 255 && mailRegex.test(viewModel.userName().trim()) && !viewModel.userExists();
+    });
+
+    viewModel.password.isValid = ko.computed(function () {
+        return viewModel.password().length >= 7
+            && viewModel.password().toLowerCase() != viewModel.password()
+            && viewModel.password().toUpperCase() != viewModel.password()
+            && digitRegex.test(viewModel.password())
+            && !whitespaceRegex.test(viewModel.password());
+    });
+
+    viewModel.password.hasUpperAndLowerCaseLetters = ko.computed(function () {
+        return viewModel.password().toLowerCase() != viewModel.password()
+            && viewModel.password().toUpperCase() != viewModel.password();
+    });
+
+    viewModel.password.hasNumbers = ko.computed(function () {
+        return digitRegex.test(viewModel.password());
+    });
+
+    viewModel.password.hasSpaces = ko.computed(function () {
+        return !whitespaceRegex.test(viewModel.password())
+            && viewModel.password().length != 0;
+    });
+
+    viewModel.password.hasMoreThanSevenSymbols = ko.computed(function () {
+        return viewModel.password().length >= 7;
+    });
+
+    viewModel.firstName.isValid = ko.computed(function () {
+        return !_.isEmptyOrWhitespace(viewModel.firstName());
+    });
+
+    viewModel.lastName.isValid = ko.computed(function () {
+        return !_.isEmptyOrWhitespace(viewModel.lastName());
+    });
+
+    viewModel.isFormValid = ko.computed(function () {
+        return viewModel.userName.isValid() && viewModel.password.isValid()
+            && viewModel.firstName.isValid() && viewModel.lastName.isValid()
+            && viewModel.isLicenseAgreed();
+    });
+
+    viewModel.userPreciselyExists = ko.computed(function () {
+        return viewModel.userExists() && viewModel.userName().trim().toLowerCase() === self.lastValidatedUserName;
+    });
+
+    viewModel.userName.subscribe(function (newValue) {
+        if (viewModel.userName() != newValue)
+            viewModel.userExists(false);
+    });
+
+    return viewModel;
+
+    function showHidePassword() {
+        viewModel.isPasswordVisible(!viewModel.isPasswordVisible());
+    }
+
+    function validateFirstName() {
+        self.lastValidateFirstName = viewModel.firstName().trim();
+        viewModel.firstName(viewModel.firstName().trim());
+        viewModel.isFirstNameErrorVisible(_.isEmpty(self.lastValidateFirstName));
+    }
+
+    function validateLastName() {
+        self.lastValidateLastName = viewModel.lastName().trim();
+        viewModel.lastName(viewModel.lastName().trim());
+        viewModel.isLastNameErrorVisible(_.isEmpty(self.lastValidateLastName));
+    }
+
+    function onFocusFirstName() {
+        viewModel.isFirstNameErrorVisible(false);
+    }
+
+    function onFocusLastName() {
+        viewModel.isLastNameErrorVisible(false);
+    }
+
+    function checkUserExists() {
+        viewModel.userName(viewModel.userName().trim());
+        if (viewModel.userPreciselyExists()) {
+            return;
+        }
+
+        viewModel.userExists(false);
+        if (!viewModel.userName.isValid()) {
+            return;
+        }
+
+        self.lastValidatedUserName = viewModel.userName().trim().toLowerCase();
+        viewModel.isUserNameValidating(true);
+
+        $.ajax({
+            url: '/api/user/exists',
+            data: { email: viewModel.userName().trim().toLowerCase() },
+            type: 'POST'
+        }).done(function (response) {
+            viewModel.userExists(response.data);
+            viewModel.isUserNameValidating(false);
+        });
+    }
+
+    function signUp() {
         var data = {
-            email: userName().trim().toLowerCase(),
-            password: password(),
-            firstName: firstName(),
-            lastName: lastName(),
-            phone: phone(),
-            organization: organization(),
-            country: country()
+            email: viewModel.userName().trim().toLowerCase(),
+            password: viewModel.password(),
+            firstName: viewModel.firstName(),
+            lastName: viewModel.lastName()
         };
 
         app.clientSessionContext.set(app.constants.userSignUpFirstStepData, data);
 
-        $.when(
-            app.trackEvent(app.constants.events.signupFirstStep, { username: data.email }),
-            app.trackPageview(app.constants.pageviewUrls.signupFirstStep)
-            ).done(function () {
+        $.when(app.trackEvent(app.constants.events.signupFirstStep, { username: data.email }), app.trackPageview(app.constants.pageviewUrls.signupFirstStep))
+            .done(function () {
                 var href = app.getLocationHref();
                 app.assingLocation(href.slice(0, href.lastIndexOf('/')) + '/signupsecondstep');
             });
-    },
+    }
 
-    checkUserExists = function () {
-        userName(userName().trim());
-        if (this.userPreciselyExists()) {
-            return;
-        }
-
-        userExists(false);
-        if (!userName.isValid()) {
-            return;
-        }
-
-        lastValidatedUserName = userName().trim().toLowerCase();
-        isUserNameValidating(true);
-
-        $.ajax({
-            url: '/api/user/exists',
-            data: { email: userName().trim().toLowerCase() },
-            type: 'POST'
-        }).done(function (response) {
-            userExists(response.data);
-            isUserNameValidating(false);
-        });
-    },
-
-    validateFirstName = function () {
-        lastValidateFirstName = firstName().trim();
-        firstName(firstName().trim());
-        isFirstNameErrorVisible(_.isEmpty(lastValidateFirstName));
-    },
-
-    onFocusFirstName = function () {
-        isFirstNameErrorVisible(false);
-    },
-
-    validateLastName = function () {
-        lastValidateLastName = lastName().trim();
-        lastName(lastName().trim());
-        isLastNameErrorVisible(_.isEmpty(lastValidateLastName));
-    },
-
-    onFocusLastName = function () {
-        isLastNameErrorVisible(false);
-    },
-
-    validatePhone = function () {
-        lastValidatePhone = phone().trim();
-        phone(phone().trim());
-        isPhoneErrorVisible(_.isEmpty(lastValidatePhone));
-    },
-
-    onFocusPhone = function () {
-        isPhoneErrorVisible(false);
-    },
-
-    validateOrganization = function () {
-        lastValidateOrganization = organization().trim();
-        organization(organization().trim());
-        isOrganizationErrorVisible(_.isEmpty(lastValidateOrganization));
-    },
-
-    onFocusOrganization = function () {
-        isOrganizationErrorVisible(false);
-    };
-
-    userName.isValid = ko.computed(function () {
-        var mailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/,
-            length = userName().trim().length;
-        return length > 0 && length < 255 && mailRegex.test(userName().trim()) && !userExists();
-    });
-
-    password.isValid = ko.computed(function () {
-        return password().length >= 7
-            && password().toLowerCase() != password()
-            && password().toUpperCase() != password()
-            && digitRegex.test(password())
-            && !whitespaceRegex.test(password());
-    });
-
-    password.hasUpperAndLowerCaseLetters = ko.computed(function () {
-        return password().toLowerCase() != password()
-            && password().toUpperCase() != password();
-    });
-
-    password.hasNumbers = ko.computed(function () {
-        return digitRegex.test(password());
-    });
-
-    password.hasSpaces = ko.computed(function () {
-        return !whitespaceRegex.test(password())
-            && password().length != 0;
-    });
-
-    password.hasMoreThanSevenSymbols = ko.computed(function () {
-        return password().length >= 7;
-    });
-
-    firstName.isValid = ko.computed(function () {
-        return !_.isEmptyOrWhitespace(firstName());
-    });
-
-    lastName.isValid = ko.computed(function () {
-        return !_.isEmptyOrWhitespace(lastName());
-    });
-
-    phone.isValid = ko.computed(function () {
-        return !_.isEmpty(phone());
-    });
-
-    organization.isValid = ko.computed(function () {
-        return !_.isEmpty(organization());
-    });
-
-    country.isValid = ko.computed(function () {
-        lastValidateCountry = null;
-        var currentCountry = _.find(app.constants.countries, function (item) {
-            return item.name == country();
-        });
-
-        if (!_.isNullOrUndefined(currentCountry)) {
-            lastValidateCountry = country();
-            isCountrySuccessVisible(true);
-            phoneCode(currentCountry.code);
-            isCountryErrorVisible(false);
-        } else {
-            isCountrySuccessVisible(false);
-            phoneCode('+ ( ... )');
-            isCountryErrorVisible(_.isUndefined(country()));
-        }
-        return !_.isNullOrUndefined(country());
-    });
-
-    isFormValid = ko.computed(function () {
-        return userName.isValid() && password.isValid()
-            && firstName.isValid() && lastName.isValid()
-            && phone.isValid() && organization.isValid() && country.isValid()
-            && isLicenseAgreed();
-    });
-
-    userName.subscribe(function (newValue) {
-        if (userName() != newValue)
-            userExists(false);
-    });
-
-    return {
-        userName: userName,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        country: country,
-        countries: app.constants.countries,
-        phone: phone,
-        organization: organization,
-        isLicenseAgreed: isLicenseAgreed,
-        isUserNameEditing: isUserNameEditing,
-        isUserNameValidating: isUserNameValidating,
-        isPasswordEditing: isPasswordEditing,
-        isPasswordVisible: isPasswordVisible,
-        isFormValid: isFormValid,
-        userExists: userExists,
-        userPreciselyExists: userPreciselyExists,
-
-        isFirstNameErrorVisible: isFirstNameErrorVisible,
-        isLastNameErrorVisible: isLastNameErrorVisible,
-        isPhoneErrorVisible: isPhoneErrorVisible,
-        isOrganizationErrorVisible: isOrganizationErrorVisible,
-        isCountrySuccessVisible: isCountrySuccessVisible,
-        isCountryErrorVisible: isCountryErrorVisible,
-        onFocusFirstName: onFocusFirstName,
-        onFocusLastName: onFocusLastName,
-        onFocusPhone: onFocusPhone,
-        onFocusOrganization: onFocusOrganization,
-
-        validateFirstName: validateFirstName,
-        validateLastName: validateLastName,
-        validatePhone: validatePhone,
-        validateOrganization: validateOrganization,
-
-        showHidePassword: showHidePassword,
-        checkUserExists: checkUserExists,
-        signUp: signUp,
-        phoneCode: phoneCode
-    };
 }

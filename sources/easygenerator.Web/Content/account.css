@@ -227,10 +227,6 @@ body.try {
     min-height: 80px;
 }
 
-.sign-up-second-step .user-form-row {
-    min-height: 115px;
-}
-
 .user-form-row-combiner .user-form-row {
     width: 49%;
     display: inline-block;
@@ -1054,14 +1050,10 @@ body.try {
     margin-top: 70px;
 }
 
-.sign-up-second-step .formBtn {
-    width: 100%;
-    padding-top: 15px;
-}
 
-    .sign-up-second-step .formBtn .btn {
-        width: 100%;
-    }
+.sign-up-second-step .formBtn .btn {
+    width: 100%;
+}
 
 .user-form-caption {
     color: #333;

@@ -26,7 +26,7 @@
                                 <span class="user-form-input-wrapper"></span>
                                 <input tabindex="1" class="user-form-input" type="text" placeholder="@Resources.LastNameCaption" name="lastName" data-bind="value: lastName, valueUpdate: 'afterkeydown', event: { blur: validateLastName, focus: onFocusLastName }, placeholder: {}" ondrop="return false;" />
                             </div>
-                            <span class="user-form-message"  data-bind="visible: isLastNameErrorVisible()">@Resources.EnterValidLastName</span>
+                            <span class="user-form-message" data-bind="visible: isLastNameErrorVisible()">@Resources.EnterValidLastName</span>
                         </div>
                     </div>
                     <div class="user-form-row" data-bind="css: { error: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), success: !isUserNameValidating() && !isUserNameEditing() && userName.isValid() }">
@@ -67,29 +67,6 @@
                                 <span class="password-requirements-item-text requirement" data-bind="css: { success: password.hasSpaces }">@Resources.NoSpaces</span>
                             </li>
                         </ul>
-                    </div>
-                    <div class="user-form-row indent" data-bind="css: { error: isOrganizationErrorVisible(), success: !isOrganizationErrorVisible() && organization.isValid() }">
-                        <div class="user-form-input-holder">
-                            <span class="user-form-input-wrapper"></span>
-                            <input tabindex="4" class="user-form-input" type="text" name="organization" placeholder="@Resources.OrganizationNameCaption" data-bind="value: organization, valueUpdate: 'afterkeydown', event: { blur: validateOrganization, focus: onFocusOrganization }, placeholder: {}" ondrop="return false;" />
-                        </div>
-                        <span class="user-form-message" data-bind="visible: isOrganizationErrorVisible()">@Resources.EnterValidOrganization</span>
-                    </div>
-                    <div class="user-form-row-combiner">
-                        <div class="user-form-row" data-bind="css: { error: isCountryErrorVisible(), success: isCountrySuccessVisible() }">
-                            <div class="user-form-input-holder selectbox">
-                                <div class="user-form-selectbox" data-bind="selectBox: { options: countries, optionsText: 'name', optionsValue: 'name', value: country, defaultText: '@Resources.ChooseYourCountry', filter: true, tabindex: 5 }"></div>
-                            </div>
-                            <span class="user-form-message" data-bind="visible: isCountryErrorVisible()">@Resources.EnterValidCountry</span>
-                        </div>
-                        <div class="user-form-row pull-right" data-bind="css: { error: isPhoneErrorVisible(), success: !isPhoneErrorVisible() && phone.isValid() }">
-                            <div class="user-form-input-holder">
-                                <span class="user-form-input-wrapper"></span>
-                                <input tabindex="6" class="user-form-input phone" type="text" name="phone" placeholder="@Resources.PhoneNumberCaption" data-bind="value: phone, valueUpdate: 'afterkeydown', event: { blur: validatePhone, focus: onFocusPhone }, placeholder: {}" ondrop="return false;" />
-                                <div class="phone-code-wrapper" data-bind="text: phoneCode">+ ( ... )</div>
-                            </div>
-                            <span class="user-form-message" data-bind="visible: isPhoneErrorVisible()">@Resources.EnterValidPhoneNumber</span>
-                        </div>
                     </div>
                 </div>
                 <div class="user-form-row submit">

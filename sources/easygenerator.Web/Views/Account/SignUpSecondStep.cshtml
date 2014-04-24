@@ -8,27 +8,47 @@
     <div class="user-columns">
         <div class="user-column form">
             <div class="user-title">@Resources.CreateAccountTitle</div>
-            <div class="user-form-row">
-                <label class="user-form-caption">@Resources.HowManyPeopleQuestion</label>
-                <div class="user-form-input-holder selectbox">
-                    <div class="user-form-selectbox" data-bind="selectBox: { options: [ { name: '1' }, { name: '2' }, { name: '3-5' }, { name: '5-10' }, { name: '>10' }], optionsText: 'name', optionsValue: 'name', value: peopleBusyWithCourseDevelopmentAmount, defaultText: '@Resources.ChooseAnswer' }"></div>
+            <div class="user-form-row indent" data-bind="css: { error: isOrganizationErrorVisible(), success: !isOrganizationErrorVisible() && organization.isValid() }">
+                <div class="user-form-input-holder">
+                    <span class="user-form-input-wrapper"></span>
+                    <input tabindex="4" class="user-form-input" type="text" name="organization" placeholder="@Resources.OrganizationNameCaption" data-bind="value: organization, valueUpdate: 'afterkeydown', event: { blur: validateOrganization, focus: onFocusOrganization }, placeholder: {}" ondrop="return false;" />
+                </div>
+                <span class="user-form-message" data-bind="visible: isOrganizationErrorVisible()">@Resources.EnterValidOrganization</span>
+            </div>
+            <div class="user-form-row-combiner">
+                <div class="user-form-row" data-bind="css: { error: isCountryErrorVisible(), success: isCountrySuccessVisible() }">
+                    <div class="user-form-input-holder selectbox">
+                        <div class="user-form-selectbox" data-bind="selectBox: { options: countries, optionsText: 'name', optionsValue: 'name', value: country, defaultText: '@Resources.ChooseYourCountry', filter: true, tabindex: 5 }"></div>
+                    </div>
+                    <span class="user-form-message" data-bind="visible: isCountryErrorVisible()">@Resources.EnterValidCountry</span>
+                </div>
+                <div class="user-form-row pull-right" data-bind="css: { error: isPhoneErrorVisible(), success: !isPhoneErrorVisible() && phone.isValid() }">
+                    <div class="user-form-input-holder">
+                        <span class="user-form-input-wrapper"></span>
+                        <input tabindex="6" class="user-form-input phone" type="text" name="phone" placeholder="@Resources.PhoneNumberCaption" data-bind="value: phone, valueUpdate: 'afterkeydown', event: { blur: validatePhone, focus: onFocusPhone }, placeholder: {}" ondrop="return false;" />
+                        <div class="phone-code-wrapper" data-bind="text: phoneCode">+ ( ... )</div>
+                    </div>
+                    <span class="user-form-message" data-bind="visible: isPhoneErrorVisible()">@Resources.EnterValidPhoneNumber</span>
                 </div>
             </div>
             <div class="user-form-row">
-                <label class="user-form-caption">@Resources.WhenDoYouNeedToolQuestion</label>
                 <div class="user-form-input-holder selectbox">
-                    <div class="user-form-selectbox" data-bind="selectBox: { options: [ { name: '@Resources.Now' }, { name: '@Resources.Variant1Month' }, { name: '@Resources.VariantMore3Months' }, { name: '@Resources.JustLooking' }], optionsText: 'name', optionsValue: 'name', value: needAuthoringTool, defaultText: '@Resources.ChooseAnswer' }"></div>
+                    <div class="user-form-selectbox" data-bind="selectBox: { options: [ { name: '1' }, { name: '2' }, { name: '3-5' }, { name: '5-10' }, { name: '>10' }], optionsText: 'name', optionsValue: 'name', value: peopleBusyWithCourseDevelopmentAmount, defaultText: '@Resources.HowManyPeopleQuestion' }"></div>
                 </div>
             </div>
-            <div class="user-form-row">
-                <label class="user-form-caption">@Resources.HowAuthorTodayQuestion</label>
-                <div class="user-form-input-holder selectbox">
-                    <div class="user-form-selectbox" data-bind="selectBox: { options: [ { name: '@Resources.PowerPoint' }, { name: '@Resources.AnotherTool' }, { name: '@Resources.Nothing' }, { name: '@Resources.Other' }], optionsText: 'name', optionsValue: 'name', value: usedAuthoringTool, defaultText: '@Resources.ChooseAnswer' }"></div>
+            <div class="user-form-row submit">
+                <div class="user-form-checkbox-holder clearfix">
+                    <div class="user-form-checkbox" data-bind="css: { checked: requestIntroductionDemo }">
+                        <input id="uf-checkbox" class="custom-checkbox" type="checkbox" data-bind="checked: requestIntroductionDemo" />
+                    </div>
+                    <div class="user-form-checkbox-label">
+                        <label for="uf-checkbox">
+                            Would you like an introduction demo?
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="user-form-row">
                 <div class="formBtn">
-                    <input type="button" class="orange btn user-form-btn" value="@Resources.Finish" data-bind="click: signUp, css: { 'disabled': isSignupRequestPending() }">
+                    <input type="button" class="orange btn user-form-btn" value="@Resources.Finish" data-bind="click: signUp, css: { 'disabled': isSignupRequestPending() || !isFormValid() }">
                 </div>
             </div>
         </div>

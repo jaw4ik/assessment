@@ -85,7 +85,8 @@
     margin-top: 10px;
 }
 
-.sign-up .user-form-selectbox.selectbox {
+.sign-up .user-form-selectbox.selectbox,
+.sign-up-second-step .user-form-selectbox.selectbox {
     margin-top: 0;
 }
 
