@@ -199,9 +199,6 @@
     republishOnlineDescription: {
         en: 'Republish the course on easygenerator webserver'
     },
-    downloadDescription: {
-        en: 'Download the course in order to publish  it on your own webserver'
-    },
     viewCourseDescription: {
         en: 'Open link to view the course'
     },
@@ -213,9 +210,6 @@
     },
     downloadScorm12Package: {
         en: 'Publish to LMS'
-    },
-    downloadScorm12PackageDescription: {
-        en: 'Download the course as SCORM 1.2 package in order to publish it to LMS'
     },
     assembling: {
         en: 'assembling...'
