@@ -55,7 +55,6 @@
     <Compile Include="DomainModel\HttpRequest.cs" />
     <Compile Include="DomainModel\MailNotification.cs" />
     <Compile Include="Errors.cs" />
-    <Compile Include="FileCache.cs" />
     <Compile Include="Http\HttpClient.cs" />
     <Compile Include="Http\HttpRequestExceptionExtended.cs" />
     <Compile Include="Http\HttpRequestsManager.cs" />

@@ -160,6 +160,7 @@
     <Compile Include="Import\PublishedCourse\EntityReaders\LearningContentEntityReaderTests.cs" />
     <Compile Include="Import\PublishedCourse\PublishedCourseImporterTests.cs" />
     <Compile Include="Import\PublishedCourse\PublishedCourseStructureReaderTests.cs" />
+    <Compile Include="Import\PublishedCourse\ImportContentReaderTests.cs" />
     <Compile Include="Mail\MailTemplatesProviderTests.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManagerTest.cs" />
     <Compile Include="Preview\CoursePreviewBuilderTests.cs" />

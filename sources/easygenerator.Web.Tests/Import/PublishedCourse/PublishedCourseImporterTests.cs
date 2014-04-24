@@ -25,13 +25,13 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
         private PhysicalFileManager _physicalFileManager;
         private IEntityFactory _entityFactory;
         private ITemplateRepository _templateRepository;
-        private FileCache _fileCache;
         private CourseEntityReader _courseEntityReader;
         private ObjectiveEntityReader _objectiveEntityReader;
         private QuestionEntityReader _questionEntityReader;
         private AnswerEntityReader _answerEntityReader;
         private LearningContentEntityReader _learningContentEntityReader;
         private PublishedCourseStructureReader _courseStructureReader;
+        private ImportContentReader _importContentReader;
 
         [TestInitialize]
         public void InitializeContext()
@@ -41,18 +41,17 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
 
             _templateRepository = Substitute.For<ITemplateRepository>();
             _templateRepository.GetDefaultTemplate().Returns(TemplateObjectMother.Create());
+            _importContentReader = Substitute.For<ImportContentReader>(_physicalFileManager);
 
-            _fileCache = Substitute.For<FileCache>(_physicalFileManager);
-
-            _courseEntityReader = Substitute.For<CourseEntityReader>(_fileCache, _entityFactory, _templateRepository);
+            _courseEntityReader = Substitute.For<CourseEntityReader>(_importContentReader, _entityFactory, _templateRepository);
             _objectiveEntityReader = Substitute.For<ObjectiveEntityReader>(_entityFactory);
             _courseStructureReader = Substitute.For<PublishedCourseStructureReader>();
-            _questionEntityReader = Substitute.For<QuestionEntityReader>(_fileCache, _entityFactory);
+            _questionEntityReader = Substitute.For<QuestionEntityReader>(_importContentReader, _entityFactory);
             _answerEntityReader = Substitute.For<AnswerEntityReader>(_entityFactory);
-            _learningContentEntityReader = Substitute.For<LearningContentEntityReader>(_fileCache, _entityFactory);
+            _learningContentEntityReader = Substitute.For<LearningContentEntityReader>(_importContentReader, _entityFactory);
 
             _importer = new PublishedCourseImporter(_physicalFileManager,
-                _fileCache, 
+                _importContentReader,
                 _courseStructureReader,
                 _courseEntityReader,
                 _objectiveEntityReader,
@@ -60,7 +59,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
                 _answerEntityReader, 
                 _learningContentEntityReader);
 
-            _fileCache.ReadFromCacheOrLoad(Arg.Any<string>()).Returns("{}");
+            _importContentReader.ReadContent(Arg.Any<string>()).Returns("{ }");
         }
 
         #region Import
@@ -102,7 +101,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             var course = _importer.Import(publicationPath, CreatedBy);
 
             //Assert
-            _fileCache.Received().ReadFromCacheOrLoad(courseDataFilePath);
+            _importContentReader.Received().ReadContent(courseDataFilePath);
 
             course.Title.Should().Be(courseTitle);
             course.IntroductionContent.Should().Be(courseIntroduction);

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Web;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Web.Import.PublishedCourse;
 using easygenerator.Web.Import.PublishedCourse.EntityReaders;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,14 +18,16 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
     public class LearningContentEntityReaderTests
     {
         private LearningContentEntityReader _learningContentEntityReader;
-        private FileCache _fileCache;
         private PhysicalFileManager _physicalFileManager;
+        private ImportContentReader _importContentReader;
         private IEntityFactory _entityFactory;
 
 
         [TestInitialize]
         public void InitializeContext()
         {
+            HttpContext.Current = new HttpContext(new HttpRequest(null, "http://tempuri.org", null), new HttpResponse(null));
+
             _entityFactory = Substitute.For<IEntityFactory>();
 
             _entityFactory.LearningContent(Arg.Any<string>(), Arg.Any<string>())
@@ -32,8 +36,8 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
                         info.Args().ElementAt(1).As<string>()));
 
             _physicalFileManager = Substitute.For<PhysicalFileManager>();
-            _fileCache = Substitute.For<FileCache>(_physicalFileManager);
-            _learningContentEntityReader = new LearningContentEntityReader(_fileCache, _entityFactory);
+            _importContentReader = Substitute.For<ImportContentReader>(_physicalFileManager);
+            _learningContentEntityReader = new LearningContentEntityReader(_importContentReader, _entityFactory);
         }
 
         #region ReadLearningContent
@@ -58,7 +62,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
             var learningContentPath = Path.Combine(publishedPackagePath, "content", objectiveId.ToString("N").ToLower(),
                 questionId.ToString("N").ToLower(), learningContentId.ToString("N").ToLower() + ".html");
 
-            _fileCache.ReadFromCacheOrLoad(learningContentPath).Returns(learningContentText);
+            _importContentReader.ReadContent(learningContentPath).Returns(learningContentText);
 
             //Act
             var learningContent = _learningContentEntityReader.ReadLearningContent(learningContentId, publishedPackagePath, createdBy, courseData);
@@ -67,7 +71,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
             learningContent.Text.Should().Be(learningContentText);
             learningContent.CreatedBy.Should().Be(createdBy);
 
-            _fileCache.Received().ReadFromCacheOrLoad(learningContentPath);
+            _importContentReader.Received().ReadContent(learningContentPath);
         }
 
         #endregion

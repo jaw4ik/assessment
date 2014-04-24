@@ -207,6 +207,7 @@
     <Compile Include="Import\PublishedCourse\EntityReaders\LearningContentEntityReader.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\ObjectiveEntityReader.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\QuestionEntityReader.cs" />
+    <Compile Include="Import\PublishedCourse\ImportContentReader.cs" />
     <Compile Include="Import\PublishedCourse\PublishedCourseImporter.cs" />
     <Compile Include="Import\PublishedCourse\PublishedCourseStructureReader.cs" />
     <Compile Include="Controllers\PreviewController.cs" />

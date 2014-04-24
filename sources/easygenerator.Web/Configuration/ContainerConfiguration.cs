@@ -62,7 +62,6 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<SignupFromTryItNowHandler>().As<ISignupFromTryItNowHandler>();
             builder.RegisterType<ConfigurationReader>();
             builder.RegisterType<RazorTemplateProvider>().SingleInstance();
-            builder.RegisterType<FileCache>();
 
             builder.RegisterModule(new DataAccessModule());
 
@@ -145,6 +144,7 @@ namespace easygenerator.Web.Configuration
             #region Import
 
             builder.RegisterType<PublishedCourseStructureReader>();
+            builder.RegisterType<ImportContentReader>();
             builder.RegisterType<CourseEntityReader>();
             builder.RegisterType<ObjectiveEntityReader>();
             builder.RegisterType<QuestionEntityReader>();

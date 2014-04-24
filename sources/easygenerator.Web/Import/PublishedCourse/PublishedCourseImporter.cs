@@ -12,7 +12,7 @@ namespace easygenerator.Web.Import.PublishedCourse
         public PublishedCourseImporter() { }
 
         public PublishedCourseImporter(PhysicalFileManager physicalFileManager,
-            FileCache fileCache,
+            ImportContentReader importContentReader,
             PublishedCourseStructureReader publishedCourseStructureReader,
             CourseEntityReader courseEntityReader,
             ObjectiveEntityReader objectiveEntityReader,
@@ -21,7 +21,7 @@ namespace easygenerator.Web.Import.PublishedCourse
             LearningContentEntityReader learningContentEntityReader)
         {
             _physicalFileManager = physicalFileManager;
-            _fileCache = fileCache;
+            _importContentReader = importContentReader;
             _publishedCourseStructureReader = publishedCourseStructureReader;
             _courseEntityReader = courseEntityReader;
             _objectiveEntityReader = objectiveEntityReader;
@@ -31,7 +31,7 @@ namespace easygenerator.Web.Import.PublishedCourse
         }
 
         private readonly PhysicalFileManager _physicalFileManager;
-        private readonly FileCache _fileCache;
+        private readonly ImportContentReader _importContentReader;
         private readonly CourseEntityReader _courseEntityReader;
         private readonly ObjectiveEntityReader _objectiveEntityReader;
         private readonly QuestionEntityReader _questionEntityReader;
@@ -48,7 +48,7 @@ namespace easygenerator.Web.Import.PublishedCourse
             }
 
             string courseDataFilePath = Path.Combine(publishedPackagePath, "content", "data.js");
-            JObject courseData = JObject.Parse(_fileCache.ReadFromCacheOrLoad(courseDataFilePath));
+            JObject courseData = JObject.Parse(_importContentReader.ReadContent(courseDataFilePath));
 
             return ImportCourse(publishedPackagePath, createdBy, courseData);
         }

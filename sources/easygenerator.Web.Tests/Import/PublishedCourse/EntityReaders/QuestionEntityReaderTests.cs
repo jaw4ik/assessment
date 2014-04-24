@@ -4,6 +4,7 @@ using System.Linq;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Web.Import.PublishedCourse;
 using easygenerator.Web.Import.PublishedCourse.EntityReaders;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,8 +17,8 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
     public class QuestionEntityReaderTests
     {
         private QuestionEntityReader _questionEntityReader;
-        private FileCache _fileCache;
         private PhysicalFileManager _physicalFileManager;
+        private ImportContentReader _importContentReader;
         private IEntityFactory _entityFactory;
         
         [TestInitialize]
@@ -32,8 +33,8 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
 
 
             _physicalFileManager = Substitute.For<PhysicalFileManager>();
-            _fileCache = Substitute.For<FileCache>(_physicalFileManager);
-            _questionEntityReader = new QuestionEntityReader(_fileCache, _entityFactory);
+            _importContentReader = Substitute.For<ImportContentReader>(_physicalFileManager);
+            _questionEntityReader = new QuestionEntityReader(_importContentReader, _entityFactory);
         }
 
         #region ReadQuestion
@@ -59,7 +60,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
             question.Content.Should().Be(String.Empty);
             question.CreatedBy.Should().Be(createdBy);
 
-            _fileCache.DidNotReceive().ReadFromCacheOrLoad(Arg.Any<string>());
+            _importContentReader.DidNotReceive().ReadContent(Arg.Any<string>());
         }
 
         [TestMethod]
@@ -84,7 +85,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
             var contentPath = Path.Combine(pubisedPackagehPath, "content", objectiveId.ToString("N").ToLower(),
                 questionId.ToString("N").ToLower(), "content.html");
 
-            _fileCache.ReadFromCacheOrLoad(contentPath).Returns(questionContent);
+            _importContentReader.ReadContent(contentPath).Returns(questionContent);
 
             //Act
             var question = _questionEntityReader.ReadQuestion(questionId, pubisedPackagehPath, createdBy, courseData);
@@ -94,7 +95,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
             question.Content.Should().Be(questionContent);
             question.CreatedBy.Should().Be(createdBy);
 
-            _fileCache.Received().ReadFromCacheOrLoad(contentPath);
+            _importContentReader.Received().ReadContent(contentPath);
         }
 
         #endregion

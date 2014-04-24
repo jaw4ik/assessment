@@ -1,23 +1,22 @@
-﻿using System;
-using System.IO;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Infrastructure;
 using Newtonsoft.Json.Linq;
+using System;
+using System.IO;
 
 namespace easygenerator.Web.Import.PublishedCourse.EntityReaders
 {
     public class CourseEntityReader
     {
-        public CourseEntityReader(FileCache fileCache, IEntityFactory entityFactory, ITemplateRepository templateRepository)
+        public CourseEntityReader(ImportContentReader importContentReader, IEntityFactory entityFactory, ITemplateRepository templateRepository)
         {
-            _fileCache = fileCache;
+            _importContentReader = importContentReader;
             _entityFactory = entityFactory;
             _templateRepository = templateRepository;
         }
 
-        private readonly FileCache _fileCache;
+        private readonly ImportContentReader _importContentReader;
         private readonly IEntityFactory _entityFactory;
         private readonly ITemplateRepository _templateRepository;
 
@@ -29,7 +28,7 @@ namespace easygenerator.Web.Import.PublishedCourse.EntityReaders
             if (hasIntroductionContent)
             {
                 var contentPath = Path.Combine(publishedPackagePath, "content", "content.html");
-                course.UpdateIntroductionContent(_fileCache.ReadFromCacheOrLoad(contentPath), createdBy);
+                course.UpdateIntroductionContent(_importContentReader.ReadContent(contentPath), createdBy);
             }
             else
             {
@@ -38,6 +37,5 @@ namespace easygenerator.Web.Import.PublishedCourse.EntityReaders
 
             return course;
         }
-
     }
 }
