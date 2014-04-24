@@ -25,7 +25,7 @@
         };
 
         router.reloadLocation = function () {
-            document.location.reload();
+            document.location.reload(true);
         };
 
         router.setLocation = function (url) {
@@ -43,18 +43,18 @@
             var downloadUrl = hash == '' ? href + '/' + url : href.replace(hash, url);
             window.open(downloadUrl);
         };
-        
+
         router.on('router:navigation:composition-complete').then(function () {
             $(document).scrollTop(0);
         });
-      
+
         // add routeData to routing
         var namedParamPattern = /(\(\?)?:\w+/g;
         var defaultRouteData = {
             courseId: null,
             moduleName: null
         };
-        
+
         router.routeData = ko.observable(defaultRouteData);
 
         router.activeInstruction.subscribe(function (instruction) {
@@ -101,10 +101,10 @@
         function getModuleName(moduleIdValue) {
             return moduleIdValue && moduleIdValue.slice(moduleIdValue.lastIndexOf('/') + 1);
         };
-        
+
         //
     }
-    
+
     return {
         execute: execute
     };

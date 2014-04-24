@@ -2,6 +2,7 @@
     "use strict";
 
     var handleError = function () {
+        router.reset();
         router.reloadLocation();
     };
 

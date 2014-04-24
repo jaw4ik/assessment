@@ -7,10 +7,16 @@
 
             beforeEach(function () {
                 spyOn(router, 'reloadLocation');
+                spyOn(router, 'reset');
             });
 
             it('should be function', function () {
                 expect(errorHandler.handleError).toBeFunction();
+            });
+
+            it('should reset router', function () {
+                errorHandler.handleError();
+                expect(router.reset).toHaveBeenCalled();
             });
 
             it('should call router reloadLocation', function () {
