@@ -341,7 +341,7 @@
         en: 'All learning objectives are already connected'
     },
     dragAndDropObjectivesHere: {
-        en: '<b>DRAG AND DROP</b><br>your learning objectives here'
+        en: '<b>DROP HERE</b><br>your learning objectives'
     },
     /* End resource section for model CreateObjective */
     
