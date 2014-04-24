@@ -82,7 +82,10 @@
                         </div>
                     </div>
                     <div class="formBtn">
-                        <input class="orange btn user-form-btn" type="submit" value="@Resources.SignUpButton" data-bind="css: { disabled: !isFormValid() || isSignupRequestPending() }, enable: isFormValid() && !isSignupRequestPending(), click: signUp">
+                        <button class="orange btn user-form-btn" type="submit" data-bind="css: { disabled: !isFormValid() || isSignupRequestPending() }, enable: isFormValid() && !isSignupRequestPending(), click: signUp">
+                            <img class="preloader" src="/Content/images/account/signup-preloader.gif" data-bind="visible: isSignupRequestPending" />
+                            <span class="title">@Resources.SignUpButton</span>
+                        </button>
                     </div>
                 </div>
             </form>

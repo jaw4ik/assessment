@@ -610,7 +610,8 @@ body.try {
     width: 100%;
 }
 
-    .user-form-row.submit .formBtn input {
+    .user-form-row.submit .formBtn input,
+    .user-form-row.submit .formBtn button {
         width: 100%;
     }
 
@@ -711,6 +712,15 @@ body.try {
     color: #FFFFFF;
     font-size: 16px;
     cursor: pointer;
+}
+
+.user-form-btn .preloader,
+.user-form-btn .title {
+    vertical-align: middle;
+}
+
+.user-form-btn .preloader {
+    margin-right: 5px;
 }
 
     .user-form-btn.disabled,

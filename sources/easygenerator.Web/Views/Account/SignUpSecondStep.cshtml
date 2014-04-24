@@ -48,7 +48,10 @@
                     </div>
                 </div>
                 <div class="formBtn">
-                    <input type="button" class="orange btn user-form-btn" value="@Resources.Finish" data-bind="click: signUp, css: { 'disabled': isSignupRequestPending() || !isFormValid() }, enable: !isSignupRequestPending() && isFormValid()">
+                    <button type="button" class="orange btn user-form-btn" data-bind="click: signUp, css: { 'disabled': isSignupRequestPending() || !isFormValid() }, enable: !isSignupRequestPending() && isFormValid()">
+                        <img class="preloader" src="/Content/images/account/signup-preloader.gif" data-bind="visible: isSignupRequestPending" />
+                        <span class="title">@Resources.Finish</span>
+                    </button>
                 </div>
             </div>
         </div>

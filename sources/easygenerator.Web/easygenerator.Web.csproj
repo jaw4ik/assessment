@@ -591,6 +591,7 @@
     <Content Include="Content\durandal.css" />
     <Content Include="Content\font\rabiohead.svg" />
     <Content Include="Content\images\account\log-in.jpg" />
+    <Content Include="Content\images\account\signup-preloader.gif" />
     <Content Include="Content\images\account\sign-up.png" />
     <Content Include="Content\images\addQuestion.png" />
     <Content Include="Content\images\Aim4YouPublish\List01.png" />
