@@ -100,6 +100,9 @@
     previewCourse: {
         en: 'Preview course'
     },
+    publish: {
+        en: 'Publish'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -123,6 +126,9 @@
     },
     objectiveCannnotBeDeleted: {
         en: 'Learning objective cannot be deleted, while it is connected to course(s) or contains questions'
+    },
+    dragLOHere: {
+        en: 'Drag learning objective here'
     },
     /* End resource section for model Objectives */
     
