@@ -130,6 +130,9 @@
     dragLOHere: {
         en: 'Drag learning objective here'
     },
+    dropHere: {
+        en: 'Drop here'
+    },
     /* End resource section for model Objectives */
     
     /* Resource section for model Courses */
