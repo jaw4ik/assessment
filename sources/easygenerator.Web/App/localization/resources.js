@@ -245,19 +245,19 @@
         en: 'Free hosting'
     },
     publishToAim4YouSlideText2: {
-        en: 'Security'
+        en: 'Secure and Manage Access'
     },
     publishToAim4YouSlideText3: {
-        en: 'eCommerce  for  course'
+        en: 'Sell your courses'
     },
     publishToAim4YouListText: {
-        en: 'Using Aim4You, no Learning Management System or hosting services are required.'
+        en: 'No Learning Management Systems or hosting services required!'
     },
     publishToAim4YouListText1: {
-        en: 'Aim4You offers a directory service. You can showcase your content and can invite anyone to join.'
+        en: 'Showcase your content and invite anyone!'
     },
     publishToAim4YouListText2: {
-        en: 'Simply secure your content and easily manage access to your content.'
+        en: 'Secure and manage access to your content!'
     },
     publishToAim4YouConfirmSendMessage: {
         en: 'A confirmation email was sent. Click on the link in this mail to activate your account.'
