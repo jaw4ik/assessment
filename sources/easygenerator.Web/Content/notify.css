@@ -38,6 +38,8 @@
         position: absolute;
         left: 15px;
         top: 14px;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
 .notification.success .notification-text:before {
