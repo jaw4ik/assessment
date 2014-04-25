@@ -45,6 +45,27 @@
                     expect(navigationItem.navigate).toBeFunction();
                 });
 
+                describe('when navigating to active item', function() {
+
+                    beforeEach(function() {
+                        router.routeData({
+                            courseId: courseId,
+                            moduleName: itemId
+                        });
+                    });
+
+                    it('should not track event', function () {
+                        navigationItem.navigate();
+                        expect(eventsTracker.publish).not.toHaveBeenCalled();
+                    });
+
+                    it('should not navigate', function () {
+                        navigationItem.navigate();
+                        expect(router.navigate).not.toHaveBeenCalled();
+                    });
+
+                });
+
                 it('should publish event equal to \'eventName\' constructor param', function () {
                     navigationItem.navigate();
                     expect(eventsTracker.publish).toHaveBeenCalledWith(eventName);

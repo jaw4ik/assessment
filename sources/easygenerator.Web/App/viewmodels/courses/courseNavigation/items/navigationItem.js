@@ -7,6 +7,10 @@
            this.title = itemTitle;
 
            this.navigate = function () {
+               if (this.isRootView()) {
+                   return;
+               }
+
                eventTracker.publish(itemEventName);
                router.navigate(itemId + '/' + router.routeData().courseId);
            };
