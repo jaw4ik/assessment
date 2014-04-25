@@ -48,13 +48,13 @@
                             </ul>
                         </div>
                         <div class="package-action-btn-holder">
-                            <button data-bind="click: publishToAim4YouAction().publishToAim4You, enable: !isPublishingInProgress(), css:{'progress' : publishToAim4YouAction().isPublishing()}" class="action-item-btn btn">
+                            <button data-bind="click: publishToAim4YouActionClick, css:{'disabled':isPublishingInProgress(), 'progress':publishToAim4YouAction().isPublishing()}" class="action-item-btn btn">
                                 <!-- ko if: publishToAim4YouAction().isPublishing() -->
                                 <!-- ko if: publishToAim4YouAction().state() === states.building -->
-                                <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption progress"></span>
+                                <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption"></span>
                                 <!-- /ko -->
                                 <!-- ko if: publishToAim4YouAction().state() === states.publishing -->
-                                <span data-bind="localize: { text: 'publishing' }" class="action-item-btn-caption progress"></span>
+                                <span data-bind="localize: { text: 'publishing' }" class="action-item-btn-caption"></span>
                                 <!-- /ko -->
                                 <!-- /ko -->
                                 <!-- ko ifnot: publishToAim4YouAction().isPublishing() -->
@@ -107,13 +107,13 @@
                         </div>
                         <!-- /ko -->
                         <div class="package-action-btn-holder">
-                            <button data-bind="click: publishAction().publishCourse, enable: !isPublishingInProgress(), css:{'progress' : publishAction().isPublishing()}" class="action-item-btn btn">
+                            <button data-bind="click: publishActionClick, css:{'disabled': isPublishingInProgress(),'progress' : publishAction().isPublishing()}" class="action-item-btn btn">
                                 <!-- ko if: publishAction().isPublishing() -->
                                 <!-- ko if: publishAction().state() === states.building -->
-                                <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption progress"></span>
+                                <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption"></span>
                                 <!-- /ko -->
                                 <!-- ko if: publishAction().state() === states.publishing -->
-                                <span data-bind="localize: { text: 'publishing' }" class="action-item-btn-caption progress"></span>
+                                <span data-bind="localize: { text: 'publishing' }" class="action-item-btn-caption"></span>
                                 <!-- /ko -->
                                 <!-- /ko -->
                                 <!-- ko ifnot: publishAction().isPublishing() -->
@@ -135,9 +135,9 @@
                     <div class="package-action-body">
                         <div class="package-action-btn-holder">
                             <!-- ko if: scormBuildAction() -->
-                            <button data-bind="click: scormBuildAction().downloadCourse, enable: scormBuildAction() && !isPublishingInProgress(), css:{'progress' : scormBuildAction().isPublishing()}" class="action-item-btn btn">
+                            <button data-bind="click: scormBuildActionClick, css:{'disabled': isPublishingInProgress(),'progress' : scormBuildAction().isPublishing()}" class="action-item-btn btn">
                                 <!-- ko if: scormBuildAction().isPublishing() -->
-                                <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption progress"></span>
+                                <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption"></span>
                                 <!-- /ko -->
                                 <!-- ko ifnot: scormBuildAction().isPublishing() -->
                                 <span data-bind="localize: { text: 'courseDownloadScormAction' }" class="action-item-btn-caption"></span>
@@ -164,9 +164,9 @@
                     </div>
                     <div class="package-action-body">
                         <div class="package-action-btn-holder">
-                            <button data-bind="click: buildAction().downloadCourse, enable: !isPublishingInProgress(), css:{'progress' : buildAction().isPublishing()}" class="action-item-btn btn">
+                            <button data-bind="click: buildActionClick, css:{'disabled': isPublishingInProgress(),'progress' : buildAction().isPublishing()}" class="action-item-btn btn">
                                 <!-- ko if: buildAction().isPublishing() -->
-                                <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption progress"></span>
+                                <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption"></span>
                                 <!-- /ko -->
                                 <!-- ko ifnot: buildAction().isPublishing() -->
                                 <span data-bind="localize: { text: 'courseDownloadAction' }" class="action-item-btn-caption"></span>

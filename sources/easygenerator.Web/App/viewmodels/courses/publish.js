@@ -13,9 +13,13 @@
             states: constants.publishingStates,
 
             buildAction: ko.observable(),
+            buildActionClick: buildActionClick,
             scormBuildAction: ko.observable(),
+            scormBuildActionClick: scormBuildActionClick,
             publishAction: ko.observable(),
+            publishActionClick: publishActionClick,
             publishToAim4YouAction: ko.observable(),
+            publishToAim4YouActionClick: publishToAim4YouActionClick,
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
@@ -36,6 +40,30 @@
         }, viewModel);
 
         return viewModel;
+
+        function buildActionClick() {
+            if (!viewModel.isPublishingInProgress()) {
+                viewModel.buildAction().downloadCourse();
+            }
+        }
+
+        function scormBuildActionClick() {
+            if (!viewModel.isPublishingInProgress()) {
+                viewModel.scormBuildAction().downloadCourse();
+            }
+        }
+
+        function publishActionClick() {
+            if (!viewModel.isPublishingInProgress()) {
+                viewModel.publishAction().publishCourse();
+            }
+        }
+
+        function publishToAim4YouActionClick() {
+            if (!viewModel.isPublishingInProgress()) {
+                viewModel.publishToAim4YouAction().publishToAim4You();
+            }
+        }
 
         function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);

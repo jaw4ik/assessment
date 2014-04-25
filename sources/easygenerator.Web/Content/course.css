@@ -627,7 +627,7 @@
     background: #fdfdfd;
 }
 .package-action-item .action-item-btn,
-.package-action-item .action-item-btn:disabled:active {
+.package-action-item .action-item-btn.disabled:active {
     color: #555555;
     text-shadow: none;
     box-shadow: none;
@@ -637,9 +637,9 @@
 
 }
 
-.package-action-item .action-item-btn.progress:disabled,
-.package-action-item.blue .action-item-btn.progress:disabled,
-.package-action-item.light-green .action-item-btn.progress:disabled
+.package-action-item .action-item-btn.progress.disabled,
+.package-action-item.blue .action-item-btn.progress.disabled,
+.package-action-item.light-green .action-item-btn.progress.disabled
  {
     opacity: 1;
 }
@@ -648,16 +648,13 @@
     background: #e7e7e7;
 }
 
-.package-action-item .action-item-btn:hover:disabled {
-    background: #f1f1f1;
-}
-.package-action-item .action-item-btn:disabled {
+.package-action-item .action-item-btn.disabled {
     cursor: default;
     opacity: 0.7;
 }
 
-.package-action-item .action-item-btn[disabled] {
-    color: #555555;
+.package-action-item .action-item-btn.disabled:hover {
+    background: #f1f1f1;
 }
 
 .package-action-item .progress .action-item-btn-caption {
@@ -667,20 +664,20 @@
 }
  
 .package-action-item.blue .action-item-btn,
-.package-action-item.blue .action-item-btn:disabled:active{
+.package-action-item.blue .action-item-btn.disabled:active{
     color: #ffffff;
     background: none repeat scroll 0 0 #5bc0de;
     border-color: #52adc8;
 }
 
-.package-action-item.blue .action-item-btn[disabled], .package-action-item.blue .action-item-btn:disabled {
+.package-action-item.blue .action-item-btn[disabled], .package-action-item.blue .action-item-btn.disabled {
     color: #ffffff;
 }
 
 .package-action-item.blue .action-item-btn:hover {
     background: #46b3d4;
 }
-.package-action-item.blue .action-item-btn:hover:disabled {
+.package-action-item.blue .action-item-btn:hover.disabled {
     background: #5bc0de;
 }
 .package-action-item.blue .progress .action-item-btn-caption {
@@ -688,12 +685,12 @@
 }
 
 .package-action-item.light-green .action-item-btn,
-.package-action-item.light-green .action-item-btn:disabled:active{
+.package-action-item.light-green .action-item-btn.disabled:active{
     color: #ffffff;
     background: none repeat scroll 0 0 #65BD77;
     border: 1px solid #61B472;
 }
-.package-action-item.light-green .action-item-btn[disabled] span, .package-action-item.light-green .action-item-btn.disabled  span{
+.package-action-item.light-green .action-item-btn.disable{
     color: #ffffff;
 }
 
@@ -701,7 +698,7 @@
     background: #5fb06f;
  
 }
-.package-action-item.light-green .action-item-btn:hover:disabled {
+.package-action-item.light-green .action-item-btn:hover.disabled {
     background: #65BD77;
     color: #ffffff;
 }
