@@ -202,23 +202,6 @@ body.try {
     position: relative;
 }
 
-.user-required-subtitle {
-    color: #222;
-    font-family: 'OpenSans-Semibold';
-    font-size: 12px;
-    text-align: right;
-    position: absolute;
-    bottom: -10px;
-    right: 0;
-}
-
-    .user-required-subtitle:before {
-        content: '* ';
-        color: rgb(241, 138, 63);
-        font-weight: normal;
-        font-size: 16px;
-    }
-
 .user-form-row {
     min-height: 66px;
 }

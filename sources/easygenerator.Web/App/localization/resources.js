@@ -925,9 +925,6 @@
     skip: {
         en: 'Skip'
     },
-    RequiredInformation: {
-        en: 'Required information'
-    },
     OptionalInformation: {
         en: 'Optional information'
     },

@@ -537,15 +537,6 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - all fields are required.
-        /// </summary>
-        public static string RequiredInformation {
-            get {
-                return ResourceManager.GetString("RequiredInformation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Enter your new password.
         /// </summary>
         public static string RestorePasswordCaption {
