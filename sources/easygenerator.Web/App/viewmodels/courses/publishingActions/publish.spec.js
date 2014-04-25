@@ -237,10 +237,10 @@
                     expect(viewModel.openPublishedCourse).toBeFunction();
                 });
 
-                describe('when course successfully published', function () {
+                describe('when package exists', function () {
 
                     beforeEach(function () {
-                        viewModel.state(constants.publishingStates.succeed);
+                        spyOn(viewModel, 'packageExists').and.returnValue(true);
                     });
 
                     it('should open publish url', function () {
@@ -252,10 +252,10 @@
 
                 });
 
-                describe('when course not published', function () {
+                describe('when package not exists', function () {
 
                     beforeEach(function () {
-                        viewModel.state(constants.publishingStates.failed);
+                        spyOn(viewModel, 'packageExists').and.returnValue(false);
                     });
 
                     it('should not open link', function () {
