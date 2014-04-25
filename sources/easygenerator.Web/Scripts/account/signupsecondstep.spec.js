@@ -392,6 +392,10 @@
                 spyOn(app, 'assingLocation');
             });
 
+            afterEach(function() {
+                localStorage.removeItem('showCreateCoursePopup');
+            });
+
             describe('when organization is not valid', function () {
 
                 it('should not call \"/api/user/signup"', function () {

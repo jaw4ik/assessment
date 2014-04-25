@@ -438,7 +438,6 @@
                 });
 
                 it('should load question learning content if unloaded', function () {
-                    debugger;
 
                     var promise = question.loadLearningContent();
 

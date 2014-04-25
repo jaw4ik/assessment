@@ -972,6 +972,7 @@
     <Content Include="Scripts\knockout-3.1.0.js" />
     <Content Include="Scripts\knockout-sortable.js" />
     <Content Include="Scripts\knockout-sortable.min.js" />
+    <Content Include="Scripts\knockoutBindings\sortablePlaceholderBinding.js" />
     <Content Include="Scripts\knockoutBindings\expanderBinding.js" />
     <Content Include="Scripts\knockoutBindings\fixedPanelBinding.js" />
     <Content Include="Scripts\knockoutBindings\layoutBinding.js" />

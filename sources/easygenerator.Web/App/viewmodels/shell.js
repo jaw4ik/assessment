@@ -41,7 +41,7 @@
         viewModel.isViewReady.subscribe(function(value) {
             if (value && !_.isNullOrUndefined(clientContext.get('showCreateCoursePopup'))) {
                 dialog.show('dialogs/createCourse').then(function() {
-                    clientContext.set('showCreateCoursePopup', null);
+                    clientContext.remove('showCreateCoursePopup');
                 });
             }
         });
