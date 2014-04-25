@@ -2,7 +2,7 @@
     "use strict";
 
     var
-        lifeTime = 5000,
+        lifeTime = 7000,
 
         noticeTypes = {
             info: "info",

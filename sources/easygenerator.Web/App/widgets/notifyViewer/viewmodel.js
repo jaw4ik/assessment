@@ -54,7 +54,7 @@
     notifyViewer.hideItem = function (item) {
         var defer = Q.defer();
 
-        $(item).fadeOut(function () {
+        $(item).fadeOut(2000, function () {
             $(this).remove();
             defer.resolve();
         });
