@@ -1,6 +1,8 @@
 ﻿var app = app || {};
 
 app.signinViewModel = function () {
+    "use strict";
+
 
     var
         username = (function () {
@@ -47,6 +49,8 @@ app.signinViewModel = function () {
 
             var that = this;
 
+            that.isSigninRequestPending(true);
+
             $.ajax({
                 url: '/api/user/signin',
                 data: data,
@@ -59,6 +63,7 @@ app.signinViewModel = function () {
                         });
                     } else {
                         if (response.message) {
+                            that.isSigninRequestPending(false);
                             that.errorMessage(response.message);
                         } else {
                             throw 'Error message is not defined';
@@ -68,6 +73,7 @@ app.signinViewModel = function () {
                     throw 'Response is not an object';
                 }
             }).fail(function (reason) {
+                that.isSigninRequestPending(false);
                 that.errorMessage(reason);
             });
         },
@@ -81,9 +87,9 @@ app.signinViewModel = function () {
             var data = {
                 email: username()
             };
-            
+
             var that = this;
-            
+
             forgotPasswordEnabled(false);
 
             $.ajax({
@@ -110,7 +116,9 @@ app.signinViewModel = function () {
             }).always(function () {
                 forgotPasswordEnabled(true);
             });
-        };
+        },
+
+        isSigninRequestPending = ko.observable(false);
 
     ko.computed(function () {
         var subscription = username() & password();
@@ -131,7 +139,8 @@ app.signinViewModel = function () {
         forgotPasswordSent: forgotPasswordSent,
 
         hasError: hasError,
-        errorMessage: errorMessage
+        errorMessage: errorMessage,
+        isSigninRequestPending: isSigninRequestPending
     };
 
 };

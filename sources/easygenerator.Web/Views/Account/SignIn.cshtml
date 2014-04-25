@@ -47,7 +47,10 @@
                     <!-- /ko -->
                     <div class="user-form-row submit">
                         <div class="formBtn">
-                            <input class="green btn user-form-btn" type="submit" data-bind="enable: canSubmit, css: { disabled: !canSubmit() }" value="@Resources.SignIn ">
+                            <button class="green btn user-form-btn" type="submit" data-bind="css: { disabled: !canSubmit() || isSigninRequestPending() }, enable: canSubmit, clock: submit">
+                                <img class="preloader" src="/Content/images/account/signin-preloader.gif" data-bind="visible: isSigninRequestPending" />
+                                <span class="title">@Resources.SignIn</span>
+                            </button>
                         </div>
                     </div>
                 </form>

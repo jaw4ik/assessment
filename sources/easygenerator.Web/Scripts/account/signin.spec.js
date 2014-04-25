@@ -1,8 +1,6 @@
 ﻿define([], function () {
     "use strict";
 
-
-
     describe('viewModel [signin]', function () {
 
         var viewModel;
@@ -407,6 +405,13 @@
                     });
                 });
 
+                it('should set isSigninRequestPending to true', function () {
+                    viewModel.isSigninRequestPending(false);
+                    viewModel.submit();
+
+                    expect(viewModel.isSigninRequestPending()).toEqual(true);
+                });
+
                 describe('when request failed', function () {
 
                     var message = "message";
@@ -419,6 +424,13 @@
                     it('should display message with an error', function () {
                         viewModel.submit();
                         expect(viewModel.errorMessage()).toEqual(message);
+                    });
+
+                    it('should set isSigninRequestPending to false', function () {
+                        viewModel.isSigninRequestPending(true);
+                        viewModel.submit();
+
+                        expect(viewModel.isSigninRequestPending()).toEqual(false);
                     });
 
                 });
@@ -476,6 +488,13 @@
                                 expect(viewModel.errorMessage()).toEqual(message);
                             });
 
+                            it('should set isSigninRequestPending to false', function () {
+                                viewModel.isSigninRequestPending(true);
+                                viewModel.submit();
+
+                                expect(viewModel.isSigninRequestPending()).toEqual(false);
+                            });
+
                         });
                     });
 
@@ -516,6 +535,14 @@
                 });
 
             });
+
+        });
+
+        describe('isSigninRequestPending:', function () {
+
+            it('should be observable', function() {
+                expect(viewModel.isSigninRequestPending).toBeObservable();
+            });           
 
         });
 
