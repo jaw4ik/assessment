@@ -1,5 +1,7 @@
 ﻿define(['viewmodels/courses/courseNavigation/items/navigationItem', 'eventTracker', 'plugins/router'],
     function (NavigationItem, eventsTracker, router) {
+        "use strict";
+
         describe('viewmodel [navigationItem]', function () {
 
             it('should be defined', function () {
@@ -13,7 +15,7 @@
             var moduleName = 'moduleName';
 
             var navigationItem;
-            
+
             beforeEach(function () {
                 router.routeData({
                     courseId: courseId,
@@ -31,8 +33,9 @@
                     expect(navigationItem.title).toBe(itemTitle);
                 });
             });
-            
+
             describe('navigate:', function () {
+
                 beforeEach(function () {
                     spyOn(eventsTracker, 'publish');
                     spyOn(router, 'navigate');
@@ -40,6 +43,27 @@
 
                 it('should be function', function () {
                     expect(navigationItem.navigate).toBeFunction();
+                });
+
+                describe('when navigating to active item', function() {
+
+                    beforeEach(function() {
+                        router.routeData({
+                            courseId: courseId,
+                            moduleName: itemId
+                        });
+                    });
+
+                    it('should not track event', function () {
+                        navigationItem.navigate();
+                        expect(eventsTracker.publish).not.toHaveBeenCalled();
+                    });
+
+                    it('should not navigate', function () {
+                        navigationItem.navigate();
+                        expect(router.navigate).not.toHaveBeenCalled();
+                    });
+
                 });
 
                 it('should publish event equal to \'eventName\' constructor param', function () {
@@ -74,7 +98,7 @@
                             courseId: courseId,
                             moduleName: itemId
                         });
-                        
+
                         expect(navigationItem.isActive()).toBeTruthy();
                     });
                 });

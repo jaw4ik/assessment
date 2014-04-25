@@ -1,10 +1,16 @@
 ﻿define(['eventTracker', 'plugins/router'],
    function (eventTracker, router) {
+       "use strict";
+
        return function (itemId, itemTitle, itemEventName) {
 
            this.title = itemTitle;
 
            this.navigate = function () {
+               if (this.isActive()) {
+                   return;
+               }
+
                eventTracker.publish(itemEventName);
                router.navigate(itemId + '/' + router.routeData().courseId);
            };
