@@ -48,7 +48,7 @@
             };
 
             function openPublishedCourse() {
-                if (viewModel.state() === constants.publishingStates.succeed) {
+                if (viewModel.packageExists()) {
                     router.openUrl(viewModel.packageUrl());
                 }
             };
