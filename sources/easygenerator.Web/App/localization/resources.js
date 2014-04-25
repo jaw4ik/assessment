@@ -242,16 +242,16 @@
         en: 'One click publishing'
     },
     publishToAim4YouSlideText1: {
-        en: 'Free hosting'
+        en: 'Sell your courses'
     },
     publishToAim4YouSlideText2: {
         en: 'Secure and Manage Access'
     },
     publishToAim4YouSlideText3: {
-        en: 'Sell your courses'
+        en: 'Free hosting'
     },
     publishToAim4YouListText: {
-        en: 'No Learning Management Systems or hosting services required!'
+        en: 'Using Aim 4 You, no LMS or hosting services required!'
     },
     publishToAim4YouListText1: {
         en: 'Showcase your content and invite anyone!'
@@ -896,7 +896,7 @@
         en: 'How many people at your company are authoring courses?'
     },
     wouldYouLikeAnIntroductionDemo: {
-        en: 'Would you like an introduction demo?'
+        en: 'I would like an introduction demo!'
     },
     chooseAnswer: {
         en: 'Choose answer'
