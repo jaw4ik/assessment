@@ -35,12 +35,12 @@
                 expect(notifyViewer.notifications()[0]).toEqual({ text: "success message", type: "success" });
             });
 
-            it('should remove notification after 5 seconds', function () {
+            it('should remove notification after 7 seconds', function () {
                 notifyViewer.notifications([{ text: "text1" }, { text: "text2" }]);
 
                 notify.success("success message");
 
-                jasmine.clock().tick(6000);
+                jasmine.clock().tick(8000);
 
                 expect(notifyViewer.notifications().length).toBe(2);
                 expect(notifyViewer.notifications()[0].text).toBe("text1");
@@ -73,12 +73,12 @@
                 expect(notifyViewer.notifications()[0]).toEqual({ text: "message", type: "info" });
             });
 
-            it('should remove notification after 5 seconds', function () {
+            it('should remove notification after 7 seconds', function () {
                 notifyViewer.notifications([{ text: "text1" }, { text: "text2" }]);
 
                 notify.info("message");
 
-                jasmine.clock().tick(6000);
+                jasmine.clock().tick(8000);
 
                 expect(notifyViewer.notifications().length).toBe(2);
                 expect(notifyViewer.notifications()[0].text).toBe("text1");
@@ -111,12 +111,12 @@
                 expect(_.isEqual(notifyViewer.notifications()[0], { text: "error message", type: "error" })).toBeTruthy();
             });
 
-            it('should remove notification after 5 seconds', function () {
+            it('should remove notification after 7 seconds', function () {
                 notifyViewer.notifications([{ text: "text1" }, { text: "text2" }]);
 
                 notify.error("error message");
 
-                jasmine.clock().tick(6000);
+                jasmine.clock().tick(8000);
 
                 expect(notifyViewer.notifications().length).toBe(2);
                 expect(notifyViewer.notifications()[0].text).toBe("text1");
@@ -150,12 +150,12 @@
                 expect(notifyViewer.notifications()[0]).toEqual({ text: "saved message", type: "success" });
             });
 
-            it('should remove notification after 5 seconds', function () {
+            it('should remove notification after 7 seconds', function () {
                 notifyViewer.notifications([{ text: "text1" }, { text: "text2" }]);
 
                 notify.saved();
 
-                jasmine.clock().tick(6000);
+                jasmine.clock().tick(8000);
 
                 expect(notifyViewer.notifications().length).toBe(2);
                 expect(notifyViewer.notifications()[0].text).toBe("text1");
