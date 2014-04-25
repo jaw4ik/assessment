@@ -99,7 +99,7 @@ app.signinViewModel = function () {
         viewModel.forgotPasswordEnabled(false);
 
         var data = {
-            email: username()
+            email: viewModel.username()
         };
 
         var requestArgs = {
