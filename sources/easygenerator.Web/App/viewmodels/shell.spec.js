@@ -151,15 +151,6 @@
 
             describe('when activeModuleName is error page', function () {
 
-                describe('and error page 400', function () {
-
-                    it('should be return true', function () {
-                        spyOn(viewModel, 'activeModuleName').and.returnValue('400');
-                        expect(viewModel.showNavigation()).toBeTruthy();
-                    });
-
-                });
-
                 describe('and error page 404', function () {
 
                     it('should be return true', function () {

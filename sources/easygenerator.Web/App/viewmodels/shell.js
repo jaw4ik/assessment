@@ -57,7 +57,7 @@
         return viewModel;
 
         function showNavigation() {
-            return _.contains(['404', '400'], this.activeModuleName());
+            return _.contains(['404'], this.activeModuleName());
         }
 
         function activate () {

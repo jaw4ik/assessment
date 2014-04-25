@@ -1952,7 +1952,6 @@
     <Content Include="App\repositories\questionRepository.spec.js">
       <DependentUpon>questionRepository.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\errors\400.js" />
     <Content Include="App\viewmodels\errors\404.js" />
     <Content Include="App\viewmodels\courses\createCourse.js" />
     <Content Include="App\viewmodels\courses\courses.js" />
@@ -1972,7 +1971,6 @@
     </Content>
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\views\errors\404.html" />
-    <Content Include="App\views\errors\400.html" />
     <Content Include="App\views\courses\createCourse.html" />
     <Content Include="App\views\objectives\createObjective.html" />
     <Content Include="Content\ckeditor.css" />

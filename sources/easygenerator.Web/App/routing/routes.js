@@ -8,11 +8,6 @@
                 title: '404 Not Found'
             },
             {
-                route: '400',
-                moduleId: 'viewmodels/errors/400',
-                title: '400 Bad Request'
-            },
-            {
                 route: 'objectives',
                 moduleId: 'viewmodels/objectives/objectives',
                 title: 'Objectives',
