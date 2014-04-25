@@ -481,7 +481,7 @@
 .package-action-header {
     position: relative;
 
-    padding: 11px;
+    padding: 12px 11px 10px 11px;
     background: #e7e7e7;
     border-radius: 3px 3px 0 0;
     -moz-border-radius:3px 3px 0 0;
@@ -538,12 +538,14 @@
     font-family: 'OpenSans-Semibold';
     font-size: 18px;
     font-weight: normal;
+    line-height: 26px;
 }
 .package-action-subtitle {
     display: block;
     font-family: 'OpenSans';
     font-size: 12px;
     font-weight: normal;
+    line-height: 26px;
     color: #444;
 }
 
@@ -664,7 +666,7 @@
 
 
 .package-action-description {
-    padding: 20px 11px 0px 11px;
+    padding: 19px 11px 0px 11px;
     background: #fdfdfd;
 }
 
