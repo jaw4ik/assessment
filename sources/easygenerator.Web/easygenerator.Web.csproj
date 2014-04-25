@@ -603,6 +603,8 @@
     <Content Include="Content\images\Aim4YouPublish\Slide04.png" />
     <Content Include="Content\images\blue-loader.GIF" />
     <Content Include="Content\images\build-loader.gif" />
+    <Content Include="Content\images\notify\check.png" />
+    <Content Include="Content\images\notify\error.png" />
     <Content Include="Content\images\slider.png" />
     <Content Include="Content\images\collapse-btn-icon.png" />
     <Content Include="Content\images\disabled.png" />
@@ -613,7 +615,6 @@
     <Content Include="Content\images\examTemplate.png" />
     <Content Include="Content\images\locker.png" />
     <Content Include="Content\images\objective.png" />
-    <Content Include="Content\images\notify\ok.png" />
     <Content Include="Content\images\oops.png" />
     <Content Include="Content\images\package-preloader.gif" />
     <Content Include="Content\images\dialog-header.png" />
@@ -623,7 +624,6 @@
     <Content Include="Content\images\sprites_24.png" />
     <Content Include="Content\images\sprites_32.png" />
     <Content Include="Content\images\tree.png" />
-    <Content Include="Content\images\notify\warning.png" />
     <Content Include="Content\review.css" />
     <Content Include="Content\panels.css" />
     <Content Include="Content\treeOfContent.css" />
