@@ -107,10 +107,11 @@ app.signUpSecondStepModel = function () {
             throw 'User sign up data is not defined';
         }
 
-        data.PeopleBusyWithCourseDevelopmentAmount = viewModel.peopleBusyWithCourseDevelopmentAmount();
+        data.peopleBusyWithCourseDevelopmentAmount = viewModel.peopleBusyWithCourseDevelopmentAmount();
         data.phone = viewModel.phone();
         data.organization = viewModel.organization();
         data.country = viewModel.country();
+        data.requestIntroductionDemo = viewModel.requestIntroductionDemo();
 
         viewModel.isSignupRequestPending(true);
 

@@ -478,7 +478,8 @@
                             phone: viewModel.phone(),
                             organization: viewModel.organization(),
                             country: viewModel.country(),
-                            PeopleBusyWithCourseDevelopmentAmount: viewModel.peopleBusyWithCourseDevelopmentAmount()
+                            peopleBusyWithCourseDevelopmentAmount: viewModel.peopleBusyWithCourseDevelopmentAmount(),
+                            requestIntroductionDemo: viewModel.requestIntroductionDemo()
                         };
                     });
 
