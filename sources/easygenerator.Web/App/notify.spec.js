@@ -12,6 +12,16 @@
         });
 
         describe('success:', function () {
+            var timerCallback;
+
+            beforeEach(function() {
+                timerCallback = jasmine.createSpy("timerCallback");
+                jasmine.clock().install();
+            });
+
+            afterEach(function() {
+                  jasmine.clock().uninstall();
+            });
 
             it('should be function', function () {
                 expect(notify.success).toBeFunction();
@@ -25,18 +35,31 @@
                 expect(notifyViewer.notifications()[0]).toEqual({ text: "success message", type: "success" });
             });
 
-            it('should remove all notifications except just created', function () {
+            it('should remove notification after 5 seconds', function () {
                 notifyViewer.notifications([{ text: "text1" }, { text: "text2" }]);
 
                 notify.success("success message");
 
-                expect(notifyViewer.notifications().length).toBe(1);
-                expect(notifyViewer.notifications()[0].text).toBe("success message");
+                jasmine.clock().tick(6000);
+
+                expect(notifyViewer.notifications().length).toBe(2);
+                expect(notifyViewer.notifications()[0].text).toBe("text1");
+                expect(notifyViewer.notifications()[1].text).toBe("text2");
             });
 
         });
 
         describe('info:', function () {
+            var timerCallback;
+
+            beforeEach(function () {
+                timerCallback = jasmine.createSpy("timerCallback");
+                jasmine.clock().install();
+            });
+
+            afterEach(function () {
+                jasmine.clock().uninstall();
+            });
 
             it('should be function', function () {
                 expect(notify.info).toBeFunction();
@@ -50,18 +73,31 @@
                 expect(notifyViewer.notifications()[0]).toEqual({ text: "message", type: "info" });
             });
 
-            it('should remove all notifications except just created', function () {
+            it('should remove notification after 5 seconds', function () {
                 notifyViewer.notifications([{ text: "text1" }, { text: "text2" }]);
 
                 notify.info("message");
 
-                expect(notifyViewer.notifications().length).toBe(1);
-                expect(notifyViewer.notifications()[0].text).toBe("message");
+                jasmine.clock().tick(6000);
+
+                expect(notifyViewer.notifications().length).toBe(2);
+                expect(notifyViewer.notifications()[0].text).toBe("text1");
+                expect(notifyViewer.notifications()[1].text).toBe("text2");
             });
 
         });
 
         describe('error:', function () {
+            var timerCallback;
+
+            beforeEach(function () {
+                timerCallback = jasmine.createSpy("timerCallback");
+                jasmine.clock().install();
+            });
+
+            afterEach(function () {
+                jasmine.clock().uninstall();
+            });
 
             it('should be function', function () {
                 expect(notify.error).toBeFunction();
@@ -75,17 +111,31 @@
                 expect(_.isEqual(notifyViewer.notifications()[0], { text: "error message", type: "error" })).toBeTruthy();
             });
 
-            it('should remove all notifications except just created', function () {
+            it('should remove notification after 5 seconds', function () {
                 notifyViewer.notifications([{ text: "text1" }, { text: "text2" }]);
 
                 notify.error("error message");
 
-                expect(notifyViewer.notifications().length).toBe(1);
+                jasmine.clock().tick(6000);
+
+                expect(notifyViewer.notifications().length).toBe(2);
+                expect(notifyViewer.notifications()[0].text).toBe("text1");
+                expect(notifyViewer.notifications()[1].text).toBe("text2");
             });
 
         });
 
         describe('saved:', function () {
+            var timerCallback;
+
+            beforeEach(function () {
+                timerCallback = jasmine.createSpy("timerCallback");
+                jasmine.clock().install();
+            });
+
+            afterEach(function () {
+                jasmine.clock().uninstall();
+            });
 
             it('should be function', function () {
                 expect(notify.saved).toBeFunction();
@@ -100,13 +150,16 @@
                 expect(notifyViewer.notifications()[0]).toEqual({ text: "saved message", type: "success" });
             });
 
-            it('should remove all notifications except just created', function () {
+            it('should remove notification after 5 seconds', function () {
                 notifyViewer.notifications([{ text: "text1" }, { text: "text2" }]);
 
                 notify.saved();
 
-                expect(notifyViewer.notifications().length).toBe(1);
-                expect(notifyViewer.notifications()[0].text).toBe(localizationManager.localize('allChangesAreSaved'));
+                jasmine.clock().tick(6000);
+
+                expect(notifyViewer.notifications().length).toBe(2);
+                expect(notifyViewer.notifications()[0].text).toBe("text1");
+                expect(notifyViewer.notifications()[1].text).toBe("text2");
             });
 
         });

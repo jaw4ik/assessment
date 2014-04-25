@@ -612,7 +612,7 @@
     <Content Include="Content\images\examTemplate.png" />
     <Content Include="Content\images\locker.png" />
     <Content Include="Content\images\objective.png" />
-    <Content Include="Content\images\ok.png" />
+    <Content Include="Content\images\notify\ok.png" />
     <Content Include="Content\images\oops.png" />
     <Content Include="Content\images\package-preloader.gif" />
     <Content Include="Content\images\dialog-header.png" />
@@ -622,7 +622,7 @@
     <Content Include="Content\images\sprites_24.png" />
     <Content Include="Content\images\sprites_32.png" />
     <Content Include="Content\images\tree.png" />
-    <Content Include="Content\images\warning.png" />
+    <Content Include="Content\images\notify\warning.png" />
     <Content Include="Content\review.css" />
     <Content Include="Content\panels.css" />
     <Content Include="Content\treeOfContent.css" />

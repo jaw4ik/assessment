@@ -1,15 +1,9 @@
-﻿<div class="notify" style="position: relative">
+﻿<div class="notify">
     <!-- ko if: enabled -->
-    <div class="notify-holder">
-        <div class="notify-wrapper" data-bind="foreach: { data: notifications, afterAdd: addNotice, beforeRemove: removeNotice }">
-            <div class="content-holder">
-                <div class="notification-container">
-                    <div class="notification clearfix" data-bind="css: type">
-                        <span class="image"></span>
-                        <span class="notification-text" data-bind="text: text"></span>
-                        <a data-bind="click: $parent.closeNotice" class="notification-close">x</a>
-                    </div>
-                </div>
+    <div class="notifications-container" data-bind="foreach: { data: notifications, afterAdd: addNotice, beforeRemove: removeNotice }">
+        <div>
+            <div class="notification" data-bind="css: type">
+                <span class="notification-text" data-bind="text: text"></span>
             </div>
         </div>
     </div>
