@@ -353,10 +353,10 @@
         en: 'Finish connecting'
     },
     otherObjectives: {
-        en: 'Other learning objectives'
+        en: 'Available learning objectives'
     },
     connectedObjectives: {
-        en: 'All connected learning objectives'
+        en: 'Already in the course'
     },
     allObjectivesConnected: {
         en: 'All learning objectives are already connected'
