@@ -23,7 +23,7 @@ CKEDITOR.editorConfig = function (config) {
     config.extraPlugins = 'semanticTagsPlugin,fileUploaderPlugin,image,floatingspace,mediaembed,imageLibraryPlugin';
     config.extraAllowedContent = 'iframe';
 
-    config.removeFormatTags = 'big,del,font,ins,kbd,s,small,span,strike,tt,var,figcaption';
+    config.removeFormatTags = 'big,del,font,ins,kbd,s,small,span,strike,tt,var,figcaption,em,strong,u,abbr,acronym,blockquote,q,cite,dfn,code,samp,sub,sup,mark,time';
 
     config.startupOutlineBlocks = true;
     config.title = false;

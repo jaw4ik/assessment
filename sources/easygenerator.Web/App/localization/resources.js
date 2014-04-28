@@ -320,7 +320,7 @@
     
     /* Resource section for model CreateObjective */
     createNewObjective: {
-        en: 'Learning objective'
+        en: 'New learning objective'
     },
     createObjectiveTip: {
         en: 'Type learning objective title here...'
