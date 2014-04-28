@@ -81,42 +81,19 @@
                 });
 
             });
-
-            describe('removeNotice:', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.prototype.removeNotice).toBeFunction();
-                });
-
-                beforeEach(function () {
-                    spyOn($.fn, 'fadeOut');
-                });
-
-                describe('when node type is not 1', function () {
-
-                    it('should not hide notice', function () {
-                        viewModel.prototype.removeNotice({ nodeType: 0 });
-                        expect($.fn.fadeOut).not.toHaveBeenCalled();
-                    });
-
-                });
-
-                describe('when node type is not 1', function () {
-
-                    it('should add hide notice animation to queue', function () {
-                        spyOn(viewModel.queue, 'push');
-                        var notice = { nodeType: 1 };
-                        viewModel.prototype.removeNotice(notice);
-                        expect(viewModel.queue.push).toHaveBeenCalledWith(viewModel.hideItem, notice);
-                    });
-
-                });
-
-            });
-
         });
 
         describe('showItem:', function () {
+            var timerCallback;
+
+            beforeEach(function () {
+                timerCallback = jasmine.createSpy("timerCallback");
+                jasmine.clock().install();
+            });
+
+            afterEach(function () {
+                jasmine.clock().uninstall();
+            });
 
             it('should be function', function () {
                 expect(viewModel.showItem).toBeFunction();
@@ -132,24 +109,14 @@
                 expect($.fn.fadeIn).toHaveBeenCalled();
             });
 
-        });
-
-        describe('hideItem:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.hideItem).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                expect(viewModel.hideItem()).toBePromise();
-            });
-
-            it('should fade out item', function () {
+            it('should fade out in 7 seconds', function() {
                 spyOn($.fn, 'fadeOut');
-                viewModel.hideItem();
+                viewModel.showItem();
+
+                jasmine.clock().tick(8000);
+
                 expect($.fn.fadeOut).toHaveBeenCalled();
             });
-
         });
 
         describe('queue:', function () {

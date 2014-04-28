@@ -2,7 +2,10 @@
 
     "use strict";
 
-    var notifyViewer = function () { },
+    var
+        noticelifeTime = 7000,
+        noticefadeOutLifetime = 2000,
+        notifyViewer = function () { },
         nodeTypeContent = 1;
 
     notifyViewer.notifications = ko.observableArray([]);
@@ -26,14 +29,6 @@
         notifyViewer.queue.push(notifyViewer.showItem, notice);
     };
 
-    notifyViewer.prototype.removeNotice = function (notice) {
-        if (notice.nodeType !== nodeTypeContent) {
-            return;
-        }
-
-        notifyViewer.queue.push(notifyViewer.hideItem, notice);
-    };
-
     notifyViewer.queue = {
         promise: Q(),
         push: function (callback, args) {
@@ -48,20 +43,15 @@
 
         $(item).fadeIn(defer.resolve);
 
-        return defer.promise;
-    };
-
-    notifyViewer.hideItem = function (item) {
-        var defer = Q.defer();
-
-        $(item).fadeOut(2000, function () {
-            $(this).remove();
-            defer.resolve();
-        });
+        setTimeout(function (notice) {
+            $(notice).fadeOut(noticefadeOutLifetime, function () {
+                $(notice).remove();
+            });
+        }, noticelifeTime, item);
 
         return defer.promise;
     };
-
+    
     return notifyViewer;
 
 });

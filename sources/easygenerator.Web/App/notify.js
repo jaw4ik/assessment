@@ -2,8 +2,6 @@
     "use strict";
 
     var
-        lifeTime = 7000,
-
         noticeTypes = {
             info: "info",
             error: "error",
@@ -33,8 +31,11 @@
                 type: type
             };
 
-            notifyViewer.notifications.push(notificationItem);
-            setTimeout(function (array, item) { array.remove(item); }, lifeTime, notifyViewer.notifications, notificationItem);
+           notifyViewer.notifications.remove(function (item) {
+                return item.text == message && item.type == type;
+           });
+
+           notifyViewer.notifications.push(notificationItem);
         },
 
         hide = function () {

@@ -1,6 +1,6 @@
 ﻿<div class="notify">
     <!-- ko if: enabled -->
-    <div class="notifications-container" data-bind="foreach: { data: notifications, afterAdd: addNotice, beforeRemove: removeNotice }">
+    <div class="notifications-container" data-bind="foreach: { data: notifications, afterAdd: addNotice }">
         <div>
             <div class="notification" data-bind="css: type">
                 <span class="notification-text" data-bind="text: text"></span>

@@ -12,17 +12,6 @@
         });
 
         describe('success:', function () {
-            var timerCallback;
-
-            beforeEach(function() {
-                timerCallback = jasmine.createSpy("timerCallback");
-                jasmine.clock().install();
-            });
-
-            afterEach(function() {
-                  jasmine.clock().uninstall();
-            });
-
             it('should be function', function () {
                 expect(notify.success).toBeFunction();
             });
@@ -34,33 +23,9 @@
 
                 expect(notifyViewer.notifications()[0]).toEqual({ text: "success message", type: "success" });
             });
-
-            it('should remove notification after 7 seconds', function () {
-                notifyViewer.notifications([{ text: "text1" }, { text: "text2" }]);
-
-                notify.success("success message");
-
-                jasmine.clock().tick(8000);
-
-                expect(notifyViewer.notifications().length).toBe(2);
-                expect(notifyViewer.notifications()[0].text).toBe("text1");
-                expect(notifyViewer.notifications()[1].text).toBe("text2");
-            });
-
         });
 
         describe('info:', function () {
-            var timerCallback;
-
-            beforeEach(function () {
-                timerCallback = jasmine.createSpy("timerCallback");
-                jasmine.clock().install();
-            });
-
-            afterEach(function () {
-                jasmine.clock().uninstall();
-            });
-
             it('should be function', function () {
                 expect(notify.info).toBeFunction();
             });
@@ -73,32 +38,19 @@
                 expect(notifyViewer.notifications()[0]).toEqual({ text: "message", type: "info" });
             });
 
-            it('should remove notification after 7 seconds', function () {
-                notifyViewer.notifications([{ text: "text1" }, { text: "text2" }]);
+            it('should remove all previous info notifications with the same text', function() {
+                notifyViewer.notifications([{ text: "message", type: "info" }, { text: "message", type: "error" }, { text: "message1", type: "info" }]);
 
                 notify.info("message");
 
-                jasmine.clock().tick(8000);
-
-                expect(notifyViewer.notifications().length).toBe(2);
-                expect(notifyViewer.notifications()[0].text).toBe("text1");
-                expect(notifyViewer.notifications()[1].text).toBe("text2");
+                expect(notifyViewer.notifications().length).toBe(3);
+                expect(notifyViewer.notifications()[0]).toEqual({ text: "message", type: "error" });
+                expect(notifyViewer.notifications()[1]).toEqual({ text: "message1", type: "info" });
+                expect(notifyViewer.notifications()[2]).toEqual({ text: "message", type: "info" });
             });
-
         });
 
         describe('error:', function () {
-            var timerCallback;
-
-            beforeEach(function () {
-                timerCallback = jasmine.createSpy("timerCallback");
-                jasmine.clock().install();
-            });
-
-            afterEach(function () {
-                jasmine.clock().uninstall();
-            });
-
             it('should be function', function () {
                 expect(notify.error).toBeFunction();
             });
@@ -111,30 +63,22 @@
                 expect(_.isEqual(notifyViewer.notifications()[0], { text: "error message", type: "error" })).toBeTruthy();
             });
 
-            it('should remove notification after 7 seconds', function () {
-                notifyViewer.notifications([{ text: "text1" }, { text: "text2" }]);
+            it('should remove all previous error notifications with the same text', function () {
+                notifyViewer.notifications([{ text: "error message", type: "info" }, { text: "error message", type: "error" }, { text: "error message1", type: "error" }]);
 
                 notify.error("error message");
 
-                jasmine.clock().tick(8000);
-
-                expect(notifyViewer.notifications().length).toBe(2);
-                expect(notifyViewer.notifications()[0].text).toBe("text1");
-                expect(notifyViewer.notifications()[1].text).toBe("text2");
+                expect(notifyViewer.notifications().length).toBe(3);
+                expect(notifyViewer.notifications()[0]).toEqual({ text: "error message", type: "info" });
+                expect(notifyViewer.notifications()[1]).toEqual({ text: "error message1", type: "error" });
+                expect(notifyViewer.notifications()[2]).toEqual({ text: "error message", type: "error" });
             });
-
         });
 
         describe('saved:', function () {
-            var timerCallback;
 
-            beforeEach(function () {
-                timerCallback = jasmine.createSpy("timerCallback");
-                jasmine.clock().install();
-            });
-
-            afterEach(function () {
-                jasmine.clock().uninstall();
+            beforeEach(function() {
+                spyOn(localizationManager, 'localize').and.returnValue("saved message");
             });
 
             it('should be function', function () {
@@ -142,26 +86,22 @@
             });
 
             it('should add info type notification', function () {
-                spyOn(localizationManager, 'localize').and.returnValue("saved message");
-
                 notifyViewer.notifications([]);
                 notify.saved();
 
                 expect(notifyViewer.notifications()[0]).toEqual({ text: "saved message", type: "success" });
             });
 
-            it('should remove notification after 7 seconds', function () {
-                notifyViewer.notifications([{ text: "text1" }, { text: "text2" }]);
+            it('should remove all previous saved notifications', function () {
+                notifyViewer.notifications([{ text: "saved message", type: "success" }, { text: "saved message1", type: "success" }, { text: "error message", type: "error" }]);
 
                 notify.saved();
 
-                jasmine.clock().tick(8000);
-
-                expect(notifyViewer.notifications().length).toBe(2);
-                expect(notifyViewer.notifications()[0].text).toBe("text1");
-                expect(notifyViewer.notifications()[1].text).toBe("text2");
+                expect(notifyViewer.notifications().length).toBe(3);
+                expect(notifyViewer.notifications()[0]).toEqual({ text: "saved message1", type: "success" });
+                expect(notifyViewer.notifications()[1]).toEqual({ text: "error message", type: "error" });
+                expect(notifyViewer.notifications()[2]).toEqual({ text: "saved message", type: "success" });
             });
-
         });
 
         describe('hide:', function () {
