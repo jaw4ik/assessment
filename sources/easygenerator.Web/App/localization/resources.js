@@ -335,7 +335,7 @@
         en: 'show other learning objectives'
     },
     createAndConnectLearningObjective: {
-        en: 'Learning objective'
+        en: 'New learning objective'
     },
     connectSelected: {
         en: 'Connect selected'
@@ -1112,13 +1112,13 @@
         en: 'Hide navigation'
     },
     createCourseTreeNodeTitle: {
-        en: 'Course'
+        en: 'New course'
     },
     createObjectiveTreeNodeTitle: {
-        en: 'Learning objective'
+        en: 'New learning objective'
     },
     createQuestionTreeNodeTitle: {
-        en: 'Question'
+        en: 'New question'
     },
     openNavigationBar: {
         en: 'Open navigation bar'
