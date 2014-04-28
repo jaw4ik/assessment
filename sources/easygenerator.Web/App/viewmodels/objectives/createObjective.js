@@ -92,6 +92,8 @@
                     } else {
                         navigateToObjectiveEditor.call(that, createdObjective);
                     }
+                }).fail(function() {
+                    uiLocker.unlock();
                 });
             };
 
