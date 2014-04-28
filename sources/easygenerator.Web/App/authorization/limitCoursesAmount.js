@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'dataContext', 'userContext'], function (app, dataContext, userContext) {
+﻿define(['durandal/app', 'dataContext', 'userContext'], function(app, dataContext, userContext) {
     "use strict";
 
     var freeLimit = 10;
@@ -26,4 +26,4 @@
         }
         return dataContext.courses.length < freeLimit;
     }
-})
+});
