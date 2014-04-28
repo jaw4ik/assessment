@@ -78,7 +78,7 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<Aim4YouIntegration>().HasKey(e => new { e.Id });
             modelBuilder.Entity<Aim4YouIntegration>().Property(e => e.Aim4YouCourseId).IsRequired();
-            modelBuilder.Entity<Aim4YouIntegration>().HasRequired(e => e.Course);
+            modelBuilder.Entity<Aim4YouIntegration>().HasRequired(e => e.Course).WithOptional(c => c.Aim4YouIntegration).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Course.CourseTemplateSettings>().Property(e => e.Settings);
             modelBuilder.Entity<Course.CourseTemplateSettings>().HasRequired(e => e.Course);
