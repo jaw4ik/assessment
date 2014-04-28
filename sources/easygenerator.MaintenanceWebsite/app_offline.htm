@@ -89,6 +89,13 @@
 
             return 'Will be back online at ' + launchTimeText + '.';
         }
+
+        function reload() {
+            window.location.reload(true);
+        }
+
+        window.onhashchange = reload;
+
     </script>
 </body>
 
