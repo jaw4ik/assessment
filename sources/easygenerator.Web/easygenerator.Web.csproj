@@ -215,6 +215,9 @@
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
+    <Content Include="App\authorization\limitCoursesAmount.spec.js">
+      <DependentUpon>limitCoursesAmount.js</DependentUpon>
+    </Content>
     <Content Include="App\bootstrapper.js" />
     <Content Include="App\bootstrapper.spec.js">
       <DependentUpon>bootstrapper.js</DependentUpon>
@@ -228,9 +231,7 @@
     <Content Include="App\bootstrapping\knockoutBindingsTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
     <Content Include="App\authorization\limitCoursesAmount.js" />
-    <Content Include="App\dialogs\createCourse.html">
-      <DependentUpon>createCourse.js</DependentUpon>
-    </Content>
+    <Content Include="App\dialogs\createCourse.html" />
     <Content Include="App\dialogs\createCourse.js" />
     <Content Include="App\dialogs\createCourse.spec.js">
       <DependentUpon>createCourse.js</DependentUpon>
@@ -250,9 +251,7 @@
     <Content Include="App\notifications\notification.spec.js">
       <DependentUpon>notification.js</DependentUpon>
     </Content>
-    <Content Include="App\notifications\subscriptionExpirationNotification.html">
-      <DependentUpon>subscriptionExpirationNotification.js</DependentUpon>
-    </Content>
+    <Content Include="App\notifications\subscriptionExpirationNotification.html" />
     <Content Include="App\notifications\subscriptionExpirationNotificationController.spec.js">
       <DependentUpon>subscriptionExpirationNotificationController.js</DependentUpon>
     </Content>

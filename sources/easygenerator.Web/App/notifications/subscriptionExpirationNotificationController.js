@@ -1,5 +1,6 @@
 ﻿define(['userContext', 'constants', 'notifications/subscriptionExpirationNotification', 'durandal/app', 'notifications/notification'],
     function (userContext, constants, SubscriptionExpirationNotification, app, notifications) {
+        "use strict";
 
     var notificationName = 'subscriptionExpirationNotification';
 
