@@ -11,14 +11,15 @@
                 ConfigurationManager.AppSettings["GoogleAnalyticsDomain"].Length > 0)
             {
                 @:_gaq.push(['_setDomainName', '@ConfigurationManager.AppSettings["GoogleAnalyticsDomain"]']);
-            }
+                            }
             else
             {
                 @:_gaq.push(['_setDomainName', 'none']);
-            }
+                            }
 
         _gaq.push(['_setAllowLinker', true]);
         _gaq.push(['_trackPageview']);
+        _gaq.push(location.pathname === '/' ? ['_trackPageview', '/homepage'] : ['_trackPageview']);
 
         (function () {
             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
