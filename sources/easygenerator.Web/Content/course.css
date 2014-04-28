@@ -576,14 +576,14 @@
 
 .package-action-slider-item {
     height: 100%;
+    width: 290px;
     left: 0;
+    top: 0;
+    margin: 0 55px;
     overflow: hidden;
     position: absolute;
-    top: 0;
-    width: 100%;
     z-index: -1;
     background: #fff;
-    margin: 0 55px;
 }
 
 .package-action-slider-item.active {
@@ -984,6 +984,8 @@
 
     .package-action-slider-item {
         margin: 0;
+        max-width: 276px;
+        text-align: center;
     }
 
     .package-action-slider-item-description {
@@ -991,6 +993,11 @@
     }
 }
 @media (max-width: 1024px) {
+    .package-action-slider {
+        margin: 0 11px;
+    
+    }
+
     .package-action-access-message {
         padding: 0;
     }

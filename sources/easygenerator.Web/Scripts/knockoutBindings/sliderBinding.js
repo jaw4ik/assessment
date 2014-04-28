@@ -57,7 +57,6 @@
                    duration: sliderModel.animationTime,
                    complete: function () {
                        $current.css({
-                           'left': 0,
                            'opacity': 1,
                            'z-index': -1
                        }).removeClass('active');
@@ -72,7 +71,6 @@
                }
             );
             $next.css({
-              'left': 0,
               'z-index': 1
             });
         }
