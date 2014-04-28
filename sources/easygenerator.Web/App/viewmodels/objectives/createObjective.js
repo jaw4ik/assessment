@@ -1,5 +1,6 @@
 ﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'notify', 'uiLocker', 'localization/localizationManager', 'repositories/courseRepository', 'ping', 'models/backButton'],
     function (objectiveRepository, router, eventTracker, constants, notify, uiLocker, localizationManager, courseRepository, ping, BackButton) {
+        "use strict";
 
         var
             events = {

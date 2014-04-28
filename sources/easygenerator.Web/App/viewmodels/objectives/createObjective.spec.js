@@ -206,6 +206,22 @@
                         });
 
                     });
+
+                    describe('and objective creation failed', function() {
+                        
+                        beforeEach(function () {
+                            addObjective.reject("it failed baby");
+                            spyOn(uiLocker, "unlock");
+                        });
+
+                        it('should unlock content', function(done) {
+                            viewModel.createAndContinue().fin(function () {
+                                expect(uiLocker.unlock).toHaveBeenCalled();
+                                done();
+                            });
+                        });
+
+                    });
                 });
             });
 
