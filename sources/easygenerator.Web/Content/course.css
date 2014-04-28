@@ -133,9 +133,9 @@
     min-width: 300px;
 }
 
-    .connecting-objectives-item.tooltip {
-        position: relative;
-    }
+.connecting-objectives-item-wrapper {
+    position: relative;
+}
 
 .connecting-objectives-item-container {
     padding: 10px;

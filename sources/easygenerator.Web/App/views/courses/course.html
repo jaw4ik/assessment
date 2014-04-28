@@ -162,44 +162,46 @@
                     <div class="connecting-objectives-item empty">
                         &nbsp;
                     </div>
-                    <div class="connecting-objectives-item tooltip">
-                        <div class="tip-arrow-holder bottom-right">
-                            <div class="tip-arrow-text" data-bind="localize: { text: 'dragLOHere' }">Drag learning objective here</div>
-                        </div>
-                        <div class="connected-objectives-title">
-                            <div class="connected-objectives-title-text" data-bind="localize: { text: 'connectedObjectives' }"></div>
-                        </div>
-                        <div class="connecting-objectives-item-container" data-bind="css: { empty:  connectedObjectives().length == 0  }">
-                            <!-- ko if: objectivesMode() == objectivesListModes.appending && connectedObjectives().length == 0 -->
-                            <div class="empty-list-wrapper connecting-objectives connected">
-                                <div class=" empty-list-info">
-                                    <div class="empty-list-image "></div>
-                                    <div class="empty-list-caption"><span data-bind="localize: { html: 'dragAndDropObjectivesHere' }"></span></div>
-                                </div>
+                    <div class="connecting-objectives-item">
+                        <div class="connecting-objectives-item-wrapper">
+                            <div class="tip-arrow-holder bottom-right">
+                                <div class="tip-arrow-text" data-bind="localize: { text: 'dragLOHere' }">Drag learning objective here</div>
                             </div>
-                            <!-- /ko -->
-                            <ul class="unstyled main-content-list" data-bind="css: { 'connected': connectedObjectives().length != 0, empty: connectedObjectives().length == 0 }, sortablePlaceholder: { data: connectedObjectives, beforeMove: connectObjective, placeholder: '.placeholder-wrapper' }">
-                                <li class="main-content-list-item">
-                                    <div class="list-item-content-holder">
-                                        <div class="list-item-drag-icon-wrapper">
-                                            <!-- ko if: $parent.isSortingEnabled() -->
-                                            <span class="list-item-drag-icon" data-bind="stopEventPropagation: { event: 'click' }, localize: { title: 'changeOrderTooltip' }"></span>
-                                            <!-- /ko -->
-                                            <!-- ko ifnot: $parent.isSortingEnabled() -->
-                                            <span class="list-item-drag-icon disabled" data-bind="stopEventPropagation: { event: 'click' }"></span>
-                                            <!-- /ko -->
-                                        </div>
-                                        <div class="list-item-logo">
-                                            <img class="list-item-logo-image" alt="" src="" data-bind="attr: { src: image }" />
-                                        </div>
-                                        <div class="list-item-info">
-                                            <div class="list-item-title">
-                                                <span data-bind="text: title"></span>
+                            <div class="connected-objectives-title">
+                                <div class="connected-objectives-title-text" data-bind="localize: { text: 'connectedObjectives' }"></div>
+                            </div>
+                            <div class="connecting-objectives-item-container" data-bind="css: { empty:  connectedObjectives().length == 0  }">
+                                <!-- ko if: objectivesMode() == objectivesListModes.appending && connectedObjectives().length == 0 -->
+                                <div class="empty-list-wrapper connecting-objectives connected">
+                                    <div class=" empty-list-info">
+                                        <div class="empty-list-image "></div>
+                                        <div class="empty-list-caption"><span data-bind="localize: { html: 'dragAndDropObjectivesHere' }"></span></div>
+                                    </div>
+                                </div>
+                                <!-- /ko -->
+                                <ul class="unstyled main-content-list" data-bind="css: { 'connected': connectedObjectives().length != 0, empty: connectedObjectives().length == 0 }, sortablePlaceholder: { data: connectedObjectives, beforeMove: connectObjective, placeholder: '.placeholder-wrapper' }">
+                                    <li class="main-content-list-item">
+                                        <div class="list-item-content-holder">
+                                            <div class="list-item-drag-icon-wrapper">
+                                                <!-- ko if: $parent.isSortingEnabled() -->
+                                                <span class="list-item-drag-icon" data-bind="stopEventPropagation: { event: 'click' }, localize: { title: 'changeOrderTooltip' }"></span>
+                                                <!-- /ko -->
+                                                <!-- ko ifnot: $parent.isSortingEnabled() -->
+                                                <span class="list-item-drag-icon disabled" data-bind="stopEventPropagation: { event: 'click' }"></span>
+                                                <!-- /ko -->
+                                            </div>
+                                            <div class="list-item-logo">
+                                                <img class="list-item-logo-image" alt="" src="" data-bind="attr: { src: image }" />
+                                            </div>
+                                            <div class="list-item-info">
+                                                <div class="list-item-title">
+                                                    <span data-bind="text: title"></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                            </ul>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
