@@ -700,7 +700,6 @@
                             <input type="text" maxlength="3" id="masteryScore" class="content-text-input" data-rule="quantity" data-max="100" data-min="0" data-bind="value: masteryScore, valueUpdate: 'afterkeydown', number: {}">
                             <a class="spinner-button spinner-up" data-spin="up" data-bind="disableDragNDrop: {}"></a>
                         </div>
-
                     </div>
                 </div>
                 <div class="content-header">
@@ -905,7 +904,7 @@
                     passed: ko.observable(true),
                     failed: ko.observable(true)
                 },
-                masteryScore: ko.observable()
+                masteryScore: ko.observable('')
             };
 
             viewModel.credentialsEnabled = ko.computed(function () {
@@ -979,7 +978,9 @@
                         });
                     }
                 },
-
+                error: function () {
+                    viewModel.masteryScore(100);
+                }
             });
 
             $.ajax({
@@ -1044,10 +1045,9 @@
                 init: function (element, valueAccessor) {
                     var masteryScore = valueAccessor();
 
-                    $(element)
-                        .spinner('changed', function (e, newValue) {
-                            masteryScore(newValue);
-                        });
+                    $(element).spinner('changed', function (e, newValue) {
+                        masteryScore(newValue);
+                    });
 
                 }
             };

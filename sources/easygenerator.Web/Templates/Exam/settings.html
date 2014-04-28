@@ -893,7 +893,7 @@
                     passed: ko.observable(true),
                     failed: ko.observable(true)
                 },
-                masteryScore: ko.observable()
+                masteryScore: ko.observable('')
             };
 
             viewModel.credentialsEnabled = ko.computed(function () {
@@ -967,7 +967,9 @@
                         });
                     }
                 },
-
+                error: function () {
+                    viewModel.masteryScore(100);
+                }
             });
 
             $.ajax({
