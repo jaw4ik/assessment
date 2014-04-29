@@ -1871,18 +1871,12 @@
     <Content Include="Templates\Simple course\settings.html" />
     <Content Include="Templates\Simple course\settings.js" />
     <Content Include="Templates\Simple course\weyland-config.js" />
-    <Content Include="Views\Account\PrivacyPolicy.cshtml" />
-    <Content Include="Views\Account\TermsOfUse.cshtml" />
     <Content Include="Content\font\opensans-regular.eot" />
     <Content Include="Content\font\opensans-regular.ttf" />
     <Content Include="Content\font\opensans-regular.woff" />
-    <Content Include="Views\Account\SignUp.cshtml" />
-    <Content Include="Views\Account\_Layout.cshtml" />
     <Content Include="Content\font\opensans-semibold.eot" />
     <Content Include="Content\font\opensans-semibold.ttf" />
     <Content Include="Content\font\opensans-semibold.woff" />
-    <Content Include="Views\Account\SignIn.cshtml" />
-    <Content Include="Views\Account\TryNow.cshtml" />
     <Content Include="Content\font\opensans-semibolditalic.eot" />
     <Content Include="Content\font\opensans-semibolditalic.ttf" />
     <Content Include="Content\font\opensans-semibolditalic.woff" />
@@ -1904,20 +1898,9 @@
       <DependentUpon>commentRepository.js</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
-    <Content Include="Views\Account\SignUpSecondStep.cshtml" />
-    <Content Include="Views\Shared\_mixpanelAnalytics.cshtml" />
-    <Content Include="Views\Shared\_googleAnalytics.cshtml" />
-    <Content Include="Views\Account\InvalidPasswordRecovery.cshtml" />
-    <Content Include="Views\Account\PasswordRecovery.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Error\NotFound.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Templates\Quiz\js\vendor.js.bundle">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Review\ReviewCourse.cshtml" />
     <Content Include="Templates\Simple course\App\viewmodels\shell.spec.js">
       <DependentUpon>shell.js</DependentUpon>
     </Content>
@@ -1940,6 +1923,24 @@
     <Content Include="Templates\Simple course\js\vendor.min.js.map">
       <DependentUpon>vendor.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Account\InvalidPasswordRecovery.cshtml" />
+    <Content Include="Views\Account\PasswordRecovery.cshtml" />
+    <Content Include="Views\Account\PrivacyPolicy.cshtml" />
+    <Content Include="Views\Account\SignIn.cshtml" />
+    <Content Include="Views\Account\SignUp.cshtml" />
+    <Content Include="Views\Account\SignUpSecondStep.cshtml" />
+    <Content Include="Views\Account\TermsOfUse.cshtml" />
+    <Content Include="Views\Account\TryNow.cshtml" />
+    <Content Include="Views\Account\_Layout.cshtml" />
+    <Content Include="Views\Application\index.cshtml" />
+    <Content Include="Views\Application\splash.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Review\ReviewCourse.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_googleAnalytics.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_mixpanelAnalytics.cshtml" />
+    <Content Include="Views\Web.config" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
@@ -2061,10 +2062,6 @@
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Views\Application\splash.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Views\Account\Resources.resx">
@@ -2094,9 +2091,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Application\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\easygenerator.DataAccess\easygenerator.DataAccess.csproj">
