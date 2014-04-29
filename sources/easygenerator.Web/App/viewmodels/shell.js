@@ -1,4 +1,5 @@
-﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'help/helpHint', 'plugins/dialog'],
+﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker',
+    'help/helpHint', 'plugins/dialog'],
     function (app, composition, router, routes, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, help, dialog) {
 
         "use strict";
@@ -24,7 +25,6 @@
             showTreeOfContent: ko.observable(),
             navigation: ko.observableArray([]),
             isTryMode: false,
-            username: null,
             help: help
         };
     
@@ -135,12 +135,6 @@
                         }
                     ]);
                     viewModel.isTryMode = !_.isObject(userContext.identity);
-
-                    if (!viewModel.isTryMode) {
-                        viewModel.username = _.isEmptyOrWhitespace(userContext.identity.fullname)
-                            ? userContext.identity.email
-                            : userContext.identity.fullname;
-                    }
 
                     clientContext.set('lastVisitedObjective', null);
                     clientContext.set('lastVistedCourse', null);

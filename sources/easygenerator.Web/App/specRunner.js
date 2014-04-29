@@ -86,6 +86,7 @@
             'viewmodels/questions/question.spec',
             'viewmodels/questions/answers.spec',
             'viewmodels/questions/learningContents.spec',
+            'viewmodels/user/userMenu.spec',
             'viewmodels/shell.spec',
             'widgets/backButton/viewmodel.spec',
             'widgets/notifyViewer/viewmodel.spec',

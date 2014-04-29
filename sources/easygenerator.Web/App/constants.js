@@ -41,7 +41,9 @@
 
             messages: {
                 user: {
-                    identified: 'user:identified'
+                    identified: 'user:identified',
+                    downgraded: 'user:downgraded',
+                    upgraded: 'user:upgraded'
                 },
                 course: {
                     created: 'course:created',

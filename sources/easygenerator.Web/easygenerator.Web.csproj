@@ -452,11 +452,16 @@
     <Content Include="App\viewmodels\panels\tabs\reviewTab.spec.js">
       <DependentUpon>reviewTab.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\user\userMenu.js" />
+    <Content Include="App\viewmodels\user\userMenu.spec.js">
+      <DependentUpon>userMenu.js</DependentUpon>
+    </Content>
     <Content Include="App\views\courses\courseNavigation\navigation.html" />
     <Content Include="App\views\courses\courseComments.html" />
     <Content Include="App\views\panels\sidePanel.html" />
     <Content Include="App\views\panels\tabs\feedbackTab.html" />
     <Content Include="App\views\panels\tabs\reviewTab.html" />
+    <Content Include="App\views\user\userMenu.html" />
     <Content Include="App\widgets\backButton\view.html" />
     <Content Include="App\widgets\backButton\viewmodel.js" />
     <Content Include="App\widgets\backButton\viewmodel.spec.js">

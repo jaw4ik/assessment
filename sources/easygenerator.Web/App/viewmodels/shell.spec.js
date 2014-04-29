@@ -4,9 +4,7 @@
     var
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
-        dataContext = require('dataContext'),
-        userContext = require('userContext')
-
+        dataContext = require('dataContext')
     ;
 
     describe('viewModel [shell]', function () {
@@ -60,85 +58,6 @@
                     spyOn(router, 'activate').and.returnValue(routerActivateDefer.promise);
                     routerActivateDefer.resolve();
                 });
-
-                describe('and user is anonymous', function () {
-
-                    beforeEach(function () {
-                        userContext.identity = null;
-                    });
-
-                    it('should set isTryMode to true', function (done) {
-                        var promise = viewModel.activate();
-                        promise.fin(function () {
-                            expect(viewModel.isTryMode).toBeTruthy();
-                            done();
-                        });
-                    });
-
-                    it('should set username to null', function (done) {
-                        var promise = viewModel.activate();
-
-                        promise.fin(function () {
-                            expect(viewModel.username).toBeNull();
-                            done();
-                        });
-
-                    });
-
-                });
-
-                describe('and user is not anonymous', function () {
-
-                    beforeEach(function () {
-                        userContext.identity = {};
-                    });
-
-                    describe('and user does not have fullname', function () {
-
-                        beforeEach(function () {
-                            userContext.identity = {
-                                email: 'usermail@easygenerator.com',
-                                fullname: ' '
-                            };
-                        });
-
-                        it('should set email to username', function (done) {
-                            var promise = viewModel.activate();
-
-                            promise.fin(function () {
-                                expect(viewModel.username).toBe(userContext.identity.email);
-                                done();
-                            });
-                        });
-
-                    });
-
-                    describe('and user has fullname', function () {
-
-                        beforeEach(function () {
-                            userContext.identity = { fullname: 'username' };
-                        });
-
-                        it('should set fullname to username', function (done) {
-                            var promise = viewModel.activate();
-                            promise.fin(function () {
-                                expect(viewModel.username).toBe(userContext.identity.fullname);
-                                done();
-                            });
-                        });
-
-                    });
-
-                });
-
-            });
-
-        });
-
-        describe('username:', function () {
-
-            it('should be defined', function () {
-                expect(viewModel.username).toBeDefined();
             });
 
         });

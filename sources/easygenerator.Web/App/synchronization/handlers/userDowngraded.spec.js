@@ -1,9 +1,15 @@
-﻿define(['synchronization/handlers/userDowngraded'], function(handler) {
+﻿define(['synchronization/handlers/userDowngraded'], function (handler) {
     var
-        userContext = require('userContext')
+        userContext = require('userContext'),
+        app = require('durandal/app'),
+        constants = require('constants')
     ;
 
     describe('synchronization [userDowngraded]', function () {
+
+        beforeEach(function () {
+            spyOn(app, 'trigger');
+        });
 
         it('should be function', function () {
             expect(handler).toBeFunction();
@@ -27,6 +33,12 @@
             userContext.identity = jasmine.createSpyObj('identity', ['downgrade']);
             handler();
             expect(userContext.identity.downgrade).toHaveBeenCalled();
+        });
+
+        it('should trigger \'user:downgraded\' event', function () {
+            userContext.identity = jasmine.createSpyObj('identity', ['downgrade']);
+            handler();
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.downgraded);
         });
 
     });

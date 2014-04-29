@@ -103,6 +103,12 @@
     publish: {
         en: 'Publish'
     },
+    upgradeNow: {
+        en: 'Upgrade now'
+    },
+    renewMyPlan: {
+        en: 'Renew my plan'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */

@@ -1,10 +1,16 @@
 ﻿define(['synchronization/handlers/userUpgradedToStarter'], function (handler) {
 
     var
-        userContext = require('userContext')
+        userContext = require('userContext'),
+        app = require('durandal/app'),
+        constants = require('constants')
     ;
 
     describe('synchronization [userUpgradedToStarter]', function () {
+
+        beforeEach(function () {
+            spyOn(app, 'trigger');
+        });
 
         it('should be function', function () {
             expect(handler).toBeFunction();
@@ -28,6 +34,13 @@
             userContext.identity = jasmine.createSpyObj('identity', ['upgradeToStarter']);
             handler('2014-03-19T12:49:34.7396182Z');
             expect(userContext.identity.upgradeToStarter).toHaveBeenCalled();
+        });
+
+
+        it('should trigger \'user:upgraded\' event', function () {
+            userContext.identity = jasmine.createSpyObj('identity', ['upgradeToStarter']);
+            handler();
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.upgraded);
         });
 
     });
