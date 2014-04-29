@@ -699,7 +699,7 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Would you like an introduction demo?.
+        ///   Looks up a localized string similar to I would like an introduction demo!.
         /// </summary>
         public static string WouldYouLikeAnIntroductionDemo {
             get {
