@@ -37,7 +37,7 @@ namespace easygenerator.DataAccess.Tests
             //Arrange
             var entity = CourseObjectMother.Create();
             entity.UpdatePackageUrl("some url");
-            entity.UpdatePublishedOnDate();
+            entity.UpdatePublicationUrl("publication url");
 
             //Act
             DateTimeObjectMaterializer.Materialize(entity);

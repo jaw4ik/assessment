@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using easygenerator.Web.Components.RouteConstraints;
 
 namespace easygenerator.Web.Configuration
 {
@@ -31,13 +30,6 @@ namespace easygenerator.Web.Configuration
             #endregion
 
             #region Review
-
-            routes.MapRoute(
-                name: "ReviewedCoursePublishIsInProgress",
-                url: "review/{courseId}",
-                defaults: new { controller = "Maintenance", action = "PublishIsInProgress" },
-                constraints: new RouteValueDictionary { { "courseId", DependencyResolver.Current.GetService<PublishIsInProgressConstraint>() } }
-             );
 
             routes.MapRoute(
                 name: "ReviewCourse",
@@ -185,16 +177,9 @@ namespace easygenerator.Web.Configuration
             #region Publish routes
 
             routes.MapRoute(
-                "PublishIsInProgress",
-                "storage/{courseId}",
-                defaults: new { controller = "Maintenance", action = "PublishIsInProgress" },
-                constraints: new RouteValueDictionary { { "courseId", DependencyResolver.Current.GetService<PublishIsInProgressConstraint>() } }
-                );
-
-            routes.MapRoute(
-                "PublishedPackage",
-                "storage/{packageId}/{*resourceUrl}",
-                defaults: new { controller = "PublishedPackage", action = "GetPublishedResource" }
+                name: "OldPublishedPackages",
+                url: "storage/{courseId}/{*resourceUrl}",
+                defaults: new { controller = "RedirectToNewStorage", action = "RedirectToNewUrl" }
                 );
 
             #endregion

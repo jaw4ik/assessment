@@ -23,15 +23,12 @@ namespace easygenerator.Web.Tests
     {
         private ReviewController _controller;
         private HttpContextBase _context;
-        private ICoursePublishingService _publishingService;
 
         [TestInitialize]
         public void InitializeController()
         {
             _context = Substitute.For<HttpContextBase>();
-            _publishingService = Substitute.For<ICoursePublishingService>();
-
-            _controller = new ReviewController(_publishingService);
+            _controller = new ReviewController();
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -62,7 +59,7 @@ namespace easygenerator.Web.Tests
         {
             //arrange
             var course = CourseObjectMother.Create();
-            course.UpdatePublishedOnDate();
+            course.UpdatePublicationUrl("url");
 
             //Act
             var result = _controller.ReviewCourse(course);
@@ -72,27 +69,12 @@ namespace easygenerator.Web.Tests
         }
 
         [TestMethod]
-        public void ReviewCourse_ShouldGetPublishedPackageUrlFromPublishingService()
-        {
-            //arrange
-            var course = CourseObjectMother.Create();
-            course.UpdatePublishedOnDate();
-
-            //Act
-            _controller.ReviewCourse(course);
-
-            //Assert
-            _publishingService.Received().GetPublishedPackageUrl(course.Id.ToString());
-        }
-
-        [TestMethod]
         public void ReviewCourse_ShouldSetViewBagPublishedCourseUrl()
         {
             //arrange
             const string publishedPackageUrl = "url";
             var course = CourseObjectMother.Create();
-            course.UpdatePublishedOnDate();
-            _publishingService.GetPublishedPackageUrl(Arg.Any<string>()).Returns(publishedPackageUrl);
+            course.UpdatePublicationUrl(publishedPackageUrl);
 
             //Act
             _controller.ReviewCourse(course);
@@ -106,7 +88,7 @@ namespace easygenerator.Web.Tests
         {
             //arrange
             var course = CourseObjectMother.Create();
-            course.UpdatePublishedOnDate();
+            course.UpdatePublicationUrl("url");
 
             //Act
             _controller.ReviewCourse(course);

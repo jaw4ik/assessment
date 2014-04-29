@@ -135,7 +135,6 @@
     <Compile Include="Components\ActionFilters\ResourceUrlProcessorAttributeTests.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransformTests.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinderTests.cs" />
-    <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraintTest.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\Api\Aim4YouControllerTests.cs" />
     <Compile Include="Controllers\Api\AnswerControllerTests.cs" />
@@ -150,9 +149,8 @@
     <Compile Include="Controllers\ApplicationControllerTests.cs" />
     <Compile Include="Controllers\ErrorControllerTests.cs" />
     <Compile Include="Controllers\ImageControllerTests.cs" />
-    <Compile Include="Controllers\MaintenanceControllerTest.cs" />
     <Compile Include="Controllers\PreviewControllerTests.cs" />
-    <Compile Include="Controllers\PublishedPackageControllerTest.cs" />
+    <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
     <Compile Include="DomainEvents\Events\UserSignedUpEventTest.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\CourseEntityReaderTests.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\ObjectiveEntityReaderTests.cs" />
@@ -168,8 +166,6 @@
     <Compile Include="Publish\Aim4You\Aim4YouApiServiceTests.cs" />
     <Compile Include="Publish\Aim4You\Aim4YouCoursePublisherTests.cs" />
     <Compile Include="Publish\CoursePublisherTest.cs" />
-    <Compile Include="Publish\PublishDispatcherTest.cs" />
-    <Compile Include="Publish\CoursePublishingServiceTests.cs" />
     <Compile Include="Controllers\ReviewControllerTests.cs" />
     <Compile Include="Tasks\HttpRequestsSenderTaskTests.cs" />
     <Compile Include="Tasks\MailSenderTaskTest.cs" />

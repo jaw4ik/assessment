@@ -14,7 +14,6 @@ using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Elmah;
 using easygenerator.Web.Components.ModelBinding;
-using easygenerator.Web.Components.RouteConstraints;
 using easygenerator.Web.Components.Tasks;
 using easygenerator.Web.Import.PublishedCourse;
 using easygenerator.Web.Import.PublishedCourse.EntityReaders;
@@ -90,9 +89,6 @@ namespace easygenerator.Web.Configuration
             #region Publisher dependencies
 
             builder.RegisterType<CoursePublisher>().As<ICoursePublisher>();
-            builder.RegisterType<CoursePublishingService>().As<ICoursePublishingService>();
-            builder.RegisterType<PublishDispatcher>().As<IPublishDispatcher>().SingleInstance();
-            builder.RegisterType<PublishIsInProgressConstraint>();
 
             #endregion
 

@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Tests.ObjectMothers;
+﻿using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Http;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Publish;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
 
 namespace easygenerator.Web.Tests.Publish
 {
@@ -22,87 +19,180 @@ namespace easygenerator.Web.Tests.Publish
         private HttpRuntimeWrapper _httpRuntimeWrapper;
         private PhysicalFileManager _fileManager;
         private BuildPathProvider _pathProvider;
-        private IPublishDispatcher _publishDispatcher;
-        private const string DestinationDirectoryPath = "d:\\somePath";
+        private HttpClient _httpClient;
+        private ConfigurationReader _configurationReader;
+        private ILog _logger;
 
         [TestInitialize]
         public void InitializePublisher()
         {
             _httpRuntimeWrapper = Substitute.For<HttpRuntimeWrapper>();
             _fileManager = Substitute.For<PhysicalFileManager>();
-            _pathProvider = new BuildPathProvider(_httpRuntimeWrapper);
-            _publishDispatcher = Substitute.For<IPublishDispatcher>();
-            _publisher = new CoursePublisher(_fileManager, _pathProvider, _publishDispatcher, Substitute.For<ILog>());
+            _pathProvider = Substitute.For<BuildPathProvider>(_httpRuntimeWrapper);
+            _httpClient = Substitute.For<HttpClient>();
+            _configurationReader = Substitute.For<ConfigurationReader>();
+            _configurationReader.PublicationConfiguration.Returns(new PublicationConfigurationSection() { ApiKey = "apiKey", ServiceUrl = "serviceUrl" });
+            _logger = Substitute.For<ILog>();
+            _publisher = new CoursePublisher(_fileManager, _pathProvider, _logger, _httpClient, _configurationReader);
         }
 
         #region Publish
 
         [TestMethod]
-        public void Publish_ShouldThrowArgumentException_WhenDestinationDirectoryPathIsEmpty()
+        public void Publish_IfCourseWasNotBuildYetShouldReturnFalse()
         {
             //Arrange
             var course = CourseObjectMother.Create("CourseTitle");
 
             //Act
-            Action action = () => _publisher.Publish(course, "");
+            var result = _publisher.Publish(course);
 
             //Assert
-            action.ShouldThrow<ArgumentException>();
+            result.Should().BeFalse();
         }
 
         [TestMethod]
-        public void Publish_ShouldThrowArgumentException_WhenDestinationDirectoryPathIsNull()
+        public void Publish_IfCourseWasNotBuildYetShouldLogException()
         {
-            //Arrange
+            // Arrange
             var course = CourseObjectMother.Create("CourseTitle");
 
-            //Act
-            Action action = () => _publisher.Publish(course, null);
+            // Act
+            _publisher.Publish(course);
 
-            //Assert
-            action.ShouldThrow<ArgumentException>();
+            // Assert
+            _logger.Received().LogException(Arg.Is<NotSupportedException>(ex => ex.Message == string.Format("Publishing of non builded course is not supported. CourseId: {0}", course.Id)));
         }
 
         [TestMethod]
-        public void Publish_ShouldThrowArgumentNotSupportedException_WhenCourseBuildOnIsNull()
+        public void Publish_ShouldPostCoursePackage()
         {
-            //Arrange
-            var course = CourseObjectMother.Create("CourseTitle");
-
-            //Act
-            Action action = () => _publisher.Publish(course, DestinationDirectoryPath);
-
-            //Assert
-            action.ShouldThrow<NotSupportedException>();
-        }
-
-        [TestMethod]
-        public void Publish_ShouldCallPublishDispatcherStartMethod()
-        {
-            //Arrange
+            // Arrange
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdatePackageUrl("url");
-            //Act
-            _publisher.Publish(course, DestinationDirectoryPath);
+            var methodUrl = string.Format("serviceUrl/api/publish?key=apiKey&courseid={0}", course.Id);
 
-            //Assert
-            _publishDispatcher.Received().StartPublish(course.Id.ToString());
+            // Act
+            _publisher.Publish(course);
+
+            // Assert
+            _httpClient.Received().PostFile<string>(methodUrl, course.Id.ToString(), Arg.Any<byte[]>());
         }
 
         [TestMethod]
-        public void Publish_ShouldCallPublishDispatcherEndMethod()
+        public void Publish_IfPostSuccessfulShouldUpdateCourseWithPublicationUrl()
         {
-            //Arrange
+            // Arrange
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdatePackageUrl("url");
-            //Act
-            _publisher.Publish(course, DestinationDirectoryPath);
 
-            //Assert
-            _publishDispatcher.Received().EndPublish(course.Id.ToString());
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns("publication url");
+
+            // Act
+            _publisher.Publish(course);
+
+            // Assert
+            course.PublicationUrl.Should().Be("publication url");
+        }
+
+        [TestMethod]
+        public void Publish_IfPostFailedShouldLogException()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create("CourseTitle");
+            course.UpdatePackageUrl("url");
+
+            var ex = new Exception();
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns(info => { throw ex; });
+
+            // Act
+            _publisher.Publish(course);
+
+            // Assert
+            _logger.Received().LogException(ex);
+        }
+
+        public void Publish_IfPostFailedShouldResetPublicationUrl()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create("CourseTitle");
+            course.UpdatePackageUrl("url");
+
+            var ex = new Exception();
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns(info => { throw ex; });
+
+            // Act
+            _publisher.Publish(course);
+
+            // Assert
+            course.PublicationUrl.Should().BeNull();
+        }
+
+        public void Publish_IfPostFailedShouldReturnFalse()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create("CourseTitle");
+            course.UpdatePackageUrl("url");
+
+            var ex = new Exception();
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns(info => { throw ex; });
+
+            // Act
+            var result = _publisher.Publish(course);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Publish_IfPostSuccessfulAndPublicationUrlShouldUpdateCoursePublicationUrl()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create("CourseTitle");
+            course.UpdatePackageUrl("url");
+
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns("publication url");
+
+            // Act
+            var result = _publisher.Publish(course);
+
+            // Assert
+            course.PublicationUrl.Should().Be("publication url");
+        }
+
+        [TestMethod]
+        public void Publish_IfPostSuccessfulAndPublicationUrlIsNotEmptyShouldReturnTrue()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create("CourseTitle");
+            course.UpdatePackageUrl("url");
+
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns("publication url");
+
+            // Act
+            var result = _publisher.Publish(course);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Publish_IfPostSuccessfulAndPublicationUrlEmptyShouldReturnTrue()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create("CourseTitle");
+            course.UpdatePackageUrl("url");
+
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns(string.Empty);
+
+            // Act
+            var result = _publisher.Publish(course);
+
+            // Assert
+            result.Should().BeFalse();
         }
 
         #endregion
-     
+
     }
 }

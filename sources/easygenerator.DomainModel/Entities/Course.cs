@@ -163,8 +163,11 @@ namespace easygenerator.DomainModel.Entities
         }
 
         public DateTime? PublishedOn { get; protected internal set; }
-        public virtual void UpdatePublishedOnDate()
+        public string PublicationUrl { get; private set; }
+
+        public virtual void UpdatePublicationUrl(string publicationUrl)
         {
+            PublicationUrl = publicationUrl;
             PublishedOn = DateTimeWrapper.Now();
         }
 
@@ -269,6 +272,7 @@ namespace easygenerator.DomainModel.Entities
         {
             ArgumentValidation.ThrowIfNullOrEmpty(packageUrl, "packageUrl");
         }
+
     }
 
     public class Aim4YouIntegration

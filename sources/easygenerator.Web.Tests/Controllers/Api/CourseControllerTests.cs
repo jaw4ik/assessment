@@ -12,6 +12,7 @@ using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
+using easygenerator.Web.Components;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
@@ -26,14 +27,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
     {
         private const string CreatedBy = "easygenerator@easygenerator.com";
 
-        CourseController _controller;
-        ICourseBuilder _builder;
+        private CourseController _controller;
+        private ICourseBuilder _builder;
         private IScormCourseBuilder _scormCourseBuilder;
-        IEntityFactory _entityFactory;
-        ICourseRepository _repository;
-        IPrincipal _user;
-        HttpContextBase _context;
-        private ICoursePublishingService _coursePublishingService;
+        private IEntityFactory _entityFactory;
+        private ICourseRepository _repository;
+        private IPrincipal _user;
+        private HttpContextBase _context;
+        private IUrlHelperWrapper _urlHelper;
+        private ICoursePublisher _coursePublisher;
+
         [TestInitialize]
         public void InitializeContext()
         {
@@ -41,14 +44,15 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository = Substitute.For<ICourseRepository>();
             _builder = Substitute.For<ICourseBuilder>();
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
-            _coursePublishingService = Substitute.For<ICoursePublishingService>();
+            _coursePublisher = Substitute.For<ICoursePublisher>();
+            _urlHelper = Substitute.For<IUrlHelperWrapper>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _coursePublishingService);
+            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _urlHelper, _coursePublisher);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -226,7 +230,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Publish_ShouldReturnJsonErrorResult_WhenPublishFails()
         {
             //Arrange
-            _coursePublishingService.Publish(Arg.Any<Course>()).Returns(false);
+            _coursePublisher.Publish(Arg.Any<Course>()).Returns(false);
 
             //Act
             var result = _controller.Publish(CourseObjectMother.Create());
@@ -240,13 +244,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _coursePublishingService.Publish(course).Returns(true);
+            _coursePublisher.Publish(course).Returns(true);
+            course.UpdatePublicationUrl("url");
 
             //Act
             var result = _controller.Publish(course);
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PublishedPackageUrl = _coursePublishingService.GetPublishedPackageUrl(course.Id.ToString()) });
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PublishedPackageUrl = course.PublicationUrl });
         }
 
         #endregion
@@ -269,7 +274,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void PublishForReview_ShouldReturnJsonErrorResult_WhenPublishFails()
         {
             //Arrange
-            _coursePublishingService.Publish(Arg.Any<Course>()).Returns(false);
+            _coursePublisher.Publish(Arg.Any<Course>()).Returns(false);
 
             //Act
             var result = _controller.PublishForReview(CourseObjectMother.Create());
@@ -283,13 +288,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _coursePublishingService.Publish(course).Returns(true);
+            _coursePublisher.Publish(course).Returns(true);
+            _urlHelper.ToAbsoluteUrl(Arg.Any<string>()).Returns("url");
 
             //Act
             var result = _controller.PublishForReview(course);
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ReviewUrl = _coursePublishingService.GetCourseReviewUrl(course.Id.ToString()) });
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ReviewUrl = "url" });
         }
 
         #endregion
@@ -422,7 +428,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             _user.Identity.Name.Returns("Test user");
             var course = CourseObjectMother.Create();
-            var relatedObjective =ObjectiveObjectMother.Create();
+            var relatedObjective = ObjectiveObjectMother.Create();
 
             //Act
             var result = _controller.RelateObjectives(course, relatedObjective, null);

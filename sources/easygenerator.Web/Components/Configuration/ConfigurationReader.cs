@@ -70,6 +70,14 @@ namespace easygenerator.Web.Components.Configuration
             }
         }
 
+        public virtual PublicationConfigurationSection PublicationConfiguration
+        {
+            get
+            {
+                return ConfigurationManager.GetSection("publication") as PublicationConfigurationSection;
+            }
+        }
+
         public virtual string ConnectionString
         {
             get { return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString; }

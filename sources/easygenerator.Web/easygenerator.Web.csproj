@@ -197,12 +197,14 @@
     <Compile Include="Components\Configuration\ExternalApi\ApiKeyCollection.cs" />
     <Compile Include="Components\ActionResults\JsonDataResult.cs" />
     <Compile Include="Components\Configuration\HttpRequestsSenderConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\PublicationConfigurationSection.cs" />
     <Compile Include="Components\Configuration\WooCommerceConfigurationSection.cs" />
     <Compile Include="Components\PingHttpHandler.cs" />
     <Compile Include="Components\Tasks\HttpRequestsSenderTask.cs" />
     <Compile Include="Components\Elmah\ElmahLog.cs" />
     <Compile Include="Components\Elmah\SqlErrorLogExtended.cs" />
     <Compile Include="Components\Tasks\SqlCommandTask.cs" />
+    <Compile Include="Controllers\RedirectToNewStorageController.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\AnswerEntityReader.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\CourseEntityReader.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\LearningContentEntityReader.cs" />
@@ -516,7 +518,6 @@
     <Compile Include="Components\NavigationLink.cs" />
     <Compile Include="Components\RazorTemplateProvider.cs" />
     <Compile Include="Components\Tasks\PasswordRecoveryTicketExpirationTask.cs" />
-    <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraint.cs" />
     <Compile Include="Components\CountriesInfo.cs" />
     <Compile Include="Components\Tasks\CacheExpirationTaskInvoker.cs" />
     <Compile Include="Components\Tasks\Scheduler.cs" />
@@ -543,8 +544,6 @@
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Components\DefaultController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
-    <Compile Include="Controllers\MaintenanceController.cs" />
-    <Compile Include="Controllers\PublishedPackageController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="DomainEvents\Handlers\RegisterWooCommerceUserHandler.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
@@ -653,11 +652,7 @@
     <Compile Include="Publish\Aim4You\IAim4YouApiService.cs" />
     <Compile Include="Publish\Aim4You\IAim4YouCoursePublisher.cs" />
     <Compile Include="Publish\CoursePublisher.cs" />
-    <Compile Include="Publish\CoursePublishingService.cs" />
     <Compile Include="Publish\ICoursePublisher.cs" />
-    <Compile Include="Publish\ICoursePublishingService.cs" />
-    <Compile Include="Publish\IPublishDispatcher.cs" />
-    <Compile Include="Publish\PublishDispatcher.cs" />
     <Compile Include="Resources\Views\Account\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1919,7 +1914,6 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Maintenance\PublishIsInProgress.cshtml" />
     <Content Include="Templates\Quiz\js\vendor.js.bundle">
       <SubType>Designer</SubType>
     </Content>
@@ -1961,6 +1955,7 @@
     <Content Include="App\repositories\questionRepository.spec.js">
       <DependentUpon>questionRepository.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\errors\400.js" />
     <Content Include="App\viewmodels\errors\404.js" />
     <Content Include="App\viewmodels\courses\createCourse.js" />
     <Content Include="App\viewmodels\courses\courses.js" />
@@ -1980,6 +1975,7 @@
     </Content>
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\views\errors\404.html" />
+    <Content Include="App\views\errors\400.html" />
     <Content Include="App\views\courses\createCourse.html" />
     <Content Include="App\views\objectives\createObjective.html" />
     <Content Include="Content\ckeditor.css" />

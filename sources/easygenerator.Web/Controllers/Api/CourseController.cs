@@ -22,16 +22,18 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ICourseBuilder _builder;
         private readonly IEntityFactory _entityFactory;
         private readonly ICourseRepository _repository;
-        private readonly ICoursePublishingService _coursePublishingService;
+        private readonly IUrlHelperWrapper _urlHelper;
         private readonly IScormCourseBuilder _scormCourseBuilder;
+        private readonly ICoursePublisher _coursePublisher;
 
-        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory, ICoursePublishingService publishingService)
+        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher)
         {
             _builder = courseBuilder;
             _repository = repository;
             _entityFactory = entityFactory;
-            _coursePublishingService = publishingService;
+            _urlHelper = urlHelper;
             _scormCourseBuilder = scormCourseBuilder;
+            _coursePublisher = coursePublisher;
         }
 
         [HttpPost]
@@ -93,14 +95,14 @@ namespace easygenerator.Web.Controllers.Api
         [Route("course/publish")]
         public ActionResult Publish(Course course)
         {
-            return DoPublishAction(course, () => _coursePublishingService.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = _coursePublishingService.GetPublishedPackageUrl(course.Id.ToString()) }));
+            return DoPublishAction(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = course.PublicationUrl }));
         }
 
         [HttpPost]
         [Route("course/publishForReview")]
         public ActionResult PublishForReview(Course course)
         {
-            return DoPublishAction(course, () => _coursePublishingService.Publish(course), () => JsonSuccess(new { ReviewUrl = _coursePublishingService.GetCourseReviewUrl(course.Id.ToString()) }));
+            return DoPublishAction(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { ReviewUrl = GetCourseReviewUrl(course.Id.ToString()) }));
         }
 
         [HttpPost]
@@ -117,8 +119,8 @@ namespace easygenerator.Web.Controllers.Api
                 ModifiedOn = course.ModifiedOn,
                 Template = new { Id = course.Template.Id.ToNString() },
                 PackageUrl = course.PackageUrl,
-                PublishedPackageUrl = course.PublishedOn != null ? _coursePublishingService.GetPublishedPackageUrl(course.Id.ToString()) : null,
-                ReviewUrl = course.PublishedOn != null ? _coursePublishingService.GetCourseReviewUrl(course.Id.ToString()) : null,
+                PublishedPackageUrl = course.PublicationUrl,
+                ReviewUrl = course.PublishedOn != null ? GetCourseReviewUrl(course.Id.ToString()) : null,
                 RelatedObjectives = course.RelatedObjectives.Select(obj => new
                 {
                     Id = obj.Id.ToNString()
@@ -126,6 +128,11 @@ namespace easygenerator.Web.Controllers.Api
             });
 
             return JsonSuccess(result);
+        }
+
+        private string GetCourseReviewUrl(string courseId)
+        {
+            return _urlHelper.ToAbsoluteUrl(string.Format("~/review/{0}/", courseId));
         }
 
         [HttpPost]
@@ -269,6 +276,7 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }
+
 
     }
 }

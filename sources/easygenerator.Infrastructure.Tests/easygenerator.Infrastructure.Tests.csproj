@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="DomainModel\HttpRequestTests.cs" />
     <Compile Include="DomainModel\MailNotificationTests.cs" />
-    <Compile Include="Http\HttpClientTests.cs" />
     <Compile Include="Http\HttpRequestsManagerTests.cs" />
     <Compile Include="ObjectMothers\HttpRequestObjectMother.cs" />
     <Compile Include="ObjectMothers\MailNotificationObjectMother.cs" />

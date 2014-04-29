@@ -26,6 +26,28 @@ namespace easygenerator.Infrastructure.Http
             return DoHttpAction<TResponse>(url, null, client => client.GetAsync(BuildUrl(url, queryStringParameters)).Result, userName, password);
         }
 
+        public virtual TResponse PostFile<TResponse>(string url, string fileName, byte[] fileData)
+        {
+            using (var client = InitializeHttpClient())
+            {
+                var fileContent = new ByteArrayContent(fileData);
+                fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment") { FileName = fileName };
+
+                using (var content = new MultipartFormDataContent())
+                {
+                    content.Add(fileContent);
+
+                    HttpResponseMessage response = client.PostAsync(url, content).Result;
+                    string responseBody = response.Content.ReadAsStringAsync().Result;
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new HttpRequestException(string.Format("Reason: {0}. Response body: {1}.", response.ReasonPhrase, responseBody));
+                    }
+                    return JsonConvert.DeserializeObject<TResponse>(responseBody);
+                }
+            }
+        }
+
         public virtual void PostFileInChunks(string url, string fileName, byte[] fileData, string userName = null, string password = null, Dictionary<string, string> fileChunkHeaders = null)
         {
             var chunks = new Dictionary<int, byte[]>();

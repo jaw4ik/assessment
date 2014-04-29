@@ -621,20 +621,34 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
-        #region UpdatePublishedOnDate
+        #region UpdatePublicationUrl
 
         [TestMethod]
-        public void UpdatePublishedOnDate_ShouldUpdatePublishedOn()
+        public void UpdatePublicationUrl_ShouldUpdatePublishedOn()
         {
             //Arrange
             var course = CourseObjectMother.Create();
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
-            course.UpdatePublishedOnDate();
+            course.UpdatePublicationUrl("some url");
 
             //Assert
             course.PublishedOn.Should().Be(DateTime.MaxValue);
+        }
+
+        [TestMethod]
+        public void UpdatePublicationUrl_ShouldUpdatePublicationUrl()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            //Act
+            course.UpdatePublicationUrl("some url");
+
+            //Assert
+            course.PublicationUrl.Should().Be("some url");
         }
 
         #endregion

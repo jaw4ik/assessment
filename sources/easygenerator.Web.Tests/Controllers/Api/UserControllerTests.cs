@@ -487,20 +487,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Signup_ShouldBeClearSession()
-        {
-            //Arrange
-            var profile = GetTestUserSignUpViewModel();
-            var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
-            //Act
-            _controller.Signup(profile);
-
-            //Assert
-            _context.Session[Constants.SessionConstants.UserSignUpModel].Should().Be(null);
-        }
-
-        [TestMethod]
         public void Signup_ShouldCreateSampleCourse()
         {
             //Arrange

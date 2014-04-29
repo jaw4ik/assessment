@@ -1,0 +1,216 @@
+﻿/*
+ * easygenerator | Copyright 2013
+ */
+
+/*#region FONTS CONNECTIONS*/
+@font-face {
+    font-family: 'OpenSans';
+    src: url('./font/opensans-regular.eot');
+    src: url('./font/opensans-regular.eot?#iefix') format('embedded-opentype'), url('./font/opensans-regular.woff') format('woff'), url('./font/opensans-regular.ttf') format('truetype'), url('./font/opensans-regular.svg#OpenSansRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OpenSans-Semibold';
+    src: url('./font/opensans-semibold.eot');
+    src: url('./font/opensans-semibold.eot?#iefix') format('embedded-opentype'), url('./font/opensans-semibold.woff') format('woff'), url('./font/opensans-semibold.ttf') format('truetype'), url('./font/opensans-semibold.svg#OpenSansSemibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OpenSansItalic';
+    src: url('./font/opensans-italic.eot');
+    src: url('./font/opensans-italic.eot?#iefix') format('embedded-opentype'), url('./font/opensans-italic.woff') format('woff'), url('./font/opensans-italic.ttf') format('truetype'), url('./font/opensans-italic.svg#OpenSansItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OpenSans-SemiboldItalic';
+    src: url('./font/opensans-semibolditalic.eot');
+    src: url('./font/opensans-semibolditalic.eot?#iefix') format('embedded-opentype'), url('./font/opensans-semibolditalic.woff') format('woff'), url('./font/opensans-semibolditalic.ttf') format('truetype'), url('./font/opensans-semibolditalic.svg#OpenSansSemiboldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BuxtonSketch';
+    src: url('./font/buxtonsketch.eot');
+    src: url('./font/buxtonsketch.eot?#iefix') format('embedded-opentype'), url('./font/buxtonsketch.woff') format('woff'), url('./font/buxtonsketch.ttf') format('truetype'), url('./font/buxtonsketch.svg#BuxtonSketch') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*#endregion FONTS CONNECTIONS*/
+
+/*#region RESET CSS-STYLES IN FOREIGN BROWSERS */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, section, summary, mark, audio, video {
+    padding: 0;
+    margin: 0;
+    outline: 0;
+}
+
+html, div, article, aside,
+footer, header, menu, nav, section {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*#endregion RESET CSS-STYLES IN FOREIGN BROWSERS */
+
+/*#region COMMON TAGS CSS-STYLES*/
+
+html {
+    overflow-y: hidden;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: 'OpenSans', sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin: 0;
+}
+
+input[type="password"]::-ms-reveal {
+    visibility: hidden;
+}
+
+input::-ms-clear {
+    visibility: hidden;
+}
+
+:focus,
+:active {
+    outline: none;
+}
+
+a {
+    outline: 0;
+    text-decoration: none;
+}
+
+    a:hover,
+    a:active {
+        outline: 0;
+    }
+
+    a:focus {
+        text-decoration: none;
+    }
+
+h1 {
+    font-size: 2.0em;
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+}
+
+img:hover {
+    opacity: 1;
+}
+
+/*#endregion COMMON*/
+
+/*#region COMMON CLASSES CSS-STYLES*/
+
+.clear {
+    clear: both;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.unstyled {
+    list-style: none;
+}
+
+.selectable {
+    -moz-user-select: text;
+    -webkit-user-select: text;
+    -ms-user-select: text;
+}
+
+.preloader-block {
+    height: 1px;
+    width: 1px;
+    position: absolute;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.tb-row {
+    display: table-row;
+    vertical-align: top;
+}
+
+.tb-cell {
+    display: table-cell;
+    vertical-align: top;
+}
+
+    .tb-cell > .colspan-cell {
+        width: 100%;
+        position: absolute;
+    }
+
+/*#endregion COMMON CLASSES CSS-STYLES*/
+
+/*#region CURSOR*/
+.cursor-default {
+    cursor: default;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+/*#endregion CURSOR*/
