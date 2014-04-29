@@ -44,10 +44,6 @@
             window.open(downloadUrl);
         };
 
-        router.on('router:navigation:composition-complete').then(function () {
-            $(document).scrollTop(0);
-        });
-
         // add routeData to routing
         var namedParamPattern = /(\(\?)?:\w+/g;
         var defaultRouteData = {

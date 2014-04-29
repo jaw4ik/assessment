@@ -7,11 +7,17 @@ define(['durandal/system', 'durandal/composition', 'jquery'], function (system, 
                 });
             }
 
+            if (!context.keepScrollPosition) {
+                $("#view_content").scrollTop(0);
+            }
+
             context.triggerAttach();
+
             $(context.child).show();
 
             dfd.resolve();
         }).promise();
+
     };
 
     return defaultRouterTransition;
