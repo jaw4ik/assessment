@@ -10,5 +10,6 @@ namespace easygenerator.Web.WooCommerce
     public interface IWooCommerceApiService
     {
         void RegisterUser(User user, string userPassword);
+        void UpdateUser(User user, string userPassword);
     }
 }

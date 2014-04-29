@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
@@ -15,12 +16,17 @@ namespace easygenerator.Web.Controllers
         private readonly IAuthenticationProvider _authenticationProvider;
         private readonly IUserRepository _repository;
         private readonly IWooCommerceAutologinUrlProvider _wooCommerceAutologinUrlProvider;
+        private readonly IDomainEventPublisher<UserUpdateEvent> _userUpdateEventPublisher;
 
-        public AccountController(IAuthenticationProvider authenticationProvider, IUserRepository repository, IWooCommerceAutologinUrlProvider wooCommerceAutologinUrlProvider)
+        public AccountController(IAuthenticationProvider authenticationProvider,
+            IUserRepository repository,
+            IWooCommerceAutologinUrlProvider wooCommerceAutologinUrlProvider,
+            IDomainEventPublisher<UserUpdateEvent> userUpdateEventPublisher)
         {
             _authenticationProvider = authenticationProvider;
             _repository = repository;
             _wooCommerceAutologinUrlProvider = wooCommerceAutologinUrlProvider;
+            _userUpdateEventPublisher = userUpdateEventPublisher;
         }
 
         [NoCache]
@@ -117,6 +123,7 @@ namespace easygenerator.Web.Controllers
             }
 
             ticket.User.RecoverPasswordUsingTicket(ticket, password);
+            _userUpdateEventPublisher.Publish(new UserUpdateEvent(ticket.User, password));
             _authenticationProvider.SignIn(ticket.User.Email, true);
 
             return RedirectToRoute("Default");

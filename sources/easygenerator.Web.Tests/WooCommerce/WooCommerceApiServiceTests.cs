@@ -30,7 +30,7 @@ namespace easygenerator.Web.Tests.WooCommerce
         }
 
         [TestMethod]
-        public void WooCommerceApiService_ShouldCallHttpClientPostOrAddToQueueMethodWithCorrectData()
+        public void RegisterUser_ShouldCallHttpClientPostOrAddToQueueMethodWithCorrectData()
         { 
             // Arrange
             var user = UserObjectMother.CreateWithCountry("Ukraine");
@@ -54,7 +54,7 @@ namespace easygenerator.Web.Tests.WooCommerce
         }
 
         [TestMethod]
-        public void WooCommerceApiService_ShouldNotCallHttpClientIfEnableIsFalse()
+        public void RegisterUser_ShouldNotCallHttpClientIfEnableIsFalse()
         {
             // Arrange
             var condigurationSection = new WooCommerceConfigurationSection { ServiceUrl = "serviceUrl", ApiKey = "apiKey", Enabled = false };
@@ -62,6 +62,44 @@ namespace easygenerator.Web.Tests.WooCommerce
 
             // Act
             _wooCommerceApiService.RegisterUser(UserObjectMother.CreateWithCountry("Ukraine"), "abcABC123");
+
+            // Assert
+            _httpRequestsManager.DidNotReceive().PostOrAddToQueueIfUnexpectedError(Arg.Any<string>(), Arg.Any<object>(), Arg.Any<string>());
+        }
+
+        [TestMethod]
+        public void UpdateUser_ShouldCallHttpClientPostOrAddToQueueMethodWithCorrectData()
+        {
+            // Arrange
+            var user = UserObjectMother.CreateWithCountry("Ukraine");
+            var serviceUrl = "serviceUrl";
+            var methodPath = "api/user/update";
+            var apiKey = "apiKey";
+            var serviceName = "wooCommerce";
+
+            var condigurationSection = new WooCommerceConfigurationSection { ServiceUrl = serviceUrl, ApiKey = apiKey };
+
+            _configurationReader.WooCommerceConfiguration.Returns(condigurationSection);
+
+            // Act
+            _wooCommerceApiService.UpdateUser(user, "abcABC123");
+
+            // Assert
+            _httpRequestsManager.Received().PostOrAddToQueueIfUnexpectedError(
+                serviceUrl + "/" + methodPath + "?key=" + apiKey,
+                Arg.Any<object>(),
+                serviceName);
+        }
+
+        [TestMethod]
+        public void UpdateUser_ShouldNotCallHttpClientIfEnableIsFalse()
+        {
+            // Arrange
+            var condigurationSection = new WooCommerceConfigurationSection { ServiceUrl = "serviceUrl", ApiKey = "apiKey", Enabled = false };
+            _configurationReader.WooCommerceConfiguration.Returns(condigurationSection);
+
+            // Act
+            _wooCommerceApiService.UpdateUser(UserObjectMother.CreateWithCountry("Ukraine"), "abcABC123");
 
             // Assert
             _httpRequestsManager.DidNotReceive().PostOrAddToQueueIfUnexpectedError(Arg.Any<string>(), Arg.Any<object>(), Arg.Any<string>());

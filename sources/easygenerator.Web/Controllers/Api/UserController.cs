@@ -205,20 +205,6 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult RecoverPassword(PasswordRecoveryTicket ticket, string password)
-        {
-            if (ticket == null)
-            {
-                return JsonError("Ticket does not exist");
-            }
-
-            ticket.User.RecoverPasswordUsingTicket(ticket, password);
-
-            return JsonSuccess();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
         public ActionResult Exists(string email)
         {
             var exists = _repository.GetUserByEmail(email) != null;

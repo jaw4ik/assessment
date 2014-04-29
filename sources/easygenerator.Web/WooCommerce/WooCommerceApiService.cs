@@ -8,6 +8,7 @@ namespace easygenerator.Web.WooCommerce
     public class WooCommerceApiService : IWooCommerceApiService
     {
         private const string RegisterUserMethodPath = "api/user/create";
+        private const string UpdateUserMethodpath = "api/user/update";
         private const string ServiceName = "wooCommerce";
 
         private readonly ConfigurationReader _configurationReader;
@@ -21,9 +22,19 @@ namespace easygenerator.Web.WooCommerce
 
         public void RegisterUser(User user, string userPassword)
         {
+            Post(user, userPassword, RegisterUserMethodPath);
+        }
+
+        public void UpdateUser(User user, string userPassword)
+        {
+            Post(user, userPassword, UpdateUserMethodpath);
+        }
+
+        private void Post(User user, string userPassword, string serviceMethodUrl)
+        {
             if (_configurationReader.WooCommerceConfiguration.Enabled)
             {
-                var methodUrl = GetServiceMethodUrl(RegisterUserMethodPath);
+                var methodUrl = GetServiceMethodUrl(serviceMethodUrl);
                 var methodData = new
                 {
                     email = user.Email,

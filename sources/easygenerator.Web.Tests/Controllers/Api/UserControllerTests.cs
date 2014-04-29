@@ -572,52 +572,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region Recover Password
-
-        [TestMethod]
-        public void RecoverPassword_ShouldReturnJsonErrorResult_WhenTicketDoesNotExist()
-        {
-            var result = _controller.RecoverPassword(null, null);
-
-            result.Should().BeJsonErrorResult();
-        }
-
-        [TestMethod]
-        public void RecoverPassword_ShouldRecoverUserPassword()
-        {
-            //Arrange
-            var ticket = Substitute.For<PasswordRecoveryTicket>();
-            var user = Substitute.For<User>();
-            ticket.User.Returns(user);
-
-            const string password = "Abc123!";
-
-            //Act
-            _controller.RecoverPassword(ticket, password);
-
-            //Assert
-            //user.Received().RecoverPasswordUsingTicket(Arg.Any<string>(), password);
-        }
-
-        [TestMethod]
-        public void RecoverPassword_ShouldReturnJsonSuccessResult()
-        {
-            //Arrange
-            var ticket = Substitute.For<PasswordRecoveryTicket>();
-            var user = Substitute.For<User>();
-            ticket.User.Returns(user);
-
-            const string password = "Abc123!";
-
-            //Act
-            var result = _controller.RecoverPassword(ticket, password);
-
-            //Assert
-            result.Should().BeJsonSuccessResult();
-        }
-
-        #endregion
-
         #region Exists
 
         [TestMethod]
