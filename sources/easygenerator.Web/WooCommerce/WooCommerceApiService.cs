@@ -8,7 +8,7 @@ namespace easygenerator.Web.WooCommerce
     public class WooCommerceApiService : IWooCommerceApiService
     {
         private const string RegisterUserMethodPath = "api/user/create";
-        private const string UpdateUserMethodpath = "api/user/update";
+        private const string UpdateUserMethodPath = "api/user/update";
         private const string ServiceName = "wooCommerce";
 
         private readonly ConfigurationReader _configurationReader;
@@ -27,7 +27,7 @@ namespace easygenerator.Web.WooCommerce
 
         public void UpdateUser(User user, string userPassword)
         {
-            Post(user, userPassword, UpdateUserMethodpath);
+            Post(user, userPassword, UpdateUserMethodPath);
         }
 
         private void Post(User user, string userPassword, string serviceMethodUrl)
