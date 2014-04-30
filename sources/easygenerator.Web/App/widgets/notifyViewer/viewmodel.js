@@ -43,9 +43,9 @@
 
         $(item).fadeIn(defer.resolve);
 
-        setTimeout(function (notice) {
-            $(notice).fadeOut(noticefadeOutLifetime, function () {
-                $(notice).remove();
+        setTimeout(function () {
+            $(item).fadeOut(noticefadeOutLifetime, function () {
+                $(item).remove();
             });
         }, noticelifeTime, item);
 
