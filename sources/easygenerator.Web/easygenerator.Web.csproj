@@ -204,6 +204,7 @@
     <Compile Include="Components\Elmah\ElmahLog.cs" />
     <Compile Include="Components\Elmah\SqlErrorLogExtended.cs" />
     <Compile Include="Components\Tasks\SqlCommandTask.cs" />
+    <Compile Include="Configuration\JsonFormatterConfiguration.cs" />
     <Compile Include="DomainEvents\Handlers\UpdateWooCommerceUserHandler.cs" />
     <Compile Include="Controllers\RedirectToNewStorageController.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\AnswerEntityReader.cs" />

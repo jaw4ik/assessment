@@ -18,6 +18,7 @@ namespace easygenerator.Web
             ContainerConfiguration.Configure();
             RouteConfiguration.Configure();
             TaskConfiguration.Configure();
+            JsonFormatterConfiguration.Configure();
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
