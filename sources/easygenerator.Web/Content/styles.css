@@ -1792,22 +1792,6 @@ span.top-navigation-item.current {
     color: #c4c4c4;
 }
 
-.form-link-wrapper {
-    float: left;
-    margin-top: 30px;
-    padding: 14px 0;
-}
-
-.form-link {
-    vertical-align: top;
-    color: #0083d6;
-    font-size: 14px;
-}
-
-    .form-link:hover {
-        text-decoration: underline;
-    }
-
 /*#endregion Create form*/
 
 /*#region EDIT FIELD*/
