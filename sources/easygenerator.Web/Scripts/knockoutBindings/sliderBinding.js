@@ -23,7 +23,7 @@
             sliderModel.startAutoRotate();
         }
 
-        sliderModel.startAutoRotate = function() {
+        sliderModel.startAutoRotate = function () {
             sliderModel.autoRotateInterval = setInterval(function () {
                 sliderModel.moveToNext(true);
             }, sliderModel.autoRotateTime);
@@ -127,10 +127,16 @@
             sliderModel.$next.click(sliderModel.navClick);
         }
 
+        sliderModel.dispose = function () {
+            sliderModel.stopAutoRotate();
+        }
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, sliderModel.dispose);
+
         sliderModel.init();
 
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-      
+
     }
 };
