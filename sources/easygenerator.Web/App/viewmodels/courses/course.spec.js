@@ -688,7 +688,7 @@
             });
         });
 
-        xdescribe('disconnectSelectedObjectives:', function () {
+        describe('disconnectSelectedObjectives:', function () {
 
             beforeEach(function () {
                 viewModel.id = 'courseId';
@@ -696,6 +696,24 @@
 
             it('should be a function', function () {
                 expect(viewModel.disconnectSelectedObjectives).toBeFunction();
+            });
+
+            describe('when no objectives selected', function() {
+                beforeEach(function () {
+                    viewModel.connectedObjectives([]);
+                    spyOn(repository, 'unrelateObjectives');
+                });
+
+                it('should not send event \'Unrelate objectives from course\'', function () {
+                    viewModel.disconnectSelectedObjectives();
+                    expect(eventTracker.publish).not.toHaveBeenCalledWith('Unrelate objectives from course');
+                });
+
+                it('should not call repository \"unrelateObjectives\" method', function () {
+                    viewModel.disconnectSelectedObjectives();
+                    expect(repository.unrelateObjectives).not.toHaveBeenCalled();
+                });
+
             });
 
             describe('when some of related objectives is selected', function () {
@@ -714,8 +732,7 @@
                     viewModel.connectedObjectives(relatedObjectives);
 
                     unrelateObjectives = Q.defer();
-
-                    spyOn(repository, 'unrelateObjectives').andReturn(unrelateObjectives.promise);
+                    spyOn(repository, 'unrelateObjectives').and.returnValue(unrelateObjectives.promise);
                 });
 
                 it('should send event \'Unrelate objectives from course\'', function () {

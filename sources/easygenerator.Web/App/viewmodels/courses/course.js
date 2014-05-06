@@ -239,6 +239,9 @@
         }
 
         function disconnectSelectedObjectives() {
+            if (!viewModel.canDisconnectObjectives())
+                return;
+
             eventTracker.publish(events.unrelateObjectivesFromCourse);
 
             var that = viewModel,
