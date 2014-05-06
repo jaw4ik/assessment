@@ -15,6 +15,6 @@
         "allowedVerbs": []
     },
     "masteryScore": {
-        "score": ""
+        "score": "75"
     }
 }
