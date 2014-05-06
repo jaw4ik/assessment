@@ -1,11 +1,13 @@
 ﻿define(function () {
 
+    var ticks = new Date().getTime();
+
     function readTemplateSettings() {
-        return read('settings.js');
+        return read('settings.js?v=' + ticks);
     }
 
     function readPublishSettings() {
-        return read('publishSettings.js');
+        return read('publishSettings.js?v=' + ticks);
     }
 
     function read(filename) {
