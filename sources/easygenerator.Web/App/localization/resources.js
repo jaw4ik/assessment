@@ -322,6 +322,9 @@
     relatedLearningObjectives: {
         en: 'Related learning objectives'
     },
+    sharedCourses: {
+        en: 'Shared courses'
+    },
     /* End resource section for model Courses */
     
     /* Resource section for model CreateObjective */
