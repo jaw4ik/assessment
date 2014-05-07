@@ -250,6 +250,7 @@
 
 .feedback-status-text {
     line-height: 33px;
+    position: relative;
     padding-left: 18px;
     color: #999999;
     font-family: 'OpenSans';
@@ -258,13 +259,14 @@
 
     .feedback-status-text:before {
         content: '';
-        position: absolute;
-        background: url(images/sprites.png) -94px -52px no-repeat;
-        width: 18px;
-        height: 18px;
         display: block;
+        height: 18px;
+        width: 18px;
+        position: absolute;
+        top: 50%;
+        margin-top: -10px;
         margin-left: -20px;
-        margin-top: 9px;
+        background: url(images/sprites_16.png) -64px 1px no-repeat;
     }
 
 /*#endregion SEND FEEDBACK*/
@@ -310,12 +312,12 @@
     .open-review-link:after {
         content: '';
         display: block;
-        width: 14px;
-        height: 14px;
+        width: 13px;
+        height: 12px;
         position: absolute;
-        left: 5px;
-        top: 6px;
-        background: url(../Content/images/sprites.png) -178px -220px;
+        left: 6px;
+        top: 8px;
+        background: url(../Content/images/sprites_16.png) -108px -2px;
     }
 
 .tab-btn.review-btn {
