@@ -25,7 +25,7 @@
     word-wrap: break-word;
 }
 
-    .help-hint-title:after {
+    .help-hint-title:before {
         content: '';
         display: block;
         position: absolute;
@@ -33,7 +33,7 @@
         left: 0;
         width: 24px;
         height: 24px;
-        background: url(../Content/images/sprites.png) -272px -49px;
+        background: url(../Content/images/sprites_24.png) -87px 0;
     }
 
 .help-hint-text strong {

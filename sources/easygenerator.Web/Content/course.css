@@ -447,7 +447,7 @@
     top: 0;
     width: 15px;
     height: 15px;
-    background: url('images/sprites.png') -269px -224px no-repeat;
+    background: url('images/sprites_16.png') 0 0;
 }
 
 .template-preview-link:hover {
