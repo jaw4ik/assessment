@@ -11,20 +11,20 @@
     </div>
 
     <ul data-bind="visible: isExpanded">
+        <!-- ko ifnot: children().length -->
         <li class="navigation-tree-node">
             <div class="navigation-tree-node-wrapper">
-                <a class="navigation-tree-node-caption-wrapper" href="#" data-bind="click: createQuestion">
-                    <span class="navigation-tree-node-icon create"></span>
-                    <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createQuestionTreeNodeTitle' }">Question</span>
-                </a>
+                <span class="navigation-tree-node-caption-wrapper">
+                    <span class="navigation-tree-node-icon empty"></span>
+                    <span class="navigation-tree-node-caption empty" data-bind="localize: { text: 'noQuestionsTitle' }"></span>    
+                </span>
             </div>
         </li>
-
-        <!-- ko foreach: children -->
-
-        <!-- ko compose: { model: $data, preserveContext: true } -->
         <!-- /ko -->
 
+        <!-- ko foreach: children -->
+        <!-- ko compose: { model: $data, preserveContext: true } -->
+        <!-- /ko -->
         <!-- /ko -->
 
     </ul>

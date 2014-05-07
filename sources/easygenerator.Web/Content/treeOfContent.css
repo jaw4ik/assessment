@@ -148,6 +148,15 @@
     color: #303133;
 }
 
+    .navigation-tree-node-caption.empty {
+        color: #999999;
+        cursor: default;
+    }
+
+    .navigation-tree-node .navigation-tree-node-caption.empty:hover {
+        background-color: #FFFFFF;
+    }
+
 .navigation-tree-node-caption-wrapper.expanded {
     border-bottom: 1px solid #dedede;
 }
@@ -249,6 +258,12 @@
         display: block;
         margin: 0 auto;
         background-repeat: no-repeat;
+    }
+
+    .navigation-tree-node-icon.empty:before {
+        width: 16px;
+        height: 16px;
+        background: url('images/sprites_16.png') -41px 0;
     }
 
     .navigation-tree-node-icon.create:before {

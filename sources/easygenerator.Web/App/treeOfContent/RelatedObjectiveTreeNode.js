@@ -9,7 +9,6 @@
             this.isExpanded = ko.observable();
             this.expand = expand;
             this.collapse = collapse;
-            this.createQuestion = createQuestion;
 
             this.navigateToObjective = navigateToObjective;
         };
@@ -39,10 +38,6 @@
 
         function collapse() {
             this.isExpanded(false);
-        }
-
-        function createQuestion() {
-            createQuestionCommand.execute(this.id, this.courseId, 'Tree of content');
         }
 
         function navigateToObjective() {

@@ -2,7 +2,6 @@
 
     var
         getObjectiveByIdQuery = require('treeOfContent/queries/getObjectiveByIdQuery'),
-        createQuestionCommand = require('commands/createQuestionCommand'),
         eventTracker = require('eventTracker'),
         router = require('plugins/router')
     ;
@@ -25,7 +24,6 @@
             expect(objectiveTreeNode.isExpanded).toBeObservable();
             expect(objectiveTreeNode.expand).toBeFunction();
             expect(objectiveTreeNode.collapse).toBeFunction();
-            expect(objectiveTreeNode.createQuestion).toBeFunction();
             expect(objectiveTreeNode.navigateToObjective).toBeFunction();
         });
 
@@ -137,22 +135,6 @@
                 objectiveTreeNode.collapse();
 
                 expect(objectiveTreeNode.isExpanded()).toBeFalsy();
-            });
-
-        });
-
-        describe('createQuestion:', function () {
-
-            var objectiveTreeNode;
-
-            beforeEach(function () {
-                objectiveTreeNode = new RelatedObjectiveTreeNode('id', 'courseId');
-                spyOn(createQuestionCommand, 'execute');
-            });
-
-            it('should execute createQuestionCommand', function () {
-                objectiveTreeNode.createQuestion();
-                expect(createQuestionCommand.execute).toHaveBeenCalledWith('id', 'courseId', 'Tree of content');
             });
 
         });
