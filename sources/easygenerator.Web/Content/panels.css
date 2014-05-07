@@ -96,6 +96,7 @@
 
 .tab-title-text {
     display: inline-block;
+    position: relative;
     float: left;
     line-height: 40px;
     padding: 0 15px 0 40px;
@@ -105,20 +106,24 @@
     .tab-title-text:before {
         content: '';
         display: block;
-        width: 22px;
-        height: 23px;
         position: absolute;
         left: 15px;
-        top: 7px;
-        background: url(../Content/images/sprites.png);
+        top: 50%;
     }
 
 .review-comments-section .tab-title-text:before {
-    background-position: -219px -213px;
+    height: 14px;
+    width: 18px;
+    margin-top: -8px;
+    background: url(../Content/images/sprites_16.png) no-repeat -42px -1px;
 }
 
 .feedback-section .tab-title-text:before {
-    background-position: -242px -221px;
+    height: 22px;
+    width: 22px;
+    margin-top: -14px;
+    background: url(../Content/images/sprites_24.png);
+    background-position: -147px 0;
 }
 
 .tab-title-remain-space {

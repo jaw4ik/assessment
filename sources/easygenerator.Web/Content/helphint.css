@@ -85,7 +85,7 @@
         position: absolute;
         right: 0;
         top: 0;
-        background: url(../Content/images/sprites.png) -139px -51px no-repeat;
+        background: url(../Content/images/sprites_24.png) -119px -3px;
     }
 
     .help-hint-close:hover {
