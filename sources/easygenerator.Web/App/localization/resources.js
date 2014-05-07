@@ -1129,6 +1129,9 @@
     openNavigationBar: {
         en: 'Open navigation bar'
     },
+    noQuestionsTitle: {
+        en: 'No questions yet'
+    },
     /* End resource section for model Navigation tree */
     
     /* Resource section for model Dialogs window */
