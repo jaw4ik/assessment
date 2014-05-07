@@ -697,14 +697,14 @@ body.try {
     cursor: pointer;
 }
 
-.user-form-btn .preloader,
-.user-form-btn .title {
-    vertical-align: middle;
-}
+    .user-form-btn .preloader,
+    .user-form-btn .title {
+        vertical-align: middle;
+    }
 
-.user-form-btn .preloader {
-    margin-right: 5px;
-}
+    .user-form-btn .preloader {
+        margin-right: 5px;
+    }
 
     .user-form-btn.disabled,
     .user-form-btn.disabled:hover,
@@ -949,6 +949,7 @@ body.try {
 /*#region Terms of use and Privacy Policy*/
 
 .view-module.terms-of-use, .view-module.privacy-policy {
+    padding-top: 0;
     padding-left: 153px;
     line-height: 2;
     color: #222;
@@ -1013,12 +1014,6 @@ body.try {
 
 .numeric-list .typeA {
     list-style-type: lower-alpha;
-}
-
-.view-module.terms-of-use .user-form-tooltip-list-item, .view-module.privacy-policy .user-form-tooltip-list-item {
-    padding-bottom: 10px;
-    list-style-type: disc;
-    font-weight: normal;
 }
 
 .document-subtitle .italic {
@@ -1171,56 +1166,6 @@ body.try {
     .view-module.sign-up .user-columns {
         width: 400px;
         margin: 0 auto;
-    }
-
-    .user-form-tooltip.top {
-        top: auto;
-        bottom: 100%;
-        left: 50%;
-        margin-left: 0;
-        margin-bottom: -2px;
-        padding: 10px 0 0 0;
-        color: #333;
-        font-size: 12px;
-    }
-
-        .user-form-tooltip.top:after {
-            top: 100%;
-            left: 12px;
-            width: 16px;
-            height: 8px;
-            background: url(images/sprites.png) -66px -52px no-repeat;
-        }
-
-    .user-form-tooltip.bottom {
-        top: 100%;
-        left: 50%;
-        margin-left: 0;
-        margin-top: 1px;
-        padding: 10px 0 0 0;
-        color: #333;
-        font-size: 12px;
-    }
-
-        .user-form-tooltip.bottom:after {
-            top: -8px;
-            left: 12px;
-            width: 16px;
-            height: 8px;
-            background: url(images/sprites.png) -66px -52px no-repeat;
-        }
-
-    .user-form-tooltip-title {
-        font-size: 14px;
-    }
-
-    .user-form-tooltip-list {
-        padding-top: 0;
-        padding-bottom: 5px;
-    }
-
-    .user-form-tooltip-list-item {
-        padding-bottom: 11px;
     }
 }
 

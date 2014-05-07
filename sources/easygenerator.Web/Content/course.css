@@ -258,8 +258,8 @@
         width: 18px;
         position: absolute;
         left: 0;
-        background-image: url('images/sprites.png');
-        background-position: -414px -320px;
+        background-image: url('images/sprites_24.png');
+        background-position: -32px -3px;
     }
 
 .course .main-content-list {
@@ -361,7 +361,7 @@
 }
 
 .choose-template-list-item.selected:after {
-    background: url(images/sprites.png) no-repeat #ffffff -178px -194px;
+    background: url(images/sprites_24.png) #ffffff -59px 0;
 }
 
 .choose-template-list-item:hover {
