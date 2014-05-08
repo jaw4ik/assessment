@@ -1135,6 +1135,12 @@
     noQuestionsTitle: {
         en: 'No questions yet'
     },
+    noCoursesTitle: {
+        en: 'No courses yet'
+    },
+    noObjectivesTitle: {
+        en: 'No learning objectives yet'
+    },
     /* End resource section for model Navigation tree */
     
     /* Resource section for model Dialogs window */
