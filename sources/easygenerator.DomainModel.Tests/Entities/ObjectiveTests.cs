@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using easygenerator.DomainModel.Tests.ObjectMothers;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace easygenerator.DomainModel.Tests.Entities
@@ -15,6 +15,13 @@ namespace easygenerator.DomainModel.Tests.Entities
     {
         private const string ModifiedBy = "easygenerator@easygenerator.com";
         private const string CreatedBy = "easygenerator2@easygenerator.com";
+
+        private readonly DateTime _currentDate = new DateTime(2014, 3, 19);
+        [TestInitialize]
+        public void InitializeContext()
+        {
+            DateTimeWrapper.Now = () => _currentDate;
+        }
 
         #region Constructor
 
@@ -53,6 +60,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             objective.Id.Should().NotBeEmpty();
             objective.Title.Should().Be(title);
             objective.Questions.Should().BeEmpty();
+            objective.RelatedCoursesCollection.Should().BeEmpty();
             objective.CreatedOn.Should().Be(DateTime.MaxValue);
             objective.ModifiedOn.Should().Be(DateTime.MaxValue);
             objective.CreatedBy.Should().Be(CreatedBy);
@@ -147,6 +155,54 @@ namespace easygenerator.DomainModel.Tests.Entities
             objective.UpdateTitle("Some title", user);
 
             objective.ModifiedBy.Should().Be(user);
+        }
+
+        #endregion
+
+        #region IsPermittedTo
+
+        [TestMethod]
+        public void IsPermittedTo_ShouldReturnFalse_WhenIsNotCreatedByUserAndUserIsNotACollaborator()
+        {
+            //Arrange
+            var objective = ObjectiveObjectMother.Create();
+
+            //Act
+            var result = objective.IsPermittedTo("user");
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void IsPermittedTo_ShouldReturnTrue_WhenIsCreatedByUserAndUser()
+        {
+            //Arrange
+            const string username = "user";
+            var objective = ObjectiveObjectMother.CreateWithCreatedBy(username);
+
+            //Act
+            var result = objective.IsPermittedTo(username);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void IsPermittedTo_ShouldReturnTrue_WhenIsACollaborator()
+        {
+            //Arrange
+            const string username = "user@user.com";
+            var objective = ObjectiveObjectMother.Create();
+            var course = CourseObjectMother.Create();
+            course.CollaboratorsCollection.Add(UserObjectMother.CreateWithEmail(username));
+            objective.RelatedCoursesCollection.Add(course);
+
+            //Act
+            var result = course.IsPermittedTo(username);
+
+            //Assert
+            result.Should().BeTrue();
         }
 
         #endregion

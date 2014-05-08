@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -15,6 +15,13 @@ namespace easygenerator.DomainModel.Tests.Entities
     {
         private const string ModifiedBy = "easygenerator@easygenerator.com";
         private const string CreatedBy = "easygenerator2@easygenerator.com";
+
+        private readonly DateTime _currentDate = new DateTime(2014, 3, 19);
+        [TestInitialize]
+        public void InitializeContext()
+        {
+            DateTimeWrapper.Now = () => _currentDate;
+        }
 
         #region Constructor
 
@@ -64,6 +71,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.ModifiedOn.Should().Be(DateTime.MaxValue);
             course.RelatedObjectives.Should().BeEmpty();
             course.CommentsCollection.Should().BeEmpty();
+            course.CollaboratorsCollection.Should().BeEmpty();
             course.TemplateSettings.Should().BeEmpty();
             course.CreatedBy.Should().Be(CreatedBy);
             course.ModifiedBy.Should().Be(CreatedBy);
@@ -474,6 +482,52 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.UpdateTemplate(template, user);
 
             course.ModifiedBy.Should().Be(user);
+        }
+
+        #endregion
+
+        #region IsPermittedTo
+
+        [TestMethod]
+        public void IsPermittedTo_ShouldReturnFalse_WhenIsNotCreatedByUserAndUserIsNotACollaborator()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = course.IsPermittedTo("user");
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void IsPermittedTo_ShouldReturnTrue_WhenIsCreatedByUserAndUser()
+        {
+            //Arrange
+            const string username = "user";
+            var course = CourseObjectMother.Create(createdBy: username);
+
+            //Act
+            var result = course.IsPermittedTo(username);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void IsPermittedTo_ShouldReturnTrue_WhenIsCollaborator()
+        {
+            //Arrange
+            const string username = "user@user.com";
+            var course = CourseObjectMother.Create();
+            course.CollaboratorsCollection.Add(UserObjectMother.CreateWithEmail(username));
+
+            //Act
+            var result = course.IsPermittedTo(username);
+
+            //Assert
+            result.Should().BeTrue();
         }
 
         #endregion

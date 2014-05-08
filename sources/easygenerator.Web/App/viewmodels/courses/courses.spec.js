@@ -16,25 +16,43 @@
     ;
 
     var
+        userName = 'user@user.com',
         template = { id: '0', name: 'name', image: 'img' },
         courses = [
             new CourseModel({
                 id: 'testId3',
                 title: 'Test Course 3',
                 objectives: [],
-                template: template
+                template: template,
+                createdBy: userName
             }),
             new CourseModel({
                 id: 'testId2',
                 title: 'Test Course 2',
                 objectives: [],
-                template: template
+                template: template,
+                createdBy: userName
             }),
             new CourseModel({
                 id: 'testId1',
                 title: 'Test Course 1',
                 objectives: [],
-                template: template
+                template: template,
+                createdBy: userName
+            }),
+             new CourseModel({
+                 id: 'testId4',
+                 title: 'Test Course 4',
+                 objectives: [],
+                 template: template,
+                 createdBy: 'someone'
+             }),
+            new CourseModel({
+                id: 'testId5',
+                title: 'Test Course 5',
+                objectives: [],
+                template: template,
+                createdBy: 'someone'
             })
         ];
 
@@ -70,14 +88,6 @@
 
             it('should be boolean', function () {
                 expect(viewModel.hasStarterAccess).toBeTruthy();
-            });
-
-        });
-
-        describe('states:', function () {
-
-            it('should be defined', function () {
-                expect(viewModel.states).toBeDefined();
             });
 
         });
@@ -168,11 +178,6 @@
                 expect(viewModel.activate).toBeFunction();
             });
 
-            it('should take data from dataContext', function () {
-                viewModel.activate();
-                expect(viewModel.courses().length).toEqual(3);
-            });
-
             it('should set current language', function () {
                 viewModel.currentLanguage = null;
                 viewModel.activate();
@@ -192,10 +197,27 @@
             describe('when user identified successfully', function () {
 
                 beforeEach(function () {
-                    identifyUserDeferred.resolve();
+                    userContext.identity = { email: userName }
                 });
 
-                it('should subscribe on courses array change', function () {
+                it('should set courses data from dataContext', function (done) {
+                    identifyUserDeferred.resolve();
+                    viewModel.activate().fin(function () {
+                        expect(viewModel.courses().length).toEqual(3);
+                        done();
+                    });
+                });
+
+                it('should set shared courses data from dataContext', function (done) {
+                    identifyUserDeferred.resolve();
+                    viewModel.activate().fin(function () {
+                        expect(viewModel.sharedCourses().length).toEqual(2);
+                        done();
+                    });
+                });
+
+                it('should subscribe on courses array change', function (done) {
+                    identifyUserDeferred.resolve();
                     spyOn(viewModel.courses, 'subscribe');
 
                     viewModel.activate().fin(function () {
@@ -206,6 +228,7 @@
                 });
 
                 it('should set isCreateCourseAvailable', function (done) {
+                    identifyUserDeferred.resolve();
                     spyOn(limitCoursesAmount, 'checkAccess').and.returnValue(false);
 
                     viewModel.activate().fin(function () {
@@ -215,6 +238,7 @@
                 });
 
                 it('should set hasStarterAccess', function (done) {
+                    identifyUserDeferred.resolve();
                     spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
 
                     viewModel.activate().fin(function () {
@@ -223,270 +247,6 @@
                     });
                 });
 
-            });
-
-            describe('when previous showStatus is not set', function () {
-
-                var dataCourse;
-
-                beforeEach(function () {
-                    dataContext.courses = [];
-                    viewModel.activate();
-                    viewModel.deactivate();
-
-                    dataContext.courses = courses;
-                    dataCourse = dataContext.courses[0];
-                });
-
-                describe('and publishingState is \"Not started\"', function () {
-
-                    beforeEach(function () {
-                        spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.notStarted);
-                    });
-
-                    it('should set current showStatus to \"false\"', function () {
-                        viewModel.activate();
-                        var viewCourse = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                        expect(viewCourse.showStatus()).toBe(false);
-                    });
-
-                });
-
-                describe('and publishingState is \"building\"', function () {
-
-                    beforeEach(function () {
-                        spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.building);
-                    });
-
-                    it('should set current showStatus to \"true\"', function () {
-                        viewModel.activate();
-                        var viewCourse = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                        expect(viewCourse.showStatus()).toBe(true);
-                    });
-
-                });
-
-                describe('and publishingState is \"Failed\"', function () {
-
-                    beforeEach(function () {
-                        spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.failed);
-                    });
-
-                    it('should set current showStatus to \"true\"', function () {
-                        viewModel.activate();
-                        var viewCourse = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                        expect(viewCourse.showStatus()).toBe(true);
-                    });
-
-                });
-
-                describe('and publishingState is \"Succeed\"', function () {
-
-                    beforeEach(function () {
-                        spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.succeed);
-                    });
-
-                    it('should set current showStatus to \"true\"', function () {
-                        viewModel.activate();
-                        var viewCourse = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                        expect(viewCourse.showStatus()).toBe(true);
-                    });
-
-                });
-
-            });
-
-            describe('when previous showStatus is \"false\"', function () {
-                var dataCourse,
-                    viewCourse;
-
-                beforeEach(function () {
-                    dataContext.courses = courses;
-                    dataCourse = dataContext.courses[0];
-                    viewModel.activate();
-
-                    viewCourse = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                    viewCourse.showStatus(false);
-                });
-
-                describe('and previous publishingState is \"Not started\"', function () {
-
-                    beforeEach(function () {
-                        viewCourse.publishingState(constants.publishingStates.notStarted);
-                        viewModel.deactivate();
-                    });
-
-                    describe('and publishingState is not changed', function () {
-
-                        beforeEach(function () {
-                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.notStarted);
-                        });
-
-                        it('should set current showStatus to \"false\"', function () {
-                            viewModel.activate();
-                            var course = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                            expect(course.showStatus()).toBe(false);
-                        });
-
-                    });
-
-                    describe('and publishingState is changed', function () {
-
-                        beforeEach(function () {
-                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.succeed);
-                        });
-
-                        it('should set current showStatus to \"true\"', function () {
-                            viewModel.activate();
-                            var course = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                            expect(course.showStatus()).toBe(true);
-                        });
-
-                    });
-
-                });
-
-                describe('and publishingState is \"building\"', function () {
-
-                    beforeEach(function () {
-                        viewCourse.publishingState(constants.publishingStates.building);
-                        viewModel.deactivate();
-                    });
-
-                    describe('and publishingState is not changed', function () {
-
-                        beforeEach(function () {
-                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.building);
-                        });
-
-                        it('should set current showStatus to \"true\"', function () {
-                            viewModel.activate();
-                            var course = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                            expect(course.showStatus()).toBe(true);
-                        });
-
-                    });
-
-                    describe('and publishingState is changed', function () {
-
-                        beforeEach(function () {
-                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.succeed);
-                        });
-
-                        it('should set current showStatus to \"true\"', function () {
-                            viewModel.activate();
-                            var course = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                            expect(course.showStatus()).toBe(true);
-                        });
-
-                    });
-
-                });
-
-                describe('and publishingState is \"Failed\"', function () {
-
-                    beforeEach(function () {
-                        viewCourse.publishingState(constants.publishingStates.failed);
-                        viewModel.deactivate();
-                    });
-
-                    describe('and publishingState is not changed', function () {
-
-                        beforeEach(function () {
-                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.failed);
-                        });
-
-                        it('should set current showStatus to \"false\"', function () {
-                            viewModel.activate();
-                            var course = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                            expect(course.showStatus()).toBe(false);
-                        });
-
-                    });
-
-                    describe('and publishingState is changed', function () {
-
-                        beforeEach(function () {
-                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.succeed);
-                        });
-
-                        it('should set current showStatus to \"true\"', function () {
-                            viewModel.activate();
-                            var course = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                            expect(course.showStatus()).toBe(true);
-                        });
-
-                    });
-
-                });
-
-                describe('and publishingState is \"Succeed\"', function () {
-
-                    beforeEach(function () {
-                        viewCourse.publishingState(constants.publishingStates.succeed);
-                        viewModel.deactivate();
-                    });
-
-                    describe('and publishingState is not changed', function () {
-
-                        beforeEach(function () {
-                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.succeed);
-                        });
-
-                        it('should set current showStatus to \"false\"', function () {
-                            viewModel.activate();
-                            var course = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                            expect(course.showStatus()).toBe(false);
-                        });
-
-                    });
-
-                    describe('and publishingState is changed', function () {
-
-                        beforeEach(function () {
-                            spyOn(dataCourse, 'getState').and.returnValue(constants.publishingStates.failed);
-                        });
-
-                        it('should set current showStatus to \"true\"', function () {
-                            viewModel.activate();
-                            var course = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                            expect(course.showStatus()).toBe(true);
-                        });
-
-                    });
-
-                });
-
-            });
-
-            describe('when previous showStatus is \"true\"', function () {
-                var dataCourse;
-
-                beforeEach(function () {
-                    dataContext.courses = courses;
-                    dataCourse = dataContext.courses[0];
-                    viewModel.activate();
-                    var viewCourse = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-
-                    viewCourse.showStatus(true);
-                    viewModel.deactivate();
-                });
-
-                it('should set current showStatus to \"true\"', function () {
-                    viewModel.activate();
-
-                    var viewCourse = _.find(viewModel.courses(), function (item) { return item.id == dataCourse.id; });
-                    expect(viewCourse.showStatus()).toBe(true);
-                });
-
-            });
-
-        });
-
-        describe('deactivate:', function () {
-
-            it('should be a function', function () {
-                expect(viewModel.deactivate).toBeFunction();
             });
 
         });
@@ -525,24 +285,6 @@
                 dataContext.courses = courses;
                 viewModel.navigateToDetails(courses[0]);
                 expect(router.navigate).toHaveBeenCalledWith('course/' + courses[0].id);
-            });
-
-        });
-
-        describe('navigateToObjectives:', function () {
-
-            it('should be a function', function () {
-                expect(viewModel.navigateToObjectives).toBeFunction();
-            });
-
-            it('should send event \"Navigate to objectives\"', function () {
-                viewModel.navigateToObjectives();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives');
-            });
-
-            it('should navigate to #objectives', function () {
-                viewModel.navigateToObjectives();
-                expect(router.navigate).toHaveBeenCalledWith('objectives');
             });
 
         });
@@ -719,444 +461,6 @@
                         });
 
                     });
-                });
-
-            });
-
-        });
-
-        describe('publishCourse:', function () {
-            var
-                course,
-                courseRepositoryGetByIdDefer,
-                courseRepositoryGetByIdPromise,
-                repository = require('repositories/courseRepository')
-            ;
-
-            beforeEach(function () {
-                course = {
-                    id: 'testId3',
-                    publishingState: ko.observable(),
-                    showStatus: ko.observable(),
-                    isSelected: ko.observable(),
-                    publishPackageExists: ko.observable(),
-                    publish: function () { }
-                };
-
-                spyOn(course, 'publish');
-
-                courseRepositoryGetByIdDefer = Q.defer();
-                courseRepositoryGetByIdPromise = courseRepositoryGetByIdDefer.promise;
-                spyOn(repository, 'getById').and.returnValue(courseRepositoryGetByIdPromise);
-            });
-
-            it('should be a function', function () {
-                expect(viewModel.publishCourse).toBeFunction();
-            });
-
-            it('should send event \"Publish course\"', function () {
-                viewModel.publishCourse(course);
-
-                expect(eventTracker.publish).toHaveBeenCalledWith('Publish course');
-            });
-
-            it('should reset item selection', function () {
-                course.isSelected(true);
-
-                viewModel.publishCourse(course);
-
-                expect(course.isSelected()).toBe(false);
-            });
-
-            it('should start publish of current course', function (done) {
-                courseRepositoryGetByIdDefer.resolve(course);
-                viewModel.publishCourse(course).fin(function () {
-                    expect(course.publish).toHaveBeenCalled();
-                    done();
-                });
-            });
-
-            describe('when publish is finished', function () {
-
-                beforeEach(function () {
-                    course = {
-                        id: 'testId3',
-                        publishingState: ko.observable(),
-                        showStatus: ko.observable(),
-                        isSelected: ko.observable(),
-                        publishPackageExists: ko.observable(),
-                        publish: function () { }
-                    };
-
-                    spyOn(notify, 'error');
-                });
-
-                describe('and publish failed', function () {
-
-                    it('should show error notification', function (done) {
-
-                        courseRepositoryGetByIdDefer.reject('Course publish is failed');
-
-                        viewModel.publishCourse(course).fin(function () {
-                            expect(notify.error).toHaveBeenCalledWith('Course publish is failed');
-                            done();
-                        });
-                    });
-
-
-                    it('should send event \'Course publish is failed\'', function (done) {
-                        eventTracker.publish.calls.reset();
-                        courseRepositoryGetByIdDefer.reject();
-
-                        viewModel.publishCourse(course).fin(function () {
-                            expect(eventTracker.publish).toHaveBeenCalledWith('Course publish is failed');
-                            done();
-                        });
-                    });
-
-                });
-
-            });
-        });
-
-        describe('downloadCourse:', function () {
-
-            var course;
-
-            beforeEach(function () {
-                course = {
-                    packageUrl: ko.observable('some url'),
-                    isSelected: ko.observable(),
-                    publishingState: ko.observable('')
-                };
-
-                spyOn(router, 'download');
-            });
-
-            it('should be a function', function () {
-                expect(viewModel.downloadCourse).toBeFunction();
-            });
-
-            it('should send event \"Download course\"', function () {
-                viewModel.downloadCourse(course);
-                expect(eventTracker.publish).toHaveBeenCalledWith('Download course');
-            });
-        });
-
-        describe('enableOpenCourse:', function () {
-            var course;
-
-            beforeEach(function () {
-                course = { showStatus: ko.observable(), publishingState: ko.observable(constants.publishingStates.notStarted) };
-            });
-
-            it('should be a function', function () {
-                expect(viewModel.enableOpenCourse).toBeFunction();
-            });
-
-            it('should hide showStatus and so enable open course', function () {
-                course.showStatus(true);
-
-                viewModel.enableOpenCourse(course);
-
-                expect(course.showStatus()).toBe(false);
-            });
-
-            describe('when publishingState or publishingState equals building', function () {
-
-                beforeEach(function () {
-                    course = { showStatus: ko.observable(), publishingState: ko.observable(constants.publishingStates.building) };
-                });
-
-                it('should not hide showStatus', function () {
-                    course.showStatus(true);
-                    viewModel.enableOpenCourse(course);
-                    expect(course.showStatus()).toBe(true);
-                });
-
-            });
-
-            describe('when publishingState or publishingState equals publishing', function () {
-
-                beforeEach(function () {
-                    course = { showStatus: ko.observable(), publishingState: ko.observable(constants.publishingStates.publishing) };
-                });
-
-                it('should not hide showStatus', function () {
-                    course.showStatus(true);
-                    viewModel.enableOpenCourse(course);
-                    expect(course.showStatus()).toBe(true);
-                });
-
-            });
-        });
-
-        describe('build events handling:', function () {
-
-            describe('when course build was started', function () {
-
-                var courseVm;
-
-                beforeEach(function () {
-                    courseVm = {
-                        id: 'courseId',
-                        publishingState: ko.observable(constants.publishingStates.notStarted),
-                        showStatus: ko.observable(false)
-                    };
-                    viewModel.courses([courseVm]);
-                });
-
-                it('should change status of corresponding course to \'building\'', function () {
-                    viewModel.courseBuildStarted({ id: courseVm.id });
-                    expect(courseVm.publishingState()).toEqual(constants.publishingStates.building);
-                });
-
-                it('should show building status for corresponding course', function () {
-                    viewModel.courseBuildStarted({ id: courseVm.id });
-                    expect(courseVm.showStatus()).toBeTruthy();
-                });
-
-                it('should not change status of other courses', function () {
-                    viewModel.courseBuildStarted({ id: '100500' });
-                    expect(courseVm.publishingState()).toEqual(constants.publishingStates.notStarted);
-                });
-
-                it('should not show building status for other courses', function () {
-                    viewModel.courseBuildStarted({ id: '100500' });
-                    expect(courseVm.showStatus()).toBeFalsy();
-                });
-
-            });
-
-            describe('when course build completed', function () {
-
-                var courseVm;
-
-                beforeEach(function () {
-                    courseVm = {
-                        id: 'courseId',
-                        packageUrl: ko.observable('packageUrl'),
-                        publishingState: ko.observable(constants.publishingStates.inProgress)
-                    };
-                    viewModel.courses([courseVm]);
-                });
-
-                it('should change status of the corresponding course to \'success\'', function () {
-                    viewModel.courseBuildCompleted({ id: courseVm.id, build: { packageUrl: '' } });
-                    expect(courseVm.publishingState()).toEqual(constants.publishingStates.succeed);
-                });
-
-                it('should change packageUrl of the corresponding course', function () {
-                    var packageUrl = "http://xxx.com";
-                    viewModel.courseBuildCompleted({ id: courseVm.id, build: { packageUrl: packageUrl } });
-
-                    expect(courseVm.packageUrl()).toEqual(packageUrl);
-                });
-
-                it('should not change status of other courses', function () {
-                    viewModel.courseBuildCompleted({ id: '100500' });
-                    expect(courseVm.publishingState()).toEqual(constants.publishingStates.inProgress);
-                });
-
-                it('should not change packageUrl of other courses', function () {
-                    var packageUrl = "http://xxx.com";
-                    viewModel.courseBuildCompleted({ id: '100500', packageUrl: packageUrl });
-
-                    expect(courseVm.packageUrl()).toEqual('packageUrl');
-                });
-
-            });
-
-            describe('when course build failed', function () {
-
-                var courseVm;
-
-                beforeEach(function () {
-                    courseVm = {
-                        id: 'courseId',
-                        packageUrl: ko.observable('packageUrl'),
-                        publishingState: ko.observable(constants.publishingStates.inProgress)
-                    };
-                    viewModel.courses([courseVm]);
-                });
-
-                it('should change status of the corresponding course to \'failed\'', function () {
-                    viewModel.courseBuildFailed({ id: courseVm.id });
-                    expect(courseVm.publishingState()).toEqual(constants.publishingStates.failed);
-                });
-
-                it('should remove packageUrl of the corresponding course', function () {
-                    viewModel.courseBuildFailed({ id: courseVm.id });
-                    expect(courseVm.packageUrl()).toEqual("");
-                });
-
-                it('should not change status of other courses', function () {
-                    viewModel.courseBuildFailed({ id: '100500' });
-                    expect(courseVm.publishingState()).toEqual(constants.publishingStates.inProgress);
-                });
-
-                it('should not remove packageUrl of other courses', function () {
-                    viewModel.courseBuildFailed({ id: '100500' });
-                    expect(courseVm.packageUrl()).toEqual("packageUrl");
-                });
-
-            });
-
-        });
-
-        describe('publish events handling:', function () {
-
-            describe('when course publish was started', function () {
-
-                var courseVm;
-
-                beforeEach(function () {
-                    courseVm = {
-                        id: 'courseId',
-                        publishingState: ko.observable(constants.publishingStates.notStarted),
-                        showStatus: ko.observable(false)
-                    };
-                    viewModel.courses([courseVm]);
-                });
-
-                it('should change publishingState of corresponding course to \'publishing\'', function () {
-                    viewModel.coursePublishStarted({ id: courseVm.id });
-                    expect(courseVm.publishingState()).toEqual(constants.publishingStates.publishing);
-                });
-
-                it('should show publishingState for corresponding course', function () {
-                    viewModel.coursePublishStarted({ id: courseVm.id });
-                    expect(courseVm.showStatus()).toBeTruthy();
-                });
-
-                it('should not change publishingState of other courses', function () {
-                    viewModel.coursePublishStarted({ id: '100500' });
-                    expect(courseVm.publishingState()).toEqual(constants.publishingStates.notStarted);
-                });
-
-                it('should not show publishingState for other courses', function () {
-                    viewModel.coursePublishStarted({ id: '100500' });
-                    expect(courseVm.showStatus()).toBeFalsy();
-                });
-
-            });
-
-            describe('when course publish completed', function () {
-
-                var courseVm;
-
-                beforeEach(function () {
-                    courseVm = {
-                        id: 'courseId',
-                        publishedPackageUrl: ko.observable('packageUrl'),
-                        publishingState: ko.observable(constants.publishingStates.inProgress)
-                    };
-                    viewModel.courses([courseVm]);
-                });
-
-                it('should change publishingState of the corresponding course to \'success\'', function () {
-                    viewModel.coursePublishCompleted({ id: courseVm.id, publish: { packageUrl: constants.publishingStates.succeed } });
-                    expect(courseVm.publishingState()).toEqual(constants.publishingStates.succeed);
-                });
-
-                it('should change publishedPackageUrl of the corresponding course', function () {
-                    var publishedPackageUrl = "http://xxx.com";
-                    viewModel.coursePublishCompleted({ id: courseVm.id, publish: { packageUrl: publishedPackageUrl } });
-
-                    expect(courseVm.publishedPackageUrl()).toEqual(publishedPackageUrl);
-                });
-
-                it('should not change publishingState of other courses', function () {
-                    viewModel.coursePublishCompleted({ id: '100500' });
-                    expect(courseVm.publishingState()).toEqual(constants.publishingStates.inProgress);
-                });
-
-                it('should not change publishedPackageUrl of other courses', function () {
-                    var publishedPackageUrl = "http://xxx.com";
-                    viewModel.coursePublishCompleted({ id: '100500', publish: { packageUrl: publishedPackageUrl } });
-
-                    expect(courseVm.publishedPackageUrl()).toEqual('packageUrl');
-                });
-
-            });
-
-            describe('when course publish failed', function () {
-
-                var courseVm;
-
-                beforeEach(function () {
-                    courseVm = {
-                        id: 'courseId',
-                        publishedPackageUrl: ko.observable('packageUrl'),
-                        publishingState: ko.observable(constants.publishingStates.inProgress)
-                    };
-                    viewModel.courses([courseVm]);
-                });
-
-                it('should change publishingState of the corresponding course to \'failed\'', function () {
-                    viewModel.coursePublishFailed({ id: courseVm.id });
-                    expect(courseVm.publishingState()).toEqual(constants.publishingStates.failed);
-                });
-
-                it('should remove publishedPackageUrl of the corresponding course', function () {
-                    viewModel.coursePublishFailed({ id: courseVm.id });
-                    expect(courseVm.publishedPackageUrl()).toEqual("");
-                });
-
-                it('should not change publishingState of other courses', function () {
-                    viewModel.coursePublishFailed({ id: '100500' });
-                    expect(courseVm.publishingState()).toEqual(constants.publishingStates.inProgress);
-                });
-
-                it('should not remove publishedPackageUrl of other courses', function () {
-                    viewModel.coursePublishFailed({ id: '100500' });
-                    expect(courseVm.publishedPackageUrl()).toEqual("packageUrl");
-                });
-
-            });
-
-        });
-
-        describe('openPublishedCourse:', function () {
-
-            it('should be a function', function () {
-                expect(viewModel.openPublishedCourse).toBeFunction();
-            });
-
-            beforeEach(function () {
-                spyOn(router, 'openUrl');
-            });
-
-            describe('when published package exists', function () {
-
-                it('should open published course link', function () {
-                    var course = {
-                        publishedPackageUrl: ko.observable('published course link'),
-                        publishPackageExists: ko.computed(function () {
-                            return true;
-                        })
-                    };
-
-                    viewModel.openPublishedCourse(course);
-
-                    expect(router.openUrl).toHaveBeenCalledWith('published course link');
-                });
-
-            });
-
-            describe('when published package does not exist', function () {
-
-                it('should not open published course link', function () {
-                    var course = {
-                        publishedPackageUrl: ko.observable('published course link'),
-                        publishPackageExists: ko.computed(function () {
-                            return false;
-                        })
-                    };
-
-                    viewModel.openPublishedCourse(course);
-
-                    expect(router.openUrl).not.toHaveBeenCalled();
                 });
 
             });

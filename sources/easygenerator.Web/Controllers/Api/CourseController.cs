@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
-using easygenerator.Infrastructure;
-using easygenerator.Web.Components.ActionFilters.Authorization;
-using easygenerator.Web.Publish;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Publish;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -108,13 +108,19 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult GetCollection()
         {
-            var courses = _repository.GetCollection(course => course.CreatedBy == User.Identity.Name);
+            var courses = _repository.GetCollection(course => course.IsPermittedTo(User.Identity.Name));
 
             var result = courses.Select(course => new
             {
                 Id = course.Id.ToNString(),
                 Title = course.Title,
                 IntroductionContent = course.IntroductionContent,
+                CreatedBy = course.CreatedBy,
+                Collaborators = course.Collaborators.Select(e => new
+                {
+                    Email = e.Email,
+                    FullName = e.FullName
+                }),
                 CreatedOn = course.CreatedOn,
                 ModifiedOn = course.ModifiedOn,
                 Template = new { Id = course.Template.Id.ToNString() },

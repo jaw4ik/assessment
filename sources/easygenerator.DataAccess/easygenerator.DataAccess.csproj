@@ -108,6 +108,10 @@
     <Compile Include="Migrations\201404291230252_AddPublicationUrlColumnToCourse.Designer.cs">
       <DependentUpon>201404291230252_AddPublicationUrlColumnToCourse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405070854255_AddCourseCollaborators.cs" />
+    <Compile Include="Migrations\201405070854255_AddCourseCollaborators.Designer.cs">
+      <DependentUpon>201405070854255_AddCourseCollaborators.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
@@ -174,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201404291230252_AddPublicationUrlColumnToCourse.resx">
       <DependentUpon>201404291230252_AddPublicationUrlColumnToCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405070854255_AddCourseCollaborators.resx">
+      <DependentUpon>201405070854255_AddCourseCollaborators.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

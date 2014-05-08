@@ -1,8 +1,8 @@
-﻿using System;
+﻿using easygenerator.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -20,6 +20,7 @@ namespace easygenerator.DomainModel.Entities
             Template = template;
             RelatedObjectivesCollection = new Collection<Objective>();
             CommentsCollection = new Collection<Comment>();
+            CollaboratorsCollection = new Collection<User>();
             TemplateSettings = new Collection<CourseTemplateSettings>();
             BuildOn = null;
             IntroductionContent = null;
@@ -37,8 +38,18 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        protected internal virtual ICollection<Comment> CommentsCollection { get; set; }
+        public virtual bool IsPermittedTo(string username)
+        {
+            return CreatedBy == username || Collaborators.Any(e => e.Email == username);
+        }
 
+        protected internal virtual ICollection<User> CollaboratorsCollection { get; set; }
+        public virtual IEnumerable<User> Collaborators
+        {
+            get { return CollaboratorsCollection.AsEnumerable(); }
+        }
+
+        protected internal virtual ICollection<Comment> CommentsCollection { get; set; }
         public virtual IEnumerable<Comment> Comments
         {
             get { return CommentsCollection.AsEnumerable(); }

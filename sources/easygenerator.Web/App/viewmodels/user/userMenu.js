@@ -6,7 +6,8 @@
             username: null,
             hasStarterAccess: ko.observable(false),
             userPlanChanged: userPlanChanged,
-            activate: activate
+            activate: activate,
+            avatarLetter: null
         };
 
         return viewModel;
@@ -20,6 +21,8 @@
                 viewModel.username = _.isEmptyOrWhitespace(userContext.identity.fullname)
                     ? userContext.identity.email
                     : userContext.identity.fullname;
+
+                viewModel.avatarLetter = viewModel.username.charAt(0);
             }
         }
 

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
@@ -14,11 +7,18 @@ using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
 using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Publish;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using easygenerator.Web.Publish;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -310,7 +310,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository.GetCollection().Returns(collection);
 
             var result = _controller.GetCollection();
-
+          
             result.Should().BeJsonSuccessResult();
         }
 

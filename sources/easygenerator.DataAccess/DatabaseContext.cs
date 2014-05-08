@@ -67,7 +67,6 @@ namespace easygenerator.DataAccess
                 .WithMany(e => e.RelatedObjectivesCollection)
                 .Map(m => m.ToTable("CourseObjectives"));
 
-
             modelBuilder.Entity<Course>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Course>().HasRequired(e => e.Template).WithMany(e => e.Courses).WillCascadeOnDelete(false);
             modelBuilder.Entity<Course>().HasMany(e => e.RelatedObjectivesCollection).WithMany(e => e.RelatedCoursesCollection).Map(m => m.ToTable("CourseObjectives"));
@@ -75,6 +74,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Course>().Property(e => e.IntroductionContent).IsMaxLength().IsOptional();
             modelBuilder.Entity<Course>().HasMany(e => e.CommentsCollection).WithRequired(e => e.Course).WillCascadeOnDelete(true);
             modelBuilder.Entity<Course>().Property(e => e.ObjectivesOrder).IsOptional();
+            modelBuilder.Entity<Course>().HasMany(e => e.CollaboratorsCollection);
 
             modelBuilder.Entity<Aim4YouIntegration>().HasKey(e => new { e.Id });
             modelBuilder.Entity<Aim4YouIntegration>().Property(e => e.Aim4YouCourseId).IsRequired();
@@ -108,6 +108,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.Organization).IsRequired();
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));
+            modelBuilder.Entity<User>().HasMany(e => e.SharedCourses).WithMany(e => e.CollaboratorsCollection).Map(e => e.ToTable("SharedCourses"));
 
             modelBuilder.Entity<PasswordRecoveryTicket>().HasRequired(e => e.User);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);

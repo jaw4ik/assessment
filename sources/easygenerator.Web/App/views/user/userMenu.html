@@ -2,7 +2,13 @@
     <div class="header-submenu-holder">
         <span class="header-submenu-expand-icon"></span>
     </div>
-    <div class="header-username"><span data-bind="text: username"></span></div>
+    <div class="header-username">
+        <div class="header-username-avatar-holder">
+            <div class="user-avatar" data-bind="text: avatarLetter">
+            </div>
+        </div>
+        <span data-bind="text: username"></span>
+    </div>
     <ul class="dropdown-list header-submenu-list">
         <li class="header-submenu-item buy-btn">
             <a class="header-submenu-link" href="/account/upgrade" target="_blank" data-bind="localize: { text: hasStarterAccess() ? 'renewMyPlan' : 'upgradeNow' }">Upgrade account</a>

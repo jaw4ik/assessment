@@ -1,8 +1,8 @@
-﻿using System;
+﻿using easygenerator.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -16,6 +16,7 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfTitleIsInvalid(title);
             Title = title;
 
+            RelatedCoursesCollection = new Collection<Course>();
             QuestionsCollection = new Collection<Question>();
             QuestionsOrder = null;
         }
@@ -29,6 +30,11 @@ namespace easygenerator.DomainModel.Entities
 
             Title = title;
             MarkAsModified(modifiedBy);
+        }
+
+        public virtual bool IsPermittedTo(string username)
+        {
+            return CreatedBy == username || Courses.Any(course => course.IsPermittedTo(username));
         }
 
         protected internal virtual ICollection<Course> RelatedCoursesCollection { get; set; }

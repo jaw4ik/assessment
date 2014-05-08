@@ -17,6 +17,12 @@
             });
         });
 
+        describe('avatarLetter:', function () {
+            it('should be defined', function () {
+                expect(userMenu.avatarLetter).toBeDefined();
+            });
+        });
+
         describe('hasStarterAccess:', function () {
             it('should be observable', function () {
                 expect(userMenu.hasStarterAccess).toBeObservable();
@@ -56,15 +62,20 @@
                     expect(userMenu.username).toBeNull();
                 });
 
+                it('should set avatarLetter to null', function () {
+                    userMenu.activate();
+                    expect(userMenu.avatarLetter).toBeNull();
+                });
+
             });
 
             describe('when user is not anonymous', function () {
 
                 describe('and user does not have fullname', function () {
-
+                    var email = 'usermail@easygenerator.com';
                     beforeEach(function () {
                         userContext.identity = {
-                            email: 'usermail@easygenerator.com',
+                            email: email,
                             fullname: ' '
                         };
                     });
@@ -74,17 +85,28 @@
                         expect(userMenu.username).toBe(userContext.identity.email);
                     });
 
+                    it('should set avatarLetter to first email letter', function () {
+                        userMenu.avatarLetter = null;
+                        userMenu.activate();
+                        expect(userMenu.avatarLetter).toBe(email.charAt(0));
+                    });
                 });
 
                 describe('and user has fullname', function () {
-
+                    var fullName = 'username';
                     beforeEach(function () {
-                        userContext.identity = { fullname: 'username' };
+                        userContext.identity = { fullname: fullName };
                     });
 
                     it('should set fullname to username', function () {
                         userMenu.activate();
                         expect(userMenu.username).toBe(userContext.identity.fullname);
+                    });
+
+                    it('should set avatarLetter to first fullName letter', function () {
+                        userMenu.avatarLetter = null;
+                        userMenu.activate();
+                        expect(userMenu.avatarLetter).toBe(fullName.charAt(0));
                     });
 
                 });

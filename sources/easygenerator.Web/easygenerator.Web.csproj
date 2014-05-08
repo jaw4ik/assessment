@@ -242,6 +242,7 @@
     </Content>
     <Content Include="App\fileHelper.js" />
     <Content Include="App\models\backButton.js" />
+    <Content Include="App\models\collaborator.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.spec.js">
       <DependentUpon>course.js</DependentUpon>

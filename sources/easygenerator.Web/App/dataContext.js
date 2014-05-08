@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/course', 'models/answerOption', 'models/learningContent', 'models/template', 'constants'],
-    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, CourseModel, AnswerOptionModel, LearningContentModel, TemplateModel, constants) {
+﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/course', 'models/answerOption', 'models/learningContent', 'models/template', 'models/collaborator', 'constants'],
+    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, CourseModel, AnswerOptionModel, LearningContentModel, TemplateModel, CollaboratorModel, constants) {
 
         var
             objectives = [],
@@ -60,11 +60,18 @@
                         type: 'POST',
                         contentType: 'application/json',
                         dataType: 'json'
-                    }).then(function (response) {   
+                    }).then(function (response) {
                         _.each(response.data, function (item) {
                             courses.push(new CourseModel({
                                 id: item.Id.split('-').join(''),
                                 title: item.Title,
+                                createdBy: item.CreatedBy,
+                                collaborators: _.map(item.Collaborators, function (collaborator) {
+                                    return new CollaboratorModel({
+                                        email: collaborator.Email,
+                                        fullName: collaborator.FullName
+                                    });
+                                }),
                                 createdOn: new Date(item.CreatedOn),
                                 modifiedOn: new Date(item.ModifiedOn),
                                 objectives: _.map(item.RelatedObjectives, function (relatedObjective) {

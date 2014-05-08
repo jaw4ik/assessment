@@ -8,6 +8,8 @@
 
             this.title = spec.title;
             this.objectives = spec.objectives;
+            this.createdBy = spec.createdBy;
+            this.createdOn = spec.createdOn;
             this.builtOn = spec.builtOn;
             this.template = spec.template;
             this.introductionContent = spec.introductionContent;

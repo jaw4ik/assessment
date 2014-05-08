@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Extensions;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -28,12 +28,13 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/objectives")]
         public ActionResult GetCollection()
         {
-            var objectives = _repository.GetCollection(obj => obj.CreatedBy == User.Identity.Name);
+            var objectives = _repository.GetCollection(obj => obj.IsPermittedTo(User.Identity.Name));
 
             var result = objectives.Select(obj => new
             {
                 Id = obj.Id.ToNString(),
                 Title = obj.Title,
+                CreatedBy = obj.CreatedBy,
                 CreatedOn = obj.CreatedOn,
                 ModifiedOn = obj.ModifiedOn,
                 Questions = obj.Questions.Select(q => new
@@ -42,10 +43,10 @@ namespace easygenerator.Web.Controllers.Api
                     Title = q.Title,
                     Content = q.Content,
                     CreatedOn = q.CreatedOn,
+                    CreatedBy = q.CreatedBy,
                     ModifiedOn = q.ModifiedOn
                 })
             });
-
 
             return JsonSuccess(result);
         }

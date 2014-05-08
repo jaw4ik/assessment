@@ -33,6 +33,7 @@ namespace easygenerator.DomainModel.Entities
             Phone = phone;
             Organization = organization;
             Country = country;
+            SharedCourses = new Collection<Course>();
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
 
             AccessType = AccessType.Starter;
@@ -59,6 +60,8 @@ namespace easygenerator.DomainModel.Entities
         {
             get { return (FirstName + " " + LastName).Trim(); }
         }
+
+        protected internal virtual ICollection<Course> SharedCourses { get; set; }
 
         protected internal virtual ICollection<PasswordRecoveryTicket> PasswordRecoveryTicketCollection { get; set; }
 
@@ -92,7 +95,7 @@ namespace easygenerator.DomainModel.Entities
 
         private bool IsAccessExpired()
         {
-            if(!ExpirationDate.HasValue)
+            if (!ExpirationDate.HasValue)
                 return true;
 
             return ExpirationDate.Value < DateTimeWrapper.Now();
