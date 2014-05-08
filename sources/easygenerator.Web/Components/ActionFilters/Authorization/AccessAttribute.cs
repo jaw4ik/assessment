@@ -1,8 +1,8 @@
-﻿using System;
-using System.Web.Mvc;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components.ActionResults;
+using System;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Components.ActionFilters.Authorization
 {

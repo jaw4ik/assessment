@@ -253,6 +253,23 @@ namespace easygenerator.Web.Tests.Utils
         }
     }
 
+    public class HttpStatusCodeWithMessageResultAssertions : ObjectAssertions
+    {
+        public HttpStatusCodeWithMessageResultAssertions(HttpStatusCodeWithMessageResult subject)
+            : base(subject)
+        {
+
+        }
+
+        public HttpStatusCodeWithMessageResult And
+        {
+            get
+            {
+                return Subject as HttpStatusCodeWithMessageResult;
+            }
+        }
+    }
+
     public class EmptyResultAssertions : ObjectAssertions
     {
         public EmptyResultAssertions(EmptyResult subject)
@@ -427,6 +444,17 @@ namespace easygenerator.Web.Tests.Utils
             return new FilePathResultAssertions(value.Subject as FilePathResult);
         }
 
+        public static HttpStatusCodeResultAssertions BeForbiddenResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is HttpStatusCodeResult)
+                 .ForCondition(((HttpStatusCodeResult)value.Subject).StatusCode == (int)HttpStatusCode.Forbidden)
+                .FailWith("Expected \"HttpStatusCodeResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new HttpStatusCodeResultAssertions(value.Subject as HttpStatusCodeResult);
+        }
+
         public static HttpStatusCodeResultAssertions BeHttpStatusCodeResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
         {
             Execute.Assertion
@@ -446,6 +474,17 @@ namespace easygenerator.Web.Tests.Utils
                 .FailWith("Expected \"HttpStatusCodeResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new HttpStatusCodeResultAssertions(value.Subject as HttpStatusCodeResult);
+        }
+
+        public static HttpStatusCodeWithMessageResultAssertions BeHttpStatusCodeResultWithMessage(this ObjectAssertions value, string message, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is HttpStatusCodeResult)
+                .ForCondition(((HttpStatusCodeWithMessageResult)value.Subject).Message == message)
+                .FailWith("Expected \"HttpStatusCodeResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new HttpStatusCodeWithMessageResultAssertions(value.Subject as HttpStatusCodeWithMessageResult);
         }
 
         public static ImageResultAssertions BeImageResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)

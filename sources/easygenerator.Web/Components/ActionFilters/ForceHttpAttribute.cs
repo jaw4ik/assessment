@@ -1,7 +1,8 @@
-﻿using System;
-using System.Net.Http;
+﻿using easygenerator.Web.Components.ActionResults;
+using easygenerator.Web.Extensions;
+using System;
+using System.Reflection;
 using System.Web.Mvc;
-using easygenerator.Web.Components.ActionResults;
 
 namespace easygenerator.Web.Components.ActionFilters
 {
@@ -15,21 +16,27 @@ namespace easygenerator.Web.Components.ActionFilters
                 throw new ArgumentNullException("filterContext");
             }
 
-            if (!filterContext.HttpContext.Request.IsSecureConnection ||
-                filterContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes(typeof(RequireHttpsAttribute), true).Length > 0 ||
-                filterContext.ActionDescriptor.GetCustomAttributes(typeof(RequireHttpsAttribute), true).Length > 0 ||
-                filterContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes(typeof(CustomRequireHttpsAttribute), true).Length > 0 ||
-                filterContext.ActionDescriptor.GetCustomAttributes(typeof(CustomRequireHttpsAttribute), true).Length > 0)
+            if (filterContext.HttpContext.Request.IsSecureConnection && !IsHttpsRequired(filterContext))
             {
-                return;
+                HandleHttpsRequest(filterContext);
             }
+        }
 
-            HandleHttpsRequest(filterContext);
+        private bool IsHttpsRequired(AuthorizationContext filterContext)
+        {
+            return HasRequireHttpsAttribute(filterContext.ActionDescriptor) ||
+                   HasRequireHttpsAttribute(filterContext.ActionDescriptor.ControllerDescriptor);
+        }
+
+        private bool HasRequireHttpsAttribute(ICustomAttributeProvider provider)
+        {
+            return provider.HasCustomAttribute(typeof(RequireHttpsAttribute)) ||
+                   provider.HasCustomAttribute(typeof(CustomRequireHttpsAttribute));
         }
 
         protected virtual void HandleHttpsRequest(AuthorizationContext filterContext)
         {
-            filterContext.Result = new ForbiddenResult("","HTTPS protocol is forbidden. Please, use HTTP instead.");
+            filterContext.Result = new ForbiddenResult("", "HTTPS protocol is forbidden. Please, use HTTP instead.");
         }
     }
 }

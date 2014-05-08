@@ -18,6 +18,12 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
             ApiKeyName = apiKeyName;
         }
 
+        public ExternalApiAuthorizeAttribute(string apiKeyName, ConfigurationReader configurationReader)
+        {
+            ApiKeyName = apiKeyName;
+            ConfigurationReader = configurationReader;
+        }
+
         public void OnAuthorization(AuthorizationContext authorizationContext)
         {
             if (authorizationContext == null)
@@ -36,13 +42,12 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
             {
                 throw new InvalidOperationException();
             }
-            
-            var key = authorizationContext.HttpContext.Request.QueryString["key"];
-            var apiKeys = from ApiKeyElement e in ConfigurationReader.ExternalApi.ApiKeys
-                         where e.Name == ApiKeyName
-                         select e;
 
-            var apiKey = apiKeys.SingleOrDefault();
+            var key = authorizationContext.HttpContext.Request.QueryString["key"];
+            var apiKey = (from ApiKeyElement e in ConfigurationReader.ExternalApi.ApiKeys
+                          where e.Name == ApiKeyName
+                          select e)
+                          .SingleOrDefault();
 
             if (key == null || apiKey == null || apiKey.Value.Trim() != key.Trim())
             {

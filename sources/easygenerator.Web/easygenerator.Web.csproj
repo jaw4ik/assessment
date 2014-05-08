@@ -552,7 +552,7 @@
     <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
     <Compile Include="DomainEvents\Handlers\SubscribeForNewslettersHandler.cs" />
-    <Compile Include="Extensions\GuidExtensions.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
