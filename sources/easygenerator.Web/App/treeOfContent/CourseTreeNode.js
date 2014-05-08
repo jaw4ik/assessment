@@ -10,7 +10,6 @@
             this.collapse = collapse;
 
             this.navigateToCourse = navigateToCourse;
-            this.navigateToCreateObjective = navigateToCreateObjective;
         };
 
         function getObjectives(id) {
@@ -44,11 +43,5 @@
             eventTracker.publish('Navigate to course details', 'Tree of content');
             router.navigate(this.url);
         }
-
-        function navigateToCreateObjective() {
-            eventTracker.publish('Navigate to create objective', 'Tree of content');
-            router.navigate('objective/create?courseId=' + this.id);
-        }
-
     }
 );

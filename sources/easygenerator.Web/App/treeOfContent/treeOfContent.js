@@ -20,9 +20,6 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
             children: ko.observableArray([]),
             isExpanded: ko.observable(true),
             isTreeVisible: ko.observable(true),
-            isCreateCourseAvailable: ko.observable(true),
-
-            checkLimitCoursesAmount: checkLimitCoursesAmount,
 
             expand: expand,
             collapse: collapse,
@@ -30,8 +27,6 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
 
             activate: activate,
             compositionComplete: compositionComplete,
-
-            navigateToCreateCourse: navigateToCreateCourse
         };
 
         function expand() {
@@ -51,11 +46,6 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
             viewModel.isTreeVisible(false);
         }
 
-        function checkLimitCoursesAmount() {
-            viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
-        }
-
-
         var self = {
             handler: treeOfContentEventHandler()
         };
@@ -73,10 +63,6 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
         app.on(constants.messages.course.objectiveRelated, self.handler.objectiveRelated);
         app.on(constants.messages.course.objectivesUnrelated, self.handler.objectivesUnrelated);
         app.on(constants.messages.course.objectivesReordered, self.handler.objectivesReordered);
-
-        app.on(constants.messages.user.identified, viewModel.checkLimitCoursesAmount);
-        app.on(constants.messages.course.created, viewModel.checkLimitCoursesAmount);
-        app.on(constants.messages.course.deleted, viewModel.checkLimitCoursesAmount);
 
         router.routeData.subscribe(function (navigationContext) {
             treeOfContentAutoExpandHandler.handle(viewModel, navigationContext).then(function () {
@@ -103,12 +89,5 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
 
         function compositionComplete() {
             treeOfContentHighlightHandler.handle();
-            viewModel.checkLimitCoursesAmount();
         }
-
-        function navigateToCreateCourse() {
-            eventTracker.publish('Navigate to create course', 'Tree of content');
-            router.navigate('course/create');
-        }
-
 });

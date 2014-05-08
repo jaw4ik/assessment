@@ -24,7 +24,6 @@
             expect(courseTreeNode.expand).toBeFunction();
             expect(courseTreeNode.collapse).toBeFunction();
             expect(courseTreeNode.navigateToCourse).toBeFunction();
-            expect(courseTreeNode.navigateToCreateObjective).toBeFunction();
         });
 
         describe('expand:', function () {
@@ -172,33 +171,6 @@
             });
 
         });
-
-        describe('navigateToCreateObjective:', function () {
-            
-            var courseTreeNode;
-
-            beforeEach(function () {
-                courseTreeNode = new CourseTreeNode('id', 'title', 'url');
-            });
-
-            it('should be function', function () {
-                expect(courseTreeNode.navigateToCreateObjective).toBeFunction();
-            });
-
-            it('should send event \'Navigate to course details\'', function () {
-                spyOn(eventTracker, 'publish');
-                courseTreeNode.navigateToCreateObjective();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create objective', 'Tree of content');
-            });
-
-            it('should navigate to course details', function () {
-                spyOn(router, 'navigate');
-                courseTreeNode.navigateToCreateObjective();
-                expect(router.navigate).toHaveBeenCalledWith('objective/create?courseId=' + courseTreeNode.id);
-            });
-
-        });
-
     });
 
 })

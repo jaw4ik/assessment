@@ -11,12 +11,16 @@
     </div>
 
     <ul data-bind="visible: isExpanded">
+        <!-- ko ifnot: children().length -->
         <li class="navigation-tree-node">
-            <a class="navigation-tree-node-caption-wrapper" data-bind="click: navigateToCreateObjective, attr: { href: '#objective/create?courseId=' + id }">
-                <span class="navigation-tree-node-icon create"></span>
-                <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createObjectiveTreeNodeTitle' }">Learning objective</span>
-            </a>
+            <div class="navigation-tree-node-wrapper">
+                <span class="navigation-tree-node-caption-wrapper disabled">
+                    <span class="navigation-tree-node-icon empty"></span>
+                    <span class="navigation-tree-node-caption" data-bind="localize: { text: 'noObjectivesTitle' }"></span>
+                </span>
+            </div>
         </li>
+        <!-- /ko -->
 
         <!-- ko foreach: children -->
 

@@ -9,38 +9,19 @@
                 <div class="navigation-tree-header" data-bind="click: collapse, localize: { text: 'hideNavigationTree' }">Hide navigation</div>
 
                 <div class="navigation-tree-content">
+                    <!-- ko ifnot: children().length -->
+                    <div class="navigation-tree-no-courses-wrapper">
+                        <span class="navigation-tree-no-courses-icon"></span>
+                        <span class="navigation-tree-no-courses-caption" data-bind="localize: { text: 'noCoursesTitle' }">Course</span>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko foreach: children -->
                     <ul>
-                        <li class="navigation-tree-node">
-                            <!-- ko if: isCreateCourseAvailable -->
-                            <a class="navigation-tree-node-caption-wrapper" href="#course/create" data-bind="click: navigateToCreateCourse">
-                                <span class="navigation-tree-node-icon create"></span>
-                                <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createCourseTreeNodeTitle' }">Course</span>
-                            </a>
-                            <!-- /ko -->
-                            <!-- ko ifnot: isCreateCourseAvailable -->
-                            <div class="navigation-tree-node-caption-wrapper disabled">
-                                <span class="navigation-tree-node-icon create locked"></span>
-                                <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createCourseTreeNodeTitle' }">Course</span>
-                            </div>
-                            <!-- /ko -->
-                        </li>
-                        <!-- ko foreach: children -->
-                            <!-- ko compose: { model: $data, preserveContext: true }-->
-                            <!-- /ko -->
-                        <!-- /ko -->
-                        <!-- ko ifnot: children().length -->
-                        <li class="navigation-tree-node">
-                            <ul>
-                                <li class="navigation-tree-node">
-                                    <div class="navigation-tree-node-caption-wrapper disabled">
-                                        <span class="navigation-tree-node-icon create"></span>
-                                        <span class="navigation-tree-node-caption" data-bind="localize: { text: 'createObjectiveTreeNodeTitle' }">Learning objective</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
+                        <!-- ko compose: { model: $data, preserveContext: true }-->
                         <!-- /ko -->
                     </ul>
+                    <!-- /ko -->
+
                 </div>
 
             </div>

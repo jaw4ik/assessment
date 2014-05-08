@@ -148,15 +148,6 @@
     color: #303133;
 }
 
-    .navigation-tree-node-caption.empty {
-        color: #999999;
-        cursor: default;
-    }
-
-    .navigation-tree-node .navigation-tree-node-caption.empty:hover {
-        background-color: #FFFFFF;
-    }
-
 .navigation-tree-node-caption-wrapper.expanded {
     border-bottom: 1px solid #dedede;
 }
@@ -266,12 +257,6 @@
         background: url('images/sprites_16.png') -21px 0;
     }
 
-    .navigation-tree-node-icon.create:before {
-        width: 15px;
-        height: 15px;
-        background: url('images/sprites.png') -268px -249px;
-    }
-
     .navigation-tree-node-icon.expand:before {
         width: 6px;
         height: 11px;
@@ -289,10 +274,29 @@
         background-color: #E8E8E8;
     }
 
-    .navigation-tree-node-icon.locked:before {
-        margin-top: -2px;
-        background-position: -37px -294px;
-    }
+.navigation-tree-no-courses-icon {
+        content: '';
+        display: block;
+        margin: 0 auto;
+        background-repeat: no-repeat;
+        width: 32px;
+        height: 32px;
+        background: url('images/sprites_32.png') -37px 0;
+}
+
+.navigation-tree-no-courses-caption {
+    font-size: 14px;
+    font-family: 'OpenSans';
+    color: #999999;
+}
+
+.navigation-tree-no-courses-wrapper {
+    width: 100%;
+    top: 50%;
+    position: absolute;
+    margin-top: -27px;
+    text-align: center;
+}
 
 @media (min-width: 1550px) {
 
