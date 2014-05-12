@@ -1237,4 +1237,19 @@
     white-space: nowrap;
 }
 
+@media (max-width: 1350px) {
+
+    .course-collaborator-tooltip-wrapper:last-child,
+    .course-collaborator-tooltip-wrapper:nth-last-child(2) {
+        left: auto;
+        right: 0;
+    }
+
+    .course-collaborator-tooltip-wrapper:last-child .course-collaborator-tooltip:after,
+    .course-collaborator-tooltip-wrapper:nth-last-child(2) .course-collaborator-tooltip:after {
+        left: auto;
+        right: 7px;
+    }
+
+}
 /*#endregion REGION_NAME*/
