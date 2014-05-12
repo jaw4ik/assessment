@@ -1,5 +1,6 @@
 ﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/course', 'models/answerOption', 'models/learningContent', 'models/template', 'models/collaborator', 'constants'],
     function (app, http, objectiveModel, ObjectiveModel, QuestionModel, CourseModel, AnswerOptionModel, LearningContentModel, TemplateModel, CollaboratorModel, constants) {
+        "use strict";
 
         var
             objectives = [],

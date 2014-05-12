@@ -145,6 +145,7 @@
             course.image = item.template.image;
             course.modifiedOn = item.modifiedOn;
             course.isSelected = ko.observable(false);
+            course.objectives = item.objectives;
 
             return course;
         }
