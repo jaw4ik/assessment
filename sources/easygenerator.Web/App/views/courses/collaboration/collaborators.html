@@ -1,5 +1,5 @@
 ﻿<div class="course-collaborators" data-bind="foreach: members">
-    <div class="course-collaborators-user-avatar-holder">
+    <div class="course-collaborators-user-avatar-holder" data-bind="css: { 'course-owner': isOwner }">
         <div class="user-avatar" data-bind="text: avatarLetter">
         </div>
         <div class="course-collaborator-tooltip-wrapper">
