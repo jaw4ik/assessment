@@ -1160,8 +1160,8 @@
 .course-collaborators {
     margin-left: 133px;
     cursor: default;
-    float: right;
     list-style: none;
+    text-align: right;
 }
 
 .course-collaborator-item-wrapper {
@@ -1171,7 +1171,7 @@
     .course-collaborator-item-wrapper:after {
         content: ' ';
         font-size: 10px;
-        line-height: 0px;
+        line-height: 0;
     }
 
 .course-collaborator-item {
@@ -1249,16 +1249,17 @@
 
 @media (max-width: 1350px) {
 
-    .course-collaborator-tooltip-wrapper:last-child,
-    .course-collaborator-tooltip-wrapper:nth-last-child(2) {
+    .course-collaborators > :last-child .course-collaborator-tooltip-wrapper {
         left: auto;
         right: 0;
+        text-align: right;
     }
 
-        .course-collaborator-tooltip-wrapper:last-child .course-collaborator-tooltip:after,
-        .course-collaborator-tooltip-wrapper:nth-last-child(2) .course-collaborator-tooltip:after {
+        .course-collaborators > :last-child .course-collaborator-tooltip-wrapper .course-collaborator-tooltip:after {
             left: auto;
             right: 7px;
+            -webkit-transform: rotate(135deg);
+            margin-bottom: -2px;
         }
 }
 
