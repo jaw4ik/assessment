@@ -554,8 +554,7 @@ span.top-navigation-item.current {
 }
 
 .page-view-caption-text {
-    /*float: left;*/
-    position: absolute;
+    float: left;
     color: #303133;
     font-family: 'OpenSansItalic';
     font-size: 20px;
