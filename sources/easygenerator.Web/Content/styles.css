@@ -550,6 +550,7 @@ span.top-navigation-item.current {
 .page-view-caption {
     padding: 11px 0;
     position: relative;
+    z-index: 10;
 }
 
 .page-view-caption-text {
