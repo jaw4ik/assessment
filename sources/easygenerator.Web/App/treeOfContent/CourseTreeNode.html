@@ -1,5 +1,5 @@
-﻿<li class="navigation-tree-node" data-bind="attr: { 'data-view-id': id }">
-    <div class="navigation-tree-node-caption-wrapper" data-bind="css: { expanded: isExpanded }">
+﻿<li class="navigation-tree-node course" data-bind="attr: { 'data-view-id': id }, css: { expanded: isExpanded }">
+    <div class="navigation-tree-node-caption-wrapper">
         <!-- ko ifnot: isExpanded -->
         <div class="navigation-tree-node-icon expand" data-bind="click: expand"></div>
         <!-- /ko -->
@@ -12,21 +12,16 @@
 
     <ul data-bind="visible: isExpanded">
         <!-- ko ifnot: children().length -->
-        <li class="navigation-tree-node">
-            <div class="navigation-tree-node-wrapper">
-                <span class="navigation-tree-node-caption-wrapper disabled">
-                    <span class="navigation-tree-node-icon empty"></span>
-                    <span class="navigation-tree-node-caption" data-bind="localize: { text: 'noObjectivesTitle' }"></span>
-                </span>
+        <li class="navigation-tree-node objective">
+            <div class="navigation-tree-node-caption-wrapper disabled">
+                <span class="navigation-tree-node-icon empty"></span>
+                <span class="navigation-tree-node-caption" data-bind="localize: { text: 'noObjectivesTitle' }"></span>
             </div>
         </li>
         <!-- /ko -->
-
         <!-- ko foreach: children -->
-
         <!-- ko compose: { model: $data, preserveContext: true } -->
         <!-- /ko -->
-
         <!-- /ko -->
 
     </ul>

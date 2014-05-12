@@ -12,16 +12,15 @@
                     <!-- ko ifnot: children().length -->
                     <div class="navigation-tree-no-courses-wrapper">
                         <span class="navigation-tree-no-courses-icon"></span>
-                        <span class="navigation-tree-no-courses-caption" data-bind="localize: { text: 'noCoursesTitle' }">Course</span>
+                        <span class="navigation-tree-no-courses-caption" data-bind="localize: { text: 'noCoursesTitle' }">No courses yet</span>
                     </div>
                     <!-- /ko -->
-                    <!-- ko foreach: children -->
                     <ul>
-                        <!-- ko compose: { model: $data, preserveContext: true }-->
+                        <!-- ko foreach: children -->
+                            <!-- ko compose: { model: $data, preserveContext: true }-->
+                            <!-- /ko -->
                         <!-- /ko -->
                     </ul>
-                    <!-- /ko -->
-
                 </div>
 
             </div>

@@ -1,5 +1,5 @@
 ﻿define(['plugins/router'], function (router) {
-    var selector = '.navigation-tree-node-caption-wrapper';
+    var selector = '.navigation-tree-node';
     var activeSelector = selector + '.active';
 
     return {
