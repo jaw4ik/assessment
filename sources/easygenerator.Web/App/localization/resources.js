@@ -236,7 +236,7 @@
         en: 'Please upgrade your account to \"Starter plan\" to be able to download the course as a SCORM package.'
     },
     upgradeToStarterPlanToUseScormMessage: {
-        en: 'You have to <a target=\"_blank\" href=\"http://staging.easygenerator.com/account/upgrade\">upgrade your account</a> in order to<br/>download SCORM 1.2 package'
+        en: 'You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to<br/>download SCORM 1.2 package'
     },
     publishToAim4You: {
         en: 'Publish to Aim4You'
