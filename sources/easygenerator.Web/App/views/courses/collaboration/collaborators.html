@@ -1,10 +1,12 @@
-﻿<div class="course-collaborators" data-bind="foreach: members">
-    <div class="course-collaborators-user-avatar-holder" data-bind="css: { 'course-owner': isOwner }">
-        <div class="user-avatar" data-bind="text: avatarLetter"></div>
-        <div class="course-collaborator-tooltip-wrapper">
-            <div class="course-collaborator-tooltip">
-                <span class="course-collaborator-tooltip-text" data-bind="text: displayName"></span>
+﻿<ul class="course-collaborators" data-bind="foreach: members">
+    <li class="course-collaborators-user-avatar-item-wrapper">
+        <div class="course-collaborators-user-avatar-item" data-bind="css: { 'course-owner': isOwner }">
+            <div class="user-avatar" data-bind="text: avatarLetter"></div>
+            <div class="course-collaborator-tooltip-wrapper">
+                <div class="course-collaborator-tooltip">
+                    <span class="course-collaborator-tooltip-text" data-bind="text: displayName"></span>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </li>
+</ul>

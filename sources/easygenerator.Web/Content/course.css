@@ -1158,22 +1158,31 @@
 /*#region COLLABORATORS*/
 
 .course-collaborators {
+    margin-left: 133px;
     cursor: default;
     float: right;
+    list-style: none;
 }
 
-.course-collaborators-user-avatar-holder + .course-collaborators-user-avatar-holder {
-    margin-left: 10px;
+.course-collaborators-user-avatar-item-wrapper {
+    display: inline-block;
 }
 
-.course-collaborators-user-avatar-holder {
+.course-collaborators-user-avatar-item-wrapper:after {
+    content: ' ';
+    font-size: 10em;
+    line-height: 0px;
+}
+
+.course-collaborators-user-avatar-item {
     float: left;
     position: relative;
     border: 1px solid #EFEFEF;
     border-radius: 3px;
+    display: inline;
 }
 
-    .course-collaborators-user-avatar-holder.course-owner:after {
+    .course-collaborators-user-avatar-item.course-owner:after {
         content: '';
         display: block;
         height: 14px;
@@ -1198,9 +1207,10 @@
     left: 50%;
     margin-left: -78px;
     text-align: center;
+    z-index: 1;
 }
 
-.course-collaborators-user-avatar-holder:hover .course-collaborator-tooltip-wrapper {
+.course-collaborators-user-avatar-item-wrapper:hover .course-collaborator-tooltip-wrapper {
     display: block;
 }
 
