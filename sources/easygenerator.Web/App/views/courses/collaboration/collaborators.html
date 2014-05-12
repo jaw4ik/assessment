@@ -1,10 +1,9 @@
 ﻿<div class="course-collaborators" data-bind="foreach: members">
     <div class="course-collaborators-user-avatar-holder" data-bind="css: { 'course-owner': isOwner }">
-        <div class="user-avatar" data-bind="text: avatarLetter">
-        </div>
+        <div class="user-avatar" data-bind="text: avatarLetter"></div>
         <div class="course-collaborator-tooltip-wrapper">
             <div class="course-collaborator-tooltip">
-                <span class="course-collaborator-tooltip-text" data-bind="text: name">name</span>
+                <span class="course-collaborator-tooltip-text" data-bind="text: displayName"></span>
             </div>
         </div>
     </div>

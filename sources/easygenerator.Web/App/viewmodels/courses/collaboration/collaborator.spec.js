@@ -2,19 +2,23 @@
     "use strict";
 
     var
-        ctor = require('viewmodels/courses/collaboration/collaborator')
+        ctor = require('viewmodels/courses/collaboration/collaborator'),
+        localizationManager = require('localization/localizationManager')
     ;
 
     describe('viewModel [collaborator]', function () {
 
-        var viewModel;
-        var ownerEmail = "user@user.com";
-        var fullName = "Full Name";
+        var viewModel,
+        ownerEmail = "user@user.com",
+        email = "email@user.com",
+        fullName = "Full Name",
+        owner = 'owner';
 
         beforeEach(function () {
+            spyOn(localizationManager, 'localize').and.returnValue(owner);
         });
 
-        describe('name', function() {
+        describe('name', function () {
             it('should be defined', function () {
                 viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail });
                 expect(viewModel.name).toBeDefined();
@@ -31,6 +35,50 @@
                 it('should be equal to collaborator email', function () {
                     viewModel = ctor(ownerEmail, { fullName: '', email: ownerEmail });
                     expect(viewModel.name).toBe(ownerEmail);
+                });
+            });
+        });
+
+        describe('displayName', function () {
+            it('should be defined', function () {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail });
+                expect(viewModel.displayName).toBeDefined();
+            });
+
+            describe('when collaborator fullName is defined', function () {
+                describe('and when is not a course owner', function () {
+                    it('should be equal to collaborator fullName', function () {
+                        viewModel = ctor(ownerEmail, { fullName: fullName, email: email });
+                        expect(viewModel.displayName).toBe(fullName);
+                    });
+                });
+
+                describe('and when is course owner', function () {
+                    it('should be equal to collaborator fullName plus owner', function () {
+                        viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail });
+                        expect(viewModel.displayName).toBe(fullName + ': ' + owner);
+                    });
+                });
+
+            });
+
+            describe('when collaborator fullName is not defined', function () {
+                beforeEach(function () {
+                    viewModel = ctor(ownerEmail, { fullName: '', email: ownerEmail });
+                });
+
+                describe('and when is not a course owner', function () {
+                    it('should be equal to collaborator fullName', function () {
+                        viewModel = ctor(ownerEmail, { fullName: '', email: email });
+                        expect(viewModel.displayName).toBe(email);
+                    });
+                });
+
+                describe('and when is course owner', function () {
+                    it('should be equal to collaborator fullName plus owner', function () {
+                        viewModel = ctor(ownerEmail, { fullName: '', email: ownerEmail });
+                        expect(viewModel.displayName).toBe(ownerEmail + ': ' + owner);
+                    });
                 });
             });
         });
@@ -76,6 +124,6 @@
                 });
             });
         });
-       
+
     });
 })
