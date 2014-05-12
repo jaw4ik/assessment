@@ -1184,8 +1184,7 @@
 }
 
 .course-collaborator-tooltip {
-    /*display: none;*/
-
+    display: none;
     margin-left: -34px;
     margin-top: 6px;
     padding: 5px;
