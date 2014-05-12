@@ -9,8 +9,13 @@
                 members.push(new vmCollaborator(courseOwner, item));
             });
 
+            var addMember = function () {
+                alert('Not implemented yet :)\n\nHave a nice day!');
+            };
+
             return {
-                members: members
+                members: members,
+                addMember: addMember
             };
         };
 

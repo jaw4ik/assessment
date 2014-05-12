@@ -13,7 +13,7 @@
         beforeEach(function () {
         });
 
-        describe('members', function () {
+        describe('members:', function () {
             var collaborators = [
                 {
                     email: "contoso@ua.com",
@@ -41,6 +41,13 @@
             it('should be set members', function () {
                 viewModel = ctor(owner, collaborators);
                 expect(viewModel.members().length).toBe(3);
+            });
+        });
+
+        describe('addMember:', function() {
+            it('should be function', function () {
+                viewModel = ctor('', []);
+                expect(viewModel.addMember).toBeFunction();
             });
         });
     });

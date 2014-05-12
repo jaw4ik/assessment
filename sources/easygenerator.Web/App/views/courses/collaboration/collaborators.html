@@ -1,7 +1,8 @@
-﻿<ul class="course-collaborators" data-bind="foreach: members">
-    <li class="course-collaborators-user-avatar-item-wrapper">
-        <div class="course-collaborators-user-avatar-item" data-bind="css: { 'course-owner': isOwner }">
-            <div class="user-avatar" data-bind="text: avatarLetter"></div>
+﻿<ul class="course-collaborators">
+    <!-- ko foreach: members -->
+    <li class="course-collaborator-item-wrapper">
+        <div class="course-collaborator-item" data-bind="css: { 'course-owner': isOwner }">
+            <div class="user-avatar course-collaborator-item-user-avatar" data-bind="text: avatarLetter"></div>
             <div class="course-collaborator-tooltip-wrapper">
                 <div class="course-collaborator-tooltip">
                     <span class="course-collaborator-tooltip-text" data-bind="text: displayName"></span>
@@ -9,4 +10,11 @@
             </div>
         </div>
     </li>
+    <!-- /ko -->
+    <li class="course-collaborator-item-wrapper">
+        <div class="course-collaborator-item">
+            <div class="user-avatar course-collaborator-add-btn" data-bind="click: addMember">+</div>
+        </div>
+    </li>
 </ul>
+
