@@ -25,8 +25,10 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IUrlHelperWrapper _urlHelper;
         private readonly IScormCourseBuilder _scormCourseBuilder;
         private readonly ICoursePublisher _coursePublisher;
+        private readonly IUserRepository _userRepository;
 
-        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher)
+        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory,
+            IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IUserRepository userRepository)
         {
             _builder = courseBuilder;
             _repository = repository;
@@ -34,6 +36,7 @@ namespace easygenerator.Web.Controllers.Api
             _urlHelper = urlHelper;
             _scormCourseBuilder = scormCourseBuilder;
             _coursePublisher = coursePublisher;
+            _userRepository = userRepository;
         }
 
         [HttpPost]
@@ -116,11 +119,7 @@ namespace easygenerator.Web.Controllers.Api
                 Title = course.Title,
                 IntroductionContent = course.IntroductionContent,
                 CreatedBy = course.CreatedBy,
-                Collaborators = course.Collaborators.Select(e => new
-                {
-                    Email = e.Email,
-                    FullName = e.FullName
-                }),
+                Collaborators = GetCourseCollaborators(course),
                 CreatedOn = course.CreatedOn,
                 ModifiedOn = course.ModifiedOn,
                 Template = new { Id = course.Template.Id.ToNString() },
@@ -134,11 +133,6 @@ namespace easygenerator.Web.Controllers.Api
             });
 
             return JsonSuccess(result);
-        }
-
-        private string GetCourseReviewUrl(string courseId)
-        {
-            return _urlHelper.ToAbsoluteUrl(string.Format("~/review/{0}/", courseId));
         }
 
         [HttpPost]
@@ -283,6 +277,31 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }
 
+        private IEnumerable<object> GetCourseCollaborators(Course course)
+        {
+            var collaborators = new List<object>(course.Collaborators.Select(e => new
+            {
+                Email = e.Email,
+                FullName = e.FullName
+            }));
+
+            var owner = _userRepository.GetUserByEmail(course.CreatedBy);
+            if (owner != null)
+            {
+                collaborators.Add(new
+                {
+                    Email = owner.Email,
+                    FullName = owner.FullName
+                });
+            }
+
+            return collaborators;
+        }
+
+        private string GetCourseReviewUrl(string courseId)
+        {
+            return _urlHelper.ToAbsoluteUrl(string.Format("~/review/{0}/", courseId));
+        }
 
     }
 }

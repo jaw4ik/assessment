@@ -36,6 +36,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private HttpContextBase _context;
         private IUrlHelperWrapper _urlHelper;
         private ICoursePublisher _coursePublisher;
+        private IUserRepository _userRepository;
 
         [TestInitialize]
         public void InitializeContext()
@@ -46,13 +47,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
             _coursePublisher = Substitute.For<ICoursePublisher>();
             _urlHelper = Substitute.For<IUrlHelperWrapper>();
+            _userRepository = Substitute.For<IUserRepository>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _urlHelper, _coursePublisher);
+            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _urlHelper, _coursePublisher, _userRepository);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 

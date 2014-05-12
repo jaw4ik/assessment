@@ -286,6 +286,7 @@
 
 .header-username-avatar-holder {
     display: inline-block;
+     margin-right: 5px;
 }
 
 .user-avatar {
@@ -297,9 +298,10 @@
     text-align: center;
     text-transform: uppercase;
     border-radius: 2px;
-    margin-right: 5px;
     font-family: 'OpenSans-Semibold';
     font-size: 14px;
+    display: inline-block;
+    /*vertical-align: middle;*/
 }
 
 .header-submenu-holder {

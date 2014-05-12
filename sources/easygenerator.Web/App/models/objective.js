@@ -4,13 +4,12 @@
 
         var Objective = function (spec) {
 
-            var obj = new EntityModel(spec);
+            EntityModel.call(this, spec);
 
-            obj.title = spec.title;
-            obj.image = spec.image;
-            obj.questions = spec.questions;
-
-            return obj;
+            this.title = spec.title;
+            this.image = spec.image;
+            this.questions = spec.questions;
+            this.createdBy = spec.createdBy;
         };
 
         return Objective;

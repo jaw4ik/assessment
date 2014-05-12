@@ -129,6 +129,12 @@
             });
         });
 
+        describe('collaborators', function() {
+            it('should be defined', function () {
+                expect(viewModel.collaborators).toBeDefined();
+            });
+        });
+
         describe('startEditTitle:', function () {
 
             it('should be function', function () {
@@ -888,6 +894,15 @@
 
                     viewModel.activate(course.id).fin(function () {
                         expect(viewModel.id).toEqual(course.id);
+                        done();
+                    });
+                });
+
+                it('should set current course collaborators', function (done) {
+                    viewModel.collaborators = null;
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.collaborators).not.toBeNull();
                         done();
                     });
                 });

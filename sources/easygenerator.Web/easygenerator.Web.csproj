@@ -404,6 +404,14 @@
     <Content Include="App\viewmodels\common\contentField.spec.js">
       <DependentUpon>contentField.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\courses\collaboration\collaborator.js" />
+    <Content Include="App\viewmodels\courses\collaboration\collaborator.spec.js">
+      <DependentUpon>collaborator.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\collaboration\collaborators.js" />
+    <Content Include="App\viewmodels\courses\collaboration\collaborators.spec.js">
+      <DependentUpon>collaborators.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\courseComments.js" />
     <Content Include="App\viewmodels\courses\courseComments.spec.js">
       <DependentUpon>courseComments.js</DependentUpon>
@@ -461,6 +469,7 @@
     <Content Include="App\viewmodels\user\userMenu.spec.js">
       <DependentUpon>userMenu.js</DependentUpon>
     </Content>
+    <Content Include="App\views\courses\collaboration\collaborators.html" />
     <Content Include="App\views\courses\courseNavigation\navigation.html" />
     <Content Include="App\views\courses\courseComments.html" />
     <Content Include="App\views\panels\sidePanel.html" />

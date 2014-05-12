@@ -1,6 +1,8 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
-        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'ping', 'models/backButton'],
-    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, ping, BackButton) {
+        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'ping', 'models/backButton',
+        'viewmodels/courses/collaboration/collaborators'],
+    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, ping, BackButton,
+        vmCollaborators) {
         "use strict";
 
         var
@@ -62,7 +64,7 @@
             disconnectSelectedObjectives: disconnectSelectedObjectives,
             reorderObjectives: reorderObjectives,
             isSortingEnabled: ko.observable(true),
-
+            collaborators: null,
 
             canActivate: canActivate,
             activate: activate,
@@ -285,8 +287,9 @@
                         return objectiveBrief(objective);
                     })
                     .value());
-
+                
                 viewModel.isEditing(false);
+                viewModel.collaborators = new vmCollaborators(course.createdBy, course.collaborators);
                 that.courseIntroductionContent = vmContentField(course.introductionContent, eventsForCourseContent, false, function (content) { return repository.updateIntroductionContent(course.id, content); });
             }).fail(function (reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
