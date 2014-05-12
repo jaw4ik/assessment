@@ -1149,7 +1149,13 @@
     },
     createCourseDialogTitle: {
         en: '1.Create your first course'
-    }
+    },
     /* End resource section for model Dialogs window */
+    
+    /* Resource section for model Collaboration */
+    owner: {
+        en: 'Owner'
+    }
+    /* End resource section for model Collaboration */
            
 });
