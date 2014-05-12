@@ -13,6 +13,7 @@
             this.builtOn = spec.builtOn;
             this.template = spec.template;
             this.introductionContent = spec.introductionContent;
+            this.collaborators = spec.collaborators;
 
             this.build = buildingActionBase.call(this, buildActionHandler, spec.packageUrl);
             this.scormBuild = actionBase.call(this, scormBuildActionHandler, spec.scormPackageUrl);
