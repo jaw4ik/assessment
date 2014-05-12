@@ -281,8 +281,8 @@ namespace easygenerator.Web.Controllers.Api
         {
             var collaborators = new List<object>(course.Collaborators.Select(e => new
             {
-                Email = e.Email,
-                FullName = e.FullName
+                Email = e.User.Email,
+                FullName = e.User.FullName
             }));
 
             var owner = _userRepository.GetUserByEmail(course.CreatedBy);

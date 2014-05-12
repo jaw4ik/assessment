@@ -112,6 +112,10 @@
     <Compile Include="Migrations\201405070854255_AddCourseCollaborators.Designer.cs">
       <DependentUpon>201405070854255_AddCourseCollaborators.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405121408144_RearragngeCourseCollaboratorsTable.cs" />
+    <Compile Include="Migrations\201405121408144_RearragngeCourseCollaboratorsTable.Designer.cs">
+      <DependentUpon>201405121408144_RearragngeCourseCollaboratorsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
@@ -181,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405070854255_AddCourseCollaborators.resx">
       <DependentUpon>201405070854255_AddCourseCollaborators.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405121408144_RearragngeCourseCollaboratorsTable.resx">
+      <DependentUpon>201405121408144_RearragngeCourseCollaboratorsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

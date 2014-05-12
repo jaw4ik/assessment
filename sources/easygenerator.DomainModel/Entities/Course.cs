@@ -20,7 +20,7 @@ namespace easygenerator.DomainModel.Entities
             Template = template;
             RelatedObjectivesCollection = new Collection<Objective>();
             CommentsCollection = new Collection<Comment>();
-            CollaboratorsCollection = new Collection<User>();
+            CollaboratorsCollection = new Collection<CourseCollabrator>();
             TemplateSettings = new Collection<CourseTemplateSettings>();
             BuildOn = null;
             IntroductionContent = null;
@@ -40,11 +40,11 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual bool IsPermittedTo(string username)
         {
-            return CreatedBy == username || Collaborators.Any(e => e.Email == username);
+            return CreatedBy == username || Collaborators.Any(e => e.User.Email == username);
         }
 
-        protected internal virtual ICollection<User> CollaboratorsCollection { get; set; }
-        public virtual IEnumerable<User> Collaborators
+        protected internal virtual ICollection<CourseCollabrator> CollaboratorsCollection { get; set; }
+        public virtual IEnumerable<CourseCollabrator> Collaborators
         {
             get { return CollaboratorsCollection.AsEnumerable(); }
         }

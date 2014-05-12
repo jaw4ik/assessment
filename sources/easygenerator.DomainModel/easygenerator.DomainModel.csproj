@@ -43,6 +43,7 @@
     <Compile Include="Entities\AccessType.cs" />
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Comment.cs" />
+    <Compile Include="Entities\CourseCollaborator.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\ImageFile.cs" />

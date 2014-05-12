@@ -521,7 +521,8 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Arrange
             const string username = "user@user.com";
             var course = CourseObjectMother.Create();
-            course.CollaboratorsCollection.Add(UserObjectMother.CreateWithEmail(username));
+
+            course.CollaboratorsCollection.Add(CourseCollaboratorObjectMother.Create(course, UserObjectMother.CreateWithEmail(username)));
 
             //Act
             var result = course.IsPermittedTo(username);
