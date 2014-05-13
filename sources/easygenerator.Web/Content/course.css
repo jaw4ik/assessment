@@ -1157,11 +1157,15 @@
 
 /*#region COLLABORATORS*/
 
-.course-collaborators {
-    margin-left: 133px;
-    cursor: default;
+.course-collaborators-wrapper {
+    margin-left: 226px;
+}
+
+.course-collaborators-list {
+    margin-right: 30px;
     list-style: none;
     text-align: right;
+    cursor: default;
 }
 
 .course-collaborator-item-wrapper {
