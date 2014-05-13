@@ -1253,13 +1253,13 @@
 
 @media (max-width: 1350px) {
 
-    .course-collaborators > :last-child .course-collaborator-tooltip-wrapper {
+    .course-collaborators-list > :last-child .course-collaborator-tooltip-wrapper {
         left: auto;
         right: 0;
         text-align: right;
     }
 
-        .course-collaborators > :last-child .course-collaborator-tooltip-wrapper .course-collaborator-tooltip:after {
+        .course-collaborators-list > :last-child .course-collaborator-tooltip-wrapper .course-collaborator-tooltip:after {
             left: auto;
             right: 7px;
             -webkit-transform: rotate(135deg);
