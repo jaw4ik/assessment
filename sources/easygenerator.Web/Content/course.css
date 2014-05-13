@@ -1199,6 +1199,7 @@
 
 .course-collaborator-item-user-avatar {
     line-height: 22px;
+    vertical-align: top;
     border: 1px solid white;
     background-color: #CFCFCF;
 }
@@ -1277,6 +1278,7 @@
 
 .course-collaborator-add-btn {
     line-height: 22px;
+    vertical-align: top;
     border: 1px solid white;
     background-color: #4DC1C1;
 }
