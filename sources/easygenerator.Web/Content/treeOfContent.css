@@ -144,6 +144,11 @@
     border-bottom: 1px solid #dedede;
 }
 
+.navigation-tree-node.active > .navigation-tree-node-caption-wrapper > .navigation-tree-node-caption:hover {
+    background-color: #fffddd !important;
+    cursor: default;
+}
+
 .navigation-tree-node.active:first-child > .navigation-tree-node-caption-wrapper {
     border-top: none;
 }
