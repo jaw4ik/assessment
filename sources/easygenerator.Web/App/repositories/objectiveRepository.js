@@ -44,7 +44,7 @@
                     guard.throwIfNotString(response.CreatedOn, 'Objective creation date is not a string');
 
                     var
-                        createdObjective = objectiveModel({
+                        createdObjective = new objectiveModel({
                             id: response.Id,
                             title: objective.title,
                             image: constants.defaultObjectiveImage,
