@@ -591,6 +591,7 @@ span.top-navigation-item.current {
 .list-item-action {
     display: table-cell;
     vertical-align: middle;
+    cursor: default;
 }
 
     .list-item-action.create,
