@@ -47,7 +47,7 @@ namespace easygenerator.Web.BuildCourse.Scorm
 
         protected override string GetPublishSettings()
         {
-            return "{ \"modules\": [{\"name\": \"scormInitializer\"}] }";
+            return "{ \"modules\": [{\"name\": \"lms\"}] }";
         }
 
         private void AddMetadataFile(Course course, string buildDirectoryPath)

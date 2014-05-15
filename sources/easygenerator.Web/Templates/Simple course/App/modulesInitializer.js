@@ -1,5 +1,5 @@
-﻿define(['moduleLoader'],
-    function (moduleLoader) {
+﻿define(['moduleLoader', 'eventManager'],
+    function (moduleLoader, eventManager) {
 
         "use strict";
 
@@ -42,12 +42,7 @@
         function onModuleLoaded(module) {
             return Q.fcall(function () {
                 if (_.isFunction(module.initialize)) {
-                    module.initialize(modulesConfigs[module.__moduleId__]);
-                }
-                if (_.isFunction(module.dispose)) {
-                    $(window).unload(function () {
-                        module.dispose();
-                    });
+                    module.initialize(modulesConfigs[module.__moduleId__], eventManager);
                 }
             });
         }

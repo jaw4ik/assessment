@@ -481,6 +481,7 @@
     <Content Include="App\widgets\backButton\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
+    <Content Include="BuildCourse\Scorm\js\lms.js" />
     <Content Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
       <SubType>Designer</SubType>
     </Content>
@@ -1049,11 +1050,6 @@
     <Content Include="Scripts\knockoutBindings\hoverBinding.js" />
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />
-    <Content Include="BuildCourse\Scorm\js\APIWrapper.js" />
-    <Content Include="BuildCourse\Scorm\js\scormInitializer.js" />
-    <Content Include="BuildCourse\Scorm\js\scormInitializer.spec.js">
-      <DependentUpon>scormInitializer.js</DependentUpon>
-    </Content>
     <Content Include="Content\font\opensans-italic.eot" />
     <Content Include="Content\font\opensans-italic.ttf" />
     <Content Include="Content\font\opensans-italic.woff" />
@@ -1334,7 +1330,6 @@
     <Content Include="Templates\Exam\publishSettings.js" />
     <Content Include="Templates\Exam\settings.html" />
     <Content Include="Templates\Exam\settings.js" />
-    <Content Include="Templates\Exam\weyland-config.js" />
     <Content Include="Templates\Quiz\App\bootstrapper.js" />
     <Content Include="Templates\Quiz\App\bootstrapper.spec.js">
       <DependentUpon>bootstrapper.js</DependentUpon>
@@ -1942,6 +1937,7 @@
     <Content Include="Templates\Simple course\js\vendor.min.js.map">
       <DependentUpon>vendor.min.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Exam\weyland-config.js" />
     <Content Include="Views\Account\InvalidPasswordRecovery.cshtml" />
     <Content Include="Views\Account\PasswordRecovery.cshtml" />
     <Content Include="Views\Account\PrivacyPolicy.cshtml" />
