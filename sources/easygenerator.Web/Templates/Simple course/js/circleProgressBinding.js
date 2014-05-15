@@ -3,11 +3,12 @@
 
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-        var score = valueAccessor().progress || 0;
-        var lineWidth = valueAccessor().lineWidth || 10;
-        var basicColor = valueAccessor().basicColor || 'rgb(211,212,216)';
-        var progressColor = valueAccessor().progressColor || 'rgb(87,157,193)';
 
+        var $element = $(element),
+            score = valueAccessor().progress || 0,
+            lineWidth = valueAccessor().lineWidth || 10,
+            basicColor = $element.css('color') || 'rgb(211,212,216)',
+            progressColor = $element.css('border-top-color') || 'rgb(87,157,193)';
 
         var centerX = element.width / 2;
         var centerY = element.height / 2;

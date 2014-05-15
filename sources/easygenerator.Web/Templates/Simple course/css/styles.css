@@ -400,6 +400,11 @@ input[type="checkbox"] {
 
 /*#region objective linear progressbar*/
 
+.canvas-styles {
+    color: #d3d4d8;
+    border-color: #579dc1;
+}
+
 .objective-progress {
     width: 355px;
     -moz-box-sizing: border-box;
