@@ -11,7 +11,7 @@
     }
 
     var lmsReporting = {
-        initialize: function (settings, eventManager) {
+        initialize: function () {
             self.initialized = self.apiWrapper.doLMSInitialize() == "true";
             if (self.initialized) {
                 if (window.addEventListener) {
@@ -19,10 +19,10 @@
                 } else if (window.attachEvent) {
                     window.attachEvent('onunload', self.apiWrapper.doLMSFinish);
                 }
-
-                eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished);
             }
-        }
+        },
+
+        courseFinished: sendCourseFinished
     }
 
     return lmsReporting;
