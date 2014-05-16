@@ -2,7 +2,7 @@
 
     var repository = require('repositories/courseRepository'),
         router = require('plugins/router'),
-        courseSettings = require('modules/courseSettings'),
+        templateSettings = require('modules/templateSettings'),
         windowOperations = require('windowOperations');
 
     describe('viewModel [objectives]', function () {
@@ -99,7 +99,7 @@
 
                 it('should set masteryScore', function () {
                     viewModel.masteryScore = 0;
-                    courseSettings.masteryScore = { score: 55 };
+                    templateSettings.masteryScore = { score: 55 };
 
                     viewModel.activate();
                     expect(viewModel.masteryScore).toBe(55);

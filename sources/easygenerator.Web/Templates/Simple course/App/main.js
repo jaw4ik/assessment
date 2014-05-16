@@ -53,19 +53,19 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
 
             function readTemplateSettings() {
                 return settingsReader.readTemplateSettings().then(function (settings) {
-                    modules['modules/graphicalCustomization'] = settings.logo;
-                    modules['modules/courseSettings'] = settings.masteryScore;
-                    modules["xApi/xApiInitializer"] = settings.xApi;
+                    modules['modules/templateSettings'] = settings;
+                    modules['xApi/xApiInitializer'] = settings.xApi;
                 });
             }
 
             function readPublishSettings() {
-                settingsReader.readPublishSettings().then(function(settings) {
+                return settingsReader.readPublishSettings().then(function(settings) {
                     _.each(settings.modules, function(module) {
                         modules[module.name] = true;
                     });
                 });
             }
+
         });
     }
 );

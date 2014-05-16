@@ -3,7 +3,7 @@
     var router = require('plugins/router'),
         repository = require('repositories/questionRepository'),
         navigationModule = require('modules/questionsNavigation'),
-        courseSettings = require('modules/courseSettings'),
+        templateSettings = require('modules/templateSettings'),
         objectiveRepository = require('repositories/objectiveRepository');
 
     describe('viewModel [question]', function () {
@@ -273,7 +273,7 @@
 
                     it('should set mastery score', function () {
                         viewModel.masteryScore = 0;
-                        courseSettings.masteryScore.score = 55;
+                        templateSettings.masteryScore.score = 55;
                         var promise = viewModel.activate();
                         loadQuestionDeferred.resolve();
 

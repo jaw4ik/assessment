@@ -1,5 +1,5 @@
-﻿define(['eventManager', 'plugins/router', 'repositories/questionRepository', 'repositories/objectiveRepository', 'modules/questionsNavigation','modules/courseSettings'],
-	function (eventManager, router, repository, objectiveRepository, navigationModule, courseSettings) {
+﻿define(['eventManager', 'plugins/router', 'repositories/questionRepository', 'repositories/objectiveRepository', 'modules/questionsNavigation','modules/templateSettings'],
+	function (eventManager, router, repository, objectiveRepository, navigationModule, templateSettings) {
 	    var viewModel = {
 	        objective: null,
 	        objectiveScore: ko.observable(0),
@@ -70,7 +70,7 @@
 	            }
 
 	            viewModel.objectiveScore(viewModel.objective.score());
-	            viewModel.masteryScore = courseSettings.masteryScore.score;
+	            viewModel.masteryScore = templateSettings.masteryScore.score;
 	            viewModel.navigationContext = navigationModule.getNavigationContext(objectiveId, questionId, questionUrlBuilder);
 	            viewModel.questionId = questionId;
 	            viewModel.title = question.title;

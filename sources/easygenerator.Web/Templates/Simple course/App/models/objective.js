@@ -1,5 +1,5 @@
-﻿define(['modules/courseSettings'],
-    function (courseSettings) {
+﻿define(['modules/templateSettings'],
+    function (templateSettings) {
 
         var ctor = function (spec) {
 
@@ -17,7 +17,7 @@
             });
 
             objective.isCompleted = ko.computed(function () {
-                return objective.score() >= courseSettings.masteryScore.score;
+                return objective.score() >= templateSettings.masteryScore.score;
             });
 
             return objective;

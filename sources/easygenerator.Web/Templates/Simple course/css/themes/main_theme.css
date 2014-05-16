@@ -1,16 +1,16 @@
 ﻿/*#region FONTS CONNECTIONS*/
 @font-face {
     font-family: 'OpenSans';
-    src: url('./font/opensans-regular.eot');
-    src: url('./font/opensans-regular.eot?#iefix') format('embedded-opentype'), url('./font/opensans-regular.woff') format('woff'), url('./font/opensans-regular.ttf') format('truetype'), url('./font/opensans-regular.svg#OpenSansRegular') format('svg');
+    src: url('../font/opensans-regular.eot');
+    src: url('../font/opensans-regular.eot?#iefix') format('embedded-opentype'), url('../font/opensans-regular.woff') format('woff'), url('../font/opensans-regular.ttf') format('truetype'), url('../font/opensans-regular.svg#OpenSansRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'OpenSans-Semibold';
-    src: url('./font/opensans-semibold.eot');
-    src: url('./font/opensans-semibold.eot?#iefix') format('embedded-opentype'), url('./font/opensans-semibold.woff') format('woff'), url('./font/opensans-semibold.ttf') format('truetype'), url('./font/opensans-semibold.svg#OpenSansSemibold') format('svg');
+    src: url('../font/opensans-semibold.eot');
+    src: url('../font/opensans-semibold.eot?#iefix') format('embedded-opentype'), url('../font/opensans-semibold.woff') format('woff'), url('../font/opensans-semibold.ttf') format('truetype'), url('../font/opensans-semibold.svg#OpenSansSemibold') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -32,7 +32,7 @@
 html {
     overflow-y: scroll;
     overflow: -moz-scrollbars-vertical;
-}
+}}
 
 html, body, .application-wrapper {
     width: 100%;
@@ -50,7 +50,7 @@ body, .application-wrapper {
 body {
     -webkit-font-smoothing: subpixel-antialiased !important;
     min-width: 620px;
-    background: url(../img/bg.png) repeat;
+    background: url(../../img/bg.png) repeat;
     font-size: 14px;
     font-family: OpenSans, sans-serif;
     line-height: 24px;
@@ -147,7 +147,7 @@ input[type="checkbox"] {
     width: 32px;
     height: 32px;
     vertical-align: middle;
-    background-image: url(../img/loader.gif);
+    background-image: url(../../img/loader.gif);
     background-repeat: no-repeat;
 }
 
@@ -400,11 +400,6 @@ input[type="checkbox"] {
 
 /*#region objective linear progressbar*/
 
-.canvas-styles {
-    color: #d3d4d8;
-    border-color: #579dc1;
-}
-
 .objective-progress {
     width: 355px;
     -moz-box-sizing: border-box;
@@ -581,7 +576,7 @@ input[type="checkbox"] {
     border: 1px solid #BCD8F0;
     border-left: none;
     border-radius: 2px;
-    background: url('../img/home.png') 8px 6px no-repeat #F5FAFD;
+    background: url('../../img/home.png') 8px 6px no-repeat #F5FAFD;
     padding-top: 27px;
     color: #61C5DF;
     font-size: 12px;
@@ -937,7 +932,7 @@ input[type="checkbox"] {
 }
 
     .question-answer-checkbox.checked {
-        background: url("../img/checkbox.png") no-repeat scroll center center white;
+        background: url("../../img/checkbox.png") no-repeat scroll center center white;
     }
 
 .question-answer-text {
@@ -1240,202 +1235,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
         left: 0;
         width: 25px;
         height: 25px;
-        background: url('../img/reporting-progress-loader.gif') no-repeat;
+        background: url('../../img/reporting-progress-loader.gif') no-repeat;
     }
 
 /*#endregion objectives page layout*/
-
-/*#region xapi-form-styles*/
-
-.module-experienceapi {
-    margin-bottom: 50px;
-}
-
-.xapi-form-holder {
-    max-width: 615px;
-    margin: 0 auto;
-    position: relative;
-}
-
-/*#region form info text*/
-
-.xapi-form-info {
-    padding: 0 50px 0 0;
-}
-
-.xapi-form-caption {
-    text-align: center;
-}
-
-.xapi-form-text {
-    width: 100%;
-    line-height: normal;
-    position: relative;
-    padding: 0 17px 0 74px;
-    cursor: default;
-}
-
-    .xapi-form-text:before {
-        content: '';
-        display: block;
-        height: 38px;
-        width: 38px;
-        position: absolute;
-        top: 50%;
-        left: 18px;
-        margin-top: -19px;
-        background: url(../App/xApi/css/img/info-message.png);
-    }
-
-/*#endregion form info text*/
-
-/*#region form fields-area*/
-
-.xapi-form-credentials {
-    padding: 23px 55px 0;
-}
-
-.xapi-form-row {
-    display: table;
-    height: 83px;
-    width: 100%;
-    position: relative;
-}
-
-.xapi-form-input-holder {
-    position: relative;
-    padding: 6px 40px 6px 20px;
-    height: 47px;
-}
-
-    .xapi-form-input-holder:before {
-        content: '';
-        display: block;
-        height: 22px;
-        width: 20px;
-        position: absolute;
-        top: 50%;
-        left: -37px;
-        margin-top: -13px;
-        background: url(../App/xApi/css/img/xapi-icons.png) 0 0;
-    }
-
-.email .xapi-form-input-holder:before {
-    background-position: 0 -24px;
-}
-
-.xapi-form-input {
-    display: block;
-    width: 100%;
-    position: relative;
-    top: 8px;
-    left: -11px;
-    border: none;
-    color: #333;
-    font-size: 14px;
-}
-
-    .xapi-form-input:focus,
-    .xapi-form-input:active {
-        outline: none;
-    }
-
-.xapi-form-input-wrapper {
-    display: inline-block;
-    width: 100%;
-    height: 33px;
-    position: absolute;
-    left: 0;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 8px;
-    background: #fff;
-    border: solid 1px #bfbfbf;
-    border-radius: 3px;
-    cursor: text;
-}
-
-    .xapi-form-input-wrapper:hover,
-    .xapi-form-input-wrapper.hover {
-        outline: none;
-        box-shadow: 0 0 3px #dedede;
-    }
-
-
-    .xapi-form-input-wrapper.focus {
-        outline: none;
-        border: solid 1px #5698bb;
-        box-shadow: 0 0 2px #5698bb;
-    }
-
-.xapi-form-row.error .xapi-form-input-wrapper {
-    border: solid 1px #953b39;
-    box-shadow: 0 0 2px #953b39;
-}
-
-/*#endregion form fields-area*/
-
-/*#region input warning message*/
-
-.xapi-form-message {
-    display: none;
-    position: absolute;
-    left: 0;
-    top: 100%;
-    padding-left: 21px;
-    margin-top: -7px;
-    font-size: 13px;
-}
-
-    .xapi-form-message:after {
-        content: '';
-        position: absolute;
-        top: 8px;
-        left: 3px;
-        display: block;
-        width: 11px;
-        height: 8px;
-        font-size: 12px;
-        background: url(../App/xApi/css/img/icons-xApi.png) -7px -47px;
-    }
-
-.xapi-form-row.error .xapi-form-message {
-    display: block;
-    color: #953b39;
-    text-align: left;
-}
-
-/*#endregion input warning message*/
-
-.xapi-btn-container {
-    padding: 0 55px;
-}
-
-.xapi-nav-btn {
-    float: right;
-}
-
-    .xapi-nav-btn .small-page-action-btn {
-        min-width: 267px;
-    }
-
-.xapi-nav-link {
-    display: inline-block;
-    line-height: 20px;
-    max-width: 46%;
-    margin: 10px 0 0;
-    border-bottom: 1px solid #41b7d8;
-    color: #41b7d8;
-    font-size: 16px;
-    white-space: nowrap;
-    -ms-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-
-    .xapi-nav-link:hover {
-        color: #0088ae;
-    }
-
-/*#endregion xapi-form-styles*/

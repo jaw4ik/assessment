@@ -626,6 +626,81 @@
         .invisible {
             display: none;
         }
+
+        /*#region HEADER SEPARATOR*/
+
+        .header-separator {
+            width: 100%;
+            border-top: 1px solid #E9E7E8;
+            position: relative;
+            height: 10px;
+        }
+
+        .header-separator-title-wrapper {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -10px;
+            text-align: center;
+        }
+
+        .header-separator-title {
+            padding: 0 20px;
+            background-color: #fff;
+        }
+
+        /*#endregion HEADER SEPARATOR*/
+
+        .content-column {
+            width: 50%;
+            float: left;
+        }
+
+        .themes-selector {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .themes-selector-item {
+            position: relative;
+            padding: 12px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: default;
+        }
+
+            .themes-selector-item:hover,
+            .themes-selector-item.selected {
+                background-color: #F5F5F5;
+            }
+
+            .themes-selector-item:hover {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+                .themes-selector-item:hover:before {
+                    content: '';
+                    width: 2px;
+                    height: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    background-color: #f59957;
+                }
+
+            .themes-selector-item.selected:after {
+                content: '';
+                display: block;
+                width: 18px;
+                height: 14px;
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                margin-top: -7px;
+                background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAOCAYAAAAi2ky3AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjExR/NCNwAAAO1JREFUOE+t0aFqgmEUxnEtMswLggw0WZZkBmFBNAjCiixZjbsCm3gjRpugYeANeAUWk8FiMDg2haH47n/kfeH4edQJhp/wnvM8hw+MOefuwhz+x1s/U8AnkvI2Q9dQfsUXHIYyM4OXUKzgxx9ZoypzM3wOpRo2/sg3SmF3Ej6HUh2//sgKRb3XwbReaOwa2EKOLJGPZkKwDPnkDuI6wLuJHeTIAs96H4TwwAdFDw9+/oG9n8+R02Xt8EMgga4viDHaCEdmyEbL2tGDcEuVgymedM5yMqD0jvAXT5CKZizmkPILRni09hZzeDsX+wNgkZfVTacfHQAAAABJRU5ErkJggg==);
+            }
     </style>
 </head>
 <body>
@@ -645,7 +720,7 @@
             <div class="content-container">
                 <div class="content-header">
                     <div class="page-title-wrapper">
-                        <h1 class="page-title brush">Custom course logo</h1>
+                        <h1 class="page-title brush">Graphical customization</h1>
                     </div>
                 </div>
                 <div class="content-wrapper">
@@ -687,6 +762,19 @@
                             in order to set custom course logo
                         </div>
                     </div>
+                </div>
+                <div class="content-wrapper">
+                    <div class="header-separator">
+                        <div class="header-separator-title-wrapper">
+                            <span class="header-separator-title">Color scheme</span>
+                        </div>
+                    </div>
+                    <div class="content-column">
+                        <ul class="themes-selector" data-bind="foreach: themes">
+                            <li class="themes-selector-item" data-bind="text: title, click: select, css: { selected: isSelected }"></li>
+                        </ul>
+                    </div>
+                    <div class="content-column">B</div>
                 </div>
                 <div class="content-header">
                     <div class="page-title-wrapper">
@@ -895,6 +983,26 @@
                     return logo;
                 })(),
 
+                themes: [
+                    {
+                        title: 'Cartoon light',
+                        key: 'cartoon'
+                    },
+                    {
+                        title: 'Grey scheme',
+                        key: 'grey'
+                    },
+                    {
+                        title: 'Black scheme',
+                        key: 'black'
+                    },
+                    {
+                        title: 'Flat scheme',
+                        key: 'flat'
+                    }
+                ],
+                defaultThemeKey: 'cartoon',
+
                 hasStarterPlan: ko.observable(true),
                 statements: {
                     started: ko.observable(true),
@@ -933,6 +1041,9 @@
                     },
                     masteryScore: {
                         score: viewModel.masteryScore()
+                    },
+                    theme: {
+                        key: viewModel.themes.getSelected().key
                     }
                 };
 
@@ -946,6 +1057,32 @@
                     .fail(function () {
                         viewModel.isFailed(true);
                     });
+            };
+
+            ko.utils.arrayMap(viewModel.themes, function (theme) {
+                theme.isSelected = ko.observable(false);
+                theme.select = function () {
+                    ko.utils.arrayForEach(viewModel.themes, function (item) {
+                        item.isSelected(false);
+                    });
+                    theme.isSelected(true);
+                };
+                return theme;
+            });
+
+            viewModel.themes.getSelected = function() {
+                return ko.utils.arrayFirst(viewModel.themes, function (item) {
+                    return item.isSelected();
+                });
+            };
+
+            viewModel.themes.setSelected = function (key) {
+                var theme = ko.utils.arrayFirst(viewModel.themes, function (item) {
+                    return item.key == key;
+                });
+                if (!!theme) {
+                    theme.isSelected(true);
+                }
             };
 
             $.ajax({
@@ -978,9 +1115,12 @@
                             value($.inArray(key, settings.xApi.allowedVerbs) > -1);
                         });
                     }
+
+                    viewModel.themes.setSelected(settings.theme.key);
                 },
                 error: function () {
                     viewModel.masteryScore(100);
+                    viewModel.themes.setSelected(viewModel.defaultThemeKey);
                 }
             });
 

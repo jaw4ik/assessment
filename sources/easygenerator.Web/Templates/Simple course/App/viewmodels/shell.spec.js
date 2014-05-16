@@ -5,7 +5,8 @@
         context = require('context'),
         router = require('plugins/router'),
         modulesInitializer = require('modulesInitializer'),
-        graphicalCustomization = require('modules/graphicalCustomization'),
+        templateSettings = require('modules/templateSettings'),
+        themesInjector = require('themesInjector'),
         app = require('durandal/app');
 
     describe('viewModel [shell]', function () {
@@ -34,8 +35,7 @@
                 expect(viewModel.activate).toBeFunction();
             });
 
-            var routerActivateDefer, contextInititalizeDefer;
-            var modulesInitializerDefer;
+            var routerActivateDefer, contextInititalizeDefer, modulesInitializerDefer, themesInjectorDefer;
             beforeEach(function () {
                 routerActivateDefer = Q.defer();
                 spyOn(router, 'activate').andReturn(routerActivateDefer.promise);
@@ -43,12 +43,17 @@
 
                 contextInititalizeDefer = Q.defer();
                 spyOn(context, 'initialize').andReturn(contextInititalizeDefer.promise);
+                contextInititalizeDefer.resolve({ course: { title: 'Course title' } });
+
                 modulesInitializerDefer = Q.defer();
                 spyOn(modulesInitializer, 'init').andReturn(modulesInitializerDefer.promise);
-                contextInititalizeDefer.resolve({ course: { title: 'Course title' } });
+
+                themesInjectorDefer = Q.defer();
+                spyOn(themesInjector, 'init').andReturn(themesInjectorDefer.promise);
+                themesInjectorDefer.resolve();
             });
             
-            it('should initialize context', function () {
+            it('should initialize modules', function () {
                 viewModel.activate();
                 expect(modulesInitializer.init).toHaveBeenCalled();
             });
@@ -59,50 +64,65 @@
                 });
 
                 it('should set logoUrl', function () {
-                    graphicalCustomization.settings.logoUrl = 'some/url';
+                    templateSettings.logoUrl = 'some/url';
                     var promise = viewModel.activate();
 
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(viewModel.logoUrl()).toBe(graphicalCustomization.settings.logoUrl);
+                        expect(viewModel.logoUrl()).toBe(templateSettings.logoUrl);
                     });
                 });
 
-                it('should initialize context', function () {
+                it('should initialize theme', function() {
                     var promise = viewModel.activate();
 
-                    waitsFor(function () {
+                    waitsFor(function() {
                         return !promise.isPending();
                     });
-                    runs(function () {
-                        expect(context.initialize).toHaveBeenCalled();
+                    runs(function() {
+                        expect(themesInjector.init).toHaveBeenCalled();
                     });
                 });
 
-                describe('and when context initialized', function () {
+                describe('and when theme initialized', function() {
 
-                    it('should set application title', function () {
+                    it('should initialize context', function () {
                         var promise = viewModel.activate();
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(app.title).toBe('Course title');
+                            expect(context.initialize).toHaveBeenCalled();
                         });
                     });
 
-                    it('should activate router', function () {
-                        var promise = viewModel.activate();
+                    describe('and when context initialized', function () {
 
-                        waitsFor(function () {
-                            return !promise.isPending();
+                        it('should set application title', function () {
+                            var promise = viewModel.activate();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(app.title).toBe('Course title');
+                            });
                         });
-                        runs(function () {
-                            expect(router.activate).toHaveBeenCalled();
+
+                        it('should activate router', function () {
+                            var promise = viewModel.activate();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(router.activate).toHaveBeenCalled();
+                            });
                         });
+
                     });
 
                 });

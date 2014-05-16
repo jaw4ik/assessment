@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/graphicalCustomization'],
-    function (app, composition, router, routes, context, modulesInitializer, graphicalCustomisation) {
+﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/templateSettings', 'themesInjector'],
+    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector) {
 
         return {
             router: router,
@@ -45,22 +45,24 @@
                         that.isNavigatingToAnotherView(false);
                     });
                 });
-                
 
                 return modulesInitializer.init().then(function () {
-                    that.logoUrl(graphicalCustomisation.settings.logoUrl);
+                    that.logoUrl(templateSettings.logoUrl);
 
-                    return context.initialize().then(function (dataContext) {
-                        app.title = dataContext.course.title;
+                    return themesInjector.init().then(function () {
 
-                        return router.map(routes)
-                            .buildNavigationModel()
-                            .mapUnknownRoutes('viewmodels/404', '404')
-                            .activate('');
+                        return context.initialize().then(function (dataContext) {
+                            app.title = dataContext.course.title;
+
+                            return router.map(routes)
+                                .buildNavigationModel()
+                                .mapUnknownRoutes('viewmodels/404', '404')
+                                .activate('');
+                        });
                     });
-
                 });
             }
+
         };
 
     });

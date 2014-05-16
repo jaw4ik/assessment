@@ -2,6 +2,9 @@
     "logo": {
         "url": ""
     },
+    "theme": {
+        "key": "main_theme"
+    },
     "xApi": {
         "enabled": false,
         "lrs": {

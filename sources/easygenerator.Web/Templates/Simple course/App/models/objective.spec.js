@@ -1,4 +1,4 @@
-﻿define(['models/objective', 'modules/courseSettings'], function (ObjectiveModel, courseSettings) {
+﻿define(['models/objective', 'modules/templateSettings'], function (ObjectiveModel, templateSettings) {
 
     describe('model [objective]', function () {
 
@@ -104,7 +104,7 @@
             });
 
             beforeEach(function () {
-                courseSettings.masteryScore.score = 80;
+                templateSettings.masteryScore.score = 80;
             });
 
             describe('when score is less than course settings mastery score', function () {
