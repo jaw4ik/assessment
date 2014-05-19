@@ -221,6 +221,10 @@
     text-decoration: none;
 }
 
+.header-menu-list-item.dropdown-list-wrapper {
+    margin-right: 20px;
+}
+
 .header-menu-list-item.profile {
     position: relative;
     max-width: 280px;
