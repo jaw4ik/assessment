@@ -188,25 +188,109 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildCourse\BuildContentProvider.cs" />
+    <Compile Include="BuildCourse\BuildPackageCreator.cs" />
+    <Compile Include="BuildCourse\BuildPathProvider.cs" />
+    <Compile Include="BuildCourse\CourseBuilder.cs" />
+    <Compile Include="BuildCourse\CourseBuilderBase.cs" />
+    <Compile Include="BuildCourse\ICourseBuilder.cs" />
+    <Compile Include="BuildCourse\PackageModelMapper.cs" />
+    <Compile Include="BuildCourse\PackageModelSerializer.cs" />
+    <Compile Include="BuildCourse\PackageModel\AnswerOptionPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\CoursePackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\LearningContentPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\ObjectivePackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\QuestionPackageModel.cs" />
+    <Compile Include="BuildCourse\Scorm\IScormCourseBuilder.cs" />
+    <Compile Include="BuildCourse\Scorm\Models\ManifestModel.cs" />
+    <Compile Include="BuildCourse\Scorm\Models\MetadataModel.cs" />
+    <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
+    <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCoursesAmountAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\StarterAccessAttribute.cs" />
+    <Compile Include="Components\ActionFilters\CustomRequireHttpsAttribute.cs" />
+    <Compile Include="Components\ActionFilters\ForceHttpAttribute.cs" />
+    <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
+    <Compile Include="Components\ActionFilters\NoCache.cs" />
     <Compile Include="Components\ActionFilters\ResourceUrlProcessorAttribute.cs" />
-    <Compile Include="Components\ActionResults\SslRequiredResult.cs" />
-    <Compile Include="Components\Configuration\Aim4YouConfigurationSection.cs" />
-    <Compile Include="Components\Configuration\ExternalApi\ApiKeyCollection.cs" />
+    <Compile Include="Components\ActionResults\BadRequestResult.cs" />
+    <Compile Include="Components\ActionResults\ForbiddenResult.cs" />
+    <Compile Include="Components\ActionResults\HttpStatusCodeWithMessageResult.cs" />
+    <Compile Include="Components\ActionResults\ImageResult.cs" />
     <Compile Include="Components\ActionResults\JsonDataResult.cs" />
+    <Compile Include="Components\ActionResults\JsonErrorResult.cs" />
+    <Compile Include="Components\ActionResults\JsonSuccessResult.cs" />
+    <Compile Include="Components\ActionResults\SslRequiredResult.cs" />
+    <Compile Include="Components\AuthenticationProvider.cs" />
+    <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransform.cs" />
+    <Compile Include="Components\Configuration\Aim4YouConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\ConfigurationReader.cs" />
+    <Compile Include="Components\Configuration\ExternalApi\ApiKeyCollection.cs" />
+    <Compile Include="Components\Configuration\ExternalApi\ApiKeyElement.cs" />
+    <Compile Include="Components\Configuration\ExternalApi\ExternalApiSection.cs" />
+    <Compile Include="Components\Configuration\FileStorageConfigurationSection.cs" />
     <Compile Include="Components\Configuration\HttpRequestsSenderConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\MailChimpConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\MailSender\MailSenderConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\MailSender\MailTemplate.cs" />
+    <Compile Include="Components\Configuration\MailSender\MailTemplateCollection.cs" />
     <Compile Include="Components\Configuration\PublicationConfigurationSection.cs" />
     <Compile Include="Components\Configuration\WooCommerceConfigurationSection.cs" />
-    <Compile Include="Components\PingHttpHandler.cs" />
-    <Compile Include="Components\Tasks\HttpRequestsSenderTask.cs" />
+    <Compile Include="Components\CountriesInfo.cs" />
+    <Compile Include="Components\DefaultController.cs" />
     <Compile Include="Components\Elmah\ElmahLog.cs" />
     <Compile Include="Components\Elmah\SqlErrorLogExtended.cs" />
+    <Compile Include="Components\HttpRuntimeWrapper.cs" />
+    <Compile Include="Components\ModelBinding\DateTimeModelBinder.cs" />
+    <Compile Include="Components\ModelBinding\EntityCollectionModelBinder.cs" />
+    <Compile Include="Components\ModelBinding\EntityCollectionModelBinderProvider.cs" />
+    <Compile Include="Components\ModelBinding\EntityModelBinder.cs" />
+    <Compile Include="Components\ModelBinding\EntityModelBinderProvider.cs" />
+    <Compile Include="Components\NavigationLink.cs" />
+    <Compile Include="Components\PingHttpHandler.cs" />
+    <Compile Include="Components\RazorTemplateProvider.cs" />
+    <Compile Include="Components\Tasks\CacheExpirationTaskInvoker.cs" />
+    <Compile Include="Components\Tasks\HttpRequestsSenderTask.cs" />
+    <Compile Include="Components\Tasks\PasswordRecoveryTicketExpirationTask.cs" />
+    <Compile Include="Components\Tasks\Scheduler.cs" />
     <Compile Include="Components\Tasks\SqlCommandTask.cs" />
+    <Compile Include="Components\UrlHelperWrapper.cs" />
+    <Compile Include="Configuration\BundleConfiguration.cs" />
+    <Compile Include="Configuration\ContainerConfiguration.cs" />
+    <Compile Include="Configuration\FilterConfiguration.cs" />
     <Compile Include="Configuration\JsonFormatterConfiguration.cs" />
-    <Compile Include="DomainEvents\Handlers\UpdateWooCommerceUserHandler.cs" />
+    <Compile Include="Configuration\ModelBinderConfiguration.cs" />
+    <Compile Include="Configuration\OwinConfiguration.cs" />
+    <Compile Include="Configuration\RouteConfiguration.cs" />
+    <Compile Include="Configuration\TaskConfiguration.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\Aim4YouController.cs" />
+    <Compile Include="Controllers\Api\AnswerController.cs" />
+    <Compile Include="Controllers\Api\CommentController.cs" />
+    <Compile Include="Controllers\Api\CourseController.cs" />
+    <Compile Include="Controllers\Api\FeedbackController.cs" />
+    <Compile Include="Controllers\Api\LearningContentController.cs" />
+    <Compile Include="Controllers\Api\ObjectiveController.cs" />
+    <Compile Include="Controllers\Api\QuestionController.cs" />
+    <Compile Include="Controllers\Api\TemplateController.cs" />
+    <Compile Include="Controllers\Api\UserController.cs" />
+    <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\PreviewController.cs" />
     <Compile Include="Controllers\RedirectToNewStorageController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
+    <Compile Include="DomainEvents\Handlers\RegisterWooCommerceUserHandler.cs" />
+    <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
+    <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
+    <Compile Include="DomainEvents\Handlers\SubscribeForNewslettersHandler.cs" />
+    <Compile Include="DomainEvents\Handlers\UpdateWooCommerceUserHandler.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Import\PublishedCourse\EntityReaders\AnswerEntityReader.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\CourseEntityReader.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\LearningContentEntityReader.cs" />
@@ -215,10 +299,85 @@
     <Compile Include="Import\PublishedCourse\ImportContentReader.cs" />
     <Compile Include="Import\PublishedCourse\PublishedCourseImporter.cs" />
     <Compile Include="Import\PublishedCourse\PublishedCourseStructureReader.cs" />
-    <Compile Include="Controllers\PreviewController.cs" />
+    <Compile Include="Mail\MailSender.cs" />
+    <Compile Include="Mail\MailSenderTask.cs" />
+    <Compile Include="Mail\MailSenderWrapper.cs" />
+    <Compile Include="Mail\MailSettings.cs" />
+    <Compile Include="Mail\MailTemplatesProvider.cs" />
+    <Compile Include="Newsletter\INewsletterSubscriptionManager.cs" />
+    <Compile Include="Newsletter\MailChimp\Entities\MailChimpList.cs" />
+    <Compile Include="Newsletter\MailChimp\Entities\MailChimpLists.cs" />
+    <Compile Include="Newsletter\MailChimp\Entities\MailChimpSubscription.cs" />
+    <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Publish\Aim4You\Aim4YouApiService.cs" />
+    <Compile Include="Publish\Aim4You\Aim4YouCoursePublisher.cs" />
+    <Compile Include="Publish\Aim4You\Aim4YouHttpClient.cs" />
+    <Compile Include="Publish\Aim4You\Entities\Aim4YouCourse.cs" />
+    <Compile Include="Publish\Aim4You\Entities\Aim4YouUser.cs" />
+    <Compile Include="Publish\Aim4You\IAim4YouApiService.cs" />
+    <Compile Include="Publish\Aim4You\IAim4YouCoursePublisher.cs" />
+    <Compile Include="Publish\CoursePublisher.cs" />
+    <Compile Include="Publish\ICoursePublisher.cs" />
+    <Compile Include="Resources\Views\Account\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\Views\Error\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\Views\Review\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\Views\Shared\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Storage\ImageValidator.cs" />
+    <Compile Include="Storage\Storage.cs" />
+    <Compile Include="Synchronization\UserEventHandler.cs" />
+    <Compile Include="Synchronization\UserHub.cs" />
+    <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
+    <Content Include="App\localization\resources.xlsx" />
+    <Content Include="App\localization\UpdateResources.bat" />
+    <Content Include="Download\29899fe6346c47e8829927792eabcae1 20140519-12-42-40-UTC.zip" />
+    <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
+    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\knockout.validation.js" />
+    <Content Include="weyland-config.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\easygenerator.DataAccess\easygenerator.DataAccess.csproj">
+      <Project>{67A666AE-DE1A-4744-80BC-455536DB1171}</Project>
+      <Name>easygenerator.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\easygenerator.DomainModel\easygenerator.DomainModel.csproj">
+      <Project>{B1A55D50-7948-471A-9FA8-403512C179A6}</Project>
+      <Name>easygenerator.DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj">
+      <Project>{E186A113-426B-4AB1-A4B1-5ECC54FA4E80}</Project>
+      <Name>easygenerator.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="apple-touch-icon-114x114-precomposed.png" />
+    <Content Include="apple-touch-icon-144x144-precomposed.png" />
+    <Content Include="apple-touch-icon-57x57-precomposed.png" />
+    <Content Include="apple-touch-icon-72x72-precomposed.png" />
+    <Content Include="apple-touch-icon-precomposed.png" />
+    <Content Include="apple-touch-icon.png" />
+    <Content Include="App\authorization\limitCoursesAmount.js" />
     <Content Include="App\authorization\limitCoursesAmount.spec.js">
       <DependentUpon>limitCoursesAmount.js</DependentUpon>
     </Content>
@@ -231,22 +390,85 @@
     </Content>
     <Content Include="App\bootstrapping\compositionTask.js" />
     <Content Include="App\bootstrapping\errorHandlingTask.js" />
-    <Content Include="App\bootstrapping\localizationTask.js" />
     <Content Include="App\bootstrapping\knockoutBindingsTask.js" />
+    <Content Include="App\bootstrapping\localizationTask.js" />
+    <Content Include="App\bootstrapping\routingTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
-    <Content Include="App\authorization\limitCoursesAmount.js" />
+    <Content Include="App\clientContext.js" />
+    <Content Include="App\commands\createQuestionCommand.js" />
+    <Content Include="App\commands\createQuestionCommand.spec.js">
+      <DependentUpon>createQuestionCommand.js</DependentUpon>
+    </Content>
+    <Content Include="App\constants.js" />
+    <Content Include="App\dataContext.js" />
     <Content Include="App\dialogs\createCourse.html" />
     <Content Include="App\dialogs\createCourse.js" />
     <Content Include="App\dialogs\createCourse.spec.js">
       <DependentUpon>createCourse.js</DependentUpon>
     </Content>
+    <Content Include="App\errorHandling\errorHandlingConfiguration.js" />
+    <Content Include="App\errorHandling\errorHandlingConfiguration.spec.js">
+      <DependentUpon>errorHandlingConfiguration.js</DependentUpon>
+    </Content>
+    <Content Include="App\errorHandling\globalErrorHandler.js" />
+    <Content Include="App\errorHandling\globalErrorHandler.spec.js">
+      <DependentUpon>globalErrorHandler.js</DependentUpon>
+    </Content>
+    <Content Include="App\errorHandling\httpErrorHandlerRegistrator.js" />
+    <Content Include="App\errorHandling\httpErrorHandlerRegistrator.spec.js">
+      <DependentUpon>httpErrorHandlerRegistrator.js</DependentUpon>
+    </Content>
+    <Content Include="App\errorHandling\httpErrorHandlers\defaultHttpErrorHandler.js" />
+    <Content Include="App\errorHandling\httpErrorHandlers\defaultHttpErrorHandler.spec.js">
+      <DependentUpon>defaultHttpErrorHandler.js</DependentUpon>
+    </Content>
+    <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.js" />
+    <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.spec.js">
+      <DependentUpon>forbiddenHttpErrorHandler.js</DependentUpon>
+    </Content>
+    <Content Include="App\errorHandling\httpErrorHandlers\serviceUnavailableHttpErrorHandler.js" />
+    <Content Include="App\errorHandling\httpErrorHandlers\serviceUnavailableHttpErrorHandler.spec.js">
+      <DependentUpon>serviceUnavailableHttpErrorHandler.js</DependentUpon>
+    </Content>
+    <Content Include="App\errorHandling\httpErrorHandlers\unauthorizedHttpErrorHandler.js" />
+    <Content Include="App\errorHandling\httpErrorHandlers\unauthorizedHttpErrorHandler.spec.js">
+      <DependentUpon>unauthorizedHttpErrorHandler.js</DependentUpon>
+    </Content>
+    <Content Include="App\eventTracker.js" />
     <Content Include="App\fileHelper.js" />
+    <Content Include="App\guard.js" />
+    <Content Include="App\guard.spec.js">
+      <DependentUpon>guard.js</DependentUpon>
+    </Content>
+    <Content Include="App\help\helpHint.html" />
+    <Content Include="App\help\helpHint.js" />
+    <Content Include="App\help\helpHint.spec.js">
+      <DependentUpon>helpHint.js</DependentUpon>
+    </Content>
+    <Content Include="App\httpWrapper.js" />
+    <Content Include="App\httpWrapper.spec.js">
+      <DependentUpon>httpWrapper.js</DependentUpon>
+    </Content>
+    <Content Include="App\localization\localizationManager.js" />
+    <Content Include="App\localization\localizationManager.spec.js">
+      <DependentUpon>localizationManager.js</DependentUpon>
+    </Content>
+    <Content Include="App\localization\resources.js" />
+    <Content Include="App\main-built.js" />
+    <Content Include="App\main.js" />
+    <Content Include="App\models\answerOption.js" />
     <Content Include="App\models\backButton.js" />
     <Content Include="App\models\collaborator.js" />
     <Content Include="App\models\comment.js" />
+    <Content Include="App\models\course.js" />
     <Content Include="App\models\course.spec.js">
       <DependentUpon>course.js</DependentUpon>
     </Content>
+    <Content Include="App\models\entity.js" />
+    <Content Include="App\models\learningContent.js" />
+    <Content Include="App\models\objective.js" />
+    <Content Include="App\models\question.js" />
+    <Content Include="App\models\template.js" />
     <Content Include="App\models\user.js" />
     <Content Include="App\models\user.spec.js">
       <DependentUpon>user.js</DependentUpon>
@@ -257,34 +479,69 @@
       <DependentUpon>notification.js</DependentUpon>
     </Content>
     <Content Include="App\notifications\subscriptionExpirationNotification.html" />
+    <Content Include="App\notifications\subscriptionExpirationNotification.js" />
+    <Content Include="App\notifications\subscriptionExpirationNotificationController.js" />
     <Content Include="App\notifications\subscriptionExpirationNotificationController.spec.js">
       <DependentUpon>subscriptionExpirationNotificationController.js</DependentUpon>
+    </Content>
+    <Content Include="App\notify.js" />
+    <Content Include="App\notify.spec.js">
+      <DependentUpon>notify.js</DependentUpon>
     </Content>
     <Content Include="App\ping.js" />
     <Content Include="App\ping.spec.js">
       <DependentUpon>ping.js</DependentUpon>
     </Content>
+    <Content Include="App\repositories\answerRepository.js" />
+    <Content Include="App\repositories\answerRepository.spec.js">
+      <DependentUpon>answerRepository.js</DependentUpon>
+    </Content>
+    <Content Include="App\repositories\commentRepository.js" />
+    <Content Include="App\repositories\commentRepository.spec.js">
+      <DependentUpon>commentRepository.js</DependentUpon>
+    </Content>
+    <Content Include="App\repositories\courseRepository.js" />
+    <Content Include="App\repositories\courseRepository.spec.js">
+      <DependentUpon>courseRepository.js</DependentUpon>
+    </Content>
+    <Content Include="App\repositories\learningContentRepository.js" />
+    <Content Include="App\repositories\learningContentRepository.spec.js">
+      <DependentUpon>learningContentRepository.js</DependentUpon>
+    </Content>
+    <Content Include="App\repositories\objectiveRepository.js" />
+    <Content Include="App\repositories\objectiveRepository.spec.js">
+      <DependentUpon>objectiveRepository.js</DependentUpon>
+    </Content>
+    <Content Include="App\repositories\questionRepository.js" />
+    <Content Include="App\repositories\questionRepository.spec.js">
+      <DependentUpon>questionRepository.js</DependentUpon>
+    </Content>
+    <Content Include="App\repositories\templateRepository.js" />
+    <Content Include="App\repositories\templateRepository.spec.js">
+      <DependentUpon>templateRepository.js</DependentUpon>
+    </Content>
+    <Content Include="App\routing\routerExtender.js" />
     <Content Include="App\routing\routerExtender.spec.js">
       <DependentUpon>routerExtender.js</DependentUpon>
     </Content>
-    <Content Include="App\repositories\commentRepository.js" />
-    <Content Include="App\notifications\subscriptionExpirationNotification.js" />
+    <Content Include="App\routing\routes.js" />
+    <Content Include="App\services\publishService.js" />
     <Content Include="App\services\publishService.spec.js">
       <DependentUpon>publishService.js</DependentUpon>
     </Content>
+    <Content Include="App\specRunner.js">
+      <DependentUpon>specs.html</DependentUpon>
+    </Content>
+    <Content Include="App\specs.html" />
     <Content Include="App\synchronization\handlers\userDowngraded.js" />
     <Content Include="App\synchronization\handlers\userDowngraded.spec.js">
       <DependentUpon>userDowngraded.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\userUpgradedToStarter.js" />
     <Content Include="App\synchronization\handlers\userUpgradedToStarter.spec.js">
       <DependentUpon>userUpgradedToStarter.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\userUpgradedToStarter.js" />
     <Content Include="App\synchronization\listener.js" />
-    <Content Include="App\commands\createQuestionCommand.js" />
-    <Content Include="App\commands\createQuestionCommand.spec.js">
-      <DependentUpon>createQuestionCommand.js</DependentUpon>
-    </Content>
     <Content Include="App\treeOfContent\CourseTreeNode.html">
       <DependentUpon>CourseTreeNode.js</DependentUpon>
     </Content>
@@ -292,6 +549,7 @@
     <Content Include="App\treeOfContent\CourseTreeNode.spec.js">
       <DependentUpon>CourseTreeNode.js</DependentUpon>
     </Content>
+    <Content Include="App\treeOfContent\handlers\treeOfContentAutoExpandHandler.js" />
     <Content Include="App\treeOfContent\handlers\treeOfContentAutoExpandHandler.spec.js">
       <DependentUpon>treeOfContentAutoExpandHandler.js</DependentUpon>
     </Content>
@@ -300,6 +558,7 @@
       <DependentUpon>treeOfContentEventHandler.js</DependentUpon>
     </Content>
     <Content Include="App\treeOfContent\handlers\treeOfContentHighlightHandler.js" />
+    <Content Include="App\treeOfContent\handlers\treeOfContentTraversal.js" />
     <Content Include="App\treeOfContent\queries\getCourseByIdQuery.js" />
     <Content Include="App\treeOfContent\queries\getCourseByIdQuery.spec.js">
       <DependentUpon>getCourseByIdQuery.js</DependentUpon>
@@ -327,80 +586,15 @@
       <DependentUpon>treeOfContent.js</DependentUpon>
     </Content>
     <Content Include="App\treeOfContent\treeOfContent.js" />
-    <Content Include="App\treeOfContent\handlers\treeOfContentTraversal.js" />
-    <Content Include="App\treeOfContent\handlers\treeOfContentAutoExpandHandler.js" />
-    <Content Include="App\notifications\subscriptionExpirationNotificationController.js" />
-    <Content Include="App\viewmodels\common\contentField.js" />
-    <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.js" />
-    <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.spec.js">
-      <DependentUpon>forbiddenHttpErrorHandler.js</DependentUpon>
+    <Content Include="App\uiLocker.js" />
+    <Content Include="App\uiLocker.spec.js">
+      <DependentUpon>uiLocker.js</DependentUpon>
     </Content>
     <Content Include="App\userContext.js" />
     <Content Include="App\userContext.spec.js">
       <DependentUpon>userContext.js</DependentUpon>
     </Content>
-    <Content Include="App\help\helpHint.spec.js">
-      <DependentUpon>helpHint.js</DependentUpon>
-    </Content>
-    <Content Include="App\help\helpHint.js" />
-    <Content Include="App\help\helpHint.html" />
-    <Content Include="App\repositories\courseRepository.spec.js">
-      <DependentUpon>courseRepository.js</DependentUpon>
-    </Content>
-    <Content Include="App\routing\routerExtender.js" />
-    <Content Include="App\clientContext.js" />
-    <Content Include="App\errorHandling\errorHandlingConfiguration.js" />
-    <Content Include="App\errorHandling\httpErrorHandlerRegistrator.js" />
-    <Content Include="App\errorHandling\errorHandlingConfiguration.spec.js">
-      <DependentUpon>errorHandlingConfiguration.js</DependentUpon>
-    </Content>
-    <Content Include="App\errorHandling\httpErrorHandlerRegistrator.spec.js">
-      <DependentUpon>httpErrorHandlerRegistrator.js</DependentUpon>
-    </Content>
-    <Content Include="App\errorHandling\globalErrorHandler.js" />
-    <Content Include="App\errorHandling\globalErrorHandler.spec.js">
-      <DependentUpon>globalErrorHandler.js</DependentUpon>
-    </Content>
-    <Content Include="App\errorHandling\httpErrorHandlers\defaultHttpErrorHandler.js" />
-    <Content Include="App\errorHandling\httpErrorHandlers\serviceUnavailableHttpErrorHandler.js" />
-    <Content Include="App\errorHandling\httpErrorHandlers\defaultHttpErrorHandler.spec.js">
-      <DependentUpon>defaultHttpErrorHandler.js</DependentUpon>
-    </Content>
-    <Content Include="App\errorHandling\httpErrorHandlers\serviceUnavailableHttpErrorHandler.spec.js">
-      <DependentUpon>serviceUnavailableHttpErrorHandler.js</DependentUpon>
-    </Content>
-    <Content Include="App\errorHandling\httpErrorHandlers\unauthorizedHttpErrorHandler.js" />
-    <Content Include="App\errorHandling\httpErrorHandlers\unauthorizedHttpErrorHandler.spec.js">
-      <DependentUpon>unauthorizedHttpErrorHandler.js</DependentUpon>
-    </Content>
-    <Content Include="App\guard.js" />
-    <Content Include="App\httpWrapper.spec.js">
-      <DependentUpon>httpWrapper.js</DependentUpon>
-    </Content>
-    <Content Include="App\httpWrapper.js" />
-    <Content Include="App\models\template.js" />
-    <Content Include="App\notify.js" />
-    <Content Include="App\notify.spec.js">
-      <DependentUpon>notify.js</DependentUpon>
-    </Content>
-    <Content Include="App\repositories\answerRepository.js" />
-    <Content Include="App\repositories\answerRepository.spec.js">
-      <DependentUpon>answerRepository.js</DependentUpon>
-    </Content>
-    <Content Include="App\repositories\learningContentRepository.js" />
-    <Content Include="App\repositories\learningContentRepository.spec.js">
-      <DependentUpon>learningContentRepository.js</DependentUpon>
-    </Content>
-    <Content Include="App\repositories\objectiveRepository.js" />
-    <Compile Include="BuildCourse\BuildContentProvider.cs" />
-    <Compile Include="BuildCourse\BuildPackageCreator.cs" />
-    <Compile Include="BuildCourse\BuildPathProvider.cs" />
-    <Compile Include="BuildCourse\CourseBuilder.cs" />
-    <Compile Include="BuildCourse\CourseBuilderBase.cs" />
-    <Compile Include="BuildCourse\Scorm\IScormCourseBuilder.cs" />
-    <Compile Include="BuildCourse\Scorm\Models\ManifestModel.cs" />
-    <Compile Include="BuildCourse\Scorm\Models\MetadataModel.cs" />
-    <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
+    <Content Include="App\viewmodels\common\contentField.js" />
     <Content Include="App\viewmodels\common\contentField.spec.js">
       <DependentUpon>contentField.js</DependentUpon>
     </Content>
@@ -412,12 +606,6 @@
     <Content Include="App\viewmodels\courses\collaboration\collaborators.spec.js">
       <DependentUpon>collaborators.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\course.write.js">
-      <DependentUpon>course.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\course.write.spec.js">
-      <DependentUpon>course.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\course.js" />
     <Content Include="App\viewmodels\courses\course.read.js">
       <DependentUpon>course.js</DependentUpon>
@@ -428,51 +616,93 @@
     <Content Include="App\viewmodels\courses\course.spec.js">
       <DependentUpon>course.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\courses\course.write.js">
+      <DependentUpon>course.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course.write.spec.js">
+      <DependentUpon>course.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\courseComments.js" />
     <Content Include="App\viewmodels\courses\courseComments.spec.js">
       <DependentUpon>courseComments.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\publish.spec.js">
-      <DependentUpon>publish.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\design.spec.js">
-      <DependentUpon>design.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\publish.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\design.js" />
+    <Content Include="App\viewmodels\courses\courseNavigation\items\create.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\items\create.spec.js">
       <DependentUpon>create.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\courseNavigation\items\design.js" />
+    <Content Include="App\viewmodels\courses\courseNavigation\items\design.spec.js">
+      <DependentUpon>design.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\courseNavigation\items\navigationItem.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\items\navigationItem.spec.js">
       <DependentUpon>navigationItem.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\courses\courseNavigation\items\publish.js" />
+    <Content Include="App\viewmodels\courses\courseNavigation\items\publish.spec.js">
+      <DependentUpon>publish.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\courseNavigation\navigation.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\create.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\navigation.spec.js">
       <DependentUpon>navigation.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\courses\courses.js" />
+    <Content Include="App\viewmodels\courses\courses.spec.js">
+      <DependentUpon>courses.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\createCourse.js" />
+    <Content Include="App\viewmodels\courses\createCourse.spec.js">
+      <DependentUpon>createCourse.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\design.js" />
+    <Content Include="App\viewmodels\courses\design.spec.js">
+      <DependentUpon>design.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\publish.js" />
     <Content Include="App\viewmodels\courses\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\publishingActions\publishingAction.spec.js">
-      <DependentUpon>publishingAction.js</DependentUpon>
+    <Content Include="App\viewmodels\courses\publishingActions\build.js" />
+    <Content Include="App\viewmodels\courses\publishingActions\build.spec.js">
+      <DependentUpon>build.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\publishingActions\publishingAction.js" />
+    <Content Include="App\viewmodels\courses\publishingActions\publish.js" />
     <Content Include="App\viewmodels\courses\publishingActions\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\publishingActions\publishingAction.js" />
+    <Content Include="App\viewmodels\courses\publishingActions\publishingAction.spec.js">
+      <DependentUpon>publishingAction.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\publishingActions\publishToAim4You.js" />
     <Content Include="App\viewmodels\courses\publishingActions\publishToAim4You.spec.js">
       <DependentUpon>publishToAim4You.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\courses\publishingActions\scormBuild.js" />
     <Content Include="App\viewmodels\courses\publishingActions\scormBuild.spec.js">
       <DependentUpon>scormBuild.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\errors\404.js" />
+    <Content Include="App\viewmodels\objectives\createObjective.js" />
+    <Content Include="App\viewmodels\objectives\createObjective.spec.js">
+      <DependentUpon>createObjective.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\objectives\objective.js" />
+    <Content Include="App\viewmodels\objectives\objective.spec.js">
+      <DependentUpon>objective.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\objectives\objectiveBrief.js" />
+    <Content Include="App\viewmodels\objectives\objectiveBrief.spec.js">
+      <DependentUpon>objectiveBrief.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\objectives\objectives.js" />
+    <Content Include="App\viewmodels\objectives\objectives.spec.js">
+      <DependentUpon>objectives.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\panels\sidePanel.js" />
     <Content Include="App\viewmodels\panels\sidePanel.spec.js">
       <DependentUpon>sidePanel.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\panels\sidePanel.js" />
     <Content Include="App\viewmodels\panels\tabs\feedbackTab.js" />
     <Content Include="App\viewmodels\panels\tabs\feedbackTab.spec.js">
       <DependentUpon>feedbackTab.js</DependentUpon>
@@ -481,136 +711,57 @@
     <Content Include="App\viewmodels\panels\tabs\reviewTab.spec.js">
       <DependentUpon>reviewTab.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\answers.js" />
+    <Content Include="App\viewmodels\questions\answers.spec.js">
+      <DependentUpon>answers.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\learningContents.js" />
+    <Content Include="App\viewmodels\questions\learningContents.spec.js">
+      <DependentUpon>learningContents.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\question.js" />
+    <Content Include="App\viewmodels\questions\question.spec.js">
+      <DependentUpon>question.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\shell.js" />
+    <Content Include="App\viewmodels\shell.spec.js">
+      <DependentUpon>shell.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\user\userMenu.js" />
     <Content Include="App\viewmodels\user\userMenu.spec.js">
       <DependentUpon>userMenu.js</DependentUpon>
     </Content>
+    <Content Include="App\views\common\createtip.html" />
+    <Content Include="App\views\common\formactions.html" />
     <Content Include="App\views\courses\collaboration\collaborators.html" />
-    <Content Include="App\views\courses\course.write.html">
-      <DependentUpon>course.html</DependentUpon>
-    </Content>
     <Content Include="App\views\courses\course.html" />
     <Content Include="App\views\courses\course.read.html">
       <DependentUpon>course.html</DependentUpon>
     </Content>
-    <Content Include="App\views\courses\courseNavigation\navigation.html" />
+    <Content Include="App\views\courses\course.write.html">
+      <DependentUpon>course.html</DependentUpon>
+    </Content>
     <Content Include="App\views\courses\courseComments.html" />
+    <Content Include="App\views\courses\courseNavigation\navigation.html" />
+    <Content Include="App\views\courses\courses.html" />
+    <Content Include="App\views\courses\createCourse.html" />
+    <Content Include="App\views\courses\design.html" />
+    <Content Include="App\views\courses\publish.html" />
+    <Content Include="App\views\errors\404.html" />
+    <Content Include="App\views\objectives\createObjective.html" />
+    <Content Include="App\views\objectives\objective.html" />
+    <Content Include="App\views\objectives\objectives.html" />
     <Content Include="App\views\panels\sidePanel.html" />
     <Content Include="App\views\panels\tabs\feedbackTab.html" />
     <Content Include="App\views\panels\tabs\reviewTab.html" />
+    <Content Include="App\views\questions\question.html" />
+    <Content Include="App\views\shell.html" />
     <Content Include="App\views\user\userMenu.html" />
     <Content Include="App\widgets\backButton\view.html" />
     <Content Include="App\widgets\backButton\viewmodel.js" />
     <Content Include="App\widgets\backButton\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
-    <Content Include="BuildCourse\Scorm\js\lms.js" />
-    <Content Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App\viewmodels\courses\publishingActions\build.js" />
-    <Content Include="App\viewmodels\courses\publishingActions\build.spec.js">
-      <DependentUpon>build.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\publishingActions\publish.js" />
-    <Content Include="App\viewmodels\courses\publishingActions\scormBuild.js" />
-    <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
-    <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttribute.cs" />
-    <Compile Include="Components\ActionFilters\CustomRequireHttpsAttribute.cs" />
-    <Compile Include="Components\ActionFilters\ForceHttpAttribute.cs" />
-    <Compile Include="Components\ActionResults\HttpStatusCodeWithMessageResult.cs" />
-    <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransform.cs" />
-    <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
-    <Compile Include="Components\ActionResults\BadRequestResult.cs" />
-    <Compile Include="Components\ActionResults\ForbiddenResult.cs" />
-    <Compile Include="Components\ActionResults\ImageResult.cs" />
-    <Compile Include="Components\Configuration\ExternalApi\ApiKeyElement.cs" />
-    <Compile Include="Components\Configuration\MailChimpConfigurationSection.cs" />
-    <Compile Include="Components\Configuration\ExternalApi\ExternalApiSection.cs" />
-    <Compile Include="Components\HttpRuntimeWrapper.cs" />
-    <Compile Include="BuildCourse\ICourseBuilder.cs" />
-    <Compile Include="BuildCourse\PackageModelMapper.cs" />
-    <Compile Include="BuildCourse\PackageModelSerializer.cs" />
-    <Compile Include="BuildCourse\PackageModel\AnswerOptionPackageModel.cs" />
-    <Compile Include="BuildCourse\PackageModel\CoursePackageModel.cs" />
-    <Compile Include="BuildCourse\PackageModel\LearningContentPackageModel.cs" />
-    <Compile Include="BuildCourse\PackageModel\ObjectivePackageModel.cs" />
-    <Compile Include="BuildCourse\PackageModel\QuestionPackageModel.cs" />
-    <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
-    <Compile Include="Components\ActionFilters\NoCache.cs" />
-    <Compile Include="Components\ActionResults\JsonErrorResult.cs" />
-    <Compile Include="Components\ActionResults\JsonSuccessResult.cs" />
-    <Compile Include="Components\AuthenticationProvider.cs" />
-    <Compile Include="Components\Configuration\ConfigurationReader.cs" />
-    <Compile Include="Components\Configuration\FileStorageConfigurationSection.cs" />
-    <Compile Include="Components\Configuration\MailSender\MailSenderConfigurationSection.cs" />
-    <Compile Include="Components\Configuration\MailSender\MailTemplate.cs" />
-    <Compile Include="Components\Configuration\MailSender\MailTemplateCollection.cs" />
-    <Compile Include="Components\ModelBinding\DateTimeModelBinder.cs" />
-    <Compile Include="Components\ModelBinding\EntityCollectionModelBinderProvider.cs" />
-    <Compile Include="Components\ModelBinding\EntityModelBinder.cs" />
-    <Compile Include="Components\ModelBinding\EntityModelBinderProvider.cs" />
-    <Compile Include="Components\ModelBinding\EntityCollectionModelBinder.cs" />
-    <Compile Include="Components\NavigationLink.cs" />
-    <Compile Include="Components\RazorTemplateProvider.cs" />
-    <Compile Include="Components\Tasks\PasswordRecoveryTicketExpirationTask.cs" />
-    <Compile Include="Components\CountriesInfo.cs" />
-    <Compile Include="Components\Tasks\CacheExpirationTaskInvoker.cs" />
-    <Compile Include="Components\Tasks\Scheduler.cs" />
-    <Compile Include="Components\UrlHelperWrapper.cs" />
-    <Compile Include="Configuration\BundleConfiguration.cs" />
-    <Compile Include="Configuration\ContainerConfiguration.cs" />
-    <Compile Include="Configuration\FilterConfiguration.cs" />
-    <Compile Include="Configuration\ModelBinderConfiguration.cs" />
-    <Compile Include="Configuration\OwinConfiguration.cs" />
-    <Compile Include="Configuration\RouteConfiguration.cs" />
-    <Compile Include="Configuration\TaskConfiguration.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\Api\Aim4YouController.cs" />
-    <Compile Include="Controllers\Api\AnswerController.cs" />
-    <Compile Include="Controllers\Api\CommentController.cs" />
-    <Compile Include="Controllers\Api\CourseController.cs" />
-    <Compile Include="Controllers\Api\FeedbackController.cs" />
-    <Compile Include="Controllers\Api\LearningContentController.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\Api\ObjectiveController.cs" />
-    <Compile Include="Controllers\Api\QuestionController.cs" />
-    <Compile Include="Controllers\Api\TemplateController.cs" />
-    <Compile Include="Controllers\Api\UserController.cs" />
-    <Compile Include="Controllers\ApplicationController.cs" />
-    <Compile Include="Components\DefaultController.cs" />
-    <Compile Include="Controllers\ImageController.cs" />
-    <Compile Include="Controllers\ReviewController.cs" />
-    <Compile Include="DomainEvents\Handlers\RegisterWooCommerceUserHandler.cs" />
-    <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
-    <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
-    <Compile Include="DomainEvents\Handlers\SubscribeForNewslettersHandler.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Content Include="App\bootstrapping\routingTask.js" />
-    <Content Include="App\services\publishService.js" />
-    <Content Include="App\uiLocker.js" />
-    <Content Include="App\uiLocker.spec.js">
-      <DependentUpon>uiLocker.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\createCourse.spec.js">
-      <DependentUpon>createCourse.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\design.spec.js">
-      <DependentUpon>design.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\publish.js" />
-    <Content Include="App\viewmodels\courses\design.js" />
-    <Content Include="App\viewmodels\courses\courses.spec.js">
-      <DependentUpon>courses.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\questions\learningContents.spec.js">
-      <DependentUpon>learningContents.js</DependentUpon>
-    </Content>
-    <Content Include="App\views\courses\publish.html" />
-    <Content Include="App\views\courses\design.html" />
     <Content Include="App\widgets\notifyViewer\view.html" />
     <Content Include="App\widgets\notifyViewer\viewmodel.js" />
     <Content Include="App\widgets\notifyViewer\viewmodel.spec.js">
@@ -621,12 +772,612 @@
     <Content Include="App\widgets\uiLockViewer\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
+    <Content Include="BuildCourse\Scorm\js\lms.js" />
+    <None Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BuildCourse\Scorm\Schemas\imscp_rootv1p1p2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BuildCourse\Scorm\Schemas\imsmd_rootv1p2p1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BuildCourse\Scorm\Schemas\ims_xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
+    <Content Include="BuildCourse\Scorm\Templates\metadata.cshtml" />
+    <Content Include="build\App\authorization\limitCoursesAmount.js" />
+    <Content Include="build\App\authorization\limitCoursesAmount.spec.js" />
+    <Content Include="build\App\bootstrapper.js" />
+    <Content Include="build\App\bootstrapper.spec.js" />
+    <Content Include="build\App\bootstrapper.tasks.js" />
+    <Content Include="build\App\bootstrapping\compositionTask.js" />
+    <Content Include="build\App\bootstrapping\errorHandlingTask.js" />
+    <Content Include="build\App\bootstrapping\knockoutBindingsTask.js" />
+    <Content Include="build\App\bootstrapping\localizationTask.js" />
+    <Content Include="build\App\bootstrapping\routingTask.js" />
+    <Content Include="build\App\bootstrapping\viewLocatorTask.js" />
+    <Content Include="build\App\clientContext.js" />
+    <Content Include="build\App\commands\createQuestionCommand.js" />
+    <Content Include="build\App\commands\createQuestionCommand.spec.js" />
+    <Content Include="build\App\constants.js" />
+    <Content Include="build\App\dataContext.js" />
+    <Content Include="build\App\dialogs\createCourse.html" />
+    <Content Include="build\App\dialogs\createCourse.js" />
+    <Content Include="build\App\dialogs\createCourse.spec.js" />
+    <Content Include="build\App\errorHandling\errorHandlingConfiguration.js" />
+    <Content Include="build\App\errorHandling\errorHandlingConfiguration.spec.js" />
+    <Content Include="build\App\errorHandling\globalErrorHandler.js" />
+    <Content Include="build\App\errorHandling\globalErrorHandler.spec.js" />
+    <Content Include="build\App\errorHandling\httpErrorHandlerRegistrator.js" />
+    <Content Include="build\App\errorHandling\httpErrorHandlerRegistrator.spec.js" />
+    <Content Include="build\App\errorHandling\httpErrorHandlers\defaultHttpErrorHandler.js" />
+    <Content Include="build\App\errorHandling\httpErrorHandlers\defaultHttpErrorHandler.spec.js" />
+    <Content Include="build\App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.js" />
+    <Content Include="build\App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.spec.js" />
+    <Content Include="build\App\errorHandling\httpErrorHandlers\serviceUnavailableHttpErrorHandler.js" />
+    <Content Include="build\App\errorHandling\httpErrorHandlers\serviceUnavailableHttpErrorHandler.spec.js" />
+    <Content Include="build\App\errorHandling\httpErrorHandlers\unauthorizedHttpErrorHandler.js" />
+    <Content Include="build\App\errorHandling\httpErrorHandlers\unauthorizedHttpErrorHandler.spec.js" />
+    <Content Include="build\App\eventTracker.js" />
+    <Content Include="build\App\fileHelper.js" />
+    <Content Include="build\App\guard.js" />
+    <Content Include="build\App\guard.spec.js" />
+    <Content Include="build\App\help\helpHint.html" />
+    <Content Include="build\App\help\helpHint.js" />
+    <Content Include="build\App\help\helpHint.spec.js" />
+    <Content Include="build\App\httpWrapper.js" />
+    <Content Include="build\App\httpWrapper.spec.js" />
+    <Content Include="build\App\localization\localizationManager.js" />
+    <Content Include="build\App\localization\localizationManager.spec.js" />
+    <Content Include="build\App\localization\resources.js" />
+    <Content Include="build\App\main-built.js" />
+    <Content Include="build\App\main.js" />
+    <Content Include="build\App\models\answerOption.js" />
+    <Content Include="build\App\models\backButton.js" />
+    <Content Include="build\App\models\collaborator.js" />
+    <Content Include="build\App\models\comment.js" />
+    <Content Include="build\App\models\course.js" />
+    <Content Include="build\App\models\course.spec.js" />
+    <Content Include="build\App\models\entity.js" />
+    <Content Include="build\App\models\learningContent.js" />
+    <Content Include="build\App\models\objective.js" />
+    <Content Include="build\App\models\question.js" />
+    <Content Include="build\App\models\template.js" />
+    <Content Include="build\App\models\user.js" />
+    <Content Include="build\App\models\user.spec.js" />
+    <Content Include="build\App\notifications\notification.html" />
+    <Content Include="build\App\notifications\notification.js" />
+    <Content Include="build\App\notifications\notification.spec.js" />
+    <Content Include="build\App\notifications\subscriptionExpirationNotification.html" />
+    <Content Include="build\App\notifications\subscriptionExpirationNotification.js" />
+    <Content Include="build\App\notifications\subscriptionExpirationNotificationController.js" />
+    <Content Include="build\App\notifications\subscriptionExpirationNotificationController.spec.js" />
+    <Content Include="build\App\notify.js" />
+    <Content Include="build\App\notify.spec.js" />
+    <Content Include="build\App\ping.js" />
+    <Content Include="build\App\ping.spec.js" />
+    <Content Include="build\App\repositories\answerRepository.js" />
+    <Content Include="build\App\repositories\answerRepository.spec.js" />
+    <Content Include="build\App\repositories\commentRepository.js" />
+    <Content Include="build\App\repositories\commentRepository.spec.js" />
+    <Content Include="build\App\repositories\courseRepository.js" />
+    <Content Include="build\App\repositories\courseRepository.spec.js" />
+    <Content Include="build\App\repositories\learningContentRepository.js" />
+    <Content Include="build\App\repositories\learningContentRepository.spec.js" />
+    <Content Include="build\App\repositories\objectiveRepository.js" />
+    <Content Include="build\App\repositories\objectiveRepository.spec.js" />
+    <Content Include="build\App\repositories\questionRepository.js" />
+    <Content Include="build\App\repositories\questionRepository.spec.js" />
+    <Content Include="build\App\repositories\templateRepository.js" />
+    <Content Include="build\App\repositories\templateRepository.spec.js" />
+    <Content Include="build\App\routing\routerExtender.js" />
+    <Content Include="build\App\routing\routerExtender.spec.js" />
+    <Content Include="build\App\routing\routes.js" />
+    <Content Include="build\App\services\publishService.js" />
+    <Content Include="build\App\services\publishService.spec.js" />
+    <Content Include="build\App\specRunner.js" />
+    <Content Include="build\App\specs.html" />
+    <Content Include="build\App\synchronization\handlers\userDowngraded.js" />
+    <Content Include="build\App\synchronization\handlers\userDowngraded.spec.js" />
+    <Content Include="build\App\synchronization\handlers\userUpgradedToStarter.js" />
+    <Content Include="build\App\synchronization\handlers\userUpgradedToStarter.spec.js" />
+    <Content Include="build\App\synchronization\listener.js" />
+    <Content Include="build\App\treeOfContent\CourseTreeNode.html" />
+    <Content Include="build\App\treeOfContent\CourseTreeNode.js" />
+    <Content Include="build\App\treeOfContent\CourseTreeNode.spec.js" />
+    <Content Include="build\App\treeOfContent\handlers\treeOfContentAutoExpandHandler.js" />
+    <Content Include="build\App\treeOfContent\handlers\treeOfContentAutoExpandHandler.spec.js" />
+    <Content Include="build\App\treeOfContent\handlers\treeOfContentEventHandler.js" />
+    <Content Include="build\App\treeOfContent\handlers\treeOfContentEventHandler.spec.js" />
+    <Content Include="build\App\treeOfContent\handlers\treeOfContentHighlightHandler.js" />
+    <Content Include="build\App\treeOfContent\handlers\treeOfContentTraversal.js" />
+    <Content Include="build\App\treeOfContent\queries\getCourseByIdQuery.js" />
+    <Content Include="build\App\treeOfContent\queries\getCourseByIdQuery.spec.js" />
+    <Content Include="build\App\treeOfContent\queries\getObjectiveByIdQuery.js" />
+    <Content Include="build\App\treeOfContent\queries\getObjectiveByIdQuery.spec.js" />
+    <Content Include="build\App\treeOfContent\QuestionTreeNode.html" />
+    <Content Include="build\App\treeOfContent\QuestionTreeNode.js" />
+    <Content Include="build\App\treeOfContent\QuestionTreeNode.spec.js" />
+    <Content Include="build\App\treeOfContent\RelatedObjectiveTreeNode.html" />
+    <Content Include="build\App\treeOfContent\RelatedObjectiveTreeNode.js" />
+    <Content Include="build\App\treeOfContent\RelatedObjectiveTreeNode.spec.js" />
+    <Content Include="build\App\treeOfContent\TreeNode.js" />
+    <Content Include="build\App\treeOfContent\treeOfContent.html" />
+    <Content Include="build\App\treeOfContent\treeOfContent.js" />
+    <Content Include="build\App\uiLocker.js" />
+    <Content Include="build\App\uiLocker.spec.js" />
+    <Content Include="build\App\userContext.js" />
+    <Content Include="build\App\userContext.spec.js" />
+    <Content Include="build\App\viewmodels\common\contentField.js" />
+    <Content Include="build\App\viewmodels\common\contentField.spec.js" />
+    <Content Include="build\App\viewmodels\courses\collaboration\collaborator.js" />
+    <Content Include="build\App\viewmodels\courses\collaboration\collaborator.spec.js" />
+    <Content Include="build\App\viewmodels\courses\collaboration\collaborators.js" />
+    <Content Include="build\App\viewmodels\courses\collaboration\collaborators.spec.js" />
+    <Content Include="build\App\viewmodels\courses\course.js" />
+    <Content Include="build\App\viewmodels\courses\course.read.js" />
+    <Content Include="build\App\viewmodels\courses\course.read.spec.js" />
+    <Content Include="build\App\viewmodels\courses\course.spec.js" />
+    <Content Include="build\App\viewmodels\courses\course.write.js" />
+    <Content Include="build\App\viewmodels\courses\course.write.spec.js" />
+    <Content Include="build\App\viewmodels\courses\courseComments.js" />
+    <Content Include="build\App\viewmodels\courses\courseComments.spec.js" />
+    <Content Include="build\App\viewmodels\courses\courseNavigation\items\create.js" />
+    <Content Include="build\App\viewmodels\courses\courseNavigation\items\create.spec.js" />
+    <Content Include="build\App\viewmodels\courses\courseNavigation\items\design.js" />
+    <Content Include="build\App\viewmodels\courses\courseNavigation\items\design.spec.js" />
+    <Content Include="build\App\viewmodels\courses\courseNavigation\items\navigationItem.js" />
+    <Content Include="build\App\viewmodels\courses\courseNavigation\items\navigationItem.spec.js" />
+    <Content Include="build\App\viewmodels\courses\courseNavigation\items\publish.js" />
+    <Content Include="build\App\viewmodels\courses\courseNavigation\items\publish.spec.js" />
+    <Content Include="build\App\viewmodels\courses\courseNavigation\navigation.js" />
+    <Content Include="build\App\viewmodels\courses\courseNavigation\navigation.spec.js" />
+    <Content Include="build\App\viewmodels\courses\courses.js" />
+    <Content Include="build\App\viewmodels\courses\courses.spec.js" />
+    <Content Include="build\App\viewmodels\courses\createCourse.js" />
+    <Content Include="build\App\viewmodels\courses\createCourse.spec.js" />
+    <Content Include="build\App\viewmodels\courses\design.js" />
+    <Content Include="build\App\viewmodels\courses\design.spec.js" />
+    <Content Include="build\App\viewmodels\courses\publish.js" />
+    <Content Include="build\App\viewmodels\courses\publish.spec.js" />
+    <Content Include="build\App\viewmodels\courses\publishingActions\build.js" />
+    <Content Include="build\App\viewmodels\courses\publishingActions\build.spec.js" />
+    <Content Include="build\App\viewmodels\courses\publishingActions\publish.js" />
+    <Content Include="build\App\viewmodels\courses\publishingActions\publish.spec.js" />
+    <Content Include="build\App\viewmodels\courses\publishingActions\publishingAction.js" />
+    <Content Include="build\App\viewmodels\courses\publishingActions\publishingAction.spec.js" />
+    <Content Include="build\App\viewmodels\courses\publishingActions\publishToAim4You.js" />
+    <Content Include="build\App\viewmodels\courses\publishingActions\publishToAim4You.spec.js" />
+    <Content Include="build\App\viewmodels\courses\publishingActions\scormBuild.js" />
+    <Content Include="build\App\viewmodels\courses\publishingActions\scormBuild.spec.js" />
+    <Content Include="build\App\viewmodels\errors\404.js" />
+    <Content Include="build\App\viewmodels\objectives\createObjective.js" />
+    <Content Include="build\App\viewmodels\objectives\createObjective.spec.js" />
+    <Content Include="build\App\viewmodels\objectives\objective.js" />
+    <Content Include="build\App\viewmodels\objectives\objective.spec.js" />
+    <Content Include="build\App\viewmodels\objectives\objectiveBrief.js" />
+    <Content Include="build\App\viewmodels\objectives\objectiveBrief.spec.js" />
+    <Content Include="build\App\viewmodels\objectives\objectives.js" />
+    <Content Include="build\App\viewmodels\objectives\objectives.spec.js" />
+    <Content Include="build\App\viewmodels\panels\sidePanel.js" />
+    <Content Include="build\App\viewmodels\panels\sidePanel.spec.js" />
+    <Content Include="build\App\viewmodels\panels\tabs\feedbackTab.js" />
+    <Content Include="build\App\viewmodels\panels\tabs\feedbackTab.spec.js" />
+    <Content Include="build\App\viewmodels\panels\tabs\reviewTab.js" />
+    <Content Include="build\App\viewmodels\panels\tabs\reviewTab.spec.js" />
+    <Content Include="build\App\viewmodels\questions\answers.js" />
+    <Content Include="build\App\viewmodels\questions\answers.spec.js" />
+    <Content Include="build\App\viewmodels\questions\learningContents.js" />
+    <Content Include="build\App\viewmodels\questions\learningContents.spec.js" />
+    <Content Include="build\App\viewmodels\questions\question.js" />
+    <Content Include="build\App\viewmodels\questions\question.spec.js" />
+    <Content Include="build\App\viewmodels\shell.js" />
+    <Content Include="build\App\viewmodels\shell.spec.js" />
+    <Content Include="build\App\viewmodels\user\userMenu.js" />
+    <Content Include="build\App\viewmodels\user\userMenu.spec.js" />
+    <Content Include="build\App\views\common\createtip.html" />
+    <Content Include="build\App\views\common\formactions.html" />
+    <Content Include="build\App\views\courses\collaboration\collaborators.html" />
+    <Content Include="build\App\views\courses\course.html" />
+    <Content Include="build\App\views\courses\course.read.html" />
+    <Content Include="build\App\views\courses\course.write.html" />
+    <Content Include="build\App\views\courses\courseComments.html" />
+    <Content Include="build\App\views\courses\courseNavigation\navigation.html" />
+    <Content Include="build\App\views\courses\courses.html" />
+    <Content Include="build\App\views\courses\createCourse.html" />
+    <Content Include="build\App\views\courses\design.html" />
+    <Content Include="build\App\views\courses\publish.html" />
+    <Content Include="build\App\views\errors\404.html" />
+    <Content Include="build\App\views\objectives\createObjective.html" />
+    <Content Include="build\App\views\objectives\objective.html" />
+    <Content Include="build\App\views\objectives\objectives.html" />
+    <Content Include="build\App\views\panels\sidePanel.html" />
+    <Content Include="build\App\views\panels\tabs\feedbackTab.html" />
+    <Content Include="build\App\views\panels\tabs\reviewTab.html" />
+    <Content Include="build\App\views\questions\question.html" />
+    <Content Include="build\App\views\shell.html" />
+    <Content Include="build\App\views\user\userMenu.html" />
+    <Content Include="build\App\widgets\backButton\view.html" />
+    <Content Include="build\App\widgets\backButton\viewmodel.js" />
+    <Content Include="build\App\widgets\backButton\viewmodel.spec.js" />
+    <Content Include="build\App\widgets\notifyViewer\view.html" />
+    <Content Include="build\App\widgets\notifyViewer\viewmodel.js" />
+    <Content Include="build\App\widgets\notifyViewer\viewmodel.spec.js" />
+    <Content Include="build\App\widgets\uiLockViewer\view.html" />
+    <Content Include="build\App\widgets\uiLockViewer\viewmodel.js" />
+    <Content Include="build\App\widgets\uiLockViewer\viewmodel.spec.js" />
+    <Content Include="build\BuildCourse\Scorm\js\lms.js" />
+    <Content Include="build\Sample Course\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
+    <Content Include="build\Sample Course\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
+    <Content Include="build\Sample Course\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />
+    <Content Include="build\Sample Course\content\1bf90b8ae7004f19afaca406756b2285\f1e2713b353249e1af7f30f55d5d009c\6c13c8a406224eb48b49b8af9af81eb1.html" />
+    <Content Include="build\Sample Course\content\47bcd990a3e14555b30c901f5c4cd4db\131290ee438946938d5afaebde79f204\251cd60243324001a70e35259a909828.html" />
+    <Content Include="build\Sample Course\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\ab4f67be0b044bb7bb1af66d352fcbc5.html" />
+    <Content Include="build\Sample Course\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\content.html" />
+    <Content Include="build\Sample Course\content\47bcd990a3e14555b30c901f5c4cd4db\45f96efa172b46198373f2bf99b6d8fa\65549fcfa0e04f5d8b7b23c2c4144c3c.html" />
+    <Content Include="build\Sample Course\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\5d9da5c41b3b4dcdbf5c4b6e2993ad0f.html" />
+    <Content Include="build\Sample Course\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\content.html" />
+    <Content Include="build\Sample Course\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\1d7a8c812df7491b86ba3e661d2f4bd1.html" />
+    <Content Include="build\Sample Course\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\content.html" />
+    <Content Include="build\Sample Course\content\601aa6bb572943e1b343d21174890d01\36f6ded9efcc46659c1c41f5e2ee81d1\04043e4217014d03875f493bfa7cf1d2.html" />
+    <Content Include="build\Sample Course\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\1bd3a43ad55d41d48cfd12e9ef18340c.html" />
+    <Content Include="build\Sample Course\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\c79b6956a1624817ac63a1f8729c6d76.html" />
+    <Content Include="build\Sample Course\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\content.html" />
+    <Content Include="build\Sample Course\content\content.html" />
+    <Content Include="build\Sample Course\content\data.js" />
+    <Content Include="build\Scripts\account\analytics.js" />
+    <Content Include="build\Scripts\account\common.js" />
+    <Content Include="build\Scripts\account\constants.js" />
+    <Content Include="build\Scripts\account\focusHandlerBinding.js" />
+    <Content Include="build\Scripts\account\passwordrecovery.js" />
+    <Content Include="build\Scripts\account\passwordrecovery.spec.js" />
+    <Content Include="build\Scripts\account\signin.js" />
+    <Content Include="build\Scripts\account\signin.spec.js" />
+    <Content Include="build\Scripts\account\signup.js" />
+    <Content Include="build\Scripts\account\signup.spec.js" />
+    <Content Include="build\Scripts\account\signupsecondstep.js" />
+    <Content Include="build\Scripts\account\signupsecondstep.spec.js" />
+    <Content Include="build\Scripts\almond-custom.js" />
+    <Content Include="build\Scripts\ckeditor\adapters\jquery.js" />
+    <Content Include="build\Scripts\ckeditor\build-config.js" />
+    <Content Include="build\Scripts\ckeditor\ckeditor.js" />
+    <Content Include="build\Scripts\ckeditor\config.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\fileUploaderPlugin\lang\de.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\fileUploaderPlugin\lang\en.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\fileUploaderPlugin\lang\nl.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\fileUploaderPlugin\plugin.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\floatingspace\plugin.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\imageLibraryPlugin\dialogs\imageLibrary.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\imageLibraryPlugin\lang\en.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\imageLibraryPlugin\plugin.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\image\dialogs\image.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\image\lang\en.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\image\plugin.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\mediaembed\lang\en.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\mediaembed\plugin.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\semanticTagsPlugin\lang\en.js" />
+    <Content Include="build\Scripts\ckeditor\customPlugins\semanticTagsPlugin\plugin.js" />
+    <Content Include="build\Scripts\ckeditor\lang\en.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\cy.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en-gb.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fr.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\gl.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\gu.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\he.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hi.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hr.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hu.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\id.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\it.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ja.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\km.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ko.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ku.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\lt.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\lv.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\mk.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\mn.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ro.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ru.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\si.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sk.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sl.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sq.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sr.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sv.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\th.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\tr.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ug.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\uk.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\flash\dialogs\flash.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\en-gb.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\es.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\fr-ca.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\fr.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\gl.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\he.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\hr.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\hu.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\id.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\it.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\ja.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\km.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\ku.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\lv.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\pt.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\ru.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\si.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\th.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\ug.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\uk.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\vi.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="build\Scripts\ckeditor\plugins\wsc\dialogs\tmp.html" />
+    <Content Include="build\Scripts\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="build\Scripts\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="build\Scripts\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="build\Scripts\ckeditor\styles.js" />
+    <Content Include="build\Scripts\common\app.js" />
+    <Content Include="build\Scripts\common\clientSessionContext.js" />
+    <Content Include="build\Scripts\common\serviceUnavailableAjaxErrorHandler.js" />
+    <Content Include="build\Scripts\common\serviceUnavailableAjaxErrorHandler.spec.js" />
+    <Content Include="build\Scripts\durandal\activator.js" />
+    <Content Include="build\Scripts\durandal\app.js" />
+    <Content Include="build\Scripts\durandal\binder.js" />
+    <Content Include="build\Scripts\durandal\composition.js" />
+    <Content Include="build\Scripts\durandal\events.js" />
+    <Content Include="build\Scripts\durandal\plugins\dialog.js" />
+    <Content Include="build\Scripts\durandal\plugins\history.js" />
+    <Content Include="build\Scripts\durandal\plugins\http.js" />
+    <Content Include="build\Scripts\durandal\plugins\observable.js" />
+    <Content Include="build\Scripts\durandal\plugins\router.js" />
+    <Content Include="build\Scripts\durandal\plugins\serializer.js" />
+    <Content Include="build\Scripts\durandal\plugins\widget.js" />
+    <Content Include="build\Scripts\durandal\system.js" />
+    <Content Include="build\Scripts\durandal\transitions\defaultRouterTransition.js" />
+    <Content Include="build\Scripts\durandal\viewEngine.js" />
+    <Content Include="build\Scripts\durandal\viewLocator.js" />
+    <Content Include="build\Scripts\has.js" />
+    <Content Include="build\Scripts\jasmine\boot.js" />
+    <Content Include="build\Scripts\jasmine\jasmine-html.js" />
+    <Content Include="build\Scripts\jasmine\jasmine.js" />
+    <Content Include="build\Scripts\jasmine\matchers.js" />
+    <Content Include="build\Scripts\jasmine\PhantomReporter.js" />
+    <Content Include="build\Scripts\jasmine\utils.js" />
+    <None Include="build\Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="build\Scripts\jquery-2.1.0.js" />
+    <Content Include="build\Scripts\jquery-2.1.0.min.js" />
+    <Content Include="build\Scripts\jquery-ui-1.10.4.custom.js" />
+    <Content Include="build\Scripts\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="build\Scripts\jquery.placeholder.js" />
+    <Content Include="build\Scripts\jquery.signalR-2.0.3.js" />
+    <Content Include="build\Scripts\jquery.signalR-2.0.3.min.js" />
+    <None Include="build\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="build\Scripts\jquery.validate.js" />
+    <Content Include="build\Scripts\jquery.validate.min.js" />
+    <Content Include="build\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="build\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="build\Scripts\knockout-3.1.0.debug.js" />
+    <Content Include="build\Scripts\knockout-3.1.0.js" />
+    <Content Include="build\Scripts\knockout-sortable.js" />
+    <Content Include="build\Scripts\knockout-sortable.min.js" />
+    <Content Include="build\Scripts\knockout.validation.debug.js" />
+    <Content Include="build\Scripts\knockout.validation.js" />
+    <Content Include="build\Scripts\knockoutBindings\autofocusBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\ckeditorBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\clickElementBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\dateBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\dialogBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\dropDownBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\editableTextBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\expanderBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\fixedPanelBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\hoverBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\keyPressBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\layoutBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\notificationsBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\outsideClickBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\placeholderBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\scrollToElementBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\scrollToTopBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\selectBoxBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\selectTextBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\sliderBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\slidingDialogBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\sortablePlaceholderBinding.js" />
+    <Content Include="build\Scripts\knockoutBindings\stopEventPropagationBinding.js" />
+    <Content Include="build\Scripts\moment.js" />
+    <Content Include="build\Scripts\moment.min.js" />
+    <Content Include="build\Scripts\q.js" />
+    <Content Include="build\Scripts\q.min.js" />
+    <Content Include="build\Scripts\r.js" />
+    <Content Include="build\Scripts\require.js" />
+    <Content Include="build\Scripts\review\common.js" />
+    <Content Include="build\Scripts\review\review.js" />
+    <Content Include="build\Scripts\review\review.spec.js" />
+    <Content Include="build\Scripts\text.js" />
+    <Content Include="build\Scripts\underscore-min.js" />
+    <Content Include="build\Scripts\underscore.extensions.js" />
+    <Content Include="build\Scripts\underscore.js" />
+    <Content Include="build\Templates\Exam\app\main-built.js" />
+    <Content Include="build\Templates\Exam\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
+    <Content Include="build\Templates\Exam\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
+    <Content Include="build\Templates\Exam\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />
+    <Content Include="build\Templates\Exam\content\1bf90b8ae7004f19afaca406756b2285\f1e2713b353249e1af7f30f55d5d009c\6c13c8a406224eb48b49b8af9af81eb1.html" />
+    <Content Include="build\Templates\Exam\content\47bcd990a3e14555b30c901f5c4cd4db\131290ee438946938d5afaebde79f204\251cd60243324001a70e35259a909828.html" />
+    <Content Include="build\Templates\Exam\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\ab4f67be0b044bb7bb1af66d352fcbc5.html" />
+    <Content Include="build\Templates\Exam\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\content.html" />
+    <Content Include="build\Templates\Exam\content\47bcd990a3e14555b30c901f5c4cd4db\45f96efa172b46198373f2bf99b6d8fa\65549fcfa0e04f5d8b7b23c2c4144c3c.html" />
+    <Content Include="build\Templates\Exam\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\5d9da5c41b3b4dcdbf5c4b6e2993ad0f.html" />
+    <Content Include="build\Templates\Exam\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\content.html" />
+    <Content Include="build\Templates\Exam\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\1d7a8c812df7491b86ba3e661d2f4bd1.html" />
+    <Content Include="build\Templates\Exam\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\content.html" />
+    <Content Include="build\Templates\Exam\content\601aa6bb572943e1b343d21174890d01\36f6ded9efcc46659c1c41f5e2ee81d1\04043e4217014d03875f493bfa7cf1d2.html" />
+    <Content Include="build\Templates\Exam\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\1bd3a43ad55d41d48cfd12e9ef18340c.html" />
+    <Content Include="build\Templates\Exam\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\c79b6956a1624817ac63a1f8729c6d76.html" />
+    <Content Include="build\Templates\Exam\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\content.html" />
+    <Content Include="build\Templates\Exam\content\content.html" />
+    <Content Include="build\Templates\Exam\content\data.js" />
+    <Content Include="build\Templates\Exam\index.html" />
+    <Content Include="build\Templates\Exam\js\require.js" />
+    <Content Include="build\Templates\Exam\js\vendor.min.js" />
+    <Content Include="build\Templates\Exam\publishSettings.js" />
+    <Content Include="build\Templates\Exam\settings.html" />
+    <Content Include="build\Templates\Exam\settings.js" />
+    <Content Include="build\Templates\Quiz\app\main-built.js" />
+    <Content Include="build\Templates\Quiz\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
+    <Content Include="build\Templates\Quiz\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
+    <Content Include="build\Templates\Quiz\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />
+    <Content Include="build\Templates\Quiz\content\1bf90b8ae7004f19afaca406756b2285\f1e2713b353249e1af7f30f55d5d009c\6c13c8a406224eb48b49b8af9af81eb1.html" />
+    <Content Include="build\Templates\Quiz\content\47bcd990a3e14555b30c901f5c4cd4db\131290ee438946938d5afaebde79f204\251cd60243324001a70e35259a909828.html" />
+    <Content Include="build\Templates\Quiz\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\ab4f67be0b044bb7bb1af66d352fcbc5.html" />
+    <Content Include="build\Templates\Quiz\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\content.html" />
+    <Content Include="build\Templates\Quiz\content\47bcd990a3e14555b30c901f5c4cd4db\45f96efa172b46198373f2bf99b6d8fa\65549fcfa0e04f5d8b7b23c2c4144c3c.html" />
+    <Content Include="build\Templates\Quiz\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\5d9da5c41b3b4dcdbf5c4b6e2993ad0f.html" />
+    <Content Include="build\Templates\Quiz\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\content.html" />
+    <Content Include="build\Templates\Quiz\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\1d7a8c812df7491b86ba3e661d2f4bd1.html" />
+    <Content Include="build\Templates\Quiz\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\content.html" />
+    <Content Include="build\Templates\Quiz\content\601aa6bb572943e1b343d21174890d01\36f6ded9efcc46659c1c41f5e2ee81d1\04043e4217014d03875f493bfa7cf1d2.html" />
+    <Content Include="build\Templates\Quiz\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\1bd3a43ad55d41d48cfd12e9ef18340c.html" />
+    <Content Include="build\Templates\Quiz\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\c79b6956a1624817ac63a1f8729c6d76.html" />
+    <Content Include="build\Templates\Quiz\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\content.html" />
+    <Content Include="build\Templates\Quiz\content\content.html" />
+    <Content Include="build\Templates\Quiz\content\data.js" />
+    <Content Include="build\Templates\Quiz\index.html" />
+    <Content Include="build\Templates\Quiz\js\require.js" />
+    <Content Include="build\Templates\Quiz\js\vendor.min.js" />
+    <Content Include="build\Templates\Quiz\publishSettings.js" />
+    <Content Include="build\Templates\Quiz\settings.html" />
+    <Content Include="build\Templates\Quiz\settings.js" />
+    <Content Include="build\Templates\Simple course\app\main-built.js" />
+    <Content Include="build\Templates\Simple course\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
+    <Content Include="build\Templates\Simple course\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
+    <Content Include="build\Templates\Simple course\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />
+    <Content Include="build\Templates\Simple course\content\1bf90b8ae7004f19afaca406756b2285\f1e2713b353249e1af7f30f55d5d009c\6c13c8a406224eb48b49b8af9af81eb1.html" />
+    <Content Include="build\Templates\Simple course\content\47bcd990a3e14555b30c901f5c4cd4db\131290ee438946938d5afaebde79f204\251cd60243324001a70e35259a909828.html" />
+    <Content Include="build\Templates\Simple course\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\ab4f67be0b044bb7bb1af66d352fcbc5.html" />
+    <Content Include="build\Templates\Simple course\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\content.html" />
+    <Content Include="build\Templates\Simple course\content\47bcd990a3e14555b30c901f5c4cd4db\45f96efa172b46198373f2bf99b6d8fa\65549fcfa0e04f5d8b7b23c2c4144c3c.html" />
+    <Content Include="build\Templates\Simple course\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\5d9da5c41b3b4dcdbf5c4b6e2993ad0f.html" />
+    <Content Include="build\Templates\Simple course\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\content.html" />
+    <Content Include="build\Templates\Simple course\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\1d7a8c812df7491b86ba3e661d2f4bd1.html" />
+    <Content Include="build\Templates\Simple course\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\content.html" />
+    <Content Include="build\Templates\Simple course\content\601aa6bb572943e1b343d21174890d01\36f6ded9efcc46659c1c41f5e2ee81d1\04043e4217014d03875f493bfa7cf1d2.html" />
+    <Content Include="build\Templates\Simple course\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\1bd3a43ad55d41d48cfd12e9ef18340c.html" />
+    <Content Include="build\Templates\Simple course\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\c79b6956a1624817ac63a1f8729c6d76.html" />
+    <Content Include="build\Templates\Simple course\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\content.html" />
+    <Content Include="build\Templates\Simple course\content\content.html" />
+    <Content Include="build\Templates\Simple course\content\data.js" />
+    <Content Include="build\Templates\Simple course\index.html" />
+    <Content Include="build\Templates\Simple course\js\require.js" />
+    <Content Include="build\Templates\Simple course\js\vendor.min.js" />
+    <Content Include="build\Templates\Simple course\publishSettings.js" />
+    <Content Include="build\Templates\Simple course\settings.html" />
+    <Content Include="build\Templates\Simple course\settings.js" />
+    <Content Include="build\weyland-config.js" />
+    <Content Include="Content\account.css" />
+    <Content Include="Content\ckeditor.css" />
+    <Content Include="Content\common.css" />
+    <Content Include="Content\course.css" />
+    <Content Include="Content\courses.css" />
     <Content Include="Content\durandal.css" />
+    <Content Include="Content\eula\easygenerator_EULA.pdf" />
+    <Content Include="Content\font\buxtonsketch.eot" />
+    <Content Include="Content\font\buxtonsketch.svg" />
+    <Content Include="Content\font\buxtonsketch.ttf" />
+    <Content Include="Content\font\buxtonsketch.woff" />
+    <Content Include="Content\font\opensans-italic.eot" />
+    <Content Include="Content\font\opensans-italic.svg" />
+    <Content Include="Content\font\opensans-italic.ttf" />
+    <Content Include="Content\font\opensans-italic.woff" />
+    <Content Include="Content\font\opensans-regular.eot" />
+    <Content Include="Content\font\opensans-regular.svg" />
+    <Content Include="Content\font\opensans-regular.ttf" />
+    <Content Include="Content\font\opensans-regular.woff" />
+    <Content Include="Content\font\opensans-semibold.eot" />
+    <Content Include="Content\font\opensans-semibold.svg" />
+    <Content Include="Content\font\opensans-semibold.ttf" />
+    <Content Include="Content\font\opensans-semibold.woff" />
+    <Content Include="Content\font\opensans-semibolditalic.eot" />
+    <Content Include="Content\font\opensans-semibolditalic.svg" />
+    <Content Include="Content\font\opensans-semibolditalic.ttf" />
+    <Content Include="Content\font\opensans-semibolditalic.woff" />
+    <Content Include="Content\font\rabiohead.eot" />
     <Content Include="Content\font\rabiohead.svg" />
+    <Content Include="Content\font\rabiohead.ttf" />
+    <Content Include="Content\font\rabiohead.woff" />
+    <Content Include="Content\helphint.css" />
     <Content Include="Content\images\account\log-in.jpg" />
+    <Content Include="Content\images\account\pointer-left-big.png" />
+    <Content Include="Content\images\account\pointer-right-big.png" />
+    <Content Include="Content\images\account\pointer-right-small.png" />
+    <Content Include="Content\images\account\sign-up.png" />
     <Content Include="Content\images\account\signin-preloader.gif" />
     <Content Include="Content\images\account\signup-preloader.gif" />
-    <Content Include="Content\images\account\sign-up.png" />
+    <Content Include="Content\images\account\try-center.png" />
+    <Content Include="Content\images\account\try-left.png" />
+    <Content Include="Content\images\account\try-right.png" />
     <Content Include="Content\images\addQuestion.png" />
     <Content Include="Content\images\Aim4YouPublish\List01.png" />
     <Content Include="Content\images\Aim4YouPublish\List02.png" />
@@ -635,118 +1386,85 @@
     <Content Include="Content\images\Aim4YouPublish\Slide02.png" />
     <Content Include="Content\images\Aim4YouPublish\Slide03.png" />
     <Content Include="Content\images\Aim4YouPublish\Slide04.png" />
+    <Content Include="Content\images\bg-logo.png" />
     <Content Include="Content\images\blue-loader.GIF" />
     <Content Include="Content\images\build-loader.gif" />
-    <Content Include="Content\images\notify\check.png" />
-    <Content Include="Content\images\notify\error.png" />
-    <Content Include="Content\images\slider.png" />
+    <Content Include="Content\images\buildprogress.gif" />
     <Content Include="Content\images\collapse-btn-icon.png" />
+    <Content Include="Content\images\dialog-header.png" />
     <Content Include="Content\images\disabled.png" />
     <Content Include="Content\images\download-scorm-loader.GIF" />
     <Content Include="Content\images\drag-and-drop.png" />
+    <Content Include="Content\images\eg_logo.png" />
     <Content Include="Content\images\emptyList.png" />
     <Content Include="Content\images\enabled.png" />
     <Content Include="Content\images\examTemplate.png" />
+    <Content Include="Content\images\expand-btn-icon.png" />
+    <Content Include="Content\images\feedback-background.png" />
+    <Content Include="Content\images\loader.gif" />
+    <Content Include="Content\images\loader_12x12.GIF" />
     <Content Include="Content\images\locker.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\middle-sized-icons-pack.png" />
+    <Content Include="Content\images\multichoice-question.png" />
+    <Content Include="Content\images\notify\check.png" />
+    <Content Include="Content\images\notify\error.png" />
     <Content Include="Content\images\objective.png" />
     <Content Include="Content\images\oops.png" />
     <Content Include="Content\images\package-preloader.gif" />
-    <Content Include="Content\images\dialog-header.png" />
     <Content Include="Content\images\processSteps.png" />
     <Content Include="Content\images\publish-loader.GIF" />
+    <Content Include="Content\images\question-content-title-decoration.png" />
+    <Content Include="Content\images\quizTemplate.png" />
     <Content Include="Content\images\review-sprites.png" />
+    <Content Include="Content\images\sample\1.png" />
+    <Content Include="Content\images\sample\10.png" />
+    <Content Include="Content\images\sample\11.png" />
+    <Content Include="Content\images\sample\12.png" />
+    <Content Include="Content\images\sample\13.png" />
+    <Content Include="Content\images\sample\14.png" />
+    <Content Include="Content\images\sample\15.png" />
+    <Content Include="Content\images\sample\16.png" />
+    <Content Include="Content\images\sample\17.png" />
+    <Content Include="Content\images\sample\18.png" />
+    <Content Include="Content\images\sample\2.png" />
+    <Content Include="Content\images\sample\3.png" />
+    <Content Include="Content\images\sample\4.png" />
+    <Content Include="Content\images\sample\5.png" />
+    <Content Include="Content\images\sample\6.png" />
+    <Content Include="Content\images\sample\7.png" />
+    <Content Include="Content\images\sample\8.png" />
+    <Content Include="Content\images\sample\9.png" />
+    <Content Include="Content\images\simpleCourseTemplate.png" />
+    <Content Include="Content\images\slider.png" />
+    <Content Include="Content\images\sprites.png" />
     <Content Include="Content\images\sprites_16.png" />
     <Content Include="Content\images\sprites_24.png" />
     <Content Include="Content\images\sprites_32.png" />
+    <Content Include="Content\images\sprites_64.png" />
     <Content Include="Content\images\tree.png" />
-    <Content Include="Content\review.css" />
-    <Content Include="Content\panels.css" />
-    <Content Include="Content\treeOfContent.css" />
-    <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
-    <Compile Include="Synchronization\UserEventHandler.cs" />
-    <Compile Include="Synchronization\UserHub.cs" />
-    <Compile Include="Mail\MailSender.cs" />
-    <Compile Include="Mail\MailSettings.cs" />
-    <Compile Include="Mail\MailSenderTask.cs" />
-    <Compile Include="Mail\MailTemplatesProvider.cs" />
-    <Compile Include="Mail\MailSenderWrapper.cs" />
-    <Compile Include="Newsletter\INewsletterSubscriptionManager.cs" />
-    <Compile Include="Newsletter\MailChimp\Entities\MailChimpList.cs" />
-    <Compile Include="Newsletter\MailChimp\Entities\MailChimpLists.cs" />
-    <Compile Include="Newsletter\MailChimp\Entities\MailChimpSubscription.cs" />
-    <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManager.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Publish\Aim4You\Aim4YouApiService.cs" />
-    <Compile Include="Publish\Aim4You\Aim4YouCoursePublisher.cs" />
-    <Compile Include="Publish\Aim4You\Aim4YouHttpClient.cs" />
-    <Compile Include="Publish\Aim4You\Entities\Aim4YouCourse.cs" />
-    <Compile Include="Publish\Aim4You\Entities\Aim4YouUser.cs" />
-    <Compile Include="Publish\Aim4You\IAim4YouApiService.cs" />
-    <Compile Include="Publish\Aim4You\IAim4YouCoursePublisher.cs" />
-    <Compile Include="Publish\CoursePublisher.cs" />
-    <Compile Include="Publish\ICoursePublisher.cs" />
-    <Compile Include="Resources\Views\Account\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\Views\Error\Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Resources\Views\Review\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\Views\Shared\Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Storage\ImageValidator.cs" />
-    <Compile Include="Storage\Storage.cs" />
-    <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
-    <Content Include="App\repositories\templateRepository.js" />
-    <Content Include="App\repositories\templateRepository.spec.js">
-      <DependentUpon>templateRepository.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\questions\answers.js" />
-    <Content Include="App\viewmodels\questions\answers.spec.js">
-      <DependentUpon>answers.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\questions\learningContents.js" />
-    <Content Include="App\viewmodels\shell.spec.js">
-      <DependentUpon>shell.js</DependentUpon>
-    </Content>
-    <Content Include="App\views\common\createtip.html" />
-    <Content Include="App\views\common\formactions.html" />
-    <Content Include="App\guard.spec.js">
-      <DependentUpon>guard.js</DependentUpon>
-    </Content>
-    <Content Include="Content\account.css" />
-    <Content Include="Content\font\buxtonsketch.svg" />
-    <Content Include="Content\font\opensans-italic.svg" />
-    <Content Include="Content\font\opensans-regular.svg" />
-    <Content Include="Content\font\opensans-semibold.svg" />
-    <Content Include="Content\font\opensans-semibolditalic.svg" />
-    <Content Include="Content\helphint.css" />
-    <Content Include="Content\images\account\pointer-left-big.png" />
-    <Content Include="Content\images\account\pointer-right-big.png" />
-    <Content Include="Content\images\account\pointer-right-small.png" />
-    <Content Include="Content\images\account\try-center.png" />
-    <Content Include="Content\images\account\try-left.png" />
-    <Content Include="Content\images\account\try-right.png" />
-    <Content Include="Content\images\bg-logo.png" />
-    <Content Include="Content\images\loader_12x12.GIF" />
-    <Content Include="Content\images\quizTemplate.png" />
-    <Content Include="Content\images\simpleCourseTemplate.png" />
-    <Content Include="Content\images\sprites.png" />
+    <Content Include="Content\images\typeQuestionTitleArrow.png" />
     <Content Include="Content\images\undefinedTemplate.png" />
     <Content Include="Content\notify.css" />
+    <Content Include="Content\objective.css" />
+    <Content Include="Content\panels.css" />
+    <Content Include="Content\question.css" />
+    <Content Include="Content\review.css" />
     <Content Include="Content\selectbox.css" />
     <Content Include="Content\styles.css" />
+    <Content Include="Content\treeOfContent.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="humans.txt" />
+    <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />
+    <Content Include="Mail\MailTemplates\ForgotPasswordTemplate.cshtml" />
+    <Content Include="Mail\MailTemplates\HttpRequestFailedTemplate.cshtml" />
+    <Content Include="Mail\MailTemplates\NewsletterSubscriptionFailedTemplate.cshtml" />
+    <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="robots.txt" />
     <Content Include="Sample Course\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
     <Content Include="Sample Course\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
     <Content Include="Sample Course\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />
@@ -766,6 +1484,26 @@
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
     <Content Include="Scripts\account\analytics.js" />
+    <Content Include="Scripts\account\common.js" />
+    <Content Include="Scripts\account\constants.js" />
+    <Content Include="Scripts\account\focusHandlerBinding.js" />
+    <Content Include="Scripts\account\passwordrecovery.js" />
+    <Content Include="Scripts\account\passwordrecovery.spec.js">
+      <DependentUpon>passwordrecovery.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\account\signin.js" />
+    <Content Include="Scripts\account\signin.spec.js">
+      <DependentUpon>signin.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\account\signup.js" />
+    <Content Include="Scripts\account\signup.spec.js">
+      <DependentUpon>signup.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\account\signupsecondstep.js" />
+    <Content Include="Scripts\account\signupsecondstep.spec.js">
+      <DependentUpon>signupsecondstep.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
@@ -966,81 +1704,10 @@
     <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\common\app.js" />
     <Content Include="Scripts\common\clientSessionContext.js" />
-    <Content Include="Scripts\account\common.js" />
-    <Content Include="Scripts\account\constants.js" />
-    <Content Include="Scripts\account\focusHandlerBinding.js" />
-    <Content Include="Scripts\account\passwordrecovery.js" />
-    <Content Include="Scripts\account\passwordrecovery.spec.js">
-      <DependentUpon>passwordrecovery.js</DependentUpon>
-    </Content>
-    <Content Include="App\specs.html" />
-    <Content Include="Mail\MailTemplates\HttpRequestFailedTemplate.cshtml" />
-    <Content Include="Content\font\rabiohead.eot" />
-    <Content Include="Content\font\rabiohead.ttf" />
-    <Content Include="Content\font\rabiohead.woff" />
-    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
-    <Content Include="Scripts\durandal\transitions\defaultRouterTransition.js" />
-    <Content Include="Scripts\jasmine\boot.js" />
-    <Content Include="Scripts\jasmine\jasmine-html.js" />
-    <Content Include="Scripts\jasmine\jasmine.css" />
-    <Content Include="Scripts\jasmine\jasmine.js" />
-    <Content Include="Scripts\jasmine\jasmine_favicon.png" />
-    <Content Include="Scripts\jasmine\matchers.js" />
-    <Content Include="App\specRunner.js">
-      <DependentUpon>specs.html</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jasmine\PhantomReporter.js" />
-    <Content Include="Scripts\jasmine\utils.js" />
-    <Content Include="Scripts\jquery-2.1.0.js" />
-    <Content Include="Scripts\jquery-2.1.0.min.js" />
-    <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
-    <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.signalR-2.0.3.js" />
-    <Content Include="Scripts\jquery.signalR-2.0.3.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-3.1.0.debug.js" />
-    <Content Include="Scripts\knockout-3.1.0.js" />
-    <Content Include="Scripts\knockout-sortable.js" />
-    <Content Include="Scripts\knockout-sortable.min.js" />
-    <Content Include="Scripts\knockoutBindings\sortablePlaceholderBinding.js" />
-    <Content Include="Scripts\knockoutBindings\expanderBinding.js" />
-    <Content Include="Scripts\knockoutBindings\fixedPanelBinding.js" />
-    <Content Include="Scripts\knockoutBindings\layoutBinding.js" />
-    <Content Include="Scripts\knockoutBindings\notificationsBinding.js" />
-    <Content Include="Scripts\knockoutBindings\placeholderBinding.js" />
-    <Content Include="Scripts\knockoutBindings\dialogBinding.js" />
-    <Content Include="Scripts\knockoutBindings\sliderBinding.js" />
-    <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
-    <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\r.js" />
-    <Content Include="Scripts\require.js" />
-    <Content Include="Scripts\review\common.js" />
-    <Content Include="Scripts\review\review.js" />
-    <Content Include="Scripts\review\review.spec.js">
-      <DependentUpon>review.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\common\serviceUnavailableAjaxErrorHandler.js" />
     <Content Include="Scripts\common\serviceUnavailableAjaxErrorHandler.spec.js">
       <DependentUpon>serviceUnavailableAjaxErrorHandler.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\account\signin.js" />
-    <Content Include="Scripts\account\signin.spec.js">
-      <DependentUpon>signin.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\account\signup.js" />
-    <Content Include="Scripts\account\signup.spec.js">
-      <DependentUpon>signup.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\account\signupsecondstep.js" />
-    <Content Include="Scripts\account\signupsecondstep.spec.js">
-      <DependentUpon>signupsecondstep.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\durandal\activator.js" />
     <Content Include="Scripts\durandal\app.js" />
     <Content Include="Scripts\durandal\binder.js" />
@@ -1054,57 +1721,74 @@
     <Content Include="Scripts\durandal\plugins\serializer.js" />
     <Content Include="Scripts\durandal\plugins\widget.js" />
     <Content Include="Scripts\durandal\system.js" />
+    <Content Include="Scripts\durandal\transitions\defaultRouterTransition.js" />
     <Content Include="Scripts\durandal\viewEngine.js" />
     <Content Include="Scripts\durandal\viewLocator.js" />
+    <Content Include="Scripts\has.js" />
+    <Content Include="Scripts\jasmine\boot.js" />
+    <Content Include="Scripts\jasmine\jasmine-html.js" />
+    <Content Include="Scripts\jasmine\jasmine.css" />
+    <Content Include="Scripts\jasmine\jasmine.js" />
+    <Content Include="Scripts\jasmine\jasmine_favicon.png" />
+    <Content Include="Scripts\jasmine\matchers.js" />
+    <Content Include="Scripts\jasmine\PhantomReporter.js" />
+    <Content Include="Scripts\jasmine\utils.js" />
+    <Content Include="Scripts\jquery-2.1.0.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.map" />
+    <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\jquery.placeholder.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.3.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.3.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-3.1.0.debug.js" />
+    <Content Include="Scripts\knockout-3.1.0.js" />
+    <Content Include="Scripts\knockout-sortable.js" />
+    <Content Include="Scripts\knockout-sortable.min.js" />
+    <Content Include="Scripts\knockout.validation.debug.js" />
     <Content Include="Scripts\knockoutBindings\autofocusBinding.js" />
+    <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
     <Content Include="Scripts\knockoutBindings\clickElementBinding.js" />
+    <Content Include="Scripts\knockoutBindings\dateBinding.js" />
+    <Content Include="Scripts\knockoutBindings\dialogBinding.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
-    <Content Include="Scripts\knockoutBindings\slidingDialogBinding.js" />
+    <Content Include="Scripts\knockoutBindings\editableTextBinding.js" />
+    <Content Include="Scripts\knockoutBindings\expanderBinding.js" />
+    <Content Include="Scripts\knockoutBindings\fixedPanelBinding.js" />
+    <Content Include="Scripts\knockoutBindings\hoverBinding.js" />
+    <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
+    <Content Include="Scripts\knockoutBindings\layoutBinding.js" />
+    <Content Include="Scripts\knockoutBindings\notificationsBinding.js" />
     <Content Include="Scripts\knockoutBindings\outsideClickBinding.js" />
+    <Content Include="Scripts\knockoutBindings\placeholderBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToTopBinding.js" />
+    <Content Include="Scripts\knockoutBindings\selectBoxBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextBinding.js" />
-    <Content Include="Scripts\knockoutBindings\hoverBinding.js" />
+    <Content Include="Scripts\knockoutBindings\sliderBinding.js" />
+    <Content Include="Scripts\knockoutBindings\slidingDialogBinding.js" />
+    <Content Include="Scripts\knockoutBindings\sortablePlaceholderBinding.js" />
+    <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />
-    <Content Include="Content\font\opensans-italic.eot" />
-    <Content Include="Content\font\opensans-italic.ttf" />
-    <Content Include="Content\font\opensans-italic.woff" />
-    <Content Include="Content\font\buxtonsketch.eot" />
-    <Content Include="Content\font\buxtonsketch.ttf" />
-    <Content Include="Content\font\buxtonsketch.woff" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\review\common.js" />
+    <Content Include="Scripts\review\review.js" />
+    <Content Include="Scripts\review\review.spec.js">
+      <DependentUpon>review.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\text.js" />
     <Content Include="Scripts\underscore-min.js" />
-    <Content Include="Scripts\underscore.js" />
-    <Content Include="Content\font\opensans-regular.eot" />
-    <Content Include="Content\font\opensans-regular.ttf" />
-    <Content Include="Content\font\opensans-regular.woff" />
-    <Content Include="Content\font\opensans-semibold.eot" />
-    <Content Include="Content\font\opensans-semibold.ttf" />
-    <Content Include="Content\font\opensans-semibold.woff" />
-    <Content Include="Content\font\opensans-semibolditalic.eot" />
-    <Content Include="Content\font\opensans-semibolditalic.ttf" />
-    <Content Include="Content\font\opensans-semibolditalic.woff" />
-    <Content Include="Mail\MailTemplates\ForgotPasswordTemplate.cshtml" />
-    <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />
-    <Content Include="Mail\MailTemplates\NewsletterSubscriptionFailedTemplate.cshtml" />
-    <Content Include="BuildCourse\Scorm\Schemas\imscp_rootv1p1p2.xsd">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="BuildCourse\Scorm\Schemas\imsmd_rootv1p2p1.xsd">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="BuildCourse\Scorm\Schemas\ims_xml.xsd">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="BuildCourse\Scorm\Templates\metadata.cshtml" />
-    <Content Include="Content\eula\easygenerator_EULA.pdf" />
-    <Content Include="App\repositories\commentRepository.spec.js">
-      <DependentUpon>commentRepository.js</DependentUpon>
-    </Content>
-    <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
-    <Content Include="Scripts\jquery-2.1.0.min.map" />
     <Content Include="Scripts\underscore-min.map" />
+    <Content Include="Scripts\underscore.extensions.js" />
+    <Content Include="Scripts\underscore.js" />
     <Content Include="Templates\Exam\app\main-built.js" />
     <Content Include="Templates\Exam\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
     <Content Include="Templates\Exam\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
@@ -1124,7 +1808,10 @@
     <Content Include="Templates\Exam\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\content.html" />
     <Content Include="Templates\Exam\content\content.html" />
     <Content Include="Templates\Exam\content\data.js" />
+    <Content Include="Templates\Exam\css\fonts\ubuntu-regular.eot" />
     <Content Include="Templates\Exam\css\fonts\ubuntu-regular.svg" />
+    <Content Include="Templates\Exam\css\fonts\ubuntu-regular.ttf" />
+    <Content Include="Templates\Exam\css\fonts\ubuntu-regular.woff" />
     <Content Include="Templates\Exam\css\images\error-message.png" />
     <Content Include="Templates\Exam\css\images\graphChart.png" />
     <Content Include="Templates\Exam\css\images\icons-xApi.png" />
@@ -1183,7 +1870,10 @@
     <Content Include="Templates\Quiz\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\content.html" />
     <Content Include="Templates\Quiz\content\content.html" />
     <Content Include="Templates\Quiz\content\data.js" />
+    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.svg" />
+    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.ttf" />
+    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.woff" />
     <Content Include="Templates\Quiz\css\images\error-message.png" />
     <Content Include="Templates\Quiz\css\images\graphChart.png" />
     <Content Include="Templates\Quiz\css\images\icons-xApi.png" />
@@ -1243,12 +1933,21 @@
     <Content Include="Templates\Simple course\content\content.html" />
     <Content Include="Templates\Simple course\content\data.js" />
     <Content Include="Templates\Simple course\css\durandal.css" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.eot" />
     <Content Include="Templates\Simple course\css\font\opensans-regular.svg" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.ttf" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.woff" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.eot" />
     <Content Include="Templates\Simple course\css\font\opensans-semibold.svg" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.ttf" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.woff" />
     <Content Include="Templates\Simple course\css\ie10mobile.css" />
     <Content Include="Templates\Simple course\css\jasmine.css" />
     <Content Include="Templates\Simple course\css\normalize.css" />
-    <Content Include="Templates\Simple course\css\themes\main_theme.css" />
+    <Content Include="Templates\Simple course\css\themes\black.css" />
+    <Content Include="Templates\Simple course\css\themes\cartoon.css" />
+    <Content Include="Templates\Simple course\css\themes\flat.css" />
+    <Content Include="Templates\Simple course\css\themes\grey.css" />
     <Content Include="Templates\Simple course\img\bg.png" />
     <Content Include="Templates\Simple course\img\checkbox.png" />
     <Content Include="Templates\Simple course\img\chrome.png" />
@@ -1284,185 +1983,44 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_mixpanelAnalytics.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Templates\Exam\css\fonts\ubuntu-regular.eot" />
-    <Content Include="Templates\Exam\css\fonts\ubuntu-regular.ttf" />
-    <Content Include="Templates\Exam\css\fonts\ubuntu-regular.woff" />
-    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.eot" />
-    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.ttf" />
-    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.woff" />
-    <Content Include="Templates\Simple course\css\font\opensans-regular.eot" />
-    <Content Include="Templates\Simple course\css\font\opensans-regular.ttf" />
-    <Content Include="Templates\Simple course\css\font\opensans-regular.woff" />
-    <Content Include="Templates\Simple course\css\font\opensans-semibold.eot" />
-    <Content Include="Templates\Simple course\css\font\opensans-semibold.ttf" />
-    <Content Include="Templates\Simple course\css\font\opensans-semibold.woff" />
-    <None Include="weyland-config.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="apple-touch-icon-114x114-precomposed.png" />
-    <Content Include="apple-touch-icon-144x144-precomposed.png" />
-    <Content Include="apple-touch-icon-57x57-precomposed.png" />
-    <Content Include="apple-touch-icon-72x72-precomposed.png" />
-    <Content Include="apple-touch-icon-precomposed.png" />
-    <Content Include="apple-touch-icon.png" />
-    <Content Include="App\models\learningContent.js" />
-    <Content Include="App\repositories\courseRepository.js" />
-    <Content Include="App\repositories\questionRepository.js" />
-    <Content Include="App\repositories\questionRepository.spec.js">
-      <DependentUpon>questionRepository.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\errors\404.js" />
-    <Content Include="App\viewmodels\courses\createCourse.js" />
-    <Content Include="App\viewmodels\courses\courses.js" />
-    <Content Include="App\viewmodels\objectives\createObjective.js" />
-    <Content Include="App\viewmodels\objectives\createObjective.spec.js">
-      <DependentUpon>createObjective.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\objectives\objective.js" />
-    <Content Include="App\viewmodels\objectives\objectiveBrief.js" />
-    <Content Include="App\viewmodels\objectives\objectiveBrief.spec.js">
-      <DependentUpon>objectiveBrief.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\objectives\objectives.js" />
-    <Content Include="App\viewmodels\questions\question.js" />
-    <Content Include="App\viewmodels\questions\question.spec.js">
-      <DependentUpon>question.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\shell.js" />
-    <Content Include="App\views\errors\404.html" />
-    <Content Include="App\views\courses\createCourse.html" />
-    <Content Include="App\views\objectives\createObjective.html" />
-    <Content Include="Content\ckeditor.css" />
-    <Content Include="Content\course.css" />
-    <Content Include="Content\courses.css" />
-    <Content Include="Content\images\buildprogress.gif" />
-    <Content Include="Content\images\loader.gif" />
-    <Content Include="Content\images\middle-sized-icons-pack.png" />
-    <Content Include="Content\images\sample\1.png" />
-    <Content Include="Content\images\sample\10.png" />
-    <Content Include="Content\images\sample\11.png" />
-    <Content Include="Content\images\sample\12.png" />
-    <Content Include="Content\images\sample\13.png" />
-    <Content Include="Content\images\sample\14.png" />
-    <Content Include="Content\images\sample\15.png" />
-    <Content Include="Content\images\sample\16.png" />
-    <Content Include="Content\images\sample\17.png" />
-    <Content Include="Content\images\sample\18.png" />
-    <Content Include="Content\images\sample\2.png" />
-    <Content Include="Content\images\sample\3.png" />
-    <Content Include="Content\images\sample\4.png" />
-    <Content Include="Content\images\sample\5.png" />
-    <Content Include="Content\images\sample\6.png" />
-    <Content Include="Content\images\sample\7.png" />
-    <Content Include="Content\images\sample\8.png" />
-    <Content Include="Content\images\sample\9.png" />
-    <Content Include="Content\images\typeQuestionTitleArrow.png" />
-    <Content Include="Scripts\has.js" />
-    <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
-    <Content Include="App\routing\routes.js" />
-    <Content Include="App\constants.js" />
-    <Content Include="App\dataContext.js" />
-    <Content Include="App\eventTracker.js" />
-    <Content Include="App\localization\localizationManager.spec.js">
-      <DependentUpon>localizationManager.js</DependentUpon>
-    </Content>
-    <Content Include="App\localization\resources.js" />
-    <Content Include="App\main.js" />
-    <Content Include="App\models\answerOption.js" />
-    <Content Include="App\models\entity.js" />
-    <Content Include="App\models\objective.js" />
-    <Content Include="App\models\course.js" />
-    <Content Include="App\models\question.js" />
-    <Content Include="App\repositories\objectiveRepository.spec.js">
-      <DependentUpon>objectiveRepository.js</DependentUpon>
-    </Content>
-    <Content Include="App\localization\localizationManager.js" />
-    <Content Include="App\views\objectives\objective.html" />
-    <Content Include="App\views\objectives\objectives.html" />
-    <Content Include="App\views\courses\courses.html" />
-    <Content Include="App\views\questions\question.html" />
-    <Content Include="App\views\shell.html" />
-    <Content Include="Content\common.css" />
-    <Content Include="App\viewmodels\objectives\objective.spec.js">
-      <DependentUpon>objective.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\objectives\objectives.spec.js">
-      <DependentUpon>objectives.js</DependentUpon>
-    </Content>
-    <Content Include="Content\images\multichoice-question.png" />
-    <Content Include="Content\images\logo.png" />
-    <Content Include="Content\objective.css" />
-    <Content Include="Content\question.css" />
-    <Content Include="favicon.ico" />
-    <Content Include="Global.asax" />
-    <Content Include="humans.txt" />
-    <Content Include="robots.txt" />
-    <Content Include="Scripts\knockoutBindings\dateBinding.js" />
-    <Content Include="Scripts\knockoutBindings\editableTextBinding.js" />
-    <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
-    <Content Include="Scripts\knockout.validation.debug.js" />
-    <None Include="Scripts\knockout.validation.js" />
-    <Content Include="Scripts\knockoutBindings\selectBoxBinding.js" />
-    <Content Include="Scripts\text.js" />
-    <Content Include="Scripts\underscore.extensions.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.Debug.config">
+    <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
+    </None>
+    <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Views\Account\Resources.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
       <CustomToolNamespace>AccountRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Error\Resources.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <CustomToolNamespace>AccountRes</CustomToolNamespace>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Review\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <CustomToolNamespace>SharedResources</CustomToolNamespace>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\easygenerator.DataAccess\easygenerator.DataAccess.csproj">
-      <Project>{67A666AE-DE1A-4744-80BC-455536DB1171}</Project>
-      <Name>easygenerator.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\easygenerator.DomainModel\easygenerator.DomainModel.csproj">
-      <Project>{B1A55D50-7948-471A-9FA8-403512C179A6}</Project>
-      <Name>easygenerator.DomainModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj">
-      <Project>{E186A113-426B-4AB1-A4B1-5ECC54FA4E80}</Project>
-      <Name>easygenerator.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PreviewPackages\" />
     <Folder Include="PublishedPackages\" />
-    <Folder Include="Views\PreviewHub\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
