@@ -1115,8 +1115,11 @@
     <Content Include="Templates\Exam\css\images\ios-startup-image-landscape.png" />
     <Content Include="Templates\Exam\css\images\ios-startup-image-portrait.png" />
     <Content Include="Templates\Exam\css\jasmine.css" />
+    <Content Include="Templates\Exam\css\login.css" />
     <Content Include="Templates\Exam\css\normalize.css" />
     <Content Include="Templates\Exam\css\styles.css" />
+    <Content Include="Templates\Exam\css\xAPIError.css" />
+    <Content Include="Templates\Exam\css\xAPINotSupported.css" />
     <Content Include="Templates\Exam\img\arrow_up.png" />
     <Content Include="Templates\Exam\img\bg-bottom.png" />
     <Content Include="Templates\Exam\img\bg-corners.png" />
@@ -1174,8 +1177,11 @@
     <Content Include="Templates\Quiz\css\images\ios-startup-image-landscape.png" />
     <Content Include="Templates\Quiz\css\images\ios-startup-image-portrait.png" />
     <Content Include="Templates\Quiz\css\jasmine.css" />
+    <Content Include="Templates\Quiz\css\login.css" />
     <Content Include="Templates\Quiz\css\normalize.css" />
     <Content Include="Templates\Quiz\css\styles.css" />
+    <Content Include="Templates\Quiz\css\xAPIError.css" />
+    <Content Include="Templates\Quiz\css\xAPINotSupported.css" />
     <Content Include="Templates\Quiz\img\arrow_up.png" />
     <Content Include="Templates\Quiz\img\bg-bottom.png" />
     <Content Include="Templates\Quiz\img\bg-corners.png" />
