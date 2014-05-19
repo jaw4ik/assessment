@@ -1,4 +1,4 @@
-﻿define(['viewmodels/courses/course'], function (viewModel) {
+﻿define(['viewmodels/courses/course.old'], function (viewModel) {
     "use strict";
 
     var
