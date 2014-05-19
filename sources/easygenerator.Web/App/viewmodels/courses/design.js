@@ -19,6 +19,9 @@
             canActivate: canActivate,
             activate: activate,
 
+            initFrame: initFrame,
+            resizeFrame: resizeFrame,
+
             backButtonData: new BackButton({
                 url: 'courses',
                 backViewName: localizationManager.localize('courses'),
@@ -86,7 +89,26 @@
                 }).fail(function () {
                     viewModel.showProgress(false);
                 });
+        }
 
+        function initFrame(vm, event) {
+            debugger;
+            var $iframe = $(event.target);
+            $iframe.css('visibility', 'hidden');
+        }
+
+        function resizeFrame(vm, event) {
+            _.defer(function() {
+                var $iframe = $(event.target);
+                $iframe.height(0);
+
+                var iframeDocumentHeight = $iframe.contents().find('body')[0].scrollHeight;
+                
+                $iframe.height(iframeDocumentHeight);
+                _.delay(function() {
+                    $iframe.css('visibility', 'visible');
+                }, 250);
+            });
         }
 
     }
