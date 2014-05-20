@@ -1157,7 +1157,7 @@
         en: 'Owner'
     },
     fillInUserEmail: {
-        en: 'Fill in user\\'s email'
+        en: 'Fill in user&#39;s email'
     },
     enterValidEmail: {
         en: 'Enter a valid email'
