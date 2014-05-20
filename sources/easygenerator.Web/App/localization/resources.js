@@ -1155,6 +1155,27 @@
     /* Resource section for model Collaboration */
     owner: {
         en: 'Owner'
+    },
+    fillInUserEmail: {
+        en: 'Fill in user\\'s email'
+    },
+    enterValidEmail: {
+        en: 'Enter a valid email'
+    },
+    enterEmailOfExistingUser: {
+        en: 'Enter an email of existing easygenerator user'
+    },
+    addPerson: {
+        en: 'Add person'
+    },
+    inviteByEmailAddress: {
+        en: 'Invite by email address...'
+    },
+    addPeopleForCollaboration: {
+        en: 'Add people for collaboration'
+    },
+    addCollaborator: {
+        en: 'Add collaborator'
     }
     /* End resource section for model Collaboration */
            
