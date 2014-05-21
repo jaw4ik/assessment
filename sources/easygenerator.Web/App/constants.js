@@ -80,6 +80,9 @@
                     },
                     action: {
                         started: 'course:action-started'
+                    },
+                    collaboration: {
+                        collaboratorAdded: 'course:collaboration-collaboratorAdded'
                     }
                 },
                 objective: {
@@ -101,7 +104,11 @@
                 }
             },
 
-            defaultObjectiveImage: '/Content/images/objective.png'
+            defaultObjectiveImage: '/Content/images/objective.png',
+
+            patterns: {
+                email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
+            }
         };
     }
 );

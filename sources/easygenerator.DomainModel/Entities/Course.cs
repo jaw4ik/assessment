@@ -49,6 +49,16 @@ namespace easygenerator.DomainModel.Entities
             get { return CollaboratorsCollection.AsEnumerable(); }
         }
 
+        public virtual bool CollaborateWithUser(User user, string createdBy)
+        {
+            ThrowIfUserIsInvalid(user);
+            if (IsPermittedTo(user.Email))
+                return false;
+
+            CollaboratorsCollection.Add(new CourseCollabrator(this, user, createdBy));
+            return true;
+        }
+
         protected internal virtual ICollection<Comment> CommentsCollection { get; set; }
         public virtual IEnumerable<Comment> Comments
         {
@@ -256,6 +266,11 @@ namespace easygenerator.DomainModel.Entities
         private void ThrowIfCommentIsInvalid(Comment comment)
         {
             ArgumentValidation.ThrowIfNull(comment, "comment");
+        }
+
+        private void ThrowIfUserIsInvalid(User user)
+        {
+            ArgumentValidation.ThrowIfNull(user, "user");
         }
 
         private void ThrowIfTemplateIsInvaid(Template template)

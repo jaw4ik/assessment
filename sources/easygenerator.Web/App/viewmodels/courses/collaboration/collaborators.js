@@ -1,5 +1,10 @@
-﻿define(['viewModels/courses/collaboration/collaborator'],
-    function (vmCollaborator) {
+﻿define(['viewModels/courses/collaboration/collaborator', 'plugins/dialog', 'eventTracker', 'durandal/app', 'constants'],
+    function (vmCollaborator, dialog, eventTracker, app, constants) {
+
+        var
+            events = {
+                openAddCourseCollaboratorDialog: 'Open "add people for collaboration" dialog'
+            };
 
         var viewModel = function (courseOwner, collaborators) {
 
@@ -10,12 +15,20 @@
             });
 
             var addMember = function () {
-                alert('Not implemented yet :)\n\nHave a nice day!');
+                eventTracker.publish(events.openAddCourseCollaboratorDialog);
+                dialog.show('dialogs/collaboration/addCollaborator');
             };
+
+            var collaboratorAdded = function (collaborator) {
+                members.push(new vmCollaborator(courseOwner, collaborator));
+            }
+
+            app.on(constants.messages.course.collaboration.collaboratorAdded, collaboratorAdded);
 
             return {
                 members: members,
-                addMember: addMember
+                addMember: addMember,
+                collaboratorAdded: collaboratorAdded
             };
         };
 

@@ -371,6 +371,17 @@ namespace easygenerator.Web.Tests.Utils
             return new JsonErrorResultAssertions(value.Subject as JsonErrorResult);
         }
 
+        public static JsonErrorResultAssertions BeJsonErrorResultWithMessage(this ObjectAssertions value, string message, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is JsonErrorResult)
+                .ForCondition(((JsonErrorResult)value.Subject).Message == message)
+                .FailWith("Expected \"JsonErrorResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new JsonErrorResultAssertions(value.Subject as JsonErrorResult);
+        }
+
         public static JsonSuccessDataResultAssertions BeJsonDataResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
         {
             Execute.Assertion

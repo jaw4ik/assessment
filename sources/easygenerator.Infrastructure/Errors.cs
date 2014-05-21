@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace easygenerator.Infrastructure
 {
     public class Errors
@@ -33,5 +28,7 @@ namespace easygenerator.Infrastructure
         public const string UpgradeToStarterPlanToUseCommentsErrorMessage = "upgradeToStarterPlanToUseCommentsErrorMessage";
 
         public const string UpgradeToNextPlanToCreateMoreCoursesErrorMessage = "upgradeToNextPlanToCreateMoreCoursesErrorMessage";
+        public const string UserWithSpecifiedEmailDoesntExist = "Account with this email doesn't exist";
+        public const string UserWithSpecifiedEmailDoesntExistResourceKey = "enterEmailOfExistingUser";
     }
 }

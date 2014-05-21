@@ -1,6 +1,4 @@
-﻿using System;
-using easygenerator.DomainModel.Entities;
-using easygenerator.Infrastructure.DomainModel;
+﻿using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel
 {

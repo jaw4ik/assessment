@@ -3,7 +3,7 @@
         "use strict";
 
         var
-            httpWrapper = require('httpWrapper'),
+            httpWrapper = require('http/httpWrapper'),
             dataContext = require('dataContext'),
             constants = require('constants'),
             app = require('durandal/app');

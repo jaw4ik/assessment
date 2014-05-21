@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'constants', 'models/course', 'guard', 'httpWrapper', 'durandal/app'],
+﻿define(['dataContext', 'constants', 'models/course', 'guard', 'http/httpWrapper', 'durandal/app'],
     function (dataContext, constants, CourseModel, guard, httpWrapper, app) {
         "use strict";
 

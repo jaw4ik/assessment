@@ -4,7 +4,7 @@
 
     var
         dataContext = require('dataContext'),
-        httpWrapper = require('httpWrapper');
+        httpWrapper = require('http/httpWrapper');
 
     describe('repository [answerRepository]', function () {
 

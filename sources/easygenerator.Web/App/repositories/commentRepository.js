@@ -1,4 +1,4 @@
-﻿define(['httpWrapper', 'guard', 'models/comment'],
+﻿define(['http/httpWrapper', 'guard', 'models/comment'],
     function (httpWrapper, guard, Comment) {
         "use strict";
 

@@ -144,6 +144,7 @@
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\Api\Aim4YouControllerTests.cs" />
     <Compile Include="Controllers\Api\AnswerControllerTests.cs" />
+    <Compile Include="Controllers\Api\CourseCollaborationControllerTests.cs" />
     <Compile Include="Controllers\Api\CommentControllerTests.cs" />
     <Compile Include="Controllers\Api\CourseControllerTests.cs" />
     <Compile Include="Controllers\Api\FeedbackControllerTests.cs" />

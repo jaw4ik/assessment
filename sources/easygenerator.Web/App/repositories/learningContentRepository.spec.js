@@ -2,7 +2,7 @@
     "use strict";
 
     var
-        httpWrapper = require('httpWrapper'),
+        httpWrapper = require('http/httpWrapper'),
         dataContext = require('dataContext');
 
     describe('repository [learningContentRepository]', function () {

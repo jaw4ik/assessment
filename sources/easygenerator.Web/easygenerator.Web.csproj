@@ -264,6 +264,7 @@
     <Compile Include="Configuration\ContainerConfiguration.cs" />
     <Compile Include="Configuration\FilterConfiguration.cs" />
     <Compile Include="Configuration\JsonFormatterConfiguration.cs" />
+    <Compile Include="Controllers\Api\CourseCollaborationController.cs" />
     <Compile Include="Configuration\ModelBinderConfiguration.cs" />
     <Compile Include="Configuration\OwinConfiguration.cs" />
     <Compile Include="Configuration\RouteConfiguration.cs" />
@@ -346,6 +347,10 @@
     <None Include="BuildCourse\Scorm\Schemas\ims_xml.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="App\http\httpRequestSender.spec.js">
+      <DependentUpon>httpRequestSender.js</DependentUpon>
+    </Content>
+    <Content Include="App\http\httpRequestSender.js" />
     <Content Include="App\repositories\objectiveRepository.js" />
     <Content Include="App\repositories\objectiveRepository.spec.js">
       <DependentUpon>objectiveRepository.js</DependentUpon>
@@ -479,6 +484,11 @@
     </Content>
     <Content Include="App\constants.js" />
     <Content Include="App\dataContext.js" />
+    <Content Include="App\dialogs\collaboration\addCollaborator.html" />
+    <Content Include="App\dialogs\collaboration\addCollaborator.js" />
+    <Content Include="App\dialogs\collaboration\addCollaborator.spec.js">
+      <DependentUpon>addCollaborator.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\createCourse.html" />
     <Content Include="App\dialogs\createCourse.js" />
     <Content Include="App\dialogs\createCourse.spec.js">
@@ -523,8 +533,8 @@
     <Content Include="App\help\helpHint.spec.js">
       <DependentUpon>helpHint.js</DependentUpon>
     </Content>
-    <Content Include="App\httpWrapper.js" />
-    <Content Include="App\httpWrapper.spec.js">
+    <Content Include="App\http\httpWrapper.js" />
+    <Content Include="App\http\httpWrapper.spec.js">
       <DependentUpon>httpWrapper.js</DependentUpon>
     </Content>
     <Content Include="App\localization\localizationManager.js" />
@@ -564,6 +574,10 @@
     <Content Include="App\ping.js" />
     <Content Include="App\ping.spec.js">
       <DependentUpon>ping.js</DependentUpon>
+    </Content>
+    <Content Include="App\repositories\collaboratorRepository.js" />
+    <Content Include="App\repositories\collaboratorRepository.spec.js">
+      <DependentUpon>collaboratorRepository.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\answerRepository.js" />
     <Content Include="App\repositories\answerRepository.spec.js">
@@ -831,6 +845,7 @@
     <Content Include="App\widgets\uiLockViewer\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
+    <Content Include="Content\collaboration.css" />
     <Content Include="BuildCourse\Scorm\js\lms.js" />
     <Content Include="Content\account.css" />
     <Content Include="Content\ckeditor.css" />

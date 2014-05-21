@@ -1,7 +1,7 @@
 ﻿define(['repositories/commentRepository'], function (repository) {
     "use strict";
 
-    var httpWrapper = require('httpWrapper');
+    var httpWrapper = require('http/httpWrapper');
 
     describe('repository [commentRepository]', function () {
 

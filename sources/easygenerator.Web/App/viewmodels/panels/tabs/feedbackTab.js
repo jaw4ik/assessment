@@ -1,4 +1,4 @@
-﻿define(['userContext', 'notify', 'eventTracker', 'httpWrapper'],
+﻿define(['userContext', 'notify', 'eventTracker', 'http/httpWrapper'],
     function (userContext, notify, eventTracker, httpWrapper) {
 
         var events = {

@@ -893,6 +893,96 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion UpdateIntroductionContent
 
+        #region CollaborateWithUser
+
+        [TestMethod]
+        public void CollaborateWithUser_ShouldThrowArgumentNullException_WhenCommentIsNull()
+        {
+            var course = CourseObjectMother.Create();
+
+            Action action = () => course.CollaborateWithUser(null, CreatedBy);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("user");
+        }
+
+        [TestMethod]
+        public void CollaborateWithUser_ShouldAddCollaborator()
+        {
+            const string owner = "owner@www.com";
+            var course = CourseObjectMother.Create(createdBy: owner);
+            var user = UserObjectMother.Create();
+
+            course.CollaborateWithUser(user, CreatedBy);
+
+            course.CollaboratorsCollection.Should().NotBeEmpty().And.HaveCount(1);
+        }
+
+        [TestMethod]
+        public void CollaborateWithUser_ShouldReturnTrue()
+        {
+            const string owner = "owner@www.com";
+            var course = CourseObjectMother.Create(createdBy: owner);
+            var collaborator = CourseCollaboratorObjectMother.Create();
+            var user = UserObjectMother.Create();
+
+            var result = course.CollaborateWithUser(user, CreatedBy);
+
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void CollaborateWithUser_ShouldNotAddCollaborator_WhenUserIsCourseOwner()
+        {
+            const string email = "owner@www.com";
+            var course = CourseObjectMother.Create(createdBy: email);
+            var user = UserObjectMother.CreateWithEmail(email);
+
+            course.CollaborateWithUser(user, CreatedBy);
+
+            course.CollaboratorsCollection.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public void CollaborateWithUser_ShouldReturnFalse_WhenUserIsCourseOwner()
+        {
+            const string email = "owner@www.com";
+            var course = CourseObjectMother.Create(createdBy: email);
+            var user = UserObjectMother.CreateWithEmail(email);
+            var collaborator = CourseCollaboratorObjectMother.CreateWithUser(user);
+
+            var result = course.CollaborateWithUser(user, CreatedBy);
+
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void CollaborateWithUser_ShouldNotAddCollaborator_WhenUserIsCourseCollaboratorAlready()
+        {
+            const string email = "owner@www.com";
+            var course = CourseObjectMother.Create(createdBy: "user@www.www");
+            var user = UserObjectMother.CreateWithEmail(email);
+            course.CollaborateWithUser(user, CreatedBy);
+
+            course.CollaborateWithUser(user, CreatedBy);
+
+            course.CollaboratorsCollection.Should().NotBeEmpty().And.HaveCount(1);
+        }
+
+        [TestMethod]
+        public void CollaborateWithUser_ShouldReturnFalse_WhenUserIsCourseCollaboratorAlready()
+        {
+            const string email = "owner@www.com";
+            var course = CourseObjectMother.Create(createdBy: "user@www.www");
+            var user = UserObjectMother.CreateWithEmail(email);
+            course.CollaborateWithUser(user, CreatedBy);
+
+            var result = course.CollaborateWithUser(user, CreatedBy);
+
+            result.Should().BeFalse();
+        }
+
+        #endregion
+
         #region AddComment
 
         [TestMethod]

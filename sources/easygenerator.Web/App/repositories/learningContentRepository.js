@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'httpWrapper', 'guard', 'models/learningContent'],
+﻿define(['dataContext', 'http/httpWrapper', 'guard', 'models/learningContent'],
     function (dataContext, httpWrapper, guard, learningContentModel) {
         "use strict";
 

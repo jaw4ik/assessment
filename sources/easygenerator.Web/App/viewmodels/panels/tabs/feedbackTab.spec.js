@@ -3,7 +3,7 @@
     var viewModel = require('viewmodels/panels/tabs/feedbackTab'),
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
-        httpWrapper = require('httpWrapper'),
+        httpWrapper = require('http/httpWrapper'),
         notify = require('notify'),
         userContext = require('userContext');
 

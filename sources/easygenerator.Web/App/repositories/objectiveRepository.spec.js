@@ -3,7 +3,7 @@
 
     var
        constants = require('constants'),
-       httpWrapper = require('httpWrapper'),
+       httpWrapper = require('http/httpWrapper'),
        dataContext = require('dataContext'),
        app = require('durandal/app')
     ;

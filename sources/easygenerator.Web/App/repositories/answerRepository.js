@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'httpWrapper', 'guard', 'models/answerOption'],
+﻿define(['dataContext', 'http/httpWrapper', 'guard', 'models/answerOption'],
     function (dataContext, httpWrapper, guard, answerModel) {
         "use strict";
 
