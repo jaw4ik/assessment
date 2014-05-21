@@ -56,11 +56,11 @@
 
 .course-collaborator-tooltip-wrapper {
     display: none;
-    width: 156px;
+    width: 300px;
     position: absolute;
     top: 100%;
     left: 50%;
-    margin-left: -78px;
+    margin-left: -150px;
     text-align: center;
     z-index: 1;
 }
@@ -71,7 +71,7 @@
 
 .course-collaborator-tooltip {
     display: inline-block;
-    max-width: 156px;
+    max-width: 300px;
     position: relative;
     margin-top: 6px;
     padding: 5px;
