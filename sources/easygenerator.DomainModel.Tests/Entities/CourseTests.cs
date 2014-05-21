@@ -522,7 +522,8 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string username = "user@user.com";
             var course = CourseObjectMother.Create();
 
-            course.CollaboratorsCollection.Add(CourseCollaboratorObjectMother.Create(course, UserObjectMother.CreateWithEmail(username)));
+            var user = UserObjectMother.CreateWithEmail(username);
+            course.CollaborateWithUser(user, CreatedBy);
 
             //Act
             var result = course.IsPermittedTo(username);
@@ -922,7 +923,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             const string owner = "owner@www.com";
             var course = CourseObjectMother.Create(createdBy: owner);
-            var collaborator = CourseCollaboratorObjectMother.Create();
             var user = UserObjectMother.Create();
 
             var result = course.CollaborateWithUser(user, CreatedBy);
@@ -948,7 +948,6 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string email = "owner@www.com";
             var course = CourseObjectMother.Create(createdBy: email);
             var user = UserObjectMother.CreateWithEmail(email);
-            var collaborator = CourseCollaboratorObjectMother.CreateWithUser(user);
 
             var result = course.CollaborateWithUser(user, CreatedBy);
 
