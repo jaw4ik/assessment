@@ -50,16 +50,6 @@
 
                     post.reject(reason);
                 });
-
-                it('should trigger \'httpWrapper:post-end\' event', function (done) {
-                    var promise = httpRequestSender.post();
-                    promise.fin(function () {
-                        expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-end');
-                        done();
-                    });
-
-                    post.reject("some reason");
-                });
             });
 
             describe('when post request succeed', function () {
