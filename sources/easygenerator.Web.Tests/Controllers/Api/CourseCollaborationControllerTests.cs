@@ -82,7 +82,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = UserObjectMother.Create();
             const string email = "some@email.com";
             _userRepository.GetUserByEmail(email).Returns(user);
-            var collaborator = CourseCollaboratorObjectMother.Create();
 
             //Act
             _controller.AddCollaborator(course, email);
