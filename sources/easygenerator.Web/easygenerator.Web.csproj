@@ -393,12 +393,15 @@
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />
     <Content Include="Scripts\underscore-min.map" />
+    <Content Include="Templates\Exam\app\main.js" />
     <Content Include="Templates\Exam\css\fonts\ubuntu-regular.eot" />
     <Content Include="Templates\Exam\css\fonts\ubuntu-regular.ttf" />
     <Content Include="Templates\Exam\css\fonts\ubuntu-regular.woff" />
+    <Content Include="Templates\Quiz\app\main.js" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.ttf" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.woff" />
+    <Content Include="Templates\Simple course\app\main.js" />
     <Content Include="Templates\Simple course\css\font\opensans-regular.eot" />
     <Content Include="Templates\Simple course\css\font\opensans-regular.ttf" />
     <Content Include="Templates\Simple course\css\font\opensans-regular.woff" />
@@ -1266,7 +1269,6 @@
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.extensions.js" />
     <Content Include="Scripts\underscore.js" />
-    <Content Include="Templates\Exam\app\main-built.js" />
     <Content Include="Templates\Exam\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
     <Content Include="Templates\Exam\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
     <Content Include="Templates\Exam\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />
@@ -1325,7 +1327,6 @@
     <Content Include="Templates\Exam\publishSettings.js" />
     <Content Include="Templates\Exam\settings.html" />
     <Content Include="Templates\Exam\settings.js" />
-    <Content Include="Templates\Quiz\app\main-built.js" />
     <Content Include="Templates\Quiz\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
     <Content Include="Templates\Quiz\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
     <Content Include="Templates\Quiz\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />
@@ -1384,7 +1385,6 @@
     <Content Include="Templates\Quiz\publishSettings.js" />
     <Content Include="Templates\Quiz\settings.html" />
     <Content Include="Templates\Quiz\settings.js" />
-    <Content Include="Templates\Simple course\app\main-built.js" />
     <Content Include="Templates\Simple course\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
     <Content Include="Templates\Simple course\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
     <Content Include="Templates\Simple course\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />
