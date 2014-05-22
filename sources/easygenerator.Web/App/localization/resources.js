@@ -1157,7 +1157,7 @@
         en: 'Owner'
     },
     fillInUserEmail: {
-        en: 'Fill in user&#39;s email'
+        en: 'Fill in user\'s email'
     },
     enterValidEmail: {
         en: 'Enter a valid email'
@@ -1176,6 +1176,9 @@
     },
     addCollaborator: {
         en: 'Add collaborator'
+    },
+    notEnoughPermissionsErrorMessage: {
+        en: 'You don\'t have enough permissions to complete this operation'
     }
     /* End resource section for model Collaboration */
            
