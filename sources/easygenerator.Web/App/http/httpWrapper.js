@@ -21,7 +21,6 @@
                          return response.data;
                      })
                      .fin(function () {
-                         debugger;
                          app.trigger('httpWrapper:post-end');
                      });
             }
