@@ -126,7 +126,6 @@
                 it('should trigger \'httpWrapper:post-end\' event', function (done) {
                     var promise = httpWrapper.post();
                     promise.fin(function () {
-                        debugger;
                         expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-end');
                         done();
                     });
