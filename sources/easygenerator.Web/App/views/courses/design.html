@@ -31,7 +31,7 @@
         </div>
         <div class="template-settings-block">
             <h2 class="template-settings-title" data-bind="localize: { text: 'templateSettings' }">Template settings</h2>
-            <iframe data-bind="attr: { src: currentTemplate().settingsUrl + '?courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: resizeFrame, haschange: initFrame }" frameborder="0" width="100%"></iframe>
+            <iframe data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: currentTemplate().settingsUrl + '?courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: resizeFrame }" frameborder="0" width="100%"></iframe>
         </div>
     </div>
 </section>

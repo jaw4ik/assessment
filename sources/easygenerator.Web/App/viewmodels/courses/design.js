@@ -11,6 +11,7 @@
             currentTemplate: ko.observable(),
             templates: [],
 
+            settingsVisibility: ko.observable(false),
             showProgress: ko.observable(false),
             selectTemplate: selectTemplate,
 
@@ -19,7 +20,6 @@
             canActivate: canActivate,
             activate: activate,
 
-            initFrame: initFrame,
             resizeFrame: resizeFrame,
 
             backButtonData: new BackButton({
@@ -80,6 +80,7 @@
 
             eventTracker.publish(events.updateCourseTemplate + ' \'' + template.name + '\'');
             viewModel.showProgress(true);
+            viewModel.settingsVisibility(false);
 
             courseRepository.updateCourseTemplate(viewModel.courseId, template.id)
                 .then(function () {
@@ -91,24 +92,19 @@
                 });
         }
 
-        function initFrame(vm, event) {
-            debugger;
-            var $iframe = $(event.target);
-            $iframe.css('visibility', 'hidden');
-        }
-
         function resizeFrame(vm, event) {
-            _.defer(function() {
+            _.delay(resize, 50);
+
+            function resize() {
                 var $iframe = $(event.target);
                 $iframe.height(0);
 
-                var iframeDocumentHeight = $iframe.contents().find('body')[0].scrollHeight;
-                
+                var iframeDocumentHeight = $iframe.contents().find('body').height();
                 $iframe.height(iframeDocumentHeight);
-                _.delay(function() {
-                    $iframe.css('visibility', 'visible');
-                }, 250);
-            });
+
+                viewModel.settingsVisibility(true);
+            }
+
         }
 
     }
