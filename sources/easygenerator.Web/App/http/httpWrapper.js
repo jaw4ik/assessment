@@ -4,28 +4,26 @@
 
         var
             post = function (url, data) {
-                var deferred = Q.defer();
                 app.trigger('httpWrapper:post-begin');
-                httpRequestSender.post(url, data)
-                    .done(function (response) {
-                        if (!_.isObject(response)) {
-                            deferred.reject('Response data is not an object');
-                            return;
-                        }
+                return httpRequestSender.post(url, data)
+                     .then(function (response) {
+                         if (!_.isObject(response)) {
+                             throw 'Response data is not an object';
+                             return;
+                         }
 
-                        if (!response.success) {
-                            notify.error(response.errorMessage);
-                            deferred.reject(response.errorMessage);
-                            return;
-                        }
+                         if (!response.success) {
+                             notify.error(response.errorMessage);
+                             throw response.errorMessage;
+                             return;
+                         }
 
-                        deferred.resolve(response.data);
-                    })
-                    .always(function () {
-                        app.trigger('httpWrapper:post-end');
-                    });
-
-                return deferred.promise;
+                         return response.data;
+                     })
+                     .fin(function () {
+                         debugger;
+                         app.trigger('httpWrapper:post-end');
+                     });
             }
         ;
 

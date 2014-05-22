@@ -17,8 +17,8 @@
             var post;
 
             beforeEach(function () {
-                post = $.Deferred();
-                spyOn(http, 'post').and.returnValue(post.promise());
+                post = Q.defer();
+                spyOn(http, 'post').and.returnValue(post.promise);
                 spyOn(app, 'trigger');
             });
 
@@ -117,6 +117,21 @@
 
                     });
 
+                });
+
+            });
+
+            describe('when post request failed', function () {
+
+                it('should trigger \'httpWrapper:post-end\' event', function (done) {
+                    var promise = httpWrapper.post();
+                    promise.fin(function () {
+                        debugger;
+                        expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-end');
+                        done();
+                    });
+
+                    post.reject();
                 });
 
             });
