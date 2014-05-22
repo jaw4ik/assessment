@@ -408,12 +408,14 @@
     <Content Include="Templates\Simple course\css\font\opensans-semibold.eot" />
     <Content Include="Templates\Simple course\css\font\opensans-semibold.ttf" />
     <Content Include="Templates\Simple course\css\font\opensans-semibold.woff" />
+    <Content Include="Templates\Simple course\css\font\segoeui-semibold.svg" />
     <Content Include="Templates\Simple course\css\img\error-message.png" />
     <Content Include="Templates\Simple course\css\img\icons-xApi.png" />
     <Content Include="Templates\Simple course\css\img\info-message.png" />
     <Content Include="Templates\Simple course\css\img\xapi-icons.png" />
     <Content Include="Templates\Simple course\css\img\xapierror.png" />
     <Content Include="Templates\Simple course\css\login.css" />
+    <Content Include="Templates\Simple course\css\main.css" />
     <Content Include="Templates\Simple course\css\xAPIError.css" />
     <Content Include="Templates\Simple course\css\xapiNotSupported.css" />
     <Content Include="Views\Account\InvalidPasswordRecovery.cshtml" />
@@ -435,6 +437,9 @@
     <Content Include="Views\Shared\_mixpanelAnalytics.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Web.config" />
+    <Content Include="Templates\Simple course\css\font\segoeui-semibold.eot" />
+    <Content Include="Templates\Simple course\css\font\segoeui-semibold.ttf" />
+    <Content Include="Templates\Simple course\css\font\segoeui-semibold.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
