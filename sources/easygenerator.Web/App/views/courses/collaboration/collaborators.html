@@ -1,14 +1,4 @@
 ﻿<div class="course-collaborators-wrapper">
-    <div class="course-collaborator-item-wrapper pull-right">
-        <div class="course-collaborator-item">
-            <div class="user-avatar course-collaborator-add-btn" data-bind="click: addMember">&nbsp;</div>
-            <div class="course-collaborator-tooltip-wrapper add-collaborator-tooltip">
-                <div class="course-collaborator-tooltip">
-                    <span class="course-collaborator-tooltip-text" data-bind="localize: { text: 'addCollaborator' }"></span>
-                </div>
-            </div>
-        </div>
-    </div>
     <ul class="course-collaborators-list">
         <!-- ko foreach: members -->
         <li class="course-collaborator-item-wrapper">
@@ -17,6 +7,18 @@
                 <div class="course-collaborator-tooltip-wrapper">
                     <div class="course-collaborator-tooltip">
                         <span class="course-collaborator-tooltip-text" data-bind="text: displayName"></span>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <!-- /ko -->
+        <!-- ko if: canAddMember -->
+        <li class="course-collaborator-item-wrapper">
+            <div class="course-collaborator-item">
+                <div class="user-avatar course-collaborator-add-btn" data-bind="click: addMember">&nbsp;</div>
+                <div class="course-collaborator-tooltip-wrapper">
+                    <div class="course-collaborator-tooltip">
+                        <span class="course-collaborator-tooltip-text" data-bind="localize: { text: 'addCollaborator' }"></span>
                     </div>
                 </div>
             </div>

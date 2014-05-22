@@ -1,5 +1,5 @@
-﻿define(['viewModels/courses/collaboration/collaborator', 'plugins/dialog', 'eventTracker', 'durandal/app', 'constants'],
-    function (vmCollaborator, dialog, eventTracker, app, constants) {
+﻿define(['viewModels/courses/collaboration/collaborator', 'plugins/dialog', 'eventTracker', 'durandal/app', 'constants', 'userContext'],
+    function (vmCollaborator, dialog, eventTracker, app, constants, userContext) {
 
         var
             events = {
@@ -28,6 +28,7 @@
             return {
                 members: members,
                 addMember: addMember,
+                canAddMember: userContext.identity.email === courseOwner,
                 collaboratorAdded: collaboratorAdded
             };
         };

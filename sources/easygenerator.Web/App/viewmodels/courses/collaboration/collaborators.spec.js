@@ -4,6 +4,7 @@
     var
         ctor = require('viewmodels/courses/collaboration/collaborators'),
         dialog = require('plugins/dialog'),
+        userContext = require('userContext'),
         eventTracker = require('eventTracker')
     ;
 
@@ -34,7 +35,7 @@
             ];
 
             beforeEach(function () {
-
+                userContext.identity = {};
             });
 
             it('should be defined', function () {
@@ -49,6 +50,10 @@
         });
 
         describe('addMember:', function () {
+            beforeEach(function () {
+                userContext.identity = {};
+            });
+
             it('should be function', function () {
                 viewModel = ctor('', []);
                 expect(viewModel.addMember).toBeFunction();
@@ -67,7 +72,33 @@
             });
         });
 
+        describe('canAddMember:', function () {
+            it('should be defined', function () {
+                expect(viewModel.canAddMember).toBeDefined();
+            });
+
+            describe('when user is course owner', function () {
+                it('should be true', function () {
+                    userContext.identity = { email: owner };
+                    viewModel = ctor(owner, []);
+                    expect(viewModel.canAddMember).toBeTruthy();
+                });
+            });
+
+            describe('when user is not course owner', function () {
+                it('should be false', function () {
+                    userContext.identity = { email: 'email@mail.com' };
+                    viewModel = ctor(owner, []);
+                    expect(viewModel.canAddMember).toBeFalsy();
+                });
+            });
+        });
+
         describe('collaboratorAdded:', function () {
+            beforeEach(function () {
+                userContext.identity = {};
+            });
+
             it('should be function', function () {
                 viewModel = ctor('', []);
                 expect(viewModel.collaboratorAdded).toBeFunction();

@@ -5,7 +5,6 @@
 }
 
 .course-collaborators-list {
-    margin-right: 45px;
     list-style: none;
     text-align: right;
     cursor: default;
@@ -56,11 +55,11 @@
 
 .course-collaborator-tooltip-wrapper {
     display: none;
-    width: 300px;
+    width: 220px;
     position: absolute;
     top: 100%;
     left: 50%;
-    margin-left: -150px;
+    margin-left: -110px;
     text-align: center;
     z-index: 1;
 }
@@ -71,7 +70,7 @@
 
 .course-collaborator-tooltip {
     display: inline-block;
-    max-width: 300px;
+    max-width: 220px;
     position: relative;
     margin-top: 6px;
     padding: 5px;
@@ -99,24 +98,21 @@
     font-size: 12px;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 @media (max-width: 1350px) {
 
-    .course-collaborators-list > :last-child .course-collaborator-tooltip-wrapper,
-    .course-collaborator-tooltip-wrapper.add-collaborator-tooltip {
+    .course-collaborators-list > :nth-last-child(1) .course-collaborator-tooltip-wrapper,
+    .course-collaborators-list > :nth-last-child(2) .course-collaborator-tooltip-wrapper {
         left: auto;
         right: 0;
         text-align: right;
     }
 
-        .course-collaborators-list > :last-child .course-collaborator-tooltip-wrapper .course-collaborator-tooltip:after,
-        .course-collaborator-tooltip-wrapper.add-collaborator-tooltip .course-collaborator-tooltip:after {
+        .course-collaborators-list > :nth-last-child(1) .course-collaborator-tooltip-wrapper .course-collaborator-tooltip:after,
+        .course-collaborators-list > :nth-last-child(2) .course-collaborator-tooltip-wrapper .course-collaborator-tooltip:after{
             left: auto;
             right: 7px;
-            -webkit-transform: rotate(135deg);
-            margin-bottom: -2px;
         }
 }
 

@@ -131,6 +131,7 @@
     <Compile Include="BuildCourse\BuildPackageCreatorTests.cs" />
     <Compile Include="BuildCourse\PackageModelMapperTests.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorizeAttributeTests.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\CourseOwnerAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCoursesAmountAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\StarterAccessAttributeTests.cs" />
