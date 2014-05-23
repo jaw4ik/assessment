@@ -1015,58 +1015,6 @@
 
 /*#endregion PUBLISH STEP*/
 
-/*#region Template selector*/
-
-.course-template-selector {
-    display: inline-block;
-    min-width: 200px;
-    max-width: 300px;
-}
-
-.course-template-selector-text {
-    line-height: normal;
-    white-space: normal;
-    letter-spacing: 0;
-    color: #666;
-    font-size: 14px;
-    font-family: 'OpenSans-Semibold';
-}
-
-.create-course .course-template-selector {
-    display: inline-block;
-}
-
-.create-course .course-template-selector-text {
-    font-size: 14px;
-    color: #666;
-    letter-spacing: 0;
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 6px;
-    margin-right: 5px;
-    padding-bottom: 0;
-}
-
-@media (max-width: 890px) {
-    .create-course .course-template-selector {
-        float: right;
-    }
-
-    .create-course .course-template-selector-text {
-        font-size: 14px;
-        color: #666;
-        display: block;
-        margin-right: 0;
-        margin-bottom: 5px;
-    }
-
-    .create-course .form-actions {
-        padding-top: 100px;
-    }
-}
-
-/*#endregion Template selector*/
-
 /*#region tip for add new learning objective*/
 
 .course .create-tip {
