@@ -920,6 +920,7 @@
     <Content Include="Content\images\blue-loader.GIF" />
     <Content Include="Content\images\build-loader.gif" />
     <Content Include="Content\images\buildprogress.gif" />
+    <Content Include="Content\images\disabled-question.png" />
     <Content Include="Content\images\collapse-btn-icon.png" />
     <Content Include="Content\images\dialog-header.png" />
     <Content Include="Content\images\disabled.png" />

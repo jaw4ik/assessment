@@ -1,16 +1,14 @@
-﻿using System.Collections.ObjectModel;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
-using System.Collections.Generic;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.ViewModels.Api;
-using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -25,8 +23,20 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [Route("api/question/create")]
-        public ActionResult Create(Objective objective, string title, QuestionType type = QuestionType.MultipleChoice)
+        [Route("api/question/create/type/0")]
+        public ActionResult CreateMultipleChoice(Objective objective, string title)
+        {
+            return Create(objective, title, QuestionType.MultipleChoice);
+        }
+
+        [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToCreateOtherQuestionTypes)]
+        [Route("api/question/create/type/1")]
+        public ActionResult CreateFillInTheBlank(Objective objective, string title)
+        {
+            return Create(objective, title, QuestionType.FillInTheBlanks);
+        }
+
+        private ActionResult Create(Objective objective, string title, QuestionType type)
         {
             if (objective == null)
             {

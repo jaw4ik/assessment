@@ -26,6 +26,7 @@ namespace easygenerator.Infrastructure
 
         public const string UpgradeToStarterPlanToUseScormResourceKey = "upgradeToStarterPlanToUseScormErrorMessage";
         public const string UpgradeToStarterPlanToUseCommentsErrorMessage = "upgradeToStarterPlanToUseCommentsErrorMessage";
+        public const string UpgradeToStarterPlanToCreateOtherQuestionTypes = "upgradeToStarterPlanToCreateOtherQuestionTypes";
 
         public const string UpgradeToNextPlanToCreateMoreCoursesErrorMessage = "upgradeToNextPlanToCreateMoreCoursesErrorMessage";
         public const string NotEnoughPermissionsErrorMessage = "notEnoughPermissionsErrorMessage";

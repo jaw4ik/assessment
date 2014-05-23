@@ -47,44 +47,90 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
-        #region Create question
+        #region CreateMultipleChoice question
 
         [TestMethod]
-        public void Create_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
+        public void CreateMultipleChoice_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
         {
-            var result = _controller.Create(null, null);
+            var result = _controller.CreateMultipleChoice(null, null);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
             result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
         }
 
         [TestMethod]
-        public void Create_ShouldAddQuestionToObjective()
+        public void CreateMultipleChoice_ShouldAddQuestionToObjective()
         {
             const string title = "title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
+            var question = Substitute.For<Question>("Question title", QuestionType.MultipleChoice, CreatedBy);
 
-            _entityFactory.Question(title, Type, user).Returns(question);
+            _entityFactory.Question(title, QuestionType.MultipleChoice, user).Returns(question);
 
-            _controller.Create(objective, title);
+            _controller.CreateMultipleChoice(objective, title);
 
             objective.Received().AddQuestion(question, user);
         }
 
         [TestMethod]
-        public void Create_ShouldReturnJsonSuccessResult()
+        public void CreateMultipleChoice_ShouldReturnJsonSuccessResult()
         {
             const string title = "title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
-            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
+            var question = Substitute.For<Question>("Question title", QuestionType.MultipleChoice, CreatedBy);
 
-            _entityFactory.Question(title, Type, user).Returns(question);
+            _entityFactory.Question(title, QuestionType.MultipleChoice, user).Returns(question);
 
-            var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
+            var result = _controller.CreateMultipleChoice(Substitute.For<Objective>("Objective title", CreatedBy), title);
+
+            result.Should()
+                .BeJsonSuccessResult()
+                .And.Data.ShouldBeSimilar(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
+        }
+
+        #endregion
+
+        #region CreateFillInTheBlank question
+
+        [TestMethod]
+        public void CreateFillInTheBlank_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
+        {
+            var result = _controller.CreateFillInTheBlank(null, null);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+        }
+
+        [TestMethod]
+        public void CreateFillInTheBlank_ShouldAddQuestionToObjective()
+        {
+            const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", QuestionType.FillInTheBlanks, CreatedBy);
+
+            _entityFactory.Question(title, QuestionType.FillInTheBlanks, user).Returns(question);
+
+            _controller.CreateFillInTheBlank(objective, title);
+
+            objective.Received().AddQuestion(question, user);
+        }
+
+        [TestMethod]
+        public void CreateFillInTheBlank_ShouldReturnJsonSuccessResult()
+        {
+            const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var question = Substitute.For<Question>("Question title", QuestionType.FillInTheBlanks, CreatedBy);
+
+            _entityFactory.Question(title, QuestionType.FillInTheBlanks, user).Returns(question);
+
+            var result = _controller.CreateFillInTheBlank(Substitute.For<Objective>("Objective title", CreatedBy), title);
 
             result.Should()
                 .BeJsonSuccessResult()

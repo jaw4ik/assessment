@@ -1,41 +1,54 @@
-﻿define(['commands/createQuestionCommand', 'plugins/router', 'constants'], function (createQuestionCommand, router, constants) {
+﻿define(['commands/createQuestionCommand', 'plugins/router', 'constants', 'userContext'], function (createQuestionCommand, router, constants, userContext) {
 
     "use strict";
 
-    var createQuestionWidget = function () { };
+    var viewModel = {
+        objectiveId: null,
+        eventCategory: null,
+        visible: ko.observable(false),
+        hasStarterAccess: ko.observable(userContext.hasStarterAccess()),
 
-    createQuestionWidget.prototype.visible = ko.observable(false);
-
-    createQuestionWidget.prototype.activate = function (settings) {
-        createQuestionWidget.prototype.objectiveId = settings.objectiveId;
-        createQuestionWidget.prototype.eventCategory = settings.eventCategory;
+        activate: activate,
+        show: show,
+        hide: hide,
+        createMultipleChoiceQuestion: createMultipleChoiceQuestion,
+        createFillInTheBlankQuestion: createFillInTheBlankQuestion
     };
 
-    createQuestionWidget.prototype.toggleVisible = function() {
-       this.visible(!this.visible());
-    };
+    return viewModel;
 
-    createQuestionWidget.prototype.hide = function() {
-        createQuestionWidget.prototype.visible(false);
-    };
+    function activate(settings) {
+        viewModel.objectiveId = settings.objectiveId;
+        viewModel.eventCategory = settings.eventCategory;
 
-    createQuestionWidget.prototype.createMultipleChoiceQuestion = function() {
+        return userContext.identify().then(function() {
+            viewModel.hasStarterAccess(userContext.hasStarterAccess());
+        });
+    }
+
+    function show() {
+       viewModel.visible(!this.visible());
+    }
+
+    function hide() {
+        viewModel.visible(false);
+    }
+
+    function createMultipleChoiceQuestion() {
         var courseId = getCourseId();
-        this.visible(false);
-        return createQuestionCommand.execute(this.objectiveId, courseId, constants.questionType.multipleChoice.type);
-    };
+        viewModel.visible(false);
+        return createQuestionCommand.execute(viewModel.objectiveId, courseId, constants.questionType.multipleChoice.type);
+    }
 
-    createQuestionWidget.prototype.createFillInTheBlankQuestion = function () {
+    function createFillInTheBlankQuestion() {
         var courseId = getCourseId();
-        this.visible(false);
-        return createQuestionCommand.execute(this.objectiveId, courseId, constants.questionType.fillInTheBlank.type);
-    };
+        viewModel.visible(false);
+        return createQuestionCommand.execute(viewModel.objectiveId, courseId, constants.questionType.fillInTheBlank.type);
+    }
 
     function getCourseId() {
         var params = router.activeInstruction().queryParams;
         return  _.isNullOrUndefined(params) ? null : params.courseId;
     }
-
-    return createQuestionWidget;
 
 });

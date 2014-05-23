@@ -1,5 +1,5 @@
 ﻿<div>
-    <div class="action-item-btn btn create-question" data-bind="click: toggleVisible, css: { active: visible }, stopEventPropagation: { event: 'click' }">
+    <div class="action-item-btn btn create-question" data-bind="click: show, css: { active: visible }, stopEventPropagation: { event: 'click' }">
         <span class=" create-question-text" data-bind="localize: { text: 'createNewQuestion' }">
         </span>
     </div>
@@ -9,10 +9,22 @@
                 <div class="question-type-image multiple-choise"></div>
                 <span class="question-type-text" data-bind="localize: { text: 'multipleChoise' }">Multiple choise</span>
             </li>
+            <!-- ko if: hasStarterAccess() -->
             <li class="question-type-action-item" data-bind="click: createFillInTheBlankQuestion">
                 <div class="question-type-image fill-in-the-blank"></div>
                 <span class="question-type-text" data-bind="localize: { text: 'fillInTheBlank' }">Fill in the blank</span>
             </li>
+            <!-- /ko -->
+            <!-- ko ifnot: hasStarterAccess() -->
+            <li class="question-type-action-item disabled">
+                <div class="disabled-question-container">
+                    <a class="upgrade-user-link" target="blank" href="/account/upgrade">
+                        <span class="upgrade-user-text" data-bind="localize: { text: 'upgradeNowBtn' }">Upgrade now</span>
+                    </a>
+                </div>
+                <span class="question-type-text">Fill in the blank</span>
+            </li>
+            <!-- /ko -->
         </ul>
     </div>
 </div>

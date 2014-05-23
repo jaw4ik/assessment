@@ -119,10 +119,9 @@
                         var promise = questionRepository.addQuestion(objectiveId, question, questionType);
 
                         promise.fin(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/create', {
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/create/type/' + questionType, {
                                 objectiveId: objectiveId,
                                 title: question.title,
-                                type: questionType
                             });
                             done();
                         });
@@ -659,7 +658,7 @@
                 });
 
                 describe('when all arguments are valid', function () {
-                    
+
                     it('should send request to server to api/question/updateTitle', function (done) {
                         var questionId = 'questionId';
                         var questionTitle = 'questionTitle';
@@ -1013,7 +1012,7 @@
                         });
 
                     });
-                    
+
                 });
 
             });
