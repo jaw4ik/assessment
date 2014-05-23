@@ -4,8 +4,7 @@
         "use strict";
 
         var events = {
-            navigateToObjectiveDetails: 'Navigate to objective details',
-            navigateToCreateObjective: 'Navigate to create objective'
+            navigateToObjectiveDetails: 'Navigate to objective details'
         };
 
         var eventsForCourseContent = {
@@ -31,7 +30,6 @@
             viewModel.id = course.id;
             viewModel.title = course.title;
             viewModel.collaborators = new collaboratorsViewModel(course.createdBy, course.collaborators);
-            viewModel.courseIntroductionContent = course.introductionContent;
 
             viewModel.courseIntroductionContent = contentFieldViewModel(course.introductionContent, eventsForCourseContent, false, function (content) {
                 return true;
