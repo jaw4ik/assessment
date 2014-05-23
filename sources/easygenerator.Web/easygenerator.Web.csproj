@@ -398,6 +398,7 @@
     <Content Include="Templates\Exam\css\fonts\ubuntu-regular.eot" />
     <Content Include="Templates\Exam\css\fonts\ubuntu-regular.ttf" />
     <Content Include="Templates\Exam\css\fonts\ubuntu-regular.woff" />
+    <Content Include="Templates\Exam\css\general.css" />
     <Content Include="Templates\Quiz\app\main.js" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.ttf" />
@@ -1299,11 +1300,6 @@
     <Content Include="Templates\Exam\css\images\icons-xApi.png" />
     <Content Include="Templates\Exam\css\images\info-message.png" />
     <Content Include="Templates\Exam\css\images\xapierror.png" />
-    <Content Include="Templates\Exam\css\jasmine.css" />
-    <Content Include="Templates\Exam\css\login.css" />
-    <Content Include="Templates\Exam\css\styles.css" />
-    <Content Include="Templates\Exam\css\xAPIError.css" />
-    <Content Include="Templates\Exam\css\xAPINotSupported.css" />
     <Content Include="Templates\Exam\img\arrow_up.png" />
     <Content Include="Templates\Exam\img\bg-bottom.png" />
     <Content Include="Templates\Exam\img\bg-corners.png" />
