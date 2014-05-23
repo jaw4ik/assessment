@@ -1,19 +1,18 @@
-﻿define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard', 'repositories/objectiveRepository', 'durandal/system'], function (app, dataContext, constants, httpWrapper, guard, objectiveRepository, system) {
+﻿define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard', 'repositories/objectiveRepository', 'durandal/system', 'models/answerOption'],
+    function (app, dataContext, constants, httpWrapper, guard, objectiveRepository, system, answerModel) {
 
     var
-        addQuestion = function (objectiveId, obj) {
+        addQuestion = function (objectiveId, obj, questionType) {
             return Q.fcall(function () {
 
                 guard.throwIfNotString(objectiveId, 'Objective id is not a string');
                 guard.throwIfNotAnObject(obj, 'Question data is not an object');
 
-                return httpWrapper.post('api/question/create', { objectiveId: objectiveId, title: obj.title })
+                return httpWrapper.post('api/question/create', { objectiveId: objectiveId, title: obj.title, type: questionType })
                     .then(function (response) {
-
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.Id, 'Question Id is not a string');
                         guard.throwIfNotString(response.CreatedOn, 'Question creation date is not a string');
-
 
                         var objective = _.find(dataContext.objectives, function (item) {
                             return item.id === objectiveId;
@@ -30,7 +29,8 @@
                                 learningContents: [],
                                 answerOptions: [],
                                 createdOn: createdOn,
-                                modifiedOn: createdOn
+                                modifiedOn: createdOn,
+                                type: questionType
                             };
 
                         objective.modifiedOn = createdOn;
@@ -132,6 +132,42 @@
             });
         },
 
+        updateFillInTheBlank = function (questionId, fillInTheBlank, answersCollection) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(questionId, 'Question id is not a string');
+                var data = {
+                    questionId: questionId,
+                    fillInTheBlank: fillInTheBlank,
+                    answersCollection: _.map(answersCollection, function(item) {
+                        return {
+                            GroupId: item.groupId,
+                            Text: item.text,
+                            IsCorrect: item.isCorrect
+                        };
+                    })
+                };
+
+                return httpWrapper.post('api/question/updatefillintheblank', data)
+                    .then(function (response) {
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+
+                        var question = _.find(getQuestions(), function (item) {
+                            return item.id == questionId;
+                        });
+
+                        guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
+
+                        var modifiedOn = new Date(response.ModifiedOn);
+
+                        question.content = fillInTheBlank;
+                        question.modifiedOn = modifiedOn;
+
+                        return modifiedOn;
+                });
+            });
+        },
+
         getById = function (objectiveId, questionId) {
             if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(questionId))
                 throw 'Invalid arguments';
@@ -166,6 +202,7 @@
         removeQuestions: removeQuestions,
         updateTitle: updateTitle,
         updateContent: updateContent,
+        updateFillInTheBlank: updateFillInTheBlank,
         getById: getById
     };
 });

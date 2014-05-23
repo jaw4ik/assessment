@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
@@ -95,7 +96,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         [TestMethod]
         public void Handle_ShouldDefineCreatedByForQuestionsThatWereCreatedInTryMode()
         {
-            var question = Substitute.For<Question>("title", TryItNowUsername);
+            var question = Substitute.For<Question>("title", QuestionType.MultipleChoice, TryItNowUsername);
             _questionRepository.GetCollection().Returns(new List<Question>() { question });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
@@ -106,7 +107,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         [TestMethod]
         public void Handle_ShouldNotDefineCreatedByForQuestionsThatWereCreatedByOtherExistingUser()
         {
-            var question = Substitute.For<Question>("title", OtherExistingUser);
+            var question = Substitute.For<Question>("title", QuestionType.MultipleChoice, OtherExistingUser);
             _questionRepository.GetCollection().Returns(new List<Question>() { question });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
@@ -121,7 +122,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         [TestMethod]
         public void Handle_ShouldDefineCreatedByForAnswersThatWereCreatedInTryMode()
         {
-            var answer = Substitute.For<Answer>("text", true, TryItNowUsername);
+            var answer = Substitute.For<Answer>("text", true, default(Guid), TryItNowUsername);
             _answerRepository.GetCollection().Returns(new List<Answer>() { answer });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
@@ -132,7 +133,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         [TestMethod]
         public void Handle_ShouldNotDefineCreatedByForAnswersThatWereCreatedByOtherExistingUser()
         {
-            var answer = Substitute.For<Answer>("text", true, OtherExistingUser);
+            var answer = Substitute.For<Answer>("text", true, default(Guid), OtherExistingUser);
             _answerRepository.GetCollection().Returns(new List<Answer>() { answer });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
@@ -6,6 +8,7 @@ using easygenerator.Web.Components;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.ViewModels.Api;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -20,6 +23,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Route("api/answer/create")]
         public ActionResult Create(Question question, string text, bool isCorrect)
         {
             if (question == null)
@@ -27,7 +31,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
 
-            var answer = _entityFactory.Answer(text, isCorrect, GetCurrentUsername());
+            var answer = _entityFactory.Answer(text, isCorrect, Guid.Empty, GetCurrentUsername());
 
             question.AddAnswer(answer, GetCurrentUsername());
 
@@ -35,6 +39,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Route("api/answer/delete")]
         public ActionResult Delete(Question question, Answer answer)
         {
             if (question == null)
@@ -51,6 +56,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Route("api/answer/update")]
         public ActionResult Update(Answer answer, string text, bool isCorrect)
         {
             if (answer == null)
@@ -65,6 +71,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Route("api/answers")]
         public ActionResult GetCollection(Question question)
         {
             if (question == null)
@@ -77,7 +84,8 @@ namespace easygenerator.Web.Controllers.Api
                 Id = a.Id.ToNString(),
                 Text = a.Text,
                 IsCorrect = a.IsCorrect,
-                CreatedOn = a.CreatedOn
+                CreatedOn = a.CreatedOn,
+                Group = a.Group.ToNString()
             });
 
             return JsonSuccess(new { Answers = answers });

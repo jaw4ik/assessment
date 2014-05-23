@@ -7,14 +7,10 @@ define(function (require) {
         eventTracker = require('eventTracker'),
         questionRepository = require('repositories/questionRepository'),
         objectiveRepository = require('repositories/objectiveRepository'),
-        notify = require('notify'),
         http = require('plugins/http'),
         localizationManager = require('localization/localizationManager'),
         ping = require('ping'),
-        BackButton = require('models/backButton'),
-        createQuestionCommand = require('commands/createQuestionCommand'),
-        clientContext = require('clientContext')
-    ;
+        BackButton = require('models/backButton');
 
     var question = {
         id: '1',
@@ -64,67 +60,11 @@ define(function (require) {
         });
 
         describe('objectiveId:', function () {
+
             it('should be defined', function () {
                 expect(viewModel.objectiveId).toBeDefined();
             });
-        });
 
-        describe('title:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.title).toBeObservable();
-            });
-
-            describe('isEditing', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.title.isEditing).toBeObservable();
-                });
-
-            });
-
-            describe('isValid', function () {
-
-                it('should be computed', function () {
-                    expect(viewModel.title.isValid).toBeComputed();
-                });
-
-                describe('when title is empty', function () {
-
-                    it('should be false', function () {
-                        viewModel.title('');
-                        expect(viewModel.title.isValid()).toBeFalsy();
-                    });
-
-                });
-
-                describe('when title is longer than 255', function () {
-
-                    it('should be false', function () {
-                        viewModel.title(utils.createString(viewModel.questionTitleMaxLength + 1));
-                        expect(viewModel.title.isValid()).toBeFalsy();
-                    });
-
-                });
-
-                describe('when title is longer than 255 but after trimming is not longer than 255', function () {
-
-                    it('should be true', function () {
-                        viewModel.title('   ' + utils.createString(viewModel.questionTitleMaxLength - 1) + '   ');
-                        expect(viewModel.title.isValid()).toBeTruthy();
-                    });
-
-                });
-
-                describe('when title is not empty and not longer than 255', function () {
-
-                    it('should be true', function () {
-                        viewModel.title(utils.createString(viewModel.questionTitleMaxLength - 1));
-                        expect(viewModel.title.isValid()).toBeTruthy();
-                    });
-
-                });
-            });
         });
 
         describe('navigateToObjectiveEvent:', function () {
@@ -138,195 +78,6 @@ define(function (require) {
                 expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective details');
             });
 
-        });
-
-        describe('questionTitleMaxLength:', function () {
-
-            it('should be defined', function () {
-                expect(viewModel.questionTitleMaxLength).toBeDefined();
-            });
-
-            it('should be 255', function () {
-                expect(viewModel.questionTitleMaxLength).toBe(255);
-            });
-
-        });
-
-        describe('startEditQuestionTitle:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.startEditQuestionTitle).toBeFunction();
-            });
-
-            it('should set title.isEditing to true', function () {
-                viewModel.title.isEditing(false);
-                viewModel.startEditQuestionTitle();
-                expect(viewModel.title.isEditing()).toBeTruthy();
-            });
-
-        });
-
-        describe('endEditQuestionTitle:', function () {
-
-            var updateDeferred, getByIdDeferred;
-
-            beforeEach(function () {
-                updateDeferred = Q.defer();
-                getByIdDeferred = Q.defer();
-
-                spyOn(questionRepository, 'updateTitle').and.returnValue(updateDeferred.promise);
-                spyOn(questionRepository, 'getById').and.returnValue(getByIdDeferred.promise);
-            });
-
-            it('should be function', function () {
-                expect(viewModel.endEditQuestionTitle).toBeFunction();
-            });
-
-            it('should set title.isEditing to false', function () {
-                viewModel.title.isEditing(true);
-                viewModel.endEditQuestionTitle();
-                expect(viewModel.title.isEditing()).toBeFalsy();
-            });
-
-            it('should trim title', function () {
-                viewModel.title('    Some title    ');
-                viewModel.endEditQuestionTitle();
-                expect(viewModel.title()).toEqual('Some title');
-            });
-
-            describe('when title is not modified', function () {
-                var promise = null;
-                beforeEach(function () {
-                    viewModel.title(question.title);
-                    promise = getByIdDeferred.promise.finally(function () { });
-                    getByIdDeferred.resolve(question);
-                });
-
-                it('should not send event', function (done) {
-                    viewModel.endEditQuestionTitle();
-
-                    promise.fin(function () {
-                        expect(promise).toBeResolved();
-                        expect(eventTracker.publish).not.toHaveBeenCalled();
-                        done();
-                    });
-                });
-
-                it('should not show notification', function (done) {
-                    spyOn(notify, 'saved');
-                    viewModel.endEditQuestionTitle();
-
-                    promise.fin(function () {
-                        expect(promise).toBeResolved();
-                        expect(notify.saved).not.toHaveBeenCalled();
-                        done();
-                    });
-                });
-
-                it('should not update question in repository', function (done) {
-                    viewModel.endEditQuestionTitle();
-
-                    promise.fin(function () {
-                        expect(promise).toBeResolved();
-                        expect(questionRepository.updateTitle).not.toHaveBeenCalled();
-                        done();
-                    });
-                });
-            });
-
-            describe('when title is modified', function () {
-
-                var getPromise = null, newTitle = question.title + 'lala';
-                beforeEach(function () {
-
-                    viewModel.title(newTitle);
-                    getPromise = getByIdDeferred.promise.finally(function () { });
-                    getByIdDeferred.resolve(question);
-                });
-
-                it('should send event \'Update question title\'', function (done) {
-                    viewModel.endEditQuestionTitle();
-
-                    getPromise.fin(function () {
-                        expect(getPromise).toBeResolved();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Update question title');
-                        done();
-                    });
-                });
-
-                describe('and when title is valid', function () {
-
-                    it('should update question in repository', function (done) {
-                        viewModel.endEditQuestionTitle();
-
-                        getPromise.fin(function () {
-                            expect(getPromise).toBeResolved();
-                            expect(questionRepository.updateTitle).toHaveBeenCalled();
-                            expect(questionRepository.updateTitle.calls.mostRecent().args[1]).toEqual(newTitle);
-                            done();
-                        });
-                    });
-
-                    describe('and when question updated successfully', function () {
-
-                        it('should update notificaion', function (done) {
-                            spyOn(notify, 'saved');
-
-                            viewModel.endEditQuestionTitle();
-
-                            var promise = updateDeferred.promise.finally(function () { });
-                            updateDeferred.resolve(question);
-
-                            Q.all(getPromise, promise).fin(function () {
-                                expect(promise).toBeResolved();
-                                expect(notify.saved).toHaveBeenCalled();
-                                done();
-                            });
-                        });
-
-                    });
-
-                });
-
-                describe('and when title is not valid', function () {
-
-                    it('should revert quiestion title value', function (done) {
-                        viewModel.title('');
-                        viewModel.endEditQuestionTitle();
-
-                        getPromise.fin(function () {
-                            expect(viewModel.title()).toBe(question.title);
-                            done();
-                        });
-                    });
-
-                });
-            });
-        });
-
-        describe('createNewQuestion:', function () {
-
-            beforeEach(function () {
-                viewModel.objectiveId = 'objectiveId';
-                spyOn(createQuestionCommand, 'execute');
-            });
-
-            it('should execute createQuestionCommand', function () {
-                viewModel.createNewQuestion();
-                expect(createQuestionCommand.execute.calls.mostRecent().args[0]).toEqual('objectiveId');
-            });
-
-            describe('when courseId is defined in query params', function() {
-                beforeEach(function() {
-                    var instruction = { queryParams: { courseId: 'courseId' } };
-                    spyOn(router, "activeInstruction").and.returnValue(instruction);
-                });
-
-                it('should call command with courseId', function () {
-                    viewModel.createNewQuestion();
-                    expect(createQuestionCommand.execute).toHaveBeenCalledWith('objectiveId', 'courseId');
-                });
-            });
         });
 
         describe('canActivate:', function () {
@@ -464,9 +215,6 @@ define(function (require) {
 
                 promise.fin(function () {
                     expect(viewModel.objectiveId).toBe(objectiveFull.id);
-                    expect(viewModel.title()).toBe(question.title);
-                    expect(viewModel.answers).toBeDefined();
-                    expect(viewModel.learningContents).toBeDefined();
                     done();
                 });
             });
@@ -514,46 +262,6 @@ define(function (require) {
                     });
                 });
 
-            });
-
-        });
-
-        describe('language:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.language).toBeObservable();
-            });
-
-        });
-
-        describe('eventTracker:', function () {
-
-            it('should be object', function () {
-                expect(viewModel.eventTracker).toBeObject();
-            });
-
-        });
-
-        describe('localizationManager', function () {
-
-            it('should be defined', function () {
-                expect(viewModel.localizationManager).toBeDefined();
-            });
-
-        });
-
-        describe('isCreatedQuestion:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.isCreatedQuestion).toBeObservable();
-            });
-
-        });
-
-        describe('questionContent:', function () {
-
-            it('should be object', function () {
-                expect(viewModel.questionContent).toBeObject();
             });
 
         });

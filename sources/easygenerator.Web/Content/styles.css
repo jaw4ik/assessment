@@ -1229,6 +1229,10 @@ span.top-navigation-item.current {
         border-radius: 25px;
     }
 
+    .btn.active {
+        box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset;
+    }
+
 .btn-small {
     min-width: 90px;
     line-height: normal;

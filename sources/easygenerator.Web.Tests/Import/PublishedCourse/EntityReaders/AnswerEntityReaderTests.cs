@@ -21,11 +21,12 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
         {
             _entityFactory = Substitute.For<IEntityFactory>();
 
-            _entityFactory.Answer(Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<string>())
+            _entityFactory.Answer(Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<Guid>(), Arg.Any<string>())
                 .Returns(info =>
                     AnswerObjectMother.Create(info.Args().ElementAt(0).As<string>(),
                         info.Args().ElementAt(1).As<bool>(),
-                        info.Args().ElementAt(2).As<string>()));
+                        info.Args().ElementAt(2).As<Guid>(),
+                        info.Args().ElementAt(3).As<string>()));
 
             _answerEntityReader = new AnswerEntityReader(_entityFactory);
         }

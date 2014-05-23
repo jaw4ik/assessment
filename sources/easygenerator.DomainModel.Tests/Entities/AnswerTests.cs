@@ -34,13 +34,15 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void Answer_ShouldCreateAnswerInstance()
         {
             const string text = "text";
+            Guid group = default(Guid);
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var answer = AnswerObjectMother.Create(text, true, CreatedBy);
+            var answer = AnswerObjectMother.Create(text, true, group, CreatedBy);
 
             answer.Id.Should().NotBeEmpty();
             answer.Text.Should().Be(text);
             answer.IsCorrect.Should().BeTrue();
+            answer.Group.Should().Be(group);
             answer.Question.Should().BeNull();
             answer.CreatedOn.Should().Be(DateTime.MaxValue);
             answer.ModifiedOn.Should().Be(DateTime.MaxValue);

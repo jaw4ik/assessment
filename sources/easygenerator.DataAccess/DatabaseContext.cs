@@ -101,6 +101,7 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<Answer>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<Answer>().Property(e => e.IsCorrect).IsRequired();
+            modelBuilder.Entity<Answer>().Property(e => e.Group).IsRequired();
             modelBuilder.Entity<Answer>().HasRequired(e => e.Question);
 
             modelBuilder.Entity<User>().Property(e => e.Email).IsRequired().HasMaxLength(254);

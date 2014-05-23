@@ -47,7 +47,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Create(null, text, isCorrect);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");  
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");
         }
 
         [TestMethod]
@@ -56,12 +56,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string text = "text";
             const bool isCorrect = true;
             const string user = "username@easygenerator.com";
+            Guid group = default(Guid);
             _user.Identity.Name.Returns(user);
 
             var question = Substitute.For<Question>();
             var answer = Substitute.For<Answer>();
 
-            _entityFactory.Answer(text, isCorrect, user).Returns(answer);
+            _entityFactory.Answer(text, isCorrect, group, user).Returns(answer);
 
             _controller.Create(question, text, isCorrect);
 
@@ -73,11 +74,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             const string text = "text";
             const bool isCorrect = true;
+            Guid group = default(Guid);
             const string user = "username@easygenerator.com";
             _user.Identity.Name.Returns(user);
             var answer = Substitute.For<Answer>();
 
-            _entityFactory.Answer(text, isCorrect, user).Returns(answer);
+            _entityFactory.Answer(text, isCorrect, group, user).Returns(answer);
 
             var result = _controller.Create(Substitute.For<Question>(), text, isCorrect);
 
@@ -96,7 +98,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Delete(null, null);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");  
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");
         }
 
         [TestMethod]
@@ -146,7 +148,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Update(null, null, false);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Answer is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("answerNotFoundError");  
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("answerNotFoundError");
         }
 
 
@@ -187,7 +189,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
-        
+
         #region Get collection
 
         [TestMethod]

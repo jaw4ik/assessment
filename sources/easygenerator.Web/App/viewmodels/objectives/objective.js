@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'ping', 'models/backButton', 'commands/createQuestionCommand'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton, createQuestionCommand) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'ping', 'models/backButton'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton) {
         "use strict";
 
         var
@@ -31,7 +31,6 @@
                 navigateToObjectivesEvent: navigateToObjectivesEvent,
                 navigateToEditQuestion: navigateToEditQuestion,
 
-                createQuestion: createQuestion,
                 deleteSelectedQuestions: deleteSelectedQuestions,
                 toggleQuestionSelection: toggleQuestionSelection,
                 updateQuestionsOrder: updateQuestionsOrder,
@@ -95,13 +94,6 @@
             }
 
             router.navigate(getEditQuestionLink(question.id));
-        }
-
-        function createQuestion() {
-            var params = router.activeInstruction().queryParams;
-            var courseId = _.isNullOrUndefined(params) ? null : params.courseId;
-
-            return createQuestionCommand.execute(viewModel.objectiveId, courseId);
         }
 
         function deleteSelectedQuestions() {
@@ -192,7 +184,8 @@
                             title: question.title,
                             modifiedOn: question.modifiedOn,
                             isSelected: ko.observable(false),
-                            editLink: getEditQuestionLink(question.id)
+                            editLink: getEditQuestionLink(question.id),
+                            image: getQuestionImageLink(question.type)
                         };
                     });
 
@@ -209,6 +202,15 @@
             queryString = _.isNullOrUndefined(queryString) ? '' : '?' + queryString;
 
             return '#objective/' + viewModel.objectiveId + '/question/' + questionId + queryString;
+        }
+
+        function getQuestionImageLink(type) {
+            switch (type) {
+                case constants.questionType.multipleChoice.type:
+                    return constants.questionType.multipleChoice.image;
+                case constants.questionType.fillInTheBlank.type:
+                    return constants.questionType.fillInTheBlank.image;
+            }
         }
 
         function getSelectedQuestions() {

@@ -42,7 +42,7 @@
                     eventTracker.publish(events.deleteAnswerOption);
 
                     return clearSelection().then(function () {
-                        performActionWhenAnswerIdIsSet(answer, function() {
+                        performActionWhenAnswerIdIsSet(answer, function () {
                             answerOptions.remove(answer);
                             repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function (response) {
                                 showNotification();

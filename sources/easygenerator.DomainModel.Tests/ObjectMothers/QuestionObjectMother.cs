@@ -17,9 +17,9 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(createdBy: createdBy);
         }
 
-        public static Question Create(string title = Title, string createdBy = CreatedBy)
+        public static Question Create(string title = Title, QuestionType type = QuestionType.MultipleChoice, string createdBy = CreatedBy)
         {
-            return new Question(title, createdBy);
+            return new Question(title, type, createdBy);
         }
     }
 }

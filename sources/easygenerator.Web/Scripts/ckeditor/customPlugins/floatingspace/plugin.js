@@ -325,8 +325,10 @@
                 win.on( 'resize', uiBuffer.input );
             } );
 
-            editor.on( 'blur', function() {
-                floatSpace.hide();
+            editor.on('blur', function () {
+                setTimeout(function () {
+                    floatSpace.hide();
+                }, 0);
                 editor.removeListener( 'change', changeBuffer.input );
                 editorsHolder.removeListener('scroll', uiBuffer.input);
                 win.removeListener( 'resize', uiBuffer.input );

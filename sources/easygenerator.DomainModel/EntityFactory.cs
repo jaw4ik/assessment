@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System;
+using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel
 {
@@ -6,9 +7,9 @@ namespace easygenerator.DomainModel
     {
         Objective Objective(string title, string createdBy);
         Course Course(string title, Template template, string createdBy);
-        Question Question(string title, string createdBy);
+        Question Question(string title, QuestionType type, string createdBy);
         Comment Comment(string text, string createdBy);
-        Answer Answer(string text, bool isCorrect, string createdBy);
+        Answer Answer(string text, bool isCorrect, Guid group, string createdBy);
         LearningContent LearningContent(string text, string createdBy);
         User User(string email, string password, string firstname, string lastname, string phone, string organization, string country, string createdBy);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
@@ -27,9 +28,9 @@ namespace easygenerator.DomainModel
             return new Course(title, template, createdBy);
         }
 
-        public Question Question(string title, string createdBy)
+        public Question Question(string title, QuestionType type, string createdBy)
         {
-            return new Question(title, createdBy);
+            return new Question(title, type, createdBy);
         }
 
         public Comment Comment(string text, string createdBy)
@@ -37,9 +38,9 @@ namespace easygenerator.DomainModel
             return new Comment(createdBy, text);
         }
 
-        public Answer Answer(string text, bool isCorrect, string createdBy)
+        public Answer Answer(string text, bool isCorrect, Guid group, string createdBy)
         {
-            return new Answer(text, isCorrect, createdBy);
+            return new Answer(text, isCorrect, group, createdBy);
         }
 
         public LearningContent LearningContent(string text, string createdBy)

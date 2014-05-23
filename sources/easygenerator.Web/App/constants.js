@@ -8,6 +8,17 @@
                 starter: '1'
             },
 
+            questionType: {
+                multipleChoice: {
+                    type: 0,
+                    image: '/Content/images/multichoice-question.png'
+                },
+                fillInTheBlank: {
+                    type: 1,
+                    image: '/Content/images/fillintheblank-question.png'
+                }
+            },
+
             sortingOptions: {
                 byTitleAsc: 'byTitleAsc',
                 byTitleDesc: 'byTitleDesc'

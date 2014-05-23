@@ -6,7 +6,8 @@
         router = require('plugins/router'),
         uiLocker = require('uiLocker'),
         clientContext = require('clientContext'),
-        eventTracker = require('eventTracker')
+        eventTracker = require('eventTracker'),
+        constants = require('constants')
     ;
 
     describe('command [createQuestionCommand]', function () {
@@ -23,6 +24,7 @@
                 spyOn(uiLocker, 'lock');
                 spyOn(uiLocker, 'unlock');
                 spyOn(clientContext, 'set');
+                spyOn(eventTracker, 'publish');
             });
 
             it('should be function', function () {
@@ -33,18 +35,48 @@
                 expect(command.execute()).toBePromise();
             });
 
-            it('should send event \'Create new question\'', function () {
-                spyOn(eventTracker, 'publish');
-                command.execute();
-                expect(eventTracker.publish.calls.mostRecent().args[0]).toEqual('Create new question');
+            describe('when event category is defined', function () {
+
+                describe('and when question type is multipleChoice', function () {
+
+                    it('should send event \'Create new question (multiple select)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.multipleChoice.type, 'Event category');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (multiple select)', 'Event category');
+                    });
+
+                });
+
+                describe('and when question type is fillInTheBlank', function () {
+
+                    it('should send event \'Create new question (fill in the blanks)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.fillInTheBlank.type, 'Event category');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (fill in the blanks)', 'Event category');
+                    });
+
+                });
+
             });
 
-            describe('when event category is defined', function () {
-                it('should send event \'Create new question\' with defined event category ', function () {
-                    spyOn(eventTracker, 'publish');
-                    command.execute('objectiveId', 'courseId', 'Event category');
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Create new question', 'Event category');
+            describe('when event category is undefined', function () {
+
+                describe('when question type is multipleChoice', function () {
+
+                    it('should send event \'Create new question (multiple select)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.multipleChoice.type);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (multiple select)', undefined);
+                    });
+
                 });
+
+                describe('when question type is fillInTheBlank', function () {
+
+                    it('should send event \'Create new question (fill in the blanks)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.fillInTheBlank.type);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (fill in the blanks)', undefined);
+                    });
+
+                });
+
             });
 
             it('should lock content', function () {
@@ -52,10 +84,24 @@
                 expect(uiLocker.lock).toHaveBeenCalled();
             });
 
-            it('should add question to repository', function () {
-                spyOn(localizationManager, 'localize').and.returnValue('title');
-                command.execute('objectiveId');
-                expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' });
+            describe('when question type is multipleChoice', function () {
+
+                it('should add question to repository', function () {
+                    spyOn(localizationManager, 'localize').and.returnValue('title');
+                    command.execute('objectiveId', 'title', constants.questionType.multipleChoice.type);
+                    expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.multipleChoice.type);
+                });
+
+            });
+
+            describe('when question type is fillInTheBlank', function () {
+
+                it('should add question to repository', function () {
+                    spyOn(localizationManager, 'localize').and.returnValue('title');
+                    command.execute('objectiveId', 'title', constants.questionType.fillInTheBlank.type);
+                    expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.fillInTheBlank.type);
+                });
+
             });
 
             describe('when question added', function () {
@@ -71,7 +117,7 @@
                     });
                 });
 
-                describe('and courseId is defined', function() {
+                describe('and courseId is defined', function () {
                     it('should navigate to this question with courseId in query string', function (done) {
                         command.execute('objectiveId', 'courseId').fin(function () {
                             expect(router.navigate).toHaveBeenCalledWith('#objective/objectiveId/question/questionId?courseId=courseId');
@@ -79,7 +125,7 @@
                         });
                     });
                 });
-                
+
                 it('should unlock content', function (done) {
                     command.execute('objectiveId').fin(function () {
                         expect(uiLocker.unlock).toHaveBeenCalled();
@@ -111,7 +157,6 @@
             });
 
         });
-
 
     });
 

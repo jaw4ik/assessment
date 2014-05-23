@@ -1,4 +1,5 @@
-﻿using easygenerator.Infrastructure;
+﻿using System;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -6,13 +7,14 @@ namespace easygenerator.DomainModel.Entities
     {
         protected internal Answer() { }
 
-        protected internal Answer(string text, bool isCorrect, string createdBy)
+        protected internal Answer(string text, bool isCorrect, Guid group, string createdBy)
             : base(createdBy)
         {
             ThrowIfTextIsInvalid(text);
 
             Text = text;
             IsCorrect = isCorrect;
+            Group = group;
         }
 
         public string Text { get; private set; }
@@ -35,6 +37,8 @@ namespace easygenerator.DomainModel.Entities
             IsCorrect = isCorrect;
             MarkAsModified(modifiedBy);
         }
+
+        public Guid Group { get; private set; }
 
         public virtual Question Question { get; internal set; }
 

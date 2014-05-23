@@ -8,6 +8,7 @@
 
             obj.title = spec.title;
             obj.content = spec.content;
+            obj.type = spec.type;
 
             return obj;
         };

@@ -19,11 +19,11 @@
                 return httpWrapper.post('api/answers', { questionId: questionId }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotArray(response.Answers, 'Answers is not an array');
-
                     return _.map(response.Answers, function (answer) {
                         return new answerModel({
                             id: answer.Id,
                             text: answer.Text,
+                            groupId: answer.Group,
                             isCorrect: answer.IsCorrect,
                             createdOn: answer.CreatedOn
                         });

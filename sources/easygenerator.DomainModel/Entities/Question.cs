@@ -9,7 +9,7 @@ namespace easygenerator.DomainModel.Entities
     {
         protected internal Question() { }
 
-        protected internal Question(string title, string createdBy)
+        protected internal Question(string title, QuestionType type, string createdBy)
             : base(createdBy)
         {
             ThrowIfTitleIsInvalid(title);
@@ -18,6 +18,8 @@ namespace easygenerator.DomainModel.Entities
 
             AnswersCollection = new Collection<Answer>();
             LearningContentsCollection = new Collection<LearningContent>();
+
+            Type = type;
         }
 
         public string Title { get; private set; }
@@ -40,6 +42,7 @@ namespace easygenerator.DomainModel.Entities
             get { return LearningContentsCollection.AsEnumerable(); }
         }
 
+        public QuestionType Type { get; private set; }
 
         public virtual void UpdateTitle(string title, string modifiedBy)
         {
@@ -75,6 +78,15 @@ namespace easygenerator.DomainModel.Entities
 
             AnswersCollection.Remove(answer);
             answer.Question = null;
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void UpdateAnswers(ICollection<Answer> answers, string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            AnswersCollection = answers;
+
             MarkAsModified(modifiedBy);
         }
 
@@ -118,5 +130,10 @@ namespace easygenerator.DomainModel.Entities
         {
             ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
         }
+    }
+
+    public enum QuestionType
+    {
+        MultipleChoice, FillInTheBlanks
     }
 }

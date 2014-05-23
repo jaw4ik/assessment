@@ -35,9 +35,7 @@
                     </div>
                     <div class="list-item-action create">
                         <div class="action-item-btn-wrapper">
-                            <button class="action-item-btn create-item btn green" data-bind="click: createQuestion">
-                                <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewQuestion' }">New question</span>
-                            </button>
+                            <!-- ko widget: { kind: 'createQuestion', objectiveId: objectiveId } --><!-- /ko -->
                             <!-- ko if: questions().length < 1 -->
                             <div class="tip-arrow-holder right">
                                 <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
@@ -66,7 +64,7 @@
                             </div>
                             <div class="list-item-checkbox">&nbsp;</div>
                             <div class="list-item-logo">
-                                <img class="list-item-logo-image" alt="" src="../../../Content/images/multichoice-question.png" />
+                                <img class="list-item-logo-image" alt="" data-bind="attr: { src: image } " />
                             </div>
                             <div class="list-item-info">
                                 <div class="list-item-title">

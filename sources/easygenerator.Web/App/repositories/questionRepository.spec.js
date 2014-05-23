@@ -8,6 +8,8 @@
             constants = require('constants'),
             app = require('durandal/app');
 
+        var questionType = 0;
+
         describe('[questionRepository]', function () {
 
             var post;
@@ -114,12 +116,13 @@
                         var question = { title: 'title', description: 'description' };
                         post.reject();
 
-                        var promise = questionRepository.addQuestion(objectiveId, question);
+                        var promise = questionRepository.addQuestion(objectiveId, question, questionType);
 
                         promise.fin(function () {
                             expect(httpWrapper.post).toHaveBeenCalledWith('api/question/create', {
                                 objectiveId: objectiveId,
-                                title: question.title
+                                title: question.title,
+                                type: questionType
                             });
                             done();
                         });
@@ -259,7 +262,7 @@
 
                                 it('should add question to objective', function (done) {
                                     var question = { title: 'title' };
-                                    var promise = questionRepository.addQuestion(objective.id, question);
+                                    var promise = questionRepository.addQuestion(objective.id, question, questionType);
 
                                     promise.fin(function () {
                                         expect(objective.questions.length).toEqual(1);
@@ -271,6 +274,7 @@
                                             answerOptions: [],
                                             createdOn: new Date(createdOnDate.toISOString()),
                                             modifiedOn: new Date(createdOnDate.toISOString()),
+                                            type: questionType
                                         });
                                         done();
                                     });
@@ -287,7 +291,7 @@
 
                                 it('should trigger event \'question:created\'', function (done) {
                                     var question = { title: 'title' };
-                                    var promise = questionRepository.addQuestion(objective.id, question);
+                                    var promise = questionRepository.addQuestion(objective.id, question, questionType);
                                     promise.fin(function () {
                                         expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.created, objective.id, {
                                             id: response.Id,
@@ -297,6 +301,7 @@
                                             answerOptions: [],
                                             createdOn: new Date(createdOnDate.toISOString()),
                                             modifiedOn: new Date(createdOnDate.toISOString()),
+                                            type: questionType
                                         });
                                         done();
                                     });
@@ -1086,6 +1091,213 @@
                                 done();
                             });
                         });
+                    });
+
+                });
+
+            });
+
+            describe('updateFillInTheBlank:', function () {
+
+                it('should be function', function () {
+                    expect(questionRepository.updateFillInTheBlank).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(questionRepository.updateFillInTheBlank()).toBePromise();
+                });
+
+                describe('when question id is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateFillInTheBlank(undefined, '');
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when question id is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateFillInTheBlank(null, '');
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when question id is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateFillInTheBlank({}, '');
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when all arguments are valid', function () {
+
+                    it('should send request to server to api/question/updateContent', function (done) {
+                        var questionId = 'questionId';
+                        var fillInTheBlank = 'fillInTheBlank';
+                        var answersCollection = [];
+
+                        post.reject();
+
+                        var promise = questionRepository.updateFillInTheBlank(questionId, fillInTheBlank, answersCollection);
+                        promise.fin(function () {
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/updatefillintheblank', {
+                                questionId: questionId,
+                                fillInTheBlank: fillInTheBlank,
+                                answersCollection: answersCollection
+                            });
+                            done();
+                        });
+                    });
+
+                    describe('and request to server was not successful', function () {
+
+                        it('should reject promise', function (done) {
+                            var reason = 'reason';
+                            var promise = questionRepository.updateFillInTheBlank('', '');
+
+                            post.reject(reason);
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith(reason);
+                                done();
+                            });
+                        });
+
+                    });
+
+                    describe('and request to server was successful', function () {
+
+                        describe('and response is undefined', function () {
+
+                            it('should reject promise', function (done) {
+                                var promise = questionRepository.updateFillInTheBlank('', '');
+
+                                post.resolve(undefined);
+                                promise.fin(function () {
+                                    expect(promise).toBeRejectedWith('Response is not an object');
+                                    done();
+                                });
+                            });
+
+                        });
+
+                        describe('and response is null', function () {
+
+                            it('should reject promise', function (done) {
+                                var promise = questionRepository.updateFillInTheBlank('', '');
+
+                                post.resolve(null);
+                                promise.fin(function () {
+                                    expect(promise).toBeRejectedWith('Response is not an object');
+                                    done();
+                                });
+                            });
+
+                        });
+
+                        describe('and response is not an object', function () {
+
+                            it('should reject promise', function (done) {
+                                var promise = questionRepository.updateFillInTheBlank('', '');
+
+                                post.resolve('');
+                                promise.fin(function () {
+                                    expect(promise).toBeRejectedWith('Response is not an object');
+                                    done();
+                                });
+                            });
+
+                        });
+
+                        describe('and response is an object', function () {
+
+
+
+                        });
+
+                        describe('and response does not have question modification date', function () {
+
+                            it('should reject promise', function (done) {
+                                var promise = questionRepository.updateFillInTheBlank('', '');
+
+                                post.resolve({});
+                                promise.fin(function () {
+                                    expect(promise).toBeRejectedWith('Response does not have modification date');
+                                    done();
+                                });
+                            });
+
+                        });
+
+                        describe('and response has modification date', function () {
+
+                            var createdOnDate = new Date();
+                            var response = { ModifiedOn: createdOnDate.toISOString() };
+
+                            beforeEach(function () {
+                                post.resolve(response);
+                            });
+
+                            describe('and question does not exist in dataContext', function () {
+
+                                beforeEach(function () {
+                                    dataContext.objectives = [];
+                                });
+
+                                it('should reject promise', function (done) {
+                                    var promise = questionRepository.updateFillInTheBlank('', '', {});
+                                    promise.fin(function () {
+                                        expect(promise).toBeRejectedWith('Question does not exist in dataContext');
+                                        done();
+                                    });
+                                });
+
+                            });
+
+                            describe('and question exists in dataContext', function () {
+
+                                var questionId = 'questionId';
+                                var questionContent = 'questionContent';
+
+                                beforeEach(function () {
+                                    dataContext.objectives = [{ id: '', questions: [{ id: questionId }] }];
+                                });
+
+                                it('should update content and modification date', function (done) {
+
+                                    var promise = questionRepository.updateFillInTheBlank(questionId, questionContent, {});
+                                    promise.fin(function () {
+                                        expect(dataContext.objectives[0].questions[0].content).toEqual(questionContent);
+                                        expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
+                                        done();
+                                    });
+                                });
+
+                                it('should resolve promise with modification date', function (done) {
+                                    var promise = questionRepository.updateFillInTheBlank(questionId, questionContent, {});
+                                    promise.fin(function () {
+                                        expect(promise).toBeResolvedWith(new Date(response.ModifiedOn));
+                                        done();
+                                    });
+                                });
+
+                            });
+
+                        });
+
                     });
 
                 });

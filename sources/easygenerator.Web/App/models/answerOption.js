@@ -8,6 +8,7 @@
 
             obj.text = spec.text;
             obj.isCorrect = spec.isCorrect;
+            obj.groupId = spec.groupId;
 
             return obj;
         };

@@ -2,7 +2,7 @@
     "use strict";
 
     var
-        ctor = require('viewmodels/questions/answers'),
+        ctor = require('viewmodels/questions/multipleChoice/answers'),
         repository = require('repositories/answerRepository'),
         eventTracker = require('eventTracker'),
         notify = require('notify')
@@ -43,15 +43,15 @@
 
         describe('selectAnswer:', function () {
             var answer = { id: ko.observable('answerId'), text: ko.observable('test'), isCorrect: ko.observable(false), original: { text: 'old', correctness: true } };
-            
+
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
             });
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.selectAnswer).toBeFunction();
             });
-            
+
             it('should return promise', function () {
                 viewModel.selectedAnswer(null);
                 var result = viewModel.selectAnswer(answer);
@@ -68,8 +68,8 @@
                 });
             });
 
-            describe('when previos selected answer is not changed', function() {
-                
+            describe('when previos selected answer is not changed', function () {
+
                 var updateAnswer;
 
                 beforeEach(function () {
@@ -111,7 +111,7 @@
                     });
                 });
             });
-            
+
         });
 
         describe('clearSelection:', function () {
@@ -119,20 +119,20 @@
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
             });
-            
+
             it('should be function', function () {
                 expect(viewModel.clearSelection).toBeFunction();
             });
-            
+
             it('should return promise', function () {
                 var result = viewModel.clearSelection();
                 expect(result).toBePromise();
             });
 
-            it('should set selectedAnswer to null', function(done) {
+            it('should set selectedAnswer to null', function (done) {
                 var answer = { id: ko.observable('answerId'), text: ko.observable('test'), isCorrect: ko.observable(false), original: { text: 'test', correctness: false } };
                 viewModel.selectedAnswer(answer);
-                
+
                 viewModel.clearSelection().fin(function () {
                     expect(viewModel.selectedAnswer()).toBe(null);
                     done();
@@ -168,9 +168,9 @@
                 expect(viewModel.answers()[0].hasFocus()).toBeTruthy();
             });
 
-            it('should select added answer', function(done) {
+            it('should select added answer', function (done) {
                 viewModel.selectedAnswer(null);
-                
+
                 viewModel.addAnswer().fin(function () {
                     expect(viewModel.selectedAnswer()).toBe(viewModel.answers()[0]);
                     done();
@@ -193,7 +193,7 @@
                 expect(viewModel.removeAnswer).toBeFunction();
             });
 
-            it('should return promise', function() {
+            it('should return promise', function () {
                 expect(repository.removeAnswer()).toBePromise();
             });
 
@@ -226,7 +226,7 @@
 
                 it('should show notification', function (done) {
                     removeAnswer.resolve({ modifiedOn: new Date() });
-                    
+
                     viewModel.removeAnswer(answer).fin(function () {
                         expect(notify.saved).toHaveBeenCalled();
                         done();
@@ -295,7 +295,7 @@
                         viewModel.answers([answerWithoutId]);
                         removeAnswer.resolve({ modifiedOn: new Date() });
                         answerWithoutId.id('answerId');
-                        
+
                         viewModel.removeAnswer(answerWithoutId).fin(function () {
                             expect(notify.saved).toHaveBeenCalled();
                             done();
@@ -366,7 +366,7 @@
                 addAnswer = Q.defer();
                 updateAnswer = Q.defer();
                 removeAnswer = Q.defer();
-                
+
                 spyOn(repository, 'addAnswer').and.returnValue(addAnswer.promise);
                 spyOn(repository, 'updateAnswer').and.returnValue(updateAnswer.promise);
                 spyOn(repository, 'removeAnswer').and.returnValue(removeAnswer.promise);
@@ -383,7 +383,7 @@
 
                     it('should remove answer from the repository', function (done) {
                         viewModel.answers([answer]);
-                        
+
                         viewModel.updateAnswer(answer).fin(function () {
                             expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
                             done();
@@ -391,7 +391,7 @@
                     });
 
                     it('should show notification', function (done) {
-                       viewModel.answers([answer]);
+                        viewModel.answers([answer]);
                         removeAnswer.resolve({ modifiedOn: new Date() });
 
                         viewModel.updateAnswer(answer).fin(function () {
@@ -422,12 +422,12 @@
                         beforeEach(function () {
                             answer.original.text = 'text';
                         });
-                        
-                        describe('and correctness is not modified', function() {
-                            beforeEach(function() {
+
+                        describe('and correctness is not modified', function () {
+                            beforeEach(function () {
                                 answer.original.correctness = false;
                             });
-                            
+
                             it('should not update answer in the repository', function (done) {
                                 updateAnswer.resolve();
 

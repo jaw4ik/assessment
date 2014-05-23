@@ -791,30 +791,6 @@
 
             });
 
-            describe('createQuestion:', function () {
-
-                beforeEach(function () {
-                    viewModel.objectiveId = 'objectiveId';
-                    spyOn(createQuestionCommand, 'execute');
-                });
-
-                it('should execute createQuestionCommand', function () {
-                    viewModel.createQuestion();
-                    expect(createQuestionCommand.execute.calls.mostRecent().args[0]).toEqual('objectiveId');
-                });
-
-                describe('when courseId is defined in query params', function () {
-                    beforeEach(function () {
-                        instruction.queryParams = { courseId: 'courseId' };
-                    });
-
-                    it('should call command with courseId', function () {
-                        viewModel.createQuestion();
-                        expect(createQuestionCommand.execute).toHaveBeenCalledWith('objectiveId', 'courseId');
-                    });
-                });
-            });
-
             describe('deleteSelectedQuestions:', function () {
 
                 var removeQuestions;

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -42,9 +45,10 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void Question_ShouldCreateQuestionInstance()
         {
             const string title = "title";
+            const QuestionType type = QuestionType.MultipleChoice;
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var question = QuestionObjectMother.Create(title, CreatedBy);
+            var question = QuestionObjectMother.Create(title, type, CreatedBy);
 
             question.Id.Should().NotBeEmpty();
             question.Title.Should().Be(title);
@@ -372,6 +376,43 @@ namespace easygenerator.DomainModel.Tests.Entities
             question.RemoveAnswer(answer, user);
 
             question.ModifiedBy.Should().Be(user);
+        }
+
+        #endregion
+
+        #region UpdateAnswers
+
+        [TestMethod]
+        public void UpdateAnswers_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+            var answers = new Collection<Answer>();
+
+            Action action = () => question.UpdateAnswers(answers, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateAnswers_ShouldUpdateReplaceAnswerCollection()
+        {
+            var question = QuestionObjectMother.Create();
+            var answers = new Collection<Answer>() { AnswerObjectMother.Create(), AnswerObjectMother.Create() };
+
+            question.UpdateAnswers(answers, ModifiedBy);
+
+            question.Answers.ToList().Count.Should().Be(2);
+        }
+
+        [TestMethod]
+        public void UpdateAnswers_ShouldUpdateMoidifiedBy()
+        {
+            var question = QuestionObjectMother.Create();
+            var answers = new Collection<Answer>();
+
+            question.UpdateAnswers(answers, ModifiedBy);
+
+            question.ModifiedBy.Should().Be(ModifiedBy);
         }
 
         #endregion

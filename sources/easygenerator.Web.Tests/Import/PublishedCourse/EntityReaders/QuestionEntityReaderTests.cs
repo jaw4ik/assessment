@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using easygenerator.DomainModel;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Import.PublishedCourse;
@@ -26,10 +27,11 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
         {
             _entityFactory = Substitute.For<IEntityFactory>();
 
-            _entityFactory.Question(Arg.Any<string>(), Arg.Any<string>())
+            _entityFactory.Question(Arg.Any<string>(), Arg.Any<QuestionType>(), Arg.Any<string>())
                 .Returns(info =>
                     QuestionObjectMother.Create(info.Args().ElementAt(0).As<string>(),
-                        info.Args().ElementAt(1).As<string>()));
+                        info.Args().ElementAt(1).As<QuestionType>(),
+                        info.Args().ElementAt(2).As<string>()));
 
 
             _physicalFileManager = Substitute.For<PhysicalFileManager>();

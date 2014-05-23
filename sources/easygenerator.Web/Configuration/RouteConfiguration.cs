@@ -39,63 +39,6 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
-            #region Questions
-
-            routes.MapRoute(
-                name: "CreateQuestion",
-                url: "api/question/create",
-                defaults: new { controller = "Question", action = "Create" }
-            );
-
-            routes.MapRoute(
-                name: "DeleteQuestion",
-                url: "api/question/delete",
-                defaults: new { controller = "Question", action = "Delete" }
-            );
-
-            routes.MapRoute(
-                name: "UpdateQuestionTitle",
-                url: "api/question/updateTitle",
-                defaults: new { controller = "Question", action = "UpdateTitle" }
-            );
-
-            routes.MapRoute(
-               name: "UpdateQuestionContent",
-               url: "api/question/updateContent",
-               defaults: new { controller = "Question", action = "UpdateContent" }
-           );
-
-
-            #endregion
-
-            #region Answers
-
-            routes.MapRoute(
-                name: "CreateAnswer",
-                url: "api/answer/create",
-                defaults: new { controller = "Answer", action = "Create" }
-            );
-
-            routes.MapRoute(
-                name: "DeleteAnswer",
-                url: "api/answer/delete",
-                defaults: new { controller = "Answer", action = "Delete" }
-            );
-
-            routes.MapRoute(
-                name: "UpdateAnswer",
-                url: "api/answer/update",
-                defaults: new { controller = "Answer", action = "Update" }
-            );
-
-            routes.MapRoute(
-                name: "GetAnswers",
-                url: "api/answers",
-                defaults: new { controller = "Answer", action = "GetCollection" }
-            );
-
-            #endregion
-
             #region Learning content
 
             routes.MapRoute(

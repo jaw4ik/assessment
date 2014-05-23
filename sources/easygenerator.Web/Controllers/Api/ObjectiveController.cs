@@ -44,7 +44,8 @@ namespace easygenerator.Web.Controllers.Api
                     Content = q.Content,
                     CreatedOn = q.CreatedOn,
                     CreatedBy = q.CreatedBy,
-                    ModifiedOn = q.ModifiedOn
+                    ModifiedOn = q.ModifiedOn,
+                    Type = q.Type
                 })
             });
 

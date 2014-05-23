@@ -49,7 +49,8 @@
                                         title: question.Title,
                                         content: question.Content,
                                         createdOn: new Date(question.CreatedOn),
-                                        modifiedOn: new Date(question.ModifiedOn)
+                                        modifiedOn: new Date(question.ModifiedOn),
+                                        type: question.Type
                                     });
                                 })
                             }));

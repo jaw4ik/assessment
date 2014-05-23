@@ -26,7 +26,8 @@ namespace easygenerator.Web.Import.PublishedCourse.EntityReaders
                 .Single(q => q.Value<string>("id") == questionId.ToString("N").ToLower());
 
             var title = question.Value<string>("title");
-            var questionEntity = _entityFactory.Question(title, createdBy);
+            var type = question.Value<QuestionType>("type");
+            var questionEntity = _entityFactory.Question(title, type, createdBy);
 
             var hasContent = question.Value<bool>("hasContent");
             if (hasContent)

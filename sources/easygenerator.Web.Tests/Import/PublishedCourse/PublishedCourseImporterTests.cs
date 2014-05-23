@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using easygenerator.DomainModel;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -56,7 +57,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
                 _courseEntityReader,
                 _objectiveEntityReader,
                 _questionEntityReader,
-                _answerEntityReader, 
+                _answerEntityReader,
                 _learningContentEntityReader);
 
             _importContentReader.ReadContent(Arg.Any<string>()).Returns("{ }");
@@ -113,7 +114,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
         {
             //Arrange
             string publicationPath = @"SomePathToDirectory";
-            
+
             _physicalFileManager.DirectoryExists(publicationPath)
                 .Returns(true);
 
@@ -155,9 +156,10 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
 
             var questionId = Guid.NewGuid();
             var questionTitle = "Some question title";
+            var questionType = QuestionType.MultipleChoice;
             var questionContent = "Some question content";
 
-            var question = QuestionObjectMother.Create(questionTitle, CreatedBy);
+            var question = QuestionObjectMother.Create(questionTitle, questionType, CreatedBy);
             question.UpdateContent(questionContent, CreatedBy);
 
             _courseStructureReader.GetQuestions(Arg.Any<Guid>(), Arg.Any<JObject>())
@@ -194,7 +196,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
 
             var answerId = Guid.NewGuid();
             var answerText = "Some answer text";
-            var answerCorrectness = true;
+            var answerCorrectness = true; var answerGroup = default(Guid);
 
             _courseStructureReader.GetAnswers(Arg.Any<Guid>(), Arg.Any<JObject>())
                 .Returns(new List<Guid>() { answerId });
@@ -202,7 +204,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _questionEntityReader.ReadQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(QuestionObjectMother.Create());
             _answerEntityReader.ReadAnswer(answerId, CreatedBy, Arg.Any<JObject>())
-                .Returns(AnswerObjectMother.Create(answerText, answerCorrectness, CreatedBy));
+                .Returns(AnswerObjectMother.Create(answerText, answerCorrectness, answerGroup, CreatedBy));
 
             //Act
             var course = _importer.Import(publicationPath, CreatedBy);
@@ -249,7 +251,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).LearningContents.ElementAt(0).Text.Should().Be(learningContentText);
             course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).LearningContents.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
         }
-        
+
         #endregion
 
     }

@@ -120,7 +120,8 @@
                         Id: '1',
                         Text: 'Text1',
                         IsCorrect: true,
-                        CreatedOn: date
+                        CreatedOn: date,
+                        Group: 'text'
                     };
 
                     var mappedAnswers =
@@ -128,7 +129,8 @@
                         id: '1',
                         text: 'Text1',
                         isCorrect: true,
-                        createdOn: date
+                        createdOn: date,
+                        groupId: 'text'
                     };
 
                     var promise = repository.getCollection('SomeId');

@@ -19,11 +19,12 @@ CKEDITOR.editorConfig = function (config) {
     CKEDITOR.plugins.addExternal('floatingspace', CKEDITOR.basePath + 'customPlugins/floatingspace/', 'plugin.js');
     CKEDITOR.plugins.addExternal('mediaembed', CKEDITOR.basePath + 'customPlugins/mediaembed/', 'plugin.js');
     CKEDITOR.plugins.addExternal('imageLibraryPlugin', CKEDITOR.basePath + 'customPlugins/imageLibraryPlugin/', 'plugin.js');
+    CKEDITOR.plugins.addExternal('fillInTheBlank', CKEDITOR.basePath + 'customPlugins/fillInTheBlank/', 'plugin.js');
 
-    config.extraPlugins = 'semanticTagsPlugin,fileUploaderPlugin,image,floatingspace,mediaembed,imageLibraryPlugin';
+    config.extraPlugins = 'semanticTagsPlugin,fileUploaderPlugin,image,floatingspace,mediaembed,imageLibraryPlugin,fillInTheBlank';
     config.extraAllowedContent = 'iframe';
 
-    config.removeFormatTags = 'big,del,font,ins,kbd,s,small,span,strike,tt,var,figcaption,em,strong,u,abbr,acronym,blockquote,q,cite,dfn,code,samp,sub,sup,mark,time';
+    config.removeFormatTags = 'big,del,font,ins,kbd,s,small,strike,tt,var,figcaption,em,strong,u,abbr,acronym,blockquote,q,cite,dfn,code,samp,sub,sup,mark,time';
 
     config.startupOutlineBlocks = true;
     config.title = false;

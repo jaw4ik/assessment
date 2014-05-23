@@ -1,5 +1,5 @@
 ﻿ko.bindingHandlers.ckeditor = {
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+    init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
 
         var language = valueAccessor().language || 'en',
             eventTracker = valueAccessor().eventTracker || null,
@@ -9,12 +9,15 @@
             focusHandler = valueAccessor().focus,
             blurHandler = valueAccessor().blur,
             autosaveInterval = valueAccessor().autosaveInterval || 60000,
+            fillInTheBlank = valueAccessor().fillInTheBlank || false,
             that = bindingContext.$root,
             saveIntervalId = null,
             $toolbarElement = null,
             editor = null,
+            
+            localizationManager = valueAccessor().localizationManager,
 
-            localizationManager = valueAccessor().localizationManager;
+            inPageSettings = {};
 
         CKEDITOR.config.language = language;
 
@@ -27,10 +30,17 @@
                 CKEDITOR.config.floatSpaceWindowOffsetTop = offsetTop;
         };
 
+        if (fillInTheBlank) {
+            inPageSettings.removePlugins = 'magicline';
+            inPageSettings.extraAllowedContent = 'iframe;span[*];input[*];';
+        } else {
+            inPageSettings.removePlugins = 'fillInTheBlank';
+        }
+
         $(element).html(data());
         $(element).attr('contenteditable', true);
-        editor = CKEDITOR.inline(element);
-
+        editor = CKEDITOR.inline(element, inPageSettings);
+    
         editor.on('instanceReady', function () {
             $toolbarElement = $('#cke_' + editor.name);
 
@@ -93,12 +103,6 @@
                 if (isEditing()) {
                     editor.removeListener('blur', onBlur);
                     onBlur();
-                }
-            });
-
-            $(window).on("blur", function () {
-                if (isEditing()) {
-                    $(editor.editable().$).blur();
                 }
             });
         });
@@ -187,7 +191,9 @@
                                 + marginValue + marginTopValue + marginLeftValue + marginRightValue + marginBottomValue;
                         }
                         if (e.attributes.class) {
-                            delete e.attributes.class;
+                            if (!e.attributes.data-group-id) {
+                                delete e.attributes.class;
+                            }
                         }
                     }
                 }

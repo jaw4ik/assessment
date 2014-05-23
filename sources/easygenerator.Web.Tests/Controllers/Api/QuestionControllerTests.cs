@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Import.PublishedCourse.EntityReaders;
 using easygenerator.Web.Tests.Utils;
+using easygenerator.Web.ViewModels.Api;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
@@ -20,6 +25,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
     public class QuestionControllerTests
     {
         private const string CreatedBy = "easygenerator@easygenerator.com";
+        private const QuestionType Type = QuestionType.MultipleChoice;
 
         private QuestionController _controller;
 
@@ -49,7 +55,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Create(null, null);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");  
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
         }
 
         [TestMethod]
@@ -59,9 +65,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question = Substitute.For<Question>("Question title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
 
-            _entityFactory.Question(title, user).Returns(question);
+            _entityFactory.Question(title, Type, user).Returns(question);
 
             _controller.Create(objective, title);
 
@@ -74,9 +80,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string title = "title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
-            var question = Substitute.For<Question>("Question title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
 
-            _entityFactory.Question(title, user).Returns(question);
+            _entityFactory.Question(title, Type, user).Returns(question);
 
             var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
 
@@ -92,17 +98,17 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Delete_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
         {
-            var result = _controller.Delete(null, new List<Question>(){ });
+            var result = _controller.Delete(null, new List<Question>() { });
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");  
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
         }
 
         [TestMethod]
         public void Delete_ShouldReturnBadRequest_WnenQuestionsIsNull()
         {
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            
+
             var result = _controller.Delete(objective, null);
 
             ActionResultAssert.IsBadRequestStatusCodeResult(result);
@@ -115,8 +121,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.Name.Returns(user);
 
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question1 = Substitute.For<Question>("Question title 1", CreatedBy);
-            var question2 = Substitute.For<Question>("Question title 2", CreatedBy);
+            var question1 = Substitute.For<Question>("Question title 1", Type, CreatedBy);
+            var question2 = Substitute.For<Question>("Question title 2", Type, CreatedBy);
 
             _controller.Delete(objective, new List<Question>() { question1, question2 });
 
@@ -128,8 +134,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Delete_ShouldReturnJsonSuccessResult()
         {
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question1 = Substitute.For<Question>("Question title 1", CreatedBy);
-            var question2 = Substitute.For<Question>("Question title 2", CreatedBy);
+            var question1 = Substitute.For<Question>("Question title 1", Type, CreatedBy);
+            var question2 = Substitute.For<Question>("Question title 2", Type, CreatedBy);
 
             var result = _controller.Delete(objective, new List<Question>() { question1, question2 });
 
@@ -150,7 +156,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.UpdateTitle(null, String.Empty);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");  
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");
         }
 
 
@@ -160,7 +166,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string title = "updated title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
-            var question = Substitute.For<Question>("Question title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
 
             _controller.UpdateTitle(question, title);
 
@@ -170,7 +176,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Update_ShouldReturnJsonSuccessResult()
         {
-            var question = Substitute.For<Question>("Question title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
 
             var result = _controller.UpdateTitle(question, String.Empty);
 
@@ -199,7 +205,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string content = "updated content";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
-            var question = Substitute.For<Question>("Question title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
 
             _controller.UpdateContent(question, content);
 
@@ -209,9 +215,82 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void UpdateContent_ShouldReturnJsonSuccessResult()
         {
-            var question = Substitute.For<Question>("Question title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
 
             var result = _controller.UpdateContent(question, String.Empty);
+
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
+        }
+
+        #endregion
+
+        #region UpdateFillInTheBlank
+
+        [TestMethod]
+        public void UpdateFillInTheBlank_ShouldReturnHttpNotFoundResult_WhenQuestionIsNull()
+        {
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var result = _controller.UpdateFillInTheBlank(null, String.Empty, null);
+
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.QuestionNotFoundError);
+        }
+
+        [TestMethod]
+        public void UpdateFillInTheBlank_ShouldRemoveAllAnswerOptions_WhenCollectionOfAnswerViewmodelEmpty()
+        {
+            //Arrange
+            var question = QuestionObjectMother.Create();
+            var answersViewmodels = new List<AnswerViewModel>();
+            var answer1 = AnswerObjectMother.Create();
+            var answer2 = AnswerObjectMother.Create();
+            question.AddAnswer(answer1, CreatedBy);
+            question.AddAnswer(answer2, CreatedBy);
+
+            //Act
+            _controller.UpdateFillInTheBlank(question, String.Empty, answersViewmodels);
+
+            //Assert
+            question.Answers.ToList().Count.Should().Be(0);
+        }
+
+        [TestMethod]
+        public void UpdateFillInTheBlank_ShouldUpdateAnswers()
+        {
+            const string fillInTheBlank = "updated content";
+            var answerModel = new AnswerViewModel() { GroupId = Guid.NewGuid(), IsCorrect = true, Text = "ololosh" };
+            var answersViewmodel = new List<AnswerViewModel>() { answerModel };
+            _user.Identity.Name.Returns(CreatedBy);
+            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
+            
+            _controller.UpdateFillInTheBlank(question, fillInTheBlank, answersViewmodel);
+
+            question.Received().UpdateAnswers(Arg.Any<ICollection<Answer>>(), CreatedBy);
+        }
+
+        [TestMethod]
+        public void UpdateFillInTheBlank_ShouldUpdateQuestionContent()
+        {
+            const string fillInTheBlank = "updated content";
+
+            var answers = new List<Answer>();
+            var answersViewmodels = new List<AnswerViewModel>();
+            _user.Identity.Name.Returns(CreatedBy);
+            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
+
+            _controller.UpdateFillInTheBlank(question, fillInTheBlank, answersViewmodels);
+
+            question.Received().UpdateContent(fillInTheBlank, CreatedBy);
+        }
+
+        [TestMethod]
+        public void UpdateFillInTheBlank_ShouldReturnJsonSuccessResult()
+        {
+            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
+            var answers = new List<Answer>();
+            var answersViewModel = new List<AnswerViewModel>();
+
+            var result = _controller.UpdateFillInTheBlank(question, String.Empty, answersViewModel);
 
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
         }
