@@ -97,6 +97,9 @@
     changeOrderTooltip: {
         en: 'Change order by Drag & Drop'
     },
+    title: {
+        en: 'Title'
+    },
     previewCourse: {
         en: 'Preview course'
     },
@@ -507,6 +510,21 @@
     },
     newQuestionTitle: {
         en: 'What question do you want to ask?'
+    },
+    multipleChoise: {
+        en: 'Multiple choise'
+    },
+    fillInTheBlank: {
+        en: 'Fill in the blank'
+    },
+    addBlank: {
+        en: 'Add blank'
+    },
+    defineTheContentWithBlank: {
+        en: 'Define the content with blanks'
+    },
+    upgradeToStarterPlanToCreateOtherQuestionTypes: {
+        en: 'Please upgrade your account to \"Starter plan\" to be able to create other question types'
     },
     /* End resource section for model Questions */
     
