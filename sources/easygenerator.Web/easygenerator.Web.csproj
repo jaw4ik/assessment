@@ -59,6 +59,10 @@
       <HintPath>..\..\packages\AutoMapper.3.2.0\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="easygenerator.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\easygenerator.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Elmah">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
@@ -247,6 +251,10 @@
     <Compile Include="Components\Elmah\ElmahLog.cs" />
     <Compile Include="Components\Elmah\SqlErrorLogExtended.cs" />
     <Compile Include="Components\HttpRuntimeWrapper.cs" />
+    <Compile Include="Components\Mappers\CourseCollaboratorMapper.cs" />
+    <Compile Include="Components\Mappers\CourseMapper.cs" />
+    <Compile Include="Components\Mappers\IEntityMapper.cs" />
+    <Compile Include="Components\Mappers\ObjectiveMapper.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinder.cs" />
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinder.cs" />
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinderProvider.cs" />
@@ -330,8 +338,10 @@
     <Compile Include="Resources\Views\Shared\Resources.Designer.cs" />
     <Compile Include="Storage\ImageValidator.cs" />
     <Compile Include="Storage\Storage.cs" />
-    <Compile Include="Synchronization\UserEventHandler.cs" />
-    <Compile Include="Synchronization\UserHub.cs" />
+    <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
+    <Compile Include="Synchronization\Hubs\CourseHub.cs" />
+    <Compile Include="Synchronization\Handlers\UserEventHandler.cs" />
+    <Compile Include="Synchronization\Hubs\UserHub.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Api\AnswerViewModel.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
@@ -353,9 +363,21 @@
       <DependentUpon>httpRequestSender.js</DependentUpon>
     </Content>
     <Content Include="App\http\httpRequestSender.js" />
+    <Content Include="App\mappers\collaboratorModelMapper.js" />
+    <Content Include="App\mappers\courseModelMapper.js" />
+    <Content Include="App\mappers\objectiveModelMapper.js" />
+    <Content Include="App\mappers\templateModelMapper.js" />
     <Content Include="App\repositories\objectiveRepository.js" />
     <Content Include="App\repositories\objectiveRepository.spec.js">
       <DependentUpon>objectiveRepository.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\courseCollaborated.js" />
+    <Content Include="App\synchronization\handlers\courseCollaborated.spec.js">
+      <DependentUpon>courseCollaborated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\courseCollaboratorAdded.js" />
+    <Content Include="App\synchronization\handlers\courseCollaboratorAdded.spec.js">
+      <DependentUpon>courseCollaboratorAdded.js</DependentUpon>
     </Content>
     <Content Include="App\utils\fillInTheBlankParser.js" />
     <Content Include="App\viewmodels\questions\fillInTheBlank\fibControl.js" />

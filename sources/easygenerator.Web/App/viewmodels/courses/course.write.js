@@ -90,7 +90,7 @@
             viewModel.objectivesMode(objectivesListModes.display);
             viewModel.courseIntroductionContent = course.introductionContent;
 
-            viewModel.collaborators = new collaboratorsViewModel(course.createdBy, course.collaborators);
+            viewModel.collaborators = new collaboratorsViewModel(course.id, course.createdBy, course.collaborators);
 
             viewModel.courseIntroductionContent = contentFieldViewModel(course.introductionContent, eventsForCourseContent, false, function (content) {
                 return courseRepository.updateIntroductionContent(course.id, content);

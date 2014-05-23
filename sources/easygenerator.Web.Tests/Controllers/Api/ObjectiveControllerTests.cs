@@ -10,6 +10,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
@@ -31,19 +32,20 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IObjectiveRepository _repository;
         IPrincipal _user;
         HttpContextBase _context;
+        IEntityMapper<Objective> _objectiveyMapper;
 
         [TestInitialize]
         public void InitializeContext()
         {
             _entityFactory = Substitute.For<IEntityFactory>();
             _repository = Substitute.For<IObjectiveRepository>();
-            _controller = new ObjectiveController(_repository, _entityFactory);
+            _objectiveyMapper = Substitute.For<IEntityMapper<Objective>>();
+            _controller = new ObjectiveController(_repository, _entityFactory, _objectiveyMapper);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
 
-            _controller = new ObjectiveController(_repository, _entityFactory);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 

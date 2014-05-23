@@ -1,25 +1,33 @@
-﻿define(['durandal/system', 'synchronization/handlers/userDowngraded', 'synchronization/handlers/userUpgradedToStarter'], function (system, userDowngraded, userUpgradedToStarter) {
+﻿define(['durandal/system', 'synchronization/handlers/userDowngraded', 'synchronization/handlers/userUpgradedToStarter', 'synchronization/handlers/courseCollaboratorAdded', 'synchronization/handlers/courseCollaborated'],
+    function (system, userDowngraded, userUpgradedToStarter, courseCollaboratorAdded, courseCollaborated) {
+        "use strict";
 
-    return {
-        start: function () {
-            var dfd = Q.defer();
+        return {
+            start: function () {
+                var dfd = Q.defer();
 
-            var user = $.connection.user;
+                var user = $.connection.user;
+                var course = $.connection.course;
 
-            user.client = {
-                userDowngraded: userDowngraded,
-                userUpgradedToStarter: userUpgradedToStarter
-            };
+                user.client = {
+                    userDowngraded: userDowngraded,
+                    userUpgradedToStarter: userUpgradedToStarter
+                };
 
-            $.connection.hub.start()
-                .done(function () {
-                    system.log("Synchronization with server was established");
-                    dfd.resolve();
-                }).fail(function () {
-                    dfd.reject('Could not establish synchronization with server');
-                });
+                course.client = {
+                    courseCollaboratorAdded: courseCollaboratorAdded,
+                    courseCollaborated: courseCollaborated
+                };
 
-            return dfd.promise;
-        }
-    };
-})
+                $.connection.hub.start()
+                    .done(function () {
+                        system.log("Synchronization with server was established");
+                        dfd.resolve();
+                    }).fail(function () {
+                        dfd.reject('Could not establish synchronization with server');
+                    });
+
+                return dfd.promise;
+            }
+        };
+    })

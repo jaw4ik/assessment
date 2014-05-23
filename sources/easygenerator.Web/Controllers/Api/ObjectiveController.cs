@@ -1,13 +1,14 @@
-﻿using easygenerator.DomainModel;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -16,12 +17,14 @@ namespace easygenerator.Web.Controllers.Api
     {
         private readonly IEntityFactory _entityFactory;
         private readonly IObjectiveRepository _repository;
+        private readonly IEntityMapper<Objective> _objectiveMapper;
 
 
-        public ObjectiveController(IObjectiveRepository repository, IEntityFactory entityFactory)
+        public ObjectiveController(IObjectiveRepository repository, IEntityFactory entityFactory, IEntityMapper<Objective> objectiveMapper)
         {
             _repository = repository;
             _entityFactory = entityFactory;
+            _objectiveMapper = objectiveMapper;
         }
 
         [HttpPost]
@@ -29,27 +32,8 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult GetCollection()
         {
             var objectives = _repository.GetCollection(obj => obj.IsPermittedTo(User.Identity.Name));
-
-            var result = objectives.Select(obj => new
-            {
-                Id = obj.Id.ToNString(),
-                Title = obj.Title,
-                CreatedBy = obj.CreatedBy,
-                CreatedOn = obj.CreatedOn,
-                ModifiedOn = obj.ModifiedOn,
-                Questions = obj.Questions.Select(q => new
-                {
-                    Id = q.Id.ToNString(),
-                    Title = q.Title,
-                    Content = q.Content,
-                    CreatedOn = q.CreatedOn,
-                    CreatedBy = q.CreatedBy,
-                    ModifiedOn = q.ModifiedOn,
-                    Type = q.Type
-                })
-            });
-
-            return JsonSuccess(result);
+            
+            return JsonSuccess(objectives.Select(e => _objectiveMapper.Map(e)));
         }
 
         [HttpPost]

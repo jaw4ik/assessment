@@ -919,7 +919,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void CollaborateWithUser_ShouldReturnTrue()
+        public void CollaborateWithUser_ShouldReturnCourseCollaborator()
         {
             const string owner = "owner@www.com";
             var course = CourseObjectMother.Create(createdBy: owner);
@@ -927,7 +927,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             var result = course.CollaborateWithUser(user, CreatedBy);
 
-            result.Should().BeTrue();
+            result.Should().BeOfType<CourseCollabrator>();
         }
 
         [TestMethod]
@@ -943,7 +943,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void CollaborateWithUser_ShouldReturnFalse_WhenUserIsCourseOwner()
+        public void CollaborateWithUser_ShouldReturnNull_WhenUserIsCourseOwner()
         {
             const string email = "owner@www.com";
             var course = CourseObjectMother.Create(createdBy: email);
@@ -951,7 +951,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             var result = course.CollaborateWithUser(user, CreatedBy);
 
-            result.Should().BeFalse();
+            result.Should().BeNull();
         }
 
         [TestMethod]
@@ -968,7 +968,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void CollaborateWithUser_ShouldReturnFalse_WhenUserIsCourseCollaboratorAlready()
+        public void CollaborateWithUser_ShouldReturnNull_WhenUserIsCourseCollaboratorAlready()
         {
             const string email = "owner@www.com";
             var course = CourseObjectMother.Create(createdBy: "user@www.www");
@@ -977,7 +977,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             var result = course.CollaborateWithUser(user, CreatedBy);
 
-            result.Should().BeFalse();
+            result.Should().BeNull();
         }
 
         #endregion

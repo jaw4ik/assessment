@@ -49,14 +49,16 @@ namespace easygenerator.DomainModel.Entities
             get { return CollaboratorsCollection.AsEnumerable(); }
         }
 
-        public virtual bool CollaborateWithUser(User user, string createdBy)
+        public virtual CourseCollabrator CollaborateWithUser(User user, string createdBy)
         {
             ThrowIfUserIsInvalid(user);
             if (IsPermittedTo(user.Email))
-                return false;
+                return null;
 
-            CollaboratorsCollection.Add(new CourseCollabrator(this, user, createdBy));
-            return true;
+            var collaborator = new CourseCollabrator(this, user, createdBy);
+            CollaboratorsCollection.Add(collaborator);
+
+            return collaborator;
         }
 
         protected internal virtual ICollection<Comment> CommentsCollection { get; set; }

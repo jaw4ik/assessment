@@ -6,6 +6,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Publish;
 using easygenerator.Web.Tests.Utils;
@@ -36,7 +37,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private HttpContextBase _context;
         private IUrlHelperWrapper _urlHelper;
         private ICoursePublisher _coursePublisher;
-        private IUserRepository _userRepository;
+        private IEntityMapper<Course> _courseMapper;
 
         [TestInitialize]
         public void InitializeContext()
@@ -47,14 +48,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
             _coursePublisher = Substitute.For<ICoursePublisher>();
             _urlHelper = Substitute.For<IUrlHelperWrapper>();
-            _userRepository = Substitute.For<IUserRepository>();
+            _courseMapper = Substitute.For<IEntityMapper<Course>>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _urlHelper, _coursePublisher, _userRepository);
+            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _urlHelper, _coursePublisher, _courseMapper);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -312,7 +313,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository.GetCollection().Returns(collection);
 
             var result = _controller.GetCollection();
-          
+
             result.Should().BeJsonSuccessResult();
         }
 

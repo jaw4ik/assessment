@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/course', 'models/answerOption', 'models/learningContent', 'models/template', 'models/collaborator', 'constants'],
-    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, CourseModel, AnswerOptionModel, LearningContentModel, TemplateModel, CollaboratorModel, constants) {
+﻿define(['durandal/app', 'plugins/http', 'constants', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper'],
+    function (app, http, constants, courseModelMapper, objectiveModelMapper, templateModelMapper) {
         "use strict";
 
         var
@@ -17,17 +17,7 @@
                         dataType: 'json'
                     }).then(function (response) {
                         _.each(response.data, function (template) {
-                            templates.push(
-                                new TemplateModel(
-                                    {
-                                        id: template.Id,
-                                        name: template.Name,
-                                        image: template.Image,
-                                        settingsUrl: template.SettingsUrl,
-                                        description: template.Description,
-                                        previewDemoUrl: template.PreviewDemoUrl,
-                                        order: template.Order
-                                    }));
+                            templates.push(templateModelMapper.map(template));
                         });
                     });
                 }).then(function () {
@@ -38,23 +28,7 @@
                         dataType: 'json'
                     }).then(function (response) {
                         _.each(response.data, function (item) {
-                            objectives.push(new ObjectiveModel({
-                                id: item.Id,
-                                title: item.Title,
-                                createdOn: new Date(item.CreatedOn),
-                                modifiedOn: new Date(item.ModifiedOn),
-                                image: constants.defaultObjectiveImage,
-                                questions: _.map(item.Questions, function (question) {
-                                    return new QuestionModel({
-                                        id: question.Id,
-                                        title: question.Title,
-                                        content: question.Content,
-                                        createdOn: new Date(question.CreatedOn),
-                                        modifiedOn: new Date(question.ModifiedOn),
-                                        type: question.Type
-                                    });
-                                })
-                            }));
+                            objectives.push(objectiveModelMapper.map(item));
                         });
                     });
                 }).then(function () {
@@ -65,32 +39,7 @@
                         dataType: 'json'
                     }).then(function (response) {
                         _.each(response.data, function (item) {
-                            courses.push(new CourseModel({
-                                id: item.Id.split('-').join(''),
-                                title: item.Title,
-                                createdBy: item.CreatedBy,
-                                collaborators: _.map(item.Collaborators, function (collaborator) {
-                                    return new CollaboratorModel({
-                                        email: collaborator.Email,
-                                        fullName: collaborator.FullName
-                                    });
-                                }),
-                                createdOn: new Date(item.CreatedOn),
-                                modifiedOn: new Date(item.ModifiedOn),
-                                objectives: _.map(item.RelatedObjectives, function (relatedObjective) {
-                                    return _.find(objectives, function (objective) {
-                                        return objective.id == relatedObjective.Id.split('-').join('');
-                                    });
-                                }),
-                                publishedPackageUrl: item.PublishedPackageUrl,
-                                builtOn: _.isNullOrUndefined(item.builtOn) ? null : new Date(item.builtOn),
-                                packageUrl: item.PackageUrl,
-                                reviewUrl: item.ReviewUrl,
-                                template: _.find(templates, function (tItem) {
-                                    return tItem.id === item.Template.Id;
-                                }),
-                                introductionContent: item.IntroductionContent
-                            }));
+                            courses.push(courseModelMapper.map(item, objectives, templates));
                         });
                     });
                 }).fail(function () {

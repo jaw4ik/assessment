@@ -4,6 +4,8 @@
         appDialog = require('plugins/dialog'),
         localizationManager = require('localization/localizationManager'),
         repository = require('repositories/collaboratorRepository'),
+        app = require('durandal/app'),
+        constants = require('constants'),
         router = require('plugins/router');
 
     describe('dialog [addCollabrotor]', function () {
@@ -16,6 +18,7 @@
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
             spyOn(appDialog, 'close');
+            spyOn(app, 'trigger');
             spyOn(localizationManager, 'localize').and.returnValue(localizedMessage);
             dialog = new Dialog();
         });
@@ -176,6 +179,30 @@
             });
 
             describe('and when collaborator added successfully', function () {
+                describe('when result is undefined', function() {
+                    it('should not trigger app event', function (done) {
+                        var collaborator = {};
+                        dialog.email(email);
+                        addCollaborator.resolve(undefined);
+
+                        dialog.submit().fin(function () {
+                            expect(app.trigger).not.toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded, courseId, collaborator);
+                            done();
+                        });
+                    });
+                });
+
+                it('should trigger app event', function (done) {
+                    var collaborator = {};
+                    dialog.email(email);
+                    addCollaborator.resolve(collaborator);
+
+                    dialog.submit().fin(function () {
+                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded, courseId, collaborator);
+                        done();
+                    });
+                });
+
                 it('should close dialog window', function (done) {
                     dialog.email(email);
                     addCollaborator.resolve();

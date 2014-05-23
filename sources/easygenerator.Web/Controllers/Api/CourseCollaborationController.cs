@@ -1,22 +1,27 @@
-﻿using easygenerator.DomainModel;
+﻿using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Authorization;
-using System.Web.Mvc;
+using easygenerator.Web.Components.Mappers;
 
 namespace easygenerator.Web.Controllers.Api
 {
     public class CourseCollaborationController : DefaultController
     {
-        private readonly IEntityFactory _entityFactory;
         private readonly IUserRepository _userRepository;
+        private readonly IEntityMapper<CourseCollabrator> _collaboratorMapper;
+        private readonly IDomainEventPublisher<CourseCollaboratorAddedEvent> _courseCollaboratorAddedEventPublisher;
 
-        public CourseCollaborationController(IEntityFactory entityFactory, IUserRepository userRepository)
+        public CourseCollaborationController(IUserRepository userRepository, IDomainEventPublisher<CourseCollaboratorAddedEvent> courseCollaboratorAddedEventPublisher,
+            IEntityMapper<CourseCollabrator> collaboratorMapper)
         {
-            _entityFactory = entityFactory;
             _userRepository = userRepository;
+            _collaboratorMapper = collaboratorMapper;
+            _courseCollaboratorAddedEventPublisher = courseCollaboratorAddedEventPublisher;
         }
 
         [HttpPost]
@@ -35,16 +40,16 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.UserWithSpecifiedEmailDoesntExist, Errors.UserWithSpecifiedEmailDoesntExistResourceKey);
             }
 
-            if (!course.CollaborateWithUser(user, GetCurrentUsername()))
+            var collaborator = course.CollaborateWithUser(user, GetCurrentUsername());
+            if (collaborator == null)
             {
                 return JsonSuccess(true);
             }
 
-            return JsonSuccess(new
-            {
-                Email = user.Email,
-                FullName = user.FullName
-            });
+            var courseCollaboratorAddedEvent = new CourseCollaboratorAddedEvent(collaborator,GetCurrentUsername());
+            _courseCollaboratorAddedEventPublisher.Publish(courseCollaboratorAddedEvent);
+
+            return JsonSuccess(_collaboratorMapper.Map(collaborator));
         }
     }
 }

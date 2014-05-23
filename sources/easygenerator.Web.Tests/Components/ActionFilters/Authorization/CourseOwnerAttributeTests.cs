@@ -1,6 +1,7 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
@@ -29,6 +30,8 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
         private ICourseRepository _courseRepository;
         private IValueProvider _valueProvider;
 
+        private readonly DateTime _currentDate = new DateTime(2014, 3, 19);
+
         [TestInitialize]
         public void InitializeContext()
         {
@@ -53,6 +56,8 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             var principal = Substitute.For<IPrincipal>();
             _filterContext.HttpContext.User.Returns(principal);
             principal.Identity.Returns(_identity);
+
+            DateTimeWrapper.Now = () => _currentDate;
         }
 
         #region OnAuthorization

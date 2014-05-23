@@ -54,6 +54,8 @@
             'services/publishService.spec',
             'synchronization/handlers/userDowngraded.spec',
             'synchronization/handlers/userUpgradedToStarter.spec',
+            'synchronization/handlers/courseCollaboratorAdded.spec',
+            'synchronization/handlers/courseCollaborated.spec',
             'treeOfContent/handlers/treeOfContentEventHandler.spec',
             'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
             'treeOfContent/queries/getCourseByIdQuery.spec',

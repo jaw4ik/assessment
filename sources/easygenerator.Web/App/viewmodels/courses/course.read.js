@@ -29,7 +29,7 @@
         function initialize(course) {
             viewModel.id = course.id;
             viewModel.title = course.title;
-            viewModel.collaborators = new collaboratorsViewModel(course.createdBy, course.collaborators);
+            viewModel.collaborators = new collaboratorsViewModel(course.id, course.createdBy, course.collaborators);
 
             viewModel.courseIntroductionContent = contentFieldViewModel(course.introductionContent, eventsForCourseContent, false, function (content) {
                 return true;

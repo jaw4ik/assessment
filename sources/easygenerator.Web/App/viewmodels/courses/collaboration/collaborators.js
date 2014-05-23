@@ -6,7 +6,7 @@
                 openAddCourseCollaboratorDialog: 'Open "add people for collaboration" dialog'
             };
 
-        var viewModel = function (courseOwner, collaborators) {
+        var viewModel = function (courseId, courseOwner, collaborators) {
 
             var members = ko.observableArray([]);
 
@@ -19,7 +19,10 @@
                 dialog.show('dialogs/collaboration/addCollaborator');
             };
 
-            var collaboratorAdded = function (collaborator) {
+            var collaboratorAdded = function (collaboratedCourseId, collaborator) {
+                if (courseId != collaboratedCourseId)
+                    return;
+
                 members.push(new vmCollaborator(courseOwner, collaborator));
             }
 

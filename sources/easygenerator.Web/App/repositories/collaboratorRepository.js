@@ -1,5 +1,5 @@
-﻿define(['http/httpRequestSender', 'guard', 'models/collaborator', 'dataContext', 'durandal/app', 'constants'],
-    function (httpWrapper, guard, Collaborator, dataContext, app, constants) {
+﻿define(['http/httpRequestSender', 'guard', 'models/collaborator', 'dataContext'],
+    function (httpWrapper, guard, Collaborator, dataContext) {
         "use strict";
 
         var repository = {
@@ -27,7 +27,7 @@
 
                         var data = response.data;
                         if (!_.isObject(data)) {
-                            return undefined;
+                            return null;
                         }
 
                         guard.throwIfNotString(data.Email, 'Email is not a string');
@@ -44,7 +44,6 @@
                         });
 
                         course.collaborators.push(collaborator);
-                        app.trigger(constants.messages.course.collaboration.collaboratorAdded, collaborator);
 
                         return collaborator;
                     });

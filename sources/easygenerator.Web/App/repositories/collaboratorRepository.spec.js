@@ -2,8 +2,7 @@
     "use strict";
 
     var httpWrapper = require('http/httpRequestSender'),
-        dataContext = require('dataContext'),
-        app = require('durandal/app');
+        dataContext = require('dataContext');
 
     describe('repository [collaboratorRepository]', function () {
 
@@ -13,7 +12,6 @@
 
         beforeEach(function () {
             post = Q.defer();
-            spyOn(app, 'trigger');
             spyOn(httpWrapper, 'post').and.returnValue(post.promise);
         });
 
@@ -144,11 +142,11 @@
 
                     describe('and response data is not an object', function () {
 
-                        it('should resolve promise with undefined', function (done) {
+                        it('should resolve promise with null', function (done) {
                             var promise = repository.add(courseId, email);
 
                             promise.fin(function () {
-                                expect(promise).toBeResolvedWith(undefined);
+                                expect(promise).toBeResolvedWith(null);
                                 done();
                             });
 
@@ -270,32 +268,7 @@
                             success: true, data: receivedData
                         });
                     });
-
-                    it('should trigger app event', function (done) {
-                        dataContext.courses = [
-                            {
-                                id: courseId,
-                                collaborators: []
-                            }
-                        ];
-
-                        var receivedData = {
-                            Email: 'email',
-                            FullName: 'name'
-                        };
-
-                        var promise = repository.add(courseId, email);
-
-                        promise.fin(function () {
-                            expect(app.trigger).toHaveBeenCalled();
-
-                            done();
-                        });
-
-                        post.resolve({
-                            success: true, data: receivedData
-                        });
-                    });
+                   
                 });
 
             });

@@ -1,5 +1,5 @@
-﻿define(['eventTracker', 'plugins/dialog', 'constants', 'plugins/router', 'repositories/collaboratorRepository', 'localization/localizationManager'],
-    function (eventTracker, dialog, constants, router, repository, localizationManager) {
+﻿define(['eventTracker', 'plugins/dialog', 'constants', 'plugins/router', 'repositories/collaboratorRepository', 'localization/localizationManager', 'durandal/app'],
+    function (eventTracker, dialog, constants, router, repository, localizationManager, app) {
         "use strict";
 
         var events = {
@@ -50,7 +50,11 @@
                 }
 
                 return repository.add(router.routeData().courseId, this.email().trim())
-                    .then(function () {
+                    .then(function (collaborator) {
+                        if (!_.isNullOrUndefined(collaborator)) {
+                            app.trigger(constants.messages.course.collaboration.collaboratorAdded, router.routeData().courseId, collaborator);
+                        }
+
                         dialog.close(viewModel);
                     })
                     .fail(function (errorMessage) {

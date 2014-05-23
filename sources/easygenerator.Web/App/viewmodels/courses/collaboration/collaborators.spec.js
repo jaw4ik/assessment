@@ -10,8 +10,9 @@
 
     describe('viewModel [collaborators]', function () {
 
-        var viewModel;
-        var owner = "user@user.com";
+        var viewModel,
+        owner = "user@user.com",
+        courseId = "courseId";
 
         beforeEach(function () {
             spyOn(dialog, 'show');
@@ -39,12 +40,12 @@
             });
 
             it('should be defined', function () {
-                viewModel = ctor(owner, []);
+                viewModel = ctor(courseId, owner, []);
                 expect(viewModel.members).toBeDefined();
             });
 
             it('should be set members', function () {
-                viewModel = ctor(owner, collaborators);
+                viewModel = ctor(courseId, owner, collaborators);
                 expect(viewModel.members().length).toBe(3);
             });
         });
@@ -55,18 +56,18 @@
             });
 
             it('should be function', function () {
-                viewModel = ctor('', []);
+                viewModel = ctor(courseId, '', []);
                 expect(viewModel.addMember).toBeFunction();
             });
 
             it('should send event \'Open "add people for collaboration" dialog\'', function () {
-                viewModel = ctor(owner, []);
+                viewModel = ctor(courseId, owner, []);
                 viewModel.addMember();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Open "add people for collaboration" dialog');
             });
 
             it('should show dialog', function () {
-                viewModel = ctor(owner, []);
+                viewModel = ctor(courseId, owner, []);
                 viewModel.addMember();
                 expect(dialog.show).toHaveBeenCalled();
             });
@@ -80,7 +81,7 @@
             describe('when user is course owner', function () {
                 it('should be true', function () {
                     userContext.identity = { email: owner };
-                    viewModel = ctor(owner, []);
+                    viewModel = ctor(courseId, owner, []);
                     expect(viewModel.canAddMember).toBeTruthy();
                 });
             });
@@ -88,7 +89,7 @@
             describe('when user is not course owner', function () {
                 it('should be false', function () {
                     userContext.identity = { email: 'email@mail.com' };
-                    viewModel = ctor(owner, []);
+                    viewModel = ctor(courseId, owner, []);
                     expect(viewModel.canAddMember).toBeFalsy();
                 });
             });
@@ -100,15 +101,26 @@
             });
 
             it('should be function', function () {
-                viewModel = ctor('', []);
+                viewModel = ctor(courseId, '', []);
                 expect(viewModel.collaboratorAdded).toBeFunction();
             });
 
-            it('should add collaborator', function () {
-                var collaborator = { fullName: 'fullName', email: 'email' };
-                viewModel = ctor(owner, []);
-                viewModel.collaboratorAdded(collaborator);
-                expect(viewModel.members().length).toBe(1);
+            describe('when collaborated course is current course', function () {
+                it('should add collaborator', function () {
+                    var collaborator = { fullName: 'fullName', email: 'email' };
+                    viewModel = ctor(courseId, owner, []);
+                    viewModel.collaboratorAdded(courseId, collaborator);
+                    expect(viewModel.members().length).toBe(1);
+                });
+            });
+
+            describe('when collaborated course is not current course', function () {
+                it('should not add collaborator', function () {
+                    var collaborator = { fullName: 'fullName', email: 'email' };
+                    viewModel = ctor(courseId, owner, []);
+                    viewModel.collaboratorAdded('id', collaborator);
+                    expect(viewModel.members().length).toBe(0);
+                });
             });
         });
     });

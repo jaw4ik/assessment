@@ -3,6 +3,7 @@ using Autofac.Builder;
 using Autofac.Integration.Mvc;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.Infrastructure;
@@ -13,6 +14,7 @@ using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Elmah;
+using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.ModelBinding;
 using easygenerator.Web.Components.Tasks;
 using easygenerator.Web.Import.PublishedCourse;
@@ -72,6 +74,14 @@ namespace easygenerator.Web.Configuration
             builder.RegisterGeneric(typeof(DomainEventPublisher<>)).As(typeof(IDomainEventPublisher<>)).InstancePerHttpRequest();
             builder.RegisterGeneric(typeof(DomainEventHandlersProvider<>)).As(typeof(IDomainEventHandlersProvider<>)).InstancePerHttpRequest();
             RegisterGenericTypes(builder, applicationAssembly, typeof(IDomainEventHandler<>)).ForEach(_ => _.InstancePerHttpRequest());
+
+            #endregion
+
+            #region Entity mapping
+
+            builder.RegisterType<CourseMapper>().As<IEntityMapper<Course>>();
+            builder.RegisterType<ObjectiveMapper>().As<IEntityMapper<Objective>>();
+            builder.RegisterType<CourseCollaboratorMapper>().As<IEntityMapper<CourseCollabrator>>();
 
             #endregion
 

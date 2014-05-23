@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Events;
+using easygenerator.Web.Synchronization.Hubs;
 using Microsoft.AspNet.SignalR;
 
 namespace easygenerator.Web.Synchronization
