@@ -575,8 +575,8 @@
                     beforeEach(function () {
                         viewModel.templates([]);
                         getTemplatesDeferred.resolve([
-                            { id: "0", name: "Default", description: "Default template", image: "path/to/image1.png", previewDemoUrl: 'preview_url_default' },
-                            { id: "1", name: "Quiz", description: "Quiz template", image: "path/to/image2.png", previewDemoUrl: 'preview_url_quiz' }
+                            { id: "0", name: "Default", description: "Default template", image: "path/to/image1.png", previewDemoUrl: 'preview_url_default', order: 1 },
+                            { id: "1", name: "Quiz", description: "Quiz template", image: "path/to/image2.png", previewDemoUrl: 'preview_url_quiz', order: 0 }
                         ]);
                     });
 
@@ -670,9 +670,10 @@
 
                     });
 
-                    it('should initialize templates collection sorted by name asc', function (done) {
+                    it('should initialize templates collection sorted by order', function (done) {
                         viewModel.activate().fin(function () {
-                            expect(viewModel.templates()).toBeSortedAsc('name');
+                            expect(viewModel.templates()[0].id).toEqual("1");
+                            expect(viewModel.templates()[1].id).toEqual("0");
                             done();
                         });
                     });

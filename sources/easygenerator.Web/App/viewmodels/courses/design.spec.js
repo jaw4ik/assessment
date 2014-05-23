@@ -152,10 +152,10 @@
 
                 var
                     templates = [
-                        { id: "0", name: "Default", image: "path/to/image1.png", description: "Default template", previewDemoUrl: 'preview_url_default' },
-                        { id: "1", name: "Quiz", image: "path/to/image2.png", description: "Quiz template", previewDemoUrl: 'preview_url_quiz' }
+                        { id: "0", name: "Default", image: "path/to/image1.png", description: "Default template", previewDemoUrl: 'preview_url_default', order: 1 },
+                        { id: "1", name: "Quiz", image: "path/to/image2.png", description: "Quiz template", previewDemoUrl: 'preview_url_quiz', order: 0 }
                     ],
-                    template = templates[0],
+                    template = templates[1],
                     course = { id: 'courseId', template: template };
 
                 beforeEach(function () {
@@ -229,7 +229,7 @@
                                         var actualJson = JSON.stringify(actual);
 
                                         var result = {
-                                            pass: (expectedJson == expectedJson)
+                                            pass: (expectedJson == actualJson)
                                         }
 
                                         if (result.pass) {
@@ -242,14 +242,6 @@
                                     }
                                 }
                             }
-                        });
-                    });
-
-                    it('should set a list of available templates', function (done) {
-                        viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.templates[0]).toBeTemplate(templates[0]);
-                            expect(viewModel.templates[1]).toBeTemplate(templates[1]);
-                            done();
                         });
                     });
 
@@ -321,6 +313,14 @@
 
                         });
 
+                    });
+
+                    it('should set a list of available templates by order', function (done) {
+                        viewModel.activate(course.id).fin(function () {
+                            expect(viewModel.templates[0]).toBeTemplate(templates[1]);
+                            expect(viewModel.templates[1]).toBeTemplate(templates[0]);
+                            done();
+                        });
                     });
 
                     it('should set currentTemplate', function (done) {

@@ -11,6 +11,7 @@ namespace easygenerator.DomainModel.Entities
         public string Image { get; private set; }
         public string Description { get; private set; }
         public string PreviewUrl { get; private set; }
+        public int Order { get; private set; }
 
         protected internal ICollection<Course> Courses { get; set; }
 

@@ -25,7 +25,8 @@
                                         image: template.Image,
                                         settingsUrl: template.SettingsUrl,
                                         description: template.Description,
-                                        previewDemoUrl: template.PreviewDemoUrl
+                                        previewDemoUrl: template.PreviewDemoUrl,
+                                        order: template.Order
                                     }));
                         });
                     });

@@ -88,6 +88,7 @@ function (repository, templateRepository, router, userContext, constants, eventT
                 image: item.image,
                 isSelected: ko.observable(false),
                 previewUrl: item.previewDemoUrl,
+                order: item.order,
                 openPreview: function (template, event) {
                     event.stopPropagation();
                     router.openUrl(template.previewUrl);
@@ -114,7 +115,7 @@ function (repository, templateRepository, router, userContext, constants, eventT
                     that.templates(_.chain(templatesResponse)
                         .map(mapTemplate)
                         .sortBy(function (item) {
-                            return item.name.toLowerCase();
+                            return item.order;
                         }).value());
                 });
             });

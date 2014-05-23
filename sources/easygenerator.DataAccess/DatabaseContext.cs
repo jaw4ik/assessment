@@ -123,6 +123,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Template>().Property(e => e.Image).IsRequired();
             modelBuilder.Entity<Template>().Property(e => e.Description).IsRequired();
             modelBuilder.Entity<Template>().Property(e => e.PreviewUrl);
+            modelBuilder.Entity<Template>().Property(e => e.Order);
             modelBuilder.Entity<Template>().HasMany(e => e.Courses);
 
             modelBuilder.Entity<MailNotification>().Property(e => e.Body).IsRequired();

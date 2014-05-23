@@ -31,7 +31,8 @@ namespace easygenerator.Web.Controllers.Api
                 Image = tmpl.Image,
                 SettingsUrl = "/Templates/" + tmpl.Name + "/settings.html",
                 Description = tmpl.Description,
-                PreviewDemoUrl = tmpl.PreviewUrl
+                PreviewDemoUrl = tmpl.PreviewUrl,
+                Order = tmpl.Order
             });
 
             return JsonSuccess(result);

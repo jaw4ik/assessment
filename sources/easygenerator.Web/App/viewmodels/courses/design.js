@@ -56,13 +56,14 @@
                                 description: template.description,
                                 settingsUrl: template.settingsUrl,
                                 previewDemoUrl: template.previewDemoUrl,
+                                order: template.order,
                                 openPreview: function (item, event) {
                                     event.stopPropagation();
                                     router.openUrl(item.previewDemoUrl);
                                 }
                             };
                         })
-                        .sortBy(function (template) { return template.name; })
+                        .sortBy(function (template) { return template.order; })
                         .value();
 
                     viewModel.currentTemplate(_.find(viewModel.templates, function (item) { return item.id == course.template.id; }));
