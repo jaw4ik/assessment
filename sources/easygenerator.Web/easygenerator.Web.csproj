@@ -403,6 +403,7 @@
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.ttf" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.woff" />
+    <Content Include="Templates\Quiz\css\general.css" />
     <Content Include="Templates\Simple course\app\main.js" />
     <Content Include="Templates\Simple course\css\font\opensans-regular.eot" />
     <Content Include="Templates\Simple course\css\font\opensans-regular.ttf" />
@@ -1353,11 +1354,6 @@
     <Content Include="Templates\Quiz\css\images\icons-xApi.png" />
     <Content Include="Templates\Quiz\css\images\info-message.png" />
     <Content Include="Templates\Quiz\css\images\xapierror.png" />
-    <Content Include="Templates\Quiz\css\jasmine.css" />
-    <Content Include="Templates\Quiz\css\login.css" />
-    <Content Include="Templates\Quiz\css\styles.css" />
-    <Content Include="Templates\Quiz\css\xAPIError.css" />
-    <Content Include="Templates\Quiz\css\xAPINotSupported.css" />
     <Content Include="Templates\Quiz\img\arrow_up.png" />
     <Content Include="Templates\Quiz\img\bg-bottom.png" />
     <Content Include="Templates\Quiz\img\bg-corners.png" />
