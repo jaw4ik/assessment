@@ -9,16 +9,17 @@
         };
 
         var viewModel = {
-            canActivate: canActivate,
-            activate: activate,
             courseModule: null,
             backButtonData: new BackButtonViewModel({
                 url: 'courses',
                 backViewName: localizationManager.localize('courses'),
                 callback: function() {
-                     eventTracker.publish(events.navigateToCourses);
+                    eventTracker.publish(events.navigateToCourses);
                 }
-            })
+            }),
+
+            canActivate: canActivate,
+            activate: activate
         };
 
         return viewModel;
