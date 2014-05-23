@@ -489,15 +489,15 @@
         background-color: #FFFFFF;
         border-left: 1px solid #DEDEDE;
         border-top: 1px solid #DEDEDE;
-        height: 6px;
-        width: 6px;
+        height: 9px;
+        width: 9px;
         position: absolute;
         right: 60px;
-        top: -4px;
-        -moz-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg);
+        top: -6px;
+        -moz-transform: rotate(32deg) skewX(-30deg) skewY(-5deg);
+        -ms-transform: rotate(32deg) skewX(-30deg) skewY(-5deg);
+        -webkit-transform: rotate(32deg) skewX(-30deg) skewY(-5deg);
+        transform: rotate(32deg) skewX(-30deg) skewY(-5deg);
     }
 
 .question-type-action-list {

@@ -1479,6 +1479,7 @@ span.top-navigation-item.current {
 
 .action-item-btn-wrapper {
     position: relative;
+    height: 100%;
 }
 
 .action-item-btn {
