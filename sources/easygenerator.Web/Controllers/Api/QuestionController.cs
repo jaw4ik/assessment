@@ -101,12 +101,16 @@ namespace easygenerator.Web.Controllers.Api
             
             var answers = new Collection<Answer>();
 
-            foreach (var answerViewModel in answersCollection)
+            if (answersCollection != null)
             {
-                var answer = _entityFactory.Answer(answerViewModel.Text, answerViewModel.IsCorrect,
-                            answerViewModel.GroupId, GetCurrentUsername());
-                answers.Add(answer);
+                foreach (var answerViewModel in answersCollection)
+                {
+                    var answer = _entityFactory.Answer(answerViewModel.Text, answerViewModel.IsCorrect,
+                                answerViewModel.GroupId, GetCurrentUsername());
+                    answers.Add(answer);
+                }
             }
+
 
             question.UpdateAnswers(answers, GetCurrentUsername());
 
