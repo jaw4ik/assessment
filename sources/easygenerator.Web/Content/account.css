@@ -817,7 +817,7 @@ body.try {
     display: inline-block;
     width: 18px;
     height: 18px;
-    background: url(images/sprites.png) 0 0 no-repeat;
+    background: url(images/sprites_24.png) 0 -32px no-repeat;
 }
 
 .try-note {
