@@ -134,7 +134,7 @@
                         spyOn(writeCourseViewModel, 'initialize');
                     });
 
-                    it('should set write viewModel for course', function () {
+                    it('should set write viewModel for course', function (done) {
                         var promise = viewModel.activate(courseId);
 
                         promise.fin(function () {
@@ -158,7 +158,7 @@
                         spyOn(readCourseViewModel, 'initialize');
                     });
 
-                    it('should set read viewModel for course', function () {
+                    it('should set read viewModel for course', function (done) {
                         var promise = viewModel.activate(courseId);
 
                         promise.fin(function () {
