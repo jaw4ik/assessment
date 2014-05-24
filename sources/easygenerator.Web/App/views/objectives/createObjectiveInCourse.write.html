@@ -1,0 +1,34 @@
+﻿<section>
+
+    <div class="content-holder">
+        <div class="page-view-caption clearfix">
+            <div class="page-view-caption-text" data-bind="localize: { text: 'createObjectiveFromCourse' }">Create learning objective</div>
+        </div>
+    </div>
+
+    <div class="content-holder">
+        <form class="form-create">
+            <div class="form-create-title">
+                <div class="form-create-title-circle blue icon-pen">
+                    <div class="form-create-title-circle-triangle"></div>
+                </div>
+                <span class="form-create-title-text" data-bind="localize: { text: 'defineLerningObjectiveTitle' }">define jective title</span>
+            </div>
+            <div class="form-create-field">
+                <div class="form-create-field-placeholder" data-bind="visible: title().length == 0, localize: { text: 'createObjectiveTip' }, click: isTitleEditing">Type learning objective title here</div>
+                <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, hasFocus: isTitleEditing, css: { error: !title.isValid() && title().length > objectiveTitleMaxLength, active: isTitleEditing, empty: title().trim().length == 0 }, autofocus: { focus: true }"></div>
+                <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength }">
+                    <span data-bind="text: title().trim().length"></span>/<span data-bind="text: objectiveTitleMaxLength"></span>
+                </div>
+            </div>
+
+            <div class="form-link-wrapper">
+                <a class="form-link" href="http://www.easygenerator.com/learning-objectives/" target="_blank">&raquo; Learn how to define good learning objectives</a>
+            </div>
+            <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid(), createAndContinue: createAndContinue.bind($data) } } -->
+            <!-- /ko -->
+
+        </form>
+    </div>
+
+</section>
