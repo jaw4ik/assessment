@@ -368,9 +368,9 @@
     <Content Include="App\repositories\objectiveRepository.spec.js">
       <DependentUpon>objectiveRepository.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\courseCollaborated.js" />
-    <Content Include="App\synchronization\handlers\courseCollaborated.spec.js">
-      <DependentUpon>courseCollaborated.js</DependentUpon>
+    <Content Include="App\synchronization\handlers\courseCollaborationStarted.js" />
+    <Content Include="App\synchronization\handlers\courseCollaborationStarted.spec.js">
+      <DependentUpon>courseCollaborationStarted.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\courseCollaboratorAdded.js" />
     <Content Include="App\synchronization\handlers\courseCollaboratorAdded.spec.js">

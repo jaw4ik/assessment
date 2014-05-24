@@ -36,6 +36,8 @@
 
             deleteSelectedCourses: deleteSelectedCourses,
 
+            courseCollaborationStartedHandler: courseCollaborationStartedHandler,
+
             canActivate: canActivate,
             activate: activate
         };
@@ -43,6 +45,8 @@
         viewModel.enableDeleteCourses = ko.computed(function () {
             return getSelectedCourses().length > 0;
         });
+
+        app.on(constants.messages.course.collaboration.started, courseCollaborationStartedHandler);
 
         return viewModel;
 
@@ -101,6 +105,16 @@
             return ping.execute();
         }
 
+        function courseCollaborationStartedHandler(course) {
+            var sharedCourses = viewModel.sharedCourses();
+            sharedCourses.push(mapCourse(course));
+            sharedCourses = _.sortBy(sharedCourses, function (item) {
+                return -item.createdOn;
+            });
+
+            viewModel.sharedCourses(sharedCourses);
+        }
+
         function activate() {
             viewModel.lastVistedCourseId = clientContext.get('lastVistedCourse');
             viewModel.currentLanguage = localizationManager.currentLanguage;
@@ -127,14 +141,14 @@
         }
 
         function mapCourses(courses) {
-           return _.chain(courses)
-                .sortBy(function (item) {
-                    return -item.createdOn;
-                })
-                .map(function (item) {
-                    return mapCourse(item);
-                })
-                .value();
+            return _.chain(courses)
+                 .sortBy(function (item) {
+                     return -item.createdOn;
+                 })
+                 .map(function (item) {
+                     return mapCourse(item);
+                 })
+                 .value();
         }
 
         function mapCourse(item) {
@@ -144,6 +158,7 @@
             course.title = item.title;
             course.image = item.template.image;
             course.modifiedOn = item.modifiedOn;
+            course.createdOn = item.createdOn;
             course.isSelected = ko.observable(false);
             course.objectives = item.objectives;
 

@@ -11,6 +11,7 @@
             courseCreated: courseCreated,
             courseDeleted: courseDeleted,
             courseTitleUpdated: courseTitleUpdated,
+            courseCollaborationStarted: courseCollaborationStarted,
 
             objectiveRelated: objectiveRelated,
             objectivesUnrelated: objectivesUnrelated,
@@ -19,6 +20,10 @@
         };
 
         function courseCreated(course) {
+            treeOfContentTraversal.getTreeOfContent().children.unshift(new CourseTreeNode(course.id, course.title, "#course/" + course.id));
+        }
+
+        function courseCollaborationStarted(course) {
             treeOfContentTraversal.getTreeOfContent().children.unshift(new CourseTreeNode(course.id, course.title, "#course/" + course.id));
         }
 

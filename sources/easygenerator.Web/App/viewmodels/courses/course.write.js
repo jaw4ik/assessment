@@ -1,9 +1,9 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService',
     'viewmodels/objectives/objectiveBrief', 'localization/localizationManager', 'notify', 'repositories/objectiveRepository',
-    'viewmodels/common/contentField', 'viewmodels/courses/collaboration/collaborators', 'viewmodels/common/contentField'],
+    'viewmodels/common/contentField', 'viewmodels/courses/collaboration/collaborators', 'viewmodels/common/contentField', 'userContext'],
     function (router, constants, eventTracker, courseRepository, service,
         objectiveBriefViewModel, localizationManager, notify, objectiveRepository,
-        vmContentField, collaboratorsViewModel, contentFieldViewModel) {
+        vmContentField, collaboratorsViewModel, contentFieldViewModel, userContext) {
         "use strict";
 
         var
@@ -176,7 +176,7 @@
                 var relatedIds = _.pluck(viewModel.connectedObjectives(), 'id');
 
                 viewModel.availableObjectives(_.chain(objectivesList).filter(function (item) {
-                    return !_.include(relatedIds, item.id);
+                    return !_.include(relatedIds, item.id) && item.createdBy == userContext.identity.email;
                 }).sortBy(function (item) {
                     return -item.createdOn;
                 }).map(function (item) {

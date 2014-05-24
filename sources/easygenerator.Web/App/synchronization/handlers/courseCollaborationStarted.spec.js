@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/courseCollaborated'], function (handler) {
+﻿define(['synchronization/handlers/courseCollaborationStarted'], function (handler) {
     "use strict";
 
     var
@@ -9,7 +9,7 @@
         objectiveModelMapper = require('mappers/objectiveModelMapper')
     ;
 
-    describe('synchronization [courseCollaborated]', function () {
+    describe('synchronization [courseCollaborationStarted]', function () {
 
         var course = { Id: 'courseId' },
             user = { Email: 'mail', FullName: 'fullName' },

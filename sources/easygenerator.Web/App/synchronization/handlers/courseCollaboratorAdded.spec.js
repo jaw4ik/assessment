@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/courseCollaboratorAdded'], function (handler) {
+﻿define(['synchronization/handlers//courseCollaboratorAdded'], function (handler) {
     "use strict";
 
     var

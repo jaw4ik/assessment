@@ -1,5 +1,6 @@
-﻿define(['durandal/system', 'synchronization/handlers/userDowngraded', 'synchronization/handlers/userUpgradedToStarter', 'synchronization/handlers/courseCollaboratorAdded', 'synchronization/handlers/courseCollaborated'],
-    function (system, userDowngraded, userUpgradedToStarter, courseCollaboratorAdded, courseCollaborated) {
+﻿define(['durandal/system', 'synchronization/handlers/userDowngraded', 'synchronization/handlers/userUpgradedToStarter', 'synchronization/handlers/courseCollaboratorAdded',
+    'synchronization/handlers/courseCollaborationStarted'],
+    function (system, userDowngraded, userUpgradedToStarter, courseCollaboratorAdded, courseCollaborationStarted) {
         "use strict";
 
         return {
@@ -16,7 +17,7 @@
 
                 course.client = {
                     courseCollaboratorAdded: courseCollaboratorAdded,
-                    courseCollaborated: courseCollaborated
+                    courseCollaborationStarted: courseCollaborationStarted
                 };
 
                 $.connection.hub.start()

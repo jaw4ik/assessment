@@ -467,6 +467,44 @@
 
         });
 
+        describe('courseCollaborationStartedHandler:', function () {
+            var course = new CourseModel({
+                id: 'testId3',
+                title: 'Test Course 3',
+                objectives: [],
+                template: template,
+                createdBy: userName,
+                createdOn: new Date(2013, 12, 31)
+            });
+
+            var collaboratedCourse = new CourseModel({
+                id: 'testId',
+                title: 'Test Course',
+                objectives: [],
+                template: template,
+                createdBy: userName,
+                createdOn: new Date(2014, 12, 31)
+            });
+
+            it('should be function', function () {
+                expect(viewModel.courseCollaborationStartedHandler).toBeFunction();
+            });
+
+            it('should add course to shared courses', function () {
+                viewModel.sharedCourses([]);
+                viewModel.courseCollaborationStartedHandler(collaboratedCourse);
+                expect(viewModel.sharedCourses().length).toBe(1);
+            });
+
+            it('should sort courses by created on date', function () {
+                viewModel.sharedCourses([course]);
+                debugger;
+                viewModel.courseCollaborationStartedHandler(collaboratedCourse);
+                expect(viewModel.sharedCourses()[0].id).toBe(collaboratedCourse.id);
+                expect(viewModel.sharedCourses()[1].id).toBe(course.id);
+            });
+        });
+
     });
 }
 );

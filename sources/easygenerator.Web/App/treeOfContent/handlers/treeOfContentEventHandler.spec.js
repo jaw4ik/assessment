@@ -244,6 +244,23 @@
 
         });
 
+        describe('courseCollaborationStarted:', function () {
+
+            it('should be function', function () {
+                expect(handler.courseCollaborationStarted).toBeFunction();
+            });
+
+            it('should add course to the tree of content', function () {
+                var treeOfContent = { children: ko.observableArray() };
+                spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
+
+                handler.courseCollaborationStarted({ id: 'courseId', title: 'title' });
+
+                expect(treeOfContent.children().length).toEqual(1);
+            });
+
+        });
+
         describe('courseDeleted:', function () {
 
             it('should be function', function () {

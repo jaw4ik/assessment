@@ -1,5 +1,5 @@
-﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 'ping'],
-    function (constants, eventTracker, router, objectiveRepository, courseRepository, notify, localizationManager, clientContext, ping) {
+﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 'ping', 'userContext'],
+    function (constants, eventTracker, router, objectiveRepository, courseRepository, notify, localizationManager, clientContext, ping, userContext) {
         "use strict";
 
         var
@@ -113,8 +113,8 @@
                     var includedObjectives = _.chain(courses).map(function (course) {
                         return course.objectives;
                     }).flatten().uniq().value();
-
                     var array = _.chain(receivedObjectives)
+                        .filter(function (item) { return item.createdBy == userContext.identity.email; })
                         .sortBy(function (item) { return -item.createdOn; })
                         .map(function (item) {
                             return {

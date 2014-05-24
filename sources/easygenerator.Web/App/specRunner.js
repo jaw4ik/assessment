@@ -55,7 +55,7 @@
             'synchronization/handlers/userDowngraded.spec',
             'synchronization/handlers/userUpgradedToStarter.spec',
             'synchronization/handlers/courseCollaboratorAdded.spec',
-            'synchronization/handlers/courseCollaborated.spec',
+            'synchronization/handlers/courseCollaborationStarted.spec',
             'treeOfContent/handlers/treeOfContentEventHandler.spec',
             'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
             'treeOfContent/queries/getCourseByIdQuery.spec',

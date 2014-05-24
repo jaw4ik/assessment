@@ -32,7 +32,7 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(CourseCollaboratorAddedEvent args)
         {
-            _hubContext.Clients.User(args.Collaborator.User.Email).courseCollaborated(
+            _hubContext.Clients.User(args.Collaborator.User.Email).courseCollaborationStarted(
                   _courseMapper.Map(args.Collaborator.Course),
                   args.Collaborator.Course.RelatedObjectives.Select(o => _objectiveMapper.Map(o)),
                   _collaboratorMapper.Map(args.Collaborator));

@@ -30,6 +30,6 @@
                 dataContext.courses.push(existingCourse);
             }
 
-            app.trigger(constants.messages.course.collaboration.started, existingCourse.id, collaborator);
+            app.trigger(constants.messages.course.collaboration.started, existingCourse);
         };
     });

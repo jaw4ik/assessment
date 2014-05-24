@@ -10,7 +10,8 @@
             courseRepository = require('repositories/courseRepository'),
             notify = require('notify'),
             localizationManager = require('localization/localizationManager'),
-            ping = require('ping')
+            ping = require('ping'),
+            userContext = require('userContext')
         ;
 
 
@@ -214,6 +215,7 @@
                 var
                     getObjectivesDeferred,
                     getCoursesDeferred;
+                var createdBy = 'user';
 
                 beforeEach(function () {
                     getObjectivesDeferred = Q.defer();
@@ -221,6 +223,7 @@
 
                     spyOn(objectiveRepository, 'getCollection').and.returnValue(getObjectivesDeferred.promise);
                     spyOn(courseRepository, 'getCollection').and.returnValue(getCoursesDeferred.promise);
+                    userContext.identity = { email: createdBy };
                 });
 
                 it('should be function', function () {
@@ -239,13 +242,14 @@
 
                 describe('when objectives have been recieved', function () {
 
-                    var objectiveItem = { id: '1', title: 'z', image: '', questions: [{ id: 0 }, { id: 1 }], modifiedOn: 'some date' };
+                    var objectiveItem = { id: '1', title: 'z', image: '', questions: [{ id: 0 }, { id: 1 }], modifiedOn: 'some date', createdBy: createdBy };
                     var objectivesCollection = [
                         objectiveItem,
-                        { id: '2', title: 'a', image: '', questions: [{}, {}] },
-                        { id: '3', title: 'A', image: '', questions: [{}, {}] },
-                        { id: '4', title: 'c', image: '', questions: [{}, {}] },
-                        { id: '5', title: 'B', image: '', questions: [{}, {}] }
+                        { id: '2', title: 'a', image: '', questions: [{}, {}], createdBy: createdBy },
+                        { id: '3', title: 'A', image: '', questions: [{}, {}], createdBy: createdBy },
+                        { id: '4', title: 'c', image: '', questions: [{}, {}], createdBy: createdBy },
+                        { id: '5', title: 'B', image: '', questions: [{}, {}], createdBy: createdBy },
+                        { id: '6', title: 'D', image: '', questions: [{}, {}], createdBy: 'anonym' }
                     ];
 
                     beforeEach(function () {
@@ -274,7 +278,20 @@
 
                                 promise.fin(function () {
                                     expect(promise).toBeResolved();
-                                    expect(viewModel.objectives().length).toBe(objectivesCollection.length);
+                                    expect(viewModel.objectives().length).toBeGreaterThan(0);
+                                    done();
+                                });
+                            });
+
+                            it('should filter shared objectives', function (done) {
+                                getObjectivesDeferred.resolve(objectivesCollection);
+                                getCoursesDeferred.resolve([]);
+
+                                var promise = viewModel.activate();
+
+                                promise.fin(function () {
+                                    expect(promise).toBeResolved();
+                                    expect(viewModel.objectives().length).toBe(objectivesCollection.length - 1);
                                     done();
                                 });
                             });
@@ -348,7 +365,7 @@
 
                                 it('should set canBeDeleted to false for each objective', function (done) {
                                     getCoursesDeferred.resolve([]);
-                                    getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [{ id: 0 }, { id: 1 }] }]);
+                                    getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [{ id: 0 }, { id: 1 }], createdBy: createdBy }]);
 
                                     var promise = viewModel.activate();
 
@@ -367,7 +384,7 @@
 
                                     it('should set canBeDeleted to true for each objective', function (done) {
                                         getCoursesDeferred.resolve([]);
-                                        getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [] }]);
+                                        getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [], createdBy: createdBy }]);
 
                                         var promise = viewModel.activate();
 
@@ -383,7 +400,7 @@
 
                                     it('should set canBeDeleted to false', function (done) {
                                         getCoursesDeferred.resolve([{ objectives: [{ id: '1' }] }]);
-                                        getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [] }]);
+                                        getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [], createdBy: createdBy }]);
 
                                         var promise = viewModel.activate();
 
