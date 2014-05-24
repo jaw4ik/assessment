@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
 {
@@ -8,8 +9,10 @@ namespace easygenerator.Web.Components.Mappers
         {
             return new
             {
+                Id = collaborator.Id.ToNString(),
                 Email = collaborator.User.Email,
-                FullName = collaborator.User.FullName
+                FullName = collaborator.User.FullName,
+                CreatedOn = collaborator.CreatedOn
             };
         }
     }

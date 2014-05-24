@@ -12,10 +12,12 @@
                 displayName = isOwner ? name + ': ' + localizationManager.localize('owner') : name;
 
             return {
+                id: collaborator.id,
                 name: name,
                 displayName: displayName,
                 avatarLetter: avatarLetter,
-                isOwner: isOwner
+                isOwner: isOwner,
+                createdOn: collaborator.createdOn
             };
         };
 

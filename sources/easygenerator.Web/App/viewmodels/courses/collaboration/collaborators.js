@@ -9,10 +9,14 @@
         var viewModel = function (courseId, courseOwner, collaborators) {
 
             var members = ko.observableArray([]);
-
-            _.forEach(collaborators, function (item) {
-                members.push(new vmCollaborator(courseOwner, item));
-            });
+            members(_.chain(collaborators)
+                 .sortBy(function (item) {
+                     return -item.createdOn;
+                 })
+                 .map(function (item) {
+                     return new vmCollaborator(courseOwner, item);
+                 })
+                 .value());
 
             var addMember = function () {
                 eventTracker.publish(events.openAddCourseCollaboratorDialog);
@@ -23,7 +27,13 @@
                 if (courseId != collaboratedCourseId)
                     return;
 
-                members.push(new vmCollaborator(courseOwner, collaborator));
+                var items = members();
+                items.push(new vmCollaborator(courseOwner, collaborator));
+                items = _.sortBy(items, function (item) {
+                    return -item.createdOn;
+                });
+
+                members(items);
             }
 
             app.on(constants.messages.course.collaboration.collaboratorAdded, collaboratorAdded);

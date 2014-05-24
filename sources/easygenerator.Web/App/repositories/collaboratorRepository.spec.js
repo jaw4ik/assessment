@@ -2,7 +2,8 @@
     "use strict";
 
     var httpWrapper = require('http/httpRequestSender'),
-        dataContext = require('dataContext');
+        dataContext = require('dataContext'),
+        collaboratorModelMapper = require('mappers/collaboratorModelMapper');
 
     describe('repository [collaboratorRepository]', function () {
 
@@ -250,9 +251,11 @@
                             }
                         ];
 
+                        var date = new Date();
                         var receivedData = {
                             Email: 'email',
-                            FullName: 'name'
+                            FullName: 'name',
+                            CreatedOn: date.toISOString()
                         };
 
                         var promise = repository.add(courseId, email);
@@ -260,6 +263,7 @@
                         promise.fin(function () {
                             expect(promise.inspect().value.email).toEqual(receivedData.Email);
                             expect(promise.inspect().value.fullName).toEqual(receivedData.FullName);
+                            expect(promise.inspect().value.createdOn).toEqual(date);
 
                             done();
                         });
@@ -268,7 +272,7 @@
                             success: true, data: receivedData
                         });
                     });
-                   
+
                 });
 
             });

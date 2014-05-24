@@ -1,5 +1,5 @@
-﻿define(['http/httpRequestSender', 'guard', 'models/collaborator', 'dataContext'],
-    function (httpWrapper, guard, Collaborator, dataContext) {
+﻿define(['http/httpRequestSender', 'guard', 'models/collaborator', 'dataContext', 'mappers/collaboratorModelMapper'],
+    function (httpWrapper, guard, Collaborator, dataContext, collaboratorModelMapper) {
         "use strict";
 
         var repository = {
@@ -38,11 +38,7 @@
                         });
 
                         guard.throwIfNotAnObject(course, 'Course does not exist in dataContext');
-                        var collaborator = new Collaborator({
-                            email: data.Email,
-                            fullName: data.FullName
-                        });
-
+                        var collaborator = collaboratorModelMapper.map(data);
                         course.collaborators.push(collaborator);
 
                         return collaborator;

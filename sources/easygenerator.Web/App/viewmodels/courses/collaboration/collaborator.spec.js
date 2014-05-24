@@ -18,7 +18,7 @@
             spyOn(localizationManager, 'localize').and.returnValue(owner);
         });
 
-        describe('name', function () {
+        describe('name:', function () {
             it('should be defined', function () {
                 viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail });
                 expect(viewModel.name).toBeDefined();
@@ -39,7 +39,7 @@
             });
         });
 
-        describe('displayName', function () {
+        describe('displayName:', function () {
             it('should be defined', function () {
                 viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail });
                 expect(viewModel.displayName).toBeDefined();
@@ -83,7 +83,7 @@
             });
         });
 
-        describe('avatarLetter', function () {
+        describe('avatarLetter:', function () {
             it('should be defined', function () {
                 viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail });
                 expect(viewModel.avatarLetter).toBeDefined();
@@ -104,7 +104,7 @@
             });
         });
 
-        describe('isOwner', function () {
+        describe('isOwner:', function () {
             it('should be defined', function () {
                 viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail });
                 expect(viewModel.isOwner).toBeDefined();
@@ -122,6 +122,13 @@
                     viewModel = ctor(ownerEmail, { fullName: fullName, email: 'oppa@some.style' });
                     expect(viewModel.isOwner).toBeFalsy();
                 });
+            });
+        });
+
+        describe('id:', function () {
+            it('should be defined', function () {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail, id: 'id' });
+                expect(viewModel.id).toBeDefined();
             });
         });
 

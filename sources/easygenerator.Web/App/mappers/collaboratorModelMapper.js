@@ -1,16 +1,14 @@
-﻿define(['models/collaborator', 'guard'],
-    function (CollaboratorModel, guard) {
+﻿define(['models/collaborator'],
+    function (CollaboratorModel) {
         "use strict";
 
         var
             map = function (item) {
-                guard.throwIfNotAnObject(item, 'Collaborator is not an object');
-                guard.throwIfNotString(item.Email, 'Collaborator email is not a string');
-                guard.throwIfNotString(item.FullName, 'Collaborator fullname is not a string');
-
                 return new CollaboratorModel({
+                    id: item.Id,
                     email: item.Email,
-                    fullName: item.FullName
+                    fullName: item.FullName,
+                    createdOn: new Date(item.CreatedOn)
                 });
             };
 
