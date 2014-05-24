@@ -29,5 +29,7 @@
                 existingCourse = courseModelMapper.map(course, dataContext.objectives, dataContext.templates);
                 dataContext.courses.push(existingCourse);
             }
+
+            app.trigger(constants.messages.course.collaboration.started, existingCourse.id, collaborator);
         };
     });

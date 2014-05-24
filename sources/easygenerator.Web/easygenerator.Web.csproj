@@ -251,6 +251,7 @@
     <Compile Include="Components\Mappers\CourseMapper.cs" />
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
     <Compile Include="Components\Mappers\ObjectiveMapper.cs" />
+    <Compile Include="Components\Mappers\QuestionMapper.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinder.cs" />
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinder.cs" />
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinderProvider.cs" />

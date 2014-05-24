@@ -112,6 +112,11 @@
 
         });
 
+        it('should trigger app event', function () {
+            handler(course, [], user);
+            expect(app.trigger).toHaveBeenCalled();
+        });
+
     });
 
 })

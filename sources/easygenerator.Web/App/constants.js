@@ -93,7 +93,8 @@
                         started: 'course:action-started'
                     },
                     collaboration: {
-                        collaboratorAdded: 'course:collaboration-collaboratorAdded'
+                        collaboratorAdded: 'course:collaboration-collaboratorAdded',
+                        started: 'course:collaboration-started'
                     }
                 },
                 objective: {

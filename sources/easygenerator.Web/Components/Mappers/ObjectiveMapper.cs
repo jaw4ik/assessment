@@ -6,6 +6,13 @@ namespace easygenerator.Web.Components.Mappers
 {
     public class ObjectiveMapper : IEntityMapper<Objective>
     {
+        private readonly IEntityMapper<Question> _questionMapper;
+
+        public ObjectiveMapper(IEntityMapper<Question> questionMapper)
+        {
+            _questionMapper = questionMapper;
+        }
+
         public dynamic Map(Objective obj)
         {
             return new
@@ -15,16 +22,7 @@ namespace easygenerator.Web.Components.Mappers
                 CreatedBy = obj.CreatedBy,
                 CreatedOn = obj.CreatedOn,
                 ModifiedOn = obj.ModifiedOn,
-                Questions = obj.Questions.Select(q => new
-                {
-                    Id = q.Id.ToNString(),
-                    Title = q.Title,
-                    Content = q.Content,
-                    CreatedOn = q.CreatedOn,
-                    CreatedBy = q.CreatedBy,
-                    ModifiedOn = q.ModifiedOn,
-                    Type = q.Type
-                })
+                Questions = obj.Questions.Select(q => _questionMapper.Map(q))
             };
         }
     }
