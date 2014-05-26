@@ -744,23 +744,19 @@
     }
 
 .fill-in-the-blank .create-blank-wrapper {
-    border: 1px solid #efefef;
-    border-radius: 3px;
-    padding: 1px;
-    margin: 5px 0 0;
-    display: inline-block;
+    margin: 3px 0 0;
     float: right;
 }
 
 .fill-in-the-blank .btn.create-blank {
+    height: 34px;
+    padding: 6px 15px;
     background-color: #5BC0DE;
     border: 1px solid #52ADC8;
     color: #FFFFFF;
     font-family: 'OpenSans';
     font-size: 14px;
     text-shadow: none;
-    height: 30px;
-    padding: 4px 15px;
 }
 
     .fill-in-the-blank .btn.create-blank:hover {
