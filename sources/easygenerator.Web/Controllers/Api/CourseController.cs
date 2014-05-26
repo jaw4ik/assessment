@@ -51,7 +51,8 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new
             {
                 Id = course.Id.ToNString(),
-                CreatedOn = course.CreatedOn
+                CreatedOn = course.CreatedOn,
+                CreatedBy = course.CreatedBy
             });
         }
 

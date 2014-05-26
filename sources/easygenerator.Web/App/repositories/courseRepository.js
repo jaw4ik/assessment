@@ -56,13 +56,14 @@
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.Id, 'Response Id is not a string');
                     guard.throwIfNotString(response.CreatedOn, 'Response CreatedOn is not a string');
+                    guard.throwIfNotString(response.CreatedBy, 'Response CreatedBy is not a string');
 
                     var template = _.find(dataContext.templates, function (item) {
                         return item.id === templateId;
                     });
 
                     guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
-
+                    debugger;
                     var
                         courseId = response.Id,
                         createdOn = new Date(response.CreatedOn),
@@ -76,6 +77,7 @@
                             },
                             objectives: [],
                             createdOn: createdOn,
+                            createdBy: response.CreatedBy,
                             modifiedOn: createdOn
                         });
 
