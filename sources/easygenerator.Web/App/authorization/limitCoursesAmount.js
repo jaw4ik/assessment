@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'dataContext', 'userContext'], function(app, dataContext, userContext) {
+﻿define(['durandal/app', 'dataContext', 'userContext'], function (app, dataContext, userContext) {
     "use strict";
 
     var freeLimit = 10;
@@ -21,9 +21,11 @@
     }
 
     function checkAccess() {
-        if (userContext.hasStarterAccess()) {
-            return dataContext.courses.length < starterLimit;
-        }
-        return dataContext.courses.length < freeLimit;
+        var ownedCourses = _.filter(dataContext.courses, function (item) {
+            return item.createdBy === userContext.identity.email;
+        });
+
+        var limit = userContext.hasStarterAccess() ? starterLimit : freeLimit;
+        return ownedCourses.length < limit;
     }
 });

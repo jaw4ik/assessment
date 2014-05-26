@@ -5,41 +5,48 @@
         dataContext = require('dataContext');
 
     describe('viewModel [limitCoursesAmount]', function () {
+        var username = "user";
 
-        it('should be defined', function() {
+        beforeEach(function () {
+            userContext.identity = {
+                email: username
+            };
+        });
+
+        it('should be defined', function () {
             expect(viewModel).toBeDefined();
         });
 
         describe('checkAccess:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.checkAccess).toBeFunction();
             });
 
-            describe('when user has started access', function() {
+            describe('when user has started access', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
                 });
 
-                describe('and course amount exceeds starter limit', function() {
+                describe('and owned course amount exceeds starter limit', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         var courses = [];
-                        _.times(55, function (n) {
-                            courses.push(n);
+                        _.times(55, function () {
+                            courses.push({ createdBy: username });
                         });
                         dataContext.courses = courses;
                     });
 
-                    it('should return false', function() {
+                    it('should return false', function () {
                         expect(viewModel.checkAccess()).toBeFalsy();
                     });
 
                 });
 
-                describe('and course amount is less then starter limit', function () {
-                    
+                describe('and owned course amount is less then starter limit', function () {
+
                     beforeEach(function () {
                         dataContext.courses = [];
                     });
@@ -52,19 +59,19 @@
 
             });
 
-            describe('when user has no starter access', function() {
-                
+            describe('when user has no starter access', function () {
+
 
                 beforeEach(function () {
                     spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
                 });
 
-                describe('and course amount exceeds free limit', function () {
+                describe('and owned course amount exceeds free limit', function () {
 
                     beforeEach(function () {
                         var courses = [];
-                        _.times(11, function (n) {
-                            courses.push(n);
+                        _.times(11, function () {
+                            courses.push({ createdBy: username });
                         });
                         dataContext.courses = courses;
                     });
@@ -75,7 +82,7 @@
 
                 });
 
-                describe('and course amount is less then free limit', function () {
+                describe('and owned course amount is less then free limit', function () {
 
                     beforeEach(function () {
                         dataContext.courses = [];
