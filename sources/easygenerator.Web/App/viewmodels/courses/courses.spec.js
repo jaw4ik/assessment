@@ -498,7 +498,7 @@
 
             it('should sort courses by created on date', function () {
                 viewModel.sharedCourses([course]);
-                debugger;
+
                 viewModel.courseCollaborationStartedHandler(collaboratedCourse);
                 expect(viewModel.sharedCourses()[0].id).toBe(collaboratedCourse.id);
                 expect(viewModel.sharedCourses()[1].id).toBe(course.id);

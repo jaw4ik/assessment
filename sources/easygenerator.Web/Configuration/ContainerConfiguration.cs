@@ -71,9 +71,9 @@ namespace easygenerator.Web.Configuration
 
             #region Domain events dependecies
 
-            builder.RegisterGeneric(typeof(DomainEventPublisher<>)).As(typeof(IDomainEventPublisher<>)).InstancePerHttpRequest();
-            builder.RegisterGeneric(typeof(DomainEventHandlersProvider<>)).As(typeof(IDomainEventHandlersProvider<>)).InstancePerHttpRequest();
-            RegisterGenericTypes(builder, applicationAssembly, typeof(IDomainEventHandler<>)).ForEach(_ => _.InstancePerHttpRequest());
+            builder.RegisterGeneric(typeof(DomainEventPublisher<>)).As(typeof(IDomainEventPublisher<>)).InstancePerRequest();
+            builder.RegisterGeneric(typeof(DomainEventHandlersProvider<>)).As(typeof(IDomainEventHandlersProvider<>)).InstancePerRequest();
+            RegisterGenericTypes(builder, applicationAssembly, typeof(IDomainEventHandler<>)).ForEach(_ => _.InstancePerRequest());
 
             #endregion
 
@@ -195,9 +195,9 @@ namespace easygenerator.Web.Configuration
             foreach (var type in types)
             {
                 if (type.IsGenericType)
-                    builders.Add(builder.RegisterGeneric(type).AsImplementedInterfaces().InstancePerHttpRequest());
+                    builders.Add(builder.RegisterGeneric(type).AsImplementedInterfaces().InstancePerRequest());
                 else
-                    builders.Add(builder.RegisterType(type).AsImplementedInterfaces().InstancePerHttpRequest());
+                    builders.Add(builder.RegisterType(type).AsImplementedInterfaces().InstancePerRequest());
             }
 
             return builders;

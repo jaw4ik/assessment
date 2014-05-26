@@ -57,7 +57,7 @@
 
             it('should order members by created on date', function () {
                 viewModel = ctor(courseId, owner, collaborators);
-                debugger;
+
                 expect(viewModel.members()[0].id).toBe(collaborators[2].id);
                 expect(viewModel.members()[1].id).toBe(collaborators[0].id);
                 expect(viewModel.members()[2].id).toBe(collaborators[1].id);
@@ -114,7 +114,7 @@
                 userContext.identity = {};
             });
 
-            var collaborator = { fullName: 'fullName', email: 'email', createdOn: new Date(2015, 12, 31), id: "333" };
+            var collaborator = { fullName: 'fullName', email: 'email', createdOn: new Date(2010, 12, 31), id: "333" };
 
             it('should be function', function () {
                 viewModel = ctor(courseId, '', []);
