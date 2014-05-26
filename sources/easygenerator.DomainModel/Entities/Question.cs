@@ -85,6 +85,10 @@ namespace easygenerator.DomainModel.Entities
         {
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
+            foreach (var answer in AnswersCollection)
+            {
+                answer.Question = null;
+            }
             AnswersCollection = answers;
 
             MarkAsModified(modifiedBy);

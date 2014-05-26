@@ -568,6 +568,11 @@
         box-shadow: 0 0 3px #dedede;
     }
 
+    .fill-in-the-blank .view-header-title .edit-field.error {
+        border: 1px solid rgba(149, 59, 57, 0.8);
+        box-shadow: 0 0 3px #953b39;
+    }
+
 .fill-in-the-blank .edit-field.active {
     box-shadow: none;
     border: 1px solid #5bc0de;
@@ -585,6 +590,11 @@
     right: inherit;
     top: -20px;
 }
+
+    .fill-in-the-blank .edit-field.active + .chars-counter.error {
+        background-color: #953b39;
+        display: block;
+    }
 
 .fill-in-the-blank .edit-field.active + .chars-counter {
     border: none;

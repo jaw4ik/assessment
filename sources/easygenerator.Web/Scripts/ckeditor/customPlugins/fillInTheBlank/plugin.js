@@ -85,16 +85,17 @@
                         event.preventDefault();
                         event.stopPropagation();
                     });
+                    widget.on('ready', function () {
+                        widget.editables.content.on('keydown', function (event) {
+                            var keyCode = event.data.getKey();
 
-                    widget.editables.content.on('keydown', function (event) {
-                        var keyCode = event.data.getKey();
+                            if (keyCode == 13) {
+                                $editable.blur();
 
-                        if (keyCode == 13) {
-                            $editable.blur();
-
-                            event.data.preventDefault();
-                            event.data.stopPropagation();
-                        }
+                                event.data.preventDefault();
+                                event.data.stopPropagation();
+                            }
+                        });
                     });
 
                     $editable.on('focus', function () {
