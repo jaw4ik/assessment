@@ -475,12 +475,12 @@
     width: 342px;
     background-color: #fff;
     position: absolute;
-    top: 54px;
+    top: 49px;
     right: 0;
-    border: 1px solid #DEDEDE;
-    -webkit-box-shadow: 0 3px 3px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0 3px 3px 0px rgba(0, 0, 0, 0.5);
-    box-shadow: 0 3px 3px 0px rgba(0, 0, 0, 0.5);
+    border: 1px solid #dedede;
+    -webkit-box-shadow: 0 3px 3px 0 rgba(0,0,0,.5);
+    -moz-box-shadow: 0 3px 3px 0 rgba(0,0,0,.5);
+    box-shadow: 1px 1px 7px rgba(0,0,0,.1);
     z-index: 10;
 }
 
@@ -591,10 +591,10 @@
     top: -20px;
 }
 
-    .fill-in-the-blank .edit-field.active + .chars-counter.error {
-        background-color: #953b39;
-        display: block;
-    }
+.fill-in-the-blank .edit-field.active + .chars-counter.error {
+    background-color: #953b39;
+    display: block;
+}
 
 .fill-in-the-blank .edit-field.active + .chars-counter {
     border: none;
