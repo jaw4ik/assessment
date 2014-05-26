@@ -23,11 +23,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
     public class CourseCollaborationControllerTests
     {
         private const string CreatedBy = "easygenerator@easygenerator.com";
+        private const string UserEmail = "user@easygenerator.com";
 
         private CourseCollaborationController _controller;
         private IUserRepository _userRepository;
         private IDomainEventPublisher<CourseCollaboratorAddedEvent> _courseCollaboratorAddedEventPublisher;
-        private IEntityMapper<CourseCollabrator> _collaboratorMapper;
+        private IEntityMapper<CourseCollaborator> _collaboratorMapper;
         IPrincipal _user;
         HttpContextBase _context;
 
@@ -41,7 +42,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
-            _collaboratorMapper = Substitute.For<IEntityMapper<CourseCollabrator>>();
+            _collaboratorMapper = Substitute.For<IEntityMapper<CourseCollaborator>>();
 
             _courseCollaboratorAddedEventPublisher =
                 Substitute.For<IDomainEventPublisher<CourseCollaboratorAddedEvent>>();
@@ -68,11 +69,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            const string email = "some@email.com";
-            _userRepository.GetUserByEmail(email).Returns(null as User);
+            _userRepository.GetUserByEmail(UserEmail).Returns(null as User);
 
             //Act
-            var result = _controller.AddCollaborator(course, email);
+            var result = _controller.AddCollaborator(course, UserEmail);
 
             //Assert
             result.Should().BeJsonErrorResultWithMessage(Errors.UserWithSpecifiedEmailDoesntExist);
@@ -86,14 +86,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var course = Substitute.For<Course>();
             var user = UserObjectMother.Create();
-            const string email = "some@email.com";
-            _userRepository.GetUserByEmail(email).Returns(user);
+            _userRepository.GetUserByEmail(UserEmail).Returns(user);
 
             //Act
-            _controller.AddCollaborator(course, email);
+            _controller.AddCollaborator(course, UserEmail);
 
             //Assert
-            course.Received().CollaborateWithUser(user, CreatedBy);
+            course.Received().Collaborate(UserEmail, CreatedBy);
         }
 
         [TestMethod]
@@ -103,13 +102,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.Name.Returns(CreatedBy);
 
             var course = Substitute.For<Course>();
-            course.CollaborateWithUser(Arg.Any<User>(), Arg.Any<string>()).Returns(null as CourseCollabrator);
+            course.Collaborate(Arg.Any<string>(), Arg.Any<string>()).Returns(null as CourseCollaborator);
             var user = UserObjectMother.Create();
-            const string email = "some@email.com";
-            _userRepository.GetUserByEmail(email).Returns(user);
+            _userRepository.GetUserByEmail(UserEmail).Returns(user);
 
             //Act
-            var result = _controller.AddCollaborator(course, email);
+            var result = _controller.AddCollaborator(course, UserEmail);
 
             //Assert
             result.Should()
@@ -124,13 +122,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.Name.Returns(CreatedBy);
 
             var course = Substitute.For<Course>();
-            course.CollaborateWithUser(Arg.Any<User>(), Arg.Any<string>()).Returns(null as CourseCollabrator);
+            course.Collaborate(Arg.Any<string>(), Arg.Any<string>()).Returns(null as CourseCollaborator);
             var user = UserObjectMother.Create();
-            const string email = "some@email.com";
-            _userRepository.GetUserByEmail(email).Returns(user);
+            _userRepository.GetUserByEmail(UserEmail).Returns(user);
 
             //Act
-            _controller.AddCollaborator(course, email);
+            _controller.AddCollaborator(course, UserEmail);
 
             //Assert
             _courseCollaboratorAddedEventPublisher.DidNotReceive().Publish(Arg.Any<CourseCollaboratorAddedEvent>());
@@ -144,14 +141,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var course = Substitute.For<Course>();
             var user = UserObjectMother.Create();
-            var collaborator = CourseCollaboratorObjectMother.Create(course, user, CreatedBy);
-            course.CollaborateWithUser(Arg.Any<User>(), Arg.Any<string>()).Returns(collaborator);
-            
-            const string email = "some@email.com";
-            _userRepository.GetUserByEmail(email).Returns(user);
+            var collaborator = CourseCollaboratorObjectMother.Create(course, "user@ww.www");
+            course.Collaborate(Arg.Any<string>(), Arg.Any<string>()).Returns(collaborator);
+
+            _userRepository.GetUserByEmail(UserEmail).Returns(user);
 
             //Act
-            var result = _controller.AddCollaborator(course, email);
+            var result = _controller.AddCollaborator(course, UserEmail);
 
             //Assert
             result.Should().BeJsonSuccessResult();
@@ -165,14 +161,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var course = Substitute.For<Course>();
             var user = UserObjectMother.Create();
-            var collaborator = CourseCollaboratorObjectMother.Create(course, user, CreatedBy);
-            course.CollaborateWithUser(Arg.Any<User>(), Arg.Any<string>()).Returns(collaborator);
+            var collaborator = CourseCollaboratorObjectMother.Create(course, "user@www.www");
+            course.Collaborate(Arg.Any<string>(), Arg.Any<string>()).Returns(collaborator);
 
-            const string email = "some@email.com";
-            _userRepository.GetUserByEmail(email).Returns(user);
+            _userRepository.GetUserByEmail(UserEmail).Returns(user);
 
             //Act
-            _controller.AddCollaborator(course, email);
+            _controller.AddCollaborator(course, UserEmail);
 
             //Assert
             _courseCollaboratorAddedEventPublisher.Received().Publish(Arg.Any<CourseCollaboratorAddedEvent>());

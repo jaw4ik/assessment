@@ -15,6 +15,7 @@ namespace easygenerator.DomainModel.Tests.Entities
     {
         private const string ModifiedBy = "easygenerator@easygenerator.com";
         private const string CreatedBy = "easygenerator2@easygenerator.com";
+        private const string UserEmail = "user@easygenerator.com";
 
         private readonly DateTime _currentDate = new DateTime(2014, 3, 19);
         [TestInitialize]
@@ -522,8 +523,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string username = "user@user.com";
             var course = CourseObjectMother.Create();
 
-            var user = UserObjectMother.CreateWithEmail(username);
-            course.CollaborateWithUser(user, CreatedBy);
+            course.Collaborate(username, CreatedBy);
 
             //Act
             var result = course.IsPermittedTo(username);
@@ -894,88 +894,100 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion UpdateIntroductionContent
 
-        #region CollaborateWithUser
+        #region Collaborate
 
         [TestMethod]
-        public void CollaborateWithUser_ShouldThrowArgumentNullException_WhenCommentIsNull()
+        public void Collaborate_ShouldThrowArgumentNullException_WhenUserEmailIsNull()
         {
             var course = CourseObjectMother.Create();
 
-            Action action = () => course.CollaborateWithUser(null, CreatedBy);
+            Action action = () => course.Collaborate(null, CreatedBy);
 
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("user");
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("userEmail");
         }
 
         [TestMethod]
-        public void CollaborateWithUser_ShouldAddCollaborator()
+        public void Collaborate_ShouldThrowArgumentNullException_WhenCreatedByIsNull()
+        {
+            var course = CourseObjectMother.Create();
+
+            Action action = () => course.Collaborate(UserEmail, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("createdBy");
+        }
+
+        [TestMethod]
+        public void Collaborate_ShouldThrowArgumentNullException_WhenUserEmailIsInvalid()
+        {
+            var course = CourseObjectMother.Create();
+
+            Action action = () => course.Collaborate("email", CreatedBy);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("userEmail");
+        }
+
+        [TestMethod]
+        public void Collaborate_ShouldAddCollaborator()
         {
             const string owner = "owner@www.com";
             var course = CourseObjectMother.Create(createdBy: owner);
-            var user = UserObjectMother.Create();
 
-            course.CollaborateWithUser(user, CreatedBy);
+            course.Collaborate(UserEmail, CreatedBy);
 
             course.CollaboratorsCollection.Should().NotBeEmpty().And.HaveCount(1);
         }
 
         [TestMethod]
-        public void CollaborateWithUser_ShouldReturnCourseCollaborator()
+        public void Collaborate_ShouldReturnCourseCollaborator()
         {
             const string owner = "owner@www.com";
             var course = CourseObjectMother.Create(createdBy: owner);
-            var user = UserObjectMother.Create();
 
-            var result = course.CollaborateWithUser(user, CreatedBy);
+            var result = course.Collaborate(UserEmail, CreatedBy);
 
-            result.Should().BeOfType<CourseCollabrator>();
+            result.Should().BeOfType<CourseCollaborator>();
         }
 
         [TestMethod]
-        public void CollaborateWithUser_ShouldNotAddCollaborator_WhenUserIsCourseOwner()
+        public void Collaborate_ShouldNotAddCollaborator_WhenUserIsCourseOwner()
         {
-            const string email = "owner@www.com";
-            var course = CourseObjectMother.Create(createdBy: email);
-            var user = UserObjectMother.CreateWithEmail(email);
+            var course = CourseObjectMother.Create(createdBy: UserEmail);
 
-            course.CollaborateWithUser(user, CreatedBy);
+            course.Collaborate(UserEmail, CreatedBy);
 
             course.CollaboratorsCollection.Should().BeEmpty();
         }
 
         [TestMethod]
-        public void CollaborateWithUser_ShouldReturnNull_WhenUserIsCourseOwner()
+        public void Collaborate_ShouldReturnNull_WhenUserIsCourseOwner()
         {
-            const string email = "owner@www.com";
-            var course = CourseObjectMother.Create(createdBy: email);
-            var user = UserObjectMother.CreateWithEmail(email);
+            var course = CourseObjectMother.Create(createdBy: UserEmail);
 
-            var result = course.CollaborateWithUser(user, CreatedBy);
+            var result = course.Collaborate(UserEmail, CreatedBy);
 
             result.Should().BeNull();
         }
 
         [TestMethod]
-        public void CollaborateWithUser_ShouldNotAddCollaborator_WhenUserIsCourseCollaboratorAlready()
+        public void Collaborate_ShouldNotAddCollaborator_WhenUserIsCourseCollaboratorAlready()
         {
             const string email = "owner@www.com";
-            var course = CourseObjectMother.Create(createdBy: "user@www.www");
-            var user = UserObjectMother.CreateWithEmail(email);
-            course.CollaborateWithUser(user, CreatedBy);
+            var course = CourseObjectMother.Create(createdBy: UserEmail);
+            course.Collaborate(email, CreatedBy);
 
-            course.CollaborateWithUser(user, CreatedBy);
+            course.Collaborate(email, CreatedBy);
 
             course.CollaboratorsCollection.Should().NotBeEmpty().And.HaveCount(1);
         }
 
         [TestMethod]
-        public void CollaborateWithUser_ShouldReturnNull_WhenUserIsCourseCollaboratorAlready()
+        public void Collaborate_ShouldReturnNull_WhenUserIsCourseCollaboratorAlready()
         {
             const string email = "owner@www.com";
-            var course = CourseObjectMother.Create(createdBy: "user@www.www");
-            var user = UserObjectMother.CreateWithEmail(email);
-            course.CollaborateWithUser(user, CreatedBy);
+            var course = CourseObjectMother.Create(createdBy: UserEmail);
+            course.Collaborate(email, CreatedBy);
 
-            var result = course.CollaborateWithUser(user, CreatedBy);
+            var result = course.Collaborate(email, CreatedBy);
 
             result.Should().BeNull();
         }

@@ -11,9 +11,9 @@ namespace easygenerator.Web.Components.Mappers
     {
         private readonly IUrlHelperWrapper _urlHelper;
         private readonly IUserRepository _userRepository;
-        private readonly IEntityMapper<CourseCollabrator> _collaboratorMapper;
+        private readonly IEntityMapper<CourseCollaborator> _collaboratorMapper;
 
-        public CourseMapper(IUrlHelperWrapper urlHelper, IUserRepository userRepository, IEntityMapper<CourseCollabrator> collaboratorMapper)
+        public CourseMapper(IUrlHelperWrapper urlHelper, IUserRepository userRepository, IEntityMapper<CourseCollaborator> collaboratorMapper)
         {
             _urlHelper = urlHelper;
             _userRepository = userRepository;

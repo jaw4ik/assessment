@@ -9,9 +9,11 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
 {
     public static class CourseCollaboratorObjectMother
     {
-        public static CourseCollabrator Create(Course course, User user, string createdBy)
+        private const string CreatedBy = "easygenerator@easygenerator.com";
+
+        public static CourseCollaborator Create(Course course, string userEmail, string createdBy = CreatedBy)
         {
-            return new CourseCollabrator(course, user, createdBy);
+            return new CourseCollaborator(course, userEmail, createdBy);
         }
     }
 }

@@ -1,24 +1,26 @@
 ﻿
 
+using System;
+using System.Text.RegularExpressions;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
-    public class CourseCollabrator : Entity
+    public class CourseCollaborator : Entity
     {
         public virtual Course Course { get; protected internal set; }
-        public virtual User User { get; protected internal set; }
+        public virtual string Email { get; protected internal set; }
 
-        protected internal CourseCollabrator() { }
+        protected internal CourseCollaborator() { }
 
-        protected internal CourseCollabrator(Course course, User user, string createdBy)
+        protected internal CourseCollaborator(Course course, string email, string createdBy)
             : base(createdBy)
         {
             ThrowIfCourseIsInvalid(course);
-            ThrowIfUserIsInvaid(user);
+            ThrowIfEmailIsNotValid(email);
 
             Course = course;
-            User = user;
+            Email = email;
         }
 
         private void ThrowIfCourseIsInvalid(Course course)
@@ -26,9 +28,9 @@ namespace easygenerator.DomainModel.Entities
              ArgumentValidation.ThrowIfNull(course, "course");
         }
 
-        private void ThrowIfUserIsInvaid(User user)
+        private void ThrowIfEmailIsNotValid(string userEmail)
         {
-            ArgumentValidation.ThrowIfNull(user, "user");
+            ArgumentValidation.ThrowIfNotValidEmail(userEmail, "userEmail");
         }
     }
 }

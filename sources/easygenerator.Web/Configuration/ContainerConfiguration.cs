@@ -82,7 +82,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<CourseMapper>().As<IEntityMapper<Course>>();
             builder.RegisterType<ObjectiveMapper>().As<IEntityMapper<Objective>>();
             builder.RegisterType<QuestionMapper>().As<IEntityMapper<Question>>();
-            builder.RegisterType<CourseCollaboratorMapper>().As<IEntityMapper<CourseCollabrator>>();
+            builder.RegisterType<CourseCollaboratorMapper>().As<IEntityMapper<CourseCollaborator>>();
 
             #endregion
 

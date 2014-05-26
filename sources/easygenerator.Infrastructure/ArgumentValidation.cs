@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace easygenerator.Infrastructure
 {
@@ -84,6 +85,17 @@ namespace easygenerator.Infrastructure
             {
                 throw new ArgumentOutOfRangeException(argumentName, String.Format("The value of {0} cannot be longer than {1}.", argumentName, length));
             }
+        }
+
+        public static void ThrowIfNotValidEmail(string email, string argumentName)
+        {
+           ThrowIfNullOrEmpty(email, argumentName);
+
+            if (email.Length > 254)
+                throw new ArgumentException("Invalid email", argumentName);
+
+            if (!Regex.IsMatch(email, Constants.EmailValidationRegexp))
+                throw new ArgumentException("Invalid email format", argumentName);
         }
 
         #endregion

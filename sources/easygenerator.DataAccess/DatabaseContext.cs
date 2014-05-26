@@ -45,7 +45,7 @@ namespace easygenerator.DataAccess
         public DbSet<Template> Templates { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<CourseCollabrator> CourseCollabrators { get; set; }
+        public DbSet<CourseCollaborator> CourseCollaborators { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Entity
         {
@@ -77,8 +77,8 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Course>().Property(e => e.ObjectivesOrder).IsOptional();
             modelBuilder.Entity<Course>().HasMany(e => e.CollaboratorsCollection).WithRequired(e => e.Course).WillCascadeOnDelete(true);
 
-            modelBuilder.Entity<CourseCollabrator>().HasRequired(e => e.Course);
-            modelBuilder.Entity<CourseCollabrator>().HasRequired(e => e.User).WithMany().WillCascadeOnDelete(true);
+            modelBuilder.Entity<CourseCollaborator>().HasRequired(e => e.Course);
+            modelBuilder.Entity<CourseCollaborator>().Property(e => e.Email).IsRequired().HasMaxLength(254);
 
             modelBuilder.Entity<Aim4YouIntegration>().HasKey(e => new { e.Id });
             modelBuilder.Entity<Aim4YouIntegration>().Property(e => e.Aim4YouCourseId).IsRequired();

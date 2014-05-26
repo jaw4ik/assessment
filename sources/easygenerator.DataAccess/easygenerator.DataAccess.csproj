@@ -124,6 +124,10 @@
     <Compile Include="Migrations\201405231205396_AddTemplateOrder.Designer.cs">
       <DependentUpon>201405231205396_AddTemplateOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405261141182_RenameCourseCollaboratorsTable.cs" />
+    <Compile Include="Migrations\201405261141182_RenameCourseCollaboratorsTable.Designer.cs">
+      <DependentUpon>201405261141182_RenameCourseCollaboratorsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
@@ -202,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405231205396_AddTemplateOrder.resx">
       <DependentUpon>201405231205396_AddTemplateOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405261141182_RenameCourseCollaboratorsTable.resx">
+      <DependentUpon>201405261141182_RenameCourseCollaboratorsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

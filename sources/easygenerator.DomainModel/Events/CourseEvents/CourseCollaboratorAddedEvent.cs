@@ -6,10 +6,10 @@ namespace easygenerator.DomainModel.Events.CourseEvents
 {
     public class CourseCollaboratorAddedEvent
     {
-        public CourseCollabrator Collaborator { get; private set; }
+        public CourseCollaborator Collaborator { get; private set; }
         public string AddedBy { get; private set; }
 
-        public CourseCollaboratorAddedEvent(CourseCollabrator collaborator, string addedBy)
+        public CourseCollaboratorAddedEvent(CourseCollaborator collaborator, string addedBy)
         {
             ThrowIfCourseCollabratorIsInvalid(collaborator);
             ThrowIfAddedByIsInvalid(addedBy);
@@ -18,9 +18,9 @@ namespace easygenerator.DomainModel.Events.CourseEvents
             AddedBy = addedBy;
         }
 
-        private void ThrowIfCourseCollabratorIsInvalid(CourseCollabrator courseCollabrator)
+        private void ThrowIfCourseCollabratorIsInvalid(CourseCollaborator courseCollaborator)
         {
-            ArgumentValidation.ThrowIfNull(courseCollabrator, "courseCollabrator");
+            ArgumentValidation.ThrowIfNull(courseCollaborator, "courseCollabrator");
         }
 
         private void ThrowIfAddedByIsInvalid(string addedBy)

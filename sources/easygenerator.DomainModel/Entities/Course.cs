@@ -20,7 +20,7 @@ namespace easygenerator.DomainModel.Entities
             Template = template;
             RelatedObjectivesCollection = new Collection<Objective>();
             CommentsCollection = new Collection<Comment>();
-            CollaboratorsCollection = new Collection<CourseCollabrator>();
+            CollaboratorsCollection = new Collection<CourseCollaborator>();
             TemplateSettings = new Collection<CourseTemplateSettings>();
             BuildOn = null;
             IntroductionContent = null;
@@ -40,22 +40,22 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual bool IsPermittedTo(string username)
         {
-            return CreatedBy == username || Collaborators.Any(e => e.User.Email == username);
+            return CreatedBy == username || Collaborators.Any(e => e.Email == username);
         }
 
-        protected internal virtual ICollection<CourseCollabrator> CollaboratorsCollection { get; set; }
-        public virtual IEnumerable<CourseCollabrator> Collaborators
+        protected internal virtual ICollection<CourseCollaborator> CollaboratorsCollection { get; set; }
+        public virtual IEnumerable<CourseCollaborator> Collaborators
         {
             get { return CollaboratorsCollection.AsEnumerable(); }
         }
 
-        public virtual CourseCollabrator CollaborateWithUser(User user, string createdBy)
+        public virtual CourseCollaborator Collaborate(string userEmail, string createdBy)
         {
-            ThrowIfUserIsInvalid(user);
-            if (IsPermittedTo(user.Email))
+            ThrowIfUserEmailIsInvalid(userEmail);
+            if (IsPermittedTo(userEmail))
                 return null;
 
-            var collaborator = new CourseCollabrator(this, user, createdBy);
+            var collaborator = new CourseCollaborator(this, userEmail, createdBy);
             CollaboratorsCollection.Add(collaborator);
 
             return collaborator;
@@ -270,9 +270,9 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNull(comment, "comment");
         }
 
-        private void ThrowIfUserIsInvalid(User user)
+        private void ThrowIfUserEmailIsInvalid(string userEmail)
         {
-            ArgumentValidation.ThrowIfNull(user, "user");
+            ArgumentValidation.ThrowIfNull(userEmail, "userEmail");
         }
 
         private void ThrowIfTemplateIsInvaid(Template template)

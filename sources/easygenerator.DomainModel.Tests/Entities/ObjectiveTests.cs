@@ -195,8 +195,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string username = "user@user.com";
             var objective = ObjectiveObjectMother.Create();
             var course = CourseObjectMother.Create();
-            var user = UserObjectMother.CreateWithEmail(username);
-            course.CollaborateWithUser(user, CreatedBy);
+            course.Collaborate(username, CreatedBy);
             objective.RelatedCoursesCollection.Add(course);
 
             //Act

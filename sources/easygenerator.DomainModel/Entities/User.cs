@@ -33,7 +33,6 @@ namespace easygenerator.DomainModel.Entities
             Phone = phone;
             Organization = organization;
             Country = country;
-            SharedCourses = new Collection<Course>();
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
 
             AccessType = AccessType.Starter;
@@ -60,8 +59,6 @@ namespace easygenerator.DomainModel.Entities
         {
             get { return (FirstName + " " + LastName).Trim(); }
         }
-
-        protected internal virtual ICollection<Course> SharedCourses { get; set; }
 
         protected internal virtual ICollection<PasswordRecoveryTicket> PasswordRecoveryTicketCollection { get; set; }
 
@@ -171,13 +168,7 @@ namespace easygenerator.DomainModel.Entities
 
         private void ThrowIfEmailIsNotValid(string email)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(email, "email");
-
-            if (email.Length > 254)
-                throw new ArgumentException("Invalid email", "email");
-
-            if (!Regex.IsMatch(email, Constants.EmailValidationRegexp))
-                throw new ArgumentException("Invalid email format", "email");
+            ArgumentValidation.ThrowIfNotValidEmail(email, "email");
         }
 
         private void ThrowIfPasswordIsNotValid(string password)

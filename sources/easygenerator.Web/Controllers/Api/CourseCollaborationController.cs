@@ -13,11 +13,11 @@ namespace easygenerator.Web.Controllers.Api
     public class CourseCollaborationController : DefaultController
     {
         private readonly IUserRepository _userRepository;
-        private readonly IEntityMapper<CourseCollabrator> _collaboratorMapper;
+        private readonly IEntityMapper<CourseCollaborator> _collaboratorMapper;
         private readonly IDomainEventPublisher<CourseCollaboratorAddedEvent> _courseCollaboratorAddedEventPublisher;
 
         public CourseCollaborationController(IUserRepository userRepository, IDomainEventPublisher<CourseCollaboratorAddedEvent> courseCollaboratorAddedEventPublisher,
-            IEntityMapper<CourseCollabrator> collaboratorMapper)
+            IEntityMapper<CourseCollaborator> collaboratorMapper)
         {
             _userRepository = userRepository;
             _collaboratorMapper = collaboratorMapper;
@@ -40,13 +40,13 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.UserWithSpecifiedEmailDoesntExist, Errors.UserWithSpecifiedEmailDoesntExistResourceKey);
             }
 
-            var collaborator = course.CollaborateWithUser(user, GetCurrentUsername());
+            var collaborator = course.Collaborate(email, GetCurrentUsername());
             if (collaborator == null)
             {
                 return JsonSuccess(true);
             }
 
-            var courseCollaboratorAddedEvent = new CourseCollaboratorAddedEvent(collaborator,GetCurrentUsername());
+            var courseCollaboratorAddedEvent = new CourseCollaboratorAddedEvent(collaborator, GetCurrentUsername());
             _courseCollaboratorAddedEventPublisher.Publish(courseCollaboratorAddedEvent);
 
             return JsonSuccess(_collaboratorMapper.Map(collaborator));
