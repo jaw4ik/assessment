@@ -720,6 +720,10 @@
         cursor: text;
     }
 
+.fib-wrapper .cke_widget_wrapper {
+    padding: 0 4px;
+}
+
 .fib-add-button-text-wrapper {
     color: #999;
     font-family: 'OpenSans';
