@@ -578,9 +578,11 @@
     border: 1px solid #5bc0de;
 }
 
-
 .fill-in-the-blank .edit-field + .chars-counter {
     display: block;
+    height: 25px;
+    width: 71px;
+    padding: 3px 15px;
     background-color: #E7E7E7;
     border: 1px solid #D8DDE5;
     border-bottom: none;
@@ -588,7 +590,7 @@
     border-top-right-radius: 5px;
     left: 0;
     right: inherit;
-    top: -20px;
+    top: -25px;
 }
 
 .fill-in-the-blank .edit-field.active + .chars-counter.error {
