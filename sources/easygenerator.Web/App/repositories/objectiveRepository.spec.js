@@ -242,6 +242,22 @@
 
                 });
 
+                describe('and response.CreatedBy is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var objective = { test: 'test' };
+                        var promise = repository.addObjective(objective);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Objective createdBy is not a string');
+                            done();
+                        });
+
+                        post.resolve({ Id: 'dasdasd', CreatedOn: new Date().toISOString() });
+                    });
+
+                });
+
                 it('should add objective to dataContext', function (done) {
                     var objective = { test: 'test', title: 'asdasdasdhfghfgh' },
                         objectiveId = 'dasdasd',
@@ -261,7 +277,7 @@
                         done();
                     });
 
-                    post.resolve({ Id: objectiveId, CreatedOn: createdOn.toISOString() });
+                    post.resolve({ Id: objectiveId, CreatedOn: createdOn.toISOString(), CreatedBy: 'asdasd@ukr.net' });
                 });
 
                 it('should resolve promise with received data', function (done) {
@@ -278,7 +294,7 @@
                         done();
                     });
 
-                    post.resolve({ Id: objectiveId, CreatedOn: createdOn.toISOString() });
+                    post.resolve({ Id: objectiveId, CreatedOn: createdOn.toISOString(), CreatedBy: 'asdasd@ukr.net' });
                 });
 
             });

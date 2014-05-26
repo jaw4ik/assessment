@@ -54,7 +54,8 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new
             {
                 Id = objective.Id.ToNString(),
-                CreatedOn = objective.CreatedOn
+                CreatedOn = objective.CreatedOn,
+                CreatedBy = objective.CreatedBy
             });
         }
 

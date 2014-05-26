@@ -42,6 +42,7 @@
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.Id, 'Objective Id is not a string');
                     guard.throwIfNotString(response.CreatedOn, 'Objective creation date is not a string');
+                    guard.throwIfNotString(response.CreatedBy, 'Objective createdBy is not a string');
 
                     var
                         createdObjective = new objectiveModel({
@@ -50,6 +51,7 @@
                             image: constants.defaultObjectiveImage,
                             questions: [],
                             createdOn: new Date(response.CreatedOn),
+                            createdBy: response.CreatedBy,
                             modifiedOn: new Date(response.CreatedOn)
                         });
 
