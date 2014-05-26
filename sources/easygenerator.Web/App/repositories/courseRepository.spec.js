@@ -255,7 +255,7 @@
                             done();
                         });
 
-                        post.resolve({});
+                        post.resolve({ CreatedBy: 'asasd@ukr.net'});
                     });
 
                 });
@@ -270,7 +270,7 @@
                             done();
                         });
 
-                        post.resolve({ Id: null });
+                        post.resolve({ Id: null, CreatedBy: 'asasd@ukr.net' });
                     });
 
                 });
@@ -285,7 +285,7 @@
                             done();
                         });
 
-                        post.resolve({ Id: {} });
+                        post.resolve({ Id: {}, CreatedBy: 'asasd@ukr.net' });
                     });
 
                 });
@@ -300,7 +300,7 @@
                             done();
                         });
 
-                        post.resolve({ Id: 'asdasd' });
+                        post.resolve({ Id: 'asdasd', CreatedBy: 'asasd@ukr.net' });
                     });
 
                 });
@@ -315,7 +315,7 @@
                             done();
                         });
 
-                        post.resolve({ Id: 'asdasd', CreatedOn: null });
+                        post.resolve({ Id: 'asdasd', CreatedOn: null, CreatedBy: 'asasd@ukr.net' });
                     });
 
                 });
@@ -330,7 +330,52 @@
                             done();
                         });
 
-                        post.resolve({ Id: 'asdasd', CreatedOn: {} });
+                        post.resolve({ Id: 'asdasd', CreatedOn: {}, CreatedBy: 'asasd@ukr.net' });
+                    });
+
+                });
+
+                describe('and created course CreatedBy is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response CreatedBy is not a string');
+                            done();
+                        });
+
+                        post.resolve({ Id: 'asdasd', CreatedOn: new Date().toISOString() });
+                    });
+
+                });
+
+                describe('and created course CreatedBy is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response CreatedBy is not a string');
+                            done();
+                        });
+
+                        post.resolve({ Id: 'asdasd', CreatedOn: new Date().toISOString(), CreatedBy: null });
+                    });
+
+                });
+
+                describe('and created course CreatedBy is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response CreatedBy is not a string');
+                            done();
+                        });
+
+                        post.resolve({ Id: 'asdasd', CreatedOn: new Date().toISOString(), CreatedBy: {} });
                     });
 
                 });
@@ -347,7 +392,7 @@
                             done();
                         });
 
-                        post.resolve({ Id: 'asdasd', CreatedOn: new Date().toISOString() });
+                        post.resolve({ Id: 'asdasd', CreatedOn: new Date().toISOString(), CreatedBy: 'asasd@ukr.net' });
                     });
 
                 });
@@ -364,7 +409,8 @@
                         },
                         objectives: [],
                         createdOn: CreatedOnDate.toISOString(),
-                        modifiedOn: CreatedOnDate.toISOString()
+                        modifiedOn: CreatedOnDate.toISOString(),
+                        createdBy: 'asasd@ukr.net'
                     }
 
                     dataContext.templates = [mappedCourse.template];
@@ -382,7 +428,7 @@
                         done();
                     });
 
-                    post.resolve({ Id: CourseId, CreatedOn: CreatedOnDate.toISOString() });
+                    post.resolve({ Id: CourseId, CreatedOn: CreatedOnDate.toISOString(), CreatedBy: mappedCourse.createdBy });
                 });
 
                 it('should trigger course:created event', function (done) {
@@ -397,7 +443,8 @@
                         },
                         objectives: [],
                         createdOn: CreatedOnDate.toISOString(),
-                        modifiedOn: CreatedOnDate.toISOString()
+                        modifiedOn: CreatedOnDate.toISOString(),
+                        createdBy: 'asasd@ukr.net'
                     }
 
                     dataContext.templates = [mappedCourse.template];
@@ -416,7 +463,7 @@
                         done();
                     });
 
-                    post.resolve({ Id: CourseId, CreatedOn: CreatedOnDate.toISOString() });
+                    post.resolve({ Id: CourseId, CreatedOn: CreatedOnDate.toISOString(), CreatedBy: mappedCourse.createdBy });
                 });
 
                 it('should resolve promise with received data', function (done) {
@@ -431,7 +478,8 @@
                         },
                         objectives: [],
                         createdOn: CreatedOnDate.toISOString(),
-                        modifiedOn: CreatedOnDate.toISOString()
+                        modifiedOn: CreatedOnDate.toISOString(),
+                        createdBy: 'asasd@ukr.net'
                     }
 
                     dataContext.templates = [mappedCourse.template];
@@ -445,7 +493,7 @@
                         done();
                     });
 
-                    post.resolve({ Id: CourseId, CreatedOn: CreatedOnDate.toISOString() });
+                    post.resolve({ Id: CourseId, CreatedOn: CreatedOnDate.toISOString(), CreatedBy: mappedCourse.createdBy });
                 });
 
             });

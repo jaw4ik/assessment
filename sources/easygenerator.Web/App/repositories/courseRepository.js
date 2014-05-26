@@ -63,7 +63,7 @@
                     });
 
                     guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
-                    debugger;
+
                     var
                         courseId = response.Id,
                         createdOn = new Date(response.CreatedOn),
