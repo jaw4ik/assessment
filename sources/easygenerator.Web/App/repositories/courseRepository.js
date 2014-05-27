@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'models/course', 'guard', 'http/httpWrapper', 'durandal/app'],
-    function (dataContext, constants, CourseModel, guard, httpWrapper, app) {
+﻿define(['dataContext', 'constants', 'models/course', 'guard', 'http/httpWrapper', 'durandal/app', 'userContext', 'models/collaborator'],
+    function (dataContext, constants, CourseModel, guard, httpWrapper, app, userContext, CollaboratorModel) {
         "use strict";
 
         var repository = {
@@ -63,7 +63,7 @@
                     });
 
                     guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
-
+                    
                     var
                         courseId = response.Id,
                         createdOn = new Date(response.CreatedOn),
@@ -75,6 +75,13 @@
                                 name: template.name,
                                 image: template.image
                             },
+                            collaborators: [
+                                new CollaboratorModel({
+                                    email: userContext.identity.email,
+                                    fullName: userContext.identity.fullname,
+                                    createdOn: createdOn
+                                })
+                            ],
                             objectives: [],
                             createdOn: createdOn,
                             createdBy: response.CreatedBy,

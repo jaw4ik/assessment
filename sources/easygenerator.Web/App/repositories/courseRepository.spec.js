@@ -5,16 +5,22 @@
         httpWrapper = require('http/httpWrapper'),
         dataContext = require('dataContext'),
         constants = require('constants'),
-        app = require('durandal/app');
+        app = require('durandal/app'),
+        userContext = require('userContext');
 
     describe('repository [courseRepository]', function () {
 
         var post;
+        var identity = {
+            email: 'email',
+            fullname: 'fullname'
+        };
 
         beforeEach(function () {
             post = Q.defer();
             spyOn(httpWrapper, 'post').and.returnValue(post.promise);
             spyOn(app, 'trigger');
+            userContext.identity = identity;
         });
 
         it('should be object', function () {
@@ -255,7 +261,7 @@
                             done();
                         });
 
-                        post.resolve({ CreatedBy: 'asasd@ukr.net'});
+                        post.resolve({ CreatedBy: 'asasd@ukr.net' });
                     });
 
                 });
@@ -425,6 +431,10 @@
                         expect(dataContext.courses[0].template.id).toEqual(mappedCourse.template.id);
                         expect(dataContext.courses[0].createdOn).toEqual(new Date(CreatedOnDate.toISOString()));
                         expect(dataContext.courses[0].modifiedOn).toEqual(new Date(CreatedOnDate.toISOString()));
+                        expect(dataContext.courses[0].collaborators.length).toBe(1);
+                        expect(dataContext.courses[0].collaborators[0].email).toBe(identity.email);
+                        expect(dataContext.courses[0].collaborators[0].fullName).toBe(identity.fullname);
+                        expect(dataContext.courses[0].collaborators[0].createdOn).toEqual(new Date(CreatedOnDate.toISOString()));
                         done();
                     });
 
