@@ -6,6 +6,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Publish;
@@ -315,24 +316,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.GetCollection();
 
             result.Should().BeJsonSuccessResult();
-        }
-
-        #endregion
-
-        #region CourseExists
-
-        [TestMethod]
-        public void CourseExists_ShouldReturnJsonSuccessResultTrue_WhenCourseExists()
-        {
-            var result = _controller.CourseExists(CourseObjectMother.Create());
-            result.Should().BeJsonSuccessResult().And.Data.Should().Be(true);
-        }
-
-        [TestMethod]
-        public void CourseExists_ShouldReturnJsonSuccessResultTrue_WhenCoursDoesntExist()
-        {
-            var result = _controller.CourseExists(null);
-            result.Should().BeJsonSuccessResult().And.Data.Should().Be(false);
         }
 
         #endregion

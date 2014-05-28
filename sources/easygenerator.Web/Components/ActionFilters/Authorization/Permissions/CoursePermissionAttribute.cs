@@ -1,17 +1,17 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System;
+using System.Web.Mvc;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Extensions;
-using System;
-using System.Web.Mvc;
 
-namespace easygenerator.Web.Components.ActionFilters.Authorization
+namespace easygenerator.Web.Components.ActionFilters.Authorization.Permissions
 {
-    public class CourseOwnerAttribute : AccessAttribute
+    public abstract class CoursePermissionAttribute : AccessAttribute
     {
         public ICourseRepository CourseRepository { get; set; }
 
-        public CourseOwnerAttribute()
+        protected CoursePermissionAttribute()
         {
             ErrorMessageResourceKey = Errors.NotEnoughPermissionsErrorMessage;
         }
@@ -26,10 +26,9 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
                 throw new ArgumentNullException("courseId");
 
             var course = CourseRepository.Get(courseId.Value);
-            if (course == null)
-                throw new ArgumentException("Course with specified id was not found");
-
-            return course.CreatedBy == user.Email;
+            return course == null || CheckAccessToCourse(course, user);
         }
+
+        protected abstract bool CheckAccessToCourse(Course course, User user);
     }
 }

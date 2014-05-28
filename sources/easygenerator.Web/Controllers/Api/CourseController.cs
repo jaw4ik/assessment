@@ -11,6 +11,7 @@ using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
+using easygenerator.Web.Components.ActionFilters.Authorization.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Publish;
@@ -57,6 +58,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CourseOwnerAccess]
         public ActionResult Delete(Course course)
         {
             if (course != null)
@@ -85,11 +87,13 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CourseAccess]
         public ActionResult Build(Course course)
         {
             return DoPublishAction(course, () => _builder.Build(course), () => JsonSuccess(new { PackageUrl = course.PackageUrl, BuildOn = course.BuildOn }));
         }
 
+        [CourseAccess]
         [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseScormResourceKey)]
         public ActionResult ScormBuild(Course course)
         {
@@ -97,6 +101,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CourseAccess]
         [Route("course/publish")]
         public ActionResult Publish(Course course)
         {
@@ -104,6 +109,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CourseAccess]
         [Route("course/publishForReview")]
         public ActionResult PublishForReview(Course course)
         {
@@ -119,13 +125,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [Route("api/courseExists")]
-        public ActionResult CourseExists(Course course)
-        {
-            return JsonSuccess(course != null);
-        }
-
-        [HttpPost]
+        [CourseAccess]
         public ActionResult UpdateTitle(Course course, string courseTitle)
         {
             if (course == null)
@@ -139,6 +139,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CourseAccess]
         public ActionResult UpdateTemplate(Course course, Template template)
         {
             if (course == null)
@@ -152,6 +153,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CourseAccess]
         [Route("api/course/relateObjective")]
         public ActionResult RelateObjectives(Course course, Objective objective, int? index)
         {
@@ -174,6 +176,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CourseAccess]
         [Route("api/course/unrelateObjectives")]
         public ActionResult UnrelateObjectives(Course course, ICollection<Objective> objectives)
         {
@@ -198,6 +201,7 @@ namespace easygenerator.Web.Controllers.Api
             });
         }
 
+        [CourseAccess]
         [ActionName("TemplateSettings"), HttpGet]
         public ActionResult GetTemplateSettings(Course course, Template template)
         {
@@ -214,6 +218,7 @@ namespace easygenerator.Web.Controllers.Api
             return Json(course.GetTemplateSettings(template), JsonRequestBehavior.AllowGet);
         }
 
+        [CourseAccess]
         [ActionName("TemplateSettings"), HttpPost]
         public ActionResult SaveTemplateSettings(Course course, Template template, string settings)
         {
@@ -233,6 +238,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CourseAccess]
         [Route("api/course/updateintroductioncontent")]
         public ActionResult UpdateIntroductionContent(Course course, string introductionContent)
         {
@@ -247,6 +253,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [CourseAccess]
         [Route("api/course/updateobjectivesorder")]
         public ActionResult UpdateObjectivesOrderedList(Course course, ICollection<Objective> objectives)
         {

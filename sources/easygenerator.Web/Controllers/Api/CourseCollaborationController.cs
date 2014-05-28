@@ -6,6 +6,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Authorization;
+using easygenerator.Web.Components.ActionFilters.Authorization.Permissions;
 using easygenerator.Web.Components.Mappers;
 
 namespace easygenerator.Web.Controllers.Api
@@ -25,7 +26,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [CourseOwner]
+        [CourseOwnerAccess]
         [Route("api/course/collaborator/add")]
         public ActionResult AddCollaborator(Course course, string email)
         {

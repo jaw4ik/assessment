@@ -209,9 +209,11 @@
     <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\Permissions\CourseAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCoursesAmountAttribute.cs" />
-    <Compile Include="Components\ActionFilters\Authorization\CourseOwnerAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\Permissions\CourseOwnerAccessAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\Permissions\CoursePermissionAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\StarterAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\CustomRequireHttpsAttribute.cs" />
     <Compile Include="Components\ActionFilters\ForceHttpAttribute.cs" />
@@ -777,19 +779,7 @@
       <DependentUpon>collaborators.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\course.js" />
-    <Content Include="App\viewmodels\courses\course.read.js">
-      <DependentUpon>course.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\course.read.spec.js">
-      <DependentUpon>course.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\course.spec.js">
-      <DependentUpon>course.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\course.write.js">
-      <DependentUpon>course.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\course.write.spec.js">
       <DependentUpon>course.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\courseComments.js" />
@@ -898,12 +888,6 @@
     <Content Include="App\views\common\formactions.html" />
     <Content Include="App\views\courses\collaboration\collaborators.html" />
     <Content Include="App\views\courses\course.html" />
-    <Content Include="App\views\courses\course.read.html">
-      <DependentUpon>course.html</DependentUpon>
-    </Content>
-    <Content Include="App\views\courses\course.write.html">
-      <DependentUpon>course.html</DependentUpon>
-    </Content>
     <Content Include="App\views\courses\courseComments.html" />
     <Content Include="App\views\courses\courseNavigation\navigation.html" />
     <Content Include="App\views\courses\courses.html" />

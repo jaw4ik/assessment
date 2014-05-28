@@ -67,7 +67,6 @@
             'viewmodels/courses/createCourse.spec',
             'viewmodels/courses/courses.spec',
             'viewmodels/courses/course.spec',
-            'viewmodels/courses/course.read.spec',
             'viewmodels/courses/design.spec',
             'viewmodels/courses/publish.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',

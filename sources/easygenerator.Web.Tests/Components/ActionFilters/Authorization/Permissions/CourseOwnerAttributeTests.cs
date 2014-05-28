@@ -1,20 +1,21 @@
-﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Repositories;
-using easygenerator.DomainModel.Tests.ObjectMothers;
-using easygenerator.Infrastructure;
-using easygenerator.Web.Components.ActionFilters.Authorization;
-using easygenerator.Web.Tests.Utils;
-using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Net;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
+using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Repositories;
+using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Infrastructure;
+using easygenerator.Web.Components.ActionFilters.Authorization;
+using easygenerator.Web.Components.ActionFilters.Authorization.Permissions;
+using easygenerator.Web.Tests.Utils;
+using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
 
-namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
+namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization.Permissions
 {
     [TestClass]
     public class CourseOwnerAttributeTests
@@ -22,7 +23,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
         private const string CourseId = "8D092820-C67E-4AE6-BACB-1ECBE078689C";
         private const string Username = "user@www.www";
 
-        private CourseOwnerAttribute _attribute;
+        private CourseOwnerAccessAttribute _accessAttribute;
 
         private AuthorizationContext _filterContext;
         private IIdentity _identity;
@@ -35,16 +36,16 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
         [TestInitialize]
         public void InitializeContext()
         {
-            _attribute = new CourseOwnerAttribute();
+            _accessAttribute = new CourseOwnerAccessAttribute();
 
             _courseRepository = Substitute.For<ICourseRepository>();
-            _attribute.CourseRepository = _courseRepository;
+            _accessAttribute.CourseRepository = _courseRepository;
 
             _identity = Substitute.For<IIdentity>();
             _filterContext = Substitute.For<AuthorizationContext>();
             _filterContext.HttpContext = Substitute.For<HttpContextBase>();
             _userRepository = Substitute.For<IUserRepository>();
-            _attribute.UserRepository = _userRepository;
+            _accessAttribute.UserRepository = _userRepository;
 
             _valueProvider = Substitute.For<IValueProvider>();
             _filterContext.Controller = Substitute.For<ControllerBase>();
@@ -70,7 +71,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             //Arrange
 
             //Act
-            Action action = () => _attribute.OnAuthorization(null);
+            Action action = () => _accessAttribute.OnAuthorization(null);
 
             //Assert
             action.ShouldThrow<ArgumentNullException>();
@@ -83,7 +84,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             _filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.OK);
 
             //Act
-            _attribute.OnAuthorization(_filterContext);
+            _accessAttribute.OnAuthorization(_filterContext);
 
             //Assert
             _filterContext.Result.Should().BeHttpStatusCodeResultWithStatus((int)HttpStatusCode.OK);
@@ -96,7 +97,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             _filterContext.HttpContext.Returns(null as HttpContextBase);
 
             //Act
-            Action action = () => _attribute.OnAuthorization(_filterContext);
+            Action action = () => _accessAttribute.OnAuthorization(_filterContext);
 
             //Assert
             action.ShouldThrow<InvalidOperationException>();
@@ -109,7 +110,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             _filterContext.HttpContext.User.Returns(null as IPrincipal);
 
             //Act
-            Action action = () => _attribute.OnAuthorization(_filterContext);
+            Action action = () => _accessAttribute.OnAuthorization(_filterContext);
 
             //Assert
             action.ShouldThrow<InvalidOperationException>();
@@ -122,7 +123,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             _identity.IsAuthenticated.Returns(false);
 
             //Act
-            Action action = () => _attribute.OnAuthorization(_filterContext);
+            Action action = () => _accessAttribute.OnAuthorization(_filterContext);
 
             //Assert
             action.ShouldThrow<InvalidOperationException>();
@@ -137,7 +138,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             _identity.IsAuthenticated.Returns(true);
 
             //Act
-            _attribute.OnAuthorization(_filterContext);
+            _accessAttribute.OnAuthorization(_filterContext);
 
             //Assert
             _userRepository.Received().GetUserByEmail(userName);
@@ -155,7 +156,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(null as User);
 
             //Act
-            _attribute.OnAuthorization(_filterContext);
+            _accessAttribute.OnAuthorization(_filterContext);
 
             //Assert
             _filterContext.Result.Should().BeForbiddenResult();
@@ -174,14 +175,14 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             //Arrange
 
             //Act
-            Action action = () => _attribute.OnAuthorization(_filterContext);
+            Action action = () => _accessAttribute.OnAuthorization(_filterContext);
 
             //Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("courseId");
         }
 
         [TestMethod]
-        public void OnAuthorization_ShouldThrowArgumentException_WhenCourseNotFound()
+        public void OnAuthorization_ShouldNotSetResult_WhenCourseNotFound()
         {
             //Arrange
             _filterContext.Result = null;
@@ -195,10 +196,10 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             //Arrange
 
             //Act
-            Action action = () => _attribute.OnAuthorization(_filterContext);
+            _accessAttribute.OnAuthorization(_filterContext);
 
             //Assert
-            action.ShouldThrow<ArgumentException>().And.Message.Should().Be("Course with specified id was not found");
+            _filterContext.Result.Should().BeNull();
         }
 
         [TestMethod]
@@ -219,7 +220,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             //Arrange
 
             //Act
-            _attribute.OnAuthorization(_filterContext);
+            _accessAttribute.OnAuthorization(_filterContext);
 
             //Assert
             _filterContext.Result.Should().BeForbiddenResult();
@@ -243,7 +244,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             //Arrange
 
             //Act
-            _attribute.OnAuthorization(_filterContext);
+            _accessAttribute.OnAuthorization(_filterContext);
 
             //Assert
             _filterContext.Result.Should().BeNull();

@@ -5,6 +5,7 @@ using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
