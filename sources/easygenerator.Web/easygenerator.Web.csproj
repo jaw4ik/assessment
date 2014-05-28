@@ -397,6 +397,7 @@
     <Content Include="App\viewmodels\objectives\createObjectiveInCourse.write.spec.js">
       <DependentUpon>createObjective.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\dragAndDrop\dragAndDrop.js" />
     <Content Include="App\viewmodels\questions\fillInTheBlank\fibControl.js" />
     <Content Include="App\viewmodels\questions\fillInTheBlank\fibControl.spec.js">
       <DependentUpon>fibControl.js</DependentUpon>
@@ -426,6 +427,7 @@
     <Content Include="App\views\objectives\createObjectiveInCourse.write.html">
       <DependentUpon>createObjective.html</DependentUpon>
     </Content>
+    <Content Include="App\views\questions\dragAndDrop\dragAndDrop.html" />
     <Content Include="App\views\questions\fillInTheBlank\fillInTheBlank.html" />
     <Content Include="App\views\questions\multipleChoice\multipleChoice.html" />
     <Content Include="App\widgets\createQuestion\view.html" />

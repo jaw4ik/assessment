@@ -163,6 +163,34 @@
 
         });
 
+        describe('createDragAndDropQuestion:', function () {
+
+            it('should hide block', function () {
+                viewModel.visible(true);
+                viewModel.createDragAndDropQuestion();
+                expect(viewModel.visible()).toBeFalsy();
+            });
+
+            it('should execute createQuestionCommand', function () {
+                viewModel.createDragAndDropQuestion();
+                expect(createQuestionCommand.execute.calls.mostRecent().args[0]).toEqual('objectiveId');
+            });
+
+            describe('when courseId is defined in query params', function () {
+
+                beforeEach(function () {
+                    var instruction = { queryParams: { courseId: 'courseId' } };
+                    spyOn(router, "activeInstruction").and.returnValue(instruction);
+                });
+
+                it('should call command with courseId', function () {
+                    viewModel.createDragAndDropQuestion();
+                    expect(createQuestionCommand.execute).toHaveBeenCalledWith('objectiveId', 'courseId', constants.questionType.dragAndDrop.type);
+                });
+
+            });
+
+        });
     });
 
 });

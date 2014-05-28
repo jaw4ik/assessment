@@ -16,6 +16,10 @@
                 fillInTheBlank: {
                     type: 1,
                     image: '/Content/images/fillintheblank-question.png'
+                },
+                dragAndDrop: {
+                    type: 2,
+                    image: '/Content/images/draganddrop-question.png'
                 }
             },
 

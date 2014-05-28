@@ -36,6 +36,13 @@ namespace easygenerator.Web.Controllers.Api
             return Create(objective, title, QuestionType.FillInTheBlanks);
         }
 
+        [HttpPost]
+        [Route("api/question/create/type/2")]
+        public ActionResult CreateDragAndDrop(Objective objective, string title)
+        {
+            return Create(objective, title, QuestionType.DragAndDrop);
+        }
+
         private ActionResult Create(Objective objective, string title, QuestionType type)
         {
             if (objective == null)
