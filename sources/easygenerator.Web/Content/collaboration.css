@@ -245,6 +245,10 @@
     box-shadow: 0 0 2px #953b39;
 }
 
+.placeholder.modal-dialog-form-input {
+    color: #999;
+}
+
 .modal-dialog-form-input {
     display: block;
     position: relative;

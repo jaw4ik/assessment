@@ -72,7 +72,7 @@
                 $(element).text(localizationManager.localize(value['text']));
             }
             if (_.isString(value['placeholder'])) {
-                $(element).prop('placeholder', localizationManager.localize(value['placeholder']));
+                $(element).attr('placeholder', localizationManager.localize(value['placeholder']));
             }
             if (_.isString(value['value'])) {
                 $(element).prop('value', localizationManager.localize(value['value']));
