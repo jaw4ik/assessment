@@ -9,6 +9,10 @@
                 <div class="question-type-image multiple-choise"></div>
                 <span class="question-type-text" data-bind="localize: { text: 'multipleChoise' }">Multiple choise</span>
             </li>
+            <li class="question-type-action-item" data-bind="click: createMultipleChoiceQuestion">
+                <div class="question-type-image drag-and-drop"></div>
+                <span class="question-type-text" data-bind="localize: { text: 'dragAndDropText' }">Drag&amp;Drop text</span>
+            </li>
             <!-- ko if: hasStarterAccess() -->
             <li class="question-type-action-item" data-bind="click: createFillInTheBlankQuestion">
                 <div class="question-type-image fill-in-the-blank"></div>

@@ -14,8 +14,7 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal User() { }
 
-        protected internal User(string email, string password, string firstname, string lastname, string phone, string organization,
-            string country, string createdBy)
+        protected internal User(string email, string password, string firstname, string lastname, string phone, string organization, string country, string createdBy)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);

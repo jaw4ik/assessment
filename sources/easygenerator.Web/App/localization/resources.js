@@ -512,10 +512,10 @@
         en: 'What question do you want to ask?'
     },
     multipleChoise: {
-        en: 'Multiple choise'
+        en: 'Multiple select'
     },
     fillInTheBlank: {
-        en: 'Fill in the blank'
+        en: 'Fill in the blanks'
     },
     addBlank: {
         en: 'Add blank'
@@ -525,6 +525,9 @@
     },
     upgradeToStarterPlanToCreateOtherQuestionTypes: {
         en: 'Please upgrade your account to \"Starter plan\" to be able to create other question types'
+    },
+    dragAndDropText: {
+        en: 'Drag&Drop text'
     },
     /* End resource section for model Questions */
     

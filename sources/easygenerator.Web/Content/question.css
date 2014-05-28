@@ -472,7 +472,7 @@
 /*#region Question type create actions*/
 
 .question-type-action-wrapper {
-    width: 342px;
+    width: 512px;
     background-color: #fff;
     position: absolute;
     top: 49px;
@@ -542,6 +542,10 @@
     .question-type-image.multiple-choise {
         width: 48px;
         background: url('images/sprites_64.png') -215px 0 no-repeat;
+    }
+
+    .question-type-image.drag-and-drop {
+        background: url('images/sprites_64.png') -350px 0 no-repeat;
     }
 
 .question-type-text {
@@ -722,9 +726,9 @@
         cursor: text;
     }
 
-.fib-wrapper .cke_widget_wrapper {
-    padding: 0 4px;
-}
+    .fib-wrapper .cke_widget_wrapper {
+        padding: 0 4px;
+    }
 
 .fib-add-button-text-wrapper {
     color: #999;
