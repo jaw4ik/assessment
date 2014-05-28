@@ -1,5 +1,5 @@
-﻿define(['viewModels/courses/collaboration/collaborator', 'plugins/dialog', 'eventTracker', 'durandal/app', 'constants', 'userContext'],
-    function (vmCollaborator, dialog, eventTracker, app, constants, userContext) {
+﻿define(['viewModels/courses/collaboration/collaborator', 'dialogs/collaboration/addCollaborator', 'eventTracker', 'durandal/app', 'constants', 'userContext'],
+    function (vmCollaborator, addCollaboratorDialog, eventTracker, app, constants, userContext) {
 
         var
             events = {
@@ -20,7 +20,7 @@
 
             var addMember = function () {
                 eventTracker.publish(events.openAddCourseCollaboratorDialog);
-                dialog.show('dialogs/collaboration/addCollaborator');
+                addCollaboratorDialog.show();
             };
 
             var collaboratorAdded = function (collaboratedCourseId, collaborator) {
@@ -41,6 +41,7 @@
             return {
                 members: members,
                 addMember: addMember,
+                addMemberDialog: addCollaboratorDialog,
                 canAddMember: userContext.identity.email === courseOwner,
                 collaboratorAdded: collaboratorAdded
             };

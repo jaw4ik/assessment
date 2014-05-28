@@ -1,7 +1,6 @@
-﻿define(['dialogs/collaboration/addCollaborator'], function (Dialog) {
+﻿define(['dialogs/collaboration/addCollaborator'], function (viewModel) {
 
     var eventTracker = require('eventTracker'),
-        appDialog = require('plugins/dialog'),
         localizationManager = require('localization/localizationManager'),
         repository = require('repositories/collaboratorRepository'),
         app = require('durandal/app'),
@@ -10,111 +9,108 @@
 
     describe('dialog [addCollabrotor]', function () {
 
-        var dialog,
-            localizedMessage = 'message',
+        var localizedMessage = 'message',
             email = 'email@email.com',
             courseId = 'courseId';
 
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
-            spyOn(appDialog, 'close');
             spyOn(app, 'trigger');
             spyOn(localizationManager, 'localize').and.returnValue(localizedMessage);
-            dialog = new Dialog();
         });
 
-        it('should be function', function () {
-            expect(Dialog).toBeFunction();
+        it('should be defined', function () {
+            expect(viewModel).toBeDefined();
         });
 
         describe('hasError:', function () {
             it('should be observable', function () {
-                expect(dialog.hasError).toBeComputed();
+                expect(viewModel.hasError).toBeComputed();
             });
 
             describe('when errorMessage is empty', function () {
                 it('should be false', function () {
-                    dialog.errorMessage('');
-                    expect(dialog.hasError()).toBeFalsy();
+                    viewModel.errorMessage('');
+                    expect(viewModel.hasError()).toBeFalsy();
                 });
             });
 
             describe('when errorMessage is not empty', function () {
                 it('should be true', function () {
-                    dialog.errorMessage('error');
-                    expect(dialog.hasError()).toBeTruthy();
+                    viewModel.errorMessage('error');
+                    expect(viewModel.hasError()).toBeTruthy();
                 });
             });
         });
 
         describe('errorMessage:', function () {
             it('should be observable', function () {
-                expect(dialog.errorMessage).toBeObservable();
+                expect(viewModel.errorMessage).toBeObservable();
             });
         });
 
         describe('isEditing:', function () {
             it('should be observable', function () {
-                expect(dialog.isEditing).toBeObservable();
+                expect(viewModel.isEditing).toBeObservable();
             });
         });
 
         describe('email:', function () {
             it('should be observable', function () {
-                expect(dialog.email).toBeObservable();
+                expect(viewModel.email).toBeObservable();
             });
 
             describe('isValid:', function () {
                 it('should be computed', function () {
-                    expect(dialog.email.isValid).toBeComputed();
+                    expect(viewModel.email.isValid).toBeComputed();
                 });
 
                 describe('when email value is not a valid email', function () {
                     it('should be false', function () {
-                        dialog.email('email');
-                        expect(dialog.email.isValid()).toBeFalsy();
+                        viewModel.email('email');
+                        expect(viewModel.email.isValid()).toBeFalsy();
                     });
                 });
 
                 describe('when email value is a valid email', function () {
                     it('should be true', function () {
-                        dialog.email('test@email.com');
-                        expect(dialog.email.isValid()).toBeTruthy();
+                        viewModel.email('test@email.com');
+                        expect(viewModel.email.isValid()).toBeTruthy();
                     });
                 });
             });
 
             describe('isEmpty:', function () {
                 it('should be computed', function () {
-                    expect(dialog.email.isEmpty).toBeComputed();
+                    expect(viewModel.email.isEmpty).toBeComputed();
                 });
 
                 describe('when email value is not empty', function () {
                     it('should be false', function () {
-                        dialog.email('email');
-                        expect(dialog.email.isEmpty()).toBeFalsy();
+                        viewModel.email('email');
+                        expect(viewModel.email.isEmpty()).toBeFalsy();
                     });
                 });
 
                 describe('when email value is empty', function () {
                     it('should be true', function () {
-                        dialog.email('');
-                        expect(dialog.email.isEmpty()).toBeTruthy();
+                        viewModel.email('');
+                        expect(viewModel.email.isEmpty()).toBeTruthy();
                     });
                 });
             });
 
             describe('isModified:', function () {
                 it('should be observable', function () {
-                    expect(dialog.email.isModified).toBeObservable();
+                    expect(viewModel.email.isModified).toBeObservable();
                 });
             });
 
             describe('markAsModified:', function () {
                 it('should set isModified to true', function () {
-                    dialog.email.isModified(false);
-                    dialog.email.markAsModified();
-                    expect(dialog.email.isModified()).toBeTruthy();
+                    viewModel.email.isModified(false);
+                    viewModel.email.markAsModified();
+                    expect(viewModel.email.isModified()).toBeTruthy();
                 });
             });
         });
@@ -130,51 +126,51 @@
             });
 
             it('should be function', function () {
-                expect(dialog.submit).toBeFunction();
+                expect(viewModel.submit).toBeFunction();
             });
 
             it('should send event \'Add person for collaboration\'', function () {
-                dialog.submit();
+                viewModel.submit();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Add person for collaboration');
             });
 
             describe('when email is empty', function () {
                 beforeEach(function () {
-                    dialog.email('');
-                    dialog.errorMessage('');
+                    viewModel.email('');
+                    viewModel.errorMessage('');
                 });
 
                 it('should not add collaborator', function () {
-                    dialog.submit();
+                    viewModel.submit();
                     expect(repository.add).not.toHaveBeenCalled();
                 });
 
                 it('should set error message', function () {
-                    dialog.submit();
-                    expect(dialog.errorMessage()).toBe(localizedMessage);
+                    viewModel.submit();
+                    expect(viewModel.errorMessage()).toBe(localizedMessage);
                 });
             });
 
             describe('when email not valid', function () {
                 beforeEach(function () {
-                    dialog.email('abc');
-                    dialog.errorMessage('');
+                    viewModel.email('abc');
+                    viewModel.errorMessage('');
                 });
 
                 it('should not add collaborator', function () {
-                    dialog.submit();
+                    viewModel.submit();
                     expect(repository.add).not.toHaveBeenCalled();
                 });
 
                 it('should set error message', function () {
-                    dialog.submit();
-                    expect(dialog.errorMessage()).toBe(localizedMessage);
+                    viewModel.submit();
+                    expect(viewModel.errorMessage()).toBe(localizedMessage);
                 });
             });
 
             it('should add collaborator', function () {
-                dialog.email(email);
-                dialog.submit();
+                viewModel.email(email);
+                viewModel.submit();
                 expect(repository.add).toHaveBeenCalledWith(courseId, email);
             });
 
@@ -182,10 +178,10 @@
                 describe('when result is undefined', function() {
                     it('should not trigger app event', function (done) {
                         var collaborator = {};
-                        dialog.email(email);
+                        viewModel.email(email);
                         addCollaborator.resolve(undefined);
 
-                        dialog.submit().fin(function () {
+                        viewModel.submit().fin(function () {
                             expect(app.trigger).not.toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded, courseId, collaborator);
                             done();
                         });
@@ -194,21 +190,22 @@
 
                 it('should trigger app event', function (done) {
                     var collaborator = {};
-                    dialog.email(email);
+                    viewModel.email(email);
                     addCollaborator.resolve(collaborator);
 
-                    dialog.submit().fin(function () {
+                    viewModel.submit().fin(function () {
                         expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded, courseId, collaborator);
                         done();
                     });
                 });
 
-                it('should close dialog window', function (done) {
-                    dialog.email(email);
+                it('should set onShown to false', function (done) {
+                    viewModel.email(email);
+                    viewModel.isShown(true);
                     addCollaborator.resolve();
 
-                    dialog.submit().fin(function () {
-                        expect(appDialog.close).toHaveBeenCalledWith(dialog);
+                    viewModel.submit().fin(function () {
+                        expect(viewModel.isShown()).toBeFalsy();
                         done();
                     });
                 });
@@ -216,16 +213,64 @@
 
             describe('and when failed to add collaborator', function () {
                 it('should set error message', function (done) {
-                    dialog.email(email);
-                    dialog.errorMessage('');
+                    viewModel.email(email);
+                    viewModel.errorMessage('');
                     var errorMessage = 'error';
                     addCollaborator.reject(errorMessage);
 
-                    dialog.submit().fin(function () {
-                        expect(dialog.errorMessage()).toBe(errorMessage);
+                    viewModel.submit().fin(function () {
+                        expect(viewModel.errorMessage()).toBe(errorMessage);
                         done();
                     });
                 });
+            });
+        });
+
+        describe('show:', function() {
+            it('should be function', function() {
+                expect(viewModel.show).toBeFunction();
+            });
+
+            it('should set email is modified to false', function () {
+                viewModel.email.isModified(true);
+                viewModel.show();
+                expect(viewModel.email.isModified()).toBeFalsy();
+            });
+
+            it('should set email to empty string', function () {
+                viewModel.email('email');
+                viewModel.show();
+                expect(viewModel.email()).toBe('');
+            });
+
+            it('should set is editing to false', function () {
+                viewModel.isEditing(true);
+                viewModel.show();
+                expect(viewModel.isEditing()).toBeFalsy();
+            });
+
+            it('should set error message to empty string', function () {
+                viewModel.errorMessage('message');
+                viewModel.show();
+                expect(viewModel.errorMessage()).toBe('');
+            });
+
+            it('should set is shown to true', function () {
+                viewModel.isShown(false);
+                viewModel.show();
+                expect(viewModel.isShown()).toBeTruthy();
+            });
+        });
+
+        describe('hide:', function () {
+            it('should be function', function () {
+                expect(viewModel.hide).toBeFunction();
+            });
+
+            it('should set is shown to false', function () {
+                viewModel.isShown(true);
+                viewModel.hide();
+                expect(viewModel.isShown()).toBeFalsy();
             });
         });
 

@@ -3,9 +3,9 @@
 
     var
         ctor = require('viewmodels/courses/collaboration/collaborators'),
-        dialog = require('plugins/dialog'),
         userContext = require('userContext'),
-        eventTracker = require('eventTracker')
+        eventTracker = require('eventTracker'),
+        addCollaboratorDialog = require('dialogs/collaboration/addCollaborator')
     ;
 
     describe('viewModel [collaborators]', function () {
@@ -33,11 +33,11 @@
             fullName: "Din Don",
             createdOn: new Date(2014, 12, 31)
         }
-            ];
+        ];
 
         beforeEach(function () {
-            spyOn(dialog, 'show');
             spyOn(eventTracker, 'publish');
+            spyOn(addCollaboratorDialog, 'show');
         });
 
         describe('members:', function () {
@@ -83,7 +83,7 @@
             it('should show dialog', function () {
                 viewModel = ctor(courseId, owner, []);
                 viewModel.addMember();
-                expect(dialog.show).toHaveBeenCalled();
+                expect(addCollaboratorDialog.show).toHaveBeenCalled();
             });
         });
 

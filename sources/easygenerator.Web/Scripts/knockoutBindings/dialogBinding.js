@@ -1,16 +1,39 @@
 ﻿ko.bindingHandlers.dialog = {
-    init: function (element) {
+    init: function () {
+    },
+    update: function (element, valueAccessor) {
         var $element = $(element),
-            $popup = $element.find('.dialog'),
-            $hidePopup = $element.find('.hideDialog');
+            $body = $('body'),
+            speed = 200,
+            isShown = valueAccessor().isShown,
+            autoclose = ko.unwrap(valueAccessor().autoclose) || false;
 
-        $popup.css('margin-left', $popup.width() / 2 * -1);
-        $popup.css('margin-top', $popup.height() / 2 * -1);
+        if (isShown()) {
+            show();
+        } else {
+            hide();
+        }
 
-        $element.fadeIn('slow');
+        function show() {
+            var $blockout = $('<div class="modal-dialog-blockout"></div>').appendTo($body);
 
-        $hidePopup.on('click', function() {
-            $element.fadeOut('slow');
-        });
+            $.when($blockout).done(function () {
+                $element.fadeIn(speed);
+                $element.find('.autofocus').first().focus();
+            });
+
+            if (autoclose) {
+                $blockout.click(function () {
+                    isShown(false);
+                });
+            }
+        }
+
+        function hide() {
+            var fadeOut = $element.fadeOut(speed);
+            $.when(fadeOut).done(function () {
+                $('.modal-dialog-blockout').remove();
+            });
+        }
     }
 };
