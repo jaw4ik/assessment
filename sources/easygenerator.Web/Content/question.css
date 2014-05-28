@@ -539,7 +539,7 @@
         background: url('images/sprites_64.png') -275px 0 no-repeat;
     }
 
-    .question-type-image.multiple-choise {
+    .question-type-image.multiple-choice {
         width: 48px;
         background: url('images/sprites_64.png') -215px 0 no-repeat;
     }
