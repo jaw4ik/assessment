@@ -25,7 +25,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
         private HttpRequestBase _httpRequest;
         private ConfigurationReader _configurationReader;
         private NameValueCollection _queryString;
-        private List<ApiKeyElement> _configApiKeys;
+        private ApiKeyCollection _configApiKeys;
 
         [TestInitialize]
         public void InitializeContext()
@@ -34,7 +34,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             _httpRequest = Substitute.For<HttpRequestBase>();
             _configurationReader = Substitute.For<ConfigurationReader>();
             _queryString = new NameValueCollection();
-            _configApiKeys = new List<ApiKeyElement>();
+            _configApiKeys = new ApiKeyCollection();
             var externalApiSection = Substitute.For<ExternalApiSection>();
 
             _configurationReader.ExternalApi.Returns(externalApiSection);
@@ -113,68 +113,6 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
 
             //Assert
             _filterContext.Result.Should().BeHttpStatusCodeResultWithStatus((int)HttpStatusCode.Forbidden);
-        }
-
-        [TestMethod]
-        public void OnAuthorization_ShouldSetForbiddenResult_WhenNoApiKeysDoNotMatch()
-        {
-            //Arrange
-            _attribute = new ExternalApiAuthorizeAttribute(ApiKeyName, _configurationReader);
-            _configApiKeys.Add(new ApiKeyElement()
-            {
-                Name = ApiKeyName,
-                Value = "abc"
-            });
-
-            _queryString.Add("key", ApiKeyValue);
-
-            //Act
-            _attribute.OnAuthorization(_filterContext);
-
-            //Assert
-            _filterContext.Result.Should().BeHttpStatusCodeResultWithStatus((int)HttpStatusCode.Forbidden);
-        }
-
-        [TestMethod]
-        public void OnAuthorization_ShouldNotSetResult_WhenNoApiKeysMatch()
-        {
-            //Arrange
-            _attribute = new ExternalApiAuthorizeAttribute(ApiKeyName, _configurationReader);
-            _filterContext.Result = null;
-            _configApiKeys.Add(new ApiKeyElement()
-            {
-                Name = ApiKeyName,
-                Value = ApiKeyValue
-            });
-
-            _queryString.Add("key", ApiKeyValue);
-
-            //Act
-            _attribute.OnAuthorization(_filterContext);
-
-            //Assert
-            _filterContext.Result.Should().BeNull();
-        }
-
-        [TestMethod]
-        public void OnAuthorization_ShouldNotSetResult_WhenNoApiKeysMatchWithTrim()
-        {
-            //Arrange
-            _attribute = new ExternalApiAuthorizeAttribute(ApiKeyName, _configurationReader);
-            _filterContext.Result = null;
-            _configApiKeys.Add(new ApiKeyElement()
-            {
-                Name = ApiKeyName,
-                Value = "   " + ApiKeyValue + "   "
-            });
-
-            _queryString.Add("key", " " + ApiKeyValue + " ");
-
-            //Act
-            _attribute.OnAuthorization(_filterContext);
-
-            //Assert
-            _filterContext.Result.Should().BeNull();
         }
 
         #endregion
