@@ -23,7 +23,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization.Permiss
         private const string CourseId = "8D092820-C67E-4AE6-BACB-1ECBE078689C";
         private const string Username = "user@www.www";
 
-        private CourseAccessAttribute _attribute;
+        private CoursePermissionAttribute _attribute;
 
         private AuthorizationContext _filterContext;
         private IIdentity _identity;
@@ -36,7 +36,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization.Permiss
         [TestInitialize]
         public void InitializeContext()
         {
-            _attribute = new CourseAccessAttribute();
+            _attribute = new CoursePermissionAttribute();
 
             _courseRepository = Substitute.For<ICourseRepository>();
             _attribute.CourseRepository = _courseRepository;

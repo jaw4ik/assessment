@@ -26,7 +26,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [CourseOwnerAccess]
+        [CourseOwner]
         [Route("api/course/collaborator/add")]
         public ActionResult AddCollaborator(Course course, string email)
         {
