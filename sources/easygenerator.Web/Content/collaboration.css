@@ -113,7 +113,7 @@
         .course-collaborators-list > :nth-last-child(1) .course-collaborator-tooltip-wrapper .course-collaborator-tooltip:after,
         .course-collaborators-list > :nth-last-child(2) .course-collaborator-tooltip-wrapper .course-collaborator-tooltip:after {
             left: auto;
-            right: 7px;
+            right: 10px;
         }
 }
 
