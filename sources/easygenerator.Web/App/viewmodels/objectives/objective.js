@@ -210,6 +210,8 @@
                     return constants.questionType.multipleChoice.image;
                 case constants.questionType.fillInTheBlank.type:
                     return constants.questionType.fillInTheBlank.image;
+                case constants.questionType.dragAndDrop.type:
+                    return constants.questionType.dragAndDrop.image;
             }
         }
 
