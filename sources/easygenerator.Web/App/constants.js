@@ -19,7 +19,7 @@
                 },
                 dragAndDrop: {
                     type: 2,
-                    image: '/Content/images/draganddrop-question.png'
+                    image: '/Content/images/draganddroptext-question.png'
                 }
             },
 
