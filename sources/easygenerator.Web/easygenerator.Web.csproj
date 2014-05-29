@@ -647,7 +647,9 @@
     <Content Include="App\models\collaborator.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.js" />
-    <Content Include="App\models\course.spec.js" />
+    <Content Include="App\models\course.spec.js">
+      <DependentUpon>course.js</DependentUpon>
+    </Content>
     <Content Include="App\models\entity.js" />
     <Content Include="App\models\learningContent.js" />
     <Content Include="App\models\objective.js" />
