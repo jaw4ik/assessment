@@ -12,7 +12,8 @@ namespace easygenerator.Web.BuildCourse
         public PackageModelMapper()
         {
             Mapper.CreateMap<Answer, AnswerOptionPackageModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToNString()));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToNString()))
+                .ForMember(dest => dest.Group, opt => opt.MapFrom(src => src.Group.ToNString()));
 
             Mapper.CreateMap<LearningContent, LearningContentPackageModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToNString()));

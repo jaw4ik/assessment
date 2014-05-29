@@ -7,7 +7,6 @@ namespace easygenerator.Web.BuildCourse.PackageModel
         public string Id { get; set; }
         public string Text { get; set; }
         public bool IsCorrect { get; set; }
-        public Guid Group { get; set; }
-
+        public string Group { get; set; }
     }
 }
