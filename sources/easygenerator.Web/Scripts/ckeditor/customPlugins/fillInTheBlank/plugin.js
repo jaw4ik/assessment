@@ -26,13 +26,10 @@
             editor.widgets.add(plugin.commands.addBlank, {
                 draggable: false,
                 defaults: function () {
-                    var selectedContent = ' ';
+                    var selectedContent = '';
                     var selection = editor.getSelection();
                     if (selection != null && selection.getType() == CKEDITOR.SELECTION_TEXT) {
                         selectedContent = selection.getSelectedText();
-                    }
-                    if (selectedContent === '') {
-                        selectedContent = ' ';
                     }
                     return { text: selectedContent };
                 },
