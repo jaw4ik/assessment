@@ -14,7 +14,7 @@ namespace easygenerator.Web.Components.ActionFilters.Permissions
 
         protected override bool CheckEntityAccess(Entity entity, User user)
         {
-            return (bool)CallGenericTypeMethod(typeof(IEntityPermissionChecker<>), "HasPermissions", new object[] { entity });
+            return (bool)CallGenericTypeMethod(typeof(IEntityPermissionChecker<>), "HasPermissions", new object[] { user.Email, entity });
         }
     }
 }
