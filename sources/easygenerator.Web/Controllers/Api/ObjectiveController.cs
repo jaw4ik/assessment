@@ -4,6 +4,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Permissions;
@@ -56,6 +57,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermission(typeof(Objective))]
         [Route("api/objective/update")]
         public ActionResult Update(Objective objective, string title)
         {
@@ -70,6 +72,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityOwner(typeof(Objective))]
         [Route("api/objective/delete")]
         public ActionResult Delete(Objective objective)
         {
@@ -87,6 +90,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermission(typeof(Objective))]
         [Route("api/objective/updatequestionsorder")]
         public ActionResult UpdateQuestionsOrder(Objective objective, ICollection<Question> questions)
         {
