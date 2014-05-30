@@ -1,24 +1,26 @@
-﻿using System.Collections.Generic;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.Permissions;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System.Collections.Generic;
 
 namespace easygenerator.Web.Tests.Permissions
 {
     [TestClass]
     public class ObjectivePermissionCheckerTests
     {
-        private ObjectivePermissionChecker _checker;
+        private ObjectivePermissionChecker _objectivePermissionChecker;
+        private IEntityPermissionChecker<Course> _coursePermissionChecker;
         private const string CreatedBy = "creator@user.com";
         private const string Username = "user@user.com";
 
         [TestInitialize]
         public void Initialize()
         {
-            _checker = new ObjectivePermissionChecker();
+            _coursePermissionChecker = Substitute.For<IEntityPermissionChecker<Course>>();
+            _objectivePermissionChecker = new ObjectivePermissionChecker(_coursePermissionChecker);
         }
 
         #region HasPermissions
@@ -30,7 +32,7 @@ namespace easygenerator.Web.Tests.Permissions
             var objective = ObjectiveObjectMother.CreateWithCreatedBy(CreatedBy);
 
             //Act
-            var result = _checker.HasPermissions(CreatedBy, objective);
+            var result = _objectivePermissionChecker.HasPermissions(CreatedBy, objective);
 
             //Assert
             result.Should().BeTrue();
@@ -42,12 +44,11 @@ namespace easygenerator.Web.Tests.Permissions
             //Arrange
             var objective = Substitute.For<Objective>();
             var course = Substitute.For<Course>();
-            var collaborator = CourseCollaboratorObjectMother.Create(course, Username);
-            course.Collaborators.Returns(new List<CourseCollaborator>() { collaborator });
-            objective.Courses.Returns(new List<Course> {course});
+            objective.Courses.Returns(new List<Course> { course });
+            _coursePermissionChecker.HasPermissions(Username, course).Returns(true);
 
             //Act
-            var result = _checker.HasPermissions(Username, objective);
+            var result = _objectivePermissionChecker.HasPermissions(Username, objective);
 
             //Assert
             result.Should().BeTrue();
@@ -57,10 +58,13 @@ namespace easygenerator.Web.Tests.Permissions
         public void HasPermissions_ShouldReturnFalse_WhenUserIsNotObjectiveOwnerOrCourseCollaborator()
         {
             //Arrange
-            var objective = ObjectiveObjectMother.Create();
+            var objective = Substitute.For<Objective>();
+            var course = CourseObjectMother.Create();
+            _coursePermissionChecker.HasPermissions(Username, course).Returns(false);
+            objective.Courses.Returns(new List<Course> { course });
 
             //Act
-            var result = _checker.HasPermissions(Username, objective);
+            var result = _objectivePermissionChecker.HasPermissions(Username, objective);
 
             //Assert
             result.Should().BeFalse();
