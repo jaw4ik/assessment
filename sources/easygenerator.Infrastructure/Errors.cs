@@ -29,7 +29,8 @@ namespace easygenerator.Infrastructure
         public const string UpgradeToStarterPlanToCreateOtherQuestionTypes = "upgradeToStarterPlanToCreateOtherQuestionTypes";
 
         public const string UpgradeToNextPlanToCreateMoreCoursesErrorMessage = "upgradeToNextPlanToCreateMoreCoursesErrorMessage";
-        public const string NotEnoughPermissionsErrorMessage = "notEnoughPermissionsErrorMessage";
+        public const string NotEnoughPermissionsErrorMessageKey = "notEnoughPermissionsErrorMessage";
+        public const string DataHasBeenChangedErrorMessageKey = "dataHasBeenChangedErrorMessage";
         public const string UserWithSpecifiedEmailDoesntExist = "Account with this email doesn't exist";
         public const string UserWithSpecifiedEmailDoesntExistResourceKey = "enterEmailOfExistingUser";
     }

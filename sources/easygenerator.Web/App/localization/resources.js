@@ -1200,6 +1200,9 @@
     },
     notEnoughPermissionsErrorMessage: {
         en: 'You don\'t have enough permissions to complete this operation'
+    },
+    dataHasBeenChangedErrorMessage: {
+        en: 'Data has been changed. Please refresh the page.'
     }
     /* End resource section for model Collaboration */
            

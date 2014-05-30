@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Extensions;
 using System;
@@ -17,6 +18,7 @@ namespace easygenerator.Web.Components.ActionFilters.Permissions
                 throw new ArgumentException("Entity type is not a subclass of Entity", "entityType");
 
             EntityType = entityType;
+            ErrorMessageResourceKey = Errors.DataHasBeenChangedErrorMessageKey;
         }
 
         protected override bool CheckAccess(AuthorizationContext authorizationContext, User user)
