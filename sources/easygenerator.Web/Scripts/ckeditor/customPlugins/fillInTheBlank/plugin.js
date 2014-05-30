@@ -119,15 +119,12 @@
                                 value = element.children[index].getHtml();
                             }
                         }
-                        if (value != '') {
-                            return new CKEDITOR.htmlParser.element(plugin.dataTag, {
-                                'data-group-id': groupId != undefined ? groupId : '',
-                                value: value,
-                                class: plugin.classNames.blankInput
-
-                            });
-                        }
-                        return new CKEDITOR.htmlParser.text('');
+                        
+                        return new CKEDITOR.htmlParser.element(plugin.dataTag, {
+                            'data-group-id': groupId != undefined ? groupId : '',
+                            value: value,
+                            class: plugin.classNames.blankInput
+                        });
                     }
                 }
             });

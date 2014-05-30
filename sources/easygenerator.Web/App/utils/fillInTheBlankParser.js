@@ -32,17 +32,16 @@
             var $input = $(item),
                 value = $input.val(),
                 groupId = $input.attr(groupIdAttribute);
-            if (!_.isEmptyOrWhitespace(value)) {
-                if (_.isEmptyOrWhitespace(groupId)) {
-                    $input.attr(groupIdAttribute, system.guid().replace(/[-]/g, ''));
-                }
-                $input.attr(valueAttribute, '');
-                answers.push({
-                    groupId: $input.attr(groupIdAttribute),
-                    text: value,
-                    isCorrect: true
-                });
+            
+            if (_.isEmptyOrWhitespace(groupId)) {
+                $input.attr(groupIdAttribute, system.guid().replace(/[-]/g, ''));
             }
+            $input.attr(valueAttribute, '');
+            answers.push({
+                groupId: $input.attr(groupIdAttribute),
+                text: value,
+                isCorrect: true
+            });
         });
         return {
             template: $text.html(),

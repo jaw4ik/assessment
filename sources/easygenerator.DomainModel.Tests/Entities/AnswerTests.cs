@@ -23,14 +23,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void Answer_ShouldThrowArgumentException_WhenTextIsEmpty()
-        {
-            Action action = () => AnswerObjectMother.CreateWithText(String.Empty);
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("text");
-        }
-
-        [TestMethod]
         public void Answer_ShouldCreateAnswerInstance()
         {
             const string text = "text";
@@ -62,16 +54,6 @@ namespace easygenerator.DomainModel.Tests.Entities
             Action action = () => answer.UpdateText(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("text");
-        }
-
-        [TestMethod]
-        public void UpdateText_ShouldThrowArgumentException_WhenTitleIsEmpty()
-        {
-            var answer = AnswerObjectMother.Create();
-
-            Action action = () => answer.UpdateText(String.Empty, ModifiedBy);
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("text");
         }
 
         [TestMethod]

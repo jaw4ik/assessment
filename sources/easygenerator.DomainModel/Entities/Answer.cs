@@ -44,7 +44,7 @@ namespace easygenerator.DomainModel.Entities
 
         private void ThrowIfTextIsInvalid(string text)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(text, "text");
+            ArgumentValidation.ThrowIfNull(text, "text");
         }
 
         private void ThrowIfModifiedByIsInvalid(string modifiedBy)
