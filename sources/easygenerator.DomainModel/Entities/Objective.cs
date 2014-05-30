@@ -32,11 +32,6 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        public virtual bool IsPermittedTo(string username)
-        {
-            return CreatedBy == username || Courses.Any(course => course.IsPermittedTo(username));
-        }
-
         protected internal virtual ICollection<Course> RelatedCoursesCollection { get; set; }
 
         public virtual IEnumerable<Course> Courses

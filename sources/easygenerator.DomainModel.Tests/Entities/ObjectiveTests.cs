@@ -159,53 +159,53 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
-        #region IsPermittedTo
+        //#region IsPermittedTo
 
-        [TestMethod]
-        public void IsPermittedTo_ShouldReturnFalse_WhenIsNotCreatedByUserAndUserIsNotACollaborator()
-        {
-            //Arrange
-            var objective = ObjectiveObjectMother.Create();
+        //[TestMethod]
+        //public void IsPermittedTo_ShouldReturnFalse_WhenIsNotCreatedByUserAndUserIsNotACollaborator()
+        //{
+        //    //Arrange
+        //    var objective = ObjectiveObjectMother.Create();
 
-            //Act
-            var result = objective.IsPermittedTo("user");
+        //    //Act
+        //    var result = objective.IsPermittedTo("user");
 
-            //Assert
-            result.Should().BeFalse();
-        }
+        //    //Assert
+        //    result.Should().BeFalse();
+        //}
 
-        [TestMethod]
-        public void IsPermittedTo_ShouldReturnTrue_WhenIsCreatedByUserAndUser()
-        {
-            //Arrange
-            const string username = "user";
-            var objective = ObjectiveObjectMother.CreateWithCreatedBy(username);
+        //[TestMethod]
+        //public void IsPermittedTo_ShouldReturnTrue_WhenIsCreatedByUserAndUser()
+        //{
+        //    //Arrange
+        //    const string username = "user";
+        //    var objective = ObjectiveObjectMother.CreateWithCreatedBy(username);
 
-            //Act
-            var result = objective.IsPermittedTo(username);
+        //    //Act
+        //    var result = objective.IsPermittedTo(username);
 
-            //Assert
-            result.Should().BeTrue();
-        }
+        //    //Assert
+        //    result.Should().BeTrue();
+        //}
 
-        [TestMethod]
-        public void IsPermittedTo_ShouldReturnTrue_WhenIsACollaborator()
-        {
-            //Arrange
-            const string username = "user@user.com";
-            var objective = ObjectiveObjectMother.Create();
-            var course = CourseObjectMother.Create();
-            course.Collaborate(username, CreatedBy);
-            objective.RelatedCoursesCollection.Add(course);
+        //[TestMethod]
+        //public void IsPermittedTo_ShouldReturnTrue_WhenIsACollaborator()
+        //{
+        //    //Arrange
+        //    const string username = "user@user.com";
+        //    var objective = ObjectiveObjectMother.Create();
+        //    var course = CourseObjectMother.Create();
+        //    course.Collaborate(username, CreatedBy);
+        //    objective.RelatedCoursesCollection.Add(course);
 
-            //Act
-            var result = course.IsPermittedTo(username);
+        //    //Act
+        //    var result = course.IsPermittedTo(username);
 
-            //Assert
-            result.Should().BeTrue();
-        }
+        //    //Assert
+        //    result.Should().BeTrue();
+        //}
 
-        #endregion
+        //#endregion
 
         #region Add question
 

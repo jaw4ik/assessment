@@ -209,11 +209,14 @@
     <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
-    <Compile Include="Components\ActionFilters\Authorization\Permissions\CoursePermissionAttribute.cs" />
+    <Compile Include="Permissions\CoursePermissionChecker.cs" />
+    <Compile Include="Permissions\IEntityPermissionChecker.cs" />
+    <Compile Include="Permissions\ObjectivePermissionChecker.cs" />
+    <Compile Include="Components\ActionFilters\Permissions\EntityPermissionAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCoursesAmountAttribute.cs" />
-    <Compile Include="Components\ActionFilters\Authorization\Permissions\CourseOwnerAttribute.cs" />
-    <Compile Include="Components\ActionFilters\Authorization\Permissions\CourseAccessAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Permissions\EntityAccessAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Permissions\EntityOwnerAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\StarterAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\CustomRequireHttpsAttribute.cs" />
     <Compile Include="Components\ActionFilters\ForceHttpAttribute.cs" />
@@ -378,25 +381,8 @@
       <DependentUpon>courseCollaboratorAdded.js</DependentUpon>
     </Content>
     <Content Include="App\utils\fillInTheBlankParser.js" />
-    <Content Include="App\viewmodels\objectives\createObjective.read.js">
-      <DependentUpon>createObjective.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\objectives\createObjective.read.spec.js">
-      <DependentUpon>createObjective.js</DependentUpon>
-    </Content>
+    <Content Include="App\viewmodels\objectives\createObjective.js" />
     <Content Include="App\viewmodels\objectives\createObjective.spec.js">
-      <DependentUpon>createObjective.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\objectives\createObjective.write.js">
-      <DependentUpon>createObjective.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\objectives\createObjective.write.spec.js">
-      <DependentUpon>createObjective.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\objectives\createObjectiveInCourse.write.js">
-      <DependentUpon>createObjective.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\objectives\createObjectiveInCourse.write.spec.js">
       <DependentUpon>createObjective.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\questions\dragAndDrop\dragAndDrop.js" />
@@ -420,15 +406,7 @@
     <Content Include="App\viewmodels\questions\questionTitle.spec.js">
       <DependentUpon>questionTitle.js</DependentUpon>
     </Content>
-    <Content Include="App\views\objectives\createObjective.read.html">
-      <DependentUpon>createObjective.html</DependentUpon>
-    </Content>
-    <Content Include="App\views\objectives\createObjective.write.html">
-      <DependentUpon>createObjective.html</DependentUpon>
-    </Content>
-    <Content Include="App\views\objectives\createObjectiveInCourse.write.html">
-      <DependentUpon>createObjective.html</DependentUpon>
-    </Content>
+    <Content Include="App\views\objectives\createObjective.html" />
     <Content Include="App\views\questions\dragAndDrop\dragAndDrop.html" />
     <Content Include="App\views\questions\fillInTheBlank\fillInTheBlank.html" />
     <Content Include="App\views\questions\multipleChoice\multipleChoice.html" />
@@ -845,7 +823,6 @@
       <DependentUpon>scormBuild.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\errors\404.js" />
-    <Content Include="App\viewmodels\objectives\createObjective.js" />
     <Content Include="App\viewmodels\objectives\objective.js" />
     <Content Include="App\viewmodels\objectives\objective.spec.js">
       <DependentUpon>objective.js</DependentUpon>
@@ -897,7 +874,6 @@
     <Content Include="App\views\courses\design.html" />
     <Content Include="App\views\courses\publish.html" />
     <Content Include="App\views\errors\404.html" />
-    <Content Include="App\views\objectives\createObjective.html" />
     <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />
     <Content Include="App\views\panels\sidePanel.html" />
@@ -1489,6 +1465,7 @@
     <EmbeddedResource Include="Resources\Views\Review\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

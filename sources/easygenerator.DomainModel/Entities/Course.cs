@@ -38,24 +38,19 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        public virtual bool IsPermittedTo(string username)
-        {
-            return CreatedBy == username || Collaborators.Any(e => e.Email == username);
-        }
-
         protected internal virtual ICollection<CourseCollaborator> CollaboratorsCollection { get; set; }
         public virtual IEnumerable<CourseCollaborator> Collaborators
         {
             get { return CollaboratorsCollection.AsEnumerable(); }
         }
 
-        public virtual CourseCollaborator Collaborate(string userEmail, string createdBy)
+        public virtual CourseCollaborator Collaborate(string username, string createdBy)
         {
-            ThrowIfUserEmailIsInvalid(userEmail);
-            if (IsPermittedTo(userEmail))
+            ThrowIfUserEmailIsInvalid(username);
+            if (CreatedBy == username || Collaborators.Any(e => e.Email == username))
                 return null;
 
-            var collaborator = new CourseCollaborator(this, userEmail, createdBy);
+            var collaborator = new CourseCollaborator(this, username, createdBy);
             CollaboratorsCollection.Add(collaborator);
 
             return collaborator;

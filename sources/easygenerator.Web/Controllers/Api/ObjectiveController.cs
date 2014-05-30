@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
@@ -9,6 +6,10 @@ using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Permissions;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -18,29 +19,24 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityFactory _entityFactory;
         private readonly IObjectiveRepository _repository;
         private readonly IEntityMapper<Objective> _objectiveMapper;
+        private readonly IEntityPermissionChecker<Objective> _permissionChecker;
 
 
-        public ObjectiveController(IObjectiveRepository repository, IEntityFactory entityFactory, IEntityMapper<Objective> objectiveMapper)
+        public ObjectiveController(IObjectiveRepository repository, IEntityFactory entityFactory, IEntityMapper<Objective> objectiveMapper, IEntityPermissionChecker<Objective> permissionChecker)
         {
             _repository = repository;
             _entityFactory = entityFactory;
             _objectiveMapper = objectiveMapper;
+            _permissionChecker = permissionChecker;
         }
 
         [HttpPost]
         [Route("api/objectives")]
         public ActionResult GetCollection()
         {
-            var objectives = _repository.GetCollection(obj => obj.IsPermittedTo(User.Identity.Name));
-            
-            return JsonSuccess(objectives.Select(e => _objectiveMapper.Map(e)));
-        }
+            var objectives = _repository.GetCollection(obj => _permissionChecker.HasPermissions(User.Identity.Name, obj));
 
-        [HttpPost]
-        [Route("api/objectiveExists")]
-        public ActionResult ObjectiveExists(Objective objective)
-        {
-            return JsonSuccess(objective != null);
+            return JsonSuccess(objectives.Select(e => _objectiveMapper.Map(e)));
         }
 
         [HttpPost]

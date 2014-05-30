@@ -7,9 +7,10 @@ using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
-using easygenerator.Web.Components.ActionFilters.Authorization.Permissions;
+using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Permissions;
 using easygenerator.Web.Publish;
 using System;
 using System.Collections.Generic;
@@ -27,10 +28,11 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IUrlHelperWrapper _urlHelper;
         private readonly IScormCourseBuilder _scormCourseBuilder;
         private readonly ICoursePublisher _coursePublisher;
-        private readonly IEntityMapper<Course> _courseMapper; 
+        private readonly IEntityMapper<Course> _courseMapper;
+        private readonly IEntityPermissionChecker<Course> _permissionChecker;
 
         public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory,
-            IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IEntityMapper<Course> courseMapper)
+            IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IEntityMapper<Course> courseMapper, IEntityPermissionChecker<Course> permissionChecker)
         {
             _builder = courseBuilder;
             _repository = repository;
@@ -39,6 +41,7 @@ namespace easygenerator.Web.Controllers.Api
             _scormCourseBuilder = scormCourseBuilder;
             _coursePublisher = coursePublisher;
             _courseMapper = courseMapper;
+            _permissionChecker = permissionChecker;
         }
 
         [HttpPost]
@@ -58,7 +61,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [CourseOwner]
+        [EntityOwner(typeof(Course))]
         public ActionResult Delete(Course course)
         {
             if (course != null)
@@ -87,13 +90,13 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [CoursePermission]
+        [EntityPermission(typeof(Course))]
         public ActionResult Build(Course course)
         {
             return DoPublishAction(course, () => _builder.Build(course), () => JsonSuccess(new { PackageUrl = course.PackageUrl, BuildOn = course.BuildOn }));
         }
 
-        [CoursePermission]
+        [EntityPermission(typeof(Course))]
         [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseScormResourceKey)]
         public ActionResult ScormBuild(Course course)
         {
@@ -101,7 +104,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [CoursePermission]
+        [EntityPermission(typeof(Course))]
         [Route("course/publish")]
         public ActionResult Publish(Course course)
         {
@@ -109,7 +112,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [CoursePermission]
+        [EntityPermission(typeof(Course))]
         [Route("course/publishForReview")]
         public ActionResult PublishForReview(Course course)
         {
@@ -119,13 +122,13 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult GetCollection()
         {
-            var courses = _repository.GetCollection(course => course.IsPermittedTo(User.Identity.Name));
+            var courses = _repository.GetCollection(course => _permissionChecker.HasPermissions(User.Identity.Name, course));
 
             return JsonSuccess(courses.Select(c => _courseMapper.Map(c)));
         }
 
         [HttpPost]
-        [CoursePermission]
+        [EntityPermission(typeof(Course))]
         public ActionResult UpdateTitle(Course course, string courseTitle)
         {
             if (course == null)
@@ -139,7 +142,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [CoursePermission]
+        [EntityPermission(typeof(Course))]
         public ActionResult UpdateTemplate(Course course, Template template)
         {
             if (course == null)
@@ -153,7 +156,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [CoursePermission]
+        [EntityPermission(typeof(Course))]
         [Route("api/course/relateObjective")]
         public ActionResult RelateObjectives(Course course, Objective objective, int? index)
         {
@@ -176,7 +179,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [CoursePermission]
+        [EntityPermission(typeof(Course))]
         [Route("api/course/unrelateObjectives")]
         public ActionResult UnrelateObjectives(Course course, ICollection<Objective> objectives)
         {
@@ -201,7 +204,7 @@ namespace easygenerator.Web.Controllers.Api
             });
         }
 
-        [CoursePermission]
+        [EntityPermission(typeof(Course))]
         [ActionName("TemplateSettings"), HttpGet]
         public ActionResult GetTemplateSettings(Course course, Template template)
         {
@@ -218,7 +221,7 @@ namespace easygenerator.Web.Controllers.Api
             return Json(course.GetTemplateSettings(template), JsonRequestBehavior.AllowGet);
         }
 
-        [CoursePermission]
+        [EntityPermission(typeof(Course))]
         [ActionName("TemplateSettings"), HttpPost]
         public ActionResult SaveTemplateSettings(Course course, Template template, string settings)
         {
@@ -238,7 +241,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [CoursePermission]
+        [EntityPermission(typeof(Course))]
         [Route("api/course/updateintroductioncontent")]
         public ActionResult UpdateIntroductionContent(Course course, string introductionContent)
         {
@@ -253,7 +256,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [CoursePermission]
+        [EntityPermission(typeof(Course))]
         [Route("api/course/updateobjectivesorder")]
         public ActionResult UpdateObjectivesOrderedList(Course course, ICollection<Objective> objectives)
         {

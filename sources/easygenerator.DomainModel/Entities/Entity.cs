@@ -1,5 +1,5 @@
-﻿using System;
-using easygenerator.Infrastructure;
+﻿using easygenerator.Infrastructure;
+using System;
 
 namespace easygenerator.DomainModel.Entities
 {

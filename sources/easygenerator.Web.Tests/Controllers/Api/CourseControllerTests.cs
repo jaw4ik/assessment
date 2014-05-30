@@ -6,9 +6,9 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
-using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Permissions;
 using easygenerator.Web.Publish;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
@@ -39,6 +39,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IUrlHelperWrapper _urlHelper;
         private ICoursePublisher _coursePublisher;
         private IEntityMapper<Course> _courseMapper;
+        private IEntityPermissionChecker<Course> _entityPermissionChecker;
 
         [TestInitialize]
         public void InitializeContext()
@@ -56,7 +57,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _urlHelper, _coursePublisher, _courseMapper);
+            _entityPermissionChecker = Substitute.For<IEntityPermissionChecker<Course>>();
+
+            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _urlHelper, _coursePublisher, _courseMapper, _entityPermissionChecker);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 

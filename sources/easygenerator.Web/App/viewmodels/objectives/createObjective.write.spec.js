@@ -1,8 +1,0 @@
-﻿define([],
-    function () {
-        "use strict";
-
-
-
-    }
-);

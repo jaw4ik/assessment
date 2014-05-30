@@ -22,7 +22,9 @@ using easygenerator.Web.Import.PublishedCourse.EntityReaders;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
+using easygenerator.Web.Permissions;
 using easygenerator.Web.Publish;
+using easygenerator.Web.Publish.Aim4You;
 using easygenerator.Web.Storage;
 using easygenerator.Web.WooCommerce;
 using System;
@@ -30,7 +32,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-using easygenerator.Web.Publish.Aim4You;
 
 namespace easygenerator.Web.Configuration
 {
@@ -68,6 +69,13 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<EntityFactory>().As<IEntityFactory>();
 
             builder.RegisterType<AuthenticationProvider>().As<IAuthenticationProvider>();
+
+            #region Permission checkers
+
+            builder.RegisterType<CoursePermissionChecker>().As<IEntityPermissionChecker<Course>>();
+            builder.RegisterType<ObjectivePermissionChecker>().As<IEntityPermissionChecker<Objective>>();
+
+            #endregion
 
             #region Domain events dependecies
 

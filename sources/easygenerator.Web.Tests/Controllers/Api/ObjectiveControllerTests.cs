@@ -1,22 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Extensions;
+using easygenerator.Web.Permissions;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using easygenerator.Web.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -33,6 +34,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IPrincipal _user;
         HttpContextBase _context;
         IEntityMapper<Objective> _objectiveyMapper;
+        private IEntityPermissionChecker<Objective> _entityPermissionChecker;
 
         [TestInitialize]
         public void InitializeContext()
@@ -40,7 +42,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory = Substitute.For<IEntityFactory>();
             _repository = Substitute.For<IObjectiveRepository>();
             _objectiveyMapper = Substitute.For<IEntityMapper<Objective>>();
-            _controller = new ObjectiveController(_repository, _entityFactory, _objectiveyMapper);
+            _entityPermissionChecker = Substitute.For<IEntityPermissionChecker<Objective>>();
+            _controller = new ObjectiveController(_repository, _entityFactory, _objectiveyMapper, _entityPermissionChecker);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -61,24 +64,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.GetCollection();
 
             result.Should().BeJsonSuccessResult();
-        }
-
-        #endregion
-
-        #region ObjectiveExists
-
-        [TestMethod]
-        public void ObjectiveExists_ShouldReturnJsonSuccessResultTrue_WhenCourseExists()
-        {
-            var result = _controller.ObjectiveExists(ObjectiveObjectMother.Create());
-            result.Should().BeJsonSuccessResult().And.Data.Should().Be(true);
-        }
-
-        [TestMethod]
-        public void ObjectiveExists_ShouldReturnJsonSuccessResultTrue_WhenCoursDoesntExist()
-        {
-            var result = _controller.ObjectiveExists(null);
-            result.Should().BeJsonSuccessResult().And.Data.Should().Be(false);
         }
 
         #endregion

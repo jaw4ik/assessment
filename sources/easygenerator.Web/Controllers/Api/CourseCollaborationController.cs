@@ -1,13 +1,12 @@
-﻿using System.Web.Mvc;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
-using easygenerator.Web.Components.ActionFilters.Authorization;
-using easygenerator.Web.Components.ActionFilters.Authorization.Permissions;
+using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -26,7 +25,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [CourseOwner]
+        [EntityOwner(typeof(Course))]
         [Route("api/course/collaborator/add")]
         public ActionResult AddCollaborator(Course course, string email)
         {
