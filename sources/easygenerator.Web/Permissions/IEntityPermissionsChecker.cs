@@ -2,7 +2,7 @@
 
 namespace easygenerator.Web.Permissions
 {
-    public interface IEntityPermissionChecker<T> where T : Entity
+    public interface IEntityPermissionsChecker<T> where T : Entity
     {
         bool HasPermissions(string username, T entity);
     }

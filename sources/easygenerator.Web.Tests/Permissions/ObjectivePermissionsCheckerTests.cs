@@ -9,18 +9,18 @@ using System.Collections.Generic;
 namespace easygenerator.Web.Tests.Permissions
 {
     [TestClass]
-    public class ObjectivePermissionCheckerTests
+    public class ObjectivePermissionsCheckerTests
     {
-        private ObjectivePermissionChecker _objectivePermissionChecker;
-        private IEntityPermissionChecker<Course> _coursePermissionChecker;
+        private ObjectivePermissionsChecker _objectivePermissionChecker;
+        private IEntityPermissionsChecker<Course> _coursePermissionChecker;
         private const string CreatedBy = "creator@user.com";
         private const string Username = "user@user.com";
 
         [TestInitialize]
         public void Initialize()
         {
-            _coursePermissionChecker = Substitute.For<IEntityPermissionChecker<Course>>();
-            _objectivePermissionChecker = new ObjectivePermissionChecker(_coursePermissionChecker);
+            _coursePermissionChecker = Substitute.For<IEntityPermissionsChecker<Course>>();
+            _objectivePermissionChecker = new ObjectivePermissionsChecker(_coursePermissionChecker);
         }
 
         #region HasPermissions

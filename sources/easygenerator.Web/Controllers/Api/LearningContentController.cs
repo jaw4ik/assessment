@@ -6,6 +6,7 @@ using easygenerator.Web.Components;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Components.ActionFilters.Permissions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -20,6 +21,8 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Question))]
+        [Route("api/learningContent/create")]
         public ActionResult Create(Question question, string text)
         {
             if (question == null)
@@ -35,6 +38,8 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Question))]
+        [Route("api/learningContent/delete")]
         public ActionResult Delete(Question question, LearningContent learningContent)
         {
             if (question == null)
@@ -51,6 +56,8 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(LearningContent))]
+        [Route("api/learningContent/updateText")]
         public ActionResult UpdateText(LearningContent learningContent, string text)
         {
             if (learningContent == null)
@@ -64,6 +71,8 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Question))]
+        [Route("api/learningContents")]
         public ActionResult GetCollection(Question question)
         {
             if (question == null)

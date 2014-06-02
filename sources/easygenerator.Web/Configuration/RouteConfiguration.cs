@@ -39,34 +39,6 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
-            #region Learning content
-
-            routes.MapRoute(
-                name: "CreateLearningContent",
-                url: "api/learningContent/create",
-                defaults: new { controller = "LearningContent", action = "Create" }
-            );
-
-            routes.MapRoute(
-                name: "DeleteLearningContent",
-                url: "api/learningContent/delete",
-                defaults: new { controller = "LearningContent", action = "Delete" }
-            );
-
-            routes.MapRoute(
-                name: "UpdateLearningContentText",
-                url: "api/learningContent/updateText",
-                defaults: new { controller = "LearningContent", action = "UpdateText" }
-            );
-
-            routes.MapRoute(
-                name: "GetLearningContents",
-                url: "api/learningContents",
-                defaults: new { controller = "LearningContent", action = "GetCollection" }
-            );
-
-            #endregion
-
             #region Courses
 
             routes.MapRoute(

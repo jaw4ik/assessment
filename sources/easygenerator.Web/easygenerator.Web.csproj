@@ -209,10 +209,12 @@
     <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
-    <Compile Include="Permissions\CoursePermissionChecker.cs" />
-    <Compile Include="Permissions\IEntityPermissionChecker.cs" />
-    <Compile Include="Permissions\ObjectivePermissionChecker.cs" />
-    <Compile Include="Components\ActionFilters\Permissions\EntityPermissionAttribute.cs" />
+    <Compile Include="Permissions\AnswerPermissionsChecker.cs" />
+    <Compile Include="Permissions\CoursePermissionsChecker.cs" />
+    <Compile Include="Permissions\IEntityPermissionsChecker.cs" />
+    <Compile Include="Permissions\LearningContentPermissionsChecker.cs" />
+    <Compile Include="Permissions\ObjectivePermissionsChecker.cs" />
+    <Compile Include="Components\ActionFilters\Permissions\EntityPermissionsAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCoursesAmountAttribute.cs" />
     <Compile Include="Components\ActionFilters\Permissions\EntityAccessAttribute.cs" />
@@ -323,6 +325,7 @@
     <Compile Include="Newsletter\MailChimp\Entities\MailChimpLists.cs" />
     <Compile Include="Newsletter\MailChimp\Entities\MailChimpSubscription.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManager.cs" />
+    <Compile Include="Permissions\QuestionPermissionsChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Publish\Aim4You\Aim4YouApiService.cs" />
     <Compile Include="Publish\Aim4You\Aim4YouCoursePublisher.cs" />

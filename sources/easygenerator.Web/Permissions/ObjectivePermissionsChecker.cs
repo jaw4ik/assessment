@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace easygenerator.Web.Permissions
 {
-    public class ObjectivePermissionChecker : IEntityPermissionChecker<Objective>
+    public class ObjectivePermissionsChecker : IEntityPermissionsChecker<Objective>
     {
-        private readonly IEntityPermissionChecker<Course> _coursePermissionChecker;
+        private readonly IEntityPermissionsChecker<Course> _coursePermissionChecker;
 
-        public ObjectivePermissionChecker(IEntityPermissionChecker<Course> coursePermissionChecker)
+        public ObjectivePermissionsChecker(IEntityPermissionsChecker<Course> coursePermissionChecker)
         {
             _coursePermissionChecker = coursePermissionChecker;
         }

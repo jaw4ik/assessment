@@ -20,10 +20,10 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityFactory _entityFactory;
         private readonly IObjectiveRepository _repository;
         private readonly IEntityMapper<Objective> _objectiveMapper;
-        private readonly IEntityPermissionChecker<Objective> _permissionChecker;
+        private readonly IEntityPermissionsChecker<Objective> _permissionChecker;
 
 
-        public ObjectiveController(IObjectiveRepository repository, IEntityFactory entityFactory, IEntityMapper<Objective> objectiveMapper, IEntityPermissionChecker<Objective> permissionChecker)
+        public ObjectiveController(IObjectiveRepository repository, IEntityFactory entityFactory, IEntityMapper<Objective> objectiveMapper, IEntityPermissionsChecker<Objective> permissionChecker)
         {
             _repository = repository;
             _entityFactory = entityFactory;
@@ -57,7 +57,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermission(typeof(Objective))]
+        [EntityPermissions(typeof(Objective))]
         [Route("api/objective/update")]
         public ActionResult Update(Objective objective, string title)
         {
@@ -90,7 +90,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermission(typeof(Objective))]
+        [EntityPermissions(typeof(Objective))]
         [Route("api/objective/updatequestionsorder")]
         public ActionResult UpdateQuestionsOrder(Objective objective, ICollection<Question> questions)
         {

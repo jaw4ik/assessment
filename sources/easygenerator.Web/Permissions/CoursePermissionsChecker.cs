@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace easygenerator.Web.Permissions
 {
-    public class CoursePermissionChecker : IEntityPermissionChecker<Course>
+    public class CoursePermissionsChecker : IEntityPermissionsChecker<Course>
     {
         public bool HasPermissions(string username, Course course)
         {

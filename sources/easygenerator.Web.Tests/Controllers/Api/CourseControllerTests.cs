@@ -39,7 +39,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IUrlHelperWrapper _urlHelper;
         private ICoursePublisher _coursePublisher;
         private IEntityMapper<Course> _courseMapper;
-        private IEntityPermissionChecker<Course> _entityPermissionChecker;
+        private IEntityPermissionsChecker<Course> _entityPermissionChecker;
 
         [TestInitialize]
         public void InitializeContext()
@@ -57,7 +57,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _context.User.Returns(_user);
 
-            _entityPermissionChecker = Substitute.For<IEntityPermissionChecker<Course>>();
+            _entityPermissionChecker = Substitute.For<IEntityPermissionsChecker<Course>>();
 
             _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _urlHelper, _coursePublisher, _courseMapper, _entityPermissionChecker);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);

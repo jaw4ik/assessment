@@ -7,6 +7,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
+using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.ViewModels.Api;
 
@@ -23,6 +24,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Objective))]
         [Route("api/question/create/type/0")]
         public ActionResult CreateMultipleChoice(Objective objective, string title)
         {
@@ -30,6 +32,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToCreateOtherQuestionTypes)]
+        [EntityPermissions(typeof(Objective))]
         [Route("api/question/create/type/1")]
         public ActionResult CreateFillInTheBlank(Objective objective, string title)
         {
@@ -37,6 +40,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Objective))]
         [Route("api/question/create/type/2")]
         public ActionResult CreateDragAndDrop(Objective objective, string title)
         {
@@ -58,6 +62,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Objective))]
         [Route("api/question/delete")]
         public ActionResult Delete(Objective objective, ICollection<Question> questions)
         {
@@ -80,6 +85,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Question))]
         [Route("api/question/updateTitle")]
         public ActionResult UpdateTitle(Question question, string title)
         {
@@ -94,6 +100,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Question))]
         [Route("api/question/updateContent")]
         public ActionResult UpdateContent(Question question, string content)
         {
@@ -108,6 +115,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Question))]
         [Route("api/question/updatefillintheblank")]
         public ActionResult UpdateFillInTheBlank(Question question, string fillInTheBlank, ICollection<AnswerViewModel> answersCollection)
         {
@@ -127,8 +135,7 @@ namespace easygenerator.Web.Controllers.Api
                     answers.Add(answer);
                 }
             }
-
-
+            
             question.UpdateAnswers(answers, GetCurrentUsername());
 
             question.UpdateContent(fillInTheBlank, GetCurrentUsername());

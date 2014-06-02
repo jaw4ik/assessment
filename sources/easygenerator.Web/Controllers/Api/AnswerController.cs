@@ -7,6 +7,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.ViewModels.Api;
 
@@ -23,6 +24,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Question))]
         [Route("api/answer/create")]
         public ActionResult Create(Question question, string text, bool isCorrect)
         {
@@ -39,6 +41,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Question))]
         [Route("api/answer/delete")]
         public ActionResult Delete(Question question, Answer answer)
         {
@@ -56,6 +59,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Answer))]
         [Route("api/answer/update")]
         public ActionResult Update(Answer answer, string text, bool isCorrect)
         {
@@ -71,6 +75,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Question))]
         [Route("api/answers")]
         public ActionResult GetCollection(Question question)
         {

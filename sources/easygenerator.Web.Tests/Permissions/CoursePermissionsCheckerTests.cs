@@ -6,16 +6,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace easygenerator.Web.Tests.Permissions
 {
     [TestClass]
-    public class CoursePermissionCheckerTests
+    public class CoursePermissionsCheckerTests
     {
-        private CoursePermissionChecker _checker;
+        private CoursePermissionsChecker _checker;
         private const string CreatedBy = "creator@user.com";
         private const string Username = "user@user.com";
 
         [TestInitialize]
         public void Initialize()
         {
-            _checker = new CoursePermissionChecker();
+            _checker = new CoursePermissionsChecker();
         }
 
         #region HasPermissions

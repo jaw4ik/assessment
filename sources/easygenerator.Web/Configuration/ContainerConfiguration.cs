@@ -72,8 +72,11 @@ namespace easygenerator.Web.Configuration
 
             #region Permission checkers
 
-            builder.RegisterType<CoursePermissionChecker>().As<IEntityPermissionChecker<Course>>();
-            builder.RegisterType<ObjectivePermissionChecker>().As<IEntityPermissionChecker<Objective>>();
+            builder.RegisterType<CoursePermissionsChecker>().As<IEntityPermissionsChecker<Course>>();
+            builder.RegisterType<ObjectivePermissionsChecker>().As<IEntityPermissionsChecker<Objective>>();
+            builder.RegisterType<QuestionPermissionsChecker>().As<IEntityPermissionsChecker<Question>>();
+            builder.RegisterType<AnswerPermissionsChecker>().As<IEntityPermissionsChecker<Answer>>();
+            builder.RegisterType<LearningContentPermissionsChecker>().As<IEntityPermissionsChecker<LearningContent>>();
 
             #endregion
 
