@@ -93,6 +93,7 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<Question>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Question>().HasRequired(e => e.Objective);
+            modelBuilder.Entity<Question>().Property(e => e.Type).IsRequired();
             modelBuilder.Entity<Question>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
             modelBuilder.Entity<Question>().HasMany(e => e.LearningContentsCollection).WithRequired(e => e.Question);
 

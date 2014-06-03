@@ -191,7 +191,7 @@
                                 + marginValue + marginTopValue + marginLeftValue + marginRightValue + marginBottomValue;
                         }
                         if (e.attributes.class) {
-                            if (!e.attributes.data-group-id) {
+                            if (!e.attributes['data-group-id']) {
                                 delete e.attributes.class;
                             }
                         }
