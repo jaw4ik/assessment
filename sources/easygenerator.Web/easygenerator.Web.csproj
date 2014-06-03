@@ -637,7 +637,9 @@
     <Content Include="App\models\question.js" />
     <Content Include="App\models\template.js" />
     <Content Include="App\models\user.js" />
-    <Content Include="App\models\user.spec.js" />
+    <Content Include="App\models\user.spec.js">
+      <DependentUpon>user.js</DependentUpon>
+    </Content>
     <Content Include="App\notifications\notification.html" />
     <Content Include="App\notifications\notification.js" />
     <Content Include="App\notifications\notification.spec.js">

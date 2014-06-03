@@ -30,7 +30,7 @@
         var answers = [];
         _.each(blankInputs, function (item) {
             var $input = $(item),
-                value = $input.val(),
+                value = $input.val().trim(),
                 groupId = $input.attr(groupIdAttribute);
             
             if (_.isEmptyOrWhitespace(groupId)) {
