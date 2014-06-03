@@ -19,14 +19,28 @@
         },
         widgetTag: 'span',
         init: function (editor) {
+            //region "paste for IE"
+            var caretPositionForIE = null;
+            //endregion "paste for IE"
+
             CKEDITOR.dtd.$editable.span = 1;
             var plugin = CKEDITOR.plugins.fillInTheBlank;
             var classNames = plugin.classNames;
             var widgetTag = plugin.widgetTag;
+
             editor.on('paste', function (evt) {
                 var $data = $('<output>').append($.parseHTML(evt.data.dataValue));
                 $('.' + classNames.blankField, $data).removeAttr('data-group-id');
                 evt.data.dataValue = $data.html();
+
+                //region "paste for IE"
+                var $editable = $('.blankContent').find('.cke_widget_editable_focused');
+                if (CKEDITOR.env.ie && $editable.length == 1) {
+                    $editable.trigger('paste');
+                    evt.cancel();
+                }
+                //endregion "paste for IE"
+                
             });
             editor.widgets.add(plugin.commands.addBlank, {
                 draggable: false,
@@ -98,6 +112,12 @@
                     widget.on('ready', function () {
                         widget.editables.content.on('keydown', function (event) {
                             var keyCode = event.data.getKey();
+                            //region "paste for IE"
+                            var ctrlKey = event.data.$.ctrlKey;
+                            if (CKEDITOR.env.ie && ctrlKey && keyCode == 86) {
+                                caretPositionForIE = getCaretPosition($editable[0]);
+                            }
+                            //endregion "paste for IE"
 
                             if (keyCode == 13) {
                                 $editable.blur();
@@ -109,8 +129,16 @@
                     });
 
                     $editable.on('paste', function (evt) {
-                        var caretPositions = getCaretPosition($editable[0]);
-                        var clipboardData = evt.originalEvent ? evt.originalEvent.clipboardData : window.clipboardData;//evt.data.$.view ? evt.data.$.view.clipboardData : evt.data.$.clipboardData;
+                        var caretPositions = null;
+                        //region "paste for IE"
+                        if (CKEDITOR.env.ie) {
+                            caretPositions = caretPositionForIE;
+                        } else {
+                            caretPositions = getCaretPosition($editable[0]);
+                        }
+                        //endregion "paste for IE"
+
+                        var clipboardData = evt.originalEvent ? evt.originalEvent.clipboardData : window.clipboardData;
                         var data = clipboardData.getData('text');
                         _.defer(function () {
                             var text = $editable.text();
@@ -124,6 +152,7 @@
                             }
                             editor.fire('change');
                         });
+
                         evt.preventDefault();
                         evt.stopPropagation();
                     });
