@@ -48,12 +48,13 @@
 }
 
 .blankContent .blankValue {
-    display: inline-block;
+    display: block;
     min-height: 18px;
     min-width: 100px;
     max-width: 250px;
     overflow: hidden;
     white-space: nowrap;
+    word-break: keep-all;
 }
 
 .blankContent .blankField .close {
