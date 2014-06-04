@@ -48,11 +48,12 @@
 }
 
 .ie9 .blankContent .blankWrapper {
+    display: block;
     overflow: hidden;
     max-width: 250px;
 }
 
- .ie9 .blankContent .blankWrapper .blankValue {
+.ie9 .blankContent .blankWrapper .blankValue {
     display: table-cell;
 }
 
