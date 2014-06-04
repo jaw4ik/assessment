@@ -958,11 +958,11 @@ span.top-navigation-item.current {
     display: inline-block;
     vertical-align: top;
     background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YwZjBmMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmYmZiZmIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-    background: -moz-linear-gradient(top, #f0f0f0 0, #fbfbfb 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#f0f0f0), color-stop(100%,#fbfbfb)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #f0f0f0 0,#fbfbfb 100%); /* Chrome10+,Safari5.1+ */
-    background: -ms-linear-gradient(top, #f0f0f0 0,#fbfbfb 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #f0f0f0 0,#fbfbfb 100%); /* W3C */
+    background: -moz-linear-gradient(top, #f0f0f0 0, #fbfbfb 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#f0f0f0), color-stop(100%,#fbfbfb));
+    background: -webkit-linear-gradient(top, #f0f0f0 0,#fbfbfb 100%);
+    background: -ms-linear-gradient(top, #f0f0f0 0,#fbfbfb 100%);
+    background: linear-gradient(to bottom, #f0f0f0 0,#fbfbfb 100%);
 }
 
 .main-content-list .list-item-logo-image {
@@ -1604,6 +1604,7 @@ span.top-navigation-item.current {
 
     .create-item-btn.big .create-item-btn-caption {
         padding-left: 35px;
+        font-family: 'OpenSans';
     }
 /*create button big*/
 
@@ -1944,19 +1945,19 @@ span.top-navigation-item.current {
         left: -20px;
         top: 50%;
         margin-top: -7px;
-        background: url(images/sprites.png) no-repeat;
+        background: url(images/sprites_16.png) no-repeat;
     }
 
     .entity-content-action.add:before {
-        background: url(images/sprites.png) -23px -231px;
+        background-position: -171px -1px;
     }
 
     .entity-content-action.hide:before {
-        background: url(images/sprites.png) -42px -231px;
+        background-position: -22px -22px;
     }
 
     .entity-content-action.show:before {
-        background: url(images/sprites.png) -3px -231px;
+        background-position: -1px -22px;
     }
 
     .entity-content-action.add {
@@ -2219,7 +2220,7 @@ span.top-navigation-item.current {
     width: 54px;
     height: 54px;
     margin-left: 10px;
-    background: url(/Content/images/sprites.png) -57px -287px no-repeat;
+    background: url(/Content/images/sprites_64.png) -5px -5px no-repeat;
 }
 
 .create-course-title {
