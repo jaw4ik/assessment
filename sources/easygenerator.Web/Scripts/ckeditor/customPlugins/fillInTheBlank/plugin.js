@@ -12,7 +12,8 @@
             blankField: 'blankField',
             blankValue: 'blankValue',
             close: 'close',
-            new: 'new'
+            new: 'new',
+            cke_focused: 'cke_widget_editable_focused'
         },
         events: {
             removeBlank: 'removeEditable'
@@ -20,7 +21,7 @@
         widgetTag: 'span',
         init: function (editor) {
             //region "paste for IE"
-            var caretPositionForIE = null;
+            var caretPositionForPaste = null;
             //endregion "paste for IE"
 
             CKEDITOR.dtd.$editable.span = 1;
@@ -28,13 +29,34 @@
             var classNames = plugin.classNames;
             var widgetTag = plugin.widgetTag;
 
+            if (editor.contextMenu) {
+                editor.contextMenu.addListener(function (element, selection) {
+                    var $element = $(element.$);
+                    if ($element.hasClass(classNames.blankValue)) {
+                        var range = selection.getRanges()[0];
+                        caretPositionForPaste = {
+                            start: range.startOffset,
+                            end: range.endOffset
+                        };
+                    }
+                });
+            }
+
+            editor.on('pasteDialogCommit', function (evt) {
+                var $editable = $(editor.element.$).find('.' + classNames.cke_focused);
+                if (evt.data && $editable.length == 1) {
+                    $editable.trigger('paste', evt.data.replace(/(<([^>]+)>)/ig, ''));
+                    evt.cancel();
+                }
+            });
+
             editor.on('paste', function (evt) {
                 var $data = $('<output>').append($.parseHTML(evt.data.dataValue));
                 $('.' + classNames.blankField, $data).removeAttr('data-group-id');
                 evt.data.dataValue = $data.html();
 
                 //region "paste for IE"
-                var $editable = $('.blankContent').find('.cke_widget_editable_focused');
+                var $editable = $(editor.element.$).find('.' + classNames.cke_focused);
                 if (CKEDITOR.env.ie && $editable.length == 1) {
                     $editable.trigger('paste');
                     evt.cancel();
@@ -109,13 +131,15 @@
                         event.stopPropagation();
                     });
 
+                    
+
                     widget.on('ready', function () {
                         widget.editables.content.on('keydown', function (event) {
                             var keyCode = event.data.getKey();
                             //region "paste for IE"
                             var ctrlKey = event.data.$.ctrlKey;
                             if (CKEDITOR.env.ie && ctrlKey && keyCode == 86) {
-                                caretPositionForIE = getCaretPosition($editable[0]);
+                                caretPositionForPaste = getCaretPosition($editable[0]);
                             }
                             //endregion "paste for IE"
 
@@ -128,18 +152,17 @@
                         });
                     });
 
-                    $editable.on('paste', function (evt) {
+                    $editable.on('paste', function (evt, dataFromPasteDialog) {
                         var caretPositions = null;
                         //region "paste for IE"
-                        if (CKEDITOR.env.ie) {
-                            caretPositions = caretPositionForIE;
+                        if (CKEDITOR.env.ie || dataFromPasteDialog) {
+                            caretPositions = caretPositionForPaste;
                         } else {
                             caretPositions = getCaretPosition($editable[0]);
                         }
                         //endregion "paste for IE"
-
                         var clipboardData = evt.originalEvent ? evt.originalEvent.clipboardData : window.clipboardData;
-                        var data = clipboardData.getData('text');
+                        var data = dataFromPasteDialog ? dataFromPasteDialog : clipboardData ? clipboardData.getData('text') : '';
                         _.defer(function () {
                             var text = $editable.text();
                             if (text == '') {
