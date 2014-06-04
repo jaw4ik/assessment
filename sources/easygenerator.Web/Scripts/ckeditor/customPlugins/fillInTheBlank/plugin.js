@@ -10,6 +10,7 @@
         classNames: {
             blankInput: 'blankInput',
             blankField: 'blankField',
+            blankWrapper: 'blankWrapper',
             blankValue: 'blankValue',
             close: 'close',
             new: 'new',
@@ -75,8 +76,10 @@
                     return { text: selectedContent };
                 },
                 template: '<' + widgetTag + ' class="' + classNames.blankField + ' new" id="">' +
+                    '<' + widgetTag + ' class="' + classNames.blankWrapper + '">' +
                     '<' + widgetTag + ' class="' + classNames.blankValue + '">' +
                     '{text}' +
+                    '</' + widgetTag + '>' +
                     '</' + widgetTag + '>' +
                     '<' + widgetTag + ' class="' + classNames.close + '">' +
                     '&nbsp;' +
@@ -98,11 +101,16 @@
                             class: classNames.blankField
                         });
 
+                        var blankWrapperElement = new CKEDITOR.htmlParser.element(widgetTag, {
+                            class: classNames.blankWrapper
+                        });
+                        blankFieldElement.add(blankWrapperElement);
+
                         var blankValueElement = new CKEDITOR.htmlParser.element(widgetTag, {
                             class: classNames.blankValue
                         });
                         blankValueElement.add(new CKEDITOR.htmlParser.text(value));
-                        blankFieldElement.add(blankValueElement);
+                        blankWrapperElement.add(blankValueElement);
 
                         var closeElement = new CKEDITOR.htmlParser.element(widgetTag, {
                             class: classNames.close
@@ -199,9 +207,14 @@
                     if (element.hasClass(plugin.classNames.blankField)) {
                         var value = '';
                         var groupId = element.attributes['data-group-id'];
-                        for (var index in element.children) {
-                            if (element.children[index].hasClass(plugin.classNames.blankValue)) {
-                                value = element.children[index].getHtml();
+                        for (var wrapperIndex in element.children) {
+                            if (element.children[wrapperIndex].hasClass(plugin.classNames.blankWrapper)) {
+                                var wrapperElement = element.children[wrapperIndex];
+                                for (var index in wrapperElement.children) {
+                                    if (wrapperElement.children[index].hasClass(plugin.classNames.blankValue)) {
+                                        value = wrapperElement.children[index].getHtml();
+                                    }
+                                }
                             }
                         }
 

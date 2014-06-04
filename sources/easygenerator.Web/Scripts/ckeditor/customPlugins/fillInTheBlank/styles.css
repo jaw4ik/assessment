@@ -47,7 +47,16 @@
     border-color: #5bc0de;
 }
 
-.blankContent .blankValue {
+.ie9 .blankContent .blankWrapper {
+    overflow: hidden;
+    max-width: 250px;
+}
+
+ .ie9 .blankContent .blankWrapper .blankValue {
+    display: table-cell;
+}
+
+.blankContent .blankWrapper .blankValue {
     display: block;
     min-height: 18px;
     min-width: 100px;
