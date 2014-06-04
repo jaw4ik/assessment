@@ -276,7 +276,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
             //Assert
-            _fileManager.Received().WriteToFile(settingsFileName, String.Empty);
+            _fileManager.Received().WriteToFile(settingsFileName, "{}");
         }
 
         #endregion

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Web.Helpers;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse.PackageModel;
+using Newtonsoft.Json;
 
 namespace easygenerator.Web.BuildCourse
 {
@@ -77,7 +79,12 @@ namespace easygenerator.Web.BuildCourse
         private void AddTemplateSettingsFileToPackageDirectory(string buildDirectory, Course course)
         {
             _fileManager.WriteToFile(_buildPathProvider.GetSettingsFileName(buildDirectory),
-                course.GetTemplateSettings(course.Template) ?? String.Empty);
+                course.GetTemplateSettings(course.Template) ?? GetEmptyJsonContent());
+        }
+
+        private static string GetEmptyJsonContent()
+        {
+            return JsonConvert.SerializeObject(new {});
         }
 
         private void AddPublishSettingsFileToPackageDirectory(string buildDirectory, string settings)
