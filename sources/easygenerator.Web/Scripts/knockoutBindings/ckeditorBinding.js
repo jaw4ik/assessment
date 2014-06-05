@@ -252,7 +252,12 @@
             isEditing = valueAccessor().isEditing();
 
         if (!isEditing) {
-            $(element).html(data);
+            var editor = _.find(CKEDITOR.instances, function(editor) {
+                return editor.element.$ == element;
+            });
+            if (_.isNullOrUndefined(editor)) {
+                editor.setData(data);
+            }
         }
     }
 };
