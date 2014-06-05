@@ -46,7 +46,8 @@
             editor.on('pasteDialogCommit', function (evt) {
                 var $editable = $(editor.element.$).find('.' + classNames.cke_focused);
                 if (evt.data && $editable.length == 1) {
-                    $editable.trigger('paste', evt.data.replace(/(<([^>]+)>)/ig, ''));
+                    var data = evt.data.replace(/(<([^>]+)>)/ig, '').replace(/[&nbsp;]/ig, ' ');
+                    $editable.trigger('paste', data);
                     evt.cancel();
                 }
             });
@@ -143,10 +144,10 @@
                     });
 
                     widget.on('ready', function () {
-                        widget.editables.content.on('keydown', function (event) {
-                            var keyCode = event.data.getKey();
+                        $editable.on('keydown', function (event) {
+                            var keyCode = event.keyCode;
                             //region "paste for IE"
-                            var ctrlKey = event.data.$.ctrlKey;
+                            var ctrlKey = event.ctrlKey;
                             if (CKEDITOR.env.ie && ctrlKey && keyCode == 86) {
                                 caretPositionForPaste = getCaretPosition($editable[0]);
                             }

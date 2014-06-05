@@ -9,16 +9,13 @@
     outline: none;
 }
 
-.blankContent {
-    line-height: 38px;
-}
 .blankContent .blankField {
     display: inline-block;
     min-height: 28px;
     height: 28px;
     position: relative;
     padding: 4px 28px 3px 8px;
-    margin: 0 2px;
+    margin: 5px 2px;
     color: black;
     background: -moz-linear-gradient(top, #f4f4f4 0%, #eeeeee 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f4f4), color-stop(100%,#eeeeee));
