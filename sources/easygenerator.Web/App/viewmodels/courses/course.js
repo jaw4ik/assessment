@@ -1,8 +1,8 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
         'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'ping', 'models/backButton',
-        'viewmodels/courses/collaboration/collaborators', 'userContext'],
+        'viewmodels/courses/collaboration/collaborators', 'userContext', 'durandal/app'],
     function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, ping, BackButton,
-        vmCollaborators, userContext) {
+        vmCollaborators, userContext, app) {
         "use strict";
 
         var
@@ -76,7 +76,10 @@
             }),
 
             connectObjective: connectObjective,
-            disconnectObjective: disconnectObjective
+            disconnectObjective: disconnectObjective,
+
+            courseTitleUpdated: courseTitleUpdated,
+            introductionContentUpdated: introductionContentUpdated
         };
 
         viewModel.canDisconnectObjectives = ko.computed(function () {
@@ -94,6 +97,9 @@
         viewModel.isSortingEnabled = ko.computed(function () {
             return viewModel.connectedObjectives().length != 1;
         });
+        
+        app.on(constants.messages.course.titleUpdated, courseTitleUpdated);
+        app.on(constants.messages.course.introductionContentUpdated, introductionContentUpdated);
 
         return viewModel;
 
@@ -287,7 +293,7 @@
                         return objectiveBrief(objective);
                     })
                     .value());
-                
+
                 viewModel.isEditing(false);
                 viewModel.collaborators = new vmCollaborators(course.id, course.createdBy, course.collaborators);
                 that.courseIntroductionContent = vmContentField(course.introductionContent, eventsForCourseContent, false, function (content) { return repository.updateIntroductionContent(course.id, content); });
@@ -295,6 +301,20 @@
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
                 throw reason;
             });
+        }
+
+        function courseTitleUpdated(course) {
+            if (course.id != viewModel.id || viewModel.isEditing())
+                return;
+
+            viewModel.title(course.title);
+        }
+
+        function introductionContentUpdated(course) {
+            if (course.id != viewModel.id || viewModel.courseIntroductionContent.isEditing())
+                return;
+
+            viewModel.courseIntroductionContent.text(course.introductionContent);
         }
     }
 );

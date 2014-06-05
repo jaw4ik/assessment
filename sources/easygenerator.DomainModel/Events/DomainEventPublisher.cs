@@ -1,17 +1,21 @@
-﻿namespace easygenerator.DomainModel.Events
-{
-    public class DomainEventPublisher<T> : IDomainEventPublisher<T>
-    {
-        private readonly IDomainEventHandlersProvider<T> _handlersProvider;
+﻿using easygenerator.Infrastructure;
 
-        public DomainEventPublisher(IDomainEventHandlersProvider<T> handlersProvider)
+namespace easygenerator.DomainModel.Events
+{
+    public class DomainEventPublisher : IDomainEventPublisher
+    {
+        private readonly IDependencyResolverWrapper _dependencyResolver;
+
+        public DomainEventPublisher(IDependencyResolverWrapper dependencyResolver)
         {
-            _handlersProvider = handlersProvider;
+            _dependencyResolver = dependencyResolver;
         }
 
-        public void Publish(T args)
+        public void Publish<T>(T args)
         {
-            var handlers = _handlersProvider.GetHandlersForEvent();
+            var handlersProvider = _dependencyResolver.GetService<IDomainEventHandlersProvider<T>>();
+
+            var handlers = handlersProvider.GetHandlersForEvent();
             foreach (var domainEventHandler in handlers)
             {
                 domainEventHandler.Handle(args);

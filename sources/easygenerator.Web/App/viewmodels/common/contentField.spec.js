@@ -55,6 +55,17 @@
             });
         });
 
+        describe('isEditing:', function () {
+
+            beforeEach(function () {
+                viewModel = ctor(null, events);
+            });
+
+            it('should be observable', function() {
+                expect(viewModel.isEditing).toBeObservable();
+            });
+        });
+
         describe('originalText:', function () {
 
             it('should be observable', function () {
@@ -98,6 +109,13 @@
                 viewModel.beginEditText({});
                 expect(eventTracker.publish).toHaveBeenCalledWith(events.beginEditText);
             });
+
+            it('should set isEditing to true', function () {
+                viewModel.isEditing(false);
+
+                viewModel.beginEditText({});
+                expect(viewModel.isEditing()).toBeTruthy();
+            });
         });
 
         describe('endEditText:', function () {
@@ -113,6 +131,13 @@
             it('should send event \'Event \'End edit text\'\'', function () {
                 viewModel.endEditText();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Event \'End edit text\'');
+            });
+
+            it('should set isEditing to false', function () {
+                viewModel.isEditing(true);
+
+                viewModel.endEditText();
+                expect(viewModel.isEditing()).toBeFalsy();
             });
 
         });

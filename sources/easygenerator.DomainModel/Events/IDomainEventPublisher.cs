@@ -1,7 +1,7 @@
 ﻿namespace easygenerator.DomainModel.Events
 {
-    public interface IDomainEventPublisher<T>
+    public interface IDomainEventPublisher
     {
-        void Publish(T args);
+        void Publish<T>(T args);
     }
 }

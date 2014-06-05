@@ -1,23 +1,21 @@
-﻿define(['durandal/system', 'synchronization/handlers/userDowngraded', 'synchronization/handlers/userUpgradedToStarter', 'synchronization/handlers/courseCollaboratorAdded',
-    'synchronization/handlers/courseCollaborationStarted'],
-    function (system, userDowngraded, userUpgradedToStarter, courseCollaboratorAdded, courseCollaborationStarted) {
+﻿define(['durandal/system', 'synchronization/handlers/userEventHandler', 'synchronization/handlers/courseEventHandler'],
+    function (system, userEventHandler, courseEventHandler) {
         "use strict";
 
         return {
             start: function () {
                 var dfd = Q.defer();
 
-                var user = $.connection.user;
-                var course = $.connection.course;
+                var hub = $.connection.eventHub;
 
-                user.client = {
-                    userDowngraded: userDowngraded,
-                    userUpgradedToStarter: userUpgradedToStarter
-                };
+                hub.client = {
+                    userDowngraded: userEventHandler.userDowngraded,
+                    userUpgradedToStarter: userEventHandler.userUpgradedToStarter,
 
-                course.client = {
-                    courseCollaboratorAdded: courseCollaboratorAdded,
-                    courseCollaborationStarted: courseCollaborationStarted
+                    courseCollaboratorAdded: courseEventHandler.courseCollaboratorAdded,
+                    courseCollaborationStarted: courseEventHandler.courseCollaborationStarted,
+                    courseTitleUpdated: courseEventHandler.courseTitleUpdated,
+                    courseIntroducationContentUpdated: courseEventHandler.courseIntroducationContentUpdated
                 };
 
                 $.connection.hub.start()

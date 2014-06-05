@@ -26,6 +26,7 @@ using easygenerator.Web.Permissions;
 using easygenerator.Web.Publish;
 using easygenerator.Web.Publish.Aim4You;
 using easygenerator.Web.Storage;
+using easygenerator.Web.Synchronization.Broadcasting;
 using easygenerator.Web.WooCommerce;
 using System;
 using System.Collections.Generic;
@@ -69,20 +70,24 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<EntityFactory>().As<IEntityFactory>();
 
             builder.RegisterType<AuthenticationProvider>().As<IAuthenticationProvider>();
+            builder.RegisterType<DependencyResolverWrapper>().As<IDependencyResolverWrapper>();
+
+            #region Broadcasting
+
+            builder.RegisterType<Broadcaster>().As<IBroadcaster>();
+            builder.RegisterType<CourseCollaborationBroadcaster>().As<ICollaborationBroadcaster<Course>>();
+
+            #endregion
 
             #region Permission checkers
 
-            builder.RegisterType<CoursePermissionsChecker>().As<IEntityPermissionsChecker<Course>>();
-            builder.RegisterType<ObjectivePermissionsChecker>().As<IEntityPermissionsChecker<Objective>>();
-            builder.RegisterType<QuestionPermissionsChecker>().As<IEntityPermissionsChecker<Question>>();
-            builder.RegisterType<AnswerPermissionsChecker>().As<IEntityPermissionsChecker<Answer>>();
-            builder.RegisterType<LearningContentPermissionsChecker>().As<IEntityPermissionsChecker<LearningContent>>();
+            RegisterGenericTypes(builder, applicationAssembly, typeof(IEntityPermissionsChecker<>));
 
             #endregion
 
             #region Domain events dependecies
 
-            builder.RegisterGeneric(typeof(DomainEventPublisher<>)).As(typeof(IDomainEventPublisher<>)).InstancePerRequest();
+            builder.RegisterType<DomainEventPublisher>().As(typeof(IDomainEventPublisher)).InstancePerRequest();
             builder.RegisterGeneric(typeof(DomainEventHandlersProvider<>)).As(typeof(IDomainEventHandlersProvider<>)).InstancePerRequest();
             RegisterGenericTypes(builder, applicationAssembly, typeof(IDomainEventHandler<>)).ForEach(_ => _.InstancePerRequest());
 
@@ -90,10 +95,7 @@ namespace easygenerator.Web.Configuration
 
             #region Entity mapping
 
-            builder.RegisterType<CourseMapper>().As<IEntityMapper<Course>>();
-            builder.RegisterType<ObjectiveMapper>().As<IEntityMapper<Objective>>();
-            builder.RegisterType<QuestionMapper>().As<IEntityMapper<Question>>();
-            builder.RegisterType<CourseCollaboratorMapper>().As<IEntityMapper<CourseCollaborator>>();
+            RegisterGenericTypes(builder, applicationAssembly, typeof(IEntityMapper<>));
 
             #endregion
 

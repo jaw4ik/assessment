@@ -30,7 +30,8 @@
                 createdOn: 'createdOn',
                 modifiedOn: 'modifiedOn',
                 builtOn: 'builtOn',
-                template: {}
+                template: {},
+                introductionContent: 'intro'
             },
             identity = { email: 'email' }
         ;
@@ -488,7 +489,7 @@
                         getObjectivesDefer.resolve([{ id: '0', title: 'B', createdBy: identity.email }, { id: '1', title: 'A', createdBy: identity.email }]);
                     });
 
-                
+
                     describe('and course does not have related objectives', function () {
 
                         it('should set owned objectives as available', function (done) {
@@ -1244,6 +1245,111 @@
 
             });
 
+        });
+
+        describe('courseTitleUpdated:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.courseTitleUpdated).toBeFunction();
+            });
+
+            describe('when course is current course', function () {
+
+                describe('when course title is editing', function() {
+                    beforeEach(function() {
+                        viewModel.isEditing(true);
+                    });
+
+                    it('should not update course title', function () {
+                        viewModel.id = 'qwe';
+                        viewModel.title('');
+                        viewModel.courseTitleUpdated(course);
+
+                        expect(viewModel.title()).toBe('');
+                    });
+                });
+
+                describe('when course title is not editing', function () {
+                    beforeEach(function () {
+                        viewModel.isEditing(false);
+                    });
+
+                    it('should update course title', function () {
+                        viewModel.id = course.id;
+                        viewModel.title('');
+                        viewModel.courseTitleUpdated(course);
+
+                        expect(viewModel.title()).toBe(course.title);
+                    });
+                });
+            });
+
+            describe('when course is not current course', function () {
+                it('should not update course title', function () {
+                    viewModel.id = 'qwe';
+                    viewModel.title('');
+                    viewModel.courseTitleUpdated(course);
+
+                    expect(viewModel.title()).toBe('');
+                });
+            });
+        });
+
+        describe('introductionContentUpdated:', function () {
+
+            var introductionContent = {
+                text: ko.observable(''),
+                isEditing: ko.observable(false)
+            };
+
+            it('should be function', function () {
+                expect(viewModel.introductionContentUpdated).toBeFunction();
+            });
+
+            describe('when course is current course', function () {
+
+                describe('when introduction content is editing', function() {
+                    beforeEach(function () {
+                        introductionContent.isEditing(true);
+                    });
+
+                    it('should not update course introduction content', function () {
+                        viewModel.id = 'qwe';
+                        introductionContent.text('');
+                        viewModel.courseIntroductionContent = introductionContent;
+                        viewModel.introductionContentUpdated(course);
+
+                        expect(viewModel.courseIntroductionContent.text()).toBe('');
+                    });
+                });
+
+                describe('when introduction content not is editing', function () {
+                    beforeEach(function () {
+                        introductionContent.isEditing(false);
+                    });
+
+                    it('should update course introduction content', function () {
+                        viewModel.id = course.id;
+                        introductionContent.text('');
+                        viewModel.courseIntroductionContent = introductionContent;
+                        viewModel.introductionContentUpdated(course);
+
+                        expect(viewModel.courseIntroductionContent.text()).toBe(course.introductionContent);
+                    });
+                });
+            
+            });
+
+            describe('when course is not current course', function () {
+                it('should not update course introduction content', function () {
+                    viewModel.id = 'qwe';
+                    introductionContent.text('');
+                    viewModel.courseIntroductionContent = introductionContent;
+                    viewModel.introductionContentUpdated(course);
+
+                    expect(viewModel.courseIntroductionContent.text()).toBe('');
+                });
+            });
         });
 
     });

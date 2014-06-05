@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Mail;
 using easygenerator.Web.Newsletter;

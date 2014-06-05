@@ -209,6 +209,7 @@
     <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
+    <Compile Include="Components\DependencyResolverWrapper.cs" />
     <Compile Include="Permissions\AnswerPermissionsChecker.cs" />
     <Compile Include="Permissions\CoursePermissionsChecker.cs" />
     <Compile Include="Permissions\IEntityPermissionsChecker.cs" />
@@ -342,10 +343,14 @@
     <Compile Include="Resources\Views\Shared\Resources.Designer.cs" />
     <Compile Include="Storage\ImageValidator.cs" />
     <Compile Include="Storage\Storage.cs" />
+    <Compile Include="Synchronization\Broadcasting\Broadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\CourseCollaborationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\IBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\ICollaborationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\UsersProxy.cs" />
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
-    <Compile Include="Synchronization\Hubs\CourseHub.cs" />
     <Compile Include="Synchronization\Handlers\UserEventHandler.cs" />
-    <Compile Include="Synchronization\Hubs\UserHub.cs" />
+    <Compile Include="Synchronization\Hubs\EventHub.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Api\AnswerViewModel.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
@@ -375,13 +380,13 @@
     <Content Include="App\repositories\objectiveRepository.spec.js">
       <DependentUpon>objectiveRepository.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\courseCollaborationStarted.js" />
-    <Content Include="App\synchronization\handlers\courseCollaborationStarted.spec.js">
-      <DependentUpon>courseCollaborationStarted.js</DependentUpon>
+    <Content Include="App\synchronization\handlers\courseEventHandler.js" />
+    <Content Include="App\synchronization\handlers\courseEventHandler.spec.js">
+      <DependentUpon>courseEventHandler.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\courseCollaboratorAdded.js" />
-    <Content Include="App\synchronization\handlers\courseCollaboratorAdded.spec.js">
-      <DependentUpon>courseCollaboratorAdded.js</DependentUpon>
+    <Content Include="App\synchronization\handlers\userEventHandler.js" />
+    <Content Include="App\synchronization\handlers\userEventHandler.spec.js">
+      <DependentUpon>userEventHandler.js</DependentUpon>
     </Content>
     <Content Include="App\utils\fillInTheBlankParser.js" />
     <Content Include="App\viewmodels\objectives\createObjective.js" />
@@ -698,14 +703,6 @@
     </Content>
     <Content Include="App\specRunner.js" />
     <Content Include="App\specs.html" />
-    <Content Include="App\synchronization\handlers\userDowngraded.js" />
-    <Content Include="App\synchronization\handlers\userDowngraded.spec.js">
-      <DependentUpon>userDowngraded.js</DependentUpon>
-    </Content>
-    <Content Include="App\synchronization\handlers\userUpgradedToStarter.js" />
-    <Content Include="App\synchronization\handlers\userUpgradedToStarter.spec.js">
-      <DependentUpon>userUpgradedToStarter.js</DependentUpon>
-    </Content>
     <Content Include="App\synchronization\listener.js" />
     <Content Include="App\treeOfContent\CourseTreeNode.html" />
     <Content Include="App\treeOfContent\CourseTreeNode.js" />

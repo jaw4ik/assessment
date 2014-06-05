@@ -487,22 +487,79 @@
             });
 
             it('should be function', function () {
-                expect(viewModel.courseCollaborationStartedHandler).toBeFunction();
+                expect(viewModel.courseCollaborationStarted).toBeFunction();
             });
 
             it('should add course to shared courses', function () {
                 viewModel.sharedCourses([]);
-                viewModel.courseCollaborationStartedHandler(collaboratedCourse);
+                viewModel.courseCollaborationStarted(collaboratedCourse);
                 expect(viewModel.sharedCourses().length).toBe(1);
             });
 
             it('should sort courses by created on date', function () {
                 viewModel.sharedCourses([course]);
 
-                viewModel.courseCollaborationStartedHandler(collaboratedCourse);
+                viewModel.courseCollaborationStarted(collaboratedCourse);
                 expect(viewModel.sharedCourses()[0].id).toBe(collaboratedCourse.id);
                 expect(viewModel.sharedCourses()[1].id).toBe(course.id);
             });
+        });
+
+        describe('courseTitleUpdated:', function () {
+            var courseId = "courseId";
+            var vmCourse = {
+                id: courseId,
+                title: ko.observable(""),
+                modifiedOn: ko.observable("")
+            };
+            var course = {
+                id: courseId,
+                title: "new title",
+                modifiedOn: new Date()
+            };
+
+            it('should be function', function () {
+                expect(viewModel.courseTitleUpdated).toBeFunction();
+            });
+
+            it('should update course title', function () {
+                viewModel.courses(vmCourse);
+                viewModel.courseTitleUpdated(course);
+
+                expect(vmCourse.title()).toBe(course.title);
+            });
+
+            it('should update course modified on date', function () {
+                viewModel.courses(vmCourse);
+                viewModel.courseUpdated(course);
+
+                expect(vmCourse.modifiedOn().toISOString()).toBe(course.modifiedOn.toISOString());
+            });
+
+        });
+
+        describe('courseUpdated:', function () {
+            var courseId = "courseId";
+            var vmCourse = {
+                id: courseId,
+                modifiedOn: ko.observable("")
+            };
+            var course = {
+                id: courseId,
+                modifiedOn: new Date()
+            };
+
+            it('should be function', function () {
+                expect(viewModel.courseUpdated).toBeFunction();
+            });
+
+            it('should update course modified on date', function () {
+                viewModel.courses(vmCourse);
+                viewModel.courseUpdated(course);
+
+                expect(vmCourse.modifiedOn().toISOString()).toBe(course.modifiedOn.toISOString());
+            });
+
         });
 
     });

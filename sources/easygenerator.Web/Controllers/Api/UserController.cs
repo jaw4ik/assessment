@@ -1,7 +1,7 @@
-﻿using System.IO;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
@@ -14,6 +14,7 @@ using easygenerator.Web.Mail;
 using easygenerator.Web.Publish.Aim4You;
 using easygenerator.Web.ViewModels.Account;
 using System;
+using System.IO;
 using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
@@ -25,9 +26,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityFactory _entityFactory;
         private readonly IAuthenticationProvider _authenticationProvider;
         private readonly ISignupFromTryItNowHandler _signupFromTryItNowHandler;
-        private readonly IDomainEventPublisher<UserSignedUpEvent> _userSignedUpEventPublisher;
-        private readonly IDomainEventPublisher<UserDonwgraded> _userDonwgradedEventPublisher;
-        private readonly IDomainEventPublisher<UserUpgradedToStarter> _userUpgradedToStarterEventPublisher;
+        private readonly IDomainEventPublisher _eventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly IAim4YouApiService _aim4YouService;
         private readonly PublishedCourseImporter _publishedCourseImporter;
@@ -38,9 +37,7 @@ namespace easygenerator.Web.Controllers.Api
             IEntityFactory entityFactory,
             IAuthenticationProvider authenticationProvider,
             ISignupFromTryItNowHandler signupFromTryItNowHandler,
-            IDomainEventPublisher<UserSignedUpEvent> userSignedUpEventPublisher,
-            IDomainEventPublisher<UserDonwgraded> userDonwgradedEventPublisher,
-            IDomainEventPublisher<UserUpgradedToStarter> userUpgradedToStarterEventPublisher,
+            IDomainEventPublisher eventPublisher,
             IMailSenderWrapper mailSenderWrapper,
             ConfigurationReader configurationReader,
             IAim4YouApiService aim4YouService,
@@ -51,9 +48,7 @@ namespace easygenerator.Web.Controllers.Api
             _entityFactory = entityFactory;
             _authenticationProvider = authenticationProvider;
             _signupFromTryItNowHandler = signupFromTryItNowHandler;
-            _userSignedUpEventPublisher = userSignedUpEventPublisher;
-            _userDonwgradedEventPublisher = userDonwgradedEventPublisher;
-            _userUpgradedToStarterEventPublisher = userUpgradedToStarterEventPublisher;
+            _eventPublisher = eventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
             _aim4YouService = aim4YouService;
             _publishedCourseImporter = publishedCourseImporter;
@@ -118,7 +113,7 @@ namespace easygenerator.Web.Controllers.Api
 
             user.DowngradePlanToFree();
 
-            _userDonwgradedEventPublisher.Publish(new UserDonwgraded(user));
+            _eventPublisher.Publish(new UserDonwgraded(user));
 
             return Success();
         }
@@ -139,7 +134,7 @@ namespace easygenerator.Web.Controllers.Api
 
             user.UpgradePlanToStarter(expirationDate.Value);
 
-            _userUpgradedToStarterEventPublisher.Publish(new UserUpgradedToStarter(user));
+            _eventPublisher.Publish(new UserUpgradedToStarter(user));
 
             return Success();
         }
@@ -171,7 +166,7 @@ namespace easygenerator.Web.Controllers.Api
                 profile.Organization, profile.Country, profile.Email);
 
             _repository.Add(user);
-            _userSignedUpEventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.PeopleBusyWithCourseDevelopmentAmount, profile.RequestIntroductionDemo));
+            _eventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.PeopleBusyWithCourseDevelopmentAmount, profile.RequestIntroductionDemo));
 
             if (User.Identity.IsAuthenticated && _repository.GetUserByEmail(User.Identity.Name) == null)
             {

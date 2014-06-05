@@ -64,6 +64,7 @@
                     created: 'course:created',
                     deleted: 'course:deleted',
                     titleUpdated: 'course:titleUpdated',
+                    introductionContentUpdated: 'course:introductionContentUpdated',
                     objectiveRelated: 'course:objectiveRelated',
                     objectivesUnrelated: 'course:objectivesUnrelated',
                     objectivesReordered: 'course:objectivesReordered',

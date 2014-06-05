@@ -14,7 +14,7 @@
             saveIntervalId = null,
             $toolbarElement = null,
             editor = null,
-            
+
             localizationManager = valueAccessor().localizationManager,
 
             inPageSettings = {};
@@ -38,9 +38,10 @@
         }
 
         $(element).html(data());
+
         $(element).attr('contenteditable', true);
         editor = CKEDITOR.inline(element, inPageSettings);
-    
+
         editor.on('instanceReady', function () {
             $toolbarElement = $('#cke_' + editor.name);
 
@@ -247,8 +248,11 @@
         }
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        // This will be called once when the binding is first applied to an element,
-        // and again whenever the associated observable changes value.
-        // Update the DOM element based on the supplied values here.
+        var data = valueAccessor().data(),
+            isEditing = valueAccessor().isEditing();
+
+        if (!isEditing) {
+            $(element).html(data);
+        }
     }
 };

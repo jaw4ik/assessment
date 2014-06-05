@@ -1,11 +1,9 @@
-﻿using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
-using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
@@ -28,7 +26,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         private CourseCollaborationController _controller;
         private IUserRepository _userRepository;
-        private IDomainEventPublisher<CourseCollaboratorAddedEvent> _courseCollaboratorAddedEventPublisher;
+        private IDomainEventPublisher _eventPublisher;
         private IEntityMapper<CourseCollaborator> _collaboratorMapper;
         IPrincipal _user;
         HttpContextBase _context;
@@ -45,10 +43,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _context.User.Returns(_user);
             _collaboratorMapper = Substitute.For<IEntityMapper<CourseCollaborator>>();
 
-            _courseCollaboratorAddedEventPublisher =
-                Substitute.For<IDomainEventPublisher<CourseCollaboratorAddedEvent>>();
+            _eventPublisher = Substitute.For<IDomainEventPublisher>();
 
-            _controller = new CourseCollaborationController(_userRepository, _courseCollaboratorAddedEventPublisher, _collaboratorMapper);
+            _controller = new CourseCollaborationController(_userRepository, _eventPublisher, _collaboratorMapper);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
             DateTimeWrapper.Now = () => CurrentDate;
         }
@@ -131,7 +128,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.AddCollaborator(course, UserEmail);
 
             //Assert
-            _courseCollaboratorAddedEventPublisher.DidNotReceive().Publish(Arg.Any<CourseCollaboratorAddedEvent>());
+            _eventPublisher.DidNotReceive().Publish(Arg.Any<CourseCollaboratorAddedEvent>());
         }
 
         [TestMethod]
@@ -171,7 +168,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.AddCollaborator(course, UserEmail);
 
             //Assert
-            _courseCollaboratorAddedEventPublisher.Received().Publish(Arg.Any<CourseCollaboratorAddedEvent>());
+            _eventPublisher.Received().Publish(Arg.Any<CourseCollaboratorAddedEvent>());
         }
 
         #endregion

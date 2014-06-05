@@ -36,7 +36,9 @@
 
             deleteSelectedCourses: deleteSelectedCourses,
 
-            courseCollaborationStartedHandler: courseCollaborationStartedHandler,
+            courseCollaborationStarted: courseCollaborationStarted,
+            courseTitleUpdated: courseTitleUpdated,
+            courseUpdated: courseUpdated,
 
             canActivate: canActivate,
             activate: activate
@@ -46,7 +48,9 @@
             return getSelectedCourses().length > 0;
         });
 
-        app.on(constants.messages.course.collaboration.started, courseCollaborationStartedHandler);
+        app.on(constants.messages.course.collaboration.started, courseCollaborationStarted);
+        app.on(constants.messages.course.titleUpdated, courseTitleUpdated);
+        app.on(constants.messages.course.introductionContentUpdated, courseUpdated);
 
         return viewModel;
 
@@ -105,7 +109,7 @@
             return ping.execute();
         }
 
-        function courseCollaborationStartedHandler(course) {
+        function courseCollaborationStarted(course) {
             var sharedCourses = viewModel.sharedCourses();
             sharedCourses.push(mapCourse(course));
             sharedCourses = _.sortBy(sharedCourses, function (item) {
@@ -113,6 +117,31 @@
             });
 
             viewModel.sharedCourses(sharedCourses);
+        }
+
+        function courseTitleUpdated(course) {
+            var vmCourse = getCourseViewModel(course.id);
+
+            if (_.isObject(vmCourse)) {
+                vmCourse.title(course.title);
+                vmCourse.modifiedOn(course.modifiedOn);
+            }
+        }
+
+        function courseUpdated(course) {
+            var vmCourse = getCourseViewModel(course.id);
+
+            if (_.isObject(vmCourse)) {
+                vmCourse.modifiedOn(course.modifiedOn);
+            }
+        }
+
+        function getCourseViewModel(courseId) {
+            var courses = viewModel.sharedCourses().concat(viewModel.courses());
+
+            return _.find(courses, function (item) {
+                return item.id == courseId;
+            });
         }
 
         function activate() {
@@ -155,9 +184,9 @@
             var course = {};
 
             course.id = item.id;
-            course.title = item.title;
+            course.title = ko.observable(item.title);
             course.image = item.template.image;
-            course.modifiedOn = item.modifiedOn;
+            course.modifiedOn = ko.observable(item.modifiedOn);
             course.createdOn = item.createdOn;
             course.isSelected = ko.observable(false);
             course.objectives = item.objectives;

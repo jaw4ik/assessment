@@ -1,10 +1,6 @@
-﻿using System;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -15,6 +11,11 @@ using easygenerator.Web.WooCommerce;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace easygenerator.Web.Tests.Controllers
 {
@@ -28,7 +29,7 @@ namespace easygenerator.Web.Tests.Controllers
         private IAuthenticationProvider _authenticationProvider;
         private IUserRepository _userRepository;
         private IWooCommerceAutologinUrlProvider _wooCommerceAutologinUrlProvider;
-        private IDomainEventPublisher<UserUpdateEvent> _userUpdateEventPublisher;
+        private IDomainEventPublisher _eventPublisher;
 
         IPrincipal _user;
         HttpContextBase _context;
@@ -40,8 +41,8 @@ namespace easygenerator.Web.Tests.Controllers
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _userRepository = Substitute.For<IUserRepository>();
             _wooCommerceAutologinUrlProvider = Substitute.For<IWooCommerceAutologinUrlProvider>();
-            _userUpdateEventPublisher = Substitute.For<IDomainEventPublisher<UserUpdateEvent>>();
-            _controller = new AccountController(_authenticationProvider, _userRepository, _wooCommerceAutologinUrlProvider, _userUpdateEventPublisher);
+            _eventPublisher = Substitute.For<IDomainEventPublisher>();
+            _controller = new AccountController(_authenticationProvider, _userRepository, _wooCommerceAutologinUrlProvider, _eventPublisher);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -402,7 +403,7 @@ namespace easygenerator.Web.Tests.Controllers
             _controller.PasswordRecovery(ticket, password);
 
             //Assert
-            _userUpdateEventPublisher.Received().Publish
+            _eventPublisher.Received().Publish
                 (
                     Arg.Is<UserUpdateEvent>(_ => _.User == user && _.UserPassword == password)
                 );

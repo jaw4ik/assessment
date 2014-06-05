@@ -1,24 +1,18 @@
-﻿using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Handlers;
-using easygenerator.DomainModel.Repositories;
-using easygenerator.Infrastructure;
+﻿using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.Web.Components;
-using easygenerator.Web.Components.ActionResults;
-using easygenerator.Web.Mail;
-using easygenerator.Web.ViewModels.Account;
-using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Components.ActionResults;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
     [NoCache]
     public class FeedbackController : DefaultController
     {
-        private readonly IDomainEventPublisher<UserFeedbackEvent> _publisher;
+        private readonly IDomainEventPublisher _publisher;
 
-        public FeedbackController(IDomainEventPublisher<UserFeedbackEvent> publisher)
+        public FeedbackController(IDomainEventPublisher publisher)
         {
             _publisher = publisher;
         }

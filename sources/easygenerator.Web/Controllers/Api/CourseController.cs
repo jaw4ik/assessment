@@ -1,5 +1,7 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
@@ -30,9 +32,11 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ICoursePublisher _coursePublisher;
         private readonly IEntityMapper<Course> _courseMapper;
         private readonly IEntityPermissionsChecker<Course> _permissionChecker;
+        private readonly IDomainEventPublisher _eventPublisher;
 
         public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory,
-            IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IEntityMapper<Course> courseMapper, IEntityPermissionsChecker<Course> permissionChecker)
+            IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IEntityMapper<Course> courseMapper, IEntityPermissionsChecker<Course> permissionChecker,
+            IDomainEventPublisher eventPublisher)
         {
             _builder = courseBuilder;
             _repository = repository;
@@ -42,6 +46,7 @@ namespace easygenerator.Web.Controllers.Api
             _coursePublisher = coursePublisher;
             _courseMapper = courseMapper;
             _permissionChecker = permissionChecker;
+            _eventPublisher = eventPublisher;
         }
 
         [HttpPost]
@@ -137,6 +142,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.UpdateTitle(courseTitle, GetCurrentUsername());
+            _eventPublisher.Publish(new CourseTitleUpdatedEvent(course));
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }
@@ -251,6 +257,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.UpdateIntroductionContent(introductionContent, GetCurrentUsername());
+            _eventPublisher.Publish(new CourseIntroducationContentUpdated(course));
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }

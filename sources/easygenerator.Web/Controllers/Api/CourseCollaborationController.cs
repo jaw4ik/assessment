@@ -14,14 +14,14 @@ namespace easygenerator.Web.Controllers.Api
     {
         private readonly IUserRepository _userRepository;
         private readonly IEntityMapper<CourseCollaborator> _collaboratorMapper;
-        private readonly IDomainEventPublisher<CourseCollaboratorAddedEvent> _courseCollaboratorAddedEventPublisher;
+        private readonly IDomainEventPublisher _eventPublisher;
 
-        public CourseCollaborationController(IUserRepository userRepository, IDomainEventPublisher<CourseCollaboratorAddedEvent> courseCollaboratorAddedEventPublisher,
+        public CourseCollaborationController(IUserRepository userRepository, IDomainEventPublisher eventPublisher,
             IEntityMapper<CourseCollaborator> collaboratorMapper)
         {
             _userRepository = userRepository;
             _collaboratorMapper = collaboratorMapper;
-            _courseCollaboratorAddedEventPublisher = courseCollaboratorAddedEventPublisher;
+            _eventPublisher = eventPublisher;
         }
 
         [HttpPost]
@@ -47,7 +47,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var courseCollaboratorAddedEvent = new CourseCollaboratorAddedEvent(collaborator, GetCurrentUsername());
-            _courseCollaboratorAddedEventPublisher.Publish(courseCollaboratorAddedEvent);
+            _eventPublisher.Publish(courseCollaboratorAddedEvent);
 
             return JsonSuccess(_collaboratorMapper.Map(collaborator));
         }

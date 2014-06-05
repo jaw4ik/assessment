@@ -1,6 +1,7 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
@@ -33,9 +34,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IEntityFactory _entityFactory;
         private IAuthenticationProvider _authenticationProvider;
         private ISignupFromTryItNowHandler _signupFromTryItNowHandler;
-        private IDomainEventPublisher<UserSignedUpEvent> _userSignedUpEventPublisher;
-        private IDomainEventPublisher<UserDonwgraded> _userDonwgradedEventPublisher;
-        private IDomainEventPublisher<UserUpgradedToStarter> _userUpgradedToStarterEventPublisher;
+        private IDomainEventPublisher _eventPublisher;
         private IMailSenderWrapper _mailSenderWrapper;
         private IAim4YouApiService _aim4YouService;
         private ConfigurationReader _configurationReader;
@@ -53,9 +52,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory = Substitute.For<IEntityFactory>();
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _signupFromTryItNowHandler = Substitute.For<ISignupFromTryItNowHandler>();
-            _userSignedUpEventPublisher = Substitute.For<IDomainEventPublisher<UserSignedUpEvent>>();
-            _userDonwgradedEventPublisher = Substitute.For<IDomainEventPublisher<UserDonwgraded>>();
-            _userUpgradedToStarterEventPublisher = Substitute.For<IDomainEventPublisher<UserUpgradedToStarter>>();
+            _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
             _configurationReader = Substitute.For<ConfigurationReader>();
             _aim4YouService = Substitute.For<IAim4YouApiService>();
@@ -66,9 +63,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
                 _entityFactory,
                 _authenticationProvider,
                 _signupFromTryItNowHandler, 
-                _userSignedUpEventPublisher,
-                _userDonwgradedEventPublisher,
-                _userUpgradedToStarterEventPublisher, 
+                _eventPublisher,
                 _mailSenderWrapper, 
                 _configurationReader, 
                 _aim4YouService,
@@ -261,7 +256,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.Downgrade(email);
 
-            _userDonwgradedEventPublisher.Received().Publish(Arg.Is<UserDonwgraded>(_ => _.User == user));
+            _eventPublisher.Received().Publish(Arg.Is<UserDonwgraded>(_ => _.User == user));
         }
 
         #endregion
@@ -324,7 +319,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.UpgradeToStarter(email, DateTime.MaxValue);
 
-            _userUpgradedToStarterEventPublisher.Received().Publish(Arg.Is<UserUpgradedToStarter>(_ => _.User == user));
+            _eventPublisher.Received().Publish(Arg.Is<UserUpgradedToStarter>(_ => _.User == user));
         }
 
         #endregion
@@ -430,7 +425,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Signup(profile);
 
             //Assert
-            _userSignedUpEventPublisher.Received().Publish
+            _eventPublisher.Received().Publish
                 (
                     Arg.Is<UserSignedUpEvent>(_ => _.User == user && _.CourseDevelopersCount == profile.PeopleBusyWithCourseDevelopmentAmount && _.RequestIntroductionDemo == profile.RequestIntroductionDemo)
                 );

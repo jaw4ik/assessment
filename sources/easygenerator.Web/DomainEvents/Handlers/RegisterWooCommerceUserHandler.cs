@@ -1,5 +1,5 @@
 ﻿using easygenerator.DomainModel.Events;
-using easygenerator.Web.Components.Configuration;
+using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.Web.WooCommerce;
 using System.Threading.Tasks;
 

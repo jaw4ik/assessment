@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using easygenerator.DomainModel.Events;
-using easygenerator.Infrastructure;
+﻿using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.Web.Controllers.Api;
-using easygenerator.Web.Mail;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
     [TestClass]
     public class FeedbackControllerTests
     {
-        private IDomainEventPublisher<UserFeedbackEvent> _publisher;
+        private IDomainEventPublisher _publisher;
         private FeedbackController _controller;
 
         [TestInitialize]
         public void InitializeContext()
         {
-            _publisher = Substitute.For<IDomainEventPublisher<UserFeedbackEvent>>();
+            _publisher = Substitute.For<IDomainEventPublisher>();
             _controller = new FeedbackController(_publisher);
         }
 

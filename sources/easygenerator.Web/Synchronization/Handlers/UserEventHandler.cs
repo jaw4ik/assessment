@@ -1,32 +1,26 @@
 ﻿using easygenerator.DomainModel.Events;
-using easygenerator.Web.Synchronization.Hubs;
-using Microsoft.AspNet.SignalR;
+using easygenerator.DomainModel.Events.UserEvents;
+using easygenerator.Web.Synchronization.Broadcasting;
 
 namespace easygenerator.Web.Synchronization
 {
     public class UserEventHandler : IDomainEventHandler<UserDonwgraded>, IDomainEventHandler<UserUpgradedToStarter>
     {
-        private readonly IHubContext _hubContext;
+        private readonly IBroadcaster _broadcaster;
 
-        public UserEventHandler(IHubContext hubContext)
+        public UserEventHandler(IBroadcaster broadcaster)
         {
-            _hubContext = hubContext;
-        }
-
-        public UserEventHandler()
-            : this(GlobalHost.ConnectionManager.GetHubContext<UserHub>())
-        {
-
+            _broadcaster = broadcaster;
         }
 
         public void Handle(UserDonwgraded args)
         {
-            _hubContext.Clients.User(args.User.Email).userDowngraded();
+            _broadcaster.User(args.User.Email).userDowngraded();
         }
 
         public void Handle(UserUpgradedToStarter args)
         {
-            _hubContext.Clients.User(args.User.Email).userUpgradedToStarter(args.User.ExpirationDate);
+            _broadcaster.User(args.User.Email).userUpgradedToStarter(args.User.ExpirationDate);
         }
     }
 }

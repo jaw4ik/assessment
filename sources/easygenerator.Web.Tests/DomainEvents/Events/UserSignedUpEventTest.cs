@@ -1,15 +1,9 @@
-﻿using System.Activities.Expressions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events.UserEvents;
 using FluentAssertions;
-using easygenerator.DomainModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Events;
+using System;
 
 namespace easygenerator.Web.Tests.DomainEvents.Events
 {

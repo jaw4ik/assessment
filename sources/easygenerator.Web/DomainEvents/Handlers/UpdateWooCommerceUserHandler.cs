@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using easygenerator.DomainModel.Events;
+﻿using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.Web.WooCommerce;
+using System.Threading.Tasks;
 
 namespace easygenerator.Web.DomainEvents.Handlers
 {

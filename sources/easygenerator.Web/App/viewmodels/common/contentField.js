@@ -8,9 +8,11 @@
             originalText = ko.observable(text()),
             hasFocus = ko.observable(false),
             isExpanded = ko.observable(onStartup),
+            isEditing = ko.observable(false),
 
             beginEditText = function () {
                 eventTracker.publish(events.beginEditText);
+                isEditing(true);
             },
 
             addContent = function () {
@@ -23,6 +25,7 @@
 
             endEditText = function () {
                 eventTracker.publish(events.endEditText);
+                isEditing(false);
             },
 
             updateText = function () {
@@ -58,6 +61,7 @@
                 isExpanded: isExpanded,
                 hasFocus: hasFocus,
                 toggleExpand: toggleExpand,
+                isEditing: isEditing,
 
                 isContentDefined: isContentDefined,
                 addContent: addContent,

@@ -1,5 +1,7 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -40,6 +42,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private ICoursePublisher _coursePublisher;
         private IEntityMapper<Course> _courseMapper;
         private IEntityPermissionsChecker<Course> _entityPermissionChecker;
+        private IDomainEventPublisher _eventPublisher;
 
         [TestInitialize]
         public void InitializeContext()
@@ -51,6 +54,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _coursePublisher = Substitute.For<ICoursePublisher>();
             _urlHelper = Substitute.For<IUrlHelperWrapper>();
             _courseMapper = Substitute.For<IEntityMapper<Course>>();
+            _eventPublisher = Substitute.For<IDomainEventPublisher>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -59,7 +63,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityPermissionChecker = Substitute.For<IEntityPermissionsChecker<Course>>();
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _urlHelper, _coursePublisher, _courseMapper, _entityPermissionChecker);
+            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _urlHelper, _coursePublisher, _courseMapper, _entityPermissionChecker, _eventPublisher);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -345,6 +349,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.UpdateTitle(course, title);
 
             course.Received().UpdateTitle(title, user);
+        }
+
+        [TestMethod]
+        public void Update_ShouldPublishDomainEvent()
+        {
+            var course = Substitute.For<Course>("Some title", TemplateObjectMother.Create(), CreatedBy);
+
+            _controller.UpdateTitle(course, String.Empty);
+
+           _eventPublisher.Received().Publish(Arg.Any<CourseTitleUpdatedEvent>());
         }
 
         [TestMethod]
@@ -683,6 +697,20 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             course.IntroductionContent.Should().Be(content);
+        }
+
+
+        [TestMethod]
+        public void UpdateIntroductionContent_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            _controller.UpdateIntroductionContent(course, "some content");
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<CourseIntroducationContentUpdated>());
         }
 
         [TestMethod]

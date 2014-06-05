@@ -1,7 +1,6 @@
 ﻿using easygenerator.DomainModel.Entities;
-using easygenerator.Infrastructure;
 
-namespace easygenerator.DomainModel.Events
+namespace easygenerator.DomainModel.Events.UserEvents
 {
     public class UserUpgradedToStarter : UserEvent
     {

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 
-namespace easygenerator.DomainModel.Events
+namespace easygenerator.DomainModel.Events.UserEvents
 {
     public abstract class UserEvent
     {
