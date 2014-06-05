@@ -99,11 +99,13 @@
 
                         var blankFieldElement = new CKEDITOR.htmlParser.element(widgetTag, {
                             'data-group-id': groupId,
-                            class: classNames.blankField
+                            class: classNames.blankField,
+                            contenteditable: false
                         });
 
                         var blankWrapperElement = new CKEDITOR.htmlParser.element(widgetTag, {
-                            class: classNames.blankWrapper
+                            class: classNames.blankWrapper,
+                            contenteditable: false
                         });
                         blankFieldElement.add(blankWrapperElement);
 
@@ -114,9 +116,9 @@
                         blankWrapperElement.add(blankValueElement);
 
                         var closeElement = new CKEDITOR.htmlParser.element(widgetTag, {
-                            class: classNames.close
+                            class: classNames.close,
+                            contenteditable: false
                         });
-                        closeElement.add(new CKEDITOR.htmlParser.text('&nbsp;'));
                         blankFieldElement.add(closeElement);
 
 

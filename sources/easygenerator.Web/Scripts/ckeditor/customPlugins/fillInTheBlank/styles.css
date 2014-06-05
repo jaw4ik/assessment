@@ -48,7 +48,7 @@
 }
 
 .ie9 .blankContent .blankWrapper {
-    display: block;
+    display: inline-block;
     overflow: hidden;
     max-width: 250px;
 }
@@ -58,7 +58,7 @@
 }
 
 .blankContent .blankWrapper .blankValue {
-    display: block;
+    display: inline-block;
     min-height: 18px;
     min-width: 100px;
     max-width: 250px;
@@ -70,7 +70,7 @@
 .blankContent .blankField .close {
     width: 24px;
     height: 100%;
-    display: block;
+    display: inline-block;
     position: absolute;
     right: 0;
     top: 0;
