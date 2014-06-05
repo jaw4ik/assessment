@@ -345,6 +345,10 @@
     word-wrap: break-word;
 }
 
+.question-learning-content.blankContent {
+    vertical-align: middle;
+}
+
 .question-content {
     padding: 12px 10px;
 }

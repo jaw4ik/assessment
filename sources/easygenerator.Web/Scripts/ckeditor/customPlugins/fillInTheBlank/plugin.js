@@ -46,7 +46,7 @@
             editor.on('pasteDialogCommit', function (evt) {
                 var $editable = $(editor.element.$).find('.' + classNames.cke_focused);
                 if (evt.data && $editable.length == 1) {
-                    var data = evt.data.replace(/(<([^>]+)>)/ig, '').replace(/[&nbsp;]/ig, ' ');
+                    var data = evt.data.replace(/(<([^>]+)>)/ig, '').replace(/(&nbsp;)/g, ' ');
                     $editable.trigger('paste', data);
                     evt.cancel();
                 }
