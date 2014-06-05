@@ -156,8 +156,8 @@
                             if (keyCode == 13) {
                                 $editable.blur();
 
-                                event.data.preventDefault();
-                                event.data.stopPropagation();
+                                event.preventDefault();
+                                event.stopPropagation();
                             }
                         });
                     });
