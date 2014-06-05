@@ -675,8 +675,8 @@ span.top-navigation-item.current {
         left: 10px;
         top: 50%;
         margin-top: -15px;
-        background-image: url(images/sprites.png);
-        background-position: -2px -293px;
+        background-image: url(images/sprites_32.png);
+        background-position: -149px -1px;
     }
 
 .limit-courses-infomer-btn-holder {
