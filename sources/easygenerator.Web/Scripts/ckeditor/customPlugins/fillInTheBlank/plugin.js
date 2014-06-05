@@ -63,7 +63,6 @@
                     evt.cancel();
                 }
                 //endregion "paste for IE"
-                
             });
             editor.widgets.add(plugin.commands.addBlank, {
                 draggable: false,
@@ -72,6 +71,8 @@
                     var selection = editor.getSelection();
                     if (selection != null && selection.getType() == CKEDITOR.SELECTION_TEXT) {
                         selectedContent = selection.getSelectedText();
+                    } else if (selection != null && selection.getType() == CKEDITOR.SELECTION_ELEMENT) {
+                        selectedContent = selection.getSelectedElement().getText();
                     }
                     return { text: selectedContent };
                 },
@@ -139,8 +140,6 @@
                         event.stopPropagation();
                     });
 
-                    
-
                     widget.on('ready', function () {
                         widget.editables.content.on('keydown', function (event) {
                             var keyCode = event.data.getKey();
@@ -194,7 +193,6 @@
                     $editable.on('blur', function () {
                         widget.removeClass('focused');
                     });
-
                     if (element.hasClass(plugin.classNames.new)) { //focus on create
                         widget.on('ready', function () {
                             _.defer(function () {
