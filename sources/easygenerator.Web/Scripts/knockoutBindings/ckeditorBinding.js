@@ -33,6 +33,7 @@
         if (fillInTheBlank) {
             inPageSettings.removePlugins = 'magicline';
             inPageSettings.extraAllowedContent = 'iframe;span[*];input[*];';
+            inPageSettings.enterMode = CKEDITOR.ENTER_BR;
         } else {
             inPageSettings.removePlugins = 'fillInTheBlank';
         }
