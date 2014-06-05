@@ -252,10 +252,10 @@
             isEditing = valueAccessor().isEditing();
 
         if (!isEditing) {
-            var editor = _.find(CKEDITOR.instances, function(editor) {
-                return editor.element.$ == element;
+            var editor = _.find(CKEDITOR.instances, function(item) {
+                return item.element.$ == element;
             });
-            if (_.isNullOrUndefined(editor)) {
+            if (!_.isNullOrUndefined(editor)) {
                 editor.setData(data);
             }
         }
