@@ -1203,6 +1203,21 @@
     },
     dataHasBeenChangedErrorMessage: {
         en: 'Data has been changed. Please refresh the page.'
+    },
+    removeCollaborator: {
+        en: 'Remove collaborator'
+    },
+    areYouSureYouWantToDeleteUser: {
+        en: 'Are you sure you want to remove this user from the course?'
+    },
+    courseHasBeenDeletedByTheOwner: {
+        en: 'This course has been deleted by the owner. Please go to the list of courses.'
+    },
+    learningObjectiveHasBeenDeletedByCollaborator: {
+        en: 'This learning objective has been deleted by a collaborator. Please go to the list of learning objectives.'
+    },
+    questionHasBeenDeletedByCollaborator: {
+        en: 'This question has been deleted by a collaborator. Please go to the list of questions.'
     }
     /* End resource section for model Collaboration */
            
