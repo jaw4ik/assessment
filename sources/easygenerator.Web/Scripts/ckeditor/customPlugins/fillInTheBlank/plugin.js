@@ -170,6 +170,9 @@
                                 $editable.text(char);
                                 widget.element.removeClass(plugin.classNames.new);
                                 setCaretPosition($editable[0], 1);
+
+                                event.preventDefault();
+                                event.stopPropagation();
                             }
                         });
                     });
