@@ -233,7 +233,6 @@
                                 }
                             }
                         }
-
                         return new CKEDITOR.htmlParser.element(plugin.dataTag, {
                             'data-group-id': groupId != undefined ? groupId : '',
                             value: value,

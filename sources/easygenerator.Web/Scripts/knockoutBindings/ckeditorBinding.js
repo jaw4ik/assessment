@@ -256,7 +256,7 @@
             var editor = _.find(CKEDITOR.instances, function(item) {
                 return item.element.$ == element;
             });
-            if (!_.isNullOrUndefined(editor)) {
+            if (!_.isNullOrUndefined(editor) && editor.getData() != data) {
                 editor.setData(data);
             }
         }
