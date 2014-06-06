@@ -90,7 +90,7 @@
                 editables: {
                     content: {
                         selector: widgetTag + '.' + classNames.blankValue,
-                        allowedContent: '!br'
+                        allowedContent: '!br strong b i em'
                     }
                 },
                 upcast: function (element, data) {
@@ -218,6 +218,10 @@
                     });
                     if (element.hasClass(plugin.classNames.new)) { //focus on create
                         widget.on('ready', function () {
+                            var $widgetElement = $(widget.element.$);
+                            var text = $widgetElement.closest('a').html();
+                            $widgetElement.parent().after('&#8203;');
+                            $widgetElement.closest('a').replaceWith('<' + widgetTag + '>' + text + '</' + widgetTag + '>');
                             _.defer(function () {
                                 $editable.focus();
                             });
