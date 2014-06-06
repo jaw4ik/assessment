@@ -162,8 +162,13 @@
                             }
                             //endregion "paste for IE"
 
-                            if (widget.element.hasClass(plugin.classNames.new) && keyCode != 16 && keyCode != 20) {
+                            if (widget.element.hasClass(plugin.classNames.new)) {
                                 var char = String.fromCharCode(keyCode);
+
+                                if (!/^[A-Za-z][A-Za-z0-9 -]*$/.test(char)) {
+                                    return;
+                                }
+
                                 if (event.shiftKey === false) {
                                     char = char.toLowerCase();
                                 }
