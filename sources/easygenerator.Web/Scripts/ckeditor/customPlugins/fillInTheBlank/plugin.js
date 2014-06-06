@@ -146,6 +146,15 @@
                     widget.on('ready', function () {
                         $editable.on('keydown', function (event) {
                             var keyCode = event.keyCode;
+
+                            if (keyCode == 13) {
+                                $editable.blur();
+
+                                event.preventDefault();
+                                event.stopPropagation();
+                                return;
+                            }
+
                             //region "paste for IE"
                             var ctrlKey = event.ctrlKey;
                             if (CKEDITOR.env.ie && ctrlKey && keyCode == 86) {
@@ -153,11 +162,14 @@
                             }
                             //endregion "paste for IE"
 
-                            if (keyCode == 13) {
-                                $editable.blur();
-
-                                event.preventDefault();
-                                event.stopPropagation();
+                            if (widget.element.hasClass(plugin.classNames.new) && keyCode != 16 && keyCode != 20) {
+                                var char = String.fromCharCode(keyCode);
+                                if (event.shiftKey === false) {
+                                    char = char.toLowerCase();
+                                }
+                                $editable.text(char);
+                                widget.element.removeClass(plugin.classNames.new);
+                                setCaretPosition($editable[0], 1);
                             }
                         });
                     });
