@@ -505,7 +505,7 @@
             });
         });
 
-        describe('courseTitleUpdated:', function () {
+        describe('titleUpdated:', function () {
             var courseId = "courseId";
             var vmCourse = {
                 id: courseId,
@@ -519,12 +519,12 @@
             };
 
             it('should be function', function () {
-                expect(viewModel.courseTitleUpdated).toBeFunction();
+                expect(viewModel.titleUpdated).toBeFunction();
             });
 
             it('should update course title', function () {
                 viewModel.courses(vmCourse);
-                viewModel.courseTitleUpdated(course);
+                viewModel.titleUpdated(course);
 
                 expect(vmCourse.title()).toBe(course.title);
             });

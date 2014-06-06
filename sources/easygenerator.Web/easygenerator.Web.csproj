@@ -210,6 +210,8 @@
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Components\Mappers\EntityMapper.cs" />
+    <Compile Include="Components\Mappers\IEntityMapper.cs" />
     <Compile Include="Permissions\AnswerPermissionsChecker.cs" />
     <Compile Include="Permissions\CoursePermissionsChecker.cs" />
     <Compile Include="Permissions\IEntityPermissionsChecker.cs" />
@@ -256,7 +258,7 @@
     <Compile Include="Components\HttpRuntimeWrapper.cs" />
     <Compile Include="Components\Mappers\CourseCollaboratorMapper.cs" />
     <Compile Include="Components\Mappers\CourseMapper.cs" />
-    <Compile Include="Components\Mappers\IEntityMapper.cs" />
+    <Compile Include="Components\Mappers\IEntityModelMapper.cs" />
     <Compile Include="Components\Mappers\ObjectiveMapper.cs" />
     <Compile Include="Components\Mappers\QuestionMapper.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinder.cs" />
@@ -347,6 +349,7 @@
     <Compile Include="Synchronization\Broadcasting\CourseCollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\IBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\ICollaborationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\ICourseCollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\UsersProxy.cs" />
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\UserEventHandler.cs" />

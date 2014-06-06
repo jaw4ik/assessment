@@ -37,7 +37,7 @@
             deleteSelectedCourses: deleteSelectedCourses,
 
             courseCollaborationStarted: courseCollaborationStarted,
-            courseTitleUpdated: courseTitleUpdated,
+            titleUpdated: titleUpdated,
             courseUpdated: courseUpdated,
 
             canActivate: canActivate,
@@ -49,8 +49,10 @@
         });
 
         app.on(constants.messages.course.collaboration.started, courseCollaborationStarted);
-        app.on(constants.messages.course.titleUpdated, courseTitleUpdated);
+        app.on(constants.messages.course.titleUpdated, titleUpdated);
         app.on(constants.messages.course.introductionContentUpdated, courseUpdated);
+        app.on(constants.messages.course.templateUpdated, courseUpdated);
+        app.on(constants.messages.course.objectivesReordered, courseUpdated);
 
         return viewModel;
 
@@ -119,7 +121,7 @@
             viewModel.sharedCourses(sharedCourses);
         }
 
-        function courseTitleUpdated(course) {
+        function titleUpdated(course) {
             var vmCourse = getCourseViewModel(course.id);
 
             if (_.isObject(vmCourse)) {

@@ -8,6 +8,7 @@
             $element = $(element),
             value = ko.unwrap(valueAccessor()) || {},
             options = value.options || {},
+            optionsStartHandler = options.start,
             cssClasses = ko.bindingHandlers.sortablePlaceholder.cssClasses;
 
         if (value.placeholder) {
@@ -22,6 +23,10 @@
                     }
                 },
                 start: function (e, ui) {
+                    if (optionsStartHandler) {
+                        optionsStartHandler();
+                    }
+
                     ui.placeholder.height(ui.item.height());
                 },
                 over: function (e, ui) {

@@ -7,17 +7,17 @@ using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class CourseMapper : IEntityMapper<Course>
+    public class CourseEntityModelMapper : IEntityModelMapper<Course>
     {
         private readonly IUrlHelperWrapper _urlHelper;
         private readonly IUserRepository _userRepository;
-        private readonly IEntityMapper<CourseCollaborator> _collaboratorMapper;
+        private readonly IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
 
-        public CourseMapper(IUrlHelperWrapper urlHelper, IUserRepository userRepository, IEntityMapper<CourseCollaborator> collaboratorMapper)
+        public CourseEntityModelMapper(IUrlHelperWrapper urlHelper, IUserRepository userRepository, IEntityModelMapper<CourseCollaborator> collaboratorEntityModelMapper)
         {
             _urlHelper = urlHelper;
             _userRepository = userRepository;
-            _collaboratorMapper = collaboratorMapper;
+            _collaboratorEntityModelMapper = collaboratorEntityModelMapper;
         }
 
         public dynamic Map(Course course)
@@ -45,7 +45,7 @@ namespace easygenerator.Web.Components.Mappers
         private IEnumerable<dynamic> GetCourseCollaborators(Course course)
         {
             var collaborators = new List<object>();
-            course.Collaborators.ForEach(e => collaborators.Add(_collaboratorMapper.Map(e)));
+            course.Collaborators.ForEach(e => collaborators.Add(_collaboratorEntityModelMapper.Map(e)));
 
             var owner = _userRepository.GetUserByEmail(course.CreatedBy);
             if (owner != null)

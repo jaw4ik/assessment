@@ -4,11 +4,11 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class CourseCollaboratorMapper : IEntityMapper<CourseCollaborator>
+    public class CourseCollaboratorEntityModelMapper : IEntityModelMapper<CourseCollaborator>
     {
         private readonly IUserRepository _userRepository;
 
-        public CourseCollaboratorMapper(IUserRepository userRepository)
+        public CourseCollaboratorEntityModelMapper(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

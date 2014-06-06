@@ -68,6 +68,7 @@
                     objectiveRelated: 'course:objectiveRelated',
                     objectivesUnrelated: 'course:objectivesUnrelated',
                     objectivesReordered: 'course:objectivesReordered',
+                    templateUpdated: 'course:templateUpdated',
 
                     build: {
                         started: 'course:build-started',

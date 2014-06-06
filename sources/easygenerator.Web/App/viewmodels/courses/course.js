@@ -62,6 +62,8 @@
             showConnectedObjectives: showConnectedObjectives,
             courseTitleMaxLength: constants.validation.courseTitleMaxLength,
             disconnectSelectedObjectives: disconnectSelectedObjectives,
+            isReorderingObjectives: ko.observable(false),
+            startReorderingObjectives: startReorderingObjectives,
             reorderObjectives: reorderObjectives,
             isSortingEnabled: ko.observable(true),
             collaborators: null,
@@ -78,8 +80,9 @@
             connectObjective: connectObjective,
             disconnectObjective: disconnectObjective,
 
-            courseTitleUpdated: courseTitleUpdated,
-            introductionContentUpdated: introductionContentUpdated
+            titleUpdated: titleUpdated,
+            introductionContentUpdated: introductionContentUpdated,
+            objectivesReordered: objectivesReordered
         };
 
         viewModel.canDisconnectObjectives = ko.computed(function () {
@@ -97,9 +100,10 @@
         viewModel.isSortingEnabled = ko.computed(function () {
             return viewModel.connectedObjectives().length != 1;
         });
-        
-        app.on(constants.messages.course.titleUpdated, courseTitleUpdated);
+
+        app.on(constants.messages.course.titleUpdated, titleUpdated);
         app.on(constants.messages.course.introductionContentUpdated, introductionContentUpdated);
+        app.on(constants.messages.course.objectivesReordered, objectivesReordered);
 
         return viewModel;
 
@@ -264,8 +268,14 @@
                 });
         }
 
+        function startReorderingObjectives() {
+            debugger;
+            viewModel.isReorderingObjectives(true);
+        }
+
         function reorderObjectives() {
             eventTracker.publish(events.changeOrderObjectives);
+            viewModel.isReorderingObjectives(false);
             repository.updateObjectiveOrder(viewModel.id, viewModel.connectedObjectives()).then(function () {
                 notify.saved();
             });
@@ -303,7 +313,7 @@
             });
         }
 
-        function courseTitleUpdated(course) {
+        function titleUpdated(course) {
             if (course.id != viewModel.id || viewModel.isEditing())
                 return;
 
@@ -315,6 +325,20 @@
                 return;
 
             viewModel.courseIntroductionContent.text(course.introductionContent);
+        }
+
+        function objectivesReordered(course) {
+            if (viewModel.id != course.id || viewModel.isReorderingObjectives()) {
+                return;
+            }
+
+            viewModel.connectedObjectives(_.chain(course.objectives)
+                   .map(function (objective) {
+                       return _.find(viewModel.connectedObjectives(), function (obj) {
+                           return obj.id == objective.id;
+                       });
+                   })
+                   .value());
         }
     }
 );

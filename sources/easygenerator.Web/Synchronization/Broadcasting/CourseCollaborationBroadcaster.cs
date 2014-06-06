@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace easygenerator.Web.Synchronization.Broadcasting
 {
-    public class CourseCollaborationBroadcaster : Broadcaster, ICollaborationBroadcaster<Course>
+    public class CourseCollaborationBroadcaster : Broadcaster, ICourseCollaborationBroadcaster
     {
         public CourseCollaborationBroadcaster(IHubContext hubContext)
             : base(hubContext)

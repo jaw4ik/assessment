@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -30,12 +31,12 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IUrlHelperWrapper _urlHelper;
         private readonly IScormCourseBuilder _scormCourseBuilder;
         private readonly ICoursePublisher _coursePublisher;
-        private readonly IEntityMapper<Course> _courseMapper;
+        private readonly IEntityMapper _entityMapper;
         private readonly IEntityPermissionsChecker<Course> _permissionChecker;
         private readonly IDomainEventPublisher _eventPublisher;
 
         public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory,
-            IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IEntityMapper<Course> courseMapper, IEntityPermissionsChecker<Course> permissionChecker,
+            IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IEntityMapper entityMapper, IEntityPermissionsChecker<Course> permissionChecker,
             IDomainEventPublisher eventPublisher)
         {
             _builder = courseBuilder;
@@ -44,13 +45,14 @@ namespace easygenerator.Web.Controllers.Api
             _urlHelper = urlHelper;
             _scormCourseBuilder = scormCourseBuilder;
             _coursePublisher = coursePublisher;
-            _courseMapper = courseMapper;
+            _entityMapper = entityMapper;
             _permissionChecker = permissionChecker;
             _eventPublisher = eventPublisher;
         }
 
         [HttpPost]
         [LimitCoursesAmount]
+        [Route("api/course/create")]
         public ActionResult Create(string title, Template template)
         {
             var course = _entityFactory.Course(title, template, GetCurrentUsername());
@@ -67,45 +69,35 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityOwner(typeof(Course))]
+        [Route("api/course/delete")]
         public ActionResult Delete(Course course)
         {
             if (course != null)
             {
+                var collaborators = course.Collaborators.Select(e => e.Email).ToList();
+                
                 _repository.Remove(course);
+
+                _eventPublisher.Publish(new CourseDeletedEvent(course, collaborators, GetCurrentUsername()));
             }
 
             return JsonSuccess();
         }
 
-        private ActionResult DoPublishAction(Course course, Func<bool> publishAction, Func<ActionResult> getSuccessResultAction)
-        {
-            if (course == null)
-            {
-                return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
-            }
-
-            var result = publishAction();
-
-            if (!result)
-            {
-                return JsonLocalizableError(Errors.CoursePublishActionFailedError, Errors.CoursePublishActionFailedResourceKey);
-            }
-
-            return getSuccessResultAction();
-        }
-
         [HttpPost]
         [EntityPermissions(typeof(Course))]
+        [Route("course/build")]
         public ActionResult Build(Course course)
         {
-            return DoPublishAction(course, () => _builder.Build(course), () => JsonSuccess(new { PackageUrl = course.PackageUrl, BuildOn = course.BuildOn }));
+            return Deliver(course, () => _builder.Build(course), () => JsonSuccess(new { PackageUrl = course.PackageUrl, BuildOn = course.BuildOn }));
         }
 
         [EntityPermissions(typeof(Course))]
         [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseScormResourceKey)]
+        [Route("course/scormbuild")]
         public ActionResult ScormBuild(Course course)
         {
-            return DoPublishAction(course, () => _scormCourseBuilder.Build(course), () => JsonSuccess(new { ScormPackageUrl = course.ScormPackageUrl }));
+            return Deliver(course, () => _scormCourseBuilder.Build(course), () => JsonSuccess(new { ScormPackageUrl = course.ScormPackageUrl }));
         }
 
         [HttpPost]
@@ -113,7 +105,8 @@ namespace easygenerator.Web.Controllers.Api
         [Route("course/publish")]
         public ActionResult Publish(Course course)
         {
-            return DoPublishAction(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = course.PublicationUrl }));
+            var args = course == null ? null : new CoursePublishedEvent(course);
+            return Deliver(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = course.PublicationUrl }), () => _eventPublisher.Publish(args));
         }
 
         [HttpPost]
@@ -121,19 +114,21 @@ namespace easygenerator.Web.Controllers.Api
         [Route("course/publishForReview")]
         public ActionResult PublishForReview(Course course)
         {
-            return DoPublishAction(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { ReviewUrl = GetCourseReviewUrl(course.Id.ToString()) }));
+            return Deliver(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { ReviewUrl = GetCourseReviewUrl(course.Id.ToString()) }));
         }
 
         [HttpPost]
+        [Route("api/courses")]
         public ActionResult GetCollection()
         {
             var courses = _repository.GetCollection(course => _permissionChecker.HasPermissions(User.Identity.Name, course));
 
-            return JsonSuccess(courses.Select(c => _courseMapper.Map(c)));
+            return JsonSuccess(courses.Select(c => _entityMapper.Map(c)));
         }
 
         [HttpPost]
         [EntityPermissions(typeof(Course))]
+        [Route("api/course/updateTitle")]
         public ActionResult UpdateTitle(Course course, string courseTitle)
         {
             if (course == null)
@@ -149,6 +144,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityPermissions(typeof(Course))]
+        [Route("api/course/updateTemplate")]
         public ActionResult UpdateTemplate(Course course, Template template)
         {
             if (course == null)
@@ -157,6 +153,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.UpdateTemplate(template, GetCurrentUsername());
+            _eventPublisher.Publish(new CourseTemplateUpdatedEvent(course));
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }
@@ -212,6 +209,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [EntityPermissions(typeof(Course))]
         [ActionName("TemplateSettings"), HttpGet]
+        [Route("api/course/{courseId}/template/{templateId}")]
         public ActionResult GetTemplateSettings(Course course, Template template)
         {
             if (course == null)
@@ -229,6 +227,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [EntityPermissions(typeof(Course))]
         [ActionName("TemplateSettings"), HttpPost]
+        [Route("api/course/{courseId}/template/{templateId}")]
         public ActionResult SaveTemplateSettings(Course course, Template template, string settings)
         {
             if (course == null)
@@ -273,6 +272,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.UpdateObjectivesOrder(objectives, GetCurrentUsername());
+            _eventPublisher.Publish(new CourseObjectivesReorderedEvent(course));
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }
@@ -282,5 +282,26 @@ namespace easygenerator.Web.Controllers.Api
             return _urlHelper.ToAbsoluteUrl(string.Format("~/review/{0}/", courseId));
         }
 
+        private ActionResult Deliver(Course course, Func<bool> publishAction, Func<ActionResult> getSuccessResultAction, Action publishEventOnSuccess = null)
+        {
+            if (course == null)
+            {
+                return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
+            }
+
+            var result = publishAction();
+
+            if (!result)
+            {
+                return JsonLocalizableError(Errors.CoursePublishActionFailedError, Errors.CoursePublishActionFailedResourceKey);
+            }
+
+            if (publishEventOnSuccess != null)
+            {
+                publishEventOnSuccess();
+            }
+
+            return getSuccessResultAction();
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker',
-    'help/helpHint', 'plugins/dialog'],
-    function (app, composition, router, routes, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, help, dialog) {
+    'help/helpHint', 'plugins/dialog','notify', 'constants'],
+    function (app, composition, router, routes, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, help, dialog, notify, constants) {
 
         "use strict";
 
@@ -25,9 +25,10 @@
             showTreeOfContent: ko.observable(),
             navigation: ko.observableArray([]),
             isTryMode: false,
-            help: help
+            help: help,
+            courseDeleted: courseDeleted
         };
-    
+
         viewModel.activeModuleName = ko.computed(function () {
             var activeItem = router.activeItem();
             if (_.isObject(activeItem)) {
@@ -38,9 +39,9 @@
             return '';
         });
 
-        viewModel.isViewReady.subscribe(function(value) {
+        viewModel.isViewReady.subscribe(function (value) {
             if (value && !_.isNullOrUndefined(clientContext.get('showCreateCoursePopup'))) {
-                dialog.show('dialogs/createCourse').then(function() {
+                dialog.show('dialogs/createCourse').then(function () {
                     clientContext.remove('showCreateCoursePopup');
                 });
             }
@@ -54,13 +55,15 @@
             requestsCounter(requestsCounter() - 1);
         });
 
+        app.on(constants.messages.course.deleted, courseDeleted);
+
         return viewModel;
 
         function showNavigation() {
             return _.contains(['404'], this.activeModuleName());
         }
 
-        function activate () {
+        function activate() {
             return dataContext.initialize()
                 .then(function () {
                     router.guardRoute = function (routeInfo, params) {
@@ -144,6 +147,13 @@
                         .mapUnknownRoutes('viewmodels/errors/404', '404')
                         .activate(viewModel.homeModuleName);
                 });
+        }
+
+        function courseDeleted(courseId) {
+            if (router.routeData().courseId != courseId)
+                return;
+
+            notify.error(localizationManager.localize('courseHasBeenDeletedByTheOwner'));
         }
     }
 );

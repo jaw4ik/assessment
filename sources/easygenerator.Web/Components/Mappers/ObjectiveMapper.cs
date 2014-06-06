@@ -4,13 +4,13 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class ObjectiveMapper : IEntityMapper<Objective>
+    public class ObjectiveEntityModelMapper : IEntityModelMapper<Objective>
     {
-        private readonly IEntityMapper<Question> _questionMapper;
+        private readonly IEntityModelMapper<Question> _questionEntityModelMapper;
 
-        public ObjectiveMapper(IEntityMapper<Question> questionMapper)
+        public ObjectiveEntityModelMapper(IEntityModelMapper<Question> questionEntityModelMapper)
         {
-            _questionMapper = questionMapper;
+            _questionEntityModelMapper = questionEntityModelMapper;
         }
 
         public dynamic Map(Objective obj)
@@ -22,7 +22,7 @@ namespace easygenerator.Web.Components.Mappers
                 CreatedBy = obj.CreatedBy,
                 CreatedOn = obj.CreatedOn,
                 ModifiedOn = obj.ModifiedOn,
-                Questions = obj.Questions.Select(q => _questionMapper.Map(q))
+                Questions = obj.Questions.Select(q => _questionEntityModelMapper.Map(q))
             };
         }
     }

@@ -40,7 +40,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private HttpContextBase _context;
         private IUrlHelperWrapper _urlHelper;
         private ICoursePublisher _coursePublisher;
-        private IEntityMapper<Course> _courseMapper;
+        private IEntityMapper _entityMapper;
         private IEntityPermissionsChecker<Course> _entityPermissionChecker;
         private IDomainEventPublisher _eventPublisher;
 
@@ -53,7 +53,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
             _coursePublisher = Substitute.For<ICoursePublisher>();
             _urlHelper = Substitute.For<IUrlHelperWrapper>();
-            _courseMapper = Substitute.For<IEntityMapper<Course>>();
+            _entityMapper = Substitute.For<IEntityMapper>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
 
             _user = Substitute.For<IPrincipal>();
@@ -63,7 +63,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityPermissionChecker = Substitute.For<IEntityPermissionsChecker<Course>>();
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _urlHelper, _coursePublisher, _courseMapper, _entityPermissionChecker, _eventPublisher);
+            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _urlHelper, _coursePublisher, _entityMapper, _entityPermissionChecker, _eventPublisher);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -121,6 +121,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Delete(course);
 
             _repository.Received().Remove(course);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldPublishDomainEvent_WhenCourseIsNotNull()
+        {
+            var course = CourseObjectMother.Create();
+
+            _controller.Delete(course);
+
+            _eventPublisher.Received().Publish(Arg.Any<CourseDeletedEvent>());
         }
 
         [TestMethod]
@@ -265,6 +275,21 @@ namespace easygenerator.Web.Tests.Controllers.Api
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PublishedPackageUrl = course.PublicationUrl });
         }
 
+        [TestMethod]
+        public void Publish_ShouldPublishDomainEvent_WhenSuccess()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            _coursePublisher.Publish(course).Returns(true);
+            course.UpdatePublicationUrl("url");
+
+            //Act
+            _controller.Publish(course);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<CoursePublishedEvent>());
+        }
+
         #endregion
 
         #region Publish course for review
@@ -405,6 +430,22 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             course.Received().UpdateTemplate(template, user);
+        }
+
+        [TestMethod]
+        public void UpdateTemplate_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var course = Substitute.For<Course>("Some title", TemplateObjectMother.Create(), CreatedBy);
+            var template = TemplateObjectMother.Create();
+
+            //Act
+            _controller.UpdateTemplate(course, template);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<CourseTemplateUpdatedEvent>());
         }
 
         [TestMethod]
@@ -671,7 +712,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region UpdateContent
+        #region UpdateIntroductionContent
 
         [TestMethod]
         public void UpdateIntroductionContent_ShouldReturnHttpNotFound_WhenCourseIsNull()
@@ -749,11 +790,27 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var course = Substitute.For<Course>();
             var objectivesCollection = new Collection<Objective>();
             _user.Identity.Name.Returns("user");
+
             //Act
             _controller.UpdateObjectivesOrderedList(course, objectivesCollection);
 
             //Assert
             course.Received().UpdateObjectivesOrder(objectivesCollection, "user");
+        }
+
+        [TestMethod]
+        public void UpdateObjectivesOrderedList_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var course = Substitute.For<Course>();
+            var objectivesCollection = new Collection<Objective>();
+            _user.Identity.Name.Returns("user");
+
+            //Act
+            _controller.UpdateObjectivesOrderedList(course, objectivesCollection);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<CourseObjectivesReorderedEvent>());
         }
 
         [TestMethod]

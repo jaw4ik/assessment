@@ -42,62 +42,10 @@ namespace easygenerator.Web.Configuration
             #region Courses
 
             routes.MapRoute(
-                name: "GetCourses",
-                url: "api/courses",
-                defaults: new { controller = "Course", action = "GetCollection" }
-            );
-
-            routes.MapRoute(
-                name: "CreateCourse",
-                url: "api/course/create",
-                defaults: new { controller = "Course", action = "Create" }
-            );
-
-            routes.MapRoute(
-                name: "DeleteCourse",
-                url: "api/course/delete",
-                defaults: new { controller = "Course", action = "Delete" }
-            );
-
-            routes.MapRoute(
-                name: "UpdateCourseTitle",
-                url: "api/course/updateTitle",
-                defaults: new { controller = "Course", action = "UpdateTitle" }
-            );
-
-            routes.MapRoute(
-                name: "UpdateCourseTemplate",
-                url: "api/course/updateTemplate",
-                defaults: new { controller = "Course", action = "UpdateTemplate" }
-            );
-
-            routes.MapRoute(
-                name: "BuildCourse",
-                url: "course/build",
-                defaults: new { controller = "Course", action = "Build" }
-            );
-
-            routes.MapRoute(
-              name: "ScormBuildCourse",
-              url: "course/scormbuild",
-              defaults: new { controller = "Course", action = "ScormBuild" }
-          );
-
-            routes.MapRoute(
-                name: "TemplateSettings",
-                url: "api/course/{courseId}/template/{templateId}",
-                defaults: new { controller = "Course", action = "TemplateSettings" }
-            );
-
-            #region Publish routes
-
-            routes.MapRoute(
                 name: "OldPublishedPackages",
                 url: "storage/{courseId}/{*resourceUrl}",
                 defaults: new { controller = "RedirectToNewStorage", action = "RedirectToNewUrl" }
                 );
-
-            #endregion
 
             #endregion
 

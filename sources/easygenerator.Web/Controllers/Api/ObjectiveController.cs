@@ -19,15 +19,15 @@ namespace easygenerator.Web.Controllers.Api
     {
         private readonly IEntityFactory _entityFactory;
         private readonly IObjectiveRepository _repository;
-        private readonly IEntityMapper<Objective> _objectiveMapper;
+        private readonly IEntityMapper _entityMapper;
         private readonly IEntityPermissionsChecker<Objective> _permissionChecker;
 
 
-        public ObjectiveController(IObjectiveRepository repository, IEntityFactory entityFactory, IEntityMapper<Objective> objectiveMapper, IEntityPermissionsChecker<Objective> permissionChecker)
+        public ObjectiveController(IObjectiveRepository repository, IEntityFactory entityFactory, IEntityMapper entityMapper, IEntityPermissionsChecker<Objective> permissionChecker)
         {
             _repository = repository;
             _entityFactory = entityFactory;
-            _objectiveMapper = objectiveMapper;
+            _entityMapper = entityMapper;
             _permissionChecker = permissionChecker;
         }
 
@@ -37,7 +37,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             var objectives = _repository.GetCollection(obj => _permissionChecker.HasPermissions(User.Identity.Name, obj));
 
-            return JsonSuccess(objectives.Select(e => _objectiveMapper.Map(e)));
+            return JsonSuccess(objectives.Select(e => _entityMapper.Map(e)));
         }
 
         [HttpPost]

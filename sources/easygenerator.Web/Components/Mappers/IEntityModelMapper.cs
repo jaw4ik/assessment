@@ -2,8 +2,8 @@
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public interface IEntityMapper
+    public interface IEntityModelMapper<T> where T : Entity
     {
-        dynamic Map<T>(T entity) where T : Entity;
+        dynamic Map(T entity);
     }
 }

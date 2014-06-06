@@ -7,7 +7,7 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class QuestionMapper : IEntityMapper<Question>
+    public class QuestionEntityModelMapper : IEntityModelMapper<Question>
     {
         public dynamic Map(Question entity)
         {

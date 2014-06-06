@@ -6,8 +6,7 @@
         app = require('durandal/app'),
         collaboratorModelMapper = require('mappers/collaboratorModelMapper'),
         courseModelMapper = require('mappers/courseModelMapper'),
-        objectiveModelMapper = require('mappers/objectiveModelMapper'),
-        constants = require('constants')
+        objectiveModelMapper = require('mappers/objectiveModelMapper')
     ;
 
     describe('synchronization [courseEventHandler]', function () {
@@ -23,16 +22,16 @@
             spyOn(objectiveModelMapper, 'map');
         });
 
-        describe('courseCollaborationStarted', function () {
+        describe('collaborationStarted', function () {
 
             it('should be function', function () {
-                expect(handler.courseCollaborationStarted).toBeFunction();
+                expect(handler.collaborationStarted).toBeFunction();
             });
 
             describe('when course is not an object', function () {
                 it('should throw an exception', function () {
                     var f = function () {
-                        handler.courseCollaborationStarted(undefined, [], user);
+                        handler.collaborationStarted(undefined, [], user);
                     };
 
                     expect(f).toThrow('Course is not an object');
@@ -42,7 +41,7 @@
             describe('when objectives is not an array', function () {
                 it('should throw an exception', function () {
                     var f = function () {
-                        handler.courseCollaborationStarted(course, undefined, user);
+                        handler.collaborationStarted(course, undefined, user);
                     };
 
                     expect(f).toThrow('Objectives is not an array');
@@ -52,7 +51,7 @@
             describe('when user is not an object', function () {
                 it('should throw an exception', function () {
                     var f = function () {
-                        handler.courseCollaborationStarted(course, [], undefined);
+                        handler.collaborationStarted(course, [], undefined);
                     };
 
                     expect(f).toThrow('User is not an object');
@@ -65,7 +64,7 @@
                     var existingCourse = { id: course.Id, collaborators: [] };
                     dataContext.courses = [existingCourse];
 
-                    handler.courseCollaborationStarted(course, [], user);
+                    handler.collaborationStarted(course, [], user);
 
                     expect(existingCourse.collaborators.length).toBe(1);
                 });
@@ -76,7 +75,7 @@
 
                 it('should add mapped course to data context', function () {
                     dataContext.courses = [];
-                    handler.courseCollaborationStarted(course, [], user);
+                    handler.collaborationStarted(course, [], user);
 
                     expect(dataContext.courses.length).toBe(1);
                 });
@@ -92,7 +91,7 @@
                     dataContext.courses = [existingCourse];
                     dataContext.objectives = [];
 
-                    handler.courseCollaborationStarted(course, [objective], user);
+                    handler.collaborationStarted(course, [objective], user);
 
                     expect(dataContext.objectives.length).toBe(1);
                 });
@@ -108,7 +107,7 @@
                     dataContext.courses = [existingCourse];
                     dataContext.objectives = [{ id: objective.Id }];
 
-                    handler.courseCollaborationStarted(course, [objective], user);
+                    handler.collaborationStarted(course, [objective], user);
 
                     expect(dataContext.objectives.length).toBe(1);
                 });
@@ -116,21 +115,21 @@
             });
 
             it('should trigger app event', function () {
-                handler.courseCollaborationStarted(course, [], user);
+                handler.collaborationStarted(course, [], user);
                 expect(app.trigger).toHaveBeenCalled();
             });
         });
 
-        describe('courseCollaboratorAdded:', function () {
+        describe('collaboratorAdded:', function () {
 
             it('should be function', function () {
-                expect(handler.courseCollaboratorAdded).toBeFunction();
+                expect(handler.collaboratorAdded).toBeFunction();
             });
 
             describe('when courseId is not a string', function () {
                 it('should throw an exception', function () {
                     var f = function () {
-                        handler.courseCollaboratorAdded(undefined, user);
+                        handler.collaboratorAdded(undefined, user);
                     };
 
                     expect(f).toThrow('courseId is not a string');
@@ -140,7 +139,7 @@
             describe('when user is not an object', function () {
                 it('should throw an exception', function () {
                     var f = function () {
-                        handler.courseCollaboratorAdded(course.Id, undefined);
+                        handler.collaboratorAdded(course.Id, undefined);
                     };
 
                     expect(f).toThrow('User is not an object');
@@ -152,7 +151,7 @@
                 it('should throw an exception', function () {
                     dataContext.courses = [];
                     var f = function () {
-                        handler.courseCollaboratorAdded(course.Id, user);
+                        handler.collaboratorAdded(course.Id, user);
                     };
 
                     expect(f).toThrow('Course is not an object');
@@ -162,30 +161,30 @@
 
             it('should add collaborator to course in data context', function () {
                 dataContext.courses = [mappedCourse];
-                handler.courseCollaboratorAdded(mappedCourse.id, user);
+                handler.collaboratorAdded(mappedCourse.id, user);
 
                 expect(dataContext.courses[0].collaborators.length).toBe(1);
             });
 
             it('should trigger app event', function () {
-                handler.courseCollaboratorAdded(course.Id, user);
+                handler.collaboratorAdded(course.Id, user);
                 expect(app.trigger).toHaveBeenCalled();
             });
         });
 
-        describe('courseTitleUpdated:', function () {
+        describe('titleUpdated:', function () {
 
             var title = "title",
                 modifiedOn = new Date();
 
             it('should be function', function () {
-                expect(handler.courseTitleUpdated).toBeFunction();
+                expect(handler.titleUpdated).toBeFunction();
             });
 
             describe('when courseId is not a string', function () {
                 it('should throw an exception', function () {
                     var f = function () {
-                        handler.courseTitleUpdated(undefined, title, modifiedOn.toISOString());
+                        handler.titleUpdated(undefined, title, modifiedOn.toISOString());
                     };
 
                     expect(f).toThrow('CourseId is not a string');
@@ -195,7 +194,7 @@
             describe('when title is not a string', function () {
                 it('should throw an exception', function () {
                     var f = function () {
-                        handler.courseTitleUpdated(mappedCourse.id, undefined, modifiedOn.toISOString());
+                        handler.titleUpdated(mappedCourse.id, undefined, modifiedOn.toISOString());
                     };
 
                     expect(f).toThrow('Title is not a string');
@@ -205,7 +204,7 @@
             describe('when modifiedOn is not a date', function () {
                 it('should throw an exception', function () {
                     var f = function () {
-                        handler.courseTitleUpdated(mappedCourse.id, title, undefined);
+                        handler.titleUpdated(mappedCourse.id, title, undefined);
                     };
 
                     expect(f).toThrow('ModifiedOn is not a string');
@@ -217,7 +216,7 @@
                     dataContext.courses = [];
 
                     var f = function () {
-                        handler.courseTitleUpdated(mappedCourse.id, title, modifiedOn.toISOString());
+                        handler.titleUpdated(mappedCourse.id, title, modifiedOn.toISOString());
                     };
 
                     expect(f).toThrow('Course has not been found');
@@ -227,7 +226,7 @@
             it('should update course title', function () {
                 mappedCourse.title = "";
                 dataContext.courses = [mappedCourse];
-                handler.courseTitleUpdated(mappedCourse.id, title, modifiedOn.toISOString());
+                handler.titleUpdated(mappedCourse.id, title, modifiedOn.toISOString());
 
                 expect(dataContext.courses[0].title).toBe(title);
             });
@@ -235,31 +234,31 @@
             it('should update course modified on date', function () {
                 mappedCourse.modifiedOn = "";
                 dataContext.courses = [mappedCourse];
-                handler.courseTitleUpdated(mappedCourse.id, title, modifiedOn.toISOString());
+                handler.titleUpdated(mappedCourse.id, title, modifiedOn.toISOString());
 
                 expect(dataContext.courses[0].modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
             });
 
             it('should trigger app event', function () {
                 dataContext.courses = [mappedCourse];
-                handler.courseTitleUpdated(mappedCourse.id, title, modifiedOn.toISOString());
+                handler.titleUpdated(mappedCourse.id, title, modifiedOn.toISOString());
                 expect(app.trigger).toHaveBeenCalled();
             });
         });
 
-        describe('courseIntroducationContentUpdated:', function () {
+        describe('introducationContentUpdated:', function () {
 
             var introductionContent = "introductionContent",
                 modifiedOn = new Date();
 
             it('should be function', function () {
-                expect(handler.courseIntroducationContentUpdated).toBeFunction();
+                expect(handler.introducationContentUpdated).toBeFunction();
             });
 
             describe('when courseId is not a string', function () {
                 it('should throw an exception', function () {
                     var f = function () {
-                        handler.courseIntroducationContentUpdated(undefined, introductionContent, modifiedOn.toISOString());
+                        handler.introducationContentUpdated(undefined, introductionContent, modifiedOn.toISOString());
                     };
 
                     expect(f).toThrow('CourseId is not a string');
@@ -269,7 +268,7 @@
             describe('when introductionContent is not a string', function () {
                 it('should throw an exception', function () {
                     var f = function () {
-                        handler.courseIntroducationContentUpdated(mappedCourse.id, undefined, modifiedOn.toISOString());
+                        handler.introducationContentUpdated(mappedCourse.id, undefined, modifiedOn.toISOString());
                     };
 
                     expect(f).toThrow('Introduction content is not a string');
@@ -279,7 +278,7 @@
             describe('when modifiedOn is not a date', function () {
                 it('should throw an exception', function () {
                     var f = function () {
-                        handler.courseIntroducationContentUpdated(mappedCourse.id, introductionContent, undefined);
+                        handler.introducationContentUpdated(mappedCourse.id, introductionContent, undefined);
                     };
 
                     expect(f).toThrow('ModifiedOn is not a string');
@@ -291,7 +290,7 @@
                     dataContext.courses = [];
 
                     var f = function () {
-                        handler.courseIntroducationContentUpdated(mappedCourse.id, introductionContent, modifiedOn.toISOString());
+                        handler.introducationContentUpdated(mappedCourse.id, introductionContent, modifiedOn.toISOString());
                     };
 
                     expect(f).toThrow('Course has not been found');
@@ -301,7 +300,7 @@
             it('should update course introductionContent', function () {
                 mappedCourse.title = "";
                 dataContext.courses = [mappedCourse];
-                handler.courseIntroducationContentUpdated(mappedCourse.id, introductionContent, modifiedOn.toISOString());
+                handler.introducationContentUpdated(mappedCourse.id, introductionContent, modifiedOn.toISOString());
 
                 expect(dataContext.courses[0].introductionContent).toBe(introductionContent);
             });
@@ -309,16 +308,283 @@
             it('should update course modified on date', function () {
                 mappedCourse.modifiedOn = "";
                 dataContext.courses = [mappedCourse];
-                handler.courseIntroducationContentUpdated(mappedCourse.id, introductionContent, modifiedOn.toISOString());
+                handler.introducationContentUpdated(mappedCourse.id, introductionContent, modifiedOn.toISOString());
 
                 expect(dataContext.courses[0].modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
             });
 
             it('should trigger app event', function () {
                 dataContext.courses = [mappedCourse];
-                handler.courseIntroducationContentUpdated(mappedCourse.id, introductionContent, modifiedOn.toISOString());
+                handler.introducationContentUpdated(mappedCourse.id, introductionContent, modifiedOn.toISOString());
                 expect(app.trigger).toHaveBeenCalled();
             });
+        });
+
+        describe('templateUpdated:', function () {
+            var templateId = "templateId",
+                modifiedOn = new Date(),
+                template = { id: templateId };
+
+            it('should be function', function () {
+                expect(handler.templateUpdated).toBeFunction();
+            });
+
+            describe('when courseId is not a string', function () {
+                it('should throw an exception', function () {
+                    var f = function () {
+                        handler.templateUpdated(undefined, templateId, modifiedOn.toISOString());
+                    };
+
+                    expect(f).toThrow('CourseId is not a string');
+                });
+            });
+
+            describe('when templateId is not a string', function () {
+                it('should throw an exception', function () {
+                    var f = function () {
+                        handler.templateUpdated(mappedCourse.id, undefined, modifiedOn.toISOString());
+                    };
+
+                    expect(f).toThrow('TemplateId content is not a string');
+                });
+            });
+
+            describe('when modifiedOn is not a date', function () {
+                it('should throw an exception', function () {
+                    var f = function () {
+                        handler.templateUpdated(mappedCourse.id, templateId, undefined);
+                    };
+
+                    expect(f).toThrow('ModifiedOn is not a string');
+                });
+            });
+
+            describe('when course is not found in data context', function () {
+                it('should throw an exception', function () {
+                    dataContext.courses = [];
+
+                    var f = function () {
+                        handler.templateUpdated(mappedCourse.id, templateId, modifiedOn.toISOString());
+                    };
+
+                    expect(f).toThrow('Course has not been found');
+                });
+            });
+
+            describe('when template is not found in data context', function () {
+                it('should throw an exception', function () {
+                    dataContext.courses = [mappedCourse];
+                    dataContext.templates = [];
+
+                    var f = function () {
+                        handler.templateUpdated(mappedCourse.id, templateId, modifiedOn.toISOString());
+                    };
+
+                    expect(f).toThrow('Template has not been found');
+                });
+            });
+
+            it('should update course title', function () {
+                mappedCourse.template = {};
+                dataContext.courses = [mappedCourse];
+                dataContext.templates = [template];
+
+                handler.templateUpdated(mappedCourse.id, templateId, modifiedOn.toISOString());
+                expect(mappedCourse.template).toBe(template);
+            });
+
+            it('should update course modified on date', function () {
+                mappedCourse.modifiedOn = "";
+                dataContext.courses = [mappedCourse];
+                dataContext.templates = [template];
+                handler.templateUpdated(mappedCourse.id, templateId, modifiedOn.toISOString());
+
+                expect(dataContext.courses[0].modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
+            });
+
+            it('should trigger app event', function () {
+                dataContext.courses = [mappedCourse];
+                dataContext.templates = [template];
+                handler.templateUpdated(mappedCourse.id, templateId, modifiedOn.toISOString());
+                expect(app.trigger).toHaveBeenCalled();
+            });
+        });
+
+        describe('objectivesReordered:', function () {
+
+            var modifiedOn = new Date(),
+                objectiveId1 = 'obj1',
+                objectiveId2 = 'obj2',
+                objectivesOrder = [objectiveId2, objectiveId1],
+                objectives = [{ id: objectiveId1 }, { id: objectiveId2 }];
+
+            it('should be function', function () {
+                expect(handler.objectivesReordered).toBeFunction();
+            });
+
+            describe('when courseId is not a string', function () {
+                it('should throw an exception', function () {
+                    var f = function () {
+                        handler.objectivesReordered(undefined, objectivesOrder, modifiedOn.toISOString());
+                    };
+
+                    expect(f).toThrow('CourseId is not a string');
+                });
+            });
+
+            describe('when templateId is not a string', function () {
+                it('should throw an exception', function () {
+                    var f = function () {
+                        handler.objectivesReordered(mappedCourse.id, undefined, modifiedOn.toISOString());
+                    };
+
+                    expect(f).toThrow('ObjectiveIds is not an array');
+                });
+            });
+
+            describe('when modifiedOn is not a date', function () {
+                it('should throw an exception', function () {
+                    var f = function () {
+                        handler.objectivesReordered(mappedCourse.id, objectivesOrder, undefined);
+                    };
+
+                    expect(f).toThrow('ModifiedOn is not a string');
+                });
+            });
+
+            describe('when course is not found in data context', function () {
+                it('should throw an exception', function () {
+                    dataContext.courses = [];
+
+                    var f = function () {
+                        handler.objectivesReordered(mappedCourse.id, objectivesOrder, modifiedOn.toISOString());
+                    };
+
+                    expect(f).toThrow('Course has not been found');
+                });
+            });
+
+            it('should update course objectives order', function () {
+                mappedCourse.objectives = objectives;
+                dataContext.courses = [mappedCourse];
+
+                handler.objectivesReordered(mappedCourse.id, objectivesOrder, modifiedOn.toISOString());
+                expect(dataContext.courses[0].objectives[0].id).toBe(objectiveId2);
+                expect(dataContext.courses[0].objectives[1].id).toBe(objectiveId1);
+            });
+
+            it('should update course modified on date', function () {
+                mappedCourse.modifiedOn = "";
+                dataContext.courses = [mappedCourse];
+                mappedCourse.objectives = objectives;
+
+                handler.objectivesReordered(mappedCourse.id, objectivesOrder, modifiedOn.toISOString());
+                expect(dataContext.courses[0].modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
+            });
+
+            it('should trigger app event', function () {
+                dataContext.courses = [mappedCourse];
+                mappedCourse.objectives = objectives;
+
+                handler.objectivesReordered(mappedCourse.id, objectivesOrder, modifiedOn.toISOString());
+                expect(app.trigger).toHaveBeenCalled();
+            });
+
+        });
+
+        describe('published:', function() {
+
+            var url = 'url';
+
+            it('should be function', function() {
+                expect(handler.published).toBeFunction();
+            });
+
+            describe('when courseId is not a string', function () {
+                it('should throw an exception', function () {
+                    var f = function () {
+                        handler.published(undefined, url);
+                    };
+
+                    expect(f).toThrow('CourseId is not a string');
+                });
+            });
+
+            describe('when publicationUrl is not a string', function () {
+                it('should throw an exception', function () {
+                    var f = function () {
+                        handler.published(mappedCourse.id, undefined);
+                    };
+
+                    expect(f).toThrow('PublicationUrl is not a string');
+                });
+            });
+
+            describe('when course is not found in data context', function () {
+                it('should throw an exception', function () {
+                    dataContext.courses = [];
+
+                    var f = function () {
+                        handler.published(mappedCourse.id, url);
+                    };
+
+                    expect(f).toThrow('Course has not been found');
+                });
+            });
+
+            it('should update course package url', function () {
+                mappedCourse.publish = {};
+                mappedCourse.publish.packageUrl = '';
+                dataContext.courses = [mappedCourse];
+
+                handler.published(mappedCourse.id, url);
+                expect(mappedCourse.publish.packageUrl).toBe(url);
+            });
+
+            it('should trigger app event', function () {
+                mappedCourse.packageUrl = '';
+                dataContext.courses = [mappedCourse];
+                handler.published(mappedCourse.id, url);
+                expect(app.trigger).toHaveBeenCalled();
+            });
+        });
+
+        describe('deleted:', function() {
+            it('should be function', function() {
+                expect(handler.deleted).toBeFunction();
+            });
+
+            describe('when courseId is not a string', function () {
+                it('should throw an exception', function () {
+                    var f = function () {
+                        handler.deleted(undefined);
+                    };
+
+                    expect(f).toThrow('CourseId is not a string');
+                });
+            });
+
+            describe('when course is not found', function() {
+                it('should not trigger app event', function () {
+                    dataContext.courses = [];
+                    handler.deleted(mappedCourse.id);
+                    expect(app.trigger).not.toHaveBeenCalled();
+                });
+            });
+
+            it('should update course package url', function () {
+                dataContext.courses = [mappedCourse];
+
+                handler.deleted(mappedCourse.id);
+                expect(dataContext.courses.length).toBe(0);
+            });
+
+            it('should trigger app event', function () {
+                dataContext.courses = [mappedCourse];
+                handler.deleted(mappedCourse.id);
+                expect(app.trigger).toHaveBeenCalled();
+            });
+
         });
 
     });

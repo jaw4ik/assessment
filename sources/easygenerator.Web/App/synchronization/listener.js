@@ -12,10 +12,14 @@
                     userDowngraded: userEventHandler.userDowngraded,
                     userUpgradedToStarter: userEventHandler.userUpgradedToStarter,
 
-                    courseCollaboratorAdded: courseEventHandler.courseCollaboratorAdded,
-                    courseCollaborationStarted: courseEventHandler.courseCollaborationStarted,
-                    courseTitleUpdated: courseEventHandler.courseTitleUpdated,
-                    courseIntroducationContentUpdated: courseEventHandler.courseIntroducationContentUpdated
+                    courseCollaboratorAdded: courseEventHandler.collaboratorAdded,
+                    courseCollaborationStarted: courseEventHandler.collaborationStarted,
+                    courseTitleUpdated: courseEventHandler.titleUpdated,
+                    courseIntroducationContentUpdated: courseEventHandler.introducationContentUpdated,
+                    courseTemplateUpdated: courseEventHandler.templateUpdated,
+                    courseObjectivesReordered: courseEventHandler.objectivesReordered,
+                    coursePublished: courseEventHandler.published,
+                    courseDeleted: courseEventHandler.deleted
                 };
 
                 $.connection.hub.start()

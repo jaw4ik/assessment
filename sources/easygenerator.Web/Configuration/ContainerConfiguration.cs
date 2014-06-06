@@ -3,7 +3,6 @@ using Autofac.Builder;
 using Autofac.Integration.Mvc;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.Infrastructure;
@@ -75,7 +74,7 @@ namespace easygenerator.Web.Configuration
             #region Broadcasting
 
             builder.RegisterType<Broadcaster>().As<IBroadcaster>();
-            builder.RegisterType<CourseCollaborationBroadcaster>().As<ICollaborationBroadcaster<Course>>();
+            builder.RegisterType<CourseCollaborationBroadcaster>().As<ICourseCollaborationBroadcaster>();
 
             #endregion
 
@@ -95,7 +94,8 @@ namespace easygenerator.Web.Configuration
 
             #region Entity mapping
 
-            RegisterGenericTypes(builder, applicationAssembly, typeof(IEntityMapper<>));
+            RegisterGenericTypes(builder, applicationAssembly, typeof(IEntityModelMapper<>));
+            builder.RegisterType<EntityMapper>().As<IEntityMapper>();
 
             #endregion
 

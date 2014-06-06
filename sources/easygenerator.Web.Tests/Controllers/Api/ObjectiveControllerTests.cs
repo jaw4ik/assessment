@@ -33,7 +33,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IObjectiveRepository _repository;
         IPrincipal _user;
         HttpContextBase _context;
-        IEntityMapper<Objective> _objectiveyMapper;
+        IEntityMapper _entityMapper;
         private IEntityPermissionsChecker<Objective> _entityPermissionChecker;
 
         [TestInitialize]
@@ -41,9 +41,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             _entityFactory = Substitute.For<IEntityFactory>();
             _repository = Substitute.For<IObjectiveRepository>();
-            _objectiveyMapper = Substitute.For<IEntityMapper<Objective>>();
+            _entityMapper = Substitute.For<IEntityMapper>();
             _entityPermissionChecker = Substitute.For<IEntityPermissionsChecker<Objective>>();
-            _controller = new ObjectiveController(_repository, _entityFactory, _objectiveyMapper, _entityPermissionChecker);
+            _controller = new ObjectiveController(_repository, _entityFactory, _entityMapper, _entityPermissionChecker);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
