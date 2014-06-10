@@ -23,7 +23,7 @@
                 it('should expose title', function () {
                     var title = 'title';
                     var objectiveBrief = viewModel({ title: title });
-                    expect(objectiveBrief.title).toEqual(title);
+                    expect(objectiveBrief.title()).toEqual(title);
                 });
 
                 it('should expose image', function () {
@@ -54,6 +54,16 @@
                 it('should expose isSelected observable', function () {
                     var objectiveBrief = viewModel({});
                     expect(ko.isObservable(objectiveBrief.isSelected)).toBeTruthy();
+                });
+
+                it('should expose title observable', function () {
+                    var objectiveBrief = viewModel({});
+                    expect(ko.isObservable(objectiveBrief.title)).toBeTruthy();
+                });
+
+                it('should expose modifiedOn observable', function () {
+                    var objectiveBrief = viewModel({});
+                    expect(ko.isObservable(objectiveBrief.modifiedOn)).toBeTruthy();
                 });
             });
 

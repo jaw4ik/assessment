@@ -1119,6 +1119,54 @@
                 });
 
             });
+
+            describe('objectiveTitleUpdated:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.objectiveTitleUpdated).toBeFunction();
+                });
+
+                describe('when objective is current course', function () {
+
+                    describe('when objective title is editing', function () {
+                        beforeEach(function () {
+                            viewModel.title.isEditing(true);
+                        });
+
+                        it('should not update objective title', function () {
+                            viewModel.objectiveId = objective.id;
+                            viewModel.title('');
+                            viewModel.objectiveTitleUpdated(objective);
+
+                            expect(viewModel.title()).toBe('');
+                        });
+                    });
+
+                    describe('when objective title is not editing', function () {
+                        beforeEach(function () {
+                            viewModel.title.isEditing(false);
+                        });
+
+                        it('should update objective title', function () {
+                            viewModel.objectiveId = objective.id;
+                            viewModel.title('');
+                            viewModel.objectiveTitleUpdated(objective);
+
+                            expect(viewModel.title()).toBe(objective.title);
+                        });
+                    });
+                });
+
+                describe('when objective is not current objective', function () {
+                    it('should not update objective title', function () {
+                        viewModel.objectiveId = 'qwe';
+                        viewModel.title('');
+                        viewModel.objectiveTitleUpdated(objective);
+
+                        expect(viewModel.title()).toBe('');
+                    });
+                });
+            });
         });
     }
 );

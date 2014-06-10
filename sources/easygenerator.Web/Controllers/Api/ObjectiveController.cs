@@ -1,5 +1,7 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
@@ -21,14 +23,20 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IObjectiveRepository _repository;
         private readonly IEntityMapper _entityMapper;
         private readonly IEntityPermissionsChecker<Objective> _permissionChecker;
+        private readonly IDomainEventPublisher _eventPublisher;
 
 
-        public ObjectiveController(IObjectiveRepository repository, IEntityFactory entityFactory, IEntityMapper entityMapper, IEntityPermissionsChecker<Objective> permissionChecker)
+        public ObjectiveController(IObjectiveRepository repository, 
+            IEntityFactory entityFactory, 
+            IEntityMapper entityMapper,
+            IEntityPermissionsChecker<Objective> permissionChecker, 
+            IDomainEventPublisher eventPublisher)
         {
             _repository = repository;
             _entityFactory = entityFactory;
             _entityMapper = entityMapper;
             _permissionChecker = permissionChecker;
+            _eventPublisher = eventPublisher;
         }
 
         [HttpPost]
@@ -67,6 +75,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             objective.UpdateTitle(title, GetCurrentUsername());
+            _eventPublisher.Publish(new ObjectiveTitleUpdatedEvent(objective));
 
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
@@ -100,6 +109,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             objective.UpdateQuestionsOrder(questions, GetCurrentUsername());
+            
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
     }

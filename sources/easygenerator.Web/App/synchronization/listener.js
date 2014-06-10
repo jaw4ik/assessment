@@ -1,5 +1,5 @@
-﻿define(['durandal/system', 'synchronization/handlers/userEventHandler', 'synchronization/handlers/courseEventHandler'],
-    function (system, userEventHandler, courseEventHandler) {
+﻿define(['durandal/system', 'synchronization/handlers/userEventHandler', 'synchronization/handlers/courseEventHandler', 'synchronization/handlers/objectiveEventHandler'],
+    function (system, userEventHandler, courseEventHandler, objectiveEventHandler) {
         "use strict";
 
         return {
@@ -19,7 +19,9 @@
                     courseTemplateUpdated: courseEventHandler.templateUpdated,
                     courseObjectivesReordered: courseEventHandler.objectivesReordered,
                     coursePublished: courseEventHandler.published,
-                    courseDeleted: courseEventHandler.deleted
+                    courseDeleted: courseEventHandler.deleted,
+
+                    objectiveTitleUpdated: objectiveEventHandler.objectiveTitleUpdated
                 };
 
                 $.connection.hub.start()

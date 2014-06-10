@@ -54,6 +54,7 @@
             'services/publishService.spec',
             'synchronization/handlers/userEventHandler.spec',
             'synchronization/handlers/courseEventHandler.spec',
+            'synchronization/handlers/objectiveEventHandler.spec',
             'treeOfContent/handlers/treeOfContentEventHandler.spec',
             'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
             'treeOfContent/queries/getCourseByIdQuery.spec',

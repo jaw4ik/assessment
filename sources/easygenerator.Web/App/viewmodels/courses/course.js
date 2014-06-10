@@ -1,8 +1,8 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
         'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'ping', 'models/backButton',
-        'viewmodels/courses/collaboration/collaborators', 'userContext', 'durandal/app'],
+        'viewmodels/courses/collaboration/collaborators', 'userContext', 'durandal/app', 'dataContext'],
     function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, ping, BackButton,
-        vmCollaborators, userContext, app) {
+        vmCollaborators, userContext, app, dataContext) {
         "use strict";
 
         var
@@ -82,7 +82,9 @@
 
             titleUpdated: titleUpdated,
             introductionContentUpdated: introductionContentUpdated,
-            objectivesReordered: objectivesReordered
+            objectivesReordered: objectivesReordered,
+            
+            objectiveTitleUpdated: objectiveTitleUpdated,
         };
 
         viewModel.canDisconnectObjectives = ko.computed(function () {
@@ -104,6 +106,7 @@
         app.on(constants.messages.course.titleUpdated, titleUpdated);
         app.on(constants.messages.course.introductionContentUpdated, introductionContentUpdated);
         app.on(constants.messages.course.objectivesReordered, objectivesReordered);
+        app.on(constants.messages.objective.titleUpdated, objectiveTitleUpdated);
 
         return viewModel;
 
@@ -204,6 +207,7 @@
                 that.objectivesMode(viewModel.objectivesListModes.appending);
             });
         }
+
         function showConnectedObjectives() {
             if (viewModel.objectivesMode() == viewModel.objectivesListModes.display) {
                 return;
@@ -235,9 +239,21 @@
             }
 
             eventTracker.publish(events.connectSelectedObjectivesToCourse);
-            repository.relateObjective(viewModel.id, objective.item, objective.targetIndex).then(function (response) {
+            repository.relateObjective(viewModel.id, mapObjective(objective.item), objective.targetIndex).then(function (response) {
                 notify.saved();
             });
+        }
+
+        function mapObjective(item) {
+            return {
+                id: item.id,
+                title: item.title(),
+                image: item.image,
+                questionsCount: item.questionsCount,
+                modifiedOn: item.modifiedOn(),
+                isSelected: item.isSelected()
+            };
+
         }
 
         function disconnectObjective(objective) {
@@ -269,7 +285,6 @@
         }
 
         function startReorderingObjectives() {
-            debugger;
             viewModel.isReorderingObjectives(true);
         }
 
@@ -313,6 +328,23 @@
             });
         }
 
+        function objectiveTitleUpdated(objective) {
+            var vmObjective = getObjectiveViewModel(objective.id);
+
+            if (_.isObject(vmObjective)) {
+                vmObjective.title(objective.title);
+                vmObjective.modifiedOn(objective.modifiedOn);
+            }
+        }
+
+        function getObjectiveViewModel(objectiveId) {
+            var objectives = viewModel.connectedObjectives().concat(viewModel.availableObjectives());
+
+            return _.find(objectives, function (item) {
+                return item.id == objectiveId;
+            });
+        }
+
         function titleUpdated(course) {
             if (course.id != viewModel.id || viewModel.isEditing())
                 return;
@@ -330,7 +362,7 @@
         function objectivesReordered(course) {
             if (viewModel.id != course.id || viewModel.isReorderingObjectives()) {
                 return;
-            }
+    }
 
             viewModel.connectedObjectives(_.chain(course.objectives)
                    .map(function (objective) {

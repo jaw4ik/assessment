@@ -350,8 +350,11 @@
     <Compile Include="Synchronization\Broadcasting\IBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\ICollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\ICourseCollaborationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\IObjectiveCollaborationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\ObjectiveCollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\UsersProxy.cs" />
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\UserEventHandler.cs" />
     <Compile Include="Synchronization\Hubs\EventHub.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
@@ -386,6 +389,10 @@
     <Content Include="App\synchronization\handlers\courseEventHandler.js" />
     <Content Include="App\synchronization\handlers\courseEventHandler.spec.js">
       <DependentUpon>courseEventHandler.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\objectiveEventHandler.js" />
+    <Content Include="App\synchronization\handlers\objectiveEventHandler.spec.js">
+      <DependentUpon>objectiveEventHandler.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\userEventHandler.js" />
     <Content Include="App\synchronization\handlers\userEventHandler.spec.js">

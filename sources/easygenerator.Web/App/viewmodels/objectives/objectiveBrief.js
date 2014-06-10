@@ -4,10 +4,10 @@
 
         return {
             id: item.id,
-            title: item.title,
+            title: ko.observable(item.title),
             image: item.image,
             questionsCount: item.questionsCount || (item.questions ? item.questions.length : null),
-            modifiedOn: item.modifiedOn,
+            modifiedOn: ko.observable(item.modifiedOn),
             isSelected: ko.observable(false)
         };
 

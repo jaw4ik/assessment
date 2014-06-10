@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'ping', 'models/backButton'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'ping', 'models/backButton', 'durandal/app'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton, app) {
         "use strict";
 
         var
@@ -38,6 +38,8 @@
                 canActivate: canActivate,
                 activate: activate,
 
+                objectiveTitleUpdated: objectiveTitleUpdated,
+
                 backButtonData: new BackButton({})
             };
 
@@ -55,7 +57,16 @@
             return viewModel.questions().length > 1;
         });
 
+        app.on(constants.messages.objective.titleUpdated, objectiveTitleUpdated);
+
         return viewModel;
+
+        function objectiveTitleUpdated(objective) {
+            if (objective.id != viewModel.objectiveId || viewModel.title.isEditing())
+                return;
+
+            viewModel.title(objective.title);
+        }
 
         function startEditTitle() {
             viewModel.title.isEditing(true);

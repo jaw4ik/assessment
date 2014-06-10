@@ -1,5 +1,7 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -35,6 +37,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         HttpContextBase _context;
         IEntityMapper _entityMapper;
         private IEntityPermissionsChecker<Objective> _entityPermissionChecker;
+        private IDomainEventPublisher _eventPublisher;
 
         [TestInitialize]
         public void InitializeContext()
@@ -43,7 +46,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository = Substitute.For<IObjectiveRepository>();
             _entityMapper = Substitute.For<IEntityMapper>();
             _entityPermissionChecker = Substitute.For<IEntityPermissionsChecker<Objective>>();
-            _controller = new ObjectiveController(_repository, _entityFactory, _entityMapper, _entityPermissionChecker);
+            _eventPublisher = Substitute.For<IDomainEventPublisher>();
+            _controller = new ObjectiveController(_repository, _entityFactory, _entityMapper, _entityPermissionChecker, _eventPublisher);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -124,6 +128,18 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Update(objective, title);
 
             objective.Received().UpdateTitle(title, ModifiedBy);
+        }
+
+        [TestMethod]
+        public void Update_ShouldPublishDomainEvent()
+        {
+            const string title = "updated title";
+            _user.Identity.Name.Returns(ModifiedBy);
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
+
+            _controller.Update(objective, title);
+
+            _eventPublisher.Received().Publish(Arg.Any<ObjectiveTitleUpdatedEvent>());
         }
 
         [TestMethod]
