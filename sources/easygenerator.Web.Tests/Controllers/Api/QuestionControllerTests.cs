@@ -25,7 +25,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
     public class QuestionControllerTests
     {
         private const string CreatedBy = "easygenerator@easygenerator.com";
-        private const QuestionType Type = QuestionType.MultipleChoice;
+        private const QuestionType Type = QuestionType.MultipleSelect;
 
         private QuestionController _controller;
 
@@ -47,44 +47,44 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
-        #region CreateMultipleChoice question
+        #region CreateMultipleSelect question
 
         [TestMethod]
-        public void CreateMultipleChoice_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
+        public void CreateMultipleSelect_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
         {
-            var result = _controller.CreateMultipleChoice(null, null);
+            var result = _controller.CreateMultipleSelect(null, null);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
             result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
         }
 
         [TestMethod]
-        public void CreateMultipleChoice_ShouldAddQuestionToObjective()
+        public void CreateMultipleSelect_ShouldAddQuestionToObjective()
         {
             const string title = "title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question = Substitute.For<Question>("Question title", QuestionType.MultipleChoice, CreatedBy);
+            var question = Substitute.For<Question>("Question title", QuestionType.MultipleSelect, CreatedBy);
 
-            _entityFactory.Question(title, QuestionType.MultipleChoice, user).Returns(question);
+            _entityFactory.Question(title, QuestionType.MultipleSelect, user).Returns(question);
 
-            _controller.CreateMultipleChoice(objective, title);
+            _controller.CreateMultipleSelect(objective, title);
 
             objective.Received().AddQuestion(question, user);
         }
 
         [TestMethod]
-        public void CreateMultipleChoice_ShouldReturnJsonSuccessResult()
+        public void CreateMultipleSelect_ShouldReturnJsonSuccessResult()
         {
             const string title = "title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
-            var question = Substitute.For<Question>("Question title", QuestionType.MultipleChoice, CreatedBy);
+            var question = Substitute.For<Question>("Question title", QuestionType.MultipleSelect, CreatedBy);
 
-            _entityFactory.Question(title, QuestionType.MultipleChoice, user).Returns(question);
+            _entityFactory.Question(title, QuestionType.MultipleSelect, user).Returns(question);
 
-            var result = _controller.CreateMultipleChoice(Substitute.For<Objective>("Objective title", CreatedBy), title);
+            var result = _controller.CreateMultipleSelect(Substitute.For<Objective>("Objective title", CreatedBy), title);
 
             result.Should()
                 .BeJsonSuccessResult()
@@ -144,14 +144,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void CreateDragAndDrop_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
         {
-            var result = _controller.CreateDragAndDrop(null, null);
+            var result = _controller.CreateMultipleSelect(null, null);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
             result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
         }
 
         [TestMethod]
-        public void CreateCreateDragAndDrop_ShouldAddQuestionToObjective()
+        public void CreateDragAndDrop_ShouldAddQuestionToObjective()
         {
             const string title = "title";
             var user = "Test user";
@@ -167,7 +167,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void CreateCreateDragAndDrop_ShouldReturnJsonSuccessResult()
+        public void CreateDragAndDrop_ShouldReturnJsonSuccessResult()
         {
             const string title = "title";
             var user = "Test user";

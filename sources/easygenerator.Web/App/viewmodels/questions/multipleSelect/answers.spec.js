@@ -2,7 +2,7 @@
     "use strict";
 
     var
-        ctor = require('viewmodels/questions/multipleChoice/answers'),
+        ctor = require('viewmodels/questions/multipleSelect/answers'),
         repository = require('repositories/answerRepository'),
         eventTracker = require('eventTracker'),
         notify = require('notify')

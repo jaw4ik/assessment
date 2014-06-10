@@ -10,7 +10,7 @@ namespace easygenerator.DataAccess.Migrations
         public override void Up()
         {
             AddColumn("dbo.Answers", "Group", c => c.Guid(nullable: false, defaultValue: default(Guid)));
-            AddColumn("dbo.Questions", "Type", c => c.Int(nullable: false, defaultValue: (int)QuestionType.MultipleChoice));
+            AddColumn("dbo.Questions", "Type", c => c.Int(nullable: false, defaultValue: (int)QuestionType.MultipleSelect));
         }
         
         public override void Down()

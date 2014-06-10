@@ -96,7 +96,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         [TestMethod]
         public void Handle_ShouldDefineCreatedByForQuestionsThatWereCreatedInTryMode()
         {
-            var question = Substitute.For<Question>("title", QuestionType.MultipleChoice, TryItNowUsername);
+            var question = Substitute.For<Question>("title", QuestionType.MultipleSelect, TryItNowUsername);
             _questionRepository.GetCollection().Returns(new List<Question>() { question });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
@@ -107,7 +107,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         [TestMethod]
         public void Handle_ShouldNotDefineCreatedByForQuestionsThatWereCreatedByOtherExistingUser()
         {
-            var question = Substitute.For<Question>("title", QuestionType.MultipleChoice, OtherExistingUser);
+            var question = Substitute.For<Question>("title", QuestionType.MultipleSelect, OtherExistingUser);
             _questionRepository.GetCollection().Returns(new List<Question>() { question });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);

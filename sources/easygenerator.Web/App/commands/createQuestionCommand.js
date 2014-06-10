@@ -19,7 +19,7 @@
 
         function sendActualEvent(questionType, eventCategory) {
             switch (questionType) {
-                case constants.questionType.multipleChoice.type:
+                case constants.questionType.multipleSelect.type:
                     eventTracker.publish('Create new question (multiple select)', eventCategory);
                     break;
                 case constants.questionType.fillInTheBlank.type:

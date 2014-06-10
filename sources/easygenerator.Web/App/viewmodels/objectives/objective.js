@@ -217,8 +217,8 @@
 
         function getQuestionImageLink(type) {
             switch (type) {
-                case constants.questionType.multipleChoice.type:
-                    return constants.questionType.multipleChoice.image;
+                case constants.questionType.multipleSelect.type:
+                    return constants.questionType.multipleSelect.image;
                 case constants.questionType.fillInTheBlank.type:
                     return constants.questionType.fillInTheBlank.image;
                 case constants.questionType.dragAndDrop.type:

@@ -156,7 +156,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
 
             var questionId = Guid.NewGuid();
             var questionTitle = "Some question title";
-            var questionType = QuestionType.MultipleChoice;
+            var questionType = QuestionType.MultipleSelect;
             var questionContent = "Some question content";
 
             var question = QuestionObjectMother.Create(questionTitle, questionType, CreatedBy);

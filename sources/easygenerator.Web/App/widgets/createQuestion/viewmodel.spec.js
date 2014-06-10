@@ -105,16 +105,16 @@
 
         });
 
-        describe('createMultipleChoiceQuestion:', function () {
+        describe('createMultipleSelectQuestion:', function () {
 
             it('should hide block', function() {
                 viewModel.visible(true);
-                viewModel.createMultipleChoiceQuestion();
+                viewModel.createMultipleSelectQuestion();
                 expect(viewModel.visible()).toBeFalsy();
             });
 
             it('should execute createQuestionCommand', function () {
-                viewModel.createMultipleChoiceQuestion();
+                viewModel.createMultipleSelectQuestion();
                 expect(createQuestionCommand.execute.calls.mostRecent().args[0]).toEqual('objectiveId');
             });
 
@@ -126,8 +126,8 @@
                 });
 
                 it('should call command with courseId', function () {
-                    viewModel.createMultipleChoiceQuestion();
-                    expect(createQuestionCommand.execute).toHaveBeenCalledWith('objectiveId', 'courseId', constants.questionType.multipleChoice.type);
+                    viewModel.createMultipleSelectQuestion();
+                    expect(createQuestionCommand.execute).toHaveBeenCalledWith('objectiveId', 'courseId', constants.questionType.multipleSelect.type);
                 });
 
             });

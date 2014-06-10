@@ -2,7 +2,7 @@
     "use strict";
 
     var
-        viewModel = require('viewmodels/questions/multipleChoice/multipleChoice'),
+        viewModel = require('viewmodels/questions/multipleSelect/multipleSelect'),
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         constants = require('constants'),
@@ -23,7 +23,7 @@
         learningContents: []
     };
 
-    describe('question [multipleChoice]', function () {
+    describe('question [multipleSelect]', function () {
 
         beforeEach(function() {
             spyOn(eventTracker, 'publish');

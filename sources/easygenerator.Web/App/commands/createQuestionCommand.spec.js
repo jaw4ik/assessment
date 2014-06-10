@@ -37,10 +37,10 @@
 
             describe('when event category is defined', function () {
 
-                describe('and when question type is multipleChoice', function () {
+                describe('and when question type is multipleSelect', function () {
 
                     it('should send event \'Create new question (multiple select)\' with defined event category ', function () {
-                        command.execute('objectiveId', 'courseId', constants.questionType.multipleChoice.type, 'Event category');
+                        command.execute('objectiveId', 'courseId', constants.questionType.multipleSelect.type, 'Event category');
                         expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (multiple select)', 'Event category');
                     });
 
@@ -59,10 +59,10 @@
 
             describe('when event category is undefined', function () {
 
-                describe('when question type is multipleChoice', function () {
+                describe('when question type is multipleSelect', function () {
 
                     it('should send event \'Create new question (multiple select)\' with defined event category ', function () {
-                        command.execute('objectiveId', 'courseId', constants.questionType.multipleChoice.type);
+                        command.execute('objectiveId', 'courseId', constants.questionType.multipleSelect.type);
                         expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (multiple select)', undefined);
                     });
 
@@ -84,12 +84,12 @@
                 expect(uiLocker.lock).toHaveBeenCalled();
             });
 
-            describe('when question type is multipleChoice', function () {
+            describe('when question type is multipleSelect', function () {
 
                 it('should add question to repository', function () {
                     spyOn(localizationManager, 'localize').and.returnValue('title');
-                    command.execute('objectiveId', 'title', constants.questionType.multipleChoice.type);
-                    expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.multipleChoice.type);
+                    command.execute('objectiveId', 'title', constants.questionType.multipleSelect.type);
+                    expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.multipleSelect.type);
                 });
 
             });

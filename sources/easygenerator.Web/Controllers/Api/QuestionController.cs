@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web.Mvc;
+using System.Web.Routing;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
@@ -26,9 +27,9 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityPermissions(typeof(Objective))]
         [Route("api/question/create/type/0")]
-        public ActionResult CreateMultipleChoice(Objective objective, string title)
+        public ActionResult CreateMultipleSelect(Objective objective, string title)
         {
-            return Create(objective, title, QuestionType.MultipleChoice);
+            return Create(objective, title, QuestionType.MultipleSelect);
         }
 
         [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToCreateOtherQuestionTypes)]

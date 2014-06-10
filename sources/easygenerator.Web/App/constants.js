@@ -9,9 +9,9 @@
             },
 
             questionType: {
-                multipleChoice: {
+                multipleSelect: {
                     type: 0,
-                    image: '/Content/images/multichoice-question.png'
+                    image: '/Content/images/multiselect-question.png'
                 },
                 fillInTheBlank: {
                     type: 1,

@@ -1,6 +1,6 @@
 ﻿define(['eventTracker', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'ping', 'models/backButton', 'plugins/router',
-        'viewmodels/questions/multipleChoice/multipleChoice', 'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop'],
-    function (eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, multipleChoice, fillInTheBlank, dragAndDrop) {
+        'viewmodels/questions/multipleSelect/multipleSelect', 'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop'],
+    function (eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, multipleSelect, fillInTheBlank, dragAndDrop) {
         "use strict";
         var
             events = {
@@ -51,8 +51,8 @@
 
         function setActiveViewModel(question) {
             switch (question.type) {
-                case constants.questionType.multipleChoice.type:
-                    return multipleChoice;
+                case constants.questionType.multipleSelect.type:
+                    return multipleSelect;
                 case constants.questionType.fillInTheBlank.type:
                     return fillInTheBlank;
                 case constants.questionType.dragAndDrop.type:

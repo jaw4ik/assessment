@@ -511,7 +511,7 @@
     newQuestionTitle: {
         en: 'What question do you want to ask?'
     },
-    multipleChoice: {
+    multipleSelect: {
         en: 'Multiple select'
     },
     fillInTheBlank: {

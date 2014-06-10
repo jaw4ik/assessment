@@ -11,7 +11,7 @@
         activate: activate,
         show: show,
         hide: hide,
-        createMultipleChoiceQuestion: createMultipleChoiceQuestion,
+        createMultipleSelectQuestion: createMultipleSelectQuestion,
         createFillInTheBlankQuestion: createFillInTheBlankQuestion,
         createDragAndDropQuestion: createDragAndDropQuestion
     };
@@ -35,10 +35,10 @@
         viewModel.visible(false);
     }
 
-    function createMultipleChoiceQuestion() {
+    function createMultipleSelectQuestion() {
         var courseId = getCourseId();
         viewModel.visible(false);
-        return createQuestionCommand.execute(viewModel.objectiveId, courseId, constants.questionType.multipleChoice.type);
+        return createQuestionCommand.execute(viewModel.objectiveId, courseId, constants.questionType.multipleSelect.type);
     }
 
     function createFillInTheBlankQuestion() {

@@ -45,7 +45,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void Question_ShouldCreateQuestionInstance()
         {
             const string title = "title";
-            const QuestionType type = QuestionType.MultipleChoice;
+            const QuestionType type = QuestionType.MultipleSelect;
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             var question = QuestionObjectMother.Create(title, type, CreatedBy);
