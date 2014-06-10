@@ -529,6 +529,9 @@
     dragAndDropText: {
         en: 'Drag&Drop text'
     },
+    multipleChoice: {
+        en: 'Multiple choice'
+    },
     /* End resource section for model Questions */
     
     /* Resource section for model customLocalizationPlugin */
