@@ -478,7 +478,7 @@
 /*#region Question type create actions*/
 
 .question-type-action-wrapper {
-    width: 512px;
+    width: 682px;
     background-color: #fff;
     position: absolute;
     top: 49px;
@@ -551,7 +551,7 @@
     }
 
     .question-type-image.drag-and-drop {
-        background: url('images/sprites_64.png') -350px 0 no-repeat;
+        background: url('images/sprites_64.png') -137px -66px no-repeat;
     }
 
 .question-type-text {
