@@ -24,6 +24,8 @@
             //region "paste for IE"
             var caretPositionForPaste = null;
             //endregion "paste for IE"
+            var extraRemoveFormatTags = "a";
+            var tagsRegex = editor._.removeFormatRegex || (editor._.removeFormatRegex = new RegExp('^(?:' + editor.config.removeFormatTags.replace(/,/g, '|') + "|" + extraRemoveFormatTags.replace(/,/g, '|') + ')$', 'i'));
 
             CKEDITOR.dtd.$editable.span = 1;
             var plugin = CKEDITOR.plugins.fillInTheBlank;
@@ -58,10 +60,12 @@
                 evt.data.dataValue = $data.html();
 
                 //region "paste for IE"
-                var $editable = $(editor.element.$).find('.' + classNames.cke_focused);
-                if (CKEDITOR.env.ie && $editable.length == 1) {
-                    $editable.trigger('paste');
-                    evt.cancel();
+                if (CKEDITOR.env.ie) {
+                    var $editable = $(editor.element.$).find('.' + classNames.cke_focused);
+                    if ($editable.length == 1) {
+                        $editable.trigger('paste');
+                        evt.cancel();
+                    }
                 }
                 //endregion "paste for IE"
             });
@@ -128,6 +132,23 @@
                     }
                 },
                 init: function () {
+                    var clearFormating = function(widgetElement) {
+                        if (editor.getSelection()) {
+                            var widgetRootElement = widgetElement.getParent();
+                            var currentElement = widgetRootElement;
+                            while ((currentElement = widgetRootElement.getParent()) != null && tagsRegex.test( currentElement.getName() )) {
+                                widgetRootElement.breakParent(currentElement);
+                            }
+                        }
+                    };
+
+                    var focusOnNestedEditable = function (nestedEditable) {
+                        nestedEditable.focus();
+                        var range = editor.createRange();
+                        range.moveToElementEditablePosition(nestedEditable);
+                        editor.getSelection().selectRanges([range]);
+                    };
+
                     var widget = this;
                     var element = this.element;
                     var $editable = $('.' + plugin.classNames.blankValue, widget.element.$);
@@ -144,15 +165,13 @@
                     });
 
                     widget.on('ready', function () {
-                        if (element.hasClass(plugin.classNames.new)) { //focus on create
+                        if (element.hasClass(plugin.classNames.new)) { 
                             var $widgetElement = $(widget.element.$);
                             $widgetElement.parent().after('&#8203;');
+
+                            clearFormating(widget.element);
                             _.defer(function () {
-                                var nestedEditable = widget.editables.content;
-                                nestedEditable.focus();
-                                var range = editor.createRange();
-                                range.moveToElementEditablePosition(nestedEditable);
-                                editor.getSelection().selectRanges([range]);
+                                focusOnNestedEditable(widget.editables.content);
                             });
                         }
 
@@ -173,24 +192,6 @@
                                 caretPositionForPaste = getCaretPosition($editable[0]);
                             }
                             //endregion "paste for IE"
-
-                            //if (widget.element.hasClass(plugin.classNames.new)) {
-                            //    var char = String.fromCharCode(keyCode);
-
-                            //    if (!/^[A-Za-z][A-Za-z0-9 -]*$/.test(char)) {
-                            //        return;
-                            //    }
-
-                            //    if (event.shiftKey === false) {
-                            //        char = char.toLowerCase();
-                            //    }
-                            //    $editable.text(char);
-                            //    widget.element.removeClass(plugin.classNames.new);
-                            //    setCaretPosition($editable[0], 1);
-
-                            //    event.preventDefault();
-                            //    event.stopPropagation();
-                            //}
                         });
                     });
 
