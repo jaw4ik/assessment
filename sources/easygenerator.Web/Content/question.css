@@ -347,6 +347,8 @@
 
 .question-learning-content.blankContent {
     vertical-align: middle;
+    overflow: auto;
+    clear: both;
 }
 
 .question-content {
