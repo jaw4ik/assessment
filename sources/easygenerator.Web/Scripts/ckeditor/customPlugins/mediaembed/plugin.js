@@ -54,7 +54,10 @@ CKEDITOR.plugins.mediaembed = {
         });
 
         editor.addCommand('MediaEmbed', new CKEDITOR.dialogCommand('MediaEmbedDialog',
-            { allowedContent: 'iframe[*]' }
+            {
+                allowedContent: 'iframe[*]',
+                requiredContent: 'iframe[*]'
+            }
         ));
 
         editor.ui.addButton('MediaEmbed',
