@@ -144,6 +144,18 @@
                     });
 
                     widget.on('ready', function () {
+                        if (element.hasClass(plugin.classNames.new)) { //focus on create
+                            var $widgetElement = $(widget.element.$);
+                            $widgetElement.parent().after('&#8203;');
+                            _.defer(function () {
+                                var nestedEditable = widget.editables.content;
+                                nestedEditable.focus();
+                                var range = editor.createRange();
+                                range.moveToElementEditablePosition(nestedEditable);
+                                editor.getSelection().selectRanges([range]);
+                            });
+                        }
+
                         $editable.on('keydown', function (event) {
                             var keyCode = event.keyCode;
 
@@ -162,23 +174,23 @@
                             }
                             //endregion "paste for IE"
 
-                            if (widget.element.hasClass(plugin.classNames.new)) {
-                                var char = String.fromCharCode(keyCode);
+                            //if (widget.element.hasClass(plugin.classNames.new)) {
+                            //    var char = String.fromCharCode(keyCode);
 
-                                if (!/^[A-Za-z][A-Za-z0-9 -]*$/.test(char)) {
-                                    return;
-                                }
+                            //    if (!/^[A-Za-z][A-Za-z0-9 -]*$/.test(char)) {
+                            //        return;
+                            //    }
 
-                                if (event.shiftKey === false) {
-                                    char = char.toLowerCase();
-                                }
-                                $editable.text(char);
-                                widget.element.removeClass(plugin.classNames.new);
-                                setCaretPosition($editable[0], 1);
+                            //    if (event.shiftKey === false) {
+                            //        char = char.toLowerCase();
+                            //    }
+                            //    $editable.text(char);
+                            //    widget.element.removeClass(plugin.classNames.new);
+                            //    setCaretPosition($editable[0], 1);
 
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
+                            //    event.preventDefault();
+                            //    event.stopPropagation();
+                            //}
                         });
                     });
 
@@ -213,18 +225,11 @@
                     $editable.on('focus', function () {
                         widget.addClass('focused');
                     });
+
                     $editable.on('blur', function () {
                         widget.removeClass('focused');
                     });
-                    if (element.hasClass(plugin.classNames.new)) { //focus on create
-                        widget.on('ready', function () {
-                            var $widgetElement = $(widget.element.$);
-                            $widgetElement.parent().after('&#8203;');
-                            _.defer(function () {
-                                $editable.focus();
-                            });
-                        });
-                    }
+                    
                 },
                 downcast: function (element, data) {
                     if (element.hasClass(plugin.classNames.blankField)) {
