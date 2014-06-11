@@ -532,6 +532,9 @@
     multipleChoice: {
         en: 'Multiple choice'
     },
+    multipleChoiceEditor: {
+        en: 'Multiple choice question editor'
+    },
     /* End resource section for model Questions */
     
     /* Resource section for model customLocalizationPlugin */
