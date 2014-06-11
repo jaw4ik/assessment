@@ -78,10 +78,7 @@
             });
 
             editor.on('change', function () {
-                _.defer(function () {
-                    debugger;
-                    data(editor.getData());
-                });
+                data(editor.getData());
             });
 
             // FIX for IE.
@@ -254,13 +251,13 @@
         var data = valueAccessor().data(),
             isEditing = valueAccessor().isEditing();
 
-        //if (!isEditing) {
-        //    var editor = _.find(CKEDITOR.instances, function(item) {
-        //        return item.element.$ == element;
-        //    });
-        //    if (!_.isNullOrUndefined(editor) && editor.getData() != data) {
-        //        editor.setData(data);
-        //    }
-        //}
+        if (!isEditing) {
+            var editor = _.find(CKEDITOR.instances, function(item) {
+                return item.element.$ == element;
+            });
+            if (!_.isNullOrUndefined(editor) && editor.getData() != data) {
+                editor.setData(data);
+            }
+        }
     }
 };
