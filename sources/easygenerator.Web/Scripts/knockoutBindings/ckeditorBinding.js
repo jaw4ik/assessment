@@ -32,7 +32,7 @@
 
         if (fillInTheBlank) {
             inPageSettings.removePlugins = 'magicline';
-            inPageSettings.extraAllowedContent = 'iframe span input';
+            inPageSettings.extraAllowedContent = 'span[*]; input[*]';
         } else {
             inPageSettings.removePlugins = 'fillInTheBlank';
         }
@@ -249,13 +249,15 @@
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var data = valueAccessor().data(),
+            fillInTheBlank = valueAccessor().fillInTheBlank || false,
             isEditing = valueAccessor().isEditing();
 
+
         if (!isEditing) {
-            var editor = _.find(CKEDITOR.instances, function(item) {
+            var editor = _.find(CKEDITOR.instances, function (item) {
                 return item.element.$ == element;
             });
-            if (!_.isNullOrUndefined(editor) && editor.getData() != data) {
+            if (!fillInTheBlank && !_.isNullOrUndefined(editor) && editor.getData() != data) {
                 editor.setData(data);
             }
         }
