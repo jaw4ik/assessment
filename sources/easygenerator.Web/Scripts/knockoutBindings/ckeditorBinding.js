@@ -32,7 +32,7 @@
 
         if (fillInTheBlank) {
             inPageSettings.removePlugins = 'magicline';
-            inPageSettings.extraAllowedContent = 'iframe;span[*];input[*];';
+            inPageSettings.extraAllowedContent = 'iframe span input';
         } else {
             inPageSettings.removePlugins = 'fillInTheBlank';
         }
@@ -78,7 +78,10 @@
             });
 
             editor.on('change', function () {
-                data(editor.getData());
+                _.defer(function () {
+                    debugger;
+                    data(editor.getData());
+                });
             });
 
             // FIX for IE.
@@ -251,13 +254,13 @@
         var data = valueAccessor().data(),
             isEditing = valueAccessor().isEditing();
 
-        if (!isEditing) {
-            var editor = _.find(CKEDITOR.instances, function(item) {
-                return item.element.$ == element;
-            });
-            if (!_.isNullOrUndefined(editor) && editor.getData() != data) {
-                editor.setData(data);
-            }
-        }
+        //if (!isEditing) {
+        //    var editor = _.find(CKEDITOR.instances, function(item) {
+        //        return item.element.$ == element;
+        //    });
+        //    if (!_.isNullOrUndefined(editor) && editor.getData() != data) {
+        //        editor.setData(data);
+        //    }
+        //}
     }
 };

@@ -10,6 +10,12 @@
 
         function createBlank() {
             var editor = CKEDITOR.instances[editorName];
+            if (!editor.focusManager.hasFocus) {
+                var range = editor.createRange();
+                range.moveToPosition(range.root, CKEDITOR.POSITION_BEFORE_END);
+                range.collapse(false);
+                editor.getSelection().selectRanges([range]);
+            }
             editor.execCommand(CKEDITOR.plugins.fillInTheBlank.commands.addBlank);
         }
     },

@@ -69,6 +69,7 @@
                 }
                 //endregion "paste for IE"
             });
+
             editor.widgets.add(plugin.commands.addBlank, {
                 draggable: false,
                 defaults: function () {
@@ -94,7 +95,7 @@
                 editables: {
                     content: {
                         selector: widgetTag + '.' + classNames.blankValue,
-                        allowedContent: '!br strong b i em'
+                        allowedContent: '!br'
                     }
                 },
                 upcast: function (element, data) {
@@ -134,8 +135,8 @@
                 init: function () {
                     var clearFormating = function(widgetElement) {
                         if (editor.getSelection()) {
-                            var widgetRootElement = widgetElement.getParent();
-                            var currentElement = widgetRootElement;
+                            var currentElement,
+                                widgetRootElement = widgetElement.getParent();
                             while ((currentElement = widgetRootElement.getParent()) != null && tagsRegex.test( currentElement.getName() )) {
                                 widgetRootElement.breakParent(currentElement);
                             }
@@ -167,7 +168,7 @@
                     widget.on('ready', function () {
                         if (element.hasClass(plugin.classNames.new)) { 
                             var $widgetElement = $(widget.element.$);
-                            $widgetElement.parent().after('&#8203;');
+                            //$widgetElement.parent().after('&#8203;');
 
                             clearFormating(widget.element);
                             _.defer(function () {
