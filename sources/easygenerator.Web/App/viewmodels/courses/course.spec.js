@@ -1453,18 +1453,63 @@
 
         describe('objectiveTitleUpdated', function () {
 
+            var objectiveId = "objectiveId";
+            var vmObjective = {
+                id: objectiveId,
+                title: ko.observable(""),
+                isSelected: ko.observable(false),
+                modifiedOn: ko.observable("")
+            };
+            var objective = {
+                id: objectiveId,
+                title: "new title",
+                modifiedOn: new Date()
+            };
+
             it('should be function', function () {
                 expect(viewModel.objectiveTitleUpdated).toBeFunction();
-
-
-
-
-
-
-
-
             });
 
+            it('should update objective title', function () {
+                viewModel.connectedObjectives([vmObjective]);
+                viewModel.objectiveTitleUpdated(objective);
+
+                expect(vmObjective.title()).toBe(objective.title);
+            });
+
+            it('should update course modified on date', function () {
+                viewModel.connectedObjectives([vmObjective]);
+                viewModel.objectiveTitleUpdated(objective);
+
+                expect(vmObjective.modifiedOn().toISOString()).toBe(objective.modifiedOn.toISOString());
+            });
+
+        });
+
+        describe('objectiveUpdated', function () {
+
+            var objectiveId = "objectiveId";
+            var vmObjective = {
+                id: objectiveId,
+                title: ko.observable(""),
+                isSelected: ko.observable(false),
+                modifiedOn: ko.observable("")
+            };
+            var objective = {
+                id: objectiveId,
+                modifiedOn: new Date()
+            };
+
+            it('should be function', function () {
+                expect(viewModel.objectiveUpdated).toBeFunction();
+            });
+
+            it('should update course modified on date', function () {
+                viewModel.connectedObjectives([vmObjective]);
+                viewModel.objectiveUpdated(objective);
+
+                expect(vmObjective.modifiedOn().toISOString()).toBe(objective.modifiedOn.toISOString());
+            });
         });
 	});
 

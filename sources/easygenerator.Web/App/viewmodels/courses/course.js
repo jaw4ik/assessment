@@ -85,6 +85,7 @@
             objectivesReordered: objectivesReordered,
             
             objectiveTitleUpdated: objectiveTitleUpdated,
+            objectiveUpdated: objectiveUpdated
         };
 
         viewModel.canDisconnectObjectives = ko.computed(function () {
@@ -107,7 +108,8 @@
         app.on(constants.messages.course.introductionContentUpdated, introductionContentUpdated);
         app.on(constants.messages.course.objectivesReordered, objectivesReordered);
         app.on(constants.messages.objective.titleUpdated, objectiveTitleUpdated);
-
+        app.on(constants.messages.objective.questionsReordered, objectiveUpdated);
+        
         return viewModel;
 
         function navigateToCoursesEvent() {
@@ -333,6 +335,14 @@
 
             if (_.isObject(vmObjective)) {
                 vmObjective.title(objective.title);
+                vmObjective.modifiedOn(objective.modifiedOn);
+            }
+        }
+
+        function objectiveUpdated(objective) {
+            var vmObjective = getObjectiveViewModel(objective.id);
+
+            if (_.isObject(vmObjective)) {
                 vmObjective.modifiedOn(objective.modifiedOn);
             }
         }

@@ -1064,6 +1064,14 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Change order of questions');
                 });
 
+                it('should set isReorderingQuestions to false', function() {
+                    spyOn(repository, 'updateQuestionsOrder').and.returnValue(Q.defer().promise);
+                    viewModel.isReorderingQuestions(true);
+
+                    viewModel.updateQuestionsOrder();
+                    expect(viewModel.isReorderingQuestions()).toBeFalsy();
+                });
+
                 it('should update questions order', function () {
                     spyOn(repository, 'updateQuestionsOrder').and.returnValue(Q.defer().promise);
 
@@ -1164,6 +1172,91 @@
                         viewModel.objectiveTitleUpdated(objective);
 
                         expect(viewModel.title()).toBe('');
+                    });
+                });
+            });
+
+            describe('isReorderingQuestions:', function() {
+
+                it('should be observable', function () {
+                    expect(viewModel.isReorderingQuestions).toBeObservable();
+                });
+            });
+
+            describe('startReorderingQuestions:', function() {
+
+                it('should be function', function () {
+                    expect(viewModel.startReorderingQuestions).toBeFunction();
+                });
+
+                it('should set isReorderingQuestion', function() {
+                    viewModel.isReorderingQuestions(false);
+                    viewModel.startReorderingQuestions();
+
+                    expect(viewModel.isReorderingQuestions()).toBeTruthy();
+                });
+            });
+
+            describe('questionsReordered:', function() {
+                beforeEach(function() {
+                    var questions = [
+                                { id: 3, title: 'A', isSelected: ko.observable(false) },
+                                { id: 1, title: 'b', isSelected: ko.observable(false) },
+                                { id: 2, title: 'B', isSelected: ko.observable(false) },
+                                { id: 0, title: 'a', isSelected: ko.observable(false) }
+                    ];
+                    viewModel.questions(questions);
+                });
+
+                it('should be function', function () {
+                    expect(viewModel.questionsReordered).toBeFunction();
+                });
+                
+                describe('when objective id is correct', function() {
+
+                    beforeEach(function () {
+                        viewModel.objectiveId = '1';
+                    });
+
+                    describe('and isReorderingQuestions is false', function () {
+
+                        beforeEach(function () {
+                            viewModel.isReorderingQuestions(false);
+                        });
+
+                        it('should update order of questions', function() {
+                            viewModel.questionsReordered(objective);
+
+                            expect(viewModel.questions()[0].id).toBe(0);
+                            expect(viewModel.questions()[3].id).toBe(3);
+                        });
+                    });
+
+                    describe('and isReorderingQuestions is true', function () {
+                        beforeEach(function () {
+                            viewModel.isReorderingQuestions(true);
+                        });
+
+                        it('should not update order of questions', function () {
+                            viewModel.questionsReordered(objective);
+
+                            expect(viewModel.questions()[0].id).toBe(3);
+                            expect(viewModel.questions()[3].id).toBe(0);
+                        });
+                    });
+                });
+
+                describe('when objective id is not correct', function() {
+
+                    beforeEach(function () {
+                        viewModel.objectiveId = 'someId';
+                    });
+
+                    it('should not update order of questions', function () {
+                        viewModel.questionsReordered(objective);
+
+                        expect(viewModel.questions()[0].id).toBe(3);
+                        expect(viewModel.questions()[3].id).toBe(0);
                     });
                 });
             });

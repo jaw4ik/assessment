@@ -21,7 +21,8 @@
                     coursePublished: courseEventHandler.published,
                     courseDeleted: courseEventHandler.deleted,
 
-                    objectiveTitleUpdated: objectiveEventHandler.objectiveTitleUpdated
+                    objectiveTitleUpdated: objectiveEventHandler.objectiveTitleUpdated,
+                    objectiveQuestionsReordered: objectiveEventHandler.questionsReordered
                 };
 
                 $.connection.hub.start()

@@ -231,6 +231,21 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void UpdateQuestionsOrder_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var objective = Substitute.For<Objective>();
+            var questions = new Collection<Question>();
+            _user.Identity.Name.Returns(ModifiedBy);
+
+            //Act
+            _controller.UpdateQuestionsOrder(objective, questions);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<ObjectiveQuestionsReorderedEvent>());
+        }
+
+        [TestMethod]
         public void UpdateQuestionsOrder_ShouldReturnJsonSuccessResult()
         {
             //Arrange

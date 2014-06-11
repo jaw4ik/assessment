@@ -33,12 +33,15 @@
 
                 deleteSelectedQuestions: deleteSelectedQuestions,
                 toggleQuestionSelection: toggleQuestionSelection,
+                isReorderingQuestions: ko.observable(false),
+                startReorderingQuestions: startReorderingQuestions,
                 updateQuestionsOrder: updateQuestionsOrder,
 
                 canActivate: canActivate,
                 activate: activate,
 
                 objectiveTitleUpdated: objectiveTitleUpdated,
+                questionsReordered: questionsReordered,
 
                 backButtonData: new BackButton({})
             };
@@ -58,6 +61,7 @@
         });
 
         app.on(constants.messages.objective.titleUpdated, objectiveTitleUpdated);
+        app.on(constants.messages.objective.questionsReordered, questionsReordered);
 
         return viewModel;
 
@@ -236,12 +240,31 @@
             notify.saved();
         }
 
+        function startReorderingQuestions() {
+            viewModel.isReorderingQuestions(true);
+        }
+
         function updateQuestionsOrder() {
             eventTracker.publish(events.changeQuestionsOrder);
+            viewModel.isReorderingQuestions(false);
             repository.updateQuestionsOrder(viewModel.objectiveId, viewModel.questions())
                 .then(function () {
                     showNotification();
                 });
+        }
+
+        function questionsReordered(objective) {
+            if (viewModel.objectiveId != objective.id || viewModel.isReorderingQuestions()) {
+                return;
+            }
+
+            viewModel.questions(_.chain(objective.questions)
+                   .map(function (question) {
+                       return _.find(viewModel.questions(), function (q) {
+                           return q.id == question.id;
+                       });
+                   })
+                   .value());
         }
     }
 );

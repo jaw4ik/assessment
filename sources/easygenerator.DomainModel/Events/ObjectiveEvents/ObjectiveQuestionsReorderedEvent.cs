@@ -7,9 +7,9 @@ using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Events.ObjectiveEvents
 {
-    public class QuestionOrderUpdatedEvent : ObjectiveEvent
+    public class ObjectiveQuestionsReorderedEvent : ObjectiveEvent
     {
-        public QuestionOrderUpdatedEvent(Objective objective) : base(objective)
+        public ObjectiveQuestionsReorderedEvent(Objective objective) : base(objective)
         {
             
         }

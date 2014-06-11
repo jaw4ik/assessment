@@ -109,6 +109,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             objective.UpdateQuestionsOrder(questions, GetCurrentUsername());
+            _eventPublisher.Publish(new ObjectiveQuestionsReorderedEvent(objective));
             
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
