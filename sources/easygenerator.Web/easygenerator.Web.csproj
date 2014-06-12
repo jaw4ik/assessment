@@ -378,6 +378,7 @@
       <DependentUpon>httpRequestSender.js</DependentUpon>
     </Content>
     <Content Include="App\http\httpRequestSender.js" />
+    <Content Include="App\imageUpload.js" />
     <Content Include="App\mappers\collaboratorModelMapper.js" />
     <Content Include="App\mappers\courseModelMapper.js" />
     <Content Include="App\mappers\objectiveModelMapper.js" />
@@ -404,7 +405,41 @@
     <Content Include="App\viewmodels\objectives\createObjective.spec.js">
       <DependentUpon>createObjective.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\dragAndDrop\bindingHandlers\backgroundBindingHandler.js" />
+    <Content Include="App\viewmodels\questions\dragAndDrop\commands\addDropspot.js" />
+    <Content Include="App\viewmodels\questions\dragAndDrop\commands\addDropspot.spec.js">
+      <DependentUpon>addDropspot.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\dragAndDrop\commands\changeDropspotPosition.js" />
+    <Content Include="App\viewmodels\questions\dragAndDrop\commands\changeDropspotPosition.spec.js">
+      <DependentUpon>changeDropspotPosition.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\dragAndDrop\commands\changeDropspotText.js" />
+    <Content Include="App\viewmodels\questions\dragAndDrop\commands\changeBackground.js" />
+    <Content Include="App\viewmodels\questions\dragAndDrop\commands\changeDropspotText.spec.js">
+      <DependentUpon>changeDropspotText.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\dragAndDrop\commands\changeBackground.spec.js">
+      <DependentUpon>changeBackground.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\dragAndDrop\commands\removeDropspot.js" />
+    <Content Include="App\viewmodels\questions\dragAndDrop\commands\removeDropspot.spec.js">
+      <DependentUpon>removeDropspot.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\dragAndDrop\designer.js" />
+    <Content Include="App\viewmodels\questions\dragAndDrop\designer.spec.js">
+      <DependentUpon>designer.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\questions\dragAndDrop\dragAndDrop.js" />
+    <Content Include="App\viewmodels\questions\dragAndDrop\bindingHandlers\draggableTextBindingHandler.js" />
+    <Content Include="App\viewmodels\questions\dragAndDrop\dropspot.js" />
+    <Content Include="App\viewmodels\questions\dragAndDrop\dropspot.spec.js">
+      <DependentUpon>dropspot.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\dragAndDrop\dropspotToAdd.js" />
+    <Content Include="App\viewmodels\questions\dragAndDrop\dropspotToAdd.spec.js">
+      <DependentUpon>dropspotToAdd.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\questions\fillInTheBlank\fibControl.js" />
     <Content Include="App\viewmodels\questions\fillInTheBlank\fibControl.spec.js">
       <DependentUpon>fibControl.js</DependentUpon>
@@ -422,7 +457,9 @@
       <DependentUpon>questionTitle.js</DependentUpon>
     </Content>
     <Content Include="App\views\objectives\createObjective.html" />
+    <Content Include="App\views\questions\dragAndDrop\designer.html" />
     <Content Include="App\views\questions\dragAndDrop\dragAndDrop.html" />
+    <Content Include="App\views\questions\dragAndDrop\learningContent.html" />
     <Content Include="App\views\questions\fillInTheBlank\fillInTheBlank.html" />
     <Content Include="App\views\questions\multipleSelect\multipleSelect.html" />
     <Content Include="App\widgets\createQuestion\view.html" />
@@ -432,6 +469,7 @@
     </Content>
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
     <Content Include="BuildCourse\Scorm\Templates\metadata.cshtml" />
+    <Content Include="Content\dragAndDropText.css" />
     <Content Include="Content\eula\easygenerator_EULA.pdf" />
     <Content Include="Content\font\buxtonsketch.eot" />
     <Content Include="Content\font\buxtonsketch.ttf" />
@@ -475,6 +513,7 @@
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\knockoutBindings\fillInTheBlankBinding.js" />
     <Content Include="Scripts\moment-with-langs.js" />
     <Content Include="Scripts\moment-with-langs.min.js" />

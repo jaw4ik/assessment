@@ -1,0 +1,33 @@
+﻿<div class="content-holder">
+    <div style="font-family: 'OpenSans-Semibold'; font-size: 14px; text-transform: uppercase; color: #999999; margin: 20px 0 10px 0;">Learning content</div>
+    <div class="question-content-block learning-content" data-bind="with: learningContents">
+        <div class="question-content-items-list" data-bind="visible: isExpanded">
+            <div class="question-learning-content-list-wrapper">
+                <!-- ko foreach: learningContents -->
+                <div class="question-learning-content-list-item" data-bind="css: { active: hasFocus }">
+                    <div class="question-learning-content-wrapper">
+                        <div class="question-learning-content selectable" data-bind="ckeditor: { data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: $parent.updateText, focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event), $parent.endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $root.localizationManager }">
+                        </div>
+                    </div>
+                    <div class="question-learning-content-delete-wrapper" data-bind="click: $parent.removeLearningContent, localize: { title: 'delete' }">
+                        <span class="question-learning-content-delete-icon"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <div class="add-button" data-bind="css: { disabled: !canAddLearningContent() }">
+                    <!-- ko if: canAddLearningContent -->
+                    <div class="add-button-text-wrapper" data-bind="click: addLearningContent">
+                        <span class="add-button-text selectable" data-bind="localize: { text: 'clickToAddLearningContent' }"></span>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: canAddLearningContent -->
+                    <div class="add-button-text-wrapper">
+                        <span class="add-button-text selectable" data-bind="localize: { text: 'clickToAddLearningContent' }"></span>
+                    </div>
+                    <!-- /ko -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

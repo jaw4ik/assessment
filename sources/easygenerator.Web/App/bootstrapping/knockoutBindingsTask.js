@@ -1,4 +1,7 @@
-﻿define([], function () {
+﻿define([
+    'viewmodels/questions/dragAndDrop/bindingHandlers/backgroundBindingHandler',
+    'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler'
+], function () {
     "use strict";
 
     var task = {

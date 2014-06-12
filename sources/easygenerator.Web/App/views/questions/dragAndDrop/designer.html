@@ -1,0 +1,68 @@
+﻿<section data-bind="with: dragAndDrop">
+
+    <div class="content-holder">
+        <div class="drag-and-drop-designer-title">Drag and drop designer</div>
+    </div>
+
+    <div class="drag-and-drop-designer-wrapper">
+        <div class="content-holder">
+            <div>
+                <!-- ko if: background -->
+                <div class="drag-and-drop-designer">
+
+                    <div class="drag-and-drop-designer-background-wrapper">
+                        <div data-bind="background: background">
+                            <!-- ko foreach: dropspots -->
+                            <div class="draggable drag-and-drop-designer-draggable" data-bind="draggableText: { text: text, x: position.x, y: position.y }"></div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                    <div class="drag-and-drop-designer-background-browse" data-bind="click: uploadBackground" title="Browse image"></div>
+
+                    <div class="drag-and-drop-text-title" style="">Drag'n'drop text</div>
+
+
+                    <ul class="unstyled">
+                        <!-- ko foreach: dropspots -->
+                        <li class="dropspot-text">
+                            <div>
+                                <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: false }, hasFocus: text.hasFocus, event: { focus: text.beginEditText, blur: text.endEditText }">
+                                </div>
+                            </div>
+                            <div class="dropspot-text-delete-wrapper">
+                                <span class="dropspot-text-delete" data-bind="click: $parent.removeDropspot"></span>
+                            </div>
+                        </li>
+                        <!-- /ko -->
+                        <!-- ko if: dropspotToAdd.isVisible -->
+                        <li class="dropspot-text">
+                            <div>
+                                <div class="editarea-editable-text selectable" data-bind="editableText: { text: dropspotToAdd, multiline: false }, event: { blur: addDropspot }, hasFocus: true">
+                                </div>
+                            </div>
+                            <div class="dropspot-text-delete-wrapper">
+                                <span class="dropspot-text-delete disabled" data-bind="click: $parent.removeDropspot"></span>
+                            </div>
+                        </li>
+                        <!--/ko -->
+                    </ul>
+
+                    <button class="btn action-item-btn green" data-bind="click: dropspotToAdd.show, enable: !dropspotToAdd.isVisible() || dropspotToAdd.isValid(), css: { disabled: dropspotToAdd.isVisible() && !dropspotToAdd.isValid() }">+ Add dropspot text</button>
+                </div>
+                <!-- /ko -->
+                <!-- ko ifnot: background -->
+                <div class="drag-and-drop-designer-empty" style="">
+                    <div class="drag-and-drop-designer-empty-title">Drag'n'drop </div>
+                    <div class="drag-and-drop-designer-empty-description">your background image here or</div>
+                    <div class="drag-and-drop-designer-empty-upload-wrapper">
+                        <button class="btn action-item-btn blue" data-bind="click: uploadBackground">Browse</button>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+
+
+    </div>
+
+</section>

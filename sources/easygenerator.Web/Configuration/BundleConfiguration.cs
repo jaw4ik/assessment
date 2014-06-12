@@ -25,6 +25,7 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/has.js")
                     .Include("~/scripts/moment.js")
                     .Include("~/scripts/jquery.placeholder.js")
+                    .Include("~/scripts/jquery.form.js")
                     .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
                 );
 
@@ -68,7 +69,8 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/account.css")
                 .Include("~/Content/helphint.css")
                 .Include("~/Content/treeOfContent.css")
-                .Include("~/Content/panels.css");
+                .Include("~/Content/panels.css")
+                .Include("~/Content/dragAndDropText.css");
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());
             bundles.Add(stylesBundle);
 
