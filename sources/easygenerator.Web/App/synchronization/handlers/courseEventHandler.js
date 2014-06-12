@@ -10,7 +10,9 @@
             templateUpdated: templateUpdated,
             objectivesReordered: objectivesReordered,
             published: published,
-            deleted: deleted
+            deleted: deleted,
+            objectiveRelated: objectiveRelated,
+            objectivesUnrelated: objectivesUnrelated
         };
 
         function collaborationStarted(course, objectives, user) {
@@ -169,6 +171,73 @@
             });
 
             app.trigger(constants.messages.course.deleted, course.id);
+        }
+
+        function objectiveRelated(courseId, objectiveData, targetIndex, modifiedOn) {
+            guard.throwIfNotString(courseId, 'CourseId is not a string');
+            guard.throwIfNotAnObject(objectiveData, 'Objective is not an object');
+            guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
+
+            var course = _.find(dataContext.courses, function (item) {
+                return item.id == courseId;
+            });
+
+            guard.throwIfNotAnObject(course, 'Course has not been found');
+
+            var objective = objectiveModelMapper.map(objectiveData);
+            var objectiveExists = _.some(dataContext.objectives, function (item) {
+                return item.id === objective.id;
+            });
+
+            if (!objectiveExists) {
+                dataContext.objectives.push(objective);
+            }
+
+            course.objectives = _.reject(course.objectives, function (item) {
+                return item.id == objective.id;
+            });
+
+            if (!_.isNullOrUndefined(targetIndex)) {
+                course.objectives.splice(targetIndex, 0, objective);
+            } else {
+                course.objectives.push(objective);
+            }
+
+            course.modifiedOn = new Date(modifiedOn);
+
+            app.trigger(constants.messages.course.objectiveRelated, courseId, objective, targetIndex);
+        }
+
+        function objectivesUnrelated(courseId, objectiveIds, modifiedOn) {
+            guard.throwIfNotString(courseId, 'CourseId is not a string');
+            guard.throwIfNotArray(objectiveIds, 'ObjectiveIds is not an array');
+            guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
+
+            var course = _.find(dataContext.courses, function (item) {
+                return item.id == courseId;
+            });
+
+            guard.throwIfNotAnObject(course, 'Course has not been found');
+
+            var unrelatedObjectives = _.filter(course.objectives, function (item) {
+                return _.some(objectiveIds, function (id) {
+                    return item.id == id;
+                });
+            });
+
+            unrelatedObjectives = _.map(unrelatedObjectives, function (item) {
+                return item.id;
+            });
+
+            course.objectives = _.reject(course.objectives, function (objective) {
+                return _.some(objectiveIds, function (item) {
+                    return item == objective.id;
+                });
+            });
+
+            course.modifiedOn = new Date(modifiedOn);
+
+            app.trigger(constants.messages.course.objectivesUnrelated, course.id, unrelatedObjectives);
         }
 
     });

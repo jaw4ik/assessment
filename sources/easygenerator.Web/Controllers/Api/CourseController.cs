@@ -18,7 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -75,7 +74,7 @@ namespace easygenerator.Web.Controllers.Api
             if (course != null)
             {
                 var collaborators = course.Collaborators.Select(e => e.Email).ToList();
-                
+
                 _repository.Remove(course);
 
                 _eventPublisher.Publish(new CourseDeletedEvent(course, collaborators, GetCurrentUsername()));
@@ -161,7 +160,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityPermissions(typeof(Course))]
         [Route("api/course/relateObjective")]
-        public ActionResult RelateObjectives(Course course, Objective objective, int? index)
+        public ActionResult RelateObjective(Course course, Objective objective, int? index)
         {
             if (course == null)
             {
@@ -174,6 +173,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.RelateObjective(objective, index, GetCurrentUsername());
+            _eventPublisher.Publish(new CourseObjectiveRelatedEvent(course, objective, index));
 
             return JsonSuccess(new
             {
@@ -195,11 +195,13 @@ namespace easygenerator.Web.Controllers.Api
             {
                 return JsonLocalizableError(Errors.ObjectivesNotFoundError, Errors.ObjectivesNotFoundResourceKey);
             }
-
-            foreach (Objective objective in objectives)
+            
+            foreach (var objective in objectives)
             {
                 course.UnrelateObjective(objective, GetCurrentUsername());
             }
+
+            _eventPublisher.Publish(new CourseObjectivesUnrelatedEvent(course, objectives));
 
             return JsonSuccess(new
             {

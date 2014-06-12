@@ -1,8 +1,8 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
         'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'ping', 'models/backButton',
-        'viewmodels/courses/collaboration/collaborators', 'userContext', 'durandal/app', 'dataContext'],
+        'viewmodels/courses/collaboration/collaborators', 'userContext', 'durandal/app'],
     function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, ping, BackButton,
-        vmCollaborators, userContext, app, dataContext) {
+        vmCollaborators, userContext, app) {
         "use strict";
 
         var
@@ -83,7 +83,9 @@
             titleUpdated: titleUpdated,
             introductionContentUpdated: introductionContentUpdated,
             objectivesReordered: objectivesReordered,
-            
+            objectiveConnected: objectiveConnected,
+            objectivesDisconnected: objectivesDisconnected,
+
             objectiveTitleUpdated: objectiveTitleUpdated,
             objectiveUpdated: objectiveUpdated
         };
@@ -107,9 +109,11 @@
         app.on(constants.messages.course.titleUpdated, titleUpdated);
         app.on(constants.messages.course.introductionContentUpdated, introductionContentUpdated);
         app.on(constants.messages.course.objectivesReordered, objectivesReordered);
+        app.on(constants.messages.course.objectiveRelated, objectiveConnected);
+        app.on(constants.messages.course.objectivesUnrelated, objectivesDisconnected);
         app.on(constants.messages.objective.titleUpdated, objectiveTitleUpdated);
         app.on(constants.messages.objective.questionsReordered, objectiveUpdated);
-        
+
         return viewModel;
 
         function navigateToCoursesEvent() {
@@ -190,25 +194,32 @@
 
             objectiveRepository.getCollection().then(function (objectivesList) {
                 var relatedIds = _.pluck(that.connectedObjectives(), 'id');
-
-                viewModel.availableObjectives(_.chain(objectivesList)
-                    .filter(function (item) {
-                        return !_.include(relatedIds, item.id) && item.createdBy == userContext.identity.email;
-                    })
-                    .sortBy(function (item) {
-                        return -item.createdOn;
-                    })
-                    .map(function (item) {
-                        var mappedObjective = objectiveBrief(item);
-                        mappedObjective._original = item;
-
-                        return mappedObjective;
-                    })
-                    .value());
+                var objectives = _.filter(objectivesList, function (item) {
+                    return !_.include(relatedIds, item.id);
+                });
+                mapAvailableObjectives(objectives);
 
                 that.objectivesMode(viewModel.objectivesListModes.appending);
             });
         }
+
+        function mapAvailableObjectives(objectives) {
+            viewModel.availableObjectives(_.chain(objectives)
+                   .filter(function (item) {
+                       return item.createdBy == userContext.identity.email;
+                   })
+                   .sortBy(function (item) {
+                       return -item.createdOn;
+                   })
+                   .map(function (item) {
+                       var mappedObjective = objectiveBrief(item);
+                       mappedObjective._original = item;
+
+                       return mappedObjective;
+                   })
+                   .value());
+        }
+
 
         function showConnectedObjectives() {
             if (viewModel.objectivesMode() == viewModel.objectivesListModes.display) {
@@ -241,7 +252,7 @@
             }
 
             eventTracker.publish(events.connectSelectedObjectivesToCourse);
-            repository.relateObjective(viewModel.id, mapObjective(objective.item), objective.targetIndex).then(function (response) {
+            repository.relateObjective(viewModel.id, mapObjective(objective.item), objective.targetIndex).then(function () {
                 notify.saved();
             });
         }
@@ -280,7 +291,7 @@
                 });
 
             repository.unrelateObjectives(viewModel.id, _.map(selectedObjectives, function (item) { return item; }))
-                .then(function (modifiedOn) {
+                .then(function () {
                     that.connectedObjectives(_.difference(that.connectedObjectives(), selectedObjectives));
                     notify.saved();
                 });
@@ -305,17 +316,16 @@
         function activate(courseId) {
             viewModel.language(localizationManager.currentLanguage);
 
-            var that = viewModel;
             return repository.getById(courseId).then(function (course) {
-                that.id = course.id;
+                viewModel.id = course.id;
 
                 clientContext.set('lastVistedCourse', course.id);
                 clientContext.set('lastVisitedObjective', null);
 
-                that.title(course.title);
-                that.originalTitle = course.title;
-                that.objectivesMode(that.objectivesListModes.display);
-                that.connectedObjectives(_.chain(course.objectives)
+                viewModel.title(course.title);
+                viewModel.originalTitle = course.title;
+                viewModel.objectivesMode(viewModel.objectivesListModes.display);
+                viewModel.connectedObjectives(_.chain(course.objectives)
                     .map(function (objective) {
                         return objectiveBrief(objective);
                     })
@@ -323,7 +333,7 @@
 
                 viewModel.isEditing(false);
                 viewModel.collaborators = new vmCollaborators(course.id, course.createdBy, course.collaborators);
-                that.courseIntroductionContent = vmContentField(course.introductionContent, eventsForCourseContent, false, function (content) { return repository.updateIntroductionContent(course.id, content); });
+                viewModel.courseIntroductionContent = vmContentField(course.introductionContent, eventsForCourseContent, false, function (content) { return repository.updateIntroductionContent(course.id, content); });
             }).fail(function (reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
                 throw reason;
@@ -372,7 +382,7 @@
         function objectivesReordered(course) {
             if (viewModel.id != course.id || viewModel.isReorderingObjectives()) {
                 return;
-    }
+            }
 
             viewModel.connectedObjectives(_.chain(course.objectives)
                    .map(function (objective) {
@@ -381,6 +391,58 @@
                        });
                    })
                    .value());
+        }
+
+        function objectiveConnected(courseId, objective, targetIndex) {
+            if (viewModel.id != courseId) {
+                return;
+            }
+
+            var objectives = viewModel.connectedObjectives();
+            var isConnected = _.some(objectives, function (item) {
+                return item.id == objective.id;
+            });
+
+            if (isConnected) {
+                objectives = _.reject(objectives, function (item) {
+                    return item.id == objective.id;
+                });
+            }
+
+            var vmObjective = objectiveBrief(objective);
+            if (!_.isNullOrUndefined(targetIndex)) {
+                objectives.splice(targetIndex, 0, vmObjective);
+            } else {
+                objectives.push(vmObjective);
+            }
+
+            viewModel.connectedObjectives(objectives);
+
+            var availableObjectives = viewModel.availableObjectives();
+            viewModel.availableObjectives(_.reject(availableObjectives, function (item) {
+                return objective.id == item.id;
+            }));
+        }
+
+        function objectivesDisconnected(courseId, disconnectedObjectiveIds) {
+            if (viewModel.id != courseId) {
+                return;
+            }
+            
+            var connectedObjectives = viewModel.connectedObjectives();
+            viewModel.connectedObjectives(_.reject(connectedObjectives, function (item) {
+                return _.some(disconnectedObjectiveIds, function (id) {
+                    return id == item.id;
+                });
+            }));
+
+            objectiveRepository.getCollection().then(function (objectivesList) {
+                var relatedIds = _.pluck(viewModel.connectedObjectives(), 'id');
+                var objectives = _.filter(objectivesList, function (item) {
+                    return !_.include(relatedIds, item.id);
+                });
+                mapAvailableObjectives(objectives);
+            });
         }
     }
 );

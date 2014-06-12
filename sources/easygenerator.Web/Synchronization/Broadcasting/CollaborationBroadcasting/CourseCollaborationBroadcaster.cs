@@ -4,9 +4,9 @@ using Microsoft.AspNet.SignalR;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace easygenerator.Web.Synchronization.Broadcasting
+namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting
 {
-    public class CourseCollaborationBroadcaster : Broadcaster, ICourseCollaborationBroadcaster
+    public class CourseCollaborationBroadcaster : Broadcaster, ICollaborationBroadcaster<Course>
     {
         public CourseCollaborationBroadcaster(IHubContext hubContext)
             : base(hubContext)
@@ -15,7 +15,7 @@ namespace easygenerator.Web.Synchronization.Broadcasting
 
         public CourseCollaborationBroadcaster()
         {
-
+            
         }
 
         public dynamic AllCollaborators(Course course)
@@ -32,13 +32,6 @@ namespace easygenerator.Web.Synchronization.Broadcasting
             return Users(GetCollaboratorsExcept(course, new List<string>(excludeUsers)));
         }
 
-        public dynamic AllCollaboratorsExcept(Course course, List<string> excludeUsers)
-        {
-            ThrowIfCourseNotValid(course);
-
-            return Users(GetCollaboratorsExcept(course, excludeUsers));
-        }
-
         public dynamic OtherCollaborators(Course course)
         {
             ThrowIfCourseNotValid(course);
@@ -46,7 +39,7 @@ namespace easygenerator.Web.Synchronization.Broadcasting
             return Users(GetCollaboratorsExcept(course, new List<string>() { CurrentUsername }));
         }
 
-        private List<string> GetCollaboratorsExcept(Course course, List<string> excludeUsers)
+        private IEnumerable<string> GetCollaboratorsExcept(Course course, List<string> excludeUsers)
         {
             var users = GetCourseCollaborators(course);
             users.RemoveAll(u => excludeUsers.Exists(e => u == e));

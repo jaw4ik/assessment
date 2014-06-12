@@ -1,20 +1,23 @@
-﻿using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
+﻿using Microsoft.AspNet.SignalR.Hubs;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace easygenerator.Web.Synchronization.Broadcasting
+namespace easygenerator.Web.Synchronization.Broadcasting.Proxies
 {
-    public class UsersProxy : DynamicObject, IClientProxy
+    public class MultipleClientsProxy : DynamicObject, IClientProxy
     {
-        private readonly List<string> _users;
-        private readonly IHubContext _hubContext;
+        protected IEnumerable<dynamic> Proxies { get; set; }
 
-        public UsersProxy(IHubContext hubContext, List<string> users)
+        public MultipleClientsProxy(IEnumerable<dynamic> proxies)
         {
-            _hubContext = hubContext;
-            _users = users;
+            Proxies = proxies;
+        }
+
+        protected MultipleClientsProxy()
+        {
+
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
@@ -32,7 +35,7 @@ namespace easygenerator.Web.Synchronization.Broadcasting
         public Task Invoke(string method, params object[] args)
         {
             var tasks = new List<Task>();
-            _users.ForEach(e => tasks.Add(_hubContext.Clients.User(e).Invoke(method, args)));
+            Proxies.ToList().ForEach(proxy => tasks.Add(proxy.Invoke(method, args)));
 
             return Task.WhenAll(tasks);
         }

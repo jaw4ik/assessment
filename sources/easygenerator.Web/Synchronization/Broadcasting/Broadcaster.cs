@@ -1,4 +1,5 @@
-﻿using easygenerator.Web.Synchronization.Hubs;
+﻿using easygenerator.Web.Synchronization.Broadcasting.Proxies;
+using easygenerator.Web.Synchronization.Hubs;
 using Microsoft.AspNet.SignalR;
 using System.Collections.Generic;
 using System.Web;
@@ -30,10 +31,14 @@ namespace easygenerator.Web.Synchronization.Broadcasting
             return HubContext.Clients.User(username);
         }
 
-        public dynamic Users(List<string> users)
+        public dynamic Users(IEnumerable<string> users)
         {
             return new UsersProxy(HubContext, users);
         }
 
+        public dynamic Users(IEnumerable<dynamic> proxies)
+        {
+            return new MultipleClientsProxy(proxies);
+        }
     }
 }

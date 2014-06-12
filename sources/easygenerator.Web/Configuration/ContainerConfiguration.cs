@@ -27,6 +27,7 @@ using easygenerator.Web.Publish;
 using easygenerator.Web.Publish.Aim4You;
 using easygenerator.Web.Storage;
 using easygenerator.Web.Synchronization.Broadcasting;
+using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 using easygenerator.Web.WooCommerce;
 using System;
 using System.Collections.Generic;
@@ -75,8 +76,8 @@ namespace easygenerator.Web.Configuration
             #region Broadcasting
 
             builder.RegisterType<Broadcaster>().As<IBroadcaster>();
-            builder.RegisterType<CourseCollaborationBroadcaster>().As<ICourseCollaborationBroadcaster>();
-            builder.RegisterType<ObjectiveCollaborationBroadcaster>().As<IObjectiveCollaborationBroadcaster>();
+            builder.RegisterType<CourseCollaborationBroadcaster>().As<ICollaborationBroadcaster<Course>>();
+            builder.RegisterType<ObjectiveCollaborationBroadcaster>().As<ICollaborationBroadcaster<Objective>>();
 
             #endregion
 

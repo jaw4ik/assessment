@@ -1,25 +1,27 @@
-﻿using easygenerator.DomainModel.Events;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
-using easygenerator.Web.Synchronization.Broadcasting;
+using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 using System.Linq;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {
-    public class CourseEventHandler :
-        IDomainEventHandler<CourseCollaboratorAddedEvent>,
+    public class CourseEventHandler : IDomainEventHandler<CourseCollaboratorAddedEvent>,
         IDomainEventHandler<CourseTitleUpdatedEvent>,
         IDomainEventHandler<CourseIntroducationContentUpdated>,
         IDomainEventHandler<CourseTemplateUpdatedEvent>,
         IDomainEventHandler<CourseObjectivesReorderedEvent>,
         IDomainEventHandler<CoursePublishedEvent>,
-        IDomainEventHandler<CourseDeletedEvent>
+        IDomainEventHandler<CourseDeletedEvent>,
+        IDomainEventHandler<CourseObjectiveRelatedEvent>,
+        IDomainEventHandler<CourseObjectivesUnrelatedEvent>
     {
-        private readonly ICourseCollaborationBroadcaster _broadcaster;
+        private readonly ICollaborationBroadcaster<Course> _broadcaster;
         private readonly IEntityMapper _entityMapper;
 
-        public CourseEventHandler(ICourseCollaborationBroadcaster broadcaster, IEntityMapper entityMapper)
+        public CourseEventHandler(ICollaborationBroadcaster<Course> broadcaster, IEntityMapper entityMapper)
         {
             _broadcaster = broadcaster;
             _entityMapper = entityMapper;
@@ -77,6 +79,18 @@ namespace easygenerator.Web.Synchronization.Handlers
             users.Remove(args.DeletedBy);
 
             _broadcaster.Users(users).courseDeleted(args.Course.Id.ToNString());
+        }
+
+        public void Handle(CourseObjectiveRelatedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Course)
+               .courseObjectiveRelated(args.Course.Id.ToNString(), _entityMapper.Map(args.Objective), args.Index.HasValue ? args.Index : null, args.Course.ModifiedOn);
+        }
+
+        public void Handle(CourseObjectivesUnrelatedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Course)
+             .courseObjectivesUnrelated(args.Course.Id.ToNString(), args.Objectives.Select(e => e.Id.ToNString()), args.Course.ModifiedOn);
         }
     }
 }

@@ -58,7 +58,9 @@
     <Compile Include="Events\CourseEvents\CourseEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseCollaboratorAddedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseIntroducationContentUpdated.cs" />
+    <Compile Include="Events\CourseEvents\CourseObjectiveRelatedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseObjectivesReorderedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseObjectivesUnrelatedEvent.cs" />
     <Compile Include="Events\CourseEvents\CoursePublishedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseTemplateUpdatedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseTitleUpdatedEvent.cs" />

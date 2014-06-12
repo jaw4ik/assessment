@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.Web.Extensions;
-using easygenerator.Web.Synchronization.Broadcasting;
+using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
+using System.Linq;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {
@@ -14,9 +11,9 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<ObjectiveTitleUpdatedEvent>,
         IDomainEventHandler<ObjectiveQuestionsReorderedEvent>
     {
-        private readonly IObjectiveCollaborationBroadcaster _broadcaster;
+        private readonly ICollaborationBroadcaster<Objective> _broadcaster;
 
-        public ObjectiveEventHandler(IObjectiveCollaborationBroadcaster broadcaster)
+        public ObjectiveEventHandler(ICollaborationBroadcaster<Objective> broadcaster)
         {
             _broadcaster = broadcaster;
         }

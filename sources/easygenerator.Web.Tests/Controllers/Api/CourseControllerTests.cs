@@ -475,7 +475,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var relatedObjective = ObjectiveObjectMother.Create();
 
             //Act
-            var result = _controller.RelateObjectives(course, relatedObjective, null);
+            var result = _controller.RelateObjective(course, relatedObjective, null);
 
             //Assert
             ActionResultAssert.IsJsonSuccessResult(result);
@@ -491,10 +491,26 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var objective = ObjectiveObjectMother.Create();
 
             //Act
-            _controller.RelateObjectives(course, objective, null);
+            _controller.RelateObjective(course, objective, null);
 
             //Assert
             course.Received().RelateObjective(objective, null, user);
+        }
+
+        [TestMethod]
+        public void RelateObjectives_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var course = Substitute.For<Course>("title", TemplateObjectMother.Create(), CreatedBy);
+            var objective = ObjectiveObjectMother.Create();
+
+            //Act
+            _controller.RelateObjective(course, objective, null);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<CourseObjectiveRelatedEvent>());
         }
 
         [TestMethod]
@@ -504,7 +520,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var objective = ObjectiveObjectMother.Create();
 
             //Act
-            var result = _controller.RelateObjectives(null, objective, null);
+            var result = _controller.RelateObjective(null, objective, null);
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Course is not found");
@@ -519,7 +535,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var objective = ObjectiveObjectMother.Create();
 
             //Act
-            var result = _controller.RelateObjectives(course, null, null);
+            var result = _controller.RelateObjective(course, null, null);
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
@@ -559,6 +575,22 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             course.Received().UnrelateObjective(objective, user);
+        }
+
+        [TestMethod]
+        public void UnrelateObjectives_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var objective = ObjectiveObjectMother.Create();
+            var course = Substitute.For<Course>("title", TemplateObjectMother.Create(), CreatedBy);
+
+            //Act
+            _controller.UnrelateObjectives(course, new List<Objective>() { objective });
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<CourseObjectivesUnrelatedEvent>());
         }
 
         [TestMethod]

@@ -20,6 +20,8 @@
                     courseObjectivesReordered: courseEventHandler.objectivesReordered,
                     coursePublished: courseEventHandler.published,
                     courseDeleted: courseEventHandler.deleted,
+                    courseObjectiveRelated: courseEventHandler.objectiveRelated,
+                    courseObjectivesUnrelated: courseEventHandler.objectivesUnrelated,
 
                     objectiveTitleUpdated: objectiveEventHandler.objectiveTitleUpdated,
                     objectiveQuestionsReordered: objectiveEventHandler.questionsReordered
