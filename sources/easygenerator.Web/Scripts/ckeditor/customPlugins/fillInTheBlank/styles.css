@@ -11,8 +11,11 @@
 
 .blankContent .blankField {
     display: inline-block;
+    position: relative;
     min-height: 28px;
     height: 28px;
+    min-width: 100px;
+    max-width: 250px;
     position: relative;
     padding: 4px 28px 3px 8px;
     margin: 5px 2px;
@@ -28,6 +31,7 @@
     border-radius: 3px;
     line-height: 16px;
     vertical-align: middle;
+  
 }
 
 .blankContent .blankField:hover {
@@ -37,29 +41,19 @@
     cursor: text;
 }
 
-.blankContent .blankField.focused {
+.blankContent .cke_widget_selected .blankField {
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     zoom: 1;
     background: #ffffff;
     border-color: #5bc0de;
 }
 
-.ie9 .blankContent .blankWrapper {
+.blankContent .blankValue {
     display: inline-block;
     overflow: hidden;
-    max-width: 250px;
-}
-
-.ie9 .blankContent .blankWrapper .blankValue {
-    display: table-cell;
-}
-
-.blankContent .blankWrapper .blankValue {
-    display: inline-block;
     min-height: 18px;
-    min-width: 100px;
     max-width: 250px;
-    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
     word-break: keep-all;
 }

@@ -31,12 +31,11 @@
         };
 
         if (fillInTheBlank) {
-            inPageSettings.removePlugins = 'magicline';
             inPageSettings.extraAllowedContent = 'span[*]; input[*]';
         } else {
             inPageSettings.removePlugins = 'fillInTheBlank';
         }
-
+        
         $(element).html(data());
 
         $(element).attr('contenteditable', true);

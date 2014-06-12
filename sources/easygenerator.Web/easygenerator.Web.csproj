@@ -461,6 +461,7 @@
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <Content Include="Scripts\ckeditor\customPlugins\fillInTheBlank\dialogs\fillInTheBlank.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillInTheBlank\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillInTheBlank\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillInTheBlank\styles.css" />

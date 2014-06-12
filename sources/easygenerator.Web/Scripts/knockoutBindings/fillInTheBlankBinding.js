@@ -12,8 +12,8 @@
             var editor = CKEDITOR.instances[editorName];
             if (!editor.focusManager.hasFocus) {
                 var range = editor.createRange();
-                range.moveToPosition(range.root, CKEDITOR.POSITION_BEFORE_END);
-                range.collapse(false);
+                range.moveToElementEditablePosition(editor.editable(), true);
+
                 editor.getSelection().selectRanges([range]);
             }
             editor.execCommand(CKEDITOR.plugins.fillInTheBlank.commands.addBlank);

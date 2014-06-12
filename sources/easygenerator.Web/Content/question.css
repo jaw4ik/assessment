@@ -727,14 +727,10 @@
     margin-top: 6px;
 }
 
-    .fib-wrapper:hover {
-        border: 1px solid #d8dde5;
-        cursor: text;
-    }
-
-    .fib-wrapper .cke_widget_wrapper {
-        padding: 0 4px;
-    }
+.fib-wrapper:hover {
+    border: 1px solid #d8dde5;
+    cursor: text;
+}
 
 .fib-add-button-text-wrapper {
     color: #999;
