@@ -190,6 +190,43 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region UpdateCorrectness
+
+        [TestMethod]
+        public void UpdateCorrectness_ShouldReturnJsonErrorResult_WhenAnswerIsNull()
+        {
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var result = _controller.UpdateCorrectness(null, false);
+
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.AnswerNotFoundError);
+        }
+
+        [TestMethod]
+        public void UpdateCorrectness_ShouldUpdateAnswerCorrectness()
+        {
+            const bool isCorrect = true;
+            const string user = "username@easygenerator.com";
+            _user.Identity.Name.Returns(user);
+            var answer = Substitute.For<Answer>();
+
+            _controller.UpdateCorrectness(answer, isCorrect);
+
+            answer.Received().UpdateCorrectness(isCorrect, user);
+        }
+
+        [TestMethod]
+        public void UpdateCorrectness_ShouldReturnJsonSuccessResult()
+        {
+            var answer = Substitute.For<Answer>();
+
+            var result = _controller.UpdateCorrectness(answer, false);
+
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = answer.ModifiedOn });
+        }
+
+        #endregion 
+
         #region Get collection
 
         [TestMethod]

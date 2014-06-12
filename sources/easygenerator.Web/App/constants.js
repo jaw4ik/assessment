@@ -20,6 +20,10 @@
                 dragAndDrop: {
                     type: 2,
                     image: '/Content/images/draganddroptext-question.png'
+                },
+                multipleChoice: {
+                    type: 3,
+                    image: '/Content/images/multichoice-question.png'
                 }
             },
 

@@ -75,6 +75,21 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityPermissions(typeof(Answer))]
+        [Route("api/answer/updatecorrectness")]
+        public ActionResult UpdateCorrectness(Answer answer, bool isCorrect)
+        {
+            if (answer == null)
+            {
+                return HttpNotFound(Errors.AnswerNotFoundError);
+            }
+
+            answer.UpdateCorrectness(isCorrect, GetCurrentUsername());
+
+            return JsonSuccess(new { ModifiedOn = answer.ModifiedOn });
+        }
+
+        [HttpPost]
         [EntityPermissions(typeof(Question))]
         [Route("api/answers")]
         public ActionResult GetCollection(Question question)

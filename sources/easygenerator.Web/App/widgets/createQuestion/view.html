@@ -5,8 +5,12 @@
     </div>
     <div class="question-type-action-wrapper" data-bind="visible: visible, outsideClick: { action: hide }">
         <ul class="question-type-action-list unstyled">
-            <li class="question-type-action-item" data-bind="click: createMultipleSelectQuestion">
+            <li class="question-type-action-item" data-bind="click: createMultipleChoiceQuestion">
                 <div class="question-type-image multiple-choice"></div>
+                <span class="question-type-text" data-bind="localize: { text: 'multipleChoice' }">Multiple choice</span>
+            </li>
+            <li class="question-type-action-item" data-bind="click: createMultipleSelectQuestion">
+                <div class="question-type-image multiple-select"></div>
                 <span class="question-type-text" data-bind="localize: { text: 'multipleSelect' }">Multiple select</span>
             </li>
             <li class="question-type-action-item" data-bind="click: createDragAndDropQuestion">

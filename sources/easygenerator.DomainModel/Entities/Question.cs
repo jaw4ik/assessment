@@ -138,6 +138,6 @@ namespace easygenerator.DomainModel.Entities
 
     public enum QuestionType
     {
-        MultipleSelect, FillInTheBlanks, DragAndDrop
+        MultipleSelect, FillInTheBlanks, DragAndDrop, MultipleChoice
     }
 }

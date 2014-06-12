@@ -418,6 +418,10 @@
     <Content Include="App\viewmodels\objectives\createObjective.spec.js">
       <DependentUpon>createObjective.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\answers.js" />
+    <Content Include="App\viewmodels\questions\answers.spec.js">
+      <DependentUpon>answers.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\questions\dragAndDrop\bindingHandlers\backgroundBindingHandler.js" />
     <Content Include="App\viewmodels\questions\dragAndDrop\commands\addDropspot.js" />
     <Content Include="App\viewmodels\questions\dragAndDrop\commands\addDropspot.spec.js">
@@ -461,10 +465,22 @@
     <Content Include="App\viewmodels\questions\fillInTheBlank\fillInTheBlank.spec.js">
       <DependentUpon>fillInTheBlank.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\multipleSelect\answers.js" />
-    <Content Include="App\viewmodels\questions\multipleSelect\answers.spec.js" />
+    <Content Include="App\viewmodels\questions\multipleChoice\multipleChoice.js" />
+    <Content Include="App\viewmodels\questions\multipleChoice\multipleChoice.spec.js">
+      <DependentUpon>multipleChoice.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\multipleChoice\multipleChoiceAnswers.js" />
+    <Content Include="App\viewmodels\questions\multipleChoice\multipleChoiceAnswers.spec.js">
+      <DependentUpon>multipleChoiceAnswers.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\questions\multipleSelect\multipleSelect.js" />
-    <Content Include="App\viewmodels\questions\multipleSelect\multipleSelect.spec.js" />
+    <Content Include="App\viewmodels\questions\multipleSelect\multipleSelect.spec.js">
+      <DependentUpon>multipleSelect.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\multipleSelect\multipleSelectAnswers.js" />
+    <Content Include="App\viewmodels\questions\multipleSelect\multipleSelectAnswers.spec.js">
+      <DependentUpon>multipleSelectAnswers.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\questions\questionTitle.js" />
     <Content Include="App\viewmodels\questions\questionTitle.spec.js">
       <DependentUpon>questionTitle.js</DependentUpon>
@@ -474,6 +490,7 @@
     <Content Include="App\views\questions\dragAndDrop\dragAndDrop.html" />
     <Content Include="App\views\questions\dragAndDrop\learningContent.html" />
     <Content Include="App\views\questions\fillInTheBlank\fillInTheBlank.html" />
+    <Content Include="App\views\questions\multipleChoice\multipleChoice.html" />
     <Content Include="App\views\questions\multipleSelect\multipleSelect.html" />
     <Content Include="App\widgets\createQuestion\view.html" />
     <Content Include="App\widgets\createQuestion\viewmodel.js" />
@@ -504,6 +521,7 @@
     <Content Include="Content\font\rabiohead.woff" />
     <Content Include="Content\images\draganddroptext-question.png" />
     <Content Include="Content\images\fillintheblank-question.png" />
+    <Content Include="Content\images\multichoice-question.png" />
     <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\ForgotPasswordTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\HttpRequestFailedTemplate.cshtml" />

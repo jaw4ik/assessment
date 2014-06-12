@@ -7,7 +7,8 @@
 
             addAnswer: addAnswer,
             removeAnswer: removeAnswer,
-            updateAnswer: updateAnswer
+            updateAnswer: updateAnswer,
+            updateCorrectness: updateCorrectness
         };
 
         return repository;
@@ -99,6 +100,31 @@
                 };
 
                 return httpWrapper.post('api/answer/update', data).then(function (response) {
+                    guard.throwIfNotAnObject(response, 'Response is not an object');
+                    guard.throwIfNotString(response.ModifiedOn, 'Answer modification date is not a string');
+
+                    var modifiedOn = new Date(response.ModifiedOn);
+                    updateQuestionModifiedOnDate(questionId, modifiedOn);
+
+                    return {
+                        modifiedOn: modifiedOn
+                    };
+                });
+            });
+        }
+
+        function updateCorrectness(questionId, answerId, isCorrect) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(questionId, 'Question id is not a string');
+                guard.throwIfNotString(answerId, 'Answer id is not a string');
+                guard.throwIfNotBoolean(isCorrect, 'Answer correctness is not a boolean');
+
+                var data = {
+                    answerId: answerId,
+                    isCorrect: isCorrect
+                };
+
+                return httpWrapper.post('api/answer/updatecorrectness', data).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Answer modification date is not a string');
 

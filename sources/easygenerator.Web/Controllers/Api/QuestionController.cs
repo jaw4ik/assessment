@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel;
+﻿using System;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.ObjectiveEvents;
@@ -53,6 +54,14 @@ namespace easygenerator.Web.Controllers.Api
             return Create(objective, title, QuestionType.DragAndDrop);
         }
 
+        [HttpPost]
+        [EntityPermissions(typeof(Objective))]
+        [Route("api/question/create/type/3")]
+        public ActionResult CreateMultipleChoice(Objective objective, string title)
+        {
+            return Create(objective, title, QuestionType.MultipleChoice);
+        }
+
         private ActionResult Create(Objective objective, string title, QuestionType type)
         {
             if (objective == null)
@@ -62,10 +71,23 @@ namespace easygenerator.Web.Controllers.Api
 
             var question = _entityFactory.Question(title, type, GetCurrentUsername());
 
+            if (type == QuestionType.MultipleSelect || type == QuestionType.MultipleChoice)
+            {
+                CreateFirstAnswers(question);
+            }
+
             objective.AddQuestion(question, GetCurrentUsername());
             _eventPublisher.Publish(new QuestionCreatedEvent(question));
 
             return JsonSuccess(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
+        }
+
+        private void CreateFirstAnswers(Question question)
+        {
+            var correctAnswer = _entityFactory.Answer(Constants.DefaultAnswerOptionText, true, Guid.Empty, GetCurrentUsername());
+            var incorrectAnswer = _entityFactory.Answer(Constants.DefaultAnswerOptionText, false, Guid.Empty, GetCurrentUsername());
+            question.AddAnswer(correctAnswer, GetCurrentUsername());
+            question.AddAnswer(incorrectAnswer, GetCurrentUsername());
         }
 
         [HttpPost]

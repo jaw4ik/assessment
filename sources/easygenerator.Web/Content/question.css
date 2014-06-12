@@ -545,13 +545,18 @@
         background: url('images/sprites_64.png') -275px 0 no-repeat;
     }
 
-    .question-type-image.multiple-choice {
+    .question-type-image.multiple-select {
         width: 48px;
         background: url('images/sprites_64.png') -215px 0 no-repeat;
     }
 
     .question-type-image.drag-and-drop {
         background: url('images/sprites_64.png') -137px -66px no-repeat;
+    }
+
+    .question-type-image.multiple-choice {
+        width: 48px;
+        background: url('images/sprites_64.png') -77px -68px no-repeat;
     }
 
 .question-type-text {

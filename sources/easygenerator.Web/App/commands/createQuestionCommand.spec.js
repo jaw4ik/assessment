@@ -104,6 +104,16 @@
 
             });
 
+            describe('when question type is multipleChoice', function () {
+
+                it('should add question to repository', function () {
+                    spyOn(localizationManager, 'localize').and.returnValue('title');
+                    command.execute('objectiveId', 'title', constants.questionType.multipleChoice.type);
+                    expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.multipleChoice.type);
+                });
+
+            });
+
             describe('when question added', function () {
 
                 beforeEach(function () {

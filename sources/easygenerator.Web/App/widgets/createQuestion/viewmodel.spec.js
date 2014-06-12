@@ -191,6 +191,35 @@
             });
 
         });
+
+        describe('createMultipleChoiceQuestion:', function () {
+
+            it('should hide block', function () {
+                viewModel.visible(true);
+                viewModel.createMultipleChoiceQuestion();
+                expect(viewModel.visible()).toBeFalsy();
+            });
+
+            it('should execute createQuestionCommand', function () {
+                viewModel.createMultipleChoiceQuestion();
+                expect(createQuestionCommand.execute.calls.mostRecent().args[0]).toEqual('objectiveId');
+            });
+
+            describe('when courseId is defined in query params', function () {
+
+                beforeEach(function () {
+                    var instruction = { queryParams: { courseId: 'courseId' } };
+                    spyOn(router, "activeInstruction").and.returnValue(instruction);
+                });
+
+                it('should call command with courseId', function () {
+                    viewModel.createMultipleChoiceQuestion();
+                    expect(createQuestionCommand.execute).toHaveBeenCalledWith('objectiveId', 'courseId', constants.questionType.multipleChoice.type);
+                });
+
+            });
+
+        });
     });
 
 });

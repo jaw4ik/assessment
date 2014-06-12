@@ -7,6 +7,7 @@ using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Import.PublishedCourse.EntityReaders;
 using easygenerator.Web.Tests.Utils;
 using easygenerator.Web.ViewModels.Api;
 using FluentAssertions;
@@ -57,6 +58,27 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
             result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+        }
+
+        [TestMethod]
+        public void CreateMultipleSelect_ShouldAddTwoAnswerOptionsToQuestion()
+        {
+            const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", QuestionType.MultipleSelect, CreatedBy);
+            var correctAnswer = Substitute.For<Answer>("Your answer option here", true, Guid.Empty, user);
+            var incorrectAnswer = Substitute.For<Answer>("Your answer option here", false, Guid.Empty, user);
+
+            _entityFactory.Question(title, QuestionType.MultipleSelect, user).Returns(question);
+            _entityFactory.Answer("Your answer option here", true, Guid.Empty, user).Returns(correctAnswer);
+            _entityFactory.Answer("Your answer option here", false, Guid.Empty, user).Returns(incorrectAnswer);
+
+            _controller.CreateMultipleSelect(objective, title);
+
+            question.Received().AddAnswer(correctAnswer, user);
+            question.Received().AddAnswer(incorrectAnswer, user);
         }
 
         [TestMethod]
@@ -224,6 +246,73 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory.Question(title, QuestionType.DragAndDrop, user).Returns(question);
 
             var result = _controller.CreateDragAndDrop(Substitute.For<Objective>("Objective title", CreatedBy), title);
+
+            result.Should()
+                .BeJsonSuccessResult()
+                .And.Data.ShouldBeSimilar(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
+        }
+
+        #endregion
+
+        #region CreateMultipleChoice question
+
+        [TestMethod]
+        public void CreateMultipleChoice_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
+        {
+            var result = _controller.CreateMultipleChoice(null, null);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+        }
+
+        [TestMethod]
+        public void CreateMultipleChoice_ShouldAddTwoAnswerOptionsToQuestion()
+        {
+            const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", QuestionType.MultipleChoice, CreatedBy);
+            var correctAnswer = Substitute.For<Answer>("Your answer option here", true, Guid.Empty, user);
+            var incorrectAnswer = Substitute.For<Answer>("Your answer option here", false, Guid.Empty, user);
+
+            _entityFactory.Question(title, QuestionType.MultipleChoice, user).Returns(question);
+            _entityFactory.Answer("Your answer option here", true, Guid.Empty, user).Returns(correctAnswer);
+            _entityFactory.Answer("Your answer option here", false, Guid.Empty, user).Returns(incorrectAnswer);
+
+            _controller.CreateMultipleChoice(objective, title);
+
+            question.Received().AddAnswer(correctAnswer, user);
+            question.Received().AddAnswer(incorrectAnswer, user);
+        }
+
+        [TestMethod]
+        public void CreateMultipleChoice_ShouldAddQuestionToObjective()
+        {
+            const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", QuestionType.MultipleChoice, CreatedBy);
+
+            _entityFactory.Question(title, QuestionType.MultipleChoice, user).Returns(question);
+
+            _controller.CreateMultipleChoice(objective, title);
+
+            objective.Received().AddQuestion(question, user);
+        }
+
+        [TestMethod]
+        public void CreateMultipleChoice_ShouldReturnJsonSuccessResult()
+        {
+            const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var question = Substitute.For<Question>("Question title", QuestionType.MultipleChoice, CreatedBy);
+
+            _entityFactory.Question(title, QuestionType.MultipleChoice, user).Returns(question);
+
+            var result = _controller.CreateMultipleChoice(Substitute.For<Objective>("Objective title", CreatedBy), title);
 
             result.Should()
                 .BeJsonSuccessResult()

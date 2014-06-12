@@ -1,6 +1,7 @@
 ﻿define(['eventTracker', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'ping', 'models/backButton', 'plugins/router',
-        'viewmodels/questions/multipleSelect/multipleSelect', 'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop'],
-    function (eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, multipleSelect, fillInTheBlank, dragAndDrop) {
+        'viewmodels/questions/multipleSelect/multipleSelect', 'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop',
+        'viewmodels/questions/multipleChoice/multipleChoice'],
+    function (eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, multipleSelect, fillInTheBlank, dragAndDrop, multipleChoice) {
         "use strict";
         var
             events = {
@@ -57,6 +58,8 @@
                     return fillInTheBlank;
                 case constants.questionType.dragAndDrop.type:
                     return dragAndDrop;
+                case constants.questionType.multipleChoice.type:
+                    return multipleChoice;
             }
         }
     }

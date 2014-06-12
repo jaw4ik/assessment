@@ -1,5 +1,5 @@
 ﻿define(['eventTracker', 'notify', 'viewmodels/questions/questionTitle', 'viewmodels/common/contentField', 'repositories/questionRepository', 'clientContext',
-        'repositories/answerRepository', 'repositories/learningContentRepository', 'models/backButton', 'viewmodels/questions/multipleSelect/answers', 'viewmodels/questions/learningContents',
+        'repositories/answerRepository', 'repositories/learningContentRepository', 'models/backButton', 'viewmodels/questions/multipleSelect/multipleSelectAnswers', 'viewmodels/questions/learningContents',
         'plugins/router', 'localization/localizationManager', 'constants'],
     function (eventTracker, notify, questionTitle, vmContentField, questionRepository, clientContext, answerRepository, learningContentRepository, BackButton, vmAnswers,
         vmLearningContents, router, localizationManager, constants) {

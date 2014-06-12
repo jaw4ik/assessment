@@ -13,7 +13,8 @@
         hide: hide,
         createMultipleSelectQuestion: createMultipleSelectQuestion,
         createFillInTheBlankQuestion: createFillInTheBlankQuestion,
-        createDragAndDropQuestion: createDragAndDropQuestion
+        createDragAndDropQuestion: createDragAndDropQuestion,
+        createMultipleChoiceQuestion: createMultipleChoiceQuestion
     };
 
     return viewModel;
@@ -36,21 +37,25 @@
     }
 
     function createMultipleSelectQuestion() {
-        var courseId = getCourseId();
-        viewModel.visible(false);
-        return createQuestionCommand.execute(viewModel.objectiveId, courseId, constants.questionType.multipleSelect.type);
+        create(constants.questionType.multipleSelect.type);
     }
 
     function createFillInTheBlankQuestion() {
-        var courseId = getCourseId();
-        viewModel.visible(false);
-        return createQuestionCommand.execute(viewModel.objectiveId, courseId, constants.questionType.fillInTheBlank.type);
+        create(constants.questionType.fillInTheBlank.type);
     }
 
     function createDragAndDropQuestion() {
+        create(constants.questionType.dragAndDrop.type);
+    }
+
+    function createMultipleChoiceQuestion() {
+        create(constants.questionType.multipleChoice.type);
+    }
+
+    function create(type) {
         var courseId = getCourseId();
         viewModel.visible(false);
-        return createQuestionCommand.execute(viewModel.objectiveId, courseId, constants.questionType.dragAndDrop.type);
+        return createQuestionCommand.execute(viewModel.objectiveId, courseId, type);
     }
 
     function getCourseId() {
