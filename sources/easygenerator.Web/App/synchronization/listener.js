@@ -25,7 +25,8 @@
 
                     objectiveTitleUpdated: objectiveEventHandler.objectiveTitleUpdated,
                     objectiveQuestionsReordered: objectiveEventHandler.questionsReordered,
-                    questionCreated: objectiveEventHandler.questionCreated
+                    questionCreated: objectiveEventHandler.questionCreated,
+                    questionsDeleted: objectiveEventHandler.questionsDeleted
                 };
 
                 $.connection.hub.start()

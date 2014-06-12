@@ -1,6 +1,7 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
@@ -87,6 +88,7 @@ namespace easygenerator.Web.Controllers.Api
                 objective.RemoveQuestion(question, GetCurrentUsername());
             }
 
+            _eventPublisher.Publish(new QuestionsDeletedEvent(objective, questions));
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
 

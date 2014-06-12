@@ -5,10 +5,11 @@
         return {
             objectiveTitleUpdated: objectiiveTitleUpdated,
             questionsReordered: questionsReordered,
-            questionCreated: questionCreated
+            questionCreated: questionCreated,
+            questionsDeleted: questionsDeleted
         };
 
-        function getObjective(objectiveId, modifiedOn) {
+        function getObjective(objectiveId) {
             var objective = _.find(dataContext.objectives, function (item) {
                 return item.id == objectiveId;
             });
@@ -25,7 +26,7 @@
             guard.throwIfNotString(objectiveId, 'ObjectiveId is not a string');
             guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
 
-            var objective = getObjective(objectiveId, modifiedOn);
+            var objective = getObjective(objectiveId);
             
             objective.title = title;
             objective.modifiedOn = new Date(modifiedOn);
@@ -38,7 +39,7 @@
             guard.throwIfNotString(objectiveId, 'ObjectiveId is not a string');
             guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
 
-            var objective = getObjective(objectiveId, modifiedOn);
+            var objective = getObjective(objectiveId);
 
             objective.questions = _.map(questionIds, function (id) {
                 return _.find(objective.questions, function (question) {
@@ -55,12 +56,27 @@
             guard.throwIfNotAnObject(question, 'Question is not an object');
             guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
 
-            var objective = getObjective(objectiveId, modifiedOn);
+            var objective = getObjective(objectiveId);
 
             var mappedQuestion = questionModelMapper.map(question);
             objective.questions.push(mappedQuestion);
             objective.modifiedOn = new Date(modifiedOn);
 
             app.trigger(constants.messages.question.createdByCollaborator, objectiveId, mappedQuestion);
+        }
+
+        function questionsDeleted(objectiveId, questionIds, modifiedOn) {
+            guard.throwIfNotArray(questionIds, 'QuestionIds is not an array');
+            guard.throwIfNotString(objectiveId, 'ObjectiveId is not a string');
+            guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
+
+            var objective = getObjective(objectiveId);
+            objective.questions = _.reject(objective.questions, function (item) {
+                return _.indexOf(questionIds, item.id) != -1;
+            });
+
+            objective.modifiedOn = new Date(modifiedOn);
+
+            app.trigger(constants.messages.question.deletedByCollaborator, objectiveId, questionIds);
         }
     });

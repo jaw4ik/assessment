@@ -53,6 +53,7 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
     app.on(constants.messages.question.created, self.handler.questionCreated);
     app.on(constants.messages.question.createdByCollaborator, self.handler.questionCreated);
     app.on(constants.messages.question.deleted, self.handler.questionsDeleted);
+    app.on(constants.messages.question.deletedByCollaborator, self.handler.questionsDeleted);
     app.on(constants.messages.question.titleUpdated, self.handler.questionTitleUpdated);
 
     app.on(constants.messages.objective.titleUpdated, self.handler.objectiveTitleUpdated);

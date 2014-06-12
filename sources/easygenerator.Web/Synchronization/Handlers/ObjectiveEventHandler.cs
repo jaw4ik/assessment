@@ -10,7 +10,8 @@ namespace easygenerator.Web.Synchronization.Handlers
 {
     public class ObjectiveEventHandler :
         IDomainEventHandler<ObjectiveTitleUpdatedEvent>,
-        IDomainEventHandler<ObjectiveQuestionsReorderedEvent>
+        IDomainEventHandler<QuestionsReorderedEvent>,
+        IDomainEventHandler<QuestionsDeletedEvent>
     {
         private readonly ICollaborationBroadcaster<Objective> _broadcaster;
 
@@ -24,10 +25,16 @@ namespace easygenerator.Web.Synchronization.Handlers
             _broadcaster.OtherCollaborators(args.Objective).objectiveTitleUpdated(args.Objective.Id.ToNString(), args.Objective.Title, args.Objective.ModifiedOn);
         }
 
-        public void Handle(ObjectiveQuestionsReorderedEvent args)
+        public void Handle(QuestionsReorderedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Objective)
                     .objectiveQuestionsReordered(args.Objective.Id.ToNString(), args.Objective.Questions.Select(e => e.Id.ToNString()), args.Objective.ModifiedOn);
+        }
+
+        public void Handle(QuestionsDeletedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Objective)
+                    .questionsDeleted(args.Objective.Id.ToNString(), args.Questions.Select(e => e.Id.ToNString()), args.Objective.ModifiedOn);
         }
     }
 }

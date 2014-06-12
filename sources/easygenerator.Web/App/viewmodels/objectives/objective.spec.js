@@ -1064,7 +1064,7 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Change order of questions');
                 });
 
-                it('should set isReorderingQuestions to false', function() {
+                it('should set isReorderingQuestions to false', function () {
                     spyOn(repository, 'updateQuestionsOrder').and.returnValue(Q.defer().promise);
                     viewModel.isReorderingQuestions(true);
 
@@ -1176,20 +1176,20 @@
                 });
             });
 
-            describe('isReorderingQuestions:', function() {
+            describe('isReorderingQuestions:', function () {
 
                 it('should be observable', function () {
                     expect(viewModel.isReorderingQuestions).toBeObservable();
                 });
             });
 
-            describe('startReorderingQuestions:', function() {
+            describe('startReorderingQuestions:', function () {
 
                 it('should be function', function () {
                     expect(viewModel.startReorderingQuestions).toBeFunction();
                 });
 
-                it('should set isReorderingQuestion', function() {
+                it('should set isReorderingQuestion', function () {
                     viewModel.isReorderingQuestions(false);
                     viewModel.startReorderingQuestions();
 
@@ -1197,8 +1197,8 @@
                 });
             });
 
-            describe('questionsReordered:', function() {
-                beforeEach(function() {
+            describe('questionsReordered:', function () {
+                beforeEach(function () {
                     var questions = [
                                 { id: 3, title: 'A', isSelected: ko.observable(false) },
                                 { id: 1, title: 'b', isSelected: ko.observable(false) },
@@ -1211,11 +1211,11 @@
                 it('should be function', function () {
                     expect(viewModel.questionsReordered).toBeFunction();
                 });
-                
-                describe('when objective id is correct', function() {
+
+                describe('when objective id corresponds current objective', function () {
 
                     beforeEach(function () {
-                        viewModel.objectiveId = '1';
+                        viewModel.objectiveId = objective.id;
                     });
 
                     describe('and isReorderingQuestions is false', function () {
@@ -1224,7 +1224,7 @@
                             viewModel.isReorderingQuestions(false);
                         });
 
-                        it('should update order of questions', function() {
+                        it('should update order of questions', function () {
                             viewModel.questionsReordered(objective);
 
                             expect(viewModel.questions()[0].id).toBe(0);
@@ -1246,7 +1246,7 @@
                     });
                 });
 
-                describe('when objective id is not correct', function() {
+                describe('when objective id doesn\'t correspond current objective', function () {
 
                     beforeEach(function () {
                         viewModel.objectiveId = 'someId';
@@ -1262,19 +1262,19 @@
             });
 
             describe('questionCreatedByCollaborator:', function () {
-                
+
                 var question = { id: 'questionId' };
 
                 it('should be function', function () {
                     expect(viewModel.questionCreatedByCollaborator).toBeFunction();
                 });
 
-                describe('when objective id is correct', function() {
-                    beforeEach(function() {
+                describe('when objective id corresponds current objective', function () {
+                    beforeEach(function () {
                         viewModel.objectiveId = objective.id;
                     });
 
-                    it('should add new question to questions list', function() {
+                    it('should add new question to questions list', function () {
                         viewModel.questions([]);
                         viewModel.questionCreatedByCollaborator(objective.id, question);
 
@@ -1283,7 +1283,7 @@
                     });
                 });
 
-                describe('when objective id is not correct', function() {
+                describe('when objective id doesn\'t correspond current objective', function () {
                     beforeEach(function () {
                         viewModel.objectiveId = 'someId';
                     });
@@ -1293,6 +1293,47 @@
                         viewModel.questionCreatedByCollaborator(objective.id, question);
 
                         expect(viewModel.questions().length).toBe(0);
+                    });
+                });
+            });
+
+            describe('questionDeletedByCollaborator:', function () {
+                beforeEach(function () {
+                    var questions = [
+                        { id: '0', title: 'A', isSelected: ko.observable(false) },
+                        { id: '1', title: 'b', isSelected: ko.observable(false) },
+                        { id: '2', title: 'B', isSelected: ko.observable(false) },
+                        { id: '3', title: 'a', isSelected: ko.observable(false) }];
+                    viewModel.questions(questions);
+                });
+
+                it('should be function', function () {
+                    expect(viewModel.questionDeletedByCollaborator).toBeFunction();
+                });
+
+                describe('when objective id corresponds current objective', function () {
+                    beforeEach(function () {
+                        viewModel.objectiveId = objective.id;
+                    });
+
+                    it('should remove questions from objective', function () {
+                        viewModel.questionDeletedByCollaborator(objective.id, ['2', '3']);
+
+                        expect(viewModel.questions().length).toBe(2);
+                        expect(viewModel.questions()[0].id).toBe('0');
+                        expect(viewModel.questions()[1].id).toBe('1');
+                    });
+                });
+
+                describe('when objective id doesn\'t correspond current objective', function () {
+                    beforeEach(function () {
+                        viewModel.objectiveId = 'someId';
+                    });
+
+                    it('should not remove questions from objective', function() {
+                        viewModel.questionDeletedByCollaborator(objective.id, ['2', '3']);
+
+                        expect(viewModel.questions().length).toBe(4);
                     });
                 });
             });

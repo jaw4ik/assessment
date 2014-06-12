@@ -1,6 +1,7 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -266,6 +267,18 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             objective.Received().RemoveQuestion(question1, user);
             objective.Received().RemoveQuestion(question2, user);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldPublishDomainEvent()
+        {
+            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var question1 = Substitute.For<Question>("Question title 1", Type, CreatedBy);
+            var question2 = Substitute.For<Question>("Question title 2", Type, CreatedBy);
+
+            _controller.Delete(objective, new List<Question>() { question1, question2 });
+
+            _eventPublisher.Received().Publish(Arg.Any<QuestionsDeletedEvent>());
         }
 
         [TestMethod]

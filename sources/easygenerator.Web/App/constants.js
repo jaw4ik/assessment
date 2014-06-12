@@ -111,6 +111,7 @@
                     created: 'question:created',
                     createdByCollaborator: 'question:createdByCollaborator',
                     deleted: 'questions:deleted',
+                    deletedByCollaborator: 'question:deletedByCollaborator',
                     titleUpdated: 'question:titleUpdated'
                 },
                 helpHint: {

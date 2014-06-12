@@ -70,9 +70,9 @@
     <Compile Include="Events\IDomainEventHandlersProvider.cs" />
     <Compile Include="Events\IDomainEventPublisher.cs" />
     <Compile Include="Events\ObjectiveEvents\ObjectiveEvent.cs" />
-    <Compile Include="Events\ObjectiveEvents\ObjectiveQuestionsDeletedEvent.cs" />
+    <Compile Include="Events\ObjectiveEvents\QuestionsDeletedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\ObjectiveTitleUpdatedEvent.cs" />
-    <Compile Include="Events\ObjectiveEvents\ObjectiveQuestionsReorderedEvent.cs" />
+    <Compile Include="Events\ObjectiveEvents\QuestionsReorderedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionCreatedEvent.cs" />
     <Compile Include="Events\UserEvents\UserEvent.cs" />
     <Compile Include="Events\UserEvents\UserFeedbackEvent.cs" />

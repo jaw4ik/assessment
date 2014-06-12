@@ -43,6 +43,7 @@
                 objectiveTitleUpdated: objectiveTitleUpdated,
                 questionsReordered: questionsReordered,
                 questionCreatedByCollaborator: questionCreatedByCollaborator,
+                questionDeletedByCollaborator: questionDeletedByCollaborator,
 
                 backButtonData: new BackButton({})
             };
@@ -64,6 +65,7 @@
         app.on(constants.messages.objective.titleUpdated, objectiveTitleUpdated);
         app.on(constants.messages.objective.questionsReordered, questionsReordered);
         app.on(constants.messages.question.createdByCollaborator, questionCreatedByCollaborator);
+        app.on(constants.messages.question.deletedByCollaborator, questionDeletedByCollaborator);
 
         return viewModel;
 
@@ -278,6 +280,17 @@
 
             var questions = viewModel.questions();
             questions.push(mapQuestion(question));
+            viewModel.questions(questions);
+        }
+
+        function questionDeletedByCollaborator(objId, questionIds) {
+            if (viewModel.objectiveId != objId) {
+                return;
+            }
+
+            var questions = _.reject(viewModel.questions(), function (item) {
+                return _.indexOf(questionIds, item.id) != -1;
+            });
             viewModel.questions(questions);
         }
     }

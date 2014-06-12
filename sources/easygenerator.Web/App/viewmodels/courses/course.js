@@ -114,6 +114,7 @@
         app.on(constants.messages.objective.titleUpdated, objectiveTitleUpdated);
         app.on(constants.messages.objective.questionsReordered, objectiveUpdated);
         app.on(constants.messages.question.createdByCollaborator, objectiveUpdated);
+        app.on(constants.messages.question.deletedByCollaborator, objectiveUpdated);
         
         return viewModel;
 

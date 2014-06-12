@@ -242,7 +242,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.UpdateQuestionsOrder(objective, questions);
 
             //Assert
-            _eventPublisher.Received().Publish(Arg.Any<ObjectiveQuestionsReorderedEvent>());
+            _eventPublisher.Received().Publish(Arg.Any<QuestionsReorderedEvent>());
         }
 
         [TestMethod]
