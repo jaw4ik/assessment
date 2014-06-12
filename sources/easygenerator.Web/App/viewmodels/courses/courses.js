@@ -53,6 +53,8 @@
         app.on(constants.messages.course.introductionContentUpdated, courseUpdated);
         app.on(constants.messages.course.templateUpdated, courseUpdated);
         app.on(constants.messages.course.objectivesReordered, courseUpdated);
+        app.on(constants.messages.course.objectiveRelated, courseUpdated);
+        app.on(constants.messages.course.objectivesUnrelated, courseUpdated);
 
         return viewModel;
 
