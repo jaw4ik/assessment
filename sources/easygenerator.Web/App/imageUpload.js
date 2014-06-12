@@ -14,7 +14,7 @@
                       .hide()
                       .attr('method', 'post')
                       .attr('enctype', 'multipart/form-data')
-                      .attr('action', 'http://localhost:666/storage/image/upload')
+                      .attr('action', '/storage/image/upload')
                       .insertAfter("body");
 
             var input = $("<input>")
