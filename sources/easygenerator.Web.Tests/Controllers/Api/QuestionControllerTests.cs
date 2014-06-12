@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
@@ -32,18 +34,18 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IEntityFactory _entityFactory;
         IPrincipal _user;
         HttpContextBase _context;
+        private IDomainEventPublisher _eventPublisher;
 
         [TestInitialize]
         public void InitializeContext()
         {
             _entityFactory = Substitute.For<IEntityFactory>();
-            _controller = new QuestionController(_entityFactory);
+            _eventPublisher = Substitute.For<IDomainEventPublisher>();
+            _controller = new QuestionController(_entityFactory, _eventPublisher);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
-
-            _controller = new QuestionController(_entityFactory);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -91,6 +93,20 @@ namespace easygenerator.Web.Tests.Controllers.Api
                 .And.Data.ShouldBeSimilar(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
         }
 
+        [TestMethod]
+        public void CreateMultipleSelect_ShouldPublishDomainEvent()
+        {
+            const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var question = Substitute.For<Question>("Question title", QuestionType.MultipleSelect, CreatedBy);
+
+            _entityFactory.Question(title, QuestionType.MultipleSelect, user).Returns(question);
+
+            _controller.CreateMultipleSelect(Substitute.For<Objective>("Objective title", CreatedBy), title);
+
+            _eventPublisher.Received().Publish(Arg.Any<QuestionCreatedEvent>());
+        }
         #endregion
 
         #region CreateFillInTheBlank question
@@ -118,6 +134,22 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.CreateFillInTheBlank(objective, title);
 
             objective.Received().AddQuestion(question, user);
+        }
+
+        [TestMethod]
+        public void CreateFillInTheBlank_ShouldPublishDomainEvent()
+        {
+            const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", QuestionType.FillInTheBlanks, CreatedBy);
+
+            _entityFactory.Question(title, QuestionType.FillInTheBlanks, user).Returns(question);
+
+            _controller.CreateFillInTheBlank(objective, title);
+
+            _eventPublisher.Received().Publish(Arg.Any<QuestionCreatedEvent>());
         }
 
         [TestMethod]
@@ -164,6 +196,22 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.CreateDragAndDrop(objective, title);
 
             objective.Received().AddQuestion(question, user);
+        }
+
+        [TestMethod]
+        public void CreateDragAndDrop_ShouldPublishDomainEvent()
+        {
+            const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", QuestionType.DragAndDrop, CreatedBy);
+
+            _entityFactory.Question(title, QuestionType.DragAndDrop, user).Returns(question);
+
+            _controller.CreateDragAndDrop(objective, title);
+
+            _eventPublisher.Received().Publish(Arg.Any<QuestionCreatedEvent>());
         }
 
         [TestMethod]

@@ -42,6 +42,7 @@
 
                 objectiveTitleUpdated: objectiveTitleUpdated,
                 questionsReordered: questionsReordered,
+                questionCreatedByCollaborator: questionCreatedByCollaborator,
 
                 backButtonData: new BackButton({})
             };
@@ -62,6 +63,7 @@
 
         app.on(constants.messages.objective.titleUpdated, objectiveTitleUpdated);
         app.on(constants.messages.objective.questionsReordered, questionsReordered);
+        app.on(constants.messages.question.createdByCollaborator, questionCreatedByCollaborator);
 
         return viewModel;
 
@@ -193,16 +195,7 @@
                     viewModel.objectiveId = objective.id;
                     viewModel.title(objective.title);
 
-                    var array = _.map(objective.questions, function (question) {
-                        return {
-                            id: question.id,
-                            title: question.title,
-                            modifiedOn: question.modifiedOn,
-                            isSelected: ko.observable(false),
-                            editLink: getEditQuestionLink(question.id),
-                            image: getQuestionImageLink(question.type)
-                        };
-                    });
+                    var array = _.map(objective.questions, mapQuestion);
 
                     viewModel.questions(array);
                 }).fail(function (reason) {
@@ -210,6 +203,17 @@
                     throw reason;
                 });
             }
+        }
+
+        function mapQuestion(question) {
+            return {
+                id: question.id,
+                title: question.title,
+                modifiedOn: question.modifiedOn,
+                isSelected: ko.observable(false),
+                editLink: getEditQuestionLink(question.id),
+                image: getQuestionImageLink(question.type)
+            };
         }
 
         function getEditQuestionLink(questionId) {
@@ -265,6 +269,16 @@
                        });
                    })
                    .value());
+        }
+
+        function questionCreatedByCollaborator(objId, question) {
+            if (viewModel.objectiveId != objId) {
+                return;
+            }
+
+            var questions = viewModel.questions();
+            questions.push(mapQuestion(question));
+            viewModel.questions(questions);
         }
     }
 );

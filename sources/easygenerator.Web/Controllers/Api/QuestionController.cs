@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
@@ -18,10 +20,12 @@ namespace easygenerator.Web.Controllers.Api
     public class QuestionController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
+        private readonly IDomainEventPublisher _eventPublisher;
 
-        public QuestionController(IEntityFactory entityFactory)
+        public QuestionController(IEntityFactory entityFactory, IDomainEventPublisher eventPublisher)
         {
             _entityFactory = entityFactory;
+            _eventPublisher = eventPublisher;
         }
 
         [HttpPost]
@@ -58,6 +62,7 @@ namespace easygenerator.Web.Controllers.Api
             var question = _entityFactory.Question(title, type, GetCurrentUsername());
 
             objective.AddQuestion(question, GetCurrentUsername());
+            _eventPublisher.Publish(new QuestionCreatedEvent(question));
 
             return JsonSuccess(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
         }

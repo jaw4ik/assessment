@@ -1260,6 +1260,42 @@
                     });
                 });
             });
+
+            describe('questionCreatedByCollaborator:', function () {
+                
+                var question = { id: 'questionId' };
+
+                it('should be function', function () {
+                    expect(viewModel.questionCreatedByCollaborator).toBeFunction();
+                });
+
+                describe('when objective id is correct', function() {
+                    beforeEach(function() {
+                        viewModel.objectiveId = objective.id;
+                    });
+
+                    it('should add new question to questions list', function() {
+                        viewModel.questions([]);
+                        viewModel.questionCreatedByCollaborator(objective.id, question);
+
+                        expect(viewModel.questions().length).toBe(1);
+                        expect(viewModel.questions()[0].id).toBe(question.id);
+                    });
+                });
+
+                describe('when objective id is not correct', function() {
+                    beforeEach(function () {
+                        viewModel.objectiveId = 'someId';
+                    });
+
+                    it('should not add new question to questions list', function () {
+                        viewModel.questions([]);
+                        viewModel.questionCreatedByCollaborator(objective.id, question);
+
+                        expect(viewModel.questions().length).toBe(0);
+                    });
+                });
+            });
         });
     }
 );

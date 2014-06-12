@@ -109,6 +109,7 @@
                 },
                 question: {
                     created: 'question:created',
+                    createdByCollaborator: 'question:createdByCollaborator',
                     deleted: 'questions:deleted',
                     titleUpdated: 'question:titleUpdated'
                 },

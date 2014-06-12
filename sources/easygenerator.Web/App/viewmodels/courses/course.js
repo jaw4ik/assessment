@@ -85,7 +85,7 @@
             objectivesReordered: objectivesReordered,
             objectiveConnected: objectiveConnected,
             objectivesDisconnected: objectivesDisconnected,
-
+            
             objectiveTitleUpdated: objectiveTitleUpdated,
             objectiveUpdated: objectiveUpdated
         };
@@ -113,7 +113,8 @@
         app.on(constants.messages.course.objectivesUnrelated, objectivesDisconnected);
         app.on(constants.messages.objective.titleUpdated, objectiveTitleUpdated);
         app.on(constants.messages.objective.questionsReordered, objectiveUpdated);
-
+        app.on(constants.messages.question.createdByCollaborator, objectiveUpdated);
+        
         return viewModel;
 
         function navigateToCoursesEvent() {
@@ -205,19 +206,19 @@
 
         function mapAvailableObjectives(objectives) {
             viewModel.availableObjectives(_.chain(objectives)
-                   .filter(function (item) {
+                    .filter(function (item) {
                        return item.createdBy == userContext.identity.email;
-                   })
-                   .sortBy(function (item) {
-                       return -item.createdOn;
-                   })
-                   .map(function (item) {
-                       var mappedObjective = objectiveBrief(item);
-                       mappedObjective._original = item;
+                    })
+                    .sortBy(function (item) {
+                        return -item.createdOn;
+                    })
+                    .map(function (item) {
+                        var mappedObjective = objectiveBrief(item);
+                        mappedObjective._original = item;
 
-                       return mappedObjective;
-                   })
-                   .value());
+                        return mappedObjective;
+                    })
+                    .value());
         }
 
 
@@ -382,7 +383,7 @@
         function objectivesReordered(course) {
             if (viewModel.id != course.id || viewModel.isReorderingObjectives()) {
                 return;
-            }
+    }
 
             viewModel.connectedObjectives(_.chain(course.objectives)
                    .map(function (objective) {
@@ -396,7 +397,7 @@
         function objectiveConnected(courseId, objective, targetIndex) {
             if (viewModel.id != courseId) {
                 return;
-            }
+    }
 
             var objectives = viewModel.connectedObjectives();
             var isConnected = _.some(objectives, function (item) {

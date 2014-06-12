@@ -24,7 +24,8 @@
                     courseObjectivesUnrelated: courseEventHandler.objectivesUnrelated,
 
                     objectiveTitleUpdated: objectiveEventHandler.objectiveTitleUpdated,
-                    objectiveQuestionsReordered: objectiveEventHandler.questionsReordered
+                    objectiveQuestionsReordered: objectiveEventHandler.questionsReordered,
+                    questionCreated: objectiveEventHandler.questionCreated
                 };
 
                 $.connection.hub.start()

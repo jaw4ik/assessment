@@ -354,6 +354,7 @@
     <Compile Include="Synchronization\Broadcasting\Proxies\UsersProxy.cs" />
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\UserEventHandler.cs" />
     <Compile Include="Synchronization\Hubs\EventHub.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
@@ -380,6 +381,7 @@
     <Content Include="App\mappers\collaboratorModelMapper.js" />
     <Content Include="App\mappers\courseModelMapper.js" />
     <Content Include="App\mappers\objectiveModelMapper.js" />
+    <Content Include="App\mappers\questionModelMapper.js" />
     <Content Include="App\mappers\templateModelMapper.js" />
     <Content Include="App\repositories\objectiveRepository.js" />
     <Content Include="App\repositories\objectiveRepository.spec.js">
