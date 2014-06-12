@@ -26,7 +26,9 @@
             navigation: ko.observableArray([]),
             isTryMode: false,
             help: help,
-            courseDeleted: courseDeleted
+            courseDeleted: courseDeleted,
+            objectivesUnrelated: objectivesUnrelated,
+            questionsDeleted: questionsDeleted
         };
 
         viewModel.activeModuleName = ko.computed(function () {
@@ -56,6 +58,8 @@
         });
 
         app.on(constants.messages.course.deleted, courseDeleted);
+        app.on(constants.messages.course.objectivesUnrelated, objectivesUnrelated);
+        app.on(constants.messages.question.deletedByCollaborator, questionsDeleted);
 
         return viewModel;
 
@@ -154,6 +158,20 @@
                 return;
 
             notify.error(localizationManager.localize('courseHasBeenDeletedByTheOwner'));
+        }
+
+        function objectivesUnrelated(courseId, deletedObjectiveIds) {
+            if (_.isNullOrUndefined(router.routeData().objectiveId) || _.indexOf(deletedObjectiveIds, router.routeData().objectiveId) == -1)
+                return;
+
+            notify.error(localizationManager.localize('learningObjectiveHasBeenDeletedByCollaborator'));
+        }
+
+        function questionsDeleted(objId, deletedQuestionIds) {
+            if (_.isNullOrUndefined(router.routeData().questionId) || _.indexOf(deletedQuestionIds, router.routeData().questionId) == -1)
+                return;
+
+            notify.error(localizationManager.localize('questionHasBeenDeletedByCollaborator'));
         }
     }
 );

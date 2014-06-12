@@ -136,6 +136,87 @@
 
         });
 
+        describe('objectivesUnrelated:', function () {
+
+            var objectiveId = 'objectiveId',
+                errorMessage = 'error';
+
+            beforeEach(function () {
+                spyOn(localizationManager, 'localize').and.returnValue(errorMessage);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.objectivesUnrelated).toBeFunction();
+            });
+
+            describe('when in context of objective', function () {
+                beforeEach(function () {
+                    router.routeData({
+                        objectiveId: objectiveId
+                    });
+                });
+
+                it('should show notification error', function () {
+                    viewModel.objectivesUnrelated('courseId', [objectiveId]);
+                    expect(notify.error).toHaveBeenCalledWith(errorMessage);
+                });
+            });
+
+            describe('when not in context of objective', function () {
+                beforeEach(function () {
+                    router.routeData({
+                        objectiveId: 'id'
+                    });
+                });
+
+                it('should not show notification error', function () {
+                    viewModel.objectivesUnrelated('courseId', [objectiveId]);
+                    expect(notify.error).not.toHaveBeenCalledWith(errorMessage);
+                });
+            });
+
+        });
+
+        describe('questionsDeleted:', function () {
+
+            var questionId = 'questionId',
+                errorMessage = 'error';
+
+            beforeEach(function () {
+                spyOn(localizationManager, 'localize').and.returnValue(errorMessage);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.questionsDeleted).toBeFunction();
+            });
+
+            describe('when in context of question', function () {
+                beforeEach(function () {
+                    router.routeData({
+                        questionId: questionId
+                    });
+                });
+
+                it('should show notification error', function () {
+                    viewModel.questionsDeleted('objectiveId', [questionId]);
+                    expect(notify.error).toHaveBeenCalledWith(errorMessage);
+                });
+            });
+
+            describe('when not in context of question', function () {
+                beforeEach(function () {
+                    router.routeData({
+                        questionId: 'id'
+                    });
+                });
+
+                it('should not show notification error', function () {
+                    viewModel.questionsDeleted('objectiveId', [questionId]);
+                    expect(notify.error).not.toHaveBeenCalledWith(errorMessage);
+                });
+            });
+
+        });
     });
 
 });
