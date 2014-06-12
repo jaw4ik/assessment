@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Web.Mvc;
-using System.Web.Routing;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.ObjectiveEvents;
+using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
@@ -13,6 +9,10 @@ using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.ViewModels.Api;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace easygenerator.Web.Controllers.Api
 {
