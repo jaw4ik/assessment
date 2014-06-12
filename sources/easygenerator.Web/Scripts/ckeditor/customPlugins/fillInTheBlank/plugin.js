@@ -74,6 +74,7 @@
                         var closeElement = new CKEDITOR.htmlParser.element(widgetTag, {
                             class: classNames.close
                         });
+                        closeElement.add(new CKEDITOR.htmlParser.text(plugin.spaceSymbol));
                         blankFieldElement.add(closeElement);
 
                         element.replaceWith(blankFieldElement);
