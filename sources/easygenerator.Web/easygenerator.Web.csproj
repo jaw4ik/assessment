@@ -347,6 +347,7 @@
     <Compile Include="Storage\Storage.cs" />
     <Compile Include="Synchronization\Broadcasting\Broadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CourseCollaborationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\QuestionCollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\Proxies\MultipleClientsProxy.cs" />
     <Compile Include="Synchronization\Broadcasting\IBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\ICollaborationBroadcaster.cs" />
@@ -396,9 +397,21 @@
     <Content Include="App\synchronization\handlers\objectiveEventHandler.spec.js">
       <DependentUpon>objectiveEventHandler.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\questionEventHandler.js" />
+    <Content Include="App\synchronization\handlers\question\contentUpdated.js" />
+    <Content Include="App\synchronization\handlers\question\titleUpdated.js" />
+    <Content Include="App\synchronization\handlers\question\contentUpdated.spec.js">
+      <DependentUpon>contentUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\question\titleUpdated.spec.js">
+      <DependentUpon>titleUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\userEventHandler.js" />
     <Content Include="App\synchronization\handlers\userEventHandler.spec.js">
       <DependentUpon>userEventHandler.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questionEventHandler.spec.js">
+      <DependentUpon>questionEventHandler.js</DependentUpon>
     </Content>
     <Content Include="App\utils\fillInTheBlankParser.js" />
     <Content Include="App\viewmodels\objectives\createObjective.js" />

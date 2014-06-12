@@ -52,9 +52,21 @@
             'repositories/questionRepository.spec',
             'routing/routerExtender.spec',
             'services/publishService.spec',
-            'synchronization/handlers/userEventHandler.spec',
+
+            //#region synchronization
+
+             'synchronization/handlers/userEventHandler.spec',
             'synchronization/handlers/courseEventHandler.spec',
             'synchronization/handlers/objectiveEventHandler.spec',
+
+            'synchronization/handlers/questionEventHandler.spec',
+            'synchronization/handlers/question/titleUpdated.spec',
+            'synchronization/handlers/question/contentUpdated.spec',
+
+            //#endregion
+
+          
+
             'treeOfContent/handlers/treeOfContentEventHandler.spec',
             'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
             'treeOfContent/queries/getCourseByIdQuery.spec',

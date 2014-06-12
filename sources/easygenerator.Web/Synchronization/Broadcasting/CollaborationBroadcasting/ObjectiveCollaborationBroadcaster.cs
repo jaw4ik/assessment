@@ -24,21 +24,21 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
         {
             ThrowIfObjectiveNotValid(objective);
 
-            return Users(objective.Courses.Select(c => _courseBroadcaster.AllCollaborators(c)));
+            return MultipleClients(objective.Courses.Select(c => _courseBroadcaster.AllCollaborators(c)));
         }
 
         public dynamic AllCollaboratorsExcept(Objective objective, params string[] excludeUsers)
         {
             ThrowIfObjectiveNotValid(objective);
 
-            return Users(objective.Courses.Select(c => _courseBroadcaster.AllCollaboratorsExcept(c, excludeUsers)));
+            return MultipleClients(objective.Courses.Select(c => _courseBroadcaster.AllCollaboratorsExcept(c, excludeUsers)));
         }
 
         public dynamic OtherCollaborators(Objective objective)
         {
             ThrowIfObjectiveNotValid(objective);
 
-            return Users(objective.Courses.Select(c => _courseBroadcaster.OtherCollaborators(c)));
+            return MultipleClients(objective.Courses.Select(c => _courseBroadcaster.OtherCollaborators(c)));
         }
 
         private void ThrowIfObjectiveNotValid(Objective objective)

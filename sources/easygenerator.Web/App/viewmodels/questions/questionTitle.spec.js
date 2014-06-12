@@ -226,6 +226,44 @@
 
         });
 
+        describe('titleUpdated:', function () {
+
+            it('should be function', function () {
+                expect(titleWrapper.titleUpdated).toBeFunction();
+            });
+
+            describe('when question is not current question', function () {
+                it('should not update title', function () {
+                    titleWrapper = new viewModel(objectiveId, { id: 'ads', title: '' });
+
+                    titleWrapper.title('');
+                    titleWrapper.titleUpdated(question);
+                    expect(titleWrapper.title()).toBe('');
+                });
+            });
+
+            describe('when is editing title', function () {
+                it('should not update title', function () {
+                    titleWrapper = new viewModel(objectiveId, { id: 'ads', title: '' });
+
+                    titleWrapper.title.isEditing(true);
+                    titleWrapper.titleUpdated(question);
+                    expect(titleWrapper.title()).toBe('');
+                });
+            });
+
+            it('should update title', function () {
+                titleWrapper.title.isEditing(false);
+                var newTitle = 'new';
+                titleWrapper = new viewModel(objectiveId, { id: question.id, title: '' });
+
+                titleWrapper.title('');
+                titleWrapper.titleUpdated({ id: question.id, title: newTitle });
+                expect(titleWrapper.title()).toBe(newTitle);
+            });
+
+        });
+
     });
 
 });

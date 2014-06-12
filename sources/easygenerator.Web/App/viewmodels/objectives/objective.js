@@ -1,5 +1,5 @@
 ﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'ping', 'models/backButton', 'durandal/app'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton, app) {
+    function(dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton, app) {
         "use strict";
 
         var
@@ -43,28 +43,30 @@
                 objectiveTitleUpdated: objectiveTitleUpdated,
                 questionsReordered: questionsReordered,
                 questionCreatedByCollaborator: questionCreatedByCollaborator,
+                questionTitleUpdatedByCollaborator: questionTitleUpdatedByCollaborator,
                 questionDeletedByCollaborator: questionDeletedByCollaborator,
 
                 backButtonData: new BackButton({})
             };
 
         viewModel.title.isEditing = ko.observable();
-        viewModel.title.isValid = ko.computed(function () {
+        viewModel.title.isValid = ko.computed(function() {
             var length = viewModel.title().trim().length;
             return length > 0 && length <= constants.validation.objectiveTitleMaxLength;
         });
 
-        viewModel.enableDeleteQuestions = ko.computed(function () {
+        viewModel.enableDeleteQuestions = ko.computed(function() {
             return getSelectedQuestions().length > 0;
         });
 
-        viewModel.isSortingEnabled = ko.computed(function () {
+        viewModel.isSortingEnabled = ko.computed(function() {
             return viewModel.questions().length > 1;
         });
 
         app.on(constants.messages.objective.titleUpdated, objectiveTitleUpdated);
         app.on(constants.messages.objective.questionsReordered, questionsReordered);
         app.on(constants.messages.question.createdByCollaborator, questionCreatedByCollaborator);
+        app.on(constants.messages.question.titleUpdatedByCollaborator, questionTitleUpdatedByCollaborator);
         app.on(constants.messages.question.deletedByCollaborator, questionDeletedByCollaborator);
 
         return viewModel;
@@ -87,7 +89,7 @@
             var objectiveTitle = null;
 
             repository.getById(viewModel.objectiveId)
-                .then(function (response) {
+                .then(function(response) {
                     objectiveTitle = response.title;
                     if (viewModel.title() == objectiveTitle)
                         return;
@@ -121,12 +123,12 @@
             if (selectedQuestions.length == 0)
                 throw 'No selected questions to delete';
 
-            var questionIds = _.map(selectedQuestions, function (item) {
+            var questionIds = _.map(selectedQuestions, function(item) {
                 return item.id;
             });
 
             questionRepository.removeQuestions(viewModel.objectiveId, questionIds)
-                .then(function (modifiedOn) {
+                .then(function(modifiedOn) {
                     viewModel.questions(_.difference(viewModel.questions(), selectedQuestions));
                     showNotification(modifiedOn);
                 });
@@ -174,7 +176,7 @@
                 return initObjectiveInfo(objId);
             }
 
-            return courseRepository.getById(queryParams.courseId).then(function (course) {
+            return courseRepository.getById(queryParams.courseId).then(function(course) {
                 viewModel.contextCourseId = course.id;
                 viewModel.contextCourseTitle = course.title;
 
@@ -186,13 +188,13 @@
                 });
 
                 return initObjectiveInfo(objId);
-            }).fail(function (reason) {
+            }).fail(function(reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
                 throw reason;
             });
 
             function initObjectiveInfo(id) {
-                return repository.getById(id).then(function (objective) {
+                return repository.getById(id).then(function(objective) {
                     clientContext.set('lastVisitedObjective', id);
                     viewModel.objectiveId = objective.id;
                     viewModel.title(objective.title);
@@ -200,7 +202,7 @@
                     var array = _.map(objective.questions, mapQuestion);
 
                     viewModel.questions(array);
-                }).fail(function (reason) {
+                }).fail(function(reason) {
                     router.activeItem.settings.lifecycleData = { redirect: '404' };
                     throw reason;
                 });
@@ -210,8 +212,8 @@
         function mapQuestion(question) {
             return {
                 id: question.id,
-                title: question.title,
-                modifiedOn: question.modifiedOn,
+                title: ko.observable(question.title),
+                modifiedOn: ko.observable(question.modifiedOn),
                 isSelected: ko.observable(false),
                 editLink: getEditQuestionLink(question.id),
                 image: getQuestionImageLink(question.type)
@@ -227,17 +229,17 @@
 
         function getQuestionImageLink(type) {
             switch (type) {
-                case constants.questionType.multipleSelect.type:
-                    return constants.questionType.multipleSelect.image;
-                case constants.questionType.fillInTheBlank.type:
-                    return constants.questionType.fillInTheBlank.image;
-                case constants.questionType.dragAndDrop.type:
-                    return constants.questionType.dragAndDrop.image;
+            case constants.questionType.multipleSelect.type:
+                return constants.questionType.multipleSelect.image;
+            case constants.questionType.fillInTheBlank.type:
+                return constants.questionType.fillInTheBlank.image;
+            case constants.questionType.dragAndDrop.type:
+                return constants.questionType.dragAndDrop.image;
             }
         }
 
         function getSelectedQuestions() {
-            return _.reject(viewModel.questions(), function (item) {
+            return _.reject(viewModel.questions(), function(item) {
                 return !item.isSelected();
             });
         }
@@ -254,7 +256,7 @@
             eventTracker.publish(events.changeQuestionsOrder);
             viewModel.isReorderingQuestions(false);
             repository.updateQuestionsOrder(viewModel.objectiveId, viewModel.questions())
-                .then(function () {
+                .then(function() {
                     showNotification();
                 });
         }
@@ -265,12 +267,12 @@
             }
 
             viewModel.questions(_.chain(objective.questions)
-                   .map(function (question) {
-                       return _.find(viewModel.questions(), function (q) {
-                           return q.id == question.id;
-                       });
-                   })
-                   .value());
+                .map(function(question) {
+                    return _.find(viewModel.questions(), function(q) {
+                        return q.id == question.id;
+                    });
+                })
+                .value());
         }
 
         function questionCreatedByCollaborator(objId, question) {
@@ -283,12 +285,25 @@
             viewModel.questions(questions);
         }
 
+        function questionTitleUpdatedByCollaborator(question) {
+            var vmQuestion = _.find(viewModel.questions(), function(q) {
+                return q.id == question.id;
+            });
+
+            if (_.isNullOrUndefined(vmQuestion)) {
+                return;
+            }
+
+            vmQuestion.title(question.title);
+            vmQuestion.modifiedOn(question.modifiedOn);
+        }
+
         function questionDeletedByCollaborator(objId, questionIds) {
             if (viewModel.objectiveId != objId) {
                 return;
             }
 
-            var questions = _.reject(viewModel.questions(), function (item) {
+            var questions = _.reject(viewModel.questions(), function(item) {
                 return _.indexOf(questionIds, item.id) != -1;
             });
             viewModel.questions(questions);

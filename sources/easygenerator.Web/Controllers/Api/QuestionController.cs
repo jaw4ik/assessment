@@ -103,6 +103,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.UpdateTitle(title, GetCurrentUsername());
+            _eventPublisher.Publish(new QuestionTitleUpdatedEvent(question));
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
@@ -118,6 +119,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.UpdateContent(content, GetCurrentUsername());
+            _eventPublisher.Publish(new QuestionContentUpdatedEvent(question));
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }

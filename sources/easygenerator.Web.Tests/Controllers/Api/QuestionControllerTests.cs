@@ -324,6 +324,18 @@ namespace easygenerator.Web.Tests.Controllers.Api
             question.Received().UpdateTitle(title, user);
         }
 
+
+        [TestMethod]
+        public void Update_ShouldPublishDomainEvent()
+        {
+            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
+
+            var result = _controller.UpdateTitle(question, String.Empty);
+
+            _eventPublisher.Received().Publish(Arg.Any<QuestionTitleUpdatedEvent>());
+        }
+
+
         [TestMethod]
         public void Update_ShouldReturnJsonSuccessResult()
         {
@@ -361,6 +373,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.UpdateContent(question, content);
 
             question.Received().UpdateContent(content, user);
+        }
+
+        [TestMethod]
+        public void UpdateContent_ShouldPublishDomainEvent()
+        {
+            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
+
+            var result = _controller.UpdateContent(question, String.Empty);
+
+            _eventPublisher.Received().Publish(Arg.Any<QuestionContentUpdatedEvent>());
         }
 
         [TestMethod]

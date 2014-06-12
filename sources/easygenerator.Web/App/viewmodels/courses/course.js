@@ -85,7 +85,7 @@
             objectivesReordered: objectivesReordered,
             objectiveConnected: objectiveConnected,
             objectivesDisconnected: objectivesDisconnected,
-            
+
             objectiveTitleUpdated: objectiveTitleUpdated,
             objectiveUpdated: objectiveUpdated
         };
@@ -115,7 +115,7 @@
         app.on(constants.messages.objective.questionsReordered, objectiveUpdated);
         app.on(constants.messages.question.createdByCollaborator, objectiveUpdated);
         app.on(constants.messages.question.deletedByCollaborator, objectiveUpdated);
-        
+
         return viewModel;
 
         function navigateToCoursesEvent() {
@@ -208,7 +208,7 @@
         function mapAvailableObjectives(objectives) {
             viewModel.availableObjectives(_.chain(objectives)
                     .filter(function (item) {
-                       return item.createdBy == userContext.identity.email;
+                        return item.createdBy == userContext.identity.email;
                     })
                     .sortBy(function (item) {
                         return -item.createdOn;
@@ -384,7 +384,7 @@
         function objectivesReordered(course) {
             if (viewModel.id != course.id || viewModel.isReorderingObjectives()) {
                 return;
-    }
+            }
 
             viewModel.connectedObjectives(_.chain(course.objectives)
                    .map(function (objective) {
@@ -398,7 +398,7 @@
         function objectiveConnected(courseId, objective, targetIndex) {
             if (viewModel.id != courseId) {
                 return;
-    }
+            }
 
             var objectives = viewModel.connectedObjectives();
             var isConnected = _.some(objectives, function (item) {
@@ -430,7 +430,7 @@
             if (viewModel.id != courseId) {
                 return;
             }
-            
+
             var connectedObjectives = viewModel.connectedObjectives();
             viewModel.connectedObjectives(_.reject(connectedObjectives, function (item) {
                 return _.some(disconnectedObjectiveIds, function (id) {

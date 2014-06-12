@@ -45,12 +45,22 @@
                 }).fail(function () {
                     app.showMessage("Failed to initialize datacontext.");
                 });
+            },
+
+
+            getQuestions = function () {
+                var questions = [];
+                _.each(objectives, function (objective) {
+                    questions.push.apply(questions, objective.questions);
+                });
+                return questions;
             };
 
         return {
             initialize: initialize,
             objectives: objectives,
             courses: courses,
-            templates: templates
+            templates: templates,
+            getQuestions: getQuestions
         };
     });

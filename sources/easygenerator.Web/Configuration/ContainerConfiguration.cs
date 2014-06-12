@@ -78,6 +78,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<Broadcaster>().As<IBroadcaster>();
             builder.RegisterType<CourseCollaborationBroadcaster>().As<ICollaborationBroadcaster<Course>>();
             builder.RegisterType<ObjectiveCollaborationBroadcaster>().As<ICollaborationBroadcaster<Objective>>();
+            builder.RegisterType<QuestionCollaborationBroadcaster>().As<ICollaborationBroadcaster<Question>>();
 
             #endregion
 

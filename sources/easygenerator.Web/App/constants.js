@@ -111,8 +111,10 @@
                     created: 'question:created',
                     createdByCollaborator: 'question:createdByCollaborator',
                     deleted: 'questions:deleted',
-                    deletedByCollaborator: 'question:deletedByCollaborator',
-                    titleUpdated: 'question:titleUpdated'
+                    titleUpdated: 'question:titleUpdated',
+                    titleUpdatedByCollaborator: 'question:titleUpdatedByCollaborator',
+                    contentUpdatedByCollaborator: 'question:contentUpdatedByCollaborator',
+                    deletedByCollaborator: 'question:deletedByCollaborator'
                 },
                 helpHint: {
                     shown: 'helphint:shown',
@@ -126,9 +128,9 @@
 
             defaultObjectiveImage: '/Content/images/objective.png',
 
-            patterns: {
-                email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
-            }
-        };
+                patterns: {
+                    email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
+                }
+            };
     }
 );

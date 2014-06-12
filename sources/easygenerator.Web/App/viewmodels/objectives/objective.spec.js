@@ -1297,44 +1297,65 @@
                 });
             });
 
-            describe('questionDeletedByCollaborator:', function () {
-                beforeEach(function () {
-                    var questions = [
-                        { id: '0', title: 'A', isSelected: ko.observable(false) },
-                        { id: '1', title: 'b', isSelected: ko.observable(false) },
-                        { id: '2', title: 'B', isSelected: ko.observable(false) },
-                        { id: '3', title: 'a', isSelected: ko.observable(false) }];
-                    viewModel.questions(questions);
-                });
-
+            describe('questionTitleUpdatedByCollaborator:', function () {
                 it('should be function', function () {
-                    expect(viewModel.questionDeletedByCollaborator).toBeFunction();
+                    expect(viewModel.questionTitleUpdatedByCollaborator).toBeFunction();
                 });
 
-                describe('when objective id corresponds current objective', function () {
-                    beforeEach(function () {
-                        viewModel.objectiveId = objective.id;
-                    });
+                var question = { id: 'id', title: 'title', modifiedOn: new Date() },
+                    vmQuestion = { id: question.id, title: ko.observable(''), modifiedOn: ko.observable(''), isSelected: ko.observable(false) };
 
-                    it('should remove questions from objective', function () {
-                        viewModel.questionDeletedByCollaborator(objective.id, ['2', '3']);
-
-                        expect(viewModel.questions().length).toBe(2);
-                        expect(viewModel.questions()[0].id).toBe('0');
-                        expect(viewModel.questions()[1].id).toBe('1');
-                    });
+                it('should update question title', function () {
+                    viewModel.questions([vmQuestion]);
+                    viewModel.questionTitleUpdatedByCollaborator(question);
+                    expect(vmQuestion.title()).toBe(question.title);
                 });
 
-                describe('when objective id doesn\'t correspond current objective', function () {
-                    beforeEach(function () {
-                        viewModel.objectiveId = 'someId';
-                    });
+                it('should update question modifiedOn', function () {
+                    viewModel.questions([vmQuestion]);
+                    viewModel.questionTitleUpdatedByCollaborator(question);
+                    expect(vmQuestion.modifiedOn()).toBe(question.modifiedOn);
+                });
+            });
+        });
 
-                    it('should not remove questions from objective', function() {
-                        viewModel.questionDeletedByCollaborator(objective.id, ['2', '3']);
+        describe('questionDeletedByCollaborator:', function () {
+            beforeEach(function () {
+                var questions = [
+                    { id: '0', title: 'A', isSelected: ko.observable(false) },
+                    { id: '1', title: 'b', isSelected: ko.observable(false) },
+                    { id: '2', title: 'B', isSelected: ko.observable(false) },
+                    { id: '3', title: 'a', isSelected: ko.observable(false) }];
+                viewModel.questions(questions);
+            });
 
-                        expect(viewModel.questions().length).toBe(4);
-                    });
+            it('should be function', function () {
+                expect(viewModel.questionDeletedByCollaborator).toBeFunction();
+            });
+
+            describe('when objective id corresponds current objective', function () {
+                beforeEach(function () {
+                    viewModel.objectiveId = objective.id;
+                });
+
+                it('should remove questions from objective', function () {
+                    viewModel.questionDeletedByCollaborator(objective.id, ['2', '3']);
+
+                    expect(viewModel.questions().length).toBe(2);
+                    expect(viewModel.questions()[0].id).toBe('0');
+                    expect(viewModel.questions()[1].id).toBe('1');
+                });
+            });
+
+            describe('when objective id doesn\'t correspond current objective', function () {
+                beforeEach(function () {
+                    viewModel.objectiveId = 'someId';
+                });
+
+                it('should not remove questions from objective', function () {
+                    viewModel.questionDeletedByCollaborator(objective.id, ['2', '3']);
+
+                    expect(viewModel.questions().length).toBe(4);
                 });
             });
         });

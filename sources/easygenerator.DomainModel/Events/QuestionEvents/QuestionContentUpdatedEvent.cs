@@ -2,9 +2,9 @@
 
 namespace easygenerator.DomainModel.Events.QuestionEvents
 {
-    public class QuestionCreatedEvent : QuestionEvent
+    public class QuestionContentUpdatedEvent : QuestionEvent
     {
-        public QuestionCreatedEvent(Question question)
+        public QuestionContentUpdatedEvent(Question question)
             : base(question)
         {
 

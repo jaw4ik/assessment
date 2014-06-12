@@ -74,6 +74,9 @@
     <Compile Include="Events\ObjectiveEvents\ObjectiveTitleUpdatedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\QuestionsReorderedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionCreatedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\QuestionEvent.cs" />
+    <Compile Include="Events\QuestionEvents\QuestionContentUpdatedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\QuestionTitleUpdatedEvent.cs" />
     <Compile Include="Events\UserEvents\UserEvent.cs" />
     <Compile Include="Events\UserEvents\UserFeedbackEvent.cs" />
     <Compile Include="Events\UserEvents\UserSignedUpEvent.cs" />
