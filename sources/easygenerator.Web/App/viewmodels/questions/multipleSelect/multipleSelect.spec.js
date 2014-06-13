@@ -9,6 +9,7 @@
         answerRepository = require('repositories/answerRepository'),
         learningContentRepository = require('repositories/learningContentRepository'),
         http = require('plugins/http'),
+        app = require('durandal/app'),
         BackButton = require('models/backButton');
 
     var objectiveId = 'objectiveId';
@@ -25,14 +26,14 @@
 
     describe('question [multipleSelect]', function () {
 
-        beforeEach(function() {
+        beforeEach(function () {
             spyOn(eventTracker, 'publish');
             spyOn(router, 'navigate');
             spyOn(router, 'navigateWithQueryString');
             spyOn(router, 'replace');
         });
 
-        it('should be defined', function() {
+        it('should be defined', function () {
             expect(viewModel).toBeDefined();
         });
 
@@ -60,9 +61,9 @@
 
         });
 
-        describe('backButtonData:', function() {
+        describe('backButtonData:', function () {
 
-            it('should be instance of BackButton', function() {
+            it('should be instance of BackButton', function () {
                 expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
             });
 
@@ -89,12 +90,12 @@
                 spyOn(http, 'post');
             });
 
-            it('should return promise', function() {
+            it('should return promise', function () {
                 var promise = viewModel.initialize(objectiveId, question);
                 expect(promise).toBePromise();
             });
 
-            it('should initialize field', function() {
+            it('should initialize field', function () {
                 viewModel.initialize(objectiveId, question);
                 expect(viewModel.objectiveId).toBe(objectiveId);
                 expect(viewModel.title.title()).toBe(question.title);
@@ -113,6 +114,44 @@
                 });
             });
 
+        });
+
+        describe('contentUpdated:', function () {
+            var vmContent = { text: ko.observable(''), isEditing:ko.observable(false) };
+
+            beforeEach(function() {
+                viewModel.questionContent = vmContent;
+                viewModel.questionId = question.id;
+            });
+
+            it('should be function', function () {
+                expect(viewModel.contentUpdated).toBeFunction();
+            });
+
+            describe('when is not current question', function () {
+                it('should not update content', function () {
+                    viewModel.questionId = 'qqq';
+                    vmContent.text('');
+                    viewModel.contentUpdated(question);
+                    expect(vmContent.text()).toBe('');
+                });
+            });
+
+            describe('when is editing content', function () {
+                it('should not update content', function () {
+                    vmContent.text('');
+                    vmContent.isEditing(true);
+                    viewModel.contentUpdated(question);
+                    expect(vmContent.text()).toBe('');
+                });
+            });
+
+            it('should update content', function() {
+                vmContent.text('');
+                vmContent.isEditing(false);
+                viewModel.contentUpdated(question);
+                expect(vmContent.text()).toBe(question.content);
+            });
         });
 
     });

@@ -1,8 +1,8 @@
 ﻿define(['eventTracker', 'notify', 'viewmodels/questions/questionTitle', 'viewmodels/common/contentField', 'repositories/questionRepository', 'clientContext',
         'repositories/answerRepository', 'repositories/learningContentRepository', 'models/backButton', 'viewmodels/questions/multipleSelect/multipleSelectAnswers', 'viewmodels/questions/learningContents',
-        'plugins/router', 'localization/localizationManager', 'constants'],
+        'plugins/router', 'localization/localizationManager', 'constants', 'durandal/app'],
     function (eventTracker, notify, questionTitle, vmContentField, questionRepository, clientContext, answerRepository, learningContentRepository, BackButton, vmAnswers,
-        vmLearningContents, router, localizationManager, constants) {
+        vmLearningContents, router, localizationManager, constants, app) {
         "use strict";
 
         var eventsForQuestionContent = {
@@ -14,6 +14,7 @@
         var viewModel = {
             initialize: initialize,
             objectiveId: '',
+            questionId: '',
             title: null,
             questionTitleMaxLength: constants.validation.questionTitleMaxLength,
             localizationManager: localizationManager,
@@ -22,13 +23,17 @@
             backButtonData: new BackButton({}),
             answers: null,
             learningContents: null,
-            isCreatedQuestion: ko.observable(false)
+            isCreatedQuestion: ko.observable(false),
+            contentUpdated: contentUpdated
         };
+
+        app.on(constants.messages.question.contentUpdatedByCollaborator, contentUpdated);
 
         return viewModel;
 
         function initialize(objectiveId, question) {
             viewModel.objectiveId = objectiveId;
+            viewModel.questionId = question.id;
             viewModel.title = questionTitle(objectiveId, question);
             viewModel.questionContent = vmContentField(question.content, eventsForQuestionContent, true, function (content) { return questionRepository.updateContent(question.id, content); });
             var lastCreatedQuestionId = clientContext.get('lastCreatedQuestionId') || '';
@@ -49,5 +54,11 @@
             });
         }
 
+        function contentUpdated(question) {
+            if (question.id != viewModel.questionId || viewModel.questionContent.isEditing())
+                return;
+
+            viewModel.questionContent.text(question.content);
+        }
     }
 );
