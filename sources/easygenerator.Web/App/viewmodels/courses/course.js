@@ -39,7 +39,6 @@
             })(),
             connectedObjectives: ko.observableArray([]),
             availableObjectives: ko.observableArray([]),
-            originalTitle: '',
             objectivesMode: ko.observable(''),
             isEditing: ko.observable(),
             courseIntroductionContent: {},
@@ -171,18 +170,27 @@
             }
         }
         function startEditTitle() {
-            viewModel.originalTitle = viewModel.title();
             viewModel.isEditing(true);
         }
         function endEditTitle() {
             viewModel.title(viewModel.title().trim());
-            if (viewModel.title.isValid() && viewModel.title() != viewModel.originalTitle) {
-                eventTracker.publish(events.updateCourseTitle);
-                repository.updateCourseTitle(viewModel.id, viewModel.title()).then(notify.saved);
-            } else {
-                viewModel.title(viewModel.originalTitle);
-            }
             viewModel.isEditing(false);
+
+            var courseTitle = null;
+            repository.getById(viewModel.id)
+                .then(function (response) {
+                    courseTitle = response.title;
+                    if (viewModel.title() == courseTitle)
+                        return;
+
+                    eventTracker.publish(events.updateCourseTitle);
+
+                    if (viewModel.title.isValid()) {
+                        repository.updateCourseTitle(viewModel.id, viewModel.title()).then(notify.saved);
+                    } else {
+                        viewModel.title(courseTitle);
+                    }
+                });
         }
 
         function showAllAvailableObjectives() {
@@ -325,7 +333,6 @@
                 clientContext.set('lastVisitedObjective', null);
 
                 viewModel.title(course.title);
-                viewModel.originalTitle = course.title;
                 viewModel.objectivesMode(viewModel.objectivesListModes.display);
                 viewModel.connectedObjectives(_.chain(course.objectives)
                     .map(function (objective) {

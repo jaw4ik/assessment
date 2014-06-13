@@ -655,7 +655,7 @@
                         });
                     });
 
-                    it('should not update question in repository', function (done) {
+                    it('should not update objective in repository', function (done) {
                         viewModel.endEditTitle();
 
                         promise.fin(function () {
