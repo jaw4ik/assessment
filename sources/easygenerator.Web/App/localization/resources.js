@@ -460,6 +460,9 @@
     showQuestionConent: {
         en: 'Show extra question content'
     },
+    noAnswerOptionsYet: {
+        en: 'No answer options yet'
+    },
     /* End resource section for model Question */
     
     /* Resource section for model Questions */
@@ -1224,7 +1227,16 @@
     },
     questionHasBeenDeletedByCollaborator: {
         en: 'This question has been deleted by a collaborator. Please go to the list of questions.'
-    }
+    },
+    waitingForRegistration: {
+        en: 'waiting for registration...'
+    },
     /* End resource section for model Collaboration */
+    
+    /* Resource section for model InviteCollaboratorSubject */
+    /* End resource section for model InviteCollaboratorSubject */
+    
+    /* Resource section for model InviteCollaboratorBody */
+    /* End resource section for model InviteCollaboratorBody */
            
 });
