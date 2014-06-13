@@ -24,7 +24,9 @@
             answers: null,
             learningContents: null,
             isCreatedQuestion: ko.observable(false),
-            contentUpdated: contentUpdated
+            contentUpdated: contentUpdated,
+            isExpanded: ko.observable(true),
+            toggleExpand: toggleExpand
         };
 
         app.on(constants.messages.question.contentUpdatedByCollaborator, contentUpdated);
@@ -52,6 +54,10 @@
                     viewModel.learningContents = vmLearningContents(question.id, sortedLearningContents);
                 });
             });
+        }
+
+        function toggleExpand() {
+            viewModel.isExpanded(!viewModel.isExpanded());
         }
 
         function contentUpdated(question) {

@@ -391,27 +391,24 @@
     vertical-align: middle;
 }
 
-.question-answer-checkbox {
+.question-answer-value {
     height: 30px;
     width: 30px;
     position: relative;
+}
+
+.question-answer-checkbox {
     background-color: white;
     border: 1px solid #c2c6cb;
     border-radius: 3px;
 }
 
-    .question-answer-checkbox:hover {
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-    }
+
 
     .question-answer-checkbox.correct {
         background-color: #0ba295;
         border-color: #0ba295;
     }
-
-        .question-answer-checkbox.correct:hover {
-            box-shadow: none;
-        }
 
         .question-answer-checkbox.correct .answer-correct-icon {
             display: inline-block;
@@ -422,6 +419,39 @@
             background-position: -114px -27px;
             background-repeat: no-repeat;
         }
+
+.question-answer-radio {
+    background: white;
+    border: 1px solid #c3c7cc;
+    border-radius: 15px;
+}
+
+    .question-answer-radio.correct {
+        border-color: #0592da;
+    }
+
+        .question-answer-radio.correct .answer-correct-icon {
+            display: block;
+            height: 16px;
+            width: 16px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -8px;
+            margin-left: -8px;
+            background: #0592da;
+            border-radius: 8px;
+        }
+
+    .question-answer-radio:hover,
+    .question-answer-checkbox:hover {
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .question-answer-radio.correct:hover,
+    .question-answer-checkbox.correct:hover {
+        box-shadow: none;
+    }
 
 .question-answer-tooltip {
     display: none;
@@ -1012,7 +1042,8 @@
 
 /*#endregion Fill in the blank*/
 
-.multiple-select {
+.multiple-select,
+.multiple-choice {
     padding-bottom: 40px;
 }
 
