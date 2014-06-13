@@ -24,6 +24,8 @@
             answers: null,
             learningContents: null,
             isCreatedQuestion: ko.observable(false),
+            isExpanded: ko.observable(true),
+            toggleExpand: toggleExpand,
             contentUpdated: contentUpdated
         };
 
@@ -52,6 +54,10 @@
                     viewModel.learningContents = vmLearningContents(question.id, sortedLearningContents);
                 });
             });
+        }
+
+        function toggleExpand() {
+            viewModel.isExpanded(!viewModel.isExpanded());
         }
 
         function contentUpdated(question) {

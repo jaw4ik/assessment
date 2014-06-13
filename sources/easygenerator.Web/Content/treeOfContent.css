@@ -144,10 +144,10 @@
     border-bottom: 1px solid #dedede;
 }
 
-.navigation-tree-node.active > .navigation-tree-node-caption-wrapper > .navigation-tree-node-caption:hover {
-    background-color: #fffddd !important;
-    cursor: default;
-}
+    .navigation-tree-node.active > .navigation-tree-node-caption-wrapper > .navigation-tree-node-caption:hover {
+        background-color: #fffddd !important;
+        cursor: default;
+    }
 
 .navigation-tree-node.active:first-child > .navigation-tree-node-caption-wrapper {
     border-top: none;
@@ -284,5 +284,9 @@
 
     .content-wrapper {
         max-width: 930px;
+    }
+
+    .tb-cell.back-button {
+        width: 127px;
     }
 }
