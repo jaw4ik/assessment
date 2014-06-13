@@ -544,6 +544,7 @@
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\jquery.extensions.js" />
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\knockoutBindings\fillInTheBlankBinding.js" />
     <Content Include="Scripts\moment-with-langs.js" />

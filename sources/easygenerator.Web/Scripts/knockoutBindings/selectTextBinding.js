@@ -1,8 +1,15 @@
 ﻿// selects the text in input if observable value is not null or empty
-ko.bindingHandlers.selectTextBinding = {
+ko.bindingHandlers.selectText = {
     init: function (element) {
-        $(element).click(function () {
-            this.select();
+        var $element = $(element),
+            input = 'input';
+
+        $element.click(function () {
+            if ($element.is(input)) {
+                this.select();
+            } else {
+                $element.selectText();
+            }
         });
     },
     update: function (element, valueAccessor) {

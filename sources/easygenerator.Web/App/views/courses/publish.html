@@ -84,7 +84,7 @@
                         <div class="copy-link-control-wrapper">
                             <div class="copy-link-control" data-bind="css: { disabled: isPublishingInProgress() }">
                                 <div class="copy-link-input-wrapper">
-                                    <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: publishAction().packageUrl(), css: { selectable: !isPublishingInProgress() }, selectTextBinding: publishAction().state() === states.succeed" />
+                                    <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: publishAction().packageUrl(), css: { selectable: !isPublishingInProgress() }, selectText: publishAction().state() === states.succeed" />
                                 </div>
                                 <div class="view-course-btn-wrapper">
                                     <div class="view-course-description-wrapper">

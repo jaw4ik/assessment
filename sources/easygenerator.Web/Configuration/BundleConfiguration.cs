@@ -26,6 +26,7 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/moment.js")
                     .Include("~/scripts/jquery.placeholder.js")
                     .Include("~/scripts/jquery.form.js")
+                    .Include("~/scripts/jquery.extensions.js")
                     .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
                 );
 
