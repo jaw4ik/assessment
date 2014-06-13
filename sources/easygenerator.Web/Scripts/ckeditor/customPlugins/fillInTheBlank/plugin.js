@@ -92,7 +92,6 @@
                 },
                 init: function () {
                     var widget = this;
-
                     var clearFormating = function (widgetElement) {
                         if (editor.getSelection()) {
                             var currentElement,
@@ -120,6 +119,7 @@
                     widget.on('ready', function () {
                         if (widget.element.hasClass(plugin.classNames.new)) {
                             clearFormating(widget.element);
+                            $(widget.wrapper.$).before(' ').after(' '); 
                         }
                     });
                 },
