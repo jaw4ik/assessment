@@ -614,7 +614,7 @@ span.top-navigation-item.current {
 
     .selected-item-action.delete.disabled:before {
         background-position: -212px -117px;
-        opacity: 0.5;
+        opacity: 0.2;
     }
 
     .selected-item-action.disconnect:before {
