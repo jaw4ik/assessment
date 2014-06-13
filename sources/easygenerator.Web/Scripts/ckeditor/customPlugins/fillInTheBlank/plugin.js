@@ -63,16 +63,19 @@
 
                         var blankFieldElement = new CKEDITOR.htmlParser.element(widgetTag, {
                             'data-group-id': groupId,
-                            class: classNames.blankField
+                            class: classNames.blankField,
+                            contenteditable: "false"
                         });
 
                         var blankValueElement = new CKEDITOR.htmlParser.element(widgetTag, {
-                            class: classNames.blankValue
+                            class: classNames.blankValue,
+                        contenteditable: "false"
                         });
                         blankFieldElement.add(blankValueElement);
 
                         var closeElement = new CKEDITOR.htmlParser.element(widgetTag, {
-                            class: classNames.close
+                            class: classNames.close,
+                            contenteditable: "false"
                         });
                         closeElement.add(new CKEDITOR.htmlParser.text(plugin.spaceSymbol));
                         blankFieldElement.add(closeElement);
