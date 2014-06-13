@@ -7,6 +7,7 @@
             EntityModel.call(this, spec);
             
             this.email = spec.email;
+            this.registered = spec.registered;
             this.fullName = spec.fullName;
         };
 

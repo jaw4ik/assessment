@@ -5,12 +5,11 @@ using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Mail
 {
-    public interface IMailSenderWrapper
-    {
-        void SendForgotPasswordMessage(string email, string ticketId);
-    }
     public class MailSenderWrapper : IMailSenderWrapper
     {
+        private const string ForgotPasswordTemplateName = "ForgotPasswordTemplate";
+        private const string InviteCollaboratorTemplateName = "InviteCollaboratorTemplate";
+
         private readonly IUrlHelperWrapper _urlHelperWrapper;
         private readonly IMailSender _mailSender;
         private readonly MailSettings _senderSettings;
@@ -30,12 +29,20 @@ namespace easygenerator.Web.Mail
             var websiteUrl = _urlHelperWrapper.RouteWebsiteUrl();
 
             var title = String.Format(AccountRes.Resources.ForgotPasswordSubject, websiteUrl);
-
-            const string templateName = "ForgotPasswordTemplate";
-            var templateSettings = _senderSettings.MailTemplatesSettings[templateName];
+            var templateSettings = _senderSettings.MailTemplatesSettings[ForgotPasswordTemplateName];
             var body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { WebsiteUrl = websiteUrl, RestorePasswordUrl = restorePasswordUrl });
 
             _mailSender.Send(new MailMessage(templateSettings.From, email, title, body) { IsBodyHtml = true });
+        }
+
+        public void SendInviteCollaboratorMessage(string fromEmail, string toEmail, string userName, string courseTitle)
+        {
+            var websiteUrl = _urlHelperWrapper.RouteWebsiteUrl();
+            var subject = String.Format(AccountRes.Resources.InviteCollaboratorSubject, courseTitle);
+            var templateSettings = _senderSettings.MailTemplatesSettings[InviteCollaboratorTemplateName];
+            var body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { WebsiteUrl = websiteUrl, UserName = userName });
+
+            _mailSender.Send(new MailMessage(fromEmail, toEmail, subject, body) { IsBodyHtml = true });
         }
 
     }

@@ -6,6 +6,7 @@ using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Mail;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -28,6 +29,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IUserRepository _userRepository;
         private IDomainEventPublisher _eventPublisher;
         private IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
+        private IMailSenderWrapper _mailSenderWrapper;
+
         IPrincipal _user;
         HttpContextBase _context;
 
@@ -44,8 +47,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _collaboratorEntityModelMapper = Substitute.For<IEntityModelMapper<CourseCollaborator>>();
 
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
+            _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
 
-            _controller = new CourseCollaborationController(_userRepository, _eventPublisher, _collaboratorEntityModelMapper);
+            _controller = new CourseCollaborationController(_userRepository, _eventPublisher, _collaboratorEntityModelMapper, _mailSenderWrapper);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
             DateTimeWrapper.Now = () => CurrentDate;
         }
@@ -63,17 +67,21 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Add_ShouldReturnJsonErrorResult_WnenUserIsNotFound()
+        public void Add_ShouldSendInviteCollaboratorMeaasge_WnenUserIsNotFound()
         {
             //Arrange
+            _user.Identity.Name.Returns(CreatedBy);
+
             var course = CourseObjectMother.Create();
             _userRepository.GetUserByEmail(UserEmail).Returns(null as User);
+            var author = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(CreatedBy).Returns(author);
 
             //Act
-            var result = _controller.AddCollaborator(course, UserEmail);
+            _controller.AddCollaborator(course, UserEmail);
 
             //Assert
-            result.Should().BeJsonErrorResultWithMessage(Errors.UserWithSpecifiedEmailDoesntExist);
+            _mailSenderWrapper.Received().SendInviteCollaboratorMessage(author.Email, UserEmail, author.FullName, course.Title);
         }
 
         [TestMethod]

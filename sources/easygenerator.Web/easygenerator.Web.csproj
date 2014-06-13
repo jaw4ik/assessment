@@ -212,6 +212,7 @@
     <Compile Include="Components\DependencyResolverWrapper.cs" />
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
+    <Compile Include="Mail\IMailSenderWrapper.cs" />
     <Compile Include="Permissions\AnswerPermissionsChecker.cs" />
     <Compile Include="Permissions\CoursePermissionsChecker.cs" />
     <Compile Include="Permissions\IEntityPermissionsChecker.cs" />
@@ -528,6 +529,7 @@
     <Content Include="Mail\MailTemplates\NewsletterSubscriptionFailedTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
     <Content Include="packages.config" />
+    <Content Include="Mail\MailTemplates\InviteCollaboratorTemplate.cshtml" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\customPlugins\fillInTheBlank\dialogs\fillInTheBlank.js" />
@@ -1541,7 +1543,9 @@
     <Content Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Views\Account\Resources.resx" />
+    <EmbeddedResource Include="Resources\Views\Account\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Error\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx" />

@@ -344,4 +344,14 @@ your password.</value>
   <data name="WouldYouLikeAnIntroductionDemo" xml:space="preserve">
     <value>I would like an introduction demo!</value>
   </data>
+  <data name="InviteCollaboratorBody" xml:space="preserve">
+    <value>&lt;div&gt;
+&lt;p&gt;I would like to work with you on an eLearning course I’m creating in easygenerator. I know that you don’t have an easygenerator account yet, but you can create one for free, just go to: &lt;a href="{0}"&gt;{0}&lt;/a&gt; and sign up. Use the same email address as in this mail and the course will become available after login.&lt;/p&gt;
+&lt;p&gt;Kind regards,&lt;/p&gt;
+&lt;p&gt;{1}&lt;p&gt;
+&lt;/div&gt;</value>
+  </data>
+  <data name="InviteCollaboratorSubject" xml:space="preserve">
+    <value>Work with me on an eLearning course about "{0}"</value>
+  </data>
 </root>

@@ -31,7 +31,6 @@
                         }
 
                         guard.throwIfNotString(data.Email, 'Email is not a string');
-                        guard.throwIfNotString(data.FullName, 'Fullname is not a string');
 
                         var course = _.find(dataContext.courses, function (item) {
                             return item.id == courseId;

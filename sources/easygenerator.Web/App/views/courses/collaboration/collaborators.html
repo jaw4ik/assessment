@@ -2,7 +2,7 @@
     <ul class="course-collaborators-list">
         <!-- ko foreach: members -->
         <li class="course-collaborator-item-wrapper">
-            <div class="course-collaborator-item" data-bind="css: { 'course-owner': isOwner }">
+            <div class="course-collaborator-item" data-bind="css: { 'course-owner': isOwner, 'disable': !registered }">
                 <div class="user-avatar course-collaborator-item-user-avatar" data-bind="text: avatarLetter"></div>
                 <div class="course-collaborator-tooltip-wrapper">
                     <div class="course-collaborator-tooltip">

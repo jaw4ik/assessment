@@ -53,6 +53,7 @@ namespace easygenerator.Web.Components.Mappers
                 collaborators.Add(new
                 {
                     Email = owner.Email,
+                    Registered = true,
                     FullName = owner.FullName,
                     CreatedOn = course.CreatedOn
                 });

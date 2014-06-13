@@ -7,6 +7,7 @@
                 return new CollaboratorModel({
                     id: item.Id,
                     email: item.Email,
+                    registered: item.Registered,
                     fullName: item.FullName,
                     createdOn: new Date(item.CreatedOn)
                 });

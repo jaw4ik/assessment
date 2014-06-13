@@ -175,23 +175,6 @@
 
                     });
 
-                    describe('and response has no FullName', function () {
-
-                        it('should reject promise', function (done) {
-                            var promise = repository.add(courseId, email);
-
-                            promise.fin(function () {
-                                expect(promise).toBeRejectedWith('Fullname is not a string');
-                                done();
-                            });
-
-                            post.resolve({
-                                success: true, data: { Email: 'email' }
-                            });
-                        });
-
-                    });
-
                     describe('and course not found in dataContext', function () {
 
                         it('should reject promise', function (done) {

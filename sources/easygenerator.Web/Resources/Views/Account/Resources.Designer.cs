@@ -355,7 +355,29 @@ namespace AccountRes {
                 return ResourceManager.GetString("IncorrectEmailOrPassword", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string InviteCollaboratorBody
+        {
+            get
+            {
+                return ResourceManager.GetString("InviteCollaboratorBody", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string InviteCollaboratorSubject
+        {
+            get
+            {
+                return ResourceManager.GetString("InviteCollaboratorSubject", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Just looking.
         /// </summary>
