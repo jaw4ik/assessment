@@ -13,11 +13,7 @@
         email = "email@user.com",
         fullName = "Full Name",
         owner = 'owner';
-
-        beforeEach(function () {
-            spyOn(localizationManager, 'localize').and.returnValue(owner);
-        });
-
+        
         describe('displayName:', function () {
             it('should be defined', function () {
                 viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail, registered: true });
@@ -28,6 +24,7 @@
 
                 describe('and when collaborator is course owner', function () {
                     it('should be equal to collaborator fullName plus owner', function () {
+                        spyOn(localizationManager, 'localize').and.returnValue(owner);
                         viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail, registered: true });
                         expect(viewModel.displayName).toBe(fullName + ': ' + owner);
                     });
@@ -36,8 +33,9 @@
                 describe('and when collabortor is not registered', function() {
                     
                     it('should be equal to collaborator email plus waiting for registration', function () {
+                        spyOn(localizationManager, 'localize').and.returnValue('waiting for registration...');
                         viewModel = ctor(ownerEmail, { fullName: fullName, email: email, registered: false });
-                        expect(viewModel.displayName).toBe(fullName + ':\r\nwaiting for registration...');
+                        expect(viewModel.displayName).toBe(fullName + ':\nwaiting for registration...');
                     });
 
                 });
@@ -63,6 +61,7 @@
 
                 describe('and when is course owner', function () {
                     it('should be equal to collaborator fullName plus owner', function () {
+                        spyOn(localizationManager, 'localize').and.returnValue(owner);
                         viewModel = ctor(ownerEmail, { fullName: '', email: ownerEmail, registered: true });
                         expect(viewModel.displayName).toBe(ownerEmail + ': ' + owner);
                     });
