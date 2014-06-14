@@ -1,6 +1,6 @@
-﻿define(['durandal/system', 'synchronization/handlers/userEventHandler', 'synchronization/handlers/courseEventHandler', 'synchronization/handlers/objectiveEventHandler',
-    'synchronization/handlers/questionEventHandler'],
-    function (system, userEventHandler, courseEventHandler, objectiveEventHandler, questionEventHandler) {
+﻿define(['durandal/system', 'synchronization/handlers/user/handler', 'synchronization/handlers/course/handler', 'synchronization/handlers/objectiveEventHandler',
+    'synchronization/handlers/question/handler', 'synchronization/handlers/answer/handler'],
+    function (system, userEventHandler, courseEventHandler, objectiveEventHandler, questionEventHandler, answerEventHandler) {
         "use strict";
 
         return {
@@ -10,13 +10,13 @@
                 var hub = $.connection.eventHub;
 
                 hub.client = {
-                    userDowngraded: userEventHandler.userDowngraded,
-                    userUpgradedToStarter: userEventHandler.userUpgradedToStarter,
+                    userDowngraded: userEventHandler.downgraded,
+                    userUpgradedToStarter: userEventHandler.upgradedToStarter,
 
                     courseCollaboratorAdded: courseEventHandler.collaboratorAdded,
                     courseCollaborationStarted: courseEventHandler.collaborationStarted,
                     courseTitleUpdated: courseEventHandler.titleUpdated,
-                    courseIntroducationContentUpdated: courseEventHandler.introducationContentUpdated,
+                    courseIntroductionContentUpdated: courseEventHandler.introductionContentUpdated,
                     courseTemplateUpdated: courseEventHandler.templateUpdated,
                     courseObjectivesReordered: courseEventHandler.objectivesReordered,
                     coursePublished: courseEventHandler.published,
@@ -29,7 +29,10 @@
                     questionCreated: objectiveEventHandler.questionCreated,
 
                     questionTitleUpdated: questionEventHandler.titleUpdated,
-                    questionContentUpdated: questionEventHandler.contentUpdated
+                    questionContentUpdated: questionEventHandler.contentUpdated,
+
+                    answerCreated: answerEventHandler.created,
+                    answerDeleted: answerEventHandler.deleted
                 };
 
                 $.connection.hub.start()

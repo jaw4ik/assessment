@@ -1,8 +1,12 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,16 +16,17 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
     [TestClass]
     public class AnswerControllerTests
     {
-        IPrincipal _user;
-        HttpContextBase _context;
-        IEntityFactory _entityFactory;
+        private IPrincipal _user;
+        private HttpContextBase _context;
+        private IEntityFactory _entityFactory;
+        private IEntityMapper _entityMapper;
+        private IDomainEventPublisher _eventPublisher;
 
         AnswerController _controller;
 
@@ -29,11 +34,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void InitializeContext()
         {
             _entityFactory = Substitute.For<IEntityFactory>();
+            _entityMapper = Substitute.For<IEntityMapper>();
+            _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
-
-            _controller = new AnswerController(_entityFactory);
+            _controller = new AnswerController(_entityFactory, _entityMapper, _eventPublisher);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -67,6 +73,26 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Create(question, text, isCorrect);
 
             question.Received().AddAnswer(answer, user);
+        }
+
+
+        [TestMethod]
+        public void Create_ShouldPublishDomainEvent()
+        {
+            const string text = "text";
+            const bool isCorrect = true;
+            const string user = "username@easygenerator.com";
+            Guid group = default(Guid);
+            _user.Identity.Name.Returns(user);
+
+            var question = Substitute.For<Question>();
+            var answer = Substitute.For<Answer>();
+
+            _entityFactory.Answer(text, isCorrect, group, user).Returns(answer);
+
+            _controller.Create(question, text, isCorrect);
+
+            _eventPublisher.Received().Publish(Arg.Any<AnswerCreatedEvent>());
         }
 
         [TestMethod]
@@ -122,6 +148,19 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Delete(question, answer);
 
             question.Received().RemoveAnswer(answer, user);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldPublishDomainEvent()
+        {
+            const string user = "username@easygenerator.com";
+            _user.Identity.Name.Returns(user);
+            var question = Substitute.For<Question>();
+            var answer = Substitute.For<Answer>();
+
+            _controller.Delete(question, answer);
+
+            _eventPublisher.Received().Publish(Arg.Any<AnswerDeletedEvent>());
         }
 
         [TestMethod]
@@ -225,7 +264,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = answer.ModifiedOn });
         }
 
-        #endregion 
+        #endregion
 
         #region Get collection
 

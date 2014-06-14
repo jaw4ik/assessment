@@ -1,7 +1,7 @@
-﻿define(['synchronization/handlers/questionEventHandler'], function (handler) {
+﻿define(['synchronization/handlers/question/handler'], function (handler) {
     "use strict";
 
-    describe('synchronization [questionEventHandler]', function () {
+    describe('synchronization question [handler]', function () {
 
         describe('titleUpdated:', function () {
             it('should be function', function () {

@@ -2,9 +2,9 @@
 
 namespace easygenerator.DomainModel.Events.CourseEvents
 {
-    public class CourseIntroducationContentUpdated : CourseEvent
+    public class CourseIntroductionContentUpdated : CourseEvent
     {
-        public CourseIntroducationContentUpdated(Course course)
+        public CourseIntroductionContentUpdated(Course course)
             : base(course)
         {
 

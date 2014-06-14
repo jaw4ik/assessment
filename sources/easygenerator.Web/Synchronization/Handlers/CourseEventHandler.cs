@@ -10,7 +10,7 @@ namespace easygenerator.Web.Synchronization.Handlers
 {
     public class CourseEventHandler : IDomainEventHandler<CourseCollaboratorAddedEvent>,
         IDomainEventHandler<CourseTitleUpdatedEvent>,
-        IDomainEventHandler<CourseIntroducationContentUpdated>,
+        IDomainEventHandler<CourseIntroductionContentUpdated>,
         IDomainEventHandler<CourseTemplateUpdatedEvent>,
         IDomainEventHandler<CourseObjectivesReorderedEvent>,
         IDomainEventHandler<CoursePublishedEvent>,
@@ -48,10 +48,10 @@ namespace easygenerator.Web.Synchronization.Handlers
                 .courseTitleUpdated(args.Course.Id.ToNString(), args.Course.Title, args.Course.ModifiedOn);
         }
 
-        public void Handle(CourseIntroducationContentUpdated args)
+        public void Handle(CourseIntroductionContentUpdated args)
         {
             _broadcaster.OtherCollaborators(args.Course)
-                .courseIntroducationContentUpdated(args.Course.Id.ToNString(), args.Course.IntroductionContent, args.Course.ModifiedOn);
+                .courseIntroductionContentUpdated(args.Course.Id.ToNString(), args.Course.IntroductionContent, args.Course.ModifiedOn);
         }
 
         public void Handle(CourseTemplateUpdatedEvent args)

@@ -210,6 +210,7 @@
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
     <Compile Include="Mail\IMailSenderWrapper.cs" />
@@ -354,6 +355,7 @@
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\ICollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\ObjectiveCollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\Proxies\UsersProxy.cs" />
+    <Compile Include="Synchronization\Handlers\AnswerEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
@@ -381,6 +383,7 @@
     </Content>
     <Content Include="App\http\httpRequestSender.js" />
     <Content Include="App\imageUpload.js" />
+    <Content Include="App\mappers\answerModelMapper.js" />
     <Content Include="App\mappers\collaboratorModelMapper.js" />
     <Content Include="App\mappers\courseModelMapper.js" />
     <Content Include="App\mappers\objectiveModelMapper.js" />
@@ -390,29 +393,89 @@
     <Content Include="App\repositories\objectiveRepository.spec.js">
       <DependentUpon>objectiveRepository.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\courseEventHandler.js" />
-    <Content Include="App\synchronization\handlers\courseEventHandler.spec.js">
-      <DependentUpon>courseEventHandler.js</DependentUpon>
+    <Content Include="App\synchronization\handlers\answer\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\answer\handler.js" />
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\created.js" />
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\deleted.js" />
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\deleted.spec.js">
+      <DependentUpon>deleted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\created.spec.js">
+      <DependentUpon>created.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\handler.js" />
+    <Content Include="App\synchronization\handlers\course\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\collaborationStarted.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\collaborationStarted.spec.js">
+      <DependentUpon>collaborationStarted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\collaboratorAdded.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\collaboratorAdded.spec.js">
+      <DependentUpon>collaboratorAdded.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\deleted.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\deleted.spec.js">
+      <DependentUpon>deleted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\introductionContentUpdated.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\introductionContentUpdated.spec.js">
+      <DependentUpon>introductionContentUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\objectiveRelated.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\objectiveRelated.spec.js">
+      <DependentUpon>objectiveRelated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesReordered.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesReordered.spec.js">
+      <DependentUpon>objectivesReordered.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesUnrelated.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesUnrelated.spec.js">
+      <DependentUpon>objectivesUnrelated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\published.spec.js">
+      <DependentUpon>published.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\published.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\templateUpdated.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\templateUpdated.spec.js">
+      <DependentUpon>templateUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\titleUpdated.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\titleUpdated.spec.js">
+      <DependentUpon>titleUpdated.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\objectiveEventHandler.js" />
     <Content Include="App\synchronization\handlers\objectiveEventHandler.spec.js">
       <DependentUpon>objectiveEventHandler.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\questionEventHandler.js" />
-    <Content Include="App\synchronization\handlers\question\contentUpdated.js" />
-    <Content Include="App\synchronization\handlers\question\titleUpdated.js" />
-    <Content Include="App\synchronization\handlers\question\contentUpdated.spec.js">
+    <Content Include="App\synchronization\handlers\question\handler.js" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\contentUpdated.js" />
+    <Content Include="App\synchronization\handlers\question\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\question\eventHandlers\titleUpdated.js" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\contentUpdated.spec.js">
       <DependentUpon>contentUpdated.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\question\titleUpdated.spec.js">
+    <Content Include="App\synchronization\handlers\question\eventHandlers\titleUpdated.spec.js">
       <DependentUpon>titleUpdated.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\userEventHandler.js" />
-    <Content Include="App\synchronization\handlers\userEventHandler.spec.js">
-      <DependentUpon>userEventHandler.js</DependentUpon>
+    <Content Include="App\synchronization\handlers\user\handler.js" />
+    <Content Include="App\synchronization\handlers\user\eventHandlers\downgraded.js" />
+    <Content Include="App\synchronization\handlers\user\eventHandlers\downgraded.spec.js">
+      <DependentUpon>downgraded.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\questionEventHandler.spec.js">
-      <DependentUpon>questionEventHandler.js</DependentUpon>
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToStarter.js" />
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToStarter.spec.js">
+      <DependentUpon>upgradedToStarter.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\user\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
     </Content>
     <Content Include="App\utils\fillInTheBlankParser.js" />
     <Content Include="App\viewmodels\objectives\createObjective.js" />

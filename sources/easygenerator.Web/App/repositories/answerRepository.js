@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'http/httpWrapper', 'guard', 'models/answerOption'],
-    function (dataContext, httpWrapper, guard, answerModel) {
+﻿define(['dataContext', 'http/httpWrapper', 'guard', 'models/answerOption','mappers/answerModelMapper'],
+    function (dataContext, httpWrapper, guard, answerModel, answerMapper) {
         "use strict";
 
         var repository = {
@@ -21,13 +21,7 @@
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotArray(response.Answers, 'Answers is not an array');
                     return _.map(response.Answers, function (answer) {
-                        return new answerModel({
-                            id: answer.Id,
-                            text: answer.Text,
-                            groupId: answer.Group,
-                            isCorrect: answer.IsCorrect,
-                            createdOn: answer.CreatedOn
-                        });
+                        return answerMapper.map(answer);
                     });
                 });
             });

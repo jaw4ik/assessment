@@ -54,18 +54,34 @@
             'services/publishService.spec',
 
             //#region synchronization
-
-             'synchronization/handlers/userEventHandler.spec',
-            'synchronization/handlers/courseEventHandler.spec',
+          
             'synchronization/handlers/objectiveEventHandler.spec',
 
-            'synchronization/handlers/questionEventHandler.spec',
-            'synchronization/handlers/question/titleUpdated.spec',
-            'synchronization/handlers/question/contentUpdated.spec',
+            'synchronization/handlers/course/handler.spec',
+            'synchronization/handlers/course/eventHandlers/collaborationStarted.spec',
+            'synchronization/handlers/course/eventHandlers/collaboratorAdded.spec',
+            'synchronization/handlers/course/eventHandlers/deleted.spec',
+            'synchronization/handlers/course/eventHandlers/introductionContentUpdated.spec',
+            'synchronization/handlers/course/eventHandlers/objectiveRelated.spec',
+            'synchronization/handlers/course/eventHandlers/objectivesReordered.spec',
+            'synchronization/handlers/course/eventHandlers/objectivesUnrelated.spec',
+            'synchronization/handlers/course/eventHandlers/published.spec',
+            'synchronization/handlers/course/eventHandlers/templateUpdated.spec',
+            'synchronization/handlers/course/eventHandlers/titleUpdated.spec',
+
+            'synchronization/handlers/question/handler.spec',
+            'synchronization/handlers/question/eventHandlers/titleUpdated.spec',
+            'synchronization/handlers/question/eventHandlers/contentUpdated.spec',
+
+            'synchronization/handlers/answer/handler.spec',
+            'synchronization/handlers/answer/eventHandlers/created.spec',
+            'synchronization/handlers/answer/eventHandlers/deleted.spec',
+
+            'synchronization/handlers/user/handler.spec',
+            'synchronization/handlers/user/eventHandlers/upgradedToStarter.spec',
+            'synchronization/handlers/user/eventHandlers/downgraded.spec',
 
             //#endregion
-
-          
 
             'treeOfContent/handlers/treeOfContentEventHandler.spec',
             'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',

@@ -258,7 +258,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.UpdateIntroductionContent(introductionContent, GetCurrentUsername());
-            _eventPublisher.Publish(new CourseIntroducationContentUpdated(course));
+            _eventPublisher.Publish(new CourseIntroductionContentUpdated(course));
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }

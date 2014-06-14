@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/question/titleUpdated', 'synchronization/handlers/question/contentUpdated'],
+﻿define(['synchronization/handlers/question/eventHandlers/titleUpdated', 'synchronization/handlers/question/eventHandlers/contentUpdated'],
     function (titleUpdated, contentUpdated) {
         "use strict";
 

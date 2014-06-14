@@ -783,7 +783,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.UpdateIntroductionContent(course, "some content");
 
             //Assert
-            _eventPublisher.Received().Publish(Arg.Any<CourseIntroducationContentUpdated>());
+            _eventPublisher.Received().Publish(Arg.Any<CourseIntroductionContentUpdated>());
         }
 
         [TestMethod]

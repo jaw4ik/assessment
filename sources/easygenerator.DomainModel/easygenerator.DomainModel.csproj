@@ -54,10 +54,14 @@
     <Compile Include="Entities\Template.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="EntityFactory.cs" />
+    <Compile Include="Events\AnswerEvents\AnswerCreatedEvent.cs" />
+    <Compile Include="Events\AnswerEvents\AnswerDeletedEvent.cs" />
+    <Compile Include="Events\AnswerEvents\AnswerEvent.cs" />
+    <Compile Include="Events\AnswerEvents\AnswerUpdatedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseDeletedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseCollaboratorAddedEvent.cs" />
-    <Compile Include="Events\CourseEvents\CourseIntroducationContentUpdated.cs" />
+    <Compile Include="Events\CourseEvents\CourseIntroductionContentUpdated.cs" />
     <Compile Include="Events\CourseEvents\CourseObjectiveRelatedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseObjectivesReorderedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseObjectivesUnrelatedEvent.cs" />

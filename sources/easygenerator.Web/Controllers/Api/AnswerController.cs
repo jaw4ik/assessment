@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
-using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Permissions;
+using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
-using easygenerator.Web.ViewModels.Api;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -17,10 +18,14 @@ namespace easygenerator.Web.Controllers.Api
     public class AnswerController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
+        private readonly IEntityMapper _entityMapper;
+        private readonly IDomainEventPublisher _eventPublisher;
 
-        public AnswerController(IEntityFactory entityFactory)
+        public AnswerController(IEntityFactory entityFactory, IEntityMapper entityMapper, IDomainEventPublisher eventPublisher)
         {
             _entityFactory = entityFactory;
+            _entityMapper = entityMapper;
+            _eventPublisher = eventPublisher;
         }
 
         [HttpPost]
@@ -36,6 +41,7 @@ namespace easygenerator.Web.Controllers.Api
             var answer = _entityFactory.Answer(text, isCorrect, Guid.Empty, GetCurrentUsername());
 
             question.AddAnswer(answer, GetCurrentUsername());
+            _eventPublisher.Publish(new AnswerCreatedEvent(answer));
 
             return JsonSuccess(new { Id = answer.Id.ToNString(), CreatedOn = answer.CreatedOn });
         }
@@ -49,11 +55,9 @@ namespace easygenerator.Web.Controllers.Api
             {
                 return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
-
-            if (answer != null)
-            {
-                question.RemoveAnswer(answer, GetCurrentUsername());
-            }
+            
+            question.RemoveAnswer(answer, GetCurrentUsername());
+            _eventPublisher.Publish(new AnswerDeletedEvent(question, answer));
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
@@ -99,14 +103,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
 
-            var answers = question.Answers.Select(a => new
-            {
-                Id = a.Id.ToNString(),
-                Text = a.Text,
-                IsCorrect = a.IsCorrect,
-                CreatedOn = a.CreatedOn,
-                Group = a.Group.ToNString()
-            });
+            var answers = question.Answers.Select(answer => _entityMapper.Map(answer));
 
             return JsonSuccess(new { Answers = answers });
         }
