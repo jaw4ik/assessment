@@ -15,6 +15,6 @@
             question.modifiedOn = new Date(answerData.createdOn);
             var answer = answerMapper.map(answerData);
 
-            app.trigger(constants.messages.question.answer.addedByCollaborator, questionId, answer);
+            app.trigger(constants.messages.question.answer.addedByCollaborator, question, answer);
         }
     });

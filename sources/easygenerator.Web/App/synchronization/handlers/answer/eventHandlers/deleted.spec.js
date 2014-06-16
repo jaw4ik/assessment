@@ -76,7 +76,7 @@
         it('should trigger app event', function () {
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
             handler(questionId, answerId, modifiedOn.toISOString());
-            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.deletedByCollaborator, questionId, answerId);
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.deletedByCollaborator, question, answerId);
         });
     });
 })

@@ -87,7 +87,7 @@
         it('should trigger app event', function () {
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
             handler(questionId, answerId, isCorrect, modifiedOn.toISOString());
-            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.correctnessUpdatedByCollaborator, questionId, answerId, isCorrect);
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.correctnessUpdatedByCollaborator, question, answerId, isCorrect);
         });
     });
 })

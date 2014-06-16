@@ -3,7 +3,6 @@
 
     var
         ctor = require('viewmodels/questions/multipleSelect/multipleSelectAnswers'),
-        repository = require('repositories/answerRepository'),
         eventTracker = require('eventTracker'),
         notify = require('notify')
     ;

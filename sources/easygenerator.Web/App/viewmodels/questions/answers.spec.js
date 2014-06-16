@@ -181,7 +181,7 @@
 
         describe('addedByCollaborator:', function () {
             var answer = { id: 'id', text: 'text', isCorrect: true },
-                questionId = 'questionId';
+                question = { id: questionId };
 
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
@@ -194,14 +194,14 @@
             describe('when question is not current question', function () {
                 it('should not add answer', function () {
                     viewModel.answers([]);
-                    viewModel.addedByCollaborator('smth', answer);
+                    viewModel.addedByCollaborator({ id: 'smth' }, answer);
                     expect(viewModel.answers().length).toEqual(0);
                 });
             });
 
             it('should add answer', function () {
                 viewModel.answers([]);
-                viewModel.addedByCollaborator(questionId, answer);
+                viewModel.addedByCollaborator(question, answer);
                 expect(viewModel.answers().length).toEqual(1);
                 expect(viewModel.answers()[0].id()).toEqual(answer.id);
                 expect(viewModel.answers()[0].text()).toEqual(answer.text);
@@ -212,6 +212,7 @@
 
         describe('deletedByCollaborator:', function () {
             var answer = { id: 'id', text: 'text', isCorrect: true },
+                question = { id: questionId },
                 vmAnswer = { id: ko.observable(answer.id), isDeleted: ko.observable(false) };
 
             beforeEach(function () {
@@ -225,7 +226,7 @@
             describe('when question is not current question', function () {
                 it('should not delete answer', function () {
                     viewModel.answers([vmAnswer]);
-                    viewModel.deletedByCollaborator('smth', answer.id);
+                    viewModel.deletedByCollaborator({ id: 'smth' }, answer.id);
                     expect(viewModel.answers().length).toEqual(1);
                 });
             });
@@ -234,7 +235,7 @@
                 it('should not delete answer', function () {
                     viewModel.answers([vmAnswer]);
                     viewModel.selectedAnswer(vmAnswer);
-                    viewModel.deletedByCollaborator(questionId, answer.id);
+                    viewModel.deletedByCollaborator(question, answer.id);
                     expect(viewModel.answers().length).toEqual(1);
                 });
 
@@ -242,14 +243,14 @@
                     vmAnswer.isDeleted(false);
                     viewModel.answers([vmAnswer]);
                     viewModel.selectedAnswer(vmAnswer);
-                    viewModel.deletedByCollaborator(questionId, answer.id);
+                    viewModel.deletedByCollaborator(question, answer.id);
                     expect(vmAnswer.isDeleted).toBeTruthy();
                 });
 
                 it('should show notification', function () {
                     viewModel.answers([vmAnswer]);
                     viewModel.selectedAnswer(vmAnswer);
-                    viewModel.deletedByCollaborator(questionId, answer.id);
+                    viewModel.deletedByCollaborator(question, answer.id);
                     expect(notify.error).toHaveBeenCalled();
                 });
             });
@@ -257,7 +258,7 @@
             it('should remove answer', function () {
                 viewModel.selectedAnswer(null);
                 viewModel.answers([vmAnswer]);
-                viewModel.deletedByCollaborator(questionId, answer.id);
+                viewModel.deletedByCollaborator(question, answer.id);
                 expect(viewModel.answers().length).toEqual(0);
             });
 
@@ -266,9 +267,10 @@
         describe('textUpdatedByCollaborator:', function () {
             var text = 'text',
                 answer = { id: 'id', text: text, isCorrect: true },
-                vmAnswer = {
-                    id: ko.observable(answer.id), isDeleted: ko.observable(false), text: ko.observable('')
-                };
+                question = { id: questionId },
+            vmAnswer = {
+                id: ko.observable(answer.id), isDeleted: ko.observable(false), text: ko.observable('')
+            };
 
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
@@ -281,7 +283,7 @@
             describe('when question is not current question', function () {
                 it('should not update answer', function () {
                     viewModel.answers([vmAnswer]);
-                    viewModel.textUpdatedByCollaborator('smth', answer.id, text);
+                    viewModel.textUpdatedByCollaborator({ id: 'smth' }, answer.id, text);
                     expect(vmAnswer.text()).toBe('');
                 });
             });
@@ -290,7 +292,7 @@
                 it('should not update answer', function () {
                     viewModel.answers([vmAnswer]);
                     viewModel.selectedAnswer(vmAnswer);
-                    viewModel.textUpdatedByCollaborator(questionId, answer.id, text);
+                    viewModel.textUpdatedByCollaborator(question, answer.id, text);
                     expect(vmAnswer.text()).toBe('');
                 });
             });
@@ -298,9 +300,51 @@
             it('should update answer text', function () {
                 viewModel.answers([vmAnswer]);
                 viewModel.selectedAnswer(null);
-                viewModel.textUpdatedByCollaborator(questionId, answer.id, text);
+                viewModel.textUpdatedByCollaborator(question, answer.id, text);
                 expect(vmAnswer.text()).toBe(text);
             });
+        });
+
+        describe('correctnessUpdatedByCollaborator:', function () {
+            var text = 'text',
+              answer = { id: 'id', text: text, isCorrect: true },
+              question = { id: questionId },
+            vmAnswer = {
+                id: ko.observable(answer.id), isDeleted: ko.observable(false), isCorrect: ko.observable(true)
+            };
+
+            beforeEach(function () {
+                viewModel = ctor(questionId, []);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.correctnessUpdatedByCollaborator).toBeFunction();
+            });
+
+            describe('when question is not current question', function () {
+                it('should not update answer', function () {
+                    viewModel.answers([vmAnswer]);
+                    viewModel.correctnessUpdatedByCollaborator({ id: 'smth' }, answer.id, false);
+                    expect(vmAnswer.isCorrect()).toBeTruthy();
+                });
+            });
+
+            describe('when answer is in edit mdode', function () {
+                it('should not update answer', function () {
+                    viewModel.answers([vmAnswer]);
+                    viewModel.selectedAnswer(vmAnswer);
+                    viewModel.correctnessUpdatedByCollaborator(question, answer.id, false);
+                    expect(vmAnswer.isCorrect()).toBeTruthy();
+                });
+            });
+
+            it('should update answer text', function () {
+                viewModel.answers([vmAnswer]);
+                viewModel.selectedAnswer(null);
+                viewModel.correctnessUpdatedByCollaborator(question, answer.id, false);
+                expect(vmAnswer.isCorrect()).toBeFalsy();
+            });
+
         });
 
         describe('removeAnswer:', function () {

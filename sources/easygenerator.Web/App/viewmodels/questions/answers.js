@@ -27,7 +27,8 @@
                 autosaveInterval: constants.autosaveTimersInterval.answerOption,
                 addedByCollaborator: addedByCollaborator,
                 deletedByCollaborator: deletedByCollaborator,
-                textUpdatedByCollaborator: textUpdatedByCollaborator
+                textUpdatedByCollaborator: textUpdatedByCollaborator,
+                correctnessUpdatedByCollaborator: correctnessUpdatedByCollaborator
             };
 
             _.each(answers, function (item) {
@@ -37,6 +38,7 @@
             app.on(constants.messages.question.answer.addedByCollaborator, addedByCollaborator);
             app.on(constants.messages.question.answer.deletedByCollaborator, deletedByCollaborator);
             app.on(constants.messages.question.answer.textUpdatedByCollaborator, textUpdatedByCollaborator);
+            app.on(constants.messages.question.answer.correctnessUpdatedByCollaborator, correctnessUpdatedByCollaborator);
 
             return viewModel;
 
@@ -105,15 +107,15 @@
                 return viewModel.selectAnswer(answer);
             }
 
-            function addedByCollaborator(qId, answer) {
-                if (questionId != qId)
+            function addedByCollaborator(question, answer) {
+                if (questionId != question.id)
                     return;
 
                 doAddAnswer(answer);
             }
 
-            function deletedByCollaborator(qId, answerId) {
-                if (questionId != qId)
+            function deletedByCollaborator(question, answerId) {
+                if (questionId != question.id)
                     return;
 
                 var selectedAnswer = viewModel.selectedAnswer();
@@ -128,8 +130,8 @@
                 }));
             }
 
-            function textUpdatedByCollaborator(qId, answerId, text) {
-                if (questionId != qId)
+            function textUpdatedByCollaborator(question, answerId, text) {
+                if (questionId != question.id)
                     return;
 
                 var selectedAnswer = viewModel.selectedAnswer();
@@ -143,6 +145,24 @@
 
                 if (!_.isNullOrUndefined(answer)) {
                     answer.text(text);
+                }
+            }
+
+            function correctnessUpdatedByCollaborator(question, answerId, isCorrect) {
+                if (questionId != question.id)
+                    return;
+
+                var selectedAnswer = viewModel.selectedAnswer();
+                if (!_.isNullOrUndefined(selectedAnswer) && selectedAnswer.id() == answerId) {
+                    return;
+                }
+
+                var answer = _.find(viewModel.answers(), function (item) {
+                    return item.id() == answerId;
+                });
+
+                if (!_.isNullOrUndefined(answer)) {
+                    answer.isCorrect(isCorrect);
                 }
             }
 

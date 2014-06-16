@@ -15,6 +15,6 @@
 
             question.modifiedOn = new Date(modifiedOn);
 
-            app.trigger(constants.messages.question.answer.deletedByCollaborator, questionId, answerId);
+            app.trigger(constants.messages.question.answer.deletedByCollaborator, question, answerId);
         }
     });

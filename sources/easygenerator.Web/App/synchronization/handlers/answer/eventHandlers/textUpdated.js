@@ -17,6 +17,6 @@
 
             question.modifiedOn = new Date(modifiedOn);
 
-            app.trigger(constants.messages.question.answer.textUpdatedByCollaborator, questionId, answerId, text);
+            app.trigger(constants.messages.question.answer.textUpdatedByCollaborator, question, answerId, text);
         }
     });

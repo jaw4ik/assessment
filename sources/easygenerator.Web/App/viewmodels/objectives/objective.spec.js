@@ -1358,6 +1358,21 @@
                     expect(vmQuestion.modifiedOn()).toBe(question.modifiedOn);
                 });
             });
+
+            describe('questionUpdated:', function () {
+                it('should be function', function () {
+                    expect(viewModel.questionUpdated).toBeFunction();
+                });
+
+                var question = { id: 'id', title: 'title', modifiedOn: new Date() },
+                    vmQuestion = { id: question.id, title: ko.observable(''), modifiedOn: ko.observable(''), isSelected: ko.observable(false) };
+
+                it('should update question modifiedOn', function () {
+                    viewModel.questions([vmQuestion]);
+                    viewModel.questionUpdated(question);
+                    expect(vmQuestion.modifiedOn()).toBe(question.modifiedOn);
+                });
+            });
         });
 
        

@@ -69,7 +69,7 @@
         it('should trigger app event', function () {
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
             handler(questionId, answerData);
-            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.addedByCollaborator, questionId, answer);
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.addedByCollaborator, question, answer);
         });
     });
 })
