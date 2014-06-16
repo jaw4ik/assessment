@@ -1228,6 +1228,9 @@
     questionHasBeenDeletedByCollaborator: {
         en: 'This question has been deleted by a collaborator. Please go to the list of questions.'
     },
+    answerOptionHasBeenDeletedByCollaborator: {
+        en: 'This answer option has been deleted by collaborator. Please save the necessary data before you finish editing.'
+    },
     waitingForRegistration: {
         en: 'waiting for registration...'
     },
