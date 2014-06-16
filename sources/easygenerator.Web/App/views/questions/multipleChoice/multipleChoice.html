@@ -82,7 +82,7 @@
                     </li>
                     <!-- /ko -->
                     <!-- ko foreach: answers -->
-                    <li class="answer-option-item" data-bind="outsideClick: { action: $parent.clearSelection }">
+                    <li class="answer-option-item" data-bind="click: $parent.selectAnswer.bind($parent, $data), outsideClick: { action: $parent.clearSelection }">
                         <div class="answer-options-list-item">
                             <div class="question-answer-value-wrapper">
                                 <!-- ko if: isCorrect -->

@@ -1,5 +1,5 @@
-﻿define(['repositories/answerRepository', 'localization/localizationManager', 'notify', 'eventTracker', 'viewmodels/questions/answers'],
-    function (repository, localizationManager, notify, eventTracker, vmAnswers) {
+﻿define(['repositories/answerRepository', 'localization/localizationManager', 'eventTracker', 'viewmodels/questions/answers', 'notify'],
+    function (repository, localizationManager, eventTracker, vmAnswers, notify) {
 
         var events = {
             toggleAnswerCorrectness: 'Change answer option correctness'
@@ -18,6 +18,7 @@
                     currentCorrectAnswer.isCorrect(false);
                     if (currentCorrectAnswer.text() == currentCorrectAnswer.original.text) {
                         repository.updateCorrectness(questionId, currentCorrectAnswer.id(), false).then(function () {
+                            answer.original.correctness = false;
                             notify.saved();
                         });
                     }
