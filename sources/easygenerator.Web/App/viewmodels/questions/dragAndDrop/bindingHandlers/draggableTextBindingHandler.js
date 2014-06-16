@@ -1,5 +1,5 @@
 ﻿define(['knockout'], function (ko) {
-    
+
     ko.bindingHandlers.draggableText = {
         init: function (element, valueAccessor) {
             var value = valueAccessor();
@@ -24,9 +24,10 @@
         },
         update: function (element, valueAccessor) {
             var value = valueAccessor();
+
             if (value.text()) {
                 $(element).show();
-                ko.utils.setTextContent(element, value.text());
+                ko.bindingHandlers.text.update(element, function () { return value.text; });
             } else {
                 $(element).hide();
             }

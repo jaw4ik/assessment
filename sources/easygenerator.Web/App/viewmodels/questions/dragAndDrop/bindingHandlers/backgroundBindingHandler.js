@@ -12,9 +12,10 @@
                 var src = value();
                 var image = new Image();
                 image.src = src;
+
                 image.onload = function () {
                     $(element)
-                        .css('background-image', 'url(\'' + src + '\'')
+                        .css('background-image', 'url(' + src + ')')
                         .css('height', image.height)
                         .css('width', image.width);
                 }
