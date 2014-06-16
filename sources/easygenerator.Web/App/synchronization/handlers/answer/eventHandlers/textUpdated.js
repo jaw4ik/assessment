@@ -3,7 +3,6 @@
         "use strict";
 
         return function (questionId, answerId, text, modifiedOn) {
-            debugger;
             guard.throwIfNotString(questionId, 'QuestionId is not a string');
             guard.throwIfNotString(text, 'Text is not a string');
             guard.throwIfNotString(answerId, 'AnswerId is not a string');
