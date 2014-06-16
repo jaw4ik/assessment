@@ -393,6 +393,14 @@
     <Content Include="App\repositories\objectiveRepository.spec.js">
       <DependentUpon>objectiveRepository.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\correctnessUpdated.js" />
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\correctnessUpdated.spec.js">
+      <DependentUpon>correctnessUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\textUpdated.js" />
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\textUpdated.spec.js">
+      <DependentUpon>textUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\answer\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
     </Content>

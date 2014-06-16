@@ -1,5 +1,5 @@
-﻿define(['repositories/answerRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker'],
-    function (repository, localizationManager, notify, constants, eventTracker) {
+﻿define(['repositories/answerRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker', 'durandal/app'],
+    function (repository, localizationManager, notify, constants, eventTracker, app) {
 
         var events = {
             addAnswerOption: 'Add answer option',
@@ -24,12 +24,19 @@
                 endEditText: endEditText,
                 toggleExpand: toggleExpand,
                 updateAnswer: updateAnswer,
-                autosaveInterval: constants.autosaveTimersInterval.answerOption
+                autosaveInterval: constants.autosaveTimersInterval.answerOption,
+                addedByCollaborator: addedByCollaborator,
+                deletedByCollaborator: deletedByCollaborator,
+                textUpdatedByCollaborator: textUpdatedByCollaborator
             };
 
             _.each(answers, function (item) {
                 doAddAnswer(item);
             });
+
+            app.on(constants.messages.question.answer.addedByCollaborator, addedByCollaborator);
+            app.on(constants.messages.question.answer.deletedByCollaborator, deletedByCollaborator);
+            app.on(constants.messages.question.answer.textUpdatedByCollaborator, textUpdatedByCollaborator);
 
             return viewModel;
 
@@ -39,6 +46,14 @@
                 var correctness = ko.unwrap(answer.isCorrect);
 
                 return Q.fcall(function () {
+                    if (answer.isDeleted()) {
+                        viewModel.answers(_.reject(viewModel.answers(), function (item) {
+                            return item.id() == answer.id();
+                        }));
+
+                        return;
+                    }
+
                     if (_.isEmptyOrWhitespace(text)) {
                         viewModel.answers.remove(answer);
                         if (!_.isEmptyOrWhitespace(id)) {
@@ -74,8 +89,9 @@
                         return;
 
                     viewModel.selectedAnswer(newAnswer);
-                    if (oldAnswer != null)
+                    if (oldAnswer != null) {
                         updateAnswer(oldAnswer);
+                    }
                 });
             }
 
@@ -89,13 +105,54 @@
                 return viewModel.selectAnswer(answer);
             }
 
+            function addedByCollaborator(qId, answer) {
+                if (questionId != qId)
+                    return;
+
+                doAddAnswer(answer);
+            }
+
+            function deletedByCollaborator(qId, answerId) {
+                if (questionId != qId)
+                    return;
+
+                var selectedAnswer = viewModel.selectedAnswer();
+                if (!_.isNullOrUndefined(selectedAnswer) && selectedAnswer.id() == answerId) {
+                    notify.error(localizationManager.localize('answerOptionHasBeenDeletedByCollaborator'));
+                    selectedAnswer.isDeleted(true);
+                    return;
+                }
+
+                viewModel.answers(_.reject(viewModel.answers(), function (item) {
+                    return item.id() == answerId;
+                }));
+            }
+
+            function textUpdatedByCollaborator(qId, answerId, text) {
+                if (questionId != qId)
+                    return;
+
+                var selectedAnswer = viewModel.selectedAnswer();
+                if (!_.isNullOrUndefined(selectedAnswer) && selectedAnswer.id() == answerId) {
+                    return;
+                }
+
+                var answer = _.find(viewModel.answers(), function(item) {
+                    return item.id() == answerId;
+                });
+
+                if (!_.isNullOrUndefined(answer)) {
+                    answer.text(text);
+                }
+            }
+
             function removeAnswer(answer) {
                 eventTracker.publish(events.deleteAnswerOption);
 
                 return clearSelection().then(function () {
                     performActionWhenAnswerIdIsSet(answer, function () {
                         viewModel.answers.remove(answer);
-                        repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function (response) {
+                        repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function () {
                             showNotification();
                         });
                     });
@@ -137,6 +194,7 @@
                     text: ko.observable(answer.text),
                     original: { text: answer.text, correctness: answer.isCorrect },
                     isCorrect: ko.observable(answer.isCorrect),
+                    isDeleted: ko.observable(false),
                     hasFocus: ko.observable(true)
                 };
 

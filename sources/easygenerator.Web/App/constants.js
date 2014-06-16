@@ -121,7 +121,9 @@
                     deletedByCollaborator: 'question:deletedByCollaborator',
                     answer: {
                         addedByCollaborator: 'question:answer:addedByCollaborator',
-                        deletedByCollaborator: 'question:answer:deletedByCollaborator'
+                        deletedByCollaborator: 'question:answer:deletedByCollaborator',
+                        textUpdatedByCollaborator: 'question:answer:textUpdatedByCollaborator',
+                        correctnessUpdatedByCollaborator: 'question:answer:correctnessUpdatedByCollaborator',
                     }
                 },
                 helpHint: {

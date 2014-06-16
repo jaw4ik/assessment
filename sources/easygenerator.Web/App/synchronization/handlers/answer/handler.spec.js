@@ -15,6 +15,18 @@
             });
         });
 
+        describe('textUpdated:', function () {
+            it('should be function', function () {
+                expect(handler.textUpdated).toBeFunction();
+            });
+        });
+
+        describe('correctnessUpdated:', function () {
+            it('should be function', function () {
+                expect(handler.correctnessUpdated).toBeFunction();
+            });
+        });
+
     });
 
 })

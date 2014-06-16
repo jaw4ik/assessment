@@ -2,8 +2,10 @@
     function (guard, app, constants, dataContext) {
         "use strict";
 
-        return function (questionId, answerId, modifiedOn) {
+        return function (questionId, answerId, text, modifiedOn) {
+            debugger;
             guard.throwIfNotString(questionId, 'QuestionId is not a string');
+            guard.throwIfNotString(text, 'Text is not a string');
             guard.throwIfNotString(answerId, 'AnswerId is not a string');
             guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
 
@@ -15,6 +17,6 @@
 
             question.modifiedOn = new Date(modifiedOn);
 
-            app.trigger(constants.messages.question.answer.deletedByCollaborator, questionId, answerId);
+            app.trigger(constants.messages.question.answer.textUpdatedByCollaborator, questionId, answerId, text);
         }
     });

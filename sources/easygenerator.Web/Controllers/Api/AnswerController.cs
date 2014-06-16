@@ -73,7 +73,10 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             answer.UpdateText(text, GetCurrentUsername());
+            _eventPublisher.Publish(new AnswerTextUpdatedEvent(answer));
+
             answer.UpdateCorrectness(isCorrect, GetCurrentUsername());
+            _eventPublisher.Publish(new AnswerCorrectnessUpdatedEvent(answer));
 
             return JsonSuccess(new { ModifiedOn = answer.ModifiedOn });
         }
@@ -89,6 +92,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             answer.UpdateCorrectness(isCorrect, GetCurrentUsername());
+            _eventPublisher.Publish(new AnswerCorrectnessUpdatedEvent(answer));
 
             return JsonSuccess(new { ModifiedOn = answer.ModifiedOn });
         }

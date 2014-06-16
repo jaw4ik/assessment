@@ -3,9 +3,9 @@ using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Events.AnswerEvents
 {
-    public class AnswerUpdatedEvent : AnswerEvent
+    public class AnswerTextUpdatedEvent : AnswerEvent
     {
-        public AnswerUpdatedEvent(Answer answer)
+        public AnswerTextUpdatedEvent(Answer answer)
             : base(answer)
         {
 

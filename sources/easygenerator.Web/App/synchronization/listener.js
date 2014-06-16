@@ -32,7 +32,9 @@
                     questionContentUpdated: questionEventHandler.contentUpdated,
 
                     answerCreated: answerEventHandler.created,
-                    answerDeleted: answerEventHandler.deleted
+                    answerDeleted: answerEventHandler.deleted,
+                    answerTextUpdated: answerEventHandler.textUpdated,
+                    answerCorrectnessUpdated: answerEventHandler.correctnessUpdated
                 };
 
                 $.connection.hub.start()

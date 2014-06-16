@@ -218,6 +218,32 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void Update_ShouldPublishUpdateAnswerCorrectnessUpdatedDomainEvent()
+        {
+            const bool isCorrect = true;
+            const string user = "username@easygenerator.com";
+            _user.Identity.Name.Returns(user);
+            var answer = Substitute.For<Answer>();
+
+            _controller.Update(answer, "", isCorrect);
+
+            _eventPublisher.Received().Publish(Arg.Any<AnswerCorrectnessUpdatedEvent>());
+        }
+
+        [TestMethod]
+        public void Update_ShouldPublishUpdateAnswerTExtUpdatedDomainEvent()
+        {
+            const bool isCorrect = true;
+            const string user = "username@easygenerator.com";
+            _user.Identity.Name.Returns(user);
+            var answer = Substitute.For<Answer>();
+
+            _controller.Update(answer, "", isCorrect);
+
+            _eventPublisher.Received().Publish(Arg.Any<AnswerTextUpdatedEvent>());
+        }
+
+        [TestMethod]
         public void Update_ShouldReturnJsonSuccessResult()
         {
             var answer = Substitute.For<Answer>();
@@ -253,6 +279,21 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             answer.Received().UpdateCorrectness(isCorrect, user);
         }
+
+
+        [TestMethod]
+        public void UpdateCorrectness_ShouldPublishDomainEvent()
+        {
+            const bool isCorrect = true;
+            const string user = "username@easygenerator.com";
+            _user.Identity.Name.Returns(user);
+            var answer = Substitute.For<Answer>();
+
+            _controller.UpdateCorrectness(answer, isCorrect);
+
+            _eventPublisher.Received().Publish(Arg.Any<AnswerCorrectnessUpdatedEvent>());
+        }
+
 
         [TestMethod]
         public void UpdateCorrectness_ShouldReturnJsonSuccessResult()
