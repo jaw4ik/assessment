@@ -9,6 +9,7 @@
                 courseSelected: 'Course selected',
                 courseUnselected: 'Course unselected',
                 navigateToCourseDetails: 'Navigate to course details',
+                navigateToPublishCourse: 'Navigate to publish course',
                 downloadCourse: 'Download course',
                 courseBuildFailed: 'Course build is failed',
                 coursePublishFailed: 'Course publish is failed',
@@ -33,6 +34,7 @@
 
             navigateToCreation: navigateToCreation,
             navigateToDetails: navigateToDetails,
+            navigateToPublish: navigateToPublish,
 
             deleteSelectedCourses: deleteSelectedCourses,
 
@@ -77,6 +79,11 @@
         function navigateToDetails(course) {
             eventTracker.publish(events.navigateToCourseDetails);
             router.navigate('course/' + course.id);
+        }
+
+        function navigateToPublish(course) {
+            eventTracker.publish(events.navigateToPublishCourse);
+            router.navigate('publish/' + course.id);
         }
 
         function getSelectedCourses() {

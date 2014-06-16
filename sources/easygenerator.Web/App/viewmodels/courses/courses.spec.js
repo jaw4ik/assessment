@@ -289,6 +289,24 @@
 
         });
 
+        describe('navigateToPublish:', function() {
+
+            it('should be function', function() {
+                expect(viewModel.navigateToPublish).toBeFunction();
+            });
+
+            it('should send event \'Navigate to publish course\'', function () {
+                viewModel.navigateToPublish(courses[0]);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to publish course');
+            });
+
+            it('should navigate to #publish/id', function () {
+                viewModel.navigateToPublish(courses[0]);
+                expect(router.navigate).toHaveBeenCalledWith('publish/' + courses[0].id);
+            });
+
+        });
+
         describe('toggleSelection:', function () {
             var course;
 
