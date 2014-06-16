@@ -1,3 +1,3 @@
 ﻿CKEDITOR.plugins.setLang('fillInTheBlank', 'en', {
-    popupTitle: 'Blank field value',
+    popupTitle: 'Fill in the value for the blank',
 });
