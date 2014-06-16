@@ -538,6 +538,9 @@
     multipleChoiceEditor: {
         en: 'Multiple choice question editor'
     },
+    multipleChoiceAnswerError: {
+        en: 'You are not allowed to remove this answer option. A multiple choice question needs to have at least two answer options'
+    },
     /* End resource section for model Questions */
     
     /* Resource section for model customLocalizationPlugin */
