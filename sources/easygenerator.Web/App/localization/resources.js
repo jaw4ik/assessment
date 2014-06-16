@@ -1231,6 +1231,9 @@
     answerOptionHasBeenDeletedByCollaborator: {
         en: 'This answer option has been deleted by collaborator. Please save the necessary data before you finish editing.'
     },
+    learningContentHasBeenDeletedByCollaborator: {
+        en: 'This learning has been deleted by collaborator. Please save the necessary data before you finish editing.'
+    },
     waitingForRegistration: {
         en: 'waiting for registration...'
     },
