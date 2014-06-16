@@ -22,6 +22,8 @@
             backButtonData: new BackButton({}),
             learningContents: null,
             isCreatedQuestion: ko.observable(false),
+            isExpanded: ko.observable(true),
+            toggleExpand: toggleExpand
         };
 
         return viewModel;
@@ -44,6 +46,17 @@
                     viewModel.learningContents = vmLearningContents(question.id, sortedLearningContents);
                 });
             });
+        }
+
+        function toggleExpand() {
+            viewModel.isExpanded(!viewModel.isExpanded());
+        }
+
+        function contentUpdated(question) {
+            if (question.id != viewModel.questionId || viewModel.questionContent.isEditing())
+                return;
+
+            viewModel.questionContent.text(question.content);
         }
 
     });

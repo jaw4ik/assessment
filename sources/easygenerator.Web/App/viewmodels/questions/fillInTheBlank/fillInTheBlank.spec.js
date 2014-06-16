@@ -114,6 +114,32 @@
 
         });
 
+        describe('isExpanded:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.isExpanded).toBeObservable();
+            });
+
+            it('should be true by default', function () {
+                expect(viewModel.isExpanded()).toBeTruthy();
+            });
+
+        });
+
+        describe('toggleExpand:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.toggleExpand).toBeFunction();
+            });
+
+            it('should toggle isExpanded value', function () {
+                viewModel.isExpanded(false);
+                viewModel.toggleExpand();
+                expect(viewModel.isExpanded()).toEqual(true);
+            });
+
+        });
+
     });
 
 });
