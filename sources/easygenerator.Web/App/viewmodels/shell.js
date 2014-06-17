@@ -164,7 +164,7 @@
             if (_.isNullOrUndefined(router.routeData().objectiveId) || _.indexOf(deletedObjectiveIds, router.routeData().objectiveId) == -1)
                 return;
 
-            notify.error(localizationManager.localize('learningObjectiveHasBeenDeletedByCollaborator'));
+            notify.error(localizationManager.localize('learningObjectiveHasBeenDisconnectedByCollaborator'));
         }
 
         function questionsDeleted(objId, deletedQuestionIds) {

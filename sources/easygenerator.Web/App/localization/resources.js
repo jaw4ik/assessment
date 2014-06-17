@@ -1225,7 +1225,7 @@
     courseHasBeenDeletedByTheOwner: {
         en: 'This course has been deleted by the owner. Please go to the list of courses.'
     },
-    learningObjectiveHasBeenDeletedByCollaborator: {
+    learningObjectiveHasBeenDisconnectedByCollaborator: {
         en: 'This learning objective has been disconnected by a collaborator. Please go to the list of learning objectives.'
     },
     questionHasBeenDeletedByCollaborator: {
