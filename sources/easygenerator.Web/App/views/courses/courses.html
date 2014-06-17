@@ -127,7 +127,7 @@
                     <input class="custom-checkbox" type="checkbox" />
                 </span>
                 <div class="course-actions-panel">
-                    <a class="course-action-btn publish-btn" href="#" data-bind="attr: { href: '#publish/' + id }">
+                    <a class="course-action-btn publish-btn" href="#" data-bind="click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
                         <div class="list-action-tooltip" data-bind="localize: { text: 'publish' }">Publish</div>
                     </a>
                 </div>
