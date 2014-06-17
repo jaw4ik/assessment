@@ -13,7 +13,7 @@
             question = { id: questionId },
             modifiedOn = new Date(),
             answer = {},
-            answerData = { createdOn: modifiedOn };
+            answerData = { createdOn: modifiedOn.toISOString() };
 
         beforeEach(function () {
             spyOn(app, 'trigger');
@@ -63,7 +63,7 @@
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
             handler(questionId, answerData);
 
-            expect(question.modifiedOn.toISOString()).toBe(answerData.createdOn.toISOString());
+            expect(question.modifiedOn.toISOString()).toBe(answerData.createdOn);
         });
 
         it('should trigger app event', function () {
