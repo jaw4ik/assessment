@@ -20,6 +20,106 @@
             expect(repository).toBeDefined();
         });
 
+        describe('getCollection:', function () {
+
+            it('should be function', function () {
+                expect(repository.getCollection).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(repository.getCollection()).toBePromise();
+            });
+
+            describe('when course id is null', function () {
+                it('should reject promise', function (done) {
+                    var promise = repository.getCollection(null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('CourseId is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when course id is undefined', function () {
+                it('should reject promise', function (done) {
+                    var promise = repository.getCollection(undefined);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('CourseId is not a string');
+                        done();
+                    });
+                });
+            });
+
+            describe('when course id is not a string', function () {
+                it('should reject promise', function (done) {
+                    var promise = repository.getCollection({});
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('CourseId is not a string');
+                        done();
+                    });
+                });
+            });
+
+            it('should send request to \'api/course/collaborators\'', function (done) {
+                var promise = repository.getCollection(courseId);
+
+                post.reject('Some reason');
+
+                promise.fin(function () {
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/course/collaborators', { courseId: courseId });
+                    done();
+                });
+            });
+
+
+            describe('and response is not an object', function () {
+                it('should reject promise', function (done) {
+                    var promise = repository.getCollection(courseId);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Response is not an object');
+                        done();
+                    });
+
+                    post.resolve('trololo');
+                });
+            });
+
+            describe('and response data is not an array', function () {
+                it('should reject promise', function (done) {
+                    var promise = repository.getCollection(courseId);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Response data is not an array');
+                        done();
+                    });
+
+                    post.resolve({ data: 'trololo' });
+                });
+            });
+
+            it('should return mapped courses array', function (done) {
+                var collaborator = { Id: '1' };
+                var mappedCollaborator = { id: '1' };
+
+                var promise = repository.getCollection(courseId);
+
+                post.resolve({ data: [collaborator] });
+                spyOn(collaboratorModelMapper, 'map').and.returnValue(mappedCollaborator);
+
+                promise.fin(function () {
+                    expect(promise.inspect().value.length).toEqual(1);
+                    expect(promise.inspect().value[0].id).toEqual(mappedCollaborator.id);
+                    done();
+                });
+            });
+
+        });
+
         describe('add:', function () {
 
             it('should be function', function () {

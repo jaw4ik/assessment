@@ -1,12 +1,27 @@
-﻿define(['http/httpRequestSender', 'guard', 'models/collaborator', 'dataContext', 'mappers/collaboratorModelMapper'],
-    function (httpWrapper, guard, Collaborator, dataContext, collaboratorModelMapper) {
+﻿define(['http/httpRequestSender', 'guard', 'dataContext', 'mappers/collaboratorModelMapper'],
+    function (httpWrapper, guard, dataContext, collaboratorModelMapper) {
         "use strict";
 
         var repository = {
+            getCollection: getCollection,
             add: add
         };
 
         return repository;
+
+        function getCollection(courseId) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(courseId, 'CourseId is not a string');
+
+                return httpWrapper.post('api/course/collaborators', { courseId: courseId }).then(function (response) {
+                    guard.throwIfNotAnObject(response, 'Response is not an object');
+                    guard.throwIfNotArray(response.data, 'Response data is not an array');
+                    return _.map(response.data, function (collaborator) {
+                        return collaboratorModelMapper.map(collaborator);
+                    });
+                });
+            });
+        }
 
         function add(courseId, email) {
             return Q.fcall(function () {

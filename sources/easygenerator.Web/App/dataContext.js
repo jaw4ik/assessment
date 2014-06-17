@@ -8,7 +8,6 @@
             templates = [],
 
             initialize = function () {
-                var that = this;
                 return Q.fcall(function () {
                     return $.ajax({
                         url: 'api/templates',

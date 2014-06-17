@@ -1,8 +1,8 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
         'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'ping', 'models/backButton',
-        'viewmodels/courses/collaboration/collaborators', 'userContext', 'durandal/app'],
+        'viewmodels/courses/collaboration/collaborators', 'userContext', 'durandal/app','repositories/collaboratorRepository'],
     function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, ping, BackButton,
-        vmCollaborators, userContext, app) {
+        vmCollaborators, userContext, app, collaboratorRepository) {
         "use strict";
 
         var
@@ -341,8 +341,12 @@
                     .value());
 
                 viewModel.isEditing(false);
-                viewModel.collaborators = new vmCollaborators(course.id, course.createdBy, course.collaborators);
                 viewModel.courseIntroductionContent = vmContentField(course.introductionContent, eventsForCourseContent, false, function (content) { return repository.updateIntroductionContent(course.id, content); });
+
+                return collaboratorRepository.getCollection(courseId).then(function (collaborators) {
+                    viewModel.collaborators = new vmCollaborators(course.id, course.createdBy, collaborators);
+                });
+
             }).fail(function (reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
                 throw reason;

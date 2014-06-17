@@ -6,8 +6,10 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
-using System.Web.Mvc;
 using easygenerator.Web.Mail;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -25,6 +27,34 @@ namespace easygenerator.Web.Controllers.Api
             _collaboratorEntityModelMapper = collaboratorEntityModelMapper;
             _eventPublisher = eventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
+        }
+
+        [HttpPost]
+        [EntityPermissions(typeof(Course))]
+        [Route("api/course/collaborators")]
+        public ActionResult GetCollaborators(Course course)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            var collaborators = new List<object>();
+            course.Collaborators.ForEach(e => collaborators.Add(_collaboratorEntityModelMapper.Map(e)));
+
+            var owner = _userRepository.GetUserByEmail(course.CreatedBy);
+            if (owner != null)
+            {
+                collaborators.Add(new
+                {
+                    Email = owner.Email,
+                    Registered = true,
+                    FullName = owner.FullName,
+                    CreatedOn = course.CreatedOn
+                });
+            }
+
+            return JsonSuccess(collaborators);
         }
 
         [HttpPost]
@@ -52,8 +82,7 @@ namespace easygenerator.Web.Controllers.Api
                 _mailSenderWrapper.SendInviteCollaboratorMessage(author.Email, email, author.FullName, course.Title);
             }
 
-            var courseCollaboratorAddedEvent = new CourseCollaboratorAddedEvent(collaborator, authorName);
-            _eventPublisher.Publish(courseCollaboratorAddedEvent);
+            _eventPublisher.Publish(new CourseCollaboratorAddedEvent(collaborator, authorName));
 
             return JsonSuccess(_collaboratorEntityModelMapper.Map(collaborator));
         }

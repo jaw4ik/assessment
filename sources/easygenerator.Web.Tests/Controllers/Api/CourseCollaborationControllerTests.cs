@@ -54,6 +54,33 @@ namespace easygenerator.Web.Tests.Controllers.Api
             DateTimeWrapper.Now = () => CurrentDate;
         }
 
+        #region GetCollaborators
+
+        [TestMethod]
+        public void GetCollaborators_ShouldReturnJsonErrorResult_WnenCourseIsNull()
+        {
+            //Act
+            var result = _controller.GetCollaborators(null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
+        public void GetCollaborators_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = _controller.GetCollaborators(course);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion
+
         #region Add
 
         [TestMethod]

@@ -51,19 +51,6 @@
             });
         });
 
-        describe('when course is found in dataContext', function () {
-
-            it('should add collaborator to course', function () {
-                var existingCourse = { id: course.Id, collaborators: [] };
-                dataContext.courses = [existingCourse];
-
-                handler(course, [], user);
-
-                expect(existingCourse.collaborators.length).toBe(1);
-            });
-
-        });
-
         describe('when course is not found in dataContext', function () {
 
             it('should add mapped course to data context', function () {

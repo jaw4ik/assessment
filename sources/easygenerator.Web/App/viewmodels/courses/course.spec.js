@@ -7,6 +7,7 @@
 		eventTracker = require('eventTracker'),
 		constants = require('constants'),
 		repository = require('repositories/courseRepository'),
+        collaboratorRepository = require('repositories/collaboratorRepository'),
 		objectiveRepository = require('repositories/objectiveRepository'),
 		notify = require('notify'),
 		localizationManager = require('localization/localizationManager'),
@@ -861,11 +862,14 @@
 
 		describe('activate:', function () {
 
-			var getById;
+		    var getById,
+		        getCollaborators;
 
 			beforeEach(function () {
-				getById = Q.defer();
-				spyOn(repository, 'getById').and.returnValue(getById.promise);
+			    getById = Q.defer();
+			    getCollaborators = Q.defer();
+			    spyOn(repository, 'getById').and.returnValue(getById.promise);
+			    spyOn(collaboratorRepository, 'getCollection').and.returnValue(getCollaborators.promise);
 				spyOn(localizationManager, 'localize').and.returnValue('text');
 			});
 
@@ -903,7 +907,8 @@
 			describe('when course exists', function () {
 
 				beforeEach(function () {
-					getById.resolve(course);
+				    getById.resolve(course);
+				    getCollaborators.resolve([]);
 					spyOn(clientContext, 'set');
 				});
 
@@ -916,15 +921,7 @@
 					});
 				});
 
-				it('should set current course collaborators', function (done) {
-					viewModel.collaborators = null;
-
-					viewModel.activate(course.id).fin(function () {
-						expect(viewModel.collaborators).not.toBeNull();
-						done();
-					});
-				});
-
+			
 				it('should set current course title', function (done) {
 					viewModel.title('');
 
@@ -974,6 +971,15 @@
 						done();
 					});
 				});
+
+			    it('should set current course collaborators', function (done) {
+			        viewModel.collaborators = null;
+
+			    	viewModel.activate(course.id).fin(function () {
+			    		expect(viewModel.collaborators).not.toBeNull();
+			    		done();
+			    	});
+			    });
 
 			});
 

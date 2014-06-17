@@ -1,21 +1,18 @@
-﻿define(['models/course', 'mappers/collaboratorModelMapper'],
-    function (CourseModel, collaboratorModelMapper) {
+﻿define(['models/course'],
+    function (CourseModel) {
         "use strict";
 
         var
             map = function (item, objectives, templates) {
                 return new CourseModel({
-                    id: item.Id.split('-').join(''),
+                    id: item.Id,
                     title: item.Title,
                     createdBy: item.CreatedBy,
-                    collaborators: _.map(item.Collaborators, function (collaborator) {
-                        return collaboratorModelMapper.map(collaborator);
-                    }),
                     createdOn: new Date(item.CreatedOn),
                     modifiedOn: new Date(item.ModifiedOn),
                     objectives: _.map(item.RelatedObjectives, function (relatedObjective) {
                         return _.find(objectives, function (objective) {
-                            return objective.id == relatedObjective.Id.split('-').join('');
+                            return objective.id == relatedObjective.Id;
                         });
                     }),
                     publishedPackageUrl: item.PublishedPackageUrl,

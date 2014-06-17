@@ -56,14 +56,8 @@
 
         });
 
-        it('should add collaborator to course in data context', function () {
-            dataContext.courses = [mappedCourse];
-            handler(mappedCourse.id, user);
-
-            expect(dataContext.courses[0].collaborators.length).toBe(1);
-        });
-
         it('should trigger app event', function () {
+            dataContext.courses = [mappedCourse];
             handler(course.Id, user);
             expect(app.trigger).toHaveBeenCalled();
         });
