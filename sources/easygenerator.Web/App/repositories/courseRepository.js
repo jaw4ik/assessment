@@ -79,6 +79,7 @@
                                 new CollaboratorModel({
                                     email: userContext.identity.email,
                                     fullName: userContext.identity.fullname,
+                                    registered: true,
                                     createdOn: createdOn
                                 })
                             ],
