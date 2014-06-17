@@ -57,8 +57,8 @@
             requestsCounter(requestsCounter() - 1);
         });
 
-        app.on(constants.messages.course.deleted, courseDeleted);
-        app.on(constants.messages.course.objectivesUnrelated, objectivesUnrelated);
+        app.on(constants.messages.course.deletedByCollaborator, courseDeleted);
+        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, objectivesUnrelated);
         app.on(constants.messages.question.deletedByCollaborator, questionsDeleted);
 
         return viewModel;

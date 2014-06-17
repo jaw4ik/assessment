@@ -67,11 +67,17 @@
                 course: {
                     created: 'course:created',
                     deleted: 'course:deleted',
+                    deletedByCollaborator: 'course:deletedByCollaborator',
                     titleUpdated: 'course:titleUpdated',
+                    titleUpdatedByCollaborator: 'course:titleUpdatedByCollaborator',
                     introductionContentUpdated: 'course:introductionContentUpdated',
+                    introductionContentUpdatedByCollaborator: 'course:introductionContentUpdatedByCollaborator',
                     objectiveRelated: 'course:objectiveRelated',
+                    objectiveRelatedByCollaborator: 'course:objectiveRelatedByCollaborator',
                     objectivesUnrelated: 'course:objectivesUnrelated',
+                    objectivesUnrelatedByCollaborator: 'course:objectivesUnrelatedByCollaborator',
                     objectivesReordered: 'course:objectivesReordered',
+                    objectivesReorderedByCollaborator: 'course:objectivesReorderedByCollaborator',
                     templateUpdated: 'course:templateUpdated',
 
                     build: {

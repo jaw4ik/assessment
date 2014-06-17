@@ -16,7 +16,7 @@
             course.title = title;
             course.modifiedOn = new Date(modifiedOn);
 
-            app.trigger(constants.messages.course.titleUpdated, course);
+            app.trigger(constants.messages.course.titleUpdatedByCollaborator, course);
         }
 
     });

@@ -16,7 +16,7 @@
             course.introductionContent = introductionContent;
             course.modifiedOn = new Date(modifiedOn);
 
-            app.trigger(constants.messages.course.introductionContentUpdated, course);
+            app.trigger(constants.messages.course.introductionContentUpdatedByCollaborator, course);
         }
 
     });

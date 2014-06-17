@@ -17,7 +17,7 @@
                 return item.id === courseId;
             });
 
-            app.trigger(constants.messages.course.deleted, course.id);
+            app.trigger(constants.messages.course.deletedByCollaborator, course.id);
         }
 
     });

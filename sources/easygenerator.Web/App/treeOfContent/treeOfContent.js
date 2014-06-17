@@ -63,10 +63,15 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
     app.on(constants.messages.course.created, self.handler.courseCreated);
     app.on(constants.messages.course.collaboration.started, self.handler.courseCollaborationStarted);
     app.on(constants.messages.course.deleted, self.handler.courseDeleted);
+    app.on(constants.messages.course.deletedByCollaborator, self.handler.courseDeleted);
     app.on(constants.messages.course.titleUpdated, self.handler.courseTitleUpdated);
+    app.on(constants.messages.course.titleUpdatedByCollaborator, self.handler.courseTitleUpdated);
     app.on(constants.messages.course.objectiveRelated, self.handler.objectiveRelated);
+    app.on(constants.messages.course.objectiveRelatedByCollaborator, self.handler.objectiveRelated);
     app.on(constants.messages.course.objectivesUnrelated, self.handler.objectivesUnrelated);
+    app.on(constants.messages.course.objectivesUnrelatedByCollaborator, self.handler.objectivesUnrelated);
     app.on(constants.messages.course.objectivesReordered, self.handler.objectivesReordered);
+    app.on(constants.messages.course.objectivesReorderedByCollaborator, self.handler.objectivesReordered);
 
     router.routeData.subscribe(function (navigationContext) {
         treeOfContentAutoExpandHandler.handle(viewModel, navigationContext).then(function () {

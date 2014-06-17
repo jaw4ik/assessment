@@ -21,6 +21,6 @@
 
             course.modifiedOn = new Date(modifiedOn);
 
-            app.trigger(constants.messages.course.objectivesReordered, course);
+            app.trigger(constants.messages.course.objectivesReorderedByCollaborator, course);
         }
     });

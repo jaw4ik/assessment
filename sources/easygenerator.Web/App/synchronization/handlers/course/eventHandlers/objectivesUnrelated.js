@@ -31,7 +31,7 @@
 
             course.modifiedOn = new Date(modifiedOn);
 
-            app.trigger(constants.messages.course.objectivesUnrelated, course.id, unrelatedObjectives);
+            app.trigger(constants.messages.course.objectivesUnrelatedByCollaborator, course.id, unrelatedObjectives);
         }
 
     });

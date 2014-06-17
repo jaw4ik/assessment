@@ -51,12 +51,12 @@
         });
 
         app.on(constants.messages.course.collaboration.started, courseCollaborationStarted);
-        app.on(constants.messages.course.titleUpdated, titleUpdated);
-        app.on(constants.messages.course.introductionContentUpdated, courseUpdated);
+        app.on(constants.messages.course.titleUpdatedByCollaborator, titleUpdated);
+        app.on(constants.messages.course.introductionContentUpdatedByCollaborator, courseUpdated);
         app.on(constants.messages.course.templateUpdated, courseUpdated);
-        app.on(constants.messages.course.objectivesReordered, courseUpdated);
-        app.on(constants.messages.course.objectiveRelated, courseUpdated);
-        app.on(constants.messages.course.objectivesUnrelated, courseUpdated);
+        app.on(constants.messages.course.objectivesReorderedByCollaborator, courseUpdated);
+        app.on(constants.messages.course.objectiveRelatedByCollaborator, courseUpdated);
+        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, courseUpdated);
 
         return viewModel;
 

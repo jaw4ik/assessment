@@ -105,11 +105,11 @@
             return viewModel.connectedObjectives().length != 1;
         });
 
-        app.on(constants.messages.course.titleUpdated, titleUpdated);
-        app.on(constants.messages.course.introductionContentUpdated, introductionContentUpdated);
-        app.on(constants.messages.course.objectivesReordered, objectivesReordered);
-        app.on(constants.messages.course.objectiveRelated, objectiveConnected);
-        app.on(constants.messages.course.objectivesUnrelated, objectivesDisconnected);
+        app.on(constants.messages.course.titleUpdatedByCollaborator, titleUpdated);
+        app.on(constants.messages.course.introductionContentUpdatedByCollaborator, introductionContentUpdated);
+        app.on(constants.messages.course.objectivesReorderedByCollaborator, objectivesReordered);
+        app.on(constants.messages.course.objectiveRelatedByCollaborator, objectiveConnected);
+        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, objectivesDisconnected);
         app.on(constants.messages.objective.titleUpdated, objectiveTitleUpdated);
         app.on(constants.messages.objective.questionsReordered, objectiveUpdated);
         app.on(constants.messages.question.createdByCollaborator, objectiveUpdated);
