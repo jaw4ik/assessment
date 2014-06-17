@@ -1,117 +1,118 @@
 ﻿<section class="fill-in-the-blank">
-    <div class="content-holder">
-        <div class="page-view-caption clearfix">
-            <div class="action-item-btn-wrapper pull-right">
-                <!-- ko widget: { kind: 'createQuestion', objectiveId: objectiveId} --><!-- /ko -->
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="page-view-caption clearfix">
+                <div class="action-item-btn-wrapper pull-right">
+                    <!-- ko widget: { kind: 'createQuestion', objectiveId: objectiveId} --><!-- /ko -->
+                </div>
+                <div class="page-view-caption-text" data-bind="localize: { text: 'questionViewCaption' }">Question editor</div>
             </div>
-            <div class="page-view-caption-text" data-bind="localize: { text: 'questionViewCaption' }"></div>
-        </div>
-    </div>
-    <div class="content-holder">
-        <header class="view-header">
-            <div class="view-header-title" data-bind="with: title">
+
+            <header class="question-view-header" data-bind="with: title">
+                <!-- ko if: $parent.isExpanded() -->
+                <div class="expand-collapse-panel expanded" data-bind="click: $parent.toggleExpand">
+                    <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}, css: { error: !title.isValid() }">Title</span>
+                </div>
                 <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() } ,  autofocus: { focus: $parent.isCreatedQuestion, autoselect: $parent.isCreatedQuestion }">
                 </div>
                 <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
-                    <div class="title-wrapper">
-                        <span data-bind="localize: { text: 'title' }">Title</span>
-                    </div>
-                    <div class="counter-wrapper">
-                        <span data-bind="text: title().trim().length"></span>/<span data-bind="text: $parent.questionTitleMaxLength"></span>
-                    </div>
+                    <span data-bind="text: title().trim().length"></span>/<span data-bind="text: $parent.questionTitleMaxLength"></span>
                 </div>
+                <!-- /ko -->
+                <!-- ko ifnot: $parent.isExpanded() -->
+                <div class="expand-collapse-panel collapsed" data-bind="click: $parent.toggleExpand">
+                    <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}">Title</span>
+                </div>
+                <!-- /ko -->
+            </header>
+        </div>
+    </div>
+
+    <div class="content-section-wrapper">
+        <div class="content-section" data-bind="with: fillInTheBlank">
+            <!-- ko if: isExpanded -->
+            <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'fillInTheBlank' }">Fill in the blank</span>
             </div>
-        </header>
-
-        <div class="question-content-holder">
-            <div class="question-content-block fib" data-bind="with: fillInTheBlank">
-                <div class="question-content-block-header-wrapper" data-bind="click: toggleExpand">
-                    <div class="question-content-block-header clearfix">
-                        <div class="question-content-block-header-title" data-bind="localize: { text: 'fillInTheBlank' }">Fill in the blank</div>
-                        <div class="question-content-block-size-element-wrapper pull-right">
-                            <span class="nav-element">
-                                <!-- ko if: isExpanded -->
-                                <span class="question-content-block-size-btn collapse-btn" data-bind="localize: { title: 'collapse' }"></span>
-                                <!-- /ko -->
-                                <!-- ko ifnot: isExpanded -->
-                                <span class="question-content-block-size-btn expand-btn" data-bind="localize: { title: 'expand' }"></span>
-                                <!-- /ko -->
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question-content-items-list" data-bind="visible: isExpanded">
-                    <!-- ko if: isContentDefined -->
-                    <div data-bind="fillInTheBlank: { name:'blankContent', createButtonSelector: '.create-blank', localizationManager: $root.localizationManager, eventTracker: $root.eventTracker}">
-                        <div class="fib-wrapper">
-                            <div class="question-learning-content selectable blankContent" data-bind="attr:{ id: 'blankContent'}, ckeditor: { fillInTheBlank: true, data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $root.localizationManager }">
-                            </div>
-                        </div>
-                        <div class="clearfix">
-                            <div class="create-blank-wrapper">
-                                <div class="action-item-btn btn create-blank">
-                                    <span class="create-blank-text" data-bind="localize: {text: 'addBlank' }">Add blank</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /ko -->
-                    <!-- ko ifnot: isContentDefined -->
-                    <div class="fib-wrapper" data-bind="click: addFillInTheBlank">
-                        <div class="fib-add-button-text-wrapper">
-                            <span class="fib-add-button-text selectable" data-bind="localize: { text: 'defineTheContentWithBlank' }">Define the content with blanks</span>
-                        </div>
-                    </div>
-                    <!-- /ko -->
-                </div>
+            <!-- /ko -->
+            <!-- ko ifnot: isExpanded -->
+            <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'fillInTheBlank' }">Fill in the blank</span>
             </div>
+            <!-- /ko -->
+        </div>
+    </div>
 
-            <div class="question-content-block learning-content" data-bind="with: learningContents">
-                <div class="question-content-block-header-wrapper" data-bind="click: toggleExpand">
-                    <div class="question-content-block-header clearfix">
-                        <div class="question-content-block-header-title" data-bind="localize: { text: 'learningContent' }"></div>
-                        <div class="question-content-block-size-element-wrapper pull-right">
-                            <span class="nav-element">
-                                <!-- ko if: isExpanded -->
-                                <span class="question-content-block-size-btn collapse-btn" data-bind="localize: { title: 'collapse' }"></span>
-                                <!-- /ko -->
-                                <!-- ko ifnot: isExpanded -->
-                                <span class="question-content-block-size-btn expand-btn" data-bind="localize: { title: 'expand' }"></span>
-                                <!-- /ko -->
-                            </span>
+    <div class="content-section-wrapper answer-options" data-bind="with: fillInTheBlank">
+        <!-- ko if: isExpanded -->
+        <div class="question-answer-options-area">
+            <div class="content-section">
+                <!-- ko if: isContentDefined -->
+                <div data-bind="fillInTheBlank: { name:'blankContent', createButtonSelector: '.create-blank', localizationManager: $root.localizationManager, eventTracker: $root.eventTracker}">
+                    <div class="fib-wrapper fib-content">
+                        <div class="question-learning-content selectable blankContent" data-bind="attr:{ id: 'blankContent'}, ckeditor: { fillInTheBlank: true, data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $root.localizationManager }">
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="create-blank-wrapper">
+                            <div class="action-item-btn btn create-blank">
+                                <span class="create-blank-text" data-bind="localize: {text: 'addBlank' }">Add blank</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="question-content-items-list" data-bind="visible: isExpanded">
-                    <div class="question-learning-content-list-wrapper">
-                        <!-- ko foreach: learningContents -->
-                        <div class="question-learning-content-list-item" data-bind="css: { active: hasFocus }">
-                            <div class="question-learning-content-wrapper">
-                                <div class="question-learning-content selectable" data-bind="ckeditor: { data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: $parent.updateText, focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event), $parent.endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $root.localizationManager }">
-                                </div>
-                            </div>
-                            <div class="question-learning-content-delete-wrapper" data-bind="click: $parent.removeLearningContent, localize: { title: 'delete' }">
-                                <span class="question-learning-content-delete-icon"></span>
-                            </div>
-                        </div>
-                        <!-- /ko -->
-                        <div class="add-button" data-bind="css: { disabled: !canAddLearningContent() }">
-                            <!-- ko if: canAddLearningContent -->
-                            <div class="add-button-text-wrapper" data-bind="click: addLearningContent">
-                                <span class="add-button-text selectable" data-bind="localize: { text: 'clickToAddLearningContent' }"></span>
-                            </div>
-                            <!-- /ko -->
-                            <!-- ko ifnot: canAddLearningContent -->
-                            <div class="add-button-text-wrapper">
-                                <span class="add-button-text selectable" data-bind="localize: { text: 'clickToAddLearningContent' }"></span>
-                            </div>
-                            <!-- /ko -->
-                        </div>
-
+                <!-- /ko -->
+                <!-- ko ifnot: isContentDefined -->
+                <div class="fib-wrapper" data-bind="click: addFillInTheBlank">
+                    <div class="fib-add-button-text-wrapper">
+                        <span class="fib-add-button-text selectable" data-bind="localize: { text: 'defineTheContentWithBlank' }">Define the content with blanks</span>
                     </div>
                 </div>
+                <!-- /ko -->
             </div>
+        </div>
+        <!-- /ko -->
+    </div>
+
+    <div class="content-section-wrapper">
+        <div class="content-section" data-bind="with: learningContents">
+            <!-- ko if: isExpanded -->
+            <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'learningContent' }">Learning content</span>
+            </div>
+            <!-- /ko -->
+            <!-- ko ifnot: isExpanded -->
+            <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'learningContent' }">Learning content</span>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: isExpanded -->
+            <ul class="unstyled question-content-items-list" data-bind="visible: isExpanded">
+                <!-- ko foreach: learningContents -->
+                <li class="question-learning-content-list-item" data-bind="css: { active: hasFocus }">
+                    <div class="question-learning-content-wrapper">
+                        <div class="question-learning-content selectable" data-bind="ckeditor: { data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: $parent.updateText, focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event), $parent.endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $root.localizationManager }">
+                        </div>
+                    </div>
+                    <div class="question-learning-content-delete-wrapper" data-bind="click: $parent.removeLearningContent, localize: { title: 'delete' }">
+                        <span class="question-learning-content-delete-icon"></span>
+                    </div>
+                </li>
+                <!-- /ko -->
+            </ul>
+            <div class="add-button" data-bind="css: { disabled: !canAddLearningContent() }">
+                <!-- ko if: canAddLearningContent -->
+                <div class="add-button-text-wrapper" data-bind="click: addLearningContent">
+                    <span class="add-button-text selectable" data-bind="localize: { text: 'clickToAddLearningContent' }"></span>
+                </div>
+                <!-- /ko -->
+                <!-- ko ifnot: canAddLearningContent -->
+                <div class="add-button-text-wrapper">
+                    <span class="add-button-text selectable" data-bind="localize: { text: 'clickToAddLearningContent' }"></span>
+                </div>
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
         </div>
     </div>
 </section>

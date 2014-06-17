@@ -12,7 +12,7 @@
             <header class="question-view-header" data-bind="with: title">
                 <!-- ko if: $parent.isExpanded() -->
                 <div class="expand-collapse-panel expanded" data-bind="click: $parent.toggleExpand">
-                    <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}">Title</span>
+                    <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}, css: { error: !title.isValid() }">Title</span>
                 </div>
                 <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() } ,  autofocus: { focus: $parent.isCreatedQuestion, autoselect: $parent.isCreatedQuestion }">
                 </div>
@@ -33,14 +33,20 @@
                 <div class="extra-content-action-wrapper">
                     <!-- ko if: isContentDefined -->
                     <!-- ko if: isExpanded -->
-                    <div class="extra-content-action hide cursor-default" data-bind="click: toggleExpand, localize: { text: 'hideQuestionContent' }"></div>
+                    <div class="extra-content-action" data-bind="click: toggleExpand">
+                        <span class="extra-content-action-text hide" data-bind="localize: { text: 'hideQuestionContent' }"></span>
+                    </div>
                     <!-- /ko -->
                     <!-- ko ifnot: isExpanded -->
-                    <div class="extra-content-action show cursor-default" data-bind="click: toggleExpand, localize: { text: 'showQuestionConent' }"></div>
+                    <div class="extra-content-action" data-bind="click: toggleExpand">
+                        <span class="extra-content-action-text show" data-bind="localize: { text: 'showQuestionConent' }"></span>
+                    </div>
                     <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko ifnot: isContentDefined -->
-                    <div class="extra-content-action add cursor-default" data-bind="click: addContent, localize: { text: 'addExtraQuestionContent' }"></div>
+                    <div class="extra-content-action" data-bind="click: addContent">
+                        <span class="extra-content-action-text add " data-bind="localize: { text: 'addExtraQuestionContent' }"></span>
+                    </div>
                     <!-- /ko -->
                 </div>
                 <!-- ko if: isContentDefined -->
