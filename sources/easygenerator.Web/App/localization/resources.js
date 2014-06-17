@@ -1226,7 +1226,7 @@
         en: 'This course has been deleted by the owner. Please go to the list of courses.'
     },
     learningObjectiveHasBeenDeletedByCollaborator: {
-        en: 'This learning objective has been deleted by a collaborator. Please go to the list of learning objectives.'
+        en: 'This learning objective has been disconnected by a collaborator. Please go to the list of learning objectives.'
     },
     questionHasBeenDeletedByCollaborator: {
         en: 'This question has been deleted by a collaborator. Please go to the list of questions.'
