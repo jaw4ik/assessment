@@ -4,9 +4,17 @@
     'viewmodels/questions/dragAndDrop/commands/changeBackground',
     'viewmodels/questions/dragAndDrop/commands/addDropspot',
     'viewmodels/questions/dragAndDrop/commands/removeDropspot',
+
+    'viewmodels/questions/dragAndDrop/queries/getQuestionContentById',
+
     'imageUpload',
     'notify'
-], function (Dropspot, dropspotToAdd, changeBackgroundCommand, addDropspotCommand, removeDropspotCommand, imageUpload, notify) {
+], function (Dropspot, dropspotToAdd, changeBackgroundCommand, addDropspotCommand, removeDropspotCommand, getQuestionContentById, imageUpload, notify) {
+
+
+    var self = {
+        questionId: null
+    };
 
     var designer = {
         background: ko.observable(),
@@ -16,14 +24,34 @@
 
         dropspots: ko.observableArray(),
         addDropspot: addDropspot,
-        removeDropspot: removeDropspot
+        removeDropspot: removeDropspot,
+
+        activate: activate
     };
 
     return designer;
 
+    function activate(questionId) {
+        self.questionId = questionId;
+
+        return getQuestionContentById.execute(questionId).then(function (question) {
+            if (question) {
+                designer.background(question.background);
+
+                designer.dropspots(_.map(question.dropspots, function (dropspot) {
+                    return new Dropspot(dropspot.id, dropspot.text, dropspot.x, dropspot.y, self.questionId);
+                }));
+            } else {
+                designer.background(undefined);
+                designer.dropspots([]);
+            }
+        });
+    }
+
     function uploadBackground() {
         imageUpload.upload({
             success: function (url) {
+                changeBackgroundCommand.execute(self.questionId, url);
                 designer.background(url);
                 notify.saved();
             }
@@ -37,8 +65,8 @@
             return;
         }
 
-        addDropspotCommand.execute().then(function () {
-            designer.dropspots.push(new Dropspot(designer.dropspotToAdd()));
+        addDropspotCommand.execute(self.questionId, designer.dropspotToAdd()).then(function (id) {
+            designer.dropspots.push(new Dropspot(id, designer.dropspotToAdd(), 0, 0, self.questionId));
             designer.dropspotToAdd.clear();
             designer.dropspotToAdd.hide();
             notify.saved();
@@ -46,7 +74,7 @@
     }
 
     function removeDropspot(dropspot) {
-        removeDropspotCommand.execute().then(function () {
+        removeDropspotCommand.execute(self.questionId, dropspot.id).then(function () {
             designer.dropspots.remove(dropspot);
             notify.saved();
         });

@@ -1,10 +1,8 @@
-﻿define([], function() {
-    
+﻿define(['http/httpWrapper'], function (httpWrapper) {
+
     return {
-        execute: function () {
-            return Q.fcall(function() {
-                console.log('change drag and drop background');
-            });
+        execute: function (questionId, background) {
+            return httpWrapper.post('/api/question/draganddrop/background/update', { questionId: questionId, background: background });
         }
     }
 

@@ -11,6 +11,7 @@
     return viewModel;
 
     function initialize(objectiveId, question) {
+        viewModel.questionId = question.id;
         viewModel.title = questionTitle(objectiveId, question);
 
         return learningContentRepository.getCollection(question.id).then(function (learningContents) {
@@ -20,6 +21,8 @@
 
             viewModel.learningContents = vmLearningContents(question.id, sortedLearningContents);
             viewModel.dragAndDrop = designer;
+
+            return designer.activate(question.id);
         });
     }
 

@@ -48,14 +48,6 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityPermissions(typeof(Objective))]
-        [Route("api/question/create/type/2")]
-        public ActionResult CreateDragAndDrop(Objective objective, string title)
-        {
-            return Create(objective, title, QuestionType.DragAndDrop);
-        }
-
-        [HttpPost]
-        [EntityPermissions(typeof(Objective))]
         [Route("api/question/create/type/3")]
         public ActionResult CreateMultipleChoice(Objective objective, string title)
         {

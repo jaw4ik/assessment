@@ -54,7 +54,7 @@
             'services/publishService.spec',
 
             //#region synchronization
-          
+
             'synchronization/handlers/objectiveEventHandler.spec',
 
             'synchronization/handlers/course/handler.spec',
@@ -132,6 +132,15 @@
             'viewmodels/questions/multipleChoice/multipleChoice.spec',
             'viewmodels/questions/fillInTheBlank/fillInTheBlank.spec',
             'viewmodels/questions/fillInTheBlank/fibControl.spec',
+            'viewmodels/questions/dragAndDrop/designer.spec',
+            'viewmodels/questions/dragAndDrop/dropspot.spec',
+            'viewmodels/questions/dragAndDrop/dropspotToAdd.spec',
+            'viewmodels/questions/dragAndDrop/commands/addDropspot.spec',
+            'viewmodels/questions/dragAndDrop/commands/removeDropspot.spec',
+            'viewmodels/questions/dragAndDrop/commands/changeDropspotText.spec',
+            'viewmodels/questions/dragAndDrop/commands/changeDropspotPosition.spec',
+            'viewmodels/questions/dragAndDrop/commands/changeBackground.spec',
+            'viewmodels/questions/dragAndDrop/queries/getQuestionContentById.spec',
             'viewmodels/questions/learningContents.spec',
             'viewmodels/user/userMenu.spec',
             'viewmodels/shell.spec',

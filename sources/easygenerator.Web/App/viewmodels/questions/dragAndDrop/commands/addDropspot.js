@@ -1,10 +1,8 @@
-﻿define([], function () {
+﻿define(['http/httpWrapper'], function (httpWrapper) {
 
     return {
-        execute: function () {
-            return Q.fcall(function () {
-                console.log('add dropsot');
-            });
+        execute: function (questionId, text) {
+            return httpWrapper.post('/api/question/draganddrop/dropspot/create', { questionId: questionId, text: text });
         }
     }
 

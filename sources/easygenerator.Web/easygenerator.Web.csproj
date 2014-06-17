@@ -213,6 +213,7 @@
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
+    <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
     <Compile Include="Mail\IMailSenderWrapper.cs" />
     <Compile Include="Components\Mappers\LearningContentMapper.cs" />
     <Compile Include="Permissions\AnswerPermissionsChecker.cs" />
@@ -547,6 +548,10 @@
     <Content Include="App\viewmodels\questions\dragAndDrop\dropspotToAdd.js" />
     <Content Include="App\viewmodels\questions\dragAndDrop\dropspotToAdd.spec.js">
       <DependentUpon>dropspotToAdd.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\dragAndDrop\queries\getQuestionContentById.js" />
+    <Content Include="App\viewmodels\questions\dragAndDrop\queries\getQuestionContentById.spec.js">
+      <DependentUpon>getQuestionContentById.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\questions\fillInTheBlank\fibControl.js" />
     <Content Include="App\viewmodels\questions\fillInTheBlank\fibControl.spec.js">

@@ -192,68 +192,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region Create Drag and Drop question
-
-        [TestMethod]
-        public void CreateDragAndDrop_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
-        {
-            var result = _controller.CreateMultipleSelect(null, null);
-
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
-        }
-
-        [TestMethod]
-        public void CreateDragAndDrop_ShouldAddQuestionToObjective()
-        {
-            const string title = "title";
-            var user = "Test user";
-            _user.Identity.Name.Returns(user);
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question = Substitute.For<Question>("Question title", QuestionType.DragAndDrop, CreatedBy);
-
-            _entityFactory.Question(title, QuestionType.DragAndDrop, user).Returns(question);
-
-            _controller.CreateDragAndDrop(objective, title);
-
-            objective.Received().AddQuestion(question, user);
-        }
-
-        [TestMethod]
-        public void CreateDragAndDrop_ShouldPublishDomainEvent()
-        {
-            const string title = "title";
-            var user = "Test user";
-            _user.Identity.Name.Returns(user);
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question = Substitute.For<Question>("Question title", QuestionType.DragAndDrop, CreatedBy);
-
-            _entityFactory.Question(title, QuestionType.DragAndDrop, user).Returns(question);
-
-            _controller.CreateDragAndDrop(objective, title);
-
-            _eventPublisher.Received().Publish(Arg.Any<QuestionCreatedEvent>());
-        }
-
-        [TestMethod]
-        public void CreateDragAndDrop_ShouldReturnJsonSuccessResult()
-        {
-            const string title = "title";
-            var user = "Test user";
-            _user.Identity.Name.Returns(user);
-            var question = Substitute.For<Question>("Question title", QuestionType.DragAndDrop, CreatedBy);
-
-            _entityFactory.Question(title, QuestionType.DragAndDrop, user).Returns(question);
-
-            var result = _controller.CreateDragAndDrop(Substitute.For<Objective>("Objective title", CreatedBy), title);
-
-            result.Should()
-                .BeJsonSuccessResult()
-                .And.Data.ShouldBeSimilar(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
-        }
-
-        #endregion
-
         #region CreateMultipleChoice question
 
         [TestMethod]

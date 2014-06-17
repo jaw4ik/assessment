@@ -13,7 +13,7 @@
                     <div class="drag-and-drop-designer-background-wrapper">
                         <div data-bind="background: background">
                             <!-- ko foreach: dropspots -->
-                            <div class="draggable drag-and-drop-designer-draggable" data-bind="draggableText: { text: text, x: position.x, y: position.y }"></div>
+                            <div class="draggable drag-and-drop-designer-draggable" data-bind="draggableText: { text: text, x: position.x, y: position.y, endMove: position.endMoveDropspot }"></div>
                             <!-- /ko -->
                         </div>
                     </div>
