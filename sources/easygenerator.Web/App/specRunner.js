@@ -73,6 +73,11 @@
             'synchronization/handlers/question/eventHandlers/titleUpdated.spec',
             'synchronization/handlers/question/eventHandlers/contentUpdated.spec',
 
+            'synchronization/handlers/learningContent/handler.spec',
+            'synchronization/handlers/learningContent/eventHandlers/created.spec',
+            'synchronization/handlers/learningContent/eventHandlers/deleted.spec',
+            'synchronization/handlers/learningContent/eventHandlers/textUpdated.spec',
+
             'synchronization/handlers/answer/handler.spec',
             'synchronization/handlers/answer/eventHandlers/created.spec',
             'synchronization/handlers/answer/eventHandlers/deleted.spec',

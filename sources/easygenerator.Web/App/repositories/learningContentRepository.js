@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'http/httpWrapper', 'guard', 'models/learningContent'],
-    function (dataContext, httpWrapper, guard, learningContentModel) {
+﻿define(['dataContext', 'http/httpWrapper', 'guard', 'mappers/learningContentModelMapper'],
+    function (dataContext, httpWrapper, guard, learningContentModelMapper) {
         "use strict";
 
         var repository = {
@@ -21,13 +21,7 @@
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotArray(response.LearningContents, 'Learning content is not an array');
 
-                    return _.map(response.LearningContents, function (learningContent) {
-                        return new learningContentModel({
-                            id: learningContent.Id,
-                            text: learningContent.Text,
-                            createdOn: learningContent.CreatedOn
-                        });
-                    });
+                    return _.map(response.LearningContents, learningContentModelMapper.map);
                 });
             });
         }

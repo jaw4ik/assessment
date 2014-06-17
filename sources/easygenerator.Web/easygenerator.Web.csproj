@@ -214,6 +214,7 @@
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
     <Compile Include="Mail\IMailSenderWrapper.cs" />
+    <Compile Include="Components\Mappers\LearningContentMapper.cs" />
     <Compile Include="Permissions\AnswerPermissionsChecker.cs" />
     <Compile Include="Permissions\CoursePermissionsChecker.cs" />
     <Compile Include="Permissions\IEntityPermissionsChecker.cs" />
@@ -357,6 +358,7 @@
     <Compile Include="Synchronization\Broadcasting\Proxies\UsersProxy.cs" />
     <Compile Include="Synchronization\Handlers\AnswerEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\UserEventHandler.cs" />
@@ -386,6 +388,7 @@
     <Content Include="App\mappers\answerModelMapper.js" />
     <Content Include="App\mappers\collaboratorModelMapper.js" />
     <Content Include="App\mappers\courseModelMapper.js" />
+    <Content Include="App\mappers\learningContentModelMapper.js" />
     <Content Include="App\mappers\objectiveModelMapper.js" />
     <Content Include="App\mappers\questionModelMapper.js" />
     <Content Include="App\mappers\templateModelMapper.js" />
@@ -404,6 +407,22 @@
     <Content Include="App\synchronization\handlers\answer\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\learningContent\eventHandlers\created.spec.js">
+      <DependentUpon>created.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\learningContent\eventHandlers\deleted.spec.js">
+      <DependentUpon>deleted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\learningContent\eventHandlers\textUpdated.spec.js">
+      <DependentUpon>textUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\learningContent\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\learningContent\handler.js" />
+    <Content Include="App\synchronization\handlers\learningContent\eventHandlers\textUpdated.js" />
+    <Content Include="App\synchronization\handlers\learningContent\eventHandlers\deleted.js" />
+    <Content Include="App\synchronization\handlers\learningContent\eventHandlers\created.js" />
     <Content Include="App\synchronization\handlers\answer\handler.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\created.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\deleted.js" />

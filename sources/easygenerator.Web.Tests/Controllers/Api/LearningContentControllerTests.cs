@@ -5,6 +5,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
@@ -22,6 +24,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IPrincipal _user;
         HttpContextBase _context;
         IEntityFactory _entityFactory;
+        private IDomainEventPublisher _eventPublisher;
 
         LearningContentController _controller;
 
@@ -29,11 +32,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void InitializeContext()
         {
             _entityFactory = Substitute.For<IEntityFactory>();
+            _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
 
-            _controller = new LearningContentController(_entityFactory);
+            _controller = new LearningContentController(_entityFactory, _eventPublisher);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -64,6 +68,23 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Create(question, text);
 
             question.Received().AddLearningContent(learningContent, user);
+        }
+
+        [TestMethod]
+        public void Create_ShouldPublishDomainEvent()
+        {
+            const string text = "text";
+            const string user = "username@easygenerator.com";
+            _user.Identity.Name.Returns(user);
+
+            var question = Substitute.For<Question>();
+            var learningContent = Substitute.For<LearningContent>();
+
+            _entityFactory.LearningContent(text, user).Returns(learningContent);
+
+            _controller.Create(question, text);
+
+            _eventPublisher.Received().Publish(Arg.Any<LearningContentCreatedEvent>());
         }
 
         [TestMethod]
@@ -120,6 +141,19 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void Delete_ShouldPublishDomainEvent()
+        {
+            const string user = "username@easygenerator.com";
+            _user.Identity.Name.Returns(user);
+            var question = Substitute.For<Question>();
+            var learningContent = Substitute.For<LearningContent>();
+
+            _controller.Delete(question, learningContent);
+
+            _eventPublisher.Received().Publish(Arg.Any<LearningContentDeletedEvent>());
+        }
+
+        [TestMethod]
         public void Delete_ShouldReturnJsonSuccessResultWithModifiedOnDate()
         {
             var question = Substitute.For<Question>();
@@ -158,6 +192,19 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.UpdateText(learningContent, text);
 
             learningContent.Received().UpdateText(text, user);
+        }
+
+        [TestMethod]
+        public void UpdateText_ShouldPublishDomainEvent()
+        {
+            const string text = "updated text";
+            const string user = "username@easygenerator.com";
+            _user.Identity.Name.Returns(user);
+            var learningContent = Substitute.For<LearningContent>();
+
+            _controller.UpdateText(learningContent, text);
+
+            _eventPublisher.Received().Publish(Arg.Any<LearningContentUpdatedEvent>());
         }
 
         [TestMethod]

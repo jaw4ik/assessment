@@ -1,6 +1,9 @@
 ﻿using System.Linq;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.LearningContentEvents;
+using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using System.Web.Mvc;
@@ -14,10 +17,12 @@ namespace easygenerator.Web.Controllers.Api
     public class LearningContentController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
+        private readonly IDomainEventPublisher _eventPublisher;
 
-        public LearningContentController(IEntityFactory entityFactory)
+        public LearningContentController(IEntityFactory entityFactory, IDomainEventPublisher eventPublisher)
         {
             _entityFactory = entityFactory;
+            _eventPublisher = eventPublisher;
         }
 
         [HttpPost]
@@ -33,6 +38,7 @@ namespace easygenerator.Web.Controllers.Api
             var learningContent = _entityFactory.LearningContent(text, GetCurrentUsername());
 
             question.AddLearningContent(learningContent, GetCurrentUsername());
+            _eventPublisher.Publish(new LearningContentCreatedEvent(learningContent));
 
             return JsonSuccess(new { Id = learningContent.Id.ToNString(), CreatedOn = learningContent.CreatedOn });
         }
@@ -50,8 +56,9 @@ namespace easygenerator.Web.Controllers.Api
             if (learningContent != null)
             {
                 question.RemoveLearningContent(learningContent, GetCurrentUsername());
+                _eventPublisher.Publish(new LearningContentDeletedEvent(question, learningContent));
             }
-
+            
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
 
@@ -66,6 +73,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             learningContent.UpdateText(text, GetCurrentUsername());
+            _eventPublisher.Publish(new LearningContentUpdatedEvent(learningContent));
 
             return JsonSuccess(new { ModifiedOn = learningContent.ModifiedOn });
         }

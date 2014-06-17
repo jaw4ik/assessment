@@ -1,4 +1,5 @@
-﻿define(['repositories/learningContentRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker'], function (repository, localizationManager, notify, constants, eventTracker) {
+﻿define(['repositories/learningContentRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker', 'durandal/app'],
+    function (repository, localizationManager, notify, constants, eventTracker, app) {
 
     var
         events = {
@@ -10,8 +11,7 @@
 
     var ctor = function (questionId, lo) {
 
-        var
-            learningContents = ko.observableArray([]),
+        var learningContents = ko.observableArray([]),
             isExpanded = ko.observable(true),
 
             addLearningContent = function () {
@@ -36,6 +36,12 @@
 
             endEditText = function (learningContent) {
                 eventTracker.publish(events.endEditText);
+
+                if (!_.isNullOrUndefined(learningContent.isDeleted) && learningContent.isDeleted) {
+                    learningContents.remove(learningContent);
+                    return;
+                }
+
                 var id = ko.unwrap(learningContent.id);
                 var text = ko.unwrap(learningContent.text);
 
@@ -84,7 +90,40 @@
                     });
                 },
                 deferEvaluation: true
-            })
+            }),
+
+            deletedByCollaborator = function (question, learningContentId) {
+                var deletedLearningContent = _.find(learningContents(), function (item) {
+                    return item.id() == learningContentId;
+                });
+
+                if (_.isNullOrUndefined(deletedLearningContent))
+                    return;
+
+                if (deletedLearningContent.hasFocus()) {
+                    deletedLearningContent.isDeleted = true;
+                    notify.error(localizationManager.localize('learningContentHasBeenDeletedByCollaborator'));
+                } else {
+                    learningContents.remove(deletedLearningContent);
+                }
+            },
+
+            textUpdatedByCollaborator = function (question, learningContent) {
+                var updatedLearningContent = _.find(learningContents(), function (item) {
+                    return item.id() == learningContent.id;
+                });
+
+                if (_.isNullOrUndefined(updatedLearningContent))
+                    return;
+
+                updatedLearningContent.originalText = learningContent.text;
+                if(!updatedLearningContent.hasFocus())
+                    updatedLearningContent.text(learningContent.text);
+            },
+
+            createdByCollaborator = function (question, learningContent) {
+                doAddLearningContent(learningContent);
+            }
         ;
 
         function doAddLearningContent(learningContent) {
@@ -119,13 +158,21 @@
             doAddLearningContent(item);
         });
 
+        app.on(constants.messages.question.learningContent.createdByCollaborator, createdByCollaborator);
+        app.on(constants.messages.question.learningContent.deletedByCollaborator, deletedByCollaborator);
+        app.on(constants.messages.question.learningContent.textUpdatedByCollaborator, textUpdatedByCollaborator);
+
         return {
             learningContents: learningContents,
 
             addLearningContent: addLearningContent,
             removeLearningContent: removeLearningContent,
-            updateText: updateText,
 
+            createdByCollaborator: createdByCollaborator,
+            deletedByCollaborator: deletedByCollaborator,
+            textUpdatedByCollaborator: textUpdatedByCollaborator,
+
+            updateText: updateText,
             beginEditText: beginEditText,
             endEditText: endEditText,
 

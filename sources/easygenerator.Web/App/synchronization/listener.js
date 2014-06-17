@@ -1,6 +1,6 @@
 ﻿define(['durandal/system', 'synchronization/handlers/user/handler', 'synchronization/handlers/course/handler', 'synchronization/handlers/objectiveEventHandler',
-    'synchronization/handlers/question/handler', 'synchronization/handlers/answer/handler'],
-    function (system, userEventHandler, courseEventHandler, objectiveEventHandler, questionEventHandler, answerEventHandler) {
+    'synchronization/handlers/question/handler', 'synchronization/handlers/answer/handler', 'synchronization/handlers/learningContent/handler'],
+    function (system, userEventHandler, courseEventHandler, objectiveEventHandler, questionEventHandler, answerEventHandler, learningContentEventHandler) {
         "use strict";
 
         return {
@@ -26,15 +26,20 @@
 
                     objectiveTitleUpdated: objectiveEventHandler.objectiveTitleUpdated,
                     objectiveQuestionsReordered: objectiveEventHandler.questionsReordered,
-                    questionCreated: objectiveEventHandler.questionCreated,
 
+                    questionCreated: objectiveEventHandler.questionCreated,
+                    questionsDeleted: objectiveEventHandler.questionsDeleted,
                     questionTitleUpdated: questionEventHandler.titleUpdated,
                     questionContentUpdated: questionEventHandler.contentUpdated,
 
                     answerCreated: answerEventHandler.created,
                     answerDeleted: answerEventHandler.deleted,
                     answerTextUpdated: answerEventHandler.textUpdated,
-                    answerCorrectnessUpdated: answerEventHandler.correctnessUpdated
+                    answerCorrectnessUpdated: answerEventHandler.correctnessUpdated,
+
+                    learningContentCreated: learningContentEventHandler.created,
+                    learningContentUpdated: learningContentEventHandler.textUpdated,
+                    learningContentDeleted: learningContentEventHandler.deleted
                 };
 
                 $.connection.hub.start()
