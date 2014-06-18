@@ -264,11 +264,8 @@
         background-position: -32px -3px;
     }
 
-.course .main-content-list {
-    min-height: 495px;
-}
-
 @media (max-width: 1170px) {
+
     .hint .empty-list-info {
         padding-right: 40px;
     }
@@ -284,6 +281,7 @@
 }
 
 @media (max-height: 768px) {
+
     .connecting-objectives-item-container {
         height: 255px;
     }
