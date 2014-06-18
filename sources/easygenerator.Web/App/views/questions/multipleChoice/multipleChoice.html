@@ -119,7 +119,14 @@
                                 </div>
                             </div>
                             <div class="question-answer-delete-wrapper">
-                                <span class="question-answer-delete-icon" data-bind="click: $parent.removeAnswer, localize: { title: 'deleteAnswerOption' }"></span>
+                                <div class="question-answer-delete-icon-wrapper">
+                                    <span class="question-answer-delete-icon" data-bind="click: $parent.removeAnswer"></span>
+                                    <div class="question-answer-tooltip">
+                                        <span data-bind="localize: { text: 'deleteAnswerOption' }">
+                                            Delete answer
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </li>

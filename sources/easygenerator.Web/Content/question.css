@@ -133,6 +133,7 @@
 
     .expand-collapse-panel.collapsed {
         background: #f7f7f7;
+        border-radius: 3px;
     }
 
         .expand-collapse-panel.collapsed:after {
@@ -595,6 +596,16 @@
     background-color: #f7f8fa;
 }
 
+.question-answer-delete-icon-wrapper {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+
+    .question-answer-delete-icon-wrapper:hover .question-answer-tooltip {
+        display: block;
+    }
+
 .question-learning-content-delete-icon,
 .question-answer-delete-icon {
     display: inline-block;
@@ -950,5 +961,14 @@
 
         .question-answer-tooltip:after {
             margin-left: -42px;
+        }
+
+
+    .question-answer-delete-icon-wrapper .question-answer-tooltip {
+        margin-left: -94px;
+    }
+
+        .question-answer-delete-icon-wrapper .question-answer-tooltip:after {
+            margin-left: 34px;
         }
 }
