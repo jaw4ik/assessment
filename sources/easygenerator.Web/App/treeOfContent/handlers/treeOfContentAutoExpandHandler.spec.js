@@ -34,7 +34,7 @@
                 describe('and course was found', function () {
 
                     var courseTreeNode = { id: 'courseId', expand: function () { } };
-                    var treeOfContent = { children: ko.observableArray([courseTreeNode]) };
+                    var treeOfContent = { children: ko.observableArray([courseTreeNode]), sharedChildren: ko.observableArray([]) };
 
                     beforeEach(function () {
                         var courseTreeNodeExpand = Q.defer();
@@ -81,7 +81,7 @@
                     var courseTreeNode = { id: 'courseId', children: ko.observableArray([objectiveTreeNode]), expand: function () { } };
                     var courseTreeNodeExpand = Q.defer();
 
-                    treeOfContent = { children: ko.observableArray([courseTreeNode]) };
+                    treeOfContent = { children: ko.observableArray([courseTreeNode]), sharedChildren: ko.observableArray([]) };
 
                     spyOn(courseTreeNode, 'expand').and.returnValue(courseTreeNodeExpand.promise);
                     spyOn(objectiveTreeNode, 'expand').and.returnValue(objectiveTreeNodeExpand.promise);
