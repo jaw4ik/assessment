@@ -23,7 +23,7 @@
     position: relative;
     display: block;
     height: 100%;
-    background: #F7F7F7;
+    background: #f1f1f1;
     overflow: hidden;
 }
 
@@ -130,7 +130,6 @@
 
 
 /*#region expanded*/
-.navigation-tree-node:not(.expanded):last-child,
 .navigation-tree-node.expanded > .navigation-tree-node-caption-wrapper {
     border-bottom: 1px solid #dedede !important;
 }
@@ -258,6 +257,34 @@
     font-size: 14px;
     font-family: 'OpenSans';
     color: #999999;
+}
+
+.navigation-tree-title-wrapper {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+
+.navigation-tree-title-wrapper:before {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    top: 60%;
+    background-color: #d9d9d9;
+}
+
+.navigation-tree-list-title {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    padding: 20px 10px 10px;
+    background-color: #f1f1f1;
+    color: #999;
+    font-family: 'OpenSans-Semibold';
+    font-size: 12px;
+    text-transform: uppercase;
 }
 
 /*#endregion NO COURSES*/

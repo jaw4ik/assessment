@@ -17,10 +17,21 @@
                     <!-- /ko -->
                     <ul>
                         <!-- ko foreach: children -->
-                            <!-- ko compose: { model: $data, preserveContext: true }-->
-                            <!-- /ko -->
+                        <!-- ko compose: { model: $data, preserveContext: true }-->
+                        <!-- /ko -->
                         <!-- /ko -->
                     </ul>
+                    <!-- ko if: sharedChildren().length != 0 -->
+                    <div class="navigation-tree-title-wrapper">
+                        <span class="navigation-tree-list-title" data-bind="localize: { text: 'sharedCourses' }"></span>
+                    </div>
+                    <ul>
+                        <!-- ko foreach: sharedChildren -->
+                        <!-- ko compose: { model: $data, preserveContext: true }-->
+                        <!-- /ko -->
+                        <!-- /ko -->
+                    </ul>
+                    <!-- /ko -->
                 </div>
 
             </div>

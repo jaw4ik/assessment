@@ -9,15 +9,17 @@
     'treeOfContent/handlers/treeOfContentHighlightHandler',
     'repositories/courseRepository',
     'treeOfContent/CourseTreeNode',
+    'userContext',
 
     'text!treeOfContent/CourseTreeNode.html',
     'text!treeOfContent/RelatedObjectiveTreeNode.html',
     'text!treeOfContent/QuestionTreeNode.html'],
 
-function (app, eventTracker, router, constants, limitCoursesAmount, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, courseRepository, CourseTreeNode) {
+function (app, eventTracker, router, constants, limitCoursesAmount, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, courseRepository, CourseTreeNode, userContext) {
 
     var viewModel = {
         children: ko.observableArray([]),
+        sharedChildren: ko.observableArray(),
         isExpanded: ko.observable(true),
         isTreeVisible: ko.observable(true),
 
@@ -65,7 +67,7 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
     app.on(constants.messages.course.created, self.handler.courseCreated);
     app.on(constants.messages.course.collaboration.started, self.handler.courseCollaborationStarted);
     app.on(constants.messages.course.deleted, self.handler.courseDeleted);
-    app.on(constants.messages.course.deletedByCollaborator, self.handler.courseDeleted);
+    app.on(constants.messages.course.deletedByCollaborator, self.handler.courseDeletedByCollaborator);
     app.on(constants.messages.course.titleUpdated, self.handler.courseTitleUpdated);
     app.on(constants.messages.course.titleUpdatedByCollaborator, self.handler.courseTitleUpdated);
     app.on(constants.messages.course.objectiveRelated, self.handler.objectiveRelated);
@@ -86,16 +88,25 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
     function activate() {
 
         return courseRepository.getCollection().then(function (courses) {
+            var userEmail = userContext.identity.email;
 
-            var array = _.chain(courses)
-                .sortBy(function (course) { return -course.createdOn; })
-                .map(function (course) { return new CourseTreeNode(course.id, course.title, '#course/' + course.id); })
-                .value();
+            viewModel.children(mapCourses(_.filter(courses, function (course) {
+                return course.createdBy == userEmail;
+            })));
 
-            viewModel.children(array);
+            viewModel.sharedChildren(mapCourses(_.filter(courses, function (course) {
+                return course.createdBy != userEmail;
+            })));
 
             return treeOfContentAutoExpandHandler.handle(viewModel, router.routeData());
         });
+    }
+
+    function mapCourses(courses) {
+        return _.chain(courses)
+                .sortBy(function (course) { return -course.createdOn; })
+                .map(function (course) { return new CourseTreeNode(course.id, course.title, '#course/' + course.id); })
+                .value();
     }
 
     function compositionComplete() {

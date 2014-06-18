@@ -16,7 +16,8 @@
             objectiveRelated: objectiveRelated,
             objectivesUnrelated: objectivesUnrelated,
             objectivesReordered: objectivesReordered,
-            objectiveTitleUpdated: objectiveTitleUpdated
+            objectiveTitleUpdated: objectiveTitleUpdated,
+            courseDeletedByCollaborator: courseDeletedByCollaborator
         };
 
         function courseCreated(course) {
@@ -24,11 +25,18 @@
         }
 
         function courseCollaborationStarted(course) {
-            treeOfContentTraversal.getTreeOfContent().children.unshift(new CourseTreeNode(course.id, course.title, "#course/" + course.id));
+            treeOfContentTraversal.getTreeOfContent().sharedChildren.unshift(new CourseTreeNode(course.id, course.title, "#course/" + course.id));
         }
 
         function courseDeleted(courseId) {
-            var courses = treeOfContentTraversal.getTreeOfContent().children;
+            deleteCourse(treeOfContentTraversal.getTreeOfContent().children, courseId);
+        }
+
+        function courseDeletedByCollaborator(courseId) {
+            deleteCourse(treeOfContentTraversal.getTreeOfContent().sharedChildren, courseId);
+        }
+
+        function deleteCourse(courses, courseId) {
             _.each(courses(), function (course) {
                 if (course.id == courseId) {
                     courses.remove(course);

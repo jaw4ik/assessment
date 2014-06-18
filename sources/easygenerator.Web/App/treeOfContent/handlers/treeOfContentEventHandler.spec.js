@@ -251,12 +251,12 @@
             });
 
             it('should add course to the tree of content', function () {
-                var treeOfContent = { children: ko.observableArray() };
+                var treeOfContent = { sharedChildren: ko.observableArray() };
                 spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
 
                 handler.courseCollaborationStarted({ id: 'courseId', title: 'title' });
 
-                expect(treeOfContent.children().length).toEqual(1);
+                expect(treeOfContent.sharedChildren().length).toEqual(1);
             });
 
         });
@@ -275,6 +275,24 @@
 
                 expect(treeOfContent.children().length).toEqual(1);
                 expect(treeOfContent.children()[0].id).not.toEqual('courseId');
+            });
+
+        });
+
+        describe('courseDeletedByCollaborator:', function () {
+
+            it('should be function', function () {
+                expect(handler.courseDeletedByCollaborator).toBeFunction();
+            });
+
+            it('should remove question from objective in index', function () {
+                var treeOfContent = { sharedChildren: ko.observableArray([{ id: 'courseId' }, { id: '-' }]) };
+                spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
+
+                handler.courseDeletedByCollaborator('courseId');
+
+                expect(treeOfContent.sharedChildren().length).toEqual(1);
+                expect(treeOfContent.sharedChildren()[0].id).not.toEqual('courseId');
             });
 
         });

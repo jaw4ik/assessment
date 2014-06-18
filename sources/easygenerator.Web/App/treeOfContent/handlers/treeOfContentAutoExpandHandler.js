@@ -6,7 +6,9 @@
             var dfd = Q.defer();
 
             if (treeOfContent && context && context.courseId) {
-                var courseTreeNode = _.find(treeOfContent.children(), function (item) {
+                var courses = _.union(treeOfContent.children(), treeOfContent.sharedChildren());
+
+                var courseTreeNode = _.find(courses, function (item) {
                     return item.id == context.courseId;
                 });
 
