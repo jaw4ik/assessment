@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Linq;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Web.Components.Mappers;
@@ -10,7 +11,8 @@ namespace easygenerator.Web.Synchronization.Handlers
     public class QuestionEventHandler :
         IDomainEventHandler<QuestionCreatedEvent>,
         IDomainEventHandler<QuestionTitleUpdatedEvent>,
-        IDomainEventHandler<QuestionContentUpdatedEvent>
+        IDomainEventHandler<QuestionContentUpdatedEvent>,
+        IDomainEventHandler<FillInTheBlankUpdatedEvent>
     {
         private readonly ICollaborationBroadcaster<Question> _broadcaster;
         private readonly IEntityMapper _entityMapper;
@@ -39,5 +41,10 @@ namespace easygenerator.Web.Synchronization.Handlers
                 .questionTitleUpdated(args.Question.Id.ToNString(), args.Question.Title, args.Question.ModifiedOn);
         }
 
+        public void Handle(FillInTheBlankUpdatedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Question)
+                .fillInTheBlankUpdated(args.Question.Id.ToNString(), args.Question.Content, args.Answers.Select(e => _entityMapper.Map(e)), args.Question.ModifiedOn);
+        }
     }
 }

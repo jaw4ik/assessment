@@ -1,8 +1,8 @@
 ﻿define(['eventTracker', 'notify', 'viewmodels/questions/questionTitle', 'viewmodels/questions/fillInTheBlank/fibControl', 'repositories/questionRepository', 'clientContext',
         'repositories/answerRepository', 'repositories/learningContentRepository', 'models/backButton', 'viewmodels/questions/learningContents',
-        'plugins/router', 'localization/localizationManager', 'constants'],
+        'plugins/router', 'localization/localizationManager', 'constants', 'durandal/app'],
     function (eventTracker, notify, questionTitle, fibControl, questionRepository, clientContext, answerRepository, learningContentRepository, BackButton,
-    vmLearningContents, router, localizationManager, constants) {
+    vmLearningContents, router, localizationManager, constants, app) {
         "use strict";
 
         var eventsForQuestionContent = {
@@ -14,6 +14,7 @@
         var viewModel = {
             initialize: initialize,
             objectiveId: '',
+            questionId: '',
             title: null,
             questionTitleMaxLength: constants.validation.questionTitleMaxLength,
             eventTracker: eventTracker,
@@ -23,13 +24,18 @@
             learningContents: null,
             isCreatedQuestion: ko.observable(false),
             isExpanded: ko.observable(true),
-            toggleExpand: toggleExpand
+            toggleExpand: toggleExpand,
+
+            updatedByCollaborator: updatedByCollaborator
         };
+
+        app.on(constants.messages.question.fillInTheBlank.updatedByCollaborator, updatedByCollaborator);
 
         return viewModel;
 
         function initialize(objectiveId, question) {
             viewModel.objectiveId = objectiveId;
+            viewModel.questionId = question.id;
             viewModel.title = questionTitle(objectiveId, question);
             var lastCreatedQuestionId = clientContext.get('lastCreatedQuestionId') || '';
             clientContext.remove('lastCreatedQuestionId');
@@ -52,11 +58,11 @@
             viewModel.isExpanded(!viewModel.isExpanded());
         }
 
-        function contentUpdated(question) {
-            if (question.id != viewModel.questionId || viewModel.questionContent.isEditing())
+        function updatedByCollaborator(question) {
+            if (question.id != viewModel.questionId)
                 return;
 
-            viewModel.questionContent.text(question.content);
+            viewModel.fillInTheBlank.updatedByCollaborator(question);
         }
 
     });

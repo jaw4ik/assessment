@@ -497,6 +497,10 @@
     <Content Include="App\synchronization\handlers\question\eventHandlers\deleted.spec.js">
       <DependentUpon>deleted.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\question\eventHandlers\fillInTheBlankUpdated.js" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\fillInTheBlankUpdated.spec.js">
+      <DependentUpon>fillInTheBlankUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\question\handler.js" />
     <Content Include="App\synchronization\handlers\question\eventHandlers\contentUpdated.js" />
     <Content Include="App\synchronization\handlers\question\handler.spec.js">

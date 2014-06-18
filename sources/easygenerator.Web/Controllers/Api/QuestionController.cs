@@ -161,8 +161,8 @@ namespace easygenerator.Web.Controllers.Api
             }
             
             question.UpdateAnswers(answers, GetCurrentUsername());
-
             question.UpdateContent(fillInTheBlank, GetCurrentUsername());
+            _eventPublisher.Publish(new FillInTheBlankUpdatedEvent(question, answers));
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }

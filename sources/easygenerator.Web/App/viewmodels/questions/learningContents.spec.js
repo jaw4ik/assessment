@@ -501,12 +501,31 @@
                 expect(viewModel.createdByCollaborator).toBeFunction();
             });
 
-            it('should add learning content to list', function () {
-                viewModel.learningContents([]);
-                viewModel.createdByCollaborator(question, learningContent);
+            describe('when it is current question', function() {
+                beforeEach(function() {
+                    viewModel = ctor(questionId, []);
+                });
+                
+                it('should add learning content to list', function () {
+                    viewModel.learningContents([]);
+                    viewModel.createdByCollaborator(question, learningContent);
 
-                expect(viewModel.learningContents().length).toBe(1);
-                expect(viewModel.learningContents()[0].id()).toBe(learningContent.id);
+                    expect(viewModel.learningContents().length).toBe(1);
+                    expect(viewModel.learningContents()[0].id()).toBe(learningContent.id);
+                });
+            });
+
+            describe('when it is not current question', function () {
+                beforeEach(function () {
+                    viewModel = ctor('someId', []);
+                });
+
+                it('should not add learning content to list', function () {
+                    viewModel.learningContents([]);
+                    viewModel.createdByCollaborator(question, learningContent);
+
+                    expect(viewModel.learningContents().length).toBe(0);
+                });
             });
         });
 
@@ -514,55 +533,72 @@
             var question = { id: questionId },
                 learningContentId = 'learningContentId';
 
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
-
             it('should be function', function () {
                 expect(viewModel.deletedByCollaborator).toBeFunction();
             });
 
-            describe('when learning content with appropriate id exists', function() {
-                describe('and does not have focus', function() {
-                    it('should remove learning objective', function () {
-                        viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(false) }]);
-                        viewModel.deletedByCollaborator(question, learningContentId);
-
-                        expect(viewModel.learningContents().length).toEqual(0);
-                    });
+            describe('when question is not current question', function() {
+                beforeEach(function () {
+                    viewModel = ctor('someId', []);
                 });
 
-                describe('and has focus', function () {
-                    beforeEach(function() {
-                        viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(true) }]);
-                        spyOn(notify, 'error');
-                    });
+                it('should not delete learning content from list', function() {
+                    viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(false) }]);
 
-                    it('should not remove learning objective', function () {
-                        viewModel.deletedByCollaborator(question, learningContentId);
-                        expect(viewModel.learningContents().length).toEqual(1);
-                    });
-
-                    it('should show error notification', function() {
-                        viewModel.deletedByCollaborator(question, learningContentId);
-                        expect(notify.error).toHaveBeenCalled();
-                    });
-
-                    it('should set \'isDeleted\' of learningContent to true', function() {
-                        viewModel.deletedByCollaborator(question, learningContentId);
-                        expect(viewModel.learningContents()[0].isDeleted).toBeTruthy();
-                    });
-                });
-            });
-
-            describe('when learning content with appropriate id does not exist', function () {
-                it('should not remove learning objective', function () {
-                    viewModel.learningContents([{ id: ko.observable('otherId') }]);
                     viewModel.deletedByCollaborator(question, learningContentId);
-
                     expect(viewModel.learningContents().length).toEqual(1);
                 });
             });
+
+            describe('when question is current question', function () {
+                beforeEach(function () {
+                    viewModel = ctor(questionId, []);
+                });
+
+                describe('and learning content with appropriate id exists', function () {
+
+                    describe('and does not have focus', function () {
+                        it('should remove learning objective', function () {
+                            viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(false) }]);
+                            viewModel.deletedByCollaborator(question, learningContentId);
+
+                            expect(viewModel.learningContents().length).toEqual(0);
+                        });
+                    });
+
+                    describe('and has focus', function () {
+                        beforeEach(function () {
+                            viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(true) }]);
+                            spyOn(notify, 'error');
+                        });
+
+                        it('should not remove learning objective', function () {
+                            viewModel.deletedByCollaborator(question, learningContentId);
+                            expect(viewModel.learningContents().length).toEqual(1);
+                        });
+
+                        it('should show error notification', function () {
+                            viewModel.deletedByCollaborator(question, learningContentId);
+                            expect(notify.error).toHaveBeenCalled();
+                        });
+
+                        it('should set \'isDeleted\' of learningContent to true', function () {
+                            viewModel.deletedByCollaborator(question, learningContentId);
+                            expect(viewModel.learningContents()[0].isDeleted).toBeTruthy();
+                        });
+                    });
+                });
+
+                describe('and learning content with appropriate id does not exist', function () {
+                    it('should not remove learning objective', function () {
+                        viewModel.learningContents([{ id: ko.observable('otherId') }]);
+                        viewModel.deletedByCollaborator(question, learningContentId);
+
+                        expect(viewModel.learningContents().length).toEqual(1);
+                    });
+                });
+            });
+            
         });
 
         describe('textUpdatedByCollaborator:', function () {
@@ -570,43 +606,58 @@
                 learningContent = { id: ko.observable('0'), text: ko.observable(''), originalText: '', hasFocus: ko.observable(false) },
                 updatedLearningContent = { id: '0', text: 'newLearningContent' };
 
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
-
             it('should be function', function () {
                 expect(viewModel.textUpdatedByCollaborator).toBeFunction();
             });
 
-            describe('when learning content is found', function() {
-                beforeEach(function() {
-                    viewModel.learningContents([learningContent]);
+            describe('when question is not current question', function () {
+                beforeEach(function () {
+                    viewModel = ctor('someId', []);
                 });
 
-                it('should update original text', function () {
-                    viewModel.learningContents()[0].originalText = '';
+                it('should not update learning content', function () {
+                    viewModel.learningContents([{ id: ko.observable('0'), text: ko.observable(''), originalText: '', hasFocus: ko.observable(false) }]);
+
                     viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
+                    expect(viewModel.learningContents()[0].text()).toBe('');
+                });
+            });
 
-                    expect(viewModel.learningContents()[0].originalText).toBe(updatedLearningContent.text);
+            describe('when question is current question', function() {
+                beforeEach(function () {
+                    viewModel = ctor(questionId, []);
                 });
 
-                describe('and it does not have focus', function () {
-                    it('should be updated', function () {
-                        viewModel.learningContents()[0].text('');
-                        viewModel.learningContents()[0].hasFocus(false);
-                        viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
-
-                        expect(viewModel.learningContents()[0].text()).toBe(updatedLearningContent.text);
+                describe('and learning content is found', function () {
+                    beforeEach(function () {
+                        viewModel.learningContents([learningContent]);
                     });
-                });
 
-                describe('and has focus', function() {
-                    it('should not be updated', function() {
-                        viewModel.learningContents()[0].text('');
-                        viewModel.learningContents()[0].hasFocus(true);
+                    it('should update original text', function () {
+                        viewModel.learningContents()[0].originalText = '';
                         viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
 
-                        expect(viewModel.learningContents()[0].text()).not.toBe(updatedLearningContent.text);
+                        expect(viewModel.learningContents()[0].originalText).toBe(updatedLearningContent.text);
+                    });
+
+                    describe('and it does not have focus', function () {
+                        it('should be updated', function () {
+                            viewModel.learningContents()[0].text('');
+                            viewModel.learningContents()[0].hasFocus(false);
+                            viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
+
+                            expect(viewModel.learningContents()[0].text()).toBe(updatedLearningContent.text);
+                        });
+                    });
+
+                    describe('and has focus', function () {
+                        it('should not be updated', function () {
+                            viewModel.learningContents()[0].text('');
+                            viewModel.learningContents()[0].hasFocus(true);
+                            viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
+
+                            expect(viewModel.learningContents()[0].text()).not.toBe(updatedLearningContent.text);
+                        });
                     });
                 });
             });

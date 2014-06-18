@@ -96,6 +96,7 @@
             it('should initialize field', function () {
                 viewModel.initialize(objectiveId, question);
                 expect(viewModel.objectiveId).toBe(objectiveId);
+                expect(viewModel.questionId).toBe(question.id);
                 expect(viewModel.title.title()).toBe(question.title);
             });
 
@@ -140,6 +141,35 @@
 
         });
 
+        describe('questionId:', function() {
+            it('should be defined', function() {
+                expect(viewModel.questionId).toBeDefined();
+            });    
+        });
+
+        describe('updatedByCollaborator:', function () {
+            beforeEach(function() {
+                spyOn(viewModel.fillInTheBlank, 'updatedByCollaborator');
+            });
+
+            it('should be function', function () {
+                expect(viewModel.updatedByCollaborator).toBeFunction();
+            });
+
+            it('should update fillInTheBlank', function () {
+                viewModel.questionId = question.id;
+                viewModel.updatedByCollaborator(question);
+                expect(viewModel.fillInTheBlank.updatedByCollaborator).toHaveBeenCalled();
+            });
+
+            describe('when question is not current', function() {
+                it('should not update fillInTheBlank', function() {
+                    viewModel.questionId = 'someId';
+                    viewModel.updatedByCollaborator(question);
+                    expect(viewModel.fillInTheBlank.updatedByCollaborator).not.toHaveBeenCalled();
+                });
+            });
+        });
     });
 
 });

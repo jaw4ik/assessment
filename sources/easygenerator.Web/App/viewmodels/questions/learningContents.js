@@ -93,6 +93,9 @@
             }),
 
             deletedByCollaborator = function (question, learningContentId) {
+                if (question.id != questionId)
+                    return;
+
                 var deletedLearningContent = _.find(learningContents(), function (item) {
                     return item.id() == learningContentId;
                 });
@@ -109,6 +112,9 @@
             },
 
             textUpdatedByCollaborator = function (question, learningContent) {
+                if (question.id != questionId)
+                    return;
+
                 var updatedLearningContent = _.find(learningContents(), function (item) {
                     return item.id() == learningContent.id;
                 });
@@ -122,6 +128,9 @@
             },
 
             createdByCollaborator = function (question, learningContent) {
+                if (question.id != questionId)
+                    return;
+
                 doAddLearningContent(learningContent);
             }
         ;

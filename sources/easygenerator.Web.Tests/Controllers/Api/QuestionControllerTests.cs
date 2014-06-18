@@ -484,6 +484,20 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void UpdateFillInTheBlank_ShouldPublishDomainEvent()
+        {
+            const string fillInTheBlank = "updated content";
+
+            var answersViewmodels = new List<AnswerViewModel>();
+            _user.Identity.Name.Returns(CreatedBy);
+            var question = Substitute.For<Question>("Question title", Type, CreatedBy);
+
+            _controller.UpdateFillInTheBlank(question, fillInTheBlank, answersViewmodels);
+
+            _eventPublisher.Received().Publish(Arg.Any<FillInTheBlankUpdatedEvent>());
+        }
+
+        [TestMethod]
         public void UpdateFillInTheBlank_ShouldReturnJsonSuccessResult()
         {
             var question = Substitute.For<Question>("Question title", Type, CreatedBy);

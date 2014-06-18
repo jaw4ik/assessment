@@ -32,6 +32,8 @@
                     questionTitleUpdated: questionEventHandler.titleUpdated,
                     questionContentUpdated: questionEventHandler.contentUpdated,
 
+                    fillInTheBlankUpdated: questionEventHandler.fillInTheBlankUpdated,
+
                     answerCreated: answerEventHandler.created,
                     answerDeleted: answerEventHandler.deleted,
                     answerTextUpdated: answerEventHandler.textUpdated,

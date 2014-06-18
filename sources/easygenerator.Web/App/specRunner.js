@@ -76,6 +76,7 @@
             'synchronization/handlers/question/eventHandlers/created.spec',
             'synchronization/handlers/question/eventHandlers/deleted.spec',
             'synchronization/handlers/question/eventHandlers/contentUpdated.spec',
+            'synchronization/handlers/question/eventHandlers/fillInTheBlankUpdated.spec',
 
             'synchronization/handlers/learningContent/handler.spec',
             'synchronization/handlers/learningContent/eventHandlers/created.spec',

@@ -248,7 +248,6 @@
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var data = valueAccessor().data(),
-            fillInTheBlank = valueAccessor().fillInTheBlank || false,
             isEditing = valueAccessor().isEditing();
 
 
@@ -256,7 +255,7 @@
             var editor = _.find(CKEDITOR.instances, function (item) {
                 return item.element.$ == element;
             });
-            if (!fillInTheBlank && !_.isNullOrUndefined(editor) && editor.getData() != data) {
+            if (!_.isNullOrUndefined(editor) && editor.getData() != data) {
                 editor.setData(data);
             }
         }

@@ -127,18 +127,22 @@
                     titleUpdatedByCollaborator: 'question:titleUpdatedByCollaborator',
                     contentUpdatedByCollaborator: 'question:contentUpdatedByCollaborator',
                     deletedByCollaborator: 'question:deletedByCollaborator',
-
+                    
                     answer: {
                         addedByCollaborator: 'question:answer:addedByCollaborator',
                         deletedByCollaborator: 'question:answer:deletedByCollaborator',
                         textUpdatedByCollaborator: 'question:answer:textUpdatedByCollaborator',
-                        correctnessUpdatedByCollaborator: 'question:answer:correctnessUpdatedByCollaborator',
+                        correctnessUpdatedByCollaborator: 'question:answer:correctnessUpdatedByCollaborator'
                     },
 
                     learningContent: {
                         createdByCollaborator: 'learningContent:createdByCollaborator',
                         deletedByCollaborator: 'learningContent:deletedByCollaborator',
                         textUpdatedByCollaborator: 'learningContent:textUpdatedByCollaborator',
+                    },
+
+                    fillInTheBlank: {
+                        updatedByCollaborator: 'question:fillInTheBlank:updatedByCollaborator'
                     }
                 },
                 helpHint: {

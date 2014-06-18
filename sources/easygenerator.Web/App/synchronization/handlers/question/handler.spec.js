@@ -21,12 +21,17 @@
             });
         });
 
+        describe('fillInTheBlankUpdated:', function () {
+            it('should be function', function () {
+                expect(handler.fillInTheBlankUpdated).toBeFunction();
+            });
+        });
+
         describe('deleted:', function () {
             it('should be function', function () {
                 expect(handler.deleted).toBeFunction();
             });
         });
-
     });
 
 })

@@ -112,6 +112,12 @@
                 viewModel.beginEditText({});
                 expect(eventTracker.publish).toHaveBeenCalledWith(events.beginEditText);
             });
+
+            it('should set isEditing to true', function () {
+                viewModel.isEditing(false);
+                viewModel.beginEditText({});
+                expect(viewModel.isEditing()).toBeTruthy();
+            });
         });
 
         describe('endEditText:', function () {
@@ -127,6 +133,12 @@
             it('should send event \'Event \'End edit text\'\'', function () {
                 viewModel.endEditText();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Event \'End edit text\'');
+            });
+
+            it('should set isEditing to false', function () {
+                viewModel.isEditing(true);
+                viewModel.endEditText();
+                expect(viewModel.isEditing()).toBeFalsy();
             });
 
         });
@@ -275,6 +287,59 @@
 
         });
 
+        describe('isEditing:', function () {
+            it('should be observable', function() {
+                expect(viewModel.isEditing).toBeObservable();
+            });
+        });
+
+        describe('updatedByCollaborator:', function () {
+            var fillInTheBlank = 'some content';
+
+            beforeEach(function () {
+                spyOn(parser, 'getData').and.returnValue(fillInTheBlank);
+            });
+
+            it('should be function:', function () {
+                expect(viewModel.updatedByCollaborator).toBeFunction();
+            });
+
+            describe('when isEditing is true', function() {
+                beforeEach(function() {
+                    viewModel.isEditing(true);
+                });
+
+                it('should update original text', function () {
+                    viewModel.originalText('');
+                    viewModel.updatedByCollaborator({});
+                    expect(viewModel.originalText()).toBe(fillInTheBlank);
+                });
+
+                it('should not update text', function () {
+                    viewModel.text('');
+                    viewModel.updatedByCollaborator({});
+                    expect(viewModel.text()).toBe('');
+                });
+            });
+
+            describe('when isEditing is false', function () {
+                beforeEach(function () {
+                    viewModel.isEditing(false);
+                });
+
+                it('should update original text', function () {
+                    viewModel.originalText('');
+                    viewModel.updatedByCollaborator({});
+                    expect(viewModel.originalText()).toBe(fillInTheBlank);
+                });
+
+                it('should update text', function() {
+                    viewModel.text('');
+                    viewModel.updatedByCollaborator({});
+                    expect(viewModel.text()).toBe(fillInTheBlank);
+                });
+            });
+        });
     });
 
 });
