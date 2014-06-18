@@ -2303,6 +2303,13 @@ span.top-navigation-item.current {
     /*#endregion Header*/
 }
 
+
+@media (max-width: 1045px) {
+    .content-section {
+        max-width: 640px;
+    }
+}
+
 @media (max-width: 1060px) {
 
     .create-tip {
