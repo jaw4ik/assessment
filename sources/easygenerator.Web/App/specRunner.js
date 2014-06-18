@@ -55,7 +55,9 @@
 
             //#region synchronization
 
-            'synchronization/handlers/objectiveEventHandler.spec',
+            'synchronization/handlers/objective/handler.spec',
+            'synchronization/handlers/objective/eventHandlers/titleUpdated.spec',
+            'synchronization/handlers/objective/eventHandlers/questionsReordered.spec',
 
             'synchronization/handlers/course/handler.spec',
             'synchronization/handlers/course/eventHandlers/collaborationStarted.spec',
@@ -71,6 +73,8 @@
 
             'synchronization/handlers/question/handler.spec',
             'synchronization/handlers/question/eventHandlers/titleUpdated.spec',
+            'synchronization/handlers/question/eventHandlers/created.spec',
+            'synchronization/handlers/question/eventHandlers/deleted.spec',
             'synchronization/handlers/question/eventHandlers/contentUpdated.spec',
 
             'synchronization/handlers/learningContent/handler.spec',

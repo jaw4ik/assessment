@@ -38,5 +38,6 @@ namespace easygenerator.Web.Synchronization.Handlers
             _broadcaster.OtherCollaborators(args.Question)
                 .questionTitleUpdated(args.Question.Id.ToNString(), args.Question.Title, args.Question.ModifiedOn);
         }
+
     }
 }

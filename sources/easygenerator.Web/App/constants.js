@@ -115,7 +115,9 @@
                 },
                 objective: {
                     titleUpdated: 'objective:titleUpdated',
-                    questionsReordered: 'objective:questionsReordered'
+                    titleUpdatedByCollaborator: 'objective:titleUpdatedByCollaborator',
+                    questionsReordered: 'objective:questionsReordered',
+                    questionsReorderedByCollaborator: 'objective:questionsReorderedByCollaborator'
                 },
                 question: {
                     created: 'question:created',

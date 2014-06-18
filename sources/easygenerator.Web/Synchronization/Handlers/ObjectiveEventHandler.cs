@@ -1,7 +1,7 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.ObjectiveEvents;
-using easygenerator.Web.Components.Mappers;
+using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 using System.Linq;

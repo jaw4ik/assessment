@@ -64,8 +64,8 @@
             return viewModel.questions().length > 1;
         });
 
-        app.on(constants.messages.objective.titleUpdated, objectiveTitleUpdated);
-        app.on(constants.messages.objective.questionsReordered, questionsReordered);
+        app.on(constants.messages.objective.titleUpdatedByCollaborator, objectiveTitleUpdated);
+        app.on(constants.messages.objective.questionsReorderedByCollaborator, questionsReordered);
         app.on(constants.messages.question.createdByCollaborator, questionCreatedByCollaborator);
         app.on(constants.messages.question.titleUpdatedByCollaborator, questionTitleUpdatedByCollaborator);
         app.on(constants.messages.question.deletedByCollaborator, questionDeletedByCollaborator);

@@ -1,4 +1,4 @@
-﻿define(['durandal/system', 'synchronization/handlers/user/handler', 'synchronization/handlers/course/handler', 'synchronization/handlers/objectiveEventHandler',
+﻿define(['durandal/system', 'synchronization/handlers/user/handler', 'synchronization/handlers/course/handler', 'synchronization/handlers/objective/handler',
     'synchronization/handlers/question/handler', 'synchronization/handlers/answer/handler', 'synchronization/handlers/learningContent/handler'],
     function (system, userEventHandler, courseEventHandler, objectiveEventHandler, questionEventHandler, answerEventHandler, learningContentEventHandler) {
         "use strict";
@@ -24,11 +24,11 @@
                     courseObjectiveRelated: courseEventHandler.objectiveRelated,
                     courseObjectivesUnrelated: courseEventHandler.objectivesUnrelated,
 
-                    objectiveTitleUpdated: objectiveEventHandler.objectiveTitleUpdated,
+                    objectiveTitleUpdated: objectiveEventHandler.titleUpdated,
                     objectiveQuestionsReordered: objectiveEventHandler.questionsReordered,
 
-                    questionCreated: objectiveEventHandler.questionCreated,
-                    questionsDeleted: objectiveEventHandler.questionsDeleted,
+                    questionCreated: questionEventHandler.created,
+                    questionsDeleted: questionEventHandler.deleted,
                     questionTitleUpdated: questionEventHandler.titleUpdated,
                     questionContentUpdated: questionEventHandler.contentUpdated,
 

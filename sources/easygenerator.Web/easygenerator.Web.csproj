@@ -477,9 +477,25 @@
     <Content Include="App\synchronization\handlers\course\eventHandlers\titleUpdated.spec.js">
       <DependentUpon>titleUpdated.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\objectiveEventHandler.js" />
-    <Content Include="App\synchronization\handlers\objectiveEventHandler.spec.js">
-      <DependentUpon>objectiveEventHandler.js</DependentUpon>
+    <Content Include="App\synchronization\handlers\objective\eventHandlers\questionsReordered.js" />
+    <Content Include="App\synchronization\handlers\objective\eventHandlers\questionsReordered.spec.js">
+      <DependentUpon>questionsReordered.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\objective\eventHandlers\titleUpdated.js" />
+    <Content Include="App\synchronization\handlers\objective\eventHandlers\titleUpdated.spec.js">
+      <DependentUpon>titleUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\objective\handler.js" />
+    <Content Include="App\synchronization\handlers\objective\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\question\eventHandlers\created.js" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\created.spec.js">
+      <DependentUpon>created.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\question\eventHandlers\deleted.js" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\deleted.spec.js">
+      <DependentUpon>deleted.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\question\handler.js" />
     <Content Include="App\synchronization\handlers\question\eventHandlers\contentUpdated.js" />

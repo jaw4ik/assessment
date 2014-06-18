@@ -110,8 +110,8 @@
         app.on(constants.messages.course.objectivesReorderedByCollaborator, objectivesReordered);
         app.on(constants.messages.course.objectiveRelatedByCollaborator, objectiveConnected);
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, objectivesDisconnected);
-        app.on(constants.messages.objective.titleUpdated, objectiveTitleUpdated);
-        app.on(constants.messages.objective.questionsReordered, objectiveUpdated);
+        app.on(constants.messages.objective.titleUpdatedByCollaborator, objectiveTitleUpdated);
+        app.on(constants.messages.objective.questionsReorderedByCollaborator, objectiveUpdated);
         app.on(constants.messages.question.createdByCollaborator, objectiveUpdated);
         app.on(constants.messages.question.deletedByCollaborator, objectiveUpdated);
 

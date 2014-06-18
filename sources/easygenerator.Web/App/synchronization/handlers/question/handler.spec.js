@@ -15,6 +15,18 @@
             });
         });
 
+        describe('created:', function () {
+            it('should be function', function () {
+                expect(handler.created).toBeFunction();
+            });
+        });
+
+        describe('deleted:', function () {
+            it('should be function', function () {
+                expect(handler.deleted).toBeFunction();
+            });
+        });
+
     });
 
 })

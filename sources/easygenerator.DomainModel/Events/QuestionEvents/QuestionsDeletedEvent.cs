@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.Infrastructure;
+using System.Collections.Generic;
 
-namespace easygenerator.DomainModel.Events.ObjectiveEvents
+namespace easygenerator.DomainModel.Events.QuestionEvents
 {
     public class QuestionsDeletedEvent : ObjectiveEvent
     {

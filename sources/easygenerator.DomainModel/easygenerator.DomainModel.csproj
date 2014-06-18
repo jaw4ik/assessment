@@ -78,7 +78,7 @@
     <Compile Include="Events\LearningContentEvents\LearningContentEvent.cs" />
     <Compile Include="Events\LearningContentEvents\LearningContentUpdatedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\ObjectiveEvent.cs" />
-    <Compile Include="Events\ObjectiveEvents\QuestionsDeletedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\QuestionsDeletedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\ObjectiveTitleUpdatedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\QuestionsReorderedEvent.cs" />
     <Compile Include="Events\LearningContentEvents\LearningContentCreatedEvent.cs" />

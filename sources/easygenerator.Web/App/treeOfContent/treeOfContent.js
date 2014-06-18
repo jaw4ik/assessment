@@ -58,7 +58,9 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
     app.on(constants.messages.question.titleUpdatedByCollaborator, self.handler.questionTitleUpdated);
 
     app.on(constants.messages.objective.titleUpdated, self.handler.objectiveTitleUpdated);
+    app.on(constants.messages.objective.titleUpdatedByCollaborator, self.handler.objectiveTitleUpdated);
     app.on(constants.messages.objective.questionsReordered, self.handler.questionsReordered);
+    app.on(constants.messages.objective.questionsReorderedByCollaborator, self.handler.questionsReordered);
 
     app.on(constants.messages.course.created, self.handler.courseCreated);
     app.on(constants.messages.course.collaboration.started, self.handler.courseCollaborationStarted);
