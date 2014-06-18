@@ -11,6 +11,7 @@
             errorMessage: ko.observable(''),
             isShown: ko.observable(false),
             isEditing: ko.observable(false),
+            actionInProgress: ko.observable(false),
             submit: submit,
             show: show,
             hide: hide
@@ -39,6 +40,7 @@
             viewModel.email.isModified(false);
             viewModel.email('');
             viewModel.isEditing(false);
+            viewModel.actionInProgress(false);
             viewModel.errorMessage('');
 
             viewModel.isShown(true);
@@ -49,11 +51,12 @@
         }
 
         function submit() {
-            eventTracker.publish(events.addPersonForCollaboration);
             if (!validate()) {
                 return;
             }
 
+            viewModel.actionInProgress(true);
+            eventTracker.publish(events.addPersonForCollaboration);
             return repository.add(router.routeData().courseId, this.email().trim())
                 .then(function (collaborator) {
                     if (!_.isNullOrUndefined(collaborator)) {
@@ -64,6 +67,9 @@
                 })
                 .fail(function (errorMessage) {
                     viewModel.errorMessage(errorMessage);
+                })
+                .fin(function() {
+                    viewModel.actionInProgress(false);
                 });
         }
 

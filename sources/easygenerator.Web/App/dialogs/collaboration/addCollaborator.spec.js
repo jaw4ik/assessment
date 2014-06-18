@@ -55,6 +55,14 @@
             });
         });
 
+        describe('actionInProgress', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.actionInProgress).toBeObservable();
+            });
+
+        });
+
         describe('email:', function () {
             it('should be observable', function () {
                 expect(viewModel.email).toBeObservable();
@@ -129,11 +137,6 @@
                 expect(viewModel.submit).toBeFunction();
             });
 
-            it('should send event \'Add person for collaboration\'', function () {
-                viewModel.submit();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Add person for collaboration');
-            });
-
             describe('when email is empty', function () {
                 beforeEach(function () {
                     viewModel.email('');
@@ -168,14 +171,28 @@
                 });
             });
 
+            it('should set actionInProgress to true', function () {
+                viewModel.email(email);
+                viewModel.submit();
+                expect(viewModel.actionInProgress()).toBeTruthy();
+            });
+
+            it('should send event \'Add person for collaboration\'', function () {
+                viewModel.email(email);
+                viewModel.submit();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Add person for collaboration');
+            });
+
             it('should add collaborator', function () {
                 viewModel.email(email);
                 viewModel.submit();
                 expect(repository.add).toHaveBeenCalledWith(courseId, email);
             });
 
-            describe('and when collaborator added successfully', function () {
-                describe('when result is undefined', function() {
+            describe('when collaborator added successfully', function () {
+
+                describe('and when result is undefined', function () {
+
                     it('should not trigger app event', function (done) {
                         var collaborator = {};
                         viewModel.email(email);
@@ -186,6 +203,7 @@
                             done();
                         });
                     });
+
                 });
 
                 it('should trigger app event', function (done) {
@@ -209,9 +227,21 @@
                         done();
                     });
                 });
+
+                it('should set actionInProgress to false', function (done) {
+                    viewModel.email(email);
+                    addCollaborator.resolve();
+
+                    viewModel.submit().fin(function () {
+                        expect(viewModel.actionInProgress()).toBeFalsy();
+                        done();
+                    });
+                });
+
             });
 
-            describe('and when failed to add collaborator', function () {
+            describe('when failed to add collaborator', function () {
+
                 it('should set error message', function (done) {
                     viewModel.email(email);
                     viewModel.errorMessage('');
@@ -223,11 +253,24 @@
                         done();
                     });
                 });
+
+                it('should set actionInProgress to false', function (done) {
+                    viewModel.email(email);
+                    viewModel.errorMessage('');
+                    var errorMessage = 'error';
+                    addCollaborator.reject(errorMessage);
+
+                    viewModel.submit().fin(function () {
+                        expect(viewModel.actionInProgress()).toBeFalsy();
+                        done();
+                    });
+                });
             });
         });
 
-        describe('show:', function() {
-            it('should be function', function() {
+        describe('show:', function () {
+
+            it('should be function', function () {
                 expect(viewModel.show).toBeFunction();
             });
 
@@ -249,6 +292,12 @@
                 expect(viewModel.isEditing()).toBeFalsy();
             });
 
+            it('should set is actionInProgress to false', function () {
+                viewModel.actionInProgress(null);
+                viewModel.show();
+                expect(viewModel.actionInProgress()).toBeFalsy();
+            });
+
             it('should set error message to empty string', function () {
                 viewModel.errorMessage('message');
                 viewModel.show();
@@ -260,6 +309,7 @@
                 viewModel.show();
                 expect(viewModel.isShown()).toBeTruthy();
             });
+
         });
 
         describe('hide:', function () {

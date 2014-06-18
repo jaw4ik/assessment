@@ -275,65 +275,7 @@
 
                     });
 
-                    describe('and course not found in dataContext', function () {
-
-                        it('should reject promise', function (done) {
-                            dataContext.courses = [];
-
-                            var receivedData = {
-                                Email: 'email',
-                                FullName: 'name'
-                            };
-
-                            var promise = repository.add(courseId, email);
-
-                            promise.fin(function () {
-                                expect(promise).toBeRejectedWith('Course does not exist in dataContext');
-                                done();
-                            });
-
-                            post.resolve({
-                                success: true, data: receivedData
-                            });
-                        });
-
-                    });
-
-                    it('should update course collaborators in dataContext', function (done) {
-                        var questionId = 'someId';
-
-                        dataContext.courses = [
-                            {
-                                id: courseId,
-                                collaborators: []
-                            }
-                        ];
-
-                        var receivedData = {
-                            Email: 'email',
-                            FullName: 'name'
-                        };
-
-                        var promise = repository.add(courseId, email);
-
-                        promise.fin(function () {
-                            expect(dataContext.courses[0].collaborators.length).toBe(1);
-                            done();
-                        });
-
-                        post.resolve({
-                            success: true, data: receivedData
-                        });
-                    });
-
                     it('should resolve promise with received information', function (done) {
-                        dataContext.courses = [
-                            {
-                                id: courseId,
-                                collaborators: []
-                            }
-                        ];
-
                         var date = new Date();
                         var receivedData = {
                             Email: 'email',

@@ -47,15 +47,7 @@
 
                         guard.throwIfNotString(data.Email, 'Email is not a string');
 
-                        var course = _.find(dataContext.courses, function (item) {
-                            return item.id == courseId;
-                        });
-
-                        guard.throwIfNotAnObject(course, 'Course does not exist in dataContext');
-                        var collaborator = collaboratorModelMapper.map(data);
-                        course.collaborators.push(collaborator);
-
-                        return collaborator;
+                        return collaboratorModelMapper.map(data);
                     });
             });
         }
