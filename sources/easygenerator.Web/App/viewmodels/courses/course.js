@@ -1,6 +1,6 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
         'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'ping', 'models/backButton',
-        'viewmodels/courses/collaboration/collaborators', 'userContext', 'durandal/app','repositories/collaboratorRepository'],
+        'viewmodels/courses/collaboration/collaborators', 'userContext', 'durandal/app', 'repositories/collaboratorRepository'],
     function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, ping, BackButton,
         vmCollaborators, userContext, app, collaboratorRepository) {
         "use strict";
@@ -63,6 +63,7 @@
             disconnectSelectedObjectives: disconnectSelectedObjectives,
             isReorderingObjectives: ko.observable(false),
             startReorderingObjectives: startReorderingObjectives,
+            endReorderingObjectives: endReorderingObjectives,
             reorderObjectives: reorderObjectives,
             isSortingEnabled: ko.observable(true),
             collaborators: null,
@@ -311,9 +312,12 @@
             viewModel.isReorderingObjectives(true);
         }
 
+        function endReorderingObjectives() {
+            viewModel.isReorderingObjectives(false);
+        }
+
         function reorderObjectives() {
             eventTracker.publish(events.changeOrderObjectives);
-            viewModel.isReorderingObjectives(false);
             repository.updateObjectiveOrder(viewModel.id, viewModel.connectedObjectives()).then(function () {
                 notify.saved();
             });

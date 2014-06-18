@@ -35,6 +35,7 @@
                 toggleQuestionSelection: toggleQuestionSelection,
                 isReorderingQuestions: ko.observable(false),
                 startReorderingQuestions: startReorderingQuestions,
+                endReorderingQuestions: endReorderingQuestions,
                 updateQuestionsOrder: updateQuestionsOrder,
 
                 canActivate: canActivate,
@@ -262,9 +263,12 @@
             viewModel.isReorderingQuestions(true);
         }
 
+        function endReorderingQuestions() {
+            viewModel.isReorderingQuestions(false);
+        }
+
         function updateQuestionsOrder() {
             eventTracker.publish(events.changeQuestionsOrder);
-            viewModel.isReorderingQuestions(false);
             repository.updateQuestionsOrder(viewModel.objectiveId, viewModel.questions())
                 .then(function() {
                     showNotification();

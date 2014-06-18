@@ -1064,14 +1064,6 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Change order of questions');
                 });
 
-                it('should set isReorderingQuestions to false', function () {
-                    spyOn(repository, 'updateQuestionsOrder').and.returnValue(Q.defer().promise);
-                    viewModel.isReorderingQuestions(true);
-
-                    viewModel.updateQuestionsOrder();
-                    expect(viewModel.isReorderingQuestions()).toBeFalsy();
-                });
-
                 it('should update questions order', function () {
                     spyOn(repository, 'updateQuestionsOrder').and.returnValue(Q.defer().promise);
 
@@ -1194,6 +1186,20 @@
                     viewModel.startReorderingQuestions();
 
                     expect(viewModel.isReorderingQuestions()).toBeTruthy();
+                });
+            });
+
+            describe('endReorderingQuestions:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.endReorderingQuestions).toBeFunction();
+                });
+
+                it('should set isReorderingQuestion to false', function () {
+                    viewModel.isReorderingQuestions(true);
+                    viewModel.endReorderingQuestions();
+
+                    expect(viewModel.isReorderingQuestions()).toBeFalsy();
                 });
             });
 

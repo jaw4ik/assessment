@@ -94,7 +94,7 @@
                 </div>
                 <!-- /ko -->
                 <!--ko if: objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0-->
-                <ul class="unstyled main-content-list" data-bind="sortable: { data: connectedObjectives, afterMove: reorderObjectives, isEnabled: isSortingEnabled, options: { handle: '.list-item-drag-icon', start : startReorderingObjectives } }">
+                <ul class="unstyled main-content-list" data-bind="sortable: { data: connectedObjectives, afterMove: reorderObjectives, isEnabled: isSortingEnabled, options: { handle: '.list-item-drag-icon', start : startReorderingObjectives, stop: endReorderingObjectives } }">
                     <li class="main-content-list-item draggable" data-bind="css: { selected: isSelected }">
                         <div class="list-item-content-holder" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent)">
                             <div class="list-item-drag-icon-wrapper">
@@ -179,7 +179,7 @@
                                     </div>
                                 </div>
                                 <!-- /ko -->
-                                <ul class="unstyled main-content-list" data-bind="css: { 'connected': connectedObjectives().length != 0, empty: connectedObjectives().length == 0 }, sortablePlaceholder: { data: connectedObjectives, beforeMove: connectObjective, placeholder: '.placeholder-wrapper',  options: { start : startReorderingObjectives } }">
+                                <ul class="unstyled main-content-list" data-bind="css: { 'connected': connectedObjectives().length != 0, empty: connectedObjectives().length == 0 }, sortablePlaceholder: { data: connectedObjectives, beforeMove: connectObjective, placeholder: '.placeholder-wrapper',  options: { start : startReorderingObjectives, stop: endReorderingObjectives } }">
                                     <li class="main-content-list-item">
                                         <div class="list-item-content-holder">
                                             <div class="list-item-drag-icon-wrapper">

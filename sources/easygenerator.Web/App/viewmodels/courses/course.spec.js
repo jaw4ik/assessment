@@ -1024,12 +1024,6 @@
 				expect(viewModel.reorderObjectives).toBeFunction();
 			});
 
-			it('should set isReorderingObjectives to false', function () {
-				viewModel.isReorderingObjectives(true);
-				viewModel.reorderObjectives();
-				expect(viewModel.isReorderingObjectives()).toBeFalsy();
-			});
-
 			it('should send event \'Change order of learning objectives\'', function () {
 				viewModel.reorderObjectives();
 				expect(eventTracker.publish).toHaveBeenCalledWith('Change order of learning objectives');
@@ -1466,6 +1460,20 @@
 				viewModel.startReorderingObjectives();
 				expect(viewModel.isReorderingObjectives()).toBeTruthy();
 			});
+
+		});
+
+		describe('endReorderingObjectives:', function () {
+
+		    it('should be function', function () {
+		        expect(viewModel.endReorderingObjectives).toBeFunction();
+		    });
+
+		    it('should set isReorderingObjectives to faklse', function () {
+		        viewModel.isReorderingObjectives(true);
+		        viewModel.endReorderingObjectives();
+		        expect(viewModel.isReorderingObjectives()).toBeFalsy();
+		    });
 
 		});
 
