@@ -56,6 +56,15 @@
 
         });
 
+        describe('when course collaborators are loaded', function() {
+            it('should push collaborator to course collaborators collection', function () {
+                dataContext.courses = [mappedCourse];
+                mappedCourse.collaborators = [];
+                handler(course.Id, user);
+                expect(mappedCourse.collaborators.length).toBe(1);
+            });
+        });
+
         it('should trigger app event', function () {
             dataContext.courses = [mappedCourse];
             handler(course.Id, user);

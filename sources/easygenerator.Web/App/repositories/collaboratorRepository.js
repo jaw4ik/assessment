@@ -13,12 +13,25 @@
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'CourseId is not a string');
 
+                var course = _.find(dataContext.courses, function (item) {
+                    return item.id == courseId;
+                });
+
+                guard.throwIfNotAnObject(course, 'Course does not exist');
+
+                if (!_.isNullOrUndefined(course.collaborators)) {
+                    return course.collaborators;
+                }
+
                 return httpWrapper.post('api/course/collaborators', { courseId: courseId }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotArray(response.data, 'Response data is not an array');
-                    return _.map(response.data, function (collaborator) {
+                    var collaborators = _.map(response.data, function (collaborator) {
                         return collaboratorModelMapper.map(collaborator);
                     });
+
+                    course.collaborators = collaborators;
+                    return collaborators;
                 });
             });
         }
@@ -47,7 +60,18 @@
 
                         guard.throwIfNotString(data.Email, 'Email is not a string');
 
-                        return collaboratorModelMapper.map(data);
+                        var course = _.find(dataContext.courses, function (item) {
+                            return item.id == courseId;
+                        });
+
+                        guard.throwIfNotAnObject(course, 'Course does not exist in dataContext');
+
+                        var collaborator = collaboratorModelMapper.map(data);
+                        if (!_.isNullOrUndefined(course.collaborators)) {
+                            course.collaborators.push(collaborator);
+                        }
+
+                        return collaborator;
                     });
             });
         }

@@ -431,11 +431,7 @@
                         expect(dataContext.courses[0].template.id).toEqual(mappedCourse.template.id);
                         expect(dataContext.courses[0].createdOn).toEqual(new Date(CreatedOnDate.toISOString()));
                         expect(dataContext.courses[0].modifiedOn).toEqual(new Date(CreatedOnDate.toISOString()));
-                        expect(dataContext.courses[0].collaborators.length).toBe(1);
-                        expect(dataContext.courses[0].collaborators[0].email).toBe(identity.email);
-                        expect(dataContext.courses[0].collaborators[0].fullName).toBe(identity.fullname);
-                        expect(dataContext.courses[0].collaborators[0].registered).toBe(true);
-                        expect(dataContext.courses[0].collaborators[0].createdOn).toEqual(new Date(CreatedOnDate.toISOString()));
+                        expect(dataContext.courses[0].collaborators).toBe(undefined);
                         done();
                     });
 

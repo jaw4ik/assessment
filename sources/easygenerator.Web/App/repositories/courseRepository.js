@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'models/course', 'guard', 'http/httpWrapper', 'durandal/app', 'userContext', 'models/collaborator'],
-    function (dataContext, constants, CourseModel, guard, httpWrapper, app, userContext, CollaboratorModel) {
+﻿define(['dataContext', 'constants', 'models/course', 'guard', 'http/httpWrapper', 'durandal/app'],
+    function (dataContext, constants, CourseModel, guard, httpWrapper, app) {
         "use strict";
 
         var repository = {
@@ -75,14 +75,6 @@
                                 name: template.name,
                                 image: template.image
                             },
-                            collaborators: [
-                                new CollaboratorModel({
-                                    email: userContext.identity.email,
-                                    fullName: userContext.identity.fullname,
-                                    registered: true,
-                                    createdOn: createdOn
-                                })
-                            ],
                             objectives: [],
                             createdOn: createdOn,
                             createdBy: response.CreatedBy,

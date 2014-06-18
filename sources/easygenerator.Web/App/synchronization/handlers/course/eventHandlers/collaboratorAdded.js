@@ -14,6 +14,10 @@
 
             guard.throwIfNotAnObject(course, 'Course is not an object');
 
+            if (!_.isNullOrUndefined(course.collaborators)) {
+                course.collaborators.push(collaborator);
+            }
+
             app.trigger(constants.messages.course.collaboration.collaboratorAdded, courseId, collaborator);
         }
 
