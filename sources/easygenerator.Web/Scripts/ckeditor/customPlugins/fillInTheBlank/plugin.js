@@ -8,7 +8,7 @@
         },
         fillInTheBlankDialogName: 'fillInTheBlankDialog',
         dataTag: 'input',
-        spaceSymbol: '&#8203;',
+        spaceSymbol: ' ',
         classNames: {
             blankInput: 'blankInput',
             blankField: 'blankField',
@@ -119,7 +119,7 @@
                     widget.on('ready', function () {
                         if (widget.element.hasClass(plugin.classNames.new)) {
                             clearFormating(widget.element);
-                            $(widget.wrapper.$).before(' ').after(' '); 
+                            $(widget.wrapper.$).after(plugin.spaceSymbol).before(plugin.spaceSymbol);
                         }
                     });
                 },
