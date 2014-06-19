@@ -10,6 +10,7 @@
             </div>
 
             <header class="question-view-header" data-bind="with: title">
+
                 <!-- ko if: $parent.isExpanded() -->
                 <div class="expand-collapse-panel expanded" data-bind="click: $parent.toggleExpand">
                     <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}, css: { error: !title.isValid() }">Title</span>

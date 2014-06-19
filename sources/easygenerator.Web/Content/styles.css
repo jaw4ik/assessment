@@ -1121,14 +1121,16 @@ span.top-navigation-item.current {
 
 .custom-checkbox-wrapper {
     display: block;
-    height: 18px;
-    width: 19px;
+    height: 24px;
+    width: 22px;
     position: absolute;
     top: 50%;
-    left: 12px;
-    margin-top: -9px;
+    left: 10px;
+    margin-top: -12px;
     vertical-align: top;
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASBAMAAABLIvhaAAAAFVBMVEX////Z2dnZ2dnZ2dnZ2dn+/v7///+CMBYQAAAABHRSTlMAk5T7c4QEuQAAADNJREFUeF7NzjENADAIAMH3UAlVAAkOmhrAQlP/EhhgwQE//XiskwnYzxxu7Ru2DbmLrgQAIztODVdw6AAAAABJRU5ErkJggg==');
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
     .custom-checkbox-wrapper.checked {
