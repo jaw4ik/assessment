@@ -3,8 +3,6 @@ using Autofac.Builder;
 using Autofac.Integration.Mvc;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.Infrastructure;
@@ -29,6 +27,7 @@ using easygenerator.Web.Publish.Aim4You;
 using easygenerator.Web.Storage;
 using easygenerator.Web.Synchronization.Broadcasting;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
+using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting.CollaboratorProviders;
 using easygenerator.Web.WooCommerce;
 using System;
 using System.Collections.Generic;
@@ -77,9 +76,8 @@ namespace easygenerator.Web.Configuration
             #region Broadcasting
 
             builder.RegisterType<Broadcaster>().As<IBroadcaster>();
-            builder.RegisterType<CourseCollaborationBroadcaster>().As<ICollaborationBroadcaster<Course>>();
-            builder.RegisterType<ObjectiveCollaborationBroadcaster>().As<ICollaborationBroadcaster<Objective>>();
-            builder.RegisterType<QuestionCollaborationBroadcaster>().As<ICollaborationBroadcaster<Question>>();
+            RegisterGenericTypes(builder, applicationAssembly, typeof(IEntityCollaboratorProvider<>));
+            builder.RegisterGeneric(typeof(CollaborationBroadcaster<>)).As(typeof (ICollaborationBroadcaster<>));
 
             #endregion
 

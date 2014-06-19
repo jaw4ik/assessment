@@ -350,12 +350,14 @@
     <Compile Include="Storage\ImageValidator.cs" />
     <Compile Include="Storage\Storage.cs" />
     <Compile Include="Synchronization\Broadcasting\Broadcaster.cs" />
-    <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CourseCollaborationBroadcaster.cs" />
-    <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\QuestionCollaborationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaborationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\CourseCollaboratorProvider.cs" />
+    <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\IEntityCollaboratorProvider.cs" />
+    <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\ObjectiveCollaboratorProvider.cs" />
+    <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\QuestionCollaboratorProvider.cs" />
     <Compile Include="Synchronization\Broadcasting\Proxies\MultipleClientsProxy.cs" />
     <Compile Include="Synchronization\Broadcasting\IBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\ICollaborationBroadcaster.cs" />
-    <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\ObjectiveCollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\Proxies\UsersProxy.cs" />
     <Compile Include="Synchronization\Handlers\AnswerEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
