@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Import.PublishedCourse.EntityReaders;
 using Newtonsoft.Json.Linq;
@@ -85,12 +86,15 @@ namespace easygenerator.Web.Import.PublishedCourse
 
         private Question ImportQuestion(Guid questionId, string publishedPackagePath, string createdBy, JObject courseData)
         {
-            var question = _questionEntityReader.ReadQuestion(questionId, publishedPackagePath, createdBy, courseData);
+            var question = _questionEntityReader.ReadQuestion(questionId, publishedPackagePath, createdBy, courseData) ;
 
-            foreach (Guid answerId in _publishedCourseStructureReader.GetAnswers(questionId, courseData))
+            if (question is Multipleselect)
             {
-                var answer = _answerEntityReader.ReadAnswer(answerId, createdBy, courseData);
-                question.AddAnswer(answer, createdBy);
+                foreach (Guid answerId in _publishedCourseStructureReader.GetAnswers(questionId, courseData))
+                {
+                    var answer = _answerEntityReader.ReadAnswer(answerId, createdBy, courseData);
+                    (question as Multipleselect).AddAnswer(answer, createdBy);
+                }    
             }
 
             foreach (Guid learningContentId in _publishedCourseStructureReader.GetLearningContents(questionId, courseData))

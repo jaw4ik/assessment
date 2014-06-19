@@ -4,6 +4,7 @@ using Autofac.Integration.Mvc;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.Infrastructure;

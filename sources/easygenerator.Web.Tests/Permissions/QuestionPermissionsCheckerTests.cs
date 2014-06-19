@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.Permissions;
 using FluentAssertions;
@@ -27,12 +28,13 @@ namespace easygenerator.Web.Tests.Permissions
         public void HasPermissions_ShouldReturnTrue_WhenQuestionIsCreatedByUser()
         {
             //Arrange
-            var question = QuestionObjectMother.CreateWithCreatedBy(Username);
+            var question = MultipleselectObjectMother.CreateWithCreatedBy(Username);
 
             //Act
             var result = _questionPermissionChecker.HasPermissions(Username, question);
 
             //Assert
+
             result.Should().BeTrue();
         }
 
@@ -41,7 +43,7 @@ namespace easygenerator.Web.Tests.Permissions
         {
             //Arrange
             var objective = Substitute.For<Objective>();
-            var question = Substitute.For<Question>();
+            var question = Substitute.For<Multipleselect>();
             question.Objective.Returns(objective);
             _objectivePermissionChecker.HasPermissions(Username, objective).Returns(true);
 

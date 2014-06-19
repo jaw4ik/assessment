@@ -373,7 +373,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             var answer = AnswerObjectMother.Create("AnswerText", true);
             var explanation = LearningContentObjectMother.Create("Text");
 
-            var question = QuestionObjectMother.Create("QuestionTitle");
+            var question = MultipleselectObjectMother.Create("QuestionTitle");
             question.UpdateContent("Some question content", "SomeUser");
             question.AddAnswer(answer, "SomeUser");
             question.AddLearningContent(explanation, "SomeUser");

@@ -286,11 +286,6 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNull(objective, "objective");
         }
 
-        private void ThrowIfModifiedByIsInvalid(string modifiedBy)
-        {
-            ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
-        }
-
         private void ThrowIfPackageUrlIsInvalid(string packageUrl)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(packageUrl, "packageUrl");

@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.DomainModel.Repositories;

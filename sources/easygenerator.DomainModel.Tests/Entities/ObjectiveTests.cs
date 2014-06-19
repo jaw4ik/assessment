@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -159,54 +160,6 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
-        //#region IsPermittedTo
-
-        //[TestMethod]
-        //public void IsPermittedTo_ShouldReturnFalse_WhenIsNotCreatedByUserAndUserIsNotACollaborator()
-        //{
-        //    //Arrange
-        //    var objective = ObjectiveObjectMother.Create();
-
-        //    //Act
-        //    var result = objective.IsPermittedTo("user");
-
-        //    //Assert
-        //    result.Should().BeFalse();
-        //}
-
-        //[TestMethod]
-        //public void IsPermittedTo_ShouldReturnTrue_WhenIsCreatedByUserAndUser()
-        //{
-        //    //Arrange
-        //    const string username = "user";
-        //    var objective = ObjectiveObjectMother.CreateWithCreatedBy(username);
-
-        //    //Act
-        //    var result = objective.IsPermittedTo(username);
-
-        //    //Assert
-        //    result.Should().BeTrue();
-        //}
-
-        //[TestMethod]
-        //public void IsPermittedTo_ShouldReturnTrue_WhenIsACollaborator()
-        //{
-        //    //Arrange
-        //    const string username = "user@user.com";
-        //    var objective = ObjectiveObjectMother.Create();
-        //    var course = CourseObjectMother.Create();
-        //    course.Collaborate(username, CreatedBy);
-        //    objective.RelatedCoursesCollection.Add(course);
-
-        //    //Act
-        //    var result = course.IsPermittedTo(username);
-
-        //    //Assert
-        //    result.Should().BeTrue();
-        //}
-
-        //#endregion
-
         #region Add question
 
         [TestMethod]
@@ -223,7 +176,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void AddQuestion_ShouldAddQuestion()
         {
             var objective = ObjectiveObjectMother.Create();
-            var question = QuestionObjectMother.Create();
+            var question = MultiplechoiceObjectMother.Create();
 
             objective.AddQuestion(question, ModifiedBy);
 
@@ -234,7 +187,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void AddQuestion_ShouldSetObjectiveToQuestion()
         {
             var objective = ObjectiveObjectMother.Create();
-            var question = QuestionObjectMother.Create();
+            var question = MultiplechoiceObjectMother.Create();
 
             objective.AddQuestion(question, ModifiedBy);
 
@@ -250,7 +203,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            objective.AddQuestion(QuestionObjectMother.Create(), ModifiedBy);
+            objective.AddQuestion(MultiplechoiceObjectMother.Create(), ModifiedBy);
 
             objective.ModifiedOn.Should().Be(dateTime);
         }
@@ -258,7 +211,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void AddQuestion_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
-            var question = QuestionObjectMother.Create();
+            var question = MultiplechoiceObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
 
             Action action = () => objective.AddQuestion(question, null);
@@ -269,7 +222,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void AddQuestion_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
         {
-            var question = QuestionObjectMother.Create();
+            var question = MultiplechoiceObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
 
             Action action = () => objective.AddQuestion(question, string.Empty);
@@ -280,7 +233,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void AddQuestion_ShouldUpdateMoidifiedBy()
         {
-            var question = QuestionObjectMother.Create();
+            var question = MultiplechoiceObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
 
             objective.AddQuestion(question, ModifiedBy);
@@ -292,9 +245,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void AddQuestion_ShouldUpdateQuestionsOrder()
         {
             //Arrange
-            var question1 = QuestionObjectMother.Create();
-            var question2 = QuestionObjectMother.Create();
-            var question3 = QuestionObjectMother.Create();
+            var question1 = MultiplechoiceObjectMother.Create();
+            var question2 = MultiplechoiceObjectMother.Create();
+            var question3 = MultiplechoiceObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
             objective.QuestionsCollection = new Collection<Question>()
             {
@@ -313,7 +266,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void AddQuestion_ShouldNotAddQuestion_WhenQuestionHasBeenAlreadyAdded()
         {
             //Arrange
-            var question = QuestionObjectMother.Create();
+            var question = MultiplechoiceObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
             objective.QuestionsCollection = new Collection<Question>()
             {
@@ -345,7 +298,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void RemoveQuestion_ShouldRemoveQuestion()
         {
             var objective = ObjectiveObjectMother.Create();
-            var question = QuestionObjectMother.Create();
+            var question = MultiplechoiceObjectMother.Create();
 
             objective.QuestionsCollection.Add(question);
 
@@ -357,7 +310,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void RemoveQuestion_ShouldUnsetObjectiveFromQuestion()
         {
             var objective = ObjectiveObjectMother.Create();
-            var question = QuestionObjectMother.Create();
+            var question = MultiplechoiceObjectMother.Create();
             question.Objective = objective;
 
             objective.RemoveQuestion(question, ModifiedBy);
@@ -374,7 +327,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            objective.RemoveQuestion(QuestionObjectMother.Create(), ModifiedBy);
+            objective.RemoveQuestion(MultiplechoiceObjectMother.Create(), ModifiedBy);
 
             objective.ModifiedOn.Should().Be(dateTime);
         }
@@ -382,7 +335,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void RemoveQuestion_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
-            var question = QuestionObjectMother.Create();
+            var question = MultiplechoiceObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
 
             Action action = () => objective.RemoveQuestion(question, null);
@@ -393,7 +346,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void RemoveQuestion_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
         {
-            var question = QuestionObjectMother.Create();
+            var question = MultiplechoiceObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
 
             Action action = () => objective.RemoveQuestion(question, string.Empty);
@@ -404,7 +357,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void RemoveQuestion_ShouldUpdateModifiedBy()
         {
-            var question = QuestionObjectMother.Create();
+            var question = MultiplechoiceObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
 
             objective.RemoveQuestion(question, ModifiedBy);
@@ -416,9 +369,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void RemoveQuestion_ShouldUpdateQuestionsOrder()
         {
             //Arrange
-            var question1 = QuestionObjectMother.Create();
-            var question2 = QuestionObjectMother.Create();
-            var question3 = QuestionObjectMother.Create();
+            var question1 = MultiplechoiceObjectMother.Create();
+            var question2 = MultiplechoiceObjectMother.Create();
+            var question3 = MultiplechoiceObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
             objective.QuestionsCollection = new Collection<Question>()
             {
@@ -546,8 +499,8 @@ namespace easygenerator.DomainModel.Tests.Entities
             var objective = ObjectiveObjectMother.Create();
             var questions = new List<Question>()
             {
-                QuestionObjectMother.Create(),
-                QuestionObjectMother.Create()
+                MultiplechoiceObjectMother.Create(),
+                MultiplechoiceObjectMother.Create()
             };
 
             objective.QuestionsCollection = questions;
@@ -568,8 +521,8 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var objective = ObjectiveObjectMother.Create();
-            var question1 = QuestionObjectMother.Create();
-            var question2 = QuestionObjectMother.Create();
+            var question1 = MultiplechoiceObjectMother.Create();
+            var question2 = MultiplechoiceObjectMother.Create();
 
             objective.QuestionsCollection = new List<Question>()
             {
@@ -590,8 +543,8 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var objective = ObjectiveObjectMother.Create();
-            var question1 = QuestionObjectMother.Create();
-            var question2 = QuestionObjectMother.Create();
+            var question1 = MultiplechoiceObjectMother.Create();
+            var question2 = MultiplechoiceObjectMother.Create();
 
             objective.QuestionsCollection = new List<Question>()
             {
@@ -613,8 +566,8 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var objective = ObjectiveObjectMother.Create();
-            var question1 = QuestionObjectMother.Create();
-            var question2 = QuestionObjectMother.Create();
+            var question1 = MultiplechoiceObjectMother.Create();
+            var question2 = MultiplechoiceObjectMother.Create();
 
             objective.QuestionsCollection = new List<Question>()
             {

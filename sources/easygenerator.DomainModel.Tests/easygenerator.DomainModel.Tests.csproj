@@ -62,11 +62,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Entities\AnswerTests.cs" />
+    <Compile Include="Entities\FillInTheBlanksTests.cs" />
     <Compile Include="Entities\ImageFileTest.cs" />
     <Compile Include="Entities\LearningContentTests.cs" />
     <Compile Include="Entities\ObjectiveTests.cs" />
     <Compile Include="Entities\CourseTests.cs" />
-    <Compile Include="Entities\QuestionTests.cs" />
+    <Compile Include="Entities\MultipleselectTests.cs" />
     <Compile Include="Entities\TemplateTests.cs" />
     <Compile Include="Entities\CommentTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
@@ -75,12 +76,15 @@
     <Compile Include="ObjectMothers\CommentObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseCollaboratorObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseTemplateSettingsObjectMother.cs" />
+    <Compile Include="ObjectMothers\DragAndDropTextObjectMother.cs" />
+    <Compile Include="ObjectMothers\FillInTheBlanksObjectMother.cs" />
     <Compile Include="ObjectMothers\ImageFileObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseObjectMother.cs" />
     <Compile Include="ObjectMothers\LearningContentObjectMother.cs" />
     <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
     <Compile Include="ObjectMothers\PasswordRecoveryTicketObjectMother.cs" />
-    <Compile Include="ObjectMothers\QuestionObjectMother.cs" />
+    <Compile Include="ObjectMothers\MultipleselectObjectMother.cs" />
+    <Compile Include="ObjectMothers\MultiplechoiceObjectMother.cs" />
     <Compile Include="ObjectMothers\TemplateObjectMother.cs" />
     <Compile Include="ObjectMothers\UserObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

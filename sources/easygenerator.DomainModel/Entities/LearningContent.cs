@@ -1,4 +1,5 @@
-﻿using easygenerator.Infrastructure;
+﻿using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -32,9 +33,5 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNullOrEmpty(text, "text");
         }
 
-        private void ThrowIfModifiedByIsInvalid(string modifiedBy)
-        {
-            ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
-        }
     }
 }

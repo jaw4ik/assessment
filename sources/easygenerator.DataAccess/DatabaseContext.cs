@@ -1,5 +1,6 @@
 ﻿using easygenerator.DataAccess.Migrations;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.DomainModel;
 using System;
@@ -93,9 +94,17 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<Question>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Question>().HasRequired(e => e.Objective);
-            modelBuilder.Entity<Question>().Property(e => e.Type).IsRequired();
-            modelBuilder.Entity<Question>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
             modelBuilder.Entity<Question>().HasMany(e => e.LearningContentsCollection).WithRequired(e => e.Question);
+
+            modelBuilder.Entity<Multipleselect>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
+
+            modelBuilder.Entity<DragAndDropText>().HasMany(e => e.Dropspots).WithRequired(e => e.Question);
+
+            modelBuilder.Entity<Dropspot>().Property(e => e.Text).IsRequired();
+            modelBuilder.Entity<Dropspot>().Property(e => e.X).IsRequired();
+            modelBuilder.Entity<Dropspot>().Property(e => e.Y).IsRequired();
+            modelBuilder.Entity<Dropspot>().HasRequired(e => e.Question);
+
 
             modelBuilder.Entity<LearningContent>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<LearningContent>().HasRequired(e => e.Question);

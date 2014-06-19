@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using easygenerator.DataAccess.Repositories;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.DomainModel;
@@ -33,8 +34,23 @@ namespace easygenerator.DataAccess
             builder.RegisterType<QuerableRepository<Question>>()
                 .As<IQuerableRepository<Question>>();
 
+            builder.RegisterType<QuerableRepository<Multiplechoice>>()
+                .As<IQuerableRepository<Multiplechoice>>();
+
+            builder.RegisterType<QuerableRepository<Multipleselect>>()
+                .As<IQuerableRepository<Multipleselect>>();
+
+            builder.RegisterType<QuerableRepository<FillInTheBlanks>>()
+                .As<IQuerableRepository<FillInTheBlanks>>();
+
+            builder.RegisterType<QuerableRepository<DragAndDropText>>()
+                .As<IQuerableRepository<DragAndDropText>>();
+
             builder.RegisterType<QuerableRepository<Answer>>()
                 .As<IQuerableRepository<Answer>>();
+
+            builder.RegisterType<QuerableRepository<Dropspot>>()
+                .As<IQuerableRepository<Dropspot>>();
 
             builder.RegisterType<QuerableRepository<LearningContent>>()
                 .As<IQuerableRepository<LearningContent>>();

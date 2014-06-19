@@ -97,7 +97,7 @@ namespace easygenerator.DataAccess.Tests
         public void Materialize_ShouldSetDateTimeKindToUtcForQuestion()
         {
             //Arrange
-            var entity = QuestionObjectMother.Create();
+            var entity = MultiplechoiceObjectMother.Create();
 
             //Act
             DateTimeObjectMaterializer.Materialize(entity);

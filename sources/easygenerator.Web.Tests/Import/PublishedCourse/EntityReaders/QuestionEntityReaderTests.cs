@@ -21,17 +21,14 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
         private PhysicalFileManager _physicalFileManager;
         private ImportContentReader _importContentReader;
         private IEntityFactory _entityFactory;
-        
+
         [TestInitialize]
         public void InitializeContext()
         {
             _entityFactory = Substitute.For<IEntityFactory>();
 
-            _entityFactory.Question(Arg.Any<string>(), Arg.Any<QuestionType>(), Arg.Any<string>())
-                .Returns(info =>
-                    QuestionObjectMother.Create(info.Args().ElementAt(0).As<string>(),
-                        info.Args().ElementAt(1).As<QuestionType>(),
-                        info.Args().ElementAt(2).As<string>()));
+            _entityFactory.MultipleselectQuestion(Arg.Any<string>(), Arg.Any<string>())
+                .Returns(info => MultipleselectObjectMother.Create(info.Args().ElementAt(0).As<string>(), info.Args().ElementAt(1).As<string>()));
 
 
             _physicalFileManager = Substitute.For<PhysicalFileManager>();
@@ -51,7 +48,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
             string createdBy = "test@easygenerator.com";
 
             var courseData = JObject.Parse(
-                String.Format("{{ objectives: [ {{ questions : [ {{ id: '{0}', title: '{1}', hasContent: false }} ] }} ] }}",
+                String.Format("{{ objectives: [ {{ questions : [ {{ id: '{0}', title: '{1}', type: '0', hasContent: false }} ] }} ] }}",
                                questionId.ToString("N").ToLower(), questionTitle));
 
             //Act

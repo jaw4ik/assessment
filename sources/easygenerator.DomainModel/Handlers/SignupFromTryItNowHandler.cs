@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Repositories;
 
 namespace easygenerator.DomainModel.Handlers
@@ -15,6 +16,7 @@ namespace easygenerator.DomainModel.Handlers
         private readonly IQuerableRepository<Objective> _objectiveRepository;
         private readonly IQuerableRepository<Question> _qustionRepository;
         private readonly IQuerableRepository<Answer> _answerRepository;
+        private readonly IQuerableRepository<Dropspot> _dropspotRepository;
         private readonly IQuerableRepository<LearningContent> _learningContentRepository;
         private readonly IImageFileRepository _imageFileRepository;
 
@@ -22,6 +24,7 @@ namespace easygenerator.DomainModel.Handlers
             IQuerableRepository<Objective> objectiveRepository,
             IQuerableRepository<Question> qustionRepository,
             IQuerableRepository<Answer> answerRepository,
+            IQuerableRepository<Dropspot> dropspotRepository,
             IQuerableRepository<LearningContent> learningContentRepository,
             IImageFileRepository imageFileRepository)
         {
@@ -29,6 +32,7 @@ namespace easygenerator.DomainModel.Handlers
             _objectiveRepository = objectiveRepository;
             _qustionRepository = qustionRepository;
             _answerRepository = answerRepository;
+            _dropspotRepository = dropspotRepository;
             _learningContentRepository = learningContentRepository;
             _imageFileRepository = imageFileRepository;
         }
@@ -53,6 +57,11 @@ namespace easygenerator.DomainModel.Handlers
             foreach (var answer in _answerRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
             {
                 answer.DefineCreatedBy(signUpUsername);
+            }
+
+            foreach (var dropspot in _dropspotRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
+            {
+                dropspot.DefineCreatedBy(signUpUsername);
             }
 
             foreach (var learningContent in _learningContentRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))

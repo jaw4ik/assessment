@@ -51,14 +51,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Autofac.Mvc5.3.3.0\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper, Version=3.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="AutoMapper.Net4, Version=3.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
-    </Reference>
     <Reference Include="Elmah">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
@@ -200,7 +192,12 @@
     <Compile Include="BuildCourse\PackageModelSerializer.cs" />
     <Compile Include="BuildCourse\PackageModel\AnswerOptionPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\CoursePackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\DragAndDropTextPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\DropspotPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\FillInTheBlanksPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\LearningContentPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\MultiplechoicePackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\MultipleselectPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\ObjectivePackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\QuestionPackageModel.cs" />
     <Compile Include="BuildCourse\Scorm\IScormCourseBuilder.cs" />
@@ -214,6 +211,9 @@
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
+    <Compile Include="Controllers\Api\FillInTheBlanksController.cs" />
+    <Compile Include="Controllers\Api\MultiplechoiceController.cs" />
+    <Compile Include="Controllers\Api\MultipleselectController.cs" />
     <Compile Include="Mail\IMailSenderWrapper.cs" />
     <Compile Include="Components\Mappers\LearningContentMapper.cs" />
     <Compile Include="Permissions\AnswerPermissionsChecker.cs" />
@@ -1709,7 +1709,6 @@ IF NOT EXIST "$(ProjectDir)App\main-built.js" EXIT /B 1</PostBuildEvent>
     <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
-  <Import Project="..\..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

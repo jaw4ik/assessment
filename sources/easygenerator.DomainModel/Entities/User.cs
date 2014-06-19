@@ -190,11 +190,6 @@ namespace easygenerator.DomainModel.Entities
                 throw new ArgumentException("Password should not contain whitespace symbols", "password");
         }
 
-        private void ThrowIfModifiedByIsInvalid(string modifiedBy)
-        {
-            ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
-        }
-
         private static void ThrowIfExpirationDateIsInvalid(DateTime? expirationDate)
         {
             if (expirationDate < DateTimeWrapper.MinValue())

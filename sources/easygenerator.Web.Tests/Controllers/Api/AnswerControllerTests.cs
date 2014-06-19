@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
@@ -65,7 +66,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             Guid group = default(Guid);
             _user.Identity.Name.Returns(user);
 
-            var question = Substitute.For<Question>();
+            var question = Substitute.For<Multipleselect>();
             var answer = Substitute.For<Answer>();
 
             _entityFactory.Answer(text, isCorrect, group, user).Returns(answer);
@@ -85,7 +86,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             Guid group = default(Guid);
             _user.Identity.Name.Returns(user);
 
-            var question = Substitute.For<Question>();
+            var question = Substitute.For<Multipleselect>();
             var answer = Substitute.For<Answer>();
 
             _entityFactory.Answer(text, isCorrect, group, user).Returns(answer);
@@ -107,7 +108,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.Answer(text, isCorrect, group, user).Returns(answer);
 
-            var result = _controller.Create(Substitute.For<Question>(), text, isCorrect);
+            var result = _controller.Create(Substitute.For<Multipleselect>(), text, isCorrect);
 
             result.Should()
                 .BeJsonSuccessResult()
@@ -130,7 +131,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Delete_ShouldReturnJsonSuccessResult_WnenAnswerIsNull()
         {
-            var question = Substitute.For<Question>();
+            var question = Substitute.For<Multipleselect>();
 
             var result = _controller.Delete(question, null);
 
@@ -142,7 +143,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             const string user = "username@easygenerator.com";
             _user.Identity.Name.Returns(user);
-            var question = Substitute.For<Question>();
+            var question = Substitute.For<Multipleselect>();
             var answer = Substitute.For<Answer>();
 
             _controller.Delete(question, answer);
@@ -155,7 +156,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             const string user = "username@easygenerator.com";
             _user.Identity.Name.Returns(user);
-            var question = Substitute.For<Question>();
+            var question = Substitute.For<Multipleselect>();
             var answer = Substitute.For<Answer>();
 
             _controller.Delete(question, answer);
@@ -166,7 +167,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Delete_ShouldReturnJsonSuccessResultWithModifiedOnDate()
         {
-            var question = Substitute.For<Question>();
+            var question = Substitute.For<Multipleselect>();
 
             var result = _controller.Delete(question, Substitute.For<Answer>());
 
@@ -325,7 +326,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void GetCollection_ShouldReturnJsonSuccessResult()
         {
             //Arrange
-            var question = QuestionObjectMother.Create();
+            var question = MultipleselectObjectMother.Create();
             question.AddAnswer(AnswerObjectMother.Create(), "Some user");
 
             //Act

@@ -3,6 +3,7 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.Components.ActionFilters;

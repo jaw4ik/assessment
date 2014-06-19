@@ -1,5 +1,6 @@
 ﻿
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 
 namespace easygenerator.DomainModel.Events.AnswerEvents
 {

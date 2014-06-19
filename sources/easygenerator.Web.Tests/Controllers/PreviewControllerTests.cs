@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
@@ -119,7 +120,7 @@ namespace easygenerator.Web.Tests.Controllers
         public void GetPreviewQuestionContent_ShouldReturnContentResult()
         {
             //Arrange
-            var question = QuestionObjectMother.Create();
+            var question = Substitute.For<Question>();
 
             //Act
             var result = _controller.GetPreviewQuestionContent(question);

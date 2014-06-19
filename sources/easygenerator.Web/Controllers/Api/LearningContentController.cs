@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;

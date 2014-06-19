@@ -132,6 +132,10 @@
     <Compile Include="Migrations\201406180818128_AddUniqueIndexToCourseCollaborators.Designer.cs">
       <DependentUpon>201406180818128_AddUniqueIndexToCourseCollaborators.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406190613125_SplitQuestionTypes.cs" />
+    <Compile Include="Migrations\201406190613125_SplitQuestionTypes.Designer.cs">
+      <DependentUpon>201406190613125_SplitQuestionTypes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
@@ -216,6 +220,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406180818128_AddUniqueIndexToCourseCollaborators.resx">
       <DependentUpon>201406180818128_AddUniqueIndexToCourseCollaborators.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406190613125_SplitQuestionTypes.resx">
+      <DependentUpon>201406190613125_SplitQuestionTypes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

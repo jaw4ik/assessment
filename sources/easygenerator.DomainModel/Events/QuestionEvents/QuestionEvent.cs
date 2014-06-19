@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Events.QuestionEvents

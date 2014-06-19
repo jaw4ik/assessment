@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.Permissions;
 using FluentAssertions;

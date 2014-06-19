@@ -2,6 +2,7 @@
 using System.Linq;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using Newtonsoft.Json.Linq;
 
 namespace easygenerator.Web.Import.PublishedCourse.EntityReaders

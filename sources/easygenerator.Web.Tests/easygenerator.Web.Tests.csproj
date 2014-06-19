@@ -130,7 +130,6 @@
     <Compile Include="BuildCourse\CourseBuilderTests.cs" />
     <Compile Include="BuildCourse\BuildPathProviderTests.cs" />
     <Compile Include="BuildCourse\BuildPackageCreatorTests.cs" />
-    <Compile Include="BuildCourse\PackageModelMapperTests.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorizeAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCoursesAmountAttributeTests.cs" />
@@ -148,8 +147,18 @@
     <Compile Include="Controllers\Api\CourseCollaborationControllerTests.cs" />
     <Compile Include="Controllers\Api\CommentControllerTests.cs" />
     <Compile Include="Controllers\Api\CourseControllerTests.cs" />
+    <Compile Include="Controllers\Api\DragAndDropTextQuestionControllerTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\Api\FeedbackControllerTests.cs" />
+    <Compile Include="Controllers\Api\FillInTheBlanksControllerTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\Api\LearningContentControllerTests.cs" />
+    <Compile Include="Controllers\Api\MultiplechoiceControllerTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\Api\MultipleselectControllerTests.cs" />
     <Compile Include="Controllers\Api\ObjectiveControllerTests.cs" />
     <Compile Include="Controllers\Api\QuestionControllerTests.cs" />
     <Compile Include="Controllers\Api\TemplateControllerTests.cs" />
@@ -160,12 +169,11 @@
     <Compile Include="Controllers\PreviewControllerTests.cs" />
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
     <Compile Include="DomainEvents\Events\UserSignedUpEventTest.cs" />
+    <Compile Include="Import\PublishedCourse\EntityReaders\AnswerEntityReaderTests.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\CourseEntityReaderTests.cs" />
+    <Compile Include="Import\PublishedCourse\EntityReaders\LearningContentEntityReaderTests.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\ObjectiveEntityReaderTests.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\QuestionEntityReaderTests.cs" />
-    <Compile Include="Import\PublishedCourse\EntityReaders\AnswerEntityReaderTests.cs" />
-    <Compile Include="Import\PublishedCourse\EntityReaders\LearningContentEntityReaderTests.cs" />
-    <Compile Include="Import\PublishedCourse\PublishedCourseImporterTests.cs" />
     <Compile Include="Import\PublishedCourse\PublishedCourseStructureReaderTests.cs" />
     <Compile Include="Import\PublishedCourse\ImportContentReaderTests.cs" />
     <Compile Include="Mail\MailTemplatesProviderTests.cs" />

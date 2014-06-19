@@ -41,16 +41,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\AccessType.cs" />
-    <Compile Include="Entities\Answer.cs" />
+    <Compile Include="Entities\Questions\Answer.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\CourseCollaborator.cs" />
+    <Compile Include="Entities\Questions\DragAndDropText.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Course.cs" />
+    <Compile Include="Entities\Questions\Dropspot.cs" />
+    <Compile Include="Entities\Questions\FillInTheBlanks.cs" />
     <Compile Include="Entities\ImageFile.cs" />
     <Compile Include="Entities\LearningContent.cs" />
+    <Compile Include="Entities\Questions\Multiplechoice.cs" />
+    <Compile Include="Entities\Questions\Multipleselect.cs" />
     <Compile Include="Entities\Objective.cs" />
     <Compile Include="Entities\PasswordRecoveryTicket.cs" />
-    <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\Questions\Question.cs" />
     <Compile Include="Entities\Template.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="EntityFactory.cs" />

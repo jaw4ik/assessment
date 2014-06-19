@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.Infrastructure;
@@ -31,7 +32,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityPermissions(typeof(Question))]
         [Route("api/answer/create")]
-        public ActionResult Create(Question question, string text, bool isCorrect)
+        public ActionResult Create(Multipleselect question, string text, bool isCorrect)
         {
             if (question == null)
             {
@@ -49,13 +50,13 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityPermissions(typeof(Question))]
         [Route("api/answer/delete")]
-        public ActionResult Delete(Question question, Answer answer)
+        public ActionResult Delete(Multipleselect question, Answer answer)
         {
             if (question == null)
             {
                 return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
-            
+
             question.RemoveAnswer(answer, GetCurrentUsername());
             _eventPublisher.Publish(new AnswerDeletedEvent(question, answer));
 
@@ -100,7 +101,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityPermissions(typeof(Question))]
         [Route("api/answers")]
-        public ActionResult GetCollection(Question question)
+        public ActionResult GetCollection(Multipleselect question)
         {
             if (question == null)
             {

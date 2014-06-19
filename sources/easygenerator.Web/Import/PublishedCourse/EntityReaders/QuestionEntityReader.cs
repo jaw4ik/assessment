@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
@@ -26,18 +27,29 @@ namespace easygenerator.Web.Import.PublishedCourse.EntityReaders
                 .Single(q => q.Value<string>("id") == questionId.ToString("N").ToLower());
 
             var title = question.Value<string>("title");
-            var type = question.Value<QuestionType>("type");
-            var questionEntity = _entityFactory.Question(title, type, createdBy);
+            var type = question.Value<int>("type");
+
+            Question questionEntity;
+
+            switch (type)
+            {
+                case 0:
+                    questionEntity = _entityFactory.MultipleselectQuestion(title, createdBy);
+                    break;
+                case 1:
+                    questionEntity = _entityFactory.FillInTheBlanksQuestion(title, createdBy);
+                    break;
+                case 2:
+                    throw new NotSupportedException();
+                case 3:
+                    questionEntity = _entityFactory.MultiplechoiceQuestion(title, createdBy);
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
 
             var hasContent = question.Value<bool>("hasContent");
-            if (hasContent)
-            {
-                questionEntity.UpdateContent(ReadQuestionContent(questionId, publishedPackagePath, courseData), createdBy);
-            }
-            else
-            {
-                questionEntity.UpdateContent(String.Empty, createdBy);
-            }
+            questionEntity.UpdateContent(hasContent ? ReadQuestionContent(questionId, publishedPackagePath, courseData) : String.Empty, createdBy);
 
             return questionEntity;
         }

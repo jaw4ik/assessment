@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
@@ -22,6 +23,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         private IQuerableRepository<Objective> _objectiveRepository;
         private IQuerableRepository<Question> _questionRepository;
         private IQuerableRepository<Answer> _answerRepository;
+        private IQuerableRepository<Dropspot> _dropspotRepository;
         private IQuerableRepository<LearningContent> _learningContentRepository;
         private IQuerableRepository<Course> _courseRepository;
         private IImageFileRepository _imageFileRepository;
@@ -32,11 +34,12 @@ namespace easygenerator.DomainModel.Tests.Handlers
             _objectiveRepository = Substitute.For<IQuerableRepository<Objective>>();
             _questionRepository = Substitute.For<IQuerableRepository<Question>>();
             _answerRepository = Substitute.For<IQuerableRepository<Answer>>();
+            _dropspotRepository = Substitute.For<IQuerableRepository<Dropspot>>();
             _learningContentRepository = Substitute.For<IQuerableRepository<LearningContent>>();
             _courseRepository = Substitute.For<IQuerableRepository<Course>>();
             _imageFileRepository = Substitute.For<IImageFileRepository>();
 
-            _handler = new SignupFromTryItNowHandler(_courseRepository, _objectiveRepository, _questionRepository, _answerRepository, _learningContentRepository, _imageFileRepository);
+            _handler = new SignupFromTryItNowHandler(_courseRepository, _objectiveRepository, _questionRepository, _answerRepository, _dropspotRepository, _learningContentRepository, _imageFileRepository);
         }
 
         #region Courses
@@ -96,7 +99,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         [TestMethod]
         public void Handle_ShouldDefineCreatedByForQuestionsThatWereCreatedInTryMode()
         {
-            var question = Substitute.For<Question>("title", QuestionType.MultipleSelect, TryItNowUsername);
+            var question = Substitute.For<Question>("title", TryItNowUsername);
             _questionRepository.GetCollection().Returns(new List<Question>() { question });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
@@ -107,7 +110,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         [TestMethod]
         public void Handle_ShouldNotDefineCreatedByForQuestionsThatWereCreatedByOtherExistingUser()
         {
-            var question = Substitute.For<Question>("title", QuestionType.MultipleSelect, OtherExistingUser);
+            var question = Substitute.For<Question>("title", OtherExistingUser);
             _questionRepository.GetCollection().Returns(new List<Question>() { question });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
@@ -139,6 +142,33 @@ namespace easygenerator.DomainModel.Tests.Handlers
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
 
             answer.DidNotReceive().DefineCreatedBy(Arg.Any<string>());
+        }
+
+        #endregion
+
+        #region Dropspots
+
+
+        [TestMethod]
+        public void Handle_ShouldDefineCreatedByForDropspotsThatWereCreatedInTryMode()
+        {
+            var dropspot = Substitute.For<Dropspot>(TryItNowUsername);
+            _dropspotRepository.GetCollection().Returns(new List<Dropspot>() { dropspot });
+
+            _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
+
+            dropspot.Received().DefineCreatedBy(SignUpUsername);
+        }
+
+        [TestMethod]
+        public void Handle_ShouldNotDefineCreatedByForDropspotsThatWereCreatedByOtherExistingUser()
+        {
+            var dropspot = Substitute.For<Dropspot>(OtherExistingUser);
+            _dropspotRepository.GetCollection().Returns(new List<Dropspot>() { dropspot });
+
+            _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
+
+            dropspot.DidNotReceive().DefineCreatedBy(SignUpUsername);
         }
 
         #endregion

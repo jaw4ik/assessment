@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
@@ -237,7 +238,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void GetCollection_ShouldReturnJsonSuccessResult()
         {
             //Arrange
-            var question = QuestionObjectMother.Create();
+            var question = MultipleselectObjectMother.Create();
             question.AddLearningContent(LearningContentObjectMother.Create(), "Some user");
 
             //Act

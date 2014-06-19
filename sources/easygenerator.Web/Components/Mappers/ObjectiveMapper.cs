@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers

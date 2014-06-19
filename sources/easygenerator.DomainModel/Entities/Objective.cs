@@ -1,4 +1,5 @@
-﻿using easygenerator.Infrastructure;
+﻿using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -119,11 +120,6 @@ namespace easygenerator.DomainModel.Entities
         private void ThrowIfQuestionIsInvalid(Question question)
         {
             ArgumentValidation.ThrowIfNull(question, "question");
-        }
-
-        private void ThrowIfModifiedByIsInvalid(string modifiedBy)
-        {
-            ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
         }
     }
 }

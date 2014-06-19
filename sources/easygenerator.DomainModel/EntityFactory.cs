@@ -1,5 +1,6 @@
 ﻿using System;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 
 namespace easygenerator.DomainModel
 {
@@ -7,7 +8,10 @@ namespace easygenerator.DomainModel
     {
         Objective Objective(string title, string createdBy);
         Course Course(string title, Template template, string createdBy);
-        Question Question(string title, QuestionType type, string createdBy);
+        Multiplechoice MultiplechoiceQuestion(string title, string createdBy);
+        Multipleselect MultipleselectQuestion(string title, string createdBy);
+        FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
+        DragAndDropText DragAndDropTextQuestion(string title, string createdBy);
         Comment Comment(string text, string createdBy);
         Answer Answer(string text, bool isCorrect, Guid group, string createdBy);
         LearningContent LearningContent(string text, string createdBy);
@@ -28,9 +32,24 @@ namespace easygenerator.DomainModel
             return new Course(title, template, createdBy);
         }
 
-        public Question Question(string title, QuestionType type, string createdBy)
+        public Multiplechoice MultiplechoiceQuestion(string title, string createdBy)
         {
-            return new Question(title, type, createdBy);
+            return new Multiplechoice(title, createdBy);
+        }
+
+        public Multipleselect MultipleselectQuestion(string title, string createdBy)
+        {
+            return new Multipleselect(title, createdBy);
+        }
+
+        public FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy)
+        {
+            return new FillInTheBlanks(title, createdBy);
+        }
+
+        public DragAndDropText DragAndDropTextQuestion(string title, string createdBy)
+        {
+            return new DragAndDropText(title, createdBy);
         }
 
         public Comment Comment(string text, string createdBy)
@@ -48,8 +67,7 @@ namespace easygenerator.DomainModel
             return new LearningContent(text, createdBy);
         }
 
-        public User User(string email, string password, string firstname, string lastname, string phone, string organization,
-            string country, string createdBy)
+        public User User(string email, string password, string firstname, string lastname, string phone, string organization, string country, string createdBy)
         {
             return new User(email, password, firstname, lastname, phone, organization, country, createdBy);
         }

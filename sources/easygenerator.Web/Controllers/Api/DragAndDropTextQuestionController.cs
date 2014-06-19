@@ -6,11 +6,11 @@ using System.Web;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
-using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Extensions;
 using Newtonsoft.Json;
 
@@ -36,7 +36,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
             }
 
-            var question = _entityFactory.Question(title, QuestionType.DragAndDrop, GetCurrentUsername());
+            var question = _entityFactory.DragAndDropTextQuestion(title, GetCurrentUsername());
 
 
             objective.AddQuestion(question, GetCurrentUsername());
