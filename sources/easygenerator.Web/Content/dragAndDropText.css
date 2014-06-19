@@ -30,7 +30,7 @@
     top: -16px;
     width: 32px;
     height: 32px;
-    background: url("http://localhost:666/Content/images/browse.png") 0 0 no-repeat;
+    background: url("../Content/images/browse.png") 0 0 no-repeat;
 }
 
 .drag-and-drop-text-title {
@@ -93,7 +93,7 @@
     top: -2px;
     left: 0;
     margin: 0 auto;
-    background-image: url("http://localhost:666/Content/images/sprites_16.png");
+    background-image: url("../Content/images/sprites_16.png");
     background-position: -85px -22px;
 }
 
