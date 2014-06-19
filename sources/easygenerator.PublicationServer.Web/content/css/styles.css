@@ -583,18 +583,13 @@ span.top-navigation-item.current {
 }
 
     .selected-item-action.delete.disabled,
-    .selected-item-action.disconnect.disabled,
-    .selected-item-action.add.disabled {
+    .selected-item-action.disconnect.disabled {
         color: #dbdbdd;
     }
 
     .selected-item-action.delete.enabled,
     .selected-item-action.disconnect.enabled {
         color: #fe552e;
-    }
-
-    .selected-item-action.add.enabled {
-        color: #00a8ff;
     }
 
     .selected-item-action.delete:before {
@@ -620,40 +615,20 @@ span.top-navigation-item.current {
     .selected-item-action.disconnect:before {
         content: '';
         display: block;
-        height: 20px;
-        width: 20px;
+        height: 11px;
+        width: 11px;
         position: absolute;
-        top: -1px;
-        left: -20px;
-        background: url(images/sprites.png) no-repeat;
+        top: 3px;
+        left: 3px;
+        background: url(images/sprites_16.png) no-repeat;
     }
 
     .selected-item-action.disconnect.enabled:before {
-        background-position: -53px -148px;
+        background-position: -131px -24px;
     }
 
     .selected-item-action.disconnect.disabled:before {
-        background-position: -73px -148px;
-        opacity: 0.5;
-    }
-
-    .selected-item-action.add:before {
-        content: '';
-        display: block;
-        height: 20px;
-        width: 20px;
-        position: absolute;
-        top: -2px;
-        left: -24px;
-        background: url(images/sprites.png) no-repeat;
-    }
-
-    .selected-item-action.add.enabled:before {
-        background-position: -98px -148px;
-    }
-
-    .selected-item-action.add.disabled:before {
-        background-position: -126px -148px;
+        background-position: -151px -24px;
         opacity: 0.5;
     }
 
