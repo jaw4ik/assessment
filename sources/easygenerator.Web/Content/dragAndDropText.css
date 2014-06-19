@@ -87,22 +87,22 @@
 }
 
 .dropspot-text-delete {
-    background-image: url("http://localhost:666/Content/images/sprites.png");
     display: block;
-    height: 18px;
-    left: 0;
-    background-position: -212px -117px;
+    height: 14px;
+    width: 14px;
     top: -2px;
-    width: 18px;
-    margin-left: 8px;
+    left: 0;
+    margin: 0 auto;
+    background-image: url("http://localhost:666/Content/images/sprites_16.png");
+    background-position: -85px -22px;
 }
 
     .dropspot-text-delete:hover {
-        background-position: -190px -117px;
+        background-position: -106px -22px;
     }
 
     .dropspot-text-delete.disabled:hover {
-        background-position: -212px -117px;
+        background-position: -85px -22px;
     }
 
 .drag-and-drop-designer-empty {
