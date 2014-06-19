@@ -620,6 +620,14 @@
 
 		});
 
+		describe('isObjectivesListReorderedByCollaborator:', function () {
+
+		    it('should be observable', function () {
+		        expect(viewModel.isObjectivesListReorderedByCollaborator).toBeObservable();
+		    });
+
+		});
+
 		describe('canDisconnectObjectives:', function () {
 
 			it('should be computed', function () {
@@ -1027,6 +1035,12 @@
 			it('should send event \'Change order of learning objectives\'', function () {
 				viewModel.reorderObjectives();
 				expect(eventTracker.publish).toHaveBeenCalledWith('Change order of learning objectives');
+			});
+
+			it('should set isReorderingObjectives to false', function () {
+			    viewModel.isReorderingObjectives(true);
+			    viewModel.reorderObjectives();
+			    expect(viewModel.isReorderingObjectives()).toBeFalsy();
 			});
 
 			it('should call repository \"updateObjectiveOrder\" method', function () {
@@ -1465,14 +1479,105 @@
 
 		describe('endReorderingObjectives:', function () {
 
+		    var getById;
+
+		    beforeEach(function () {
+		        getById = Q.defer();
+		        spyOn(repository, 'getById').and.returnValue(getById.promise);
+		    });
+
 		    it('should be function', function () {
 		        expect(viewModel.endReorderingObjectives).toBeFunction();
 		    });
 
-		    it('should set isReorderingObjectives to faklse', function () {
-		        viewModel.isReorderingObjectives(true);
-		        viewModel.endReorderingObjectives();
-		        expect(viewModel.isReorderingObjectives()).toBeFalsy();
+		    describe('when reordering objectives has been finished', function() {
+		        beforeEach(function() {
+		            viewModel.isReorderingObjectives(false);
+		        });
+
+		        it('should resolve promise', function (done) {
+		            var promise = viewModel.endReorderingObjectives();
+
+		            promise.fin(function () {
+		                expect(promise).toBeResolved();
+		                done();
+		            });
+		        });
+		    });
+
+		    describe('when objectives have not been reordered by collaborator', function () {
+		        beforeEach(function () {
+		            viewModel.isReorderingObjectives(true);
+		            viewModel.isObjectivesListReorderedByCollaborator(false);
+		        });
+
+		        it('should resolve promise', function (done) {
+		            var promise = viewModel.endReorderingObjectives();
+
+		            promise.fin(function () {
+		                expect(promise).toBeResolved();
+		                done();
+		            });
+		        });
+
+		        it('should set isReorderingObjectives to false', function (done) {
+		            viewModel.isReorderingObjectives(true);
+		            var promise = viewModel.endReorderingObjectives();
+
+		            promise.fin(function () {
+		                expect(viewModel.isReorderingObjectives()).toBeFalsy();
+		                done();
+		            });
+		        });
+		    });
+
+		    describe('when objectives have been reordered by collaborator', function () {
+		        var objectiveId1 = 'obj1',
+				objectiveId2 = 'obj2',
+				vmObjective1 = { id: objectiveId1, isSelected: ko.observable(false) },
+				vmObjective2 = { id: objectiveId2, isSelected: ko.observable(false) },
+				course = {
+				    id: 'courseId',
+				    objectives: [{ id: objectiveId1 }, { id: objectiveId2 }]
+				};
+
+		        beforeEach(function () {
+		            viewModel.isReorderingObjectives(true);
+		            viewModel.isObjectivesListReorderedByCollaborator(true);
+		            getById.resolve(course);
+		        });
+
+		        it('should set isReorderingObjectives to false', function (done) {
+		            viewModel.isReorderingObjectives(true);
+		            var promise = viewModel.endReorderingObjectives();
+
+		            promise.fin(function () {
+		                expect(viewModel.isReorderingObjectives()).toBeFalsy();
+		                done();
+		            });
+		        });
+
+		        it('should set isObjectivesListReorderedByCollaborator to false', function (done) {
+		            viewModel.isReorderingObjectives(true);
+		            var promise = viewModel.endReorderingObjectives();
+
+		            promise.fin(function () {
+		                expect(viewModel.isObjectivesListReorderedByCollaborator()).toBeFalsy();
+		                done();
+		            });
+		        });
+
+		        it('should reorder objectives', function (done) {
+		            viewModel.connectedObjectives([vmObjective2, vmObjective1]);
+
+		            var promise = viewModel.endReorderingObjectives();
+
+		            promise.fin(function () {
+		                expect(viewModel.connectedObjectives()[0].id).toBe(objectiveId1);
+		                expect(viewModel.connectedObjectives()[1].id).toBe(objectiveId2);
+		                done();
+		            });
+		        });
 		    });
 
 		});

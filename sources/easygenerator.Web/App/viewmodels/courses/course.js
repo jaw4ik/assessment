@@ -87,7 +87,8 @@
             objectivesDisconnected: objectivesDisconnected,
 
             objectiveTitleUpdated: objectiveTitleUpdated,
-            objectiveUpdated: objectiveUpdated
+            objectiveUpdated: objectiveUpdated,
+            isObjectivesListReorderedByCollaborator: ko.observable(false)
         };
 
         viewModel.canDisconnectObjectives = ko.computed(function () {
@@ -313,11 +314,24 @@
         }
 
         function endReorderingObjectives() {
-            viewModel.isReorderingObjectives(false);
+            return Q.fcall(function () {
+                if (!viewModel.isReorderingObjectives() || !viewModel.isObjectivesListReorderedByCollaborator()) {
+                    viewModel.isReorderingObjectives(false);
+                    return;
+                }
+
+                viewModel.isReorderingObjectives(false);
+                viewModel.isObjectivesListReorderedByCollaborator(false);
+
+                return repository.getById(viewModel.id).then(function (course) {
+                    reorderConnectedObjectivesList(course);
+                });
+            });
         }
 
         function reorderObjectives() {
             eventTracker.publish(events.changeOrderObjectives);
+            viewModel.isReorderingObjectives(false);
             repository.updateObjectiveOrder(viewModel.id, viewModel.connectedObjectives()).then(function () {
                 notify.saved();
             });
@@ -398,16 +412,21 @@
 
         function objectivesReordered(course) {
             if (viewModel.id != course.id || viewModel.isReorderingObjectives()) {
+                viewModel.isObjectivesListReorderedByCollaborator(true);
                 return;
             }
 
+            reorderConnectedObjectivesList(course);
+        }
+
+        function reorderConnectedObjectivesList(course) {
             viewModel.connectedObjectives(_.chain(course.objectives)
-                   .map(function (objective) {
-                       return _.find(viewModel.connectedObjectives(), function (obj) {
-                           return obj.id == objective.id;
-                       });
-                   })
-                   .value());
+                  .map(function (objective) {
+                      return _.find(viewModel.connectedObjectives(), function (obj) {
+                          return obj.id == objective.id;
+                      });
+                  })
+                  .value());
         }
 
         function objectiveConnected(courseId, objective, targetIndex) {
