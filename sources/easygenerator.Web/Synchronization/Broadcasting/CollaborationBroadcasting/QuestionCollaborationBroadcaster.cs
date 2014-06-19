@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Collections.Generic;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Infrastructure;
 using Microsoft.AspNet.SignalR;
@@ -24,26 +25,36 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
         {
             ThrowIfQuestionNotValid(question);
 
-            return MultipleClients(new[] { _objectiveBroadcaster.AllCollaborators(question.Objective) });
+            return Users(GetCollaborators(question));
         }
 
         public dynamic AllCollaboratorsExcept(Question question, params string[] excludeUsers)
         {
             ThrowIfQuestionNotValid(question);
 
-            return MultipleClients(new[] { _objectiveBroadcaster.AllCollaboratorsExcept(question.Objective, excludeUsers) });
+            return Users(GetCollaboratorsExcept(question, new List<string>(excludeUsers)));
         }
 
         public dynamic OtherCollaborators(Question question)
         {
             ThrowIfQuestionNotValid(question);
 
-            return MultipleClients(new[] { _objectiveBroadcaster.OtherCollaborators(question.Objective) });
+            return Users(GetCollaboratorsExcept(question, new List<string>() { CurrentUsername }));
         }
 
         private void ThrowIfQuestionNotValid(Question question)
         {
             ArgumentValidation.ThrowIfNull(question, "question");
+        }
+        
+        public IEnumerable<string> GetCollaborators(Question question)
+        {
+            return _objectiveBroadcaster.GetCollaborators(question.Objective);
+        }
+
+        public IEnumerable<string> GetCollaboratorsExcept(Question question, List<string> excludeUsers)
+        {
+            return _objectiveBroadcaster.GetCollaboratorsExcept(question.Objective, excludeUsers);
         }
     }
 }

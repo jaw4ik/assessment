@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Collections.Generic;
+using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting
 {
@@ -8,5 +9,8 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
         dynamic AllCollaborators(T entity);
         dynamic AllCollaboratorsExcept(T entity, params string[] excludeUsers);
         dynamic OtherCollaborators(T entity);
+
+        IEnumerable<string> GetCollaborators(T entity);
+        IEnumerable<string> GetCollaboratorsExcept(T entity, List<string> excludeUsers);
     }
 }

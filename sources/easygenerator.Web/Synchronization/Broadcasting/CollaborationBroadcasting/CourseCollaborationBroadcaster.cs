@@ -22,7 +22,7 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
         {
             ThrowIfCourseNotValid(course);
 
-            return Users(GetCourseCollaborators(course));
+            return Users(GetCollaborators(course));
         }
 
         public dynamic AllCollaboratorsExcept(Course course, params string[] excludeUsers)
@@ -39,15 +39,15 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
             return Users(GetCollaboratorsExcept(course, new List<string>() { CurrentUsername }));
         }
 
-        private IEnumerable<string> GetCollaboratorsExcept(Course course, List<string> excludeUsers)
+        public IEnumerable<string> GetCollaboratorsExcept(Course course, List<string> excludeUsers)
         {
-            var users = GetCourseCollaborators(course);
+            var users = GetCollaborators(course).ToList();
             users.RemoveAll(u => excludeUsers.Exists(e => u == e));
 
             return users;
         }
 
-        private List<string> GetCourseCollaborators(Course course)
+        public IEnumerable<string> GetCollaborators(Course course)
         {
             var users = course.Collaborators.Select(c => c.Email).ToList();
             users.Add(course.CreatedBy);

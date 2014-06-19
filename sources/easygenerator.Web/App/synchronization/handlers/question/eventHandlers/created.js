@@ -2,9 +2,9 @@
     function (guard, app, constants, dataContext, questionModelMapper) {
         "use strict";
 
-        return function(objectiveId, question, modifiedOn) {
+        return function (objectiveId, newQuestion, modifiedOn) {
             guard.throwIfNotString(objectiveId, 'ObjectiveId is not a string');
-            guard.throwIfNotAnObject(question, 'Question is not an object');
+            guard.throwIfNotAnObject(newQuestion, 'Question is not an object');
             guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
 
             var objective = _.find(dataContext.objectives, function (item) {
@@ -15,8 +15,14 @@
                 guard.throwIfNotAnObject(objective, 'Objective has not been found');
             }
 
+            var question = _.find(objective.questions, function(item) {
+                return item.id == newQuestion.Id;
+            });
 
-            var mappedQuestion = questionModelMapper.map(question);
+            if (!_.isNullOrUndefined(question))
+                return;
+
+            var mappedQuestion = questionModelMapper.map(newQuestion);
             objective.questions.push(mappedQuestion);
             objective.modifiedOn = new Date(modifiedOn);
 

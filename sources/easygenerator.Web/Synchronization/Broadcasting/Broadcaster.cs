@@ -35,10 +35,5 @@ namespace easygenerator.Web.Synchronization.Broadcasting
         {
             return new UsersProxy(HubContext, users);
         }
-
-        protected dynamic MultipleClients(IEnumerable<dynamic> proxies)
-        {
-            return new MultipleClientsProxy(proxies);
-        }
     }
 }

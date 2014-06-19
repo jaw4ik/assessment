@@ -16,8 +16,7 @@
         });
 
         var question = { Id: '2' },
-            modifiedOn = new Date(),
-            questions = [{ id: '0' }, { id: '1' }];
+            modifiedOn = new Date();
 
         it('should be function', function () {
             expect(handler).toBeFunction();
@@ -65,31 +64,52 @@
             });
         });
 
-        it('should add new question to objective', function () {
-            objective.questions = questions;
-            dataContext.objectives = [objective];
+        describe('when question is already exists in objective', function() {
+            beforeEach(function() {
+                objective.questions = [{ id: question.Id }];
+                dataContext.objectives = [objective];
+            });
 
-            handler(objective.id, question, modifiedOn.toISOString());
-            expect(dataContext.objectives[0].questions.length).toBe(3);
-            expect(dataContext.objectives[0].questions[2].id).toBe(question.Id);
+            it('should not add new question to objective', function () {
+                handler(objective.id, question, modifiedOn.toISOString());
+                expect(dataContext.objectives[0].questions.length).toBe(1);
+            });
+
+            it('should not update objective modified on date', function () {
+                objective.modifiedOn = "";
+                handler(objective.id, question, modifiedOn.toISOString());
+                expect(dataContext.objectives[0].modifiedOn).toBe('');
+            });
+
+            it('should not trigger app event', function () {
+                handler(objective.id, question, modifiedOn.toISOString());
+                expect(app.trigger).not.toHaveBeenCalled();
+            });
         });
 
-        it('should update objective modified on date', function () {
-            objective.modifiedOn = "";
-            dataContext.objectives = [objective];
-            objective.questions = questions;
+        describe('when question is not exist in objective', function() {
+            beforeEach(function() {
+                objective.questions = [];
+                dataContext.objectives = [objective];
+            });
 
-            handler(objective.id, question, modifiedOn.toISOString());
-            expect(dataContext.objectives[0].modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
-        });
+            it('should add new question to objective', function () {
+                handler(objective.id, question, modifiedOn.toISOString());
+                expect(dataContext.objectives[0].questions.length).toBe(1);
+                expect(dataContext.objectives[0].questions[0].id).toBe(question.Id);
+            });
 
-        it('should trigger app event', function () {
-            dataContext.objectives = [objective];
-            objective.questions = questions;
+            it('should update objective modified on date', function () {
+                dataContext.objectives = [objective];
+                handler(objective.id, question, modifiedOn.toISOString());
+                expect(dataContext.objectives[0].modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
+            });
 
-            handler(objective.id, question, modifiedOn.toISOString());
-            expect(app.trigger).toHaveBeenCalled();
-            expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.question.createdByCollaborator);
+            it('should trigger app event', function () {
+                handler(objective.id, question, modifiedOn.toISOString());
+                expect(app.trigger).toHaveBeenCalled();
+                expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.question.createdByCollaborator);
+            });
         });
     });
 
