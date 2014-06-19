@@ -39,6 +39,7 @@
             deleteSelectedCourses: deleteSelectedCourses,
 
             courseCollaborationStarted: courseCollaborationStarted,
+            deletedByCollaborator: deletedByCollaborator,
             titleUpdated: titleUpdated,
             courseUpdated: courseUpdated,
 
@@ -51,6 +52,7 @@
         });
 
         app.on(constants.messages.course.collaboration.started, courseCollaborationStarted);
+        app.on(constants.messages.course.deletedByCollaborator, deletedByCollaborator);
         app.on(constants.messages.course.titleUpdatedByCollaborator, titleUpdated);
         app.on(constants.messages.course.introductionContentUpdatedByCollaborator, courseUpdated);
         app.on(constants.messages.course.templateUpdated, courseUpdated);
@@ -137,6 +139,12 @@
                 vmCourse.title(course.title);
                 vmCourse.modifiedOn(course.modifiedOn);
             }
+        }
+
+        function deletedByCollaborator(courseId) {
+            viewModel.sharedCourses(_.reject(viewModel.sharedCourses(), function (item) {
+                return item.id == courseId;
+            }));
         }
 
         function courseUpdated(course) {

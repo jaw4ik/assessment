@@ -289,9 +289,9 @@
 
         });
 
-        describe('navigateToPublish:', function() {
+        describe('navigateToPublish:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.navigateToPublish).toBeFunction();
             });
 
@@ -578,6 +578,19 @@
                 expect(vmCourse.modifiedOn().toISOString()).toBe(course.modifiedOn.toISOString());
             });
 
+        });
+
+        describe('deletedByCollaborator:', function () {
+            it('should be function', function () {
+                expect(viewModel.deletedByCollaborator).toBeFunction();
+            });
+
+            it('should delete shared course from list', function () {
+                var course = { id: 'id' };
+                viewModel.sharedCourses([course]);
+                viewModel.deletedByCollaborator(course.id);
+                expect(viewModel.sharedCourses().length).toBe(0);
+            });
         });
 
     });
