@@ -804,9 +804,9 @@ span.top-navigation-item.current {
         color: #ff380a;
     }
 
-    .selected-item-action.delete.enabled:before {
-        background-position: -105px -19px;
-    }
+        .selected-item-action.delete.enabled:before {
+            background-position: -105px -19px;
+        }
 
     .selected-item-action.delete.disabled:before {
         background-position: -84px -19px;
@@ -913,7 +913,8 @@ span.top-navigation-item.current {
     width: 8px;
     position: relative;
     margin: 0 auto;
-    background: url(images/sprites.png) -203px -220px no-repeat;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAaCAYAAACU2C2oAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUFEMjU1NTZGNzk5MTFFM0JFNUY5N0VGRUNDRUQ1M0MiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUFEMjU1NTdGNzk5MTFFM0JFNUY5N0VGRUNDRUQ1M0MiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QUQyNTU1NEY3OTkxMUUzQkU1Rjk3RUZFQ0NFRDUzQyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QUQyNTU1NUY3OTkxMUUzQkU1Rjk3RUZFQ0NFRDUzQyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuQ2tQYAAAAqSURBVHjaYtyyZct/BghghNJgPhMDDsCCpJIBWSdeHaN2jNqB3w6AAAMAPegQbaxoiGUAAAAASUVORK5CYII=);
+    background-repeat: no-repeat;
     cursor: move;
 }
 
@@ -1060,39 +1061,6 @@ span.top-navigation-item.current {
     font-family: 'OpenSans';
     font-size: 12px;
 }
-
-.main-content-list .open-item-btn {
-    display: table-cell;
-    vertical-align: top;
-    width: 123px;
-    position: absolute;
-    bottom: 0;
-    right: 10px;
-    text-align: right;
-}
-
-.open-item-btn .open-btn {
-    display: inline-block;
-    padding: 8px 18px;
-    font-size: 13px;
-}
-
-.open-item-btn .open-btn-text {
-    display: inline-block;
-    position: relative;
-    padding-left: 27px;
-}
-
-    .open-item-btn .open-btn-text:before {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 1px;
-        left: 0;
-        width: 20px;
-        height: 16px;
-        background: url(../Content/images/sprites.png) -184px -81px;
-    }
 
 .custom-checkbox-wrapper {
     display: block;
@@ -1505,11 +1473,12 @@ span.top-navigation-item.current {
         top: 50%;
         left: 0;
         margin-top: -9px;
-        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NkIxNzRCNTFCQTQxMTFFMzlGOTRGM0ExN0E1ODkzNDUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NkIxNzRCNTJCQTQxMTFFMzlGOTRGM0ExN0E1ODkzNDUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2QjE3NEI0RkJBNDExMUUzOUY5NEYzQTE3QTU4OTM0NSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2QjE3NEI1MEJBNDExMUUzOUY5NEYzQTE3QTU4OTM0NSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pgd11lwAAAGCSURBVHjaYjSvdWPAApyAOBxKy0HFHgHxPiBeBcR7YQpPNO0E0yxoBmgA8XQgdsBiuAoUpwHxASDOBOIbMEkmJIX2QHwKhyHowAGq1h7dIJBLNgIxLwPxAKR2o0WdO0gvAyMwjBiB9DEgtkBXyc7FziAgJgRmf3j1juHnt5/YDDwBxFagMHLGZgjYIE4OBnEFCTD7++dvuAwC6XUGeS2MgXIQxgSNYkqBE8hrssgi4gqScO8gAwVdJTj75YMXQPwcWVoW5KKfVHAROEE+A2J1mAAoUEE2ggAbBxuDoAQk1t6/eMfw68cvuBo08IQFmrDgBn16+xGMQYBPmB9u0MfXH+DiWMBRkNeWUsFnS0AG7YImKgzw9/cfhq8fvoAxiI0DgPTuBnntPxAnQgX4kVV8/fSV4e6F2/hcAvJrErAE+A/La6Bc7A/En0nwDkitP9CQ6+i5/yAQm+HyJhbvmEH1YC2PQC6zAmJXIA6B5kNQggXF+2MgPgzEa0BhAg0SOAAIMADQJ3OFQ+VQtAAAAABJRU5ErkJggg==);
+        background-image: url('images/sprites_24.png');
+        background-position: -177px -32px;
     }
 
 .action-item-btn.create-item.disabled .action-item-btn-caption:before {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAYFBMVEXR0dH////R0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHY2Njb29ve3t7m5ubr6+vv7+/39/dxoFW5AAAAH3RSTlMAAAEeHy8xMjM0NXN5j5WhoqSlprS1t7u/yMzQ3eXu9wPQUQAAAI1JREFUeF5tkOsOgyAMRgtMJ6uyeWGgVnn/txwFXRbc+UE+jpa0hUSNvXM93mMUgoXq/EGnsqqs/2IrVmryP0xKgDQpzkRzCkZC4xNrCGtODWCpEIZSDeDiSeGA4sWBvaoXVxFtIWxEXDtCW77VwqNU+mx12fflbLUc6PZ37IgypzFpOYzUOLr3E7WEqD5oyxii52xiswAAAABJRU5ErkJggg==');
+    background-position: -206px -32px;
 }
 
 /*connect and finish connecting objectives list item button*/
@@ -1549,8 +1518,8 @@ span.top-navigation-item.current {
         top: 50%;
         left: 0;
         margin-top: -9px;
-        background-image: url('images/sprites.png');
-        background-position: -430px -302px;
+        background-image: url('images/sprites_24.png');
+        background-position: -148px -32px;
     }
 
 /*preview course item button*/
@@ -1762,7 +1731,7 @@ span.top-navigation-item.current {
         left: 50%;
         margin-top: -10px;
         margin-left: -9px;
-        background: url(../Content/images/sprites.png) -239px -170px;
+        background: url(../Content/images/sprites_24.png) -235px -31px;
     }
 
 .form-create-title-circle-triangle {

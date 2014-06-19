@@ -758,38 +758,6 @@ span.top-navigation-item.current {
     font-family: 'OpenSans';
 }
 
-.main-content-list .open-item-btn {
-    display: table-cell;
-    vertical-align: top;
-    width: 123px;
-    position: absolute;
-    top: 28px;
-    right: 10px;
-    text-align: right;
-}
-
-.open-item-btn .open-btn {
-    padding: 8px 18px;
-    font-size: 13px;
-}
-
-.open-item-btn .open-btn-text {
-    display: inline-block;
-    position: relative;
-    padding-left: 27px;
-}
-
-    .open-item-btn .open-btn-text:after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 1px;
-        left: 0;
-        width: 20px;
-        height: 16px;
-        background: url(../Content/images/sprites.png) -184px -81px;
-    }
-
 .custom-checkbox-wrapper {
     position: relative;
     display: inline-block;
