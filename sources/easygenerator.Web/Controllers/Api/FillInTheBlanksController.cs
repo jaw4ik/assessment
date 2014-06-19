@@ -29,7 +29,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToCreateOtherQuestionTypes)]
         [EntityPermissions(typeof(Objective))]
         [Route("api/question/create/type/1")]
-        public ActionResult CreateFillInTheBlank(Objective objective, string title)
+        public ActionResult Create(Objective objective, string title)
         {
             if (objective == null)
             {
@@ -47,7 +47,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityPermissions(typeof(Question))]
         [Route("api/question/updatefillintheblank")]
-        public ActionResult UpdateFillInTheBlank(FillInTheBlanks question, string fillInTheBlank, ICollection<AnswerViewModel> answersCollection)
+        public ActionResult Update(FillInTheBlanks question, string fillInTheBlank, ICollection<AnswerViewModel> answersCollection)
         {
             if (question == null)
             {

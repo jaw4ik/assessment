@@ -12,6 +12,7 @@ namespace easygenerator.DomainModel
         Multipleselect MultipleselectQuestion(string title, string createdBy);
         FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
         DragAndDropText DragAndDropTextQuestion(string title, string createdBy);
+        Dropspot Dropspot(string text, int x, int y, string createdBy);
         Comment Comment(string text, string createdBy);
         Answer Answer(string text, bool isCorrect, Guid group, string createdBy);
         LearningContent LearningContent(string text, string createdBy);
@@ -50,6 +51,11 @@ namespace easygenerator.DomainModel
         public DragAndDropText DragAndDropTextQuestion(string title, string createdBy)
         {
             return new DragAndDropText(title, createdBy);
+        }
+
+        public Dropspot Dropspot(string text, int x, int y, string createdBy)
+        {
+            return new Dropspot(text, x, y, createdBy);
         }
 
         public Comment Comment(string text, string createdBy)

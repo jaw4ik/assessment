@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities.Questions
 {
@@ -9,10 +12,56 @@ namespace easygenerator.DomainModel.Entities.Questions
         public DragAndDropText(string title, string createdBy)
             : base(title, createdBy)
         {
-            Dropspots = new Collection<Dropspot>();
+            DropspotsCollection = new Collection<Dropspot>();
         }
 
-        public string Background { get; set; }
-        public Collection<Dropspot> Dropspots { get; set; }
+        public string Background { get; private set; }
+
+        protected internal virtual Collection<Dropspot> DropspotsCollection { get; set; }
+        public IEnumerable<Dropspot> Dropspots
+        {
+            get { return DropspotsCollection.AsEnumerable(); }
+        }
+
+        public virtual void ChangeBackground(string background, string modifiedBy)
+        {
+            ThrowIfBackgroundIsInvalid(background);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            Background = background;
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void AddDropspot(Dropspot dropspot, string modifiedBy)
+        {
+            ThrowIfDropspotIsInvalid(dropspot);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            DropspotsCollection.Add(dropspot);
+            dropspot.Question = this;
+
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void RemoveDropspot(Dropspot dropspot, string modifiedBy)
+        {
+            ThrowIfDropspotIsInvalid(dropspot);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            DropspotsCollection.Remove(dropspot);
+            dropspot.Question = null;
+
+            MarkAsModified(modifiedBy);
+        }
+
+        private void ThrowIfBackgroundIsInvalid(string background)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(background, "background");
+        }
+
+        private void ThrowIfDropspotIsInvalid(Dropspot dropspot)
+        {
+            ArgumentValidation.ThrowIfNull(dropspot, "dropspot");
+        }
     }
 }

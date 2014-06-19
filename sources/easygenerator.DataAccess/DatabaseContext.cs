@@ -98,7 +98,7 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<Multipleselect>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
 
-            modelBuilder.Entity<DragAndDropText>().HasMany(e => e.Dropspots).WithRequired(e => e.Question);
+            modelBuilder.Entity<DragAndDropText>().HasMany(e => e.DropspotsCollection).WithRequired(e => e.Question);
 
             modelBuilder.Entity<Dropspot>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<Dropspot>().Property(e => e.X).IsRequired();
@@ -163,6 +163,10 @@ namespace easygenerator.DataAccess
             {
                 foreach (DbEntityEntry entry in ChangeTracker.Entries<Entity>())
                 {
+                    if ((entry.Entity is Dropspot) && (entry.Entity as Dropspot).Question == null)
+                    {
+                        entry.State = EntityState.Deleted;
+                    }
                     if ((entry.Entity is Answer) && (entry.Entity as Answer).Question == null)
                     {
                         entry.State = EntityState.Deleted;

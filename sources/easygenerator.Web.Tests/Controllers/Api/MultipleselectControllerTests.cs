@@ -49,12 +49,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
-        #region CreateMultipleSelect question
+        #region Create question
 
         [TestMethod]
         public void CreateMultipleSelect_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
         {
-            var result = _controller.CreateMultipleSelect(null, null);
+            var result = _controller.Create(null, null);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
             result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
@@ -75,7 +75,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory.Answer("Your answer option here", true, Guid.Empty, user).Returns(correctAnswer);
             _entityFactory.Answer("Your answer option here", false, Guid.Empty, user).Returns(incorrectAnswer);
 
-            _controller.CreateMultipleSelect(objective, title);
+            _controller.Create(objective, title);
 
             question.Received().AddAnswer(correctAnswer, user);
             question.Received().AddAnswer(incorrectAnswer, user);
@@ -92,7 +92,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.MultipleselectQuestion(title, user).Returns(question);
 
-            _controller.CreateMultipleSelect(objective, title);
+            _controller.Create(objective, title);
 
             objective.Received().AddQuestion(question, user);
         }
@@ -107,7 +107,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.MultipleselectQuestion(title, user).Returns(question);
 
-            var result = _controller.CreateMultipleSelect(Substitute.For<Objective>("Objective title", CreatedBy), title);
+            var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
 
             result.Should()
                 .BeJsonSuccessResult()
@@ -124,11 +124,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.MultipleselectQuestion(title, user).Returns(question);
 
-            _controller.CreateMultipleSelect(Substitute.For<Objective>("Objective title", CreatedBy), title);
+            _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
 
             _eventPublisher.Received().Publish(Arg.Any<QuestionCreatedEvent>());
         }
-        
+
         #endregion
 
     }

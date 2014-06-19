@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
@@ -12,7 +8,6 @@ using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Extensions;
-using Newtonsoft.Json;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -29,7 +24,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [Route("api/question/create/type/2")]
-        public ActionResult CreateDragAndDrop(Objective objective, string title)
+        public ActionResult Create(Objective objective, string title)
         {
             if (objective == null)
             {
@@ -46,124 +41,87 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [Route("api/question/draganddrop")]
-        public ActionResult GetQuestionContent(Question question)
+        public ActionResult GetQuestionContent(DragAndDropText question)
         {
             return JsonSuccess(new
             {
-                content = question.Content
+                background = question.Background,
+                dropspots = question.Dropspots.Select(d => new
+                {
+                    id = d.Id,
+                    text = d.Text,
+                    x = d.X,
+                    y = d.Y
+                })
             });
         }
 
         [Route("api/question/draganddrop/dropspot/create")]
-        public ActionResult CreateDropspot(Question question, string text)
+        public ActionResult CreateDropspot(DragAndDropText question, string text)
         {
-            var content = GetContent(question);
+            if (question == null || text == null)
+            {
+                return BadRequest();
+            }
 
-            var dropspot = new Dropspot(text);
-            content.dropspots.Add(dropspot);
+            var dropspot = _entityFactory.Dropspot(text, 0, 0, GetCurrentUsername());
+            question.AddDropspot(dropspot, GetCurrentUsername());
 
-            question.UpdateContent(JsonConvert.SerializeObject(content), GetCurrentUsername());
-
-            return JsonSuccess(dropspot.id.ToNString());
+            return JsonSuccess(dropspot.Id.ToNString());
         }
 
         [Route("api/question/draganddrop/dropspot/delete")]
-        public ActionResult DeleteDropspot(Question question, Guid id)
+        public ActionResult DeleteDropspot(DragAndDropText question, Dropspot dropspot)
         {
-            var content = GetContent(question);
+            if (question == null || dropspot == null)
+            {
+                return BadRequest();
+            }
 
-
-            content.dropspots.RemoveAll(d => d.id == id);
-
-            question.UpdateContent(JsonConvert.SerializeObject(content), GetCurrentUsername());
+            question.RemoveDropspot(dropspot, GetCurrentUsername());
 
             return JsonSuccess();
         }
 
         [Route("api/question/draganddrop/dropspot/updateText")]
-        public ActionResult ChangeDropspotText(Question question, Guid id, string text)
+        public ActionResult ChangeDropspotText(Dropspot dropspot, string text)
         {
-            var content = GetContent(question);
-
-            var dropspot = content.dropspots.SingleOrDefault(d => d.id == id);
-            if (dropspot != null)
+            if (dropspot == null || text == null)
             {
-                dropspot.text = text;
+                return BadRequest();
             }
 
-            question.UpdateContent(JsonConvert.SerializeObject(content), GetCurrentUsername());
+            dropspot.ChangeText(text, GetCurrentUsername());
 
             return JsonSuccess();
         }
 
         [Route("api/question/draganddrop/dropspot/updatePosition")]
-        public ActionResult ChangeDropspotPosition(Question question, Guid id, int x, int y)
+        public ActionResult ChangeDropspotPosition(Dropspot dropspot, int? x, int? y)
         {
-            var content = GetContent(question);
-
-            var dropspot = content.dropspots.SingleOrDefault(d => d.id == id);
-            if (dropspot != null)
+            if (dropspot == null || !x.HasValue || !y.HasValue)
             {
-                dropspot.x = x;
-                dropspot.y = y;
+                return BadRequest();
             }
 
-            question.UpdateContent(JsonConvert.SerializeObject(content), GetCurrentUsername());
+            dropspot.ChangePosition(x.Value, y.Value, GetCurrentUsername());
 
             return JsonSuccess();
         }
 
         [Route("api/question/draganddrop/background/update")]
-        public ActionResult ChangeBackground(Question question, string background)
+        public ActionResult ChangeBackground(DragAndDropText question, string background)
         {
-            var content = GetContent(question);
-            content.background = background;
+            if (question == null || background == null)
+            {
+                return BadRequest();
+            }
 
-            question.UpdateContent(JsonConvert.SerializeObject(content), GetCurrentUsername());
+            question.ChangeBackground(background, GetCurrentUsername());
+
 
             return JsonSuccess();
         }
 
-        private DragAndDrop GetContent(Question question)
-        {
-            var content = question.Content;
-            if (String.IsNullOrWhiteSpace(content))
-            {
-                return new DragAndDrop();
-            }
-
-            try
-            {
-                return JsonConvert.DeserializeObject<DragAndDrop>(content);
-            }
-            catch (Exception)
-            {
-                return new DragAndDrop();
-            }
-        }
-
-        class DragAndDrop
-        {
-            public DragAndDrop()
-            {
-                dropspots = new List<Dropspot>();
-            }
-            public string background { get; set; }
-            public List<Dropspot> dropspots { get; set; }
-        }
-
-        class Dropspot
-        {
-            public Dropspot(string text)
-            {
-                id = Guid.NewGuid();
-                this.text = text;
-            }
-
-            public Guid id { get; set; }
-            public int x { get; set; }
-            public int y { get; set; }
-            public string text { get; set; }
-        }
     }
 }

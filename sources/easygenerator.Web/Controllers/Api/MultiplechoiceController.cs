@@ -26,7 +26,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityPermissions(typeof(Objective))]
         [Route("api/question/create/type/3")]
-        public ActionResult CreateMultipleChoice(Objective objective, string title)
+        public ActionResult Create(Objective objective, string title)
         {
             if (objective == null)
             {

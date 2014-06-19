@@ -39,7 +39,7 @@
                 designer.background(question.background);
 
                 designer.dropspots(_.map(question.dropspots, function (dropspot) {
-                    return new Dropspot(dropspot.id, dropspot.text, dropspot.x, dropspot.y, self.questionId);
+                    return new Dropspot(dropspot.id, dropspot.text, dropspot.x, dropspot.y);
                 }));
             } else {
                 designer.background(undefined);
@@ -66,7 +66,7 @@
         }
 
         addDropspotCommand.execute(self.questionId, designer.dropspotToAdd()).then(function (id) {
-            designer.dropspots.push(new Dropspot(id, designer.dropspotToAdd(), 0, 0, self.questionId));
+            designer.dropspots.push(new Dropspot(id, designer.dropspotToAdd(), 0, 0));
             designer.dropspotToAdd.clear();
             designer.dropspotToAdd.hide();
             notify.saved();

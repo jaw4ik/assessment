@@ -1,10 +1,9 @@
 ﻿define(['viewmodels/questions/dragAndDrop/commands/changeDropspotText', 'viewmodels/questions/dragAndDrop/commands/changeDropspotPosition', 'notify'], function (changeDropspotText, changeDropspotPosition, notify) {
-    return function (id, text, x, y, questionId) {
+    return function (id, text, x, y) {
         var
             that = this,
             self = {
-                text: text,
-                questionId: questionId
+                text: text
             }
         ;
 
@@ -13,7 +12,7 @@
             x: ko.observable(x),
             y: ko.observable(y),
             endMoveDropspot: function (x, y) {
-                changeDropspotPosition.execute(self.questionId, that.id, x, y).then(function () {
+                changeDropspotPosition.execute(that.id, x, y).then(function () {
                     notify.saved();
                 });
             }
@@ -30,7 +29,7 @@
                 return;
             }
 
-            changeDropspotText.execute(self.questionId, that.id, that.text).then(function () {
+            changeDropspotText.execute(that.id, that.text).then(function () {
                 self.text = that.text();
                 notify.saved();
             });

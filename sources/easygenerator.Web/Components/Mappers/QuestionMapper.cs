@@ -24,32 +24,28 @@ namespace easygenerator.Web.Components.Mappers
             };
         }
 
-        int GetQuestionType(Question question)
+        static int GetQuestionType(Question question)
         {
-            var type = question.GetType();
-
-            if (type.Namespace == "System.Data.Entity.DynamicProxies")
-            {
-                type = type.BaseType;
-            }
-
-
-            if (type == typeof(Multipleselect))
-            {
-                return 0;
-            }
-            if (type == typeof(FillInTheBlanks))
+            if (question is FillInTheBlanks)
             {
                 return 1;
             }
-            if (type == typeof(DragAndDropText))
-            {
-                return 2;
-            }
-            if (type == typeof(Multiplechoice))
+
+            if (question is Multiplechoice)
             {
                 return 3;
             }
+
+            if (question is Multipleselect)
+            {
+                return 0;
+            }
+            
+            if (question is DragAndDropText)
+            {
+                return 2;
+            }
+            
 
             throw new NotSupportedException();
         }

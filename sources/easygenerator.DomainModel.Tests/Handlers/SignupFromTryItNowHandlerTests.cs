@@ -152,7 +152,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         [TestMethod]
         public void Handle_ShouldDefineCreatedByForDropspotsThatWereCreatedInTryMode()
         {
-            var dropspot = Substitute.For<Dropspot>(TryItNowUsername);
+            var dropspot = Substitute.For<Dropspot>("text", 0, 0, TryItNowUsername);
             _dropspotRepository.GetCollection().Returns(new List<Dropspot>() { dropspot });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
@@ -163,7 +163,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         [TestMethod]
         public void Handle_ShouldNotDefineCreatedByForDropspotsThatWereCreatedByOtherExistingUser()
         {
-            var dropspot = Substitute.For<Dropspot>(OtherExistingUser);
+            var dropspot = Substitute.For<Dropspot>("text", 0, 0, OtherExistingUser);
             _dropspotRepository.GetCollection().Returns(new List<Dropspot>() { dropspot });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);

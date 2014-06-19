@@ -23,12 +23,12 @@
                 expect(query.execute()).toBePromise();
             });
 
-            it('should parse question content', function (done) {
+            it('should get question content', function (done) {
                 var content = {
                     background: 'background',
                     dropspots: [{ id: 'id' }]
                 }
-                dfd.resolve({ content: JSON.stringify(content) });
+                dfd.resolve(content);
 
                 query.execute().then(function (result) {
                     expect(result).toEqual(content);

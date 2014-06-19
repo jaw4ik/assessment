@@ -49,12 +49,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
-        #region CreateFillInTheBlank question
+        #region Create question
 
         [TestMethod]
         public void CreateFillInTheBlank_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
         {
-            var result = _controller.CreateFillInTheBlank(null, null);
+            var result = _controller.Create(null, null);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
             result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
@@ -71,7 +71,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.FillInTheBlanksQuestion(title, user).Returns(question);
 
-            _controller.CreateFillInTheBlank(objective, title);
+            _controller.Create(objective, title);
 
             objective.Received().AddQuestion(question, user);
         }
@@ -87,7 +87,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.FillInTheBlanksQuestion(title, user).Returns(question);
 
-            _controller.CreateFillInTheBlank(objective, title);
+            _controller.Create(objective, title);
 
             _eventPublisher.Received().Publish(Arg.Any<QuestionCreatedEvent>());
         }
@@ -102,7 +102,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.FillInTheBlanksQuestion(title, user).Returns(question);
 
-            var result = _controller.CreateFillInTheBlank(Substitute.For<Objective>("Objective title", CreatedBy), title);
+            var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
 
             result.Should()
                 .BeJsonSuccessResult()
@@ -111,14 +111,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region UpdateFillInTheBlank
+        #region Update
 
         [TestMethod]
         public void UpdateFillInTheBlank_ShouldReturnHttpNotFoundResult_WhenQuestionIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var result = _controller.UpdateFillInTheBlank(null, String.Empty, null);
+            var result = _controller.Update(null, String.Empty, null);
 
             result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.QuestionNotFoundError);
         }
@@ -135,7 +135,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             question.AddAnswer(answer2, CreatedBy);
 
             //Act
-            _controller.UpdateFillInTheBlank(question, String.Empty, answersViewmodels);
+            _controller.Update(question, String.Empty, answersViewmodels);
 
             //Assert
             question.Answers.ToList().Count.Should().Be(0);
@@ -150,7 +150,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.Name.Returns(CreatedBy);
             var question = Substitute.For<FillInTheBlanks>("Question title", CreatedBy);
 
-            _controller.UpdateFillInTheBlank(question, fillInTheBlank, answersViewmodel);
+            _controller.Update(question, fillInTheBlank, answersViewmodel);
 
             question.Received().UpdateAnswers(Arg.Any<ICollection<Answer>>(), CreatedBy);
         }
@@ -165,7 +165,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.Name.Returns(CreatedBy);
             var question = Substitute.For<FillInTheBlanks>("Question title", CreatedBy);
 
-            _controller.UpdateFillInTheBlank(question, fillInTheBlank, answersViewmodels);
+            _controller.Update(question, fillInTheBlank, answersViewmodels);
 
             question.Received().UpdateContent(fillInTheBlank, CreatedBy);
         }
@@ -177,7 +177,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var answers = new List<Answer>();
             var answersViewModel = new List<AnswerViewModel>();
 
-            var result = _controller.UpdateFillInTheBlank(question, String.Empty, answersViewModel);
+            var result = _controller.Update(question, String.Empty, answersViewModel);
 
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
         }
