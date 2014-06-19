@@ -1050,10 +1050,25 @@
 
             });
 
+            describe('isQuestionsListReorderedByCollaborator:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.isQuestionsListReorderedByCollaborator).toBeObservable();
+                });
+
+            });
+
             describe('updateQuestionsOrder:', function () {
 
                 it('should be a function', function () {
                     expect(viewModel.updateQuestionsOrder).toBeFunction();
+                });
+
+                it('should set isReorderingQuestions to false', function () {
+                    spyOn(repository, 'updateQuestionsOrder').and.returnValue(Q.defer().promise);
+                    viewModel.isReorderingQuestions(true);
+                    viewModel.updateQuestionsOrder();
+                    expect(viewModel.isReorderingQuestions()).toBeFalsy();
                 });
 
                 it('should send event \'Change order of questions\'', function () {
@@ -1191,16 +1206,105 @@
 
             describe('endReorderingQuestions:', function () {
 
+                var getById;
+
+                beforeEach(function () {
+                    getById = Q.defer();
+                    spyOn(repository, 'getById').and.returnValue(getById.promise);
+                });
+
                 it('should be function', function () {
                     expect(viewModel.endReorderingQuestions).toBeFunction();
                 });
 
-                it('should set isReorderingQuestion to false', function () {
-                    viewModel.isReorderingQuestions(true);
-                    viewModel.endReorderingQuestions();
+                describe('when reordering questions has been finished', function () {
+                    beforeEach(function () {
+                        viewModel.isReorderingQuestions(false);
+                    });
 
-                    expect(viewModel.isReorderingQuestions()).toBeFalsy();
+                    it('should resolve promise', function (done) {
+                        var promise = viewModel.endReorderingQuestions();
+
+                        promise.fin(function () {
+                            expect(promise).toBeResolved();
+                            done();
+                        });
+                    });
                 });
+
+                describe('when questions have not been reordered by collaborator', function () {
+                    beforeEach(function () {
+                        viewModel.isReorderingQuestions(true);
+                        viewModel.isQuestionsListReorderedByCollaborator(false);
+                    });
+
+                    it('should resolve promise', function (done) {
+                        var promise = viewModel.endReorderingQuestions();
+
+                        promise.fin(function () {
+                            expect(promise).toBeResolved();
+                            done();
+                        });
+                    });
+
+                    it('should set isReorderingQuestions to false', function (done) {
+                        viewModel.isReorderingQuestions(true);
+                        var promise = viewModel.endReorderingQuestions();
+
+                        promise.fin(function () {
+                            expect(viewModel.isReorderingQuestions()).toBeFalsy();
+                            done();
+                        });
+                    });
+                });
+
+                describe('when questions have been reordered by collaborator', function () {
+                    var questions = [
+                                    { id: 3, title: 'A', isSelected: ko.observable(false) },
+                                    { id: 1, title: 'b', isSelected: ko.observable(false) }
+                    ];
+
+                    beforeEach(function () {
+                        viewModel.questions([questions[1], questions[0]]);
+                    });
+
+                    beforeEach(function () {
+                        viewModel.isReorderingQuestions(true);
+                        viewModel.isQuestionsListReorderedByCollaborator(true);
+                        getById.resolve({ questions: questions });
+                    });
+
+                    it('should set isReorderingObjectives to false', function (done) {
+                        viewModel.isReorderingQuestions(true);
+                        var promise = viewModel.endReorderingQuestions();
+
+                        promise.fin(function () {
+                            expect(viewModel.isReorderingQuestions()).toBeFalsy();
+                            done();
+                        });
+                    });
+
+                    it('should set isQuestionsListReorderedByCollaborator to false', function (done) {
+                        viewModel.isReorderingQuestions(true);
+                        var promise = viewModel.endReorderingQuestions();
+
+                        promise.fin(function () {
+                            expect(viewModel.isQuestionsListReorderedByCollaborator()).toBeFalsy();
+                            done();
+                        });
+                    });
+
+                    it('should reorder questions', function (done) {
+                        var promise = viewModel.endReorderingQuestions();
+
+                        promise.fin(function () {
+                            expect(viewModel.questions()[0].id).toBe(questions[0].id);
+                            expect(viewModel.questions()[1].id).toBe(questions[1].id);
+                            done();
+                        });
+                    });
+                });
+
             });
 
             describe('questionsReordered:', function () {
@@ -1381,6 +1485,6 @@
             });
         });
 
-       
+
     }
 );
