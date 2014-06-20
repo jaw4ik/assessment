@@ -199,7 +199,7 @@
                         addCollaborator.resolve(undefined);
 
                         viewModel.submit().fin(function () {
-                            expect(app.trigger).not.toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded, courseId, collaborator);
+                            expect(app.trigger).not.toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded + courseId, collaborator);
                             done();
                         });
                     });
@@ -212,7 +212,7 @@
                     addCollaborator.resolve(collaborator);
 
                     viewModel.submit().fin(function () {
-                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded, courseId, collaborator);
+                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded + courseId, collaborator);
                         done();
                     });
                 });

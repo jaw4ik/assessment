@@ -4,7 +4,6 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
-using easygenerator.Infrastructure.DomainModel;
 using easygenerator.Infrastructure.Http;
 using easygenerator.Infrastructure.Mail;
 
@@ -72,6 +71,9 @@ namespace easygenerator.DataAccess
 
             builder.RegisterType<HttpRequestsRepository>()
                 .As<IHttpRequestsRepository>();
+
+            builder.RegisterType<CourseCollaboratorRepository>()
+                .As<ICourseCollaboratorRepository>();
 
             base.Load(builder);
         }

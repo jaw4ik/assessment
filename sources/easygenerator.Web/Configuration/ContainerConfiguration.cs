@@ -78,6 +78,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<Broadcaster>().As<IBroadcaster>();
             RegisterGenericTypes(builder, applicationAssembly, typeof(IEntityCollaboratorProvider<>));
             builder.RegisterGeneric(typeof(CollaborationBroadcaster<>)).As(typeof (ICollaborationBroadcaster<>));
+            builder.RegisterType<UsersCollaborationBroadcaster>().As<IUsersCollaborationBroadcaster>();
 
             #endregion
 

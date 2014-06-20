@@ -18,7 +18,7 @@
                 course.collaborators.push(collaborator);
             }
 
-            app.trigger(constants.messages.course.collaboration.collaboratorAdded, courseId, collaborator);
+            app.trigger(constants.messages.course.collaboration.collaboratorAdded + courseId, collaborator);
         }
 
     });

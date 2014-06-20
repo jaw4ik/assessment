@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using easygenerator.Infrastructure;
+﻿using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {

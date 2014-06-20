@@ -109,8 +109,9 @@
                         started: 'course:action-started'
                     },
                     collaboration: {
-                        collaboratorAdded: 'course:collaboration-collaboratorAdded',
-                        started: 'course:collaboration-started'
+                        collaboratorAdded: 'course:collaboration-collaboratorAdded:',
+                        started: 'course:collaboration-started',
+                        collaboratorRegistered: 'course:collaboration-collaboratorRegistered:'
                     }
                 },
                 objective: {

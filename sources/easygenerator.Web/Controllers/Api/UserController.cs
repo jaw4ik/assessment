@@ -1,21 +1,20 @@
-﻿using easygenerator.DomainModel;
+﻿using System;
+using System.IO;
+using System.Web.Mvc;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.CollaborationEvents;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
-using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Import.PublishedCourse;
 using easygenerator.Web.Mail;
-using easygenerator.Web.Publish.Aim4You;
 using easygenerator.Web.ViewModels.Account;
-using System;
-using System.IO;
-using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -28,10 +27,9 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ISignupFromTryItNowHandler _signupFromTryItNowHandler;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
-        private readonly IAim4YouApiService _aim4YouService;
         private readonly PublishedCourseImporter _publishedCourseImporter;
         private readonly ICourseRepository _courseRepository;
-        private readonly ConfigurationReader _configurationReader;
+        private readonly ICourseCollaboratorRepository _courseCollaboratorRepository;
 
         public UserController(IUserRepository repository,
             IEntityFactory entityFactory,
@@ -39,10 +37,9 @@ namespace easygenerator.Web.Controllers.Api
             ISignupFromTryItNowHandler signupFromTryItNowHandler,
             IDomainEventPublisher eventPublisher,
             IMailSenderWrapper mailSenderWrapper,
-            ConfigurationReader configurationReader,
-            IAim4YouApiService aim4YouService,
             PublishedCourseImporter publishedCourseImporter,
-            ICourseRepository courseRepository)
+            ICourseRepository courseRepository,
+            ICourseCollaboratorRepository courseCollaboratorRepository)
         {
             _repository = repository;
             _entityFactory = entityFactory;
@@ -50,10 +47,9 @@ namespace easygenerator.Web.Controllers.Api
             _signupFromTryItNowHandler = signupFromTryItNowHandler;
             _eventPublisher = eventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
-            _aim4YouService = aim4YouService;
             _publishedCourseImporter = publishedCourseImporter;
             _courseRepository = courseRepository;
-            _configurationReader = configurationReader;
+            _courseCollaboratorRepository = courseCollaboratorRepository;
         }
 
         [HttpPost]
@@ -177,6 +173,13 @@ namespace easygenerator.Web.Controllers.Api
 
             var course = _publishedCourseImporter.Import(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample Course"), profile.Email);
             _courseRepository.Add(course);
+
+            var sharedCourses = _courseCollaboratorRepository.GetSharedCourses(profile.Email);
+            
+            if (sharedCourses.Count > 0)
+            {
+                _eventPublisher.Publish(new CollaboratorRegisteredEvent(user, sharedCourses));
+            }
 
             return JsonSuccess(profile.Email);
         }

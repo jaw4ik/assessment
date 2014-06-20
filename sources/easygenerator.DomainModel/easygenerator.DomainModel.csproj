@@ -92,6 +92,7 @@
     <Compile Include="Events\QuestionEvents\QuestionEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionContentUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionTitleUpdatedEvent.cs" />
+    <Compile Include="Events\CollaborationEvents\CollaboratorRegisteredEvent.cs" />
     <Compile Include="Events\UserEvents\UserEvent.cs" />
     <Compile Include="Events\UserEvents\UserFeedbackEvent.cs" />
     <Compile Include="Events\UserEvents\UserSignedUpEvent.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Events\UserEvents\UserUpdateEvent.cs" />
     <Compile Include="Events\UserEvents\UserUpgradedToStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ICourseCollaboratorRepository.cs" />
     <Compile Include="Repositories\IImageFileRepository.cs" />
     <Compile Include="Repositories\IPasswordRecoveryTicketRepository.cs" />
     <Compile Include="Repositories\IQueryableRepository.cs" />

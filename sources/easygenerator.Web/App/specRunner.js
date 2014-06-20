@@ -62,6 +62,7 @@
             'synchronization/handlers/course/handler.spec',
             'synchronization/handlers/course/eventHandlers/collaborationStarted.spec',
             'synchronization/handlers/course/eventHandlers/collaboratorAdded.spec',
+            'synchronization/handlers/course/eventHandlers/collaboratorRegistered.spec',
             'synchronization/handlers/course/eventHandlers/deleted.spec',
             'synchronization/handlers/course/eventHandlers/introductionContentUpdated.spec',
             'synchronization/handlers/course/eventHandlers/objectiveRelated.spec',

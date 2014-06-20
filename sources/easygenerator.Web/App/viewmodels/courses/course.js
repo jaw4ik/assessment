@@ -1,8 +1,8 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
         'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'ping', 'models/backButton',
-        'viewmodels/courses/collaboration/collaborators', 'userContext', 'durandal/app', 'repositories/collaboratorRepository'],
+        'userContext', 'durandal/app'],
     function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, ping, BackButton,
-        vmCollaborators, userContext, app, collaboratorRepository) {
+        userContext, app) {
         "use strict";
 
         var
@@ -37,6 +37,7 @@
                 }, this);
                 return value;
             })(),
+            createdBy: '',
             connectedObjectives: ko.observableArray([]),
             availableObjectives: ko.observableArray([]),
             objectivesMode: ko.observable(''),
@@ -66,7 +67,6 @@
             endReorderingObjectives: endReorderingObjectives,
             reorderObjectives: reorderObjectives,
             isSortingEnabled: ko.observable(true),
-            collaborators: null,
 
             canActivate: canActivate,
             activate: activate,
@@ -346,6 +346,7 @@
 
             return repository.getById(courseId).then(function (course) {
                 viewModel.id = course.id;
+                viewModel.createdBy = course.createdBy;
 
                 clientContext.set('lastVistedCourse', course.id);
                 clientContext.set('lastVisitedObjective', null);
@@ -360,10 +361,6 @@
 
                 viewModel.isEditing(false);
                 viewModel.courseIntroductionContent = vmContentField(course.introductionContent, eventsForCourseContent, false, function (content) { return repository.updateIntroductionContent(course.id, content); });
-
-                return collaboratorRepository.getCollection(courseId).then(function (collaborators) {
-                    viewModel.collaborators = new vmCollaborators(course.id, course.createdBy, collaborators);
-                });
 
             }).fail(function (reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };

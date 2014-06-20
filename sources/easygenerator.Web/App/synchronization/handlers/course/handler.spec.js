@@ -15,6 +15,12 @@
             });
         });
 
+        describe('collaboratorRegistered:', function () {
+            it('should be function', function () {
+                expect(handler.collaboratorRegistered).toBeFunction();
+            });
+        });
+
         describe('titleUpdated:', function () {
             it('should be function', function () {
                 expect(handler.titleUpdated).toBeFunction();

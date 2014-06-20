@@ -1,28 +1,28 @@
-﻿using easygenerator.DomainModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.CollaborationEvents;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
-using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Import.PublishedCourse;
 using easygenerator.Web.Mail;
-using easygenerator.Web.Publish.Aim4You;
 using easygenerator.Web.Tests.Utils;
 using easygenerator.Web.ViewModels.Account;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using System;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -36,10 +36,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private ISignupFromTryItNowHandler _signupFromTryItNowHandler;
         private IDomainEventPublisher _eventPublisher;
         private IMailSenderWrapper _mailSenderWrapper;
-        private IAim4YouApiService _aim4YouService;
-        private ConfigurationReader _configurationReader;
         private PublishedCourseImporter _publishedCourseImporter;
         private ICourseRepository _courseRepository;
+        private ICourseCollaboratorRepository _courseCollaboratorRepository;
 
         IPrincipal _user;
         HttpContextBase _context;
@@ -54,10 +53,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _signupFromTryItNowHandler = Substitute.For<ISignupFromTryItNowHandler>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
-            _configurationReader = Substitute.For<ConfigurationReader>();
-            _aim4YouService = Substitute.For<IAim4YouApiService>();
             _publishedCourseImporter = Substitute.For<PublishedCourseImporter>();
             _courseRepository = Substitute.For<ICourseRepository>();
+            _courseCollaboratorRepository = Substitute.For<ICourseCollaboratorRepository>();
 
             _controller = new UserController(_userRepository,
                 _entityFactory,
@@ -65,10 +63,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
                 _signupFromTryItNowHandler, 
                 _eventPublisher,
                 _mailSenderWrapper, 
-                _configurationReader, 
-                _aim4YouService,
                 _publishedCourseImporter,
-                _courseRepository);
+                _courseRepository,
+                _courseCollaboratorRepository);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -112,7 +109,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = Substitute.For<User>();
             _userRepository.GetUserByEmail(email).Returns(user);
 
-            _controller.Update(email, password: password);
+            _controller.Update(email, password);
 
             user.Received().UpdatePassword(password, email);
         }
@@ -498,6 +495,48 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Assert
             _publishedCourseImporter.Received().Import(Arg.Any<string>(), profile.Email);
             _courseRepository.Received().Add(course);
+        }
+
+        [TestMethod]
+        public void Signup_ShouldRaiseEventCollaboratorRegistered_WhenUserHasSharedCourses()
+        {
+            //Arrange
+            var profile = GetTestUserSignUpViewModel();
+            var user = UserObjectMother.Create(profile.Email, profile.Password);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
+            var sharedCourses = new List<Course>(new[] {Substitute.For<Course>()});
+            _courseCollaboratorRepository.GetSharedCourses(profile.Email)
+                .Returns(sharedCourses);
+
+            //Act
+            _controller.Signup(profile);
+
+            //Assert
+            _eventPublisher.Received().Publish
+                (
+                    Arg.Is<CollaboratorRegisteredEvent>(_ => _.User == user && _.SharedCourses == sharedCourses)
+                );
+        }
+
+        [TestMethod]
+        public void Signup_ShouldNotRaiseEventCollaboratorRegistered_WhenUserHasNotSharedCourses()
+        {
+            //Arrange
+            var profile = GetTestUserSignUpViewModel();
+            var user = UserObjectMother.Create(profile.Email, profile.Password);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
+
+            _courseCollaboratorRepository.GetSharedCourses(profile.Email)
+                .Returns(new List<Course>());
+
+            //Act
+            _controller.Signup(profile);
+
+            //Assert
+            _eventPublisher.DidNotReceive().Publish
+                (
+                    Arg.Any<CollaboratorRegisteredEvent>()
+                );
         }
 
         private UserSignUpViewModel GetTestUserSignUpViewModel()

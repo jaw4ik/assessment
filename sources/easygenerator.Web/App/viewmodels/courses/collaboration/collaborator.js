@@ -1,29 +1,53 @@
-﻿define(['localization/localizationManager'],
-    function (localizationManager) {
+﻿define(['localization/localizationManager', 'durandal/app', 'constants'],
+    function (localizationManager, app, constants) {
 
-        var viewModel = function (courseOwner, collaborator) {
+        var ctor = function (courseOwner, collaborator) {
 
-            var name = _.isNullOrUndefined(collaborator.fullName) || _.isEmptyOrWhitespace(collaborator.fullName)
-                    ? collaborator.email
-                    : collaborator.fullName,
+            var viewModel = {
+                email: collaborator.email,
+                displayName: ko.observable(''),
+                isOwner: collaborator.email == courseOwner,
+                registered: ko.observable(collaborator.registered),
+                createdOn: collaborator.createdOn,
 
-                avatarLetter = collaborator.registered ? name.charAt(0) : '?',
-                isOwner = collaborator.email == courseOwner,
-                displayName = isOwner ? name + ': ' + localizationManager.localize('owner') : name;
-
-            if (!collaborator.registered) {
-                displayName += ':\n' + localizationManager.localize('waitingForRegistration');
+                collaboratorRegistered: collaboratorRegistered,
+                deactivate: deactivate
             }
 
-            return {
-                id: collaborator.id,
-                displayName: displayName,
-                avatarLetter: avatarLetter,
-                isOwner: isOwner,
-                registered: collaborator.registered,
-                createdOn: collaborator.createdOn
-            };
+            viewModel.displayName(getDisplayName(collaborator, viewModel.isOwner));
+            viewModel.avatarLetter = ko.computed(function() {
+                return viewModel.registered() ? viewModel.displayName().charAt(0) : '?';
+            });
+
+            if (!viewModel.registered()) {
+                app.on(constants.messages.course.collaboration.collaboratorRegistered + viewModel.email, viewModel.collaboratorRegistered);
+            }
+
+            return viewModel;
+
+            function getDisplayName(user, isOwner) {
+                var name = _.isNullOrUndefined(user.fullName) || _.isEmptyOrWhitespace(user.fullName)
+                    ? user.email
+                    : user.fullName;
+
+                if (isOwner) {
+                    return name + ': ' + localizationManager.localize('owner');
+                }
+
+                return user.registered ? name : name + ':\n' + localizationManager.localize('waitingForRegistration');
+            }
+
+            function deactivate() {
+                app.off(constants.messages.course.collaboration.collaboratorRegistered + viewModel.email, viewModel.collaboratorRegistered);
+            }
+
+            function collaboratorRegistered(userInfo) {
+                viewModel.displayName(userInfo.fullName);
+                viewModel.registered(true);
+
+                app.off(constants.messages.course.collaboration.collaboratorRegistered + viewModel.email, viewModel.collaboratorRegistered);
+            }
         };
 
-        return viewModel;
+        return ctor;
     });

@@ -15,6 +15,7 @@
 
                     courseCollaboratorAdded: courseEventHandler.collaboratorAdded,
                     courseCollaborationStarted: courseEventHandler.collaborationStarted,
+                    collaboratorRegistered: courseEventHandler.collaboratorRegistered,
                     courseTitleUpdated: courseEventHandler.titleUpdated,
                     courseIntroductionContentUpdated: courseEventHandler.introductionContentUpdated,
                     courseTemplateUpdated: courseEventHandler.templateUpdated,

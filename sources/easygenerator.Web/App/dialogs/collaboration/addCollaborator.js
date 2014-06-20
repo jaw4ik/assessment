@@ -57,10 +57,12 @@
 
             viewModel.actionInProgress(true);
             eventTracker.publish(events.addPersonForCollaboration);
-            return repository.add(router.routeData().courseId, this.email().trim())
+            var courseId = router.routeData().courseId;
+
+            return repository.add(courseId, this.email().trim())
                 .then(function (collaborator) {
                     if (!_.isNullOrUndefined(collaborator)) {
-                        app.trigger(constants.messages.course.collaboration.collaboratorAdded, router.routeData().courseId, collaborator);
+                        app.trigger(constants.messages.course.collaboration.collaboratorAdded + courseId, collaborator);
                     }
 
                     viewModel.hide();
@@ -68,7 +70,7 @@
                 .fail(function (errorMessage) {
                     viewModel.errorMessage(errorMessage);
                 })
-                .fin(function() {
+                .fin(function () {
                     viewModel.actionInProgress(false);
                 });
         }

@@ -355,11 +355,13 @@
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\IEntityCollaboratorProvider.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\ObjectiveCollaboratorProvider.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\QuestionCollaboratorProvider.cs" />
+    <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\UsersCollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\Proxies\MultipleClientsProxy.cs" />
     <Compile Include="Synchronization\Broadcasting\IBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\ICollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\Proxies\UsersProxy.cs" />
     <Compile Include="Synchronization\Handlers\AnswerEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\CollaborationEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
@@ -410,6 +412,9 @@
     <Content Include="App\synchronization\handlers\answer\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\collaboratorRegistered.spec.js">
+      <DependentUpon>collaboratorRegistered.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\learningContent\eventHandlers\created.spec.js">
       <DependentUpon>created.js</DependentUpon>
     </Content>
@@ -435,6 +440,7 @@
     <Content Include="App\synchronization\handlers\answer\eventHandlers\created.spec.js">
       <DependentUpon>created.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\collaboratorRegistered.js" />
     <Content Include="App\synchronization\handlers\course\handler.js" />
     <Content Include="App\synchronization\handlers\course\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>

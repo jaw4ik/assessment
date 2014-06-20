@@ -1,151 +1,289 @@
-﻿define(function (require) {
+﻿define(['viewmodels/courses/collaboration/collaborators'], function (viewModel) {
     "use strict";
 
     var
-        ctor = require('viewmodels/courses/collaboration/collaborators'),
         userContext = require('userContext'),
         eventTracker = require('eventTracker'),
-        addCollaboratorDialog = require('dialogs/collaboration/addCollaborator')
+        addCollaboratorDialog = require('dialogs/collaboration/addCollaborator'),
+        collaboratorRepository = require('repositories/collaboratorRepository'),
+        app = require('durandal/app'),
+        constants = require('constants')
     ;
 
     describe('viewModel [collaborators]', function () {
 
-        var viewModel,
-        owner = "user@user.com",
-        courseId = "courseId";
+        var courseOwner = "user@user.com",
+            courseId = "courseId",
 
-        var collaborators = [
-        {
-            id: "0",
-            email: "contoso@ua.com",
-            fullName: "Anna Karenina",
-            createdOn: new Date(2013, 12, 31)
-        },
-        {
-            id: "1",
-            email: "owner",
-            fullName: "Super Admin",
-            createdOn: new Date(2012, 12, 31)
-        },
-        {
-            id: "2",
-            email: "din@ua.com",
-            fullName: "Din Don",
-            createdOn: new Date(2014, 12, 31)
-        }
-        ];
+            collaborators = [
+                {
+                    email: "contoso@ua.com",
+                    fullName: "Anna Karenina",
+                    createdOn: new Date(2013, 12, 31)
+                },
+                {
+                    email: courseOwner,
+                    fullName: "Super Admin",
+                    createdOn: new Date(2012, 12, 31)
+                },
+                {
+                    email: "din@ua.com",
+                    fullName: "Din Don",
+                    createdOn: new Date(2014, 12, 31)
+                }
+            ];
 
-        beforeEach(function () {
-            spyOn(eventTracker, 'publish');
-            spyOn(addCollaboratorDialog, 'show');
+        it('should be an object', function () {
+            expect(viewModel).toBeObject();
+        });
+
+        describe('courseId:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.courseId).toBeDefined();
+            });
+
+        });
+
+        describe('courseOwner:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.courseOwner).toBeDefined();
+            });
+
         });
 
         describe('members:', function () {
-            beforeEach(function () {
-                userContext.identity = {};
+
+            it('should be observavleArray', function () {
+                expect(viewModel.members).toBeObservableArray();
             });
+
+        });
+
+        describe('canAddMember:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.canAddMember).toBeObservable();
+            });
+
+        });
+
+        describe('addMemberDialog:', function () {
 
             it('should be defined', function () {
-                viewModel = ctor(courseId, owner, []);
-                expect(viewModel.members).toBeDefined();
+                expect(viewModel.addMemberDialog).toBeDefined();
             });
 
-            it('should be set members', function () {
-                viewModel = ctor(courseId, owner, collaborators);
-                expect(viewModel.members().length).toBe(3);
-            });
-
-            it('should order members by created on date', function () {
-                viewModel = ctor(courseId, owner, collaborators);
-
-                expect(viewModel.members()[0].id).toBe(collaborators[2].id);
-                expect(viewModel.members()[1].id).toBe(collaborators[0].id);
-                expect(viewModel.members()[2].id).toBe(collaborators[1].id);
-            });
         });
 
         describe('addMember:', function () {
+
             beforeEach(function () {
-                userContext.identity = {};
+                spyOn(eventTracker, 'publish');
+                spyOn(addCollaboratorDialog, 'show');
             });
 
             it('should be function', function () {
-                viewModel = ctor(courseId, '', []);
                 expect(viewModel.addMember).toBeFunction();
             });
 
             it('should send event \'Open "add people for collaboration" dialog\'', function () {
-                viewModel = ctor(courseId, owner, []);
                 viewModel.addMember();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Open "add people for collaboration" dialog');
             });
 
             it('should show dialog', function () {
-                viewModel = ctor(courseId, owner, []);
                 viewModel.addMember();
                 expect(addCollaboratorDialog.show).toHaveBeenCalled();
             });
         });
 
-        describe('canAddMember:', function () {
-            it('should be defined', function () {
-                expect(viewModel.canAddMember).toBeDefined();
-            });
-
-            describe('when user is course owner', function () {
-                it('should be true', function () {
-                    userContext.identity = { email: owner };
-                    viewModel = ctor(courseId, owner, []);
-                    expect(viewModel.canAddMember).toBeTruthy();
-                });
-            });
-
-            describe('when user is not course owner', function () {
-                it('should be false', function () {
-                    userContext.identity = { email: 'email@mail.com' };
-                    viewModel = ctor(courseId, owner, []);
-                    expect(viewModel.canAddMember).toBeFalsy();
-                });
-            });
-        });
-
         describe('collaboratorAdded:', function () {
-            beforeEach(function () {
-                userContext.identity = {};
-            });
 
-            var collaborator = { fullName: 'fullName', email: 'email', createdOn: new Date(2010, 12, 31), id: "333" };
+            var collaborator = { fullName: 'fullName', email: 'email', createdOn: new Date(2010, 12, 31) };
 
             it('should be function', function () {
-                viewModel = ctor(courseId, '', []);
                 expect(viewModel.collaboratorAdded).toBeFunction();
             });
 
-            describe('when collaborated course is current course', function () {
-                it('should add collaborator', function () {
-                    viewModel = ctor(courseId, owner, []);
-                    viewModel.collaboratorAdded(courseId, collaborator);
-                    expect(viewModel.members().length).toBe(1);
+            it('should add collaborator', function () {
+                viewModel.collaboratorAdded(collaborator);
+                expect(viewModel.members().length).toBe(1);
+            });
+
+            it('should order members by created on date', function () {
+                viewModel.members(collaborators);
+                viewModel.collaboratorAdded(collaborator);
+
+                expect(viewModel.members()[0].email).toBe(collaborators[2].email);
+                expect(viewModel.members()[1].email).toBe(collaborators[0].email);
+                expect(viewModel.members()[2].email).toBe(collaborators[1].email);
+                expect(viewModel.members()[3].email).toBe(collaborator.email);
+            });
+        });
+
+        describe('activate:', function () {
+            var getCollaborators;
+
+            beforeEach(function () {
+                userContext.identity = {};
+
+                getCollaborators = Q.defer();
+                spyOn(collaboratorRepository, 'getCollection').and.returnValue(getCollaborators.promise);
+                spyOn(app, 'on');
+            });
+
+            it('should be a function', function () {
+                expect(viewModel.activate).toBeFunction();
+            });
+
+            describe('when activateData is not an object', function () {
+                it('should throw exception', function () {
+                    var f = function() {
+                        viewModel.activate();
+                    };
+
+                    expect(f).toThrow('activationData is not an object');
+                });
+            });
+
+            describe('when courseId is not a string', function () {
+                it('should throw exception', function () {
+                    var f = function () {
+                        viewModel.activate({});
+                    };
+
+                    expect(f).toThrow('courseId is not a string');
+                });
+            });
+
+            describe('when courseOwner is not a string', function () {
+                it('should throw exception', function () {
+                    var f = function () {
+                        viewModel.activate({ courseId: courseId });
+                    };
+
+                    expect(f).toThrow('courseOwner is not a string');
+                });
+            });
+
+            it('should set courseId', function () {
+                viewModel.activate({ courseId: courseId, courseOwner: courseOwner });
+
+                expect(viewModel.courseId).toBe(courseId);
+            });
+
+            it('should set courseOwner', function () {
+                viewModel.activate({ courseId: courseId, courseOwner: courseOwner });
+
+                expect(viewModel.courseOwner).toBe(courseOwner);
+            });
+
+            it('should set canAddMember to false', function () {
+                viewModel.activate({ courseId: courseId, courseOwner: courseOwner });
+
+                expect(viewModel.canAddMember()).toBeFalsy();
+            });
+
+            describe('when user is courseOwner', function () {
+
+                beforeEach(function () {
+                    userContext.identity = { email: courseOwner };
+                });
+
+                it('should set canAddMember to true', function () {
+                    viewModel.activate({ courseId: courseId, courseOwner: courseOwner });
+
+                    expect(viewModel.canAddMember()).toBeTruthy();
+                });
+            });
+
+            it('should get collaborators', function () {
+                viewModel.activate({ courseId: courseId, courseOwner: courseOwner });
+
+                expect(collaboratorRepository.getCollection).toHaveBeenCalled();
+            });
+
+            describe('when collaborators collection is retrived', function () {
+
+                it('should be set members', function (done) {
+                    var promise = getCollaborators.promise.finally(function () { });
+                    getCollaborators.resolve(collaborators);
+
+                    viewModel.activate({ courseId: courseId, courseOwner: courseOwner });
+
+                    promise.fin(function () {
+                        expect(viewModel.members().length).toBe(collaborators.length);
+
+                        done();
+                    });
                 });
 
                 it('should order members by created on date', function () {
-                    viewModel = ctor(courseId, owner, collaborators);
-                    viewModel.collaboratorAdded(courseId, collaborator);
+                    var promise = getCollaborators.promise.finally(function () { });
+                    getCollaborators.resolve(collaborators);
 
-                    expect(viewModel.members()[0].id).toBe(collaborators[2].id);
-                    expect(viewModel.members()[1].id).toBe(collaborators[0].id);
-                    expect(viewModel.members()[2].id).toBe(collaborators[1].id);
-                    expect(viewModel.members()[3].id).toBe(collaborator.id);
+                    viewModel.activate({ courseId: courseId, courseOwner: courseOwner });
+
+
+                    promise.fin(function () {
+                        expect(viewModel.members()[0].email).toBe(collaborators[2].email);
+                        expect(viewModel.members()[1].email).toBe(collaborators[0].email);
+                        expect(viewModel.members()[2].email).toBe(collaborators[1].email);
+
+                        done();
+                    });
+
                 });
+
+                it('should subscribe to collaboratorAdded event', function () {
+                    var promise = getCollaborators.promise.finally(function () { });
+                    getCollaborators.resolve(collaborators);
+
+                    viewModel.activate({ courseId: courseId, courseOwner: courseOwner });
+
+                    promise.fin(function () {
+                        expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded + viewModel.courseId, viewModel.collaboratorAdded);
+                        done();
+                    });
+                });
+
             });
 
-            describe('when collaborated course is not current course', function () {
-                it('should not add collaborator', function () {
-                    viewModel = ctor(courseId, owner, []);
-                    viewModel.collaboratorAdded('id', collaborator);
-                    expect(viewModel.members().length).toBe(0);
-                });
-            });
         });
+
+        describe('deactivate', function () {
+            beforeEach(function () {
+                spyOn(app, 'off');
+            });
+
+            it('should be a function', function () {
+                expect(viewModel.deactivate).toBeFunction();
+            });
+
+            it('should unsubscribe from collaboratorAdded event', function () {
+                viewModel.members([]);
+
+                viewModel.deactivate();
+
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded + viewModel.courseId, viewModel.collaboratorAdded);
+            });
+
+            it('should call deactivate function for all members', function () {
+                var member1 = { deactivate: function () { } },
+                    member2 = { deactivate: function () { } };
+                spyOn(member1, 'deactivate');
+                spyOn(member2, 'deactivate');
+                viewModel.members([member1, member2]);
+
+                viewModel.deactivate();
+
+                expect(member1.deactivate).toHaveBeenCalled();
+                expect(member2.deactivate).toHaveBeenCalled();
+            });
+
+        });
+
     });
 })
