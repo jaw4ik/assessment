@@ -35,6 +35,8 @@
 
                     fillInTheBlankUpdated: questionEventHandler.fillInTheBlankUpdated,
 
+                    dragAndDropBackgroundChanged: questionEventHandler.dragAndDropBackgroundChanged,
+
                     answerCreated: answerEventHandler.created,
                     answerDeleted: answerEventHandler.deleted,
                     answerTextUpdated: answerEventHandler.textUpdated,

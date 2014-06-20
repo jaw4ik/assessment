@@ -363,6 +363,7 @@
     <Compile Include="Synchronization\Handlers\AnswerEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\CollaborationEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\DragAndDropEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
@@ -373,6 +374,9 @@
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\backgroundChanged.spec.js">
+      <DependentUpon>backgroundChanged.js</DependentUpon>
+    </Content>
     <None Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -505,6 +509,7 @@
     <Content Include="App\synchronization\handlers\question\eventHandlers\deleted.spec.js">
       <DependentUpon>deleted.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\backgroundChanged.js" />
     <Content Include="App\synchronization\handlers\question\eventHandlers\fillInTheBlankUpdated.js" />
     <Content Include="App\synchronization\handlers\question\eventHandlers\fillInTheBlankUpdated.spec.js">
       <DependentUpon>fillInTheBlankUpdated.js</DependentUpon>

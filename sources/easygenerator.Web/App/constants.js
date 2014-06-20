@@ -144,7 +144,12 @@
 
                     fillInTheBlank: {
                         updatedByCollaborator: 'question:fillInTheBlank:updatedByCollaborator'
+                    },
+
+                    dragAndDrop: {
+                        backgroundChanged: 'question:dragAndDrop:backgroundChanged'
                     }
+
                 },
                 helpHint: {
                     shown: 'helphint:shown',

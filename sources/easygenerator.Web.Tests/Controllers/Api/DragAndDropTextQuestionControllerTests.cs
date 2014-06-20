@@ -4,6 +4,7 @@ using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
@@ -93,6 +94,23 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             question.Received().ChangeBackground(background, username);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldPublishDomainEvent_WhenCourseIsNotNull()
+        {
+            //Arrange
+            const string background = "background";
+            var question = Substitute.For<DragAndDropText>();
+
+            const string username = "username";
+            _user.Identity.Name.Returns(username);
+
+            //Act
+            _controller.ChangeBackground(question, background);
+            
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<BackgroundChangedEvent>());
         }
 
         [TestMethod]

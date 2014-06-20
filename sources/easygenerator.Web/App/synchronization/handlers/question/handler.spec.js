@@ -32,6 +32,12 @@
                 expect(handler.deleted).toBeFunction();
             });
         });
+
+        describe('dragAndDropBackgroundChanged:', function () {
+            it('should be function', function () {
+                expect(handler.dragAndDropBackgroundChanged).toBeFunction();
+            });
+        });
     });
 
 })

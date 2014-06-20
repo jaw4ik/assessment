@@ -5,6 +5,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.QuestionEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Extensions;
@@ -118,7 +119,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.ChangeBackground(background, GetCurrentUsername());
-
+            _eventPublisher.Publish(new BackgroundChangedEvent(question, background));
 
             return JsonSuccess();
         }

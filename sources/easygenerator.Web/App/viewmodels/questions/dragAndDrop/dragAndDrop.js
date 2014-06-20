@@ -1,4 +1,4 @@
-﻿define(['constants', 'viewmodels/questions/questionTitle', 'repositories/learningContentRepository', 'repositories/questionRepository', 'viewmodels/questions/learningContents', 'imageUpload', 'viewmodels/questions/dragAndDrop/designer'], function (constants, questionTitle, learningContentRepository, questionRepository, vmLearningContents, imageUpload, designer) {
+﻿define(['constants', 'viewmodels/questions/questionTitle', 'repositories/learningContentRepository', 'repositories/questionRepository', 'viewmodels/questions/learningContents', 'imageUpload', 'viewmodels/questions/dragAndDrop/designer', 'durandal/app'], function (constants, questionTitle, learningContentRepository, questionRepository, vmLearningContents, imageUpload, designer, app) {
 
     var viewModel = {
         objectiveId: '',
@@ -6,9 +6,12 @@
         title: null,
         dragAndDrop: null,
         initialize: initialize,
+        backgroundChanged: backgroundChanged,
         isExpanded: ko.observable(true),
         toggleExpand: toggleExpand
     };
+
+    app.on(constants.messages.question.dragAndDrop.backgroundChanged, backgroundChanged);
 
     return viewModel;
 
@@ -32,4 +35,10 @@
         viewModel.isExpanded(!viewModel.isExpanded());
     }
 
+    function backgroundChanged(question) {
+        if (viewModel.questionId != question.id)
+            return;
+
+        designer.background(question.background);
+    }
 })
