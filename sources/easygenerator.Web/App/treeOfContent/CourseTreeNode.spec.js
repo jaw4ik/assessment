@@ -13,7 +13,7 @@
         });
 
         it('should create courseTreeNode', function () {
-            var courseTreeNode = new CourseTreeNode('id', 'title', 'url');
+            var courseTreeNode = new CourseTreeNode('id', 'title', 'url', 'date');
             expect(courseTreeNode).toBeObject();
             expect(courseTreeNode.id).toEqual('id');
             expect(courseTreeNode.title).toBeObservable();
@@ -24,6 +24,7 @@
             expect(courseTreeNode.expand).toBeFunction();
             expect(courseTreeNode.collapse).toBeFunction();
             expect(courseTreeNode.navigateToCourse).toBeFunction();
+            expect(courseTreeNode.createdOn).toBe('date');
         });
 
         describe('expand:', function () {

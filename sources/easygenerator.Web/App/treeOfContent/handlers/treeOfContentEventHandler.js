@@ -21,12 +21,12 @@
         };
 
         function courseCreated(course) {
-            treeOfContentTraversal.getTreeOfContent().children.unshift(new CourseTreeNode(course.id, course.title, "#course/" + course.id));
+            treeOfContentTraversal.getTreeOfContent().children.unshift(new CourseTreeNode(course.id, course.title, "#course/" + course.id, course.createdOn));
         }
 
         function courseCollaborationStarted(course) {
             var sharedCourses = treeOfContentTraversal.getTreeOfContent().sharedChildren();
-            sharedCourses.push(new CourseTreeNode(course.id, course.title, "#course/" + course.id));
+            sharedCourses.push(new CourseTreeNode(course.id, course.title, "#course/" + course.id, course.createdOn));
             sharedCourses = _.sortBy(sharedCourses, function (item) {
                 return -item.createdOn;
             });

@@ -105,7 +105,7 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
     function mapCourses(courses) {
         return _.chain(courses)
                 .sortBy(function (course) { return -course.createdOn; })
-                .map(function (course) { return new CourseTreeNode(course.id, course.title, '#course/' + course.id); })
+                .map(function (course) { return new CourseTreeNode(course.id, course.title, '#course/' + course.id, course.createdOn); })
                 .value();
     }
 

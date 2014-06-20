@@ -1,13 +1,14 @@
 ﻿define(['treeOfContent/TreeNode', 'treeOfContent/RelatedObjectiveTreeNode', 'treeOfContent/queries/getCourseByIdQuery', 'eventTracker', 'plugins/router'],
     function (TreeNode, RelatedObjectiveTreeNode, getCourseByIdQuery, eventTracker, router) {
 
-        return function(id, title, url) {
+        return function(id, title, url, createdOn) {
             TreeNode.call(this, id, title, url);
             this.children = ko.observableArray([]);
 
             this.isExpanded = ko.observable();
             this.expand = expand;
             this.collapse = collapse;
+            this.createdOn = createdOn;
 
             this.navigateToCourse = navigateToCourse;
         };
