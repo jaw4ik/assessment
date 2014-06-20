@@ -23,14 +23,43 @@
     overflow: auto;
 }
 
-.drag-and-drop-designer-background-browse {
-    position: absolute;
-    content: "";
-    right: -16px;
-    top: -16px;
-    width: 32px;
+.upload-background-image {
     height: 32px;
-    background: url("../Content/images/browse.png") 0 0 no-repeat;
+    width: 32px;
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    background: white;
+    border: 1px solid #dadddf;
+    border-radius: 3px;
+}
+
+.upload-background-image:hover {
+    box-shadow: 0 0 3px #cdcdcd;
+}
+
+    .upload-background-image:after {
+        content: '';
+        display: block;
+        height: 13px;
+        width: 16px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -6px;
+        margin-left: -8px;
+        background-image: url('images/sprites_16.png');
+        background-position: -170px -23px;
+    }
+
+    .upload-background-image:hover .info-tooltip {
+        display: block;
+        opacity: 0.9;
+    }
+
+.info-tooltip.browse-image {
+    width: 100px;
+    margin-left: -50px;
 }
 
 .drag-and-drop-text-title {
@@ -44,7 +73,7 @@
 .drag-and-drop-designer-draggable {
     display: inline-block;
     cursor: move;
-    border: 1px solid #DDDDDD;
+    border: 2px solid #dadddf;
     background-color: #fff;
     border-radius: 3px;
     color: #3C3C3C;
@@ -83,7 +112,7 @@
         }
 
 .dropspot-text-delete-wrapper {
-    width: 26px;
+    width: 34px;
 }
 
 .dropspot-text-delete {
@@ -107,17 +136,17 @@
 
 .drag-and-drop-designer-empty {
     width: 100%;
-    height: 200px;
+    padding: 60px 0 30px;
     border: 3px dashed #dadddf;
     text-align: center;
     color: #999999;
 }
 
 .drag-and-drop-designer-empty-title {
+    line-height: 1;
     font-family: 'OpenSans-Semibold';
     font-size: 20px;
     text-transform: uppercase;
-    margin-top: 50px;
 }
 
 .drag-and-drop-designer-empty-description {
@@ -126,6 +155,44 @@
     margin-top: 10px;
 }
 
-.drag-and-drop-designer-empty-upload-wrapper {
-    margin-top: 10px;
+.browse-image-btn-wrapper {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px;
+    border: 1px solid #dadddf;
+    border-radius: 3px;
+}
+
+.browse-image-btn {
+    min-width: 112px;
+    padding: 9px 5px;
+    margin: 0;
+    background: #5bc0de;
+    -moz-background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+
+    .browse-image-btn:hover {
+        background-color: #46b3d4;
+    }
+
+.browse-image-text {
+    display: block;
+    line-height: 1;
+    color: white;
+    font-size: 14px;
+}
+
+@media (max-width: 1350px) {
+
+    .info-tooltip.browse-image {
+        margin-left: -84px;
+    }
+
+        .info-tooltip.browse-image:after {
+            margin-left: 29px;
+        }
 }

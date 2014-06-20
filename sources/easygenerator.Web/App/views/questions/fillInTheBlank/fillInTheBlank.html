@@ -22,6 +22,7 @@
                 <!-- ko ifnot: $parent.isExpanded() -->
                 <div class="expand-collapse-panel collapsed" data-bind="click: $parent.toggleExpand">
                     <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}">Title</span>
+                    <div class="expand-collapse-panel-btn"></div>
                 </div>
                 <!-- /ko -->
             </header>
@@ -33,11 +34,13 @@
             <!-- ko if: isExpanded -->
             <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'fillInTheBlank' }">Fill in the blank</span>
+                <div class="expand-collapse-panel-btn"></div>
             </div>
             <!-- /ko -->
             <!-- ko ifnot: isExpanded -->
             <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'fillInTheBlank' }">Fill in the blank</span>
+                <div class="expand-collapse-panel-btn"></div>
             </div>
             <!-- /ko -->
         </div>
@@ -79,11 +82,13 @@
             <!-- ko if: isExpanded -->
             <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'learningContent' }">Learning content</span>
+                <div class="expand-collapse-panel-btn"></div>
             </div>
             <!-- /ko -->
             <!-- ko ifnot: isExpanded -->
             <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'learningContent' }">Learning content</span>
+                <div class="expand-collapse-panel-btn"></div>
             </div>
             <!-- /ko -->
             <!-- ko if: isExpanded -->

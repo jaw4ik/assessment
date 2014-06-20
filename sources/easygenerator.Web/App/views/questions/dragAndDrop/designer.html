@@ -4,11 +4,13 @@
             <!-- ko if: isExpanded -->
             <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
                 <span class="expand-collapse-panel-label">Drag'n'drop designer</span>
+                <div class="expand-collapse-panel-btn" title="Collapse"></div>
             </div>
             <!-- /ko -->
             <!-- ko ifnot: isExpanded -->
             <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
                 <span class="expand-collapse-panel-label">Drag'n'drop designer</span>
+                <div class="expand-collapse-panel-btn" title="Expand"></div>
             </div>
             <!-- /ko -->
         </div>
@@ -27,7 +29,11 @@
                             <!-- /ko -->
                         </div>
                     </div>
-                    <div class="drag-and-drop-designer-background-browse" data-bind="click: uploadBackground" title="Browse image"></div>
+                    <div class="upload-background-image" data-bind="click: uploadBackground">
+                        <div class="info-tooltip browse-image">
+                            <span>Browse image</span>
+                        </div>
+                    </div>
 
                     <div class="drag-and-drop-text-title" style="">Drag'n'drop text</div>
 
@@ -40,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="dropspot-text-delete-wrapper">
-                                <span class="dropspot-text-delete" data-bind="click: $parent.removeDropspot"></span>
+                                <span class="dropspot-text-delete" data-bind="click: $parent.removeDropspot" title="Delete item"></span>
                             </div>
                         </li>
                         <!-- /ko -->
@@ -64,8 +70,10 @@
                 <div class="drag-and-drop-designer-empty" style="">
                     <div class="drag-and-drop-designer-empty-title">Drag'n'drop </div>
                     <div class="drag-and-drop-designer-empty-description">your background image here or</div>
-                    <div class="drag-and-drop-designer-empty-upload-wrapper">
-                        <button class="btn action-item-btn blue" data-bind="click: uploadBackground">Browse</button>
+                    <div class="browse-image-btn-wrapper">
+                        <button class="browse-image-btn" data-bind="click: uploadBackground">
+                            <span class="browse-image-text">Browse</span>
+                        </button>
                     </div>
                 </div>
                 <!-- /ko -->

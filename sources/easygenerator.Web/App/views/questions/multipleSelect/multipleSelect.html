@@ -14,6 +14,7 @@
                 <!-- ko if: $parent.isExpanded() -->
                 <div class="expand-collapse-panel expanded" data-bind="click: $parent.toggleExpand">
                     <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}, css: { error: !title.isValid() }">Title</span>
+                    <div class="expand-collapse-panel-btn"></div>
                 </div>
                 <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() } ,  autofocus: { focus: $parent.isCreatedQuestion, autoselect: $parent.isCreatedQuestion }">
                 </div>
@@ -24,6 +25,7 @@
                 <!-- ko ifnot: $parent.isExpanded() -->
                 <div class="expand-collapse-panel collapsed" data-bind="click: $parent.toggleExpand">
                     <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}">Title</span>
+                    <div class="expand-collapse-panel-btn"></div>
                 </div>
                 <!-- /ko -->
 
@@ -70,11 +72,13 @@
             <!-- ko if: isExpanded -->
             <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'answerOptions' }">Answer options</span>
+                <div class="expand-collapse-panel-btn"></div>
             </div>
             <!-- /ko -->
             <!-- ko ifnot: isExpanded -->
             <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'answerOptions' }">Answer options</span>
+                <div class="expand-collapse-panel-btn"></div>
             </div>
             <!-- /ko -->
         </div>
@@ -150,11 +154,13 @@
             <!-- ko if: isExpanded -->
             <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'learningContent' }">Learning content</span>
+                <div class="expand-collapse-panel-btn"></div>
             </div>
             <!-- /ko -->
             <!-- ko ifnot: isExpanded -->
             <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'learningContent' }">Learning content</span>
+                <div class="expand-collapse-panel-btn"></div>
             </div>
             <!-- /ko -->
             <!-- ko if: isExpanded -->

@@ -1209,7 +1209,6 @@
     <Content Include="Content\images\sample\9.png" />
     <Content Include="Content\images\simpleCourseTemplate.png" />
     <Content Include="Content\images\slider.png" />
-    <Content Include="Content\images\sprites.png" />
     <Content Include="Content\images\sprites_16.png" />
     <Content Include="Content\images\sprites_24.png" />
     <Content Include="Content\images\sprites_32.png" />

@@ -1579,6 +1579,45 @@ span.top-navigation-item.current {
 
 /*#endregion BUTTONS*/
 
+/*#region INFO TOOLTIP*/
+
+.info-tooltip {
+    display: none;
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    margin-bottom: 9px;
+    padding: 6px 5px;
+    background-color: #55626f;
+    border-radius: 3px;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+}
+
+    .info-tooltip:after {
+        content: '';
+        display: block;
+        height: 10px;
+        width: 10px;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-top: -6px;
+        margin-left: -5px;
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        background: #55616f;
+    }
+    
+    .navigation-tree-wrapper.expanded + .content-area-wrapper .info-tooltip {
+        
+    }
+
+/*#endregion INFO TOOLTIP*/
+
 /*#region EMPTY LIST*/
 
 .empty-list-wrapper {
@@ -2211,6 +2250,16 @@ span.top-navigation-item.current {
 
 /*#endregion DIALOGS STYLE*/
 
+/*#region CURSOR*/
+.cursor-default {
+    cursor: default;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+/*#endregion CURSOR*/
+
 /*#region MEDIA CSS-STYLES*/
 
 @media (max-width: 640px) {
@@ -2328,12 +2377,3 @@ span.top-navigation-item.current {
 
 /*#endregion MEDIA*/
 
-/*#region CURSOR*/
-.cursor-default {
-    cursor: default;
-}
-
-.cursor-pointer {
-    cursor: pointer;
-}
-/*#endregion CURSOR*/

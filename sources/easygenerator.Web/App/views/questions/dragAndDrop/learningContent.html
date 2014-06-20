@@ -1,9 +1,17 @@
 ﻿<div class="content-section-wrapper">
     <div class="content-section" data-bind="with: learningContents">
-        <div class="expand-collapse-panel expanded">
+        <!-- ko if: isExpanded -->
+        <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
             <span class="expand-collapse-panel-label" data-bind="localize: { text: 'learningContent' }">Learning content</span>
+            <div class="expand-collapse-panel-btn" title="Collapse"></div>
         </div>
-
+        <!-- /ko -->
+        <!-- ko ifnot: isExpanded -->
+        <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
+            <span class="expand-collapse-panel-label" data-bind="localize: { text: 'learningContent' }">Learning content</span>
+            <div class="expand-collapse-panel-btn" title="Expand"></div>
+        </div>
+        <!-- /ko -->
         <!-- ko if: isExpanded -->
         <ul class="unstyled question-content-items-list" data-bind="visible: isExpanded">
             <!-- ko foreach: learningContents -->
