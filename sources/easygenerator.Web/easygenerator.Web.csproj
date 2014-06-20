@@ -374,6 +374,24 @@
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorRemoved.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorRemoved.spec.js">
+      <DependentUpon>collaboratorRemoved.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\finished.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\finished.spec.js">
+      <DependentUpon>finished.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\started.spec.js">
+      <DependentUpon>started.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\disabled.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\disabled.spec.js">
+      <DependentUpon>disabled.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\collaboration\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\backgroundChanged.spec.js">
       <DependentUpon>backgroundChanged.js</DependentUpon>
     </Content>
@@ -416,9 +434,10 @@
     <Content Include="App\synchronization\handlers\answer\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\course\eventHandlers\collaboratorRegistered.spec.js">
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorRegistered.spec.js">
       <DependentUpon>collaboratorRegistered.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\collaboration\handler.js" />
     <Content Include="App\synchronization\handlers\learningContent\eventHandlers\created.spec.js">
       <DependentUpon>created.js</DependentUpon>
     </Content>
@@ -444,17 +463,14 @@
     <Content Include="App\synchronization\handlers\answer\eventHandlers\created.spec.js">
       <DependentUpon>created.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\course\eventHandlers\collaboratorRegistered.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorRegistered.js" />
     <Content Include="App\synchronization\handlers\course\handler.js" />
     <Content Include="App\synchronization\handlers\course\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\course\eventHandlers\collaborationStarted.js" />
-    <Content Include="App\synchronization\handlers\course\eventHandlers\collaborationStarted.spec.js">
-      <DependentUpon>collaborationStarted.js</DependentUpon>
-    </Content>
-    <Content Include="App\synchronization\handlers\course\eventHandlers\collaboratorAdded.js" />
-    <Content Include="App\synchronization\handlers\course\eventHandlers\collaboratorAdded.spec.js">
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\started.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorAdded.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorAdded.spec.js">
       <DependentUpon>collaboratorAdded.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\course\eventHandlers\deleted.js" />

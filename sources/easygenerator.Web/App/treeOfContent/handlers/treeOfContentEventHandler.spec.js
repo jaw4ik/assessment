@@ -137,7 +137,7 @@
 
             describe('when course is expanded', function () {
 
-                describe('when index is undefined', function() {
+                describe('when index is undefined', function () {
 
                     it('should relate objective to the course in the last position', function () {
                         var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
@@ -244,19 +244,55 @@
 
         });
 
-        describe('courseCollaborationStarted:', function () {
+        describe('collaborationStarted:', function () {
 
             it('should be function', function () {
-                expect(handler.courseCollaborationStarted).toBeFunction();
+                expect(handler.collaborationStarted).toBeFunction();
             });
 
             it('should add course to the tree of content', function () {
                 var treeOfContent = { sharedChildren: ko.observableArray() };
                 spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
 
-                handler.courseCollaborationStarted({ id: 'courseId', title: 'title' });
+                handler.collaborationStarted({ id: 'courseId', title: 'title' });
 
                 expect(treeOfContent.sharedChildren().length).toEqual(1);
+            });
+
+        });
+
+        describe('collaborationDisabled:', function () {
+
+            it('should be function', function () {
+                expect(handler.collaborationDisabled).toBeFunction();
+            });
+
+            it('should remove course from the tree of content', function () {
+                var courseId = 'courseId';
+                var treeOfContent = { sharedChildren: ko.observableArray([{ id: courseId }]) };
+                spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
+
+                handler.collaborationDisabled([courseId]);
+
+                expect(treeOfContent.sharedChildren().length).toEqual(0);
+            });
+
+        });
+
+        describe('collaborationFinished:', function () {
+
+            it('should be function', function () {
+                expect(handler.collaborationFinished).toBeFunction();
+            });
+
+            it('should remove course from objective in index', function () {
+                var treeOfContent = { children: ko.observableArray([{ id: 'courseId' }, { id: '-' }]) };
+                spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
+
+                handler.collaborationFinished('courseId');
+
+                expect(treeOfContent.children().length).toEqual(1);
+                expect(treeOfContent.children()[0].id).not.toEqual('courseId');
             });
 
         });

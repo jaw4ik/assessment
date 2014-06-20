@@ -3,24 +3,6 @@
 
     describe('synchronization course [handler]', function () {
 
-        describe('collaborationStarted', function () {
-            it('should be function', function () {
-                expect(handler.collaborationStarted).toBeFunction();
-            });
-        });
-
-        describe('collaboratorAdded:', function () {
-            it('should be function', function () {
-                expect(handler.collaboratorAdded).toBeFunction();
-            });
-        });
-
-        describe('collaboratorRegistered:', function () {
-            it('should be function', function () {
-                expect(handler.collaboratorRegistered).toBeFunction();
-            });
-        });
-
         describe('titleUpdated:', function () {
             it('should be function', function () {
                 expect(handler.titleUpdated).toBeFunction();

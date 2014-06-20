@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/course/eventHandlers/collaboratorRegistered'], function (handler) {
+﻿define(['synchronization/handlers/collaboration/eventHandlers/collaboratorRegistered'], function (handler) {
     'use strict';
 
     var
@@ -12,7 +12,7 @@
             { collaborators: [{ email: 'email' }] }
     ];
 
-    describe('synchronization course [collaboratorRegistered]', function () {
+    describe('synchronization collaboration [collaboratorRegistered]', function () {
         
         beforeEach(function () {
             dataContext.courses = courses;

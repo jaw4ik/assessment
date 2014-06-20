@@ -123,6 +123,18 @@
             });
         });
 
+        describe('collaboratorRemoved:', function () {
+            it('should be function', function () {
+                expect(viewModel.collaboratorRemoved).toBeFunction();
+            });
+
+            it('should remove collaborator', function () {
+                viewModel.members(collaborators);
+                viewModel.collaboratorRemoved(collaborators[0].email);
+                expect(viewModel.members().length).toBe(3);
+            });
+        });
+
         describe('activate:', function () {
             var getCollaborators;
 
@@ -140,7 +152,7 @@
 
             describe('when activateData is not an object', function () {
                 it('should throw exception', function () {
-                    var f = function() {
+                    var f = function () {
                         viewModel.activate();
                     };
 
@@ -268,6 +280,14 @@
                 viewModel.deactivate();
 
                 expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded + viewModel.courseId, viewModel.collaboratorAdded);
+            });
+
+            it('should unsubscribe from collaboratorRemoved event', function () {
+                viewModel.members([]);
+
+                viewModel.deactivate();
+
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRemoved + viewModel.courseId, viewModel.collaboratorRemoved);
             });
 
             it('should call deactivate function for all members', function () {

@@ -59,10 +59,15 @@
             'synchronization/handlers/objective/eventHandlers/titleUpdated.spec',
             'synchronization/handlers/objective/eventHandlers/questionsReordered.spec',
 
+            'synchronization/handlers/collaboration/handler.spec',
+            'synchronization/handlers/collaboration/eventHandlers/started.spec',
+            'synchronization/handlers/collaboration/eventHandlers/finished.spec',
+            'synchronization/handlers/collaboration/eventHandlers/disabled.spec',
+            'synchronization/handlers/collaboration/eventHandlers/collaboratorAdded.spec',
+            'synchronization/handlers/collaboration/eventHandlers/collaboratorRemoved.spec',
+            'synchronization/handlers/collaboration/eventHandlers/collaboratorRegistered.spec',
+
             'synchronization/handlers/course/handler.spec',
-            'synchronization/handlers/course/eventHandlers/collaborationStarted.spec',
-            'synchronization/handlers/course/eventHandlers/collaboratorAdded.spec',
-            'synchronization/handlers/course/eventHandlers/collaboratorRegistered.spec',
             'synchronization/handlers/course/eventHandlers/deleted.spec',
             'synchronization/handlers/course/eventHandlers/introductionContentUpdated.spec',
             'synchronization/handlers/course/eventHandlers/objectiveRelated.spec',

@@ -11,7 +11,10 @@
             courseCreated: courseCreated,
             courseDeleted: courseDeleted,
             courseTitleUpdated: courseTitleUpdated,
-            courseCollaborationStarted: courseCollaborationStarted,
+
+            collaborationStarted: collaborationStarted,
+            collaborationDisabled: collaborationDisabled,
+            collaborationFinished: collaborationFinished,
 
             objectiveRelated: objectiveRelated,
             objectivesUnrelated: objectivesUnrelated,
@@ -24,7 +27,7 @@
             treeOfContentTraversal.getTreeOfContent().children.unshift(new CourseTreeNode(course.id, course.title, "#course/" + course.id, course.createdOn));
         }
 
-        function courseCollaborationStarted(course) {
+        function collaborationStarted(course) {
             var sharedCourses = treeOfContentTraversal.getTreeOfContent().sharedChildren();
             sharedCourses.push(new CourseTreeNode(course.id, course.title, "#course/" + course.id, course.createdOn));
             sharedCourses = _.sortBy(sharedCourses, function (item) {
@@ -33,12 +36,28 @@
             treeOfContentTraversal.getTreeOfContent().sharedChildren(sharedCourses);
         }
 
+        function collaborationDisabled(courseIds) {
+            deleteCourses(treeOfContentTraversal.getTreeOfContent().sharedChildren, courseIds);
+        }
+
+        function collaborationFinished(courseId) {
+            deleteCourse(treeOfContentTraversal.getTreeOfContent().children, courseId);
+        }
+
         function courseDeleted(courseId) {
             deleteCourse(treeOfContentTraversal.getTreeOfContent().children, courseId);
         }
 
         function courseDeletedByCollaborator(courseId) {
             deleteCourse(treeOfContentTraversal.getTreeOfContent().sharedChildren, courseId);
+        }
+
+        function deleteCourses(courses, courseIds) {
+            _.each(courses(), function (course) {
+                if (_.some(courseIds, function (courseId) { return course.id == courseId; })) {
+                    courses.remove(course);
+                }
+            });
         }
 
         function deleteCourse(courses, courseId) {

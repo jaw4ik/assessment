@@ -65,7 +65,6 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
     app.on(constants.messages.objective.questionsReorderedByCollaborator, self.handler.questionsReordered);
 
     app.on(constants.messages.course.created, self.handler.courseCreated);
-    app.on(constants.messages.course.collaboration.started, self.handler.courseCollaborationStarted);
     app.on(constants.messages.course.deleted, self.handler.courseDeleted);
     app.on(constants.messages.course.deletedByCollaborator, self.handler.courseDeletedByCollaborator);
     app.on(constants.messages.course.titleUpdated, self.handler.courseTitleUpdated);
@@ -76,6 +75,10 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
     app.on(constants.messages.course.objectivesUnrelatedByCollaborator, self.handler.objectivesUnrelated);
     app.on(constants.messages.course.objectivesReordered, self.handler.objectivesReordered);
     app.on(constants.messages.course.objectivesReorderedByCollaborator, self.handler.objectivesReordered);
+
+    app.on(constants.messages.course.collaboration.started, self.handler.collaborationStarted);
+    app.on(constants.messages.course.collaboration.disabled, self.handler.collaborationDisabled);
+    app.on(constants.messages.course.collaboration.finished, self.handler.collaborationFinished);
 
     router.routeData.subscribe(function (navigationContext) {
         treeOfContentAutoExpandHandler.handle(viewModel, navigationContext).then(function () {

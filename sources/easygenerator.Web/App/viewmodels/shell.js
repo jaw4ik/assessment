@@ -1,5 +1,5 @@
 ﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker',
-    'help/helpHint', 'plugins/dialog','notify', 'constants'],
+    'help/helpHint', 'plugins/dialog', 'notify', 'constants'],
     function (app, composition, router, routes, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, help, dialog, notify, constants) {
 
         "use strict";
@@ -28,7 +28,9 @@
             help: help,
             courseDeleted: courseDeleted,
             objectivesUnrelated: objectivesUnrelated,
-            questionsDeleted: questionsDeleted
+            questionsDeleted: questionsDeleted,
+            courseCollaborationDisabled: courseCollaborationDisabled,
+            courseCollaborationFinished: courseCollaborationFinished
         };
 
         viewModel.activeModuleName = ko.computed(function () {
@@ -57,9 +59,11 @@
             requestsCounter(requestsCounter() - 1);
         });
 
-        app.on(constants.messages.course.deletedByCollaborator, courseDeleted);
-        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, objectivesUnrelated);
-        app.on(constants.messages.question.deletedByCollaborator, questionsDeleted);
+        app.on(constants.messages.course.deletedByCollaborator, viewModel.courseDeleted);
+        app.on(constants.messages.course.collaboration.disabled, viewModel.courseCollaborationDisabled);
+        app.on(constants.messages.course.collaboration.finished, viewModel.courseCollaborationFinished);
+        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.objectivesUnrelated);
+        app.on(constants.messages.question.deletedByCollaborator, viewModel.questionsDeleted);
 
         return viewModel;
 
@@ -172,6 +176,21 @@
                 return;
 
             notify.error(localizationManager.localize('questionHasBeenDeletedByCollaborator'));
+        }
+
+        function courseCollaborationDisabled(courseIds) {
+            if (!_.some(courseIds, function (courseId) { return router.routeData().courseId == courseId; })) {
+                return;
+            }
+
+            notify.error(localizationManager.localize('courseIsNotAvailableAnyMore'));
+        }
+
+        function courseCollaborationFinished(courseId){
+            if (router.routeData().courseId != courseId)
+                return;
+
+            notify.error(localizationManager.localize('courseIsNotAvailableAnyMore'));
         }
     }
 );

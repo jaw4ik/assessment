@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/course/eventHandlers/collaboratorAdded'], function (handler) {
+﻿define(['synchronization/handlers/collaboration/eventHandlers/collaboratorAdded'], function (handler) {
     "use strict";
 
     var
@@ -7,7 +7,7 @@
         collaboratorModelMapper = require('mappers/collaboratorModelMapper')
     ;
 
-    describe('synchronization course [collaboratorAdded]', function () {
+    describe('synchronization collaboration [collaboratorAdded]', function () {
 
         var course = { Id: 'courseId' },
             user = { Email: 'mail', FullName: 'fullName' },

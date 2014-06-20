@@ -1,5 +1,6 @@
 ﻿define(['viewModels/courses/collaboration/collaborator', 'dialogs/collaboration/addCollaborator', 'eventTracker', 'durandal/app', 'constants', 'userContext', 'repositories/collaboratorRepository', 'guard'],
     function (vmCollaborator, addCollaboratorDialog, eventTracker, app, constants, userContext, collaboratorRepository, guard) {
+        "use strict";
 
         var events = {
             openAddCourseCollaboratorDialog: 'Open "add people for collaboration" dialog'
@@ -14,6 +15,7 @@
 
             addMember: addMember,
             collaboratorAdded: collaboratorAdded,
+            collaboratorRemoved: collaboratorRemoved,
             activate: activate,
             deactivate: deactivate
         };
@@ -33,6 +35,12 @@
             });
 
             viewModel.members(items);
+        }
+
+        function collaboratorRemoved(collaboratorEmail) {
+            viewModel.members(_.reject(viewModel.members(), function (item) {
+                return item.email == collaboratorEmail;
+            }));
         }
 
         function activate(activationData) {
@@ -55,15 +63,17 @@
                         })
                         .value();
 
-                    
+
                     viewModel.members(members);
 
                     app.on(constants.messages.course.collaboration.collaboratorAdded + viewModel.courseId, viewModel.collaboratorAdded);
+                    app.on(constants.messages.course.collaboration.collaboratorRemoved + viewModel.courseId, viewModel.collaboratorRemoved);
                 });
         }
 
         function deactivate() {
             app.off(constants.messages.course.collaboration.collaboratorAdded + viewModel.courseId, viewModel.collaboratorAdded);
+            app.off(constants.messages.course.collaboration.collaboratorRemoved + viewModel.courseId, viewModel.collaboratorRemoved);
 
             _.each(viewModel.members(), function (item) {
                 item.deactivate();

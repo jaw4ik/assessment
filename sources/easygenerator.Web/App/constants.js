@@ -110,8 +110,11 @@
                     },
                     collaboration: {
                         collaboratorAdded: 'course:collaboration-collaboratorAdded:',
+                        collaboratorRemoved: 'course:collaboration-collaboratorRemoved',
+                        collaboratorRegistered: 'course:collaboration-collaboratorRegistered:',
                         started: 'course:collaboration-started',
-                        collaboratorRegistered: 'course:collaboration-collaboratorRegistered:'
+                        disabled: 'course:collaboration-disabled',
+                        finished: 'course:collaboration-finished'
                     }
                 },
                 objective: {
@@ -128,7 +131,7 @@
                     titleUpdatedByCollaborator: 'question:titleUpdatedByCollaborator',
                     contentUpdatedByCollaborator: 'question:contentUpdatedByCollaborator',
                     deletedByCollaborator: 'question:deletedByCollaborator',
-                    
+
                     answer: {
                         addedByCollaborator: 'question:answer:addedByCollaborator',
                         deletedByCollaborator: 'question:answer:deletedByCollaborator',

@@ -42,6 +42,8 @@
             deletedByCollaborator: deletedByCollaborator,
             titleUpdated: titleUpdated,
             courseUpdated: courseUpdated,
+            collaborationDisabled: collaborationDisabled,
+            collaborationFinished: collaborationFinished,
 
             canActivate: canActivate,
             activate: activate
@@ -51,14 +53,16 @@
             return getSelectedCourses().length > 0;
         });
 
-        app.on(constants.messages.course.collaboration.started, courseCollaborationStarted);
-        app.on(constants.messages.course.deletedByCollaborator, deletedByCollaborator);
-        app.on(constants.messages.course.titleUpdatedByCollaborator, titleUpdated);
-        app.on(constants.messages.course.introductionContentUpdatedByCollaborator, courseUpdated);
-        app.on(constants.messages.course.templateUpdated, courseUpdated);
-        app.on(constants.messages.course.objectivesReorderedByCollaborator, courseUpdated);
-        app.on(constants.messages.course.objectiveRelatedByCollaborator, courseUpdated);
-        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, courseUpdated);
+        app.on(constants.messages.course.collaboration.started, viewModel.courseCollaborationStarted);
+        app.on(constants.messages.course.deletedByCollaborator, viewModel.deletedByCollaborator);
+        app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
+        app.on(constants.messages.course.introductionContentUpdatedByCollaborator, viewModel.courseUpdated);
+        app.on(constants.messages.course.templateUpdated, viewModel.courseUpdated);
+        app.on(constants.messages.course.objectivesReorderedByCollaborator, viewModel.courseUpdated);
+        app.on(constants.messages.course.objectiveRelatedByCollaborator, viewModel.courseUpdated);
+        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.courseUpdated);
+        app.on(constants.messages.course.collaboration.disabled, viewModel.collaborationDisabled);
+        app.on(constants.messages.course.collaboration.finished, viewModel.collaborationFinished);
 
         return viewModel;
 
@@ -142,8 +146,24 @@
         }
 
         function deletedByCollaborator(courseId) {
+            deleteSharedCourse(courseId);
+        }
+
+        function collaborationFinished(courseId) {
+            deleteSharedCourse(courseId);
+        }
+
+        function deleteSharedCourse(courseId) {
             viewModel.sharedCourses(_.reject(viewModel.sharedCourses(), function (item) {
                 return item.id == courseId;
+            }));
+        }
+
+        function collaborationDisabled(courseIds) {
+            viewModel.sharedCourses(_.reject(viewModel.sharedCourses(), function (item) {
+                return _.some(courseIds, function (courseId) {
+                    return item.id == courseId;
+                });
             }));
         }
 
