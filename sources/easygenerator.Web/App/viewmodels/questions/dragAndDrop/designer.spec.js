@@ -324,6 +324,32 @@
 
         });
 
+        describe('isExpanded:', function () {
+
+            it('should be observable', function () {
+                expect(designer.isExpanded).toBeObservable();
+            });
+
+            it('should be true by default', function () {
+                expect(designer.isExpanded()).toBeTruthy();
+            });
+
+        });
+
+        describe('toggleExpand:', function () {
+
+            it('should be function', function () {
+                expect(designer.toggleExpand).toBeFunction();
+            });
+
+            it('should toggle isExpanded value', function () {
+                designer.isExpanded(false);
+                designer.toggleExpand();
+                expect(designer.isExpanded()).toEqual(true);
+            });
+
+        });
+
     });
 
 });

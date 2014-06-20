@@ -5,7 +5,9 @@
         questionTitleMaxLength: constants.validation.questionTitleMaxLength,
         title: null,
         dragAndDrop: null,
-        initialize: initialize
+        initialize: initialize,
+        isExpanded: ko.observable(true),
+        toggleExpand: toggleExpand
     };
 
     return viewModel;
@@ -24,6 +26,10 @@
 
             return designer.activate(question.id);
         });
+    }
+
+    function toggleExpand() {
+        viewModel.isExpanded(!viewModel.isExpanded());
     }
 
 })

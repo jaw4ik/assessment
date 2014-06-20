@@ -1,13 +1,19 @@
 ﻿<section data-bind="with: dragAndDrop">
-    
     <div class="content-section-wrapper">
         <div class="content-section">
-            <div class="expand-collapse-panel expanded">
-                <span class="expand-collapse-panel-label">Drag and drop designer</span>
+            <!-- ko if: isExpanded -->
+            <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
+                <span class="expand-collapse-panel-label">Drag'n'drop designer</span>
             </div>
+            <!-- /ko -->
+            <!-- ko ifnot: isExpanded -->
+            <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
+                <span class="expand-collapse-panel-label">Drag'n'drop designer</span>
+            </div>
+            <!-- /ko -->
         </div>
     </div>
-
+    <!-- ko if: isExpanded -->
     <div class="content-section-wrapper answer-options">
         <div class="question-answer-options-area">
             <div class="content-section">
@@ -66,5 +72,5 @@
             </div>
         </div>
     </div>
-
+    <!-- /ko -->
 </section>

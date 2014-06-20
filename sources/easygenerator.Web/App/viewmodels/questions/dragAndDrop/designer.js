@@ -26,6 +26,9 @@
         addDropspot: addDropspot,
         removeDropspot: removeDropspot,
 
+        isExpanded: ko.observable(true),
+        toggleExpand: toggleExpand,
+
         activate: activate
     };
 
@@ -78,6 +81,10 @@
             designer.dropspots.remove(dropspot);
             notify.saved();
         });
+    }
+
+    function toggleExpand() {
+        designer.isExpanded(!designer.isExpanded());
     }
 
 });
