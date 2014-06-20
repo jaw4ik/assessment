@@ -1237,6 +1237,9 @@
     learningContentHasBeenDeletedByCollaborator: {
         en: 'This learning has been deleted by collaborator. Please save the necessary data before you finish editing.'
     },
+    courseIsNotAvailableAnyMore: {
+        en: 'This course is not available any more. Please go to the list of courses.'
+    },
     waitingForRegistration: {
         en: 'waiting for registration...'
     },
