@@ -54,6 +54,12 @@
         },
             
         updatedByCollaborator = function (question) {
+            if (_.isNullOrUndefined(question.content)) {
+                text(null);
+                originalText(text());
+                return;
+            }
+
             var updatedFillInTheBlank = fillInTheBlankParser.getData(question.content, question.answers);
             originalText(updatedFillInTheBlank);
 

@@ -294,7 +294,8 @@
         });
 
         describe('updatedByCollaborator:', function () {
-            var fillInTheBlank = 'some content';
+            var question,
+                fillInTheBlank = 'some content';
 
             beforeEach(function () {
                 spyOn(parser, 'getData').and.returnValue(fillInTheBlank);
@@ -304,38 +305,56 @@
                 expect(viewModel.updatedByCollaborator).toBeFunction();
             });
 
+            describe('when question content is null', function() {
+
+                it('should set null to text', function () {
+                    viewModel.text('some text');
+                    viewModel.updatedByCollaborator({});
+                    expect(viewModel.text()).toBeNull();
+                });
+
+                it('should set null to original text', function () {
+                    viewModel.originalText('some text');
+                    viewModel.updatedByCollaborator({});
+                    expect(viewModel.text()).toBeNull();
+                });
+            });
+
             describe('when isEditing is true', function() {
-                beforeEach(function() {
+                
+                beforeEach(function () {
+                    question = { content: 'text' };
                     viewModel.isEditing(true);
                 });
 
                 it('should update original text', function () {
                     viewModel.originalText('');
-                    viewModel.updatedByCollaborator({});
+                    viewModel.updatedByCollaborator(question);
                     expect(viewModel.originalText()).toBe(fillInTheBlank);
                 });
 
                 it('should not update text', function () {
                     viewModel.text('');
-                    viewModel.updatedByCollaborator({});
+                    viewModel.updatedByCollaborator(question);
                     expect(viewModel.text()).toBe('');
                 });
             });
 
             describe('when isEditing is false', function () {
                 beforeEach(function () {
+                    question = { content: 'text' };
                     viewModel.isEditing(false);
                 });
 
                 it('should update original text', function () {
                     viewModel.originalText('');
-                    viewModel.updatedByCollaborator({});
+                    viewModel.updatedByCollaborator(question);
                     expect(viewModel.originalText()).toBe(fillInTheBlank);
                 });
 
                 it('should update text', function() {
                     viewModel.text('');
-                    viewModel.updatedByCollaborator({});
+                    viewModel.updatedByCollaborator(question);
                     expect(viewModel.text()).toBe(fillInTheBlank);
                 });
             });

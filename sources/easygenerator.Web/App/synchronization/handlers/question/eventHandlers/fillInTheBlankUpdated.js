@@ -4,7 +4,6 @@
 
         return function (questionId, content, answers, modifiedOn) {
             guard.throwIfNotString(questionId, 'QuestionId is not a string');
-            guard.throwIfNotString(content, 'Content is not a string');
             guard.throwIfNotArray(answers, 'Answers is not an array');
             guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
 
@@ -17,7 +16,6 @@
             question.content = content;
             question.answers = _.map(answers, answerModelMapper.map);
             question.modifiedOn = new Date(modifiedOn);
-
             app.trigger(constants.messages.question.fillInTheBlank.updatedByCollaborator, question);
         }
     });

@@ -33,16 +33,6 @@
             });
         });
 
-        describe('when content is not a string', function () {
-            it('should throw an exception', function () {
-                var f = function () {
-                    handler(questionId, undefined, answers, modifiedOn.toISOString());
-                };
-
-                expect(f).toThrow('Content is not a string');
-            });
-        });
-
         describe('when modifiedOn is not a date', function () {
             it('should throw an exception', function () {
                 var f = function () {
