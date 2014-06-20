@@ -10,23 +10,21 @@ namespace easygenerator.Web.Configuration
     {
         public static void Configure()
         {
-            var mailSenderSettings = DependencyResolver.Current.GetService<MailSettings>();
             var cacheScheduler = DependencyResolver.Current.GetService<Scheduler>();
-            var passwordRecoveryTicketExpirationTask = DependencyResolver.Current.GetService<PasswordRecoveryTicketExpirationTask>();
+            var mailSenderSettings = DependencyResolver.Current.GetService<MailSettings>();
             var configurationReader = DependencyResolver.Current.GetService<ConfigurationReader>();
 
-            cacheScheduler.ScheduleTask(passwordRecoveryTicketExpirationTask, new TimeSpan(0, 0, 2, 0));
+            cacheScheduler.ScheduleTask(typeof(PasswordRecoveryTicketExpirationTask), new TimeSpan(0, 0, 2, 0));
+            cacheScheduler.ScheduleTask(typeof(SubscriptionExpirationTask), new TimeSpan(0, 0, 0, 2));
 
             if (mailSenderSettings.MailSenderSettings.Enable)
             {
-                var mailSenderTask = DependencyResolver.Current.GetService<MailSenderTask>();
-                cacheScheduler.ScheduleTask(mailSenderTask, new TimeSpan(0, 0, 0, mailSenderSettings.MailSenderSettings.Interval));
+                cacheScheduler.ScheduleTask(typeof(MailSenderTask), new TimeSpan(0, 0, 0, mailSenderSettings.MailSenderSettings.Interval));
             }
 
             if (configurationReader.HttpRequestsSenderConfiguration.Enabled)
             {
-                var httpRequestsSenderTask = DependencyResolver.Current.GetService<HttpRequestsSenderTask>();
-                cacheScheduler.ScheduleTask(httpRequestsSenderTask, new TimeSpan(0, 0, 0, configurationReader.HttpRequestsSenderConfiguration.Interval));
+                cacheScheduler.ScheduleTask(typeof(HttpRequestsSenderTask), new TimeSpan(0, 0, 0, configurationReader.HttpRequestsSenderConfiguration.Interval));
             }
         }
     }

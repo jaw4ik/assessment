@@ -60,6 +60,7 @@ namespace easygenerator.DataAccess
                 .As<IQuerableRepository<User>>();
 
             builder.RegisterType<PasswordRecoveryTicketRepository>()
+                .As<IPasswordRecoveryTicketRepository>()
                 .As<IQuerableRepository<PasswordRecoveryTicket>>();
 
             builder.RegisterType<MailNotificationRepository>()

@@ -4,6 +4,6 @@ namespace easygenerator.Infrastructure
 {
     public interface IScheduler
     {
-        void ScheduleTask(ITask task, TimeSpan interval);
+        void ScheduleTask(Type taskType, TimeSpan interval);
     }
 }

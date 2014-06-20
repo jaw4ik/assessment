@@ -10,16 +10,14 @@ namespace easygenerator.Web.Components.Tasks
 {
     public class HttpRequestsSenderTask : ITask
     {
-        private readonly IUnitOfWork _dataContext;
         private readonly IHttpRequestsRepository _httpRequestsRepository;
         private readonly ConfigurationReader _configurationReader;
         private readonly HttpClient _httpClient;
         private readonly IMailNotificationManager _mailNotificationManager;
         private readonly ILog _logger;
 
-        public HttpRequestsSenderTask(IUnitOfWork unitOfWork, IHttpRequestsRepository httpRequestsRepository, IMailNotificationManager mailNotificationManager, HttpClient httpClient, ConfigurationReader configurationReader, ILog logger)
+        public HttpRequestsSenderTask(IHttpRequestsRepository httpRequestsRepository, IMailNotificationManager mailNotificationManager, HttpClient httpClient, ConfigurationReader configurationReader, ILog logger)
         {
-            _dataContext = unitOfWork;
             _httpRequestsRepository = httpRequestsRepository;
             _configurationReader = configurationReader;
             _httpClient = httpClient;
@@ -63,8 +61,6 @@ namespace easygenerator.Web.Components.Tasks
                     throw new NotImplementedException("Now only POST verb is supported by HttpRequestsSender. Logic for other verbs has to be implemented.");
                 }
             }
-
-            _dataContext.Save();
         }
     }
 }

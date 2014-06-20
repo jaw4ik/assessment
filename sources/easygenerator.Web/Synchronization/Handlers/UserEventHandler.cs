@@ -2,7 +2,7 @@
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.Web.Synchronization.Broadcasting;
 
-namespace easygenerator.Web.Synchronization
+namespace easygenerator.Web.Synchronization.Handlers
 {
     public class UserEventHandler : IDomainEventHandler<UserDonwgraded>, IDomainEventHandler<UserUpgradedToStarter>
     {

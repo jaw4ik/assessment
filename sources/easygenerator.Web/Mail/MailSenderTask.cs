@@ -1,6 +1,4 @@
 ﻿using System.Linq;
-using easygenerator.DataAccess;
-using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Mail;
 
@@ -9,13 +7,11 @@ namespace easygenerator.Web.Mail
     public class MailSenderTask : ITask
     {
         private readonly IMailSender _mailSender;
-        private readonly IUnitOfWork _dataContext;
         private readonly IMailNotificationRepository _mailNotificationRepository;
         private readonly MailSettings _senderSettings;
 
-        public MailSenderTask(IUnitOfWork unitOfWork, IMailNotificationRepository mailRepository, IMailSender sender, MailSettings senderSettings)
+        public MailSenderTask(IMailNotificationRepository mailRepository, IMailSender sender, MailSettings senderSettings)
         {
-            _dataContext = unitOfWork;
             _mailSender = sender;
             _mailNotificationRepository = mailRepository;
             _senderSettings = senderSettings;
@@ -36,8 +32,6 @@ namespace easygenerator.Web.Mail
                     _mailNotificationRepository.Remove(mailNotification);
                 }
             }
-
-            _dataContext.Save();
         }
     }
 }

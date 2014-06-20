@@ -8,9 +8,9 @@ namespace easygenerator.Web.Components.Tasks
     public class Scheduler : IScheduler
     {
         private readonly ITaskInvoker _taskInvoker;
-        private readonly Dictionary<ITask, TimeSpan> _tasks;
+        private readonly Dictionary<Type, TimeSpan> _tasks;
 
-        public IQueryable<ITask> Tasks
+        public IQueryable<Type> Tasks
         {
             get { return _tasks.Keys.AsQueryable(); }
         }
@@ -20,23 +20,23 @@ namespace easygenerator.Web.Components.Tasks
             _taskInvoker = periodicSchedulerTimer;
             _taskInvoker.TaskInvoked += PeriodicSchedulerTimerTaskInvoked;
 
-            _tasks = new Dictionary<ITask, TimeSpan>();
+            _tasks = new Dictionary<Type, TimeSpan>();
         }
 
-        public void ScheduleTask(ITask task, TimeSpan interval)
+        public void ScheduleTask(Type taskType, TimeSpan interval)
         {
-            _tasks.Add(task, interval);
-            _taskInvoker.InvokeTask(task, interval);
+            _tasks.Add(taskType, interval);
+            _taskInvoker.InvokeTask(taskType, interval);
         }
 
-        void PeriodicSchedulerTimerTaskInvoked(object sender, ITask task)
+        void PeriodicSchedulerTimerTaskInvoked(object sender, Type taskType)
         {
-            if (!Tasks.Any(t => t == task))
+            if (!Tasks.Any(t => t == taskType))
             {
                 return;
             }
 
-            _taskInvoker.InvokeTask(task, _tasks[task]);
+            _taskInvoker.InvokeTask(taskType, _tasks[taskType]);
         }        
     }
 }

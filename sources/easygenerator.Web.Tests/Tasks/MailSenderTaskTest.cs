@@ -16,7 +16,6 @@ namespace easygenerator.Web.Tests.Tasks
     public class MailSenderTaskTest
     {
         private MailSenderTask _mailSenderTask;
-        private IUnitOfWork _unitOfWork;
         private IMailNotificationRepository _mailNotificationRepository;
         private IMailSender _mailSender;
         private MailSettings _mailSettings;
@@ -33,13 +32,12 @@ namespace easygenerator.Web.Tests.Tasks
             _configurationReader = Substitute.For<ConfigurationReader>();
             _configurationReader.MailSenderConfiguration.Returns(_mailSenderConfiguration);
 
-            _unitOfWork = Substitute.For<IUnitOfWork>();
             _mailNotificationRepository = Substitute.For<IMailNotificationRepository>();
             _mailSender = Substitute.For<IMailSender>();
             _mailSettings = Substitute.For<MailSettings>(_configurationReader);
             _mailSettings.MailSenderSettings.Returns(_mailSenderConfiguration);
 
-            _mailSenderTask = new MailSenderTask(_unitOfWork, _mailNotificationRepository, _mailSender, _mailSettings);
+            _mailSenderTask = new MailSenderTask(_mailNotificationRepository, _mailSender, _mailSettings);
         }
 
         #region Execute
@@ -99,20 +97,6 @@ namespace easygenerator.Web.Tests.Tasks
 
             //Assert
             _mailNotificationRepository.DidNotReceive().Remove(notification);
-        }
-
-        [TestMethod]
-        public void Execute_ShouldSaveUnitOfWork()
-        {
-            //Arrange
-            var notification = MailNotificationObjectMother.Create();
-            _mailNotificationRepository.GetCollection(_mailSenderConfiguration.BatchSize).Returns(new List<MailNotification>() { notification });
-
-            //Act
-            _mailSenderTask.Execute();
-
-            //Assert
-            _unitOfWork.Received().Save();
         }
 
         #endregion

@@ -19,7 +19,6 @@ namespace easygenerator.Web.Tests.Tasks
     public class HttpRequestsSenderTaskTests
     {
         private HttpRequestsSenderTask _httpRequestsSenderTask;
-        private IUnitOfWork _unitOfWork;
         private IHttpRequestsRepository _httpRequestsRepository;
         private IMailNotificationManager _mailNotificationManager;
         private HttpClient _httpClient;
@@ -31,7 +30,6 @@ namespace easygenerator.Web.Tests.Tasks
         [TestInitialize]
         public void InitializeTask()
         {
-            _unitOfWork = Substitute.For<IUnitOfWork>();
             _httpRequestsRepository = Substitute.For<IHttpRequestsRepository>();
             _mailNotificationManager = Substitute.For<IMailNotificationManager>();
             _httpClient = Substitute.For<HttpClient>();
@@ -39,7 +37,7 @@ namespace easygenerator.Web.Tests.Tasks
             _configurationSection = new HttpRequestsSenderConfigurationSection();
             _configurationReader.HttpRequestsSenderConfiguration.Returns(_configurationSection);
             _logger = Substitute.For<ILog>();
-            _httpRequestsSenderTask = new HttpRequestsSenderTask(_unitOfWork, _httpRequestsRepository, _mailNotificationManager, _httpClient, _configurationReader, _logger);
+            _httpRequestsSenderTask = new HttpRequestsSenderTask(_httpRequestsRepository, _mailNotificationManager, _httpClient, _configurationReader, _logger);
 
             _requests = new Collection<HttpRequest>();
         }
@@ -54,17 +52,6 @@ namespace easygenerator.Web.Tests.Tasks
             _httpRequestsSenderTask.Execute();
             // Assert
             _httpRequestsRepository.Received().GetCollection(15, 15);
-        }
-
-        [TestMethod]
-        public void Execute_ShouldNotSaveUnitOfWorkIfThereAreNoRequests()
-        {
-            // Arrange 
-            _httpRequestsRepository.GetCollection(10, 10).Returns(info => null);
-            // Act
-            _httpRequestsSenderTask.Execute();
-            // Assert
-            _unitOfWork.DidNotReceive().Save();
         }
 
         [TestMethod]
@@ -223,20 +210,5 @@ namespace easygenerator.Web.Tests.Tasks
             _mailNotificationManager.DidNotReceive().AddMailNotificationToQueue(Constants.MailTemplates.HttpRequestFailedTemplate, httpRequest);
         }
 
-        [TestMethod]
-        public void Execute_ShouldSaveUnitOfWorkIfRequestsExist()
-        {
-            // Arrange
-            var httpRequest = HttpRequestObjectMother.CreateWithVerb("POST");
-
-            _requests.Add(httpRequest);
-            _httpRequestsRepository.GetCollection(10, 10).Returns(_requests);
-
-            // Act
-            _httpRequestsSenderTask.Execute();
-
-            // Assert
-            _unitOfWork.Received().Save();
-        }
     }
 }

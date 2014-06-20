@@ -10,7 +10,7 @@ namespace easygenerator.Web.Tests.Tasks
     public class SchedulerTest
     {
         private Scheduler _scheduler;
-        private ITask _task;
+        private Type _task;
         private ITaskInvoker _taskInvoker;
         private TimeSpan _interval;
 
@@ -20,7 +20,7 @@ namespace easygenerator.Web.Tests.Tasks
             _taskInvoker = Substitute.For<ITaskInvoker>();
             _scheduler = new Scheduler(_taskInvoker);
 
-            _task = Substitute.For<ITask>();
+            _task = typeof(ITask);
             _interval = new TimeSpan(0, 0, 2, 0);
         }
 
@@ -46,7 +46,7 @@ namespace easygenerator.Web.Tests.Tasks
             _scheduler.ScheduleTask(_task, _interval);
 
             //Act
-            _taskInvoker.TaskInvoked += Raise.Event<EventHandler<ITask>>(this, _task);
+            _taskInvoker.TaskInvoked += Raise.Event<EventHandler<Type>>(this, _task);
 
             //Assert
             _taskInvoker.Received().InvokeTask(_task, _interval);
@@ -58,7 +58,7 @@ namespace easygenerator.Web.Tests.Tasks
             //Arrange
 
             //Act
-            _taskInvoker.TaskInvoked += Raise.Event<EventHandler<ITask>>(this, Substitute.For<ITask>());
+            _taskInvoker.TaskInvoked += Raise.Event<EventHandler<Type>>(this, Substitute.For<Type>());
 
             //Assert
             _taskInvoker.DidNotReceive().InvokeTask(_task, _interval);

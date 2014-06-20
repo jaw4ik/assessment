@@ -1,31 +1,30 @@
 ﻿using System;
-using System.Data.SqlClient;
+using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Configuration;
 
 namespace easygenerator.Web.Components.Tasks
 {
-    public class PasswordRecoveryTicketExpirationTask : SqlCommandTask
+    public class PasswordRecoveryTicketExpirationTask : ITask
     {
-        public PasswordRecoveryTicketExpirationTask(ConfigurationReader configurationReader)
-            : base(configurationReader)
+        private readonly ConfigurationReader _configurationReader;
+        private readonly IPasswordRecoveryTicketRepository _passwordRecoveryTicketRepository;
+
+        public PasswordRecoveryTicketExpirationTask(ConfigurationReader configurationReader, IPasswordRecoveryTicketRepository passwordRecoveryTicketRepository)
         {
+            _configurationReader = configurationReader;
+            _passwordRecoveryTicketRepository = passwordRecoveryTicketRepository;
         }
 
-        protected override string GetQueryString()
-        {
-            return "DELETE FROM dbo.PasswordRecoveryTickets " +
-                   "WHERE CreatedOn < @ExpirationDate";
-        }
-
-        protected override SqlParameter[] GetParameters()
+        public void Execute()
         {
             var expirationDate = DateTimeWrapper.Now().Subtract(new TimeSpan(0, 0, _configurationReader.PasswordRecoveryExpirationInterval, 0));
-            
-            return new[]
+
+            var expiredTickets = _passwordRecoveryTicketRepository.GetCollection(t => t.CreatedOn < expirationDate);
+            foreach (var expiredTicket in expiredTickets)
             {
-                new SqlParameter("@ExpirationDate", expirationDate)
-            };
+                _passwordRecoveryTicketRepository.Remove(expiredTicket);
+            }
         }
     }
 }

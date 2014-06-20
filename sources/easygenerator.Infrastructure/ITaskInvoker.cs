@@ -4,8 +4,8 @@ namespace easygenerator.Infrastructure
 {
     public interface ITaskInvoker
     {
-        void InvokeTask(ITask task, TimeSpan period);
+        void InvokeTask(Type task, TimeSpan period);
 
-        event EventHandler<ITask> TaskInvoked;
+        event EventHandler<Type> TaskInvoked;
     }
 }

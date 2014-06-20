@@ -216,6 +216,7 @@
     <Compile Include="Controllers\Api\MultipleselectController.cs" />
     <Compile Include="Mail\IMailSenderWrapper.cs" />
     <Compile Include="Components\Mappers\LearningContentMapper.cs" />
+    <Compile Include="Components\Tasks\SubscriptionExpirationTask.cs" />
     <Compile Include="Permissions\AnswerPermissionsChecker.cs" />
     <Compile Include="Permissions\CoursePermissionsChecker.cs" />
     <Compile Include="Permissions\IEntityPermissionsChecker.cs" />
@@ -277,7 +278,6 @@
     <Compile Include="Components\Tasks\HttpRequestsSenderTask.cs" />
     <Compile Include="Components\Tasks\PasswordRecoveryTicketExpirationTask.cs" />
     <Compile Include="Components\Tasks\Scheduler.cs" />
-    <Compile Include="Components\Tasks\SqlCommandTask.cs" />
     <Compile Include="Components\UrlHelperWrapper.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\ContainerConfiguration.cs" />

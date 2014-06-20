@@ -89,9 +89,9 @@ namespace easygenerator.Web.Configuration
 
             #region Domain events dependecies
 
-            builder.RegisterType<DomainEventPublisher>().As(typeof(IDomainEventPublisher)).InstancePerRequest();
-            builder.RegisterGeneric(typeof(DomainEventHandlersProvider<>)).As(typeof(IDomainEventHandlersProvider<>)).InstancePerRequest();
-            RegisterGenericTypes(builder, applicationAssembly, typeof(IDomainEventHandler<>)).ForEach(_ => _.InstancePerRequest());
+            builder.RegisterType<DomainEventPublisher>().As(typeof(IDomainEventPublisher)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(DomainEventHandlersProvider<>)).As(typeof(IDomainEventHandlersProvider<>)).InstancePerLifetimeScope();
+            RegisterGenericTypes(builder, applicationAssembly, typeof(IDomainEventHandler<>)).ForEach(_ => _.InstancePerLifetimeScope());
 
             #endregion
 
@@ -135,7 +135,7 @@ namespace easygenerator.Web.Configuration
 
             #region Http requests sender dependencies
 
-            builder.RegisterType<HttpRequestsSenderTask>().SingleInstance();
+            builder.RegisterType<HttpRequestsSenderTask>().InstancePerLifetimeScope();
             builder.RegisterType<HttpRequestsManager>().As<IHttpRequestsManager>().SingleInstance();
 
             #endregion
@@ -150,10 +150,11 @@ namespace easygenerator.Web.Configuration
             #region Scheduler
 
             builder.RegisterType<Scheduler>().SingleInstance();
-
-            builder.RegisterType<PasswordRecoveryTicketExpirationTask>().SingleInstance();
-            builder.RegisterType<MailSenderTask>().SingleInstance();
             builder.RegisterType<CacheExpirationTaskInvoker>().As<ITaskInvoker>().SingleInstance();
+
+            builder.RegisterType<PasswordRecoveryTicketExpirationTask>().InstancePerLifetimeScope();
+            builder.RegisterType<MailSenderTask>().InstancePerLifetimeScope();
+            builder.RegisterType<SubscriptionExpirationTask>().InstancePerLifetimeScope();
 
             #endregion
 
