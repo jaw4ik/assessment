@@ -25,7 +25,12 @@
         }
 
         function courseCollaborationStarted(course) {
-            treeOfContentTraversal.getTreeOfContent().sharedChildren.unshift(new CourseTreeNode(course.id, course.title, "#course/" + course.id));
+            var sharedCourses = treeOfContentTraversal.getTreeOfContent().sharedChildren();
+            sharedCourses.push(new CourseTreeNode(course.id, course.title, "#course/" + course.id));
+            sharedCourses = _.sortBy(sharedCourses, function (item) {
+                return -item.createdOn;
+            });
+            treeOfContentTraversal.getTreeOfContent().sharedChildren(sharedCourses);
         }
 
         function courseDeleted(courseId) {
