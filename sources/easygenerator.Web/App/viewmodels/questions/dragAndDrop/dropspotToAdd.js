@@ -12,6 +12,10 @@
         dropspotToAdd.isVisible(false);
     }
 
+    dropspotToAdd.trim = function () {
+        dropspotToAdd(dropspotToAdd().trim());
+    }
+
     dropspotToAdd.clear = function () {
         dropspotToAdd(undefined);
     }

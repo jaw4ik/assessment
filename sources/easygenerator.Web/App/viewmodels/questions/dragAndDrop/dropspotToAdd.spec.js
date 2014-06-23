@@ -59,6 +59,20 @@
 
         });
 
+        describe('trim:', function () {
+
+            it('should be function', function () {
+                expect(dropspotToAdd.trim).toBeFunction();
+            });
+
+            it('should trim dropspotToAdd text', function () {
+                dropspotToAdd("          dropspot          ");
+                dropspotToAdd.trim();
+
+                expect(dropspotToAdd()).toEqual("dropspot");
+            });
+        });
+
         describe('isValid:', function () {
 
             describe('when text is undefined', function () {

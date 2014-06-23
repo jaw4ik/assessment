@@ -62,6 +62,8 @@
     }
 
     function addDropspot() {
+        designer.dropspotToAdd.trim();
+
         if (!designer.dropspotToAdd.isValid()) {
             designer.dropspotToAdd.clear();
             designer.dropspotToAdd.hide();

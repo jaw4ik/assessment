@@ -142,12 +142,19 @@
 
                 beforeEach(function () {
                     spyOn(dropspotToAdd, 'isValid').and.returnValue(true);
+                    spyOn(dropspotToAdd, 'trim').and.returnValue(true);
                 });
 
-                it('should execute command to add dropspot', function () {
+                it('should trim dropspotToAdd', function () {
                     designer.dropspotToAdd("dropspot");
                     designer.addDropspot();
                     expect(addDropspotCommand.execute).toHaveBeenCalled();
+                });
+
+                it('should execute command to add dropspot', function () {
+                    designer.dropspotToAdd("  dropspot  ");
+                    designer.addDropspot();
+                    expect(dropspotToAdd.trim).toHaveBeenCalled();
                 });
 
                 describe('and add dropspot command is executed', function () {
@@ -201,8 +208,6 @@
 
                 });
             });
-
-
 
         });
 
