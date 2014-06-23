@@ -97,7 +97,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ShouldPublishDomainEvent_WhenCourseIsNotNull()
+        public void ChangeBackground_ShouldPublishDomainEvent()
         {
             //Arrange
             const string background = "background";
@@ -178,6 +178,20 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void CreateDropspot_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var dropspot = Substitute.For<Dropspot>();
+            _entityFactory.Dropspot(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<string>()).Returns(dropspot);
+
+            //Act
+            var result = _controller.CreateDropspot(Substitute.For<DragAndDropText>(), "text");
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<DropspotCreatedEvent>());
+        }
+
+        [TestMethod]
         public void CreateDropspot_ShouldReturnJsonSuccessWithDropspotId()
         {
             //Arrange
@@ -240,6 +254,23 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void DeleteDropspot_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var question = Substitute.For<DragAndDropText>();
+            var dropspot = Substitute.For<Dropspot>();
+
+            const string username = "username";
+            _user.Identity.Name.Returns(username);
+
+            //Act
+            _controller.DeleteDropspot(question, dropspot);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<DropspotDeletedEvent>());
+        }
+
+        [TestMethod]
         public void DeleteDropspot_ShouldReturnJsonSuccess()
         {
             //Arrange
@@ -297,6 +328,23 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             dropspot.Received().ChangeText(text, username);
+        }
+
+        [TestMethod]
+        public void ChangeDropspotText_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var dropspot = Substitute.For<Dropspot>();
+            const string text = "text";
+
+            const string username = "username";
+            _user.Identity.Name.Returns(username);
+
+            //Act
+            _controller.ChangeDropspotText(dropspot, text);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<DropspotTextChangedEvent>());
         }
 
         #endregion
@@ -358,6 +406,24 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             dropspot.Received().ChangePosition(x, y, username);
+        }
+
+        [TestMethod]
+        public void ChangeDrospotPosition_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            const int x = 10;
+            const int y = 20;
+            var dropspot = Substitute.For<Dropspot>();
+
+            const string username = "username";
+            _user.Identity.Name.Returns(username);
+
+            //Act
+            _controller.ChangeDropspotPosition(dropspot, x, y);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<DropspotPositionChangedEvent>());
         }
 
         #endregion

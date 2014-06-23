@@ -38,6 +38,30 @@
                 expect(handler.dragAndDropBackgroundChanged).toBeFunction();
             });
         });
+
+        describe('dragAndDropDropspotCreated:', function () {
+            it('should be function', function () {
+                expect(handler.dragAndDropDropspotCreated).toBeFunction();
+            });
+        });
+
+        describe('dragAndDropDropspotDeleted:', function () {
+            it('should be function', function () {
+                expect(handler.dragAndDropDropspotDeleted).toBeFunction();
+            });
+        });
+
+        describe('dragAndDropDropspotTextChanged:', function () {
+            it('should be function', function () {
+                expect(handler.dragAndDropDropspotTextChanged).toBeFunction();
+            });
+        });
+
+        describe('dragAndDropDropspotPositionChanged:', function () {
+            it('should be function', function () {
+                expect(handler.dragAndDropDropspotPositionChanged).toBeFunction();
+            });
+        });
     });
 
 })

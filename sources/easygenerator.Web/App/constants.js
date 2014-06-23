@@ -150,7 +150,11 @@
                     },
 
                     dragAndDrop: {
-                        backgroundChanged: 'question:dragAndDrop:backgroundChanged'
+                        backgroundChanged: 'question:dragAndDrop:backgroundChanged',
+                        dropspotCreated: 'question:dragAndDrop:dropspotCreated',
+                        dropspotPositionChanged: 'question:dragAndDrop:dropspotPositionChanged',
+                        dropspotTextChanged: 'question:dragAndDrop:dropspotTextChanged',
+                        dropspotDeleted: 'question:dragAndDrop:dropspotDeleted'
                     }
 
                 },

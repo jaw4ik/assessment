@@ -13,19 +13,49 @@ using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 namespace easygenerator.Web.Synchronization.Handlers
 {
     public class DragAndDropEventHandler :
-        IDomainEventHandler<BackgroundChangedEvent>
+        IDomainEventHandler<BackgroundChangedEvent>,
+        IDomainEventHandler<DropspotCreatedEvent>,
+        IDomainEventHandler<DropspotDeletedEvent>,
+        IDomainEventHandler<DropspotTextChangedEvent>,
+        IDomainEventHandler<DropspotPositionChangedEvent>
     {
         private readonly ICollaborationBroadcaster<Question> _broadcaster;
+        private readonly IEntityMapper _entityMapper;
 
-        public DragAndDropEventHandler(ICollaborationBroadcaster<Question> broadcaster)
+        public DragAndDropEventHandler(ICollaborationBroadcaster<Question> broadcaster, IEntityMapper entityMapper)
         {
             _broadcaster = broadcaster;
+            _entityMapper = entityMapper;
         }
 
         public void Handle(BackgroundChangedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Question)
                 .dragAndDropBackgroundChanged(args.Question.Id.ToNString(), args.Background, args.Question.ModifiedOn);
+        }
+
+        public void Handle(DropspotCreatedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Dropspot.Question)
+                .dragAndDropDropspotCreated(args.Dropspot.Question.Id.ToNString(), _entityMapper.Map(args.Dropspot), args.Dropspot.Question.ModifiedOn);
+        }
+
+        public void Handle(DropspotDeletedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Question)
+                .dragAndDropDropspotDeleted(args.Question.Id.ToNString(), args.Dropspot.Id.ToNString(), args.Question.ModifiedOn);
+        }
+
+        public void Handle(DropspotTextChangedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Dropspot.Question)
+                .dragAndDropDropspotTextChanged(args.Dropspot.Question.Id.ToNString(), _entityMapper.Map(args.Dropspot), args.Dropspot.Question.ModifiedOn);
+        }
+
+        public void Handle(DropspotPositionChangedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Dropspot.Question)
+                 .dragAndDropDropspotPositionChanged(args.Dropspot.Question.Id.ToNString(), _entityMapper.Map(args.Dropspot), args.Dropspot.Question.ModifiedOn);
         }
     }
 }

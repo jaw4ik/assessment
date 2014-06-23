@@ -37,6 +37,10 @@
                     fillInTheBlankUpdated: questionEventHandler.fillInTheBlankUpdated,
 
                     dragAndDropBackgroundChanged: questionEventHandler.dragAndDropBackgroundChanged,
+                    dragAndDropDropspotCreated: questionEventHandler.dragAndDropDropspotCreated,
+                    dragAndDropDropspotDeleted: questionEventHandler.dragAndDropDropspotDeleted,
+                    dragAndDropDropspotTextChanged: questionEventHandler.dragAndDropDropspotTextChanged,
+                    dragAndDropDropspotPositionChanged: questionEventHandler.dragAndDropDropspotPositionChanged,
 
                     answerCreated: answerEventHandler.created,
                     answerDeleted: answerEventHandler.deleted,

@@ -84,6 +84,11 @@
     <Compile Include="Events\LearningContentEvents\LearningContentUpdatedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\ObjectiveEvent.cs" />
     <Compile Include="Events\QuestionEvents\DragAnsDropEvents\BackgroundChangedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\DragAnsDropEvents\DropspotCreatedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\DragAnsDropEvents\DropspotDeletedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\DragAnsDropEvents\DropspotEvent.cs" />
+    <Compile Include="Events\QuestionEvents\DragAnsDropEvents\DropspotPositionChangedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\DragAnsDropEvents\DropspotTextChangedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionsDeletedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\ObjectiveTitleUpdatedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\QuestionsReorderedEvent.cs" />

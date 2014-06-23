@@ -82,8 +82,14 @@
             'synchronization/handlers/question/eventHandlers/created.spec',
             'synchronization/handlers/question/eventHandlers/deleted.spec',
             'synchronization/handlers/question/eventHandlers/contentUpdated.spec',
+
             'synchronization/handlers/question/eventHandlers/fillInTheBlankUpdated.spec',
+
             'synchronization/handlers/question/eventHandlers/dragAndDrop/backgroundChanged.spec',
+            'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotCreated.spec',
+            'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotDeleted.spec',
+            'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotPositionChanged.spec',
+            'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotTextChanged.spec',
 
             'synchronization/handlers/learningContent/handler.spec',
             'synchronization/handlers/learningContent/eventHandlers/created.spec',
@@ -144,6 +150,7 @@
             'viewmodels/questions/multipleChoice/multipleChoice.spec',
             'viewmodels/questions/fillInTheBlank/fillInTheBlank.spec',
             'viewmodels/questions/fillInTheBlank/fibControl.spec',
+            'viewmodels/questions/dragAndDrop/dragAndDrop.spec',
             'viewmodels/questions/dragAndDrop/designer.spec',
             'viewmodels/questions/dragAndDrop/dropspot.spec',
             'viewmodels/questions/dragAndDrop/dropspotToAdd.spec',

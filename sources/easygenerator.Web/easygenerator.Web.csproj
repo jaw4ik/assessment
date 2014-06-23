@@ -208,6 +208,7 @@
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
+    <Compile Include="Components\Mappers\DropspotMapper.cs" />
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
@@ -396,6 +397,21 @@
     <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\backgroundChanged.spec.js">
       <DependentUpon>backgroundChanged.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\dropspotTextChanged.spec.js">
+      <DependentUpon>dropspotTextChanged.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\dropspotCreated.spec.js">
+      <DependentUpon>dropspotCreated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\dropspotDeleted.spec.js">
+      <DependentUpon>dropspotDeleted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\dropspotPositionChanged.spec.js">
+      <DependentUpon>dropspotPositionChanged.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\dragAndDrop\dragAndDrop.spec.js">
+      <DependentUpon>dragAndDrop.js</DependentUpon>
+    </Content>
     <None Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -527,6 +543,10 @@
       <DependentUpon>deleted.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\backgroundChanged.js" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\dropspotCreated.js" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\dropspotDeleted.js" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\dropspotPositionChanged.js" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\dropspotTextChanged.js" />
     <Content Include="App\synchronization\handlers\question\eventHandlers\fillInTheBlankUpdated.js" />
     <Content Include="App\synchronization\handlers\question\eventHandlers\fillInTheBlankUpdated.spec.js">
       <DependentUpon>fillInTheBlankUpdated.js</DependentUpon>

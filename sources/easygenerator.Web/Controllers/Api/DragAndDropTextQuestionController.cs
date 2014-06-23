@@ -67,6 +67,7 @@ namespace easygenerator.Web.Controllers.Api
 
             var dropspot = _entityFactory.Dropspot(text, 0, 0, GetCurrentUsername());
             question.AddDropspot(dropspot, GetCurrentUsername());
+            _eventPublisher.Publish(new DropspotCreatedEvent(dropspot));
 
             return JsonSuccess(dropspot.Id.ToNString());
         }
@@ -80,6 +81,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.RemoveDropspot(dropspot, GetCurrentUsername());
+            _eventPublisher.Publish(new DropspotDeletedEvent(question, dropspot));
 
             return JsonSuccess();
         }
@@ -93,7 +95,8 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             dropspot.ChangeText(text, GetCurrentUsername());
-
+            _eventPublisher.Publish(new DropspotTextChangedEvent(dropspot));
+            
             return JsonSuccess();
         }
 
@@ -106,6 +109,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             dropspot.ChangePosition(x.Value, y.Value, GetCurrentUsername());
+            _eventPublisher.Publish(new DropspotPositionChangedEvent(dropspot));
 
             return JsonSuccess();
         }
