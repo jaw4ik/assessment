@@ -7,13 +7,20 @@
 
     'viewmodels/questions/dragAndDrop/queries/getQuestionContentById',
 
+    'eventTracker',
+
     'imageUpload',
     'notify'
-], function (Dropspot, dropspotToAdd, changeBackgroundCommand, addDropspotCommand, removeDropspotCommand, getQuestionContentById, imageUpload, notify) {
+], function (Dropspot, dropspotToAdd, changeBackgroundCommand, addDropspotCommand, removeDropspotCommand, getQuestionContentById, eventTracker, imageUpload, notify) {
 
 
     var self = {
-        questionId: null
+        questionId: null,
+        events: {
+            createDropspot: 'Create dropspot',
+            deleteDropspot: 'Delete dropspot',
+            changeBackground: 'Change drag and drop background'
+        }
     };
 
     var designer = {
@@ -57,6 +64,7 @@
                 changeBackgroundCommand.execute(self.questionId, url);
                 designer.background(url);
                 notify.saved();
+                eventTracker.publish(self.events.changeBackground);
             }
         });
     }
@@ -75,6 +83,7 @@
             designer.dropspotToAdd.clear();
             designer.dropspotToAdd.hide();
             notify.saved();
+            eventTracker.publish(self.events.createDropspot);
         });
     }
 
@@ -82,6 +91,7 @@
         removeDropspotCommand.execute(self.questionId, dropspot.id).then(function () {
             designer.dropspots.remove(dropspot);
             notify.saved();
+            eventTracker.publish(self.events.deleteDropspot);
         });
     }
 

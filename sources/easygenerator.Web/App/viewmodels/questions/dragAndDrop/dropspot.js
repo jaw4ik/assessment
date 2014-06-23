@@ -1,9 +1,13 @@
-﻿define(['viewmodels/questions/dragAndDrop/commands/changeDropspotText', 'viewmodels/questions/dragAndDrop/commands/changeDropspotPosition', 'notify'], function (changeDropspotText, changeDropspotPosition, notify) {
+﻿define(['viewmodels/questions/dragAndDrop/commands/changeDropspotText', 'viewmodels/questions/dragAndDrop/commands/changeDropspotPosition', 'eventTracker', 'notify'], function (changeDropspotText, changeDropspotPosition, eventTracker, notify) {
     return function (id, text, x, y) {
         var
             that = this,
             self = {
-                text: text
+                text: text,
+                events: {
+                    changePosition: 'Change dropspot position',
+                    changeText: 'Change dropspot text'
+                }
             }
         ;
 
@@ -14,6 +18,7 @@
             endMoveDropspot: function (x, y) {
                 changeDropspotPosition.execute(that.id, x, y).then(function () {
                     notify.saved();
+                    eventTracker.publish(self.events.changePosition);
                 });
             }
         };
@@ -38,6 +43,7 @@
             changeDropspotText.execute(that.id, that.text).then(function () {
                 self.text = that.text();
                 notify.saved();
+                eventTracker.publish(self.events.changeText);
             });
         };
     }

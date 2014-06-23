@@ -55,6 +55,23 @@
 
                 });
 
+                describe('and when question type is dragAndDrop', function () {
+
+                    it('should send event \'Create new question (drag and drop)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.dragAndDrop.type, 'Event category');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (drag and drop)', 'Event category');
+                    });
+
+                });
+
+                describe('and when question type is multipleChoice', function () {
+
+                    it('should send event \'Create new question (multiple choice)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.multipleChoice.type, 'Event category');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (multiple choice)', 'Event category');
+                    });
+
+                });
             });
 
             describe('when event category is undefined', function () {
@@ -73,6 +90,24 @@
                     it('should send event \'Create new question (fill in the blanks)\' with defined event category ', function () {
                         command.execute('objectiveId', 'courseId', constants.questionType.fillInTheBlank.type);
                         expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (fill in the blanks)', undefined);
+                    });
+
+                });
+
+                describe('when question type is dragAndDrop', function () {
+
+                    it('should send event \'Create new question (drag and drop)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.dragAndDrop.type);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (drag and drop)', undefined);
+                    });
+
+                });
+
+                describe('when question type is multipleChoice', function () {
+
+                    it('should send event \'Create new question (multiple choice)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.multipleChoice.type);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (multiple choice)', undefined);
                     });
 
                 });

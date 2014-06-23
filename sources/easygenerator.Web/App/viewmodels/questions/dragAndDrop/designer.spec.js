@@ -1,6 +1,7 @@
 ﻿define(['viewmodels/questions/dragAndDrop/designer'], function (designer) {
 
     var
+        eventTracker = require('eventTracker'),
         imageUpload = require('imageUpload'),
         notify = require('notify'),
         dropspotToAdd = require('viewmodels/questions/dragAndDrop/dropspotToAdd'),
@@ -50,6 +51,7 @@
                     spyOn(changeBackgroundCommand, 'execute').and.returnValue(dfd.promise);
 
                     spyOn(notify, 'saved');
+                    spyOn(eventTracker, 'publish');
                 });
 
 
@@ -75,9 +77,13 @@
                         designer.uploadBackground();
                         expect(notify.saved).toHaveBeenCalled();
                     });
+
+                    it('should track event \'Change drag and drop background\'', function () {
+                        designer.uploadBackground();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Change drag and drop background');
+                    });
+
                 });
-
-
 
             });
 
@@ -107,6 +113,7 @@
                 dfd = Q.defer();
                 spyOn(addDropspotCommand, 'execute').and.returnValue(dfd.promise);
                 spyOn(notify, 'saved');
+                spyOn(eventTracker, 'publish');
             });
 
             it('should be function', function () {
@@ -206,6 +213,15 @@
                         });
                     });
 
+                    it('should track event \'Create dropspot\'', function (done) {
+                        designer.addDropspot();
+
+                        dfd.promise.then(function () {
+                            expect(eventTracker.publish).toHaveBeenCalledWith('Create dropspot');
+                            done();
+                        });
+                    });
+
                 });
             });
 
@@ -219,6 +235,7 @@
                 dfd = Q.defer();
                 spyOn(removeDropspotCommand, 'execute').and.returnValue(dfd.promise);
                 spyOn(notify, 'saved');
+                spyOn(eventTracker, 'publish');
             });
 
             it('should be function', function () {
@@ -258,6 +275,18 @@
                         done();
                     });
                 });
+
+                it('should track event \'Delete dropspot\'', function (done) {
+                    var dropspot = { id: 'id' };
+                    designer.dropspots([dropspot]);
+                    designer.removeDropspot(dropspot);
+
+                    dfd.promise.then(function () {
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Delete dropspot');
+                        done();
+                    });
+                });
+
             });
 
         });

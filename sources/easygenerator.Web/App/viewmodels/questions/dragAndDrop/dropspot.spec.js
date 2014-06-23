@@ -2,6 +2,7 @@
 
     var
         notify = require('notify'),
+        eventTracker = require('eventTracker'),
         changeDropspotTextCommand = require('viewmodels/questions/dragAndDrop/commands/changeDropspotText'),
         changeDropspotPositionCommand = require('viewmodels/questions/dragAndDrop/commands/changeDropspotPosition')
     ;
@@ -42,6 +43,7 @@
                         dfd = Q.defer();
                         spyOn(changeDropspotTextCommand, 'execute').and.returnValue(dfd.promise);
                         spyOn(notify, 'saved');
+                        spyOn(eventTracker, 'publish');
                     });
 
                     it('should be function', function () {
@@ -49,7 +51,7 @@
                         expect(dropspot.text.endEditText).toBeFunction();
                     });
 
-                    it('should trim dropspot text', function() {
+                    it('should trim dropspot text', function () {
                         var dropspot = new Dropspot('id', '     dropspot     ');
                         dropspot.text.endEditText();
                         expect(dropspot.text()).toEqual('dropspot');
@@ -107,6 +109,17 @@
                             });
                         });
 
+                        it('should track event \'Change dropspot text\'', function (done) {
+                            var dropspot = new Dropspot('id', 'dropspot');
+                            dropspot.text('dropspot!');
+                            dropspot.text.endEditText();
+
+                            dfd.promise.then(function () {
+                                expect(eventTracker.publish).toHaveBeenCalledWith('Change dropspot text');
+                                done();
+                            });
+                        });
+
                     });
 
                 });
@@ -150,6 +163,7 @@
                     beforeEach(function () {
                         dfd = Q.defer();
                         spyOn(changeDropspotPositionCommand, 'execute').and.returnValue(dfd.promise);
+                        spyOn(eventTracker, 'publish');
                     });
 
                     it('should be function', function () {
@@ -176,11 +190,21 @@
                             });
                         });
 
+                        it('should track event \'Change dropspot position\'', function (done) {
+                            dropspot.position.endMoveDropspot();
+
+                            dfd.promise.then(function () {
+                                expect(eventTracker.publish).toHaveBeenCalledWith('Change dropspot position');
+                                done();
+                            });
+                        });
+
                     });
 
                 });
 
             });
+
         });
 
 

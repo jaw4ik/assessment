@@ -25,9 +25,13 @@
                 case constants.questionType.fillInTheBlank.type:
                     eventTracker.publish('Create new question (fill in the blanks)', eventCategory);
                     break;
+                case constants.questionType.dragAndDrop.type:
+                    eventTracker.publish('Create new question (drag and drop)', eventCategory);
+                    break;
                 case constants.questionType.multipleChoice.type:
                     eventTracker.publish('Create new question (multiple choice)', eventCategory);
                     break;
+
             }
         }
 
