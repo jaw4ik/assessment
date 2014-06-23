@@ -314,6 +314,10 @@
     }
 
     .tb-cell.back-button {
+        width: 80px;
+    }
+
+    .navigation-tree-shown-mode .tb-cell.back-button {
         width: 127px;
     }
 }
