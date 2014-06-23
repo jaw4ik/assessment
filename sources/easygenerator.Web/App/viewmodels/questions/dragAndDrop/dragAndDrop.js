@@ -17,6 +17,7 @@
     return viewModel;
 
     function initialize(objectiveId, question) {
+        viewModel.objectiveId = objectiveId;
         viewModel.questionId = question.id;
         viewModel.title = questionTitle(objectiveId, question);
 
