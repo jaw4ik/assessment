@@ -136,6 +136,10 @@
     <Compile Include="Migrations\201406190613125_SplitQuestionTypes.Designer.cs">
       <DependentUpon>201406190613125_SplitQuestionTypes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406231241134_AddPersonalizedLearningTemplate.cs" />
+    <Compile Include="Migrations\201406231241134_AddPersonalizedLearningTemplate.Designer.cs">
+      <DependentUpon>201406231241134_AddPersonalizedLearningTemplate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -224,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406190613125_SplitQuestionTypes.resx">
       <DependentUpon>201406190613125_SplitQuestionTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406231241134_AddPersonalizedLearningTemplate.resx">
+      <DependentUpon>201406231241134_AddPersonalizedLearningTemplate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

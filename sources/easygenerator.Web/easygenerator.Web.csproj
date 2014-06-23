@@ -668,6 +668,7 @@
     <Content Include="Content\images\draganddroptext-question.png" />
     <Content Include="Content\images\fillintheblank-question.png" />
     <Content Include="Content\images\multichoice-question.png" />
+    <Content Include="Content\images\personalizedLearningTemplate.png" />
     <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\ForgotPasswordTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\HttpRequestFailedTemplate.cshtml" />
@@ -704,6 +705,41 @@
     <Content Include="Templates\Exam\css\fonts\ubuntu-regular.ttf" />
     <Content Include="Templates\Exam\css\fonts\ubuntu-regular.woff" />
     <Content Include="Templates\Exam\css\general.css" />
+    <Content Include="Templates\Personalized learning\app\main.js" />
+    <Content Include="Templates\Personalized learning\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
+    <Content Include="Templates\Personalized learning\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
+    <Content Include="Templates\Personalized learning\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />
+    <Content Include="Templates\Personalized learning\content\1bf90b8ae7004f19afaca406756b2285\f1e2713b353249e1af7f30f55d5d009c\6c13c8a406224eb48b49b8af9af81eb1.html" />
+    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\131290ee438946938d5afaebde79f204\251cd60243324001a70e35259a909828.html" />
+    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\ab4f67be0b044bb7bb1af66d352fcbc5.html" />
+    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\content.html" />
+    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\45f96efa172b46198373f2bf99b6d8fa\65549fcfa0e04f5d8b7b23c2c4144c3c.html" />
+    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\5d9da5c41b3b4dcdbf5c4b6e2993ad0f.html" />
+    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\content.html" />
+    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\1d7a8c812df7491b86ba3e661d2f4bd1.html" />
+    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\content.html" />
+    <Content Include="Templates\Personalized learning\content\601aa6bb572943e1b343d21174890d01\36f6ded9efcc46659c1c41f5e2ee81d1\04043e4217014d03875f493bfa7cf1d2.html" />
+    <Content Include="Templates\Personalized learning\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\1bd3a43ad55d41d48cfd12e9ef18340c.html" />
+    <Content Include="Templates\Personalized learning\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\c79b6956a1624817ac63a1f8729c6d76.html" />
+    <Content Include="Templates\Personalized learning\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\content.html" />
+    <Content Include="Templates\Personalized learning\content\content.html" />
+    <Content Include="Templates\Personalized learning\content\data.js" />
+    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.svg" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-regular.svg" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.svg" />
+    <Content Include="Templates\Personalized learning\css\main.css" />
+    <Content Include="Templates\Personalized learning\css\settings.css" />
+    <Content Include="Templates\Personalized learning\images\chrome.png" />
+    <Content Include="Templates\Personalized learning\images\firefox.png" />
+    <Content Include="Templates\Personalized learning\images\ie10.png" />
+    <Content Include="Templates\Personalized learning\images\safari.png" />
+    <Content Include="Templates\Personalized learning\images\sprite.png" />
+    <Content Include="Templates\Personalized learning\index.html" />
+    <Content Include="Templates\Personalized learning\js\require\require.js" />
+    <Content Include="Templates\Personalized learning\js\settings\settings.js" />
+    <Content Include="Templates\Personalized learning\js\vendor.min.js" />
+    <Content Include="Templates\Personalized learning\settings.html" />
+    <Content Include="Templates\Personalized learning\settings.js" />
     <Content Include="Templates\Quiz\app\main.js" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.ttf" />
@@ -743,6 +779,15 @@
     <Content Include="Templates\Simple course\css\font\segoeui-semibold.ttf" />
     <Content Include="Templates\Simple course\css\font\segoeui-semibold.woff" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.eot" />
+    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.woff" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-regular.eot" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-regular.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-regular.woff" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.eot" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1694,7 +1739,29 @@
     <EmbeddedResource Include="Resources\Views\Review\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Templates\Personalized learning\content\092e0741294041be9c062f4553201761\1996f624ae2048e7a527ead196f8d777\" />
+    <Folder Include="Templates\Personalized learning\content\092e0741294041be9c062f4553201761\269d4a71105342a9a2bd33b04f9ad829\" />
+    <Folder Include="Templates\Personalized learning\content\092e0741294041be9c062f4553201761\580fc24bfeb8477fbc8ae3fdabc4211f\" />
+    <Folder Include="Templates\Personalized learning\content\092e0741294041be9c062f4553201761\651c53a59cf44cdb9ee1b89d00876bc2\" />
+    <Folder Include="Templates\Personalized learning\content\092e0741294041be9c062f4553201761\ed47b4b6aabb439ca14937ea98993aac\" />
+    <Folder Include="Templates\Personalized learning\content\092e0741294041be9c062f4553201761\efb2f1e66eb14163b1f707d589a7b044\" />
+    <Folder Include="Templates\Personalized learning\content\2bc910bcde264b2b8c834adcbeed8209\3310085113f74740894534ff7d03f2cd\" />
+    <Folder Include="Templates\Personalized learning\content\2bc910bcde264b2b8c834adcbeed8209\66f18aff9fd9476c9b6c0cadecd57ad1\" />
+    <Folder Include="Templates\Personalized learning\content\2bc910bcde264b2b8c834adcbeed8209\93a34423bd684e3f8418c4c690eb6662\" />
+    <Folder Include="Templates\Personalized learning\content\2bc910bcde264b2b8c834adcbeed8209\d203e93cccdd4065bb6644499d3cc3d1\" />
+    <Folder Include="Templates\Personalized learning\content\2bc910bcde264b2b8c834adcbeed8209\f517e4342dfa456889b5cacb20853c48\" />
+    <Folder Include="Templates\Personalized learning\content\2bc910bcde264b2b8c834adcbeed8209\f53a799e57044740938d1075f0bca2a3\" />
+    <Folder Include="Templates\Personalized learning\content\65b16fcf981f478fb018a271186ed85c\b95c9d7719dd4fa6bfb347c37c8d6db1\" />
+    <Folder Include="Templates\Personalized learning\content\65b16fcf981f478fb018a271186ed85c\d26fcfe599bc46069ff03b21d20135dd\" />
+    <Folder Include="Templates\Personalized learning\content\65b16fcf981f478fb018a271186ed85c\e01d7faf19ae4cf483ed4c7cd4ef9602\" />
+    <Folder Include="Templates\Personalized learning\content\65b16fcf981f478fb018a271186ed85c\e6e01c36c59a436dab4459d369915090\" />
+    <Folder Include="Templates\Personalized learning\content\a2be1bd5d4dd48e4b5df885ced1983fa\13bc7c2ab6ec4837a8bcd1d6b434d7f1\" />
+    <Folder Include="Templates\Personalized learning\content\a2be1bd5d4dd48e4b5df885ced1983fa\6dae4c5f96ed44c4b4836fa607a7891d\" />
+    <Folder Include="Templates\Personalized learning\content\a2be1bd5d4dd48e4b5df885ced1983fa\8563d9de5f794b59b019a78e76934b9e\" />
+    <Folder Include="Templates\Personalized learning\content\a2be1bd5d4dd48e4b5df885ced1983fa\c23194d6d5a841c5937f75e4950c8d43\" />
+    <Folder Include="Templates\Personalized learning\content\f2dd009517b04d2996ffe1897c0bf456\e5f79b55879349048bf02e0f506cc98d\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
