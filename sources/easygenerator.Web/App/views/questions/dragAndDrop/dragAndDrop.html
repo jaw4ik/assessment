@@ -17,7 +17,7 @@
                     <div class="expand-collapse-panel-btn" title="Collapse"></div>
                 </div>
 
-                <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() } ,  autofocus: { focus: $parent.isCreatedQuestion, autoselect: $parent.isCreatedQuestion }">
+                <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }, autofocus: { focus: $parent.isCreatedQuestion, autoselect: $parent.isCreatedQuestion }">
                 </div>
                 <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
                     <span data-bind="text: title().trim().length"></span>/<span data-bind="text: $parent.questionTitleMaxLength"></span>

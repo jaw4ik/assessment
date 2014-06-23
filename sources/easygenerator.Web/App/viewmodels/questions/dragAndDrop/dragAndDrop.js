@@ -1,4 +1,4 @@
-﻿define(['constants', 'viewmodels/questions/questionTitle', 'repositories/learningContentRepository', 'repositories/questionRepository', 'viewmodels/questions/learningContents', 'imageUpload', 'viewmodels/questions/dragAndDrop/designer', 'durandal/app'], function (constants, questionTitle, learningContentRepository, questionRepository, vmLearningContents, imageUpload, designer, app) {
+﻿define(['constants', 'viewmodels/questions/questionTitle', 'repositories/learningContentRepository', 'repositories/questionRepository', 'viewmodels/questions/learningContents', 'imageUpload', 'viewmodels/questions/dragAndDrop/designer', 'durandal/app', 'clientContext'], function (constants, questionTitle, learningContentRepository, questionRepository, vmLearningContents, imageUpload, designer, app, clientContext) {
 
     var viewModel = {
         objectiveId: '',
@@ -8,6 +8,7 @@
         initialize: initialize,
         backgroundChanged: backgroundChanged,
         isExpanded: ko.observable(true),
+        isCreatedQuestion: ko.observable(false),
         toggleExpand: toggleExpand
     };
 
@@ -18,6 +19,10 @@
     function initialize(objectiveId, question) {
         viewModel.questionId = question.id;
         viewModel.title = questionTitle(objectiveId, question);
+
+        var lastCreatedQuestionId = clientContext.get('lastCreatedQuestionId') || '';
+        clientContext.remove('lastCreatedQuestionId');
+        viewModel.isCreatedQuestion(lastCreatedQuestionId == question.id);
 
         return learningContentRepository.getCollection(question.id).then(function (learningContents) {
             var sortedLearningContents = _.sortBy(learningContents, function (item) {
