@@ -98,7 +98,7 @@
                                 <!-- ko if: isCorrect -->
                                 <div class="question-answer-radio correct question-answer-value" data-bind="click: $parent.toggleCorrectness">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
-                                    <div class="question-answer-tooltip">
+                                    <div class="info-tooltip question-answer left-side">
                                         <span data-bind="localize: { text: 'markAsIncorrect' }">
                                             Mark as incorrect
                                         </span>
@@ -108,7 +108,7 @@
                                 <!-- ko ifnot: isCorrect -->
                                 <div class="question-answer-radio question-answer-value" data-bind="click: $parent.toggleCorrectness">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
-                                    <div class="question-answer-tooltip">
+                                    <div class="info-tooltip question-answer left-side">
                                         <span data-bind="localize: { text: 'markAsCorrect' }">
                                             Mark as correct
                                         </span>
@@ -125,7 +125,7 @@
                             <div class="question-answer-delete-wrapper">
                                 <div class="question-answer-delete-icon-wrapper">
                                     <span class="question-answer-delete-icon" data-bind="click: $parent.removeAnswer"></span>
-                                    <div class="question-answer-tooltip">
+                                    <div class="info-tooltip question-answer right-side">
                                         <span data-bind="localize: { text: 'deleteAnswerOption' }">
                                             Delete answer
                                         </span>

@@ -1008,36 +1008,6 @@ span.top-navigation-item.current {
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAMCAMAAABoQAyvAAAAXVBMVEX///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8/beDHAAAAHnRSTlMA/q+y8fsIaTH8Ku5gWD1Q63I353rme+pzNjxiWlK9ElnwAAAASElEQVR4Xi2NRw4AMQgDQ9r23pv//8wlVrjMSDZgoh0MxyF0lN6jamlzAylo5QiZaPUCrJQN2FN0QE7llcu3rj/54MuVaD/yB62CA2C2xXtpAAAAAElFTkSuQmCC');
     }
 
-.list-action-tooltip {
-    display: none;
-    width: 82px;
-    position: absolute;
-    left: 50%;
-    bottom: 100%;
-    margin-left: -41px;
-    margin-bottom: 6px;
-    padding: 5px;
-    background-color: #55626f;
-    border-radius: 3px;
-    color: white;
-    font-size: 12px;
-    text-align: center;
-}
-
-    .list-action-tooltip:after {
-        content: '';
-        display: block;
-        height: 1px;
-        width: 1px;
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -6px;
-        border: 5px solid transparent;
-        border-top: 5px solid #55626f;
-        border-bottom-width: 0;
-    }
-
 .course-action-btn {
     height: 30px;
     width: 30px;
@@ -1046,7 +1016,7 @@ span.top-navigation-item.current {
     border-radius: 15px;
 }
 
-    .course-action-btn:hover .list-action-tooltip {
+    .course-action-btn:hover .info-tooltip {
         display: block;
     }
 
@@ -1611,9 +1581,11 @@ span.top-navigation-item.current {
         transform: rotate(45deg);
         background: #55616f;
     }
-    
-    .navigation-tree-wrapper.expanded + .content-area-wrapper .info-tooltip {
-        
+
+    .info-tooltip.open-item,
+    .info-tooltip.publish-item {
+        width: 82px;
+        margin-left: -41px;
     }
 
 /*#endregion INFO TOOLTIP*/
