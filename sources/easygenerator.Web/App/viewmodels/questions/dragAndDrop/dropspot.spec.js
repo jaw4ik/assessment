@@ -51,6 +51,7 @@
 
                     it('should execute command to change dropspot text', function () {
                         var dropspot = new Dropspot('id', 'dropspot');
+                        dropspot.text('dropspot!');
                         dropspot.text.endEditText();
                         expect(changeDropspotTextCommand.execute).toHaveBeenCalled();
                     });
@@ -63,6 +64,7 @@
 
                         it('should notify user that everything was saved', function (done) {
                             var dropspot = new Dropspot('id', 'dropspot');
+                            dropspot.text('dropspot!');
                             dropspot.text.endEditText();
 
                             dfd.promise.then(function () {
@@ -85,6 +87,16 @@
                         it('should not execute command to change dropspot text', function () {
                             var dropspot = new Dropspot('id', 'dropspot');
                             dropspot.text('');
+                            dropspot.text.endEditText();
+                            expect(changeDropspotTextCommand.execute).not.toHaveBeenCalled();
+                        });
+
+                    });
+
+                    describe('when current text was not modified', function () {
+
+                        it('should not execute command to change dropspot text', function () {
+                            var dropspot = new Dropspot('id', 'dropspot');
                             dropspot.text.endEditText();
                             expect(changeDropspotTextCommand.execute).not.toHaveBeenCalled();
                         });

@@ -29,6 +29,10 @@
                 return;
             }
 
+            if (self.text == that.text()) {
+                return;
+            }
+
             changeDropspotText.execute(that.id, that.text).then(function () {
                 self.text = that.text();
                 notify.saved();
