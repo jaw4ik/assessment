@@ -83,14 +83,14 @@
         
     }
 
-    function dropspotTextChanged() {
+    function dropspotTextChanged(questionId, id, text) {
         if (viewModel.questionId != questionId)
             return;
 
         
     }
 
-    function dropspotPositionChanged() {
+    function dropspotPositionChanged(questionId, id, x, y) {
         if (viewModel.questionId != questionId)
             return;
 
