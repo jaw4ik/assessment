@@ -24,6 +24,8 @@
 
         };
         this.text.endEditText = function () {
+            that.text(that.text().trim());
+
             if (_.isEmptyHtmlText(that.text())) {
                 that.text(self.text);
                 return;
