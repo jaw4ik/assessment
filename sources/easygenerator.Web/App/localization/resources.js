@@ -543,6 +543,21 @@
     },
     /* End resource section for model Questions */
     
+    /* Resource section for model QuestionFeedback */
+    putYourPositiveFeedback: {
+        en: 'Put your positive feedback'
+    },
+    putYourNegativeFeedback: {
+        en: 'Put your negative feedback'
+    },
+    correctFeedback: {
+        en: 'Correct feedback'
+    },
+    incorrectFeedback: {
+        en: 'Incorrect feedback'
+    },
+    /* End resource section for model QuestionFeedback */
+    
     /* Resource section for model customLocalizationPlugin */
     abbr: {
         en: 'Abbreviation'
@@ -1174,6 +1189,9 @@
     noObjectivesTitle: {
         en: 'No learning objectives yet'
     },
+    noOwnCoursesTitle: {
+        en: 'No own courses yet'
+    },
     /* End resource section for model Navigation tree */
     
     /* Resource section for model Dialogs window */
@@ -1249,6 +1267,12 @@
     /* End resource section for model InviteCollaboratorSubject */
     
     /* Resource section for model InviteCollaboratorBody */
+    collaborationStarterWarning: {
+        en: 'This course takes you over your (3) collaborators limit. It is time to upgrade. Let‘s do it!'
+    },
+    collaborationFreeWarning: {
+        en: 'This course takes you over your (0) collaborators limit. It is time to upgrade. Let‘s do it!'
+    }
     /* End resource section for model InviteCollaboratorBody */
            
 });
