@@ -35,14 +35,14 @@ namespace easygenerator.Web.Mail
             _mailSender.Send(new MailMessage(templateSettings.From, email, title, body) { IsBodyHtml = true });
         }
 
-        public void SendInviteCollaboratorMessage(string fromEmail, string toEmail, string userName, string courseTitle)
+        public void SendInviteCollaboratorMessage(string email, string userName, string courseTitle)
         {
             var websiteUrl = _urlHelperWrapper.RouteWebsiteUrl();
-            var subject = String.Format(AccountRes.Resources.InviteCollaboratorSubject, courseTitle);
+            var subject = String.Format(AccountRes.Resources.InviteCollaboratorSubject, userName, courseTitle);
             var templateSettings = _senderSettings.MailTemplatesSettings[InviteCollaboratorTemplateName];
-            var body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { WebsiteUrl = websiteUrl, UserName = userName });
+            var body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { UserName = userName, WebsiteUrl = websiteUrl, Email = email });
 
-            _mailSender.Send(new MailMessage(fromEmail, toEmail, subject, body) { IsBodyHtml = true });
+            _mailSender.Send(new MailMessage(templateSettings.From, email, subject, body) { IsBodyHtml = true });
         }
 
     }

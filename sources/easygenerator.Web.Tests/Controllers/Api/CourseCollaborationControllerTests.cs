@@ -108,7 +108,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.AddCollaborator(course, UserEmail);
 
             //Assert
-            _mailSenderWrapper.Received().SendInviteCollaboratorMessage(author.Email, UserEmail, author.FullName, course.Title);
+            _mailSenderWrapper.Received().SendInviteCollaboratorMessage(UserEmail, author.FullName, course.Title);
         }
 
         [TestMethod]

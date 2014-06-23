@@ -3,6 +3,6 @@
     public interface IMailSenderWrapper
     {
         void SendForgotPasswordMessage(string email, string ticketId);
-        void SendInviteCollaboratorMessage(string fromEmail, string toEmail, string userName, string courseTitle);
+        void SendInviteCollaboratorMessage(string email, string userName, string courseTitle);
     }
 }

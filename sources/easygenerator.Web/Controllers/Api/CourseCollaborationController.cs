@@ -79,7 +79,7 @@ namespace easygenerator.Web.Controllers.Api
             {
                 var author = _userRepository.GetUserByEmail(authorName);
 
-                _mailSenderWrapper.SendInviteCollaboratorMessage(author.Email, email, author.FullName, course.Title);
+                _mailSenderWrapper.SendInviteCollaboratorMessage(email, author.FullName, course.Title);
             }
 
             _eventPublisher.Publish(new CourseCollaboratorAddedEvent(collaborator, authorName));
