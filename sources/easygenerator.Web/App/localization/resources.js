@@ -1025,7 +1025,7 @@
         en: 'What is a course?'
     },
     coursesHelpHint: {
-        en: '<p><strong>Course</strong> is a name for eLearning you will be creating. It can be a simple course, a learning nugget, a quiz etc. In fact it can be anything that will provide learner with a learning experience.</p><p>Course consist out of one or more learning objectives, with connected questions and learning content.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p><strong>Course</strong> is a name for eLearning you will be creating. It can be a simple course, a learning nugget, a personalized learning, a quiz, an exam etc. In fact it can be anything that will provide learner with a learning experience.</p><p>Course consist out of one or more learning objectives, with connected questions and learning content.</p><p><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\">Learn more...</a></p>'
     },
     courseHelpHintTitle: {
         en: 'Why do I need to connect learning objectives?'
@@ -1196,7 +1196,7 @@
     
     /* Resource section for model Dialogs window */
     createCourseDialogDescription: {
-        en: 'It can be a simple course, a quiz or an exam.'
+        en: 'It can be a simple course,<br> a personalized learning,<br> a quiz or an exam.'
     },
     createCourseDialogTitle: {
         en: '1.Create your first course'
