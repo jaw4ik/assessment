@@ -93,7 +93,6 @@
     <Compile Include="Events\QuestionEvents\QuestionEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionContentUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionTitleUpdatedEvent.cs" />
-    <Compile Include="Events\CollaborationEvents\CollaboratorRegisteredEvent.cs" />
     <Compile Include="Events\UserEvents\UserEvent.cs" />
     <Compile Include="Events\UserEvents\UserFeedbackEvent.cs" />
     <Compile Include="Events\UserEvents\UserSignedUpEvent.cs" />

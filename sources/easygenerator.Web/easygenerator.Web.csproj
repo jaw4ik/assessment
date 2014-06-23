@@ -355,13 +355,14 @@
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\IEntityCollaboratorProvider.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\ObjectiveCollaboratorProvider.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\QuestionCollaboratorProvider.cs" />
-    <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\UsersCollaborationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\IUserCollaborationBroadcaster.cs" />
+    <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\UserCollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\Proxies\MultipleClientsProxy.cs" />
     <Compile Include="Synchronization\Broadcasting\IBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\ICollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\Proxies\UsersProxy.cs" />
     <Compile Include="Synchronization\Handlers\AnswerEventHandler.cs" />
-    <Compile Include="Synchronization\Handlers\CollaborationEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\UserCollaborationEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\DragAndDropEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />

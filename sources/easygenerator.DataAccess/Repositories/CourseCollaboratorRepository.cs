@@ -16,7 +16,7 @@ namespace easygenerator.DataAccess.Repositories
         public ICollection<Course> GetSharedCourses(string email)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(email, "email");
-            return GetCollection(collaborator => collaborator.Email == email).Select(item => item.Course).ToList();
+            return GetCollection(collaborator => collaborator.Email == email || collaborator.CreatedBy == email).Select(item => item.Course).ToList();
         }
     }
 }

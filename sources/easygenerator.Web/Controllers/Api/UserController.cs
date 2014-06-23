@@ -2,9 +2,7 @@
 using System.IO;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.CollaborationEvents;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
@@ -29,7 +27,6 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly PublishedCourseImporter _publishedCourseImporter;
         private readonly ICourseRepository _courseRepository;
-        private readonly ICourseCollaboratorRepository _courseCollaboratorRepository;
 
         public UserController(IUserRepository repository,
             IEntityFactory entityFactory,
@@ -38,8 +35,7 @@ namespace easygenerator.Web.Controllers.Api
             IDomainEventPublisher eventPublisher,
             IMailSenderWrapper mailSenderWrapper,
             PublishedCourseImporter publishedCourseImporter,
-            ICourseRepository courseRepository,
-            ICourseCollaboratorRepository courseCollaboratorRepository)
+            ICourseRepository courseRepository)
         {
             _repository = repository;
             _entityFactory = entityFactory;
@@ -49,7 +45,6 @@ namespace easygenerator.Web.Controllers.Api
             _mailSenderWrapper = mailSenderWrapper;
             _publishedCourseImporter = publishedCourseImporter;
             _courseRepository = courseRepository;
-            _courseCollaboratorRepository = courseCollaboratorRepository;
         }
 
         [HttpPost]
@@ -173,13 +168,6 @@ namespace easygenerator.Web.Controllers.Api
 
             var course = _publishedCourseImporter.Import(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample Course"), profile.Email);
             _courseRepository.Add(course);
-
-            var sharedCourses = _courseCollaboratorRepository.GetSharedCourses(profile.Email);
-            
-            if (sharedCourses.Count > 0)
-            {
-                _eventPublisher.Publish(new CollaboratorRegisteredEvent(user, sharedCourses));
-            }
 
             return JsonSuccess(profile.Email);
         }
