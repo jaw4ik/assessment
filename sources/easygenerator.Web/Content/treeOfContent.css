@@ -110,6 +110,7 @@
         padding-left: 7px;
     }
 
+.navigation-tree-node.course.empty,
 .navigation-tree-node.objective {
     background-color: #fafafa;
 }
