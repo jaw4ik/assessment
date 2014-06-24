@@ -1255,8 +1255,17 @@
     learningContentHasBeenDeletedByCollaborator: {
         en: 'This learning has been deleted by collaborator. Please save the necessary data before you finish editing.'
     },
+    dropspotHasBeenDeletedByCollaborator: {
+        en: 'This dropspot has been deleted by collaborator. Please save the necessary data before you finish editing.'
+    },
     courseIsNotAvailableAnyMore: {
         en: 'This course is not available any more. Please go to the list of courses.'
+    },
+    collaboratorWasRemoved: {
+        en: 'was removed from your course.'
+    },
+    collaboratorRemovingFailed: {
+        en: 'Failed. Try again.'
     },
     waitingForRegistration: {
         en: 'waiting for registration...'
