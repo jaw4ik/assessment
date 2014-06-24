@@ -4,7 +4,6 @@
 
         return function (questionId, content, modifiedOn) {
             guard.throwIfNotString(questionId, 'QuestionId is not a string');
-            guard.throwIfNotString(content, 'Content is not a string');
             guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
 
             var question = _.find(dataContext.getQuestions(), function (item) {
