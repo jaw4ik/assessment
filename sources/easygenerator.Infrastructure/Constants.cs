@@ -12,5 +12,10 @@
             public const string NewsletterSubscriptionFailedTemplate = "NewsletterSubscriptionFailedTemplate";
             public const string HttpRequestFailedTemplate = "HttpRequestFailedTemplate";
         }
+
+        public class Collaboration
+        {
+            public const int MaxCollaboratorsCountForStarterPlan = 3;
+        }
     }
 }

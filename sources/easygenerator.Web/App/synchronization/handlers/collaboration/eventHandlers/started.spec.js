@@ -9,8 +9,7 @@
 
     describe('synchronization collaboration [started]', function () {
 
-        var course = { Id: 'courseId' },
-            user = { Email: 'mail', FullName: 'fullName' }
+        var course = { Id: 'courseId' };
 
         beforeEach(function () {
             spyOn(app, 'trigger');
@@ -24,7 +23,7 @@
         describe('when course is not an object', function () {
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(undefined, [], user);
+                    handler(undefined, []);
                 };
 
                 expect(f).toThrow('Course is not an object');
@@ -34,20 +33,10 @@
         describe('when objectives is not an array', function () {
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(course, undefined, user);
+                    handler(course, undefined);
                 };
 
                 expect(f).toThrow('Objectives is not an array');
-            });
-        });
-
-        describe('when user is not an object', function () {
-            it('should throw an exception', function () {
-                var f = function () {
-                    handler(course, [], undefined);
-                };
-
-                expect(f).toThrow('User is not an object');
             });
         });
 
@@ -55,7 +44,7 @@
 
             it('should add mapped course to data context', function () {
                 dataContext.courses = [];
-                handler(course, [], user);
+                handler(course, []);
 
                 expect(dataContext.courses.length).toBe(1);
             });
@@ -71,7 +60,7 @@
                 dataContext.courses = [existingCourse];
                 dataContext.objectives = [];
 
-                handler(course, [objective], user);
+                handler(course, [objective]);
 
                 expect(dataContext.objectives.length).toBe(1);
             });
@@ -87,7 +76,7 @@
                 dataContext.courses = [existingCourse];
                 dataContext.objectives = [{ id: objective.Id }];
 
-                handler(course, [objective], user);
+                handler(course, [objective]);
 
                 expect(dataContext.objectives.length).toBe(1);
             });
@@ -95,7 +84,7 @@
         });
 
         it('should trigger app event', function () {
-            handler(course, [], user);
+            handler(course, []);
             expect(app.trigger).toHaveBeenCalled();
         });
     });

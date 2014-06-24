@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {
-    public class CourseEventHandler : IDomainEventHandler<CourseCollaboratorAddedEvent>,
+    public class CourseEventHandler : 
         IDomainEventHandler<CourseTitleUpdatedEvent>,
         IDomainEventHandler<CourseIntroductionContentUpdated>,
         IDomainEventHandler<CourseTemplateUpdatedEvent>,
@@ -25,21 +25,6 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster = broadcaster;
             _entityMapper = entityMapper;
-        }
-
-        public void Handle(CourseCollaboratorAddedEvent args)
-        {
-            _broadcaster.User(args.Collaborator.Email)
-                .courseCollaborationStarted(
-                  _entityMapper.Map(args.Collaborator.Course),
-                  args.Collaborator.Course.RelatedObjectives.Select(o => _entityMapper.Map(o)),
-                  _entityMapper.Map(args.Collaborator));
-
-
-            _broadcaster.AllCollaboratorsExcept(args.Collaborator.Course, args.Collaborator.Email, args.AddedBy)
-                .courseCollaboratorAdded(
-                    args.Collaborator.Course.Id.ToNString(),
-                    _entityMapper.Map(args.Collaborator));
         }
 
         public void Handle(CourseTitleUpdatedEvent args)

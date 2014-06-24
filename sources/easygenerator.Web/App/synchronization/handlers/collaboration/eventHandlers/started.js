@@ -2,10 +2,9 @@
     function (guard, app, constants, dataContext, courseModelMapper, objectiveModelMapper) {
         "use strict";
 
-        return function (course, objectives, user) {
+        return function (course, objectives) {
             guard.throwIfNotAnObject(course, 'Course is not an object');
             guard.throwIfNotArray(objectives, 'Objectives is not an array');
-            guard.throwIfNotAnObject(user, 'User is not an object');
 
             _.each(objectives, function (objective) {
                 var objectiveExists = _.some(dataContext.objectives, function (obj) {

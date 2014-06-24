@@ -53,11 +53,9 @@
         }
 
         function deleteCourses(courses, courseIds) {
-            _.each(courses(), function (course) {
-                if (_.some(courseIds, function (courseId) { return course.id == courseId; })) {
-                    courses.remove(course);
-                }
-            });
+            courses(_.reject(courses(), function (course) {
+                return _.some(courseIds, function(courseId) { return course.id == courseId; });
+            }));
         }
 
         function deleteCourse(courses, courseId) {
