@@ -6,5 +6,7 @@ namespace easygenerator.Web.Synchronization.Broadcasting
     {
         dynamic User(string username);
         dynamic Users(IEnumerable<string> users);
+        dynamic UsersExcept(IEnumerable<string> users, IEnumerable<string> excludeUsers);
+        dynamic UsersExcept(IEnumerable<string> users, params string[] excludeUsers);
     }
 }

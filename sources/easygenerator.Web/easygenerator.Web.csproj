@@ -383,16 +383,16 @@
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorRemoved.spec.js">
       <DependentUpon>collaboratorRemoved.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\disabled.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\disabled.spec.js">
+      <DependentUpon>disabled.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\finished.js" />
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\finished.spec.js">
       <DependentUpon>finished.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\started.spec.js">
       <DependentUpon>started.js</DependentUpon>
-    </Content>
-    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\disabled.js" />
-    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\disabled.spec.js">
-      <DependentUpon>disabled.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\collaboration\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>

@@ -1,7 +1,8 @@
 ﻿namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting
 {
-    public interface IUserCollaborationBroadcaster
+    public interface IUserCollaborationBroadcaster : IBroadcaster
     {
-        dynamic AllUserCollaborators(string userEmail);
+        dynamic OtherCollaborators(string userEmail);
+        dynamic OtherCollaboratorsOnOwnedCourses(string userEmail);
     }
 }

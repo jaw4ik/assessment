@@ -2,7 +2,6 @@
 using easygenerator.Infrastructure;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting.CollaboratorProviders;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting
 {
@@ -27,27 +26,19 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
         {
             ThrowIfEntityNotValid(entity);
 
-            return Users(GetCollaboratorsExcept(entity, new List<string>(excludeUsers)));
+            return UsersExcept(GetCollaborators(entity), excludeUsers);
         }
 
         public dynamic OtherCollaborators(T entity)
         {
             ThrowIfEntityNotValid(entity);
 
-            return Users(GetCollaboratorsExcept(entity, new List<string>() { CurrentUsername }));
+            return UsersExcept(GetCollaborators(entity), CurrentUsername);
         }
 
         private IEnumerable<string> GetCollaborators(T entity)
         {
             return _collaboratorProvider.GetCollaborators(entity);
-        }
-
-        private IEnumerable<string> GetCollaboratorsExcept(T entity, List<string> excludeUsers)
-        {
-            var users = GetCollaborators(entity).ToList();
-            users.RemoveAll(u => excludeUsers.Exists(e => u == e));
-
-            return users;
         }
 
         private void ThrowIfEntityNotValid(T entity)

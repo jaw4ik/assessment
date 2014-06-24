@@ -1,5 +1,5 @@
 ﻿define(['durandal/system', 'synchronization/handlers/user/handler', 'synchronization/handlers/course/handler', 'synchronization/handlers/objective/handler',
-    'synchronization/handlers/question/handler', 'synchronization/handlers/answer/handler', 'synchronization/handlers/learningContent/handler','synchronization/handlers/collaboration/handler'],
+    'synchronization/handlers/question/handler', 'synchronization/handlers/answer/handler', 'synchronization/handlers/learningContent/handler', 'synchronization/handlers/collaboration/handler'],
     function (system, userEventHandler, courseEventHandler, objectiveEventHandler, questionEventHandler, answerEventHandler, learningContentEventHandler, collaborationEventHandler) {
         "use strict";
 
@@ -16,6 +16,7 @@
                     courseCollaboratorAdded: collaborationEventHandler.collaboratorAdded,
                     courseCollaborationStarted: collaborationEventHandler.started,
                     collaboratorRegistered: collaborationEventHandler.collaboratorRegistered,
+                    collaborationDisabled: collaborationEventHandler.disabled,
 
                     courseTitleUpdated: courseEventHandler.titleUpdated,
                     courseIntroductionContentUpdated: courseEventHandler.introductionContentUpdated,

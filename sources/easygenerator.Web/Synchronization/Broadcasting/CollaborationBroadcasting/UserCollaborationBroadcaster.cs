@@ -1,31 +1,33 @@
-﻿using System;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Repositories;
 using System.Collections.Generic;
 using System.Linq;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Repositories;
 
 namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting
 {
     public class UserCollaborationBroadcaster : Broadcaster, IUserCollaborationBroadcaster
     {
-        private readonly ICourseCollaboratorRepository _repository;
+        private readonly ICourseCollaboratorRepository _collaborationRepository;
+        private readonly ICourseRepository _courseRepository;
 
-        public UserCollaborationBroadcaster(ICourseCollaboratorRepository repository)
+        public UserCollaborationBroadcaster(ICourseCollaboratorRepository collaborationRepository, ICourseRepository courseRepository)
         {
-            _repository = repository;
+            _collaborationRepository = collaborationRepository;
+            _courseRepository = courseRepository;
         }
 
-        public dynamic AllUserCollaborators(string userEmail)
+        public dynamic OtherCollaborators(string userEmail)
         {
-            var sharedCourses = GetUserSharedCourses(userEmail);
-            var collaborators = GetCollaborators(sharedCourses);
+            var collaborators = GetCollaborators(_collaborationRepository.GetSharedCourses(userEmail));
 
-            return Users(collaborators.Except(new[] {userEmail}, StringComparer.OrdinalIgnoreCase));
+            return UsersExcept(collaborators, userEmail);
         }
 
-        private ICollection<Course> GetUserSharedCourses(string userEmail)
+        public dynamic OtherCollaboratorsOnOwnedCourses(string userEmail)
         {
-            return _repository.GetSharedCourses(userEmail);
+            var collaborators = GetCollaborators(_courseRepository.GetOwnedCourses(userEmail));
+
+            return UsersExcept(collaborators, userEmail);
         }
 
         private IEnumerable<string> GetCollaborators(IEnumerable<Course> sharedCourses)
@@ -41,5 +43,6 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
 
             return collaborators.Distinct();
         }
+
     }
 }
