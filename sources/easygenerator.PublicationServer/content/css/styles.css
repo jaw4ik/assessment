@@ -59,7 +59,7 @@
 
 .content-wrapper {
     min-width: 600px;
-    max-width: 730px;
+    max-width: 720px;
     margin: 0 auto;
 }
 
@@ -104,6 +104,7 @@
     background-color: rgb(48, 49, 51);
     color: white;
     font-size: 12px;
+    z-index: 1;
 }
 
 /*#endregion NEW LAYOUT STYLES*/
@@ -396,6 +397,11 @@
 
 .tb-cell.back-button {
     width: 1px;
+    position: relative;
+}
+
+.back-button-section {
+    height: 100%;
 }
 
 .nav-back-button {
@@ -413,6 +419,7 @@
     text-align: center;
     white-space: nowrap;
     cursor: pointer;
+    z-index: 1;
 }
 
     .nav-back-button:hover {
@@ -422,6 +429,11 @@
         .nav-back-button:hover .nav-back-title {
             opacity: 1;
         }
+
+.tb-row.navigation .nav-back-button {
+    top: 48px;
+    border-top: 1px solid rgb(206, 206, 206);
+}
 
 .nav-back-title {
     display: block;
@@ -486,62 +498,73 @@ span.top-navigation-item.current {
 .course-action-holder {
     text-align: center;
     height: 100%;
-    font-size: 0;
 }
 
-.course-action-item {
+.course-navigation-list {
+    float: left;
+}
+
+.course-navigation-item {
+    display: inline-block;
+    vertical-align: top;
+    height: 48px;
+}
+
+    .course-navigation-item:hover {
+        background-color: rgb(251,251,251);
+    }
+
+.course-navigation-link {
+    display: block;
+    line-height: 46px;
+    width: 160px;
+    color: #877f78;
+    font-size: 13px;
+}
+
+    .course-navigation-link.active {
+        background-color: rgb(247, 247, 247);
+        font-family: OpenSans-Semibold;
+        color: #544f4b;
+        border-bottom: 2px solid rgb(173,198,52);
+    }
+
+
+.course-action-item.course-preview {
     position: relative;
     display: inline-block;
     text-align: center;
-    color: #877f78;
     font-family: OpenSans;
-    font-size: 13px;
     width: 160px;
     line-height: 48px;
+    float: right;
+    background-color: #f7f6f5;
+    border-left: 1px solid rgb(206,206,206);
+    border-right: 1px solid rgb(206,206,206);
+    color: #877f78;
+    font-size: 13px;
 }
 
-    .course-action-item.course-navigation {
-        width: 160px;
-        line-height: 46px;
+    .course-action-item.course-preview:hover {
+        background-color: #f0eeec;
     }
 
-        .course-action-item.course-navigation:hover {
-            background-color: rgb(251,251,251);
-        }
-
-        .course-action-item.course-navigation.active {
-            background-color: rgb(247, 247, 247);
-            font-family: OpenSans-Semibold;
-            color: #544f4b;
-            border-bottom: 2px solid rgb(173,198,52);
-        }
-
-    .course-action-item.course-preview {
-        margin-left: 30px;
-        text-align: left;
-        background-color: #f7f6f5;
-        border-left: 1px solid rgb(206,206,206);
-        border-right: 1px solid rgb(206,206,206);
+    .course-action-item.course-preview .course-action-item-text {
+        position: relative;
+        padding-left: 25px;
     }
 
-        .course-action-item.course-preview:hover {
-            background-color: #f0eeec;
+        .course-action-item.course-preview .course-action-item-text:before {
+            content: '';
+            display: block;
+            height: 20px;
+            width: 20px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            margin-top: -10px;
+            background: url('images/sprites_24.png') -89px -32px;
         }
-
-        .course-action-item.course-preview .course-action-item-text {
-            margin-left: 46px;
-        }
-
-            .course-action-item.course-preview .course-action-item-text:before {
-                content: '';
-                display: inline-block;
-                position: absolute;
-                left: 20px;
-                top: 15px;
-                width: 20px;
-                height: 20px;
-                background: url('images/sprites_24.png') -89px -32px;
-            }
 
 /*#endregion COURSE ACTION HEADER*/
 
@@ -2270,12 +2293,6 @@ span.top-navigation-item.current {
     /*#endregion Header*/
 }
 
-
-@media (max-width: 1045px) {
-    .content-section {
-        max-width: 640px;
-    }
-}
 
 @media (max-width: 1060px) {
 

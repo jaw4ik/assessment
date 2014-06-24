@@ -29,7 +29,7 @@
                                 <!-- ko compose: 'notifications/notification' -->
                                 <!-- /ko -->
                             </li>
-                            <li class="header-menu-list-item mode profile" >
+                            <li class="header-menu-list-item mode profile">
                                 <!-- ko compose: 'viewmodels/user/userMenu' -->
                                 <!-- /ko -->
                             </li>
@@ -55,12 +55,13 @@
         </div>
         <div class="tb-cell"></div>
     </header>
-    <section class="tb-row">
+    <section class="tb-row" data-bind="css: { 'navigation-tree-shown-mode': showTreeOfContent(), 'navigation' : showCourseNavigation() }">
         <!-- ko if: showTreeOfContent -->
         <!-- ko compose: 'treeOfContent/treeOfContent' -->
         <!-- /ko -->
         <!-- /ko -->
-        <div class="tb-cell content-area-wrapper" data-bind="cellSize: { enabled: isViewReady() && help.visible(), resizeChild: true }, css: { 'navigation-tree-shown-mode': showTreeOfContent() }">
+        <div class="tb-cell back-button" data-bind="widget: { kind: 'backButton'}"></div>
+        <div class="tb-cell content-area-wrapper" data-bind="cellSize: { enabled: isViewReady() && help.visible(), resizeChild: true  }">
             <div class="content-area">
                 <!-- ko if: showCourseNavigation -->
                 <div class="tb-row">
@@ -84,7 +85,6 @@
                             </div>
                             <div class="view-content" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }">
                                 <div class="content-container">
-                                    <div class="tb-cell back-button" data-bind="widget: { kind: 'backButton' }"></div>
                                     <div class="tb-cell content-wrapper">
                                         <div data-bind="router: { cacheViews: false, transition: 'defaultRouterTransition' }"></div>
                                         <div data-bind="widget: { kind: 'uiLockViewer' }"></div>
