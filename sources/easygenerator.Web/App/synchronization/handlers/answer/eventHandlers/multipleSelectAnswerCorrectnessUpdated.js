@@ -16,6 +16,6 @@
 
             question.modifiedOn = new Date(modifiedOn);
 
-            app.trigger(constants.messages.question.answer.correctnessUpdatedByCollaborator, question, answerId, isCorrect);
+            app.trigger(constants.messages.question.answer.multipleselectAnswerCorrectnessUpdatedByCollaborator, question, answerId, isCorrect);
         }
     });

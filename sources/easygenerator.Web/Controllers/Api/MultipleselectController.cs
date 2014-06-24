@@ -50,8 +50,8 @@ namespace easygenerator.Web.Controllers.Api
 
         private void CreateFirstAnswers(Multipleselect question)
         {
-            var correctAnswer = _entityFactory.Answer(Constants.DefaultAnswerOptionText, true, Guid.Empty, GetCurrentUsername());
             var incorrectAnswer = _entityFactory.Answer(Constants.DefaultAnswerOptionText, false, Guid.Empty, GetCurrentUsername());
+            var correctAnswer = _entityFactory.Answer(Constants.DefaultAnswerOptionText, true, Guid.Empty, GetCurrentUsername());
             question.AddAnswer(correctAnswer, GetCurrentUsername());
             question.AddAnswer(incorrectAnswer, GetCurrentUsername());
         }

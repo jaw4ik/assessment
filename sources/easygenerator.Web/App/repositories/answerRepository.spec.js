@@ -932,6 +932,463 @@
 
         });
 
+        describe('updateText:', function() {
+            
+            it('should be function', function () {
+                expect(repository.updateText).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(repository.updateText()).toBePromise();
+            });
+
+            describe('when question id is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateText(null, '1231231', '1231231');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Question id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when question id is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateText(undefined, '1231231', '1231231');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Question id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when question id is not a string', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateText({}, '1231231', '1231231');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Question id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when answer id is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateText('1231231', null, '1231231');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Answer id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when answer id is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateText('1231231', undefined, '1231231');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Answer id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when answer id is not a string', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateText('1231231', {}, '1231231');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Answer id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when answer text is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateText('1231231', '1231231', null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Answer text is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when answer text is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateText('1231231', '1231231', undefined);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Answer text is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when answer text is not a string', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateText('1231231', '1231231', {});
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Answer text is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            it('should send request to \'api/answer/updateText\'', function (done) {
+                var promise = repository.updateText('id1', 'id2', '123123');
+
+                promise.fin(function () {
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/answer/updatetext', { answerId: 'id2', text: '123123' });
+                    done();
+                });
+
+                post.reject('yeah it failed baby');
+            });
+
+            describe('when answer updated on server', function () {
+
+                describe('and response is not an object', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = repository.updateText('id1', 'id2', '123123');
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+
+                        post.resolve('123123123');
+                    });
+
+                });
+
+                describe('and response has no ModifiedOn date', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = repository.updateText('id1', 'id2', '123123');
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Answer modification date is not a string');
+                            done();
+                        });
+
+                        post.resolve({});
+                    });
+
+                });
+
+                describe('and question not found in dataContext', function () {
+
+                    it('should reject promise', function (done) {
+                        dataContext.objectives = [];
+
+                        var response = {
+                            ModifiedOn: new Date().toISOString()
+                        };
+
+                        var promise = repository.updateText('id1', 'id2', '123123');
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question does not exist in dataContext');
+                            done();
+                        });
+
+                        post.resolve(response);
+                    });
+
+                });
+
+                it('should update question modified date in dataContext', function (done) {
+                    var questionId = 'someId';
+
+                    dataContext.objectives = [
+                    {
+                        questions: [
+                        {
+                            id: questionId,
+                            modifiedOn: '123'
+                        }]
+                    }];
+
+                    var response = {
+                        ModifiedOn: new Date().toISOString()
+                    };
+
+                    var promise = repository.updateText(questionId, 'id2', 'asdasdasd');
+
+                    promise.fin(function () {
+                        expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
+                        done();
+                    });
+
+                    post.resolve(response);
+                });
+
+                it('should resolve promise with received information', function (done) {
+                    var questionId = 'someId';
+
+                    dataContext.objectives = [
+                    {
+                        questions: [
+                        {
+                            id: questionId,
+                            modifiedOn: '123'
+                        }]
+                    }];
+
+                    var response = {
+                        ModifiedOn: new Date().toISOString()
+                    };
+
+                    var promise = repository.updateText(questionId, 'id2', 'text');
+
+                    promise.fin(function () {
+                        expect(promise.inspect().value.modifiedOn).toEqual(new Date(response.ModifiedOn));
+
+                        done();
+                    });
+
+                    post.resolve(response);
+                });
+
+            });
+
+        });
+
+        describe('multipleChoiceChangeCorrectAnswer:', function () {
+            
+            it('should be function', function () {
+                expect(repository.multipleChoiceChangeCorrectAnswer).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(repository.multipleChoiceChangeCorrectAnswer()).toBePromise();
+            });
+
+            describe('when question id is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.multipleChoiceChangeCorrectAnswer(null, '1231231');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Question id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when question id is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.multipleChoiceChangeCorrectAnswer(undefined, '1231231');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Question id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when question id is not a string', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.multipleChoiceChangeCorrectAnswer({}, '1231231');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Question id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when answer id is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.multipleChoiceChangeCorrectAnswer('1231231', null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Answer id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when answer id is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.multipleChoiceChangeCorrectAnswer('1231231', undefined);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Answer id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when answer id is not a string', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.multipleChoiceChangeCorrectAnswer('1231231', {});
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Answer id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            it('should send request to \'api/answer/updateText\'', function (done) {
+                var promise = repository.multipleChoiceChangeCorrectAnswer('id1', 'id2');
+
+                promise.fin(function () {
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/answer/multiplechoice/changecorrectanswer', { questionId: 'id1', answerId: 'id2' });
+                    done();
+                });
+
+                post.reject('yeah it failed baby');
+            });
+
+            describe('when answer updated on server', function () {
+
+                describe('and response is not an object', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = repository.multipleChoiceChangeCorrectAnswer('id1', 'id2');
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+
+                        post.resolve('123123123');
+                    });
+
+                });
+
+                describe('and response has no ModifiedOn date', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = repository.multipleChoiceChangeCorrectAnswer('id1', 'id2');
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Answer modification date is not a string');
+                            done();
+                        });
+
+                        post.resolve({});
+                    });
+
+                });
+
+                describe('and question not found in dataContext', function () {
+
+                    it('should reject promise', function (done) {
+                        dataContext.objectives = [];
+
+                        var response = {
+                            ModifiedOn: new Date().toISOString()
+                        };
+
+                        var promise = repository.multipleChoiceChangeCorrectAnswer('id1', 'id2');
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question does not exist in dataContext');
+                            done();
+                        });
+
+                        post.resolve(response);
+                    });
+
+                });
+
+                it('should update question modified date in dataContext', function (done) {
+                    var questionId = 'someId';
+
+                    dataContext.objectives = [
+                    {
+                        questions: [
+                        {
+                            id: questionId,
+                            modifiedOn: '123'
+                        }]
+                    }];
+
+                    var response = {
+                        ModifiedOn: new Date().toISOString()
+                    };
+
+                    var promise = repository.multipleChoiceChangeCorrectAnswer(questionId, 'id2');
+
+                    promise.fin(function () {
+                        expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
+                        done();
+                    });
+
+                    post.resolve(response);
+                });
+
+                it('should resolve promise with received information', function (done) {
+                    var questionId = 'someId';
+
+                    dataContext.objectives = [
+                    {
+                        questions: [
+                        {
+                            id: questionId,
+                            modifiedOn: '123'
+                        }]
+                    }];
+
+                    var response = {
+                        ModifiedOn: new Date().toISOString()
+                    };
+
+                    var promise = repository.multipleChoiceChangeCorrectAnswer(questionId, 'id2');
+
+                    promise.fin(function () {
+                        expect(promise.inspect().value.modifiedOn).toEqual(new Date(response.ModifiedOn));
+
+                        done();
+                    });
+
+                    post.resolve(response);
+                });
+
+            });
+
+        });
+
     });
 
 });

@@ -2,7 +2,6 @@
     function () {
 
         return {
-
             accessType: {
                 free: '0',
                 starter: '1'
@@ -136,8 +135,10 @@
                         addedByCollaborator: 'question:answer:addedByCollaborator',
                         deletedByCollaborator: 'question:answer:deletedByCollaborator',
                         textUpdatedByCollaborator: 'question:answer:textUpdatedByCollaborator',
-                        correctnessUpdatedByCollaborator: 'question:answer:correctnessUpdatedByCollaborator'
-                    },
+                        multipleselectAnswerCorrectnessUpdatedByCollaborator: 'question:answer:multipleselectAnswerCorrectnessUpdatedByCollaborator',
+                        multiplechoiceAnswerCorrectnessUpdatedByCollaborator: 'question:answer:multiplechoiceAnswerCorrectnessUpdatedByCollaborator',
+                        multiplechoiceDeleteByCollaborator: 'question:answer:multiplechoiceDeletedByCollaborator'
+    },
 
                     learningContent: {
                         createdByCollaborator: 'learningContent:createdByCollaborator',

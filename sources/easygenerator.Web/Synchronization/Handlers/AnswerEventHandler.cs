@@ -11,8 +11,9 @@ namespace easygenerator.Web.Synchronization.Handlers
     public class AnswerEventHandler :
         IDomainEventHandler<AnswerCreatedEvent>,
         IDomainEventHandler<AnswerTextUpdatedEvent>,
-        IDomainEventHandler<AnswerCorrectnessUpdatedEvent>,
-        IDomainEventHandler<AnswerDeletedEvent>
+        IDomainEventHandler<MultipleselectAnswerCorrectnessUpdatedEvent>,
+        IDomainEventHandler<AnswerDeletedEvent>, 
+        IDomainEventHandler<MultiplechoiceAnswerCorrectnessUpdateEvent>
     {
         private readonly ICollaborationBroadcaster<Question> _broadcaster;
         private readonly IEntityMapper _mapper;
@@ -41,10 +42,16 @@ namespace easygenerator.Web.Synchronization.Handlers
               .answerTextUpdated(args.Answer.Question.Id.ToNString(), args.Answer.Id.ToNString(), args.Answer.Text, args.Answer.Question.ModifiedOn);
         }
 
-        public void Handle(AnswerCorrectnessUpdatedEvent args)
+        public void Handle(MultipleselectAnswerCorrectnessUpdatedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Answer.Question)
-             .answerCorrectnessUpdated(args.Answer.Question.Id.ToNString(), args.Answer.Id.ToNString(), args.Answer.IsCorrect, args.Answer.Question.ModifiedOn);
+             .multipleSelectAnswerCorrectnessUpdated(args.Answer.Question.Id.ToNString(), args.Answer.Id.ToNString(), args.Answer.IsCorrect, args.Answer.Question.ModifiedOn);
+        }
+
+        public void Handle(MultiplechoiceAnswerCorrectnessUpdateEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Answer.Question)
+                .multiplechoiceAnswerCorrectnessUpdated(args.Answer.Question.Id.ToNString(), args.Answer.Id.ToNString(), args.Answer.IsCorrect, args.Answer.Question.ModifiedOn);
         }
     }
 }

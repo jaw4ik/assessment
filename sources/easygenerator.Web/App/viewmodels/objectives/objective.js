@@ -74,7 +74,7 @@
         app.on(constants.messages.question.answer.addedByCollaborator, questionUpdated);
         app.on(constants.messages.question.answer.deletedByCollaborator, questionUpdated);
         app.on(constants.messages.question.answer.textUpdatedByCollaborator, questionUpdated);
-        app.on(constants.messages.question.answer.correctnessUpdatedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.answer.multipleselectAnswerCorrectnessUpdatedByCollaborator, questionUpdated);
         app.on(constants.messages.question.learningContent.createdByCollaborator, questionUpdated);
         app.on(constants.messages.question.learningContent.deletedByCollaborator, questionUpdated);
         app.on(constants.messages.question.learningContent.textUpdatedByCollaborator, questionUpdated);

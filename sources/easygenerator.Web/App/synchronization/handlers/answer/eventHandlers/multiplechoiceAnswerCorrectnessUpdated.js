@@ -2,9 +2,10 @@
     function (guard, app, constants, dataContext) {
         "use strict";
 
-        return function(questionId, answerId, modifiedOn) {
+        return function(questionId, answerId, isCorrect, modifiedOn) {
             guard.throwIfNotString(questionId, 'QuestionId is not a string');
             guard.throwIfNotString(answerId, 'AnswerId is not a string');
+            guard.throwIfNotBoolean(isCorrect, 'IsCorrect is not boolean');
             guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
 
             var question = _.find(dataContext.getQuestions(), function(item) {
@@ -15,10 +16,6 @@
 
             question.modifiedOn = new Date(modifiedOn);
 
-            if (question.type == constants.questionType.multipleChoice.type) {
-                app.trigger(constants.messages.question.answer.multiplechoiceDeleteByCollaborator, question, answerId);
-            } else {
-                app.trigger(constants.messages.question.answer.deletedByCollaborator, question, answerId);
-            }
+            app.trigger(constants.messages.question.answer.multiplechoiceAnswerCorrectnessUpdatedByCollaborator, question, answerId, isCorrect);
         };
     });

@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/answer/eventHandlers/deleted'], function (handler) {
+﻿define(['synchronization/handlers/answer/eventHandlers/multipleselectAnswerCorrectnessUpdated'], function (handler) {
     "use strict";
 
     var dataContext = require('dataContext'),
@@ -6,11 +6,12 @@
         constants = require('constants')
     ;
 
-    describe('synchronization answer [deleted]', function () {
+    describe('synchronization answer [multipleselectAnswerCorrectnessUpdated]', function () {
 
         var questionId = 'id',
             answerId = 'answerId',
-            question = { id: questionId, type: constants.questionType.multipleSelect.type },
+            question = { id: questionId },
+            isCorrect = true,
             modifiedOn = new Date();
 
         beforeEach(function () {
@@ -24,27 +25,37 @@
         describe('when questionId is not a string', function () {
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(undefined, answerId, modifiedOn.toISOString());
+                    handler(undefined, answerId, isCorrect, modifiedOn.toISOString());
                 };
 
                 expect(f).toThrow('QuestionId is not a string');
             });
         });
 
-        describe('when answer is not an object', function () {
+        describe('when answerId is not a string', function () {
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(questionId, undefined, modifiedOn.toISOString());
+                    handler(questionId, undefined, isCorrect, modifiedOn.toISOString());
                 };
 
                 expect(f).toThrow('AnswerId is not a string');
             });
         });
 
+        describe('when isCorrect is not boolean', function () {
+            it('should throw an exception', function () {
+                var f = function () {
+                    handler(questionId, answerId, undefined, modifiedOn.toISOString());
+                };
+
+                expect(f).toThrow('IsCorrect is not boolean');
+            });
+        });
+
         describe('when modifiedOn is not a string', function () {
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(questionId, answerId, undefined);
+                    handler(questionId, answerId, isCorrect, undefined);
                 };
 
                 expect(f).toThrow('ModifiedOn is not a string');
@@ -58,7 +69,7 @@
 
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(questionId, answerId, modifiedOn.toISOString());
+                    handler(questionId, answerId, isCorrect, modifiedOn.toISOString());
                 };
 
                 expect(f).toThrow('Question has not been found');
@@ -68,31 +79,15 @@
         it('should update question modified on date', function () {
             question.modifiedOn = '';
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
-            handler(questionId, answerId, modifiedOn.toISOString());
+            handler(questionId, answerId, isCorrect, modifiedOn.toISOString());
 
             expect(question.modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
         });
 
-        describe('when question type is multipleselect', function() {
-        
-            it('should trigger app event', function () {
-                spyOn(dataContext, 'getQuestions').and.returnValue([question]);
-                handler(questionId, answerId, modifiedOn.toISOString());
-                expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.deletedByCollaborator, question, answerId);
-            });
-
+        it('should trigger app event', function () {
+            spyOn(dataContext, 'getQuestions').and.returnValue([question]);
+            handler(questionId, answerId, isCorrect, modifiedOn.toISOString());
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.multipleselectAnswerCorrectnessUpdatedByCollaborator, question, answerId, isCorrect);
         });
-
-        describe('when question type is multipleselect', function () {
-
-            it('should trigger app event', function () {
-                question.type = constants.questionType.multipleChoice.type;
-                spyOn(dataContext, 'getQuestions').and.returnValue([question]);
-                handler(questionId, answerId, modifiedOn.toISOString());
-                expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.multiplechoiceDeleteByCollaborator, question, answerId);
-            });
-
-        });
-        
     });
 })

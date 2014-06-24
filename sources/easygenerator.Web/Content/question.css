@@ -251,6 +251,10 @@
     border-bottom: 1px solid #e7e7e7;
 }
 
+.add-answer-option-wrapper {
+    display: inline-block;
+}
+
 .add-answer-option-btn {
     display: inline-block;
     vertical-align: top;

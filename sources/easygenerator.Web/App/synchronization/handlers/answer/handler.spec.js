@@ -23,7 +23,13 @@
 
         describe('correctnessUpdated:', function () {
             it('should be function', function () {
-                expect(handler.correctnessUpdated).toBeFunction();
+                expect(handler.multipleSelectAnswerCorrectnessUpdated).toBeFunction();
+            });
+        });
+
+        describe('multiplechoiceAnswerCorrectnessUpdated:', function () {
+            it('should be function', function () {
+                expect(handler.multiplechoiceAnswerCorrectnessUpdated).toBeFunction();
             });
         });
 

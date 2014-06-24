@@ -376,6 +376,9 @@
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\multipleSelectAnswerCorrectnessUpdated.spec.js">
+      <DependentUpon>multipleSelectAnswerCorrectnessUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorRemoved.js" />
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorRemoved.spec.js">
       <DependentUpon>collaboratorRemoved.js</DependentUpon>
@@ -440,9 +443,10 @@
     <Content Include="App\repositories\objectiveRepository.spec.js">
       <DependentUpon>objectiveRepository.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\answer\eventHandlers\correctnessUpdated.js" />
-    <Content Include="App\synchronization\handlers\answer\eventHandlers\correctnessUpdated.spec.js">
-      <DependentUpon>correctnessUpdated.js</DependentUpon>
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\multipleSelectAnswerCorrectnessUpdated.js" />
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\multiplechoiceAnswerCorrectnessUpdated.js" />
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\multiplechoiceAnswerCorrectnessUpdated.spec.js">
+      <DependentUpon>multiplechoiceAnswerCorrectnessUpdated.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\answer\eventHandlers\textUpdated.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\textUpdated.spec.js">

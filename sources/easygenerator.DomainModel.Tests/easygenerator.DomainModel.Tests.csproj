@@ -70,6 +70,7 @@
     <Compile Include="Entities\MultipleselectTests.cs" />
     <Compile Include="Entities\Questions\DragAndDropTextTests.cs" />
     <Compile Include="Entities\Questions\DropspotTests.cs" />
+    <Compile Include="Entities\Questions\MultiplechoiceTests.cs" />
     <Compile Include="Entities\TemplateTests.cs" />
     <Compile Include="Entities\CommentTests.cs" />
     <Compile Include="Entities\UserTests.cs" />

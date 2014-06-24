@@ -3,9 +3,9 @@ using easygenerator.DomainModel.Entities.Questions;
 
 namespace easygenerator.DomainModel.Events.AnswerEvents
 {
-    public class AnswerCorrectnessUpdatedEvent : AnswerEvent
+    public class MultipleselectAnswerCorrectnessUpdatedEvent : AnswerEvent
     {
-        public AnswerCorrectnessUpdatedEvent(Answer answer)
+        public MultipleselectAnswerCorrectnessUpdatedEvent(Answer answer)
             : base(answer)
         {
 

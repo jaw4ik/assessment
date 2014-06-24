@@ -118,10 +118,11 @@
                             </div>
                             <div class="question-answer-text-wrapper" data-bind="click: $parent.selectAnswer.bind($parent, $data), css: { active: $data == $parent.selectedAnswer() }">
                                 <div class="question-answer-text">
-                                    <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateAnswer } }, event: { focus: $parent.beginEditText, blur: function (data, event) { $parent.endEditText(data, event) } }, hasFocus: hasFocus, selectText: false">
+                                    <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateText } }, event: { focus: $parent.beginEditText, blur: function (data, event) { $parent.endEditText(data, event) } }, hasFocus: hasFocus, selectText: false">
                                     </div>
                                 </div>
                             </div>
+                            <!-- ko if: $parent.showDeleteButton -->
                             <div class="question-answer-delete-wrapper">
                                 <div class="question-answer-delete-icon-wrapper">
                                     <span class="question-answer-delete-icon" data-bind="click: $parent.removeAnswer"></span>
@@ -132,6 +133,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- /ko -->
                         </div>
                     </li>
                     <!-- /ko -->

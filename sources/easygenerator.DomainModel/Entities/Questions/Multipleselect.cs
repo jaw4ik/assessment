@@ -43,7 +43,7 @@ namespace easygenerator.DomainModel.Entities.Questions
             MarkAsModified(modifiedBy);
         }
 
-        private void ThrowIfAnswerIsInvalid(Answer answer)
+        protected void ThrowIfAnswerIsInvalid(Answer answer)
         {
             ArgumentValidation.ThrowIfNull(answer, "answer");
         }

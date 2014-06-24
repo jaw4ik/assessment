@@ -70,30 +70,51 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (answer == null)
             {
-                return JsonLocalizableError(Errors.AnswerNotFoundError, Errors.AnswerNotFoundResourceKey);
+                return HttpNotFound(Errors.AnswerNotFoundError);
             }
 
             answer.UpdateText(text, GetCurrentUsername());
             _eventPublisher.Publish(new AnswerTextUpdatedEvent(answer));
 
             answer.UpdateCorrectness(isCorrect, GetCurrentUsername());
-            _eventPublisher.Publish(new AnswerCorrectnessUpdatedEvent(answer));
+            _eventPublisher.Publish(new MultipleselectAnswerCorrectnessUpdatedEvent(answer));
+
+            return JsonSuccess(new { ModifiedOn = answer.ModifiedOn });
+        }
+
+        [HttpPost]
+        [EntityPermissions(typeof (Question))]
+        [Route("api/answer/multiplechoice/changecorrectanswer")]
+        public ActionResult MultipleChoiceChangeCorrectAnswer(Multiplechoice question, Answer answer)
+        {
+            if (question == null)
+            {
+                return HttpNotFound(Errors.QuestionNotFoundError);
+            }
+
+            if (answer == null)
+            {
+                return HttpNotFound(Errors.AnswerNotFoundError);
+            }
+
+            question.SetCorrectAnswer(answer, GetCurrentUsername());
+            _eventPublisher.Publish(new MultiplechoiceAnswerCorrectnessUpdateEvent(answer));
 
             return JsonSuccess(new { ModifiedOn = answer.ModifiedOn });
         }
 
         [HttpPost]
         [EntityPermissions(typeof(Answer))]
-        [Route("api/answer/updatecorrectness")]
-        public ActionResult UpdateCorrectness(Answer answer, bool isCorrect)
+        [Route("api/answer/updatetext")]
+        public ActionResult UpdateText(Answer answer, string text)
         {
             if (answer == null)
             {
                 return HttpNotFound(Errors.AnswerNotFoundError);
             }
 
-            answer.UpdateCorrectness(isCorrect, GetCurrentUsername());
-            _eventPublisher.Publish(new AnswerCorrectnessUpdatedEvent(answer));
+            answer.UpdateText(text, GetCurrentUsername());
+            _eventPublisher.Publish(new AnswerTextUpdatedEvent(answer));
 
             return JsonSuccess(new { ModifiedOn = answer.ModifiedOn });
         }

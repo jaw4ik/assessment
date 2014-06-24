@@ -76,7 +76,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             question.Received().AddAnswer(answer, user);
         }
 
-
         [TestMethod]
         public void Create_ShouldPublishDomainEvent()
         {
@@ -187,8 +186,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.Update(null, null, false);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Answer is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("answerNotFoundError");
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be("Answer is not found");
         }
 
 
@@ -228,7 +226,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.Update(answer, "", isCorrect);
 
-            _eventPublisher.Received().Publish(Arg.Any<AnswerCorrectnessUpdatedEvent>());
+            _eventPublisher.Received().Publish(Arg.Any<MultipleselectAnswerCorrectnessUpdatedEvent>());
         }
 
         [TestMethod]
@@ -256,54 +254,112 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region UpdateCorrectness
+        #region UpdateText
 
         [TestMethod]
-        public void UpdateCorrectness_ShouldReturnJsonErrorResult_WhenAnswerIsNull()
+        public void UpdateText_ShouldReturnJsonErrorResult_WhenAnswerIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var result = _controller.UpdateCorrectness(null, false);
+            var result = _controller.UpdateText(null, null);
 
-            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.AnswerNotFoundError);
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be("Answer is not found");
         }
 
+
         [TestMethod]
-        public void UpdateCorrectness_ShouldUpdateAnswerCorrectness()
+        public void UpdateText_ShouldUpdateAnswerText()
         {
-            const bool isCorrect = true;
+            const string text = "updated text";
             const string user = "username@easygenerator.com";
             _user.Identity.Name.Returns(user);
             var answer = Substitute.For<Answer>();
 
-            _controller.UpdateCorrectness(answer, isCorrect);
+            _controller.UpdateText(answer, text);
 
-            answer.Received().UpdateCorrectness(isCorrect, user);
+            answer.Received().UpdateText(text, user);
         }
 
-
         [TestMethod]
-        public void UpdateCorrectness_ShouldPublishDomainEvent()
+        public void UpdateText_ShouldPublishUpdateAnswerTExtUpdatedDomainEvent()
         {
-            const bool isCorrect = true;
             const string user = "username@easygenerator.com";
             _user.Identity.Name.Returns(user);
             var answer = Substitute.For<Answer>();
 
-            _controller.UpdateCorrectness(answer, isCorrect);
+            _controller.UpdateText(answer, "");
 
-            _eventPublisher.Received().Publish(Arg.Any<AnswerCorrectnessUpdatedEvent>());
+            _eventPublisher.Received().Publish(Arg.Any<AnswerTextUpdatedEvent>());
         }
 
-
         [TestMethod]
-        public void UpdateCorrectness_ShouldReturnJsonSuccessResult()
+        public void UpdateText_ShouldReturnJsonSuccessResult()
         {
             var answer = Substitute.For<Answer>();
 
-            var result = _controller.UpdateCorrectness(answer, false);
+            var result = _controller.UpdateText(answer, String.Empty);
 
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = answer.ModifiedOn });
+        }
+
+        #endregion
+
+        #region MultipleChoiceChangeCorrectAnswer
+
+        [TestMethod]
+        public void MultipleChoiceChangeCorrectAnswer_ShouldReturnHttpNotFoundResult_WhenQuestionIsNulll()
+        {
+            var result = _controller.MultipleChoiceChangeCorrectAnswer(null, null);
+
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be("Question is not found");
+        }
+
+        [TestMethod]
+        public void MultipleChoiceChangeCorrectAnswer_ShouldReturnHttpNotFoundResult_WhenAnswerIsNotFound()
+        {
+            var question = Substitute.For<Multiplechoice>();
+
+            var result = _controller.MultipleChoiceChangeCorrectAnswer(question, null);
+
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be("Answer is not found");
+        }
+
+        [TestMethod]
+        public void MultipleChoiceChangeCorrectAnswer_ShouldSetAllAnswersToIncorectAndCurrentAnsweToCorrect()
+        {
+            var question = Substitute.For<Multiplechoice>();
+            var answer = Substitute.For<Answer>();
+            const string user = "username@easygenerator.com";
+            _user.Identity.Name.Returns(user);
+
+            _controller.MultipleChoiceChangeCorrectAnswer(question, answer);
+
+            question.Received().SetCorrectAnswer(answer, user);
+        }
+
+        [TestMethod]
+        public void MultipleChoiceChangeCorrectAnswer_ShouldPublishUpdateMultiplechoiceAnswerCorrectnessUpdatedDomainEvent()
+        {
+            var question = Substitute.For<Multiplechoice>();
+            var answer = Substitute.For<Answer>();
+            const string user = "username@easygenerator.com";
+            _user.Identity.Name.Returns(user);
+
+            _controller.MultipleChoiceChangeCorrectAnswer(question, answer);
+
+            _eventPublisher.Received().Publish(Arg.Any<MultiplechoiceAnswerCorrectnessUpdateEvent>());
+        }
+
+        [TestMethod]
+        public void MultipleChoiceChangeCorrectAnswer_ShouldReturnJsonSuccessResult()
+        {
+            var question = Substitute.For<Multiplechoice>();
+            var answer = Substitute.For<Answer>();
+
+            var result = _controller.MultipleChoiceChangeCorrectAnswer(question, answer);
+            result.Should()
+                .BeJsonSuccessResult()
+                .And.Data.ShouldBeSimilar(new { ModifiedOn = answer.CreatedOn });
         }
 
         #endregion

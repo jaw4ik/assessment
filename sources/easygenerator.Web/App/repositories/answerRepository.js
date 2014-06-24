@@ -8,7 +8,8 @@
             addAnswer: addAnswer,
             removeAnswer: removeAnswer,
             updateAnswer: updateAnswer,
-            updateCorrectness: updateCorrectness
+            updateText: updateText,
+            multipleChoiceChangeCorrectAnswer: multipleChoiceChangeCorrectAnswer
         };
 
         return repository;
@@ -107,18 +108,42 @@
             });
         }
 
-        function updateCorrectness(questionId, answerId, isCorrect) {
-            return Q.fcall(function () {
+        function updateText(questionId, answerId, text) {
+            return Q.fcall(function() {
                 guard.throwIfNotString(questionId, 'Question id is not a string');
                 guard.throwIfNotString(answerId, 'Answer id is not a string');
-                guard.throwIfNotBoolean(isCorrect, 'Answer correctness is not a boolean');
+                guard.throwIfNotString(text, 'Answer text is not a string');
 
                 var data = {
                     answerId: answerId,
-                    isCorrect: isCorrect
+                    text: text
                 };
 
-                return httpWrapper.post('api/answer/updatecorrectness', data).then(function (response) {
+                return httpWrapper.post('api/answer/updatetext', data).then(function (response) {
+                    guard.throwIfNotAnObject(response, 'Response is not an object');
+                    guard.throwIfNotString(response.ModifiedOn, 'Answer modification date is not a string');
+
+                    var modifiedOn = new Date(response.ModifiedOn);
+                    updateQuestionModifiedOnDate(questionId, modifiedOn);
+
+                    return {
+                        modifiedOn: modifiedOn
+                    };
+                });
+            });
+        }
+
+        function multipleChoiceChangeCorrectAnswer(questionId, answerId) {
+            return Q.fcall(function() {
+                guard.throwIfNotString(questionId, 'Question id is not a string');
+                guard.throwIfNotString(answerId, 'Answer id is not a string');
+
+                var data = {
+                    questionId: questionId,
+                    answerId: answerId
+                };
+
+                return httpWrapper.post('api/answer/multiplechoice/changecorrectanswer', data).then(function(response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Answer modification date is not a string');
 
