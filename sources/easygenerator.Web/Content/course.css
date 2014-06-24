@@ -152,6 +152,10 @@
         position: relative;
     }
 
+    .connecting-objectives-item-container .main-content-list {
+        height: 100%;
+    }
+
 .connecting-objectives-item.empty {
     border: none;
     padding: 0;
