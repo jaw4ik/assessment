@@ -719,6 +719,7 @@
     <Content Include="Scripts\jquery.extensions.js" />
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\knockoutBindings\fillInTheBlankBinding.js" />
+    <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\moment-with-langs.js" />
     <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />

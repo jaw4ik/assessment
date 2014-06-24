@@ -1199,6 +1199,15 @@
         });
 
         describe('connectObjective:', function () {
+
+            var relateObjectiveDefer;
+
+            beforeEach(function () {
+                relateObjectiveDefer = Q.defer();
+
+                spyOn(repository, 'relateObjective').and.returnValue(relateObjectiveDefer.promise);
+            });
+
             var objective = {
                 id: "id1",
                 title: ko.observable('objective1'),
@@ -1233,7 +1242,6 @@
                     viewModel.connectedObjectives.push(objective2);
                     orderObjectiveDefer = Q.defer();
                     spyOn(repository, 'updateObjectiveOrder').and.returnValue(orderObjectiveDefer.promise);
-                    spyOn(repository, 'relateObjective').and.callFake();
                 });
 
                 it('should send event \'Change order of learning objectives\'', function () {
@@ -1260,14 +1268,8 @@
 
             describe('when objective not exists in connected objectives', function () {
 
-                var relateObjectiveDefer;
-
                 beforeEach(function () {
                     viewModel.connectedObjectives([]);
-
-                    relateObjectiveDefer = Q.defer();
-
-                    spyOn(repository, 'relateObjective').and.returnValue(relateObjectiveDefer.promise);
                 });
 
                 it('should call relateObjectives repository function with selected objectives', function () {
