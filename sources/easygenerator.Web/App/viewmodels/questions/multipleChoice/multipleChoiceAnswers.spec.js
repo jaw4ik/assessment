@@ -91,11 +91,11 @@
 
         describe('toggleCorrectness:', function () {
             var answer = { id: ko.observable('answerId'), text: ko.observable(''), isCorrect: ko.observable(false), original: { correctness: false }, isDeleted: ko.observable(false) };
-            var answer1 = { id: ko.observable('answerId1'), text: ko.observable('22'), isCorrect: ko.observable(false), original: { correctness: false }, isDeleted: ko.observable(false) };
-            var answer2 = { id: ko.observable('answerId2'), text: ko.observable('222'), isCorrect: ko.observable(false), original: { correctness: false }, isDeleted: ko.observable(false) };
-
+            var multipleChoiceChangeCorrectAnswerDefer;
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
+                multipleChoiceChangeCorrectAnswerDefer = Q.defer();
+                spyOn(repository, 'multipleChoiceChangeCorrectAnswer').and.returnValue(multipleChoiceChangeCorrectAnswerDefer.promise);
             });
 
             it('should be function', function () {
@@ -115,13 +115,8 @@
 
             describe('when current correct answer not equal answer which change correctness', function () {
 
-                var multipleChoiceChangeCorrectAnswerDefer;
-
-                beforeEach(function() {
+                beforeEach(function () {
                     answer.isCorrect(false);
-                    multipleChoiceChangeCorrectAnswerDefer = Q.defer();
-
-                    spyOn(repository, 'multipleChoiceChangeCorrectAnswer').and.returnValue(multipleChoiceChangeCorrectAnswerDefer.promise);
                 });
 
                 it('should send event \'Change answer option correctness\'', function () {
@@ -161,6 +156,7 @@
                     });
 
                     it('should not update correctness', function (done) {
+                        multipleChoiceChangeCorrectAnswerDefer.reject();
                         viewModel.toggleCorrectness(answer).fin(function () {
                             expect(repository.multipleChoiceChangeCorrectAnswer).not.toHaveBeenCalled();
                             done();
@@ -169,7 +165,7 @@
 
                     describe('and answer is set later', function() {
 
-                        it('should update correctness', function() {
+                        it('should update correctness', function (done) {
                             viewModel.toggleCorrectness(answer).fin(function () {
                                 answer.id('foo');
                                 expect(repository.multipleChoiceChangeCorrectAnswer).toHaveBeenCalledWith(questionId, answer.id());
@@ -761,51 +757,51 @@
 
                     });
 
-                    //describe('when text is modified', function () {
-                    //    beforeEach(function () {
-                    //        answer.original.text = 'text old';
-                    //    });
+                    describe('when text is modified', function () {
+                        beforeEach(function () {
+                            answer.original.text = 'text old';
+                        });
 
-                    //    describe('and correctness is not modified', function () {
-                    //        beforeEach(function () {
-                    //            answer.original.correctness = false;
-                    //        });
+                        describe('and correctness is not modified', function () {
+                            beforeEach(function () {
+                                answer.original.correctness = false;
+                            });
 
-                    //        it('should update answer in the repository11', function (done) {
-                    //            updateText.resolve();
+                            it('should update answer in the repository11', function (done) {
+                                updateText.resolve();
 
-                    //            viewModel.updateText(answer).fin(function () {
-                    //                expect(repository.updateText).toHaveBeenCalledWith(questionId, answer.id(), answer.text(), false);
-                    //                done();
-                    //            });
-                    //        });
-                    //    });
+                                viewModel.updateText(answer).fin(function () {
+                                    expect(repository.updateText).toHaveBeenCalledWith(questionId, answer.id(), answer.text());
+                                    done();
+                                });
+                            });
+                        });
 
-                    //    describe('and correctness is modified', function () {
-                    //        beforeEach(function () {
-                    //            answer.original.correctness = true;
-                    //        });
+                        describe('and correctness is modified', function () {
+                            beforeEach(function () {
+                                answer.original.correctness = true;
+                            });
 
-                    //        it('should update answer in the repository', function (done) {
-                    //            updateText.resolve();
+                            it('should update answer in the repository', function (done) {
+                                updateText.resolve();
 
-                    //            viewModel.updateText(answer).fin(function () {
-                    //                expect(repository.updateText).toHaveBeenCalledWith(questionId, answer.id(), answer.text(), false);
-                    //                done();
-                    //            });
-                    //        });
-                    //    });
+                                viewModel.updateText(answer).fin(function () {
+                                    expect(repository.updateText).toHaveBeenCalledWith(questionId, answer.id(), answer.text());
+                                    done();
+                                });
+                            });
+                        });
 
 
-                    //    it('should show notification', function (done) {
-                    //        updateText.resolve({ modifiedOn: new Date() });
+                        it('should show notification', function (done) {
+                            updateText.resolve({ modifiedOn: new Date() });
 
-                    //        viewModel.updateText(answer).fin(function () {
-                    //            expect(notify.saved).toHaveBeenCalled();
-                    //            done();
-                    //        });
-                    //    });
-                    //});
+                            viewModel.updateText(answer).fin(function () {
+                                expect(notify.saved).toHaveBeenCalled();
+                                done();
+                            });
+                        });
+                    });
                 });
 
                 describe('and id is empty', function () {
