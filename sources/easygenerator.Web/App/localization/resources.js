@@ -800,7 +800,7 @@
         en: 'Password does not meet requirements'
     },
     LicenseAgreeCheckBoxTitle: {
-        en: 'I have read and I agree to the <a href=\"{0}\">Terms</a> and <a href=\"{1}\">Privacy</a>'
+        en: 'I have read and I agree to the <a href=\"{0}\">Terms</a> and <a href=\"{1}\">Privacy Policy</a>'
     },
     Checking: {
         en: 'Checking...'
