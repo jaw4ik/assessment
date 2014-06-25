@@ -2,10 +2,12 @@
 
     <div class="content-section-wrapper">
         <div class="content-section clearfix">
-            <ul class="course-navigation-list">
+            <ul class="course-navigation-list clearfix">
+                <li class="course-navigation-arrow left-side"></li>
                 <!-- ko foreach: $data.navigationItems -->
-                <li class="course-navigation-item">
-                    <a class="course-navigation-link" href="#" data-bind="click: navigate, attr: { href: navigationLink }, localize: { text: title }, css: { 'active': isActive, 'cursor-default': isRootView }"></a>
+                <li class="course-navigation-item" data-bind="css: { 'active': isActive }">
+                    <a class="course-navigation-link" href="#" data-bind="click: navigate, attr: { href: navigationLink }, localize: { text: title }, css: { 'cursor-default': isRootView }"></a>
+                    <span class="course-navigation-arrow"></span>
                 </li>
                 <!-- /ko -->
             </ul>
