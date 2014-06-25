@@ -8,7 +8,7 @@
         },
         fillInTheBlankDialogName: 'fillInTheBlankDialog',
         dataTag: 'input',
-        spaceSymbol: ' ',
+        spaceSymbol: '&zwnj;',
         classNames: {
             blankInput: 'blankInput',
             blankField: 'blankField',
@@ -31,6 +31,12 @@
             var plugin = CKEDITOR.plugins.fillInTheBlank;
             var classNames = plugin.classNames;
             var widgetTag = plugin.widgetTag;
+
+            editor.on('paste', function (evt) {
+                var $data = $('<output>').append($.parseHTML(evt.data.dataValue));
+                $('.' + classNames.blankField, $data).removeAttr('data-group-id');
+                evt.data.dataValue = $data.html();
+            });
 
             editor.widgets.add(plugin.commands.addBlank, {
                 draggable: false,
