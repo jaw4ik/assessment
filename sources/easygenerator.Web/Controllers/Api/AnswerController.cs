@@ -30,7 +30,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Question))]
+        [EntityCollaborator(typeof(Question))]
         [Route("api/answer/create")]
         public ActionResult Create(Multipleselect question, string text, bool isCorrect)
         {
@@ -48,7 +48,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Question))]
+        [EntityCollaborator(typeof(Question))]
         [Route("api/answer/delete")]
         public ActionResult Delete(Multipleselect question, Answer answer)
         {
@@ -64,7 +64,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Answer))]
+        [EntityCollaborator(typeof(Answer))]
         [Route("api/answer/update")]
         public ActionResult Update(Answer answer, string text, bool isCorrect)
         {
@@ -83,7 +83,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof (Question))]
+        [EntityCollaborator(typeof (Question))]
         [Route("api/answer/multiplechoice/changecorrectanswer")]
         public ActionResult MultipleChoiceChangeCorrectAnswer(Multiplechoice question, Answer answer)
         {
@@ -104,7 +104,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Answer))]
+        [EntityCollaborator(typeof(Answer))]
         [Route("api/answer/updatetext")]
         public ActionResult UpdateText(Answer answer, string text)
         {
@@ -120,7 +120,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Question))]
+        [EntityCollaborator(typeof(Question))]
         [Route("api/answers")]
         public ActionResult GetCollection(Multipleselect question)
         {

@@ -29,7 +29,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Objective))]
+        [EntityCollaborator(typeof(Objective))]
         [Route("api/question/create/type/0")]
         public ActionResult Create(Objective objective, string title)
         {

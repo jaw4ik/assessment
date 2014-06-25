@@ -32,7 +32,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Question))]
+        [EntityCollaborator(typeof(Question))]
         [Route("api/question/updateTitle")]
         public ActionResult UpdateTitle(Question question, string title)
         {
@@ -49,7 +49,7 @@ namespace easygenerator.Web.Controllers.Api
 
 
         [HttpPost]
-        [EntityPermissions(typeof(Question))]
+        [EntityCollaborator(typeof(Question))]
         [Route("api/question/updateContent")]
         public ActionResult UpdateContent(Question question, string content)
         {
@@ -65,7 +65,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Objective))]
+        [EntityCollaborator(typeof(Objective))]
         [Route("api/question/delete")]
         public ActionResult Delete(Objective objective, ICollection<Question> questions)
         {

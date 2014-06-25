@@ -223,7 +223,7 @@
     <Compile Include="Permissions\IEntityPermissionsChecker.cs" />
     <Compile Include="Permissions\LearningContentPermissionsChecker.cs" />
     <Compile Include="Permissions\ObjectivePermissionsChecker.cs" />
-    <Compile Include="Components\ActionFilters\Permissions\EntityPermissionsAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Permissions\EntityCollaboratorAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCoursesAmountAttribute.cs" />
     <Compile Include="Components\ActionFilters\Permissions\EntityAccessAttribute.cs" />

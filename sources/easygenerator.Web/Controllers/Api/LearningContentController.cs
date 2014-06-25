@@ -27,7 +27,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Question))]
+        [EntityCollaborator(typeof(Question))]
         [Route("api/learningContent/create")]
         public ActionResult Create(Question question, string text)
         {
@@ -45,7 +45,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Question))]
+        [EntityCollaborator(typeof(Question))]
         [Route("api/learningContent/delete")]
         public ActionResult Delete(Question question, LearningContent learningContent)
         {
@@ -64,7 +64,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(LearningContent))]
+        [EntityCollaborator(typeof(LearningContent))]
         [Route("api/learningContent/updateText")]
         public ActionResult UpdateText(LearningContent learningContent, string text)
         {
@@ -80,7 +80,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Question))]
+        [EntityCollaborator(typeof(Question))]
         [Route("api/learningContents")]
         public ActionResult GetCollection(Question question)
         {

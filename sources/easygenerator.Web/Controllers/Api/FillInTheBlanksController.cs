@@ -27,7 +27,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToCreateOtherQuestionTypes)]
-        [EntityPermissions(typeof(Objective))]
+        [EntityCollaborator(typeof(Objective))]
         [Route("api/question/create/type/1")]
         public ActionResult Create(Objective objective, string title)
         {
@@ -45,7 +45,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Question))]
+        [EntityCollaborator(typeof(Question))]
         [Route("api/question/updatefillintheblank")]
         public ActionResult Update(FillInTheBlanks question, string fillInTheBlank, ICollection<AnswerViewModel> answersCollection)
         {

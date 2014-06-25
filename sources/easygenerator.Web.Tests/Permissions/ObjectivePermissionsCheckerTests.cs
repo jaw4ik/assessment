@@ -32,7 +32,7 @@ namespace easygenerator.Web.Tests.Permissions
             var objective = ObjectiveObjectMother.CreateWithCreatedBy(CreatedBy);
 
             //Act
-            var result = _objectivePermissionChecker.HasPermissions(CreatedBy, objective);
+            var result = _objectivePermissionChecker.HasCollaboratorPermissions(CreatedBy, objective);
 
             //Assert
             result.Should().BeTrue();
@@ -45,10 +45,10 @@ namespace easygenerator.Web.Tests.Permissions
             var objective = Substitute.For<Objective>();
             var course = Substitute.For<Course>();
             objective.Courses.Returns(new List<Course> { course });
-            _coursePermissionChecker.HasPermissions(Username, course).Returns(true);
+            _coursePermissionChecker.HasCollaboratorPermissions(Username, course).Returns(true);
 
             //Act
-            var result = _objectivePermissionChecker.HasPermissions(Username, objective);
+            var result = _objectivePermissionChecker.HasCollaboratorPermissions(Username, objective);
 
             //Assert
             result.Should().BeTrue();
@@ -60,11 +60,11 @@ namespace easygenerator.Web.Tests.Permissions
             //Arrange
             var objective = Substitute.For<Objective>();
             var course = CourseObjectMother.Create();
-            _coursePermissionChecker.HasPermissions(Username, course).Returns(false);
+            _coursePermissionChecker.HasCollaboratorPermissions(Username, course).Returns(false);
             objective.Courses.Returns(new List<Course> { course });
 
             //Act
-            var result = _objectivePermissionChecker.HasPermissions(Username, objective);
+            var result = _objectivePermissionChecker.HasCollaboratorPermissions(Username, objective);
 
             //Assert
             result.Should().BeFalse();

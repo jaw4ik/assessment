@@ -16,10 +16,10 @@ namespace easygenerator.Web.Permissions
             _objectivePermissionsChecker = objectivePermissionsChecker;
         }
 
-        public bool HasPermissions(string username, Question entity)
+        public bool HasCollaboratorPermissions(string username, Question entity)
         {
             return entity.CreatedBy == username ||
-                   _objectivePermissionsChecker.HasPermissions(username, entity.Objective);
+                   _objectivePermissionsChecker.HasCollaboratorPermissions(username, entity.Objective);
         }
     }
 }

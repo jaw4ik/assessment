@@ -1,23 +1,22 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
-using System;
 using System.Linq;
 
 namespace easygenerator.Web.Permissions
 {
     public class CoursePermissionsChecker : IEntityPermissionsChecker<Course>
     {
-        private IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
         public CoursePermissionsChecker(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public bool HasPermissions(string username, Course course)
+        public bool HasCollaboratorPermissions(string username, Course course)
         {
-            return IsOwner(username, course) || HasCollaboratorPermissions(username, course);
+            return IsOwner(username, course) || CanCollaborate(username, course);
         }
 
         private bool IsOwner(string username, Course course)
@@ -25,7 +24,7 @@ namespace easygenerator.Web.Permissions
             return course.CreatedBy == username;
         }
 
-        private bool HasCollaboratorPermissions(string username, Course course)
+        private bool CanCollaborate(string username, Course course)
         {
             return course.Collaborators.Any(e => e.Email == username) && IsCollaborationEnabled(course);
         }

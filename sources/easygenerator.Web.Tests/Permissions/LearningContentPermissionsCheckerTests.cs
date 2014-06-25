@@ -31,7 +31,7 @@ namespace easygenerator.Web.Tests.Permissions
             var learningContent = LearningContentObjectMother.CreateWithCreatedBy(Username);
 
             //Act
-            var result = _learningContentPermissionChecker.HasPermissions(Username, learningContent);
+            var result = _learningContentPermissionChecker.HasCollaboratorPermissions(Username, learningContent);
 
             //Assert
             result.Should().BeTrue();
@@ -44,10 +44,10 @@ namespace easygenerator.Web.Tests.Permissions
             var question = Substitute.For<Question>();
             var learningContent = Substitute.For<LearningContent>();
             learningContent.Question.Returns(question);
-            _questionPermissionChecker.HasPermissions(Username, question).Returns(true);
+            _questionPermissionChecker.HasCollaboratorPermissions(Username, question).Returns(true);
 
             //Act
-            var result = _learningContentPermissionChecker.HasPermissions(Username, learningContent);
+            var result = _learningContentPermissionChecker.HasCollaboratorPermissions(Username, learningContent);
 
             //Assert
             result.Should().BeTrue();
@@ -60,10 +60,10 @@ namespace easygenerator.Web.Tests.Permissions
             var question = Substitute.For<Question>();
             var learningContent = Substitute.For<LearningContent>();
             learningContent.Question.Returns(question);
-            _questionPermissionChecker.HasPermissions(Username, question).Returns(false);
+            _questionPermissionChecker.HasCollaboratorPermissions(Username, question).Returns(false);
 
             //Act
-            var result = _learningContentPermissionChecker.HasPermissions(Username, learningContent);
+            var result = _learningContentPermissionChecker.HasCollaboratorPermissions(Username, learningContent);
 
             //Assert
             result.Should().BeFalse();

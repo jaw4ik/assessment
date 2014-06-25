@@ -30,7 +30,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Course))]
+        [EntityCollaborator(typeof(Course))]
         [Route("api/course/collaborators")]
         public ActionResult GetCollaborators(Course course)
         {

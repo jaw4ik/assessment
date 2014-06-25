@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 
 namespace easygenerator.Web.Permissions
@@ -16,10 +12,10 @@ namespace easygenerator.Web.Permissions
             _questionPermissionsChecker = questionPermissionsChecker;
         }
 
-        public bool HasPermissions(string username, LearningContent entity)
+        public bool HasCollaboratorPermissions(string username, LearningContent entity)
         {
             return entity.CreatedBy == username ||
-                   _questionPermissionsChecker.HasPermissions(username, entity.Question);
+                   _questionPermissionsChecker.HasCollaboratorPermissions(username, entity.Question);
         }
     }
 }

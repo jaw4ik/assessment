@@ -12,10 +12,10 @@ namespace easygenerator.Web.Permissions
             _coursePermissionChecker = coursePermissionChecker;
         }
 
-        public bool HasPermissions(string username, Objective objective)
+        public bool HasCollaboratorPermissions(string username, Objective objective)
         {
             return objective.CreatedBy == username ||
-                   objective.Courses.Any(course => _coursePermissionChecker.HasPermissions(username, course));
+                   objective.Courses.Any(course => _coursePermissionChecker.HasCollaboratorPermissions(username, course));
         }
     }
 }

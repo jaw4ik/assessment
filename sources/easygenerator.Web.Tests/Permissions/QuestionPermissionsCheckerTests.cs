@@ -31,7 +31,7 @@ namespace easygenerator.Web.Tests.Permissions
             var question = MultipleselectObjectMother.CreateWithCreatedBy(Username);
 
             //Act
-            var result = _questionPermissionChecker.HasPermissions(Username, question);
+            var result = _questionPermissionChecker.HasCollaboratorPermissions(Username, question);
 
             //Assert
 
@@ -45,10 +45,10 @@ namespace easygenerator.Web.Tests.Permissions
             var objective = Substitute.For<Objective>();
             var question = Substitute.For<Multipleselect>();
             question.Objective.Returns(objective);
-            _objectivePermissionChecker.HasPermissions(Username, objective).Returns(true);
+            _objectivePermissionChecker.HasCollaboratorPermissions(Username, objective).Returns(true);
 
             //Act
-            var result = _objectivePermissionChecker.HasPermissions(Username, objective);
+            var result = _objectivePermissionChecker.HasCollaboratorPermissions(Username, objective);
 
             //Assert
             result.Should().BeTrue();
@@ -61,10 +61,10 @@ namespace easygenerator.Web.Tests.Permissions
             var objective = Substitute.For<Objective>();
             var question = Substitute.For<Question>();
             question.Objective.Returns(objective);
-            _objectivePermissionChecker.HasPermissions(Username, objective).Returns(false);
+            _objectivePermissionChecker.HasCollaboratorPermissions(Username, objective).Returns(false);
 
             //Act
-            var result = _objectivePermissionChecker.HasPermissions(Username, objective);
+            var result = _objectivePermissionChecker.HasCollaboratorPermissions(Username, objective);
 
             //Assert
             result.Should().BeFalse();

@@ -44,7 +44,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/objectives")]
         public ActionResult GetCollection()
         {
-            var objectives = _repository.GetCollection(obj => _permissionChecker.HasPermissions(User.Identity.Name, obj));
+            var objectives = _repository.GetCollection(obj => _permissionChecker.HasCollaboratorPermissions(User.Identity.Name, obj));
 
             return JsonSuccess(objectives.Select(e => _entityMapper.Map(e)));
         }
@@ -66,7 +66,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Objective))]
+        [EntityCollaborator(typeof(Objective))]
         [Route("api/objective/update")]
         public ActionResult Update(Objective objective, string title)
         {
@@ -100,7 +100,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityPermissions(typeof(Objective))]
+        [EntityCollaborator(typeof(Objective))]
         [Route("api/objective/updatequestionsorder")]
         public ActionResult UpdateQuestionsOrder(Objective objective, ICollection<Question> questions)
         {

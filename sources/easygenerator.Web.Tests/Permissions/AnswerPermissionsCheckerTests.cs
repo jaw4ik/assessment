@@ -1,5 +1,4 @@
-﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Entities.Questions;
+﻿using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.Permissions;
 using FluentAssertions;
@@ -31,7 +30,7 @@ namespace easygenerator.Web.Tests.Permissions
             var answer = AnswerObjectMother.CreateWithCreatedBy(Username);
 
             //Act
-            var result = _answerPermissionChecker.HasPermissions(Username, answer);
+            var result = _answerPermissionChecker.HasCollaboratorPermissions(Username, answer);
 
             //Assert
             result.Should().BeTrue();
@@ -44,10 +43,10 @@ namespace easygenerator.Web.Tests.Permissions
             var question = Substitute.For<Multipleselect>();
             var answer = Substitute.For<Answer>();
             answer.Question.Returns(question);
-            _questionPermissionChecker.HasPermissions(Username, question).Returns(true);
+            _questionPermissionChecker.HasCollaboratorPermissions(Username, question).Returns(true);
 
             //Act
-            var result = _answerPermissionChecker.HasPermissions(Username, answer);
+            var result = _answerPermissionChecker.HasCollaboratorPermissions(Username, answer);
 
             //Assert
             result.Should().BeTrue();
@@ -60,10 +59,10 @@ namespace easygenerator.Web.Tests.Permissions
             var question = Substitute.For<Multipleselect>();
             var answer = Substitute.For<Answer>();
             answer.Question.Returns(question);
-            _questionPermissionChecker.HasPermissions(Username, question).Returns(false);
+            _questionPermissionChecker.HasCollaboratorPermissions(Username, question).Returns(false);
 
             //Act
-            var result = _answerPermissionChecker.HasPermissions(Username, answer);
+            var result = _answerPermissionChecker.HasCollaboratorPermissions(Username, answer);
 
             //Assert
             result.Should().BeFalse();
