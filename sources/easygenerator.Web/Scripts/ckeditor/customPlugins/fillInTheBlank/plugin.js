@@ -125,9 +125,13 @@
                     widget.on('ready', function () {
                         if (widget.element.hasClass(plugin.classNames.new)) {
                             clearFormating(widget.element);
-                            $(widget.wrapper.$).after(plugin.spaceSymbol).before(plugin.spaceSymbol);
                         }
                     });
+
+                    $(widget.wrapper.$).on('click', function (evt) {
+                        widget.edit();
+                    });
+
                 },
                 downcast: function (element, data) {
                     if (element.hasClass(plugin.classNames.blankField)) {
