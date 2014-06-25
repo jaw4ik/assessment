@@ -39,6 +39,17 @@
         activate: activate
     };
 
+    designer.background.backgroundSizeChanged = function (width, height) {
+        _.each(designer.dropspots(), function (dropspot) {
+            if (dropspot.position.x() > width ||
+                dropspot.position.y() > height ||
+                dropspot.position.x() + dropspot.size.width() > width ||
+                dropspot.position.y() + dropspot.size.height() > height) {
+                dropspot.position.endMoveDropspot(0, 0);
+            }
+        });
+    }
+
     return designer;
 
     function activate(questionId) {

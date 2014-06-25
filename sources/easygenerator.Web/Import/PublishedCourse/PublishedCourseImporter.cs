@@ -84,17 +84,14 @@ namespace easygenerator.Web.Import.PublishedCourse
             return objective;
         }
 
-        private Question ImportQuestion(Guid questionId, string publishedPackagePath, string createdBy, JObject courseData)
+        private Multipleselect ImportQuestion(Guid questionId, string publishedPackagePath, string createdBy, JObject courseData)
         {
-            var question = _questionEntityReader.ReadQuestion(questionId, publishedPackagePath, createdBy, courseData) ;
+            var question = _questionEntityReader.ReadQuestion(questionId, publishedPackagePath, createdBy, courseData);
 
-            if (question is Multipleselect)
+            foreach (Guid answerId in _publishedCourseStructureReader.GetAnswers(questionId, courseData))
             {
-                foreach (Guid answerId in _publishedCourseStructureReader.GetAnswers(questionId, courseData))
-                {
-                    var answer = _answerEntityReader.ReadAnswer(answerId, createdBy, courseData);
-                    (question as Multipleselect).AddAnswer(answer, createdBy);
-                }    
+                var answer = _answerEntityReader.ReadAnswer(answerId, createdBy, courseData);
+                question.AddAnswer(answer, createdBy);
             }
 
             foreach (Guid learningContentId in _publishedCourseStructureReader.GetLearningContents(questionId, courseData))

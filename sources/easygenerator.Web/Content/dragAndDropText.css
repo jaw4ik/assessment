@@ -23,6 +23,10 @@
     overflow: auto;
 }
 
+
+.drag-and-drop-designer-background {
+    position: relative;
+}
 .upload-background-image {
     height: 32px;
     width: 32px;
@@ -81,6 +85,7 @@
     position: absolute;
     left: 0;
     top: 0;
+    word-wrap: break-word;
 }
 
 .dropspot-text {

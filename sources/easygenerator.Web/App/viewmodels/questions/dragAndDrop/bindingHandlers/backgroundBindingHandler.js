@@ -18,6 +18,10 @@
                         .css('background-image', 'url(' + src + ')')
                         .css('height', image.height)
                         .css('width', image.width);
+
+                    if (_.isFunction(value.backgroundSizeChanged)) {
+                        value.backgroundSizeChanged(image.width, image.height);
+                    }
                 }
             }
         }

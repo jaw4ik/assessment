@@ -4,6 +4,7 @@
         eventTracker = require('eventTracker'),
         imageUpload = require('imageUpload'),
         notify = require('notify'),
+        Dropspot = require('viewmodels/questions/dragAndDrop/dropspot'),
         dropspotToAdd = require('viewmodels/questions/dragAndDrop/dropspotToAdd'),
         changeBackgroundCommand = require('viewmodels/questions/dragAndDrop/commands/changeBackground'),
         addDropspotCommand = require('viewmodels/questions/dragAndDrop/commands/addDropspot'),
@@ -22,6 +23,96 @@
 
             it('should be observable', function () {
                 expect(designer.background).toBeObservable();
+            });
+
+            describe('backgroundSizeChanged:', function () {
+
+                var dropspot = new Dropspot('id', 'text', 0, 0);
+
+                beforeEach(function () {
+                    designer.dropspots([dropspot]);
+                    spyOn(dropspot.position, 'endMoveDropspot');
+                });
+
+                it('should be function', function () {
+                    expect(designer.background.backgroundSizeChanged).toBeFunction();
+                });
+
+                describe('when dropspot left position is out of background area', function () {
+
+                    it('should move it to the top left corner', function () {
+                        dropspot.position.x(100);
+                        dropspot.position.y(5);
+                        dropspot.size.width(5);
+                        dropspot.size.height(5);
+
+                        designer.background.backgroundSizeChanged(50, 50);
+
+                        expect(dropspot.position.endMoveDropspot).toHaveBeenCalledWith(0, 0);
+                    });
+
+                });
+
+                describe('when dropspot top position is out of background area', function () {
+
+                    it('should move it to top left corner', function () {
+                        dropspot.position.x(5);
+                        dropspot.position.y(100);
+                        dropspot.size.width(5);
+                        dropspot.size.height(5);
+
+                        designer.background.backgroundSizeChanged(50, 50);
+
+                        expect(dropspot.position.endMoveDropspot).toHaveBeenCalledWith(0, 0);
+                    });
+
+                });
+
+                describe('when dropspot right position is out of background area', function () {
+
+                    it('should move it to the top left corner', function () {
+                        dropspot.position.x(5);
+                        dropspot.position.y(5);
+                        dropspot.size.width(100);
+                        dropspot.size.height(5);
+
+                        designer.background.backgroundSizeChanged(50, 50);
+
+                        expect(dropspot.position.endMoveDropspot).toHaveBeenCalledWith(0, 0);
+                    });
+
+                });
+
+                describe('when dropspot bottom position is out of background area', function () {
+
+                    it('should move it to the top left corner', function () {
+                        dropspot.position.x(5);
+                        dropspot.position.y(5);
+                        dropspot.size.width(5);
+                        dropspot.size.height(100);
+
+                        designer.background.backgroundSizeChanged(50, 50);
+
+                        expect(dropspot.position.endMoveDropspot).toHaveBeenCalledWith(0, 0);
+                    });
+
+                });
+
+                describe('when dropspot is within the background area', function() {
+
+                    it('should not change position', function () {
+                        dropspot.position.x(5);
+                        dropspot.position.y(5);
+                        dropspot.size.width(5);
+                        dropspot.size.height(5);
+
+                        designer.background.backgroundSizeChanged(50, 50);
+
+                        expect(dropspot.position.endMoveDropspot).not.toHaveBeenCalled();
+                    });
+
+                });
+
             });
 
         });

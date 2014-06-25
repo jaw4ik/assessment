@@ -19,7 +19,7 @@ namespace easygenerator.Web.Import.PublishedCourse.EntityReaders
         private readonly ImportContentReader _importContentReader;
         private readonly IEntityFactory _entityFactory;
 
-        public virtual Question ReadQuestion(Guid questionId, string publishedPackagePath, string createdBy, JObject courseData)
+        public virtual Multipleselect ReadQuestion(Guid questionId, string publishedPackagePath, string createdBy, JObject courseData)
         {
             var question = courseData["objectives"]
                 .Values("questions")
@@ -27,26 +27,8 @@ namespace easygenerator.Web.Import.PublishedCourse.EntityReaders
                 .Single(q => q.Value<string>("id") == questionId.ToString("N").ToLower());
 
             var title = question.Value<string>("title");
-            var type = question.Value<int>("type");
 
-            Question questionEntity;
-
-            switch (type)
-            {
-                case 0:
-                    questionEntity = _entityFactory.MultipleselectQuestion(title, createdBy);
-                    break;
-                case 1:
-                    questionEntity = _entityFactory.FillInTheBlanksQuestion(title, createdBy);
-                    break;
-                case 2:
-                    throw new NotSupportedException();
-                case 3:
-                    questionEntity = _entityFactory.MultiplechoiceQuestion(title, createdBy);
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
+            Multipleselect questionEntity = _entityFactory.MultipleselectQuestion(title, createdBy);
 
             var hasContent = question.Value<bool>("hasContent");
             questionEntity.UpdateContent(hasContent ? ReadQuestionContent(questionId, publishedPackagePath, courseData) : String.Empty, createdBy);

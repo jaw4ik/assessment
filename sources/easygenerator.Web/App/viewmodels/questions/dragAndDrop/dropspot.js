@@ -17,12 +17,18 @@
             y: ko.observable(y),
             endMoveDropspot: function (x, y) {
                 changeDropspotPosition.execute(that.id, x, y).then(function () {
+                    that.position.x(x);
+                    that.position.y(y);
+
                     notify.saved();
                     eventTracker.publish(self.events.changePosition);
                 });
             }
         };
-
+        this.size = {
+            width: ko.observable(),
+            height: ko.observable()
+        }
 
         this.text = ko.observable(text);
         this.text.beginEditText = function () {

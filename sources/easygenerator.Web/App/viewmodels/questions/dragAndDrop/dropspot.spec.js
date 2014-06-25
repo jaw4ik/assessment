@@ -182,6 +182,15 @@
                             dfd.resolve();
                         });
 
+                        it('should change dropspot position', function (done) {
+                            dropspot.position.endMoveDropspot(100, 200);
+                            dfd.promise.then(function () {
+                                expect(dropspot.position.x()).toEqual(100);
+                                expect(dropspot.position.y()).toEqual(200);
+                                done();
+                            });
+                        });
+
                         it('should notify user that everything was saved', function (done) {
                             dropspot.position.endMoveDropspot();
                             dfd.promise.then(function () {
@@ -205,9 +214,37 @@
 
             });
 
+            describe('size:', function () {
+
+                var dropspot;
+
+                beforeEach(function () {
+                    dropspot = new Dropspot('id', 'dropspot', 10, 20);
+                });
+
+                it('should be object', function () {
+                    expect(dropspot.size).toBeObject();
+                });
+
+                describe('width:', function () {
+
+                    it('should be observable', function () {
+                        expect(dropspot.size.width).toBeObservable();
+                    });
+
+                });
+
+                describe('height:', function () {
+
+                    it('should be observable', function () {
+                        expect(dropspot.size.height).toBeObservable();
+                    });
+
+                });
+
+            });
+
         });
-
-
 
     });
 

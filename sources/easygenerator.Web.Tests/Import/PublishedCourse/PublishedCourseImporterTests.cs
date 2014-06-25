@@ -2,6 +2,7 @@
 using System.Linq;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -156,10 +157,9 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
 
             var questionId = Guid.NewGuid();
             var questionTitle = "Some question title";
-            var questionType = QuestionType.MultipleSelect;
             var questionContent = "Some question content";
 
-            var question = QuestionObjectMother.Create(questionTitle, questionType, CreatedBy);
+            var question = MultipleselectObjectMother.Create(questionTitle, CreatedBy);
             question.UpdateContent(questionContent, CreatedBy);
 
             _courseStructureReader.GetQuestions(Arg.Any<Guid>(), Arg.Any<JObject>())
@@ -202,7 +202,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
                 .Returns(new List<Guid>() { answerId });
 
             _questionEntityReader.ReadQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
-                .Returns(QuestionObjectMother.Create());
+                .Returns(MultipleselectObjectMother.Create());
             _answerEntityReader.ReadAnswer(answerId, CreatedBy, Arg.Any<JObject>())
                 .Returns(AnswerObjectMother.Create(answerText, answerCorrectness, answerGroup, CreatedBy));
 
@@ -210,9 +210,9 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             var course = _importer.Import(publicationPath, CreatedBy);
 
             //Assert
-            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).Answers.ElementAt(0).Text.Should().Be(answerText);
-            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).Answers.ElementAt(0).IsCorrect.Should().Be(answerCorrectness);
-            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).Answers.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
+            ((Multipleselect)course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0)).Answers.ElementAt(0).Text.Should().Be(answerText);
+            ((Multipleselect)course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0)).Answers.ElementAt(0).IsCorrect.Should().Be(answerCorrectness);
+            ((Multipleselect)course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0)).Answers.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
         }
 
         [TestMethod]
@@ -240,7 +240,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
                 .Returns(new List<Guid>() { learningContentId });
 
             _questionEntityReader.ReadQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
-                .Returns(QuestionObjectMother.Create());
+                .Returns(MultipleselectObjectMother.Create());
             _learningContentEntityReader.ReadLearningContent(learningContentId, publicationPath, CreatedBy, Arg.Any<JObject>())
                 .Returns(LearningContentObjectMother.Create(learningContentText, CreatedBy));
 

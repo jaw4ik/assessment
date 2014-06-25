@@ -46,7 +46,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             var questionId = Guid.NewGuid();
 
             var data = JObject.Parse(String.Format("{{ objectives: [ {{ id: '{0}', questions: [ {{ id: '{1}' }} ] }} ] }}",
-                objectiveId.ToString("N").ToLower(), 
+                objectiveId.ToString("N").ToLower(),
                 questionId.ToString("N").ToLower()));
 
             //Act

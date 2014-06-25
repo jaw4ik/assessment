@@ -7,7 +7,8 @@
             $(element).draggable({
                 containment: "parent",
                 cursor: "move",
-                drag:  _.debounce(function (event, ui) {
+                scroll: false,
+                drag: _.debounce(function (event, ui) {
                     var
                         x = ui.position.left,
                         y = ui.position.top;
@@ -30,17 +31,26 @@
         update: function (element, valueAccessor) {
             var value = valueAccessor();
 
+            ko.bindingHandlers.text.update(element, function () { return value.text; });
+
             if (value.text()) {
                 $(element).show();
-                ko.bindingHandlers.text.update(element, function () { return value.text; });
             } else {
                 $(element).hide();
             }
-            if (value.x()) {
-                $(element).css('left', value.x() + 'px');
+
+            if (value.x) {
+                $(element).css('left', ko.unwrap(value.x) + 'px');
             }
-            if (value.y()) {
-                $(element).css('top', value.y() + 'px');
+            if (value.y) {
+                $(element).css('top', ko.unwrap(value.y) + 'px');
+            }
+
+            if (ko.isWriteableObservable(value.width)) {
+                value.width($(element).outerWidth());
+            }
+            if (ko.isWriteableObservable(value.height)) {
+                value.height($(element).outerHeight());
             }
         }
     };
