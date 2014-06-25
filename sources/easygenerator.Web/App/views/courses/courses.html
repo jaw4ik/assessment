@@ -1,145 +1,145 @@
 ﻿<section class="courses view-module" data-bind="scrollToElement: {}">
 
-    <div class="content-holder resizable">
-
-        <div class="page-view-caption clearfix">
-            <div class="page-view-caption-text" data-bind="localize: { text: 'courses' }">Courses</div>
-        </div>
-        <div class="view-list-actions-holder">
-            <div class="list-item-action delete">
-                <!-- ko if: enableDeleteCourses -->
-                <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedCourses, localize: { text: 'deleteSelected' }">Delete selected</span>
-                <!-- /ko -->
-                <!-- ko ifnot: enableDeleteCourses -->
-                <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
-                <!-- /ko -->
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="page-view-caption clearfix">
+                <div class="page-view-caption-text" data-bind="localize: { text: 'courses' }">Courses</div>
             </div>
-            <div class="list-item-action informer">
-                <!-- ko ifnot: isCreateCourseAvailable -->
-                <div class="limit-courses-informer-wrapper">
-                    <div class="triangle-wrapper">
-                        <div class="triangle-border"></div>
-                    </div>
-                    <div class="limit-courses-informer">
-                        <div class="limit-courses-informer-text">
-                            <!-- ko if: hasStarterAccess -->
-                            <span data-bind="localize: { html : 'limitCoursesInformerTextForStarter' }"></span>
-                            <span class="bold" data-bind="html: coursesStarterLimit">50</span>
-                            <!-- /ko -->
-                            <!-- ko ifnot: hasStarterAccess -->
-                            <span data-bind="localize: { html : 'limitCoursesInformerTextForFreeUser' }"></span>
-                            <span class="bold" data-bind="html: coursesFreeLimit">50</span>
-                            <!-- /ko -->
-                            <span data-bind="localize: { html : 'limitCoursesInformerTextEnd' }"></span>
-                        </div>
-                        <div class="limit-courses-infomer-btn-holder">
-                            <a href="/account/upgrade" target="_blank" class="upgrade-user-btn btn green" data-bind="localize: { text : 'upgradeNowBtn' }">Upgrade now</a>
-                        </div>
-                    </div>
+            <div class="view-list-actions-holder">
+                <div class="list-item-action delete">
+                    <!-- ko if: enableDeleteCourses -->
+                    <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedCourses, localize: { text: 'deleteSelected' }">Delete selected</span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: enableDeleteCourses -->
+                    <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
+                    <!-- /ko -->
                 </div>
-                <!-- /ko -->
-            </div>
-            <div class="list-item-action create">
-                <div class="action-item-btn-wrapper">
-                    <button class="action-item-btn create-item btn green" data-bind="click: navigateToCreation, css:{ disabled: !isCreateCourseAvailable() }">
-                        <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
-                    </button>
-                    <!-- ko if: courses().length < 1 -->
-                    <div class="tip-arrow-holder right">
-                        <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
+                <div class="list-item-action informer">
+                    <!-- ko ifnot: isCreateCourseAvailable -->
+                    <div class="limit-courses-informer-wrapper">
+                        <div class="triangle-wrapper">
+                            <div class="triangle-border"></div>
+                        </div>
+                        <div class="limit-courses-informer">
+                            <div class="limit-courses-informer-text">
+                                <!-- ko if: hasStarterAccess -->
+                                <span data-bind="localize: { html : 'limitCoursesInformerTextForStarter' }"></span>
+                                <span class="bold" data-bind="html: coursesStarterLimit">50</span>
+                                <!-- /ko -->
+                                <!-- ko ifnot: hasStarterAccess -->
+                                <span data-bind="localize: { html : 'limitCoursesInformerTextForFreeUser' }"></span>
+                                <span class="bold" data-bind="html: coursesFreeLimit">50</span>
+                                <!-- /ko -->
+                                <span data-bind="localize: { html : 'limitCoursesInformerTextEnd' }"></span>
+                            </div>
+                            <div class="limit-courses-infomer-btn-holder">
+                                <a href="/account/upgrade" target="_blank" class="upgrade-user-btn btn green" data-bind="localize: { text : 'upgradeNowBtn' }">Upgrade now</a>
+                            </div>
+                        </div>
                     </div>
                     <!-- /ko -->
                 </div>
+                <div class="list-item-action create">
+                    <div class="action-item-btn-wrapper">
+                        <button class="action-item-btn create-item btn green" data-bind="click: navigateToCreation, css:{ disabled: !isCreateCourseAvailable() }">
+                            <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
+                        </button>
+                        <!-- ko if: courses().length < 1 -->
+                        <div class="tip-arrow-holder right">
+                            <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
             </div>
-        </div>
-        <ul class="unstyled main-content-list">
-            <!-- ko if: courses().length < 1 -->
-            <li class="empty-list-wrapper">
-                <span class="empty-list" data-bind="localize: { text: 'courseListIsEmpty'}">Course list is empty</span>
-            </li>
-            <!-- /ko -->
-            <!-- ko foreach: courses -->
-            <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
-                <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
-                    <div class="list-item-checkbox">
-                    </div>
-                    <div class="list-item-logo">
-                        <span class="list-item-logo-image-wrapper">
-                            <img class="list-item-logo-image" alt="" data-bind="attr: { src: image }" src="" />
-                        </span>
-                    </div>
-                    <div class="list-item-info">
-                        <div class="list-item-title">
-                            <span class="selectable" data-bind="text: title"></span>
+            <ul class="unstyled main-content-list">
+                <!-- ko if: courses().length < 1 -->
+                <li class="empty-list-wrapper">
+                    <span class="empty-list" data-bind="localize: { text: 'courseListIsEmpty'}">Course list is empty</span>
+                </li>
+                <!-- /ko -->
+                <!-- ko foreach: courses -->
+                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
+                    <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
+                        <div class="list-item-checkbox">
                         </div>
-                        <div class="list-item-saved">
-                            <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                        <div class="list-item-logo">
+                            <span class="list-item-logo-image-wrapper">
+                                <img class="list-item-logo-image" alt="" data-bind="attr: { src: image }" src="" />
+                            </span>
                         </div>
-                    </div>
-                    <div class="list-item-open">
-                        <div class="list-item-open-btn course-action-btn">
-                            <div class="info-tooltip open-item">
-                                <span data-bind="localize: { text: 'open' }">Open</span>
+                        <div class="list-item-info">
+                            <div class="list-item-title">
+                                <span class="selectable" data-bind="text: title"></span>
+                            </div>
+                            <div class="list-item-saved">
+                                <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                            </div>
+                        </div>
+                        <div class="list-item-open">
+                            <div class="list-item-open-btn course-action-btn">
+                                <div class="info-tooltip open-item">
+                                    <span data-bind="localize: { text: 'open' }">Open</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }, click: $parent.toggleSelection">
-                    <input class="custom-checkbox" type="checkbox" />
-                </span>
-                <div class="course-actions-panel">
-                    <a class="course-action-btn publish-btn" href="#" data-bind="click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
-                        <div class="info-tooltip publish-item">
-                            <span data-bind="localize: { text: 'publish' }">Publish</span>
-                        </div>
-                    </a>
-                </div>
-            </li>
-            <!-- /ko -->
-        </ul>
+                    <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }, click: $parent.toggleSelection">
+                        <input class="custom-checkbox" type="checkbox" />
+                    </span>
+                    <div class="course-actions-panel">
+                        <a class="course-action-btn publish-btn" href="#" data-bind="click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
+                            <div class="info-tooltip publish-item">
+                                <span data-bind="localize: { text: 'publish' }">Publish</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                <!-- /ko -->
+            </ul>
 
-        <!-- ko if: sharedCourses().length > 0 -->
-        <div class="main-content-list-title-wrapper">
-            <span class="main-content-list-title" data-bind="localize: { text: 'sharedCourses' }"></span>
-        </div>
-        <ul class="unstyled main-content-list">
-            <!-- ko foreach: sharedCourses -->
-            <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
-                <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
-                    <div class="list-item-checkbox">
-                    </div>
-                    <div class="list-item-logo">
-                        <span class="list-item-logo-image-wrapper">
-                            <img class="list-item-logo-image" alt="" data-bind="attr: { src: image }" src="" />
-                        </span>
-                    </div>
-                    <div class="list-item-info">
-                        <div class="list-item-title">
-                            <span class="selectable" data-bind="text: title"></span>
+            <!-- ko if: sharedCourses().length > 0 -->
+            <div class="main-content-list-title-wrapper">
+                <span class="main-content-list-title" data-bind="localize: { text: 'sharedCourses' }"></span>
+            </div>
+            <ul class="unstyled main-content-list">
+                <!-- ko foreach: sharedCourses -->
+                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
+                    <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
+                        <div class="list-item-checkbox">
                         </div>
-                        <div class="list-item-saved">
-                            <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                        <div class="list-item-logo">
+                            <span class="list-item-logo-image-wrapper">
+                                <img class="list-item-logo-image" alt="" data-bind="attr: { src: image }" src="" />
+                            </span>
                         </div>
-                    </div>
-                    <div class="list-item-open">
-                        <div class="list-item-open-btn course-action-btn">
-                            <div class="info-tooltip open-item">
-                                <span data-bind="localize: { text: 'open' }">Open</span>
+                        <div class="list-item-info">
+                            <div class="list-item-title">
+                                <span class="selectable" data-bind="text: title"></span>
+                            </div>
+                            <div class="list-item-saved">
+                                <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                            </div>
+                        </div>
+                        <div class="list-item-open">
+                            <div class="list-item-open-btn course-action-btn">
+                                <div class="info-tooltip open-item">
+                                    <span data-bind="localize: { text: 'open' }">Open</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="course-actions-panel">
-                    <a class="course-action-btn publish-btn" href="#" data-bind="click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
-                        <div class="info-tooltip publish-item">
-                            <span data-bind="localize: { text: 'publish' }">Publish</span>
-                        </div>
-                    </a>
-                </div>
-            </li>
+                    <div class="course-actions-panel">
+                        <a class="course-action-btn publish-btn" href="#" data-bind="click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
+                            <div class="info-tooltip publish-item">
+                                <span data-bind="localize: { text: 'publish' }">Publish</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                <!-- /ko -->
+            </ul>
             <!-- /ko -->
-        </ul>
-        <!-- /ko -->
-
+        </div>
     </div>
 </section>

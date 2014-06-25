@@ -1,69 +1,69 @@
 ﻿<section class="objectives view-module" data-bind="scrollToElement: {}">
-
-    <div class="content-holder resizable">
-        <div class="page-view-caption clearfix">
-            <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjectives' }">Learning objectives</div>
-        </div>
-        <div class="view-list-actions-holder">
-            <div class="list-item-action delete">
-                <!-- ko if: enableDeleteObjectives -->
-                <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedObjectives, localize: { text: 'deleteSelected' }">Delete selected</span>
-                <!-- /ko -->
-                <!-- ko ifnot: enableDeleteObjectives -->
-                <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
-                <!-- /ko -->
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="page-view-caption clearfix">
+                <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjectives' }">Learning objectives</div>
             </div>
-            <div class="list-item-action empty">
-                &nbsp;
-            </div>
-            <div class="list-item-action create">
-                <div class="action-item-btn-wrapper">
-                    <button class="action-item-btn create-item btn green" data-bind="click: navigateToCreation">
-                        <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewObjective' }">Learning objective</span>
-                    </button>
-                    <!-- ko if: objectives().length < 1 -->
-                    <div class="tip-arrow-holder right">
-                        <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
-                    </div>
+            <div class="view-list-actions-holder">
+                <div class="list-item-action delete">
+                    <!-- ko if: enableDeleteObjectives -->
+                    <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedObjectives, localize: { text: 'deleteSelected' }">Delete selected</span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: enableDeleteObjectives -->
+                    <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
                     <!-- /ko -->
                 </div>
+                <div class="list-item-action empty">
+                    &nbsp;
+                </div>
+                <div class="list-item-action create">
+                    <div class="action-item-btn-wrapper">
+                        <button class="action-item-btn create-item btn green" data-bind="click: navigateToCreation">
+                            <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewObjective' }">Learning objective</span>
+                        </button>
+                        <!-- ko if: objectives().length < 1 -->
+                        <div class="tip-arrow-holder right">
+                            <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
             </div>
-        </div>
-        <ul class="unstyled main-content-list">
-            <!-- ko if: objectives().length < 1 -->
-            <li class="empty-list-wrapper">
-                <span class="empty-list" data-bind="localize: { text: 'learningObjectiveListIsEmpty'}">Learning objective list is empty</span>
-            </li>
-            <!-- /ko -->
-            <!-- ko foreach: objectives -->
-            <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
-                <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
-                    <div class="list-item-checkbox"></div>
-                    <div class="list-item-logo">
-                        <img class="list-item-logo-image" alt="" data-bind="attr: { src: image }" src="" />
-                    </div>
-                    <div class="list-item-info">
-                        <div class="list-item-title">
-                            <span class="selectable" data-bind="text: title"></span>
+            <ul class="unstyled main-content-list">
+                <!-- ko if: objectives().length < 1 -->
+                <li class="empty-list-wrapper">
+                    <span class="empty-list" data-bind="localize: { text: 'learningObjectiveListIsEmpty'}">Learning objective list is empty</span>
+                </li>
+                <!-- /ko -->
+                <!-- ko foreach: objectives -->
+                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
+                    <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
+                        <div class="list-item-checkbox"></div>
+                        <div class="list-item-logo">
+                            <img class="list-item-logo-image" alt="" data-bind="attr: { src: image }" src="" />
                         </div>
-                        <div class="list-item-saved">
-                            <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                        <div class="list-item-info">
+                            <div class="list-item-title">
+                                <span class="selectable" data-bind="text: title"></span>
+                            </div>
+                            <div class="list-item-saved">
+                                <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="list-item-open">
-                        <div class="list-item-open-btn course-action-btn">
-                            <div class="info-tooltip open-item">
-                                <span data-bind="localize: { text: 'open' }">Open</span>
+                        <div class="list-item-open">
+                            <div class="list-item-open-btn course-action-btn">
+                                <div class="info-tooltip open-item">
+                                    <span data-bind="localize: { text: 'open' }">Open</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }, click: $parent.toggleObjectiveSelection">
-                    <input class="custom-checkbox" type="checkbox" />
-                </span>
-            </li>
-            <!-- /ko -->
-        </ul>
+                    <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }, click: $parent.toggleObjectiveSelection">
+                        <input class="custom-checkbox" type="checkbox" />
+                    </span>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
     </div>
-
 </section>

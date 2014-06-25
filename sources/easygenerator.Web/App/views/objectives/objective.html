@@ -1,25 +1,22 @@
 ﻿<section class="objective view-module">
-
-    <div class="content-holder">
-        <div class="page-view-caption clearfix">
-            <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</div>
-        </div>
-    </div>
-
-    <div class="content-holder">
-
-        <header class="view-header">
-            <div class="view-header-title">
-                <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }"></div>
-                <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
-                    <span data-bind="text: title().trim().length"></span>/<span data-bind="text: titleMaxLength"></span>
-                </div>
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="page-view-caption clearfix">
+                <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</div>
             </div>
-        </header>
-        <div class="main-content-list-title-wrapper">
-            <span class="main-content-list-title" data-bind="localize: { text: 'relatedQuestions' }"></span>
-        </div>
-        <div class="content-holder resizable">
+
+            <header class="view-header">
+                <div class="view-header-title">
+                    <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }"></div>
+                    <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
+                        <span data-bind="text: title().trim().length"></span>/<span data-bind="text: titleMaxLength"></span>
+                    </div>
+                </div>
+            </header>
+            <div class="main-content-list-title-wrapper">
+                <span class="main-content-list-title" data-bind="localize: { text: 'relatedQuestions' }"></span>
+            </div>
+
             <div class="main-content-list-holder">
                 <div class="view-list-actions-holder">
                     <div class="list-item-action delete">

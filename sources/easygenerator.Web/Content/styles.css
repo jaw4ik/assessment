@@ -152,6 +152,7 @@
 .content-section {
     margin: 0 auto;
     max-width: 920px;
+    min-width: 635px;
 }
 
 /*#endregion LAYOUT */
@@ -669,19 +670,13 @@ span.top-navigation-item.current {
 
 /*#region OBJECTIVES-COURSES*/
 
-.objectives,
-.courses {
-    position: relative;
-    margin: auto;
-    max-width: 1158px;
-    height: 100%;
-    color: #999999;
-    font-size: 13px;
+.courses.view-module .content-section-wrapper {
+    margin-left: 70px;
 }
 
-    .objectives.view-module {
-        padding: 0 30px 0 20px;
-    }
+.objectives.view-module {
+    padding-left: 65px;
+}
 
 /*#endregion OBJECTIVES-COURSES*/
 
@@ -2399,12 +2394,6 @@ span.top-navigation-item.current {
 
     /*#endregion HEADER*/
 
-    /*#region OBJECTIVES-COURSES*/
-    .objectives,
-    .courses {
-        max-width: 1202px;
-    }
-    /*#endregion OBJECTIVES-COURSES*/
 }
 
 @media (max-width: 1260px) {
@@ -2420,15 +2409,6 @@ span.top-navigation-item.current {
         white-space: normal;
     }
     /*#endregion Create explanation tooltip*/
-}
-
-@media (min-width: 880px) and (max-width: 1166px) {
-    /*#region OBJECTIVES-COURSES*/
-    .objectives,
-    .courses {
-        max-width: 850px;
-    }
-    /*#endregion OBJECTIVES-COURSES*/
 }
 
 /*#endregion MEDIA*/
