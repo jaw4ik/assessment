@@ -18,20 +18,26 @@
                     return !_.isEmptyOrWhitespace(item.id());
                 });
                 var length = answersCollection.length;
-                return length != minLengthOfAnswerOptions;
+                return length > minLengthOfAnswerOptions;
             });
 
-            viewModel.addAnswer = function() {
+            viewModel.addAnswer = function () {
+                var emptyAnswer = _.find(viewModel.answers(), function (item) {
+                    return _.isEmptyOrWhitespace(item.text());
+                });
+                if (!_.isNullOrUndefined(emptyAnswer) && viewModel.answers().length == minLengthOfAnswerOptions) {
+                    emptyAnswer.text(emptyAnswer.original.text);
+                }
                 eventTracker.publish(events.addAnswerOption);
                 var answer = doAddAnswer();
                 return viewModel.selectAnswer(answer);
             };
 
-            viewModel.removeAnswer = function(answer) {
+            viewModel.removeAnswer = function (answer) {
                 eventTracker.publish(events.deleteAnswerOption);
 
                 return viewModel.clearSelection().then(function () {
-                    performActionWhenAnswerIdIsSet(answer, function() {
+                    performActionWhenAnswerIdIsSet(answer, function () {
                         viewModel.answers.remove(answer);
                         repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function () {
                             if (answer.isCorrect()) {
@@ -51,7 +57,7 @@
 
                 return Q.fcall(function () {
                     if (answer.isDeleted()) {
-                        viewModel.answers(_.reject(viewModel.answers(), function(item) {
+                        viewModel.answers(_.reject(viewModel.answers(), function (item) {
                             return item.id() == answer.id();
                         }));
                         return;
@@ -63,7 +69,7 @@
                         }
                         viewModel.answers.remove(answer);
                         if (!_.isEmptyOrWhitespace(id)) {
-                            repository.removeAnswer(questionId, id).then(function (response) {
+                            repository.removeAnswer(questionId, id).then(function () {
                                 if (answer.isCorrect()) {
                                     setFirstAnswerCorrectness();
                                 }
@@ -78,7 +84,7 @@
                     }
 
                     if (_.isEmptyOrWhitespace(id)) {
-                        repository.addAnswer(questionId, { text: text, isCorrect: correctness }).then(function(item) {
+                        repository.addAnswer(questionId, { text: text, isCorrect: correctness }).then(function (item) {
                             showNotification();
                             answer.id(item.id);
                             answer.original.text = text;
@@ -86,7 +92,7 @@
                         });
                     } else {
                         if (answer.original.text != text) {
-                            repository.updateText(questionId, id, text).then(function(response) {
+                            repository.updateText(questionId, id, text).then(function (response) {
                                 showNotification();
                                 answer.original.text = text;
                             });
@@ -112,17 +118,17 @@
 
                 answer.isCorrect(isCorrect);
 
-                return Q.fcall(function() {
+                return Q.fcall(function () {
                     if (_.isEmptyOrWhitespace(answer.id())) {
-                        performActionWhenAnswerIdIsSet(answer, function() {
-                            repository.multipleChoiceChangeCorrectAnswer(questionId, answer.id()).then(function() {
+                        performActionWhenAnswerIdIsSet(answer, function () {
+                            repository.multipleChoiceChangeCorrectAnswer(questionId, answer.id()).then(function () {
                                 currentCorrectAnswer.original.correctness = false;
                                 answer.original.correctness = true;
                                 showNotification();
                             });
                         });
                     } else {
-                        repository.multipleChoiceChangeCorrectAnswer(questionId, answer.id()).then(function() {
+                        repository.multipleChoiceChangeCorrectAnswer(questionId, answer.id()).then(function () {
                             currentCorrectAnswer.original.correctness = false;
                             answer.original.correctness = true;
                             showNotification();
@@ -144,7 +150,7 @@
                 });
             };
 
-            viewModel.clearSelection = function() {
+            viewModel.clearSelection = function () {
                 return viewModel.selectAnswer(null);
             };
 
@@ -172,7 +178,7 @@
                     return;
                 }
 
-                var answerForRemove = _.find(viewModel.answers(), function(item) {
+                var answerForRemove = _.find(viewModel.answers(), function (item) {
                     return item.id() == answerId;
                 });
 
@@ -224,7 +230,7 @@
             }
 
             function setFirstAnswerCorrectness() {
-                var firstAnswer = _.chain(viewModel.answers()).filter(function(answer) {
+                var firstAnswer = _.chain(viewModel.answers()).filter(function (answer) {
                     return !answer.isDeleted();
                 }).first().value();
                 if (!_.isNullOrUndefined(firstAnswer)) {
