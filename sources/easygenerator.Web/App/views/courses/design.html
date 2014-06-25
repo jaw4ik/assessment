@@ -1,37 +1,37 @@
 ﻿<section class="course design view-module">
 
-   
-
-    <div class="content-holder clearfix">
-        <div class="choose-template-holder">
-            <h2 class="choose-template-title" data-bind="localize: { text: 'chooseTemplate' }">Choose template</h2>
-            <ul class="choose-template-list">
-                <!-- ko foreach: templates -->
-                <li class="choose-template-list-item" data-bind="css: { selected: $data == $parent.currentTemplate() }, click: $parent.selectTemplate">
-                    <div class="template-image-holder">
-                        <img class="template-image" data-bind="attr: { src: image }" src="" />
-                    </div>
-                    <div class="template-info-wrapper">
-                        <div class="template-title" data-bind="text: name">
-                            &nbsp;
+    <div class="content-section-wrapper">
+        <div class="content-section clearfix">
+            <div class="choose-template-holder">
+                <h2 class="choose-template-title" data-bind="localize: { text: 'chooseTemplate' }">Choose template</h2>
+                <ul class="choose-template-list">
+                    <!-- ko foreach: templates -->
+                    <li class="choose-template-list-item" data-bind="css: { selected: $data == $parent.currentTemplate() }, click: $parent.selectTemplate">
+                        <div class="template-image-holder">
+                            <img class="template-image" data-bind="attr: { src: image }" src="" />
                         </div>
-                        <div class="template-desc" data-bind="text: description">
-                            &nbsp;
+                        <div class="template-info-wrapper">
+                            <div class="template-title" data-bind="text: name">
+                                &nbsp;
+                            </div>
+                            <div class="template-desc" data-bind="text: description">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div class="template-preview-link" data-bind="visible: previewDemoUrl, click: openPreview, localize: { text: 'previewTemplate' }">Preview template</div>
+                    </li>
+                    <!-- /ko -->
+                    <div class="choose-template-spinner" data-bind="visible: showProgress">
+                        <div class="icon-spinner-wrapper">
+                            <img src="/Content/images/loader.gif" alt="" />
                         </div>
                     </div>
-                    <div class="template-preview-link" data-bind="visible: previewDemoUrl, click: openPreview, localize: { text: 'previewTemplate' }">Preview template</div>
-                </li>
-                <!-- /ko -->
-                <div class="choose-template-spinner" data-bind="visible: showProgress">
-                    <div class="icon-spinner-wrapper">
-                        <img src="/Content/images/loader.gif" alt="" />
-                    </div>
-                </div>
-            </ul>
-        </div>
-        <div class="template-settings-block">
-            <h2 class="template-settings-title" data-bind="localize: { text: 'templateSettings' }">Template settings</h2>
-            <iframe data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: currentTemplate().settingsUrl + '?courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: resizeFrame }" frameborder="0" width="100%"></iframe>
+                </ul>
+            </div>
+            <div class="template-settings-block">
+                <h2 class="template-settings-title" data-bind="localize: { text: 'templateSettings' }">Template settings</h2>
+                <iframe data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: currentTemplate().settingsUrl + '?courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: resizeFrame }" frameborder="0" width="100%"></iframe>
+            </div>
         </div>
     </div>
 </section>

@@ -113,7 +113,6 @@
     margin-top: 17px;
     position: relative;
     padding: 7px 28px 7px 6px;
-    cursor: pointer;
 }
 
 .expand-collapse-panel-btn {
@@ -435,7 +434,8 @@
 }
 
 .question-answer-value:hover .info-tooltip {
-    display: block;
+    visibility: visible;
+    opacity: 0.9;
 }
 
 .question-answer-text-wrapper {
@@ -582,7 +582,8 @@
 }
 
     .question-answer-delete-icon-wrapper:hover .info-tooltip {
-        display: block;
+        visibility: visible;
+        opacity: 0.9;
     }
 
 .question-learning-content-delete-icon,

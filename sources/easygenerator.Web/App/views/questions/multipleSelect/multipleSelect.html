@@ -98,26 +98,21 @@
                     <li class="answer-option-item" data-bind="click: $parent.selectAnswer.bind($parent, $data), outsideClick: { action: $parent.clearSelection }">
                         <div class="answer-options-list-item">
                             <div class="question-answer-value-wrapper">
-                                <!-- ko if: isCorrect -->
-                                <div class="question-answer-checkbox correct question-answer-value" data-bind="click: $parent.toggleCorrectness">
+                                <div class="question-answer-checkbox question-answer-value" data-bind="click: $parent.toggleCorrectness, css: { correct: isCorrect }">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
                                     <div class="info-tooltip question-answer left-side">
+                                        <!-- ko if: isCorrect -->
                                         <span data-bind="localize: { text: 'markAsIncorrect' }">
                                             Mark as incorrect
                                         </span>
-                                    </div>
-                                </div>
-                                <!-- /ko -->
-                                <!-- ko ifnot: isCorrect -->
-                                <div class="question-answer-checkbox question-answer-value" data-bind="click: $parent.toggleCorrectness">
-                                    <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
-                                    <div class="info-tooltip question-answer left-side">
+                                        <!-- /ko -->
+                                        <!-- ko ifnot: isCorrect -->
                                         <span data-bind="localize: { text: 'markAsCorrect' }">
                                             Mark as correct
                                         </span>
+                                        <!-- /ko -->
                                     </div>
                                 </div>
-                                <!-- /ko -->
                             </div>
                             <div class="question-answer-text-wrapper" data-bind="click: $parent.selectAnswer.bind($parent, $data), css: { active: $data == $parent.selectedAnswer() }">
                                 <div class="question-answer-text">

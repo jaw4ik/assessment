@@ -71,9 +71,6 @@
     overflow: hidden;
 }
 
-.view-module {
-    padding: 0 50px 0 20px;
-}
 
 .content-container {
     display: table;
@@ -1039,7 +1036,8 @@ span.top-navigation-item.current {
 }
 
     .course-action-btn:hover .info-tooltip {
-        display: block;
+        visibility: visible;
+        opacity: 0.9;
     }
 
 .list-item-title .selectable {
@@ -1574,7 +1572,7 @@ span.top-navigation-item.current {
 /*#region INFO TOOLTIP*/
 
 .info-tooltip {
-    display: none;
+    visibility: hidden;
     position: absolute;
     left: 50%;
     bottom: 100%;
@@ -1585,6 +1583,10 @@ span.top-navigation-item.current {
     color: white;
     font-size: 12px;
     text-align: center;
+    opacity: 0;
+    -moz-transition: opacity 0.2s linear 0;
+    -webkit-transition: opacity 0.2s linear 0;
+    transition: opacity 0.2s linear 0;
 }
 
     .info-tooltip:after {

@@ -2,15 +2,15 @@
     <div class="content-section-wrapper">
         <div class="content-section">
             <!-- ko if: isExpanded -->
-            <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
+            <div class="expand-collapse-panel expanded">
                 <span class="expand-collapse-panel-label">Drag'n'drop designer</span>
-                <div class="expand-collapse-panel-btn" title="Collapse"></div>
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand"></div>
             </div>
             <!-- /ko -->
             <!-- ko ifnot: isExpanded -->
-            <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
+            <div class="expand-collapse-panel collapsed">
                 <span class="expand-collapse-panel-label">Drag'n'drop designer</span>
-                <div class="expand-collapse-panel-btn" title="Expand"></div>
+                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand"></div>
             </div>
             <!-- /ko -->
         </div>

@@ -1,13 +1,12 @@
 ﻿<section class="course define view-module">
 
-    <div class="content-holder">
-        <div class="page-view-caption clearfix">
-            <div class="page-view-caption-text" data-bind="localize: { text: 'courseViewCaption' }">Course editor</div>
-            <div data-bind="compose: {model: 'viewmodels/courses/collaboration/collaborators', activationData: {courseId: id, courseOwner: createdBy}}"></div>
-        </div>
-    </div>
-    <div class="content-holder">
-        <div class="content-holder resizable">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="page-view-caption clearfix">
+                <div class="page-view-caption-text" data-bind="localize: { text: 'courseViewCaption' }">Course editor</div>
+                <div data-bind="compose: {model: 'viewmodels/courses/collaboration/collaborators', activationData: {courseId: id, courseOwner: createdBy}}"></div>
+            </div>
+
 
             <header class="view-header">
                 <div class="view-header-title">
