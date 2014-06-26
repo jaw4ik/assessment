@@ -426,17 +426,18 @@
 }
 
 .nav-back-button {
+    display: block;
+    height: 100%;
+    width: 80px;
+    min-width: 80px;
     position: absolute;
     top: 0;
     left: 0;
-    display: block;
-    width: 80px;
-    min-width: 80px;
-    height: 100%;
-    overflow: hidden;
     padding-top: 15px;
-    color: rgb(163, 180, 200);
     background-color: rgba(230, 230, 230, 0.1);
+    border-right: 1px solid #f1f1f1;
+    color: rgb(163, 180, 200);
+    overflow: hidden;
     text-align: center;
     white-space: nowrap;
     cursor: pointer;
