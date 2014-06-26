@@ -297,11 +297,6 @@
         width: 80px !important;
     }
 
-    .navigation-tree-shown-mode .content-section-wrapper {
-        margin-left: 80px;
-    }
-
-
     .navigation-tree-shown-mode .nav-back-wrapper {
         width: 0 !important;
         min-width: 0 !important;
@@ -331,4 +326,14 @@
     .navigation-tree-shown-mode .tb-cell.back-button {
         width: 127px;
     }
+
+    .module-courses .tb-cell.back-button {
+        width: 1px;
+        
+    }
+
+    .courses.view-module .content-section-wrapper {
+        margin-left: 110px;
+    }
+    
 }

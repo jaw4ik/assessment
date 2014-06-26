@@ -9,7 +9,7 @@
 
 .help-hint-content {
     position: relative;
-    padding: 20px;
+    padding: 20px 20px 20px 0;
     font-size: 13px;
     font-family: 'OpenSans';
 }

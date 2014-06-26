@@ -166,12 +166,8 @@
 }
 
     .header .content-section-wrapper {
-        padding-left: 90px;
+        padding-left: 145px;
     }
-
-.navigation-tree-shown-mode .header .content-section-wrapper {
-    padding-left: 145px;
-}
 
 .header-logo-holder {
     padding: 14px 4px;
@@ -455,8 +451,12 @@
             opacity: 1;
         }
 
+.module-courses .nav-back-button,
 .tb-row.navigation .nav-back-button {
     top: 48px;
+}
+
+.tb-row.navigation .nav-back-button {
     border-top: 1px solid rgb(206, 206, 206);
 }
 
@@ -674,8 +674,33 @@ span.top-navigation-item.current {
     margin-left: 70px;
 }
 
+.objectives .help-hint .content-section-wrapper {
+    padding-left: 145px;
+}
+
+.module-courses .help-hint .content-section-wrapper {
+    padding-left: 105px;
+}
+
+.module-objective .navigation-tree-hide-mode .help-hint .content-section-wrapper,
+.module-question .navigation-tree-hide-mode .help-hint .content-section-wrapper {
+    padding-left: 80px; 
+}
+
+.navigation-tree-hide-mode .content-area .content-section-wrapper {
+    padding-left: 60px;
+}
+
+.navigation-tree-hide-mode .content-area .content-section-wrapper.answer-options {
+    padding-left: 0;
+}
+
+.navigation-tree-hide-mode .question-answer-options-area {
+    padding-left: 60px;
+}
+
 .objectives.view-module {
-    padding-left: 65px;
+    padding-left: 80px;
 }
 
 /*#endregion OBJECTIVES-COURSES*/
@@ -2409,6 +2434,13 @@ span.top-navigation-item.current {
         white-space: normal;
     }
     /*#endregion Create explanation tooltip*/
+}
+
+@media (min-width: 1550px) {
+
+    .module-courses .help-hint .content-section-wrapper {
+        padding-left: 140px;
+    }
 }
 
 /*#endregion MEDIA*/
