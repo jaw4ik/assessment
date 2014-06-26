@@ -25,7 +25,7 @@
                     <div class="drag-and-drop-designer-background-wrapper">
                         <div class="drag-and-drop-designer-background" data-bind="background: background">
                             <!-- ko foreach: dropspots -->
-                            <div class="draggable drag-and-drop-designer-draggable" data-bind="draggableText: { text: text, x: position.x, y: position.y, endMove: position.endMoveDropspot }"></div>
+                            <div class="draggable drag-and-drop-designer-draggable" data-bind="draggableText: { text: text, x: position.x, y: position.y, startMove: position.startMoveDropspot, endMove: function(data, event){ $parent.dropspotEndEdit($data); position.endMoveDropspot(data, event); } }"></div>
                             <!-- /ko -->
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                         <!-- ko foreach: dropspots -->
                         <li class="dropspot-text">
                             <div>
-                                <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: false }, hasFocus: text.hasFocus, event: { focus: text.beginEditText, blur: text.endEditText }">
+                                <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: false }, hasFocus: text.hasFocus, event: { focus: text.beginEditText, blur: function(data, event){ $parent.dropspotEndEdit($data); text.endEditText(data, event); } }">
                                 </div>
                             </div>
                             <div class="dropspot-text-delete-wrapper">

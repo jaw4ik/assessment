@@ -77,7 +77,7 @@
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
             handler(questionId, dropspot, modifiedOn.toISOString());
             expect(app.trigger).toHaveBeenCalled();
-            expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.messages.question.dragAndDrop.dropspotCreated);
+            expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.messages.question.dragAndDrop.dropspotCreatedByCollaborator);
         });
     });
 })

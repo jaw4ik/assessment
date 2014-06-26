@@ -85,7 +85,7 @@
         it('should trigger app event', function () {
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
             handler(questionId, background, modifiedOn.toISOString());
-            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.dragAndDrop.backgroundChanged, question);
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.dragAndDrop.backgroundChangedByCollaborator, question);
         });
     });
 })

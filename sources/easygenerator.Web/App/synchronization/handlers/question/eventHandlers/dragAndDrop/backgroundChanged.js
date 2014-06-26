@@ -16,6 +16,6 @@
             question.background = background;
             question.modifiedOn = new Date(modifiedOn);
 
-            app.trigger(constants.messages.question.dragAndDrop.backgroundChanged, question);
+            app.trigger(constants.messages.question.dragAndDrop.backgroundChangedByCollaborator, question);
         }
     });

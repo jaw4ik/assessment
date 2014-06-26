@@ -32,6 +32,7 @@
         dropspots: ko.observableArray(),
         addDropspot: addDropspot,
         removeDropspot: removeDropspot,
+        dropspotEndEdit: dropspotEndEdit,
 
         isExpanded: ko.observable(true),
         toggleExpand: toggleExpand,
@@ -110,4 +111,8 @@
         designer.isExpanded(!designer.isExpanded());
     }
 
+    function dropspotEndEdit(dropspot) {
+        if(!_.isNullOrUndefined(dropspot.isDeleted) && dropspot.isDeleted)
+            designer.dropspots.remove(dropspot);
+    }
 });

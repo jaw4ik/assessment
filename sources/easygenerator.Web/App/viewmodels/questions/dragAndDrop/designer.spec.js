@@ -475,6 +475,32 @@
 
         });
 
+        describe('dropspotEndEdit:', function () {
+
+            it('should be function', function () {
+                expect(designer.dropspotEndEdit).toBeFunction();
+            });
+
+            describe('when dropspot is marked as deleted', function() {
+                var dropspot = { id: '1', text: 'text', isDeleted: true };
+
+                it('should delete dropspot from list', function () {
+                    designer.dropspots([dropspot]);
+                    designer.dropspotEndEdit(dropspot);
+                    expect(designer.dropspots().length).toBe(0);
+                });
+            });
+
+            describe('when dropspot is not marked as deleted', function () {
+                var dropspot = { id: '1', text: 'text' };
+
+                it('should not delete dropspot from list', function () {
+                    designer.dropspots([dropspot]);
+                    designer.dropspotEndEdit(dropspot);
+                    expect(designer.dropspots().length).toBe(1);
+                });
+            });
+        });
     });
 
 });

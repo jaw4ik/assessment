@@ -51,7 +51,7 @@ namespace easygenerator.Web.Controllers.Api
                 background = question.Background,
                 dropspots = question.Dropspots.Select(d => new
                 {
-                    id = d.Id,
+                    id = d.Id.ToNString(),
                     text = d.Text,
                     x = d.X,
                     y = d.Y

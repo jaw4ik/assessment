@@ -8,7 +8,12 @@
                 containment: "parent",
                 cursor: "move",
                 scroll: false,
-                drag: _.debounce(function (event, ui) {
+                start: function() {
+                    if (_.isFunction(value.startMove)) {
+                        value.startMove();
+                    }
+                },
+                drag:  _.debounce(function (event, ui) {
                     var
                         x = ui.position.left,
                         y = ui.position.top;
@@ -48,7 +53,7 @@
 
             if (ko.isWriteableObservable(value.width)) {
                 value.width($(element).outerWidth());
-            }
+        }
             if (ko.isWriteableObservable(value.height)) {
                 value.height($(element).outerHeight());
             }

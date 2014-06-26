@@ -153,11 +153,11 @@
                     },
 
                     dragAndDrop: {
-                        backgroundChanged: 'question:dragAndDrop:backgroundChanged',
-                        dropspotCreated: 'question:dragAndDrop:dropspotCreated',
-                        dropspotPositionChanged: 'question:dragAndDrop:dropspotPositionChanged',
-                        dropspotTextChanged: 'question:dragAndDrop:dropspotTextChanged',
-                        dropspotDeleted: 'question:dragAndDrop:dropspotDeleted'
+                        backgroundChangedByCollaborator: 'question:dragAndDrop:backgroundChangedByCollaborator',
+                        dropspotCreatedByCollaborator: 'question:dragAndDrop:dropspotCreatedByCollaborator',
+                        dropspotPositionChangedByCollaborator: 'question:dragAndDrop:dropspotPositionChangedByCollaborator',
+                        dropspotTextChangedByCollaborator: 'question:dragAndDrop:dropspotTextChangedByCollaborator',
+                        dropspotDeletedByCollaborator: 'question:dragAndDrop:dropspotDeletedByCollaborator'
                     }
 
                 },

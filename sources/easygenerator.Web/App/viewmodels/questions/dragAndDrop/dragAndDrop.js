@@ -1,4 +1,6 @@
 ﻿define([
+    'localization/localizationManager',
+    'notify',
     'constants',
     'viewmodels/questions/questionTitle',
     'repositories/learningContentRepository',
@@ -9,7 +11,18 @@
     'durandal/app',
     'clientContext',
     'viewmodels/questions/dragAndDrop/dropspot'
-], function (constants, questionTitle, learningContentRepository, questionRepository, vmLearningContents, imageUpload, designer, app, clientContext, Dropspot) {
+], function (localizationManager,
+             notify,
+             constants,
+             questionTitle,
+             learningContentRepository,
+             questionRepository,
+             vmLearningContents,
+             imageUpload,
+             designer,
+             app,
+             clientContext,
+             Dropspot) {
 
     var viewModel = {
         objectiveId: '',
@@ -18,22 +31,22 @@
         dragAndDrop: null,
         initialize: initialize,
 
-        backgroundChanged: backgroundChanged,
-        dropspotCreated: dropspotCreated,
-        dropspotDeleted: dropspotDeleted,
-        dropspotTextChanged: dropspotTextChanged,
-        dropspotPositionChanged: dropspotPositionChanged,
+        backgroundChangedByCollaborator: backgroundChangedByCollaborator,
+        dropspotCreatedByCollaborator: dropspotCreatedByCollaborator,
+        dropspotDeletedByCollaborator: dropspotDeletedByCollaborator,
+        dropspotTextChangedByCollaborator: dropspotTextChangedByCollaborator,
+        dropspotPositionChangedByCollaborator: dropspotPositionChangedByCollaborator,
 
         isExpanded: ko.observable(true),
         isCreatedQuestion: ko.observable(false),
         toggleExpand: toggleExpand
     };
 
-    app.on(constants.messages.question.dragAndDrop.backgroundChanged, backgroundChanged);
-    app.on(constants.messages.question.dragAndDrop.dropspotCreated, dropspotCreated);
-    app.on(constants.messages.question.dragAndDrop.dropspotDeleted, dropspotDeleted);
-    app.on(constants.messages.question.dragAndDrop.dropspotTextChanged, dropspotTextChanged);
-    app.on(constants.messages.question.dragAndDrop.dropspotPositionChanged, dropspotPositionChanged);
+    app.on(constants.messages.question.dragAndDrop.backgroundChangedByCollaborator, backgroundChangedByCollaborator);
+    app.on(constants.messages.question.dragAndDrop.dropspotCreatedByCollaborator, dropspotCreatedByCollaborator);
+    app.on(constants.messages.question.dragAndDrop.dropspotDeletedByCollaborator, dropspotDeletedByCollaborator);
+    app.on(constants.messages.question.dragAndDrop.dropspotTextChangedByCollaborator, dropspotTextChangedByCollaborator);
+    app.on(constants.messages.question.dragAndDrop.dropspotPositionChangedByCollaborator, dropspotPositionChangedByCollaborator);
 
     return viewModel;
 
@@ -62,38 +75,66 @@
         viewModel.isExpanded(!viewModel.isExpanded());
     }
 
-    function backgroundChanged(question) {
+    function backgroundChangedByCollaborator(question) {
         if (viewModel.questionId != question.id)
             return;
 
         designer.background(question.background);
     }
 
-    function dropspotCreated(questionId, id, text) {
+    function dropspotCreatedByCollaborator(questionId, id, text) {
         if (viewModel.questionId != questionId)
             return;
 
         designer.dropspots.push(new Dropspot(id, text, 0, 0));
     }
 
-    function dropspotDeleted(questionId, id) {
+    function dropspotDeletedByCollaborator(questionId, id) {
         if (viewModel.questionId != questionId)
             return;
 
+        var dropspot = _.find(designer.dropspots(), function (item) {
+            return item.id == id;
+        });
+        if (_.isNullOrUndefined(dropspot))
+            return;
         
+        if (dropspot.text.isEditing() || dropspot.position.isMoving()) {
+            dropspot.isDeleted = true;
+            notify.error(localizationManager.localize('dropspotHasBeenDeletedByCollaborator'));
+        } else {
+            designer.dropspots.remove(dropspot);
+        }
     }
 
-    function dropspotTextChanged(questionId, id, text) {
+    function dropspotTextChangedByCollaborator(questionId, id, text) {
         if (viewModel.questionId != questionId)
             return;
 
+        var dropspot = _.find(designer.dropspots(), function(item) {
+            return item.id == id;
+        });
+        if (_.isNullOrUndefined(dropspot))
+            return;
         
+        dropspot.changeOriginalText(text);
+        if (!dropspot.text.isEditing())
+            dropspot.text(text);
     }
 
-    function dropspotPositionChanged(questionId, id, x, y) {
+    function dropspotPositionChangedByCollaborator(questionId, id, x, y) {
         if (viewModel.questionId != questionId)
             return;
 
-        
+        var dropspot = _.find(designer.dropspots(), function (item) {
+            return item.id == id;
+        });
+        if (_.isNullOrUndefined(dropspot))
+            return;
+
+        if (!dropspot.position.isMoving()) {
+            dropspot.position.x(x);
+            dropspot.position.y(y);
+        }
     }
 })

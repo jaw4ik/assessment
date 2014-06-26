@@ -14,6 +14,6 @@
             guard.throwIfNotAnObject(question, 'Question has not been found');
             question.modifiedOn = new Date(modifiedOn);
 
-            app.trigger(constants.messages.question.dragAndDrop.dropspotDeleted, questionId, dropspotId);
+            app.trigger(constants.messages.question.dragAndDrop.dropspotDeletedByCollaborator, questionId, dropspotId);
         }
     });

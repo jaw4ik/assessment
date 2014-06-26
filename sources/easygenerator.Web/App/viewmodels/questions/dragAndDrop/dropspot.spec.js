@@ -14,7 +14,6 @@
             expect(new Dropspot()).toBeObject();
         });
 
-
         describe('when create an instance of dropspot', function () {
 
             describe('id:', function () {
@@ -33,6 +32,14 @@
                     var dropspot = new Dropspot('id', 'dropspot');
                     expect(dropspot.text).toBeObservable();
                     expect(dropspot.text()).toEqual('dropspot');
+                });
+
+                describe('isEditing:', function() {
+                    var dropspot = new Dropspot('id', 'dropspot');
+
+                    it('should be observable', function () {
+                        expect(dropspot.text.isEditing).toBeObservable();
+                    });
                 });
 
                 describe('endEditText:', function () {
@@ -55,6 +62,13 @@
                         var dropspot = new Dropspot('id', '     dropspot     ');
                         dropspot.text.endEditText();
                         expect(dropspot.text()).toEqual('dropspot');
+                    });
+
+                    it('should set isEditing to false', function() {
+                        var dropspot = new Dropspot('id', 'dropspot');
+                        dropspot.text.isEditing(true);
+                        dropspot.text.endEditText();
+                        expect(dropspot.text.isEditing()).toBeFalsy();
                     });
 
                     describe('when current text is empty', function () {
@@ -124,6 +138,27 @@
 
                 });
 
+                describe('beginEditText:', function () {
+                    var dropspot = new Dropspot('id', 'dropspot');
+
+                    it('should be function', function () {
+                        expect(dropspot.text.beginEditText).toBeFunction();
+                    });
+
+                    it('should set isEditing to true', function() {
+                        dropspot.text.isEditing(false);
+                        dropspot.text.beginEditText();
+                        expect(dropspot.text.isEditing).toBeTruthy();
+                    });
+                });
+
+                describe('changeOriginalText:', function () {
+                    var dropspot = new Dropspot('id', 'dropspot');
+
+                    it('should be function:', function () {
+                        expect(dropspot.changeOriginalText).toBeFunction();
+                    });
+                });
             });
 
             describe('position:', function () {
@@ -156,6 +191,24 @@
 
                 });
 
+                describe('isMoving:', function () {
+                    it('should be observable', function () {
+                        expect(dropspot.position.isMoving).toBeObservable();
+                    });
+                });
+
+                describe('startMoveDropspot:', function () {
+                    it('should be function', function() {
+                        expect(dropspot.position.startMoveDropspot).toBeFunction();
+                    });
+
+                    it('should set isMoving to true', function() {
+                        dropspot.position.isMoving(false);
+                        dropspot.position.startMoveDropspot();
+                        expect(dropspot.position.isMoving()).toBeTruthy();
+                    });
+                });
+
                 describe('endMoveDropspot:', function () {
 
                     var dfd;
@@ -168,6 +221,12 @@
 
                     it('should be function', function () {
                         expect(dropspot.position.endMoveDropspot).toBeFunction();
+                    });
+
+                    it('should set isMoving to false', function () {
+                        dropspot.position.isMoving(true);
+                        dropspot.position.endMoveDropspot();
+                        expect(dropspot.position.isMoving()).toBeFalsy();
                     });
 
                     it('should execute command to change dropspot position', function () {
@@ -207,9 +266,7 @@
                                 done();
                             });
                         });
-
                     });
-
                 });
 
             });
