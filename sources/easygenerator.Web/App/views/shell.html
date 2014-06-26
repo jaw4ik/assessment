@@ -67,7 +67,7 @@
             <!-- ko compose: 'treeOfContent/treeOfContent' -->
             <!-- /ko -->
             <!-- /ko -->
-            <div class="tb-cell back-button" data-bind="widget: { kind: 'backButton'}"></div>
+            <div class="tb-cell back-button" data-bind="widget: { kind: 'backButton'}, style: { visibility: isViewReady() ? 'visible' : 'hidden' }"></div>
             <div class="tb-cell content-area-wrapper" data-bind="cellSize: { enabled: isViewReady() && help.visible(), resizeChild: true  }">
                 <div class="content-area">
                     <!-- ko if: showCourseNavigation -->
