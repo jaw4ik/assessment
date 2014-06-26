@@ -15,8 +15,7 @@
             <!-- /ko -->
         </div>
     </div>
-    <!-- ko if: isExpanded -->
-    <div class="content-section-wrapper answer-options">
+    <div class="content-section-wrapper answer-options" data-bind="visible: isExpanded">
         <div class="question-answer-options-area">
             <div class="content-section">
                 <!-- ko if: background -->
@@ -80,5 +79,4 @@
             </div>
         </div>
     </div>
-    <!-- /ko -->
 </section>
