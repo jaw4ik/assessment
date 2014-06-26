@@ -725,6 +725,8 @@
     <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
     <Content Include="Scripts\underscore-min.map" />
     <Content Include="Templates\Exam\app\main.js" />
     <Content Include="Templates\Exam\css\fonts\ubuntu-regular.eot" />
@@ -1601,8 +1603,6 @@
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />
-    <Content Include="Scripts\r.js" />
-    <Content Include="Scripts\require.js" />
     <Content Include="Scripts\review\common.js" />
     <Content Include="Scripts\review\review.js" />
     <Content Include="Scripts\review\review.spec.js">
