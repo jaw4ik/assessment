@@ -2,7 +2,7 @@
     function (guard, app, constants, dataContext) {
         "use strict";
 
-        return function(courseId) {
+        return function (courseId) {
             guard.throwIfNotString(courseId, 'CourseId is not a string');
 
             var course = _.find(dataContext.courses, function (item) {
@@ -19,5 +19,4 @@
 
             app.trigger(constants.messages.course.deletedByCollaborator, course.id);
         }
-
     });

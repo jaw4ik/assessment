@@ -1,7 +1,6 @@
 ﻿define(['durandal/app', 'plugins/http', 'constants', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper'],
     function (app, http, constants, courseModelMapper, objectiveModelMapper, templateModelMapper) {
         "use strict";
-
         var
             objectives = [],
             courses = [],

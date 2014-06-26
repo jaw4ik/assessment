@@ -11,48 +11,48 @@ function (repository, templateRepository, router, userContext, constants, eventT
 
         templates = ko.observableArray(),
 
-        title = (function () {
+        title = (function() {
             var value = ko.observable('');
-            value.isValid = ko.computed(function () {
+            value.isValid = ko.computed(function() {
                 var length = value().trim().length;
                 return length > 0 && length <= constants.validation.courseTitleMaxLength;
             });
             value.isEditing = ko.observable();
-            value.startEditing = function () {
+            value.startEditing = function() {
                 value.isEditing(true);
             };
-            value.init = function () {
+            value.init = function() {
                 value('');
-                value.isEditingSubscription = value.isEditing.subscribe(function (varValue) {
+                value.isEditingSubscription = value.isEditing.subscribe(function(varValue) {
                     if (varValue) {
                         eventTracker.publish(events.defineTitle);
                     }
                 });
             };
-            value.dispose = function () {
+            value.dispose = function() {
                 value.isEditingSubscription.dispose();
             };
             return value;
         })(),
 
 
-        isFormFilled = function () {
+        isFormFilled = function() {
             return title.isValid() && !_.isNullOrUndefined(getSelectedTemplate());
         },
 
-        getSelectedTemplate = function () {
-            return _.filter(templates(), function (item) {
+        getSelectedTemplate = function() {
+            return _.filter(templates(), function(item) {
                 return item.isSelected();
             })[0];
         },
 
-        resetTemplatesSelection = function () {
-            _.each(templates(), function (item) {
+        resetTemplatesSelection = function() {
+            _.each(templates(), function(item) {
                 item.isSelected(false);
             });
         },
 
-        selectTemplate = function (item) {
+        selectTemplate = function(item) {
             eventTracker.publish(events.chooseTemplate);
             if (item && !_.isUndefined(item.isSelected)) {
                 resetTemplatesSelection();
@@ -60,27 +60,27 @@ function (repository, templateRepository, router, userContext, constants, eventT
             }
         },
 
-        navigateToCoursesEvent = function () {
+        navigateToCoursesEvent = function() {
             eventTracker.publish(events.navigateToCourses);
         },
 
-        createAndContinue = function () {
+        createAndContinue = function() {
             eventTracker.publish(events.createAndContinue);
             if (!isFormFilled()) {
                 return;
             }
             uiLocker.lock();
             repository.addCourse(title().trim(), getSelectedTemplate().id)
-                .then(function (course) {
+                .then(function(course) {
                     uiLocker.unlock();
                     router.navigate('course/' + course.id);
                 })
-                .fail(function () {
+                .fail(function() {
                     uiLocker.unlock();
                 });
         },
 
-        mapTemplate = function (item) {
+        mapTemplate = function(item) {
             return {
                 id: item.id,
                 name: item.name,
@@ -89,7 +89,7 @@ function (repository, templateRepository, router, userContext, constants, eventT
                 isSelected: ko.observable(false),
                 previewUrl: item.previewDemoUrl,
                 order: item.order,
-                openPreview: function (template, event) {
+                openPreview: function(template, event) {
                     event.stopPropagation();
                     router.openUrl(template.previewUrl);
                 }
@@ -99,32 +99,32 @@ function (repository, templateRepository, router, userContext, constants, eventT
         isAvailable = true,
         hasStarterAccess = true,
 
-        canActivate = function () {
+        canActivate = function() {
             return ping.execute();
         },
 
-        activate = function () {
+        activate = function() {
             this.title.init();
 
             var that = this;
-            return userContext.identify().then(function () {
+            return userContext.identify().then(function() {
                 that.isAvailable = limitCoursesAmount.checkAccess();
                 that.hasStarterAccess = userContext.hasStarterAccess();
 
-                return templateRepository.getCollection().then(function (templatesResponse) {
+                return templateRepository.getCollection().then(function(templatesResponse) {
                     that.templates(_.chain(templatesResponse)
                         .map(mapTemplate)
-                        .sortBy(function (item) {
+                        .sortBy(function(item) {
                             return item.order;
                         }).value());
                 });
             });
         },
 
-        deactivate = function () {
+        deactivate = function() {
             this.title.dispose();
         };
-
+   
     return {
         canActivate: canActivate,
         activate: activate,

@@ -2,7 +2,7 @@
     function (guard, app, constants, dataContext, courseModelMapper, collaboratorModelMapper) {
         "use strict";
 
-        return function(courseId, user) {
+        return function (courseId, user) {
             guard.throwIfNotString(courseId, 'courseId is not a string');
             guard.throwIfNotAnObject(user, 'User is not an object');
 
@@ -20,5 +20,4 @@
 
             app.trigger(constants.messages.course.collaboration.collaboratorAdded + courseId, collaborator);
         }
-
     });

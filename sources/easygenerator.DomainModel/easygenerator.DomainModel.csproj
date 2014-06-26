@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityCloner.cs" />
     <Compile Include="Entities\AccessType.cs" />
     <Compile Include="Entities\Questions\Answer.cs" />
     <Compile Include="Entities\Comment.cs" />
@@ -64,12 +65,14 @@
     <Compile Include="Events\AnswerEvents\AnswerDeletedEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerTextUpdatedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseCollaboratorRemovedEvent.cs" />
     <Compile Include="Events\AnswerEvents\MultiplechoiceAnswerCorrectnessUpdateEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseDeletedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseCollaboratorAddedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseIntroductionContentUpdated.cs" />
     <Compile Include="Events\CourseEvents\CourseObjectiveRelatedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseObjectivesClonedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseObjectivesReorderedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseObjectivesUnrelatedEvent.cs" />
     <Compile Include="Events\CourseEvents\CoursePublishedEvent.cs" />
@@ -124,7 +127,6 @@
       <Name>easygenerator.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -18,6 +18,7 @@
                     courseCollaborationStarted: collaborationEventHandler.started,
                     collaboratorRegistered: collaborationEventHandler.collaboratorRegistered,
                     collaborationDisabled: collaborationEventHandler.disabled,
+                    collaboratorRemoved: collaborationEventHandler.collaboratorRemoved,
 
                     courseTitleUpdated: courseEventHandler.titleUpdated,
                     courseIntroductionContentUpdated: courseEventHandler.introductionContentUpdated,
@@ -27,6 +28,7 @@
                     courseDeleted: courseEventHandler.deleted,
                     courseObjectiveRelated: courseEventHandler.objectiveRelated,
                     courseObjectivesUnrelated: courseEventHandler.objectivesUnrelated,
+                    courseObjectivesReplaced : courseEventHandler.objectivesReplaced,
 
                     objectiveTitleUpdated: objectiveEventHandler.titleUpdated,
                     objectiveQuestionsReordered: objectiveEventHandler.questionsReordered,

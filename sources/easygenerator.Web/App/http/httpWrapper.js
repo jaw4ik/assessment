@@ -11,7 +11,7 @@
                              throw 'Response data is not an object';
                              return;
                          }
-
+                        
                          if (!response.success) {
                              notify.error(response.errorMessage);
                              throw response.errorMessage;

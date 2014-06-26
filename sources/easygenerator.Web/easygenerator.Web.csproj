@@ -400,6 +400,7 @@
     <Content Include="App\synchronization\handlers\collaboration\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesReplaced.js" />
     <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\backgroundChanged.spec.js">
       <DependentUpon>backgroundChanged.js</DependentUpon>
     </Content>
@@ -434,6 +435,8 @@
     <None Include="BuildCourse\Scorm\Schemas\ims_xml.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="App\dialogs\collaboration\removeCollaborator.html" />
+    <Content Include="App\dialogs\collaboration\removeCollaborator.js" />
     <Content Include="App\http\httpRequestSender.spec.js">
       <DependentUpon>httpRequestSender.js</DependentUpon>
     </Content>
@@ -1808,7 +1811,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53532</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

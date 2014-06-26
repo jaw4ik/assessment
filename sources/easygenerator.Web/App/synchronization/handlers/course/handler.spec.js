@@ -51,6 +51,12 @@
             });
         });
 
+        describe('objectivesReplaced:', function () {
+            it('should be function', function () {
+                expect(handler.objectivesReplaced).toBeFunction();
+            });
+        });
+
     });
 
 })

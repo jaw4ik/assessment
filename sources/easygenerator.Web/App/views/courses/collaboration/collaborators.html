@@ -1,14 +1,20 @@
-﻿<div class="course-collaborators-wrapper">
+﻿;<div class="course-collaborators-wrapper">
     <ul class="course-collaborators-list">
         <!-- ko foreach: members -->
         <li class="course-collaborator-item-wrapper">
-            <div class="course-collaborator-item" data-bind="css: { 'course-owner': isOwner, 'disable': !registered() }">
-                <div class="user-avatar course-collaborator-item-user-avatar" data-bind="text: avatarLetter"></div>
-                <div class="course-collaborator-tooltip-wrapper">
-                    <div class="course-collaborator-tooltip">
-                        <span class="course-collaborator-tooltip-text" data-bind="text: displayName"></span>
+            <div class="course-collaborator-item" data-bind="css: { 'course-owner': isOwner, 'disable': !registered(), 'removing': isRemoving }">
+                <div class="user-avatar course-collaborator-item-user-avatar" data-bind="text: isRemoving() ? '' : avatarLetter"></div>
+                <!-- ko if: !isRemoving() -->
+                    <!-- ko if: showRemoveConfirmation --><!-- ko compose: removeCollaboratorDialog--><!--/ko--><!-- /ko -->
+                    <div class="course-collaborator-tooltip-wrapper">
+                        <div class="course-collaborator-tooltip">
+                            <span class="course-collaborator-tooltip-text" data-bind="text: displayName"></span>
+                        </div>
                     </div>
-                </div>
+                        <!-- ko if: $parent.canAddMember() && !isOwner -->
+                            <div class="course-collaborator-delete-btn" data-bind="click: changeShowRemoveConfirmation">&nbsp;</div>
+                        <!-- /ko -->
+                <!-- /ko -->
             </div>
         </li>
         <!-- /ko -->

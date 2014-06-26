@@ -39,6 +39,10 @@
                 failed: 'failed'
             },
 
+            collaboratorStates: {
+                deleting: 'deleting'
+            },
+
             registerOnAim4YouStates: {
                 inProgress: 'registerInProgress',
                 success: 'registerSuccess',
@@ -115,7 +119,12 @@
                         collaboratorRegistered: 'course:collaboration-collaboratorRegistered:',
                         started: 'course:collaboration-started',
                         disabled: 'course:collaboration-disabled',
-                        finished: 'course:collaboration-finished'
+                        finished: 'course:collaboration-finished',
+                        deleting: {
+                            started: 'collaborator:deleting-started:',
+                            completed: 'collaborator:deleting-completed:',
+                            failed: 'collaborator:deleting-failed:'
+                        }
                     }
                 },
                 objective: {

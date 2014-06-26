@@ -1,9 +1,11 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Collections.Generic;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Mail;
@@ -30,6 +32,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IDomainEventPublisher _eventPublisher;
         private IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
         private IMailSenderWrapper _mailSenderWrapper;
+        private ICloner _cloner;
 
         IPrincipal _user;
         HttpContextBase _context;
@@ -48,8 +51,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
+            _cloner = Substitute.For<ICloner>();
 
-            _controller = new CourseCollaborationController(_userRepository, _eventPublisher, _collaboratorEntityModelMapper, _mailSenderWrapper);
+            _controller = new CourseCollaborationController(_userRepository, _eventPublisher, _collaboratorEntityModelMapper, _mailSenderWrapper, _cloner);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
             DateTimeWrapper.Now = () => CurrentDate;
         }
@@ -206,6 +210,47 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _eventPublisher.Received().Publish(Arg.Any<CourseCollaboratorAddedEvent>());
         }
 
+        #endregion
+
+        #region RemoveCollaborator
+
+        [TestMethod]
+        public void RemoveCollaborator_ShouldReturnJsonErrorResult_WnenCourseIsNull()
+        {
+            //Act
+            var result = _controller.RemoveCollaborator(null, null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
+        public void RemoveCollaborator_ShouldReturnJsonErrorResult_WnenCollaboratorIsNull()
+        {
+            //Act
+            var result = _controller.RemoveCollaborator(CourseObjectMother.Create(), null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CollaboratorNotFoundError);
+        }
+
+        [TestMethod]
+        public void RemoveCollaborator_ShouldCallCourseRemoveCollaboratorMethod()
+        {
+            var course = Substitute.For<Course>();
+            var collaborator = CourseCollaboratorObjectMother.Create(course, "aa@aa.aa");
+            _controller.RemoveCollaborator(course, collaborator);
+
+            course.Received().RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+        }
+
+        [TestMethod]
+        public void RemoveCollaborator_ShouldReturnJsonSuccess_WhenCollaboratorRemoved()
+        {
+            var course = CourseObjectMother.Create();
+            var result = _controller.RemoveCollaborator(course, CourseCollaboratorObjectMother.Create(course, "aa@aa.aa"));
+            result.Should().BeJsonSuccessResult();
+        }
         #endregion
     }
 }

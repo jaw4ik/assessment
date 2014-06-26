@@ -73,6 +73,7 @@ namespace easygenerator.DataAccess
                 .As<IHttpRequestsRepository>();
 
             builder.RegisterType<CourseCollaboratorRepository>()
+                .As<IQuerableRepository<CourseCollaborator>>()
                 .As<ICourseCollaboratorRepository>();
 
             base.Load(builder);

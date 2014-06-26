@@ -1,14 +1,19 @@
-﻿using easygenerator.Infrastructure;
+﻿using easygenerator.DomainModel.Events.CourseEvents;
+using easygenerator.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using easygenerator.Infrastructure.Clonning;
+using easygenerator.DomainModel.Events;
 
 namespace easygenerator.DomainModel.Entities
 {
     public class Course : Entity
     {
-        protected internal Course() { }
+        protected internal Course()
+        {
+        }
 
         protected internal Course(string title, Template template, string createdBy)
             : base(createdBy)
@@ -39,6 +44,7 @@ namespace easygenerator.DomainModel.Entities
         }
 
         protected internal virtual ICollection<CourseCollaborator> CollaboratorsCollection { get; set; }
+
         public virtual IEnumerable<CourseCollaborator> Collaborators
         {
             get { return CollaboratorsCollection.AsEnumerable(); }
@@ -56,6 +62,56 @@ namespace easygenerator.DomainModel.Entities
             return collaborator;
         }
 
+        public virtual void RemoveCollaborator(IDomainEventPublisher eventPublisher, ICloner entityCloner, CourseCollaborator collaborator)
+        {
+            ThrowIfCollaboratorIsInvalid(collaborator);
+
+            CloneObjectivesOfCollaborator(eventPublisher, entityCloner, collaborator.Email);
+
+            collaborator.Course = null;
+            CollaboratorsCollection.Remove(collaborator);
+            var collaboratorRemovedEvent = new CourseCollaboratorRemovedEvent(this, collaborator);
+            eventPublisher.Publish(collaboratorRemovedEvent);
+
+            MarkAsModified(CreatedBy);
+        }
+
+        private void CloneObjectivesOfCollaborator(IDomainEventPublisher eventPublisher, ICloner entityCloner, string collaboratorEmail)
+        {
+            var clonedObjectives = new Dictionary<Guid, Objective>();
+            var objectives = GetOrderedRelatedObjectives();
+
+            bool objectivesWereCloned = false;
+
+            for (int i = 0; i < objectives.Count; i++)
+            {
+                var currentObjective = objectives[i];
+                if (currentObjective.CreatedBy != collaboratorEmail)
+                {
+                    continue;
+                }
+
+                objectivesWereCloned = true;
+                var clonedObjective = entityCloner.Clone(currentObjective, CreatedBy);
+                RelatedObjectivesCollection.Remove(currentObjective);
+                objectives[i] = clonedObjective;
+                RelatedObjectivesCollection.Add(clonedObjective);
+
+                clonedObjectives.Add(currentObjective.Id, clonedObjective);
+            }
+
+            if (objectivesWereCloned)
+            {
+                UpdateObjectivesOrder(objectives, CreatedBy);
+                if (clonedObjectives.Any())
+                {
+                    eventPublisher.Publish(new CourseObjectivesClonedEvent(this, clonedObjectives));
+                }
+            }
+        }
+
+        #region Comments
+
         protected internal virtual ICollection<Comment> CommentsCollection { get; set; }
         public virtual IEnumerable<Comment> Comments
         {
@@ -69,6 +125,10 @@ namespace easygenerator.DomainModel.Entities
             CommentsCollection.Add(comment);
             comment.Course = this;
         }
+
+        #endregion
+
+        #region Objectives
 
         protected internal virtual ICollection<Objective> RelatedObjectivesCollection { get; set; }
 
@@ -139,6 +199,8 @@ namespace easygenerator.DomainModel.Entities
             var index = orderedObjectiveIds.IndexOf(objective.Id.ToString());
             return index > -1 ? index : orderedObjectiveIds.Count;
         }
+
+        #endregion
 
         public string Title { get; private set; }
 
@@ -260,6 +322,8 @@ namespace easygenerator.DomainModel.Entities
 
         #endregion
 
+        #region Guard methods
+
         private void ThrowIfCommentIsInvalid(Comment comment)
         {
             ArgumentValidation.ThrowIfNull(comment, "comment");
@@ -291,6 +355,13 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNullOrEmpty(packageUrl, "packageUrl");
         }
 
+        private void ThrowIfCollaboratorIsInvalid(CourseCollaborator courseCollaborator)
+        {
+            ArgumentValidation.ThrowIfNull(courseCollaborator, "courseCollaborator");
+        }
+
+        #endregion
+
     }
 
     public class Aim4YouIntegration
@@ -306,3 +377,4 @@ namespace easygenerator.DomainModel.Entities
         public Course Course { get; set; }
     }
 }
+

@@ -5,7 +5,6 @@
         var
             post = function (url, data) {
                 var deferred = Q.defer();
-
                 http.post(url, data).done(function (response) {
                     if (!_.isObject(response)) {
                         deferred.reject('Response data is not an object');

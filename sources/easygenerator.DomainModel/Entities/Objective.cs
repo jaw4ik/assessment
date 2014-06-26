@@ -89,6 +89,28 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
+        public virtual IList<Question> OrderClonedQuestions(ICollection<Question> clonedQuestions)
+        {
+            if (clonedQuestions == null)
+                return null;
+
+            var orderedOriginalQuestions = Questions.ToList();
+
+            if (orderedOriginalQuestions.Count != clonedQuestions.Count)
+            {
+                throw new ArgumentException("Cloned questions collection has to be same length as original.", "clonedQuestions");
+            }
+
+            var orderedClonedQuestions = new List<Question>();
+            foreach (var question in QuestionsCollection)
+            {
+                int index = orderedOriginalQuestions.IndexOf(question);
+                orderedClonedQuestions.Add(clonedQuestions.ElementAt(index));
+            }
+
+            return orderedClonedQuestions;
+        }
+
         private void DoUpdateQuestionsOrder(ICollection<Question> questions)
         {
             QuestionsOrder = questions.Count == 0 ? null : String.Join(",", questions.Select(i => i.Id).ToArray());

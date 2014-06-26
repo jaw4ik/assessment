@@ -1,8 +1,11 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System;
+using System.Linq;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
@@ -19,14 +22,16 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
+        private readonly ICloner _cloner;
 
         public CourseCollaborationController(IUserRepository userRepository, IDomainEventPublisher eventPublisher,
-            IEntityModelMapper<CourseCollaborator> collaboratorEntityModelMapper, IMailSenderWrapper mailSenderWrapper)
+            IEntityModelMapper<CourseCollaborator> collaboratorEntityModelMapper, IMailSenderWrapper mailSenderWrapper, ICloner cloner)
         {
             _userRepository = userRepository;
             _collaboratorEntityModelMapper = collaboratorEntityModelMapper;
             _eventPublisher = eventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
+            _cloner = cloner;
         }
 
         [HttpPost]
@@ -85,6 +90,26 @@ namespace easygenerator.Web.Controllers.Api
             _eventPublisher.Publish(new CourseCollaboratorAddedEvent(collaborator, authorName));
 
             return JsonSuccess(_collaboratorEntityModelMapper.Map(collaborator));
+        }
+
+        [HttpPost]
+        [EntityOwner(typeof(Course))]
+        [Route("api/course/collaborator/remove")]
+        public ActionResult RemoveCollaborator(Course course, CourseCollaborator courseCollaborator)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            if (courseCollaborator == null)
+            {
+                return HttpNotFound(Errors.CollaboratorNotFoundError);
+            }
+
+            course.RemoveCollaborator(_eventPublisher, _cloner, courseCollaborator);
+            
+            return JsonSuccess();
         }
     }
 }

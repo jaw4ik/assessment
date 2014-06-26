@@ -6,6 +6,7 @@ using easygenerator.DomainModel;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Clonning;
 using easygenerator.Infrastructure.Http;
 using easygenerator.Infrastructure.Mail;
 using easygenerator.Web.BuildCourse;
@@ -183,6 +184,8 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<ElmahLog>().As<ILog>().SingleInstance();
 
             #endregion
+
+            builder.RegisterType<EntityCloner>().As<ICloner>().SingleInstance();
 
             var container = builder.Build();
 

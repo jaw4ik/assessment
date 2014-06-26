@@ -13,6 +13,7 @@ namespace easygenerator.Infrastructure
         public const string TemplateNotFoundError = "Template not found";
         public const string ObjectiveCannotBeDeleted = "Objective can not be deleted";
         public const string CoursePublishActionFailedError = "Failed. Try again.";
+        public const string CollaboratorNotFoundError = "Collaborator is not found";
 
         public const string CourseNotFoundResourceKey = "courseNotFoundError";
         public const string ObjectiveNotFoundResourceKey = "objectiveNotFoundError";

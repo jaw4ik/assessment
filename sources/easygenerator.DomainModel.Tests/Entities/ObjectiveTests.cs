@@ -18,6 +18,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         private const string CreatedBy = "easygenerator2@easygenerator.com";
 
         private readonly DateTime _currentDate = new DateTime(2014, 3, 19);
+
         [TestInitialize]
         public void InitializeContext()
         {
@@ -573,7 +574,8 @@ namespace easygenerator.DomainModel.Tests.Entities
             {
                 question1
             };
-            objective.QuestionsOrder = String.Format("{0},{1}", question2.Id, question1.Id); ;
+            objective.QuestionsOrder = String.Format("{0},{1}", question2.Id, question1.Id);
+            ;
 
             //Act
             var result = objective.Questions;
@@ -585,5 +587,44 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region OrderClonedQuestions
+
+        [TestMethod]
+        public void OrderClonedQuestions_ShouldReturnNull_IfClonedQuestionsAreNull()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            var result = objective.OrderClonedQuestions(null);
+            result.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void OrderClonedQuestions_ShouldThrowArgumentException_IfLengthOfQuestionCollectionsAreDifferent()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            Action action = () => objective.OrderClonedQuestions(new Collection<Question> { MultiplechoiceObjectMother.Create() });
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("clonedQuestions");
+        }
+
+        [TestMethod]
+        public void OrderClonedQuestions_ShouldOrderClonedQuestionsAccordingToObjectiveQuestions()
+        {
+            var question1 = MultiplechoiceObjectMother.Create("question 1");
+            var question2 = MultipleselectObjectMother.Create("question 2");
+
+            var clonedQuestion1 = MultiplechoiceObjectMother.Create("cloned question 1");
+            var clonedQuestion2 = MultipleselectObjectMother.Create("cloned question 2");
+
+            var objective = ObjectiveObjectMother.Create();
+            objective.AddQuestion(question1, "owner");
+            objective.AddQuestion(question2, "owner");
+
+            objective.UpdateQuestionsOrder(new Collection<Question> { question2, question1 }, "owner");
+            var result = objective.OrderClonedQuestions(new Collection<Question> { clonedQuestion1, clonedQuestion2 });
+
+            result[0].Should().Be(clonedQuestion2);
+            result[1].Should().Be(clonedQuestion1);
+        }
+        #endregion
     }
 }

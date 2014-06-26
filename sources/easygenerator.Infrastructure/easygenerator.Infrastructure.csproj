@@ -49,6 +49,9 @@
   <ItemGroup>
     <Compile Include="ArgumentValidation.cs" />
     <Compile Include="BrokenRule.cs" />
+    <Compile Include="Clonning\Cloner.cs" />
+    <Compile Include="Clonning\ICloner.cs" />
+    <Compile Include="Clonning\ReflectionExtensions.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DateTimeWrapper.cs" />
     <Compile Include="Cryptography.cs" />

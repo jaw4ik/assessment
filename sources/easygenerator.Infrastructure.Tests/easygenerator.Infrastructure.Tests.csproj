@@ -68,6 +68,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clonning\ClonerTests.cs" />
     <Compile Include="DomainModel\HttpRequestTests.cs" />
     <Compile Include="DomainModel\MailNotificationTests.cs" />
     <Compile Include="Http\HttpRequestsManagerTests.cs" />

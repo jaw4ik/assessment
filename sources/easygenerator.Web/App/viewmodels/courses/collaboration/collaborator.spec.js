@@ -5,7 +5,8 @@
         app = require('durandal/app'),
         constants = require('constants'),
         ctor = require('viewmodels/courses/collaboration/collaborator'),
-        localizationManager = require('localization/localizationManager')
+        localizationManager = require('localization/localizationManager'),
+        notify = require('notify')
     ;
 
     describe('viewModel [collaborator]', function () {
@@ -19,12 +20,14 @@
         beforeEach(function () {
             spyOn(app, 'on');
             spyOn(app, 'off');
+            spyOn(notify, 'error');
+            spyOn(notify, 'success');
         });
 
         describe('email:', function () {
 
             it('should be defined', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: email });
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
                 expect(viewModel.email).toBe(email);
             });
 
@@ -33,7 +36,7 @@
         describe('displayName:', function () {
 
             it('should be observable', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail, registered: true });
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail, registered: true, id: 'id' });
                 expect(viewModel.displayName).toBeObservable();
             });
 
@@ -91,7 +94,7 @@
         describe('avatarLetter:', function () {
 
             it('should be computed', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail });
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail, id: 'id' });
                 expect(viewModel.avatarLetter).toBeComputed();
             });
 
@@ -119,7 +122,7 @@
 
         describe('isOwner:', function () {
             it('should be defined', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail });
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: ownerEmail, id: 'id' });
                 expect(viewModel.isOwner).toBeDefined();
             });
 
@@ -141,7 +144,7 @@
         describe('registered:', function () {
 
             it('should be observable', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, registered: true });
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, registered: true, id: 'id' });
                 expect(viewModel.registered).toBeObservable();
             });
 
@@ -150,33 +153,210 @@
         describe('createdOn', function () {
 
             it('should be defined', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, createdOn: new Date() });
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, createdOn: new Date(), state: '', id: 'id' });
                 expect(viewModel.createdOn).toBeDefined();
             });
 
         });
 
+        describe('deletingStarted:', function () {
+            beforeEach(function() {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, createdOn: new Date(), state: '', id: 'id' });
+            });
+            it('should be function', function() {
+                expect(viewModel.deletingStarted).toBeFunction();
+            });
+
+            it('should set isRemoving to true', function() {
+                viewModel.isRemoving(false);
+                viewModel.deletingStarted();
+                expect(viewModel.isRemoving()).toBeTruthy();
+            });
+
+            it('should set showRemoveConfirmation to false', function () {
+                viewModel.showRemoveConfirmation(true);
+                viewModel.deletingStarted();
+                expect(viewModel.showRemoveConfirmation()).toBeFalsy();
+            });
+        });
+
+        describe('deletingFailed:', function () {
+            beforeEach(function () {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, createdOn: new Date(), state: '', id: 'id' });
+            });
+            it('should be function', function () {
+                expect(viewModel.deletingFailed).toBeFunction();
+            });
+
+            it('should set isRemoving to true', function () {
+                viewModel.isRemoving(true);
+                viewModel.deletingFailed();
+                expect(viewModel.isRemoving()).toBeFalsy();
+            });
+
+            it('should notify about error', function () {
+                spyOn(localizationManager, 'localize').and.returnValue('error');
+                viewModel.deletingFailed();
+                expect(notify.error).toHaveBeenCalledWith('error');
+            });
+        });
+
+        describe('deletingCompleted:', function () {
+            beforeEach(function () {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, createdOn: new Date(), state: '', id: 'id' });
+            });
+            it('should be function', function () {
+                expect(viewModel.deletingCompleted).toBeFunction();
+            });
+
+            it('should set isRemoving to true', function () {
+                viewModel.isRemoving(true);
+                viewModel.deletingCompleted();
+                expect(viewModel.isRemoving()).toBeFalsy();
+            });
+
+            it('should notify about success', function () {
+                spyOn(localizationManager, 'localize').and.returnValue('success');
+                viewModel.deletingCompleted();
+                expect(notify.success).toHaveBeenCalledWith(viewModel.name + ' success');
+            });
+        });
+
+        describe('name:', function () {
+
+            beforeEach(function () {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, createdOn: new Date(), state: '', id: 'id' });
+            });
+
+            it('should be defined', function() {
+                expect(viewModel.name).toBeDefined();
+            });
+
+            it('should be equal to fullname if exists', function() {
+                expect(viewModel.name).toBe(fullName);
+            });
+
+            it('should be equal to email if fullname is null', function () {
+                viewModel = ctor(ownerEmail, { fullName: null, email: email, createdOn: new Date(), state: '', id: 'id' });
+                expect(viewModel.name).toBe(email);
+            });
+
+            it('should be equal to email if fullname is undefined', function () {
+                viewModel = ctor(ownerEmail, { fullName: undefined, email: email, createdOn: new Date(), state: '', id: 'id' });
+                expect(viewModel.name).toBe(email);
+            });
+
+            it('should be equal to email if fullname is empty string', function () {
+                viewModel = ctor(ownerEmail, { fullName: '', email: email, createdOn: new Date(), state: '', id: 'id' });
+                expect(viewModel.name).toBe(email);
+            });
+
+            it('should be equal to email if fullname is whitespace string', function () {
+                viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
+                expect(viewModel.name).toBe(email);
+            });
+        });
+
+        describe('showRemoveConfirmation:', function() {
+            it('should be observable', function() {
+                viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
+                expect(viewModel.showRemoveConfirmation).toBeObservable();
+            });
+
+            it('should be false by default', function () {
+                viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
+                expect(viewModel.showRemoveConfirmation()).toBeFalsy();
+            });
+        });
+
+        describe('changeShowRemoveConfirmation:', function() {
+            beforeEach(function() {
+                viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
+            });
+
+            it('should show removeCollaborationDialog', function () {
+                spyOn(viewModel.removeCollaboratorDialog, 'show');
+                viewModel.changeShowRemoveConfirmation();
+                expect(viewModel.removeCollaboratorDialog.show).toHaveBeenCalled();
+            });
+
+            it('should set showRemoveConfirmation to true', function() {
+                viewModel.showRemoveConfirmation(false);
+                viewModel.changeShowRemoveConfirmation();
+                expect(viewModel.showRemoveConfirmation()).toBeTruthy();
+            });
+        });
+
+        describe('removeCollaboratorDialog:', function() {
+            it('should be object', function() {
+                expect(viewModel.removeCollaboratorDialog).toBeObject();
+            });
+        });
+
+        describe('isRemoving:', function () {
+            beforeEach(function () {
+                viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
+            });
+
+            it('shoud be observable', function() {
+                expect(viewModel.isRemoving).toBeObservable();
+            });
+
+            it('shoud be true by default if collaborator is deleting', function () {
+                viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: 'deleting' });
+                expect(viewModel.isRemoving()).toBeTruthy();
+            });
+
+            it('shoud be false by default if collaborator is not deleting', function () {
+                viewModel = ctor(ownerEmail, { fullName: '  ', email: email, createdOn: new Date(), state: '', id: 'id' });
+                expect(viewModel.isRemoving()).toBeFalsy();
+            });
+        });
+
         describe('deactivate', function () {
 
             it('should be a function', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: email });
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
                 expect(viewModel.deactivate).toBeFunction();
             });
 
             it('should unsubscribe from collaboratorRegister event', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: email });
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
 
                 viewModel.deactivate();
 
                 expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRegistered + email, viewModel.collaboratorRegistered);
             });
 
+            it('should unsubscribe from deleting.started event', function () {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
+
+                viewModel.deactivate();
+
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.deleting.started + 'id', viewModel.deletingStarted);
+            });
+
+            it('should unsubscribe from deleting.failed event', function () {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
+
+                viewModel.deactivate();
+
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.deleting.failed + 'id', viewModel.deletingFailed);
+            });
+
+            it('should unsubscribe from deleting.completed event', function () {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
+
+                viewModel.deactivate();
+
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.deleting.completed + 'id', viewModel.deletingCompleted);
+            });
         });
 
         describe('when collaborator is not registered', function () {
 
             it('should subscribe for collaboratorRegistered event', function () {
-                viewModel = ctor(ownerEmail, { fullName: fullName, email: email });
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
 
                 expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRegistered + email, viewModel.collaboratorRegistered);
             });
@@ -216,6 +396,25 @@
                 expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRegistered + email, viewModel.collaboratorRegistered);
             });
 
+        });
+
+        describe('when collaborator is not owner', function() {
+            beforeEach(function () {
+                viewModel = ctor(ownerEmail, { id: 'id', fullName: '  ', email: email, createdOn: new Date(), state: '' });
+            });
+
+            it('should subscribe to deleting.started event', function () {
+                
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.deleting.started + 'id', viewModel.deletingStarted);
+            });
+
+            it('should subscribe to deleting.failed event', function () {
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.deleting.failed + 'id', viewModel.deletingFailed);
+            });
+
+            it('should subscribe to deleting.completed event', function () {
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.deleting.completed + 'id', viewModel.deletingCompleted);
+            });
         });
 
     });

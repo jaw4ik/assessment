@@ -30,8 +30,7 @@
         }
 
         function hide() {
-            var fadeOut = $element.fadeOut(speed);
-            $.when(fadeOut).done(function () {
+            $element.fadeOut(speed, function () {
                 $('.modal-dialog-blockout').remove();
             });
         }

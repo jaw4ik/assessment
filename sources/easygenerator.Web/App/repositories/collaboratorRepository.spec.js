@@ -11,7 +11,7 @@
          courseId = 'courseId',
          course = { id: courseId },
          email = 'email@email.com',
-         collaborator = { Id: '1' },
+         collaborator = { Id: '1', state: '' },
          mappedCollaborator = { id: '1' };
 
         beforeEach(function () {
@@ -93,7 +93,7 @@
                 });
             });
 
-            describe('when course collaborators not defined', function() {
+            describe('when course collaborators not defined', function () {
 
                 beforeEach(function () {
                     dataContext.courses = [course];
@@ -219,7 +219,7 @@
                 });
             });
 
-            describe('when course id is null', function () {
+            describe('when email is null', function () {
                 it('should reject promise', function (done) {
                     var promise = repository.add(courseId, null);
 
@@ -230,7 +230,7 @@
                 });
             });
 
-            describe('when course id is not a string', function () {
+            describe('when email is not a string', function () {
                 it('should reject promise', function (done) {
                     var promise = repository.add(courseId, {});
 
@@ -344,7 +344,7 @@
 
                     });
 
-                    describe('and course collaborators are loaded', function() {
+                    describe('and course collaborators are loaded', function () {
                         it('should update course collaborators in dataContext', function (done) {
                             var questionId = 'someId';
 
@@ -407,5 +407,252 @@
             });
         });
 
+        describe('remove:', function () {
+            var collaborationId = 'collaborationId';
+
+            it('should be function', function () {
+                expect(repository.remove).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(repository.remove()).toBePromise();
+            });
+
+            describe('when course id is undefined', function () {
+                it('should reject promise', function (done) {
+                    var promise = repository.remove(undefined, collaborationId);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Course id is not a string');
+                        done();
+                    });
+                });
+            });
+
+            describe('when course id is null', function () {
+                it('should reject promise', function (done) {
+                    var promise = repository.remove(null, collaborationId);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Course id is not a string');
+                        done();
+                    });
+                });
+            });
+
+            describe('when course id is not a string', function () {
+                it('should reject promise', function (done) {
+                    var promise = repository.remove({}, collaborationId);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Course id is not a string');
+                        done();
+                    });
+                });
+            });
+
+            describe('when collaboration id is undefined', function () {
+                it('should reject promise', function (done) {
+                    var promise = repository.remove(courseId, undefined);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Collaboration id is not a string');
+                        done();
+                    });
+                });
+            });
+
+            describe('when collaboration id is null', function () {
+                it('should reject promise', function (done) {
+                    var promise = repository.remove(courseId, null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Collaboration id is not a string');
+                        done();
+                    });
+                });
+            });
+
+            describe('when collaboration id is not a string', function () {
+                it('should reject promise', function (done) {
+                    var promise = repository.remove(courseId, {});
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Collaboration id is not a string');
+                        done();
+                    });
+                });
+            });
+
+            describe('when course with specified id does not exist', function () {
+                it('should reject promise', function (done) {
+                    dataContext.courses = [course];
+
+                    var promise = repository.remove('otherId', collaborationId);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Course does not exist in dataContext');
+                        done();
+                    });
+                });
+            });
+
+            describe('when collaborator with specified id does not exist', function () {
+                it('should reject promise', function (done) {
+                    dataContext.courses = [course];
+
+                    var promise = repository.remove(courseId, 'other id');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Collaborator does not exist in course');
+                        done();
+                    });
+                });
+            });
+
+            describe('when collaborator is not deleting', function () {
+
+                beforeEach(function () {
+                    dataContext.courses = [course];
+                    collaborator.id = '1';
+                    collaborator.state = '';
+                    course.collaborators = [collaborator];
+                });
+                
+                it('should send request to \'api/course/collaborator/remove\'', function (done) {
+                    var promise = repository.remove(courseId, collaborator.Id);
+
+                    promise.fin(function () {
+                        expect(httpWrapper.post).toHaveBeenCalledWith('api/course/collaborator/remove', { courseId: courseId, courseCollaboratorId: collaborator.Id });
+                        done();
+                    });
+
+                    post.reject('reason');
+                });
+
+                describe('when collaborator removed on server', function () {
+
+                    describe('and response is not an object', function () {
+
+                        it('should reject promise', function (done) {
+                            var promise = repository.remove(courseId, collaborator.Id);
+
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith('Response is not an object');
+                                done();
+                            });
+
+                            post.resolve('123');
+                        });
+
+                    });
+
+                    describe('and response is not success', function () {
+                        var errorMessage = 'error';
+                        it('should reject promise with error message', function (done) {
+                            var promise = repository.remove(courseId, collaborator.Id);
+
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith(errorMessage);
+                                done();
+                            });
+
+                            post.resolve({ success: false, errorMessage: errorMessage });
+                        });
+
+                    });
+
+                    describe('and response is success', function () {
+
+                        it('should delete collaboration from course', function (done) {
+
+                            var promise = repository.remove(courseId, collaborator.Id);
+
+                            promise.fin(function () {
+                                expect(promise.inspect().value).toBe(collaborator);
+                                done();
+                            });
+
+                            post.resolve({
+                                success: true
+                            });
+                        });
+
+                        it('should resolve promise with deleted collaboration', function (done) {
+
+                            var promise = repository.remove(courseId, collaborator.Id);
+
+                            promise.fin(function () {
+                                expect(course.collaborators.length).toBe(0);
+                                done();
+                            });
+
+                            post.resolve({
+                                success: true
+                            });
+                        });
+
+                    });
+
+                    it('should set state to \'\'', function (done) {
+                        var promise = repository.remove(courseId, collaborator.Id);
+
+                        promise.fin(function () {
+                            expect(collaborator.state).toBe('');
+                            done();
+                        });
+
+                        post.resolve({ success: true });
+                    });
+
+                });
+
+                describe('when collaborator doesn not removed on server', function () {
+                    it('should set state to \'\'', function (done) {
+                        var promise = repository.remove(courseId, collaborator.Id);
+
+                        promise.fin(function () {
+                            expect(collaborator.state).toBe('');
+                            done();
+                        });
+
+                        post.reject('some message');
+                    });
+
+                    it('should reject the promise', function (done) {
+                        var promise = repository.remove(courseId, collaborator.Id);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('some message');
+                            done();
+                        });
+
+                        post.reject('some message');
+                    });
+                });
+
+            });
+
+            describe('when collaborator is deleting', function () {
+
+                beforeEach(function () {
+                    dataContext.courses = [course];
+                    collaborator.id = '1';
+                    collaborator.state = 'deleting';
+                    course.collaborators = [collaborator];
+                });
+
+                it('should not send request to \'api/course/collaborator/remove\'', function (done) {
+                    var promise = repository.remove(courseId, collaborator.Id);
+
+                    promise.fin(function () {
+                        expect(httpWrapper.post).not.toHaveBeenCalledWith('api/course/collaborator/remove', { courseId: courseId, courseCollaboratorId: collaborator.Id });
+                        done();
+                    });
+
+                    post.reject('reason');
+                });
+            });
+        });
     });
 });

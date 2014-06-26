@@ -183,6 +183,10 @@ namespace easygenerator.DataAccess
                     {
                         entry.State = EntityState.Deleted;
                     }
+                    if ((entry.Entity is CourseCollaborator) && (entry.Entity as CourseCollaborator).Course == null)
+                    {
+                        entry.State = EntityState.Deleted;
+                    }
                 }
 
                 return base.SaveChanges();

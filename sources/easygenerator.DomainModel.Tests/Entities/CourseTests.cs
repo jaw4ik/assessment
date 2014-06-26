@@ -1,12 +1,16 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Clonning;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using NSubstitute;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -18,10 +22,15 @@ namespace easygenerator.DomainModel.Tests.Entities
         private const string UserEmail = "user@easygenerator.com";
 
         private readonly DateTime _currentDate = new DateTime(2014, 3, 19);
+        private ICloner _cloner;
+        private IDomainEventPublisher _eventPublisher;
+
         [TestInitialize]
         public void InitializeContext()
         {
             DateTimeWrapper.Now = () => _currentDate;
+            _cloner = Substitute.For<ICloner>();
+            _eventPublisher = Substitute.For<IDomainEventPublisher>();
         }
 
         #region Constructor
@@ -1232,5 +1241,173 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion    }
+
+        #region RemoveCollaborator
+
+        [TestMethod]
+        public void RemoveCollaborator_ShouldThrowNullArgumentException_WhenCollaborationIsNull()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+
+            // Act
+            Action action = () => course.RemoveCollaborator(_eventPublisher, _cloner, null);
+
+            // Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("courseCollaborator");
+        }
+
+        [TestMethod]
+        public void RemoveCollaborator_ShouldRemoveCollaboratorFromCourse()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var email = "eguser2@easygenerator.com";
+            var collaborator = course.Collaborate(email, "createdBy");
+
+            // Act
+            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+
+            // Assert
+            course.Collaborators.Count().Should().Be(0);
+        }
+
+        [TestMethod]
+        public void RemoveCollaborator_ShouldRaiseEventAboutDeletedCollaborator()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var email = "eguser2@easygenerator.com";
+            var collaborator = course.Collaborate(email, "createdBy");
+
+            // Act
+            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+
+            // Assert
+            _eventPublisher.Received().Publish(Arg.Is<CourseCollaboratorRemovedEvent>(args => args.Collaborator == collaborator && args.Course == course));
+        }
+
+        [TestMethod]
+        public void RemoveCollaborator_ShouldMarkCourseAsModified()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var email = "eguser2@easygenerator.com";
+
+            var collaborator = course.Collaborate(email, "createdBy");
+
+            // Act
+            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+
+            // Assert
+            course.ModifiedOn.Should().Be(_currentDate);
+            course.ModifiedBy.Should().Be(course.CreatedBy);
+        }
+
+        [TestMethod]
+        public void RemoveCollaborator_ShouldRaiseEventAboutReplacedObjetives()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var email = "eguser2@easygenerator.com";
+            var objective = ObjectiveObjectMother.Create(createdBy: email);
+            var clonedObjective = ObjectiveObjectMother.Create(createdBy: email);
+
+            var objective2 = ObjectiveObjectMother.Create(createdBy: email);
+            var clonedObjective2 = ObjectiveObjectMother.Create(createdBy: email);
+
+            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective.Id), Arg.Any<object>()).Returns(clonedObjective);
+            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective2.Id), Arg.Any<object>()).Returns(clonedObjective2);
+
+            course.RelateObjective(objective, null, email);
+            course.RelateObjective(objective2, null, email);
+            var collaborator = course.Collaborate(email, "createdBy");
+
+            // Act
+            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+
+            // Assert
+            _eventPublisher.Received().Publish(Arg.Is<CourseObjectivesClonedEvent>(args => args.Course == course
+                && args.ReplacedObjectives.Count == 2 && args.ReplacedObjectives.ContainsKey(objective.Id) &&
+                args.ReplacedObjectives.ContainsKey(objective2.Id) && args.ReplacedObjectives[objective.Id] == clonedObjective &&
+                args.ReplacedObjectives[objective2.Id] == clonedObjective2));
+        }
+
+        [TestMethod]
+        public void RemoveCollaborator__ShouldRaiseEventOnlyAboutObjectivesOfRemovedCollaborator()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var email = "eguser2@easygenerator.com";
+            var objective = ObjectiveObjectMother.Create(createdBy: email);
+            var clonedObjective = ObjectiveObjectMother.Create(createdBy: email);
+
+            var objective2 = ObjectiveObjectMother.Create(createdBy: "another creator");
+            var clonedObjective2 = ObjectiveObjectMother.Create(createdBy: email);
+
+            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective.Id), Arg.Any<object>()).Returns(clonedObjective);
+            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective2.Id), Arg.Any<object>()).Returns(clonedObjective2);
+
+            course.RelateObjective(objective, null, email);
+            course.RelateObjective(objective2, null, email);
+            var collaborator = course.Collaborate(email, "createdBy");
+
+            // Act
+            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+
+            // Assert
+            _eventPublisher.Received().Publish(Arg.Is<CourseObjectivesClonedEvent>(args => args.Course == course
+               && args.ReplacedObjectives.Count == 1 && args.ReplacedObjectives.ContainsKey(objective.Id) &&
+               args.ReplacedObjectives[objective.Id] == clonedObjective));
+        }
+
+        [TestMethod]
+        public void RemoveCollaborator_ShouldReplaceObjectivesOfCollaboratorWithClonedObjectives()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var email = "eguser2@easygenerator.com";
+            var objective = ObjectiveObjectMother.Create(createdBy: email);
+            var clonedObjective = ObjectiveObjectMother.Create(createdBy: email);
+
+            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective.Id), Arg.Any<object>()).Returns(clonedObjective);
+
+            course.RelateObjective(objective, null, email);
+            var collaborator = course.Collaborate(email, "createdBy");
+
+            // Act
+            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+
+            // Assert
+            course.RelatedObjectivesCollection.ElementAt(0).Should().Be(clonedObjective);
+        }
+
+        [TestMethod]
+        public void RemoveCollaborator_ShouldOrderClonedObjectivesInSameOrderAsOriginal()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var email = "eguser2@easygenerator.com";
+            var objective = ObjectiveObjectMother.Create(createdBy: email);
+            var clonedObjective = ObjectiveObjectMother.Create(createdBy: email);
+
+            var objective2 = ObjectiveObjectMother.Create(createdBy: email);
+            var clonedObjective2 = ObjectiveObjectMother.Create(createdBy: email);
+
+            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective.Id), Arg.Any<object>()).Returns(clonedObjective);
+            _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective2.Id), Arg.Any<object>()).Returns(clonedObjective2);
+
+            course.RelateObjective(objective, null, email);
+            course.RelateObjective(objective2, 0, email);
+            var collaborator = course.Collaborate(email, "createdBy");
+
+            // Act
+            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+
+            // Assert
+            course.ObjectivesOrder.Should().Be(clonedObjective2.Id + "," + clonedObjective.Id);
+        }
+
+        #endregion
     }
 }
