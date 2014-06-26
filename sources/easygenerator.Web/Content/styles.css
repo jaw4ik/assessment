@@ -685,6 +685,10 @@ span.top-navigation-item.current {
     padding-left: 105px;
 }
 
+.module-objectives .navigation-tree-hide-mode .help-hint .content-section-wrapper {
+    padding-left: 160px;
+}
+
 .module-objective .navigation-tree-hide-mode .help-hint .content-section-wrapper,
 .module-question .navigation-tree-hide-mode .help-hint .content-section-wrapper {
     padding-left: 80px;

@@ -2,15 +2,15 @@
     <div class="content-section-wrapper">
         <div class="content-section">
             <!-- ko if: isExpanded -->
-            <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
+            <div class="expand-collapse-panel expanded">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'dragAndDropTextDesigner' }">Drag'n'drop designer</span>
                 <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
             </div>
             <!-- /ko -->
             <!-- ko ifnot: isExpanded -->
-            <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
+            <div class="expand-collapse-panel collapsed">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'dragAndDropTextDesigner' }">Drag'n'drop designer</span>
-                <div class="expand-collapse-panel-btn" title="Expand" data-bind="localize: { title: 'expand' }"></div>
+                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
             </div>
             <!-- /ko -->
         </div>
@@ -66,7 +66,7 @@
                 </div>
                 <!-- /ko -->
                 <!-- ko ifnot: background -->
-                <div class="drag-and-drop-designer-empty" style="">
+                <div class="drag-and-drop-designer-empty">
                     <div class="drag-and-drop-designer-empty-title" data-bind="localize: { text: 'dragAndDrop' }">Drag&amp;drop </div>
                     <div class="drag-and-drop-designer-empty-description" data-bind="localize: { text: 'dragAndDropTextEmptyBackgroundDescription' }">your background image here or</div>
                     <div class="browse-image-btn-wrapper">

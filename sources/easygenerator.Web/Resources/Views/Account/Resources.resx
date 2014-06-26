@@ -234,7 +234,7 @@ your password.</value>
     <value>Last name</value>
   </data>
   <data name="LicenseAgreeCheckBoxTitle" xml:space="preserve">
-    <value>I have read and I agree to the &lt;a href="{0}"&gt;Terms&lt;/a&gt; and &lt;a href="{1}"&gt;Privacy&lt;/a&gt;</value>
+    <value>I have read and I agree to the &lt;a href="{0}"&gt;Terms&lt;/a&gt; and &lt;a href="{1}"&gt;Privacy policy&lt;/a&gt;</value>
   </data>
   <data name="NoSpaces" xml:space="preserve">
     <value>No spaces</value>
