@@ -112,6 +112,9 @@
     renewMyPlan: {
         en: 'Renew my plan'
     },
+    browseImage: {
+        en: 'Browse image'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -529,8 +532,20 @@
     upgradeAccountToCreateAdvancedQuestionTypes: {
         en: 'Please upgrade your account to be able to create advanced question types'
     },
+    dragAndDrop: {
+        en: 'Drag&Drop'
+    },
     dragAndDropText: {
         en: 'Drag&Drop text'
+    },
+    dragAndDropTextDesigner: {
+        en: 'Drag&Drop designer'
+    },
+    dragAndDropTextEmptyBackgroundDescription: {
+        en: 'your background image here or'
+    },
+    addDropspotText: {
+        en: 'Add dropspot text'
     },
     multipleChoice: {
         en: 'Multiple choice'

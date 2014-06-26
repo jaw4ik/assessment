@@ -14,7 +14,7 @@
                 <!-- ko if: $parent.isExpanded() -->
                 <div class="expand-collapse-panel expanded" data-bind="click: $parent.toggleExpand">
                     <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}, css: { error: !title.isValid() }">Title</span>
-                    <div class="expand-collapse-panel-btn" title="Collapse"></div>
+                    <div class="expand-collapse-panel-btn" title="Collapse" data-bind="localize: { title: 'collapse' }"></div>
                 </div>
 
                 <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }, autofocus: { focus: $parent.isCreatedQuestion, autoselect: $parent.isCreatedQuestion }">
@@ -26,7 +26,7 @@
                 <!-- ko ifnot: $parent.isExpanded() -->
                 <div class="expand-collapse-panel collapsed" data-bind="click: $parent.toggleExpand">
                     <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}">Title</span>
-                    <div class="expand-collapse-panel-btn" title="Expand"></div>
+                    <div class="expand-collapse-panel-btn" title="Expand" data-bind="localize: { title: 'expand' }"></div>
                 </div>
 
                 <!-- /ko -->

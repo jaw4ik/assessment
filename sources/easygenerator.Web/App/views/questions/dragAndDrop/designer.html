@@ -2,15 +2,15 @@
     <div class="content-section-wrapper">
         <div class="content-section">
             <!-- ko if: isExpanded -->
-            <div class="expand-collapse-panel expanded">
-                <span class="expand-collapse-panel-label">Drag'n'drop designer</span>
-                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand"></div>
+            <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'dragAndDropTextDesigner' }">Drag'n'drop designer</span>
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
             </div>
             <!-- /ko -->
             <!-- ko ifnot: isExpanded -->
-            <div class="expand-collapse-panel collapsed">
-                <span class="expand-collapse-panel-label">Drag'n'drop designer</span>
-                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand"></div>
+            <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'dragAndDropTextDesigner' }">Drag'n'drop designer</span>
+                <div class="expand-collapse-panel-btn" title="Expand" data-bind="localize: { title: 'expand' }"></div>
             </div>
             <!-- /ko -->
         </div>
@@ -31,11 +31,11 @@
                     </div>
                     <div class="upload-background-image" data-bind="click: uploadBackground">
                         <div class="info-tooltip browse-image">
-                            <span>Browse image</span>
+                            <span data-bind="localize: { text: 'browseImage' }">Browse image</span>
                         </div>
                     </div>
 
-                    <div class="drag-and-drop-text-title" style="">Drag'n'drop text</div>
+                    <div class="drag-and-drop-text-title" data-bind="localize: { text: 'dragAndDropText' }">Drag&amp;drop text</div>
 
 
                     <ul class="unstyled">
@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="dropspot-text-delete-wrapper">
-                                <span class="dropspot-text-delete" data-bind="click: $parent.removeDropspot" title="Delete item"></span>
+                                <span class="dropspot-text-delete" title="Delete" data-bind="click: $parent.removeDropspot, localize: { title: 'delete' }"></span>
                             </div>
                         </li>
                         <!-- /ko -->
@@ -57,22 +57,22 @@
                                 </div>
                             </div>
                             <div class="dropspot-text-delete-wrapper">
-                                <span class="dropspot-text-delete disabled" data-bind="click: $parent.removeDropspot"></span>
+                                <span class="dropspot-text-delete disabled"></span>
                             </div>
                         </li>
                         <!--/ko -->
                     </ul>
 
-                    <button class="btn action-item-btn green" data-bind="click: dropspotToAdd.show, enable: !dropspotToAdd.isVisible() || dropspotToAdd.isValid(), css: { disabled: dropspotToAdd.isVisible() && !dropspotToAdd.isValid() }">+ Add dropspot text</button>
+                    <button class="btn action-item-btn green" data-bind="click: dropspotToAdd.show, enable: !dropspotToAdd.isVisible() || dropspotToAdd.isValid(), css: { disabled: dropspotToAdd.isVisible() && !dropspotToAdd.isValid() }">+ <span data-bind="localize: { text: 'addDropspotText' }">Add dropspot text</span></button>
                 </div>
                 <!-- /ko -->
                 <!-- ko ifnot: background -->
                 <div class="drag-and-drop-designer-empty" style="">
-                    <div class="drag-and-drop-designer-empty-title">Drag'n'drop </div>
-                    <div class="drag-and-drop-designer-empty-description">your background image here or</div>
+                    <div class="drag-and-drop-designer-empty-title" data-bind="localize: { text: 'dragAndDrop ' }">Drag&amp;drop </div>
+                    <div class="drag-and-drop-designer-empty-description" data-bind="localize: { text: 'dragAndDropTextEmptyBackgroundDescription' }">your background image here or</div>
                     <div class="browse-image-btn-wrapper">
                         <button class="browse-image-btn" data-bind="click: uploadBackground">
-                            <span class="browse-image-text">Browse</span>
+                            <span class="browse-image-text" data-bind="localize: { text: 'browse' }">Browse</span>
                         </button>
                     </div>
                 </div>

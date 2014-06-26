@@ -3,13 +3,13 @@
         <!-- ko if: isExpanded -->
         <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
             <span class="expand-collapse-panel-label" data-bind="localize: { text: 'learningContent' }">Learning content</span>
-            <div class="expand-collapse-panel-btn" title="Collapse"></div>
+            <div class="expand-collapse-panel-btn" title="Collapse" data-bind="localize: { title: 'collapse' }"></div>
         </div>
         <!-- /ko -->
         <!-- ko ifnot: isExpanded -->
         <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
             <span class="expand-collapse-panel-label" data-bind="localize: { text: 'learningContent' }">Learning content</span>
-            <div class="expand-collapse-panel-btn" title="Expand"></div>
+            <div class="expand-collapse-panel-btn" title="Expand" data-bind="localize: { title: 'expand' }"></div>
         </div>
         <!-- /ko -->
         <!-- ko if: isExpanded -->
