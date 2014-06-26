@@ -24,12 +24,12 @@
             answers: null,
             learningContents: null,
             isCreatedQuestion: ko.observable(false),
-            contentUpdated: contentUpdated,
             isExpanded: ko.observable(true),
-            toggleExpand: toggleExpand
+            toggleExpand: toggleExpand,
+            contentUpdatedByCollaborator: contentUpdatedByCollaborator
         };
 
-        app.on(constants.messages.question.contentUpdatedByCollaborator, contentUpdated);
+        app.on(constants.messages.question.contentUpdatedByCollaborator, contentUpdatedByCollaborator);
 
         return viewModel;
 
@@ -60,10 +60,12 @@
             viewModel.isExpanded(!viewModel.isExpanded());
         }
 
-        function contentUpdated(question) {
-            if (question.id != viewModel.questionId || viewModel.questionContent.isEditing())
+        function contentUpdatedByCollaborator(question) {
+            if (question.id != viewModel.questionId)
                 return;
 
-            viewModel.questionContent.text(question.content);
+            viewModel.questionContent.originalText(question.content);
+            if (!viewModel.questionContent.isEditing())
+                viewModel.questionContent.text(question.content);
         }
     })

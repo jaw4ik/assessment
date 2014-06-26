@@ -115,8 +115,8 @@
 
         });
 
-        describe('contentUpdated:', function () {
-            var vmContent = { text: ko.observable(''), isEditing: ko.observable(false) };
+        describe('contentUpdatedByCollaborator:', function () {
+            var vmContent = { text: ko.observable(''), originalText: ko.observable(''), isEditing: ko.observable(false) };
 
             beforeEach(function () {
                 viewModel.questionContent = vmContent;
@@ -124,31 +124,45 @@
             });
 
             it('should be function', function () {
-                expect(viewModel.contentUpdated).toBeFunction();
+                expect(viewModel.contentUpdatedByCollaborator).toBeFunction();
             });
 
             describe('when is not current question', function () {
                 it('should not update content', function () {
                     viewModel.questionId = 'qqq';
                     vmContent.text('');
-                    viewModel.contentUpdated(question);
+                    viewModel.contentUpdatedByCollaborator(question);
                     expect(vmContent.text()).toBe('');
                 });
             });
 
             describe('when is editing content', function () {
+                it('should update original content', function () {
+                    vmContent.originalText('');
+                    vmContent.isEditing(true);
+                    viewModel.contentUpdatedByCollaborator(question);
+                    expect(vmContent.originalText()).toBe(question.content);
+                });
+
                 it('should not update content', function () {
                     vmContent.text('');
                     vmContent.isEditing(true);
-                    viewModel.contentUpdated(question);
+                    viewModel.contentUpdatedByCollaborator(question);
                     expect(vmContent.text()).toBe('');
                 });
+            });
+
+            it('should update original content', function () {
+                vmContent.originalText('');
+                vmContent.isEditing(false);
+                viewModel.contentUpdatedByCollaborator(question);
+                expect(vmContent.originalText()).toBe(question.content);
             });
 
             it('should update content', function () {
                 vmContent.text('');
                 vmContent.isEditing(false);
-                viewModel.contentUpdated(question);
+                viewModel.contentUpdatedByCollaborator(question);
                 expect(vmContent.text()).toBe(question.content);
             });
         });
