@@ -6,6 +6,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Permissions;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +24,16 @@ namespace easygenerator.Web.Synchronization.Handlers
         private readonly ICollaborationBroadcaster<Course> _courseCollaborationBroadcaster;
         private readonly ICourseRepository _courseRepository;
         private readonly IEntityMapper _entityMapper;
+        private readonly IEntityPermissionsChecker<Course> _coursePermissionsChecker;
 
         public UserCollaborationEventHandler(IUserCollaborationBroadcaster userBroadcaster, ICourseRepository courseRepository, IEntityMapper entityMapper,
-            ICollaborationBroadcaster<Course> courseCollaborationBroadcaster)
+            ICollaborationBroadcaster<Course> courseCollaborationBroadcaster, IEntityPermissionsChecker<Course> coursePermissionsChecker )
         {
             _userBroadcaster = userBroadcaster;
             _courseRepository = courseRepository;
             _entityMapper = entityMapper;
             _courseCollaborationBroadcaster = courseCollaborationBroadcaster;
+            _coursePermissionsChecker = coursePermissionsChecker;
         }
 
         public void Handle(UserSignedUpEvent args)
@@ -41,16 +44,18 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(CourseCollaboratorAddedEvent args)
         {
-            _userBroadcaster.User(args.Collaborator.Email)
-                .courseCollaborationStarted(
-                  _entityMapper.Map(args.Collaborator.Course),
-                  args.Collaborator.Course.RelatedObjectives.Select(o => _entityMapper.Map(o)));
-
-
             _courseCollaborationBroadcaster.AllCollaboratorsExcept(args.Collaborator.Course, args.Collaborator.Email, args.AddedBy)
                 .courseCollaboratorAdded(
                     args.Collaborator.Course.Id.ToNString(),
                     _entityMapper.Map(args.Collaborator));
+
+            if (!_coursePermissionsChecker.HasCollaboratorPermissions(args.Collaborator.Email, args.Collaborator.Course))
+                return;
+
+            _userBroadcaster.User(args.Collaborator.Email)
+                 .courseCollaborationStarted(
+                     _entityMapper.Map(args.Collaborator.Course),
+                     args.Collaborator.Course.RelatedObjectives.Select(o => _entityMapper.Map(o)));
         }
 
         public void Handle(UserDonwgraded args)
