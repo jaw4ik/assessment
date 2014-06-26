@@ -517,6 +517,8 @@ span.top-navigation-item.current {
 .course-action-header {
     background-color: white;
     height: 49px;
+    margin-left: -80px;
+    padding-left: 80px;
     border-bottom: 1px solid rgb(206,206,206);
 }
 
