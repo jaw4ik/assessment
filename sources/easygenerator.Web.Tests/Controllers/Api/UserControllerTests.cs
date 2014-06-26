@@ -1,9 +1,4 @@
-﻿using System;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.UserEvents;
@@ -21,6 +16,11 @@ using easygenerator.Web.ViewModels.Account;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -312,6 +312,69 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.UpgradeToStarter(email, DateTime.MaxValue);
 
             _eventPublisher.Received().Publish(Arg.Is<UserUpgradedToStarter>(_ => _.User == user));
+        }
+
+        #endregion
+
+        #region UpgradeToPlus
+
+        [TestMethod]
+        public void UpgradeToPlus_ShouldThrowArgumentException_WhenUserDoesNotExists()
+        {
+            const string email = "test@test.test";
+            _userRepository.GetUserByEmail(email).Returns((User)null);
+
+            Action action = () => _controller.UpgradeToPlus(email, DateTime.MaxValue);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
+        }
+
+        [TestMethod]
+        public void UpgradeToPlus_ShouldThrowArgumentException_WhenExpirationDateIsNull()
+        {
+            const string email = "test@test.test";
+            _userRepository.GetUserByEmail(email).Returns((User)null);
+
+            Action action = () => _controller.UpgradeToPlus(email, null);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
+        }
+
+        [TestMethod]
+        public void UpgradeToPlus_ShouldReturnSuccessResult_WhenUserExists()
+        {
+            const string email = "test@test.test";
+            var user = UserObjectMother.CreateWithEmail(email);
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            var result = _controller.UpgradeToPlus(email, DateTime.MaxValue);
+
+            result.Should().BeSuccessResult();
+        }
+
+        [TestMethod]
+        public void UpgradeToPlus_ShouldSetSubscriptionPlusPlan()
+        {
+            const string email = "test@test.test";
+            DateTime expDate = DateTime.MaxValue;
+            var user = Substitute.For<User>();
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            _controller.UpgradeToPlus(email, expDate);
+
+            user.Received().UpgradePlanToPlus(expDate);
+        }
+
+        [TestMethod]
+        public void UpgradeToPlus_ShouldPublishUserUpgradedToPlusEvent()
+        {
+            const string email = "test@test.test";
+            var user = Substitute.For<User>();
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            _controller.UpgradeToPlus(email, DateTime.MaxValue);
+
+            _eventPublisher.Received().Publish(Arg.Is<UserUpgradedToPlus>(_ => _.User == user));
         }
 
         #endregion

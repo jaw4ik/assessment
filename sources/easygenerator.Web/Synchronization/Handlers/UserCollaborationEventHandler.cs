@@ -16,7 +16,8 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<CourseCollaboratorAddedEvent>,
         IDomainEventHandler<UserSignedUpEvent>,
         IDomainEventHandler<UserDonwgraded>,
-        IDomainEventHandler<UserUpgradedToStarter>
+        IDomainEventHandler<UserUpgradedToStarter>,
+        IDomainEventHandler<UserUpgradedToPlus>
     {
         private readonly IUserCollaborationBroadcaster _userBroadcaster;
         private readonly ICollaborationBroadcaster<Course> _courseCollaborationBroadcaster;
@@ -70,6 +71,11 @@ namespace easygenerator.Web.Synchronization.Handlers
                 .Where(e => e.Collaborators.Count() <= Constants.Collaboration.MaxCollaboratorsCountForStarterPlan);
 
             EnableCoursesCollaboration(args.User.Email, coursesToEnabledCollaboration);
+        }
+
+        public void Handle(UserUpgradedToPlus args)
+        {
+            EnableCoursesCollaboration(args.User.Email, _courseRepository.GetOwnedCourses(args.User.Email));
         }
 
         public void DisableCoursesCollaboration(string userEmail, IEnumerable<Course> courses)

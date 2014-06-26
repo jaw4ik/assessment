@@ -1,10 +1,9 @@
-﻿using System;
+﻿using easygenerator.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SqlTypes;
 using System.Linq;
 using System.Text.RegularExpressions;
-using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -161,6 +160,14 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfExpirationDateIsInvalid(expirationDate);
 
             AccessType = AccessType.Starter;
+            ExpirationDate = expirationDate;
+        }
+
+        public void UpgradePlanToPlus(DateTime expirationDate)
+        {
+            ThrowIfExpirationDateIsInvalid(expirationDate);
+
+            AccessType = AccessType.Plus;
             ExpirationDate = expirationDate;
         }
 

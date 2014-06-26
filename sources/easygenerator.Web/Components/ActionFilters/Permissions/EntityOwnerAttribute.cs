@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.Web.Permissions;
 using System;
 
 namespace easygenerator.Web.Components.ActionFilters.Permissions
@@ -13,7 +14,7 @@ namespace easygenerator.Web.Components.ActionFilters.Permissions
 
         protected override bool CheckEntityAccess(Entity entity, User user)
         {
-            return entity.CreatedBy == user.Email;
+            return (bool)CallGenericTypeMethod(typeof(IEntityPermissionsChecker<>), "HasOwnerPermissions", new object[] { user.Email, entity });
         }
     }
 }

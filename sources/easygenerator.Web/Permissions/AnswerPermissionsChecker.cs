@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Entities.Questions;
+﻿using easygenerator.DomainModel.Entities.Questions;
 
 namespace easygenerator.Web.Permissions
 {
-    public class AnswerPermissionsChecker : IEntityPermissionsChecker<Answer>
+    public class AnswerPermissionsChecker : EntityPermissionsChecker<Answer>
     {
-        private IEntityPermissionsChecker<Question> _questionPermissionsChecker;
+        private readonly IEntityPermissionsChecker<Question> _questionPermissionsChecker;
 
         public AnswerPermissionsChecker(IEntityPermissionsChecker<Question> questionPermissionsChecker)
         {
             _questionPermissionsChecker = questionPermissionsChecker;
         }
 
-        public bool HasCollaboratorPermissions(string username, Answer entity)
+        public override bool HasCollaboratorPermissions(string username, Answer entity)
         {
-            return entity.CreatedBy == username ||
+            return HasOwnerPermissions(username, entity) ||
                    _questionPermissionsChecker.HasCollaboratorPermissions(username, entity.Question);
         }
     }

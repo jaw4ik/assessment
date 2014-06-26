@@ -23,10 +23,40 @@ namespace easygenerator.Web.Tests.Permissions
             _objectivePermissionChecker = new ObjectivePermissionsChecker(_coursePermissionChecker);
         }
 
-        #region HasPermissions
+        #region HasOwnerPermissions
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnTrue_WhenUserIsObjectiveOwner()
+        public void HasOwnerPermissions_ShouldReturnTrue_WhenUserIsOwner()
+        {
+            //Arrange
+            var course = ObjectiveObjectMother.CreateWithCreatedBy(CreatedBy);
+
+            //Act
+            var result = _objectivePermissionChecker.HasOwnerPermissions(CreatedBy, course);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasOwnerPermissions_ShouldReturnFalse_WhenUserIsNotOwner()
+        {
+            //Arrange
+            var course = ObjectiveObjectMother.CreateWithCreatedBy(CreatedBy);
+
+            //Act
+            var result = _objectivePermissionChecker.HasOwnerPermissions(Username, course);
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        #endregion
+
+        #region HasCollaboratorPermissions
+
+        [TestMethod]
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsObjectiveOwner()
         {
             //Arrange
             var objective = ObjectiveObjectMother.CreateWithCreatedBy(CreatedBy);
@@ -39,7 +69,7 @@ namespace easygenerator.Web.Tests.Permissions
         }
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnTrue_WhenUserIsObjectiveCourseCollaborator()
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsObjectiveCourseCollaborator()
         {
             //Arrange
             var objective = Substitute.For<Objective>();
@@ -55,7 +85,7 @@ namespace easygenerator.Web.Tests.Permissions
         }
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnFalse_WhenUserIsNotObjectiveOwnerOrCourseCollaborator()
+        public void HasCollaboratorPermissions_ShouldReturnFalse_WhenUserIsNotObjectiveOwnerOrCourseCollaborator()
         {
             //Arrange
             var objective = Substitute.For<Objective>();

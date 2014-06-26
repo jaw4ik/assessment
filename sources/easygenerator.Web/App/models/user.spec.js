@@ -223,6 +223,45 @@
             });
         });
 
+        describe('upgradeToPlus:', function () {
+            var user;
+
+            beforeEach(function () {
+                user = new User({
+                    firstname: 'firstname',
+                    lastname: 'lastname',
+                    email: 'a.drebot@gmail.com',
+                    subscription: {
+                        accessType: 0
+                    }
+                });
+            });
+
+            it('should be function', function () {
+                expect(user.upgradeToPlus).toBeFunction();
+            });
+
+            it('should upgrade user to plus', function () {
+                user.upgradeToPlus("2014-03-19T12:49:34.7396182Z");
+
+                expect(user.subscription.accessType).toEqual(constants.accessType.plus);
+                expect(user.subscription.expirationDate).toEqual(new Date("2014-03-19T12:49:34.7396182Z"));
+            });
+
+
+            describe('when expiration date is not specified', function () {
+
+                it('should throw exception', function () {
+                    var f = function () {
+                        user.upgradeToPlus();
+                    };
+
+                    expect(f).toThrow();
+                });
+
+            });
+        });
+
     });
 
 });

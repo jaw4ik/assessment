@@ -21,6 +21,9 @@
     }
 
     function checkAccess() {
+        if (userContext.hasPlusAccess())
+            return true;
+
         var ownedCourses = _.filter(dataContext.courses, function (item) {
             return item.createdBy === userContext.identity.email;
         });

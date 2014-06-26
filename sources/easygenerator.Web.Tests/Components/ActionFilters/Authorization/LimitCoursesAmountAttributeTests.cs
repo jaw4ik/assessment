@@ -113,22 +113,6 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
         }
 
         [TestMethod]
-        public void OnAuthorization_ShouldGetUserFromRepository()
-        {
-            //Arrange
-            const string userName = "name";
-            _identity.Name.Returns(userName);
-            _identity.IsAuthenticated.Returns(true);
-
-            //Act
-            _attribute.OnAuthorization(_filterContext);
-
-            //Assert
-            _userRepository.Received().GetUserByEmail(userName);
-        }
-
-
-        [TestMethod]
         public void OnAuthorization_ShouldSetForbiddenResult_WhenUserFromRepositoryIsNull()
         {
             //Arrange
@@ -150,6 +134,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             _filterContext.Result = null;
             _identity.IsAuthenticated.Returns(true);
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(_user);
+            _user.HasPlusAccess().Returns(false);
             _user.HasStarterAccess().Returns(true);
 
             var courses = Substitute.For<ICollection<Course>>();
@@ -164,12 +149,29 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
         }
 
         [TestMethod]
+        public void OnAuthorization_ShouldNotSetResult_WhenUserHasPlusPlan()
+        {
+            //Arrange
+            _filterContext.Result = null;
+            _identity.IsAuthenticated.Returns(true);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(_user);
+            _user.HasPlusAccess().Returns(true);
+
+            //Act
+            _attribute.OnAuthorization(_filterContext);
+
+            //Assert
+            _filterContext.Result.Should().BeNull();
+        }
+
+        [TestMethod]
         public void OnAuthorization_ShouldNotSetResult_WhenCoursesAmountIsLessThanLimitForStarterPlan()
         {
             //Arrange
             _filterContext.Result = null;
             _identity.IsAuthenticated.Returns(true);
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(_user);
+            _user.HasPlusAccess().Returns(false);
             _user.HasStarterAccess().Returns(true);
 
             var courses = Substitute.For<ICollection<Course>>();
@@ -190,6 +192,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             _filterContext.Result = null;
             _identity.IsAuthenticated.Returns(true);
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(_user);
+            _user.HasPlusAccess().Returns(false);
             _user.HasStarterAccess().Returns(false);
 
             var courses = Substitute.For<ICollection<Course>>();
@@ -210,6 +213,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
             _filterContext.Result = null;
             _identity.IsAuthenticated.Returns(true);
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(_user);
+            _user.HasPlusAccess().Returns(false);
             _user.HasStarterAccess().Returns(false);
 
             var courses = Substitute.For<ICollection<Course>>();

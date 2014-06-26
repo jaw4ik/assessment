@@ -48,6 +48,14 @@
         };
     };
 
+    User.prototype.upgradeToPlus= function (expirationDate) {
+        guard.throwIfNotString(expirationDate, 'Expiration date is not specified');
+        this.subscription = {
+            accessType: constants.accessType.plus,
+            expirationDate: new Date(expirationDate)
+        };
+    };
+
     return User;
 
 })

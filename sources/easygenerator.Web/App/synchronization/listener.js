@@ -12,6 +12,7 @@
                 hub.client = {
                     userDowngraded: userEventHandler.downgraded,
                     userUpgradedToStarter: userEventHandler.upgradedToStarter,
+                    userUpgradedToPlus: userEventHandler.upgradedToPlus,
 
                     courseCollaboratorAdded: collaborationEventHandler.collaboratorAdded,
                     courseCollaborationStarted: collaborationEventHandler.started,

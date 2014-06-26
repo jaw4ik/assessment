@@ -105,6 +105,7 @@
 
             'synchronization/handlers/user/handler.spec',
             'synchronization/handlers/user/eventHandlers/upgradedToStarter.spec',
+            'synchronization/handlers/user/eventHandlers/upgradedToPlus.spec',
             'synchronization/handlers/user/eventHandlers/downgraded.spec',
 
             //#endregion

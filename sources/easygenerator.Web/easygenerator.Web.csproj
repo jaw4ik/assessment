@@ -221,6 +221,7 @@
     <Compile Include="Components\Tasks\SubscriptionExpirationTask.cs" />
     <Compile Include="Permissions\AnswerPermissionsChecker.cs" />
     <Compile Include="Permissions\CoursePermissionsChecker.cs" />
+    <Compile Include="Permissions\EntityPermissionsChecker.cs" />
     <Compile Include="Permissions\IEntityPermissionsChecker.cs" />
     <Compile Include="Permissions\LearningContentPermissionsChecker.cs" />
     <Compile Include="Permissions\ObjectivePermissionsChecker.cs" />
@@ -412,6 +413,10 @@
     </Content>
     <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\dropspotPositionChanged.spec.js">
       <DependentUpon>dropspotPositionChanged.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToPlus.js" />
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToPlus.spec.js">
+      <DependentUpon>upgradedToPlus.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\questions\dragAndDrop\dragAndDrop.spec.js">
       <DependentUpon>dragAndDrop.js</DependentUpon>

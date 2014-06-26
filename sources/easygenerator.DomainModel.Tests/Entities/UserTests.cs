@@ -1,9 +1,9 @@
-﻿using System;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -1262,6 +1262,52 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Act
             user.UpgradePlanToStarter(expirationDate);
+
+            //Assert
+            user.ExpirationDate.Should().Be(expirationDate);
+        }
+
+        #endregion
+
+        #region UpgradePlanToPlus
+
+        [TestMethod]
+        public void UpgradePlanToPlus_ShouldThrowArgumentException_WhenExpirationTimeLessThanSqlMinDate()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var minDate = new DateTime(2000, 1, 1);
+            DateTimeWrapper.MinValue = () => minDate;
+
+            //Act
+            Action action = () => user.UpgradePlanToPlus(new DateTime(1999, 12, 30));
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
+        }
+
+        [TestMethod]
+        public void UpgradePlanToPlus_ShouldSetAccessTypeToStarter()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpgradePlanToPlus(DateTime.Now);
+
+            //Assert
+            user.AccessType.Should().Be(AccessType.Plus);
+        }
+
+        [TestMethod]
+        public void UpgradePlanToPlus_ShouldSetExpirationDate()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var expirationDate = DateTime.MaxValue;
+
+            //Act
+            user.UpgradePlanToPlus(expirationDate);
 
             //Assert
             user.ExpirationDate.Should().Be(expirationDate);

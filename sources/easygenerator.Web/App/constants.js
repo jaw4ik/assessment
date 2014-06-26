@@ -62,7 +62,8 @@
                 user: {
                     identified: 'user:identified',
                     downgraded: 'user:downgraded',
-                    upgraded: 'user:upgraded'
+                    upgradedToStarter: 'user:upgradedToStarter',
+                    upgradedToPlus: 'user:upgradedToPlus'
                 },
                 course: {
                     created: 'course:created',

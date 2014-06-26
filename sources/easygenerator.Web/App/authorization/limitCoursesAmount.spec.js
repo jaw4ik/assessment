@@ -23,6 +23,16 @@
                 expect(viewModel.checkAccess).toBeFunction();
             });
 
+            describe('when user has plus access', function() {
+                beforeEach(function () {
+                    spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
+                });
+
+                it('should return true', function () {
+                    expect(viewModel.checkAccess()).toBeTruthy();
+                });
+            });
+
             describe('when user has started access', function () {
 
                 beforeEach(function () {

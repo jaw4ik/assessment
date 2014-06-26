@@ -14,6 +14,7 @@ namespace easygenerator.Web.Tests.Permissions
         private QuestionPermissionsChecker _questionPermissionChecker;
         private IEntityPermissionsChecker<Objective> _objectivePermissionChecker;
         private const string Username = "user@user.com";
+        private const string CreatedBy = "creator@user.com";
 
         [TestInitialize]
         public void Initialize()
@@ -22,10 +23,40 @@ namespace easygenerator.Web.Tests.Permissions
             _questionPermissionChecker = new QuestionPermissionsChecker(_objectivePermissionChecker);
         }
 
-        #region HasPermissions
+        #region HasOwnerPermissions
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnTrue_WhenQuestionIsCreatedByUser()
+        public void HasOwnerPermissions_ShouldReturnTrue_WhenUserIsOwner()
+        {
+            //Arrange
+            var question = MultiplechoiceObjectMother.CreateWithCreatedBy(CreatedBy);
+
+            //Act
+            var result = _questionPermissionChecker.HasOwnerPermissions(CreatedBy, question);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasOwnerPermissions_ShouldReturnFalse_WhenUserIsNotOwner()
+        {
+            //Arrange
+            var question = MultiplechoiceObjectMother.CreateWithCreatedBy(CreatedBy);
+
+            //Act
+            var result = _questionPermissionChecker.HasOwnerPermissions(Username, question);
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        #endregion
+
+        #region HasCollaboratorPermissions
+
+        [TestMethod]
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenQuestionIsCreatedByUser()
         {
             //Arrange
             var question = MultipleselectObjectMother.CreateWithCreatedBy(Username);
@@ -39,7 +70,7 @@ namespace easygenerator.Web.Tests.Permissions
         }
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnTrue_WhenUserHasPermissionsToObjective()
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserHasPermissionsToObjective()
         {
             //Arrange
             var objective = Substitute.For<Objective>();
@@ -55,7 +86,7 @@ namespace easygenerator.Web.Tests.Permissions
         }
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnFalse_InAnyOtherCases()
+        public void HasCollaboratorPermissions_ShouldReturnFalse_InAnyOtherCases()
         {
             //Arrange
             var objective = Substitute.For<Objective>();

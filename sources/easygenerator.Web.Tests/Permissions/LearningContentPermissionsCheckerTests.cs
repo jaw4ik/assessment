@@ -14,6 +14,7 @@ namespace easygenerator.Web.Tests.Permissions
         private LearningContentPermissionsChecker _learningContentPermissionChecker;
         private IEntityPermissionsChecker<Question> _questionPermissionChecker;
         private const string Username = "user@user.com";
+        private const string CreatedBy = "creator@user.com";
 
         [TestInitialize]
         public void Initialize()
@@ -22,10 +23,40 @@ namespace easygenerator.Web.Tests.Permissions
             _learningContentPermissionChecker = new LearningContentPermissionsChecker(_questionPermissionChecker);
         }
 
-        #region HasPermissions
+        #region HasOwnerPermissions
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnTrue_WhenLearningContentIsCreatedByUser()
+        public void HasOwnerPermissions_ShouldReturnTrue_WhenUserIsOwner()
+        {
+            //Arrange
+            var course = LearningContentObjectMother.CreateWithCreatedBy(CreatedBy);
+
+            //Act
+            var result = _learningContentPermissionChecker.HasOwnerPermissions(CreatedBy, course);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasOwnerPermissions_ShouldReturnFalse_WhenUserIsNotOwner()
+        {
+            //Arrange
+            var course = LearningContentObjectMother.CreateWithCreatedBy(CreatedBy);
+
+            //Act
+            var result = _learningContentPermissionChecker.HasOwnerPermissions(Username, course);
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        #endregion
+
+        #region HasCollaboratorPermissions
+
+        [TestMethod]
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenLearningContentIsCreatedByUser()
         {
             //Arrange
             var learningContent = LearningContentObjectMother.CreateWithCreatedBy(Username);
@@ -38,7 +69,7 @@ namespace easygenerator.Web.Tests.Permissions
         }
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnTrue_WhenUserHasPermissionsToQuestion()
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserHasPermissionsToQuestion()
         {
             //Arrange
             var question = Substitute.For<Question>();
@@ -54,7 +85,7 @@ namespace easygenerator.Web.Tests.Permissions
         }
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnFalse_InAnyOtherCases()
+        public void HasCollaboratorPermissions_ShouldReturnFalse_InAnyOtherCases()
         {
             //Arrange
             var question = Substitute.For<Question>();

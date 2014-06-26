@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Web.Mvc;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Handlers;
@@ -13,6 +10,9 @@ using easygenerator.Web.Extensions;
 using easygenerator.Web.Import.PublishedCourse;
 using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
+using System;
+using System.IO;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -126,6 +126,27 @@ namespace easygenerator.Web.Controllers.Api
             user.UpgradePlanToStarter(expirationDate.Value);
 
             _eventPublisher.Publish(new UserUpgradedToStarter(user));
+
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("wooCommerce")]
+        [Route("api/user/subscription/plus")]
+        public ActionResult UpgradeToPlus(string email, DateTime? expirationDate)
+        {
+            if (!expirationDate.HasValue)
+                throw new ArgumentException("Expiration date is not specified or specified in wrong format", "expirationDate");
+
+            var user = _repository.GetUserByEmail(email);
+            if (user == null)
+                throw new ArgumentException("User with specified email does not exist", "email");
+
+            user.UpgradePlanToPlus(expirationDate.Value);
+
+            _eventPublisher.Publish(new UserUpgradedToPlus(user));
 
             return Success();
         }

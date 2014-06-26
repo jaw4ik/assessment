@@ -1,4 +1,5 @@
-﻿define(['synchronization/handlers/user/eventHandlers/upgradedToStarter'], function (handler) {
+﻿define(['synchronization/handlers/user/eventHandlers/upgradedToPlus'], function (handler) {
+    "use strict";
 
     var
         userContext = require('userContext'),
@@ -6,7 +7,7 @@
         constants = require('constants')
     ;
 
-    describe('synchronization user [upgradedToStarter]', function () {
+    describe('synchronization user [upgradedToPlus]', function () {
 
         beforeEach(function () {
             spyOn(app, 'trigger');
@@ -31,16 +32,16 @@
         });
 
         it('should upgrade user to starter plan', function () {
-            userContext.identity = jasmine.createSpyObj('identity', ['upgradeToStarter']);
+            userContext.identity = jasmine.createSpyObj('identity', ['upgradeToPlus']);
             handler('2014-03-19T12:49:34.7396182Z');
-            expect(userContext.identity.upgradeToStarter).toHaveBeenCalled();
+            expect(userContext.identity.upgradeToPlus).toHaveBeenCalled();
         });
 
 
-        it('should trigger \'user:upgraded\' event', function () {
-            userContext.identity = jasmine.createSpyObj('identity', ['upgradeToStarter']);
+        it('should trigger \'user:upgradeToPlus\' event', function () {
+            userContext.identity = jasmine.createSpyObj('identity', ['upgradeToPlus']);
             handler();
-            expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.upgradedToStarter);
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.upgradedToPlus);
         });
 
     });

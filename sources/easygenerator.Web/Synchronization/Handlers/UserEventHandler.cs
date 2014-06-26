@@ -4,7 +4,10 @@ using easygenerator.Web.Synchronization.Broadcasting;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {
-    public class UserEventHandler : IDomainEventHandler<UserDonwgraded>, IDomainEventHandler<UserUpgradedToStarter>
+    public class UserEventHandler : 
+        IDomainEventHandler<UserDonwgraded>, 
+        IDomainEventHandler<UserUpgradedToStarter>,
+        IDomainEventHandler<UserUpgradedToPlus>
     {
         private readonly IBroadcaster _broadcaster;
 
@@ -21,6 +24,11 @@ namespace easygenerator.Web.Synchronization.Handlers
         public void Handle(UserUpgradedToStarter args)
         {
             _broadcaster.User(args.User.Email).userUpgradedToStarter(args.User.ExpirationDate);
+        }
+
+        public void Handle(UserUpgradedToPlus args)
+        {
+            _broadcaster.User(args.User.Email).userUpgradedToPlus(args.User.ExpirationDate);
         }
     }
 }

@@ -3,18 +3,18 @@ using easygenerator.DomainModel.Entities.Questions;
 
 namespace easygenerator.Web.Permissions
 {
-    public class LearningContentPermissionsChecker : IEntityPermissionsChecker<LearningContent>
+    public class LearningContentPermissionsChecker : EntityPermissionsChecker<LearningContent>
     {
-        private IEntityPermissionsChecker<Question> _questionPermissionsChecker;
+        private readonly IEntityPermissionsChecker<Question> _questionPermissionsChecker;
 
         public LearningContentPermissionsChecker(IEntityPermissionsChecker<Question> questionPermissionsChecker)
         {
             _questionPermissionsChecker = questionPermissionsChecker;
         }
 
-        public bool HasCollaboratorPermissions(string username, LearningContent entity)
+        public override bool HasCollaboratorPermissions(string username, LearningContent entity)
         {
-            return entity.CreatedBy == username ||
+            return HasOwnerPermissions(username, entity) ||
                    _questionPermissionsChecker.HasCollaboratorPermissions(username, entity.Question);
         }
     }

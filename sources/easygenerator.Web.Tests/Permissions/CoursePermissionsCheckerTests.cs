@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Repositories;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Permissions;
@@ -26,10 +27,40 @@ namespace easygenerator.Web.Tests.Permissions
             DateTimeWrapper.Now = () => CurrentDate;
         }
 
-        #region HasPermissions
+        #region HasOwnerPermissions
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnTrue_WhenUserIsCourseOwner()
+        public void HasOwnerPermissions_ShouldReturnTrue_WhenUserIsOwner()
+        {
+            //Arrange
+            var course = CourseObjectMother.CreateWithCreatedBy(CreatedBy);
+
+            //Act
+            var result = _checker.HasOwnerPermissions(CreatedBy, course);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasOwnerPermissions_ShouldReturnFalse_WhenUserIsNotOwner()
+        {
+            //Arrange
+            var course = CourseObjectMother.CreateWithCreatedBy(CreatedBy);
+
+            //Act
+            var result = _checker.HasOwnerPermissions(Username, course);
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        #endregion
+
+        #region HasCollaboratorPermissions
+
+        [TestMethod]
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsCourseOwner()
         {
             //Arrange
             var course = CourseObjectMother.CreateWithCreatedBy(CreatedBy);
@@ -42,7 +73,7 @@ namespace easygenerator.Web.Tests.Permissions
         }
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnFalse_WhenUserIsNotCourseOwnerOrCollaborator()
+        public void HasCollaboratorPermissions_ShouldReturnFalse_WhenUserIsNotCourseOwnerOrCollaborator()
         {
             //Arrange
             var course = CourseObjectMother.Create(CreatedBy);
@@ -55,13 +86,14 @@ namespace easygenerator.Web.Tests.Permissions
         }
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnFalse_WhenUserIsCourseCollaborator_AndCourseOwnerHasFreePlan()
+        public void HasCollaboratorPermissions_ShouldReturnFalse_WhenUserIsCourseCollaborator_AndCourseOwnerHasFreePlan()
         {
             //Arrange
             var course = CourseObjectMother.Create(createdBy: CreatedBy);
             course.Collaborate(Username, CreatedBy);
-            var owner = UserObjectMother.Create();
-            owner.DowngradePlanToFree();
+            var owner = Substitute.For<User>();
+            owner.HasPlusAccess().Returns(false);
+            owner.HasStarterAccess().Returns(false);
             _userRepository.GetUserByEmail(CreatedBy).Returns(owner);
 
             //Act
@@ -72,12 +104,14 @@ namespace easygenerator.Web.Tests.Permissions
         }
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnTrue_WhenUserIsCourseCollaborator_AndCourseOwnerHasStarterPlan_AndCollaboratorsCountLessThan3()
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsCourseCollaborator_AndCourseOwnerHasStarterPlan_AndCollaboratorsCountLessThanMax()
         {
             //Arrange
             var course = CourseObjectMother.Create(createdBy: CreatedBy);
             course.Collaborate(Username, CreatedBy);
-            var owner = UserObjectMother.Create();
+            var owner = Substitute.For<User>();
+            owner.HasPlusAccess().Returns(false);
+            owner.HasStarterAccess().Returns(true);
 
             _userRepository.GetUserByEmail(course.CreatedBy).Returns(owner);
 
@@ -89,15 +123,16 @@ namespace easygenerator.Web.Tests.Permissions
         }
 
         [TestMethod]
-        public void HasPermissions_ShouldReturnFalse_WhenUserIsCourseCollaborator_AndCourseOwnerHasStarterPlan_AndCollaboratorsCountMoreThan3()
+        public void HasCollaboratorPermissions_ShouldReturnFalse_WhenUserIsCourseCollaborator_AndCourseOwnerHasStarterPlan_AndCollaboratorsCountMoreThanMax()
         {
             //Arrange
             var course = CourseObjectMother.Create(createdBy: CreatedBy);
             course.Collaborate(Username, CreatedBy);
 
-            course.Collaborate("user1@mail.com", CreatedBy);
-            course.Collaborate("user2@mail.com", CreatedBy);
-            course.Collaborate("user3@mail.com", CreatedBy);
+            for (var i = 0; i < Constants.Collaboration.MaxCollaboratorsCountForStarterPlan; i++)
+            {
+                course.Collaborate(String.Format("user{0}@mail.com", i), CreatedBy);
+            }
 
             var owner = UserObjectMother.Create();
 
@@ -108,6 +143,24 @@ namespace easygenerator.Web.Tests.Permissions
 
             //Assert
             result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsCourseCollaborator_AndCourseOwnerHasPlusPlan()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create(createdBy: CreatedBy);
+            course.Collaborate(Username, CreatedBy);
+            var owner = Substitute.For<User>();
+            owner.HasPlusAccess().Returns(true);
+
+            _userRepository.GetUserByEmail(course.CreatedBy).Returns(owner);
+
+            //Act
+            var result = _checker.HasCollaboratorPermissions(Username, course);
+
+            //Assert
+            result.Should().BeTrue();
         }
 
         #endregion

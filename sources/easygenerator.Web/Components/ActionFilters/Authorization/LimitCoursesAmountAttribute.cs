@@ -22,6 +22,9 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
             if (user == null)
                 return false;
 
+            if (user.HasPlusAccess())
+                return true;
+
             var coursesCount = CourseRepository.GetCollection(course => course.CreatedBy == authorizationContext.HttpContext.User.Identity.Name).Count;
             var limit = user.HasStarterAccess() ? StarterLimit : FreeLimit;
 
