@@ -46,7 +46,16 @@
                 if (questionId != question.id)
                     return;
 
-                doAddAnswer(answer);
+                var item = {
+                    id: ko.observable(answer.id),
+                    text: ko.observable(answer.text),
+                    original: { text: answer.text, correctness: answer.isCorrect },
+                    isCorrect: ko.observable(answer.isCorrect),
+                    isDeleted: ko.observable(false),
+                    hasFocus: ko.observable(false)
+                };
+
+                viewModel.answers.push(item);
             }
 
             function textUpdatedByCollaborator(question, answerId, text) {

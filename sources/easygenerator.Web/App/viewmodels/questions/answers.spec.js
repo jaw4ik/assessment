@@ -151,7 +151,7 @@
                 expect(viewModel.answers()[0].id()).toEqual(answer.id);
                 expect(viewModel.answers()[0].text()).toEqual(answer.text);
                 expect(viewModel.answers()[0].isCorrect()).toBe(answer.isCorrect);
-                expect(viewModel.answers()[0].hasFocus()).toBeTruthy();
+                expect(viewModel.answers()[0].hasFocus()).toBeFalsy();
             });
         });
 
