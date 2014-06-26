@@ -4,6 +4,7 @@
     var userContext = {
         identity: null,
         hasStarterAccess: hasStarterAccess,
+        hasPlusAccess: hasPlusAccess,
         identify: identify
     };
 
@@ -28,7 +29,16 @@
         }
 
         var subscription = identity.subscription;
-        return subscription.accessType === constants.accessType.starter && subscription.expirationDate >= new Date();
+        return subscription.accessType >= constants.accessType.starter && subscription.expirationDate >= new Date();
     }
 
+    function hasPlusAccess() {
+        var identity = userContext.identity;
+        if (_.isNullOrUndefined(identity) || _.isNullOrUndefined(identity.subscription)) {
+            return false;
+        }
+
+        var subscription = identity.subscription;
+        return subscription.accessType === constants.accessType.plus && subscription.expirationDate >= new Date();
+    }
 })

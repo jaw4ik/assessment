@@ -3,6 +3,7 @@
     public enum AccessType
     {
         Free = 0,
-        Starter = 1
+        Starter = 1,
+        Plus = 2
     }
 }

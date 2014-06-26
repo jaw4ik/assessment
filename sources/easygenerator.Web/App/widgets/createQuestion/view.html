@@ -13,10 +13,22 @@
                 <div class="question-type-image multiple-select"></div>
                 <span class="question-type-text" data-bind="localize: { text: 'multipleSelect' }">Multiple select</span>
             </li>
+            <!-- ko if: hasPlusAccess() -->
             <li class="question-type-action-item" data-bind="click: createDragAndDropQuestion">
                 <div class="question-type-image drag-and-drop"></div>
                 <span class="question-type-text" data-bind="localize: { text: 'dragAndDropText' }">Drag&amp;Drop text</span>
             </li>
+            <!-- /ko -->
+            <!-- ko ifnot: hasPlusAccess() -->
+            <li class="question-type-action-item disabled">
+                <div class="disabled-question-container">
+                    <a class="upgrade-user-link" target="blank" href="/account/upgrade">
+                        <span class="upgrade-user-text" data-bind="localize: { text: 'upgradeNowBtn' }">Upgrade now</span>
+                    </a>
+                </div>
+                <span class="question-type-text" data-bind="localize: { text: 'dragAndDropText' }">Drag&amp;Drop text</span>
+            </li>
+            <!-- /ko -->
             <!-- ko if: hasStarterAccess() -->
             <li class="question-type-action-item" data-bind="click: createFillInTheBlankQuestion">
                 <div class="question-type-image fill-in-the-blank"></div>

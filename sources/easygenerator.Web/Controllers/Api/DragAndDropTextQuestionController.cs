@@ -8,6 +8,7 @@ using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
@@ -24,6 +25,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [PlusAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
         [Route("api/question/create/type/2")]
         public ActionResult Create(Objective objective, string title)
         {

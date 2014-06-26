@@ -564,6 +564,122 @@ namespace easygenerator.DomainModel.Tests.Entities
             result.Should().BeFalse();
         }
 
+        [TestMethod]
+        public void HasStarterAcces_ShouldReturnTrue_WhenUserAccessTypeIsPlus()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Plus;
+
+            //Act
+            var result = user.HasStarterAccess();
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasStarterAccess_ShouldReturnFalse_WhenUserAccessTypeIsPlusButAccessExpired()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Plus;
+            DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
+            //Act
+            var result = user.HasStarterAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void HasStarterAccess_ShouldReturnFalse_WhenUserAccessTypeIsPlusButExpirationDateIsNotSet()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Plus;
+            user.ExpirationDate = null;
+            //Act
+            var result = user.HasStarterAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        #endregion
+
+        #region HasPlusAccess
+
+        [TestMethod]
+        public void HasPlusAccess_ShouldReturnFalse_WhenUserHasFreeAccessType()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Free;
+
+            //Act
+            var result = user.HasPlusAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void HasPlusAccess_ShouldReturnFalse_WhenUserAccessTypeIsStarter()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Starter;
+
+            //Act
+            var result = user.HasPlusAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void HasPlusAcces_ShouldReturnTrue_WhenUserAccessTypeIsPlus()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Plus;
+
+            //Act
+            var result = user.HasPlusAccess();
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasPlusAccess_ShouldReturnFalse_WhenUserAccessTypeIsPlusButAccessExpired()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Plus;
+            DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
+            //Act
+            var result = user.HasPlusAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void HasPlusAccess_ShouldReturnFalse_WhenUserAccessTypeIsPlusButExpirationDateIsNotSet()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Plus;
+            user.ExpirationDate = null;
+            //Act
+            var result = user.HasPlusAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
         #endregion
 
         #region UpdatePassword

@@ -1,4 +1,5 @@
-﻿define(['commands/createQuestionCommand', 'plugins/router', 'constants', 'userContext'], function (createQuestionCommand, router, constants, userContext) {
+﻿define(['commands/createQuestionCommand', 'plugins/router', 'constants', 'userContext'],
+    function (createQuestionCommand, router, constants, userContext) {
 
     "use strict";
 
@@ -6,7 +7,8 @@
         objectiveId: null,
         eventCategory: null,
         visible: ko.observable(false),
-        hasStarterAccess: ko.observable(userContext.hasStarterAccess()),
+        hasStarterAccess: ko.observable(false),
+        hasPlusAccess: ko.observable(false),
 
         activate: activate,
         show: show,
@@ -25,11 +27,12 @@
 
         return userContext.identify().then(function() {
             viewModel.hasStarterAccess(userContext.hasStarterAccess());
+            viewModel.hasPlusAccess(userContext.hasPlusAccess());
         });
     }
 
     function show() {
-       viewModel.visible(!this.visible());
+        viewModel.visible(!viewModel.visible());
     }
 
     function hide() {

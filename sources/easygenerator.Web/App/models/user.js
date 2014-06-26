@@ -23,6 +23,12 @@
                     expirationDate: new Date(spec.subscription.expirationDate)
                 };
                 break;
+            case 2:
+                this.subscription = {
+                    accessType: constants.accessType.plus,
+                    expirationDate: new Date(spec.subscription.expirationDate)
+                };
+                break;
             default:
                 throw 'Provided subscription is not supported';
         }

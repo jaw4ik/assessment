@@ -133,6 +133,7 @@
     <Compile Include="Components\ActionFilters\ApplicationAuthorizeAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCoursesAmountAttributeTests.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttributeTest.cs" />
     <Compile Include="Components\ActionFilters\Authorization\StarterAccessAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\CustomRequireHttpsAttributeTest.cs" />
     <Compile Include="Components\ActionFilters\ForceHttpAttributeTests.cs" />

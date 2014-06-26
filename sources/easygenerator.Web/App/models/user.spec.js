@@ -88,6 +88,30 @@
 
         });
 
+        describe('when plus subscription is specified', function () {
+
+            it('should create user with starter subscription', function () {
+                var spec = {
+                    firstname: 'firstname',
+                    lastname: 'lastname',
+                    email: 'a.drebot@gmail.com',
+                    subscription: {
+                        accessType: 2,
+                        expirationDate: "2014-03-19T12:49:34.7396182Z"
+                    }
+                };
+
+                var user = new User(spec);
+
+                expect(user.subscription).toEqual({
+                    accessType: constants.accessType.plus,
+                    expirationDate: new Date("2014-03-19T12:49:34.7396182Z")
+                });
+
+            });
+
+        });
+
         describe('when free subscription is specified', function () {
 
             it('should create user with starter subscription', function () {

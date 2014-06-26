@@ -526,8 +526,8 @@
     defineTheContentWithBlank: {
         en: 'Define the content with blanks'
     },
-    upgradeToStarterPlanToCreateOtherQuestionTypes: {
-        en: 'Please upgrade your account to \"Starter plan\" to be able to create other question types'
+    upgradeAccountToCreateAdvancedQuestionTypes: {
+        en: 'Please upgrade your account to be able to create advanced question types'
     },
     dragAndDropText: {
         en: 'Drag&Drop text'
@@ -539,7 +539,7 @@
         en: 'Multiple choice question editor'
     },
     multipleChoiceAnswerError: {
-        en: 'You are not allowed to remove this answer option. A multiple choice question needs to have at least two answer options'
+        en: 'A multiple choice question needs to have at least two answer options'
     },
     /* End resource section for model Questions */
     

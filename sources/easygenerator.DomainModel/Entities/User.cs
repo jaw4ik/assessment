@@ -86,7 +86,12 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual bool HasStarterAccess()
         {
-            return AccessType == AccessType.Starter && !IsAccessExpired();
+            return AccessType >= AccessType.Starter && !IsAccessExpired();
+        }
+
+        public virtual bool HasPlusAccess()
+        {
+            return AccessType >= AccessType.Plus && !IsAccessExpired();
         }
 
         private bool IsAccessExpired()

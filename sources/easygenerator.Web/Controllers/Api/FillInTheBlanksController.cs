@@ -26,7 +26,7 @@ namespace easygenerator.Web.Controllers.Api
             _eventPublisher = eventPublisher;
         }
 
-        [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToCreateOtherQuestionTypes)]
+        [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
         [EntityCollaborator(typeof(Objective))]
         [Route("api/question/create/type/1")]
         public ActionResult Create(Objective objective, string title)
