@@ -686,16 +686,16 @@ span.top-navigation-item.current {
 
 .module-objective .navigation-tree-hide-mode .help-hint .content-section-wrapper,
 .module-question .navigation-tree-hide-mode .help-hint .content-section-wrapper {
-    padding-left: 80px; 
+    padding-left: 80px;
 }
 
 .navigation-tree-hide-mode .content-area .content-section-wrapper {
     padding-left: 60px;
 }
 
-.navigation-tree-hide-mode .content-area .content-section-wrapper.answer-options {
-    padding-left: 0;
-}
+    .navigation-tree-hide-mode .content-area .content-section-wrapper.answer-options {
+        padding-left: 0;
+    }
 
 .navigation-tree-hide-mode .question-answer-options-area {
     padding-left: 60px;
@@ -1124,11 +1124,6 @@ span.top-navigation-item.current {
     position: relative;
     border-radius: 15px;
 }
-
-    .course-action-btn:hover .info-tooltip {
-        visibility: visible;
-        opacity: 0.9;
-    }
 
 .list-item-title .selectable {
     cursor: text;
@@ -1701,6 +1696,11 @@ span.top-navigation-item.current {
         width: 82px;
         margin-left: -41px;
     }
+
+.info-tooltip-holder:hover .info-tooltip {
+    visibility: visible;
+    opacity: 0.9;
+}
 
 /*#endregion INFO TOOLTIP*/
 

@@ -56,11 +56,6 @@
         background-position: -170px -23px;
     }
 
-    .upload-background-image:hover .info-tooltip {
-        visibility: visible;
-        opacity: 0.9;
-    }
-
 .info-tooltip.browse-image {
     width: 100px;
     margin-left: -50px;

@@ -433,11 +433,6 @@
     margin-left: -56px;
 }
 
-.question-answer-value:hover .info-tooltip {
-    visibility: visible;
-    opacity: 0.9;
-}
-
 .question-answer-text-wrapper {
     display: table-cell;
     background: white;
@@ -580,11 +575,6 @@
     vertical-align: top;
     position: relative;
 }
-
-    .question-answer-delete-icon-wrapper:hover .info-tooltip {
-        visibility: visible;
-        opacity: 0.9;
-    }
 
 .question-learning-content-delete-icon,
 .question-answer-delete-icon {

@@ -96,7 +96,7 @@
                         <div class="answer-options-list-item">
                             <div class="question-answer-value-wrapper">
                                 <!-- ko if: isCorrect -->
-                                <div class="question-answer-radio correct question-answer-value" data-bind="click: $parent.toggleCorrectness">
+                                <div class="question-answer-radio correct question-answer-value info-tooltip-holder" data-bind="click: $parent.toggleCorrectness">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
                                     <div class="info-tooltip question-answer left-side">
                                         <span data-bind="localize: { text: 'correctAnswer' }">
@@ -106,7 +106,7 @@
                                 </div>
                                 <!-- /ko -->
                                 <!-- ko ifnot: isCorrect -->
-                                <div class="question-answer-radio question-answer-value" data-bind="click: $parent.toggleCorrectness">
+                                <div class="question-answer-radio question-answer-value info-tooltip-holder" data-bind="click: $parent.toggleCorrectness">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
                                     <div class="info-tooltip question-answer left-side">
                                         <span data-bind="localize: { text: 'incorrectAnswer' }">
@@ -124,7 +124,7 @@
                             </div>
                             <!-- ko if: $parent.showDeleteButton -->
                             <div class="question-answer-delete-wrapper">
-                                <div class="question-answer-delete-icon-wrapper">
+                                <div class="question-answer-delete-icon-wrapper info-tooltip-holder">
                                     <span class="question-answer-delete-icon" data-bind="click: $parent.removeAnswer"></span>
                                     <div class="info-tooltip question-answer right-side">
                                         <span data-bind="localize: { text: 'deleteAnswerOption' }">

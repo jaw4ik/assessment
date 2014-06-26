@@ -98,7 +98,7 @@
                     <li class="answer-option-item" data-bind="click: $parent.selectAnswer.bind($parent, $data), outsideClick: { action: $parent.clearSelection }">
                         <div class="answer-options-list-item">
                             <div class="question-answer-value-wrapper">
-                                <div class="question-answer-checkbox question-answer-value" data-bind="click: $parent.toggleCorrectness, css: { correct: isCorrect }">
+                                <div class="question-answer-checkbox question-answer-value info-tooltip-holder" data-bind="click: $parent.toggleCorrectness, css: { correct: isCorrect }">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
                                     <div class="info-tooltip question-answer left-side">
                                         <!-- ko if: isCorrect -->
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                             <div class="question-answer-delete-wrapper">
-                                <div class="question-answer-delete-icon-wrapper">
+                                <div class="question-answer-delete-icon-wrapper info-tooltip-holder">
                                     <span class="question-answer-delete-icon" data-bind="click: $parent.removeAnswer"></span>
                                     <div class="info-tooltip question-answer right-side">
                                         <span data-bind="localize: { text: 'deleteAnswerOption' }">
