@@ -6,6 +6,7 @@
         commands: {
             addBlank: 'addBlank'
         },
+        hotkey: CKEDITOR.CTRL + 81 /*Q*/, 
         fillInTheBlankDialogName: 'fillInTheBlankDialog',
         dataTag: 'input',
         spaceSymbol: '&zwnj;',
@@ -22,6 +23,7 @@
         },
         widgetTag: 'span',
         init: function (editor) {
+           
             //region "paste for IE"
             var caretPositionForPaste = null;
             //endregion "paste for IE"
@@ -31,6 +33,9 @@
             var plugin = CKEDITOR.plugins.fillInTheBlank;
             var classNames = plugin.classNames;
             var widgetTag = plugin.widgetTag;
+
+
+            editor.setKeystroke(plugin.hotkey, plugin.commands.addBlank);
 
             editor.on('paste', function (evt) {
                 var $data = $('<output>').append($.parseHTML(evt.data.dataValue));
@@ -154,7 +159,7 @@
             });
         }
     };
-
+    
     CKEDITOR.plugins.add('fillInTheBlank', CKEDITOR.plugins.fillInTheBlank);
     CKEDITOR.document.appendStyleSheet(CKEDITOR.plugins.fillInTheBlank.path + 'styles.css');
     CKEDITOR.dialog.add(CKEDITOR.plugins.fillInTheBlank.fillInTheBlankDialogName, CKEDITOR.plugins.fillInTheBlank.path + 'dialogs/fillInTheBlank.js');

@@ -65,6 +65,14 @@
 
 /*#region Add-new-question-button-block*/
 
+.question .create-blank-hotkey {
+    display: inline-block;
+    margin-right: 5px;
+    color: #bbb;
+    font-family: 'OpenSans';
+    font-size: 12px;
+}
+
 .question .btn.create-question {
     height: 38px;
     min-width: 146px;

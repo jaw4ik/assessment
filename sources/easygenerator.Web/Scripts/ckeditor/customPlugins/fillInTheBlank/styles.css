@@ -39,11 +39,12 @@
   
 }
 
+.blankContent .cke_widget_wrapper:hover .blankField:hover {
+    cursor: pointer;
+}
+
 .blankContent .blankField:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-    zoom: 1;
-    background: #ffffff;
-    cursor: text;
+    border-color: #5bc0de;
 }
 
 .blankContent .blankValue {
@@ -59,16 +60,10 @@
     vertical-align: bottom;
 }
 
-
 .blankContent .cke_widget_selected .blankField {
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     zoom: 1;
-    background: #ffffff;
     border-color: #5bc0de;
-}
-
-.blankContent .blankValue:empty {
-    /*content:"\00a0";*/
 }
 
 .blankContent .blankField .close {

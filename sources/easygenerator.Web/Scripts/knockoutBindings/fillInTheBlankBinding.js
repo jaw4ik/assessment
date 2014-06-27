@@ -4,12 +4,12 @@
         var editorName = valueAccessor().name,
             createButtonSelector = valueAccessor().createButtonSelector,
             language = valueAccessor().language || 'en',
-            eventTracker = valueAccessor().eventTracker || null;
+            eventTracker = valueAccessor().eventTracker || null,
+            editor = CKEDITOR.instances[editorName];
 
         $(createButtonSelector, element).click(createBlank);
-
+        
         function createBlank() {
-            var editor = CKEDITOR.instances[editorName];
             if (!editor.focusManager.hasFocus) {
                 var range = editor.createRange();
                 range.moveToElementEditablePosition(editor.editable(), true);
