@@ -676,12 +676,13 @@
 /*#region Question type create actions*/
 
 .question-type-action-wrapper {
-    width: 682px;
+    width: 686px;
     background-color: #fff;
     position: absolute;
     top: 49px;
     right: 0;
-    border: 1px solid #dedede;
+    border: 3px solid #9dbccc;
+    border-radius: 6px;
     -webkit-box-shadow: 0 3px 3px 0 rgba(0,0,0,.5);
     -moz-box-shadow: 0 3px 3px 0 rgba(0,0,0,.5);
     box-shadow: 1px 1px 7px rgba(0,0,0,.1);
@@ -691,13 +692,13 @@
     .question-type-action-wrapper:before {
         content: '';
         background-color: #FFFFFF;
-        border-left: 1px solid #DEDEDE;
-        border-top: 1px solid #DEDEDE;
+        border-left: 3px solid #9dbccc;
+        border-top: 3px solid #9dbccc;
         height: 9px;
         width: 9px;
         position: absolute;
-        right: 60px;
-        top: -6px;
+        right: 65px;
+        top: -8px;
         -moz-transform: rotate(32deg) skewX(-30deg) skewY(-5deg);
         -ms-transform: rotate(32deg) skewX(-30deg) skewY(-5deg);
         -webkit-transform: rotate(32deg) skewX(-30deg) skewY(-5deg);
@@ -730,31 +731,32 @@
     }
 
     .question-type-action-item + .question-type-action-item {
-        border-left: 2px solid #ececed;
+        border-left: 1px solid #dddddd;
     }
 
 .question-type-image {
-    height: 64px;
-    width: 64px;
-    margin: 0 auto 20px;
+    height: 73px;
+    width: 48px;
+    margin: 0 auto 10px;
+    background-image: url('images/question-types.png');
+    background-repeat: no-repeat;
 }
 
     .question-type-image.fillInTheBlank {
-        background: url('images/sprites_64.png') -275px 0 no-repeat;
+        background-position: -109px 0;
     }
 
     .question-type-image.multipleSelect {
-        width: 48px;
-        background: url('images/sprites_64.png') -215px 0 no-repeat;
+        background-position: -1px 0;
     }
 
     .question-type-image.dragAndDropText {
-        background: url('images/sprites_64.png') -137px -66px no-repeat;
+        width: 58px;
+        background-position: -163px 0;
     }
 
     .question-type-image.multipleChoice {
-        width: 48px;
-        background: url('images/sprites_64.png') -77px -68px no-repeat;
+        background-position: -55px 0;
     }
 
 .question-type-text {

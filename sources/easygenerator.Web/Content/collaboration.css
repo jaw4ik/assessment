@@ -100,9 +100,9 @@
     font-size: 16px;
 }
 
-    .course-collaborator-item.disable .course-collaborator-item-user-avatar {
-        background-color: #d3d3d3;
-    }
+.course-collaborator-item.disable .course-collaborator-item-user-avatar {
+    background-color: #d3d3d3;
+}
 
 .course-collaborator-tooltip-wrapper {
     display: none;
@@ -439,9 +439,8 @@
     }
 
 
-.remove-collaborator.modal-dialog-wrapper:hover ~ div.course-collaborator-tooltip-wrapper, 
-.remove-collaborator.modal-dialog-wrapper:hover ~ div.course-collaborator-delete-btn
-{
+.remove-collaborator.modal-dialog-wrapper:hover ~ div.course-collaborator-tooltip-wrapper,
+.remove-collaborator.modal-dialog-wrapper:hover ~ div.course-collaborator-delete-btn {
     display: none;
 }
 

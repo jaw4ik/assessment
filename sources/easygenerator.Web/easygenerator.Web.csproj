@@ -705,6 +705,7 @@
     <Content Include="Content\images\fillintheblank-question.png" />
     <Content Include="Content\images\multichoice-question.png" />
     <Content Include="Content\images\personalizedLearningTemplate.png" />
+    <Content Include="Content\images\question-types.png" />
     <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\ForgotPasswordTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\HttpRequestFailedTemplate.cshtml" />
