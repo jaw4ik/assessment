@@ -12,6 +12,7 @@
 
 .course-collaborator-item-wrapper {
     display: inline-block;
+    vertical-align: top;
     position: relative;
 }
 
