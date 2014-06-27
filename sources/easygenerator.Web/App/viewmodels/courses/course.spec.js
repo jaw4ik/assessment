@@ -1804,6 +1804,26 @@
 
             });
         });
+
+        describe('collaborators:', function() {
+            it('should be defined', function() {
+                expect(viewModel.collaborators).toBeDefined();
+            });
+        });
+
+        describe('deactivate:', function() {
+            it('should be a function', function() {
+                expect(viewModel.deactivate).toBeFunction();
+            });
+
+            it('should call collaborators deactivate', function() {
+                spyOn(viewModel.collaborators, 'deactivate');
+
+                viewModel.deactivate();
+
+                expect(viewModel.collaborators.deactivate).toHaveBeenCalled();
+            });
+        });
     });
 
 });

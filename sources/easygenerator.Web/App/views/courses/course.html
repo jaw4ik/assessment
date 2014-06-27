@@ -4,7 +4,7 @@
         <div class="content-section">
             <div class="page-view-caption clearfix">
                 <div class="page-view-caption-text" data-bind="localize: { text: 'courseViewCaption' }">Course editor</div>
-                <div data-bind="compose: {model: 'viewmodels/courses/collaboration/collaborators', activationData: {courseId: id, courseOwner: createdBy}}"></div>
+                <div data-bind="compose: {model: collaborators, activationData: {courseId: id, courseOwner: createdBy}}"></div>
             </div>
 
 

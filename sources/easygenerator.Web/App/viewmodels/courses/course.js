@@ -1,8 +1,8 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
         'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'ping', 'models/backButton',
-        'userContext', 'durandal/app'],
+        'userContext', 'durandal/app', './collaboration/collaborators'],
     function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, ping, BackButton,
-        userContext, app) {
+        userContext, app, collaborators) {
         "use strict";
 
         var
@@ -70,6 +70,7 @@
 
             canActivate: canActivate,
             activate: activate,
+            deactivate: deactivate,
 
             backButtonData: new BackButton({
                 url: 'courses',
@@ -88,7 +89,8 @@
 
             objectiveTitleUpdated: objectiveTitleUpdated,
             objectiveUpdated: objectiveUpdated,
-            isObjectivesListReorderedByCollaborator: ko.observable(false)
+            isObjectivesListReorderedByCollaborator: ko.observable(false),
+            collaborators: collaborators
         };
 
         viewModel.canDisconnectObjectives = ko.computed(function () {
@@ -366,6 +368,10 @@
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
                 throw reason;
             });
+        }
+
+        function deactivate() {
+            viewModel.collaborators.deactivate();
         }
 
         function objectiveTitleUpdated(objective) {
