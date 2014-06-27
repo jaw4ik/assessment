@@ -12,6 +12,19 @@ namespace easygenerator.DomainModel.Entities.Questions
         {
             ThrowIfTextIsInvalid(text);
 
+            CreateAnswer(text, isCorrect, group);
+        }
+
+        protected internal Answer(string text, bool isCorrect, Guid group, string createdBy, DateTime createdOn)
+            : base(createdBy, createdOn)
+        {
+            ThrowIfTextIsInvalid(text);
+
+            CreateAnswer(text, isCorrect, group);
+        }
+
+        private void CreateAnswer(string text, bool isCorrect, Guid group)
+        {
             Text = text;
             IsCorrect = isCorrect;
             Group = group;

@@ -54,6 +54,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void CreateMultipleChoice_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
         {
+            DateTimeWrapper.Now = () => DateTime.MinValue;
             var result = _controller.Create(null, null);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
@@ -65,15 +66,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             const string title = "title";
             const string user = "Test user";
+            DateTimeWrapper.Now = () => DateTime.MinValue;
             _user.Identity.Name.Returns(user);
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
             var question = Substitute.For<Multiplechoice>("Question title", CreatedBy);
-            var correctAnswer = Substitute.For<Answer>("Your answer option here", true, Guid.Empty, user);
-            var incorrectAnswer = Substitute.For<Answer>("Your answer option here", false, Guid.Empty, user);
+            var correctAnswer = Substitute.For<Answer>("Your answer option here", true, Guid.Empty, user, DateTimeWrapper.Now());
+            var incorrectAnswer = Substitute.For<Answer>("Your answer option here", false, Guid.Empty, user, DateTimeWrapper.Now().AddSeconds(1));
 
             _entityFactory.MultiplechoiceQuestion(title, user).Returns(question);
-            _entityFactory.Answer("Your answer option here", true, Guid.Empty, user).Returns(correctAnswer);
-            _entityFactory.Answer("Your answer option here", false, Guid.Empty, user).Returns(incorrectAnswer);
+            _entityFactory.Answer("Your answer option here", true, Guid.Empty, user, DateTimeWrapper.Now()).Returns(correctAnswer);
+            _entityFactory.Answer("Your answer option here", false, Guid.Empty, user, DateTimeWrapper.Now().AddSeconds(1)).Returns(incorrectAnswer);
 
             _controller.Create(objective, title);
 
@@ -87,6 +89,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string title = "title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
+            DateTimeWrapper.Now = () => DateTime.MinValue;
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
             var question = Substitute.For<Multiplechoice>("Question title", CreatedBy);
 
@@ -103,6 +106,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string title = "title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
+            DateTimeWrapper.Now = () => DateTime.MinValue;
             var question = Substitute.For<Multiplechoice>("Question title", CreatedBy);
 
             _entityFactory.MultiplechoiceQuestion(title, user).Returns(question);

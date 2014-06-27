@@ -15,6 +15,7 @@ namespace easygenerator.DomainModel
         Dropspot Dropspot(string text, int x, int y, string createdBy);
         Comment Comment(string text, string createdBy);
         Answer Answer(string text, bool isCorrect, Guid group, string createdBy);
+        Answer Answer(string text, bool isCorrect, Guid group, string createdBy, DateTime createdOn);
         LearningContent LearningContent(string text, string createdBy);
         User User(string email, string password, string firstname, string lastname, string phone, string organization, string country, string createdBy);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
@@ -66,6 +67,11 @@ namespace easygenerator.DomainModel
         public Answer Answer(string text, bool isCorrect, Guid group, string createdBy)
         {
             return new Answer(text, isCorrect, group, createdBy);
+        }
+
+        public Answer Answer(string text, bool isCorrect, Guid group, string createdBy, DateTime createdOn)
+        {
+            return new Answer(text, isCorrect, group, createdBy, createdOn);
         }
 
         public LearningContent LearningContent(string text, string createdBy)

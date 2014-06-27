@@ -21,6 +21,15 @@ namespace easygenerator.DomainModel.Entities
             ModifiedBy = createdBy;
         }
 
+        protected internal Entity(string createdBy, DateTime createdOn)
+            : this(createdBy)
+        {
+            ThrowIfCreatedByIsInvalid(createdBy);
+
+            CreatedOn = createdOn;
+            ModifiedOn = createdOn;
+        }
+
         public Guid Id { get; protected set; }
         public string CreatedBy { get; protected set; }
         public DateTime CreatedOn { get; protected internal set; }
