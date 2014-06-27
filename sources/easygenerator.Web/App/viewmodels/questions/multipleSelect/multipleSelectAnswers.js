@@ -145,6 +145,7 @@
 
                 var selectedAnswer = viewModel.selectedAnswer();
                 if (!_.isNullOrUndefined(selectedAnswer) && selectedAnswer.id() == answerId) {
+                    selectedAnswer.original.correctness = isCorrect;
                     return;
                 }
 
@@ -153,6 +154,7 @@
                 });
 
                 if (!_.isNullOrUndefined(answer)) {
+                    answer.original.correctness = isCorrect;
                     answer.isCorrect(isCorrect);
                 }
             }

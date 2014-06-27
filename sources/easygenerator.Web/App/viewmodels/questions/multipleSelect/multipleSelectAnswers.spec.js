@@ -577,7 +577,7 @@
               answer = { id: 'id', text: text, isCorrect: true },
               question = { id: questionId },
             vmAnswer = {
-                id: ko.observable(answer.id), isDeleted: ko.observable(false), isCorrect: ko.observable(true)
+                id: ko.observable(answer.id), isDeleted: ko.observable(false), isCorrect: ko.observable(true), original: { isCorect: true}
             };
 
             beforeEach(function () {
@@ -603,6 +603,14 @@
                     viewModel.multipleselectAnswerCorrectnessUpdatedByCollaborator(question, answer.id, false);
                     expect(vmAnswer.isCorrect()).toBeTruthy();
                 });
+
+                it('should update original correctness', function () {
+                    vmAnswer.original.isCorect = true;
+                    viewModel.answers([vmAnswer]);
+                    viewModel.selectedAnswer(vmAnswer);
+                    viewModel.multipleselectAnswerCorrectnessUpdatedByCollaborator(question, answer.id, false);
+                    expect(vmAnswer.original.isCorrect).toBeFalsy();
+                });
             });
 
             it('should update answer text', function () {
@@ -612,6 +620,13 @@
                 expect(vmAnswer.isCorrect()).toBeFalsy();
             });
 
+            it('should update original correctness', function () {
+                vmAnswer.original.isCorect = true;
+                viewModel.answers([vmAnswer]);
+                viewModel.selectedAnswer(null);
+                viewModel.multipleselectAnswerCorrectnessUpdatedByCollaborator(question, answer.id, false);
+                expect(vmAnswer.original.isCorrect).toBeFalsy();
+            });
         });
 
     });

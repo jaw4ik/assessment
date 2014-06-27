@@ -55,6 +55,7 @@
 
                 var selectedAnswer = viewModel.selectedAnswer();
                 if (!_.isNullOrUndefined(selectedAnswer) && selectedAnswer.id() == answerId) {
+                    selectedAnswer.original.text = text;
                     return;
                 }
 
@@ -64,6 +65,7 @@
 
                 if (!_.isNullOrUndefined(answer)) {
                     answer.text(text);
+                    answer.original.text = text;
                 }
             }
 

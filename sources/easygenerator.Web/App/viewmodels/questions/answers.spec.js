@@ -160,7 +160,7 @@
                 answer = { id: 'id', text: text, isCorrect: true },
                 question = { id: questionId },
             vmAnswer = {
-                id: ko.observable(answer.id), isDeleted: ko.observable(false), text: ko.observable('')
+                id: ko.observable(answer.id), isDeleted: ko.observable(false), text: ko.observable(''), original: { text: ''}
             };
 
             beforeEach(function () {
@@ -179,12 +179,19 @@
                 });
             });
 
-            describe('when answer is in edit mdode', function () {
+            describe('when answer is in edit mode', function () {
                 it('should not update answer', function () {
                     viewModel.answers([vmAnswer]);
                     viewModel.selectedAnswer(vmAnswer);
                     viewModel.textUpdatedByCollaborator(question, answer.id, text);
                     expect(vmAnswer.text()).toBe('');
+                });
+
+                it('should update original answer', function () {
+                    viewModel.answers([vmAnswer]);
+                    viewModel.selectedAnswer(vmAnswer);
+                    viewModel.textUpdatedByCollaborator(question, answer.id, text);
+                    expect(vmAnswer.original.text).toBe(text);
                 });
             });
 
@@ -193,6 +200,13 @@
                 viewModel.selectedAnswer(null);
                 viewModel.textUpdatedByCollaborator(question, answer.id, text);
                 expect(vmAnswer.text()).toBe(text);
+            });
+
+            it('should update original answer text', function () {
+                viewModel.answers([vmAnswer]);
+                viewModel.selectedAnswer(null);
+                viewModel.textUpdatedByCollaborator(question, answer.id, text);
+                expect(vmAnswer.original.text).toBe(text);
             });
         });
 
