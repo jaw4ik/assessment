@@ -82,6 +82,10 @@
     left: 0;
     top: 0;
     word-wrap: break-word;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .dropspot-text {
