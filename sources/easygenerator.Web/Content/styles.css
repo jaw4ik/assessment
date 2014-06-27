@@ -673,10 +673,6 @@ span.top-navigation-item.current {
 
 /*#region OBJECTIVES-COURSES*/
 
-.courses.view-module .content-section-wrapper {
-    margin-left: 70px;
-}
-
 .objectives .help-hint .content-section-wrapper {
     padding-left: 145px;
 }
