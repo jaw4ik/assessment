@@ -1,6 +1,6 @@
 ﻿define([], function () {
 
-    var dropspotToAdd = ko.observable();
+    var dropspotToAdd = ko.observable("");
 
     dropspotToAdd.isVisible = ko.observable(false);
 
@@ -17,7 +17,7 @@
     }
 
     dropspotToAdd.clear = function () {
-        dropspotToAdd(undefined);
+        dropspotToAdd("");
     }
 
     dropspotToAdd.isValid = ko.computed(function () {

@@ -54,7 +54,7 @@
                 dropspotToAdd("dropspot");
                 dropspotToAdd.clear();
 
-                expect(dropspotToAdd()).toBeUndefined();
+                expect(dropspotToAdd()).toEqual("");
             });
 
         });

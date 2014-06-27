@@ -27,6 +27,7 @@
 .drag-and-drop-designer-background {
     position: relative;
 }
+
 .upload-background-image {
     height: 32px;
     width: 32px;
@@ -101,6 +102,7 @@
         padding: 8px 15px;
         color: #3c3c3c;
         border-radius: 3px;
+        min-height: 38px;
     }
 
         .dropspot-text .editarea-editable-text:hover {
