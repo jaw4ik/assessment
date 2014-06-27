@@ -44,8 +44,8 @@
         _.each(designer.dropspots(), function (dropspot) {
             if (dropspot.position.x() > width ||
                 dropspot.position.y() > height ||
-                dropspot.position.x() + dropspot.size.outerWidth() > width ||
-                dropspot.position.y() + dropspot.size.outerHeight() > height) {
+                dropspot.position.x() + dropspot.size.width() > width ||
+                dropspot.position.y() + dropspot.size.height() > height) {
                 dropspot.position.endMoveDropspot(0, 0);
             }
         });
