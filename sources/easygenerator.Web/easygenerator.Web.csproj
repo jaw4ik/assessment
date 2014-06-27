@@ -220,12 +220,6 @@
     <Compile Include="Mail\IMailSenderWrapper.cs" />
     <Compile Include="Components\Mappers\LearningContentMapper.cs" />
     <Compile Include="Components\Tasks\SubscriptionExpirationTask.cs" />
-    <Compile Include="Permissions\AnswerPermissionsChecker.cs" />
-    <Compile Include="Permissions\CoursePermissionsChecker.cs" />
-    <Compile Include="Permissions\EntityPermissionsChecker.cs" />
-    <Compile Include="Permissions\IEntityPermissionsChecker.cs" />
-    <Compile Include="Permissions\LearningContentPermissionsChecker.cs" />
-    <Compile Include="Permissions\ObjectivePermissionsChecker.cs" />
     <Compile Include="Components\ActionFilters\Permissions\EntityCollaboratorAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCoursesAmountAttribute.cs" />
@@ -336,7 +330,6 @@
     <Compile Include="Newsletter\MailChimp\Entities\MailChimpLists.cs" />
     <Compile Include="Newsletter\MailChimp\Entities\MailChimpSubscription.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManager.cs" />
-    <Compile Include="Permissions\QuestionPermissionsChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Publish\Aim4You\Aim4YouApiService.cs" />
     <Compile Include="Publish\Aim4You\Aim4YouCoursePublisher.cs" />
@@ -351,6 +344,15 @@
     <Compile Include="Resources\Views\Error\Resources.Designer.cs" />
     <Compile Include="Resources\Views\Review\Resources.Designer.cs" />
     <Compile Include="Resources\Views\Shared\Resources.Designer.cs" />
+    <Compile Include="Security\FeatureAvailability\FeatureAvailabilityChecker.cs" />
+    <Compile Include="Security\FeatureAvailability\IFeatureAvailabilityChecker.cs" />
+    <Compile Include="Security\PermissionsCheckers\AnswerPermissionsChecker.cs" />
+    <Compile Include="Security\PermissionsCheckers\CoursePermissionsChecker.cs" />
+    <Compile Include="Security\PermissionsCheckers\EntityPermissionsChecker.cs" />
+    <Compile Include="Security\PermissionsCheckers\IEntityPermissionsChecker.cs" />
+    <Compile Include="Security\PermissionsCheckers\LearningContentPermissionsChecker.cs" />
+    <Compile Include="Security\PermissionsCheckers\ObjectivePermissionsChecker.cs" />
+    <Compile Include="Security\PermissionsCheckers\QuestionPermissionsChecker.cs" />
     <Compile Include="Storage\ImageValidator.cs" />
     <Compile Include="Storage\Storage.cs" />
     <Compile Include="Synchronization\Broadcasting\Broadcaster.cs" />

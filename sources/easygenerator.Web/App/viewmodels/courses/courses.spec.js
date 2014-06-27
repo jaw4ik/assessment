@@ -606,19 +606,6 @@
             });
         });
 
-        describe('collaborationDisabled:', function () {
-            it('should be function', function () {
-                expect(viewModel.collaborationDisabled).toBeFunction();
-            });
-
-            it('should delete shared course from list', function () {
-                var course = { id: 'id' };
-                viewModel.sharedCourses([course]);
-                viewModel.collaborationDisabled([course.id]);
-                expect(viewModel.sharedCourses().length).toBe(0);
-            });
-        });
-
     });
 }
 );

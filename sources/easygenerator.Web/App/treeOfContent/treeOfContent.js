@@ -77,7 +77,6 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
     app.on(constants.messages.course.objectivesReorderedByCollaborator, self.handler.objectivesReordered);
 
     app.on(constants.messages.course.collaboration.started, self.handler.collaborationStarted);
-    app.on(constants.messages.course.collaboration.disabled, self.handler.collaborationDisabled);
     app.on(constants.messages.course.collaboration.finished, self.handler.collaborationFinished);
 
     router.routeData.subscribe(function (navigationContext) {

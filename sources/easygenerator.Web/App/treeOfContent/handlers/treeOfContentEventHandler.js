@@ -13,7 +13,6 @@
             courseTitleUpdated: courseTitleUpdated,
 
             collaborationStarted: collaborationStarted,
-            collaborationDisabled: collaborationDisabled,
             collaborationFinished: collaborationFinished,
 
             objectiveRelated: objectiveRelated,
@@ -36,12 +35,8 @@
             treeOfContentTraversal.getTreeOfContent().sharedChildren(sharedCourses);
         }
 
-        function collaborationDisabled(courseIds) {
-            deleteCourses(treeOfContentTraversal.getTreeOfContent().sharedChildren, courseIds);
-        }
-
         function collaborationFinished(courseId) {
-            deleteCourse(treeOfContentTraversal.getTreeOfContent().children, courseId);
+            deleteCourse(treeOfContentTraversal.getTreeOfContent().sharedChildren, courseId);
         }
 
         function courseDeleted(courseId) {

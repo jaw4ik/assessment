@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
@@ -87,7 +85,7 @@ namespace easygenerator.Web.Controllers.Api
                 _mailSenderWrapper.SendInviteCollaboratorMessage(email, author.FullName, course.Title);
             }
 
-            _eventPublisher.Publish(new CourseCollaboratorAddedEvent(collaborator, authorName));
+            _eventPublisher.Publish(new CourseCollaboratorAddedEvent(collaborator));
 
             return JsonSuccess(_collaboratorEntityModelMapper.Map(collaborator));
         }

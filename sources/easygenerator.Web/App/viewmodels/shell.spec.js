@@ -177,45 +177,6 @@
 
         });
 
-        describe('courseCollaborationDisabled:', function () {
-            var courseId = 'courseId',
-               errorMessage = 'error';
-
-            beforeEach(function () {
-                spyOn(localizationManager, 'localize').and.returnValue(errorMessage);
-            });
-
-            it('should be function', function () {
-                expect(viewModel.courseCollaborationDisabled).toBeFunction();
-            });
-
-            describe('when in context of course', function () {
-                beforeEach(function () {
-                    router.routeData({
-                        courseId: courseId
-                    });
-                });
-
-                it('should show notification error', function () {
-                    viewModel.courseCollaborationDisabled([courseId]);
-                    expect(notify.error).toHaveBeenCalledWith(errorMessage);
-                });
-            });
-
-            describe('when not in context of course', function () {
-                beforeEach(function () {
-                    router.routeData({
-                        courseId: 'id'
-                    });
-                });
-
-                it('should not show notification error', function () {
-                    viewModel.courseCollaborationDisabled(courseId);
-                    expect(notify.error).not.toHaveBeenCalledWith(errorMessage);
-                });
-            });
-        });
-
         describe('objectivesUnrelated:', function () {
 
             var objectiveId = 'objectiveId',

@@ -9,7 +9,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Extensions;
-using easygenerator.Web.Permissions;
+using easygenerator.Web.Security.PermissionsCheckers;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

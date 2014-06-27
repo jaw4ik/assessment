@@ -10,10 +10,10 @@ using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
-using easygenerator.Web.Permissions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using easygenerator.Web.Security.PermissionsCheckers;
 
 namespace easygenerator.Web.Controllers.Api
 {

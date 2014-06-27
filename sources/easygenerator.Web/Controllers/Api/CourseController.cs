@@ -12,12 +12,12 @@ using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
-using easygenerator.Web.Permissions;
 using easygenerator.Web.Publish;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using easygenerator.Web.Security.PermissionsCheckers;
 
 namespace easygenerator.Web.Controllers.Api
 {

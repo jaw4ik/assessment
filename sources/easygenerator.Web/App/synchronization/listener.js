@@ -17,7 +17,7 @@
                     courseCollaboratorAdded: collaborationEventHandler.collaboratorAdded,
                     courseCollaborationStarted: collaborationEventHandler.started,
                     collaboratorRegistered: collaborationEventHandler.collaboratorRegistered,
-                    collaborationDisabled: collaborationEventHandler.disabled,
+                    courseCollaborationFinished: collaborationEventHandler.finished,
                     collaboratorRemoved: collaborationEventHandler.collaboratorRemoved,
 
                     courseTitleUpdated: courseEventHandler.titleUpdated,

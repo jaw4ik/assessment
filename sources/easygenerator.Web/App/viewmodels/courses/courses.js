@@ -42,7 +42,6 @@
             deletedByCollaborator: deletedByCollaborator,
             titleUpdated: titleUpdated,
             courseUpdated: courseUpdated,
-            collaborationDisabled: collaborationDisabled,
             collaborationFinished: collaborationFinished,
 
             canActivate: canActivate,
@@ -61,7 +60,6 @@
         app.on(constants.messages.course.objectivesReorderedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.objectiveRelatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.courseUpdated);
-        app.on(constants.messages.course.collaboration.disabled, viewModel.collaborationDisabled);
         app.on(constants.messages.course.collaboration.finished, viewModel.collaborationFinished);
 
         return viewModel;
@@ -156,14 +154,6 @@
         function deleteSharedCourse(courseId) {
             viewModel.sharedCourses(_.reject(viewModel.sharedCourses(), function (item) {
                 return item.id == courseId;
-            }));
-        }
-
-        function collaborationDisabled(courseIds) {
-            viewModel.sharedCourses(_.reject(viewModel.sharedCourses(), function (item) {
-                return _.some(courseIds, function (courseId) {
-                    return item.id == courseId;
-                });
             }));
         }
 

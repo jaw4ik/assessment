@@ -1,12 +1,12 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Tests.ObjectMothers;
-using easygenerator.Web.Permissions;
+using easygenerator.Web.Security.PermissionsCheckers;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
-namespace easygenerator.Web.Tests.Permissions
+namespace easygenerator.Web.Tests.Security.PermissionsCheckers
 {
     [TestClass]
     public class LearningContentPermissionsCheckerTests

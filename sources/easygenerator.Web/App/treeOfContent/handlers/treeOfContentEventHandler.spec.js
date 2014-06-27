@@ -261,24 +261,6 @@
 
         });
 
-        describe('collaborationDisabled:', function () {
-
-            it('should be function', function () {
-                expect(handler.collaborationDisabled).toBeFunction();
-            });
-
-            it('should remove course from the tree of content', function () {
-                var courseId = 'courseId';
-                var treeOfContent = { sharedChildren: ko.observableArray([{ id: courseId }]) };
-                spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
-
-                handler.collaborationDisabled([courseId]);
-
-                expect(treeOfContent.sharedChildren().length).toEqual(0);
-            });
-
-        });
-
         describe('collaborationFinished:', function () {
 
             it('should be function', function () {
@@ -286,13 +268,13 @@
             });
 
             it('should remove course from objective in index', function () {
-                var treeOfContent = { children: ko.observableArray([{ id: 'courseId' }, { id: '-' }]) };
+                var treeOfContent = { sharedChildren: ko.observableArray([{ id: 'courseId' }, { id: '-' }]) };
                 spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
 
                 handler.collaborationFinished('courseId');
 
-                expect(treeOfContent.children().length).toEqual(1);
-                expect(treeOfContent.children()[0].id).not.toEqual('courseId');
+                expect(treeOfContent.sharedChildren().length).toEqual(1);
+                expect(treeOfContent.sharedChildren()[0].id).not.toEqual('courseId');
             });
 
         });

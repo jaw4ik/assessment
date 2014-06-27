@@ -1,6 +1,6 @@
 ﻿using easygenerator.DomainModel.Entities;
 
-namespace easygenerator.Web.Permissions
+namespace easygenerator.Web.Security.PermissionsCheckers
 {
     public abstract class EntityPermissionsChecker<T> : IEntityPermissionsChecker<T>
         where T : Entity

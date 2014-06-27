@@ -1,11 +1,11 @@
-﻿using easygenerator.DomainModel.Events.CourseEvents;
+﻿using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Clonning;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using easygenerator.Infrastructure.Clonning;
-using easygenerator.DomainModel.Events;
 
 namespace easygenerator.DomainModel.Entities
 {

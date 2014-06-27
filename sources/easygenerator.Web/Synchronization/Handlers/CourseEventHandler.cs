@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.Web.Components.Mappers;
@@ -18,7 +17,6 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<CourseDeletedEvent>,
         IDomainEventHandler<CourseObjectiveRelatedEvent>,
         IDomainEventHandler<CourseObjectivesUnrelatedEvent>,
-        IDomainEventHandler<CourseCollaboratorRemovedEvent>,
         IDomainEventHandler<CourseObjectivesClonedEvent>
     {
         private readonly ICollaborationBroadcaster<Course> _broadcaster;
@@ -79,14 +77,6 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster.OtherCollaborators(args.Course)
              .courseObjectivesUnrelated(args.Course.Id.ToNString(), args.Objectives.Select(e => e.Id.ToNString()), args.Course.ModifiedOn);
-        }
-
-        public void Handle(CourseCollaboratorRemovedEvent args)
-        {
-            _broadcaster.AllCollaboratorsExcept(args.Course, args.Course.CreatedBy).collaboratorRemoved(args.Course.Id.ToNString(),
-                args.Collaborator.Email);
-
-            _broadcaster.User(args.Collaborator.Email).courseDeleted(args.Course.Id.ToNString());
         }
 
         public void Handle(CourseObjectivesClonedEvent args)

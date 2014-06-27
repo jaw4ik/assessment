@@ -3,6 +3,7 @@ using Autofac.Builder;
 using Autofac.Integration.Mvc;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.Infrastructure;
@@ -22,9 +23,10 @@ using easygenerator.Web.Import.PublishedCourse.EntityReaders;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
-using easygenerator.Web.Permissions;
 using easygenerator.Web.Publish;
 using easygenerator.Web.Publish.Aim4You;
+using easygenerator.Web.Security.FeatureAvailability;
+using easygenerator.Web.Security.PermissionsCheckers;
 using easygenerator.Web.Storage;
 using easygenerator.Web.Synchronization.Broadcasting;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
@@ -83,9 +85,10 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
-            #region Permission checkers
+            #region Security
 
-            RegisterGenericTypes(builder, applicationAssembly, typeof(IEntityPermissionsChecker<>));
+            builder.RegisterType<FeatureAvailabilityChecker>().As<IFeatureAvailabilityChecker>();
+            RegisterGenericTypes(builder, Assembly.GetAssembly(typeof(IEntityPermissionsChecker<>)), typeof(IEntityPermissionsChecker<>));
 
             #endregion
 

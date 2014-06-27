@@ -29,7 +29,6 @@
             courseDeleted: courseDeleted,
             objectivesUnrelated: objectivesUnrelated,
             questionsDeleted: questionsDeleted,
-            courseCollaborationDisabled: courseCollaborationDisabled,
             courseCollaborationFinished: courseCollaborationFinished
         };
 
@@ -60,7 +59,6 @@
         });
 
         app.on(constants.messages.course.deletedByCollaborator, viewModel.courseDeleted);
-        app.on(constants.messages.course.collaboration.disabled, viewModel.courseCollaborationDisabled);
         app.on(constants.messages.course.collaboration.finished, viewModel.courseCollaborationFinished);
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.objectivesUnrelated);
         app.on(constants.messages.question.deletedByCollaborator, viewModel.questionsDeleted);
@@ -176,14 +174,6 @@
                 return;
 
             notify.error(localizationManager.localize('questionHasBeenDeletedByCollaborator'));
-        }
-
-        function courseCollaborationDisabled(courseIds) {
-            if (!_.some(courseIds, function (courseId) { return router.routeData().courseId == courseId; })) {
-                return;
-            }
-
-            notify.error(localizationManager.localize('courseIsNotAvailableAnyMore'));
         }
 
         function courseCollaborationFinished(courseId){

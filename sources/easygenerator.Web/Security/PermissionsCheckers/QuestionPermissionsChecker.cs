@@ -1,7 +1,7 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 
-namespace easygenerator.Web.Permissions
+namespace easygenerator.Web.Security.PermissionsCheckers
 {
     public class QuestionPermissionsChecker : EntityPermissionsChecker<Question>
     {

@@ -1,7 +1,7 @@
-﻿using easygenerator.DomainModel.Entities;
-using System.Linq;
+﻿using System.Linq;
+using easygenerator.DomainModel.Entities;
 
-namespace easygenerator.Web.Permissions
+namespace easygenerator.Web.Security.PermissionsCheckers
 {
     public class ObjectivePermissionsChecker : EntityPermissionsChecker<Objective>
     {
