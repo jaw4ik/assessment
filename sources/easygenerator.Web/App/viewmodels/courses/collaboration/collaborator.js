@@ -54,7 +54,7 @@
 
             function deletingCompleted() {
                 viewModel.isRemoving(false);
-                notify.success(viewModel.name + ' ' + localizationManager.localize('collaboratorWasRemoved'));
+                notify.success('<p class="user-name">' + viewModel.name + '</p>' + localizationManager.localize('collaboratorWasRemoved'));
             };
 
             return viewModel;

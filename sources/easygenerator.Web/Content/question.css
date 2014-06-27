@@ -76,9 +76,9 @@
 .question .btn.create-question {
     height: 38px;
     min-width: 146px;
-    padding: 10px 13px;
+    padding: 8px 13px;
     float: right;
-    border: 1px solid #5bc0de;
+    border: 2px solid #5bc0de;
     color: #5bc0de;
     font-family: 'OpenSans';
     font-size: 12px;

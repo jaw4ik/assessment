@@ -242,7 +242,8 @@
     }
 
 .header-menu-list-item.help {
-    padding: 18px 19px;
+    margin-left: 15px;
+    padding: 18px 10px;
     cursor: default;
 }
 
@@ -262,6 +263,7 @@
     position: relative;
     max-width: 280px;
     min-width: 75px;
+    margin-left: 10px;
     border-radius: 2px 2px 0 0;
     border-bottom: 1px solid black;
     cursor: default;
@@ -276,7 +278,6 @@
     position: relative;
     width: 60px;
     padding: 19px 24px;
-    margin-right: 20px;
 }
 
     .header-menu-list-item.user-notification:before {
@@ -284,6 +285,7 @@
         display: block;
         height: 18px;
         width: 26px;
+        margin-left: -6px;
         background: url(../Content/images/sprites_24.png) -174px -3px no-repeat;
     }
 

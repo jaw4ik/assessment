@@ -3,7 +3,7 @@
     <div class="notifications-container" data-bind="foreach: { data: notifications, afterAdd: addNotice }">
         <div>
             <div class="notification" data-bind="css: type">
-                <span class="notification-text" data-bind="text: text"></span>
+                <span class="notification-text" data-bind="html: text"></span>
             </div>
         </div>
     </div>
