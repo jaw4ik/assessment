@@ -46,16 +46,7 @@
                 if (questionId != question.id)
                     return;
 
-                var item = {
-                    id: ko.observable(answer.id),
-                    text: ko.observable(answer.text),
-                    original: { text: answer.text, correctness: answer.isCorrect },
-                    isCorrect: ko.observable(answer.isCorrect),
-                    isDeleted: ko.observable(false),
-                    hasFocus: ko.observable(false)
-                };
-
-                viewModel.answers.push(item);
+                doAddAnswer(answer);
             }
 
             function textUpdatedByCollaborator(question, answerId, text) {
@@ -85,7 +76,7 @@
                     original: { text: answer.text, correctness: answer.isCorrect },
                     isCorrect: ko.observable(answer.isCorrect),
                     isDeleted: ko.observable(false),
-                    hasFocus: ko.observable(true)
+                    hasFocus: ko.observable(false)
                 };
 
                 viewModel.answers.push(item);
