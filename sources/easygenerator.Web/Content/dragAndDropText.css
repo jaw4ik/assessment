@@ -86,6 +86,7 @@
 .dropspot-text {
     margin-bottom: 10px;
     display: table;
+    table-layout: fixed;
     width: 100%;
 }
 

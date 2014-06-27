@@ -41,7 +41,7 @@
                         <!-- ko foreach: dropspots -->
                         <li class="dropspot-text">
                             <div>
-                                <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: false }, hasFocus: text.hasFocus, event: { focus: text.beginEditText, blur: function(data, event){ $parent.dropspotEndEdit($data); text.endEditText(data, event); } }">
+                                <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: true }, hasFocus: text.hasFocus, event: { focus: text.beginEditText, blur: function(data, event){ $parent.dropspotEndEdit($data); text.endEditText(data, event); } }">
                                 </div>
                             </div>
                             <div class="dropspot-text-delete-wrapper">
@@ -52,7 +52,7 @@
                         <!-- ko if: dropspotToAdd.isVisible -->
                         <li class="dropspot-text">
                             <div>
-                                <div class="editarea-editable-text selectable" data-bind="editableText: { text: dropspotToAdd, multiline: false }, event: { blur: addDropspot }, hasFocus: true">
+                                <div class="editarea-editable-text selectable" data-bind="editableText: { text: dropspotToAdd, multiline: true }, event: { blur: addDropspot }, hasFocus: true">
                                 </div>
                             </div>
                             <div class="dropspot-text-delete-wrapper">
