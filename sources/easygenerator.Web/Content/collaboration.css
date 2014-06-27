@@ -409,7 +409,7 @@
     width: 1px;
     position: absolute;
     right: -12px;
-    top: 12px;
+    top: 18px;
     border: 8px solid transparent;
     border-bottom: 8px solid #EAEAEA;
     border-top-width: 0;
@@ -448,7 +448,7 @@
 .remove-collaborator.modal-dialog-wrapper {
     height: auto;
     width: 328px;
-    top: 0;
+    top: -7px;
     right: 42px;
 }
 
