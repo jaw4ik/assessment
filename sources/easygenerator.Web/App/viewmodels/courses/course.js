@@ -401,10 +401,12 @@
         }
 
         function introductionContentUpdated(course) {
-            if (course.id != viewModel.id || viewModel.courseIntroductionContent.isEditing())
+            if (course.id != viewModel.id) 
                 return;
 
-            viewModel.courseIntroductionContent.text(course.introductionContent);
+            viewModel.courseIntroductionContent.originalText(course.introductionContent);
+            if (!viewModel.courseIntroductionContent.isEditing())
+                viewModel.courseIntroductionContent.text(course.introductionContent);
         }
 
         function objectivesReordered(course) {

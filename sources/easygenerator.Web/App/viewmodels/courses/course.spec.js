@@ -1350,6 +1350,7 @@
 
             var introductionContent = {
                 text: ko.observable(''),
+                originalText: ko.observable(''),
                 isEditing: ko.observable(false)
             };
 
@@ -1365,12 +1366,21 @@
                     });
 
                     it('should not update course introduction content', function () {
-                        viewModel.id = 'qwe';
+                        viewModel.id = course.id;
                         introductionContent.text('');
                         viewModel.courseIntroductionContent = introductionContent;
                         viewModel.introductionContentUpdated(course);
 
                         expect(viewModel.courseIntroductionContent.text()).toBe('');
+                    });
+
+                    it('should update original course introduction content', function () {
+                        viewModel.id = course.id;
+                        introductionContent.originalText('');
+                        viewModel.courseIntroductionContent = introductionContent;
+                        viewModel.introductionContentUpdated(course);
+
+                        expect(viewModel.courseIntroductionContent.originalText()).toBe(course.introductionContent);
                     });
                 });
 
@@ -1386,6 +1396,15 @@
                         viewModel.introductionContentUpdated(course);
 
                         expect(viewModel.courseIntroductionContent.text()).toBe(course.introductionContent);
+                    });
+
+                    it('should update original course introduction content', function () {
+                        viewModel.id = course.id;
+                        introductionContent.originalText('');
+                        viewModel.courseIntroductionContent = introductionContent;
+                        viewModel.introductionContentUpdated(course);
+
+                        expect(viewModel.courseIntroductionContent.originalText()).toBe(course.introductionContent);
                     });
                 });
 
