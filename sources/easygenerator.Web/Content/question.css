@@ -940,3 +940,10 @@
             margin-left: 34px;
         }
 }
+
+@media (max-width: 1260px) {
+    .fill-in-the-blank .create-blank-wrapper {
+        margin: 20px 0 0;
+        float: right;
+    }
+}
