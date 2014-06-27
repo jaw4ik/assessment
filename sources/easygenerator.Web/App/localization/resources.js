@@ -1277,7 +1277,10 @@
         en: 'This course is not available any more. Please go to the list of courses.'
     },
     collaboratorWasRemoved: {
-        en: 'was removed from your course.'
+        en: '<p class=\"user-name\">'
+    },
+    collaboratorWasRemovedEnd: {
+        en: '</p><br/>was removed from your course.'
     },
     collaboratorRemovingFailed: {
         en: 'Failed. Try again.'

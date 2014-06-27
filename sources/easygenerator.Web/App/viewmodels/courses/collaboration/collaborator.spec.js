@@ -216,9 +216,16 @@
             });
 
             it('should notify about success', function () {
-                spyOn(localizationManager, 'localize').and.returnValue('success');
+                spyOn(localizationManager, 'localize').and.callFake(function (paramName) {
+                    if (paramName === 'collaboratorWasRemoved') {
+                        return 'collaboratorWasRemoved';
+                    }
+                    else if (paramName === 'collaboratorWasRemovedEnd') {
+                        return 'collaboratorWasRemovedEnd';
+                    }
+                });
                 viewModel.deletingCompleted();
-                expect(notify.success).toHaveBeenCalledWith(viewModel.name + ' success');
+                expect(notify.success).toHaveBeenCalledWith('collaboratorWasRemoved' + viewModel.name + 'collaboratorWasRemovedEnd');
             });
         });
 
