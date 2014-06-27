@@ -32,16 +32,6 @@
             });
         });
 
-        describe('when introductionContent is not a string', function () {
-            it('should throw an exception', function () {
-                var f = function () {
-                    handler(mappedCourse.id, undefined, modifiedOn.toISOString());
-                };
-
-                expect(f).toThrow('Introduction content is not a string');
-            });
-        });
-
         describe('when modifiedOn is not a date', function () {
             it('should throw an exception', function () {
                 var f = function () {

@@ -253,8 +253,7 @@
         function updateIntroductionContent(courseId, introductionContent) {
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id is not a string');
-                guard.throwIfNotString(introductionContent, 'Introduction content is not a string');
-
+                
                 return httpWrapper.post('api/course/updateintroductioncontent', { courseId: courseId, introductionContent: introductionContent }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');

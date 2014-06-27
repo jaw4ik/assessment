@@ -4,7 +4,6 @@
 
         return function (courseId, introductionContent, modifiedOn) {
             guard.throwIfNotString(courseId, 'CourseId is not a string');
-            guard.throwIfNotString(introductionContent, 'Introduction content is not a string');
             guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
 
             var course = _.find(dataContext.courses, function (item) {

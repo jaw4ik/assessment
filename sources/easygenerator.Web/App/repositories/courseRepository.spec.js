@@ -1537,45 +1537,6 @@
 
             });
 
-            describe('when introductionContent is undefined', function () {
-
-                it('should reject promise', function (done) {
-                    var promise = repository.updateIntroductionContent('asdasdasd', undefined);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Introduction content is not a string');
-                        done();
-                    });
-                });
-
-            });
-
-            describe('when introductionContent is null', function () {
-
-                it('should reject promise', function (done) {
-                    var promise = repository.updateIntroductionContent('asdasdasd', null);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Introduction content is not a string');
-                        done();
-                    });
-                });
-
-            });
-
-            describe('when introductionContent is not a string', function () {
-
-                it('should reject promise', function (done) {
-                    var promise = repository.updateIntroductionContent('asdasdasd', {});
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Introduction content is not a string');
-                        done();
-                    });
-                });
-
-            });
-
             it('should send request to \'api/course/updateintroductioncontent\'', function (done) {
                 var
                     courseId = 'qweqeqweqw',
