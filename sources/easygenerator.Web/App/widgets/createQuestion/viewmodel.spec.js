@@ -104,10 +104,10 @@
                         expect(viewModel.questions()[0].name).toBe(constants.questionType.multipleChoice.name);
                         expect(viewModel.questions()[1].type).toBe(constants.questionType.multipleSelect.type);
                         expect(viewModel.questions()[1].name).toBe(constants.questionType.multipleSelect.name);
-                        expect(viewModel.questions()[2].type).toBe(constants.questionType.dragAndDropText.type);
-                        expect(viewModel.questions()[2].name).toBe(constants.questionType.dragAndDropText.name);
-                        expect(viewModel.questions()[3].type).toBe(constants.questionType.fillInTheBlank.type);
-                        expect(viewModel.questions()[3].name).toBe(constants.questionType.fillInTheBlank.name);
+                        expect(viewModel.questions()[2].type).toBe(constants.questionType.fillInTheBlank.type);
+                        expect(viewModel.questions()[2].name).toBe(constants.questionType.fillInTheBlank.name);
+                        expect(viewModel.questions()[3].type).toBe(constants.questionType.dragAndDropText.type);
+                        expect(viewModel.questions()[3].name).toBe(constants.questionType.dragAndDropText.name);
                         done();
                     });
                 });
@@ -122,7 +122,10 @@
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
-                            expect(viewModel.questions()[0].hasAccess).toBeTruthy();
+                            var question = _.find(viewModel.questions(), function(item) {
+                                return item.type === constants.questionType.multipleChoice.type;
+                            });
+                            expect(question.hasAccess).toBeTruthy();
                             done();
                         });
                     });
@@ -131,7 +134,10 @@
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
-                            expect(viewModel.questions()[1].hasAccess).toBeTruthy();
+                            var question = _.find(viewModel.questions(), function (item) {
+                                return item.type === constants.questionType.multipleSelect.type;
+                            });
+                            expect(question.hasAccess).toBeTruthy();
                             done();
                         });
                     });
@@ -140,7 +146,10 @@
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
-                            expect(viewModel.questions()[2].hasAccess).toBeFalsy();
+                            var question = _.find(viewModel.questions(), function (item) {
+                                return item.type === constants.questionType.dragAndDropText.type;
+                            });
+                            expect(question.hasAccess).toBeFalsy();
                             done();
                         });
                     });
@@ -149,7 +158,10 @@
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
-                            expect(viewModel.questions()[3].hasAccess).toBeFalsy();
+                            var question = _.find(viewModel.questions(), function (item) {
+                                return item.type === constants.questionType.fillInTheBlank.type;
+                            });
+                            expect(question.hasAccess).toBeFalsy();
                             done();
                         });
                     });
@@ -165,7 +177,10 @@
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
-                            expect(viewModel.questions()[0].hasAccess).toBeTruthy();
+                            var question = _.find(viewModel.questions(), function (item) {
+                                return item.type === constants.questionType.multipleChoice.type;
+                            });
+                            expect(question.hasAccess).toBeTruthy();
                             done();
                         });
                     });
@@ -174,7 +189,10 @@
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
-                            expect(viewModel.questions()[1].hasAccess).toBeTruthy();
+                            var question = _.find(viewModel.questions(), function (item) {
+                                return item.type === constants.questionType.multipleSelect.type;
+                            });
+                            expect(question.hasAccess).toBeTruthy();
                             done();
                         });
                     });
@@ -183,7 +201,10 @@
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
-                            expect(viewModel.questions()[2].hasAccess).toBeFalsy();
+                            var question = _.find(viewModel.questions(), function (item) {
+                                return item.type === constants.questionType.dragAndDropText.type;
+                            });
+                            expect(question.hasAccess).toBeFalsy();
                             done();
                         });
                     });
@@ -192,7 +213,10 @@
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
-                            expect(viewModel.questions()[3].hasAccess).toBeTruthy();
+                            var question = _.find(viewModel.questions(), function (item) {
+                                return item.type === constants.questionType.fillInTheBlank.type;
+                            });
+                            expect(question.hasAccess).toBeTruthy();
                             done();
                         });
                     });
@@ -208,7 +232,10 @@
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
-                            expect(viewModel.questions()[0].hasAccess).toBeTruthy();
+                            var question = _.find(viewModel.questions(), function (item) {
+                                return item.type === constants.questionType.multipleChoice.type;
+                            });
+                            expect(question.hasAccess).toBeTruthy();
                             done();
                         });
                     });
@@ -217,16 +244,10 @@
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
-                            expect(viewModel.questions()[1].hasAccess).toBeTruthy();
-                            done();
-                        });
-                    });
-
-                    it('should has access to drag and drop text', function (done) {
-                        var promise = viewModel.activate(settings);
-
-                        promise.fin(function () {
-                            expect(viewModel.questions()[2].hasAccess).toBeTruthy();
+                            var question = _.find(viewModel.questions(), function (item) {
+                                return item.type === constants.questionType.multipleSelect.type;
+                            });
+                            expect(question.hasAccess).toBeTruthy();
                             done();
                         });
                     });
@@ -235,7 +256,22 @@
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
-                            expect(viewModel.questions()[3].hasAccess).toBeTruthy();
+                            var question = _.find(viewModel.questions(), function (item) {
+                                return item.type === constants.questionType.fillInTheBlank.type;
+                            });
+                            expect(question.hasAccess).toBeTruthy();
+                            done();
+                        });
+                    });
+
+                    it('should has access to drag and drop text', function (done) {
+                        var promise = viewModel.activate(settings);
+
+                        promise.fin(function () {
+                            var question = _.find(viewModel.questions(), function (item) {
+                                return item.type === constants.questionType.dragAndDropText.type;
+                            });
+                            expect(question.hasAccess).toBeTruthy();
                             done();
                         });
                     });

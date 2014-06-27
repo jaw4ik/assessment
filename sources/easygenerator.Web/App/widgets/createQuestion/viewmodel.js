@@ -34,14 +34,14 @@
                     hasAccess: true
                 },
                 {
-                    type: constants.questionType.dragAndDropText.type,
-                    name: constants.questionType.dragAndDropText.name,
-                    hasAccess: userContext.hasPlusAccess()
-                },
-                {
                     type: constants.questionType.fillInTheBlank.type,
                     name: constants.questionType.fillInTheBlank.name,
                     hasAccess: userContext.hasStarterAccess()
+                },
+                {
+                    type: constants.questionType.dragAndDropText.type,
+                    name: constants.questionType.dragAndDropText.name,
+                    hasAccess: userContext.hasPlusAccess()
                 }
             ]);
         });
