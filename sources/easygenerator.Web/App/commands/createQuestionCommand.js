@@ -25,7 +25,7 @@
                 case constants.questionType.fillInTheBlank.type:
                     eventTracker.publish('Create new question (fill in the blanks)', eventCategory);
                     break;
-                case constants.questionType.dragAndDrop.type:
+                case constants.questionType.dragAndDropText.type:
                     eventTracker.publish('Create new question (drag and drop)', eventCategory);
                     break;
                 case constants.questionType.multipleChoice.type:

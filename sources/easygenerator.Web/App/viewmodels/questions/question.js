@@ -56,7 +56,7 @@
                     return multipleSelect;
                 case constants.questionType.fillInTheBlank.type:
                     return fillInTheBlank;
-                case constants.questionType.dragAndDrop.type:
+                case constants.questionType.dragAndDropText.type:
                     return dragAndDrop;
                 case constants.questionType.multipleChoice.type:
                     return multipleChoice;

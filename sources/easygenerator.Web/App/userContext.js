@@ -23,22 +23,24 @@
     }
 
     function hasStarterAccess() {
-        var identity = userContext.identity;
-        if (_.isNullOrUndefined(identity) || _.isNullOrUndefined(identity.subscription)) {
-            return false;
-        }
-
-        var subscription = identity.subscription;
-        return subscription.accessType >= constants.accessType.starter && subscription.expirationDate >= new Date();
+        return hasAccess(constants.accessType.starter);
     }
 
     function hasPlusAccess() {
+        return hasAccess(constants.accessType.plus);
+    }
+
+    function hasAccess(accessType) {
+        if (accessType === constants.accessType.free) {
+            return true;
+        }
+
         var identity = userContext.identity;
         if (_.isNullOrUndefined(identity) || _.isNullOrUndefined(identity.subscription)) {
             return false;
         }
 
         var subscription = identity.subscription;
-        return subscription.accessType === constants.accessType.plus && subscription.expirationDate >= new Date();
+        return subscription.accessType >= accessType && subscription.expirationDate >= new Date();
     }
 })

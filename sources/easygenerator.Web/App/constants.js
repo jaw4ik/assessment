@@ -11,18 +11,22 @@
             questionType: {
                 multipleSelect: {
                     type: 0,
+                    name: 'multipleSelect',
                     image: '/Content/images/multiselect-question.png'
                 },
                 fillInTheBlank: {
                     type: 1,
+                    name: 'fillInTheBlank',
                     image: '/Content/images/fillintheblank-question.png'
                 },
-                dragAndDrop: {
+                dragAndDropText: {
                     type: 2,
+                    name: 'dragAndDropText',
                     image: '/Content/images/draganddroptext-question.png'
                 },
                 multipleChoice: {
                     type: 3,
+                    name: 'multipleChoice',
                     image: '/Content/images/multichoice-question.png'
                 }
             },

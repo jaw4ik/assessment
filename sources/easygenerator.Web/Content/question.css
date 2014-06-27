@@ -739,20 +739,20 @@
     margin: 0 auto 20px;
 }
 
-    .question-type-image.fill-in-the-blank {
+    .question-type-image.fillInTheBlank {
         background: url('images/sprites_64.png') -275px 0 no-repeat;
     }
 
-    .question-type-image.multiple-select {
+    .question-type-image.multipleSelect {
         width: 48px;
         background: url('images/sprites_64.png') -215px 0 no-repeat;
     }
 
-    .question-type-image.drag-and-drop {
+    .question-type-image.dragAndDropText {
         background: url('images/sprites_64.png') -137px -66px no-repeat;
     }
 
-    .question-type-image.multiple-choice {
+    .question-type-image.multipleChoice {
         width: 48px;
         background: url('images/sprites_64.png') -77px -68px no-repeat;
     }

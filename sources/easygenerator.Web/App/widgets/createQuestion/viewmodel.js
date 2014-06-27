@@ -1,33 +1,49 @@
-﻿define(['commands/createQuestionCommand', 'plugins/router', 'constants', 'userContext'],
-    function (createQuestionCommand, router, constants, userContext) {
+﻿define(['guard', 'commands/createQuestionCommand', 'plugins/router', 'constants', 'userContext'], function (guard, createQuestionCommand, router, constants, userContext) {
 
     "use strict";
 
     var viewModel = {
         objectiveId: null,
-        eventCategory: null,
         visible: ko.observable(false),
-        hasStarterAccess: ko.observable(false),
-        hasPlusAccess: ko.observable(false),
+        questions: ko.observableArray([]),
 
         activate: activate,
         show: show,
         hide: hide,
-        createMultipleSelectQuestion: createMultipleSelectQuestion,
-        createFillInTheBlankQuestion: createFillInTheBlankQuestion,
-        createDragAndDropQuestion: createDragAndDropQuestion,
-        createMultipleChoiceQuestion: createMultipleChoiceQuestion
+        createQuestion: createQuestion
     };
 
     return viewModel;
 
     function activate(settings) {
-        viewModel.objectiveId = settings.objectiveId;
-        viewModel.eventCategory = settings.eventCategory;
+        guard.throwIfNotAnObject(settings, 'settings is not an object');
+        guard.throwIfNotString(settings.objectiveId, 'objectiveId is not a string');
 
-        return userContext.identify().then(function() {
-            viewModel.hasStarterAccess(userContext.hasStarterAccess());
-            viewModel.hasPlusAccess(userContext.hasPlusAccess());
+        viewModel.objectiveId = settings.objectiveId;
+
+        return userContext.identify().then(function () {
+            viewModel.questions([
+                {
+                    type: constants.questionType.multipleChoice.type,
+                    name: constants.questionType.multipleChoice.name,
+                    hasAccess: true
+                },
+                {
+                    type: constants.questionType.multipleSelect.type,
+                    name: constants.questionType.multipleSelect.name,
+                    hasAccess: true
+                },
+                {
+                    type: constants.questionType.dragAndDropText.type,
+                    name: constants.questionType.dragAndDropText.name,
+                    hasAccess: userContext.hasPlusAccess()
+                },
+                {
+                    type: constants.questionType.fillInTheBlank.type,
+                    name: constants.questionType.fillInTheBlank.name,
+                    hasAccess: userContext.hasStarterAccess()
+                }
+            ]);
         });
     }
 
@@ -39,31 +55,15 @@
         viewModel.visible(false);
     }
 
-    function createMultipleSelectQuestion() {
-        create(constants.questionType.multipleSelect.type);
-    }
-
-    function createFillInTheBlankQuestion() {
-        create(constants.questionType.fillInTheBlank.type);
-    }
-
-    function createDragAndDropQuestion() {
-        create(constants.questionType.dragAndDrop.type);
-    }
-
-    function createMultipleChoiceQuestion() {
-        create(constants.questionType.multipleChoice.type);
-    }
-
-    function create(type) {
+    function createQuestion(item) {
         var courseId = getCourseId();
         viewModel.visible(false);
-        return createQuestionCommand.execute(viewModel.objectiveId, courseId, type);
+        return createQuestionCommand.execute(viewModel.objectiveId, courseId, item.type);
     }
 
     function getCourseId() {
         var params = router.activeInstruction().queryParams;
-        return  _.isNullOrUndefined(params) ? null : params.courseId;
+        return _.isNullOrUndefined(params) ? null : params.courseId;
     }
 
 });

@@ -58,7 +58,7 @@
                 describe('and when question type is dragAndDrop', function () {
 
                     it('should send event \'Create new question (drag and drop)\' with defined event category ', function () {
-                        command.execute('objectiveId', 'courseId', constants.questionType.dragAndDrop.type, 'Event category');
+                        command.execute('objectiveId', 'courseId', constants.questionType.dragAndDropText.type, 'Event category');
                         expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (drag and drop)', 'Event category');
                     });
 
@@ -97,7 +97,7 @@
                 describe('when question type is dragAndDrop', function () {
 
                     it('should send event \'Create new question (drag and drop)\' with defined event category ', function () {
-                        command.execute('objectiveId', 'courseId', constants.questionType.dragAndDrop.type);
+                        command.execute('objectiveId', 'courseId', constants.questionType.dragAndDropText.type);
                         expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (drag and drop)', undefined);
                     });
 
