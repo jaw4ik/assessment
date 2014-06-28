@@ -1001,14 +1001,6 @@
 
         });
 
-        describe('language:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.language).toBeObservable();
-            });
-
-        });
-
         describe('reorderObjectives:', function () {
 
             var

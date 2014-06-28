@@ -18,59 +18,35 @@
                 unrelateObjectivesFromCourse: 'Unrelate objectives from course',
                 navigateToCourses: 'Navigate to courses',
                 changeOrderObjectives: 'Change order of learning objectives'
-            };
+            },
 
-        var eventsForCourseContent = {
-            addContent: 'Define introduction',
-            beginEditText: 'Start editing introduction',
-            endEditText: 'End editing introduction'
-        };
+            eventsForCourseContent = {
+                addContent: 'Define introduction',
+                beginEditText: 'Start editing introduction',
+                endEditText: 'End editing introduction'
+            },
+
+            objectivesListModes = {
+                appending: 'appending',
+                display: 'display'
+            };
 
         var viewModel = {
             id: '',
-            title: (function () {
-                var value = ko.observable();
-
-                value.isValid = ko.computed(function () {
-                    var length = value() ? value().trim().length : 0;
-                    return length > 0 && length <= constants.validation.courseTitleMaxLength;
-                }, this);
-                return value;
-            })(),
+            title: ko.observable(),
             createdBy: '',
             connectedObjectives: ko.observableArray([]),
             availableObjectives: ko.observableArray([]),
             objectivesMode: ko.observable(''),
             isEditing: ko.observable(),
             courseIntroductionContent: {},
-            language: ko.observable(''),
-            objectivesListModes: {
-                appending: 'appending',
-                display: 'display'
-            },
+            objectivesListModes: objectivesListModes,
             canDisconnectObjectives: ko.observable(false),
             canConnectObjectives: ko.observable(false),
-
-            navigateToObjectiveDetails: navigateToObjectiveDetails,
-            navigateToCreateObjective: navigateToCreateObjective,
-            navigateToCoursesEvent: navigateToCoursesEvent,
-
-            toggleObjectiveSelection: toggleObjectiveSelection,
-            startEditTitle: startEditTitle,
-            endEditTitle: endEditTitle,
-            showAllAvailableObjectives: showAllAvailableObjectives,
-            showConnectedObjectives: showConnectedObjectives,
-            courseTitleMaxLength: constants.validation.courseTitleMaxLength,
-            disconnectSelectedObjectives: disconnectSelectedObjectives,
             isReorderingObjectives: ko.observable(false),
-            startReorderingObjectives: startReorderingObjectives,
-            endReorderingObjectives: endReorderingObjectives,
-            reorderObjectives: reorderObjectives,
             isSortingEnabled: ko.observable(true),
-
-            canActivate: canActivate,
-            activate: activate,
-            deactivate: deactivate,
+            courseTitleMaxLength: constants.validation.courseTitleMaxLength,
+            isObjectivesListReorderedByCollaborator: ko.observable(false),
 
             backButtonData: new BackButton({
                 url: 'courses',
@@ -78,20 +54,37 @@
                 callback: navigateToCoursesEvent
             }),
 
+            navigateToObjectiveDetails: navigateToObjectiveDetails,
+            navigateToCreateObjective: navigateToCreateObjective,
+            navigateToCoursesEvent: navigateToCoursesEvent,
+            toggleObjectiveSelection: toggleObjectiveSelection,
+            startEditTitle: startEditTitle,
+            endEditTitle: endEditTitle,
+            showAllAvailableObjectives: showAllAvailableObjectives,
+            showConnectedObjectives: showConnectedObjectives,
+            disconnectSelectedObjectives: disconnectSelectedObjectives,
+            startReorderingObjectives: startReorderingObjectives,
+            endReorderingObjectives: endReorderingObjectives,
+            reorderObjectives: reorderObjectives,
+            canActivate: canActivate,
+            activate: activate,
+            deactivate: deactivate,
             connectObjective: connectObjective,
             disconnectObjective: disconnectObjective,
-
             titleUpdated: titleUpdated,
             introductionContentUpdated: introductionContentUpdated,
             objectivesReordered: objectivesReordered,
             objectiveConnected: objectiveConnected,
             objectivesDisconnected: objectivesDisconnected,
-
             objectiveTitleUpdated: objectiveTitleUpdated,
             objectiveUpdated: objectiveUpdated,
-            isObjectivesListReorderedByCollaborator: ko.observable(false),
             collaborators: collaborators
         };
+
+        viewModel.title.isValid = ko.computed(function () {
+            var length = viewModel.title() ? viewModel.title().trim().length : 0;
+            return length > 0 && length <= constants.validation.courseTitleMaxLength;
+        });
 
         viewModel.canDisconnectObjectives = ko.computed(function () {
             return _.some(viewModel.connectedObjectives(), function (item) {
@@ -109,15 +102,15 @@
             return viewModel.connectedObjectives().length != 1;
         });
 
-        app.on(constants.messages.course.titleUpdatedByCollaborator, titleUpdated);
-        app.on(constants.messages.course.introductionContentUpdatedByCollaborator, introductionContentUpdated);
-        app.on(constants.messages.course.objectivesReorderedByCollaborator, objectivesReordered);
-        app.on(constants.messages.course.objectiveRelatedByCollaborator, objectiveConnected);
-        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, objectivesDisconnected);
-        app.on(constants.messages.objective.titleUpdatedByCollaborator, objectiveTitleUpdated);
-        app.on(constants.messages.objective.questionsReorderedByCollaborator, objectiveUpdated);
-        app.on(constants.messages.question.createdByCollaborator, objectiveUpdated);
-        app.on(constants.messages.question.deletedByCollaborator, objectiveUpdated);
+        app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
+        app.on(constants.messages.course.introductionContentUpdatedByCollaborator, viewModel.introductionContentUpdated);
+        app.on(constants.messages.course.objectivesReorderedByCollaborator, viewModel.objectivesReordered);
+        app.on(constants.messages.course.objectiveRelatedByCollaborator, viewModel.objectiveConnected);
+        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.objectivesDisconnected);
+        app.on(constants.messages.objective.titleUpdatedByCollaborator, viewModel.objectiveTitleUpdated);
+        app.on(constants.messages.objective.questionsReorderedByCollaborator, viewModel.objectiveUpdated);
+        app.on(constants.messages.question.createdByCollaborator, viewModel.objectiveUpdated);
+        app.on(constants.messages.question.deletedByCollaborator, viewModel.objectiveUpdated);
 
         return viewModel;
 
@@ -173,9 +166,11 @@
                 objective.isSelected(true);
             }
         }
+
         function startEditTitle() {
             viewModel.isEditing(true);
         }
+
         function endEditTitle() {
             viewModel.title(viewModel.title().trim());
             viewModel.isEditing(false);
@@ -198,7 +193,7 @@
         }
 
         function showAllAvailableObjectives() {
-            if (viewModel.objectivesMode() == viewModel.objectivesListModes.appending) {
+            if (viewModel.objectivesMode() == objectivesListModes.appending) {
                 return;
             }
 
@@ -213,7 +208,7 @@
                 });
                 mapAvailableObjectives(objectives);
 
-                that.objectivesMode(viewModel.objectivesListModes.appending);
+                that.objectivesMode(objectivesListModes.appending);
             });
         }
 
@@ -234,9 +229,8 @@
                     .value());
         }
 
-
         function showConnectedObjectives() {
-            if (viewModel.objectivesMode() == viewModel.objectivesListModes.display) {
+            if (viewModel.objectivesMode() == objectivesListModes.display) {
                 return;
             }
 
@@ -246,7 +240,7 @@
                 item.isSelected(false);
             });
 
-            viewModel.objectivesMode(viewModel.objectivesListModes.display);
+            viewModel.objectivesMode(objectivesListModes.display);
         }
 
         function connectObjective(objective) {
@@ -344,8 +338,6 @@
         }
 
         function activate(courseId) {
-            viewModel.language(localizationManager.currentLanguage);
-
             return repository.getById(courseId).then(function (course) {
                 viewModel.id = course.id;
                 viewModel.createdBy = course.createdBy;
@@ -354,7 +346,7 @@
                 clientContext.set('lastVisitedObjective', null);
 
                 viewModel.title(course.title);
-                viewModel.objectivesMode(viewModel.objectivesListModes.display);
+                viewModel.objectivesMode(objectivesListModes.display);
                 viewModel.connectedObjectives(_.chain(course.objectives)
                     .map(function (objective) {
                         return objectiveBrief(objective);
@@ -407,7 +399,7 @@
         }
 
         function introductionContentUpdated(course) {
-            if (course.id != viewModel.id) 
+            if (course.id != viewModel.id)
                 return;
 
             viewModel.courseIntroductionContent.originalText(course.introductionContent);
