@@ -145,7 +145,6 @@
         }
 
         function toggleObjectiveSelection(objective) {
-
             if (_.isUndefined(objective)) {
                 throw 'Objective is undefined';
             }
@@ -175,21 +174,19 @@
             viewModel.title(viewModel.title().trim());
             viewModel.isEditing(false);
 
-            var courseTitle = null;
-            repository.getById(viewModel.id)
-                .then(function (response) {
-                    courseTitle = response.title;
-                    if (viewModel.title() == courseTitle)
-                        return;
+            repository.getById(viewModel.id).then(function (response) {
+                if (viewModel.title() == response.title) {
+                    return;
+                }
 
-                    eventTracker.publish(events.updateCourseTitle);
+                eventTracker.publish(events.updateCourseTitle);
 
-                    if (viewModel.title.isValid()) {
-                        repository.updateCourseTitle(viewModel.id, viewModel.title()).then(notify.saved);
-                    } else {
-                        viewModel.title(courseTitle);
-                    }
-                });
+                if (viewModel.title.isValid()) {
+                    repository.updateCourseTitle(viewModel.id, viewModel.title()).then(notify.saved);
+                } else {
+                    viewModel.title(response.title);
+                }
+            });
         }
 
         function showAllAvailableObjectives() {
@@ -199,16 +196,14 @@
 
             eventTracker.publish(events.showAllAvailableObjectives);
 
-            var that = viewModel;
-
             objectiveRepository.getCollection().then(function (objectivesList) {
-                var relatedIds = _.pluck(that.connectedObjectives(), 'id');
+                var relatedIds = _.pluck(viewModel.connectedObjectives(), 'id');
                 var objectives = _.filter(objectivesList, function (item) {
                     return !_.include(relatedIds, item.id);
                 });
                 mapAvailableObjectives(objectives);
 
-                that.objectivesMode(objectivesListModes.appending);
+                viewModel.objectivesMode(objectivesListModes.appending);
             });
         }
 
@@ -288,21 +283,22 @@
         }
 
         function disconnectSelectedObjectives() {
-            if (!viewModel.canDisconnectObjectives())
+            if (!viewModel.canDisconnectObjectives()) {
                 return;
+            }
 
             eventTracker.publish(events.unrelateObjectivesFromCourse);
 
-            var that = viewModel,
-                selectedObjectives = _.filter(viewModel.connectedObjectives(), function (item) {
-                    return item.isSelected();
-                });
+            var selectedObjectives = _.filter(viewModel.connectedObjectives(), function (item) {
+                return item.isSelected();
+            });
 
-            repository.unrelateObjectives(viewModel.id, _.map(selectedObjectives, function (item) { return item; }))
-                .then(function () {
-                    that.connectedObjectives(_.difference(that.connectedObjectives(), selectedObjectives));
-                    notify.saved();
-                });
+            repository.unrelateObjectives(viewModel.id, _.map(selectedObjectives, function (item) {
+                return item;
+            })).then(function () {
+                viewModel.connectedObjectives(_.difference(viewModel.connectedObjectives(), selectedObjectives));
+                notify.saved();
+            });
         }
 
         function startReorderingObjectives() {
@@ -354,7 +350,9 @@
                     .value());
 
                 viewModel.isEditing(false);
-                viewModel.courseIntroductionContent = vmContentField(course.introductionContent, eventsForCourseContent, false, function (content) { return repository.updateIntroductionContent(course.id, content); });
+                viewModel.courseIntroductionContent = vmContentField(course.introductionContent, eventsForCourseContent, false, function (content) {
+                    return repository.updateIntroductionContent(course.id, content);
+                });
 
             }).fail(function (reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
@@ -392,19 +390,22 @@
         }
 
         function titleUpdated(course) {
-            if (course.id != viewModel.id || viewModel.isEditing())
+            if (course.id != viewModel.id || viewModel.isEditing()) {
                 return;
+            }
 
             viewModel.title(course.title);
         }
 
         function introductionContentUpdated(course) {
-            if (course.id != viewModel.id)
+            if (course.id != viewModel.id) {
                 return;
+            }
 
             viewModel.courseIntroductionContent.originalText(course.introductionContent);
-            if (!viewModel.courseIntroductionContent.isEditing())
+            if (!viewModel.courseIntroductionContent.isEditing()) {
                 viewModel.courseIntroductionContent.text(course.introductionContent);
+            }
         }
 
         function objectivesReordered(course) {
