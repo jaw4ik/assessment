@@ -11,14 +11,24 @@
             courseOwner: '',
             members: ko.observableArray([]),
             canAddMember: ko.observable(),
+            isCollaborationDisabled: ko.observable(true),
             addMemberDialog: addCollaboratorDialog,
 
             addMember: addMember,
             collaboratorAdded: collaboratorAdded,
             collaboratorRemoved: collaboratorRemoved,
             activate: activate,
-            deactivate: deactivate
+            deactivate: deactivate,
+            updateCollaborationStatus: updateCollaborationStatus
         };
+
+        app.on(constants.messages.user.downgraded, viewModel.updateCollaborationStatus);
+        app.on(constants.messages.user.upgradedToStarter, viewModel.updateCollaborationStatus);
+        app.on(constants.messages.user.upgradedToPlus, viewModel.updateCollaborationStatus);
+
+        viewModel.members.subscribe(function () {
+            viewModel.updateCollaborationStatus();
+        });
 
         return viewModel;
 
@@ -78,4 +88,11 @@
                 item.deactivate();
             });
         }
+
+        function updateCollaborationStatus() {
+            var collaborationDisabled = userContext.identity.subscription.accessType === constants.accessType.free || 
+                (userContext.identity.subscription.accessType === constants.accessType.starter && viewModel.members().length > constants.maxStarterPlanCollaborators + 1);
+            viewModel.isCollaborationDisabled(collaborationDisabled);
+        }
+
     });

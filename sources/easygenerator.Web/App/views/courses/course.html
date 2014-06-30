@@ -2,6 +2,14 @@
 
     <div class="content-section-wrapper">
         <div class="content-section">
+
+            <!-- ko if: collaborationWarning().length > 0 -->
+            <div class="course-collaboration-warning unselectable">
+                <span class="course-collaborator-warning-text" data-bind="text: collaborationWarning"></span>
+                <a class="course-collaborator-warning-button" href="/account/upgrade" target="_blank" data-bind="localize: { text: 'upgradeNow' }">Upgrade now</a>
+            </div>
+            <!-- /ko -->
+
             <div class="page-view-caption clearfix">
                 <div class="page-view-caption-text" data-bind="localize: { text: 'courseViewCaption' }">Course editor</div>
                 <div data-bind="compose: {model: collaborators, activationData: {courseId: id, courseOwner: createdBy}}"></div>

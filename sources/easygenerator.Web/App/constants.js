@@ -188,7 +188,9 @@
 
             patterns: {
                 email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
-            }
+            },
+
+            maxStarterPlanCollaborators: 3
         };
     }
 );

@@ -47,6 +47,7 @@
             isSortingEnabled: ko.observable(true),
             courseTitleMaxLength: constants.validation.courseTitleMaxLength,
             isObjectivesListReorderedByCollaborator: ko.observable(false),
+            collaborationWarning: ko.observable(''),
 
             backButtonData: new BackButton({
                 url: 'courses',
@@ -78,6 +79,7 @@
             objectivesDisconnected: objectivesDisconnected,
             objectiveTitleUpdated: objectiveTitleUpdated,
             objectiveUpdated: objectiveUpdated,
+            updateCollaborationWarning: updateCollaborationWarning,
             collaborators: collaborators
         };
 
@@ -99,7 +101,7 @@
         });
 
         viewModel.isSortingEnabled = ko.computed(function () {
-            return viewModel.connectedObjectives().length != 1;
+            return viewModel.connectedObjectives().length !== 1;
         });
 
         app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
@@ -111,6 +113,14 @@
         app.on(constants.messages.objective.questionsReorderedByCollaborator, viewModel.objectiveUpdated);
         app.on(constants.messages.question.createdByCollaborator, viewModel.objectiveUpdated);
         app.on(constants.messages.question.deletedByCollaborator, viewModel.objectiveUpdated);
+
+        app.on(constants.messages.user.downgraded, viewModel.updateCollaborationWarning);
+        app.on(constants.messages.user.upgradedToStarter, viewModel.updateCollaborationWarning);
+        app.on(constants.messages.user.upgradedToPlus, viewModel.updateCollaborationWarning);
+
+        viewModel.collaborators.members.subscribe(function () {
+            viewModel.updateCollaborationWarning();
+        });
 
         return viewModel;
 
@@ -175,7 +185,7 @@
             viewModel.isEditing(false);
 
             repository.getById(viewModel.id).then(function (response) {
-                if (viewModel.title() == response.title) {
+                if (viewModel.title() === response.title) {
                     return;
                 }
 
@@ -190,7 +200,7 @@
         }
 
         function showAllAvailableObjectives() {
-            if (viewModel.objectivesMode() == objectivesListModes.appending) {
+            if (viewModel.objectivesMode() === objectivesListModes.appending) {
                 return;
             }
 
@@ -210,7 +220,7 @@
         function mapAvailableObjectives(objectives) {
             viewModel.availableObjectives(_.chain(objectives)
                     .filter(function (item) {
-                        return item.createdBy == userContext.identity.email;
+                        return item.createdBy === userContext.identity.email;
                     })
                     .sortBy(function (item) {
                         return -item.createdOn;
@@ -225,7 +235,7 @@
         }
 
         function showConnectedObjectives() {
-            if (viewModel.objectivesMode() == objectivesListModes.display) {
+            if (viewModel.objectivesMode() === objectivesListModes.display) {
                 return;
             }
 
@@ -334,6 +344,7 @@
         }
 
         function activate(courseId) {
+            viewModel.updateCollaborationWarning();
             return repository.getById(courseId).then(function (course) {
                 viewModel.id = course.id;
                 viewModel.createdBy = course.createdBy;
@@ -385,12 +396,12 @@
             var objectives = viewModel.connectedObjectives().concat(viewModel.availableObjectives());
 
             return _.find(objectives, function (item) {
-                return item.id == objectiveId;
+                return item.id === objectiveId;
             });
         }
 
         function titleUpdated(course) {
-            if (course.id != viewModel.id || viewModel.isEditing()) {
+            if (course.id !== viewModel.id || viewModel.isEditing()) {
                 return;
             }
 
@@ -398,7 +409,7 @@
         }
 
         function introductionContentUpdated(course) {
-            if (course.id != viewModel.id) {
+            if (course.id !== viewModel.id) {
                 return;
             }
 
@@ -409,7 +420,7 @@
         }
 
         function objectivesReordered(course) {
-            if (viewModel.id != course.id || viewModel.isReorderingObjectives()) {
+            if (viewModel.id !== course.id || viewModel.isReorderingObjectives()) {
                 viewModel.isObjectivesListReorderedByCollaborator(true);
                 return;
             }
@@ -421,25 +432,25 @@
             viewModel.connectedObjectives(_.chain(course.objectives)
                   .map(function (objective) {
                       return _.find(viewModel.connectedObjectives(), function (obj) {
-                          return obj.id == objective.id;
+                          return obj.id === objective.id;
                       });
                   })
                   .value());
         }
 
         function objectiveConnected(courseId, objective, targetIndex) {
-            if (viewModel.id != courseId) {
+            if (viewModel.id !== courseId) {
                 return;
             }
 
             var objectives = viewModel.connectedObjectives();
             var isConnected = _.some(objectives, function (item) {
-                return item.id == objective.id;
+                return item.id === objective.id;
             });
 
             if (isConnected) {
                 objectives = _.reject(objectives, function (item) {
-                    return item.id == objective.id;
+                    return item.id === objective.id;
                 });
             }
 
@@ -454,19 +465,19 @@
 
             var availableObjectives = viewModel.availableObjectives();
             viewModel.availableObjectives(_.reject(availableObjectives, function (item) {
-                return objective.id == item.id;
+                return objective.id === item.id;
             }));
         }
 
         function objectivesDisconnected(courseId, disconnectedObjectiveIds) {
-            if (viewModel.id != courseId) {
+            if (viewModel.id !== courseId) {
                 return;
             }
 
             var connectedObjectives = viewModel.connectedObjectives();
             viewModel.connectedObjectives(_.reject(connectedObjectives, function (item) {
                 return _.some(disconnectedObjectiveIds, function (id) {
-                    return id == item.id;
+                    return id === item.id;
                 });
             }));
 
@@ -477,6 +488,20 @@
                 });
                 mapAvailableObjectives(objectives);
             });
+        }
+
+        function updateCollaborationWarning() {
+            if (userContext.identity.subscription.accessType === constants.accessType.free) {
+                viewModel.collaborationWarning(localizationManager.localize('collaborationFreeWarning'));
+            } else if (userContext.identity.subscription.accessType === constants.accessType.starter) {
+                if (viewModel.collaborators.members().length > constants.maxStarterPlanCollaborators + 1) {
+                    viewModel.collaborationWarning(localizationManager.localize('collaborationStarterWarning'));
+                } else {
+                    viewModel.collaborationWarning('');
+                }
+            } else {
+                viewModel.collaborationWarning('');
+            }
         }
     }
 );

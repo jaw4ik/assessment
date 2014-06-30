@@ -1110,3 +1110,37 @@
     }
 
 /*#endregion COURSE CONTENT*/
+
+
+/*#region COLLABORATION WARNING*/
+
+.course-collaboration-warning {
+    background-color: #ebf6fb;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    width: 100%;
+    vertical-align: central;
+    text-align: center;
+}
+
+.course-collaborator-warning-text {
+    font-family: 'OpenSans';
+    font-size: 12px;
+    cursor: default;
+}
+
+.course-collaborator-warning-button {
+    display: inline-block;
+    font-size: 12px;
+    font-family: 'OpenSans-Semibold';
+    color: #559f64;
+    border: 1px solid #559f64;
+    height: 30px;
+    line-height: 30px;
+    width: 100px;
+    margin-left: 14px;
+    border-radius: 3px;
+}
+
+/*#endregion COLLABORATION WARNING*/
