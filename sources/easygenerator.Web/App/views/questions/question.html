@@ -1,5 +1,5 @@
 ﻿<section class="question view-module">
-    
+
     <div class="content-section-wrapper">
         <div class="content-section">
             <div class="page-view-caption clearfix">
@@ -10,12 +10,12 @@
             </div>
         </div>
     </div>
-    
+
     <div class="content-section-wrapper" data-bind="with: questionTitle">
         <div class="content-section">
-            <header class="question-view-header">
+            <header class="question-view-header" data-bind="css: { 'active' : text.isEditing() }">
                 <div class="expand-collapse-panel expanded">
-                    <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}, css: { error: !text.isValid() }">Title</span>
+                    <span class="expand-collapse-panel-label" data-bind="localize: { text: 'questionTitle'}, css: { error: !text.isValid() }">Question title</span>
                 </div>
                 <div class="edit-field selectable" data-bind="editableText: { text: text, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': text.isEditing(), 'error': !text.isValid() }, autofocus: { focus: isCreatedQuestion, autoselect: isCreatedQuestion }">
                 </div>

@@ -1668,7 +1668,8 @@ span.top-navigation-item.current {
     visibility: hidden;
     position: absolute;
     left: 50%;
-    bottom: 100%;
+    top: 0;
+    margin-top: -38px;
     margin-bottom: 9px;
     padding: 6px 5px;
     background-color: #55626f;

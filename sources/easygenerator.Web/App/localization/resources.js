@@ -466,6 +466,9 @@
     noAnswerOptionsYet: {
         en: 'No answer options yet'
     },
+    questionTitle: {
+        en: 'Question title'
+    },
     /* End resource section for model Question */
     
     /* Resource section for model Questions */
@@ -569,16 +572,16 @@
     
     /* Resource section for model QuestionFeedback */
     putYourPositiveFeedback: {
-        en: 'Put your positive feedback'
+        en: 'Put your positive feedback here'
     },
     putYourNegativeFeedback: {
-        en: 'Put your negative feedback'
+        en: 'Put your negative feedback here'
     },
     correctFeedback: {
-        en: 'Correct feedback'
+        en: 'Positive feedback'
     },
     incorrectFeedback: {
-        en: 'Incorrect feedback'
+        en: 'Negative feedback'
     },
     /* End resource section for model QuestionFeedback */
     
@@ -1186,6 +1189,9 @@
     feedbackTabTitle: {
         en: 'Give feedback'
     },
+    questionFeedback: {
+        en: 'Question feedback'
+    },
     /* End resource section for model Feedback */
     
     /* Resource section for model Navigation tree */
@@ -1303,12 +1309,15 @@
     /* End resource section for model InviteCollaboratorSubject */
     
     /* Resource section for model InviteCollaboratorBody */
+    /* End resource section for model InviteCollaboratorBody */
+    
+    /* Resource section for model InviteCollaboratorFromDisplayName */
     collaborationStarterWarning: {
         en: 'This course takes you over your (3) collaborators limit. It is time to upgrade. Let‘s do it!'
     },
     collaborationFreeWarning: {
         en: 'This course takes you over your (0) collaborators limit. It is time to upgrade. Let‘s do it!'
     }
-    /* End resource section for model InviteCollaboratorBody */
+    /* End resource section for model InviteCollaboratorFromDisplayName */
            
 });
