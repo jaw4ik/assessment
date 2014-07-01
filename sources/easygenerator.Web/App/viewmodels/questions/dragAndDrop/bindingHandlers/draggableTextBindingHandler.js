@@ -8,12 +8,12 @@
                 containment: "parent",
                 cursor: "move",
                 scroll: false,
-                start: function() {
+                start: function () {
                     if (_.isFunction(value.startMove)) {
                         value.startMove();
                     }
                 },
-                drag:  _.debounce(function (event, ui) {
+                drag: _.debounce(function (event, ui) {
                     var
                         x = ui.position.left,
                         y = ui.position.top;
@@ -51,12 +51,16 @@
                 $(element).css('top', ko.unwrap(value.y) + 'px');
             }
 
-            if (ko.isWriteableObservable(value.width)) {
-                value.width($(element).outerWidth());
-        }
-            if (ko.isWriteableObservable(value.height)) {
-                value.height($(element).outerHeight());
-            }
+            setTimeout(function () {
+                if (ko.isWriteableObservable(value.width)) {
+                    value.width($(element).outerWidth());
+                }
+                if (ko.isWriteableObservable(value.height)) {
+                    value.height($(element).outerHeight());
+                }
+            }, 0);
+
+
         }
     };
 
