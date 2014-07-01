@@ -370,6 +370,17 @@ namespace AccountRes {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string InviteCollaboratorFromDisplayName
+        {
+            get
+            {
+                return ResourceManager.GetString("InviteCollaboratorFromDisplayName", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string InviteCollaboratorSubject
         {
             get

@@ -38,11 +38,16 @@ namespace easygenerator.Web.Mail
         public void SendInviteCollaboratorMessage(string email, string userName, string courseTitle)
         {
             var websiteUrl = _urlHelperWrapper.RouteWebsiteUrl();
-            var subject = String.Format(AccountRes.Resources.InviteCollaboratorSubject, userName, courseTitle);
             var templateSettings = _senderSettings.MailTemplatesSettings[InviteCollaboratorTemplateName];
-            var body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { UserName = userName, WebsiteUrl = websiteUrl, Email = email });
+            var fromDisplayName = String.Format(AccountRes.Resources.InviteCollaboratorFromDisplayName, userName);
+            var mailMessage = new MailMessage(new MailAddress(templateSettings.From, fromDisplayName), new MailAddress(email))
+                {
+                    Subject = String.Format(AccountRes.Resources.InviteCollaboratorSubject, userName, courseTitle),
+                    Body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { UserName = userName, WebsiteUrl = websiteUrl, Email = email }),
+                    IsBodyHtml = true
+                };
 
-            _mailSender.Send(new MailMessage(templateSettings.From, email, subject, body) { IsBodyHtml = true });
+            _mailSender.Send(mailMessage);
         }
 
     }
