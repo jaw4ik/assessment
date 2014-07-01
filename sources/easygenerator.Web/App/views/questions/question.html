@@ -14,23 +14,14 @@
     <div class="content-section-wrapper" data-bind="with: questionTitle">
         <div class="content-section">
             <header class="question-view-header">
-                <!-- ko if: isExpanded -->
-                <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
+                <div class="expand-collapse-panel expanded">
                     <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}, css: { error: !text.isValid() }">Title</span>
-                    <div class="expand-collapse-panel-btn" title="Collapse" data-bind="localize: { title: 'collapse'}"></div>
                 </div>
                 <div class="edit-field selectable" data-bind="editableText: { text: text, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': text.isEditing(), 'error': !text.isValid() }, autofocus: { focus: isCreatedQuestion, autoselect: isCreatedQuestion }">
                 </div>
                 <div class="chars-counter" data-bind="css: { error: !text.isValid() }">
                     <span data-bind="text: text().trim().length"></span>/<span data-bind="text: questionTitleMaxLength"></span>
                 </div>
-                <!-- /ko -->
-                <!-- ko ifnot: isExpanded -->
-                <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
-                    <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}">Title</span>
-                    <div class="expand-collapse-panel-btn" title="Expand" data-bind="localize: { title: 'expand'}"></div>
-                </div>
-                <!-- /ko -->
             </header>
         </div>
     </div>

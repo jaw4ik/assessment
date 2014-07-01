@@ -3,15 +3,15 @@
     <div class="content-section-wrapper">
         <div class="content-section" data-bind="with: fillInTheBlank">
             <!-- ko if: isExpanded -->
-            <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
+            <div class="expand-collapse-panel expanded">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'fillInTheBlank' }">Fill in the blank</span>
-                <div class="expand-collapse-panel-btn"></div>
+                <div class="expand-collapse-panel-btn" data-bind="click: toggleExpand"></div>
             </div>
             <!-- /ko -->
             <!-- ko ifnot: isExpanded -->
-            <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
+            <div class="expand-collapse-panel collapsed">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'fillInTheBlank' }">Fill in the blank</span>
-                <div class="expand-collapse-panel-btn"></div>
+                <div class="expand-collapse-panel-btn" data-bind="click: toggleExpand"></div>
             </div>
             <!-- /ko -->
         </div>
@@ -23,7 +23,7 @@
             <div class="content-section">
                 <!-- ko if: isContentDefined -->
                 <div data-bind="fillInTheBlank: { name:'blankContent', createButtonSelector: '.create-blank', localizationManager: $root.localizationManager, eventTracker: $root.eventTracker}">
-                    <div class="fib-wrapper fib-content">
+                    <div class="fib-wrapper fib-content" data-bind="css: { 'active' : hasFocus }">
                         <div class="question-learning-content selectable blankContent" data-bind="attr:{ id: 'blankContent'}, ckeditor: { fillInTheBlank: true, data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $root.localizationManager }">
                         </div>
                     </div>

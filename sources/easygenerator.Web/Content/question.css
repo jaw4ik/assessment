@@ -14,12 +14,16 @@
     .question-view-header .edit-field {
         min-height: 30px;
         padding: 10px;
-        border: none;
-        border-bottom: 1px solid #dddddd;
+        border: 1px dotted transparent;
+        border-bottom: 1px dotted #dddddd;
         border-radius: 0;
         box-shadow: none;
         color: #3c3c3c;
         font-family: 'OpenSans-Semibold', sans-serif;
+    }
+
+    .question-view-header .edit-field:hover {
+        border-style: solid;
     }
 
         .question-view-header .edit-field:hover:after {
@@ -35,7 +39,8 @@
 
 
         .question-view-header .edit-field.active {
-            border-color: #5bc0de;
+            border: 1px solid #5bc0de;
+            border-radius: 3px;
         }
 
             .question-view-header .edit-field.active:hover:after {
@@ -52,8 +57,8 @@
         top: 7px;
         left: 50px;
         right: auto;
-        background-color: #5bc0de;
-        border-radius: 2px;
+        background-color: #bbb;
+        border-radius: 3px;
         font-size: 12px;
     }
 
@@ -727,9 +732,9 @@
     }
 
 .question-type-image {
-    height: 73px;
+    height: 75px;
     width: 48px;
-    margin: 0 auto 10px;
+    margin: 0 auto 8px;
     background-image: url('images/question-types.png');
     background-repeat: no-repeat;
 }
@@ -763,29 +768,39 @@
 
 .fib-wrapper {
     min-height: 85px;
-    border: 1px dashed #d8dde5;
-    margin-top: 6px;
+    border: 2px dashed #d8dde5;
 }
 
     .fib-wrapper:hover {
-        border: 1px solid #d8dde5;
+        border: 2px solid #d8dde5;
         cursor: text;
     }
 
     .fib-wrapper.fib-content {
         background: white;
+        border: 1px dashed #d8dde5;
     }
 
+        .fib-wrapper.fib-content:hover {
+            border: 1px solid #d8dde5;
+        }
+
+        .fib-wrapper.fib-content.active {
+            border: 1px solid #5bc0de;
+        }
+
         .fib-wrapper.fib-content .question-learning-content {
-            min-height: 83px;
+            min-height: 107px;
         }
 
 .fill-in-the-blank .question-answer-options-area {
     min-height: 190px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .fib-add-button-text-wrapper {
-    padding: 32px;
+    padding: 63px 32px;
     color: #999;
     font-family: 'OpenSans';
     font-size: 14px;
@@ -794,7 +809,7 @@
 
 .fib-add-button-text {
     position: relative;
-    padding-left: 70px;
+    padding-left: 60px;
 }
 
     .fib-add-button-text:before {
@@ -802,13 +817,13 @@
         position: absolute;
         left: 0;
         top: -23px;
-        width: 64px;
-        height: 64px;
-        background: url('images/sprites_64.png') -275px 0 no-repeat;
+        width: 48px;
+        height: 75px;
+        background: url('images/question-types.png') -109px 0 no-repeat;
     }
 
 .fill-in-the-blank .create-blank-wrapper {
-    margin: 3px 0 0;
+    margin: 5px 0 0;
     float: right;
 }
 

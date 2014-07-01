@@ -1115,17 +1115,17 @@
 /*#region COLLABORATION WARNING*/
 
 .course-collaboration-warning {
-    background-color: #ebf6fb;
-    height: 40px;
-    line-height: 40px;
     display: inline-block;
+    vertical-align: top;
+    height: 40px;
     width: 100%;
-    vertical-align: central;
+    padding-top: 5px;
+    background-color: #ebf6fb;
     text-align: center;
 }
 
 .course-collaborator-warning-text {
-    font-family: 'OpenSans';
+    color: #525252;
     font-size: 12px;
     cursor: default;
 }

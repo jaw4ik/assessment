@@ -527,7 +527,7 @@
         en: 'Add blank'
     },
     defineTheContentWithBlank: {
-        en: 'Define the content with blanks'
+        en: 'Click to define the content with blanks'
     },
     upgradeAccountToCreateAdvancedQuestionTypes: {
         en: 'Please upgrade your account to be able to create advanced question types'

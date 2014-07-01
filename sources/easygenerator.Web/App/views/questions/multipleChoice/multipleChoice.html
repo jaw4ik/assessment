@@ -3,15 +3,15 @@
     <div class="content-section-wrapper">
         <div class="content-section" data-bind="with: answers">
             <!-- ko if: isExpanded -->
-            <div class="expand-collapse-panel expanded" data-bind="click: toggleExpand">
+            <div class="expand-collapse-panel expanded">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'answerOptions' }">Answer options</span>
-                <div class="expand-collapse-panel-btn"></div>
+                <div class="expand-collapse-panel-btn" data-bind="click: toggleExpand"></div>
             </div>
             <!-- /ko -->
             <!-- ko ifnot: isExpanded -->
-            <div class="expand-collapse-panel collapsed" data-bind="click: toggleExpand">
+            <div class="expand-collapse-panel collapsed">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'answerOptions' }">Answer options</span>
-                <div class="expand-collapse-panel-btn"></div>
+                <div class="expand-collapse-panel-btn" data-bind="click: toggleExpand"></div>
             </div>
             <!-- /ko -->
         </div>

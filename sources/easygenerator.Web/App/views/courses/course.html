@@ -1,21 +1,18 @@
 ﻿<section class="course define view-module">
+    <!-- ko if: collaborationWarning().length > 0 -->
+    <div class="course-collaboration-warning unselectable">
+        <span class="course-collaborator-warning-text" data-bind="text: collaborationWarning"></span>
+        <a class="course-collaborator-warning-button" href="/account/upgrade" target="_blank" data-bind="localize: { text: 'upgradeNow' }">Upgrade now</a>
+    </div>
+    <!-- /ko -->
 
     <div class="content-section-wrapper">
         <div class="content-section">
-
-            <!-- ko if: collaborationWarning().length > 0 -->
-            <div class="course-collaboration-warning unselectable">
-                <span class="course-collaborator-warning-text" data-bind="text: collaborationWarning"></span>
-                <a class="course-collaborator-warning-button" href="/account/upgrade" target="_blank" data-bind="localize: { text: 'upgradeNow' }">Upgrade now</a>
-            </div>
-            <!-- /ko -->
-
             <div class="page-view-caption clearfix">
                 <div class="page-view-caption-text" data-bind="localize: { text: 'courseViewCaption' }">Course editor</div>
                 <div data-bind="compose: {model: collaborators, activationData: {courseId: id, courseOwner: createdBy}}"></div>
             </div>
-
-
+            
             <header class="view-header">
                 <div class="view-header-title">
                     <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': isEditing(), 'error': !title.isValid() }"></div>
