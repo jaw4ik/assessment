@@ -15,7 +15,7 @@
             blankField: 'blankField',
             blankValue: 'blankValue',
             close: 'close',
-            new: 'new',
+            newBlank: 'new',
             cke_focused: 'cke_widget_editable_focused'
         },
         events: {
@@ -56,7 +56,7 @@
                     return { selectedText: selectedContent };
                 },
                 dialog: plugin.fillInTheBlankDialogName,
-                template: '<' + widgetTag + ' class="' + classNames.blankField + ' ' + classNames.new + '">' +
+                template: '<' + widgetTag + ' class="' + classNames.blankField + ' ' + classNames.newBlank + '">' +
                     '<' + widgetTag + ' class="' + classNames.blankValue + '">' +
                     '{selectedText}' +
                     '</' + widgetTag + '>' +
@@ -74,21 +74,22 @@
 
                         var blankFieldElement = new CKEDITOR.htmlParser.element(widgetTag, {
                             'data-group-id': groupId,
-                            class: classNames.blankField,
+                            'class': classNames.blankField,
                             contenteditable: "false"
                         });
 
                         var blankValueElement = new CKEDITOR.htmlParser.element(widgetTag, {
-                            class: classNames.blankValue,
+                            'class': classNames.blankValue,
                         contenteditable: "false"
                         });
                         blankFieldElement.add(blankValueElement);
 
                         var closeElement = new CKEDITOR.htmlParser.element(widgetTag, {
-                            class: classNames.close,
+                            'class': classNames.close,
                             contenteditable: "false"
                         });
                         closeElement.add(new CKEDITOR.htmlParser.text(plugin.spaceSymbol));
+
                         blankFieldElement.add(closeElement);
 
                         element.replaceWith(blankFieldElement);
@@ -128,7 +129,7 @@
                     addCloseButtonEventHandler(widget);
 
                     widget.on('ready', function () {
-                        if (widget.element.hasClass(plugin.classNames.new)) {
+                        if (widget.element.hasClass(plugin.classNames.newBlank)) {
                             clearFormating(widget.element);
                         }
                     });
@@ -152,7 +153,7 @@
                         return new CKEDITOR.htmlParser.element(plugin.dataTag, {
                             'data-group-id': groupId != undefined ? groupId : '',
                             value: value,
-                            class: plugin.classNames.blankInput
+                            'class': plugin.classNames.blankInput
                         });
                     }
                 }

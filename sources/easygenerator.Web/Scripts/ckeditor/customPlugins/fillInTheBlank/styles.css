@@ -7,7 +7,10 @@
 .blankContent .cke_widget_wrapper:hover .cke_widget_editable,
 .blankContent .cke_widget_wrapper:hover > .cke_widget_editable {
     outline: none;
-    
+}
+
+.blankContent .cke_widget_wrapper:after {
+    content: "\00a0";
 }
 
 .blankContent div {
@@ -15,7 +18,6 @@
     -webkit-user-select: auto;
     -ms-user-select: auto;
 }
-
 
 .blankContent .blankField {
     display: inline-block;
