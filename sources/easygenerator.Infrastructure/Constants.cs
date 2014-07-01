@@ -3,7 +3,7 @@
     public static class Constants
     {
         public const string EmailValidationRegexp = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$";
-        public const string DefaultAnswerOptionText = "Your answer option here";
+        public const string DefaultAnswerOptionText = "Put your answer option here";
        
         public class MailTemplates
         {
