@@ -1,4 +1,4 @@
-﻿define([], function () {
+﻿define(['uiLocker'], function (uiLocker) {
 
     return {
         upload: function (options) {
@@ -24,6 +24,7 @@
                    $(this).closest('form').ajaxSubmit({
                        beforeSubmit: function () {
                            //settings.beginUpload();
+                           uiLocker.lock();
                        },
                        success: function (response) {
                            try {
@@ -37,10 +38,12 @@
                                settings.error();
                            }
                            form.remove();
+                           uiLocker.unlock();
                        },
                        error: function () {
                            settings.error();
                            form.remove();
+                           uiLocker.unlock();
                        }
                    });
                })
