@@ -1660,6 +1660,10 @@ span.top-navigation-item.current {
 
 /*#region INFO TOOLTIP*/
 
+.info-tooltip-holder {
+    position: relative;
+}
+
 .info-tooltip {
     visibility: hidden;
     position: absolute;

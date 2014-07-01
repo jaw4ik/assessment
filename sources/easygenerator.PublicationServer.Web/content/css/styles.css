@@ -1617,7 +1617,7 @@ span.top-navigation-item.current {
     transition: opacity 0.2s linear 0;
 }
 
-    .info-tooltip:after {
+.info-tooltip:after {
         content: '';
         display: block;
         height: 10px;
