@@ -1,5 +1,5 @@
 ﻿.question.view-module {
-    padding: 0;
+    padding: 0 0 40px 0;
     color: #666;
     font-size: 14px;
 }
@@ -64,14 +64,6 @@
 /*#endregion question view header*/
 
 /*#region Add-new-question-button-block*/
-
-.question .create-blank-hotkey {
-    display: inline-block;
-    margin-right: 5px;
-    color: #bbb;
-    font-family: 'OpenSans';
-    font-size: 12px;
-}
 
 .question .btn.create-question {
     height: 38px;
@@ -437,8 +429,8 @@
     }
 
 .info-tooltip.question-answer {
-    width: 112px;
-    margin-left: -56px;
+    width: 120px;
+    margin-left: -60px;
 }
 
 .question-answer-text-wrapper {
@@ -856,10 +848,6 @@
 
 /*#endregion Dran-And-Drop*/
 
-.question-type {
-    padding-bottom: 40px;
-}
-
 /*#region Disabled question*/
 
 .question-type-action-item .disabled:hover {
@@ -938,12 +926,12 @@
     }
 
         .info-tooltip.question-answer.left-side:after {
-            margin-left: -42px;
+            margin-left: -45px;
         }
 
 
     .info-tooltip.question-answer.right-side {
-        margin-left: -94px;
+        margin-left: -99px;
     }
 
         .info-tooltip.question-answer.right-side:after {
@@ -951,9 +939,145 @@
         }
 }
 
-@media (max-width: 1260px) {
-    .fill-in-the-blank .create-blank-wrapper {
-        margin: 20px 0 0;
-        float: right;
-    }
+/*#region Feedback*/
+
+.question-feedback-wrapper {
+    position: relative;
 }
+
+    .question-feedback-wrapper.incorrect {
+        margin-top: 20px;
+    }
+
+.question-feedback-icon {
+    position: absolute;
+    top: 8px;
+    width: 31px;
+    height: 30px;
+    border-radius: 3px 0 0 3px;
+}
+
+.question-feedback-wrapper.correct .question-feedback-icon,
+.question-feedback-wrapper.correct .question-feedback-icon:after {
+    background-color: #85D5B0;
+}
+
+.question-feedback-wrapper.incorrect .question-feedback-icon,
+.question-feedback-wrapper.incorrect .question-feedback-icon:after {
+    background-color: #F6764F;
+}
+
+.question-feedback-wrapper .question-feedback-icon:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    margin: -6px 0 0 -6px;
+}
+
+.question-feedback-wrapper.correct .question-feedback-icon:before {
+    width: 14px;
+    height: 12px;
+    background: url('images/sprites_16.png') -1px -44px no-repeat;
+}
+
+.question-feedback-wrapper.incorrect .question-feedback-icon:before {
+    width: 12px;
+    height: 12px;
+    background: url('images/sprites_16.png') -23px -44px no-repeat;
+}
+
+.question-feedback-wrapper .question-feedback-icon:after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    right: -3px;
+    -moz-transform: rotate(45deg) skew(7deg, 7deg);
+    -ms-transform: rotate(45deg) skew(7deg, 7deg);
+    -webkit-transform: rotate(45deg) skew(7deg, 7deg);
+    transform: rotate(45deg) skew(7deg, 7deg);
+    z-index: 1;
+}
+
+.question-feedback {
+    position: relative;
+    margin-left: 30px;
+    border: 1px dashed #D8DCE5;
+    border-radius: 3px;
+    background: white;
+    cursor: default;
+}
+
+    .question-feedback:hover {
+        border-style: solid;
+    }
+
+.question-feedback-text-wrapper {
+    position: relative;
+    padding: 13px 10px;
+    z-index: 1;
+}
+
+.question-feedback-info-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 13px;
+    text-align: center;
+}
+
+.question-feedback-info {
+    display: inline-block;
+    position: relative;
+    padding-left: 34px;
+    color: #777777;
+    font-size: 14px;
+}
+
+    .question-feedback-info:before {
+        content: '';
+        display: block;
+        height: 24px;
+        width: 24px;
+        position: absolute;
+        top: -3px;
+        left: 0;
+    }
+
+.question-feedback-wrapper.correct .question-feedback-info:before {
+    background: url('images/sprites_24.png') -261px -29px no-repeat;
+}
+
+.question-feedback-wrapper.incorrect .question-feedback-info:before {
+    background: url('images/sprites_24.png') 0 -58px no-repeat;
+}
+
+.question-feedback-icon .info-tooltip {
+    width: 120px;
+    margin-left: -60px;
+}
+
+.question-feedback-icon:hover .info-tooltip {
+    visibility: visible;
+    opacity: 0.9;
+}
+
+@media (max-width: 1350px) {
+
+    .question-feedback-icon .info-tooltip {
+        margin-left: -20px;
+    }
+
+        .question-feedback-icon .info-tooltip:after {
+            margin-left: -45px;
+        }
+}
+
+/*#endregion Feedback*/

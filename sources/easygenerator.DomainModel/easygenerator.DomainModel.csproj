@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="EntityCloner.cs" />
     <Compile Include="Entities\AccessType.cs" />
+    <Compile Include="Entities\Feedback.cs" />
     <Compile Include="Entities\Questions\Answer.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\CourseCollaborator.cs" />

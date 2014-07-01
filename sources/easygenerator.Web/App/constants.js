@@ -57,7 +57,8 @@
                 answerOption: 60000,
                 learningContent: 60000,
                 entityContent: 60000,
-                questionTitle: 5000
+                questionTitle: 5000,
+                feedbackText: 60000
             },
 
             validation: {

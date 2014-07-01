@@ -212,6 +212,42 @@ namespace easygenerator.Web.Tests.BuildCourse
             _fileManager.Received().WriteToFile(learningContentsFilePath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0].Text);
         }
 
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldWriteQuestionCorrectFeedbackToFile_WhenItIsNotEmpty()
+        {
+            //Arrange
+            var feedbackContentPath = "SomePath";
+
+            _buildPathProvider.GetCorrectFeedbackContentFileName(Arg.Any<string>(),
+                _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
+                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
+                .Returns(feedbackContentPath);
+
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+
+            //Assert
+            _fileManager.Received().WriteToFile(feedbackContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Feedback.CorrectText);
+        }
+
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldWriteQuestionIncorrectFeedbackToFile_WhenItIsNotEmpty()
+        {
+            //Arrange
+            var feedbackContentPath = "SomePath";
+
+            _buildPathProvider.GetIncorrectFeedbackContentFileName(Arg.Any<string>(),
+                _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
+                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
+                .Returns(feedbackContentPath);
+
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+
+            //Assert
+            _fileManager.Received().WriteToFile(feedbackContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Feedback.IncorrectText);
+        }
+
         #endregion
 
         #region Add course data file
@@ -294,6 +330,8 @@ namespace easygenerator.Web.Tests.BuildCourse
             question.UpdateContent("Some question content", "SomeUser");
             question.AddAnswer(answer, "SomeUser");
             question.AddLearningContent(explanation, "SomeUser");
+            question.UpdateCorrectFeedbackText("Correct feedback text");
+            question.UpdateIncorrectFeedbackText("Incorrect feedback text");
 
             var objective = ObjectiveObjectMother.Create("ObjectiveTitle");
             objective.AddQuestion(question, "SomeUser");
@@ -302,6 +340,8 @@ namespace easygenerator.Web.Tests.BuildCourse
             course.UpdateIntroductionContent("some course content", "SomeUser");
             course.UpdateTemplate(TemplateObjectMother.Create(name: "Default"), "SomeUser");
             course.RelateObjective(objective, null, "SomeUser");
+
+
 
             return course;
         }

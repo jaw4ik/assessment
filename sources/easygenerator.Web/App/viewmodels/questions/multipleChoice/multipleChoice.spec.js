@@ -23,7 +23,7 @@
         learningContents: []
     };
 
-    describe('question [multipleSelect]', function () {
+    describe('question [multipleChoice]', function () {
 
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
@@ -52,39 +52,12 @@
 
         });
 
-        describe('isCreatedQuestion:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.isCreatedQuestion).toBeObservable();
-            });
-
-        });
-
-        describe('backButtonData:', function () {
-
-            it('should be instance of BackButton', function () {
-                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
-            });
-
-        });
-
-        describe('questionTitleMaxLength:', function () {
-
-            it('should be equal constants.validation.questionTitleMaxLength', function () {
-                expect(viewModel.questionTitleMaxLength).toBe(constants.validation.questionTitleMaxLength);
-            });
-
-        });
-
         describe('initialize:', function () {
             var getAnswerCollectionDefer;
-            var getLCCollectionDefer;
 
             beforeEach(function () {
                 getAnswerCollectionDefer = Q.defer();
-                getLCCollectionDefer = Q.defer();
                 spyOn(answerRepository, 'getCollection').and.returnValue(getAnswerCollectionDefer.promise);
-                spyOn(learningContentRepository, 'getCollection').and.returnValue(getLCCollectionDefer.promise);
 
                 spyOn(http, 'post');
             });
@@ -97,18 +70,15 @@
             it('should initialize field', function () {
                 viewModel.initialize(objectiveId, question);
                 expect(viewModel.objectiveId).toBe(objectiveId);
-                expect(viewModel.title.title()).toBe(question.title);
-                expect(viewModel.questionContent.text()).toBe(question.content);
+                expect(viewModel.questionId).toBe(question.id);
             });
 
             it('should initialize fields', function (done) {
                 getAnswerCollectionDefer.resolve();
-                getLCCollectionDefer.resolve();
 
                 var promise = viewModel.initialize(objectiveId, question);
                 promise.fin(function () {
                     expect(viewModel.answers).toBeDefined();
-                    expect(viewModel.learningContents).toBeDefined();
                     done();
                 });
             });

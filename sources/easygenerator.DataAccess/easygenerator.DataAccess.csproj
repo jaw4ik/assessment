@@ -137,6 +137,10 @@
     <Compile Include="Migrations\201406231241134_AddPersonalizedLearningTemplate.Designer.cs">
       <DependentUpon>201406231241134_AddPersonalizedLearningTemplate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406271215180_AddQuestionFeedbackFields.cs" />
+    <Compile Include="Migrations\201406271215180_AddQuestionFeedbackFields.Designer.cs">
+      <DependentUpon>201406271215180_AddQuestionFeedbackFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -228,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406231241134_AddPersonalizedLearningTemplate.resx">
       <DependentUpon>201406231241134_AddPersonalizedLearningTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406271215180_AddQuestionFeedbackFields.resx">
+      <DependentUpon>201406271215180_AddQuestionFeedbackFields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

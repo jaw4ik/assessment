@@ -1,68 +1,87 @@
-﻿define(['eventTracker', 'repositories/questionRepository', 'constants', 'notify', 'durandal/app'],
-    function (eventTracker, questionRepository, constants, notify, app) {
-
+﻿define(['eventTracker', 'repositories/questionRepository', 'constants', 'notify', 'clientContext'],
+    function (eventTracker, questionRepository, constants, notify, clientContext) {
         "use strict";
 
         var events = {
             updateQuestionTitle: 'Update question title'
         };
 
-        var questionTitle = function (objectiveId, question) {
-            var titleWrapper = {
-                title: ko.observable(question.title),
+        var viewModel = function (_objectiveId, question) {
+            var
+                objectiveId = _objectiveId,
+                questionId = question.id,
+
+                text = (function () {
+                    var value = ko.observable(question.title);
+
+                    value.isEditing = ko.observable();
+                    value.isValid = ko.computed(function () {
+                        var length = value().trim().length;
+                        return length > 0 && length <= constants.validation.questionTitleMaxLength;
+                    });
+                    value.trim = function () {
+                        value(value().trim());
+                    };
+
+                    return value;
+                })(),
+
+                isExpanded = ko.observable(true),
+                isCreatedQuestion = false,
+
+                toggleExpand = function () {
+                    isExpanded(!isExpanded());
+                },
+
+                startEditQuestionTitle = function () {
+                    text.isEditing(true);
+                },
+
+                endEditQuestionTitle = function () {
+                    text.trim();
+                    text.isEditing(false);
+
+                    questionRepository.getById(objectiveId, questionId).then(function (response) {
+                        var questionTitle = response.title;
+
+                        if (text() == questionTitle) {
+                            return;
+                        }
+
+                        eventTracker.publish(events.updateQuestionTitle);
+
+                        if (text.isValid()) {
+                            questionRepository.updateTitle(questionId, text()).then(function () {
+                                notify.saved();
+                            });
+                        } else {
+                            text(questionTitle);
+                        }
+                    });
+                };
+
+            var lastCreatedQuestionId = clientContext.get('lastCreatedQuestionId') || '';
+            clientContext.remove('lastCreatedQuestionId');
+            isCreatedQuestion = lastCreatedQuestionId === question.id;
+
+            return {
+                objectiveId: objectiveId,
+                questionId: questionId,
+
+                text: text,
+
+                isExpanded: isExpanded,
+                toggleExpand: toggleExpand,
+
+                isCreatedQuestion: isCreatedQuestion,
+                questionTitleMaxLength: constants.validation.questionTitleMaxLength,
+
                 startEditQuestionTitle: startEditQuestionTitle,
-                endEditQuestionTitle: endEditQuestionTitle,
-                titleUpdated: titleUpdated
+                endEditQuestionTitle: endEditQuestionTitle
             };
-
-            titleWrapper.title.isEditing = ko.observable();
-
-            titleWrapper.title.isValid = ko.computed(function () {
-                var length = titleWrapper.title().trim().length;
-                return length > 0 && length <= constants.validation.questionTitleMaxLength;
-            });
-
-            app.on(constants.messages.question.titleUpdatedByCollaborator, titleUpdated);
-
-            return titleWrapper;
-
-            function startEditQuestionTitle() {
-                titleWrapper.title.isEditing(true);
-            }
-
-            function endEditQuestionTitle() {
-                titleWrapper.title(titleWrapper.title().trim());
-                titleWrapper.title.isEditing(false);
-
-                var questionTitle;
-                questionRepository.getById(objectiveId, question.id).then(function (response) {
-                    questionTitle = response.title;
-
-                    if (titleWrapper.title() == questionTitle)
-                        return;
-
-                    eventTracker.publish(events.updateQuestionTitle);
-
-                    if (titleWrapper.title.isValid()) {
-                        questionRepository.updateTitle(question.id, titleWrapper.title()).then(function () {
-                            notify.saved();
-                        });
-                    } else {
-                        titleWrapper.title(questionTitle);
-                    }
-                });
-            }
-
-            function titleUpdated(questionData) {
-                if (questionData.id != question.id || titleWrapper.title.isEditing()) {
-                    return;
-                }
-
-                titleWrapper.title(questionData.title);
-            }
-
         };
 
-        return questionTitle;
+        return viewModel;
 
-    });
+    }
+);

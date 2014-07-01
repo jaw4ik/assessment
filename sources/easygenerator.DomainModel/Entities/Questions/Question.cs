@@ -17,6 +17,7 @@ namespace easygenerator.DomainModel.Entities.Questions
             Title = title;
 
             LearningContentsCollection = new Collection<LearningContent>();
+            Feedback = new Feedback();
         }
 
         public string Title { get; private set; }
@@ -31,6 +32,18 @@ namespace easygenerator.DomainModel.Entities.Questions
         public IEnumerable<LearningContent> LearningContents
         {
             get { return LearningContentsCollection.AsEnumerable(); }
+        }
+
+        public Feedback Feedback { get; private set; }
+
+        public virtual void UpdateCorrectFeedbackText(string feedbackText)
+        {
+            Feedback.CorrectText = feedbackText;
+        }
+
+        public virtual void UpdateIncorrectFeedbackText(string feedbackText)
+        {
+            Feedback.IncorrectText = feedbackText;
         }
 
         public virtual void UpdateTitle(string title, string modifiedBy)

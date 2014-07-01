@@ -1,42 +1,6 @@
-﻿<section class="drag-and-drop question-type">
-
-    <div class="content-section-wrapper">
-        <div class="content-section">
-            <div class="page-view-caption clearfix">
-                <div class="action-item-btn-wrapper pull-right">
-                    <!-- ko widget: { kind: 'createQuestion', objectiveId: objectiveId} --><!-- /ko -->
-                </div>
-                <div class="page-view-caption-text" data-bind="localize: { text: 'questionViewCaption' }"></div>
-            </div>
-
-            <header class="question-view-header" data-bind="with: title">
-
-                <!-- ko if: $parent.isExpanded() -->
-                <div class="expand-collapse-panel expanded" data-bind="click: $parent.toggleExpand">
-                    <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}, css: { error: !title.isValid() }">Title</span>
-                    <div class="expand-collapse-panel-btn" title="Collapse" data-bind="localize: { title: 'collapse' }"></div>
-                </div>
-
-                <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }, autofocus: { focus: $parent.isCreatedQuestion, autoselect: $parent.isCreatedQuestion }">
-                </div>
-                <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
-                    <span data-bind="text: title().trim().length"></span>/<span data-bind="text: $parent.questionTitleMaxLength"></span>
-                </div>
-                <!-- /ko -->
-                <!-- ko ifnot: $parent.isExpanded() -->
-                <div class="expand-collapse-panel collapsed" data-bind="click: $parent.toggleExpand">
-                    <span class="expand-collapse-panel-label" data-bind="localize: { text: 'title'}">Title</span>
-                    <div class="expand-collapse-panel-btn" title="Expand" data-bind="localize: { title: 'expand' }"></div>
-                </div>
-
-                <!-- /ko -->
-            </header>
-        </div>
-    </div>
+﻿<section class="drag-and-drop">
 
     <!-- ko compose: { view: 'questions/dragAndDrop/designer.html' }-->
-    <!-- /ko -->
-    <!-- ko compose: { view: 'questions/dragAndDrop/learningContent.html' }-->
     <!-- /ko -->
 
 </section>

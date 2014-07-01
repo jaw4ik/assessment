@@ -1,16 +1,13 @@
-﻿define(function (require) {
+﻿define(['viewmodels/questions/learningContents'], function (viewModel) {
     "use strict";
 
     var
-        ctor = require('viewmodels/questions/learningContents'),
         repository = require('repositories/learningContentRepository'),
         eventTracker = require('eventTracker'),
-        notify = require('notify')
-    ;
+        notify = require('notify');
 
     describe('viewModel [learningContents]', function () {
 
-        var viewModel;
         var questionId = 'questionId';
 
         beforeEach(function () {
@@ -18,23 +15,19 @@
             spyOn(eventTracker, 'publish');
         });
 
+        it('should be defined', function () {
+            expect(viewModel).toBeDefined();
+        });
+
         describe('learningContents:', function () {
 
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
-
-            it('should be observable array', function () {
-                expect(viewModel.learningContents).toBeObservable();
+            it('should be observable array', function() {
+                expect(viewModel.learningContents).toBeObservableArray();
             });
 
         });
 
         describe('addLearningContent:', function () {
-
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
 
             it('should be function', function () {
                 expect(viewModel.addLearningContent).toBeFunction();
@@ -60,10 +53,6 @@
 
         describe('removeLearningContent:', function () {
 
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
-
             var removeLearningContent;
             var learningContent;
 
@@ -84,13 +73,14 @@
             });
 
             describe('when learning content id is set', function () {
-                beforeEach(function() {
+                beforeEach(function () {
                     learningContent.id('id');
                 });
-                
-                it('should remove learning content from the repository', function () {
 
+                it('should remove learning content from the repository', function () {
                     viewModel.learningContents([learningContent]);
+                    viewModel.questionId = questionId;
+
                     viewModel.removeLearningContent(learningContent);
 
                     expect(repository.removeLearningContent).toHaveBeenCalledWith(questionId, learningContent.id());
@@ -115,14 +105,14 @@
                         done();
                     });
                 });
-                
+
             });
 
-            describe('when learning content id is not set initially', function() {
+            describe('when learning content id is not set initially', function () {
                 beforeEach(function () {
                     learningContent.id('');
                 });
-                
+
                 it('should not remove learning content from the repository', function () {
 
                     viewModel.learningContents([learningContent]);
@@ -152,13 +142,13 @@
                 });
 
                 describe('and learning content id is set later', function () {
-                    
+
                     it('should remove learning content from the repository', function () {
                         viewModel.learningContents([learningContent]);
-                        
+
                         viewModel.removeLearningContent(learningContent);
                         learningContent.id('id');
-                        
+
                         expect(repository.removeLearningContent).toHaveBeenCalledWith(questionId, learningContent.id());
                     });
 
@@ -183,7 +173,7 @@
                             done();
                         });
                     });
-                    
+
                 });
             });
 
@@ -204,9 +194,7 @@
         describe('endEditText:', function () {
 
             var removeLearningContent;
-
             beforeEach(function () {
-                viewModel = ctor(questionId, []);
                 removeLearningContent = Q.defer();
                 spyOn(repository, 'removeLearningContent').and.returnValue(removeLearningContent.promise);
             });
@@ -221,8 +209,8 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('End editing learning content');
             });
 
-            describe('when learningContent has been deleted by collaborator', function() {
-                it('should be removed from learningContents list', function() {
+            describe('when learningContent has been deleted by collaborator', function () {
+                it('should be removed from learningContents list', function () {
                     var learningContent = { id: ko.observable('learningContentId'), text: ko.observable(''), isDeleted: true };
                     viewModel.learningContents([learningContent]);
 
@@ -294,8 +282,6 @@
             var learningContents = [{ id: '0', text: '0' }, { id: '1', text: '1' }];
 
             beforeEach(function () {
-                viewModel = ctor(questionId, learningContents);
-
                 addLearningContent = Q.defer();
                 updateLearningContentText = Q.defer();
 
@@ -345,7 +331,7 @@
                             updateLearningContentText.resolve({ modifiedOn: new Date() });
 
                             viewModel.updateText(learningContent);
-                            
+
                             updateLearningContentText.promise.fin(function () {
                                 expect(notify.saved).toHaveBeenCalled();
                                 done();
@@ -419,10 +405,6 @@
 
         describe('isExpanded:', function () {
 
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
-
             it('should be observable', function () {
                 expect(viewModel.isExpanded).toBeObservable();
             });
@@ -434,10 +416,6 @@
         });
 
         describe('toggleExpand:', function () {
-
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
 
             it('should be function', function () {
                 expect(viewModel.toggleExpand).toBeFunction();
@@ -453,10 +431,6 @@
 
         describe('autosaveInterval:', function () {
 
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
-
             it('should be number', function () {
                 expect(viewModel.autosaveInterval).toEqual(jasmine.any(Number));
             });
@@ -464,10 +438,6 @@
         });
 
         describe('canAddLearningContent:', function () {
-
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
 
             it('should be computed', function () {
                 expect(viewModel.canAddLearningContent).toBeComputed();
@@ -501,11 +471,8 @@
                 expect(viewModel.createdByCollaborator).toBeFunction();
             });
 
-            describe('when it is current question', function() {
-                beforeEach(function() {
-                    viewModel = ctor(questionId, []);
-                });
-                
+            describe('when it is current question', function () {
+
                 it('should add learning content to list', function () {
                     viewModel.learningContents([]);
                     viewModel.createdByCollaborator(question, learningContent);
@@ -513,20 +480,21 @@
                     expect(viewModel.learningContents().length).toBe(1);
                     expect(viewModel.learningContents()[0].id()).toBe(learningContent.id);
                 });
+
             });
 
             describe('when it is not current question', function () {
-                beforeEach(function () {
-                    viewModel = ctor('someId', []);
-                });
 
                 it('should not add learning content to list', function () {
                     viewModel.learningContents([]);
+                    question.id = 'another id';
                     viewModel.createdByCollaborator(question, learningContent);
 
                     expect(viewModel.learningContents().length).toBe(0);
                 });
+
             });
+
         });
 
         describe('deletedByCollaborator:', function () {
@@ -537,36 +505,39 @@
                 expect(viewModel.deletedByCollaborator).toBeFunction();
             });
 
-            describe('when question is not current question', function() {
-                beforeEach(function () {
-                    viewModel = ctor('someId', []);
-                });
+            describe('when question is not current question', function () {
 
-                it('should not delete learning content from list', function() {
+                it('should not delete learning content from list', function () {
                     viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(false) }]);
+                    question.id = 'another id';
 
                     viewModel.deletedByCollaborator(question, learningContentId);
                     expect(viewModel.learningContents().length).toEqual(1);
                 });
+
             });
 
             describe('when question is current question', function () {
-                beforeEach(function () {
-                    viewModel = ctor(questionId, []);
+
+                beforeEach(function() {
+                    viewModel.questionId = question.id;
                 });
 
                 describe('and learning content with appropriate id exists', function () {
 
                     describe('and does not have focus', function () {
+
                         it('should remove learning objective', function () {
                             viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(false) }]);
                             viewModel.deletedByCollaborator(question, learningContentId);
 
                             expect(viewModel.learningContents().length).toEqual(0);
                         });
+
                     });
 
                     describe('and has focus', function () {
+
                         beforeEach(function () {
                             viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(true) }]);
                             spyOn(notify, 'error');
@@ -586,19 +557,24 @@
                             viewModel.deletedByCollaborator(question, learningContentId);
                             expect(viewModel.learningContents()[0].isDeleted).toBeTruthy();
                         });
+
                     });
+
                 });
 
                 describe('and learning content with appropriate id does not exist', function () {
+
                     it('should not remove learning objective', function () {
                         viewModel.learningContents([{ id: ko.observable('otherId') }]);
                         viewModel.deletedByCollaborator(question, learningContentId);
 
                         expect(viewModel.learningContents().length).toEqual(1);
                     });
+
                 });
+
             });
-            
+
         });
 
         describe('textUpdatedByCollaborator:', function () {
@@ -611,9 +587,6 @@
             });
 
             describe('when question is not current question', function () {
-                beforeEach(function () {
-                    viewModel = ctor('someId', []);
-                });
 
                 it('should not update learning content', function () {
                     viewModel.learningContents([{ id: ko.observable('0'), text: ko.observable(''), originalText: '', hasFocus: ko.observable(false) }]);
@@ -621,14 +594,17 @@
                     viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
                     expect(viewModel.learningContents()[0].text()).toBe('');
                 });
+
             });
 
-            describe('when question is current question', function() {
-                beforeEach(function () {
-                    viewModel = ctor(questionId, []);
+            describe('when question is current question', function () {
+
+                beforeEach(function() {
+                    viewModel.questionId = question.id;
                 });
 
                 describe('and learning content is found', function () {
+
                     beforeEach(function () {
                         viewModel.learningContents([learningContent]);
                     });
@@ -641,6 +617,7 @@
                     });
 
                     describe('and it does not have focus', function () {
+
                         it('should be updated', function () {
                             viewModel.learningContents()[0].text('');
                             viewModel.learningContents()[0].hasFocus(false);
@@ -648,9 +625,11 @@
 
                             expect(viewModel.learningContents()[0].text()).toBe(updatedLearningContent.text);
                         });
+
                     });
 
                     describe('and has focus', function () {
+
                         it('should not be updated', function () {
                             viewModel.learningContents()[0].text('');
                             viewModel.learningContents()[0].hasFocus(true);
@@ -658,10 +637,15 @@
 
                             expect(viewModel.learningContents()[0].text()).not.toBe(updatedLearningContent.text);
                         });
+
                     });
+
                 });
+
             });
+
         });
+
     });
 
 });

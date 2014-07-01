@@ -34,7 +34,9 @@ namespace easygenerator.Web.Controllers
         public ActionResult GetPreviewCourseSettings(Course course)
         {
             if (course == null)
+            {
                 return HttpNotFound();
+            }
 
             return Content(course.GetTemplateSettings(course.Template), "application/json");
         }
@@ -43,7 +45,9 @@ namespace easygenerator.Web.Controllers
         public ActionResult GetPreviewCourseContent(Course course)
         {
             if (course == null)
+            {
                 return HttpNotFound();
+            }
 
             return Content(course.IntroductionContent);
         }
@@ -52,7 +56,9 @@ namespace easygenerator.Web.Controllers
         public ActionResult GetPreviewQuestionContent(Question question)
         {
             if (question == null)
+            {
                 return HttpNotFound();
+            }
 
             return Content(question.Content);
         }
@@ -61,16 +67,42 @@ namespace easygenerator.Web.Controllers
         public ActionResult GetPreviewLearningContent(LearningContent learningContent)
         {
             if (learningContent == null)
+            {
                 return HttpNotFound();
+            }
 
             return Content(learningContent.Text);
+        }
+
+        [Route("preview/{courseId}/content/{objectiveId}/{questionId}/correctFeedback.html")]
+        public ActionResult GetPreviewCorrectFeedback(Question question)
+        {
+            if (question == null)
+            {
+                return HttpNotFound();
+            }
+
+            return Content(question.Feedback.CorrectText);
+        }
+
+        [Route("preview/{courseId}/content/{objectiveId}/{questionId}/incorrectFeedback.html")]
+        public ActionResult GetPreviewIncorrectFeedback(Question question)
+        {
+            if (question == null)
+            {
+                return HttpNotFound();
+            }
+
+            return Content(question.Feedback.IncorrectText);
         }
 
         [Route("preview/{courseId}/content/data.js")]
         public ActionResult GetPreviewCourseData(Course course)
         {
             if (course == null)
+            {
                 return HttpNotFound();
+            }
 
             return new JsonDataResult(
                 _packageModelMapper.MapCourse(course),
@@ -85,7 +117,9 @@ namespace easygenerator.Web.Controllers
         public ActionResult GetPreviewResource(Course course, string resourceUrl)
         {
             if (course == null)
+            {
                 return HttpNotFound();
+            }
 
             var resourcePath = String.IsNullOrWhiteSpace(resourceUrl) ? "index.html" : resourceUrl.Replace("/", "\\");
             var templateDirectory = _buildPathProvider.GetTemplateDirectoryName(course.Template.Name);

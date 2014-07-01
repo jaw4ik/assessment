@@ -66,6 +66,9 @@ namespace easygenerator.Web.BuildCourse
                 Content = question.Content,
                 Answers = question.Answers.Select(MapAnswer).ToList(),
                 LearningContents = (question.LearningContents ?? new Collection<LearningContent>()).Select(MapLearningContent).ToList(),
+                Feedback = question.Feedback ?? new Feedback(),
+                HasCorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.CorrectText),
+                HasIncorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.IncorrectText)
             };
         }
 
@@ -79,6 +82,9 @@ namespace easygenerator.Web.BuildCourse
                 Content = question.Content,
                 Answers = (question.Answers ?? new Collection<Answer>()).Select(MapAnswer).ToList(),
                 LearningContents = (question.LearningContents ?? new Collection<LearningContent>()).Select(MapLearningContent).ToList(),
+                Feedback = question.Feedback ?? new Feedback(),
+                HasCorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.CorrectText),
+                HasIncorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.IncorrectText)
             };
         }
 
@@ -92,6 +98,9 @@ namespace easygenerator.Web.BuildCourse
                 Content = question.Content,
                 Answers = question.Answers.Select(MapAnswer).ToList(),
                 LearningContents = (question.LearningContents ?? new Collection<LearningContent>()).Select(MapLearningContent).ToList(),
+                Feedback = question.Feedback ?? new Feedback(),
+                HasCorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.CorrectText),
+                HasIncorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.IncorrectText)
             };
         }
 
@@ -105,6 +114,9 @@ namespace easygenerator.Web.BuildCourse
                 HasContent = false,
                 Content = null,
                 LearningContents = (question.LearningContents ?? new Collection<LearningContent>()).Select(MapLearningContent).ToList(),
+                Feedback = question.Feedback ?? new Feedback(),
+                HasCorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.CorrectText),
+                HasIncorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.IncorrectText),
                 Dropspots = (question.Dropspots ?? new Collection<Dropspot>()).Select(MapDropspot).ToList()
             };
 

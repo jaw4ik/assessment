@@ -22,7 +22,6 @@
                 hasFocus(true);
             },
 
-
             endEditText = function () {
                 eventTracker.publish(events.endEditText);
                 isEditing(false);
@@ -76,4 +75,5 @@
         };
 
         return viewModel;
-    });
+    }
+);

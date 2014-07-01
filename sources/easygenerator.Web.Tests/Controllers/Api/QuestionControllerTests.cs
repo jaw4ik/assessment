@@ -213,7 +213,100 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
-        
+
+        #region GetQuestionFeedback
+
+        [TestMethod]
+        public void GetQuestionFeedback_ShouldReturnJsonError_WhenQuestionIsNull()
+        {
+            var result = _controller.GetQuestionFeedback(null);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");
+        }
+
+        [TestMethod]
+        public void GetQuestionFeedback_ShouldReturnJsonSuccessResultWithFeedbackTexts()
+        {
+            var question = MultipleselectObjectMother.Create();
+            question.UpdateCorrectFeedbackText("Correct feedback");
+            question.UpdateIncorrectFeedbackText("Incorrect feedback");
+
+            var result = _controller.GetQuestionFeedback(question);
+
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new
+            {
+                ModifiedOn = question.ModifiedOn,
+                CorrectFeedbackText = "Correct feedback",
+                IncorrectFeedbackText = "Incorrect feedback"
+            });
+        }
+
+        #endregion
+
+        #region UpdateCorrectFeedback
+
+        [TestMethod]
+        public void UpdateCorrectFeedback_ShouldReturnJsonError_WhenQuestionIsNull()
+        {
+            var result = _controller.UpdateCorrectFeedback(null, String.Empty);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");
+        }
+
+        [TestMethod]
+        public void UpdateCorrectFeedback_ShouldUpdateQuestionFeedback()
+        {
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+            _controller.UpdateCorrectFeedback(question, "correct feedback");
+
+            question.Received().UpdateCorrectFeedbackText("correct feedback");
+        }
+
+        [TestMethod]
+        public void UpdateCorrectFeedback_ShouldReturnJsonSuccessResult()
+        {
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+
+            var result = _controller.UpdateCorrectFeedback(question, String.Empty);
+
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
+        }
+
+        #endregion
+
+        #region UpdateIncorrectFeedback
+
+        [TestMethod]
+        public void UpdateIncorrectFeedback_ShouldReturnJsonError_WhenQuestionIsNull()
+        {
+            var result = _controller.UpdateIncorrectFeedback(null, String.Empty);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");
+        }
+
+        [TestMethod]
+        public void UpdateIncorrectFeedback_ShouldUpdateQuestionFeedback()
+        {
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+            _controller.UpdateIncorrectFeedback(question, "incorrect feedback");
+
+            question.Received().UpdateIncorrectFeedbackText("incorrect feedback");
+        }
+
+        [TestMethod]
+        public void UpdateIncorrectFeedback_ShouldReturnJsonSuccessResult()
+        {
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+
+            var result = _controller.UpdateIncorrectFeedback(question, String.Empty);
+
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
+        }
+
+        #endregion
 
     }
 }

@@ -67,6 +67,15 @@ namespace easygenerator.Web.BuildCourse
                     {
                         _fileManager.WriteToFile(_buildPathProvider.GetLearningContentFileName(buildDirectory, objective.Id, question.Id, learningContent.Id), learningContent.Text);
                     }
+
+                    if (question.HasCorrectFeedback)
+                    {
+                        _fileManager.WriteToFile(_buildPathProvider.GetCorrectFeedbackContentFileName(buildDirectory, objective.Id, question.Id), question.Feedback.CorrectText);
+                    }
+                    if (question.HasIncorrectFeedback)
+                    {
+                        _fileManager.WriteToFile(_buildPathProvider.GetIncorrectFeedbackContentFileName(buildDirectory, objective.Id, question.Id), question.Feedback.IncorrectText);
+                    }
                 }
             }
         }

@@ -161,6 +161,7 @@
     </Compile>
     <Compile Include="Controllers\Api\MultipleselectControllerTests.cs" />
     <Compile Include="Controllers\Api\ObjectiveControllerTests.cs" />
+    <Compile Include="Controllers\Api\QuestionControllerTests.cs" />
     <Compile Include="Controllers\Api\TemplateControllerTests.cs" />
     <Compile Include="Controllers\Api\UserControllerTests.cs" />
     <Compile Include="Controllers\ApplicationControllerTests.cs" />

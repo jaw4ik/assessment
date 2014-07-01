@@ -1,8 +1,5 @@
-﻿define(['eventTracker', 'notify', 'viewmodels/questions/questionTitle', 'viewmodels/questions/fillInTheBlank/fibControl', 'repositories/questionRepository', 'clientContext',
-        'repositories/answerRepository', 'repositories/learningContentRepository', 'models/backButton', 'viewmodels/questions/learningContents',
-        'plugins/router', 'localization/localizationManager', 'constants', 'durandal/app'],
-    function (eventTracker, notify, questionTitle, fibControl, questionRepository, clientContext, answerRepository, learningContentRepository, BackButton,
-    vmLearningContents, router, localizationManager, constants, app) {
+﻿define(['eventTracker', 'viewmodels/questions/fillInTheBlank/fibControl', 'repositories/questionRepository', 'repositories/answerRepository', 'localization/localizationManager', 'constants', 'durandal/app'],
+    function (eventTracker, fibControl, questionRepository, answerRepository, localizationManager, constants, app) {
         "use strict";
 
         var eventsForQuestionContent = {
@@ -15,14 +12,11 @@
             initialize: initialize,
             objectiveId: '',
             questionId: '',
-            title: null,
-            questionTitleMaxLength: constants.validation.questionTitleMaxLength,
+            
             eventTracker: eventTracker,
             localizationManager: localizationManager,
             fillInTheBlank: null,
-            backButtonData: new BackButton({}),
-            learningContents: null,
-            isCreatedQuestion: ko.observable(false),
+            
             isExpanded: ko.observable(true),
             toggleExpand: toggleExpand,
 
@@ -36,21 +30,15 @@
         function initialize(objectiveId, question) {
             viewModel.objectiveId = objectiveId;
             viewModel.questionId = question.id;
-            viewModel.title = questionTitle(objectiveId, question);
-            var lastCreatedQuestionId = clientContext.get('lastCreatedQuestionId') || '';
-            clientContext.remove('lastCreatedQuestionId');
-            viewModel.isCreatedQuestion(lastCreatedQuestionId === question.id);
+            
             return answerRepository.getCollection(question.id).then(function (answerOptions) {
                 viewModel.fillInTheBlank = fibControl(question.content, answerOptions, eventsForQuestionContent, true, function (template, answers) {
                     return questionRepository.updateFillInTheBlank(question.id, template, answers);
                 });
-            }).then(function () {
-                return learningContentRepository.getCollection(question.id).then(function (learningContents) {
-                    var sortedLearningContents = _.sortBy(learningContents, function (item) {
-                        return item.createdOn;
-                    });
-                    viewModel.learningContents = vmLearningContents(question.id, sortedLearningContents);
-                });
+
+                return {
+                    viewCaption: localizationManager.localize('fillInTheBlanksEditor')
+                };
             });
         }
 
@@ -59,10 +47,12 @@
         }
 
         function updatedByCollaborator(question) {
-            if (question.id != viewModel.questionId)
+            if (question.id != viewModel.questionId) {
                 return;
+            }
 
             viewModel.fillInTheBlank.updatedByCollaborator(question);
         }
 
-    });
+    }
+);

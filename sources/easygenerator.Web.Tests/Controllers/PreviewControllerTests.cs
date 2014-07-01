@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -156,6 +157,64 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             result.Should().BeContentResultWithValue(learningContent.Text);
+        }
+
+        #endregion
+
+        #region GetPreviewCorrectFeedback
+
+        [TestMethod]
+        public void GetPreviewCorrectFeedback_ShouldReturnHttpNotFoundCodeResult_WhenQuestionDoesNotExist()
+        {
+            //Act
+            var result = _controller.GetPreviewCorrectFeedback(null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
+        }
+
+        [TestMethod]
+        public void GetPreviewCorrectFeedback_ShouldReturnCorrectFeedbackContent()
+        {
+            //Arrange
+            const String correctFeedbackContent = "<p>Correct feedback</p>";
+            var question = MultipleselectObjectMother.Create();
+            question.UpdateCorrectFeedbackText(correctFeedbackContent);
+
+            //Act
+            var result = _controller.GetPreviewCorrectFeedback(question);
+
+            //Assert
+            result.Should().BeContentResultWithValue(correctFeedbackContent);
+        }
+
+        #endregion
+
+        #region GetPreviewIncorrectFeedback
+
+        [TestMethod]
+        public void GetPreviewIncorrectFeedback_ShouldReturnHttpNotFoundCodeResult_WhenQuestionDoesNotExist()
+        {
+            //Act
+            var result = _controller.GetPreviewIncorrectFeedback(null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
+        }
+
+        [TestMethod]
+        public void GetPreviewIncorrectFeedback_ShouldReturnCorrectFeedbackContent()
+        {
+            //Arrange
+            const String incorrectFeedbackContent = "<p>Incorrect feedback</p>";
+            var question = MultipleselectObjectMother.Create();
+            question.UpdateIncorrectFeedbackText(incorrectFeedbackContent);
+
+            //Act
+            var result = _controller.GetPreviewIncorrectFeedback(question);
+
+            //Assert
+            result.Should().BeContentResultWithValue(incorrectFeedbackContent);
         }
 
         #endregion

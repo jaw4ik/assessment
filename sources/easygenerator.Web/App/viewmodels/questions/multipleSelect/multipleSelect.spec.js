@@ -5,12 +5,8 @@
         viewModel = require('viewmodels/questions/multipleSelect/multipleSelect'),
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
-        constants = require('constants'),
         answerRepository = require('repositories/answerRepository'),
-        learningContentRepository = require('repositories/learningContentRepository'),
-        http = require('plugins/http'),
-        app = require('durandal/app'),
-        BackButton = require('models/backButton');
+        http = require('plugins/http');
 
     var objectiveId = 'objectiveId';
 
@@ -53,39 +49,12 @@
 
         });
 
-        describe('isCreatedQuestion:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.isCreatedQuestion).toBeObservable();
-            });
-
-        });
-
-        describe('backButtonData:', function () {
-
-            it('should be instance of BackButton', function () {
-                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
-            });
-
-        });
-
-        describe('questionTitleMaxLength:', function () {
-
-            it('should be equal constants.validation.questionTitleMaxLength', function () {
-                expect(viewModel.questionTitleMaxLength).toBe(constants.validation.questionTitleMaxLength);
-            });
-
-        });
-
         describe('initialize:', function () {
             var getAnswerCollectionDefer;
-            var getLCCollectionDefer;
 
             beforeEach(function () {
                 getAnswerCollectionDefer = Q.defer();
-                getLCCollectionDefer = Q.defer();
                 spyOn(answerRepository, 'getCollection').and.returnValue(getAnswerCollectionDefer.promise);
-                spyOn(learningContentRepository, 'getCollection').and.returnValue(getLCCollectionDefer.promise);
 
                 spyOn(http, 'post');
             });
@@ -98,18 +67,15 @@
             it('should initialize field', function () {
                 viewModel.initialize(objectiveId, question);
                 expect(viewModel.objectiveId).toBe(objectiveId);
-                expect(viewModel.title.title()).toBe(question.title);
-                expect(viewModel.questionContent.text()).toBe(question.content);
+                expect(viewModel.questionId).toBe(question.id);
             });
 
             it('should initialize fields', function (done) {
                 getAnswerCollectionDefer.resolve();
-                getLCCollectionDefer.resolve();
 
                 var promise = viewModel.initialize(objectiveId, question);
                 promise.fin(function () {
                     expect(viewModel.answers).toBeDefined();
-                    expect(viewModel.learningContents).toBeDefined();
                     done();
                 });
             });
@@ -119,7 +85,7 @@
         describe('contentUpdatedByCollaborator:', function () {
             var vmContent = { text: ko.observable(''), originalText: ko.observable(''), isEditing: ko.observable(false) };
 
-            beforeEach(function() {
+            beforeEach(function () {
                 viewModel.questionContent = vmContent;
                 viewModel.questionId = question.id;
             });
@@ -138,7 +104,7 @@
             });
 
             describe('when is editing content', function () {
-                it('should update original content', function() {
+                it('should update original content', function () {
                     vmContent.originalText('');
                     vmContent.isEditing(true);
                     viewModel.contentUpdatedByCollaborator(question);
@@ -153,14 +119,14 @@
                 });
             });
 
-            it('should update content', function() {
+            it('should update content', function () {
                 vmContent.text('');
                 vmContent.isEditing(false);
                 viewModel.contentUpdatedByCollaborator(question);
                 expect(vmContent.text()).toBe(question.content);
             });
 
-            it('should update original content', function() {
+            it('should update original content', function () {
                 vmContent.originalText('');
                 vmContent.isEditing(false);
                 viewModel.contentUpdatedByCollaborator(question);
@@ -194,6 +160,7 @@
             });
 
         });
+
     });
 
 });

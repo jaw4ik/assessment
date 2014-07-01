@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
@@ -60,6 +61,54 @@ namespace easygenerator.Web.Controllers.Api
 
             question.UpdateContent(content, GetCurrentUsername());
             _eventPublisher.Publish(new QuestionContentUpdatedEvent(question));
+
+            return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
+        }
+
+        [HttpPost]
+        [EntityCollaborator(typeof(Question))]
+        [Route("api/question/getQuestionFeedback")]
+        public ActionResult GetQuestionFeedback(Question question)
+        {
+            if (question == null)
+            {
+                return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
+            }
+
+            return JsonSuccess(new
+            {
+                ModifiedOn = question.ModifiedOn,
+                CorrectFeedbackText = question.Feedback.CorrectText,
+                IncorrectFeedbackText = question.Feedback.IncorrectText
+            });
+        }
+
+        [HttpPost]
+        [EntityCollaborator(typeof(Question))]
+        [Route("api/question/updateCorrectFeedback")]
+        public ActionResult UpdateCorrectFeedback(Question question, string feedbackText)
+        {
+            if (question == null)
+            {
+                return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
+            }
+
+            question.UpdateCorrectFeedbackText(feedbackText);
+
+            return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
+        }
+
+        [HttpPost]
+        [EntityCollaborator(typeof(Question))]
+        [Route("api/question/updateIncorrectFeedback")]
+        public ActionResult UpdateIncorrectFeedback(Question question, string feedbackText)
+        {
+            if (question == null)
+            {
+                return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
+            }
+
+            question.UpdateIncorrectFeedbackText(feedbackText);
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }

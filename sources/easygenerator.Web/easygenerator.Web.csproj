@@ -639,6 +639,10 @@
     <Content Include="App\viewmodels\questions\dragAndDrop\queries\getQuestionContentById.spec.js">
       <DependentUpon>getQuestionContentById.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\feedback.js" />
+    <Content Include="App\viewmodels\questions\feedback.spec.js">
+      <DependentUpon>feedback.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\questions\fillInTheBlank\fibControl.js" />
     <Content Include="App\viewmodels\questions\fillInTheBlank\fibControl.spec.js">
       <DependentUpon>fibControl.js</DependentUpon>
@@ -670,8 +674,9 @@
     <Content Include="App\views\objectives\createObjective.html" />
     <Content Include="App\views\questions\dragAndDrop\designer.html" />
     <Content Include="App\views\questions\dragAndDrop\dragAndDrop.html" />
-    <Content Include="App\views\questions\dragAndDrop\learningContent.html" />
+    <Content Include="App\views\questions\feedback.html" />
     <Content Include="App\views\questions\fillInTheBlank\fillInTheBlank.html" />
+    <Content Include="App\views\questions\learningContents.html" />
     <Content Include="App\views\questions\multipleChoice\multipleChoice.html" />
     <Content Include="App\views\questions\multipleSelect\multipleSelect.html" />
     <Content Include="App\widgets\createQuestion\view.html" />

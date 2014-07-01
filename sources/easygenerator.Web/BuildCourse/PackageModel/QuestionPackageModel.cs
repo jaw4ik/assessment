@@ -9,6 +9,7 @@ namespace easygenerator.Web.BuildCourse.PackageModel
     {
         public string Id { get; set; }
         public string Title { get; set; }
+
         [JsonIgnore]
         public string Content { get; set; }
         public bool HasContent { get; set; }
@@ -16,5 +17,10 @@ namespace easygenerator.Web.BuildCourse.PackageModel
         public abstract int Type { get; }
         
         public List<LearningContentPackageModel> LearningContents { get; set; }
+
+        [JsonIgnore]
+        public Feedback Feedback { get; set; }
+        public bool HasCorrectFeedback { get; set; }
+        public bool HasIncorrectFeedback { get; set; }
     }
 }

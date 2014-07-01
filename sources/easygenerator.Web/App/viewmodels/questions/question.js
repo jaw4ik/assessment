@@ -1,53 +1,51 @@
-﻿define(['eventTracker', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'ping', 'models/backButton', 'plugins/router',
-        'viewmodels/questions/multipleSelect/multipleSelect', 'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop',
-        'viewmodels/questions/multipleChoice/multipleChoice'],
-    function (eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, multipleSelect, fillInTheBlank, dragAndDrop, multipleChoice) {
+﻿define(['durandal/app', 'eventTracker', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'ping', 'models/backButton', 'plugins/router',
+        'viewmodels/questions/questionTitle', 'viewmodels/common/contentField', 'viewmodels/questions/multipleSelect/multipleSelect',
+        'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/multipleChoice/multipleChoice'],
+    function (app, eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, vmQuestionTitle, vmContentField,
+        multipleSelect, fillInTheBlank, dragAndDrop, multipleChoice) {
         "use strict";
-        var
-            events = {
-                navigateToObjective: 'Navigate to objective details'
-            };
+
+        var events = {
+            navigateToObjective: 'Navigate to objective details'
+        };
+
+        var eventsForQuestionContent = {
+            addContent: 'Add extra question content',
+            beginEditText: 'Start editing question content',
+            endEditText: 'End editing question content'
+        };
 
         var viewmodel = {
             objectiveId: '',
             questionId: '',
-            canActivate: canActivate,
-            activate: activate,
-            activeScreen: null,
+
+            viewCaption: null,
+            questionTitle: null,
+            questionContent: null,
+            activeQuestionViewModel: null,
+
+            backButtonData: new BackButton({}),
+
             navigateToObjectiveEvent: navigateToObjectiveEvent,
-            backButtonData: new BackButton({})
+
+            titleUpdatedByCollaborator: titleUpdatedByCollaborator,
+            contentUpdatedByCollaborator: contentUpdatedByCollaborator,
+
+            canActivate: canActivate,
+            activate: activate
         };
 
-        return viewmodel;
+        app.on(constants.messages.question.titleUpdatedByCollaborator, titleUpdatedByCollaborator);
+        app.on(constants.messages.question.contentUpdatedByCollaborator, contentUpdatedByCollaborator);
 
-        function canActivate() {
-            return ping.execute();
-        }
+        return viewmodel;
 
         function navigateToObjectiveEvent() {
             eventTracker.publish(events.navigateToObjective);
         }
 
-        function activate(objId, quesId, queryParams) {
-            viewmodel.objectiveId = objId;
-            viewmodel.questionId = quesId;
-            return objectiveRepository.getById(objId).then(function (objective) {
-                viewmodel.objectiveId = objective.id;
-                viewmodel.backButtonData.configure({
-                    url: 'objective/' + objective.id,
-                    backViewName: '\'' + objective.title + '\'',
-                    callback: navigateToObjectiveEvent,
-                    alwaysVisible: _.isNullOrUndefined(queryParams) || !_.isString(queryParams.courseId)
-                });
-
-                return questionRepository.getById(viewmodel.objectiveId, viewmodel.questionId).then(function (question) {
-                    viewmodel.activeScreen = setActiveViewModel(question);
-                    return viewmodel.activeScreen.initialize(viewmodel.objectiveId, question);
-                });
-            }).fail(function (reason) {
-                router.activeItem.settings.lifecycleData = { redirect: '404' };
-                throw reason;
-            });
+        function canActivate() {
+            return ping.execute();
         }
 
         function setActiveViewModel(question) {
@@ -61,6 +59,57 @@
                 case constants.questionType.multipleChoice.type:
                     return multipleChoice;
             }
+        }
+
+        function activate(objectiveId, questionId, queryParams) {
+            viewmodel.objectiveId = objectiveId;
+            viewmodel.questionId = questionId;
+
+            return objectiveRepository.getById(objectiveId).then(function (objective) {
+                viewmodel.backButtonData.configure({
+                    url: 'objective/' + objective.id,
+                    backViewName: '\'' + objective.title + '\'',
+                    callback: navigateToObjectiveEvent,
+                    alwaysVisible: _.isNullOrUndefined(queryParams) || !_.isString(queryParams.courseId)
+                });
+
+                return questionRepository.getById(viewmodel.objectiveId, viewmodel.questionId).then(function (question) {
+                    viewmodel.activeQuestionViewModel = setActiveViewModel(question);
+
+                    return viewmodel.activeQuestionViewModel.initialize(viewmodel.objectiveId, question).then(function (viewModelData) {
+                        viewmodel.viewCaption = viewModelData.viewCaption;
+
+                        viewmodel.questionTitle = vmQuestionTitle(viewmodel.objectiveId, question);
+
+                        if (viewModelData.isQuestionContentNeeded) {
+                            viewmodel.questionContent = vmContentField(question.content, eventsForQuestionContent, true, function(content) {
+                                return questionRepository.updateContent(question.id, content);
+                            });
+                        } else {
+                            viewmodel.questionContent = null;
+                        }
+                    });
+                });
+            }).fail(function (reason) {
+                router.activeItem.settings.lifecycleData = { redirect: '404' };
+                throw reason;
+            });
+        }
+
+        function titleUpdatedByCollaborator(questionData) {
+            if (questionData.id != viewmodel.questionId || viewmodel.questionTitle.text.isEditing()) {
+                return;
+            }
+
+            viewmodel.questionTitle.text(questionData.title);
+        }
+
+        function contentUpdatedByCollaborator(question) {
+            if (question.id != viewmodel.questionId || viewmodel.questionContent.isEditing()) {
+                return;
+            }
+
+            viewmodel.questionContent.text(question.content);
         }
     }
 );

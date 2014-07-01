@@ -551,7 +551,16 @@
         en: 'Multiple choice'
     },
     multipleChoiceEditor: {
-        en: 'Multiple choice question editor'
+        en: '\"Multiple choice\" question editor'
+    },
+    multipleSelectEditor: {
+        en: '\"Multiple select\" question editor'
+    },
+    fillInTheBlanksEditor: {
+        en: '\"Fill in the blanks\" question editor'
+    },
+    DragAndDropTextEditor: {
+        en: '\"Drag\'n\'Drop text\" question editor'
     },
     multipleChoiceAnswerError: {
         en: 'A multiple choice question needs to have at least two answer options'
