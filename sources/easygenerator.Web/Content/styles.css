@@ -261,7 +261,7 @@
 
 .header-menu-list-item.profile {
     position: relative;
-    max-width: 280px;
+    max-width: 230px;
     min-width: 75px;
     margin-left: 10px;
     border-radius: 2px 2px 0 0;
@@ -665,9 +665,10 @@ span.top-navigation-item.current {
 
 .page-view-caption-text {
     float: left;
+    padding-top: 6px;
     color: #303133;
     font-family: 'OpenSansItalic';
-    font-size: 20px;
+    font-size: 18px;
     cursor: default;
 }
 
