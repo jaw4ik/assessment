@@ -1035,8 +1035,13 @@
     cursor: default;
 }
 
-    .question-feedback:hover {
+    .question-feedback:hover,
+    .question-feedback.active {
         border-style: solid;
+    }
+
+    .question-feedback.active {
+        border-color: #5bc0de;
     }
 
 .question-feedback-text-wrapper {
