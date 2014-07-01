@@ -18,6 +18,7 @@
                       .insertAfter("body");
 
             var input = $("<input>")
+               .attr('accept', 'image/*')
                .attr('type', 'file')
                .attr('name', 'file')
                .on('change', function () {
