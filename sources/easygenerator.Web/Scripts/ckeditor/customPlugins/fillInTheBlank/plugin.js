@@ -24,9 +24,6 @@
         widgetTag: 'span',
         init: function (editor) {
            
-            //region "paste for IE"
-            var caretPositionForPaste = null;
-            //endregion "paste for IE"
             var extraRemoveFormatTags = "a";
             var tagsRegex = editor._.removeFormatRegex || (editor._.removeFormatRegex = new RegExp('^(?:' + editor.config.removeFormatTags.replace(/,/g, '|') + "|" + extraRemoveFormatTags.replace(/,/g, '|') + ')$', 'i'));
 
@@ -75,18 +72,18 @@
                         var blankFieldElement = new CKEDITOR.htmlParser.element(widgetTag, {
                             'data-group-id': groupId,
                             'class': classNames.blankField,
-                            contenteditable: "false"
+                            'contenteditable': "false"
                         });
 
                         var blankValueElement = new CKEDITOR.htmlParser.element(widgetTag, {
                             'class': classNames.blankValue,
-                        contenteditable: "false"
+                            'contenteditable': "false"
                         });
                         blankFieldElement.add(blankValueElement);
 
                         var closeElement = new CKEDITOR.htmlParser.element(widgetTag, {
                             'class': classNames.close,
-                            contenteditable: "false"
+                            'contenteditable': "false"
                         });
                         closeElement.add(new CKEDITOR.htmlParser.text(plugin.spaceSymbol));
 
