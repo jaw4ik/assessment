@@ -132,6 +132,10 @@ input::-ms-clear {
     outline: none;
 }
 
+ul, ol {
+    list-style-position: inside;
+}
+
 a {
     outline: 0;
     text-decoration: none;

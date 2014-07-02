@@ -627,7 +627,6 @@ body.try {
 /*#region Password Requirements*/
 
 .password-requirements {
-    visibility: hidden;
     margin-top: 2px;
     width: 553px;
     font: 12px 'OpenSans';
