@@ -6,13 +6,17 @@
     max-width: none;
 }
 
-.objective .main-content-list .list-item-logo {
+.objective .main-content-list .list-item-logo,
+.objective .main-content-list .list-item-logo-image {
     height: 60px;
+    border-radius: 0;
+}
+
+.objective .main-content-list .list-item-logo {
     width: 43px;
 }
 
 .objective .main-content-list .list-item-logo-image {
-    height: 60px;
     width: 46px;
 }
 

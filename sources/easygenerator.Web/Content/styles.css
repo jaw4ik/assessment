@@ -1053,6 +1053,7 @@ span.top-navigation-item.current {
 .main-content-list .list-item-logo-image {
     width: 80px;
     height: 80px;
+    border-radius: 5px;
 }
 
 .main-content-list .list-item-logo-image-wrapper {
