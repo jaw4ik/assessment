@@ -66,12 +66,12 @@ namespace easygenerator.DomainModel.Entities
         {
             ThrowIfCollaboratorIsInvalid(collaborator);
 
-            CloneObjectivesOfCollaborator(eventPublisher, entityCloner, collaborator.Email);
-
             collaborator.Course = null;
             CollaboratorsCollection.Remove(collaborator);
             var collaboratorRemovedEvent = new CourseCollaboratorRemovedEvent(this, collaborator);
             eventPublisher.Publish(collaboratorRemovedEvent);
+
+            CloneObjectivesOfCollaborator(eventPublisher, entityCloner, collaborator.Email);
 
             MarkAsModified(CreatedBy);
         }
