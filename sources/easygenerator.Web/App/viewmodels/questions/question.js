@@ -105,11 +105,12 @@
         }
 
         function contentUpdatedByCollaborator(question) {
-            if (question.id != viewmodel.questionId || viewmodel.questionContent.isEditing()) {
+            if (question.id != viewmodel.questionId)
                 return;
-            }
 
-            viewmodel.questionContent.text(question.content);
+            viewmodel.questionContent.originalText(question.content);
+            if (!viewmodel.questionContent.isEditing())
+                viewmodel.questionContent.text(question.content);
         }
     }
 );

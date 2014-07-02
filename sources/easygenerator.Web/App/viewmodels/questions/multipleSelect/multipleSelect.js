@@ -12,12 +12,8 @@
             answers: null,
 
             isExpanded: ko.observable(true),
-            toggleExpand: toggleExpand,
-
-            contentUpdatedByCollaborator: contentUpdatedByCollaborator
+            toggleExpand: toggleExpand
         };
-
-        app.on(constants.messages.question.contentUpdatedByCollaborator, contentUpdatedByCollaborator);
 
         return viewModel;
 
@@ -41,15 +37,5 @@
         function toggleExpand() {
             viewModel.isExpanded(!viewModel.isExpanded());
         }
-
-        function contentUpdatedByCollaborator(question) {
-            if (question.id != viewModel.questionId)
-                return;
-
-            viewModel.questionContent.originalText(question.content);
-            if (!viewModel.questionContent.isEditing())
-                viewModel.questionContent.text(question.content);
-        }
-
     }
 );

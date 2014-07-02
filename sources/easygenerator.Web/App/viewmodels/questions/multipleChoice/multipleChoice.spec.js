@@ -85,58 +85,6 @@
 
         });
 
-        describe('contentUpdatedByCollaborator:', function () {
-            var vmContent = { text: ko.observable(''), originalText: ko.observable(''), isEditing: ko.observable(false) };
-
-            beforeEach(function () {
-                viewModel.questionContent = vmContent;
-                viewModel.questionId = question.id;
-            });
-
-            it('should be function', function () {
-                expect(viewModel.contentUpdatedByCollaborator).toBeFunction();
-            });
-
-            describe('when is not current question', function () {
-                it('should not update content', function () {
-                    viewModel.questionId = 'qqq';
-                    vmContent.text('');
-                    viewModel.contentUpdatedByCollaborator(question);
-                    expect(vmContent.text()).toBe('');
-                });
-            });
-
-            describe('when is editing content', function () {
-                it('should update original content', function () {
-                    vmContent.originalText('');
-                    vmContent.isEditing(true);
-                    viewModel.contentUpdatedByCollaborator(question);
-                    expect(vmContent.originalText()).toBe(question.content);
-                });
-
-                it('should not update content', function () {
-                    vmContent.text('');
-                    vmContent.isEditing(true);
-                    viewModel.contentUpdatedByCollaborator(question);
-                    expect(vmContent.text()).toBe('');
-                });
-            });
-
-            it('should update original content', function () {
-                vmContent.originalText('');
-                vmContent.isEditing(false);
-                viewModel.contentUpdatedByCollaborator(question);
-                expect(vmContent.originalText()).toBe(question.content);
-            });
-
-            it('should update content', function () {
-                vmContent.text('');
-                vmContent.isEditing(false);
-                viewModel.contentUpdatedByCollaborator(question);
-                expect(vmContent.text()).toBe(question.content);
-            });
-        });
-
         describe('isExpanded:', function () {
 
             it('should be observable', function () {

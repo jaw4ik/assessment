@@ -439,6 +439,13 @@ define(function (require) {
             });
 
             describe('when is editing content', function () {
+                it('should update original content', function () {
+                    viewModel.questionContent.originalText('');
+                    viewModel.questionContent.isEditing(true);
+                    viewModel.contentUpdatedByCollaborator(question);
+                    expect(viewModel.questionContent.originalText()).toBe(question.content);
+                });
+
                 it('should not update content', function () {
                     viewModel.questionContent.text('');
                     viewModel.questionContent.isEditing(true);
@@ -447,13 +454,19 @@ define(function (require) {
                 });
             });
 
+            it('should update original content', function () {
+                viewModel.questionContent.originalText('');
+                viewModel.questionContent.isEditing(false);
+                viewModel.contentUpdatedByCollaborator(question);
+                expect(viewModel.questionContent.originalText()).toBe(question.content);
+            });
+
             it('should update content', function () {
                 viewModel.questionContent.text('');
                 viewModel.questionContent.isEditing(false);
                 viewModel.contentUpdatedByCollaborator(question);
                 expect(viewModel.questionContent.text()).toBe(question.content);
             });
-
         });
 
     });
