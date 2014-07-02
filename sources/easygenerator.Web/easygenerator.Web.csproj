@@ -403,6 +403,9 @@
       <DependentUpon>handler.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesReplaced.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesReplaced.spec.js">
+      <DependentUpon>objectivesReplaced.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\question\eventHandlers\dragAndDrop\backgroundChanged.spec.js">
       <DependentUpon>backgroundChanged.js</DependentUpon>
     </Content>
