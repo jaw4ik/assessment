@@ -45,7 +45,13 @@
                                 </div>
                             </div>
                             <div class="dropspot-text-delete-wrapper">
-                                <span class="dropspot-text-delete" title="Delete" data-bind="click: $parent.removeDropspot, localize: { title: 'delete' }"></span>
+                                <div class="dropspot-text-delete info-tooltip-holder" data-bind="click: $parent.removeDropspot">
+                                    <div class="info-tooltip question-answer right-side">
+                                        <span data-bind="localize: { text: 'delete' }">
+                                            Delete
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </li>
                         <!-- /ko -->
