@@ -1678,6 +1678,7 @@ span.top-navigation-item.current {
     font-size: 12px;
     text-align: center;
     opacity: 0;
+    z-index: 200;
     -moz-transition: opacity 0.2s linear 0;
     -webkit-transition: opacity 0.2s linear 0;
     transition: opacity 0.2s linear 0;

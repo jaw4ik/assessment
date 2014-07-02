@@ -439,6 +439,11 @@
     margin-left: -60px;
 }
 
+.info-tooltip.question-answer.right-side {
+    width: 100px;
+    margin-left: -50px;
+}
+
 .info-tooltip.learning-content {
     width: 60px;
     margin-left: -30px;
@@ -953,7 +958,7 @@
 
 
     .info-tooltip.question-answer.right-side {
-        margin-left: -99px;
+        margin-left: -89px;
     }
 
         .info-tooltip.question-answer.right-side:after {
