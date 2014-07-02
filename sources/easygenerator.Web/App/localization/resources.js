@@ -1304,7 +1304,7 @@
         en: '<p class=\"user-name\">'
     },
     collaboratorWasRemovedEnd: {
-        en: '</p><br/>was removed from your course.'
+        en: '</p>was removed from your course.'
     },
     collaboratorRemovingFailed: {
         en: 'Failed. Try again.'
