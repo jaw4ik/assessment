@@ -72,6 +72,7 @@
             deactivate: deactivate,
             connectObjective: connectObjective,
             disconnectObjective: disconnectObjective,
+            objectiveDisconnected: objectiveDisconnected,
             titleUpdated: titleUpdated,
             introductionContentUpdated: introductionContentUpdated,
             objectivesReordered: objectivesReordered,
@@ -286,10 +287,19 @@
             if (_.contains(viewModel.availableObjectives(), objective.item)) {
                 return;
             }
+
             eventTracker.publish(events.unrelateObjectivesFromCourse);
             repository.unrelateObjectives(viewModel.id, [objective.item]).then(function () {
                 notify.saved();
             });
+        }
+
+        function objectiveDisconnected(objective) {
+            if (objective.item.createdBy != userContext.identity.email) {
+                viewModel.availableObjectives(_.reject(viewModel.availableObjectives(), function (item) {
+                    return item.id == objective.item.id;
+                }));
+            }
         }
 
         function disconnectSelectedObjectives() {

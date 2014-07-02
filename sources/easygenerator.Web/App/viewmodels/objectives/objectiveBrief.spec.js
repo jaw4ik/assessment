@@ -65,6 +65,11 @@
                     var objectiveBrief = viewModel({});
                     expect(ko.isObservable(objectiveBrief.modifiedOn)).toBeTruthy();
                 });
+
+                it('should expose createdBy', function () {
+                    var objectiveBrief = viewModel({ createdBy: 'author@mail.com' });
+                    expect(objectiveBrief.createdBy).toBeDefined();
+                });
             });
 
         });

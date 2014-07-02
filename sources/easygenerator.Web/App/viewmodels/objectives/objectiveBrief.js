@@ -8,7 +8,8 @@
             image: item.image,
             questionsCount: item.questionsCount || (item.questions ? item.questions.length : null),
             modifiedOn: ko.observable(item.modifiedOn),
-            isSelected: ko.observable(false)
+            isSelected: ko.observable(false),
+            createdBy: item.createdBy
         };
 
     };

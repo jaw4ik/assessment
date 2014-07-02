@@ -883,7 +883,7 @@
                 userContext.identity = {
                     email: 'test@test.com',
                     subscription: {
-                         accessType: 0
+                        accessType: 0
                     }
                 }
 
@@ -1196,6 +1196,40 @@
 
             });
 
+        });
+
+        describe('objectiveDisconnected:', function () {
+
+            var objectiveId = 'id',
+                objective = { id: objectiveId, isSelected:ko.observable(false) };
+
+            it('should be function', function () {
+                expect(viewModel.objectiveDisconnected).toBeFunction();
+            });
+
+            describe('when objective is created by current user', function () {
+                beforeEach(function() {
+                    objective.createdBy = identity.email;
+                    viewModel.availableObjectives([objective]);
+                });
+
+                it('should not delete objective from available objectives list', function () {
+                    viewModel.objectiveDisconnected({ item: objective });
+                    expect(viewModel.availableObjectives().length).toBe(1);
+                });
+            });
+
+            describe('when objective is created by current user', function () {
+                beforeEach(function () {
+                    objective.createdBy = 'anonymous@user.com';
+                    viewModel.availableObjectives([objective]);
+                });
+
+                it('should delete objective from available objectives list', function () {
+                    viewModel.objectiveDisconnected({ item: objective });
+                    expect(viewModel.availableObjectives().length).toBe(0);
+                });
+            });
         });
 
         describe('connectObjective:', function () {
