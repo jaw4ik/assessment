@@ -1,5 +1,5 @@
-﻿define(['userContext', 'constants', 'notifications/subscriptionExpirationNotification', 'durandal/app', 'notifications/notification'],
-    function (userContext, constants, SubscriptionExpirationNotification, app, notifications) {
+﻿define(['userContext', 'constants', 'notifications/subscriptionExpirationNotification', 'durandal/app'],
+    function (userContext, constants, SubscriptionExpirationNotification, app) {
         "use strict";
 
     var notificationName = 'subscriptionExpirationNotification';
@@ -42,7 +42,7 @@
             app.trigger('remove-notification', currentNotification);
         }
 
-        var notification = new SubscriptionExpirationNotification(notificationName, firstname, amountOfDays, expirationDate);
+        var notification = new SubscriptionExpirationNotification(notificationName, firstname, amountOfDays, accessType, expirationDate);
         app.trigger('push-notification', notification);
     }
 

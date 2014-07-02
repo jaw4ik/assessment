@@ -11,7 +11,9 @@
     <div class="user-notification-content">
         <p>Hi <span data-bind="text: firstname">User</span>,</p>
         <p class="user-notification-expires">
-            Your Starter Plan expires
+            Your
+            <span data-bind="text: planName"></span>
+            expires
             <span data-bind="visible: (amountOfDays != 0) || (amountOfDays == 0 && !isToday)">in</span>
             <!--ko if: amountOfDays == 0 && isToday -->
             <span class="bold">today</span>.
