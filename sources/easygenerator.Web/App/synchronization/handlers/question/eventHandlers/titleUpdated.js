@@ -2,12 +2,12 @@
     function (guard, app, constants, dataContext) {
         "use strict";
 
-        return function (questionId, title, modifiedOn) {
+        return function(questionId, title, modifiedOn) {
             guard.throwIfNotString(questionId, 'QuestionId is not a string');
             guard.throwIfNotString(title, 'Title is not a string');
             guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
 
-            var question = _.find(dataContext.getQuestions(), function (item) {
+            var question = _.find(dataContext.getQuestions(), function(item) {
                 return item.id == questionId;
             });
 
@@ -17,5 +17,6 @@
             question.modifiedOn = new Date(modifiedOn);
 
             app.trigger(constants.messages.question.titleUpdatedByCollaborator, question);
-        }
-    });
+        };
+    }
+);

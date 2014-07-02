@@ -1,10 +1,12 @@
-﻿define(['durandal/system', 'synchronization/handlers/user/handler', 'synchronization/handlers/course/handler', 'synchronization/handlers/objective/handler',
-    'synchronization/handlers/question/handler', 'synchronization/handlers/answer/handler', 'synchronization/handlers/learningContent/handler', 'synchronization/handlers/collaboration/handler'],
-    function (system, userEventHandler, courseEventHandler, objectiveEventHandler, questionEventHandler, answerEventHandler, learningContentEventHandler, collaborationEventHandler) {
+﻿define([
+        'durandal/system', 'synchronization/handlers/user/handler', 'synchronization/handlers/course/handler', 'synchronization/handlers/objective/handler',
+        'synchronization/handlers/question/handler', 'synchronization/handlers/answer/handler', 'synchronization/handlers/learningContent/handler', 'synchronization/handlers/collaboration/handler'
+],
+    function(system, userEventHandler, courseEventHandler, objectiveEventHandler, questionEventHandler, answerEventHandler, learningContentEventHandler, collaborationEventHandler) {
         "use strict";
 
         return {
-            start: function () {
+            start: function() {
                 var dfd = Q.defer();
 
                 var hub = $.connection.eventHub;
@@ -28,7 +30,7 @@
                     courseDeleted: courseEventHandler.deleted,
                     courseObjectiveRelated: courseEventHandler.objectiveRelated,
                     courseObjectivesUnrelated: courseEventHandler.objectivesUnrelated,
-                    courseObjectivesReplaced : courseEventHandler.objectivesReplaced,
+                    courseObjectivesReplaced: courseEventHandler.objectivesReplaced,
 
                     objectiveTitleUpdated: objectiveEventHandler.titleUpdated,
                     objectiveQuestionsReordered: objectiveEventHandler.questionsReordered,
@@ -37,6 +39,8 @@
                     questionsDeleted: questionEventHandler.deleted,
                     questionTitleUpdated: questionEventHandler.titleUpdated,
                     questionContentUpdated: questionEventHandler.contentUpdated,
+                    questionCorrectFeedbackUpdated: questionEventHandler.correctFeedbackUpdated,
+                    questionIncorrectFeedbackUpdated: questionEventHandler.incorrectFeedbackUpdated,
 
                     fillInTheBlankUpdated: questionEventHandler.fillInTheBlankUpdated,
 
@@ -58,14 +62,15 @@
                 };
 
                 $.connection.hub.start()
-                    .done(function () {
+                    .done(function() {
                         system.log("Synchronization with server was established");
                         dfd.resolve();
-                    }).fail(function () {
+                    }).fail(function() {
                         dfd.reject('Could not establish synchronization with server');
                     });
 
                 return dfd.promise;
             }
         };
-    })
+    }
+);

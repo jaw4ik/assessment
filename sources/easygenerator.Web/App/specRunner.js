@@ -84,6 +84,8 @@
             'synchronization/handlers/question/eventHandlers/created.spec',
             'synchronization/handlers/question/eventHandlers/deleted.spec',
             'synchronization/handlers/question/eventHandlers/contentUpdated.spec',
+            'synchronization/handlers/question/eventHandlers/correctFeedbackUpdated.spec',
+            'synchronization/handlers/question/eventHandlers/incorrectFeedbackUpdated.spec',
 
             'synchronization/handlers/question/eventHandlers/fillInTheBlankUpdated.spec',
 

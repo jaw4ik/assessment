@@ -1,85 +1,109 @@
-﻿define(['eventTracker', 'localization/localizationManager', 'constants', 'repositories/questionRepository'], function (eventTracker, localizationManager, constants, repository) {
-    "use strict";
+﻿define(['durandal/app', 'eventTracker', 'localization/localizationManager', 'constants', 'repositories/questionRepository'],
+    function (app, eventTracker, localizationManager, constants, repository) {
+        "use strict";
 
-    var events = {
-        correctFeedbackUpdated: 'Update feedback content (correct answer)',
-        incorrectFeedbackUpdated: 'Update feedback content (incorrect answer)'
-    };
-
-    var viewModel = {
-        questionId: null,
-
-        autosaveInterval: constants.autosaveTimersInterval.feedbackText,
-        isExpanded: ko.observable(true),
-        toggleExpand: toggleExpand,
-
-        correctFeedback: createFeedbackObject(updateCorrectFeedbackText),
-        incorrectFeedback: createFeedbackObject(updateIncorrectFeedbackText),
-
-        eventTracker: eventTracker,
-        localizationManager: localizationManager,
-
-        activate: activate
-    };
-
-    return viewModel;
-
-    function createFeedbackObject(callback) {
-        var feedbackObject = {
-            text: ko.observable(''),
-            previousText: '',
-            init: function (text) {
-                feedbackObject.text(text || '');
-                feedbackObject.previousText = text;
-            },
-            hasFocus: ko.observable(false),
-            updateText: function () {
-                if (feedbackObject.text() == feedbackObject.previousText) {
-                    return;
-                }
-
-                if (_.isEmptyHtmlText(feedbackObject.text())) {
-                    feedbackObject.text('');
-                }
-
-                feedbackObject.previousText = feedbackObject.text();
-
-                if (_.isFunction(callback)) {
-                    callback();
-                }
-            }
+        var events = {
+            correctFeedbackUpdated: 'Update feedback content (correct answer)',
+            incorrectFeedbackUpdated: 'Update feedback content (incorrect answer)'
         };
-        feedbackObject.isEmpty = ko.computed(function () {
-            return feedbackObject.text().length === 0;
-        });
 
-        return feedbackObject;
-    }
+        var viewModel = {
+            questionId: null,
 
-    function updateCorrectFeedbackText() {
-        eventTracker.publish(events.correctFeedbackUpdated);
-        repository.updateCorrectFeedback(viewModel.questionId, viewModel.correctFeedback.text());
-    }
+            autosaveInterval: constants.autosaveTimersInterval.feedbackText,
+            isExpanded: ko.observable(true),
+            toggleExpand: toggleExpand,
 
-    function updateIncorrectFeedbackText() {
-        eventTracker.publish(events.incorrectFeedbackUpdated);
-        repository.updateIncorrectFeedback(viewModel.questionId, viewModel.incorrectFeedback.text());
-    }
+            correctFeedback: createFeedbackObject(updateCorrectFeedbackText),
+            incorrectFeedback: createFeedbackObject(updateIncorrectFeedbackText),
 
-    function toggleExpand() {
-        viewModel.isExpanded(!viewModel.isExpanded());
-    }
+            correctFeedbackUpdatedByCollaborator: correctFeedbackUpdatedByCollaborator,
+            incorrectFeedbackUpdatedByCollaborator: incorrectFeedbackUpdatedByCollaborator,
 
-    function activate(questionId) {
-        return Q.fcall(function () {
-            viewModel.isExpanded(true);
-            viewModel.questionId = questionId;
+            eventTracker: eventTracker,
+            localizationManager: localizationManager,
 
-            return repository.getQuestionFeedback(questionId).then(function(feedback) {
-                viewModel.correctFeedback.init(feedback.correctFeedbackText);
-                viewModel.incorrectFeedback.init(feedback.incorrectFeedbackText);
+            activate: activate
+        };
+
+        app.on(constants.messages.question.correctFeedbackUpdatedByCollaborator, correctFeedbackUpdatedByCollaborator);
+        app.on(constants.messages.question.incorrectFeedbackUpdatedByCollaborator, incorrectFeedbackUpdatedByCollaborator);
+
+        return viewModel;
+
+        function createFeedbackObject(callback) {
+            var feedbackObject = {
+                text: ko.observable(''),
+                previousText: '',
+                init: function (text) {
+                    feedbackObject.text(text || '');
+                    feedbackObject.previousText = text;
+                },
+                hasFocus: ko.observable(false),
+                updateText: function () {
+                    if (feedbackObject.text() == feedbackObject.previousText) {
+                        return;
+                    }
+
+                    if (_.isEmptyHtmlText(feedbackObject.text())) {
+                        feedbackObject.text('');
+                    }
+
+                    feedbackObject.previousText = feedbackObject.text();
+
+                    if (_.isFunction(callback)) {
+                        callback();
+                    }
+                }
+            };
+            feedbackObject.isEmpty = ko.computed(function () {
+                return feedbackObject.text().length === 0;
             });
-        });
-    }
 
-});
+            return feedbackObject;
+        }
+
+        function correctFeedbackUpdatedByCollaborator(question, feedbackText) {
+            if (question.id != viewModel.questionId) {
+                return;
+            }
+
+            viewModel.correctFeedback.text(feedbackText);
+        }
+
+        function updateCorrectFeedbackText() {
+            eventTracker.publish(events.correctFeedbackUpdated);
+            repository.updateCorrectFeedback(viewModel.questionId, viewModel.correctFeedback.text());
+        }
+
+        function incorrectFeedbackUpdatedByCollaborator(question, feedbackText) {
+            if (question.id != viewModel.questionId) {
+                return;
+            }
+
+            viewModel.incorrectFeedback.text(feedbackText);
+        }
+
+        function updateIncorrectFeedbackText() {
+            eventTracker.publish(events.incorrectFeedbackUpdated);
+            repository.updateIncorrectFeedback(viewModel.questionId, viewModel.incorrectFeedback.text());
+        }
+
+        function toggleExpand() {
+            viewModel.isExpanded(!viewModel.isExpanded());
+        }
+
+        function activate(questionId) {
+            return Q.fcall(function () {
+                viewModel.isExpanded(true);
+                viewModel.questionId = questionId;
+
+                return repository.getQuestionFeedback(questionId).then(function(feedback) {
+                    viewModel.correctFeedback.init(feedback.correctFeedbackText);
+                    viewModel.incorrectFeedback.init(feedback.incorrectFeedbackText);
+                });
+            });
+        }
+
+    }
+);

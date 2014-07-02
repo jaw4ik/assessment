@@ -94,6 +94,8 @@
     <Compile Include="Events\QuestionEvents\DragAnsDropEvents\DropspotEvent.cs" />
     <Compile Include="Events\QuestionEvents\DragAnsDropEvents\DropspotPositionChangedEvent.cs" />
     <Compile Include="Events\QuestionEvents\DragAnsDropEvents\DropspotTextChangedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\QuestionCorrectFeedbackUpdatedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\QuestionIncorrectFeedbackUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionsDeletedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\ObjectiveTitleUpdatedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\QuestionsReorderedEvent.cs" />

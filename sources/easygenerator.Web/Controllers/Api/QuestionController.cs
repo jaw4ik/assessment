@@ -94,6 +94,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.UpdateCorrectFeedbackText(feedbackText);
+            _eventPublisher.Publish(new QuestionCorrectFeedbackUpdatedEvent(question));
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
@@ -109,6 +110,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.UpdateIncorrectFeedbackText(feedbackText);
+            _eventPublisher.Publish(new QuestionIncorrectFeedbackUpdatedEvent(question));
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }

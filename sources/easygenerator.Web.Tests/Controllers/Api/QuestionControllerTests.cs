@@ -197,7 +197,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             var question = Substitute.For<Question>("Question title",  CreatedBy);
 
-            var result = _controller.UpdateContent(question, String.Empty);
+            _controller.UpdateContent(question, String.Empty);
 
             _eventPublisher.Received().Publish(Arg.Any<QuestionContentUpdatedEvent>());
         }
@@ -265,9 +265,19 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void UpdateCorrectFeedback_ShouldPublishDomainEvent()
+        {
+            var question = MultipleselectObjectMother.Create("Question title", CreatedBy);
+
+            _controller.UpdateCorrectFeedback(question, String.Empty);
+
+            _eventPublisher.Received().Publish(Arg.Any<QuestionCorrectFeedbackUpdatedEvent>());
+        }
+
+        [TestMethod]
         public void UpdateCorrectFeedback_ShouldReturnJsonSuccessResult()
         {
-            var question = Substitute.For<Question>("Question title", CreatedBy);
+            var question = MultipleselectObjectMother.Create("Question title", CreatedBy);
 
             var result = _controller.UpdateCorrectFeedback(question, String.Empty);
 
@@ -291,15 +301,26 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void UpdateIncorrectFeedback_ShouldUpdateQuestionFeedback()
         {
             var question = Substitute.For<Question>("Question title", CreatedBy);
+
             _controller.UpdateIncorrectFeedback(question, "incorrect feedback");
 
             question.Received().UpdateIncorrectFeedbackText("incorrect feedback");
         }
 
         [TestMethod]
+        public void UpdateIncorrectFeedback_ShouldPublishDomainEvent()
+        {
+            var question = MultipleselectObjectMother.Create("Question title", CreatedBy);
+
+            _controller.UpdateIncorrectFeedback(question, String.Empty);
+
+            _eventPublisher.Received().Publish(Arg.Any<QuestionIncorrectFeedbackUpdatedEvent>());
+        }
+
+        [TestMethod]
         public void UpdateIncorrectFeedback_ShouldReturnJsonSuccessResult()
         {
-            var question = Substitute.For<Question>("Question title", CreatedBy);
+            var question = MultipleselectObjectMother.Create("Question title", CreatedBy);
 
             var result = _controller.UpdateIncorrectFeedback(question, String.Empty);
 

@@ -2,20 +2,20 @@
     function (guard, app, constants, dataContext) {
         "use strict";
 
-        return function (questionId, content, modifiedOn) {
+        return function(questionId, feedbackText, modifiedOn) {
             guard.throwIfNotString(questionId, 'QuestionId is not a string');
+            guard.throwIfNotString(feedbackText, 'FeedbackText is not a string');
             guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
 
-            var question = _.find(dataContext.getQuestions(), function (item) {
+            var question = _.find(dataContext.getQuestions(), function(item) {
                 return item.id == questionId;
             });
 
             guard.throwIfNotAnObject(question, 'Question has not been found');
 
-            question.content = content;
             question.modifiedOn = new Date(modifiedOn);
 
-            app.trigger(constants.messages.question.contentUpdatedByCollaborator, question);
+            app.trigger(constants.messages.question.correctFeedbackUpdatedByCollaborator, question, feedbackText);
         };
     }
 );

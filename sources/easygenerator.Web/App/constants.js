@@ -145,6 +145,8 @@
                     titleUpdated: 'question:titleUpdated',
                     titleUpdatedByCollaborator: 'question:titleUpdatedByCollaborator',
                     contentUpdatedByCollaborator: 'question:contentUpdatedByCollaborator',
+                    correctFeedbackUpdatedByCollaborator: 'question:correctFeedbackUpdatedByCollaborator',
+                    incorrectFeedbackUpdatedByCollaborator: 'question:incorrectFeedbackUpdatedByCollaborator',
                     deletedByCollaborator: 'question:deletedByCollaborator',
 
                     answer: {

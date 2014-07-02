@@ -350,6 +350,94 @@
 
         });
 
+        describe('correctFeedbackUpdatedByCollaborator:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.correctFeedbackUpdatedByCollaborator).toBeFunction();
+            });
+
+            viewModel.questionId = 'questionId';
+            var question = { id: null };
+            var feedbackText = 'correct feedback text';
+
+            describe('when it is not current question', function() {
+
+                beforeEach(function() {
+                    question.id = 'another id';
+                });
+
+                it('should not update correctFeedback text', function() {
+                    viewModel.correctFeedback.text('');
+
+                    viewModel.correctFeedbackUpdatedByCollaborator(question, feedbackText);
+
+                    expect(viewModel.correctFeedback.text()).not.toBe(feedbackText);
+                });
+
+            });
+
+            describe('when it is current question', function() {
+
+                beforeEach(function() {
+                    question.id = viewModel.questionId;
+                });
+
+                it('should update correctFeedback text', function() {
+                    viewModel.correctFeedback.text('');
+
+                    viewModel.correctFeedbackUpdatedByCollaborator(question, feedbackText);
+
+                    expect(viewModel.correctFeedback.text()).toBe(feedbackText);
+                });
+
+            });
+
+        });
+
+        describe('incorrectFeedbackUpdatedByCollaborator:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.incorrectFeedbackUpdatedByCollaborator).toBeFunction();
+            });
+
+            viewModel.questionId = 'questionId';
+            var question = { id: null };
+            var feedbackText = 'correct feedback text';
+
+            describe('when it is not current question', function () {
+
+                beforeEach(function () {
+                    question.id = 'another id';
+                });
+
+                it('should not update incorrectFeedback text', function () {
+                    viewModel.incorrectFeedback.text('');
+
+                    viewModel.incorrectFeedbackUpdatedByCollaborator(question, feedbackText);
+
+                    expect(viewModel.incorrectFeedback.text()).not.toBe(feedbackText);
+                });
+
+            });
+
+            describe('when it is current question', function () {
+
+                beforeEach(function () {
+                    question.id = viewModel.questionId;
+                });
+
+                it('should update incorrectFeedback text', function () {
+                    viewModel.incorrectFeedback.text('');
+
+                    viewModel.incorrectFeedbackUpdatedByCollaborator(question, feedbackText);
+
+                    expect(viewModel.incorrectFeedback.text()).toBe(feedbackText);
+                });
+
+            });
+
+        });
+
         describe('activate:', function () {
 
             it('should be function', function () {

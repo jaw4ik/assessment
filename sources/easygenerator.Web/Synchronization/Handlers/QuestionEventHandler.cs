@@ -13,6 +13,8 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<QuestionCreatedEvent>,
         IDomainEventHandler<QuestionTitleUpdatedEvent>,
         IDomainEventHandler<QuestionContentUpdatedEvent>,
+        IDomainEventHandler<QuestionCorrectFeedbackUpdatedEvent>,
+        IDomainEventHandler<QuestionIncorrectFeedbackUpdatedEvent>,
         IDomainEventHandler<FillInTheBlankUpdatedEvent>
     {
         private readonly ICollaborationBroadcaster<Question> _broadcaster;
@@ -40,6 +42,18 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster.OtherCollaborators(args.Question)
                 .questionTitleUpdated(args.Question.Id.ToNString(), args.Question.Title, args.Question.ModifiedOn);
+        }
+
+        public void Handle(QuestionCorrectFeedbackUpdatedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Question)
+                .questionCorrectFeedbackUpdated(args.Question.Id.ToNString(), args.Question.Feedback.CorrectText, args.Question.ModifiedOn);
+        }
+
+        public void Handle(QuestionIncorrectFeedbackUpdatedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Question)
+                .questionIncorrectFeedbackUpdated(args.Question.Id.ToNString(), args.Question.Feedback.IncorrectText, args.Question.ModifiedOn);
         }
 
         public void Handle(FillInTheBlankUpdatedEvent args)
