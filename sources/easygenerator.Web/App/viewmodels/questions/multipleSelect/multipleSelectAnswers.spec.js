@@ -84,9 +84,19 @@
             describe('when answer id is set', function () {
 
                 beforeEach(function () {
-                    answer = { id: ko.observable('answerId'), text: ko.observable('test') };
+                    answer = { id: ko.observable('answerId'), text: ko.observable('test'), isDeleted: ko.observable(false) };
                 });
 
+               describe('when answer is deleted by collaborator', function () {
+                    it('should not remove answer from repository', function (done) {
+                        answer.isDeleted(true);
+                        viewModel.removeAnswer(answer).fin(function () {
+                            expect(repository.removeAnswer).not.toHaveBeenCalled();
+                            done();
+                        });
+                    });
+                });
+                
                 it('should remove answer from the repository', function (done) {
                     viewModel.removeAnswer(answer).fin(function () {
                         expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
@@ -117,7 +127,7 @@
             describe('when answer id is not set initially', function () {
                 var answerWithoutId;
                 beforeEach(function () {
-                    answerWithoutId = { id: ko.observable(''), text: ko.observable('test') };
+                    answerWithoutId = { id: ko.observable(''), text: ko.observable('test'), isDeleted: ko.observable(false) };
                 });
 
                 it('should not remove answer from the repository', function (done) {

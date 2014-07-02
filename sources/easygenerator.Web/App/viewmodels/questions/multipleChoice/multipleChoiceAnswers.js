@@ -39,14 +39,16 @@
                 return viewModel.clearSelection().then(function () {
                     performActionWhenAnswerIdIsSet(answer, function () {
                         viewModel.answers.remove(answer);
-                        repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function () {
-                            if (answer.isCorrect()) {
-                                setFirstAnswerCorrectness();
-                                answer.isCorrect(false);
-                            }
-                            showNotification();
+
+                        if (!answer.isDeleted())
+                            repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function () {
+                                if (answer.isCorrect()) {
+                                    setFirstAnswerCorrectness();
+                                    answer.isCorrect(false);
+                                }
+                                showNotification();
+                            });
                         });
-                    });
                 });
             };
 

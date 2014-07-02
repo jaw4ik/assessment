@@ -475,8 +475,18 @@
             describe('when answer id is set', function () {
 
                 beforeEach(function () {
-                    answer = { id: ko.observable('answerId'), text: ko.observable('test'), isCorrect: ko.observable(false), original: { correctness: false } };
-                    answer1 = { id: ko.observable('answerId1'), text: ko.observable('test1'), isCorrect: ko.observable(true), original: { correctness: false } };
+                    answer = { id: ko.observable('answerId'), text: ko.observable('test'), isCorrect: ko.observable(false), original: { correctness: false }, isDeleted: ko.observable(false) };
+                    answer1 = { id: ko.observable('answerId1'), text: ko.observable('test1'), isCorrect: ko.observable(true), original: { correctness: false }, isDeleted: ko.observable(false) };
+                });
+
+                describe('when answer is deleted by collaborator', function () {
+                    it('should not remove answer from repository', function (done) {
+                        answer.isDeleted(true);
+                        viewModel.removeAnswer(answer).fin(function () {
+                            expect(repository.removeAnswer).not.toHaveBeenCalled();
+                            done();
+                        });
+                    });
                 });
 
                 it('should remove answer from the repository', function (done) {
@@ -522,7 +532,7 @@
             describe('when answer id is not set initially', function () {
                 var answerWithoutId;
                 beforeEach(function () {
-                    answerWithoutId = { id: ko.observable(''), text: ko.observable('test'), isCorrect: ko.observable(false), original: { correctness: false } };
+                    answerWithoutId = { id: ko.observable(''), text: ko.observable('test'), isCorrect: ko.observable(false), original: { correctness: false }, isDeleted: ko.observable(false) };
                 });
 
                 it('should not remove answer from the viewModel', function (done) {
