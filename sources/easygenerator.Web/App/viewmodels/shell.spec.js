@@ -180,6 +180,7 @@
         describe('objectivesUnrelated:', function () {
 
             var objectiveId = 'objectiveId',
+                courseId = 'courseId',
                 errorMessage = 'error';
 
             beforeEach(function () {
@@ -190,33 +191,45 @@
                 expect(viewModel.objectivesUnrelated).toBeFunction();
             });
 
-            describe('when in context of objective', function () {
+            describe('when not in context of course', function () {
                 beforeEach(function () {
                     router.routeData({
-                        objectiveId: objectiveId
+                        objectiveId: 'id',
+                        courseId: undefined
                     });
                 });
 
-                it('should show notification error', function () {
-                    viewModel.objectivesUnrelated('courseId', [objectiveId]);
-                    expect(notify.error).toHaveBeenCalledWith(errorMessage);
+                it('should not show notification error', function () {
+                    viewModel.objectivesUnrelated(courseId, [objectiveId]);
+                    expect(notify.error).not.toHaveBeenCalledWith(errorMessage);
                 });
             });
 
             describe('when not in context of objective', function () {
                 beforeEach(function () {
                     router.routeData({
-                        objectiveId: 'id'
+                        objectiveId: 'id',
+                        courseId: courseId
                     });
                 });
 
                 it('should not show notification error', function () {
-                    viewModel.objectivesUnrelated('courseId', [objectiveId]);
+                    viewModel.objectivesUnrelated(courseId, [objectiveId]);
                     expect(notify.error).not.toHaveBeenCalledWith(errorMessage);
                 });
             });
 
+            it('should show notification error', function () {
+                router.routeData({
+                    objectiveId: objectiveId,
+                    courseId: courseId
+                });
+
+                viewModel.objectivesUnrelated(courseId, [objectiveId]);
+                expect(notify.error).toHaveBeenCalledWith(errorMessage);
+            });
         });
+
 
         describe('questionsDeleted:', function () {
 
@@ -231,23 +244,11 @@
                 expect(viewModel.questionsDeleted).toBeFunction();
             });
 
-            describe('when in context of question', function () {
+            describe('when not in context of course', function () {
                 beforeEach(function () {
                     router.routeData({
-                        questionId: questionId
-                    });
-                });
-
-                it('should show notification error', function () {
-                    viewModel.questionsDeleted('objectiveId', [questionId]);
-                    expect(notify.error).toHaveBeenCalledWith(errorMessage);
-                });
-            });
-
-            describe('when not in context of question', function () {
-                beforeEach(function () {
-                    router.routeData({
-                        questionId: 'id'
+                        questionId: 'id',
+                        courseId: undefined
                     });
                 });
 
@@ -255,6 +256,30 @@
                     viewModel.questionsDeleted('objectiveId', [questionId]);
                     expect(notify.error).not.toHaveBeenCalledWith(errorMessage);
                 });
+            });
+
+            describe('when not in context of question', function () {
+                beforeEach(function () {
+                    router.routeData({
+                        questionId: 'id',
+                        courseId: 'courseId'
+                    });
+                });
+
+                it('should not show notification error', function () {
+                    viewModel.questionsDeleted('objectiveId', [questionId]);
+                    expect(notify.error).not.toHaveBeenCalledWith(errorMessage);
+                });
+            });
+
+            it('should show notification error', function () {
+                router.routeData({
+                    questionId: questionId,
+                    courseId: 'courseId'
+                });
+
+                viewModel.questionsDeleted('objectiveId', [questionId]);
+                expect(notify.error).toHaveBeenCalledWith(errorMessage);
             });
 
         });

@@ -163,20 +163,20 @@
         }
 
         function objectivesUnrelated(courseId, deletedObjectiveIds) {
-            if (_.isNullOrUndefined(router.routeData().objectiveId) || _.indexOf(deletedObjectiveIds, router.routeData().objectiveId) == -1)
+            if (_.isNullOrUndefined(router.routeData().courseId) || _.isNullOrUndefined(router.routeData().objectiveId) || !_.contains(deletedObjectiveIds, router.routeData().objectiveId))
                 return;
 
             notify.error(localizationManager.localize('learningObjectiveHasBeenDisconnectedByCollaborator'));
         }
 
         function questionsDeleted(objId, deletedQuestionIds) {
-            if (_.isNullOrUndefined(router.routeData().questionId) || _.indexOf(deletedQuestionIds, router.routeData().questionId) == -1)
+            if (_.isNullOrUndefined(router.routeData().courseId) || _.isNullOrUndefined(router.routeData().questionId) || !_.contains(deletedQuestionIds, router.routeData().questionId))
                 return;
 
             notify.error(localizationManager.localize('questionHasBeenDeletedByCollaborator'));
         }
 
-        function courseCollaborationFinished(courseId){
+        function courseCollaborationFinished(courseId) {
             if (router.routeData().courseId != courseId)
                 return;
 
