@@ -1054,6 +1054,7 @@
     position: relative;
     padding: 13px 10px;
     background: rgba(255, 255, 255, 0.01);
+    overflow: hidden;
     z-index: 1;
 }
 
