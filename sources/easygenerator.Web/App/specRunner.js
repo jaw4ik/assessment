@@ -137,7 +137,7 @@
             'viewmodels/courses/courseNavigation/items/navigationItem.spec',
             'viewmodels/courses/courseNavigation/navigation.spec',
             'viewmodels/courses/collaboration/collaborator.spec',
-            //'viewmodels/courses/collaboration/collaborators.spec',
+            'viewmodels/courses/collaboration/collaborators.spec',
             'viewmodels/objectives/objectives.spec',
             'viewmodels/objectives/objective.spec',
             'viewmodels/objectives/createObjective.spec',

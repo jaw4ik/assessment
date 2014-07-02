@@ -33,6 +33,14 @@
                 }
             ];
 
+        beforeEach(function() {
+            userContext.identity = {
+                subscription: {
+                    accessType: 0
+                }
+            };
+        });
+
         it('should be an object', function () {
             expect(viewModel).toBeObject();
         });
