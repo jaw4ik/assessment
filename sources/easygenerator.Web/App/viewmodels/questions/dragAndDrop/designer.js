@@ -40,6 +40,8 @@
         activate: activate
     };
 
+    designer.background.width = ko.observable();
+    designer.background.height = ko.observable();
     designer.background.backgroundSizeChanged = function (width, height) {
         _.each(designer.dropspots(), function (dropspot) {
             if (dropspot.position.x() > width ||
@@ -112,7 +114,13 @@
     }
 
     function dropspotEndEdit(dropspot) {
-        if(!_.isNullOrUndefined(dropspot.isDeleted) && dropspot.isDeleted)
+        if (!_.isNullOrUndefined(dropspot.isDeleted) && dropspot.isDeleted) {
             designer.dropspots.remove(dropspot);
+        }
+
+        if (dropspot.position.x() > designer.background.width() || dropspot.position.y() > designer.background.height() ||
+            dropspot.position.x() + dropspot.size.width() > designer.background.width() || dropspot.position.y() + dropspot.size.height() > designer.background.height()) {
+            dropspot.position.endMoveDropspot(0, 0);
+        }
     }
 });

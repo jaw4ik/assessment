@@ -22,6 +22,14 @@
                     if (_.isFunction(value.backgroundSizeChanged)) {
                         value.backgroundSizeChanged(image.width, image.height);
                     }
+
+                    if (ko.isWriteableObservable(value.width)) {
+                        value.width(image.width);
+                    }
+
+                    if (ko.isWriteableObservable(value.height)) {
+                        value.height(image.height);
+                    }
                 }
             }
         }
