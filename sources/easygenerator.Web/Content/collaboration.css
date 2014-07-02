@@ -563,4 +563,32 @@
     background-position: -66px -24px;
 }
 
+.add-collaborator-warning {
+    text-align: center;
+    max-height: 44px;
+    height: 44px;
+}
+
+.add-collaborator-warning-text {
+    width: 100%;
+    display: inline-block;
+    font-family: 'OpenSans';
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.add-collaborator-upgrade-button-wrapper {
+    width: 100%;
+    padding-top: 14px;
+    text-align: center;
+}
+
+.add-collaborator-upgrade-button {
+    text-transform: uppercase;
+    color: #FFFFFF;
+    height: 36px;
+    width: 135px;
+    display: inline-block;
+}
+
 /*#endregion ADD COLLABORATOR MODAL DIALOG*/

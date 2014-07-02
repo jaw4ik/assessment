@@ -1326,6 +1326,12 @@
     },
     collaborationFreeWarning: {
         en: 'Collaboration is not available in the Free edition and is frozen for now. You need to upgrade to the Starter edition to start collaborating.'
+    },
+    addCollaboratorStarterWarning: {
+        en: 'You need to upgrade to the Plus edition to collaborate with more than 3 people.'
+    },
+    addCollaboratorFreeWarning: {
+        en: 'You need to upgrade to the Starter edition to start collaborating.'
     }
     /* End resource section for model InviteCollaboratorFromDisplayName */
            

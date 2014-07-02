@@ -3,6 +3,7 @@
         <div class="modal-dialog-header-text" data-bind="localize: { text: 'addPeopleForCollaboration' }"></div>
     </div>
     <div class="modal-dialog-content">
+        <!-- ko ifnot: collaborationWarning().length > 0 -->
         <form id="addCollaboratorForm" action="#" method="post" data-bind="submit: submit">
             <div class="modal-dialog-form-row" data-bind="css: { error: (hasError() && email.isModified()), active: isEditing }">
                 <div class="modal-dialog-form-input-holder">
@@ -22,6 +23,15 @@
                 </button>
             </div>
         </form>
+        <!-- /ko -->
+        <!-- ko if: collaborationWarning().length > 0 -->
+        <div class="add-collaborator-warning">
+            <span class="add-collaborator-warning-text" data-bind="text: collaborationWarning"></span>
+        </div>
+        <div class="add-collaborator-upgrade-button-wrapper">
+            <a class="action-item-btn btn green add-collaborator-upgrade-button" href="/account/upgrade" target="_blank">Upgrade</a>
+        </div>
+        <!-- /ko -->
     </div>
 </div>
 

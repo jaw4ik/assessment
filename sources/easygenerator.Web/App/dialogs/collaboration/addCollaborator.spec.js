@@ -5,7 +5,8 @@
         repository = require('repositories/collaboratorRepository'),
         app = require('durandal/app'),
         constants = require('constants'),
-        router = require('plugins/router');
+        router = require('plugins/router'),
+        userContext = require('userContext');
 
     describe('dialog [addCollabrotor]', function () {
 
@@ -270,6 +271,19 @@
 
         describe('show:', function () {
 
+            var getCollaborators;
+
+            beforeEach(function () {
+                userContext.identity = {
+                    subscription: {
+                        accessType: 0
+                    }
+                };
+
+                getCollaborators = Q.defer();
+                spyOn(repository, 'getCollection').and.returnValue(getCollaborators.promise);
+            });
+
             it('should be function', function () {
                 expect(viewModel.show).toBeFunction();
             });
@@ -308,6 +322,112 @@
                 viewModel.isShown(false);
                 viewModel.show();
                 expect(viewModel.isShown()).toBeTruthy();
+            });
+
+            it('should get collaborators from repository', function () {
+                router.routeData({ courseId: courseId });
+                viewModel.show();
+                expect(repository.getCollection).toHaveBeenCalledWith(courseId);
+            });
+
+            describe('when collaborators received', function() {
+
+                describe('and user has free access type', function() {
+
+                    beforeEach(function() {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: "0"
+                            }
+                        };
+                    });
+
+                    it('should set collaborationWarning to addCollaboratorFreeWarning', function (done) {
+                        viewModel.show();
+
+                        var promise = getCollaborators.promise;
+                        promise.done(function () {
+                            expect(localizationManager.localize).toHaveBeenCalledWith('addCollaboratorFreeWarning');
+                            expect(viewModel.collaborationWarning()).toEqual(localizedMessage);
+                            done();
+                        });
+
+                        getCollaborators.resolve([]);
+                    });
+
+                });
+
+                describe('and user has starter access type', function() {
+                    
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: "1"
+                            }
+                        };
+                    });
+
+                    describe('and course has less then 4 collaborators', function() {
+                        
+                        it('should set collaborationWarning to addCollaboratorFreeWarning', function (done) {
+                            viewModel.show();
+
+                            var promise = getCollaborators.promise;
+                            promise.done(function () {
+                                expect(localizationManager.localize).not.toHaveBeenCalled();
+                                expect(viewModel.collaborationWarning()).toEqual('');
+                                done();
+                            });
+
+                            getCollaborators.resolve([]);
+                        });
+
+                    });
+
+                    describe('and course has more then 4 collaborators', function () {
+
+                        it('should set collaborationWarning to addCollaboratorFreeWarning', function (done) {
+                            viewModel.show();
+
+                            var promise = getCollaborators.promise;
+                            promise.done(function () {
+                                expect(localizationManager.localize).toHaveBeenCalledWith('addCollaboratorStarterWarning');
+                                expect(viewModel.collaborationWarning()).toEqual(localizedMessage);
+                                done();
+                            });
+
+                            getCollaborators.resolve([{}, {}, {}, {}, {}]);
+                        });
+
+                    });
+
+                });
+
+                describe('and user has plus access type', function() {
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: "2"
+                            }
+                        };
+                    });
+
+                    it('should set collaborationWarning to empty string', function (done) {
+                        viewModel.show();
+
+                        var promise = getCollaborators.promise;
+                        promise.done(function () {
+                            expect(localizationManager.localize).not.toHaveBeenCalled();
+                            expect(viewModel.collaborationWarning()).toEqual('');
+                            done();
+                        });
+
+                        getCollaborators.resolve([]);
+                    });
+
+                });
+
             });
 
         });
