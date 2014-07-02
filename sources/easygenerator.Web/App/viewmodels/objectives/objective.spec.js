@@ -1347,6 +1347,13 @@
                             viewModel.isReorderingQuestions(true);
                         });
 
+                        it('should set isQuestionsListReorderedByCollaborator to true', function () {
+                            viewModel.isQuestionsListReorderedByCollaborator(false);
+                            viewModel.questionsReordered(objective);
+
+                            expect(viewModel.isQuestionsListReorderedByCollaborator()).toBeTruthy();
+                        });
+
                         it('should not update order of questions', function () {
                             viewModel.questionsReordered(objective);
 

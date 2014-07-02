@@ -291,6 +291,7 @@
 
         function questionsReordered(objective) {
             if (viewModel.objectiveId != objective.id || viewModel.isReorderingQuestions()) {
+                viewModel.isQuestionsListReorderedByCollaborator(true);
                 return;
             }
 
