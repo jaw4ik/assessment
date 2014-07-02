@@ -1313,10 +1313,10 @@
     
     /* Resource section for model InviteCollaboratorFromDisplayName */
     collaborationStarterWarning: {
-        en: 'This course takes you over your (3) collaborators limit. It is time to upgrade. Let‘s do it!'
+        en: 'You have exceeded the maximum of 3 collaborators in this course. Therefore collaboration is frozen for now. You need to upgrade to the Plus edition if you want to collaborate with more people.'
     },
     collaborationFreeWarning: {
-        en: 'This course takes you over your (0) collaborators limit. It is time to upgrade. Let‘s do it!'
+        en: 'Collaboration is not available in the Free edition and is frozen for now. You need to upgrade to the Starter edition to start collaborating.'
     }
     /* End resource section for model InviteCollaboratorFromDisplayName */
            
