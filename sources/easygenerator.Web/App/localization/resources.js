@@ -115,6 +115,15 @@
     browseImage: {
         en: 'Browse image'
     },
+    imageSizeIsTooLarge: {
+        en: 'Image file should not be larger than 10 MB. Please reduce the size or use another image'
+    },
+    imageUploadError: {
+        en: 'Something went wrong while trying to upload the image. Please try again'
+    },
+    imageIsNotSupported: {
+        en: 'This file is not supported. Please use .jpg, .jpeg, .png, .gif or .bmp'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */

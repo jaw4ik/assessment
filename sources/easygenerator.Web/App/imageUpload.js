@@ -1,4 +1,4 @@
-﻿define(['uiLocker'], function (uiLocker) {
+﻿define(['uiLocker', 'notify', 'localization/localizationManager'], function (uiLocker, notify, localizationManager) {
 
     return {
         upload: function (options) {
@@ -18,35 +18,54 @@
                       .insertAfter("body");
 
             var input = $("<input>")
-               .attr('accept', 'image/*')
+               //.attr('accept', 'image/jpeg, image/gif, image/png, image/bmp')
                .attr('type', 'file')
                .attr('name', 'file')
                .on('change', function () {
-                   $(this).closest('form').ajaxSubmit({
-                       beforeSubmit: function () {
-                           //settings.beginUpload();
-                           uiLocker.lock();
-                       },
-                       success: function (response) {
-                           try {
-                               var obj = JSON.parse(response);
-                               if (obj && obj.data && obj.data.url) {
-                                   settings.success(obj.data.url);
-                               } else {
+                   if ($(this).val().match(/\.(jpg|jpeg|png|gif|bmp)$/)) {
+                       $(this).closest('form').ajaxSubmit({
+                           global: false,
+                           beforeSubmit: function () {
+                               uiLocker.lock();
+                           },
+                           success: function (response) {
+                               try {
+                                   var obj = JSON.parse(response);
+                                   if (obj && obj.data && obj.data.url) {
+                                       settings.success(obj.data.url);
+                                   } else {
+                                       settings.error();
+                                   }
+                               } catch (e) {
                                    settings.error();
                                }
-                           } catch (e) {
+                               form.remove();
+                               uiLocker.unlock();
+                           },
+                           error: function (event) {
+                               var resourceKey = "responseFailed";
+
+                               if (event && event.status) {
+                                   switch (event.status) {
+                                       case 400:
+                                           resourceKey = "imageUploadError";
+                                           break;
+                                       case 413:
+                                           resourceKey = "imageSizeIsTooLarge";
+                                           break;
+                                   }
+                               }
+
+                               notify.error(localizationManager.localize(resourceKey));
+
                                settings.error();
+                               form.remove();
+                               uiLocker.unlock();
                            }
-                           form.remove();
-                           uiLocker.unlock();
-                       },
-                       error: function () {
-                           settings.error();
-                           form.remove();
-                           uiLocker.unlock();
-                       }
-                   });
+                       });
+                   } else {
+                       notify.error(localizationManager.localize('imageIsNotSupported'));
+                   }
                })
                .appendTo(form);
 
