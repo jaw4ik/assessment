@@ -163,7 +163,7 @@ app.signupModel = function () {
         $.when(app.trackEvent(app.constants.events.signupFirstStep, { username: data.email }), app.trackPageview(app.constants.pageviewUrls.signupFirstStep))
             .done(function () {
                 var href = app.getLocationHref();
-                app.assingLocation(href.slice(0, href.lastIndexOf('/')) + '/signupsecondstep');
+                app.assingLocation(href.replace(/signup/, 'signupsecondstep'));
                 viewModel.isSignupRequestPending(false);
             });
     }
