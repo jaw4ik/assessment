@@ -37,7 +37,7 @@
                 previousText: '',
                 init: function (text) {
                     feedbackObject.text(text || '');
-                    feedbackObject.previousText = text;
+                    feedbackObject.previousText = text || '';
                 },
                 hasFocus: ko.observable(false),
                 updateText: function () {
