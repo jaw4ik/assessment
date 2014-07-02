@@ -54,6 +54,11 @@
         function removeLearningContent(learningContent) {
             eventTracker.publish(events.deleteLearningContent);
 
+            if (!_.isNullOrUndefined(learningContent.isDeleted) && learningContent.isDeleted) {
+                viewModel.learningContents.remove(learningContent);
+                return;
+            }
+
             performActionWhenLearningContentIdIsSet(learningContent, function () {
                 viewModel.learningContents.remove(learningContent);
                 repository.removeLearningContent(viewModel.questionId, ko.unwrap(learningContent.id)).then(function (response) {
@@ -91,7 +96,7 @@
             var id = ko.unwrap(learningContent.id);
             var text = ko.unwrap(learningContent.text);
 
-            if (_.isEmptyHtmlText(text)) {
+            if (_.isEmptyHtmlText(text) || ((!_.isNullOrUndefined(learningContent.isDeleted) && learningContent.isDeleted))) {
                 return;
             }
 

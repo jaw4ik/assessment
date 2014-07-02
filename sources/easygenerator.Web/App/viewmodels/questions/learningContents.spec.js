@@ -72,6 +72,15 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Delete learning content');
             });
 
+            describe('when learningContent has been deleted by collaborator', function () {
+                it('should be removed from learningContents list', function () {
+                    learningContent.isDeleted = true;
+                    viewModel.learningContents([learningContent]);
+                    viewModel.removeLearningContent(learningContent);
+                    expect(viewModel.learningContents().length).toBe(0);
+                });
+            });
+
             describe('when learning content id is set', function () {
                 beforeEach(function () {
                     learningContent.id('id');
