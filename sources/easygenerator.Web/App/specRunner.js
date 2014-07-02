@@ -122,7 +122,7 @@
             'viewmodels/common/contentField.spec',
             'viewmodels/courses/createCourse.spec',
             'viewmodels/courses/courses.spec',
-            //'viewmodels/courses/course.spec',
+            'viewmodels/courses/course.spec',
             'viewmodels/courses/design.spec',
             'viewmodels/courses/publish.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',

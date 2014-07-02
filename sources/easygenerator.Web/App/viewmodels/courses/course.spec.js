@@ -879,6 +879,14 @@
 
             beforeEach(function () {
                 getById = Q.defer();
+
+                userContext.identity = {
+                    email: 'test@test.com',
+                    subscription: {
+                         accessType: 0
+                    }
+                }
+
                 spyOn(repository, 'getById').and.returnValue(getById.promise);
                 spyOn(localizationManager, 'localize').and.returnValue('text');
             });
@@ -1797,18 +1805,18 @@
             });
         });
 
-        describe('collaborators:', function() {
-            it('should be defined', function() {
+        describe('collaborators:', function () {
+            it('should be defined', function () {
                 expect(viewModel.collaborators).toBeDefined();
             });
         });
 
-        describe('deactivate:', function() {
-            it('should be a function', function() {
+        describe('deactivate:', function () {
+            it('should be a function', function () {
                 expect(viewModel.deactivate).toBeFunction();
             });
 
-            it('should call collaborators deactivate', function() {
+            it('should call collaborators deactivate', function () {
                 spyOn(viewModel.collaborators, 'deactivate');
 
                 viewModel.deactivate();
