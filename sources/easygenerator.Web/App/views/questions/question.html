@@ -54,7 +54,7 @@
                 <div class="question-content-items-list" data-bind="visible: isExpanded">
                     <div class="question-content-item" data-bind="css: { active: hasFocus }">
                         <div class="question-content-wrapper">
-                            <div class="question-content selectable" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $parent.localizationManager }">
+                            <div class="question-content selectable clearfix" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $parent.localizationManager }">
                             </div>
                         </div>
                     </div>
