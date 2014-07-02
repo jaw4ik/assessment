@@ -67,7 +67,6 @@ COLOR A
 GOTO END
 
 :ERROR
-COLOR C
 ECHO    ------------------------------- ERROR !!!!! -------------------------------
 RMDIR  /S /Q "%DeploymentDirectory%"
 EXIT /B 3

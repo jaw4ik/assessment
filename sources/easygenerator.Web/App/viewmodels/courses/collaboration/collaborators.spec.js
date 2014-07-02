@@ -257,18 +257,6 @@
 
                 });
 
-                it('should subscribe to collaboratorAdded event', function () {
-                    var promise = getCollaborators.promise.finally(function () { });
-                    getCollaborators.resolve(collaborators);
-
-                    viewModel.activate({ courseId: courseId, courseOwner: courseOwner });
-
-                    promise.fin(function () {
-                        expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded + viewModel.courseId, viewModel.collaboratorAdded);
-                        done();
-                    });
-                });
-
             });
 
         });
