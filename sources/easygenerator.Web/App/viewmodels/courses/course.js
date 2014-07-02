@@ -501,14 +501,12 @@
         }
 
         function updateCollaborationWarning() {
-            if (userContext.identity.subscription.accessType === constants.accessType.free) {
+            if (userContext.identity.subscription.accessType === constants.accessType.free &&
+                viewModel.collaborators.members().length > 1) {
                 viewModel.collaborationWarning(localizationManager.localize('collaborationFreeWarning'));
-            } else if (userContext.identity.subscription.accessType === constants.accessType.starter) {
-                if (viewModel.collaborators.members().length > constants.maxStarterPlanCollaborators + 1) {
-                    viewModel.collaborationWarning(localizationManager.localize('collaborationStarterWarning'));
-                } else {
-                    viewModel.collaborationWarning('');
-                }
+            } else if (userContext.identity.subscription.accessType === constants.accessType.starter &&
+                viewModel.collaborators.members().length > constants.maxStarterPlanCollaborators + 1) {
+                viewModel.collaborationWarning(localizationManager.localize('collaborationStarterWarning'));
             } else {
                 viewModel.collaborationWarning('');
             }
