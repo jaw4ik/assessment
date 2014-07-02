@@ -1,8 +1,12 @@
 ﻿<section class="course define view-module">
     <!-- ko if: collaborationWarning().length > 0 -->
     <div class="course-collaboration-warning unselectable">
-        <span class="course-collaborator-warning-text" data-bind="text: collaborationWarning"></span>
-        <a class="course-collaborator-warning-button" href="/account/upgrade" target="_blank" data-bind="localize: { text: 'upgradeNow' }">Upgrade now</a>
+        <div class="content-section-wrapper">
+            <div class="content-section">
+                <p class="course-collaborator-warning-text" data-bind="text: collaborationWarning"></p>
+                <a class="course-collaborator-warning-button" href="/account/upgrade" target="_blank" data-bind="localize: { text: 'upgradeNow' }">Upgrade now</a>
+            </div>
+        </div>
     </div>
     <!-- /ko -->
 

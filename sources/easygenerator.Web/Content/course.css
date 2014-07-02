@@ -1115,32 +1115,34 @@
 /*#region COLLABORATION WARNING*/
 
 .course-collaboration-warning {
-    display: inline-block;
-    vertical-align: top;
-    height: 40px;
+    min-height: 40px;
     width: 100%;
-    padding-top: 5px;
+    padding: 14px 0 14px;
     background-color: #ebf6fb;
     text-align: center;
 }
 
 .course-collaborator-warning-text {
-    color: #525252;
+    line-height: 22px;
+    padding: 0 7px;
+    color: #555;
+    font-family: 'OpenSans-Semibold', sans-serif;
     font-size: 12px;
     cursor: default;
 }
 
 .course-collaborator-warning-button {
     display: inline-block;
+    vertical-align: top;
+    line-height: 1;
+    padding: 8px 10px 8px 9px;
+    margin-top: 7px;
+    border: 2px solid #61b472;
+    border-radius: 3px;
+    color: #61b472;
     font-size: 12px;
     font-family: 'OpenSans-Semibold';
-    color: #559f64;
-    border: 1px solid #559f64;
-    height: 30px;
-    line-height: 30px;
-    width: 100px;
-    margin-left: 14px;
-    border-radius: 3px;
+    text-transform: uppercase;
 }
 
 /*#endregion COLLABORATION WARNING*/
