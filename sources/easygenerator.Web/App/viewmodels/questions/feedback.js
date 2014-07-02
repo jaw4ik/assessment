@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'eventTracker', 'localization/localizationManager', 'constants', 'repositories/questionRepository'],
-    function (app, eventTracker, localizationManager, constants, repository) {
+﻿define(['durandal/app', 'eventTracker', 'localization/localizationManager', 'constants', 'notify', 'repositories/questionRepository'],
+    function (app, eventTracker, localizationManager, constants, notify, repository) {
         "use strict";
 
         var events = {
@@ -73,7 +73,9 @@
 
         function updateCorrectFeedbackText() {
             eventTracker.publish(events.correctFeedbackUpdated);
-            repository.updateCorrectFeedback(viewModel.questionId, viewModel.correctFeedback.text());
+            repository.updateCorrectFeedback(viewModel.questionId, viewModel.correctFeedback.text()).then(function() {
+                notify.saved();
+            });
         }
 
         function incorrectFeedbackUpdatedByCollaborator(question, feedbackText) {
@@ -86,7 +88,9 @@
 
         function updateIncorrectFeedbackText() {
             eventTracker.publish(events.incorrectFeedbackUpdated);
-            repository.updateIncorrectFeedback(viewModel.questionId, viewModel.incorrectFeedback.text());
+            repository.updateIncorrectFeedback(viewModel.questionId, viewModel.incorrectFeedback.text()).then(function() {
+                notify.saved();
+            });
         }
 
         function toggleExpand() {
@@ -98,7 +102,7 @@
                 viewModel.isExpanded(true);
                 viewModel.questionId = questionId;
 
-                return repository.getQuestionFeedback(questionId).then(function(feedback) {
+                return repository.getQuestionFeedback(questionId).then(function (feedback) {
                     viewModel.correctFeedback.init(feedback.correctFeedbackText);
                     viewModel.incorrectFeedback.init(feedback.incorrectFeedbackText);
                 });

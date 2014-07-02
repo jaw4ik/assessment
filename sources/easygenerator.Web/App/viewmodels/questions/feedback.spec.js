@@ -4,7 +4,8 @@
     var
         constants = require('constants'),
         eventTracker = require('eventTracker'),
-        repository = require('repositories/questionRepository');
+        repository = require('repositories/questionRepository'),
+        notify = require('notify');
 
     describe('viewModel [feedback]', function () {
 
@@ -138,9 +139,12 @@
                     expect(viewModel.correctFeedback.updateText).toBeFunction();
                 });
 
+                var updateCorrectFeedbackDefer;
                 beforeEach(function () {
                     spyOn(eventTracker, 'publish');
-                    spyOn(repository, 'updateCorrectFeedback').and.callFake(function () { });
+                    updateCorrectFeedbackDefer = Q.defer();
+                    spyOn(repository, 'updateCorrectFeedback').and.returnValue(updateCorrectFeedbackDefer.promise);
+                    updateCorrectFeedbackDefer.resolve();
                 });
 
                 describe('when text equal previousText', function () {
@@ -183,11 +187,6 @@
 
                     });
 
-                    it('should update feedback', function () {
-                        viewModel.correctFeedback.updateText();
-                        expect(repository.updateCorrectFeedback).toHaveBeenCalledWith(viewModel.questionId, viewModel.correctFeedback.text());
-                    });
-
                     it('should send event \'Update feedback content (correct answer)\'', function () {
                         viewModel.correctFeedback.updateText();
                         expect(eventTracker.publish).toHaveBeenCalledWith('Update feedback content (correct answer)');
@@ -196,6 +195,24 @@
                     it('should set previousText equal to text', function () {
                         viewModel.correctFeedback.updateText();
                         expect(viewModel.correctFeedback.previousText).toBe(viewModel.correctFeedback.text());
+                    });
+
+                    it('should update feedback', function () {
+                        viewModel.correctFeedback.updateText();
+                        expect(repository.updateCorrectFeedback).toHaveBeenCalledWith(viewModel.questionId, viewModel.correctFeedback.text());
+                    });
+
+                    describe('and when feedback updated', function () {
+
+                        it('should notify user', function (done) {
+                            spyOn(notify, 'saved');
+                            viewModel.correctFeedback.updateText();
+                            updateCorrectFeedbackDefer.promise.fin(function () {
+                                expect(notify.saved).toHaveBeenCalled();
+                                done();
+                            });
+                        });
+
                     });
 
                 });
@@ -284,9 +301,12 @@
                     expect(viewModel.incorrectFeedback.updateText).toBeFunction();
                 });
 
+                var updateIncorrectFeedbackDefer;
                 beforeEach(function () {
                     spyOn(eventTracker, 'publish');
-                    spyOn(repository, 'updateIncorrectFeedback').and.callFake(function () { });
+                    updateIncorrectFeedbackDefer = Q.defer();
+                    spyOn(repository, 'updateIncorrectFeedback').and.returnValue(updateIncorrectFeedbackDefer.promise);
+                    updateIncorrectFeedbackDefer.resolve();
                 });
 
                 describe('when text equal previousText', function () {
@@ -329,11 +349,6 @@
 
                     });
 
-                    it('should update feedback', function () {
-                        viewModel.incorrectFeedback.updateText();
-                        expect(repository.updateIncorrectFeedback).toHaveBeenCalledWith(viewModel.questionId, viewModel.incorrectFeedback.text());
-                    });
-
                     it('should send event \'Update feedback content (incorrect answer)\'', function () {
                         viewModel.incorrectFeedback.updateText();
                         expect(eventTracker.publish).toHaveBeenCalledWith('Update feedback content (incorrect answer)');
@@ -344,6 +359,24 @@
                         expect(viewModel.incorrectFeedback.previousText).toBe(viewModel.incorrectFeedback.text());
                     });
 
+                    it('should update feedback', function () {
+                        viewModel.incorrectFeedback.updateText();
+                        expect(repository.updateIncorrectFeedback).toHaveBeenCalledWith(viewModel.questionId, viewModel.incorrectFeedback.text());
+                    });
+
+                    describe('and when feedback updated', function () {
+
+                        it('should notify user', function (done) {
+                            spyOn(notify, 'saved');
+                            viewModel.incorrectFeedback.updateText();
+                            updateIncorrectFeedbackDefer.promise.fin(function () {
+                                expect(notify.saved).toHaveBeenCalled();
+                                done();
+                            });
+                        });
+
+                    });
+
                 });
 
             });
@@ -352,7 +385,7 @@
 
         describe('correctFeedbackUpdatedByCollaborator:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.correctFeedbackUpdatedByCollaborator).toBeFunction();
             });
 
@@ -360,13 +393,13 @@
             var question = { id: null };
             var feedbackText = 'correct feedback text';
 
-            describe('when it is not current question', function() {
+            describe('when it is not current question', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     question.id = 'another id';
                 });
 
-                it('should not update correctFeedback text', function() {
+                it('should not update correctFeedback text', function () {
                     viewModel.correctFeedback.text('');
 
                     viewModel.correctFeedbackUpdatedByCollaborator(question, feedbackText);
@@ -376,13 +409,13 @@
 
             });
 
-            describe('when it is current question', function() {
+            describe('when it is current question', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     question.id = viewModel.questionId;
                 });
 
-                it('should update correctFeedback text', function() {
+                it('should update correctFeedback text', function () {
                     viewModel.correctFeedback.text('');
 
                     viewModel.correctFeedbackUpdatedByCollaborator(question, feedbackText);
@@ -482,7 +515,7 @@
                 });
             });
 
-            describe('and when question feedback received', function() {
+            describe('and when question feedback received', function () {
 
                 it('should init correct feedback', function (done) {
                     spyOn(viewModel.correctFeedback, 'init');
