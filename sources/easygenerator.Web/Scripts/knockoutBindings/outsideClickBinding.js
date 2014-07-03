@@ -3,8 +3,14 @@
         var $element = $(element),
             action = valueAccessor().action;
 
-        $('html').click(function () {
+        var clickHandler = function() {
+            console.log("called clearSelection");
             action();
+        };
+        $('html').bind('click', clickHandler);
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+            $('html').unbind('click', clickHandler);
         });
 
         $element.on('click', function (evt) {
