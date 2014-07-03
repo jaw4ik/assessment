@@ -1041,6 +1041,7 @@
     padding: 13px 10px;
     background: rgba(255, 255, 255, 0.01);
     overflow: hidden;
+    word-wrap: break-word;
     z-index: 1;
 }
 
