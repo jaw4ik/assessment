@@ -363,6 +363,8 @@
                     return repository.updateIntroductionContent(course.id, content);
                 });
 
+                viewModel.updateCollaborationWarning();
+
             }).fail(function (reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
                 throw reason;
@@ -489,6 +491,11 @@
         }
 
         function updateCollaborationWarning() {
+            if (userContext.identity.email !== viewModel.createdBy) {
+                viewModel.collaborationWarning('');
+                return;
+            }
+
             if (userContext.identity.subscription.accessType === constants.accessType.free &&
                 viewModel.collaborators.members().length > 1) {
                 viewModel.collaborationWarning(localizationManager.localize('collaborationFreeWarning'));

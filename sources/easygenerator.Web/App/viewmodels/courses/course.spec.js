@@ -1201,14 +1201,14 @@
         describe('objectiveDisconnected:', function () {
 
             var objectiveId = 'id',
-                objective = { id: objectiveId, isSelected:ko.observable(false) };
+                objective = { id: objectiveId, isSelected: ko.observable(false) };
 
             it('should be function', function () {
                 expect(viewModel.objectiveDisconnected).toBeFunction();
             });
 
             describe('when objective is created by current user', function () {
-                beforeEach(function() {
+                beforeEach(function () {
                     objective.createdBy = identity.email;
                     viewModel.availableObjectives([objective]);
                 });
@@ -1856,6 +1856,137 @@
                 viewModel.deactivate();
 
                 expect(viewModel.collaborators.deactivate).toHaveBeenCalled();
+            });
+        });
+
+        describe('updateCollaborationWarning:', function () {
+            it('should be function', function () {
+                expect(viewModel.updateCollaborationWarning).toBeFunction();
+            });
+
+            describe('when user is not course owner', function () {
+                beforeEach(function () {
+                    viewModel.createdBy = 'some@user.com';
+                });
+
+                it('should clear collaboration warning message', function () {
+                    viewModel.collaborationWarning('error');
+                    viewModel.updateCollaborationWarning();
+
+                    expect(viewModel.collaborationWarning()).toBe('');
+                });
+            });
+
+            describe('when user is course owner', function () {
+                beforeEach(function () {
+                    viewModel.createdBy = identity.email;
+                });
+
+                describe('and has free access type', function () {
+                    var message = 'message';
+                    beforeEach(function () {
+                        spyOn(localizationManager, 'localize').and.returnValue(message);
+                        userContext.identity.subscription = {
+                            accessType: constants.accessType.free
+                        };
+                    });
+
+                    describe('and collaborators count more than 1', function () {
+                        beforeEach(function () {
+                            viewModel.collaborators = {
+                                members: ko.observableArray()
+                            };
+
+                            viewModel.collaborators.members.push({});
+                            viewModel.collaborators.members.push({});
+                        });
+
+                        it('should set collaboration warning message', function () {
+                            viewModel.collaborationWarning('');
+                            viewModel.updateCollaborationWarning();
+
+                            expect(viewModel.collaborationWarning()).toBe(message);
+                        });
+                    });
+
+                    describe('and collaborators count is less than 2', function () {
+                        beforeEach(function () {
+                            viewModel.collaborators = {
+                                members: ko.observableArray()
+                            };
+
+                            viewModel.collaborators.members.push({});
+                        });
+
+                        it('should clear collaboration warning message', function () {
+                            viewModel.collaborationWarning('error');
+                            viewModel.updateCollaborationWarning();
+
+                            expect(viewModel.collaborationWarning()).toBe('');
+                        });
+                    });
+                });
+
+                describe('and has starter access type', function () {
+                    var message = 'message';
+                    beforeEach(function () {
+                        spyOn(localizationManager, 'localize').and.returnValue(message);
+                        userContext.identity.subscription = {
+                            accessType: constants.accessType.starter
+                        };
+                    });
+
+                    describe('and collaborators count more than max', function () {
+                        beforeEach(function () {
+                            viewModel.collaborators = {
+                                members: ko.observableArray()
+                            };
+
+                            for (var i = 0; i < constants.maxStarterPlanCollaborators + 2; i++) {
+                                viewModel.collaborators.members.push({});
+                            }
+                        });
+
+                        it('should set collaboration warning message', function () {
+                            viewModel.collaborationWarning('');
+                            viewModel.updateCollaborationWarning();
+
+                            expect(viewModel.collaborationWarning()).toBe(message);
+                        });
+                    });
+
+                    describe('and collaborators count is less than max', function () {
+                        beforeEach(function () {
+                            viewModel.collaborators = {
+                                members: ko.observableArray()
+                            };
+                        });
+
+                        it('should clear collaboration warning message', function () {
+                            viewModel.collaborationWarning('error');
+                            viewModel.updateCollaborationWarning();
+
+                            expect(viewModel.collaborationWarning()).toBe('');
+                        });
+                    });
+                });
+
+                describe('and has plus access type', function () {
+                    var message = 'message';
+                    beforeEach(function () {
+                        spyOn(localizationManager, 'localize').and.returnValue(message);
+                        userContext.identity.subscription = {
+                            accessType: constants.accessType.plus
+                        };
+                    });
+
+                    it('should clear collaboration warning message', function () {
+                        viewModel.collaborationWarning('error');
+                        viewModel.updateCollaborationWarning();
+
+                        expect(viewModel.collaborationWarning()).toBe('');
+                    });
+                });
             });
         });
     });
