@@ -4,6 +4,7 @@
             activeClass = 'active';
 
         $element.on('blur', function () {
+            $element.removeTextSelection();
             $element.removeClass(activeClass);
         });
 

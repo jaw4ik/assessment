@@ -28,7 +28,7 @@
                     </li>
                     <!-- /ko -->
                     <!-- ko foreach: answers -->
-                    <li class="answer-option-item" data-bind="click: $parent.selectAnswer.bind($parent, $data), outsideClick: { action: $parent.clearSelection }">
+                    <li class="answer-option-item" data-bind="click: $parent.selectAnswer.bind($parent, $data)">
                         <div class="answer-options-list-item">
                             <div class="question-answer-value-wrapper">
                                 <div class="question-answer-radio question-answer-value info-tooltip-holder" data-bind="click: $parent.toggleCorrectness, css: { 'correct' : isCorrect }">
@@ -49,7 +49,7 @@
                             </div>
                             <div class="question-answer-text-wrapper" data-bind="click: $parent.selectAnswer.bind($parent, $data), css: { active: $data == $parent.selectedAnswer() }">
                                 <div class="question-answer-text">
-                                    <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateText } }, event: { focus: $parent.beginEditText, blur: function (data, event) { $parent.endEditText(data, event) } }, hasFocus: hasFocus, selectTextInAnswer: {}">
+                                    <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateText } }, event: { focus: $parent.beginEditText, blur: function (data, event) { $parent.endEditText(data, event); $parent.clearSelection(data); } }, hasFocus: hasFocus, selectTextInAnswer: {}">
                                     </div>
                                 </div>
                             </div>
