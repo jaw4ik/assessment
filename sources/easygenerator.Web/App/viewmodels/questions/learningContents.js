@@ -201,10 +201,7 @@
                 viewModel.learningContents([]);
                 viewModel.isExpanded(true);
 
-                var sortedLearningContents = _.sortBy(learningContentsList, function (item) {
-                    return item.createdOn;
-                });
-                _.each(sortedLearningContents, doAddLearningContent);
+                _.each(learningContentsList, doAddLearningContent);
             });
         }
     

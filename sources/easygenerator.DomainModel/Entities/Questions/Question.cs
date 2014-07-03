@@ -31,7 +31,7 @@ namespace easygenerator.DomainModel.Entities.Questions
 
         public IEnumerable<LearningContent> LearningContents
         {
-            get { return LearningContentsCollection.AsEnumerable(); }
+            get { return LearningContentsCollection.OrderBy(item => item.CreatedOn).AsEnumerable(); }
         }
 
         public Feedback Feedback { get; private set; }
@@ -94,5 +94,5 @@ namespace easygenerator.DomainModel.Entities.Questions
         {
             ArgumentValidation.ThrowIfNull(learningContent, "explanation");
         }
-    }    
+    }
 }
