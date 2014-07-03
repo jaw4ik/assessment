@@ -22,7 +22,7 @@
                .attr('type', 'file')
                .attr('name', 'file')
                .on('change', function () {
-                   if ($(this).val().match(/\.(jpg|jpeg|png|gif|bmp)$/)) {
+                   if ($(this).val().toLowerCase().match(/\.(jpg|jpeg|png|gif|bmp)$/)) {
                        $(this).closest('form').ajaxSubmit({
                            global: false,
                            beforeSubmit: function () {
