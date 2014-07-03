@@ -9,7 +9,7 @@
         hotkey: CKEDITOR.CTRL + 81 /*Q*/, 
         fillInTheBlankDialogName: 'fillInTheBlankDialog',
         dataTag: 'input',
-        spaceSymbol: '&zwnj;',
+        spaceSymbol: '\u00a0',
         classNames: {
             blankInput: 'blankInput',
             blankField: 'blankField',
@@ -42,6 +42,7 @@
 
             editor.widgets.add(plugin.commands.addBlank, {
                 draggable: false,
+                mask: true,
                 defaults: function () {
                     var selectedContent = '';
                     var selection = editor.getSelection();
@@ -71,19 +72,16 @@
 
                         var blankFieldElement = new CKEDITOR.htmlParser.element(widgetTag, {
                             'data-group-id': groupId,
-                            'class': classNames.blankField,
-                            'contenteditable': "false"
+                            'class': classNames.blankField
                         });
 
                         var blankValueElement = new CKEDITOR.htmlParser.element(widgetTag, {
-                            'class': classNames.blankValue,
-                            'contenteditable': "false"
+                            'class': classNames.blankValue
                         });
                         blankFieldElement.add(blankValueElement);
 
                         var closeElement = new CKEDITOR.htmlParser.element(widgetTag, {
-                            'class': classNames.close,
-                            'contenteditable': "false"
+                            'class': classNames.close
                         });
                         closeElement.add(new CKEDITOR.htmlParser.text(plugin.spaceSymbol));
 
@@ -124,10 +122,14 @@
                     };
 
                     addCloseButtonEventHandler(widget);
-
                     widget.on('ready', function () {
                         if (widget.element.hasClass(plugin.classNames.newBlank)) {
                             clearFormating(widget.element);
+
+                        }
+                        var nextSibling = widget.wrapper.$.nextSibling;
+                        if (nextSibling == null || (nextSibling.nodeType == 3 && nextSibling.data == '' )) {
+                            $(widget.wrapper.$).after('\u00a0');
                         }
                     });
 
