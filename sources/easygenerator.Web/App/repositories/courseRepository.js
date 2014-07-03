@@ -108,14 +108,14 @@
         }
 
 
-        function relateObjective(courseId, objective, targetIndex) {
+        function relateObjective(courseId, objectiveId, targetIndex) {
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id is not valid');
-                guard.throwIfNotAnObject(objective, 'Objective is not an object');
+                guard.throwIfNotString(objectiveId, 'Objective id is not valid');
 
                 var requestArgs = {
                     courseId: courseId,
-                    objectiveId: objective.id,
+                    objectiveId: objectiveId,
                     index: targetIndex
                 };
 
@@ -126,8 +126,12 @@
                     var course = _.find(dataContext.courses, function (exp) {
                         return exp.id == courseId;
                     });
-
                     guard.throwIfNotAnObject(course, "Course doesn`t exist");
+
+                    var objective = _.find(dataContext.objectives, function (item) {
+                        return item.id == objectiveId;
+                    });
+                    guard.throwIfNotAnObject(objective, "Objective doesn`t exist");
 
                     course.modifiedOn = new Date(response.ModifiedOn);
 

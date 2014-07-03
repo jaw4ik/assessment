@@ -1312,7 +1312,7 @@
                     expect(repository.relateObjective).toHaveBeenCalled();
 
                     expect(repository.relateObjective.calls.mostRecent().args[0]).toEqual(viewModel.id);
-                    expect(repository.relateObjective.calls.mostRecent().args[1].id).toEqual(objective.id);
+                    expect(repository.relateObjective.calls.mostRecent().args[1]).toEqual(objective.id);
                     expect(repository.relateObjective.calls.mostRecent().args[2]).toEqual(5);
                 });
 

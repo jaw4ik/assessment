@@ -86,7 +86,7 @@
                     title('');
                     if (_.isString(that.contextCourseId)) {
                         return objectiveRepository.getById(createdObjective.id).then(function (objective) {
-                            return courseRepository.relateObjective(that.contextCourseId, objective).then(function () {
+                            return courseRepository.relateObjective(that.contextCourseId, objective.id).then(function () {
                                 navigateToObjectiveEditor.call(that, createdObjective);
                             });
                         });

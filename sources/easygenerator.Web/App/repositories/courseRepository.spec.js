@@ -651,39 +651,39 @@
 
             });
 
-            describe('when objective is undefined', function () {
+            describe('when objective id is undefined', function () {
 
                 it('should reject promise', function (done) {
                     var promise = repository.relateObjective('asdasdasd', undefined);
 
                     promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Objective is not an object');
+                        expect(promise).toBeRejectedWith('Objective id is not valid');
                         done();
                     });
                 });
 
             });
 
-            describe('when objective is null', function () {
+            describe('when objective id is null', function () {
 
                 it('should reject promise', function (done) {
                     var promise = repository.relateObjective('asdasdasd', null);
 
                     promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Objective is not an object');
+                        expect(promise).toBeRejectedWith('Objective id is not valid');
                         done();
                     });
                 });
 
             });
 
-            describe('when objective is not an object', function () {
+            describe('when objective id is not a string', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.relateObjective('asdasdasd', 'hello');
+                    var promise = repository.relateObjective('asdasdasd', []);
 
                     promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Objective is not an object');
+                        expect(promise).toBeRejectedWith('Objective id is not valid');
                         done();
                     });
                 });
@@ -693,10 +693,9 @@
             it('should send request to \'api/course/relateObjective\'', function (done) {
                 var
                     courseId = 'adsasdasd',
-                    objective = { id: 'obj1' },
                     objectiveId = 'obj1';
 
-                var promise = repository.relateObjective(courseId, objective, 5);
+                var promise = repository.relateObjective(courseId, objectiveId, 5);
 
                 promise.fin(function () {
                     expect(httpWrapper.post).toHaveBeenCalledWith('api/course/relateObjective', { courseId: courseId, objectiveId: objectiveId, index: 5 });
@@ -713,9 +712,9 @@
                     it('should reject promise', function (done) {
                         var
                             courseId = 'adsasdasd',
-                            objective = { id: 'obj1' };
+                            objectiveId = 'obj1';
 
-                        var promise = repository.relateObjective(courseId, objective);
+                        var promise = repository.relateObjective(courseId, objectiveId);
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Response is not an object');
@@ -732,9 +731,9 @@
                     it('should reject promise', function (done) {
                         var
                             courseId = 'adsasdasd',
-                            objectives = [{ id: 'obj1' }, { id: 'obj2' }];
+                            objectiveId = 'obj1';
 
-                        var promise = repository.relateObjective(courseId, objectives);
+                        var promise = repository.relateObjective(courseId, objectiveId);
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Response does not have modification date');
@@ -751,11 +750,11 @@
                     it('should reject promise', function (done) {
                         var
                             courseId = 'adsasdasd',
-                            objective = { id: 'obj1' };
+                            objectiveId = 'obj1';
 
                         dataContext.courses = [];
 
-                        var promise = repository.relateObjective(courseId, objective);
+                        var promise = repository.relateObjective(courseId, objectiveId);
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Course doesn`t exist');
@@ -770,15 +769,16 @@
                 it('should add successfully related objectives to course in dataContext', function (done) {
                     var
                         courseId = 'adsasdasd',
-                        objective = { id: 'obj1' };
+                        objectiveId = 'obj1';
 
                     dataContext.courses = [{ id: courseId, objectives: [] }];
-
-                    var promise = repository.relateObjective(courseId, objective);
+                    dataContext.objectives = [{ id: objectiveId }];
+                    
+                    var promise = repository.relateObjective(courseId, objectiveId);
 
                     promise.fin(function () {
                         expect(dataContext.courses[0].objectives.length).toEqual(1);
-                        expect(dataContext.courses[0].objectives[0].id).toEqual(objective.id);
+                        expect(dataContext.courses[0].objectives[0].id).toEqual(objectiveId);
                         done();
                     });
 
@@ -788,18 +788,19 @@
                 it('should trigger course:objectiveRelated event', function (done) {
                     var
                         courseId = 'adsasdasd',
-                        objective = { id: 'obj1' };
+                        objectiveId = 'obj1';
 
                     dataContext.courses = [{ id: courseId, objectives: [] }];
+                    dataContext.objectives = [{ id: objectiveId }];
 
-                    var promise = repository.relateObjective(courseId, objective);
+                    var promise = repository.relateObjective(courseId, objectiveId);
 
                     promise.fin(function () {
                         expect(app.trigger).toHaveBeenCalled();
                         expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.objectiveRelated);
                         expect(app.trigger.calls.mostRecent().args[1]).toEqual(courseId);
                         expect(app.trigger.calls.mostRecent().args[2]).toBeObject();
-                        expect(app.trigger.calls.mostRecent().args[2].id).toEqual(objective.id);
+                        expect(app.trigger.calls.mostRecent().args[2].id).toEqual(objectiveId);
                         done();
                     });
 
@@ -809,12 +810,13 @@
                 it('should resolve promise with received data', function (done) {
                     var
                         courseId = 'adsasdasd',
-                        objective = { id: 'obj1' },
+                        objectiveId = 'obj1',
                         modifiedOnDate = new Date();
 
                     dataContext.courses = [{ id: courseId, objectives: [] }];
+                    dataContext.objectives = [{ id: objectiveId }];
 
-                    var promise = repository.relateObjective(courseId, objective);
+                    var promise = repository.relateObjective(courseId, objectiveId);
 
                     promise.fin(function () {
                         expect(promise.inspect().value.modifiedOn).toEqual(modifiedOnDate);

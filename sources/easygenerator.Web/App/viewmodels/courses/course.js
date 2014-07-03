@@ -266,21 +266,9 @@
             }
 
             eventTracker.publish(events.connectSelectedObjectivesToCourse);
-            repository.relateObjective(viewModel.id, mapObjective(objective.item), objective.targetIndex).then(function () {
+            repository.relateObjective(viewModel.id, objective.item.id, objective.targetIndex).then(function () {
                 notify.saved();
             });
-        }
-
-        function mapObjective(item) {
-            return {
-                id: item.id,
-                title: item.title(),
-                image: item.image,
-                questionsCount: item.questionsCount,
-                modifiedOn: item.modifiedOn(),
-                isSelected: item.isSelected()
-            };
-
         }
 
         function disconnectObjective(objective) {

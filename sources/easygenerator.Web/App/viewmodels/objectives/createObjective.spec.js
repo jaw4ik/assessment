@@ -182,7 +182,7 @@
                                 addObjective.resolve(objective);
 
                                 viewModel.createAndContinue().fin(function () {
-                                    expect(courseRepository.relateObjective).toHaveBeenCalledWith(viewModel.contextCourseId, objective);
+                                    expect(courseRepository.relateObjective).toHaveBeenCalledWith(viewModel.contextCourseId, objective.id);
                                     done();
                                 });
                             });
