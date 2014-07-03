@@ -5,6 +5,7 @@ namespace easygenerator.Web.Security.FeatureAvailability
     public interface IFeatureAvailabilityChecker
     {
         bool IsCourseCollaborationEnabled(Course course);
-        int GetCourseMaxAllowedCollaboratorsAmount(Course course);
+        bool CanAddCollaborator(Course course);
+        int GetMaxAllowedCollaboratorsAmount(Course course);
     }
 }

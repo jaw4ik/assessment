@@ -19,5 +19,26 @@ namespace easygenerator.Web.Tests.Utils
                 {"X-Requested-With", "XMLHttpRequest"}
             });
         }
+
+        public static void PutValueProvider(this ValueProviderFactoryCollection factories, IValueProvider valueProvider)
+        {
+            factories.Clear();
+            factories.Add(new ValueProviderFactoryStub(valueProvider));
+        }
+    }
+
+    public class ValueProviderFactoryStub : ValueProviderFactory
+    {
+        private readonly IValueProvider _valueProvider;
+
+        public ValueProviderFactoryStub(IValueProvider valueProvider)
+        {
+            _valueProvider = valueProvider;
+        }
+
+        public override IValueProvider GetValueProvider(ControllerContext controllerContext)
+        {
+            return _valueProvider;
+        }
     }
 }

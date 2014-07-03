@@ -33,7 +33,8 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
             }
 
             var user = UserRepository.GetUserByEmail(httpContext.User.Identity.Name);
-            if (!CheckAccess(authorizationContext, user))
+
+            if (user == null || !CheckAccess(authorizationContext, user))
             {
                 Reject(authorizationContext);
             }

@@ -131,6 +131,7 @@
     <Compile Include="BuildCourse\BuildPathProviderTests.cs" />
     <Compile Include="BuildCourse\BuildPackageCreatorTests.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorizeAttributeTests.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCoursesAmountAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttributeTest.cs" />
@@ -145,7 +146,7 @@
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\Api\Aim4YouControllerTests.cs" />
     <Compile Include="Controllers\Api\AnswerControllerTests.cs" />
-    <Compile Include="Controllers\Api\CourseCollaborationControllerTests.cs" />
+    <Compile Include="Controllers\Api\CollaborationControllerTests.cs" />
     <Compile Include="Controllers\Api\CommentControllerTests.cs" />
     <Compile Include="Controllers\Api\CourseControllerTests.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionControllerTests.cs">

@@ -208,6 +208,7 @@
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\DropspotMapper.cs" />
@@ -281,7 +282,7 @@
     <Compile Include="Configuration\ContainerConfiguration.cs" />
     <Compile Include="Configuration\FilterConfiguration.cs" />
     <Compile Include="Configuration\JsonFormatterConfiguration.cs" />
-    <Compile Include="Controllers\Api\CourseCollaborationController.cs" />
+    <Compile Include="Controllers\Api\CollaborationController.cs" />
     <Compile Include="Configuration\ModelBinderConfiguration.cs" />
     <Compile Include="Configuration\OwinConfiguration.cs" />
     <Compile Include="Configuration\RouteConfiguration.cs" />
@@ -368,7 +369,7 @@
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\ICollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\Proxies\UsersProxy.cs" />
     <Compile Include="Synchronization\Handlers\AnswerEventHandler.cs" />
-    <Compile Include="Synchronization\Handlers\UserCollaborationEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\CollaborationEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\DragAndDropEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />

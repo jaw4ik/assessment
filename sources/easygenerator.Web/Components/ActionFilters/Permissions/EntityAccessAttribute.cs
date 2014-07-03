@@ -23,9 +23,6 @@ namespace easygenerator.Web.Components.ActionFilters.Permissions
 
         protected override bool CheckAccess(AuthorizationContext authorizationContext, User user)
         {
-            if (user == null)
-                return false;
-
             var entityIdValueKey = EntityType.Name.ToLower() + "Id";
             var entityId = authorizationContext.Controller.ValueProvider.GetGuidValue(entityIdValueKey);
             if (!entityId.HasValue)

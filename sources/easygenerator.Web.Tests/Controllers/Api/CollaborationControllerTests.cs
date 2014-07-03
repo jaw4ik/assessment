@@ -21,12 +21,12 @@ using System.Web.Routing;
 namespace easygenerator.Web.Tests.Controllers.Api
 {
     [TestClass]
-    public class CourseCollaborationControllerTests
+    public class CollaborationControllerTests
     {
         private const string CreatedBy = "easygenerator@easygenerator.com";
         private const string UserEmail = "user@easygenerator.com";
 
-        private CourseCollaborationController _controller;
+        private CollaborationController _controller;
         private IUserRepository _userRepository;
         private IDomainEventPublisher _eventPublisher;
         private IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
@@ -52,7 +52,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
             _cloner = Substitute.For<ICloner>();
 
-            _controller = new CourseCollaborationController(_userRepository, _eventPublisher, _collaboratorEntityModelMapper, _mailSenderWrapper, _cloner);
+            _controller = new CollaborationController(_userRepository, _eventPublisher, _collaboratorEntityModelMapper, _mailSenderWrapper, _cloner);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
             DateTimeWrapper.Now = () => CurrentDate;
         }

@@ -5,6 +5,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Mail;
@@ -14,7 +15,7 @@ using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class CourseCollaborationController : DefaultController
+    public class CollaborationController : DefaultController
     {
         private readonly IUserRepository _userRepository;
         private readonly IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
@@ -22,7 +23,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly ICloner _cloner;
 
-        public CourseCollaborationController(IUserRepository userRepository, IDomainEventPublisher eventPublisher,
+        public CollaborationController(IUserRepository userRepository, IDomainEventPublisher eventPublisher,
             IEntityModelMapper<CourseCollaborator> collaboratorEntityModelMapper, IMailSenderWrapper mailSenderWrapper, ICloner cloner)
         {
             _userRepository = userRepository;
@@ -61,6 +62,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [LimitCollaboratorsAmount]
         [EntityOwner(typeof(Course))]
         [Route("api/course/collaborator/add")]
         public ActionResult AddCollaborator(Course course, string email)

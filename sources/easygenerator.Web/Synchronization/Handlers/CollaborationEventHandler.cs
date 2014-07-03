@@ -14,7 +14,7 @@ using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {
-    public class UserCollaborationEventHandler :
+    public class CollaborationEventHandler :
         IDomainEventHandler<CourseCollaboratorAddedEvent>,
         IDomainEventHandler<CourseCollaboratorRemovedEvent>,
         IDomainEventHandler<UserSignedUpEvent>,
@@ -28,7 +28,7 @@ namespace easygenerator.Web.Synchronization.Handlers
         private readonly IEntityMapper _entityMapper;
         private readonly IFeatureAvailabilityChecker _featureAvailabilityCheker;
 
-        public UserCollaborationEventHandler(IUserCollaborationBroadcaster userBroadcaster, ICourseRepository courseRepository, IEntityMapper entityMapper,
+        public CollaborationEventHandler(IUserCollaborationBroadcaster userBroadcaster, ICourseRepository courseRepository, IEntityMapper entityMapper,
             ICollaborationBroadcaster<Course> courseCollaborationBroadcaster, IFeatureAvailabilityChecker featureAvailabilityCheker)
         {
             _userBroadcaster = userBroadcaster;
@@ -46,22 +46,6 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(CourseCollaboratorAddedEvent args)
         {
-            var course = args.Collaborator.Course;
-            var isCollaboationEnabled = _featureAvailabilityCheker.IsCourseCollaborationEnabled(course);
-            var hasJustExceededMaxCollaborationsAmount = course.Collaborators.Count() == _featureAvailabilityCheker.GetCourseMaxAllowedCollaboratorsAmount(course) + 1;
-
-            if (!isCollaboationEnabled)
-            {
-                if (hasJustExceededMaxCollaborationsAmount)
-                {
-                    _courseCollaborationBroadcaster.AllCollaboratorsExcept(course, args.Collaborator.CreatedBy,
-                        args.Collaborator.Email)
-                        .courseCollaborationFinished(course.Id.ToNString());
-                }
-
-                return;
-            }
-
             _courseCollaborationBroadcaster.AllCollaboratorsExcept(args.Collaborator.Course, args.Collaborator.Email, args.Collaborator.CreatedBy)
                .courseCollaboratorAdded(
                    args.Collaborator.Course.Id.ToNString(),
@@ -71,28 +55,25 @@ namespace easygenerator.Web.Synchronization.Handlers
                  .courseCollaborationStarted(
                      _entityMapper.Map(args.Collaborator.Course),
                      args.Collaborator.Course.RelatedObjectives.Select(o => _entityMapper.Map(o)));
-
         }
 
 
         public void Handle(CourseCollaboratorRemovedEvent args)
         {
             var isCollaborationEnabled = _featureAvailabilityCheker.IsCourseCollaborationEnabled(args.Course);
-            var hasJustEnabledCollaboration = isCollaborationEnabled && args.Course.Collaborators.Count() == _featureAvailabilityCheker.GetCourseMaxAllowedCollaboratorsAmount(args.Course);
+            var hasJustEnabledCollaboration = isCollaborationEnabled && args.Course.Collaborators.Count() == _featureAvailabilityCheker.GetMaxAllowedCollaboratorsAmount(args.Course);
 
-            if (!isCollaborationEnabled)
-                return;
+            _courseCollaborationBroadcaster.AllCollaboratorsExcept(args.Course, args.Course.CreatedBy, args.Collaborator.Email)
+                .collaboratorRemoved(args.Course.Id.ToNString(), args.Collaborator.Email);
+
+            _courseCollaborationBroadcaster.User(args.Collaborator.Email)
+                .courseCollaborationFinished(args.Course.Id.ToNString());
 
             if (hasJustEnabledCollaboration)
             {
-                _courseCollaborationBroadcaster.AllCollaboratorsExcept(args.Course, args.Collaborator.CreatedBy)
+                _courseCollaborationBroadcaster.AllCollaboratorsExcept(args.Course, args.Collaborator.CreatedBy, args.Collaborator.Email)
                         .courseCollaborationStarted(_entityMapper.Map(args.Course), args.Course.RelatedObjectives.Select(o => _entityMapper.Map(o)));
             }
-
-            _courseCollaborationBroadcaster.AllCollaboratorsExcept(args.Course, args.Course.CreatedBy).collaboratorRemoved(args.Course.Id.ToNString(),
-                args.Collaborator.Email);
-
-            _courseCollaborationBroadcaster.User(args.Collaborator.Email).courseCollaborationFinished(args.Course.Id.ToNString());
         }
 
         public void Handle(UserDonwgraded args)
