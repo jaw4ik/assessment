@@ -69,7 +69,7 @@
                     </li>
                     <!-- /ko -->
                 </ul>
-                <div class="add-answer-option-wrapper">
+                <div class="add-answer-option-wrapper" data-bind="outsideClick: { action: clearSelection }">
                     <div class="add-answer-option-btn btn green" data-bind="click: addAnswer">
                         <span class="add-answer-option-text">Add answer option</span>
                     </div>
