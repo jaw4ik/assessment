@@ -11,7 +11,7 @@
             courseOwner: '',
             members: ko.observableArray([]),
             canAddMember: ko.observable(),
-            isCollaborationDisabled: ko.observable(true),
+            isCollaborationDisabled: ko.observable(false),
             addMemberDialog: addCollaboratorDialog,
 
             addMember: addMember,
@@ -19,16 +19,8 @@
             collaboratorRemoved: collaboratorRemoved,
             activate: activate,
             deactivate: deactivate,
-            updateCollaborationStatus: updateCollaborationStatus
+            updateCollaborationStatus: updateCollaborationStatus,
         };
-
-        app.on(constants.messages.user.downgraded, viewModel.updateCollaborationStatus);
-        app.on(constants.messages.user.upgradedToStarter, viewModel.updateCollaborationStatus);
-        app.on(constants.messages.user.upgradedToPlus, viewModel.updateCollaborationStatus);
-
-        viewModel.members.subscribe(function () {
-            viewModel.updateCollaborationStatus();
-        });
 
         return viewModel;
 
@@ -62,6 +54,16 @@
             viewModel.courseOwner = activationData.courseOwner;
             viewModel.canAddMember(userContext.identity.email === activationData.courseOwner);
 
+            if (viewModel.courseOwner === userContext.identity.email) {
+                app.on(constants.messages.user.downgraded, viewModel.updateCollaborationStatus);
+                app.on(constants.messages.user.upgradedToStarter, viewModel.updateCollaborationStatus);
+                app.on(constants.messages.user.upgradedToPlus, viewModel.updateCollaborationStatus);
+
+                viewModel.members.subscription = viewModel.members.subscribe(function () {
+                    viewModel.updateCollaborationStatus();
+                });
+            }
+
             return collaboratorRepository.getCollection(activationData.courseId)
                 .then(function (collaborators) {
                     var members = _.chain(collaborators)
@@ -87,12 +89,19 @@
             _.each(viewModel.members(), function (item) {
                 item.deactivate();
             });
+
+            if (viewModel.courseOwner === userContext.identity.email) {
+                app.off(constants.messages.user.downgraded, viewModel.updateCollaborationStatus);
+                app.off(constants.messages.user.upgradedToStarter, viewModel.updateCollaborationStatus);
+                app.off(constants.messages.user.upgradedToPlus, viewModel.updateCollaborationStatus);
+
+                viewModel.members.subscription.dispose();
+            }
         }
 
         function updateCollaborationStatus() {
-            var collaborationDisabled = userContext.identity.subscription.accessType === constants.accessType.free || 
+            var collaborationDisabled = userContext.identity.subscription.accessType === constants.accessType.free ||
                 (userContext.identity.subscription.accessType === constants.accessType.starter && viewModel.members().length > constants.maxStarterPlanCollaborators + 1);
             viewModel.isCollaborationDisabled(collaborationDisabled);
         }
-
     });

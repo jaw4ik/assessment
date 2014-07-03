@@ -47,7 +47,7 @@
                 viewModel.showRemoveConfirmation(false);
             };
 
-            function deletingFailed(message) {
+            function deletingFailed() {
                 viewModel.isRemoving(false);
                 notify.error(localizationManager.localize('collaboratorRemovingFailed'));
             };
