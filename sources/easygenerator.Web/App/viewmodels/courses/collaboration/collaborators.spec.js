@@ -206,6 +206,14 @@
                 expect(viewModel.canAddMember()).toBeFalsy();
             });
 
+            it('should set isCollaborationDisabled to false', function () {
+                viewModel.isCollaborationDisabled(true);
+
+                viewModel.activate({ courseId: courseId, courseOwner: courseOwner });
+
+                expect(viewModel.isCollaborationDisabled()).toBeFalsy();
+            });
+
             describe('when user is courseOwner', function () {
 
                 beforeEach(function () {

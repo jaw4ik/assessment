@@ -53,6 +53,7 @@
             viewModel.courseId = activationData.courseId;
             viewModel.courseOwner = activationData.courseOwner;
             viewModel.canAddMember(userContext.identity.email === activationData.courseOwner);
+            viewModel.isCollaborationDisabled(false);
 
             if (viewModel.courseOwner === userContext.identity.email) {
                 app.on(constants.messages.user.downgraded, viewModel.updateCollaborationStatus);
