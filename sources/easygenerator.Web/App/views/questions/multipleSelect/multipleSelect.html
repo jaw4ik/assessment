@@ -28,7 +28,7 @@
                     </li>
                     <!-- /ko -->
                     <!-- ko foreach: answers -->
-                    <li class="answer-option-item" data-bind="click: $parent.selectAnswer.bind($parent, $data)">
+                    <li class="answer-option-item" data-bind="click: $parent.selectAnswer, outsideClick: { action: $parent.clearSelection }">
                         <div class="answer-options-list-item">
                             <div class="question-answer-value-wrapper">
                                 <div class="question-answer-checkbox question-answer-value info-tooltip-holder" data-bind="click: $parent.toggleCorrectness, css: { correct: isCorrect }">
@@ -47,9 +47,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="question-answer-text-wrapper" data-bind="click: $parent.selectAnswer.bind($parent, $data), css: { active: $data == $parent.selectedAnswer() }">
+                            <div class="question-answer-text-wrapper" data-bind="css: { active: $data == $parent.selectedAnswer() }">
                                 <div class="question-answer-text">
-                                    <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateAnswer } }, event: { focus: $parent.beginEditText, blur: function (data, event) { $parent.endEditText(data, event); $parent.clearSelection(data); } }, hasFocus: hasFocus, selectTextInAnswer: {}">
+                                    <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateAnswer } }, event: { focus: $parent.beginEditText, blur: function (data, event) { $parent.endEditText(data, event) } }, hasFocus: hasFocus, selectTextInAnswer: {}">
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                     </li>
                     <!-- /ko -->
                 </ul>
-                <div class="add-answer-option-wrapper" data-bind="outsideClick: { action: clearSelection }">
+                <div class="add-answer-option-wrapper">
                     <div class="add-answer-option-btn btn green" data-bind="click: addAnswer">
                         <span class="add-answer-option-text">Add answer option</span>
                     </div>
