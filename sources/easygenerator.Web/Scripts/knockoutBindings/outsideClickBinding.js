@@ -4,7 +4,6 @@
             action = valueAccessor().action;
 
         var clickHandler = function() {
-            console.log("called clearSelection");
             action();
         };
         $('html').bind('click', clickHandler);
