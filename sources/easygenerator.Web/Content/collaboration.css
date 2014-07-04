@@ -352,6 +352,7 @@
     padding-left: 10px;
     color: #953b39;
     text-align: left;
+    position: absolute;
 }
 
 .modal-dialog-form-notification {
