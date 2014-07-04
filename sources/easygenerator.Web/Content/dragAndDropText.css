@@ -145,7 +145,7 @@
 
 .drag-and-drop-designer-empty {
     width: 100%;
-    padding: 60px 0 30px;
+    padding: 45px 0;
     border: 3px dashed #dadddf;
     text-align: center;
     color: #999999;
@@ -174,7 +174,7 @@
 
 .browse-image-btn {
     min-width: 112px;
-    padding: 9px 5px;
+    padding: 12px 15px;
     margin: 0;
     background: #5bc0de;
     -moz-background-clip: padding-box;

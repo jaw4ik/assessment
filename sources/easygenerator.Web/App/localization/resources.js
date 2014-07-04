@@ -557,7 +557,7 @@
         en: 'No background image yet'
     },
     browse: {
-        en: 'Add background image'
+        en: '\'+ Add background image'
     },
     addDropspotText: {
         en: 'Add dropspot text'
