@@ -2002,7 +2002,7 @@ span.top-navigation-item.current {
 /*#region EDITABLE-TEXT*/
 
 .editable-text-binding {
-    white-space: pre-line;
+    white-space: pre-wrap;
     word-wrap: break-word;
 }
 

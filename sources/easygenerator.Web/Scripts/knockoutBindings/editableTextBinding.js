@@ -27,7 +27,7 @@
             }
 
             if (multiline) {
-                pasteTextAtCaret('\n', false);
+                pasteTextAtCaret('\r\n', false);
             } else {
                 $element.blur();
             }
@@ -83,7 +83,7 @@
                 // Preserve the selection
                 if (lastNode) {
                     range = range.cloneRange();
-                    range.setStartAfter(lastNode);
+                    range.setStartAfter(lastNode);d
                     if (selectPastedContent) {
                         range.setStartBefore(firstNode);
                     } else {
