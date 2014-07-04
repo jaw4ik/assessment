@@ -10,9 +10,10 @@
         currentLanguage = '',
 
         localize = function (key, culture) {
+        
             var item = resources[key];
-            if (_.isEmpty(item)) {
-                throw 'A resource with key ' + key + ' was not found';
+            if (_.isNullOrUndefined(item)) {
+                throw new Error('A resource with key "' + key + '" was not found');
             }
             var cultureInfo = _.contains(supportedCultures, culture) ? culture : this.currentLanguage || defaultCulture;
             return item[cultureInfo] || item[defaultCulture];

@@ -87,7 +87,7 @@
                     localizationManager.localize('omnomnom');
                 };
 
-                expect(action).toThrow("A resource with key omnomnom was not found");
+                expect(action).toThrowError('A resource with key "omnomnom" was not found');
             });
 
             it('should return localized string for current language when it exists', function () {
