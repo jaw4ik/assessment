@@ -122,7 +122,7 @@
         en: 'Something went wrong while trying to upload the image. Please try again'
     },
     imageIsNotSupported: {
-        en: 'This file is not supported. Please use .jpg, .jpeg, .png, .gif or .bmp'
+        en: 'This extension is not supported. Please use .jpg, .jpeg, .png, .gif or .bmp'
     },
     /* End resource section for model General */
     
@@ -752,7 +752,7 @@
         en: 'Page not found'
     },
     pageNotFoundDescription: {
-        en: 'Sorry, the page you have been looking for has not been found. Try checking the URL for errors, use the navigation above or click \"Home\' link below.'
+        en: 'Oops! We are really sorry but the page you requested cannot be found.<br/>It seems that the page you were trying to reach doesn\'t exist any more, or maybe it has just moved.<br/>We think that the best thing to do is to start again from the homepage. Feel free to contact us through the feedback form if the problem persist or if you definitely can\'t find what you are looking for. Thank you very much.'
     },
     homeLink: {
         en: 'Home'
@@ -761,7 +761,7 @@
         en: 'Something is not right'
     },
     serverErrorDescription: {
-        en: 'Sorry, something went wrong.  Try checking the URL for errors, use the navigation above or click \"Home\' link below.'
+        en: 'Sorry, something went wrong.  Try checking the URL for errors, use the navigation above or click \"Home\" link below.'
     },
     /* End resource section for model Error pages */
     

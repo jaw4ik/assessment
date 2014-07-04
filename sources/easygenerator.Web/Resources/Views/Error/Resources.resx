@@ -124,7 +124,7 @@
     <value>Page not found</value>
   </data>
   <data name="PageNotFoundDescription" xml:space="preserve">
-    <value>Sorry, the page you have been looking for has not been found. Try checking the URL for errors, use the navigation above or click 'Home' link below.</value>
+    <value>Oops! We are really sorry but the page you requested cannot be found.&lt;br/&gt;It seems that the page you were trying to reach doesn't exist any more, or maybe it has just moved.&lt;br/&gt;We think that the best thing to do is to start again from the homepage. Feel free to contact us through the feedback form if the problem persist or if you definitely can't find what you are looking for. Thank you very much.</value>
   </data>
   <data name="ServerError" xml:space="preserve">
     <value>Something is not right</value>
