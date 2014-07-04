@@ -545,7 +545,7 @@
         en: 'Please upgrade your account to be able to create advanced question types'
     },
     dragAndDrop: {
-        en: 'Drag&Drop'
+        en: 'Drag&Drop text'
     },
     dragAndDropText: {
         en: 'Drag&Drop text'
@@ -554,16 +554,19 @@
         en: 'Drag&Drop designer'
     },
     dragAndDropTextEmptyBackgroundDescription: {
-        en: 'your background image here or'
+        en: 'No background image yet'
+    },
+    browse: {
+        en: 'Add background image'
     },
     addDropspotText: {
         en: 'Add dropspot text'
     },
     multipleChoice: {
-        en: 'Multiple choice'
+        en: 'Single select'
     },
     multipleChoiceEditor: {
-        en: '\"Multiple choice\" question editor'
+        en: '\"Single select\" question editor'
     },
     multipleSelectEditor: {
         en: '\"Multiple select\" question editor'
@@ -575,7 +578,7 @@
         en: '\"Drag\'n\'Drop text\" question editor'
     },
     multipleChoiceAnswerError: {
-        en: 'A multiple choice question needs to have at least two answer options'
+        en: 'A single select question needs to have at least two answer options'
     },
     /* End resource section for model Questions */
     
@@ -1289,13 +1292,13 @@
         en: 'This question has been deleted by a collaborator. Please go to the list of questions.'
     },
     answerOptionHasBeenDeletedByCollaborator: {
-        en: 'This answer option has been deleted by collaborator. Please save the necessary data before you finish editing.'
+        en: 'This answer option has been deleted by a collaborator. Your changes will not be saved. Please save a copy of the necessary data before you finish the editing.'
     },
     learningContentHasBeenDeletedByCollaborator: {
-        en: 'This learning has been deleted by collaborator. Please save the necessary data before you finish editing.'
+        en: 'This learning has been deleted by a collaborator. Your changes will not be saved. Please save a copy of the necessary data before you finish the editing.'
     },
     dropspotHasBeenDeletedByCollaborator: {
-        en: 'This dropspot has been deleted by collaborator. Please save the necessary data before you finish editing.'
+        en: 'This dropspot has been deleted by a collaborator. Your changes will not be saved. Please save a copy of the necessary data before you finish the editing.'
     },
     courseIsNotAvailableAnyMore: {
         en: 'This course is not available any more. Please go to the list of courses.'
@@ -1304,7 +1307,7 @@
         en: '<p class=\"user-name\">'
     },
     collaboratorWasRemovedEnd: {
-        en: '</p>was removed from your course.'
+        en: '</p>has been removed from your course.'
     },
     collaboratorRemovingFailed: {
         en: 'Failed. Try again.'
