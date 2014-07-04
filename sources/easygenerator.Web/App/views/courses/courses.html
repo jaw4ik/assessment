@@ -40,16 +40,14 @@
                     <!-- /ko -->
                 </div>
                 <div class="list-item-action create">
-                    <div class="action-item-btn-wrapper">
-                        <button class="action-item-btn create-item btn green" data-bind="click: navigateToCreation, css:{ disabled: !isCreateCourseAvailable() }">
-                            <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
-                        </button>
+                    <button class="action-item-btn create-item btn green" data-bind="click: navigateToCreation, css:{ disabled: !isCreateCourseAvailable() }">
+                        <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
                         <!-- ko if: courses().length < 1 -->
                         <div class="tip-arrow-holder right">
                             <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
                         </div>
                         <!-- /ko -->
-                    </div>
+                    </button>
                 </div>
             </div>
             <ul class="unstyled main-content-list">

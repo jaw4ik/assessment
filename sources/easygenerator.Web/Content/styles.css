@@ -789,6 +789,7 @@ span.top-navigation-item.current {
     padding-right: 10px;
     color: #917f5d;
     font-size: 13px;
+    text-align: left;
 }
 
     .limit-courses-informer-text:before {
@@ -1521,6 +1522,7 @@ span.top-navigation-item.current {
     height: 40px;
     padding: 8px 15px;
     margin: 0;
+    position: relative;
     border-radius: 4px;
     color: white;
     font-family: 'OpenSans', sans-serif;
@@ -1651,6 +1653,7 @@ span.top-navigation-item.current {
 
 .upgrade-user-btn {
     min-width: 90px;
+    display: block;
     padding: 6px 8px;
     font-size: 12px;
     font-family: 'OpenSans';
