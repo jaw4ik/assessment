@@ -1,6 +1,7 @@
 ﻿define([
     'viewmodels/questions/dragAndDrop/bindingHandlers/backgroundBindingHandler',
-    'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler'
+    'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
+    'viewmodels/panels/bindingHandlers/fixedPanelBindingHandler'
 ], function () {
     "use strict";
 

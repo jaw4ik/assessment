@@ -1615,7 +1615,7 @@
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
     <Content Include="Scripts\knockoutBindings\editableTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\expanderBinding.js" />
-    <Content Include="Scripts\knockoutBindings\fixedPanelBinding.js" />
+    <Content Include="App\viewmodels\panels\bindingHandlers\fixedPanelBindingHandler.js" />
     <Content Include="Scripts\knockoutBindings\hoverBinding.js" />
     <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
     <Content Include="Scripts\knockoutBindings\layoutBinding.js" />
