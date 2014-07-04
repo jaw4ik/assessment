@@ -83,7 +83,7 @@
                 // Preserve the selection
                 if (lastNode) {
                     range = range.cloneRange();
-                    range.setStartAfter(lastNode);d
+                    range.setStartAfter(lastNode);
                     if (selectPastedContent) {
                         range.setStartBefore(firstNode);
                     } else {
