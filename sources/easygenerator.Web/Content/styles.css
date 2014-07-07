@@ -17,7 +17,7 @@
 /*#region NEW LAYOUT STYLES*/
 
 .tb-main {
-    position: fixed;
+    position: absolute;
     display: table;
     height: 100%;
     width: 100%;
@@ -429,11 +429,11 @@
 
 .nav-back-button {
     display: block;
-    height: 100%;
     width: 80px;
     min-width: 80px;
     position: absolute;
     top: 0;
+    bottom: 0;
     left: 0;
     padding-top: 15px;
     background-color: rgba(230, 230, 230, 0.1);
