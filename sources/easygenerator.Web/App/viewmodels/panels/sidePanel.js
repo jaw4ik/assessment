@@ -10,7 +10,7 @@
             isExpanded: ko.observable(false),
             reviewTabActivationData: ko.observable({}),
             lastReviewTabActivationData: ko.observable(null),
-            actionsCounter: ko.observable(0)
+            layoutChangingIndicator: ko.observable(false)
         };
 
         viewModel.isReviewTabVisible = ko.computed(function () {
@@ -56,8 +56,19 @@
             }
         });
 
+        app.on(constants.messages.helpHint.shown, function () {
+            viewModel.layoutChangingIndicator(!viewModel.layoutChangingIndicator());
+        });
+        app.on(constants.messages.helpHint.hidden, function () {
+            viewModel.layoutChangingIndicator(!viewModel.layoutChangingIndicator());
+        });
+
+        router.on('router:route:activating').then(function () {
+            viewModel.layoutChangingIndicator(!viewModel.layoutChangingIndicator());
+        });
+
         router.on('router:navigation:composition-complete').then(function () {
-            viewModel.actionsCounter(viewModel.actionsCounter() + 1);
+            viewModel.layoutChangingIndicator(!viewModel.layoutChangingIndicator());
         });
 
         return viewModel;

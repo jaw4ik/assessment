@@ -26,7 +26,10 @@
         update: function (element, valueAccessor) {
             valueAccessor();
 
-            calculateTopPosition($(element));
+            var $element = $(element);
+
+            calculateTopPosition($element);
+            culculateHeight($element);
         }
     };
 
