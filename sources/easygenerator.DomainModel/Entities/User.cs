@@ -33,7 +33,7 @@ namespace easygenerator.DomainModel.Entities
             Country = country;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
 
-            AccessType = AccessType.Starter;
+            AccessType = AccessType.Plus;
             ExpirationDate = CreatedOn.AddDays(TrialPeriodDays);
         }
 

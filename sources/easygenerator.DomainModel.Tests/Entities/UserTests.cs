@@ -263,7 +263,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void User_ShouldCreateUserWithStarterPlanAnd14DaysTrialPeriod()
+        public void User_ShouldCreateUserWithPlusPlanAnd14DaysTrialPeriod()
         {
             //Arrange
             var expirationDate = CurrentDate.AddDays(14);
@@ -272,7 +272,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var user = UserObjectMother.Create();
 
             //Assert
-            user.AccessType.Should().Be(AccessType.Starter);
+            user.AccessType.Should().Be(AccessType.Plus);
             user.ExpirationDate.Should().Be(expirationDate);
         }
 
