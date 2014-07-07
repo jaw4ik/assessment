@@ -307,8 +307,8 @@
 .choose-template-holder {
     float: left;
     width: 48%;
-    min-width: 315px;
-    margin-right: 20px;
+    min-width: 310px;
+    margin-right: 10px;
     font-family: 'OpenSans';
     color: #303133;
 }
