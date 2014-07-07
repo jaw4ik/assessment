@@ -14,6 +14,7 @@
     display: inline-block;
     vertical-align: top;
     position: relative;
+    height: 40px;
 }
 
     .course-collaborator-item-wrapper:after {
