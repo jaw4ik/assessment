@@ -17,7 +17,7 @@
 /*#region NEW LAYOUT STYLES*/
 
 .tb-main {
-    position: absolute;
+    position: fixed;
     display: table;
     height: 100%;
     width: 100%;
