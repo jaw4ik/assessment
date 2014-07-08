@@ -2424,7 +2424,8 @@ span.top-navigation-item.current {
 
     .try-warning-message {
         display: inline-block;
-        width: 166px;
+        margin-top: 2px;
+        padding: 7px 0;
     }
 
     .header-logo {

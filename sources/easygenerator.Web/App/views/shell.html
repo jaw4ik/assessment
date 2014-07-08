@@ -40,9 +40,11 @@
                                     </a>
                                 </li>
                                 <!-- /ko -->
+                                <!-- ko ifnot: isTryMode -->
                                 <li class="header-menu-list-item ">
                                     <a href="/account/upgrade" target="_blank" class="header-upgrade-link" data-bind="localize: { text: 'upgradeNow' }">Upgrade now</a>
                                 </li>
+                                <!-- /ko -->
                                 <li class="header-menu-list-item help">
                                     <span class="header-help-hint-btn" data-bind="localize: { text: 'help' }, click: help.show, css: { disabled: !help.isHelpHintExist() || help.visible() }">Help</span>
                                 </li>
