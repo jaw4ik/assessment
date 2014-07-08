@@ -33,7 +33,6 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
 
         #region ReadAnswer
 
-        [TestMethod]
         public void ReadAnswer_ShouldReadAnswerFromPublishedPackage()
         {
             //Arrange
