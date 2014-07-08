@@ -20,9 +20,12 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
         protected override bool CheckAccess(AuthorizationContext authorizationContext, User user)
         {
             if (user.HasPlusAccess())
+            {
                 return true;
+            }
 
-            var coursesCount = CourseRepository.GetCollection(course => course.CreatedBy == authorizationContext.HttpContext.User.Identity.Name).Count;
+            var userName = authorizationContext.HttpContext.User.Identity.Name;
+            var coursesCount = CourseRepository.GetCollection(course => course.CreatedBy == userName).Count;
             var limit = user.HasStarterAccess() ? StarterLimit : FreeLimit;
 
             return coursesCount < limit;
