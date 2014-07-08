@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Linq.Expressions;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Tests.Utils;
@@ -139,7 +140,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
 
             var courses = Substitute.For<ICollection<Course>>();
             courses.Count.Returns(50);
-            _courseRepository.GetCollection(Arg.Any<Func<Course, bool>>()).Returns(courses);
+            _courseRepository.GetCollection(Arg.Any<Expression<Func<Course, bool>>>()).Returns(courses);
 
             //Act
             _attribute.OnAuthorization(_filterContext);
@@ -176,7 +177,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
 
             var courses = Substitute.For<ICollection<Course>>();
             courses.Count.Returns(49);
-            _courseRepository.GetCollection(Arg.Any<Func<Course, bool>>()).Returns(courses);
+            _courseRepository.GetCollection(Arg.Any<Expression<Func<Course, bool>>>()).Returns(courses);
 
             //Act
             _attribute.OnAuthorization(_filterContext);
@@ -197,7 +198,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
 
             var courses = Substitute.For<ICollection<Course>>();
             courses.Count.Returns(10);
-            _courseRepository.GetCollection(Arg.Any<Func<Course, bool>>()).Returns(courses);
+            _courseRepository.GetCollection(Arg.Any<Expression<Func<Course, bool>>>()).Returns(courses);
 
             //Act
             _attribute.OnAuthorization(_filterContext);
@@ -218,7 +219,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Authorization
 
             var courses = Substitute.For<ICollection<Course>>();
             courses.Count.Returns(9);
-            _courseRepository.GetCollection(Arg.Any<Func<Course, bool>>()).Returns(courses);
+            _courseRepository.GetCollection(Arg.Any<Expression<Func<Course, bool>>>()).Returns(courses);
 
             //Act
             _attribute.OnAuthorization(_filterContext);

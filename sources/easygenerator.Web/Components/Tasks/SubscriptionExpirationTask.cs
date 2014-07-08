@@ -3,6 +3,7 @@ using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
+using System;
 
 namespace easygenerator.Web.Components.Tasks
 {
@@ -19,7 +20,8 @@ namespace easygenerator.Web.Components.Tasks
 
         public void Execute()
         {
-            var expiredUsers = _userRepository.GetCollection(u => u.ExpirationDate < DateTimeWrapper.Now());
+            DateTime currentDate = DateTimeWrapper.Now();
+            var expiredUsers = _userRepository.GetCollection(u => u.ExpirationDate < currentDate);
             foreach (User expiredUser in expiredUsers)
             {
                 expiredUser.DowngradePlanToFree();

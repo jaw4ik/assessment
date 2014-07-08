@@ -17,7 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using easygenerator.Web.Security.PermissionsCheckers;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -31,11 +30,10 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IScormCourseBuilder _scormCourseBuilder;
         private readonly ICoursePublisher _coursePublisher;
         private readonly IEntityMapper _entityMapper;
-        private readonly IEntityPermissionsChecker<Course> _permissionChecker;
         private readonly IDomainEventPublisher _eventPublisher;
 
         public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory,
-            IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IEntityMapper entityMapper, IEntityPermissionsChecker<Course> permissionChecker,
+            IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IEntityMapper entityMapper,
             IDomainEventPublisher eventPublisher)
         {
             _builder = courseBuilder;
@@ -45,7 +43,6 @@ namespace easygenerator.Web.Controllers.Api
             _scormCourseBuilder = scormCourseBuilder;
             _coursePublisher = coursePublisher;
             _entityMapper = entityMapper;
-            _permissionChecker = permissionChecker;
             _eventPublisher = eventPublisher;
         }
 
@@ -120,7 +117,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/courses")]
         public ActionResult GetCollection()
         {
-            var courses = _repository.GetCollection(course => _permissionChecker.HasCollaboratorPermissions(User.Identity.Name, course));
+            var courses = _repository.GetAvailableCoursesCollection(User.Identity.Name);
 
             return JsonSuccess(courses.Select(c => _entityMapper.Map(c)));
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using System.Linq.Expressions;
 
 namespace easygenerator.DataAccess.Repositories
 {
@@ -25,7 +26,7 @@ namespace easygenerator.DataAccess.Repositories
             return _dataContext.GetSet<T>().ToList();
         }
 
-        public ICollection<T> GetCollection(Func<T, bool> predicate)
+        public ICollection<T> GetCollection(Expression<Func<T, bool>> predicate)
         {
             return _dataContext.GetSet<T>().Where(predicate).ToList();
         }

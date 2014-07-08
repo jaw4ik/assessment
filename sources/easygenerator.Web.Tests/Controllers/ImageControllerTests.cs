@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net.Mime;
 using System.Security.Policy;
 using System.Security.Principal;
@@ -118,7 +119,7 @@ namespace easygenerator.Web.Tests.Controllers
                 ImageFileObjectMother.CreateWithCreatedBy(username),
                 ImageFileObjectMother.CreateWithCreatedBy(username)
             };
-            _repository.GetCollection(Arg.Any<Func<ImageFile, bool>>()).Returns(images);
+            _repository.GetCollection(Arg.Any<Expression<Func<ImageFile, bool>>>()).Returns(images);
 
             //Act
             var result = _controller.GetCurrentUserImageCollection();

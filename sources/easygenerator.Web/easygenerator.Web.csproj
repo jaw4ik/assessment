@@ -347,13 +347,27 @@
     <Compile Include="Resources\Views\Shared\Resources.Designer.cs" />
     <Compile Include="Security\FeatureAvailability\FeatureAvailabilityChecker.cs" />
     <Compile Include="Security\FeatureAvailability\IFeatureAvailabilityChecker.cs" />
-    <Compile Include="Security\PermissionsCheckers\AnswerPermissionsChecker.cs" />
-    <Compile Include="Security\PermissionsCheckers\CoursePermissionsChecker.cs" />
-    <Compile Include="Security\PermissionsCheckers\EntityPermissionsChecker.cs" />
-    <Compile Include="Security\PermissionsCheckers\IEntityPermissionsChecker.cs" />
-    <Compile Include="Security\PermissionsCheckers\LearningContentPermissionsChecker.cs" />
-    <Compile Include="Security\PermissionsCheckers\ObjectivePermissionsChecker.cs" />
-    <Compile Include="Security\PermissionsCheckers\QuestionPermissionsChecker.cs" />
+    <Compile Include="Security\PermissionsCheckers\AnswerPermissionsChecker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Security\PermissionsCheckers\CoursePermissionsChecker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Security\PermissionsCheckers\EntityPermissionsChecker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Security\PermissionsCheckers\IEntityPermissionsChecker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Security\PermissionsCheckers\LearningContentPermissionsChecker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Security\PermissionsCheckers\ObjectivePermissionsChecker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Security\PermissionsCheckers\QuestionPermissionsChecker.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Storage\ImageValidator.cs" />
     <Compile Include="Storage\Storage.cs" />
     <Compile Include="Synchronization\Broadcasting\Broadcaster.cs" />
@@ -948,7 +962,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_mixpanelAnalytics.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Templates\Simple course\css\font\segoeui-semibold.eot" />
     <Content Include="Templates\Simple course\css\font\segoeui-semibold.ttf" />
     <Content Include="Templates\Simple course\css\font\segoeui-semibold.woff" />

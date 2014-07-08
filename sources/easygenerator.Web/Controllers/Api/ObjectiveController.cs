@@ -13,7 +13,6 @@ using easygenerator.Web.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using easygenerator.Web.Security.PermissionsCheckers;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -23,20 +22,17 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityFactory _entityFactory;
         private readonly IObjectiveRepository _repository;
         private readonly IEntityMapper _entityMapper;
-        private readonly IEntityPermissionsChecker<Objective> _permissionChecker;
         private readonly IDomainEventPublisher _eventPublisher;
 
 
         public ObjectiveController(IObjectiveRepository repository, 
             IEntityFactory entityFactory, 
             IEntityMapper entityMapper,
-            IEntityPermissionsChecker<Objective> permissionChecker, 
             IDomainEventPublisher eventPublisher)
         {
             _repository = repository;
             _entityFactory = entityFactory;
             _entityMapper = entityMapper;
-            _permissionChecker = permissionChecker;
             _eventPublisher = eventPublisher;
         }
 
@@ -44,7 +40,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/objectives")]
         public ActionResult GetCollection()
         {
-            var objectives = _repository.GetCollection(obj => _permissionChecker.HasCollaboratorPermissions(User.Identity.Name, obj));
+            var objectives = _repository.GetAvailableObjectivesCollection(User.Identity.Name);
 
             return JsonSuccess(objectives.Select(e => _entityMapper.Map(e)));
         }
