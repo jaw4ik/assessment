@@ -39,37 +39,37 @@ namespace easygenerator.DomainModel.Handlers
 
         public void HandleOwnership(string tryItNowUsername, string signUpUsername)
         {
-            foreach (var course in _courseRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
+            foreach (var course in _courseRepository.GetCollection(e => e.CreatedBy == tryItNowUsername))
             {
                 course.DefineCreatedBy(signUpUsername);
             }
 
-            foreach (var objective in _objectiveRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
+            foreach (var objective in _objectiveRepository.GetCollection(e => e.CreatedBy == tryItNowUsername))
             {
                 objective.DefineCreatedBy(signUpUsername);
             }
 
-            foreach (var question in _qustionRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
+            foreach (var question in _qustionRepository.GetCollection(e => e.CreatedBy == tryItNowUsername))
             {
                 question.DefineCreatedBy(signUpUsername);
             }
 
-            foreach (var answer in _answerRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
+            foreach (var answer in _answerRepository.GetCollection(e => e.CreatedBy == tryItNowUsername))
             {
                 answer.DefineCreatedBy(signUpUsername);
             }
 
-            foreach (var dropspot in _dropspotRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
+            foreach (var dropspot in _dropspotRepository.GetCollection(e => e.CreatedBy == tryItNowUsername))
             {
                 dropspot.DefineCreatedBy(signUpUsername);
             }
 
-            foreach (var learningContent in _learningContentRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
+            foreach (var learningContent in _learningContentRepository.GetCollection(e => e.CreatedBy == tryItNowUsername))
             {
                 learningContent.DefineCreatedBy(signUpUsername);
             }
 
-            foreach (var imageFile in _imageFileRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
+            foreach (var imageFile in _imageFileRepository.GetCollection(e => e.CreatedBy == tryItNowUsername))
             {
                 imageFile.DefineCreatedBy(signUpUsername);
             }

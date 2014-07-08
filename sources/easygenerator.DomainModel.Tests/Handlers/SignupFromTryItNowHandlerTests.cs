@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Handlers;
@@ -48,7 +49,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         public void Handle_ShouldDefineCreatedByForCoursesThatWereCreatedInTryMode()
         {
             var course = Substitute.For<Course>("title", Substitute.For<Template>(), TryItNowUsername);
-            _courseRepository.GetCollection().Returns(new List<Course>() { course });
+            _courseRepository.GetCollection(Arg.Any<Expression<Func<Course, bool>>>()).Returns(new List<Course>() { course });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
 
@@ -74,7 +75,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         public void Handle_ShouldDefineCreatedByForObjectivesThatWereCreatedInTryMode()
         {
             var objective = Substitute.For<Objective>("title", TryItNowUsername);
-            _objectiveRepository.GetCollection().Returns(new List<Objective>() { objective });
+            _objectiveRepository.GetCollection(Arg.Any<Expression<Func<Objective, bool>>>()).Returns(new List<Objective>() { objective });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
 
@@ -100,7 +101,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         public void Handle_ShouldDefineCreatedByForQuestionsThatWereCreatedInTryMode()
         {
             var question = Substitute.For<Question>("title", TryItNowUsername);
-            _questionRepository.GetCollection().Returns(new List<Question>() { question });
+            _questionRepository.GetCollection(Arg.Any<Expression<Func<Question, bool>>>()).Returns(new List<Question>() { question });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
 
@@ -126,7 +127,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         public void Handle_ShouldDefineCreatedByForAnswersThatWereCreatedInTryMode()
         {
             var answer = Substitute.For<Answer>("text", true, default(Guid), TryItNowUsername);
-            _answerRepository.GetCollection().Returns(new List<Answer>() { answer });
+            _answerRepository.GetCollection(Arg.Any<Expression<Func<Answer, bool>>>()).Returns(new List<Answer>() { answer });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
 
@@ -153,7 +154,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         public void Handle_ShouldDefineCreatedByForDropspotsThatWereCreatedInTryMode()
         {
             var dropspot = Substitute.For<Dropspot>("text", 0, 0, TryItNowUsername);
-            _dropspotRepository.GetCollection().Returns(new List<Dropspot>() { dropspot });
+            _dropspotRepository.GetCollection(Arg.Any<Expression<Func<Dropspot, bool>>>()).Returns(new List<Dropspot>() { dropspot });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
 
@@ -179,7 +180,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         public void Handle_ShouldDefineCreatedByForLearningContentsThatWereCreatedInTryMode()
         {
             var learningContent = Substitute.For<LearningContent>("text", TryItNowUsername);
-            _learningContentRepository.GetCollection().Returns(new List<LearningContent>() { learningContent });
+            _learningContentRepository.GetCollection(Arg.Any<Expression<Func<LearningContent, bool>>>()).Returns(new List<LearningContent>() { learningContent });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
 
@@ -206,7 +207,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         {
             //Arrange
             var imageFile = Substitute.For<ImageFile>("image.jpg", TryItNowUsername);
-            _imageFileRepository.GetCollection().Returns(new List<ImageFile>() { imageFile });
+            _imageFileRepository.GetCollection(Arg.Any<Expression<Func<ImageFile, bool>>>()).Returns(new List<ImageFile>() { imageFile });
 
             //Action
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
