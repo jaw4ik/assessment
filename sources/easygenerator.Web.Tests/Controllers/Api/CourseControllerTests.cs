@@ -41,7 +41,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IUrlHelperWrapper _urlHelper;
         private ICoursePublisher _coursePublisher;
         private IEntityMapper _entityMapper;
-        private IEntityPermissionsChecker<Course> _entityPermissionChecker;
         private IDomainEventPublisher _eventPublisher;
 
         [TestInitialize]
