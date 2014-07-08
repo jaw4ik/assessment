@@ -27,7 +27,7 @@ namespace easygenerator.Web.Import.PublishedCourse.EntityReaders
 
             var answerText = answer.Value<string>("text");
             var answerCorrectness = answer.Value<bool>("isCorrect");
-            var answerGroup = answer.Value<Guid>("group");
+            var answerGroup = Guid.Parse(answer.Value<string>("group"));
 
             return _entityFactory.Answer(answerText, answerCorrectness, answerGroup, createdBy);
         }
