@@ -835,9 +835,18 @@
     <Content Include="Templates\Personalized learning\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\content.html" />
     <Content Include="Templates\Personalized learning\content\content.html" />
     <Content Include="Templates\Personalized learning\content\data.js" />
+    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.eot" />
     <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.svg" />
+    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.woff" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-regular.eot" />
     <Content Include="Templates\Personalized learning\css\font\opensans-regular.svg" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-regular.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-regular.woff" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.eot" />
     <Content Include="Templates\Personalized learning\css\font\opensans-semibold.svg" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.woff" />
     <Content Include="Templates\Personalized learning\css\main.css" />
     <Content Include="Templates\Personalized learning\css\settings.css" />
     <Content Include="Templates\Personalized learning\images\chrome.png" />
@@ -849,6 +858,7 @@
     <Content Include="Templates\Personalized learning\js\require\require.js" />
     <Content Include="Templates\Personalized learning\js\settings\settings.js" />
     <Content Include="Templates\Personalized learning\js\vendor.min.js" />
+    <Content Include="Templates\Personalized learning\publishSettings.js" />
     <Content Include="Templates\Personalized learning\settings.html" />
     <Content Include="Templates\Personalized learning\settings.js" />
     <Content Include="Templates\Quiz\app\main.js" />
@@ -943,15 +953,6 @@
     <Content Include="Templates\Simple course\css\font\segoeui-semibold.ttf" />
     <Content Include="Templates\Simple course\css\font\segoeui-semibold.woff" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
-    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.eot" />
-    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.ttf" />
-    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.woff" />
-    <Content Include="Templates\Personalized learning\css\font\opensans-regular.eot" />
-    <Content Include="Templates\Personalized learning\css\font\opensans-regular.ttf" />
-    <Content Include="Templates\Personalized learning\css\font\opensans-regular.woff" />
-    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.eot" />
-    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.ttf" />
-    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
