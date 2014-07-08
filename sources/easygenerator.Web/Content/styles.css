@@ -821,6 +821,10 @@ span.top-navigation-item.current {
 
 /*#region TIP-SUGGESTION ARROWS*/
 
+.tip-arrow-wrapper {
+    position: relative;
+}
+
 .tip-arrow-holder {
     padding-top: 30px;
     position: absolute;
