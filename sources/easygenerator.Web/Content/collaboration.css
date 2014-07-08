@@ -440,12 +440,6 @@
         background-repeat: no-repeat;
     }
 
-
-.remove-collaborator.modal-dialog-wrapper:hover ~ div.course-collaborator-tooltip-wrapper,
-.remove-collaborator.modal-dialog-wrapper:hover ~ div.course-collaborator-delete-btn {
-    display: none;
-}
-
 .remove-collaborator.modal-dialog-wrapper {
     height: auto;
     width: 328px;
