@@ -64,7 +64,7 @@
 
 @media (max-width: 1100px) and (min-width: 880px) {
 
-    .courses.view-module .content-section {
+    .modules-courses .content-section {
         max-width: 850px;
         margin-right: 0;
     }
