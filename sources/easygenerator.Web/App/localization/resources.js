@@ -113,7 +113,7 @@
         en: 'Renew my plan'
     },
     browseImage: {
-        en: 'Browse image'
+        en: 'Change background image'
     },
     imageSizeIsTooLarge: {
         en: 'Image file should not be larger than 10 MB. Please reduce the size or use another image'
@@ -1097,10 +1097,10 @@
         en: '<p>A <strong>learning objective</strong> is a statement that describes the specific skills or knowledge a learner will be able to demonstrate as a result of completing a course.</p><p>See <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> for instructions and support for building proper objectives based on Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
     questionHelpHintTitle: {
-        en: 'What are answer options? What is learning content?'
+        en: 'Some general tips for the question types'
     },
     questionHelpHint: {
-        en: '<p><strong>Answer options</strong> are the options presented to the learner for answering the question. They can be correct or incorrect.</p><p><strong>Learning content </strong> is the information presented to the learner to assist him in answering a specific question. It can consist out of text, video or images.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p>The <strong>\"Single select\"</strong> and <strong>\"Multiple select\"</strong> questions offer the answer options to a learner for answering the question. The answer options can be either correct or incorrect.</p></br><p><strong>Fill-in the blanks</strong> are texts with blank spaces. The student must fill in the missing words. Tips:<ul><li>Convert a word into a blank: Select it and click on \"+ Add blank\".</li><li>Create a new blank: click on \"+ Add blank\" and type in the word.</li><li>To edit a blank: click on the blank in the text.</li></ul></p></br><p>With a <strong>“Drag and Drop text\"</strong> question type a student has to put text(s) on specific places by dragging and dropping them onto a background image. Create a \"drag\'n\'drop text\" question:<ul><ol>1. Add the background image by clicking \"+ Add background image\".</ol><ol>2. Fill-in your \"drop texts\" into the fields below the \"drag&drop designer\".</ol><ol>3. In the \"drag&drop designer\" drag and drop your \"drop texts\" into the correct positions.</ol></ul></p></br><p><strong>Learning content</strong> is the information presented to the learner to assist him in answering a specific question. It can consist out of text, video or images.</p></br><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
     },
     designHelpHintTitle: {
         en: 'What is a course template?'
