@@ -264,6 +264,7 @@
     width: 100%;
     position: relative;
     text-align: center;
+    margin: 20px 0 10px;
 }
 
     .navigation-tree-title-wrapper:before {
@@ -277,10 +278,8 @@
     }
 
 .navigation-tree-list-title {
-    display: inline-block;
-    vertical-align: top;
     position: relative;
-    padding: 20px 10px 10px;
+    padding: 0 10px;
     background-color: #f1f1f1;
     color: #999;
     font-family: 'OpenSans-Semibold';

@@ -170,6 +170,10 @@
     padding-top: 0;
 }
 
+.empty-list-wrapper.courses-empty-list {
+    padding: 100px 0;
+}
+
     .empty-list-wrapper.connecting-objectives.connected {
         border: 2px dashed #e8e8e8;
     }

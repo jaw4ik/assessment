@@ -42,17 +42,17 @@
                 <div class="list-item-action create">
                     <button class="action-item-btn create-item btn green" data-bind="click: navigateToCreation, css:{ disabled: !isCreateCourseAvailable() }">
                         <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
-                        <!-- ko if: courses().length < 1 -->
-                        <div class="tip-arrow-holder right">
-                            <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
-                        </div>
-                        <!-- /ko -->
                     </button>
+                    <!-- ko if: courses().length === 0 && sharedCourses().length === 0 -->
+                    <div class="tip-arrow-holder right">
+                        <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
+                    </div>
+                    <!-- /ko -->
                 </div>
             </div>
             <ul class="unstyled main-content-list">
-                <!-- ko if: courses().length < 1 -->
-                <li class="empty-list-wrapper">
+                <!-- ko if: courses().length === 0 -->
+                <li class="empty-list-wrapper courses-empty-list">
                     <span class="empty-list" data-bind="localize: { text: 'courseListIsEmpty'}">Course list is empty</span>
                 </li>
                 <!-- /ko -->

@@ -21,7 +21,7 @@
                         <button class="action-item-btn create-item btn green" data-bind="click: navigateToCreation">
                             <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewObjective' }">Learning objective</span>
                         </button>
-                        <!-- ko if: objectives().length < 1 -->
+                        <!-- ko if: objectives().length === 0 -->
                         <div class="tip-arrow-holder right">
                             <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
                         </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <ul class="unstyled main-content-list">
-                <!-- ko if: objectives().length < 1 -->
+                <!-- ko if: objectives().length === 0 -->
                 <li class="empty-list-wrapper">
                     <span class="empty-list" data-bind="localize: { text: 'learningObjectiveListIsEmpty'}">Learning objective list is empty</span>
                 </li>

@@ -33,7 +33,7 @@
                     <div class="list-item-action create">
                         <div class="action-item-btn-wrapper">
                             <!-- ko widget: { kind: 'createQuestion', objectiveId: objectiveId } --><!-- /ko -->
-                            <!-- ko if: questions().length < 1 -->
+                            <!-- ko if: questions().length === 0 -->
                             <div class="tip-arrow-holder right">
                                 <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
                             </div>
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <!-- ko if: questions().length < 1 -->
+                <!-- ko if: questions().length === 0 -->
                 <div class="empty-list-wrapper">
                     <span class="empty-list" data-bind="localize: { text: 'questionListIsEmpty'}">Question list is empty</span>
                 </div>

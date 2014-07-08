@@ -727,6 +727,7 @@ span.top-navigation-item.current {
 
     .list-item-action.create,
     .list-item-action.connect-objectives {
+        position: relative;
         display: table-cell;
         height: 40px;
         width: 1px;
