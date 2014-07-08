@@ -62,7 +62,8 @@ namespace easygenerator.Web.Controllers
         [Route("api/images")]
         public ActionResult GetCurrentUserImageCollection()
         {
-            var images = _repository.GetCollection(e => e.CreatedBy == GetCurrentUsername());
+            var userName = GetCurrentUsername();
+            var images = _repository.GetCollection(e => e.CreatedBy == userName);
 
             var result = images
                 .OrderByDescending(e => e.CreatedOn)
