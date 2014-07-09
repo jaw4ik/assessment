@@ -64,10 +64,10 @@
 
                 });
 
-                describe('and when question type is multipleChoice', function () {
+                describe('and when question type is singleSelect', function () {
 
                     it('should send event \'Create new question (multiple choice)\' with defined event category ', function () {
-                        command.execute('objectiveId', 'courseId', constants.questionType.multipleChoice.type, 'Event category');
+                        command.execute('objectiveId', 'courseId', constants.questionType.singleSelect.type, 'Event category');
                         expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (multiple choice)', 'Event category');
                     });
 
@@ -103,10 +103,10 @@
 
                 });
 
-                describe('when question type is multipleChoice', function () {
+                describe('when question type is singleSelect', function () {
 
                     it('should send event \'Create new question (multiple choice)\' with defined event category ', function () {
-                        command.execute('objectiveId', 'courseId', constants.questionType.multipleChoice.type);
+                        command.execute('objectiveId', 'courseId', constants.questionType.singleSelect.type);
                         expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (multiple choice)', undefined);
                     });
 
@@ -139,12 +139,12 @@
 
             });
 
-            describe('when question type is multipleChoice', function () {
+            describe('when question type is singleSelect', function () {
 
                 it('should add question to repository', function () {
                     spyOn(localizationManager, 'localize').and.returnValue('title');
-                    command.execute('objectiveId', 'title', constants.questionType.multipleChoice.type);
-                    expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.multipleChoice.type);
+                    command.execute('objectiveId', 'title', constants.questionType.singleSelect.type);
+                    expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.singleSelect.type);
                 });
 
             });

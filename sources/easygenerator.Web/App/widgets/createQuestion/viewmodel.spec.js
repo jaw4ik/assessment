@@ -100,8 +100,8 @@
 
                     promise.fin(function () {
                         expect(viewModel.questions().length).toBe(4);
-                        expect(viewModel.questions()[0].type).toBe(constants.questionType.multipleChoice.type);
-                        expect(viewModel.questions()[0].name).toBe(constants.questionType.multipleChoice.name);
+                        expect(viewModel.questions()[0].type).toBe(constants.questionType.singleSelect.type);
+                        expect(viewModel.questions()[0].name).toBe(constants.questionType.singleSelect.name);
                         expect(viewModel.questions()[1].type).toBe(constants.questionType.multipleSelect.type);
                         expect(viewModel.questions()[1].name).toBe(constants.questionType.multipleSelect.name);
                         expect(viewModel.questions()[2].type).toBe(constants.questionType.fillInTheBlank.type);
@@ -123,7 +123,7 @@
 
                         promise.fin(function () {
                             var question = _.find(viewModel.questions(), function(item) {
-                                return item.type === constants.questionType.multipleChoice.type;
+                                return item.type === constants.questionType.singleSelect.type;
                             });
                             expect(question.hasAccess).toBeTruthy();
                             done();
@@ -178,7 +178,7 @@
 
                         promise.fin(function () {
                             var question = _.find(viewModel.questions(), function (item) {
-                                return item.type === constants.questionType.multipleChoice.type;
+                                return item.type === constants.questionType.singleSelect.type;
                             });
                             expect(question.hasAccess).toBeTruthy();
                             done();
@@ -233,7 +233,7 @@
 
                         promise.fin(function () {
                             var question = _.find(viewModel.questions(), function (item) {
-                                return item.type === constants.questionType.multipleChoice.type;
+                                return item.type === constants.questionType.singleSelect.type;
                             });
                             expect(question.hasAccess).toBeTruthy();
                             done();

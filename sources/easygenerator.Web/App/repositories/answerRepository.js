@@ -9,7 +9,7 @@
             removeAnswer: removeAnswer,
             updateAnswer: updateAnswer,
             updateText: updateText,
-            multipleChoiceChangeCorrectAnswer: multipleChoiceChangeCorrectAnswer
+            singleSelectChangeCorrectAnswer: singleSelectChangeCorrectAnswer
         };
 
         return repository;
@@ -133,7 +133,7 @@
             });
         }
 
-        function multipleChoiceChangeCorrectAnswer(questionId, answerId) {
+        function singleSelectChangeCorrectAnswer(questionId, answerId) {
             return Q.fcall(function() {
                 guard.throwIfNotString(questionId, 'Question id is not a string');
                 guard.throwIfNotString(answerId, 'Answer id is not a string');
@@ -143,7 +143,7 @@
                     answerId: answerId
                 };
 
-                return httpWrapper.post('api/answer/multiplechoice/changecorrectanswer', data).then(function(response) {
+                return httpWrapper.post('api/answer/singleselect/changecorrectanswer', data).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Answer modification date is not a string');
 

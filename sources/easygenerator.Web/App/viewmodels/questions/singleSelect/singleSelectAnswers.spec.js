@@ -91,11 +91,11 @@
 
         describe('toggleCorrectness:', function () {
             var answer = { id: ko.observable('answerId'), text: ko.observable(''), isCorrect: ko.observable(false), original: { correctness: false }, isDeleted: ko.observable(false) };
-            var multipleChoiceChangeCorrectAnswerDefer;
+            var singleSelectChangeCorrectAnswerDefer;
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
-                multipleChoiceChangeCorrectAnswerDefer = Q.defer();
-                spyOn(repository, 'multipleChoiceChangeCorrectAnswer').and.returnValue(multipleChoiceChangeCorrectAnswerDefer.promise);
+                singleSelectChangeCorrectAnswerDefer = Q.defer();
+                spyOn(repository, 'singleSelectChangeCorrectAnswer').and.returnValue(singleSelectChangeCorrectAnswerDefer.promise);
             });
 
             it('should be function', function () {
@@ -142,7 +142,7 @@
 
                     it('should update correctness', function(done) {
                         viewModel.toggleCorrectness(answer).fin(function () {
-                            expect(repository.multipleChoiceChangeCorrectAnswer).toHaveBeenCalledWith(questionId, answer.id());
+                            expect(repository.singleSelectChangeCorrectAnswer).toHaveBeenCalledWith(questionId, answer.id());
                             done();
                         });
                     });
@@ -156,9 +156,9 @@
                     });
 
                     it('should not update correctness', function (done) {
-                        multipleChoiceChangeCorrectAnswerDefer.reject();
+                        singleSelectChangeCorrectAnswerDefer.reject();
                         viewModel.toggleCorrectness(answer).fin(function () {
-                            expect(repository.multipleChoiceChangeCorrectAnswer).not.toHaveBeenCalled();
+                            expect(repository.singleSelectChangeCorrectAnswer).not.toHaveBeenCalled();
                             done();
                         });
                     });
@@ -168,7 +168,7 @@
                         it('should update correctness', function (done) {
                             viewModel.toggleCorrectness(answer).fin(function () {
                                 answer.id('foo');
-                                expect(repository.multipleChoiceChangeCorrectAnswer).toHaveBeenCalledWith(questionId, answer.id());
+                                expect(repository.singleSelectChangeCorrectAnswer).toHaveBeenCalledWith(questionId, answer.id());
                                 done();
                             });
                         });
@@ -254,7 +254,7 @@
 
         });
 
-        describe('multiplechoiceDeleteByCollaborator:', function () {
+        describe('singleSelectDeleteByCollaborator:', function () {
             var answer = { id: 'id', text: 'text', isCorrect: true },
                 answer1 = { id: 'id1', text: 'text', isCorrect: false },
                 question = { id: questionId },
@@ -266,13 +266,13 @@
             });
 
             it('should be function', function () {
-                expect(viewModel.multiplechoiceDeleteByCollaborator).toBeFunction();
+                expect(viewModel.singleSelectDeleteByCollaborator).toBeFunction();
             });
 
             describe('when question is not current question', function () {
                 it('should not delete answer', function () {
                     viewModel.answers([vmAnswer]);
-                    viewModel.multiplechoiceDeleteByCollaborator({ id: 'smth' }, answer.id);
+                    viewModel.singleSelectDeleteByCollaborator({ id: 'smth' }, answer.id);
                     expect(viewModel.answers().length).toEqual(1);
                 });
             });
@@ -281,7 +281,7 @@
                 it('should not delete answer', function () {
                     viewModel.answers([vmAnswer]);
                     viewModel.selectedAnswer(vmAnswer);
-                    viewModel.multiplechoiceDeleteByCollaborator(question, answer.id);
+                    viewModel.singleSelectDeleteByCollaborator(question, answer.id);
                     expect(viewModel.answers().length).toEqual(1);
                 });
 
@@ -289,14 +289,14 @@
                     vmAnswer.isDeleted(false);
                     viewModel.answers([vmAnswer]);
                     viewModel.selectedAnswer(vmAnswer);
-                    viewModel.multiplechoiceDeleteByCollaborator(question, answer.id);
+                    viewModel.singleSelectDeleteByCollaborator(question, answer.id);
                     expect(vmAnswer.isDeleted).toBeTruthy();
                 });
 
                 it('should show notification', function () {
                     viewModel.answers([vmAnswer]);
                     viewModel.selectedAnswer(vmAnswer);
-                    viewModel.multiplechoiceDeleteByCollaborator(question, answer.id);
+                    viewModel.singleSelectDeleteByCollaborator(question, answer.id);
                     expect(notify.error).toHaveBeenCalled();
                 });
 
@@ -306,7 +306,7 @@
                         vmAnswer.isCorrect(true);
                         viewModel.answers([vmAnswer, vmAnswer1]);
                         viewModel.selectedAnswer(vmAnswer);
-                        viewModel.multiplechoiceDeleteByCollaborator(question, answer.id);
+                        viewModel.singleSelectDeleteByCollaborator(question, answer.id);
                         expect(vmAnswer.isCorrect()).toBeFalsy();
                     });
 
@@ -315,7 +315,7 @@
                         vmAnswer1.isCorrect(false);
                         viewModel.answers([vmAnswer, vmAnswer1]);
                         viewModel.selectedAnswer(vmAnswer);
-                        viewModel.multiplechoiceDeleteByCollaborator(question, answer.id);
+                        viewModel.singleSelectDeleteByCollaborator(question, answer.id);
                         expect(vmAnswer1.isCorrect()).toBeTruthy();
                     });
 
@@ -325,13 +325,13 @@
             it('should remove answer', function () {
                 viewModel.selectedAnswer(null);
                 viewModel.answers([vmAnswer]);
-                viewModel.multiplechoiceDeleteByCollaborator(question, answer.id);
+                viewModel.singleSelectDeleteByCollaborator(question, answer.id);
                 expect(viewModel.answers().length).toEqual(0);
             });
 
         });
 
-        describe('multiplechoiceCorrectnessUpdatedByCollaborator:', function () {
+        describe('singleSelectCorrectnessUpdatedByCollaborator:', function () {
             var text = 'text',
               answer = { id: 'id', text: text, isCorrect: true },
               answer1 = { id: 'id1', text: text, isCorrect: false },
@@ -348,14 +348,14 @@
             });
 
             it('should be function', function () {
-                expect(viewModel.multiplechoiceCorrectnessUpdatedByCollaborator).toBeFunction();
+                expect(viewModel.singleSelectCorrectnessUpdatedByCollaborator).toBeFunction();
             });
 
             describe('when question is not current question', function () {
 
                 it('should not update answer', function () {
                     viewModel.answers([vmAnswer, vmAnswer1]);
-                    viewModel.multiplechoiceCorrectnessUpdatedByCollaborator({ id: 'smth' }, answer.id, false);
+                    viewModel.singleSelectCorrectnessUpdatedByCollaborator({ id: 'smth' }, answer.id, false);
                     expect(vmAnswer.isCorrect()).toBeTruthy();
                 });
 
@@ -369,7 +369,7 @@
                         vmAnswer.isCorrect(false);
                         vmAnswer1.isCorrect(true);
                         viewModel.answers([vmAnswer, vmAnswer1]);
-                        viewModel.multiplechoiceCorrectnessUpdatedByCollaborator({ id: questionId }, answer.id, true);
+                        viewModel.singleSelectCorrectnessUpdatedByCollaborator({ id: questionId }, answer.id, true);
                         expect(vmAnswer.isCorrect()).toBeTruthy();
                         expect(vmAnswer1.isCorrect()).toBeFalsy();
                     });
@@ -381,7 +381,7 @@
                     it('should not update answer', function () {
                         vmAnswer.isCorrect(true);
                         viewModel.answers([vmAnswer, vmAnswer1]);
-                        viewModel.multiplechoiceCorrectnessUpdatedByCollaborator({ id: 'smth' }, answer.id, false);
+                        viewModel.singleSelectCorrectnessUpdatedByCollaborator({ id: 'smth' }, answer.id, false);
                         expect(vmAnswer.isCorrect()).toBeTruthy();
                     });
 
@@ -394,7 +394,7 @@
                 it('should not update answer', function () {
                     vmAnswer.isCorrect(true);
                     viewModel.answers([]);
-                    viewModel.multiplechoiceCorrectnessUpdatedByCollaborator({ id: questionId }, answer.id, false);
+                    viewModel.singleSelectCorrectnessUpdatedByCollaborator({ id: questionId }, answer.id, false);
                     expect(vmAnswer.isCorrect()).toBeTruthy();
                 });
 
@@ -405,7 +405,7 @@
                 it('should not update answer', function () {
                     viewModel.answers([vmAnswer, vmAnswer1]);
                     viewModel.selectedAnswer(vmAnswer);
-                    viewModel.multiplechoiceCorrectnessUpdatedByCollaborator(question, answer.id, false);
+                    viewModel.singleSelectCorrectnessUpdatedByCollaborator(question, answer.id, false);
                     expect(vmAnswer.isCorrect()).toBeTruthy();
                 });
 
@@ -413,7 +413,7 @@
                     vmAnswer.isDeleted(false);
                     viewModel.answers([vmAnswer, vmAnswer1]);
                     viewModel.selectedAnswer(vmAnswer);
-                    viewModel.multiplechoiceCorrectnessUpdatedByCollaborator(question, answer.id);
+                    viewModel.singleSelectCorrectnessUpdatedByCollaborator(question, answer.id);
                     expect(vmAnswer.isDeleted).toBeTruthy();
                 });
 

@@ -1180,20 +1180,20 @@
 
         });
 
-        describe('multipleChoiceChangeCorrectAnswer:', function () {
+        describe('singleSelectChangeCorrectAnswer:', function () {
             
             it('should be function', function () {
-                expect(repository.multipleChoiceChangeCorrectAnswer).toBeFunction();
+                expect(repository.singleSelectChangeCorrectAnswer).toBeFunction();
             });
 
             it('should return promise', function () {
-                expect(repository.multipleChoiceChangeCorrectAnswer()).toBePromise();
+                expect(repository.singleSelectChangeCorrectAnswer()).toBePromise();
             });
 
             describe('when question id is null', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.multipleChoiceChangeCorrectAnswer(null, '1231231');
+                    var promise = repository.singleSelectChangeCorrectAnswer(null, '1231231');
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Question id is not a string');
@@ -1206,7 +1206,7 @@
             describe('when question id is undefined', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.multipleChoiceChangeCorrectAnswer(undefined, '1231231');
+                    var promise = repository.singleSelectChangeCorrectAnswer(undefined, '1231231');
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Question id is not a string');
@@ -1219,7 +1219,7 @@
             describe('when question id is not a string', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.multipleChoiceChangeCorrectAnswer({}, '1231231');
+                    var promise = repository.singleSelectChangeCorrectAnswer({}, '1231231');
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Question id is not a string');
@@ -1232,7 +1232,7 @@
             describe('when answer id is null', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.multipleChoiceChangeCorrectAnswer('1231231', null);
+                    var promise = repository.singleSelectChangeCorrectAnswer('1231231', null);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Answer id is not a string');
@@ -1245,7 +1245,7 @@
             describe('when answer id is undefined', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.multipleChoiceChangeCorrectAnswer('1231231', undefined);
+                    var promise = repository.singleSelectChangeCorrectAnswer('1231231', undefined);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Answer id is not a string');
@@ -1258,7 +1258,7 @@
             describe('when answer id is not a string', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.multipleChoiceChangeCorrectAnswer('1231231', {});
+                    var promise = repository.singleSelectChangeCorrectAnswer('1231231', {});
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Answer id is not a string');
@@ -1268,23 +1268,12 @@
 
             });
 
-            //it('should send request to \'api/answer/changecorrectanswer\'', function (done) {
-            //    var promise = repository.multipleChoiceChangeCorrectAnswer('id1', 'id2');
-
-            //    promise.fin(function () {
-            //        expect(httpWrapper.post).toHaveBeenCalledWith('api/answer/multiplechoice/changecorrectanswer', { questionId: 'id1', answerId: 'id2' });
-            //        done();
-            //    });
-
-            //    post.reject('yeah it failed baby');
-            //});
-
             describe('when answer updated on server', function () {
 
                 describe('and response is not an object', function () {
 
                     it('should reject promise', function (done) {
-                        var promise = repository.multipleChoiceChangeCorrectAnswer('id1', 'id2');
+                        var promise = repository.singleSelectChangeCorrectAnswer('id1', 'id2');
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Response is not an object');
@@ -1299,7 +1288,7 @@
                 describe('and response has no ModifiedOn date', function () {
 
                     it('should reject promise', function (done) {
-                        var promise = repository.multipleChoiceChangeCorrectAnswer('id1', 'id2');
+                        var promise = repository.singleSelectChangeCorrectAnswer('id1', 'id2');
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Answer modification date is not a string');
@@ -1320,7 +1309,7 @@
                             ModifiedOn: new Date().toISOString()
                         };
 
-                        var promise = repository.multipleChoiceChangeCorrectAnswer('id1', 'id2');
+                        var promise = repository.singleSelectChangeCorrectAnswer('id1', 'id2');
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Question does not exist in dataContext');
@@ -1348,7 +1337,7 @@
                         ModifiedOn: new Date().toISOString()
                     };
 
-                    var promise = repository.multipleChoiceChangeCorrectAnswer(questionId, 'id2');
+                    var promise = repository.singleSelectChangeCorrectAnswer(questionId, 'id2');
 
                     promise.fin(function () {
                         expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
@@ -1374,7 +1363,7 @@
                         ModifiedOn: new Date().toISOString()
                     };
 
-                    var promise = repository.multipleChoiceChangeCorrectAnswer(questionId, 'id2');
+                    var promise = repository.singleSelectChangeCorrectAnswer(questionId, 'id2');
 
                     promise.fin(function () {
                         expect(promise.inspect().value.modifiedOn).toEqual(new Date(response.ModifiedOn));

@@ -28,7 +28,7 @@
                 viewModel.answers = vmAnswers(question.id, sortedAnswers);
 
                 return {
-                    viewCaption: localizationManager.localize('multipleChoiceEditor'),
+                    viewCaption: localizationManager.localize('singleSelectEditor'),
                     isQuestionContentNeeded: true
                 };
             });

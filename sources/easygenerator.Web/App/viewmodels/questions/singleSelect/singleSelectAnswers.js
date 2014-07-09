@@ -9,7 +9,7 @@
 
         var minLengthOfAnswerOptions = 2;
 
-        var multiplechoiceAnswers = function (questionId, answers) {
+        var singleSelectAnswers = function (questionId, answers) {
 
             var viewModel = answersViewModel(questionId, answers);
 
@@ -123,14 +123,14 @@
                 return Q.fcall(function () {
                     if (_.isEmptyOrWhitespace(answer.id())) {
                         performActionWhenAnswerIdIsSet(answer, function () {
-                            repository.multipleChoiceChangeCorrectAnswer(questionId, answer.id()).then(function () {
+                            repository.singleSelectChangeCorrectAnswer(questionId, answer.id()).then(function () {
                                 currentCorrectAnswer.original.correctness = false;
                                 answer.original.correctness = true;
                                 showNotification();
                             });
                         });
                     } else {
-                        repository.multipleChoiceChangeCorrectAnswer(questionId, answer.id()).then(function () {
+                        repository.singleSelectChangeCorrectAnswer(questionId, answer.id()).then(function () {
                             currentCorrectAnswer.original.correctness = false;
                             answer.original.correctness = true;
                             showNotification();
@@ -156,16 +156,16 @@
                 return viewModel.selectAnswer(null);
             };
 
-            viewModel.multiplechoiceDeleteByCollaborator = multiplechoiceDeleteByCollaborator;
+            viewModel.singleSelectDeleteByCollaborator = singleSelectDeleteByCollaborator;
 
-            viewModel.multiplechoiceCorrectnessUpdatedByCollaborator = multiplechoiceCorrectnessUpdatedByCollaborator;
+            viewModel.singleSelectCorrectnessUpdatedByCollaborator = singleSelectCorrectnessUpdatedByCollaborator;
 
-            app.on(constants.messages.question.answer.multiplechoiceAnswerCorrectnessUpdatedByCollaborator, multiplechoiceCorrectnessUpdatedByCollaborator);
-            app.on(constants.messages.question.answer.multiplechoiceDeleteByCollaborator, multiplechoiceDeleteByCollaborator);
+            app.on(constants.messages.question.answer.singleSelectAnswerCorrectnessUpdatedByCollaborator, singleSelectCorrectnessUpdatedByCollaborator);
+            app.on(constants.messages.question.answer.singleSelectDeleteByCollaborator, singleSelectDeleteByCollaborator);
 
             return viewModel;
 
-            function multiplechoiceDeleteByCollaborator(question, answerId) {
+            function singleSelectDeleteByCollaborator(question, answerId) {
                 if (questionId != question.id)
                     return;
 
@@ -194,7 +194,7 @@
                 }
             }
 
-            function multiplechoiceCorrectnessUpdatedByCollaborator(question, answerId, isCorrect) {
+            function singleSelectCorrectnessUpdatedByCollaborator(question, answerId, isCorrect) {
                 if (questionId != question.id)
                     return;
 
@@ -266,6 +266,6 @@
 
         };
 
-        return multiplechoiceAnswers;
+        return singleSelectAnswers;
 
     });

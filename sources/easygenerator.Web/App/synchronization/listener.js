@@ -54,7 +54,7 @@
                     answerDeleted: answerEventHandler.deleted,
                     answerTextUpdated: answerEventHandler.textUpdated,
                     multipleSelectAnswerCorrectnessUpdated: answerEventHandler.multipleSelectAnswerCorrectnessUpdated,
-                    multiplechoiceAnswerCorrectnessUpdated: answerEventHandler.multiplechoiceAnswerCorrectnessUpdated,
+                    singleSelectAnswerCorrectnessUpdated: answerEventHandler.singleSelectAnswerCorrectnessUpdated,
 
                     learningContentCreated: learningContentEventHandler.created,
                     learningContentUpdated: learningContentEventHandler.textUpdated,

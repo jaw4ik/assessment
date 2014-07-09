@@ -245,8 +245,8 @@
                     return constants.questionType.fillInTheBlank.image;
                 case constants.questionType.dragAndDropText.type:
                     return constants.questionType.dragAndDropText.image;
-                case constants.questionType.multipleChoice.type:
-                    return constants.questionType.multipleChoice.image;
+                case constants.questionType.singleSelect.type:
+                    return constants.questionType.singleSelect.image;
             }
         }
 

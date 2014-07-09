@@ -83,13 +83,13 @@
 
         });
 
-        describe('when question type is multipleselect', function () {
+        describe('when question type is singleSelect', function () {
 
             it('should trigger app event', function () {
-                question.type = constants.questionType.multipleChoice.type;
+                question.type = constants.questionType.singleSelect.type;
                 spyOn(dataContext, 'getQuestions').and.returnValue([question]);
                 handler(questionId, answerId, modifiedOn.toISOString());
-                expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.multiplechoiceDeleteByCollaborator, question, answerId);
+                expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.singleSelectDeleteByCollaborator, question, answerId);
             });
 
         });

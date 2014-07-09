@@ -2,7 +2,7 @@
         'viewmodels/questions/questionTitle', 'viewmodels/common/contentField', 'viewmodels/questions/multipleSelect/multipleSelect',
         'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelect/singleSelect'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, vmQuestionTitle, vmContentField,
-        multipleSelect, fillInTheBlank, dragAndDrop, multipleChoice) {
+        multipleSelect, fillInTheBlank, dragAndDrop, singleSelect) {
         "use strict";
 
         var events = {
@@ -56,8 +56,8 @@
                     return fillInTheBlank;
                 case constants.questionType.dragAndDropText.type:
                     return dragAndDrop;
-                case constants.questionType.multipleChoice.type:
-                    return multipleChoice;
+                case constants.questionType.singleSelect.type:
+                    return singleSelect;
             }
         }
 

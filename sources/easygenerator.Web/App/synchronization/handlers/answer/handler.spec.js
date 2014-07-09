@@ -27,9 +27,9 @@
             });
         });
 
-        describe('multiplechoiceAnswerCorrectnessUpdated:', function () {
+        describe('singleSelectAnswerCorrectnessUpdated:', function () {
             it('should be function', function () {
-                expect(handler.multiplechoiceAnswerCorrectnessUpdated).toBeFunction();
+                expect(handler.singleSelectAnswerCorrectnessUpdated).toBeFunction();
             });
         });
 

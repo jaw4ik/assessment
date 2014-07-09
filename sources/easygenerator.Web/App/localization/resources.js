@@ -562,10 +562,10 @@
     addDropspotText: {
         en: 'Add dropspot text'
     },
-    multipleChoice: {
+    singleSelect: {
         en: 'Single select'
     },
-    multipleChoiceEditor: {
+    singleSelectEditor: {
         en: '\"Single select\" question editor'
     },
     multipleSelectEditor: {
@@ -576,9 +576,6 @@
     },
     DragAndDropTextEditor: {
         en: '\"Drag\'n\'Drop text\" question editor'
-    },
-    multipleChoiceAnswerError: {
-        en: 'A single select question needs to have at least two answer options'
     },
     /* End resource section for model Questions */
     

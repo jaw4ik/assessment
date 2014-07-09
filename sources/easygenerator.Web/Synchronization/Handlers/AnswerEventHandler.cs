@@ -51,7 +51,7 @@ namespace easygenerator.Web.Synchronization.Handlers
         public void Handle(MultiplechoiceAnswerCorrectnessUpdateEvent args)
         {
             _broadcaster.OtherCollaborators(args.Answer.Question)
-                .multiplechoiceAnswerCorrectnessUpdated(args.Answer.Question.Id.ToNString(), args.Answer.Id.ToNString(), args.Answer.IsCorrect, args.Answer.Question.ModifiedOn);
+                .singleSelectAnswerCorrectnessUpdated(args.Answer.Question.Id.ToNString(), args.Answer.Id.ToNString(), args.Answer.IsCorrect, args.Answer.Question.ModifiedOn);
         }
     }
 }

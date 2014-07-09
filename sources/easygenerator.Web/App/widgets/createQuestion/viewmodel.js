@@ -24,8 +24,8 @@
         return userContext.identify().then(function () {
             viewModel.questions([
                 {
-                    type: constants.questionType.multipleChoice.type,
-                    name: constants.questionType.multipleChoice.name,
+                    type: constants.questionType.singleSelect.type,
+                    name: constants.questionType.singleSelect.name,
                     hasAccess: true
                 },
                 {
