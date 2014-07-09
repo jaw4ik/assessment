@@ -1,5 +1,5 @@
 ﻿define(['synchronization/handlers/answer/eventHandlers/created', 'synchronization/handlers/answer/eventHandlers/deleted', 'synchronization/handlers/answer/eventHandlers/textUpdated',
-'synchronization/handlers/answer/eventHandlers/multipleSelectAnswerCorrectnessUpdated', 'synchronization/handlers/answer/eventHandlers/multiplechoiceAnswerCorrectnessUpdated'],
+'synchronization/handlers/answer/eventHandlers/multipleSelectAnswerCorrectnessUpdated', 'synchronization/handlers/answer/eventHandlers/singleSelectAnswerCorrectnessUpdated'],
     function (created, deleted, textUpdated, multipleSelectAnswerCorrectnessUpdated, multiplechoiceAnswerCorrectnessUpdated) {
         "use strict";
 

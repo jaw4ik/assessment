@@ -2,13 +2,13 @@
     "use strict";
 
     var
-        ctor = require('viewmodels/questions/multipleChoice/multipleChoiceAnswers'),
+        ctor = require('viewmodels/questions/singleSelect/singleSelectAnswers'),
         eventTracker = require('eventTracker'),
         repository = require('repositories/answerRepository'),
         notify = require('notify')
     ;
 
-    describe('viewModel [multipleChoiceAnswers]', function () {
+    describe('viewModel [singleSelectAnswers]', function () {
 
         var viewModel;
         var questionId = 'questionId';

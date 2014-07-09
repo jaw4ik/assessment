@@ -396,6 +396,9 @@
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\singleSelectAnswerCorrectnessUpdated.spec.js">
+      <DependentUpon>singleSelectAnswerCorrectnessUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\answer\eventHandlers\multipleSelectAnswerCorrectnessUpdated.spec.js">
       <DependentUpon>multipleSelectAnswerCorrectnessUpdated.js</DependentUpon>
     </Content>
@@ -483,10 +486,7 @@
       <DependentUpon>objectiveRepository.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\answer\eventHandlers\multipleSelectAnswerCorrectnessUpdated.js" />
-    <Content Include="App\synchronization\handlers\answer\eventHandlers\multiplechoiceAnswerCorrectnessUpdated.js" />
-    <Content Include="App\synchronization\handlers\answer\eventHandlers\multiplechoiceAnswerCorrectnessUpdated.spec.js">
-      <DependentUpon>multiplechoiceAnswerCorrectnessUpdated.js</DependentUpon>
-    </Content>
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\singleSelectAnswerCorrectnessUpdated.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\textUpdated.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\textUpdated.spec.js">
       <DependentUpon>textUpdated.js</DependentUpon>
@@ -678,14 +678,14 @@
     <Content Include="App\viewmodels\questions\fillInTheBlank\fillInTheBlank.spec.js">
       <DependentUpon>fillInTheBlank.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\multipleChoice\multipleChoice.js" />
-    <Content Include="App\viewmodels\questions\multipleChoice\multipleChoice.spec.js">
-      <DependentUpon>multipleChoice.js</DependentUpon>
+    <Content Include="App\viewmodels\questions\singleSelect\singleSelect.spec.js">
+      <DependentUpon>singleSelect.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\multipleChoice\multipleChoiceAnswers.js" />
-    <Content Include="App\viewmodels\questions\multipleChoice\multipleChoiceAnswers.spec.js">
-      <DependentUpon>multipleChoiceAnswers.js</DependentUpon>
+    <Content Include="App\viewmodels\questions\singleSelect\singleSelectAnswers.spec.js">
+      <DependentUpon>singleSelectAnswers.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\singleSelect\singleSelect.js" />
+    <Content Include="App\viewmodels\questions\singleSelect\singleSelectAnswers.js" />
     <Content Include="App\viewmodels\questions\multipleSelect\multipleSelect.js" />
     <Content Include="App\viewmodels\questions\multipleSelect\multipleSelect.spec.js">
       <DependentUpon>multipleSelect.js</DependentUpon>
@@ -704,7 +704,7 @@
     <Content Include="App\views\questions\feedback.html" />
     <Content Include="App\views\questions\fillInTheBlank\fillInTheBlank.html" />
     <Content Include="App\views\questions\learningContents.html" />
-    <Content Include="App\views\questions\multipleChoice\multipleChoice.html" />
+    <Content Include="App\views\questions\singleSelect\singleSelect.html" />
     <Content Include="App\views\questions\multipleSelect\multipleSelect.html" />
     <Content Include="App\widgets\createQuestion\view.html" />
     <Content Include="App\widgets\createQuestion\viewmodel.js" />

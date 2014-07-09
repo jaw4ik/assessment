@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/answer/eventHandlers/multiplechoiceAnswerCorrectnessUpdated'], function (handler) {
+﻿define(['synchronization/handlers/answer/eventHandlers/singleSelectAnswerCorrectnessUpdated'], function (handler) {
     "use strict";
 
     var dataContext = require('dataContext'),
@@ -6,7 +6,7 @@
         constants = require('constants')
     ;
 
-    describe('synchronization answer [multiplechoiceAnswerCorrectnessUpdated]', function () {
+    describe('synchronization answer [singleSelectAnswerCorrectnessUpdated]', function () {
 
         var questionId = 'id',
             answerId = 'answerId',

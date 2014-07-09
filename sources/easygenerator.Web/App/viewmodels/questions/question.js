@@ -1,6 +1,6 @@
 ﻿define(['durandal/app', 'eventTracker', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'ping', 'models/backButton', 'plugins/router',
         'viewmodels/questions/questionTitle', 'viewmodels/common/contentField', 'viewmodels/questions/multipleSelect/multipleSelect',
-        'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/multipleChoice/multipleChoice'],
+        'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelect/singleSelect'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, vmQuestionTitle, vmContentField,
         multipleSelect, fillInTheBlank, dragAndDrop, multipleChoice) {
         "use strict";

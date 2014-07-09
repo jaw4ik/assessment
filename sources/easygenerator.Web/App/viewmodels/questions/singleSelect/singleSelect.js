@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'repositories/answerRepository', 'viewmodels/questions/multipleChoice/multipleChoiceAnswers', 'localization/localizationManager'],
+﻿define(['durandal/app', 'constants', 'eventTracker', 'repositories/answerRepository', 'viewmodels/questions/singleSelect/singleSelectAnswers', 'localization/localizationManager'],
     function (app, constants, eventTracker, answerRepository, vmAnswers, localizationManager) {
         "use strict";
 
