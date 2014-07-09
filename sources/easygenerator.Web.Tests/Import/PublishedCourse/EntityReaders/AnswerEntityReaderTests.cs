@@ -33,6 +33,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
 
         #region ReadAnswer
 
+        [TestMethod]
         public void ReadAnswer_ShouldReadAnswerFromPublishedPackage()
         {
             //Arrange
@@ -42,8 +43,8 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse.EntityReaders
             string createdBy = "test@easygenerator.com";
 
             var courseData = JObject.Parse(
-                        String.Format("{{ objectives: [ {{ questions: [ {{ answers: [ {{ id: '{0}', text: '{1}', isCorrect: {2} }} ] }} ] }} ] }}",
-                            answerId.ToString("N").ToLower(), answerText, answerCorrectness.ToString().ToLower()));
+                        String.Format("{{ objectives: [ {{ questions: [ {{ answers: [ {{ id: '{0}', text: '{1}', isCorrect: {2}, group: '{3}' }} ] }} ] }} ] }}",
+                            answerId.ToString("N").ToLower(), answerText, answerCorrectness.ToString().ToLower(), Guid.Empty.ToString("N").ToLower()));
 
             //Act
             var answer = _answerEntityReader.ReadAnswer(answerId, createdBy, courseData);
