@@ -29,7 +29,8 @@
             courseDeleted: courseDeleted,
             objectivesUnrelated: objectivesUnrelated,
             questionsDeleted: questionsDeleted,
-            courseCollaborationFinished: courseCollaborationFinished
+            courseCollaborationFinished: courseCollaborationFinished,
+            openUpgradePlanUrl: openUpgradePlanUrl
         };
 
         viewModel.activeModuleName = ko.computed(function () {
@@ -67,6 +68,11 @@
 
         function showNavigation() {
             return _.contains(['404'], this.activeModuleName());
+        }
+
+        function openUpgradePlanUrl() {
+            eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.header);
+            router.openUrl(constants.upgradeUrl);
         }
 
         function activate() {

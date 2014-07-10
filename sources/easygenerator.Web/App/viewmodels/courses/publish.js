@@ -25,6 +25,7 @@
 
             canActivate: canActivate,
             activate: activate,
+            openUpgradePlanUrl: openUpgradePlanUrl,
 
             backButtonData: new BackButton({
                 url: 'courses',
@@ -40,6 +41,11 @@
         }, viewModel);
 
         return viewModel;
+
+        function openUpgradePlanUrl() {
+            eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.scorm);
+            router.openUrl(constants.upgradeUrl);
+        }
 
         function buildActionClick() {
             if (!viewModel.isPublishingInProgress()) {

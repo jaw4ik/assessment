@@ -193,6 +193,20 @@
                 email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
             },
 
+            upgradeEvent: 'Upgrade now',
+
+            upgradeUrl: '/account/upgrade',
+
+            upgradeCategory: {
+                scorm: 'SCORM 1.2',
+                changeLogo: 'Change logo',
+                externalReview: 'External review',
+                header: 'Header',
+                userMenuInHeader: 'User menu in header',
+                questions: 'Questions',
+                collaboration: 'Collaboration'
+            },
+
             maxStarterPlanCollaborators: 3
         };
     }

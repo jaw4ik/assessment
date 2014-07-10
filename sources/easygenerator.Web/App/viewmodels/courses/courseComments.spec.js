@@ -2,7 +2,9 @@
     function (viewModel) {
 
         var userContext = require('userContext'),
-            commentRepository = require('repositories/commentRepository');
+            commentRepository = require('repositories/commentRepository'),
+            eventTracker = require('eventTracker'),
+            constants = require('constants');
 
         describe('viewModel [courseComments]', function () {
 
@@ -198,6 +200,29 @@
 
                 it('should be observable', function () {
                     expect(viewModel.hasAccessToComments).toBeObservable();
+                });
+
+            });
+
+            describe('openUpgradePlanUrl:', function () {
+
+                beforeEach(function () {
+                    spyOn(eventTracker, 'publish');
+                    spyOn(window, 'open');
+                });
+
+                it('should be function', function () {
+                    expect(viewModel.openUpgradePlanUrl).toBeFunction();
+                });
+
+                it('should send event \'Upgrade now\'', function () {
+                    viewModel.openUpgradePlanUrl();
+                    expect(eventTracker.publish).toHaveBeenCalledWith(constants.upgradeEvent, constants.upgradeCategory.externalReview);
+                });
+
+                it('should open upgrade link in new window', function () {
+                    viewModel.openUpgradePlanUrl();
+                    expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
                 });
 
             });

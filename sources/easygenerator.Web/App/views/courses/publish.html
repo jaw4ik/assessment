@@ -153,7 +153,10 @@
                                 <div class="package-action-access-message-overlay"></div>
                                 <div class="package-action-access-message-wrapper">
                                     <div class="package-action-access-message-icon"></div>
-                                    <div class="package-action-access-message" data-bind="localize: { html: 'upgradeToStarterPlanToUseScormMessage' }">
+                                    <div class="package-action-access-message">
+                                        <span data-bind="localize: { text: 'youHaveTo' }">You have to</span>
+                                        <a href="" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeYourAccount' }">upgrade your account</a>
+                                        <span data-bind="localize: { html: 'upgradeToStarterPlanToUseScormMessage' }">in order to read external review comments</span>
                                     </div>
                                 </div>
                                 <!-- /ko -->

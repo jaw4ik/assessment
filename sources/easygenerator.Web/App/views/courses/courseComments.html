@@ -22,7 +22,11 @@
     <!-- /ko -->
     <!-- ko ifnot: hasAccessToComments() -->
     <div class="review-not-paid-message-wrapper">
-        <div class="review-not-paid-message" data-bind="localize: { html: 'reviewNotPaidMessage' }"></div>
+        <div class="review-not-paid-message">
+            <span data-bind="localize: { text: 'youHaveTo' }">You have to</span>
+            <a href="" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeYourAccount' }">upgrade your account</a>
+            <span data-bind="localize: { text: 'reviewNotPaidMessage' }">in order to read external review comments</span>
+        </div>
     </div>
     <!-- /ko -->
 </div>

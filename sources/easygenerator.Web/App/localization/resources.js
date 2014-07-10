@@ -124,6 +124,12 @@
     imageIsNotSupported: {
         en: 'This extension is not supported. Please use .jpg, .jpeg, .png, .gif or .bmp'
     },
+    youHaveTo: {
+        en: 'You have to'
+    },
+    upgradeYourAccount: {
+        en: 'upgrade your account'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -251,7 +257,7 @@
         en: 'Please upgrade your account to \"Starter plan\" to be able to download the course as a SCORM package.'
     },
     upgradeToStarterPlanToUseScormMessage: {
-        en: 'You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to<br/>download SCORM 1.2 package'
+        en: 'in order to<br/>download SCORM 1.2 package'
     },
     publishToAim4You: {
         en: 'Publish to Aim4You'
@@ -1184,7 +1190,7 @@
         en: 'No comments yet'
     },
     reviewNotPaidMessage: {
-        en: 'You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to read external review comments'
+        en: 'in order to read external review comments'
     },
     upgradeToStarterPlanToUseCommentsErrorMessage: {
         en: 'Please upgrade your account to \"Starter plan\" to be able to see comments.'

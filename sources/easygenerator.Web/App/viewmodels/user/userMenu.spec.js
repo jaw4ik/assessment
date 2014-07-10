@@ -2,8 +2,9 @@
     "use strict";
 
     var
-        userContext = require('userContext')
-    ;
+        userContext = require('userContext'),
+        eventTracker = require('eventTracker'),
+        constants = require('constants');
 
     describe('viewModel [userMenu]', function () {
 
@@ -118,6 +119,29 @@
                 userMenu.activate();
                 expect(userMenu.hasStarterAccess()).toBeTruthy();
             });
+        });
+
+        describe('openUpgradePlanUrl:', function () {
+
+            beforeEach(function () {
+                spyOn(eventTracker, 'publish');
+                spyOn(window, 'open');
+            });
+
+            it('should be function', function () {
+                expect(userMenu.openUpgradePlanUrl).toBeFunction();
+            });
+
+            it('should send event \'Upgrade now\'', function () {
+                userMenu.openUpgradePlanUrl();
+                expect(eventTracker.publish).toHaveBeenCalledWith(constants.upgradeEvent, constants.upgradeCategory.userMenuInHeader);
+            });
+
+            it('should open upgrade link in new window', function () {
+                userMenu.openUpgradePlanUrl();
+                expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
+            });
+
         });
 
     });

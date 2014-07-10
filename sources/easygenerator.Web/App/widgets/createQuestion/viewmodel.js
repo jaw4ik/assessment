@@ -1,4 +1,4 @@
-﻿define(['guard', 'commands/createQuestionCommand', 'plugins/router', 'constants', 'userContext'], function (guard, createQuestionCommand, router, constants, userContext) {
+﻿define(['guard', 'commands/createQuestionCommand', 'plugins/router', 'constants', 'userContext', 'eventTracker'], function (guard, createQuestionCommand, router, constants, userContext, eventTracker) {
 
     "use strict";
 
@@ -10,7 +10,8 @@
         activate: activate,
         show: show,
         hide: hide,
-        createQuestion: createQuestion
+        createQuestion: createQuestion,
+        openUpgradePlanUrl: openUpgradePlanUrl
     };
 
     return viewModel;
@@ -45,6 +46,11 @@
                 }
             ]);
         });
+    }
+
+    function openUpgradePlanUrl() {
+        eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.questions);
+        router.openUrl(constants.upgradeUrl);
     }
 
     function show() {

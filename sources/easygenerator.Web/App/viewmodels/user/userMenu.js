@@ -1,5 +1,5 @@
-﻿define(['userContext', 'constants', 'durandal/app'],
-    function (userContext, constants, app) {
+﻿define(['userContext', 'constants', 'durandal/app', 'eventTracker', 'plugins/router'],
+    function (userContext, constants, app, eventTracker, router) {
         "use strict";
 
         var viewModel = {
@@ -7,7 +7,8 @@
             hasStarterAccess: ko.observable(false),
             userPlanChanged: userPlanChanged,
             activate: activate,
-            avatarLetter: null
+            avatarLetter: null,
+            openUpgradePlanUrl: openUpgradePlanUrl
         };
 
         return viewModel;
@@ -29,6 +30,11 @@
 
         function userPlanChanged() {
             viewModel.hasStarterAccess(userContext.hasStarterAccess());
+        }
+
+        function openUpgradePlanUrl() {
+            eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.userMenuInHeader);
+            router.openUrl(constants.upgradeUrl);
         }
     }
 );

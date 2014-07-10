@@ -1,11 +1,12 @@
-﻿define(['guard', 'userContext', 'repositories/commentRepository'],
-    function (guard, userContext, commentRepository) {
+﻿define(['guard', 'userContext', 'repositories/commentRepository', 'eventTracker', 'constants', 'plugins/router'],
+    function (guard, userContext, commentRepository, eventTracker, constants, router) {
 
         var viewModel = {
             isCommentsLoading: ko.observable(),
             comments: ko.observableArray(),
             hasAccessToComments: ko.observable(userContext.hasStarterAccess()),
-            activate: activate
+            activate: activate,
+            openUpgradePlanUrl: openUpgradePlanUrl
         };
 
         return viewModel;
@@ -28,6 +29,11 @@
                     viewModel.isCommentsLoading(false);
                 });
             });
+        }
+
+        function openUpgradePlanUrl() {
+            eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.externalReview);
+            router.openUrl(constants.upgradeUrl);
         }
     }
 );

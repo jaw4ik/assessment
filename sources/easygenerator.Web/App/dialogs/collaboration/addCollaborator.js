@@ -16,7 +16,8 @@
 
             submit: submit,
             show: show,
-            hide: hide
+            hide: hide,
+            openUpgradePlanUrl: openUpgradePlanUrl
         };
 
         viewModel.email.subscribe(function () {
@@ -108,6 +109,11 @@
             } else {
                 viewModel.collaborationWarning('');
             }
+        }
+
+        function openUpgradePlanUrl() {
+            eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.collaboration);
+            router.openUrl(constants.upgradeUrl);
         }
 
     }

@@ -81,7 +81,8 @@
             objectiveTitleUpdated: objectiveTitleUpdated,
             objectiveUpdated: objectiveUpdated,
             updateCollaborationWarning: updateCollaborationWarning,
-            collaborators: collaborators
+            collaborators: collaborators,
+            openUpgradePlanUrl: openUpgradePlanUrl
         };
 
         viewModel.title.isValid = ko.computed(function () {
@@ -124,6 +125,11 @@
         });
 
         return viewModel;
+
+        function openUpgradePlanUrl() {
+            eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.collaboration);
+            router.openUrl(constants.upgradeUrl);
+        }
 
         function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);

@@ -4,7 +4,8 @@
 
     var createQuestionCommand = require('commands/createQuestionCommand'),
         router = require('plugins/router'),
-        userContext = require('userContext');
+        userContext = require('userContext'),
+        eventTracker = require('eventTracker');
 
     var settings = {
         objectiveId: '1'
@@ -380,6 +381,29 @@
                     expect(createQuestionCommand.execute).toHaveBeenCalledWith('objectiveId', 'courseId', 'questionType');
                 });
 
+            });
+
+        });
+
+        describe('openUpgradePlanUrl:', function () {
+
+            beforeEach(function() {
+                spyOn(eventTracker, 'publish');
+                spyOn(window, 'open');
+            });
+
+            it('should be function', function() {
+                expect(viewModel.openUpgradePlanUrl).toBeFunction();
+            });
+
+            it('should send event \'Upgrade now\'', function () {
+                viewModel.openUpgradePlanUrl();
+                expect(eventTracker.publish).toHaveBeenCalledWith(constants.upgradeEvent, constants.upgradeCategory.questions);
+            });
+
+            it('should open upgrade link in new window', function() {
+                viewModel.openUpgradePlanUrl();
+                expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
             });
 
         });
