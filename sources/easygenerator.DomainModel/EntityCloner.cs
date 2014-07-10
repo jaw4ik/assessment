@@ -16,6 +16,9 @@ namespace easygenerator.DomainModel
         protected static MethodInfo EntityTypeCloner_UpdateQuestionsOrderInObjective =
             typeof(EntityCloner).GetMethod("UpdateQuestionsOrderInObjective", BindingFlags.NonPublic | BindingFlags.Instance);
 
+        protected static MethodInfo EntityTypeCloner_UpdateObjectivesOrderInCourse =
+            typeof(EntityCloner).GetMethod("UpdateObjectivesOrderInCourse", BindingFlags.NonPublic | BindingFlags.Instance);
+
         public override T Clone<T>(T obj, params object[] args)
         {
             if (obj is Entity)
@@ -52,6 +55,23 @@ namespace easygenerator.DomainModel
                         member = propertyInfo;
                     }
 
+                    if (type == typeof(Course) || type == typeof(Course.CourseTemplateSettings))
+                    {
+                        if (member.Name == "Template")
+                        {
+                            list.Add(Expression.Assign(Expression.Property(target, member), Expression.Property(source, member)));
+                            continue;
+                        }
+                    }
+
+                    if (type == typeof(Course))
+                    {
+                        if (member.Name == "BuildOn" || member.Name == "PackageUrl" || member.Name == "PublishedOn" || member.Name == "ScormPackageUrl" || member.Name == "PublicationUrl")
+                        {
+                            continue;
+                        }
+                    }
+
                     // cloning of cources is not needed.
                     if (type == typeof(Objective) && member.Name == "RelatedCoursesCollection")
                         continue;
@@ -82,9 +102,20 @@ namespace easygenerator.DomainModel
                 {
                     list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateQuestionsOrderInObjective, source, target));
                 }
+
+                if (type == typeof(Course))
+                {
+                    list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateObjectivesOrderInCourse, source, target));
+                }
                 return list;
             }
             return null;
+        }
+
+        protected virtual void UpdateObjectivesOrderInCourse(Course source, Course target)
+        {
+            var orderedClonedObjectives = source.OrderClonedObjectives(target.RelatedObjectivesCollection);
+            target.UpdateObjectivesOrder(orderedClonedObjectives, target.CreatedBy);
         }
 
         protected virtual void UpdateQuestionsOrderInObjective(Objective source, Objective target)

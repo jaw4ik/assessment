@@ -611,19 +611,23 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question1 = MultiplechoiceObjectMother.Create("question 1");
             var question2 = MultipleselectObjectMother.Create("question 2");
+            var question3 = MultipleselectObjectMother.Create("question 3");
 
             var clonedQuestion1 = MultiplechoiceObjectMother.Create("cloned question 1");
             var clonedQuestion2 = MultipleselectObjectMother.Create("cloned question 2");
+            var clonedQuestion3 = MultipleselectObjectMother.Create("cloned question 3");
 
             var objective = ObjectiveObjectMother.Create();
             objective.AddQuestion(question1, "owner");
             objective.AddQuestion(question2, "owner");
+            objective.AddQuestion(question3, "owner");
 
-            objective.UpdateQuestionsOrder(new Collection<Question> { question2, question1 }, "owner");
-            var result = objective.OrderClonedQuestions(new Collection<Question> { clonedQuestion1, clonedQuestion2 });
+            objective.UpdateQuestionsOrder(new Collection<Question> { question3, question1, question2 }, "owner");
+            var result = objective.OrderClonedQuestions(new Collection<Question> { clonedQuestion1, clonedQuestion2, clonedQuestion3 });
 
-            result[0].Should().Be(clonedQuestion2);
+            result[0].Should().Be(clonedQuestion3);
             result[1].Should().Be(clonedQuestion1);
+            result[2].Should().Be(clonedQuestion2);
         }
         #endregion
     }

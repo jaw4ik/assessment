@@ -94,17 +94,17 @@ namespace easygenerator.DomainModel.Entities
             if (clonedQuestions == null)
                 return null;
 
-            var orderedOriginalQuestions = Questions.ToList();
+            var originalQuestions = QuestionsCollection.ToList();
 
-            if (orderedOriginalQuestions.Count != clonedQuestions.Count)
+            if (originalQuestions.Count != clonedQuestions.Count)
             {
                 throw new ArgumentException("Cloned questions collection has to be same length as original.", "clonedQuestions");
             }
 
             var orderedClonedQuestions = new List<Question>();
-            foreach (var question in QuestionsCollection)
+            foreach (var question in Questions)
             {
-                int index = orderedOriginalQuestions.IndexOf(question);
+                int index = originalQuestions.IndexOf(question);
                 orderedClonedQuestions.Add(clonedQuestions.ElementAt(index));
             }
 

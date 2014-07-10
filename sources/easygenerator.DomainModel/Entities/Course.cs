@@ -202,6 +202,28 @@ namespace easygenerator.DomainModel.Entities
 
         #endregion
 
+        public virtual IList<Objective> OrderClonedObjectives(ICollection<Objective> clonedObjectives)
+        {
+            if (clonedObjectives == null)
+                return null;
+
+            var originalObjectives = RelatedObjectivesCollection.ToList();
+
+            if (originalObjectives.Count != clonedObjectives.Count)
+            {
+                throw new ArgumentException("Cloned objectives collection has to be same length as original.", "clonedObjectives");
+            }
+
+            var orderedClonedObjectives = new List<Objective>();
+            foreach (var objective in RelatedObjectives)
+            {
+                int index = originalObjectives.IndexOf(objective);
+                orderedClonedObjectives.Add(clonedObjectives.ElementAt(index));
+            }
+
+            return orderedClonedObjectives;
+        }
+
         public string Title { get; private set; }
 
         public virtual void UpdateTitle(string title, string modifiedBy)

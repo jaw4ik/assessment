@@ -1362,5 +1362,50 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region OrderClonedObjectives
+
+        [TestMethod]
+        public void OrderClonedObjectives_ShouldReturnNull_IfClonedObjectivesAreNull()
+        {
+            var course = CourseObjectMother.Create();
+
+            var result = course.OrderClonedObjectives(null);
+            result.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void OrderClonedObjectives_ShouldThrowArgumentException_IfLengthOfObjectiveCollectionsAreDifferent()
+        {
+            var course = CourseObjectMother.Create();
+            Action action = () => course.OrderClonedObjectives(new Collection<Objective> { ObjectiveObjectMother.Create() });
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("clonedObjectives");
+        }
+
+        [TestMethod]
+        public void OrderClonedObjectives_ShouldOrderClonedObjectivesAccordingToCourseObjectives()
+        {
+            var objective1 = ObjectiveObjectMother.Create("objective 1");
+            var objective2 = ObjectiveObjectMother.Create("objective 2");
+            var objective3 = ObjectiveObjectMother.Create("objective 3");
+
+            var clonedObjective1 = ObjectiveObjectMother.Create("cloned objective 1");
+            var clonedObjective2 = ObjectiveObjectMother.Create("cloned objective 2");
+            var clonedObjective3 = ObjectiveObjectMother.Create("cloned objective 3");
+
+            var course = CourseObjectMother.Create();
+            course.RelateObjective(objective1, null, "owner");
+            course.RelateObjective(objective2, null, "owner");
+            course.RelateObjective(objective3, null, "owner");
+            course.UpdateObjectivesOrder(new Collection<Objective> { objective3, objective1, objective2 }, "owner");
+
+            var result = course.OrderClonedObjectives(new Collection<Objective> { clonedObjective1, clonedObjective2, clonedObjective3 });
+
+            result[0].Should().Be(clonedObjective3);
+            result[1].Should().Be(clonedObjective1);
+            result[2].Should().Be(clonedObjective2);
+        }
+
+        #endregion
     }
 }
