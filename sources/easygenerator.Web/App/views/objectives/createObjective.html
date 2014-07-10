@@ -1,4 +1,4 @@
-﻿<section id="createObjective" class="create-objective view-module">
+﻿<section id="createObjective" class="create-objective view-module" data-bind="css: { hide: isObjectiveTipClosed() }">
     <div class="content-section-wrapper">
         <div class="content-section">
             <div class="page-view-caption clearfix">
@@ -10,7 +10,7 @@
                     <h3 class="notify-title" data-bind="localize: { text: 'howToCreateObjectiveTipHeader' }">
                         Do you know how to create good learning objectives?
                     </h3>
-                    <div class="notify-close-btn" onclick="window.document.getElementById('createObjective').classList.add('hide')"></div>
+                    <div class="notify-close-btn" data-bind="click: hideObjectiveTip"></div>
                 </header>
                 <div class="notify-content">
                     <h4 class="notify-content-title" data-bind="localize: { text: 'howToCreateObjectiveTipExamplesHeader' }">Examples</h4>
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="read-more-btn-wrapper">
-                    <a class="read-more-btn" href="http://www.easygenerator.com/learning-objectives/">
+                    <a class="read-more-btn" target="blank" href="http://www.easygenerator.com/learning-objectives/">
                         <span class="read-more-btn-text" data-bind="localize: { text: 'howToCreateObjectiveTipLink' }">Read more</span>
                     </a>
                 </div>
@@ -30,7 +30,7 @@
             <form class="form-create">
                 <div class="expand-collapse-panel expanded">
                     <span class="expand-collapse-panel-label" data-bind="localize: { text: 'defineLerningObjectiveTitle' }">Define learnning objective</span>
-                    <div class="show-notify-btn info-tooltip-holder" onclick="window.document.getElementById('createObjective').classList.remove('hide')">
+                    <div class="show-notify-btn info-tooltip-holder" data-bind="click: showObjectiveTip">
                         <div class="info-tooltip show-notify-tip right-side">
                             <span data-bind="localize: { text: 'howToCreateObjectiveTipText' }">Click to show tip</span>
                         </div>

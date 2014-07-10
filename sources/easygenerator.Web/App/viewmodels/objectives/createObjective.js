@@ -1,12 +1,14 @@
-﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'notify', 'uiLocker', 'localization/localizationManager', 'repositories/courseRepository', 'ping', 'models/backButton'],
-    function (objectiveRepository, router, eventTracker, constants, notify, uiLocker, localizationManager, courseRepository, ping, BackButton) {
+﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'clientContext', 'userContext', 'notify', 'uiLocker', 'localization/localizationManager', 'repositories/courseRepository', 'ping', 'models/backButton'],
+    function (objectiveRepository, router, eventTracker, constants, clientContext, userContext, notify, uiLocker, localizationManager, courseRepository, ping, BackButton) {
         "use strict";
 
         var
             events = {
                 navigateToObjectives: 'Navigate to objectives',
                 navigateToCourse: 'Navigate to course details',
-                createAndContinue: "Create learning objective and open it properties"
+                createAndContinue: 'Create learning objective and open it properties',
+                collapseObjectiveHint: 'Collapse \"Learning objective hint\"',
+                expandObjectiveHint: 'Expand \"Learning objective hint\"'
             },
 
             sendEvent = function (eventName) {
@@ -14,6 +16,7 @@
             };
 
         var title = ko.observable(''),
+            isObjectiveTipClosed = ko.observable(false),
             contextCourseId = null,
             contextCourseTitle = null;
 
@@ -38,6 +41,10 @@
                 that.contextCourseId = null;
                 that.contextCourseTitle = null;
                 that.title('');
+
+                var users = clientContext.get('usersWithClosedCreateObjectiveTip');
+                var hasCurrentUser = !_.isNullOrUndefined(users) && _.indexOf(users, userContext.identity.email) != -1;
+                that.isObjectiveTipClosed(hasCurrentUser);
 
                 if (!_.isNullOrUndefined(queryParams) && _.isString(queryParams.courseId)) {
                     return courseRepository.getById(queryParams.courseId).then(function (course) {
@@ -108,8 +115,40 @@
             }
         }
 
+        function showObjectiveTip() {
+            sendEvent(events.expandObjectiveHint);
+            this.isObjectiveTipClosed(false);
+
+            var users = clientContext.get('usersWithClosedCreateObjectiveTip');
+            if (_.isNullOrUndefined(users)) {
+                return;
+            }
+
+            users = _.reject(users, function (item) { return item == userContext.identity.email; });
+            clientContext.set('usersWithClosedCreateObjectiveTip', users);
+        }
+
+        function hideObjectiveTip() {
+            sendEvent(events.collapseObjectiveHint);
+            this.isObjectiveTipClosed(true);
+
+            var users = clientContext.get('usersWithClosedCreateObjectiveTip');
+            if (_.isNullOrUndefined(users)) {
+                users = [userContext.identity.email];
+            } else {
+                users.push(userContext.identity.email);
+            }
+
+            clientContext.set('usersWithClosedCreateObjectiveTip', users);
+        }
+
         return {
             title: title,
+
+            isObjectiveTipClosed: isObjectiveTipClosed,
+            showObjectiveTip: showObjectiveTip,
+            hideObjectiveTip: hideObjectiveTip,
+
             contextCourseId: contextCourseId,
             contextCourseTitle: contextCourseTitle,
             objectiveTitleMaxLength: constants.validation.objectiveTitleMaxLength,
