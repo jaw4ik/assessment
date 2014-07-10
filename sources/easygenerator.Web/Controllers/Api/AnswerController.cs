@@ -1,5 +1,7 @@
-﻿using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.AnswerEvents;
@@ -9,9 +11,6 @@ using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
-using System;
-using System.Linq;
-using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -88,7 +87,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityCollaborator(typeof (Question))]
         [Route("api/answer/singleselect/changecorrectanswer")]
-        public ActionResult MultipleChoiceChangeCorrectAnswer(Multiplechoice question, Answer answer)
+        public ActionResult SingleSelectTextChangeCorrectAnswer(SingleSelectText question, Answer answer)
         {
             if (question == null)
             {
@@ -101,7 +100,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.SetCorrectAnswer(answer, GetCurrentUsername());
-            _eventPublisher.Publish(new MultiplechoiceAnswerCorrectnessUpdateEvent(answer));
+            _eventPublisher.Publish(new SingleSelectTextAnswerCorrectnessUpdateEvent(answer));
 
             return JsonSuccess(new { ModifiedOn = answer.ModifiedOn });
         }

@@ -12,12 +12,12 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class MultiplechoiceController : DefaultController
+    public class SingleSelectTextController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
         private readonly IDomainEventPublisher _eventPublisher;
 
-        public MultiplechoiceController(IEntityFactory entityFactory, IDomainEventPublisher eventPublisher)
+        public SingleSelectTextController(IEntityFactory entityFactory, IDomainEventPublisher eventPublisher)
         {
             _entityFactory = entityFactory;
             _eventPublisher = eventPublisher;
@@ -33,7 +33,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
             }
 
-            var question = _entityFactory.MultiplechoiceQuestion(title, GetCurrentUsername());
+            var question = _entityFactory.SingleSelectTextQuestion(title, GetCurrentUsername());
 
             CreateFirstAnswers(question);
 

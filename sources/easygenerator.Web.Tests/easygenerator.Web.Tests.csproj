@@ -157,7 +157,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\Api\LearningContentControllerTests.cs" />
-    <Compile Include="Controllers\Api\MultiplechoiceControllerTests.cs">
+    <Compile Include="Controllers\Api\SingleSelectTextControllerTests.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\Api\MultipleselectControllerTests.cs" />

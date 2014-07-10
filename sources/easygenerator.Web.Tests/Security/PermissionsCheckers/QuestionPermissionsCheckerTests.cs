@@ -29,7 +29,7 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
         public void HasOwnerPermissions_ShouldReturnTrue_WhenUserIsOwner()
         {
             //Arrange
-            var question = MultiplechoiceObjectMother.CreateWithCreatedBy(CreatedBy);
+            var question = SingleSelectTextObjectMother.CreateWithCreatedBy(CreatedBy);
 
             //Act
             var result = _questionPermissionChecker.HasOwnerPermissions(CreatedBy, question);
@@ -42,7 +42,7 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
         public void HasOwnerPermissions_ShouldReturnFalse_WhenUserIsNotOwner()
         {
             //Arrange
-            var question = MultiplechoiceObjectMother.CreateWithCreatedBy(CreatedBy);
+            var question = SingleSelectTextObjectMother.CreateWithCreatedBy(CreatedBy);
 
             //Act
             var result = _questionPermissionChecker.HasOwnerPermissions(Username, question);

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -11,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace easygenerator.DomainModel.Tests.Entities.Questions
 {
     [TestClass]
-    public class MultiplechoiceTests
+    public class SingleSelectTextTests
     {
         private const string ModifiedBy = "easygenerator@easygenerator.com";
         private const string CreatedBy = "easygenerator2@easygenerator.com";
@@ -21,7 +17,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         [TestMethod]
         public void RemoveAnswer_ShouldThrowArgumentNullException_WhenAnswerIsNull()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
 
             Action action = () => question.RemoveAnswer(null, ModifiedBy);
 
@@ -31,7 +27,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         [TestMethod]
         public void RemoveAnswer_ShouldRemoveAnswer()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var answer = AnswerObjectMother.Create();
             question.AddAnswer(answer, ModifiedBy);
 
@@ -42,7 +38,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         [TestMethod]
         public void RemoveAnswer_ShouldUnsetQuestionFromAnswer()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var answer = AnswerObjectMother.Create();
             answer.Question = question;
 
@@ -55,7 +51,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         public void RemoveAnswer_ShouldUpdateModificationDate()
         {
             DateTimeWrapper.Now = () => DateTime.Now;
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
 
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
@@ -68,7 +64,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         [TestMethod]
         public void RemoveAnswer_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var answer = AnswerObjectMother.Create();
 
             Action action = () => question.RemoveAnswer(answer, null);
@@ -79,7 +75,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         [TestMethod]
         public void RemoveAnswer_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var answer = AnswerObjectMother.Create();
 
             Action action = () => question.RemoveAnswer(answer, string.Empty);
@@ -90,7 +86,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         [TestMethod]
         public void RemoveAnswer_ShouldSetFirstAnswerOptionToCorrect_WhenCurrentAnswerIsCorrect()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var answer = AnswerObjectMother.CreateWithCorrectness(true);
             var answer1 = AnswerObjectMother.CreateWithCorrectness(false);
             var answer2 = AnswerObjectMother.CreateWithCorrectness(false);
@@ -107,7 +103,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         [TestMethod]
         public void RemoveAnswer_ShouldUpdateMoidifiedBy()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var answer = AnswerObjectMother.Create();
             var user = "Some user";
 
@@ -123,7 +119,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         [TestMethod]
         public void SetCorrectAnswer_ShouldThrowArgumentNullException_WhenAnswerIsNull()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
 
             Action action = () => question.SetCorrectAnswer(null, ModifiedBy);
 
@@ -133,7 +129,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         [TestMethod]
         public void SetCorrectAnswer_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var answer = AnswerObjectMother.Create();
 
             Action action = () => question.SetCorrectAnswer(answer, null);
@@ -144,7 +140,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         [TestMethod]
         public void SetCorrectAnswer_ShouldSetAllAnswersToIncorrectWithoutCurrentAnswer()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var answer = AnswerObjectMother.CreateWithCorrectness(false);
             var answer1 = AnswerObjectMother.CreateWithCorrectness(true);
             var answer2 = AnswerObjectMother.CreateWithCorrectness(true);

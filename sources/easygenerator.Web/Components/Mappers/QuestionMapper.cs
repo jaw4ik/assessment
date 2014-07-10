@@ -31,7 +31,7 @@ namespace easygenerator.Web.Components.Mappers
                 return 1;
             }
 
-            if (question is Multiplechoice)
+            if (question is SingleSelectText)
             {
                 return 3;
             }

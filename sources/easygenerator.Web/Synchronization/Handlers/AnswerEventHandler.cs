@@ -13,7 +13,7 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<AnswerTextUpdatedEvent>,
         IDomainEventHandler<MultipleselectAnswerCorrectnessUpdatedEvent>,
         IDomainEventHandler<AnswerDeletedEvent>, 
-        IDomainEventHandler<MultiplechoiceAnswerCorrectnessUpdateEvent>
+        IDomainEventHandler<SingleSelectTextAnswerCorrectnessUpdateEvent>
     {
         private readonly ICollaborationBroadcaster<Question> _broadcaster;
         private readonly IEntityMapper _mapper;
@@ -48,7 +48,7 @@ namespace easygenerator.Web.Synchronization.Handlers
              .multipleSelectAnswerCorrectnessUpdated(args.Answer.Question.Id.ToNString(), args.Answer.Id.ToNString(), args.Answer.IsCorrect, args.Answer.Question.ModifiedOn);
         }
 
-        public void Handle(MultiplechoiceAnswerCorrectnessUpdateEvent args)
+        public void Handle(SingleSelectTextAnswerCorrectnessUpdateEvent args)
         {
             _broadcaster.OtherCollaborators(args.Answer.Question)
                 .singleSelectAnswerCorrectnessUpdated(args.Answer.Question.Id.ToNString(), args.Answer.Id.ToNString(), args.Answer.IsCorrect, args.Answer.Question.ModifiedOn);

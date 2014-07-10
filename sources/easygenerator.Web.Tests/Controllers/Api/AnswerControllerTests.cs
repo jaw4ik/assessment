@@ -1,5 +1,9 @@
-﻿using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
+﻿using System;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.AnswerEvents;
@@ -12,11 +16,6 @@ using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using System;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -304,59 +303,59 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region MultipleChoiceChangeCorrectAnswer
+        #region SingleSelectTextChangeCorrectAnswer
 
         [TestMethod]
-        public void MultipleChoiceChangeCorrectAnswer_ShouldReturnHttpNotFoundResult_WhenQuestionIsNulll()
+        public void SingleSelectTextChangeCorrectAnswer_ShouldReturnHttpNotFoundResult_WhenQuestionIsNulll()
         {
-            var result = _controller.MultipleChoiceChangeCorrectAnswer(null, null);
+            var result = _controller.SingleSelectTextChangeCorrectAnswer(null, null);
 
             result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be("Question is not found");
         }
 
         [TestMethod]
-        public void MultipleChoiceChangeCorrectAnswer_ShouldReturnHttpNotFoundResult_WhenAnswerIsNotFound()
+        public void SingleSelectTextChangeCorrectAnswer_ShouldReturnHttpNotFoundResult_WhenAnswerIsNotFound()
         {
-            var question = Substitute.For<Multiplechoice>();
+            var question = Substitute.For<SingleSelectText>();
 
-            var result = _controller.MultipleChoiceChangeCorrectAnswer(question, null);
+            var result = _controller.SingleSelectTextChangeCorrectAnswer(question, null);
 
             result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be("Answer is not found");
         }
 
         [TestMethod]
-        public void MultipleChoiceChangeCorrectAnswer_ShouldSetAllAnswersToIncorectAndCurrentAnsweToCorrect()
+        public void SingleSelectTextChangeCorrectAnswer_ShouldSetAllAnswersToIncorectAndCurrentAnsweToCorrect()
         {
-            var question = Substitute.For<Multiplechoice>();
+            var question = Substitute.For<SingleSelectText>();
             var answer = Substitute.For<Answer>();
             const string user = "username@easygenerator.com";
             _user.Identity.Name.Returns(user);
 
-            _controller.MultipleChoiceChangeCorrectAnswer(question, answer);
+            _controller.SingleSelectTextChangeCorrectAnswer(question, answer);
 
             question.Received().SetCorrectAnswer(answer, user);
         }
 
         [TestMethod]
-        public void MultipleChoiceChangeCorrectAnswer_ShouldPublishUpdateMultiplechoiceAnswerCorrectnessUpdatedDomainEvent()
+        public void SingleSelectTextChangeCorrectAnswer_ShouldPublishSingleSelectTextAnswerCorrectnessUpdateEvent()
         {
-            var question = Substitute.For<Multiplechoice>();
+            var question = Substitute.For<SingleSelectText>();
             var answer = Substitute.For<Answer>();
             const string user = "username@easygenerator.com";
             _user.Identity.Name.Returns(user);
 
-            _controller.MultipleChoiceChangeCorrectAnswer(question, answer);
+            _controller.SingleSelectTextChangeCorrectAnswer(question, answer);
 
-            _eventPublisher.Received().Publish(Arg.Any<MultiplechoiceAnswerCorrectnessUpdateEvent>());
+            _eventPublisher.Received().Publish(Arg.Any<SingleSelectTextAnswerCorrectnessUpdateEvent>());
         }
 
         [TestMethod]
-        public void MultipleChoiceChangeCorrectAnswer_ShouldReturnJsonSuccessResult()
+        public void SingleSelectTextChangeCorrectAnswer_ShouldReturnJsonSuccessResult()
         {
-            var question = Substitute.For<Multiplechoice>();
+            var question = Substitute.For<SingleSelectText>();
             var answer = Substitute.For<Answer>();
 
-            var result = _controller.MultipleChoiceChangeCorrectAnswer(question, answer);
+            var result = _controller.SingleSelectTextChangeCorrectAnswer(question, answer);
             result.Should()
                 .BeJsonSuccessResult()
                 .And.Data.ShouldBeSimilar(new { ModifiedOn = answer.CreatedOn });

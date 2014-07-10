@@ -41,9 +41,9 @@ namespace easygenerator.Web.BuildCourse
             {
                 return MapFillInTheBlanks(question as FillInTheBlanks);
             }
-            if (question is Multiplechoice)
+            if (question is SingleSelectText)
             {
-                return MapMultiplechoice(question as Multiplechoice);
+                return MapSingleSelectText(question as SingleSelectText);
             }
             if (question is Multipleselect)
             {
@@ -72,9 +72,9 @@ namespace easygenerator.Web.BuildCourse
             };
         }
 
-        private MultiplechoicePackageModel MapMultiplechoice(Multiplechoice question)
+        private SingleSelectTextPackageModel MapSingleSelectText(SingleSelectText question)
         {
-            return new MultiplechoicePackageModel()
+            return new SingleSelectTextPackageModel()
             {
                 Id = question.Id.ToNString(),
                 Title = question.Title,

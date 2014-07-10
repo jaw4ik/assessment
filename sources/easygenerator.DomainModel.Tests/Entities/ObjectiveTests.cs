@@ -177,7 +177,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void AddQuestion_ShouldAddQuestion()
         {
             var objective = ObjectiveObjectMother.Create();
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
 
             objective.AddQuestion(question, ModifiedBy);
 
@@ -188,7 +188,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void AddQuestion_ShouldSetObjectiveToQuestion()
         {
             var objective = ObjectiveObjectMother.Create();
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
 
             objective.AddQuestion(question, ModifiedBy);
 
@@ -204,7 +204,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            objective.AddQuestion(MultiplechoiceObjectMother.Create(), ModifiedBy);
+            objective.AddQuestion(SingleSelectTextObjectMother.Create(), ModifiedBy);
 
             objective.ModifiedOn.Should().Be(dateTime);
         }
@@ -212,7 +212,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void AddQuestion_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
 
             Action action = () => objective.AddQuestion(question, null);
@@ -223,7 +223,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void AddQuestion_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
 
             Action action = () => objective.AddQuestion(question, string.Empty);
@@ -234,7 +234,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void AddQuestion_ShouldUpdateMoidifiedBy()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
 
             objective.AddQuestion(question, ModifiedBy);
@@ -246,9 +246,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void AddQuestion_ShouldUpdateQuestionsOrder()
         {
             //Arrange
-            var question1 = MultiplechoiceObjectMother.Create();
-            var question2 = MultiplechoiceObjectMother.Create();
-            var question3 = MultiplechoiceObjectMother.Create();
+            var question1 = SingleSelectTextObjectMother.Create();
+            var question2 = SingleSelectTextObjectMother.Create();
+            var question3 = SingleSelectTextObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
             objective.QuestionsCollection = new Collection<Question>()
             {
@@ -267,7 +267,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void AddQuestion_ShouldNotAddQuestion_WhenQuestionHasBeenAlreadyAdded()
         {
             //Arrange
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
             objective.QuestionsCollection = new Collection<Question>()
             {
@@ -299,7 +299,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void RemoveQuestion_ShouldRemoveQuestion()
         {
             var objective = ObjectiveObjectMother.Create();
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
 
             objective.QuestionsCollection.Add(question);
 
@@ -311,7 +311,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void RemoveQuestion_ShouldUnsetObjectiveFromQuestion()
         {
             var objective = ObjectiveObjectMother.Create();
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             question.Objective = objective;
 
             objective.RemoveQuestion(question, ModifiedBy);
@@ -328,7 +328,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            objective.RemoveQuestion(MultiplechoiceObjectMother.Create(), ModifiedBy);
+            objective.RemoveQuestion(SingleSelectTextObjectMother.Create(), ModifiedBy);
 
             objective.ModifiedOn.Should().Be(dateTime);
         }
@@ -336,7 +336,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void RemoveQuestion_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
 
             Action action = () => objective.RemoveQuestion(question, null);
@@ -347,7 +347,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void RemoveQuestion_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
 
             Action action = () => objective.RemoveQuestion(question, string.Empty);
@@ -358,7 +358,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void RemoveQuestion_ShouldUpdateModifiedBy()
         {
-            var question = MultiplechoiceObjectMother.Create();
+            var question = SingleSelectTextObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
 
             objective.RemoveQuestion(question, ModifiedBy);
@@ -370,9 +370,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void RemoveQuestion_ShouldUpdateQuestionsOrder()
         {
             //Arrange
-            var question1 = MultiplechoiceObjectMother.Create();
-            var question2 = MultiplechoiceObjectMother.Create();
-            var question3 = MultiplechoiceObjectMother.Create();
+            var question1 = SingleSelectTextObjectMother.Create();
+            var question2 = SingleSelectTextObjectMother.Create();
+            var question3 = SingleSelectTextObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
             objective.QuestionsCollection = new Collection<Question>()
             {
@@ -500,8 +500,8 @@ namespace easygenerator.DomainModel.Tests.Entities
             var objective = ObjectiveObjectMother.Create();
             var questions = new List<Question>()
             {
-                MultiplechoiceObjectMother.Create(),
-                MultiplechoiceObjectMother.Create()
+                SingleSelectTextObjectMother.Create(),
+                SingleSelectTextObjectMother.Create()
             };
 
             objective.QuestionsCollection = questions;
@@ -522,8 +522,8 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var objective = ObjectiveObjectMother.Create();
-            var question1 = MultiplechoiceObjectMother.Create();
-            var question2 = MultiplechoiceObjectMother.Create();
+            var question1 = SingleSelectTextObjectMother.Create();
+            var question2 = SingleSelectTextObjectMother.Create();
 
             objective.QuestionsCollection = new List<Question>()
             {
@@ -544,8 +544,8 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var objective = ObjectiveObjectMother.Create();
-            var question1 = MultiplechoiceObjectMother.Create();
-            var question2 = MultiplechoiceObjectMother.Create();
+            var question1 = SingleSelectTextObjectMother.Create();
+            var question2 = SingleSelectTextObjectMother.Create();
 
             objective.QuestionsCollection = new List<Question>()
             {
@@ -567,8 +567,8 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var objective = ObjectiveObjectMother.Create();
-            var question1 = MultiplechoiceObjectMother.Create();
-            var question2 = MultiplechoiceObjectMother.Create();
+            var question1 = SingleSelectTextObjectMother.Create();
+            var question2 = SingleSelectTextObjectMother.Create();
 
             objective.QuestionsCollection = new List<Question>()
             {
@@ -602,18 +602,18 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void OrderClonedQuestions_ShouldThrowArgumentException_IfLengthOfQuestionCollectionsAreDifferent()
         {
             var objective = ObjectiveObjectMother.Create();
-            Action action = () => objective.OrderClonedQuestions(new Collection<Question> { MultiplechoiceObjectMother.Create() });
+            Action action = () => objective.OrderClonedQuestions(new Collection<Question> { SingleSelectTextObjectMother.Create() });
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("clonedQuestions");
         }
 
         [TestMethod]
         public void OrderClonedQuestions_ShouldOrderClonedQuestionsAccordingToObjectiveQuestions()
         {
-            var question1 = MultiplechoiceObjectMother.Create("question 1");
+            var question1 = SingleSelectTextObjectMother.Create("question 1");
             var question2 = MultipleselectObjectMother.Create("question 2");
             var question3 = MultipleselectObjectMother.Create("question 3");
 
-            var clonedQuestion1 = MultiplechoiceObjectMother.Create("cloned question 1");
+            var clonedQuestion1 = SingleSelectTextObjectMother.Create("cloned question 1");
             var clonedQuestion2 = MultipleselectObjectMother.Create("cloned question 2");
             var clonedQuestion3 = MultipleselectObjectMother.Create("cloned question 3");
 

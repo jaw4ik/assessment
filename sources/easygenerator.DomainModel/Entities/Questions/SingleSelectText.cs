@@ -2,11 +2,11 @@
 
 namespace easygenerator.DomainModel.Entities.Questions
 {
-    public class Multiplechoice : Multipleselect
+    public class SingleSelectText : Multipleselect
     {
-        public Multiplechoice() { }
+        public SingleSelectText() { }
 
-        public Multiplechoice(string title, string createdBy)
+        public SingleSelectText(string title, string createdBy)
             : base(title, createdBy)
         {
         }

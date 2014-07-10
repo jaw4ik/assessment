@@ -197,7 +197,7 @@
     <Compile Include="BuildCourse\PackageModel\DropspotPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\FillInTheBlanksPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\LearningContentPackageModel.cs" />
-    <Compile Include="BuildCourse\PackageModel\MultiplechoicePackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\SingleSelectTextPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\MultipleselectPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\ObjectivePackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\QuestionPackageModel.cs" />
@@ -216,7 +216,7 @@
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
     <Compile Include="Controllers\Api\FillInTheBlanksController.cs" />
-    <Compile Include="Controllers\Api\MultiplechoiceController.cs" />
+    <Compile Include="Controllers\Api\SingleSelectTextController.cs" />
     <Compile Include="Controllers\Api\MultipleselectController.cs" />
     <Compile Include="Mail\IMailSenderWrapper.cs" />
     <Compile Include="Components\Mappers\LearningContentMapper.cs" />

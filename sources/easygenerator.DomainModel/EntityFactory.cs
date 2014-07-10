@@ -8,7 +8,7 @@ namespace easygenerator.DomainModel
     {
         Objective Objective(string title, string createdBy);
         Course Course(string title, Template template, string createdBy);
-        Multiplechoice MultiplechoiceQuestion(string title, string createdBy);
+        SingleSelectText SingleSelectTextQuestion(string title, string createdBy);
         Multipleselect MultipleselectQuestion(string title, string createdBy);
         FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
         DragAndDropText DragAndDropTextQuestion(string title, string createdBy);
@@ -34,9 +34,9 @@ namespace easygenerator.DomainModel
             return new Course(title, template, createdBy);
         }
 
-        public Multiplechoice MultiplechoiceQuestion(string title, string createdBy)
+        public SingleSelectText SingleSelectTextQuestion(string title, string createdBy)
         {
-            return new Multiplechoice(title, createdBy);
+            return new SingleSelectText(title, createdBy);
         }
 
         public Multipleselect MultipleselectQuestion(string title, string createdBy)

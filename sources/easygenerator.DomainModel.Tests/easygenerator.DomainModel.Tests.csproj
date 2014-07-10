@@ -70,7 +70,7 @@
     <Compile Include="Entities\MultipleselectTests.cs" />
     <Compile Include="Entities\Questions\DragAndDropTextTests.cs" />
     <Compile Include="Entities\Questions\DropspotTests.cs" />
-    <Compile Include="Entities\Questions\MultiplechoiceTests.cs" />
+    <Compile Include="Entities\Questions\SingleSelectTextTests.cs" />
     <Compile Include="Entities\TemplateTests.cs" />
     <Compile Include="Entities\CommentTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
@@ -89,7 +89,7 @@
     <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
     <Compile Include="ObjectMothers\PasswordRecoveryTicketObjectMother.cs" />
     <Compile Include="ObjectMothers\MultipleselectObjectMother.cs" />
-    <Compile Include="ObjectMothers\MultiplechoiceObjectMother.cs" />
+    <Compile Include="ObjectMothers\SingleSelectTextObjectMother.cs" />
     <Compile Include="ObjectMothers\TemplateObjectMother.cs" />
     <Compile Include="ObjectMothers\UserObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
