@@ -391,6 +391,27 @@
     dragAndDropObjectivesHere: {
         en: '<b>DROP HERE</b><br>your learning objectives'
     },
+    howToCreateObjectiveTipHeader: {
+        en: 'Do you know how to create good learning objectives?'
+    },
+    howToCreateObjectiveTipExamplesHeader: {
+        en: 'Examples'
+    },
+    howToCreateObjectiveTipExample1: {
+        en: 'Sales executives will be able to assess chances of winning a client bid within 10 minutes during a first prospect meeting.'
+    },
+    howToCreateObjectiveTipExample2: {
+        en: 'HR Managers will be able to identify the most effective use of gamification in a 1000+ employee organization within a month without hiring third party consultants.'
+    },
+    howToCreateObjectiveTipExample3: {
+        en: 'Sociology Students will be able to identify important nodes in a network under the condition within a week of being given a quality dataset.'
+    },
+    howToCreateObjectiveTipLink: {
+        en: 'Read more'
+    },
+    howToCreateObjectiveTipText: {
+        en: 'Click to show tip'
+    },
     /* End resource section for model CreateObjective */
     
     /* Resource section for model CreateCourse */
