@@ -5,13 +5,38 @@
                 <div class="page-view-caption-text" data-bind="localize: { text: 'createObjectiveFromCourse' }">Create learning objective</div>
             </div>
 
-            <form class="form-create">
-                <div class="form-create-title">
-                    <div class="form-create-title-circle blue icon-pen">
-                        <div class="form-create-title-circle-triangle"></div>
+            <div class="notify-container">
+                <header class="notify-header clearfix">
+                    <h3 class="notify-title">
+                        Do you know how to create good learning objective?
+                    </h3>
+                    <div class="notify-close-btn" onclick="window.document.getElementById('createObjective').classList.add('hide')"></div>
+                </header>
+                <div class="notify-content">
+                    <h4 class="notify-content-title">Examples</h4>
+                    <div class="notify-content-text-wrapper">
+                        <p class="notify-content-text">Sales exeucutives will be to assess chances of winning a client bid during a first prospect meeting with first 10 minutes.</p>
+                        <p class="notify-content-text">HR Managers will be able to indentify the most effective use of gamification in a 1000+ employee organization without hiring third party consultants within a month</p>
+                        <p class="notify-content-text">Socialogy Students will be able to indentify important nodes in a network under the condition of being given a quality dataset within a week</p>
                     </div>
-                    <span class="form-create-title-text" data-bind="localize: { text: 'defineLerningObjectiveTitle' }">define jective title</span>
                 </div>
+                <div class="read-more-btn-wrapper">
+                    <a class="read-more-btn" href="http://www.easygenerator.com/learning-objectives/">
+                        <span class="read-more-btn-text">Read more</span>
+                    </a>
+                </div>
+            </div>
+
+            <form class="form-create">
+                <div class="expand-collapse-panel expanded">
+                    <span class="expand-collapse-panel-label" data-bind="localize: { text: 'defineLerningObjectiveTitle' }">Define learnning objective</span>
+                    <div class="show-notify-btn info-tooltip-holder" onclick="window.document.getElementById('createObjective').classList.remove('hide')">
+                        <div class="info-tooltip show-notify-tip right-side">
+                            <span>Click to show tip</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-create-field">
                     <div class="form-create-field-placeholder" data-bind="visible: title().length == 0, localize: { text: 'createObjectiveTip' }, click: isTitleEditing">Type learning objective title here</div>
                     <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, hasFocus: isTitleEditing, css: { error: !title.isValid() && title().length > objectiveTitleMaxLength, active: isTitleEditing, empty: title().trim().length == 0 }, autofocus: { focus: true }"></div>
@@ -20,9 +45,6 @@
                     </div>
                 </div>
 
-                <div class="form-link-wrapper">
-                    <a class="form-link" href="http://www.easygenerator.com/learning-objectives/" target="_blank">&raquo; Learn how to define good learning objectives</a>
-                </div>
                 <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid(), createAndContinue: createAndContinue.bind($data) } } -->
                 <!-- /ko -->
 
