@@ -64,11 +64,11 @@
 
                 });
 
-                describe('and when question type is singleSelect', function () {
+                describe('and when question type is singleSelectText', function () {
 
-                    it('should send event \'Create new question (multiple choice)\' with defined event category ', function () {
-                        command.execute('objectiveId', 'courseId', constants.questionType.singleSelect.type, 'Event category');
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (multiple choice)', 'Event category');
+                    it('should send event \'Create new question (single select text)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.singleSelectText.type, 'Event category');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (single select text)', 'Event category');
                     });
 
                 });
@@ -103,11 +103,11 @@
 
                 });
 
-                describe('when question type is singleSelect', function () {
+                describe('when question type is singleSelectText', function () {
 
-                    it('should send event \'Create new question (multiple choice)\' with defined event category ', function () {
-                        command.execute('objectiveId', 'courseId', constants.questionType.singleSelect.type);
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (multiple choice)', undefined);
+                    it('should send event \'Create new question (single select text)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.singleSelectText.type);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (single select text)', undefined);
                     });
 
                 });
@@ -139,12 +139,12 @@
 
             });
 
-            describe('when question type is singleSelect', function () {
+            describe('when question type is singleSelectText', function () {
 
                 it('should add question to repository', function () {
                     spyOn(localizationManager, 'localize').and.returnValue('title');
-                    command.execute('objectiveId', 'title', constants.questionType.singleSelect.type);
-                    expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.singleSelect.type);
+                    command.execute('objectiveId', 'title', constants.questionType.singleSelectText.type);
+                    expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.singleSelectText.type);
                 });
 
             });

@@ -1,8 +1,8 @@
 ﻿define(['durandal/app', 'eventTracker', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'ping', 'models/backButton', 'plugins/router',
         'viewmodels/questions/questionTitle', 'viewmodels/common/contentField', 'viewmodels/questions/multipleSelect/multipleSelect',
-        'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelect/singleSelect'],
+        'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelectText/singleSelectText'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, vmQuestionTitle, vmContentField,
-        multipleSelect, fillInTheBlank, dragAndDrop, singleSelect) {
+        multipleSelect, fillInTheBlank, dragAndDrop, singleSelectText) {
         "use strict";
 
         var events = {
@@ -56,8 +56,8 @@
                     return fillInTheBlank;
                 case constants.questionType.dragAndDropText.type:
                     return dragAndDrop;
-                case constants.questionType.singleSelect.type:
-                    return singleSelect;
+                case constants.questionType.singleSelectText.type:
+                    return singleSelectText;
             }
         }
 

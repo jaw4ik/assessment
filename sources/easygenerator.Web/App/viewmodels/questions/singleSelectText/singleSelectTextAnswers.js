@@ -9,7 +9,7 @@
 
         var minLengthOfAnswerOptions = 2;
 
-        var singleSelectAnswers = function (questionId, answers) {
+        var singleSelectTextAnswers = function (questionId, answers) {
 
             var viewModel = answersViewModel(questionId, answers);
 
@@ -123,14 +123,14 @@
                 return Q.fcall(function () {
                     if (_.isEmptyOrWhitespace(answer.id())) {
                         performActionWhenAnswerIdIsSet(answer, function () {
-                            repository.singleSelectChangeCorrectAnswer(questionId, answer.id()).then(function () {
+                            repository.singleSelectTextChangeCorrectAnswer(questionId, answer.id()).then(function () {
                                 currentCorrectAnswer.original.correctness = false;
                                 answer.original.correctness = true;
                                 showNotification();
                             });
                         });
                     } else {
-                        repository.singleSelectChangeCorrectAnswer(questionId, answer.id()).then(function () {
+                        repository.singleSelectTextChangeCorrectAnswer(questionId, answer.id()).then(function () {
                             currentCorrectAnswer.original.correctness = false;
                             answer.original.correctness = true;
                             showNotification();
@@ -156,16 +156,16 @@
                 return viewModel.selectAnswer(null);
             };
 
-            viewModel.singleSelectDeleteByCollaborator = singleSelectDeleteByCollaborator;
+            viewModel.singleSelectTextDeleteByCollaborator = singleSelectTextDeleteByCollaborator;
 
-            viewModel.singleSelectCorrectnessUpdatedByCollaborator = singleSelectCorrectnessUpdatedByCollaborator;
+            viewModel.singleSelectTextCorrectnessUpdatedByCollaborator = singleSelectTextCorrectnessUpdatedByCollaborator;
 
-            app.on(constants.messages.question.answer.singleSelectAnswerCorrectnessUpdatedByCollaborator, singleSelectCorrectnessUpdatedByCollaborator);
-            app.on(constants.messages.question.answer.singleSelectDeleteByCollaborator, singleSelectDeleteByCollaborator);
+            app.on(constants.messages.question.answer.singleSelectTextAnswerCorrectnessUpdatedByCollaborator, singleSelectTextCorrectnessUpdatedByCollaborator);
+            app.on(constants.messages.question.answer.singleSelectTextDeleteByCollaborator, singleSelectTextDeleteByCollaborator);
 
             return viewModel;
 
-            function singleSelectDeleteByCollaborator(question, answerId) {
+            function singleSelectTextDeleteByCollaborator(question, answerId) {
                 if (questionId != question.id)
                     return;
 
@@ -194,7 +194,7 @@
                 }
             }
 
-            function singleSelectCorrectnessUpdatedByCollaborator(question, answerId, isCorrect) {
+            function singleSelectTextCorrectnessUpdatedByCollaborator(question, answerId, isCorrect) {
                 if (questionId != question.id)
                     return;
 
@@ -266,6 +266,6 @@
 
         };
 
-        return singleSelectAnswers;
+        return singleSelectTextAnswers;
 
     });

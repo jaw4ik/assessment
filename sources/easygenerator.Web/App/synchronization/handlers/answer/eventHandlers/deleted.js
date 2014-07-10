@@ -15,8 +15,8 @@
 
             question.modifiedOn = new Date(modifiedOn);
 
-            if (question.type == constants.questionType.singleSelect.type) {
-                app.trigger(constants.messages.question.answer.singleSelectDeleteByCollaborator, question, answerId);
+            if (question.type == constants.questionType.singleSelectText.type) {
+                app.trigger(constants.messages.question.answer.singleSelectTextDeleteByCollaborator, question, answerId);
             } else {
                 app.trigger(constants.messages.question.answer.deletedByCollaborator, question, answerId);
             }

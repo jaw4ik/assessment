@@ -86,7 +86,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityCollaborator(typeof (Question))]
-        [Route("api/answer/singleselect/changecorrectanswer")]
+        [Route("api/answer/singleselecttext/changecorrectanswer")]
         public ActionResult SingleSelectTextChangeCorrectAnswer(SingleSelectText question, Answer answer)
         {
             if (question == null)

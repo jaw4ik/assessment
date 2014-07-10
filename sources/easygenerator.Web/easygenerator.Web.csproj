@@ -396,11 +396,11 @@
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
-    <Content Include="App\synchronization\handlers\answer\eventHandlers\singleSelectAnswerCorrectnessUpdated.spec.js">
-      <DependentUpon>singleSelectAnswerCorrectnessUpdated.js</DependentUpon>
-    </Content>
     <Content Include="App\synchronization\handlers\answer\eventHandlers\multipleSelectAnswerCorrectnessUpdated.spec.js">
       <DependentUpon>multipleSelectAnswerCorrectnessUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\singleSelectTextAnswerCorrectnessUpdated.spec.js">
+      <DependentUpon>singleSelectTextAnswerCorrectnessUpdated.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorRemoved.js" />
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorRemoved.spec.js">
@@ -486,7 +486,7 @@
       <DependentUpon>objectiveRepository.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\answer\eventHandlers\multipleSelectAnswerCorrectnessUpdated.js" />
-    <Content Include="App\synchronization\handlers\answer\eventHandlers\singleSelectAnswerCorrectnessUpdated.js" />
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\singleSelectTextAnswerCorrectnessUpdated.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\textUpdated.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\textUpdated.spec.js">
       <DependentUpon>textUpdated.js</DependentUpon>
@@ -678,14 +678,14 @@
     <Content Include="App\viewmodels\questions\fillInTheBlank\fillInTheBlank.spec.js">
       <DependentUpon>fillInTheBlank.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\singleSelect\singleSelect.spec.js">
-      <DependentUpon>singleSelect.js</DependentUpon>
+    <Content Include="App\viewmodels\questions\singleSelectText\singleSelectTextAnswers.spec.js">
+      <DependentUpon>singleSelectTextAnswers.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\singleSelect\singleSelectAnswers.spec.js">
-      <DependentUpon>singleSelectAnswers.js</DependentUpon>
+    <Content Include="App\viewmodels\questions\singleSelectText\singleSelectText.spec.js">
+      <DependentUpon>singleSelectText.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\singleSelect\singleSelect.js" />
-    <Content Include="App\viewmodels\questions\singleSelect\singleSelectAnswers.js" />
+    <Content Include="App\viewmodels\questions\singleSelectText\singleSelectText.js" />
+    <Content Include="App\viewmodels\questions\singleSelectText\singleSelectTextAnswers.js" />
     <Content Include="App\viewmodels\questions\multipleSelect\multipleSelect.js" />
     <Content Include="App\viewmodels\questions\multipleSelect\multipleSelect.spec.js">
       <DependentUpon>multipleSelect.js</DependentUpon>
@@ -704,7 +704,7 @@
     <Content Include="App\views\questions\feedback.html" />
     <Content Include="App\views\questions\fillInTheBlank\fillInTheBlank.html" />
     <Content Include="App\views\questions\learningContents.html" />
-    <Content Include="App\views\questions\singleSelect\singleSelect.html" />
+    <Content Include="App\views\questions\singleSelectText\singleSelectText.html" />
     <Content Include="App\views\questions\multipleSelect\multipleSelect.html" />
     <Content Include="App\widgets\createQuestion\view.html" />
     <Content Include="App\widgets\createQuestion\viewmodel.js" />
@@ -736,7 +736,7 @@
     <Content Include="Content\images\draganddroptext-question.png" />
     <Content Include="Content\images\fillintheblank-question.png" />
     <Content Include="Content\images\lamp.png" />
-    <Content Include="Content\images\singleSelect-question.png" />
+    <Content Include="Content\images\singleselecttext-question.png" />
     <Content Include="Content\images\personalizedLearningTemplate.png" />
     <Content Include="Content\images\question-types.png" />
     <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />

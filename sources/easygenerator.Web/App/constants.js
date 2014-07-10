@@ -24,10 +24,10 @@
                     name: 'dragAndDropText',
                     image: '/Content/images/draganddroptext-question.png'
                 },
-                singleSelect: {
+                singleSelectText: {
                     type: 3,
-                    name: 'singleSelect',
-                    image: '/Content/images/singleSelect-question.png'
+                    name: 'singleSelectText',
+                    image: '/Content/images/singleselecttext-question.png'
                 }
             },
 
@@ -154,8 +154,8 @@
                         deletedByCollaborator: 'question:answer:deletedByCollaborator',
                         textUpdatedByCollaborator: 'question:answer:textUpdatedByCollaborator',
                         multipleselectAnswerCorrectnessUpdatedByCollaborator: 'question:answer:multipleselectAnswerCorrectnessUpdatedByCollaborator',
-                        singleSelectAnswerCorrectnessUpdatedByCollaborator: 'question:answer:singleSelectAnswerCorrectnessUpdatedByCollaborator',
-                        singleSelectDeleteByCollaborator: 'question:answer:singleSelectDeletedByCollaborator'
+                        singleSelectTextAnswerCorrectnessUpdatedByCollaborator: 'question:answer:singleSelectTextAnswerCorrectnessUpdatedByCollaborator',
+                        singleSelectTextDeleteByCollaborator: 'question:answer:singleSelectTextDeletedByCollaborator'
     },
 
                     learningContent: {

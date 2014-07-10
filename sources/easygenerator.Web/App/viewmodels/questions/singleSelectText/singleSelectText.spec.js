@@ -2,7 +2,7 @@
     "use strict";
 
     var
-        viewModel = require('viewmodels/questions/singleSelect/singleSelect'),
+        viewModel = require('viewmodels/questions/singleSelectText/singleSelectText'),
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         constants = require('constants'),
@@ -23,7 +23,7 @@
         learningContents: []
     };
 
-    describe('question [singleSelect]', function () {
+    describe('question [singleSelectText]', function () {
 
         beforeEach(function () {
             spyOn(eventTracker, 'publish');

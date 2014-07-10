@@ -583,10 +583,10 @@
     addDropspotText: {
         en: 'Add dropspot text'
     },
-    singleSelect: {
+    singleSelectText: {
         en: 'Single select'
     },
-    singleSelectEditor: {
+    singleSelectTextEditor: {
         en: '\"Single select\" question editor'
     },
     multipleSelectEditor: {

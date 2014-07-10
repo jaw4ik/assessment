@@ -83,13 +83,13 @@
 
         });
 
-        describe('when question type is singleSelect', function () {
+        describe('when question type is singleSelectText', function () {
 
             it('should trigger app event', function () {
-                question.type = constants.questionType.singleSelect.type;
+                question.type = constants.questionType.singleSelectText.type;
                 spyOn(dataContext, 'getQuestions').and.returnValue([question]);
                 handler(questionId, answerId, modifiedOn.toISOString());
-                expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.singleSelectDeleteByCollaborator, question, answerId);
+                expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.singleSelectTextDeleteByCollaborator, question, answerId);
             });
 
         });

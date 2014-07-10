@@ -28,8 +28,8 @@
                 case constants.questionType.dragAndDropText.type:
                     eventTracker.publish('Create new question (drag and drop)', eventCategory);
                     break;
-                case constants.questionType.singleSelect.type:
-                    eventTracker.publish('Create new question (multiple choice)', eventCategory);
+                case constants.questionType.singleSelectText.type:
+                    eventTracker.publish('Create new question (single select text)', eventCategory);
                     break;
 
             }

@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'repositories/answerRepository', 'viewmodels/questions/singleSelect/singleSelectAnswers', 'localization/localizationManager'],
+﻿define(['durandal/app', 'constants', 'eventTracker', 'repositories/answerRepository', 'viewmodels/questions/singleSelectText/singleSelectTextAnswers', 'localization/localizationManager'],
     function (app, constants, eventTracker, answerRepository, vmAnswers, localizationManager) {
         "use strict";
 
@@ -28,7 +28,7 @@
                 viewModel.answers = vmAnswers(question.id, sortedAnswers);
 
                 return {
-                    viewCaption: localizationManager.localize('singleSelectEditor'),
+                    viewCaption: localizationManager.localize('singleSelectTextEditor'),
                     isQuestionContentNeeded: true
                 };
             });

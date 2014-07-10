@@ -100,8 +100,8 @@
 
                     promise.fin(function () {
                         expect(viewModel.questions().length).toBe(4);
-                        expect(viewModel.questions()[0].type).toBe(constants.questionType.singleSelect.type);
-                        expect(viewModel.questions()[0].name).toBe(constants.questionType.singleSelect.name);
+                        expect(viewModel.questions()[0].type).toBe(constants.questionType.singleSelectText.type);
+                        expect(viewModel.questions()[0].name).toBe(constants.questionType.singleSelectText.name);
                         expect(viewModel.questions()[1].type).toBe(constants.questionType.multipleSelect.type);
                         expect(viewModel.questions()[1].name).toBe(constants.questionType.multipleSelect.name);
                         expect(viewModel.questions()[2].type).toBe(constants.questionType.fillInTheBlank.type);
@@ -118,12 +118,12 @@
                         spyOn(userContext, 'hasPlusAccess').and.returnValue(false);
                     });
 
-                    it('should has access to multiple choice', function (done) {
+                    it('should has access to single select text', function (done) {
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
                             var question = _.find(viewModel.questions(), function(item) {
-                                return item.type === constants.questionType.singleSelect.type;
+                                return item.type === constants.questionType.singleSelectText.type;
                             });
                             expect(question.hasAccess).toBeTruthy();
                             done();
@@ -173,12 +173,12 @@
                         spyOn(userContext, 'hasPlusAccess').and.returnValue(false);
                     });
 
-                    it('should has access to multiple choice', function (done) {
+                    it('should has access to single select text', function (done) {
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
                             var question = _.find(viewModel.questions(), function (item) {
-                                return item.type === constants.questionType.singleSelect.type;
+                                return item.type === constants.questionType.singleSelectText.type;
                             });
                             expect(question.hasAccess).toBeTruthy();
                             done();
@@ -228,12 +228,12 @@
                         spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
                     });
 
-                    it('should has access to multiple choice', function (done) {
+                    it('should has access to single select text', function (done) {
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
                             var question = _.find(viewModel.questions(), function (item) {
-                                return item.type === constants.questionType.singleSelect.type;
+                                return item.type === constants.questionType.singleSelectText.type;
                             });
                             expect(question.hasAccess).toBeTruthy();
                             done();
