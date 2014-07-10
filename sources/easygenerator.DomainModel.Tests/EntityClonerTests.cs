@@ -93,7 +93,7 @@ namespace easygenerator.DomainModel.Tests
         {
             var question = SingleSelectTextObjectMother.CreateWithTitle("question title 1");
             var question2 = SingleSelectTextObjectMother.CreateWithTitle("question title 2");
-            var question3 = MultiplechoiceObjectMother.CreateWithTitle("question title 3");
+            var question3 = SingleSelectTextObjectMother.CreateWithTitle("question title 3");
 
             var objective = ObjectiveObjectMother.Create();
             objective.AddQuestion(question2, "owner");
