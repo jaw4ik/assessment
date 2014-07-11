@@ -43,6 +43,7 @@
             'models/user.spec',
             'notifications/notification.spec',
             'notifications/subscriptionExpirationNotificationController.spec',
+            'notifications/subscriptionExpirationNotification.spec',
             'repositories/answerRepository.spec',
             'repositories/commentRepository.spec',
             'repositories/collaboratorRepository.spec',

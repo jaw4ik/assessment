@@ -396,6 +396,9 @@
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
+    <Content Include="App\notifications\subscriptionExpirationNotification.spec.js">
+      <DependentUpon>subscriptionExpirationNotification.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\answer\eventHandlers\multipleSelectAnswerCorrectnessUpdated.spec.js">
       <DependentUpon>multipleSelectAnswerCorrectnessUpdated.js</DependentUpon>
     </Content>

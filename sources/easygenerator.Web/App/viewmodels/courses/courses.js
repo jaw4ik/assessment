@@ -44,6 +44,8 @@
             courseUpdated: courseUpdated,
             collaborationFinished: collaborationFinished,
 
+            openUpgradePlanUrl: openUpgradePlanUrl,
+
             canActivate: canActivate,
             activate: activate
         };
@@ -63,6 +65,11 @@
         app.on(constants.messages.course.collaboration.finished, viewModel.collaborationFinished);
 
         return viewModel;
+
+        function openUpgradePlanUrl() {
+            eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.courseLimitNotification);
+            router.openUrl(constants.upgradeUrl);
+        }
 
         function toggleSelection(course) {
             if (!course.isSelected())

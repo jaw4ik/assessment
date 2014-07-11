@@ -204,7 +204,9 @@
                 header: 'Header',
                 userMenuInHeader: 'User menu in header',
                 questions: 'Questions',
-                collaboration: 'Collaboration'
+                collaboration: 'Collaboration',
+                expirationNotification: 'Expiration notification',
+                courseLimitNotification: 'Course limit notification'
             },
 
             maxStarterPlanCollaborators: 3

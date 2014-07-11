@@ -123,6 +123,11 @@ function (repository, templateRepository, router, userContext, constants, eventT
 
         deactivate = function() {
             this.title.dispose();
+        },
+
+        openUpgradePlanUrl = function () {
+            eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.courseLimitNotification);
+            router.openUrl(constants.upgradeUrl);
         };
    
     return {
@@ -144,6 +149,8 @@ function (repository, templateRepository, router, userContext, constants, eventT
 
         coursesFreeLimit: limitCoursesAmount.getFreeLimit(),
         coursesStarterLimit: limitCoursesAmount.getStarterLimit(),
+
+        openUpgradePlanUrl: openUpgradePlanUrl,
 
         backButtonData: new BackButton({
             url: 'courses',

@@ -1650,8 +1650,7 @@ span.top-navigation-item.current {
 
 .upgrade-user-btn {
     min-width: 90px;
-    display: block;
-    padding: 6px 8px;
+    padding: 8px 20px;
     font-size: 12px;
     font-family: 'OpenSans';
     cursor: pointer;

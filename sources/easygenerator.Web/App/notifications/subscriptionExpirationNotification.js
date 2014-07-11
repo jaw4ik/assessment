@@ -1,4 +1,4 @@
-﻿define(['constants'], function (constants) {
+﻿define(['constants', 'plugins/router', 'eventTracker'], function (constants, router, eventTracker) {
 
     "use strict";
 
@@ -14,6 +14,13 @@
         }
 
         this.isToday = expirationDate.toDateString() == (new Date()).toDateString();
+
+        this.openUpgradePlanUrl = openUpgradePlanUrl;
     };
+
+    function openUpgradePlanUrl() {
+        eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.expirationNotification);
+        router.openUrl(constants.upgradeUrl);
+    }
 
 });
