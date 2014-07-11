@@ -12,7 +12,7 @@
             templates: [],
 
             settingsVisibility: ko.observable(false),
-            showProgress: ko.observable(false),
+            lockTemplateChoosing: ko.observable(false),
             selectTemplate: selectTemplate,
 
             navigateToCoursesEvent: navigateToCoursesEvent,
@@ -66,7 +66,9 @@
                         .sortBy(function (template) { return template.order; })
                         .value();
 
-                    viewModel.currentTemplate(_.find(viewModel.templates, function (item) { return item.id == course.template.id; }));
+                    _.defer(function () {
+                        viewModel.currentTemplate(_.find(viewModel.templates, function (item) { return item.id == course.template.id; }));
+                    });
                 });
             }).fail(function (reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
@@ -80,32 +82,26 @@
             }
 
             eventTracker.publish(events.updateCourseTemplate + ' \'' + template.name + '\'');
-            viewModel.showProgress(true);
+            viewModel.lockTemplateChoosing(true);
             viewModel.settingsVisibility(false);
 
             courseRepository.updateCourseTemplate(viewModel.courseId, template.id)
                 .then(function () {
                     viewModel.currentTemplate(template);
                     notify.saved();
-                    viewModel.showProgress(false);
-                }).fail(function () {
-                    viewModel.showProgress(false);
+                }).fin(function () {
+                    viewModel.lockTemplateChoosing(false);
                 });
         }
 
         function resizeFrame(vm, event) {
-            _.delay(resize, 50);
+            var $iframe = $(event.target);
+            $iframe.height(0);
 
-            function resize() {
-                var $iframe = $(event.target);
-                $iframe.height(0);
+            var iframeDocumentHeight = $iframe.contents().find('body').height();
+            $iframe.height(iframeDocumentHeight);
 
-                var iframeDocumentHeight = $iframe.contents().find('body').height();
-                $iframe.height(iframeDocumentHeight);
-
-                viewModel.settingsVisibility(true);
-            }
-
+            viewModel.settingsVisibility(true);
         }
 
     }

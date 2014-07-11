@@ -29,7 +29,7 @@ namespace easygenerator.Web.Controllers.Api
                 Id = tmpl.Id.ToNString(),
                 Name = tmpl.Name,
                 Image = tmpl.Image,
-                SettingsUrl = "/Templates/" + tmpl.Name + "/settings.html",
+                SettingsUrl = "/Templates/" + tmpl.Name + "/settings/settings.html",
                 Description = tmpl.Description,
                 PreviewDemoUrl = tmpl.PreviewUrl,
                 Order = tmpl.Order
