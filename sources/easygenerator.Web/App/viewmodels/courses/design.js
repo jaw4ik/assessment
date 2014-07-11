@@ -66,7 +66,7 @@
                         .sortBy(function (template) { return template.order; })
                         .value();
 
-                    _.defer(function () {
+                    return Q.fcall(function () {
                         viewModel.currentTemplate(_.find(viewModel.templates, function (item) { return item.id == course.template.id; }));
                     });
                 });

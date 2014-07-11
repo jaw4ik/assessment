@@ -427,12 +427,12 @@
                     it('should hide progress bar', function (done) {
                         var template = { id: 'templateId' };
                         viewModel.currentTemplate({ id: '' });
-                        viewModel.showProgress(true);
+                        viewModel.lockTemplateChoosing(true);
 
                         viewModel.selectTemplate(template);
 
                         updateCourseTemplateDefer.promise.fin(function () {
-                            expect(viewModel.showProgress()).toBeFalsy();
+                            expect(viewModel.lockTemplateChoosing()).toBeFalsy();
                             done();
                         });
                     });
@@ -448,12 +448,12 @@
                     it('should hide progress bar', function (done) {
                         var template = { id: 'templateId' };
                         viewModel.currentTemplate({ id: '' });
-                        viewModel.showProgress(true);
+                        viewModel.lockTemplateChoosing(true);
 
                         viewModel.selectTemplate(template);
 
                         updateCourseTemplateDefer.promise.fin(function () {
-                            expect(viewModel.showProgress()).toBeFalsy();
+                            expect(viewModel.lockTemplateChoosing()).toBeFalsy();
                             done();
                         });
                     });
@@ -464,10 +464,10 @@
 
         });
 
-        describe('showProgress', function () {
+        describe('lockTemplateChoosing', function () {
 
             it('should be observable', function () {
-                expect(viewModel.showProgress).toBeObservable();
+                expect(viewModel.lockTemplateChoosing).toBeObservable();
             });
 
         });
