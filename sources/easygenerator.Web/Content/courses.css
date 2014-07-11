@@ -8,7 +8,7 @@
 .course-actions-panel {
     display: none;
     height: 30px;
-    width: 90px;
+    min-width: 30px;
     position: absolute;
     top: 50%;
     right: 50px;
