@@ -1,9 +1,9 @@
 ﻿<div class="course-collaborators-wrapper">
     <ul class="course-collaborators-list">
         <!-- ko foreach: members -->
-        <li class="course-collaborator-item-wrapper">
+        <li class="course-collaborator-item-wrapper" data-bind="css: { 'course-owner': isOwner }">
             <!-- ko if: !isRemoving() -->
-                <!-- ko if: showRemoveConfirmation --><!-- ko compose: removeCollaboratorDialog--><!--/ko--><!-- /ko -->
+            <!-- ko if: showRemoveConfirmation --><!-- ko compose: removeCollaboratorDialog--><!--/ko--><!-- /ko -->
             <!-- /ko -->
             <div class="course-collaborator-item" data-bind="css: { 'course-owner': isOwner, 'disable': !registered() || ( $parent.isCollaborationDisabled() && !isOwner ), 'removing': isRemoving }">
                 <div class="user-avatar course-collaborator-item-user-avatar" data-bind="text: isRemoving() ? '' : avatarLetter"></div>
