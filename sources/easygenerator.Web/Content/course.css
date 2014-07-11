@@ -364,10 +364,6 @@
     background-color: #fafafa;
 }
 
-.choose-template-list-item:nth-child(2n) {
-    float: right;
-}
-
 .choose-template-list-item.selected:after {
     background: url(images/sprites_24.png) #ffffff -59px 0;
 }
