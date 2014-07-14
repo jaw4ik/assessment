@@ -78,14 +78,14 @@
 
         function selectTemplate(template) {
             if (template == viewModel.currentTemplate()) {
-                return;
+                return Q.fcall(function (){});
             }
 
             eventTracker.publish(events.updateCourseTemplate + ' \'' + template.name + '\'');
             viewModel.lockTemplateChoosing(true);
             viewModel.settingsVisibility(false);
 
-            courseRepository.updateCourseTemplate(viewModel.courseId, template.id)
+            return courseRepository.updateCourseTemplate(viewModel.courseId, template.id)
                 .then(function () {
                     viewModel.currentTemplate(template);
                     notify.saved();
