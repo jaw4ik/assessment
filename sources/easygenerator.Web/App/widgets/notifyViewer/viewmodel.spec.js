@@ -36,9 +36,9 @@
 
                 it('should remove notice from array', function () {
                     var notice = { text: 'notice1' };
-                    spyOn(viewModel.prototype.notifications, 'remove');
+                    viewModel.prototype.notifications = ko.observableArray([notice]);
                     viewModel.prototype.closeNotice(notice);
-                    expect(viewModel.prototype.notifications.remove).toHaveBeenCalledWith(notice);
+                    expect(viewModel.prototype.notifications().length).toBe(0);
                 });
 
             });
@@ -65,6 +65,9 @@
                 });
 
                 describe('when node type is 1', function () {
+                    beforeEach(function() {
+                        spyOn(viewModel.queue, 'push');
+                    });
 
                     it('should hide notice', function () {
                         viewModel.prototype.addNotice({ nodeType: 1 });
@@ -72,7 +75,6 @@
                     });
 
                     it('should add show notice animation to queue', function () {
-                        spyOn(viewModel.queue, 'push');
                         var notice = { nodeType: 1 };
                         viewModel.prototype.addNotice(notice);
                         expect(viewModel.queue.push).toHaveBeenCalledWith(viewModel.showItem, notice);
