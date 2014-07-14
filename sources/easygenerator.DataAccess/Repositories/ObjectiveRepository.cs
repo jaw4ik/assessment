@@ -17,31 +17,27 @@ namespace easygenerator.DataAccess.Repositories
         {
         }
 
-
         public ICollection<Objective> GetAvailableObjectivesCollection(string username)
         {
             IQueryable<User> users = _dataContext.GetSet<User>();
             DateTime currenTime = DateTimeWrapper.Now();
 
             return _dataContext.GetSet<Objective>().Where(objective => objective.CreatedBy == username
-                    || objective.RelatedCoursesCollection.Any
-                    (
-                        course => course.CreatedBy == username ||
-                            (
-                                course.CollaboratorsCollection.Any(collaborator => collaborator.Email == username) &&
-                                course.CollaboratorsCollection.Count <=
-                                    (
-                                        users.Where(user => user.Email == course.CreatedBy)
-                                        .Select
-                                        (
-                                            user => (user.AccessType >= AccessType.Plus && !(!user.ExpirationDate.HasValue || user.ExpirationDate.Value < currenTime)) ? Int32.MaxValue :
-                                                    ((user.AccessType >= AccessType.Starter && !(!user.ExpirationDate.HasValue || user.ExpirationDate.Value < currenTime)) ? Constants.Collaboration.MaxCollaboratorsCountForStarterPlan : 0)
+                || objective.RelatedCoursesCollection.Join(users, course => course.CreatedBy, user => user.Email, (course, user) => new { course, user }).Any
+                (
+                    courseUsers => courseUsers.course.CreatedBy == username ||
+                        (
+                            courseUsers.course.CollaboratorsCollection.Any(collaborator => collaborator.Email == username) &&
+                            courseUsers.course.CollaboratorsCollection.Count <=
+                                (
 
-                                        ).FirstOrDefault()
-                                    )
-                            )
-                    )
-                ).ToList();
+                                     (courseUsers.user.AccessType >= AccessType.Plus && !(!courseUsers.user.ExpirationDate.HasValue || courseUsers.user.ExpirationDate.Value < currenTime)) ? Int32.MaxValue :
+                                         ((courseUsers.user.AccessType >= AccessType.Starter && !(!courseUsers.user.ExpirationDate.HasValue || courseUsers.user.ExpirationDate.Value < currenTime)) ? Constants.Collaboration.MaxCollaboratorsCountForStarterPlan : 0)
+
+                                )
+                        )
+                )
+            ).ToList();
         }
     }
 }

@@ -58,8 +58,8 @@ namespace easygenerator.DataAccess
             modelBuilder.Properties<Guid>().Where(p => p.Name == "Id").Configure(p => p.IsKey());
             modelBuilder.Properties<DateTime>().Where(p => p.Name == "CreatedOn").Configure(p => p.IsRequired());
             modelBuilder.Properties<DateTime>().Where(p => p.Name == "ModifiedOn").Configure(p => p.IsRequired());
-            modelBuilder.Properties<string>().Where(p => p.Name == "CreatedBy").Configure(p => p.IsRequired());
-            modelBuilder.Properties<string>().Where(p => p.Name == "ModifiedBy").Configure(p => p.IsRequired());
+            modelBuilder.Properties<string>().Where(p => p.Name == "CreatedBy").Configure(p => p.IsRequired().HasMaxLength(254));
+            modelBuilder.Properties<string>().Where(p => p.Name == "ModifiedBy").Configure(p => p.IsRequired().HasMaxLength(254));
 
 
             modelBuilder.Entity<Objective>().Property(e => e.Title).HasMaxLength(255).IsRequired();
@@ -77,6 +77,9 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Course>().HasMany(e => e.CommentsCollection).WithRequired(e => e.Course).WillCascadeOnDelete(true);
             modelBuilder.Entity<Course>().Property(e => e.ObjectivesOrder).IsOptional();
             modelBuilder.Entity<Course>().HasMany(e => e.CollaboratorsCollection).WithRequired(e => e.Course).WillCascadeOnDelete(true);
+            modelBuilder.Entity<Course>().Property(e => e.PackageUrl).HasMaxLength(255);
+            modelBuilder.Entity<Course>().Property(e => e.ScormPackageUrl).HasMaxLength(255);
+            modelBuilder.Entity<Course>().Property(e => e.PublicationUrl).HasMaxLength(255);
 
             modelBuilder.Entity<CourseCollaborator>().HasRequired(e => e.Course);
             modelBuilder.Entity<CourseCollaborator>().Property(e => e.Email).IsRequired().HasMaxLength(254);
@@ -131,10 +134,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.ModifiedBy);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.ModifiedOn);
 
-            modelBuilder.Entity<Template>().Property(e => e.Name).IsRequired();
-            modelBuilder.Entity<Template>().Property(e => e.Image).IsRequired();
+            modelBuilder.Entity<Template>().Property(e => e.Name).IsRequired().HasMaxLength(255);
+            modelBuilder.Entity<Template>().Property(e => e.Image).IsRequired().HasMaxLength(255);
             modelBuilder.Entity<Template>().Property(e => e.Description).IsRequired();
-            modelBuilder.Entity<Template>().Property(e => e.PreviewUrl);
+            modelBuilder.Entity<Template>().Property(e => e.PreviewUrl).HasMaxLength(255);
             modelBuilder.Entity<Template>().Property(e => e.Order);
             modelBuilder.Entity<Template>().HasMany(e => e.Courses);
 

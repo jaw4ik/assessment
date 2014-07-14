@@ -141,6 +141,10 @@
     <Compile Include="Migrations\201406271215180_AddQuestionFeedbackFields.Designer.cs">
       <DependentUpon>201406271215180_AddQuestionFeedbackFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407141320006_FixEntitiesCustomColumnsLength.cs" />
+    <Compile Include="Migrations\201407141320006_FixEntitiesCustomColumnsLength.Designer.cs">
+      <DependentUpon>201407141320006_FixEntitiesCustomColumnsLength.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201407101151099_RenameMultipleChoiceToSingleSelectText.cs" />
     <Compile Include="Migrations\201407101151099_RenameMultipleChoiceToSingleSelectText.Designer.cs">
       <DependentUpon>201407101151099_RenameMultipleChoiceToSingleSelectText.cs</DependentUpon>
@@ -239,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406271215180_AddQuestionFeedbackFields.resx">
       <DependentUpon>201406271215180_AddQuestionFeedbackFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407141320006_FixEntitiesCustomColumnsLength.resx">
+      <DependentUpon>201407141320006_FixEntitiesCustomColumnsLength.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201407101151099_RenameMultipleChoiceToSingleSelectText.resx">
       <DependentUpon>201407101151099_RenameMultipleChoiceToSingleSelectText.cs</DependentUpon>
