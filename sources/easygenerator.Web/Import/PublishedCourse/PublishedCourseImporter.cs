@@ -73,10 +73,31 @@ namespace easygenerator.Web.Import.PublishedCourse
         private Objective ImportObjective(Guid objectiveId, string publishedPackagePath, string createdBy, JObject courseData)
         {
             var objective = _objectiveEntityReader.ReadObjective(objectiveId, createdBy, courseData);
+            var questionTypes = _publishedCourseStructureReader.GetQuestionTypes(objectiveId, courseData);
 
-            foreach (Guid questionId in _publishedCourseStructureReader.GetQuestions(objectiveId, courseData))
+            foreach (Tuple<Guid, int> questionTuple in questionTypes)
             {
-                var question = ImportQuestion(questionId, publishedPackagePath, createdBy, courseData);
+                Question question = null;
+                var questionid = questionTuple.Item1;
+                int questionType = questionTuple.Item2;
+
+                switch (questionType)
+                {
+                    case 0:
+                        question = ImportMultipleSelectQuestion(questionid, publishedPackagePath, createdBy, courseData);
+                        break;
+                    case 1:
+                        question = ImportFillInTheBlanksQuestion(questionid, publishedPackagePath, createdBy, courseData);
+                        break;
+                    case 2:
+                        question = ImportDragAndDropTextQuestion(questionid, publishedPackagePath, createdBy, courseData);
+                        break;
+                    case 3:
+                        question = ImportSingleSelectTextQuestion(questionid, publishedPackagePath, createdBy, courseData);
+                        break;
+                    default:
+                        throw new Exception("Unsupported question type");
+                }
 
                 objective.AddQuestion(question, createdBy);
             }
@@ -84,9 +105,9 @@ namespace easygenerator.Web.Import.PublishedCourse
             return objective;
         }
 
-        private Multipleselect ImportQuestion(Guid questionId, string publishedPackagePath, string createdBy, JObject courseData)
+        private Multipleselect ImportMultipleSelectQuestion(Guid questionId, string publishedPackagePath, string createdBy, JObject courseData)
         {
-            var question = _questionEntityReader.ReadQuestion(questionId, publishedPackagePath, createdBy, courseData);
+            var question = _questionEntityReader.ReadMultipleSelectQuestion(questionId, publishedPackagePath, createdBy, courseData);
 
             foreach (Guid answerId in _publishedCourseStructureReader.GetAnswers(questionId, courseData))
             {
@@ -103,5 +124,66 @@ namespace easygenerator.Web.Import.PublishedCourse
 
             return question;
         }
+
+        private FillInTheBlanks ImportFillInTheBlanksQuestion(Guid questionId, string publishedPackagePath, string createdBy, JObject courseData)
+        {
+            var question = _questionEntityReader.ReadFillInTheBlanksQuestion(questionId, publishedPackagePath, createdBy, courseData);
+
+            foreach (Guid answerId in _publishedCourseStructureReader.GetAnswers(questionId, courseData))
+            {
+                var answer = _answerEntityReader.ReadAnswer(answerId, createdBy, courseData);
+                question.AddAnswer(answer, createdBy);
+            }
+
+            foreach (Guid learningContentId in _publishedCourseStructureReader.GetLearningContents(questionId, courseData))
+            {
+                var learningContent = _learningContentEntityReader.ReadLearningContent(learningContentId, publishedPackagePath,
+                    createdBy, courseData);
+                question.AddLearningContent(learningContent, createdBy);
+            }
+
+            return question;
+        }
+
+        private SingleSelectText ImportSingleSelectTextQuestion(Guid questionId, string publishedPackagePath, string createdBy, JObject courseData)
+        {
+            var question = _questionEntityReader.ReadSingleSelectTextQuestion(questionId, publishedPackagePath, createdBy, courseData);
+
+            foreach (Guid answerId in _publishedCourseStructureReader.GetAnswers(questionId, courseData))
+            {
+                var answer = _answerEntityReader.ReadAnswer(answerId, createdBy, courseData);
+                question.AddAnswer(answer, createdBy);
+            }
+
+            foreach (Guid learningContentId in _publishedCourseStructureReader.GetLearningContents(questionId, courseData))
+            {
+                var learningContent = _learningContentEntityReader.ReadLearningContent(learningContentId, publishedPackagePath,
+                    createdBy, courseData);
+                question.AddLearningContent(learningContent, createdBy);
+            }
+
+            return question;
+        }
+
+        private DragAndDropText ImportDragAndDropTextQuestion(Guid questionId, string publishedPackagePath, string createdBy, JObject courseData)
+        {
+            var question = _questionEntityReader.ReadDragAndDropTextQuestion(questionId, publishedPackagePath, createdBy, courseData);
+
+            foreach (Guid dropspotId in _publishedCourseStructureReader.GetDropspots(questionId, courseData))
+            {
+                var dropSpot = _answerEntityReader.ReadDropspot(dropspotId, createdBy, courseData);
+                question.AddDropspot(dropSpot, createdBy);
+            }
+
+            foreach (Guid learningContentId in _publishedCourseStructureReader.GetLearningContents(questionId, courseData))
+            {
+                var learningContent = _learningContentEntityReader.ReadLearningContent(learningContentId, publishedPackagePath,
+                    createdBy, courseData);
+                question.AddLearningContent(learningContent, createdBy);
+            }
+
+            return question;
+        }
+
     }
 }

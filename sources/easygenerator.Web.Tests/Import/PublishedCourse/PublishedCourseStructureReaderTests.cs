@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using easygenerator.Web.Import.PublishedCourse;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -50,10 +51,10 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
                 questionId.ToString("N").ToLower()));
 
             //Act
-            var questionIds = _courseStructure.GetQuestions(objectiveId, data);
+            var questionIds = _courseStructure.GetQuestionTypes(objectiveId, data);
 
             //Assert
-            questionIds.Should().Contain(questionId);
+            questionIds.Select(t => t.Item1).Should().Contain(questionId);
         }
 
         #endregion
@@ -98,6 +99,28 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
 
             //Assert
             answerIds.Should().Contain(answerId);
+        }
+
+        #endregion
+
+        #region GetDropspots    
+
+        [TestMethod]
+        public void GetDropspots_ShouldReturnDropspotIds()
+        {
+            //Arrange
+            var questionId = Guid.NewGuid();
+            var answerId = Guid.NewGuid();
+
+            var data = JObject.Parse(String.Format("{{ objectives: [ {{ questions: [ {{ id: '{0}' , dropspots: [ {{ id: '{1}' }} ] }} ] }} ] }}",
+                questionId.ToString("N").ToLower(),
+                answerId.ToString("N").ToLower()));
+
+            //Act
+            var dropspotIds = _courseStructure.GetDropspots(questionId, data);
+
+            //Assert
+            dropspotIds.Should().Contain(answerId);
         }
 
         #endregion

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
@@ -124,12 +123,14 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
 
             _courseStructureReader.GetObjectives(Arg.Any<JObject>())
                 .Returns(new List<Guid>() { objectiveId });
-            _courseStructureReader.GetQuestions(objectiveId, Arg.Any<JObject>())
-                .Returns(new List<Guid>());
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 0) });
             _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(CourseObjectMother.Create());
             _objectiveEntityReader.ReadObjective(objectiveId, CreatedBy, Arg.Any<JObject>())
                 .Returns(ObjectiveObjectMother.Create(objectiveTitle, CreatedBy));
+            _questionEntityReader.ReadMultipleSelectQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(MultipleselectObjectMother.Create());
 
             //Act
             var course = _importer.Import(publicationPath, CreatedBy);
@@ -141,7 +142,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
         }
 
         [TestMethod]
-        public void Import_ShouldCreateCourseWithSpecifiedQuestions()
+        public void Import_ShouldCreateCourseWithSpecifiedMultipleSelectQuestions()
         {
             //Arrange
             string publicationPath = @"SomePathToDirectory";
@@ -162,9 +163,9 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             var question = MultipleselectObjectMother.Create(questionTitle, CreatedBy);
             question.UpdateContent(questionContent, CreatedBy);
 
-            _courseStructureReader.GetQuestions(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Guid>() { questionId });
-            _questionEntityReader.ReadQuestion(questionId, publicationPath, CreatedBy, Arg.Any<JObject>())
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(questionId, 0) });
+            _questionEntityReader.ReadMultipleSelectQuestion(questionId, publicationPath, CreatedBy, Arg.Any<JObject>())
                 .Returns(question);
 
             //Act
@@ -177,7 +178,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
         }
 
         [TestMethod]
-        public void Import_ShouldCreateCourseWithSpecifiedAnswers()
+        public void Import_ShouldCreateCourseWithSpecifiedFillInTheBlanksQuestions()
         {
             //Arrange
             string publicationPath = @"SomePathToDirectory";
@@ -186,8 +187,150 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
                 .Returns(true);
             _courseStructureReader.GetObjectives(Arg.Any<JObject>())
                 .Returns(new List<Guid>() { Guid.NewGuid() });
-            _courseStructureReader.GetQuestions(Arg.Any<Guid>(), Arg.Any<JObject>())
+            _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(ObjectiveObjectMother.Create());
+            _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(CourseObjectMother.Create());
+
+            var questionId = Guid.NewGuid();
+            var questionTitle = "Some question title";
+            var questionContent = "Some question content";
+
+            var question = FillInTheBlanksObjectMother.Create(questionTitle, CreatedBy);
+            question.UpdateContent(questionContent, CreatedBy);
+
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(questionId, 1) });
+            _questionEntityReader.ReadFillInTheBlanksQuestion(questionId, publicationPath, CreatedBy, Arg.Any<JObject>())
+                .Returns(question);
+
+            //Act
+            var course = _importer.Import(publicationPath, CreatedBy);
+
+            //Assert
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).Title.Should().Be(questionTitle);
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).Content.Should().Be(questionContent);
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
+        }
+
+        [TestMethod]
+        public void Import_ShouldCreateCourseWithSpecifiedDragAndDropTextQuestions()
+        {
+            //Arrange
+            string publicationPath = @"SomePathToDirectory";
+
+            _physicalFileManager.DirectoryExists(publicationPath)
+                .Returns(true);
+            _courseStructureReader.GetObjectives(Arg.Any<JObject>())
                 .Returns(new List<Guid>() { Guid.NewGuid() });
+            _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(ObjectiveObjectMother.Create());
+            _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(CourseObjectMother.Create());
+
+            var questionId = Guid.NewGuid();
+            var questionTitle = "Some question title";
+            var questionContent = "Some question content";
+
+            var question = DragAndDropTextObjectMother.Create(questionTitle, CreatedBy);
+            question.UpdateContent(questionContent, CreatedBy);
+
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(questionId, 2) });
+            _questionEntityReader.ReadDragAndDropTextQuestion(questionId, publicationPath, CreatedBy, Arg.Any<JObject>())
+                .Returns(question);
+
+            //Act
+            var course = _importer.Import(publicationPath, CreatedBy);
+
+            //Assert
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).Title.Should().Be(questionTitle);
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).Content.Should().Be(questionContent);
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
+        }
+
+        [TestMethod]
+        public void Import_ShouldCreateCourseWithSpecifiedSingleSelectQuestions()
+        {
+            //Arrange
+            string publicationPath = @"SomePathToDirectory";
+
+            _physicalFileManager.DirectoryExists(publicationPath)
+                .Returns(true);
+            _courseStructureReader.GetObjectives(Arg.Any<JObject>())
+                .Returns(new List<Guid>() { Guid.NewGuid() });
+            _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(ObjectiveObjectMother.Create());
+            _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(CourseObjectMother.Create());
+
+            var questionId = Guid.NewGuid();
+            var questionTitle = "Some question title";
+            var questionContent = "Some question content";
+
+            var question = SingleSelectTextObjectMother.Create(questionTitle, CreatedBy);
+            question.UpdateContent(questionContent, CreatedBy);
+
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(questionId, 3) });
+            _questionEntityReader.ReadSingleSelectTextQuestion(questionId, publicationPath, CreatedBy, Arg.Any<JObject>())
+                .Returns(question);
+
+            //Act
+            var course = _importer.Import(publicationPath, CreatedBy);
+
+            //Assert
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).Title.Should().Be(questionTitle);
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).Content.Should().Be(questionContent);
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
+        }
+
+        [TestMethod]
+        public void Import_ShouldThrowException_WhenQuestionTypeIsNotSupported()
+        {
+            //Arrange
+            string publicationPath = @"SomePathToDirectory";
+
+            _physicalFileManager.DirectoryExists(publicationPath)
+                .Returns(true);
+            _courseStructureReader.GetObjectives(Arg.Any<JObject>())
+                .Returns(new List<Guid>() { Guid.NewGuid() });
+            _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(ObjectiveObjectMother.Create());
+            _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(CourseObjectMother.Create());
+
+            var questionId = Guid.NewGuid();
+            var questionTitle = "Some question title";
+            var questionContent = "Some question content";
+
+            var question = SingleSelectTextObjectMother.Create(questionTitle, CreatedBy);
+            question.UpdateContent(questionContent, CreatedBy);
+
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(questionId, 2222) });
+            _questionEntityReader.ReadSingleSelectTextQuestion(questionId, publicationPath, CreatedBy, Arg.Any<JObject>())
+                .Returns(question);
+
+            //Act
+            Action action = () => _importer.Import(publicationPath, CreatedBy);
+
+            //Assert
+            action.ShouldThrow<Exception>().And.Message.Should().Be("Unsupported question type");
+        }
+
+        [TestMethod]
+        public void Import_ShouldCreateMultipleSelectQuestionWithSpecifiedAnswers()
+        {
+            //Arrange
+            string publicationPath = @"SomePathToDirectory";
+
+            _physicalFileManager.DirectoryExists(publicationPath)
+                .Returns(true);
+            _courseStructureReader.GetObjectives(Arg.Any<JObject>())
+                .Returns(new List<Guid>() { Guid.NewGuid() });
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 0) });
             _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(CourseObjectMother.Create());
             _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
@@ -201,7 +344,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _courseStructureReader.GetAnswers(Arg.Any<Guid>(), Arg.Any<JObject>())
                 .Returns(new List<Guid>() { answerId });
 
-            _questionEntityReader.ReadQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+            _questionEntityReader.ReadMultipleSelectQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(MultipleselectObjectMother.Create());
             _answerEntityReader.ReadAnswer(answerId, CreatedBy, Arg.Any<JObject>())
                 .Returns(AnswerObjectMother.Create(answerText, answerCorrectness, answerGroup, CreatedBy));
@@ -210,13 +353,148 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             var course = _importer.Import(publicationPath, CreatedBy);
 
             //Assert
-            ((Multipleselect)course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0)).Answers.ElementAt(0).Text.Should().Be(answerText);
-            ((Multipleselect)course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0)).Answers.ElementAt(0).IsCorrect.Should().Be(answerCorrectness);
-            ((Multipleselect)course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0)).Answers.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
+            var objective = course.RelatedObjectives.ElementAt(0);
+            var question = (Multipleselect)objective.Questions.ElementAt(0);
+            question.Answers.ElementAt(0).Text.Should().Be(answerText);
+            question.Answers.ElementAt(0).IsCorrect.Should().Be(answerCorrectness);
+            question.Answers.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
+            _answerEntityReader.Received().ReadAnswer(answerId, CreatedBy, Arg.Any<JObject>());
+        }
+
+
+        [TestMethod]
+        public void Import_ShouldCreateFillInTheBlanksQuestionWithSpecifiedAnswers()
+        {
+            //Arrange
+            string publicationPath = @"SomePathToDirectory";
+
+            _physicalFileManager.DirectoryExists(publicationPath)
+                .Returns(true);
+            _courseStructureReader.GetObjectives(Arg.Any<JObject>())
+                .Returns(new List<Guid>() { Guid.NewGuid() });
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 1) });
+            _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(CourseObjectMother.Create());
+            _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(ObjectiveObjectMother.Create());
+
+
+            var answerId = Guid.NewGuid();
+            var answerText = "Some answer text";
+            var answerCorrectness = true; var answerGroup = default(Guid);
+
+            _courseStructureReader.GetAnswers(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Guid>() { answerId });
+
+            _questionEntityReader.ReadFillInTheBlanksQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(FillInTheBlanksObjectMother.Create());
+            _answerEntityReader.ReadAnswer(answerId, CreatedBy, Arg.Any<JObject>())
+                .Returns(AnswerObjectMother.Create(answerText, answerCorrectness, answerGroup, CreatedBy));
+
+            //Act
+            var course = _importer.Import(publicationPath, CreatedBy);
+
+            //Assert
+            var objective = course.RelatedObjectives.ElementAt(0);
+            var question = (FillInTheBlanks)objective.Questions.ElementAt(0);
+            question.Answers.ElementAt(0).Text.Should().Be(answerText);
+            question.Answers.ElementAt(0).IsCorrect.Should().Be(answerCorrectness);
+            question.Answers.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
+            _answerEntityReader.Received().ReadAnswer(answerId, CreatedBy, Arg.Any<JObject>());
         }
 
         [TestMethod]
-        public void Import_ShouldCreateCourseWithSpecifiedLearningContents()
+        public void Import_ShouldCreateDragAndDropTextQuestionWithSpecifiedDropspots()
+        {
+            //Arrange
+            string publicationPath = @"SomePathToDirectory";
+
+            var background = "Some background";
+            var answerText = "Some answer text";
+            var x = 1;
+            var y = 2;
+
+            var createdQuestion = DragAndDropTextObjectMother.Create();
+            createdQuestion.ChangeBackground(background, CreatedBy);
+            var dropspot = DropspotObjectMother.Create(answerText, x, y, CreatedBy);
+
+            _physicalFileManager.DirectoryExists(publicationPath)
+                .Returns(true);
+            _courseStructureReader.GetObjectives(Arg.Any<JObject>())
+                .Returns(new List<Guid>() { Guid.NewGuid() });
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 2) });
+            _courseStructureReader.GetDropspots(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Guid>() { dropspot.Id });
+            _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(CourseObjectMother.Create());
+            _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(ObjectiveObjectMother.Create());
+
+            _questionEntityReader.ReadDragAndDropTextQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(createdQuestion);
+            _answerEntityReader.ReadDropspot(dropspot.Id, CreatedBy, Arg.Any<JObject>())
+                .Returns(dropspot);
+
+            //Act
+            var course = _importer.Import(publicationPath, CreatedBy);
+
+            //Assert
+            var objective = course.RelatedObjectives.ElementAt(0);
+            var question = (DragAndDropText)objective.Questions.ElementAt(0);
+            question.Background.Should().Be(background);
+            question.Dropspots.ElementAt(0).Text.Should().Be(answerText);
+            question.Dropspots.ElementAt(0).X.Should().Be(x);
+            question.Dropspots.ElementAt(0).Y.Should().Be(y);
+            question.Dropspots.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
+            _answerEntityReader.Received().ReadDropspot(dropspot.Id, CreatedBy, Arg.Any<JObject>());
+        }
+
+        [TestMethod]
+        public void Import_ShouldCreateSingleSelectTextQuestionWithSpecifiedAnswers()
+        {
+            //Arrange
+            string publicationPath = @"SomePathToDirectory";
+
+            _physicalFileManager.DirectoryExists(publicationPath)
+                .Returns(true);
+            _courseStructureReader.GetObjectives(Arg.Any<JObject>())
+                .Returns(new List<Guid>() { Guid.NewGuid() });
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 3) });
+            _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(CourseObjectMother.Create());
+            _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(ObjectiveObjectMother.Create());
+
+
+            var answerId = Guid.NewGuid();
+            var answerText = "Some answer text";
+            var answerCorrectness = true; var answerGroup = default(Guid);
+
+            _courseStructureReader.GetAnswers(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Guid>() { answerId });
+
+            _questionEntityReader.ReadSingleSelectTextQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(SingleSelectTextObjectMother.Create());
+            _answerEntityReader.ReadAnswer(answerId, CreatedBy, Arg.Any<JObject>())
+                .Returns(AnswerObjectMother.Create(answerText, answerCorrectness, answerGroup, CreatedBy));
+
+            //Act
+            var course = _importer.Import(publicationPath, CreatedBy);
+
+            //Assert
+            var objective = course.RelatedObjectives.ElementAt(0);
+            var question = (SingleSelectText)objective.Questions.ElementAt(0);
+            question.Answers.ElementAt(0).Text.Should().Be(answerText);
+            question.Answers.ElementAt(0).IsCorrect.Should().Be(answerCorrectness);
+            question.Answers.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
+            _answerEntityReader.Received().ReadAnswer(answerId, CreatedBy, Arg.Any<JObject>());
+        }
+
+        [TestMethod]
+        public void Import_ShouldCreateMultipleSelectQuestionWithSpecifiedLearningContents()
         {
             //Arrange
             string publicationPath = @"SomePathToDirectory";
@@ -226,8 +504,8 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
 
             _courseStructureReader.GetObjectives(Arg.Any<JObject>())
                 .Returns(new List<Guid>() { Guid.NewGuid() });
-            _courseStructureReader.GetQuestions(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Guid>() { Guid.NewGuid() });
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 0) });
             _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(CourseObjectMother.Create());
             _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
@@ -239,8 +517,121 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _courseStructureReader.GetLearningContents(Arg.Any<Guid>(), Arg.Any<JObject>())
                 .Returns(new List<Guid>() { learningContentId });
 
-            _questionEntityReader.ReadQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+            _questionEntityReader.ReadMultipleSelectQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(MultipleselectObjectMother.Create());
+            _learningContentEntityReader.ReadLearningContent(learningContentId, publicationPath, CreatedBy, Arg.Any<JObject>())
+                .Returns(LearningContentObjectMother.Create(learningContentText, CreatedBy));
+
+            //Act
+            var course = _importer.Import(publicationPath, CreatedBy);
+
+            //Assert
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).LearningContents.ElementAt(0).Text.Should().Be(learningContentText);
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).LearningContents.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
+        }
+
+        [TestMethod]
+        public void Import_ShouldCreateFillInTheBlanksQuestionWithSpecifiedLearningContents()
+        {
+            //Arrange
+            string publicationPath = @"SomePathToDirectory";
+
+            _physicalFileManager.DirectoryExists(publicationPath)
+                .Returns(true);
+
+            _courseStructureReader.GetObjectives(Arg.Any<JObject>())
+                .Returns(new List<Guid>() { Guid.NewGuid() });
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 1) });
+            _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(CourseObjectMother.Create());
+            _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(ObjectiveObjectMother.Create());
+
+            var learningContentId = Guid.NewGuid();
+            var learningContentText = "Some learning content text";
+
+            _courseStructureReader.GetLearningContents(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Guid>() { learningContentId });
+
+            _questionEntityReader.ReadFillInTheBlanksQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(FillInTheBlanksObjectMother.Create());
+            _learningContentEntityReader.ReadLearningContent(learningContentId, publicationPath, CreatedBy, Arg.Any<JObject>())
+                .Returns(LearningContentObjectMother.Create(learningContentText, CreatedBy));
+
+            //Act
+            var course = _importer.Import(publicationPath, CreatedBy);
+
+            //Assert
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).LearningContents.ElementAt(0).Text.Should().Be(learningContentText);
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).LearningContents.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
+        }
+
+
+        [TestMethod]
+        public void Import_ShouldCreateSingleSelectTextQuestionWithSpecifiedLearningContents()
+        {
+            //Arrange
+            string publicationPath = @"SomePathToDirectory";
+
+            _physicalFileManager.DirectoryExists(publicationPath)
+                .Returns(true);
+
+            _courseStructureReader.GetObjectives(Arg.Any<JObject>())
+                .Returns(new List<Guid>() { Guid.NewGuid() });
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 3) });
+            _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(CourseObjectMother.Create());
+            _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(ObjectiveObjectMother.Create());
+
+            var learningContentId = Guid.NewGuid();
+            var learningContentText = "Some learning content text";
+
+            _courseStructureReader.GetLearningContents(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Guid>() { learningContentId });
+
+            _questionEntityReader.ReadSingleSelectTextQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(SingleSelectTextObjectMother.Create());
+            _learningContentEntityReader.ReadLearningContent(learningContentId, publicationPath, CreatedBy, Arg.Any<JObject>())
+                .Returns(LearningContentObjectMother.Create(learningContentText, CreatedBy));
+
+            //Act
+            var course = _importer.Import(publicationPath, CreatedBy);
+
+            //Assert
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).LearningContents.ElementAt(0).Text.Should().Be(learningContentText);
+            course.RelatedObjectives.ElementAt(0).Questions.ElementAt(0).LearningContents.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
+        }
+
+
+        [TestMethod]
+        public void Import_ShouldCreateDragAndDropTextQuestionWithSpecifiedLearningContents()
+        {
+            //Arrange
+            string publicationPath = @"SomePathToDirectory";
+
+            _physicalFileManager.DirectoryExists(publicationPath)
+                .Returns(true);
+
+            _courseStructureReader.GetObjectives(Arg.Any<JObject>())
+                .Returns(new List<Guid>() { Guid.NewGuid() });
+            _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 2) });
+            _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(CourseObjectMother.Create());
+            _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(ObjectiveObjectMother.Create());
+
+            var learningContentId = Guid.NewGuid();
+            var learningContentText = "Some learning content text";
+
+            _courseStructureReader.GetLearningContents(Arg.Any<Guid>(), Arg.Any<JObject>())
+                .Returns(new List<Guid>() { learningContentId });
+
+            _questionEntityReader.ReadDragAndDropTextQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
+                .Returns(DragAndDropTextObjectMother.Create());
             _learningContentEntityReader.ReadLearningContent(learningContentId, publicationPath, CreatedBy, Arg.Any<JObject>())
                 .Returns(LearningContentObjectMother.Create(learningContentText, CreatedBy));
 

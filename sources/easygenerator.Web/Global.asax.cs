@@ -28,5 +28,7 @@ namespace easygenerator.Web
             Thread.CurrentThread.CurrentCulture = enCulture;
             Thread.CurrentThread.CurrentUICulture = enCulture;
         }
+
+        
     }
 }

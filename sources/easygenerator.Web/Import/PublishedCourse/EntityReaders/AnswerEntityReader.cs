@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using Newtonsoft.Json.Linq;
 
@@ -30,6 +29,22 @@ namespace easygenerator.Web.Import.PublishedCourse.EntityReaders
             var answerGroup = Guid.Parse(answer.Value<string>("group"));
 
             return _entityFactory.Answer(answerText, answerCorrectness, answerGroup, createdBy);
+        }
+
+        public virtual Dropspot ReadDropspot(Guid dropspotId, string createdBy, JObject courseData)
+        {
+            var answer = courseData["objectives"]
+                .Values("questions")
+                .Children()
+                .Values("dropspots")
+                .Children()
+                .Single(a => a.Value<string>("id") == dropspotId.ToString("N").ToLower());
+
+            var text = answer.Value<string>("text");
+            var x = answer.Value<int>("x");
+            var y = answer.Value<int>("y");
+
+            return _entityFactory.Dropspot(text, x, y, createdBy);
         }
 
     }
