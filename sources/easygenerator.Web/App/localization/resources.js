@@ -598,11 +598,23 @@
     multipleSelectEditor: {
         en: '\"Multiple select\" question editor'
     },
+    singleSelectImageEditor: {
+        en: '\"Single select image\" question editor'
+    },
     fillInTheBlanksEditor: {
         en: '\"Fill in the blanks\" question editor'
     },
     DragAndDropTextEditor: {
         en: '\"Drag\'n\'Drop text\" question editor'
+    },
+    singleSelectImage: {
+        en: 'Single select image'
+    },
+    infoContent: {
+        en: 'Information'
+    },
+    textMatching: {
+        en: 'Text matching'
     },
     /* End resource section for model Questions */
     
