@@ -95,13 +95,22 @@
         }
 
         function resizeFrame(vm, event) {
-            var $iframe = $(event.target);
-            $iframe.height(0);
+            var $targetIframe = $(event.target);
+            $targetIframe.height(0);
 
-            var iframeDocumentHeight = $iframe.contents().find('body').height();
-            $iframe.height(iframeDocumentHeight);
+            calculateHeight($targetIframe, 0);
 
-            viewModel.settingsVisibility(true);
+            function calculateHeight($iframe, counter) {
+                var iframeDocumentHeight = $iframe.contents().find('body').height();
+                if (iframeDocumentHeight === 0 && counter < 10) { // Fix for IE
+                    _.delay(function() {
+                        calculateHeight($iframe, ++counter);
+                    }, 10);
+                    return;
+                }
+                $iframe.height(iframeDocumentHeight);
+                viewModel.settingsVisibility(true);
+            }
         }
 
     }
