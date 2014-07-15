@@ -428,7 +428,7 @@
         en: 'New course'
     },
     chooseTemplate: {
-        en: 'Choose template'
+        en: 'Choose template:'
     },
     defineCourseTitle: {
         en: 'Define title'
@@ -548,7 +548,7 @@
         en: 'Related question'
     },
     createNewQuestion: {
-        en: 'New question'
+        en: 'New content'
     },
     savedAt: {
         en: 'Saved at'
