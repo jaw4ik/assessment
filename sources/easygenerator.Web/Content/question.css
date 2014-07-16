@@ -795,6 +795,10 @@
         background-image: url('images/comingsoon.png');
     }
 
+    .question-type-text.disabled:before {
+        background-image: none;
+    }
+
 /*#endregion Question type create actions*/
 
 /*#region Fill in the blank*/
@@ -904,11 +908,13 @@
 }
 
 .disabled-question-container {
+    height: 64px;
+    position: relative;
+    margin: 0 auto 20px;
     background-image: url('images/disabled-question.png');
     background-repeat: no-repeat;
     background-position: center top;
-    height: 64px;
-    margin: 0 auto 20px;
+    z-index: 1;
 }
 
 .upgrade-user-link {
