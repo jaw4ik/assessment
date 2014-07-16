@@ -68,7 +68,7 @@ namespace easygenerator.Web.Tests.Controllers
 
 
             //Act
-            var result = _controller.Get(null, null, null);
+            var result = _controller.Get(null, null, null, null);
 
             //Assert
             result.Should().BeBadRequestResult();
@@ -81,7 +81,7 @@ namespace easygenerator.Web.Tests.Controllers
             _storage.FileExists(Arg.Any<string>()).Returns(false);
 
             //Act
-            var result = _controller.Get(String.Empty, null, null);
+            var result = _controller.Get(String.Empty, null, null, null);
 
             //Assert
             result.Should().BeHttpNotFoundResult();
@@ -94,14 +94,15 @@ namespace easygenerator.Web.Tests.Controllers
             const string path = "path";
             const int width = 100;
             const int height = 100;
+            const bool scaleBySmallerSide = false;
             _storage.FileExists(Arg.Any<string>()).Returns(true);
             _storage.GetFilePath(Arg.Any<string>()).Returns(path);
 
             //Act
-            var result = _controller.Get(String.Empty, width, height);
+            var result = _controller.Get(String.Empty, width, height, scaleBySmallerSide);
 
             //Assert
-            result.Should().BeImageResult().And.ShouldBeEquivalentTo(new { FilePath = path, Width = width, Height = height });
+            result.Should().BeImageResult().And.ShouldBeEquivalentTo(new { FilePath = path, Width = width, Height = height, ScaleBySmallerSide = scaleBySmallerSide });
         }
 
 

@@ -12,16 +12,18 @@ namespace easygenerator.Web.Components.ActionResults
 
         }
 
-        public ImageResult(string path, int? width = null, int? height = null)
+        public ImageResult(string path, int? width = null, int? height = null, bool? scaleBySmallerSide = false)
         {
             FilePath = path;
             Width = width;
             Height = height;
+            ScaleBySmallerSide = scaleBySmallerSide;
         }
 
         public string FilePath { get; private set; }
         public int? Width { get; private set; }
         public int? Height { get; private set; }
+        public bool? ScaleBySmallerSide { get; private set; }
 
 
         public override void ExecuteResult(ControllerContext context)
@@ -36,9 +38,9 @@ namespace easygenerator.Web.Components.ActionResults
             {
                 using (var image = Image.FromFile(FilePath))
                 {
-                    var scale = image.Width > Width || image.Height > Height ? Math.Min((float)Width / image.Size.Width, (float)Height / image.Size.Height) : 1;
+                    var scale = GetScaleRate(image.Width, image.Height, Width.Value, Height.Value, ScaleBySmallerSide.HasValue && ScaleBySmallerSide.Value);
 
-                    var thumbnail = image.GetThumbnailImage((int)(image.Size.Width * scale), (int)(image.Size.Height * scale), () => false, IntPtr.Zero);
+                    var thumbnail = image.GetThumbnailImage((int)(image.Width * scale), (int)(image.Height * scale), () => false, IntPtr.Zero);
                     using (var stream = new MemoryStream())
                     {
                         thumbnail.Save(stream, image.RawFormat);
@@ -51,6 +53,28 @@ namespace easygenerator.Web.Components.ActionResults
                 new EmptyResult().ExecuteResult(context);
             }
 
+        }
+
+        protected float GetScaleRate(int imageWidth, int imageHeight, int resultWidth, int resultHeight, bool scaleBySmallerSide)
+        {
+            float widthRatio = (float)resultWidth / imageWidth;
+            float heightRatio = (float)resultHeight / imageHeight;
+            float scaleRate = 1;
+            if (scaleBySmallerSide)
+            {
+                if (imageWidth > resultWidth && imageHeight > resultHeight)
+                {
+                    scaleRate = Math.Max(widthRatio, heightRatio);
+                }
+            }
+            else
+            {
+                if (imageWidth > resultWidth || imageHeight > resultHeight)
+                {
+                    scaleRate = Math.Min(widthRatio, heightRatio);
+                }
+            }
+            return scaleRate;
         }
 
         protected string ContentTypeForFilePath()

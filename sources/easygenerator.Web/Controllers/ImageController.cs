@@ -42,7 +42,7 @@ namespace easygenerator.Web.Controllers
         [AllowAnonymous]
         [Route("storage/image/{fileName}", Name = "ImageUrl")]
         [Route("filestorage/{fileName}")]
-        public ActionResult Get(string fileName, int? width, int? height)
+        public ActionResult Get(string fileName, int? width, int? height, bool? scaleBySmallerSide = false)
         {
             if (fileName == null)
             {
@@ -54,7 +54,7 @@ namespace easygenerator.Web.Controllers
                 return HttpNotFound();
             }
 
-            return new ImageResult(_storage.GetFilePath(fileName), width, height);
+            return new ImageResult(_storage.GetFilePath(fileName), width, height, scaleBySmallerSide);
         }
 
 
