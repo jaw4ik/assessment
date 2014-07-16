@@ -100,15 +100,15 @@
                     var promise = viewModel.activate(settings);
 
                     promise.fin(function () {
-                        expect(viewModel.questions().length).toBe(4);
-                        expect(viewModel.questions()[0].type).toBe(constants.questionType.singleSelectText.type);
-                        expect(viewModel.questions()[0].name).toBe(constants.questionType.singleSelectText.name);
-                        expect(viewModel.questions()[1].type).toBe(constants.questionType.multipleSelect.type);
-                        expect(viewModel.questions()[1].name).toBe(constants.questionType.multipleSelect.name);
-                        expect(viewModel.questions()[2].type).toBe(constants.questionType.fillInTheBlank.type);
-                        expect(viewModel.questions()[2].name).toBe(constants.questionType.fillInTheBlank.name);
-                        expect(viewModel.questions()[3].type).toBe(constants.questionType.dragAndDropText.type);
-                        expect(viewModel.questions()[3].name).toBe(constants.questionType.dragAndDropText.name);
+                        expect(viewModel.questions().length).toBe(7);
+                        expect(viewModel.questions()[0].type).toBe(constants.questionType.infoContent.type);
+                        expect(viewModel.questions()[1].type).toBe(constants.questionType.singleSelectText.type);
+                        expect(viewModel.questions()[2].type).toBe(constants.questionType.multipleSelect.type);
+                        expect(viewModel.questions()[3].type).toBe(constants.questionType.singleSelectImage.type);
+                        expect(viewModel.questions()[4].type).toBe(constants.questionType.fillInTheBlank.type);
+                        expect(viewModel.questions()[5].type).toBe(constants.questionType.textMatching.type);
+                        expect(viewModel.questions()[6].type).toBe(constants.questionType.dragAndDropText.type);
+
                         done();
                     });
                 });
