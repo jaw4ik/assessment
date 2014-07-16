@@ -607,6 +607,9 @@
     DragAndDropTextEditor: {
         en: '\"Drag\'n\'Drop text\" question editor'
     },
+    textMatchingEditor: {
+        en: '\"Text matching\" question editor'
+    },
     singleSelectImage: {
         en: 'Single select image'
     },
