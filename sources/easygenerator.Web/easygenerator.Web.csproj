@@ -740,7 +740,10 @@
     <Content Include="Content\images\comingsoon.png" />
     <Content Include="Content\images\draganddroptext-question.png" />
     <Content Include="Content\images\fillintheblank-question.png" />
+    <Content Include="Content\images\icon.png" />
     <Content Include="Content\images\info-question.png" />
+    <Content Include="Content\images\ios-startup-image-landscape.png" />
+    <Content Include="Content\images\ios-startup-image-portrait.png" />
     <Content Include="Content\images\lamp.png" />
     <Content Include="Content\images\singleselectimage-question.png" />
     <Content Include="Content\images\singleselecttext-question.png" />
@@ -779,6 +782,7 @@
     <Content Include="Sample Course\content\7734a48e60d74da5ba9062df797aac8c\788264691bea4996be77e9a1e646b8dc\incorrectFeedback.html" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
+    <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\customPlugins\fillInTheBlank\dialogs\fillInTheBlank.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillInTheBlank\lang\en.js" />
@@ -792,6 +796,21 @@
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\durandal\activator.js" />
+    <Content Include="Scripts\durandal\app.js" />
+    <Content Include="Scripts\durandal\binder.js" />
+    <Content Include="Scripts\durandal\composition.js" />
+    <Content Include="Scripts\durandal\events.js" />
+    <Content Include="Scripts\durandal\plugins\dialog.js" />
+    <Content Include="Scripts\durandal\plugins\history.js" />
+    <Content Include="Scripts\durandal\plugins\http.js" />
+    <Content Include="Scripts\durandal\plugins\observable.js" />
+    <Content Include="Scripts\durandal\plugins\router.js" />
+    <Content Include="Scripts\durandal\plugins\serializer.js" />
+    <Content Include="Scripts\durandal\plugins\widget.js" />
+    <Content Include="Scripts\durandal\system.js" />
+    <Content Include="Scripts\durandal\viewEngine.js" />
+    <Content Include="Scripts\durandal\viewLocator.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery.extensions.js" />
@@ -1537,7 +1556,6 @@
     <Content Include="Scripts\account\signupsecondstep.spec.js">
       <DependentUpon>signupsecondstep.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
@@ -1734,22 +1752,7 @@
     <Content Include="Scripts\common\serviceUnavailableAjaxErrorHandler.spec.js">
       <DependentUpon>serviceUnavailableAjaxErrorHandler.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\durandal\activator.js" />
-    <Content Include="Scripts\durandal\app.js" />
-    <Content Include="Scripts\durandal\binder.js" />
-    <Content Include="Scripts\durandal\composition.js" />
-    <Content Include="Scripts\durandal\events.js" />
-    <Content Include="Scripts\durandal\plugins\dialog.js" />
-    <Content Include="Scripts\durandal\plugins\history.js" />
-    <Content Include="Scripts\durandal\plugins\http.js" />
-    <Content Include="Scripts\durandal\plugins\observable.js" />
-    <Content Include="Scripts\durandal\plugins\router.js" />
-    <Content Include="Scripts\durandal\plugins\serializer.js" />
-    <Content Include="Scripts\durandal\plugins\widget.js" />
-    <Content Include="Scripts\durandal\system.js" />
     <Content Include="Scripts\durandal\transitions\defaultRouterTransition.js" />
-    <Content Include="Scripts\durandal\viewEngine.js" />
-    <Content Include="Scripts\durandal\viewLocator.js" />
     <Content Include="Scripts\has.js" />
     <Content Include="Scripts\jasmine\boot.js" />
     <Content Include="Scripts\jasmine\jasmine-html.js" />
