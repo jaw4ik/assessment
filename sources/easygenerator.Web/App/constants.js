@@ -28,6 +28,21 @@
                     type: 3,
                     name: 'singleSelectText',
                     image: '/Content/images/singleselecttext-question.png'
+                },
+                infoContent: {
+                    type: 4,
+                    name: 'infoContent',
+                    image: '/Content/images/info-question.png'
+                },
+                singleSelectImage: {
+                    type: 5,
+                    name: 'singleSelectImage',
+                    image: '/Content/images/singleselectimage-question.png'
+                },
+                textMatching: {
+                    type: 6,
+                    name: 'textMatching',
+                    image: '/Content/images/textmatching-question.png'
                 }
             },
 

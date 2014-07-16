@@ -736,12 +736,16 @@
     <Content Include="Content\font\rabiohead.eot" />
     <Content Include="Content\font\rabiohead.ttf" />
     <Content Include="Content\font\rabiohead.woff" />
+    <Content Include="Content\images\comingsoon.png" />
     <Content Include="Content\images\draganddroptext-question.png" />
     <Content Include="Content\images\fillintheblank-question.png" />
+    <Content Include="Content\images\info-question.png" />
     <Content Include="Content\images\lamp.png" />
+    <Content Include="Content\images\singleselectimage-question.png" />
     <Content Include="Content\images\singleselecttext-question.png" />
     <Content Include="Content\images\personalizedLearningTemplate.png" />
     <Content Include="Content\images\question-types.png" />
+    <Content Include="Content\images\textmatching-question.png" />
     <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\ForgotPasswordTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\HttpRequestFailedTemplate.cshtml" />

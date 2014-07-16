@@ -25,6 +25,11 @@
         return userContext.identify().then(function () {
             viewModel.questions([
                 {
+                    type: constants.questionType.infoContent.type,
+                    name: constants.questionType.infoContent.name,
+                    hasAccess: true
+                },
+                {
                     type: constants.questionType.singleSelectText.type,
                     name: constants.questionType.singleSelectText.name,
                     hasAccess: true
@@ -35,8 +40,18 @@
                     hasAccess: true
                 },
                 {
+                    type: constants.questionType.singleSelectImage.type,
+                    name: constants.questionType.singleSelectImage.name,
+                    hasAccess: userContext.hasStarterAccess()
+                },
+                {
                     type: constants.questionType.fillInTheBlank.type,
                     name: constants.questionType.fillInTheBlank.name,
+                    hasAccess: userContext.hasStarterAccess()
+                },
+                {
+                    type: constants.questionType.textMatching.type,
+                    name: constants.questionType.textMatching.name,
                     hasAccess: userContext.hasStarterAccess()
                 },
                 {

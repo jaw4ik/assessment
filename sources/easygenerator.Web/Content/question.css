@@ -680,7 +680,7 @@
 /*#region Question type create actions*/
 
 .question-type-action-wrapper {
-    width: 686px;
+    width: 650px;
     background-color: #fff;
     position: absolute;
     top: 49px;
@@ -711,17 +711,18 @@
 
 .question-type-action-list {
     position: relative;
+    border-radius: 3px;
     font-size: 0;
+    overflow: hidden;
 }
 
-    .question-type-action-list > li {
-        display: inline-block;
-    }
-
 .question-type-action-item {
+    display: inline-block;
+    vertical-align: top;
+    width: 161px;
+    position: relative;
+    padding: 20px 0;
     text-align: center;
-    width: 170px;
-    padding: 30px 0 20px;
 }
 
     .question-type-action-item:hover {
@@ -734,40 +735,65 @@
         cursor: default;
     }
 
-    .question-type-action-item + .question-type-action-item {
-        border-left: 1px solid #dddddd;
+    .question-type-action-item:nth-child(-n+4) {
+        border-bottom: 1px solid #eeeeee;
     }
 
-.question-type-image {
-    height: 75px;
-    width: 48px;
-    margin: 0 auto 8px;
-    background-image: url('images/question-types.png');
-    background-repeat: no-repeat;
+.question-type-text {
+    position: relative;
+    padding-top: 83px;
+    font: 14px 'OpenSans';
+    color: #777;
 }
 
-    .question-type-image.fillInTheBlank {
-        background-position: -109px 0;
+    .question-type-text:before {
+        content: '';
+        display: block;
+        height: 75px;
+        width: 48px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -24px;
+        background-image: url('images/question-types.png');
     }
 
-    .question-type-image.multipleSelect {
+    .question-type-text.multipleSelect:before {
         background-position: -1px 0;
     }
 
-    .question-type-image.dragAndDropText {
+    .question-type-text.singleSelectText:before {
+        background-position: -55px 0;
+    }
+
+    .question-type-text.fillInTheBlank:before {
+        background-position: -109px 0;
+    }
+
+    .question-type-text.dragAndDropText:before {
         width: 58px;
         background-position: -163px 0;
     }
 
-    .question-type-image.singleSelectText {
-        background-position: -55px 0;
+    .question-type-text.infoContent:before {
+        background-position: -1px -79px;
     }
 
-.question-type-text {
-    display: inline-block;
-    font: 14px 'OpenSans';
-    color: #777;
-}
+    .question-type-text.singleSelectImage:before {
+        background-position: -55px -79px;
+    }
+
+    .question-type-text.textMatching:before {
+        background-position: -109px -79px;
+    }
+
+    .question-type-text.empty:before {
+        height: 99px;
+        width: 125px;
+        top: -24px;
+        margin-left: -63px;
+        background-image: url('images/comingsoon.png');
+    }
 
 /*#endregion Question type create actions*/
 

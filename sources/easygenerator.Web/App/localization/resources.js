@@ -616,6 +616,9 @@
     textMatching: {
         en: 'Text matching'
     },
+    hotSpot: {
+        en: 'Hot spot'
+    },
     /* End resource section for model Questions */
     
     /* Resource section for model QuestionFeedback */

@@ -1,5 +1,4 @@
 ﻿
-
 <div>
     <div class="action-item-btn btn create-question" data-bind="click: show, css: { active: visible }, stopEventPropagation: { event: 'click' }">
         <span class=" create-question-text" data-bind="localize: { text: 'createNewQuestion' }">
@@ -10,8 +9,7 @@
             <!-- ko foreach: questions -->
             <!-- ko if: hasAccess -->
             <li class="question-type-action-item" data-bind="click: $parent.createQuestion">
-                <div class="question-type-image" data-bind="css: name"></div>
-                <span class="question-type-text" data-bind="localize: { text: name }">Question title</span>
+                <p class="question-type-text" data-bind="localize: { text: name }, css: name">Question title</p>
             </li>
             <!-- /ko -->
             <!-- ko ifnot: hasAccess -->
@@ -25,6 +23,9 @@
             </li>
             <!-- /ko -->
             <!-- /ko -->
+            <li class="question-type-action-item coming-soon disabled">
+                <p class="question-type-text empty" data-bind="localize: { text: 'hotSpot' }">Hot spot</p>
+            </li>
         </ul>
     </div>
 </div>
