@@ -13,6 +13,8 @@ namespace easygenerator.DomainModel
         FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
         DragAndDropText DragAndDropTextQuestion(string title, string createdBy);
         Dropspot Dropspot(string text, int x, int y, string createdBy);
+        TextMatching TextMatchingQuestion(string title, string createdBy);
+        TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy);
         Comment Comment(string text, string createdBy);
         Answer Answer(string text, bool isCorrect, Guid group, string createdBy);
         Answer Answer(string text, bool isCorrect, Guid group, string createdBy, DateTime createdOn);
@@ -92,6 +94,16 @@ namespace easygenerator.DomainModel
         public ImageFile ImageFile(string title, string createdBy)
         {
             return new ImageFile(title, createdBy);
+        }
+        
+        public TextMatching TextMatchingQuestion(string title, string createdBy)
+        {
+            return new TextMatching(title, createdBy);
+        }
+        
+        public TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy)
+        {
+            return new TextMatchingAnswer(key, value, createdBy);
         }
     }
 }

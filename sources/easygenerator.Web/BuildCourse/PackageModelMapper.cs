@@ -53,6 +53,11 @@ namespace easygenerator.Web.BuildCourse
             {
                 return MapDragAndDropText(question as DragAndDropText);
             }
+            if (question is TextMatching)
+            {
+                return MapTextMatching(question as TextMatching);
+            }
+
             throw new NotSupportedException();
         }
 
@@ -122,6 +127,22 @@ namespace easygenerator.Web.BuildCourse
 
         }
 
+        private TextMatchingPackageModel MapTextMatching(TextMatching question)
+        {
+            return new TextMatchingPackageModel()
+            {
+                Id = question.Id.ToNString(),
+                Title = question.Title,
+                HasContent = !String.IsNullOrWhiteSpace(question.Content),
+                Content = question.Content,
+                LearningContents = (question.LearningContents ?? new Collection<LearningContent>()).Select(MapLearningContent).ToList(),
+                Feedback = question.Feedback ?? new Feedback(),
+                HasCorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.CorrectText),
+                HasIncorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.IncorrectText),
+                Answers = (question.Answers ?? new Collection<TextMatchingAnswer>()).Select(MapTextMatchingAnswer).ToList()
+            };
+        }
+
         private AnswerOptionPackageModel MapAnswer(Answer answer)
         {
             return new AnswerOptionPackageModel()
@@ -141,6 +162,16 @@ namespace easygenerator.Web.BuildCourse
                 Text = dropspot.Text,
                 X = dropspot.X,
                 Y = dropspot.Y
+            };
+        }
+
+        private TextMatchingAnswerPackageModel MapTextMatchingAnswer(TextMatchingAnswer answer)
+        {
+            return new TextMatchingAnswerPackageModel()
+            {
+                Id = answer.Id.ToNString(),
+                Key = answer.Key,
+                Value = answer.Value
             };
         }
 

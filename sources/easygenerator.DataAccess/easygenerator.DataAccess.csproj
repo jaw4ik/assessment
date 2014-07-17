@@ -149,6 +149,10 @@
     <Compile Include="Migrations\201407101151099_RenameMultipleChoiceToSingleSelectText.Designer.cs">
       <DependentUpon>201407101151099_RenameMultipleChoiceToSingleSelectText.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407171030444_AddNewQuestionTypeTextMatching.cs" />
+    <Compile Include="Migrations\201407171030444_AddNewQuestionTypeTextMatching.Designer.cs">
+      <DependentUpon>201407171030444_AddNewQuestionTypeTextMatching.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -249,6 +253,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201407101151099_RenameMultipleChoiceToSingleSelectText.resx">
       <DependentUpon>201407101151099_RenameMultipleChoiceToSingleSelectText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407171030444_AddNewQuestionTypeTextMatching.resx">
+      <DependentUpon>201407171030444_AddNewQuestionTypeTextMatching.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

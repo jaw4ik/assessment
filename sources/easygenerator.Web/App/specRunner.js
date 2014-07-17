@@ -156,6 +156,7 @@
             'viewmodels/questions/singleSelectText/singleSelectText.spec',
             'viewmodels/questions/fillInTheBlank/fillInTheBlank.spec',
             'viewmodels/questions/fillInTheBlank/fibControl.spec',
+
             'viewmodels/questions/dragAndDrop/dragAndDrop.spec',
             'viewmodels/questions/dragAndDrop/designer.spec',
             'viewmodels/questions/dragAndDrop/dropspot.spec',
@@ -166,6 +167,14 @@
             'viewmodels/questions/dragAndDrop/commands/changeDropspotPosition.spec',
             'viewmodels/questions/dragAndDrop/commands/changeBackground.spec',
             'viewmodels/questions/dragAndDrop/queries/getQuestionContentById.spec',
+
+            'viewmodels/questions/textMatching/textMatching.spec',
+            'viewmodels/questions/textMatching/queries/getTextMatchingAnswersById.spec',
+            'viewmodels/questions/textMatching/commands/addAnswer.spec',
+            'viewmodels/questions/textMatching/commands/removeAnswer.spec',
+            'viewmodels/questions/textMatching/commands/changeAnswerKey.spec',
+            'viewmodels/questions/textMatching/commands/changeAnswerValue.spec',
+            
             'viewmodels/questions/questionTitle.spec',
             'viewmodels/questions/learningContents.spec',
             'viewmodels/questions/feedback.spec',

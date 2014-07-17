@@ -104,12 +104,17 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Multipleselect>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
 
             modelBuilder.Entity<DragAndDropText>().HasMany(e => e.DropspotsCollection).WithRequired(e => e.Question);
-
+            
             modelBuilder.Entity<Dropspot>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<Dropspot>().Property(e => e.X).IsRequired();
             modelBuilder.Entity<Dropspot>().Property(e => e.Y).IsRequired();
             modelBuilder.Entity<Dropspot>().HasRequired(e => e.Question);
 
+            modelBuilder.Entity<TextMatching>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
+
+            modelBuilder.Entity<TextMatchingAnswer>().Property(e => e.Key).IsRequired().HasMaxLength(255);
+            modelBuilder.Entity<TextMatchingAnswer>().Property(e => e.Value).IsRequired().HasMaxLength(255);
+            modelBuilder.Entity<TextMatchingAnswer>().HasRequired(e => e.Question);
 
             modelBuilder.Entity<LearningContent>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<LearningContent>().HasRequired(e => e.Question);
@@ -168,6 +173,10 @@ namespace easygenerator.DataAccess
             {
                 foreach (DbEntityEntry entry in ChangeTracker.Entries<Entity>())
                 {
+                    if ((entry.Entity is TextMatchingAnswer) && (entry.Entity as TextMatchingAnswer).Question == null)
+                    {
+                        entry.State = EntityState.Deleted;
+                    }
                     if ((entry.Entity is Dropspot) && (entry.Entity as Dropspot).Question == null)
                     {
                         entry.State = EntityState.Deleted;

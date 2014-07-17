@@ -51,6 +51,12 @@ namespace easygenerator.DataAccess
             builder.RegisterType<QuerableRepository<Dropspot>>()
                 .As<IQuerableRepository<Dropspot>>();
 
+            builder.RegisterType<QuerableRepository<TextMatching>>()
+               .As<IQuerableRepository<TextMatching>>();
+
+            builder.RegisterType<QuerableRepository<TextMatchingAnswer>>()
+               .As<IQuerableRepository<TextMatchingAnswer>>();
+
             builder.RegisterType<QuerableRepository<LearningContent>>()
                 .As<IQuerableRepository<LearningContent>>();
 

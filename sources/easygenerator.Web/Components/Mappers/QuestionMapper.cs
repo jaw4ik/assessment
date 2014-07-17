@@ -45,7 +45,11 @@ namespace easygenerator.Web.Components.Mappers
             {
                 return 2;
             }
-            
+
+            if (question is TextMatching)
+            {
+                return 6;
+            }
 
             throw new NotSupportedException();
         }
