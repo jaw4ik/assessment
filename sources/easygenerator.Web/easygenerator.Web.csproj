@@ -408,9 +408,6 @@
     <Content Include="App\dialogs\collaboration\removeCollaborator.spec.js">
       <DependentUpon>removeCollaborator.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\answer\eventHandlers\singleSelectAnswerCorrectnessUpdated.spec.js">
-      <DependentUpon>singleSelectAnswerCorrectnessUpdated.js</DependentUpon>
-    </Content>
     <Content Include="App\notifications\subscriptionExpirationNotification.spec.js">
       <DependentUpon>subscriptionExpirationNotification.js</DependentUpon>
     </Content>
