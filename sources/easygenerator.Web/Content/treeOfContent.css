@@ -1,15 +1,10 @@
 ﻿/*#region NAVIGATION TREE CONTAINER*/
 
-.navigation-tree-cell {
-    width: 1%;
-}
-
 .navigation-tree-wrapper {
     position: relative;
     min-width: 50px;
     border-right: 1px solid #dedede;
     z-index: 20;
-    height: 100%;
 }
 
 .navigation-tree-wrapper-inner {
@@ -333,9 +328,11 @@
 
     .module-courses .tb-cell.back-button {
         width: 1px;
+        
     }
 
     .courses.view-module .content-section-wrapper {
         margin-left: 110px;
     }
+    
 }

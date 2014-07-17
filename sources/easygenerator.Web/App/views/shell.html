@@ -64,8 +64,11 @@
                 </div>
             </div>
         </header>
+
+        <!-- ko if: showTreeOfContent -->
         <section class="tb-row" data-bind="css: { 'navigation' : showCourseNavigation() }">
-            <div class="tb-cell navigation-tree-cell" data-bind="compose: 'treeOfContent/treeOfContent', visible: showTreeOfContent"></div>
+            <!-- ko compose: 'treeOfContent/treeOfContent' -->
+            <!-- /ko -->
             <div class="tb-cell back-button" data-bind="widget: { kind: 'backButton'}, style: { visibility: isViewReady() ? 'visible' : 'hidden' }, cellSize: true"></div>
             <div class="tb-cell content-area-wrapper" data-bind="cellSize: { enabled: isViewReady() && help.visible(), resizeChild: true  }">
                 <div class="content-area">
@@ -113,5 +116,46 @@
                 </div>
             </div>
         </section>
+        <!-- /ko -->
+        <!-- ko ifnot: showTreeOfContent -->
+        <section class="tb-row">
+            <div class="tb-cell back-button" data-bind="widget: { kind: 'backButton'}, style: { visibility: isViewReady() ? 'visible' : 'hidden' }, cellSize: true"></div>
+            <div class="tb-cell content-area-wrapper" data-bind="cellSize: { enabled: isViewReady() && help.visible(), resizeChild: true  }">
+                <div class="content-area">
+                    <div class="tb-row">
+                        <!-- ko compose: { model: 'help/helpHint', activationData: activeModuleName } -->
+                        <!-- /ko -->
+                    </div>
+                    <div class="tb-row">
+                        <div class="tb-cell view-content-holder">
+                            <div class="view-content-holder" id="view_content">
+                                <div class="icon-spinner-wrapper" data-bind="visible: !isViewReady()">
+                                    <img src="/Content/images/loader.gif" alt="" />
+                                </div>
+                                <div class="view-content" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }">
+                                    <div class="content-container">
+                                        <div class="tb-cell content-wrapper">
+                                            <div data-bind="router: { cacheViews: false, transition: 'defaultRouterTransition' }"></div>
+                                        </div>
+                                    </div>
+                                    <!-- ko compose: 'viewmodels/panels/sidePanel' -->
+                                    <!-- /ko -->
+                                    <footer class="footer-container">
+                                        <div class="content-section-wrapper">
+                                            <div class="content-section">
+                                                <span class="cursor-default" data-bind="localize: { text: 'CopyrightText' }"></span>
+                                            </div>
+                                        </div>
+                                    </footer>
+                                    <div data-bind="widget: { kind: 'uiLockViewer' }"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /ko -->
     </div>
 </div>
