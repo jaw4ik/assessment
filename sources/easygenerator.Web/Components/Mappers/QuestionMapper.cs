@@ -46,6 +46,11 @@ namespace easygenerator.Web.Components.Mappers
                 return 2;
             }
 
+            if (question is SingleSelectImage)
+            {
+                return 5;
+            }
+
             if (question is TextMatching)
             {
                 return 6;

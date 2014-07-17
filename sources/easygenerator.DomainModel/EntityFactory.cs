@@ -1,6 +1,6 @@
-﻿using System;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
+using System;
 
 namespace easygenerator.DomainModel
 {
@@ -9,6 +9,7 @@ namespace easygenerator.DomainModel
         Objective Objective(string title, string createdBy);
         Course Course(string title, Template template, string createdBy);
         SingleSelectText SingleSelectTextQuestion(string title, string createdBy);
+        SingleSelectImage SingleSelectImageQuestion(string title, string createdBy);
         Multipleselect MultipleselectQuestion(string title, string createdBy);
         FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
         DragAndDropText DragAndDropTextQuestion(string title, string createdBy);
@@ -16,6 +17,7 @@ namespace easygenerator.DomainModel
         TextMatching TextMatchingQuestion(string title, string createdBy);
         TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy);
         Comment Comment(string text, string createdBy);
+        SingleSelectImageAnswer SingleSelectImageAnswer(string image, string createdBy);
         Answer Answer(string text, bool isCorrect, Guid group, string createdBy);
         Answer Answer(string text, bool isCorrect, Guid group, string createdBy, DateTime createdOn);
         LearningContent LearningContent(string text, string createdBy);
@@ -39,6 +41,11 @@ namespace easygenerator.DomainModel
         public SingleSelectText SingleSelectTextQuestion(string title, string createdBy)
         {
             return new SingleSelectText(title, createdBy);
+        }
+
+        public SingleSelectImage SingleSelectImageQuestion(string title, string createdBy)
+        {
+            return new SingleSelectImage(title, createdBy);
         }
 
         public Multipleselect MultipleselectQuestion(string title, string createdBy)
@@ -95,7 +102,12 @@ namespace easygenerator.DomainModel
         {
             return new ImageFile(title, createdBy);
         }
-        
+
+        public SingleSelectImageAnswer SingleSelectImageAnswer(string image, string createdBy)
+        {
+            return new SingleSelectImageAnswer(image, createdBy);
+        }
+
         public TextMatching TextMatchingQuestion(string title, string createdBy)
         {
             return new TextMatching(title, createdBy);

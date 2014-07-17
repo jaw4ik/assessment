@@ -1,8 +1,9 @@
 ﻿define(['durandal/app', 'eventTracker', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'ping', 'models/backButton', 'plugins/router',
         'viewmodels/questions/questionTitle', 'viewmodels/common/contentField', 'viewmodels/questions/multipleSelect/multipleSelect',
-        'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelectText/singleSelectText', 'viewmodels/questions/textMatching/textMatching'],
+        'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelectText/singleSelectText', 'viewmodels/questions/textMatching/textMatching',
+ 'viewmodels/questions/singleSelectImage/singleSelectImage'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, vmQuestionTitle, vmContentField,
-        multipleSelect, fillInTheBlank, dragAndDrop, singleSelectText, textMatching) {
+        multipleSelect, fillInTheBlank, dragAndDrop, singleSelectText, textMatching, singleSelectImage) {
         "use strict";
 
         var events = {
@@ -58,6 +59,8 @@
                     return dragAndDrop;
                 case constants.questionType.singleSelectText.type:
                     return singleSelectText;
+                case constants.questionType.singleSelectImage.type:
+                    return singleSelectImage;
                 case constants.questionType.textMatching.type:
                     return textMatching;
             }
@@ -84,7 +87,7 @@
                         viewmodel.questionTitle = vmQuestionTitle(viewmodel.objectiveId, question);
 
                         if (viewModelData.isQuestionContentNeeded) {
-                            viewmodel.questionContent = vmContentField(question.content, eventsForQuestionContent, true, function(content) {
+                            viewmodel.questionContent = vmContentField(question.content, eventsForQuestionContent, true, function (content) {
                                 return questionRepository.updateContent(question.id, content);
                             });
                         } else {

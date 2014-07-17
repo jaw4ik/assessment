@@ -61,7 +61,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Entities\AnswerTests.cs" />
+    <Compile Include="Entities\Questions\AnswerTests.cs" />
     <Compile Include="Entities\FillInTheBlanksTests.cs" />
     <Compile Include="Entities\ImageFileTest.cs" />
     <Compile Include="Entities\LearningContentTests.cs" />
@@ -70,6 +70,8 @@
     <Compile Include="Entities\MultipleselectTests.cs" />
     <Compile Include="Entities\Questions\DragAndDropTextTests.cs" />
     <Compile Include="Entities\Questions\DropspotTests.cs" />
+    <Compile Include="Entities\Questions\SingleSelectImageAnswerTests.cs" />
+    <Compile Include="Entities\Questions\SingleSelectImageTests.cs" />
     <Compile Include="Entities\Questions\SingleSelectTextTests.cs" />
     <Compile Include="Entities\TemplateTests.cs" />
     <Compile Include="Entities\CommentTests.cs" />
@@ -89,6 +91,8 @@
     <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
     <Compile Include="ObjectMothers\PasswordRecoveryTicketObjectMother.cs" />
     <Compile Include="ObjectMothers\MultipleselectObjectMother.cs" />
+    <Compile Include="ObjectMothers\SingleSelectImageAnswerObjectMother.cs" />
+    <Compile Include="ObjectMothers\SingleSelectImageObjectMother.cs" />
     <Compile Include="ObjectMothers\SingleSelectTextObjectMother.cs" />
     <Compile Include="ObjectMothers\TemplateObjectMother.cs" />
     <Compile Include="ObjectMothers\UserObjectMother.cs" />

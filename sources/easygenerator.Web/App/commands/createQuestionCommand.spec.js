@@ -72,6 +72,15 @@
                     });
 
                 });
+
+                describe('and when question type is singleSelectImage', function () {
+
+                    it('should send event \'Create new question (single select image)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.singleSelectImage.type, 'Event category');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (single select image)', 'Event category');
+                    });
+
+                });
             });
 
             describe('when event category is undefined', function () {

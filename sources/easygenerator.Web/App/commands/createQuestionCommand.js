@@ -31,7 +31,9 @@
                 case constants.questionType.singleSelectText.type:
                     eventTracker.publish('Create new question (single select text)', eventCategory);
                     break;
-
+                case constants.questionType.singleSelectImage.type:
+                    eventTracker.publish('Create new question (single select image)', eventCategory);
+                    break;
             }
         }
 

@@ -116,6 +116,11 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<TextMatchingAnswer>().Property(e => e.Value).IsRequired().HasMaxLength(255);
             modelBuilder.Entity<TextMatchingAnswer>().HasRequired(e => e.Question);
 
+            modelBuilder.Entity<SingleSelectImage>().HasMany(e => e.AnswerCollection).WithRequired(e => e.Question);
+
+            modelBuilder.Entity<SingleSelectImageAnswer>().Property(e => e.Image).IsRequired();
+            modelBuilder.Entity<SingleSelectImageAnswer>().HasRequired(e => e.Question);
+
             modelBuilder.Entity<LearningContent>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<LearningContent>().HasRequired(e => e.Question);
 
@@ -174,6 +179,10 @@ namespace easygenerator.DataAccess
                 foreach (DbEntityEntry entry in ChangeTracker.Entries<Entity>())
                 {
                     if ((entry.Entity is TextMatchingAnswer) && (entry.Entity as TextMatchingAnswer).Question == null)
+                    {
+                        entry.State = EntityState.Deleted;
+                    }
+                    if ((entry.Entity is SingleSelectImageAnswer) && (entry.Entity as SingleSelectImageAnswer).Question == null)
                     {
                         entry.State = EntityState.Deleted;
                     }

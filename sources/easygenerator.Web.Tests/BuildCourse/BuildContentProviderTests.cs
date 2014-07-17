@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
@@ -9,6 +7,7 @@ using easygenerator.Web.Components;
 using easygenerator.Web.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System.Linq;
 
 namespace easygenerator.Web.Tests.BuildCourse
 {
@@ -340,8 +339,6 @@ namespace easygenerator.Web.Tests.BuildCourse
             course.UpdateIntroductionContent("some course content", "SomeUser");
             course.UpdateTemplate(TemplateObjectMother.Create(name: "Default"), "SomeUser");
             course.RelateObjective(objective, null, "SomeUser");
-
-
 
             return course;
         }

@@ -64,7 +64,6 @@
             'synchronization/handlers/collaboration/handler.spec',
             'synchronization/handlers/collaboration/eventHandlers/started.spec',
             'synchronization/handlers/collaboration/eventHandlers/finished.spec',
-            'synchronization/handlers/collaboration/eventHandlers/disabled.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorAdded.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorRemoved.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorRegistered.spec',
@@ -167,6 +166,8 @@
             'viewmodels/questions/dragAndDrop/commands/changeDropspotPosition.spec',
             'viewmodels/questions/dragAndDrop/commands/changeBackground.spec',
             'viewmodels/questions/dragAndDrop/queries/getQuestionContentById.spec',
+
+            'viewmodels/questions/singleSelectImage/singleSelectImage.spec',
 
             'viewmodels/questions/textMatching/textMatching.spec',
             'viewmodels/questions/textMatching/queries/getTextMatchingAnswersById.spec',

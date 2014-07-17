@@ -8,13 +8,6 @@
             });
         });
 
-        describe('disabled:', function () {
-            it('should be function', function () {
-                expect(handler.disabled).toBeFunction();
-            });
-
-        });
-
         describe('collaboratorAdded:', function () {
             it('should be function', function () {
                 expect(handler.collaboratorAdded).toBeFunction();

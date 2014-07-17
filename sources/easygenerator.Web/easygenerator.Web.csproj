@@ -198,6 +198,8 @@
     <Compile Include="BuildCourse\PackageModel\DropspotPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\FillInTheBlanksPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\LearningContentPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\SingleSelectImageAnswerPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\SingleSelectImagePackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\SingleSelectTextPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\MultipleselectPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\ObjectivePackageModel.cs" />
@@ -217,9 +219,10 @@
     <Compile Include="Components\Mappers\DropspotMapper.cs" />
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
-    <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
+    <Compile Include="Components\Mappers\SingleSelectImageAnswerMapper.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
     <Compile Include="Controllers\Api\FillInTheBlanksController.cs" />
+    <Compile Include="Controllers\Api\SingleSelectImageController.cs" />
     <Compile Include="Controllers\Api\SingleSelectTextController.cs" />
     <Compile Include="Controllers\Api\MultipleselectController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
@@ -402,6 +405,12 @@
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
+    <Content Include="App\dialogs\collaboration\removeCollaborator.spec.js">
+      <DependentUpon>removeCollaborator.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\singleSelectAnswerCorrectnessUpdated.spec.js">
+      <DependentUpon>singleSelectAnswerCorrectnessUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\notifications\subscriptionExpirationNotification.spec.js">
       <DependentUpon>subscriptionExpirationNotification.js</DependentUpon>
     </Content>
@@ -414,10 +423,6 @@
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorRemoved.js" />
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorRemoved.spec.js">
       <DependentUpon>collaboratorRemoved.js</DependentUpon>
-    </Content>
-    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\disabled.js" />
-    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\disabled.spec.js">
-      <DependentUpon>disabled.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\finished.js" />
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\finished.spec.js">
@@ -687,6 +692,10 @@
     <Content Include="App\viewmodels\questions\fillInTheBlank\fillInTheBlank.spec.js">
       <DependentUpon>fillInTheBlank.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\singleSelectImage\singleSelectImage.js" />
+    <Content Include="App\viewmodels\questions\singleSelectImage\singleSelectImage.spec.js">
+      <DependentUpon>singleSelectImage.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\questions\singleSelectText\singleSelectTextAnswers.spec.js">
       <DependentUpon>singleSelectTextAnswers.js</DependentUpon>
     </Content>
@@ -737,6 +746,7 @@
     <Content Include="App\views\questions\feedback.html" />
     <Content Include="App\views\questions\fillInTheBlank\fillInTheBlank.html" />
     <Content Include="App\views\questions\learningContents.html" />
+    <Content Include="App\views\questions\singleSelectImage\singleSelectImage.html" />
     <Content Include="App\views\questions\singleSelectText\singleSelectText.html" />
     <Content Include="App\views\questions\multipleSelect\multipleSelect.html" />
     <Content Include="App\views\questions\textMatching\textMatching.html" />
@@ -1897,7 +1907,6 @@
     <Folder Include="Templates\Personalized learning\content\a2be1bd5d4dd48e4b5df885ced1983fa\8563d9de5f794b59b019a78e76934b9e\" />
     <Folder Include="Templates\Personalized learning\content\a2be1bd5d4dd48e4b5df885ced1983fa\c23194d6d5a841c5937f75e4950c8d43\" />
     <Folder Include="Templates\Personalized learning\content\f2dd009517b04d2996ffe1897c0bf456\e5f79b55879349048bf02e0f506cc98d\" />
-    <Folder Include="Views\TextMatching\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

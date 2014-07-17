@@ -153,6 +153,10 @@
     <Compile Include="Migrations\201407171030444_AddNewQuestionTypeTextMatching.Designer.cs">
       <DependentUpon>201407171030444_AddNewQuestionTypeTextMatching.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407171252080_AddSingleSelectImage.cs" />
+    <Compile Include="Migrations\201407171252080_AddSingleSelectImage.Designer.cs">
+      <DependentUpon>201407171252080_AddSingleSelectImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -256,6 +260,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201407171030444_AddNewQuestionTypeTextMatching.resx">
       <DependentUpon>201407171030444_AddNewQuestionTypeTextMatching.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407171252080_AddSingleSelectImage.resx">
+      <DependentUpon>201407171252080_AddSingleSelectImage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
