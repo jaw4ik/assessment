@@ -168,6 +168,7 @@
             'viewmodels/questions/dragAndDrop/queries/getQuestionContentById.spec',
 
             'viewmodels/questions/singleSelectImage/singleSelectImage.spec',
+            'viewmodels/questions/singleSelectImage/designer.spec',
 
             'viewmodels/questions/textMatching/textMatching.spec',
             'viewmodels/questions/textMatching/queries/getTextMatchingAnswersById.spec',

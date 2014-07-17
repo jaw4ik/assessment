@@ -1,5 +1,6 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'repositories/answerRepository', 'viewmodels/questions/multipleSelect/multipleSelectAnswers', 'localization/localizationManager'],
-    function (app, constants, eventTracker, answerRepository, vmAnswers, localizationManager) {
+﻿define(['constants', 'eventTracker', 'viewmodels/questions/multipleSelect/multipleSelectAnswers', 'localization/localizationManager',
+'viewmodels/questions/singleSelectImage/designer'],
+    function (constants, eventTracker, vmAnswers, localizationManager, designer) {
         "use strict";
 
         var viewModel = {
@@ -7,12 +8,7 @@
             objectiveId: '',
             questionId: '',
 
-            localizationManager: localizationManager,
-            eventTracker: eventTracker,
-            answers: null,
-
-            isExpanded: ko.observable(true),
-            toggleExpand: toggleExpand
+            singleSelectImage: designer
         };
 
         return viewModel;
@@ -27,10 +23,6 @@
                     isQuestionContentNeeded: true
                 };
             });
-        }
-
-        function toggleExpand() {
-            viewModel.isExpanded(!viewModel.isExpanded());
         }
     }
 );

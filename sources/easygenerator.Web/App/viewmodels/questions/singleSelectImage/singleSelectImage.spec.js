@@ -27,5 +27,11 @@
             });
 
         });
+
+        describe('singleSelectImage:', function() {
+            it('should be defined', function () {
+                expect(viewModel.singleSelectImage).toBeDefined();
+            });
+        });
     });
 });

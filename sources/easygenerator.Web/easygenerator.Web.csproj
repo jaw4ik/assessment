@@ -692,6 +692,10 @@
     <Content Include="App\viewmodels\questions\fillInTheBlank\fillInTheBlank.spec.js">
       <DependentUpon>fillInTheBlank.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\singleSelectImage\designer.js" />
+    <Content Include="App\viewmodels\questions\singleSelectImage\designer.spec.js">
+      <DependentUpon>designer.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\questions\singleSelectImage\singleSelectImage.js" />
     <Content Include="App\viewmodels\questions\singleSelectImage\singleSelectImage.spec.js">
       <DependentUpon>singleSelectImage.js</DependentUpon>
@@ -747,6 +751,7 @@
     <Content Include="App\views\questions\fillInTheBlank\fillInTheBlank.html" />
     <Content Include="App\views\questions\learningContents.html" />
     <Content Include="App\views\questions\singleSelectImage\singleSelectImage.html" />
+    <Content Include="App\views\questions\singleSelectImage\designer.html" />
     <Content Include="App\views\questions\singleSelectText\singleSelectText.html" />
     <Content Include="App\views\questions\multipleSelect\multipleSelect.html" />
     <Content Include="App\views\questions\textMatching\textMatching.html" />
