@@ -249,6 +249,8 @@
                     return constants.questionType.singleSelectText.image;
                 case constants.questionType.textMatching.type:
                     return constants.questionType.textMatching.image;
+                case constants.questionType.singleSelectImage.type:
+                    return constants.questionType.singleSelectImage.image;
             }
         }
 
