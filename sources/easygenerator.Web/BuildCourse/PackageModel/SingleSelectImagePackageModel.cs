@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using easygenerator.DomainModel.Entities.Questions;
+using System.Collections.Generic;
 
 namespace easygenerator.Web.BuildCourse.PackageModel
 {
@@ -7,9 +8,9 @@ namespace easygenerator.Web.BuildCourse.PackageModel
         public List<SingleSelectImageAnswerPackageModel> Answers { get; set; }
         public string CorrectAnswerId { get; set; }
 
-        public override int Type
+        public override string Type
         {
-            get { return 5; }
+            get { return Question.QuestionTypes.SingleSelectImage; }
         }
     }
 }

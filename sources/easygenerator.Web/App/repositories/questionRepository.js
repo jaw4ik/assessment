@@ -8,7 +8,7 @@
                     guard.throwIfNotString(objectiveId, 'Objective id is not a string');
                     guard.throwIfNotAnObject(obj, 'Question data is not an object');
 
-                    return httpWrapper.post('api/question/create/type/' + questionType, { objectiveId: objectiveId, title: obj.title })
+                    return httpWrapper.post('api/question/' + questionType + '/create', { objectiveId: objectiveId, title: obj.title })
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.Id, 'Question Id is not a string');

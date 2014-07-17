@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
@@ -24,7 +25,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityCollaborator(typeof(Objective))]
-        [Route("api/question/create/type/5")]
+        [Route("api/question/" + Question.QuestionTypes.SingleSelectImage + "/create")]
         [PlusAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
         public ActionResult Create(Objective objective, string title)
         {

@@ -28,7 +28,7 @@ namespace easygenerator.Infrastructure.Clonning
             if (obj == null)
                 return null;
 
-            var type = GetObjectType(obj);
+            var type = obj.GetObjectType();
             if (!NeedsRecursiveClone(type))
                 return obj;
 
@@ -40,13 +40,7 @@ namespace easygenerator.Infrastructure.Clonning
             return ex.DynamicInvoke(new[] { obj, cloned, args });
         }
 
-        protected virtual Type GetObjectType(object obj)
-        {
-            Type originalType = obj.GetType();
-            return originalType.FullName.Contains("System.Data.Entity.DynamicProxies")
-                ? originalType.BaseType
-                : originalType;
-        }
+        
 
         protected virtual bool NeedsRecursiveClone(Type type)
         {

@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.BuildCourse.PackageModel;
 using easygenerator.Web.Extensions;
 using System;
@@ -37,27 +38,29 @@ namespace easygenerator.Web.BuildCourse
 
         private QuestionPackageModel MapQuestion(Question question)
         {
-            if (question is FillInTheBlanks)
+            var questionType = question.GetObjectType();
+
+            if (questionType == typeof(FillInTheBlanks))
             {
                 return MapFillInTheBlanks(question as FillInTheBlanks);
             }
-            if (question is SingleSelectText)
+            if (questionType == typeof(SingleSelectText))
             {
                 return MapSingleSelectText(question as SingleSelectText);
             }
-            if (question is Multipleselect)
+            if (questionType == typeof(Multipleselect))
             {
                 return MapMultipleselect(question as Multipleselect);
             }
-            if (question is DragAndDropText)
+            if (questionType == typeof(DragAndDropText))
             {
                 return MapDragAndDropText(question as DragAndDropText);
             }
-            if (question is TextMatching)
+            if (questionType == typeof(TextMatching))
             {
                 return MapTextMatching(question as TextMatching);
             }
-            if (question is SingleSelectImage)
+            if (questionType == typeof(SingleSelectImage))
             {
                 return MapSingleSelectImage(question as SingleSelectImage);
             }

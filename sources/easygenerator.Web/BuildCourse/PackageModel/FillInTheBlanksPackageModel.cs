@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using easygenerator.DomainModel.Entities.Questions;
 
 namespace easygenerator.Web.BuildCourse.PackageModel
 {
     public class FillInTheBlanksPackageModel : MultipleselectPackageModel
     {
-        public override int Type
+        public override string Type
         {
-            get { return 1; }
+            get { return Question.QuestionTypes.FillInTheBlanks; }
         }
     }
 }

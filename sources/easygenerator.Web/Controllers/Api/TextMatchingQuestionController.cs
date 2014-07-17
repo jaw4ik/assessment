@@ -29,7 +29,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [StarterAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
-        [Route("api/question/create/type/6")]
+        [Route("api/question/" + Question.QuestionTypes.TextMatching + "/create")]
         public ActionResult Create(Objective objective, string title)
         {
             if (objective == null)

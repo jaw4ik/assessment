@@ -9,7 +9,7 @@
             <!-- ko foreach: questions -->
             <!-- ko if: hasAccess -->
             <li class="question-type-action-item" data-bind="click: $parent.createQuestion">
-                <p class="question-type-text" data-bind="localize: { text: name }, css: name">Question title</p>
+                <p class="question-type-text" data-bind="localize: { text: type }, css: type">Question title</p>
             </li>
             <!-- /ko -->
             <!-- ko ifnot: hasAccess -->
@@ -19,7 +19,7 @@
                         <span class="upgrade-user-text" data-bind="localize: { text: 'upgradeNowBtn' }">Upgrade now</span>
                     </a>
                 </div>
-                <span class="question-type-text disabled" data-bind="localize: { text: name }">Question title</span>
+                <span class="question-type-text disabled" data-bind="localize: { text: type }">Question title</span>
             </li>
             <!-- /ko -->
             <!-- /ko -->

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Entities.Questions;
+﻿using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Extensions;
+using System;
 
 namespace easygenerator.Web.Components.Mappers
 {
@@ -24,36 +22,33 @@ namespace easygenerator.Web.Components.Mappers
             };
         }
 
-        static int GetQuestionType(Question question)
+        static string GetQuestionType(Question question)
         {
-            if (question is FillInTheBlanks)
-            {
-                return 1;
-            }
+            var questionType = question.GetObjectType();
 
-            if (question is SingleSelectText)
+            if (questionType == typeof(FillInTheBlanks))
             {
-                return 3;
+                return Question.QuestionTypes.FillInTheBlanks;
             }
-
-            if (question is Multipleselect)
+            if (questionType == typeof(SingleSelectText))
             {
-                return 0;
+                return Question.QuestionTypes.SingleSelectText;
             }
-            
-            if (question is DragAndDropText)
+            if (questionType == typeof(Multipleselect))
             {
-                return 2;
+                return Question.QuestionTypes.MultipleSelect;
             }
-
-            if (question is SingleSelectImage)
+            if (questionType == typeof(DragAndDropText))
             {
-                return 5;
+                return Question.QuestionTypes.DragAndDropText;
             }
-
-            if (question is TextMatching)
+            if (questionType == typeof(SingleSelectImage))
             {
-                return 6;
+                return Question.QuestionTypes.SingleSelectImage;
+            }
+            if (questionType == typeof(TextMatching))
+            {
+                return Question.QuestionTypes.TextMatching;
             }
 
             throw new NotSupportedException();

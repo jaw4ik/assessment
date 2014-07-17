@@ -1,15 +1,13 @@
-﻿using System;
+﻿using easygenerator.DomainModel.Entities.Questions;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace easygenerator.Web.BuildCourse.PackageModel
 {
     public class TextMatchingPackageModel : QuestionPackageModel
     {
-        public override int Type
+        public override string Type
         {
-            get { return 6; }
+            get { return Question.QuestionTypes.TextMatching; }
         }
 
         public List<TextMatchingAnswerPackageModel> Answers { get; set; }

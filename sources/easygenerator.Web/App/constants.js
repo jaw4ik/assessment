@@ -10,38 +10,31 @@
 
             questionType: {
                 multipleSelect: {
-                    type: 0,
-                    name: 'multipleSelect',
+                    type: 'multipleSelect',
                     image: '/Content/images/multiselect-question.png'
                 },
                 fillInTheBlank: {
-                    type: 1,
-                    name: 'fillInTheBlank',
+                    type: 'fillInTheBlank',
                     image: '/Content/images/fillintheblank-question.png'
                 },
                 dragAndDropText: {
-                    type: 2,
-                    name: 'dragAndDropText',
+                    type: 'dragAndDropText',
                     image: '/Content/images/draganddroptext-question.png'
                 },
                 singleSelectText: {
-                    type: 3,
-                    name: 'singleSelectText',
+                    type: 'singleSelectText',
                     image: '/Content/images/singleselecttext-question.png'
                 },
                 infoContent: {
-                    type: 4,
-                    name: 'infoContent',
+                    type: 'infoContent',
                     image: '/Content/images/info-question.png'
                 },
                 singleSelectImage: {
-                    type: 5,
-                    name: 'singleSelectImage',
+                    type: 'singleSelectImage',
                     image: '/Content/images/singleselectimage-question.png'
                 },
                 textMatching: {
-                    type: 6,
-                    name: 'textMatching',
+                    type: 'textMatching',
                     image: '/Content/images/textmatching-question.png'
                 }
             },

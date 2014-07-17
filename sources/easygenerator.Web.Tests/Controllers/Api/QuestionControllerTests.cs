@@ -31,7 +31,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         private QuestionController _controller;
 
-        IEntityFactory _entityFactory;
         IPrincipal _user;
         HttpContextBase _context;
         private IDomainEventPublisher _eventPublisher;
@@ -39,9 +38,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestInitialize]
         public void InitializeContext()
         {
-            _entityFactory = Substitute.For<IEntityFactory>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
-            _controller = new QuestionController(_entityFactory, _eventPublisher);
+            _controller = new QuestionController(_eventPublisher);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -77,8 +75,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.Name.Returns(user);
 
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question1 = Substitute.For<Question>("Question title 1",  CreatedBy);
-            var question2 = Substitute.For<Question>("Question title 2",  CreatedBy);
+            var question1 = Substitute.For<Question>("Question title 1", CreatedBy);
+            var question2 = Substitute.For<Question>("Question title 2", CreatedBy);
 
             _controller.Delete(objective, new List<Question>() { question1, question2 });
 
@@ -90,8 +88,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Delete_ShouldPublishDomainEvent()
         {
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question1 = Substitute.For<Question>("Question title 1",  CreatedBy);
-            var question2 = Substitute.For<Question>("Question title 2",  CreatedBy);
+            var question1 = Substitute.For<Question>("Question title 1", CreatedBy);
+            var question2 = Substitute.For<Question>("Question title 2", CreatedBy);
 
             _controller.Delete(objective, new List<Question>() { question1, question2 });
 
@@ -102,8 +100,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Delete_ShouldReturnJsonSuccessResult()
         {
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question1 = Substitute.For<Question>("Question title 1",  CreatedBy);
-            var question2 = Substitute.For<Question>("Question title 2",  CreatedBy);
+            var question1 = Substitute.For<Question>("Question title 1", CreatedBy);
+            var question2 = Substitute.For<Question>("Question title 2", CreatedBy);
 
             var result = _controller.Delete(objective, new List<Question>() { question1, question2 });
 
@@ -134,7 +132,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string title = "updated title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
-            var question = Substitute.For<Question>("Question title",  CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
 
             _controller.UpdateTitle(question, title);
 
@@ -145,7 +143,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Update_ShouldPublishDomainEvent()
         {
-            var question = Substitute.For<Question>("Question title",  CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
 
             var result = _controller.UpdateTitle(question, String.Empty);
 
@@ -156,7 +154,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Update_ShouldReturnJsonSuccessResult()
         {
-            var question = Substitute.For<Question>("Question title",  CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
 
             var result = _controller.UpdateTitle(question, String.Empty);
 
@@ -185,7 +183,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string content = "updated content";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
-            var question = Substitute.For<Question>("Question title",  CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
 
             _controller.UpdateContent(question, content);
 
@@ -195,7 +193,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void UpdateContent_ShouldPublishDomainEvent()
         {
-            var question = Substitute.For<Question>("Question title",  CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
 
             _controller.UpdateContent(question, String.Empty);
 
@@ -205,7 +203,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void UpdateContent_ShouldReturnJsonSuccessResult()
         {
-            var question = Substitute.For<Question>("Question title",  CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
 
             var result = _controller.UpdateContent(question, String.Empty);
 

@@ -75,28 +75,28 @@ namespace easygenerator.Web.Import.PublishedCourse
             var objective = _objectiveEntityReader.ReadObjective(objectiveId, createdBy, courseData);
             var questionTypes = _publishedCourseStructureReader.GetQuestionTypes(objectiveId, courseData);
 
-            foreach (Tuple<Guid, int> questionTuple in questionTypes)
+            foreach (Tuple<Guid, string> questionTuple in questionTypes)
             {
                 Question question = null;
                 var questionid = questionTuple.Item1;
-                int questionType = questionTuple.Item2;
+                string questionType = questionTuple.Item2;
 
                 switch (questionType)
                 {
-                    case 0:
+                    case Question.QuestionTypes.MultipleSelect:
                         question = ImportMultipleSelectQuestion(questionid, publishedPackagePath, createdBy, courseData);
                         break;
-                    case 1:
+                    case Question.QuestionTypes.FillInTheBlanks:
                         question = ImportFillInTheBlanksQuestion(questionid, publishedPackagePath, createdBy, courseData);
                         break;
-                    case 2:
+                    case Question.QuestionTypes.DragAndDropText:
                         question = ImportDragAndDropTextQuestion(questionid, publishedPackagePath, createdBy, courseData);
                         break;
-                    case 3:
+                    case Question.QuestionTypes.SingleSelectText:
                         question = ImportSingleSelectTextQuestion(questionid, publishedPackagePath, createdBy, courseData);
                         break;
                     default:
-                        throw new Exception("Unsupported question type");
+                        throw new NotSupportedException("Unsupported question type");
                 }
 
                 objective.AddQuestion(question, createdBy);

@@ -7,6 +7,20 @@ namespace easygenerator.DomainModel.Entities.Questions
 {
     public abstract class Question : Entity
     {
+        #region Constants
+
+        public static class QuestionTypes
+        {
+            public const string MultipleSelect = "multipleSelect";
+            public const string FillInTheBlanks = "fillInTheBlank";
+            public const string DragAndDropText = "dragAndDropText";
+            public const string SingleSelectText = "singleSelectText";
+            public const string TextMatching = "textMatching";
+            public const string SingleSelectImage = "singleSelectImage";
+        }
+
+        #endregion
+
         protected internal Question() { }
 
         protected internal Question(string title, string createdBy)

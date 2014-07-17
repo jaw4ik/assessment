@@ -26,7 +26,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [PlusAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
-        [Route("api/question/create/type/2")]
+        [Route("api/question/" + Question.QuestionTypes.DragAndDropText + "/create")]
         public ActionResult Create(Objective objective, string title)
         {
             if (objective == null)
@@ -98,7 +98,7 @@ namespace easygenerator.Web.Controllers.Api
 
             dropspot.ChangeText(text, GetCurrentUsername());
             _eventPublisher.Publish(new DropspotTextChangedEvent(dropspot));
-            
+
             return JsonSuccess();
         }
 

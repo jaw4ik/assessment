@@ -28,7 +28,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
         [EntityCollaborator(typeof(Objective))]
-        [Route("api/question/create/type/1")]
+        [Route("api/question/" + Question.QuestionTypes.FillInTheBlanks + "/create")]
         public ActionResult Create(Objective objective, string title)
         {
             if (objective == null)

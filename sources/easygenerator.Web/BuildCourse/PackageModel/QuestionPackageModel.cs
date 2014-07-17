@@ -14,7 +14,7 @@ namespace easygenerator.Web.BuildCourse.PackageModel
         public string Content { get; set; }
         public bool HasContent { get; set; }
         
-        public abstract int Type { get; }
+        public abstract string Type { get; }
         
         public List<LearningContentPackageModel> LearningContents { get; set; }
 

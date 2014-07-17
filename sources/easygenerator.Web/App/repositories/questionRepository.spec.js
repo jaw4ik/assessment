@@ -111,7 +111,7 @@
 
                 describe('when objective id is a string and question data is an object', function () {
 
-                    it('should send request to server to api/question/create', function (done) {
+                    it('should send request to server to api/question/{type}/create', function (done) {
                         var objectiveId = 'objectiveId';
                         var question = { title: 'title', description: 'description' };
                         post.reject();
@@ -119,7 +119,7 @@
                         var promise = questionRepository.addQuestion(objectiveId, question, questionType);
 
                         promise.fin(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/create/type/' + questionType, {
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/' + questionType + '/create', {
                                 objectiveId: objectiveId,
                                 title: question.title,
                             });

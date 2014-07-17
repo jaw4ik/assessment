@@ -124,7 +124,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _courseStructureReader.GetObjectives(Arg.Any<JObject>())
                 .Returns(new List<Guid>() { objectiveId });
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 0) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(Guid.NewGuid(), Question.QuestionTypes.MultipleSelect) });
             _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(CourseObjectMother.Create());
             _objectiveEntityReader.ReadObjective(objectiveId, CreatedBy, Arg.Any<JObject>())
@@ -164,7 +164,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             question.UpdateContent(questionContent, CreatedBy);
 
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(questionId, 0) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(questionId, Question.QuestionTypes.MultipleSelect) });
             _questionEntityReader.ReadMultipleSelectQuestion(questionId, publicationPath, CreatedBy, Arg.Any<JObject>())
                 .Returns(question);
 
@@ -200,7 +200,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             question.UpdateContent(questionContent, CreatedBy);
 
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(questionId, 1) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(questionId, Question.QuestionTypes.FillInTheBlanks) });
             _questionEntityReader.ReadFillInTheBlanksQuestion(questionId, publicationPath, CreatedBy, Arg.Any<JObject>())
                 .Returns(question);
 
@@ -236,7 +236,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             question.UpdateContent(questionContent, CreatedBy);
 
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(questionId, 2) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(questionId, Question.QuestionTypes.DragAndDropText) });
             _questionEntityReader.ReadDragAndDropTextQuestion(questionId, publicationPath, CreatedBy, Arg.Any<JObject>())
                 .Returns(question);
 
@@ -272,7 +272,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             question.UpdateContent(questionContent, CreatedBy);
 
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(questionId, 3) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(questionId, Question.QuestionTypes.SingleSelectText) });
             _questionEntityReader.ReadSingleSelectTextQuestion(questionId, publicationPath, CreatedBy, Arg.Any<JObject>())
                 .Returns(question);
 
@@ -308,7 +308,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             question.UpdateContent(questionContent, CreatedBy);
 
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(questionId, 2222) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(questionId, "not existing id") });
             _questionEntityReader.ReadSingleSelectTextQuestion(questionId, publicationPath, CreatedBy, Arg.Any<JObject>())
                 .Returns(question);
 
@@ -330,7 +330,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _courseStructureReader.GetObjectives(Arg.Any<JObject>())
                 .Returns(new List<Guid>() { Guid.NewGuid() });
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 0) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(Guid.NewGuid(), Question.QuestionTypes.MultipleSelect) });
             _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(CourseObjectMother.Create());
             _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
@@ -373,7 +373,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _courseStructureReader.GetObjectives(Arg.Any<JObject>())
                 .Returns(new List<Guid>() { Guid.NewGuid() });
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 1) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(Guid.NewGuid(), Question.QuestionTypes.FillInTheBlanks) });
             _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(CourseObjectMother.Create());
             _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
@@ -424,7 +424,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _courseStructureReader.GetObjectives(Arg.Any<JObject>())
                 .Returns(new List<Guid>() { Guid.NewGuid() });
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 2) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(Guid.NewGuid(), Question.QuestionTypes.DragAndDropText) });
             _courseStructureReader.GetDropspots(Arg.Any<Guid>(), Arg.Any<JObject>())
                 .Returns(new List<Guid>() { dropspot.Id });
             _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
@@ -462,7 +462,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _courseStructureReader.GetObjectives(Arg.Any<JObject>())
                 .Returns(new List<Guid>() { Guid.NewGuid() });
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 3) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(Guid.NewGuid(), Question.QuestionTypes.SingleSelectText) });
             _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(CourseObjectMother.Create());
             _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
@@ -505,7 +505,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _courseStructureReader.GetObjectives(Arg.Any<JObject>())
                 .Returns(new List<Guid>() { Guid.NewGuid() });
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 0) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(Guid.NewGuid(), Question.QuestionTypes.MultipleSelect) });
             _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(CourseObjectMother.Create());
             _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
@@ -542,7 +542,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _courseStructureReader.GetObjectives(Arg.Any<JObject>())
                 .Returns(new List<Guid>() { Guid.NewGuid() });
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 1) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(Guid.NewGuid(), Question.QuestionTypes.FillInTheBlanks) });
             _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(CourseObjectMother.Create());
             _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
@@ -580,7 +580,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _courseStructureReader.GetObjectives(Arg.Any<JObject>())
                 .Returns(new List<Guid>() { Guid.NewGuid() });
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 3) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(Guid.NewGuid(), Question.QuestionTypes.SingleSelectText) });
             _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(CourseObjectMother.Create());
             _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())
@@ -618,7 +618,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _courseStructureReader.GetObjectives(Arg.Any<JObject>())
                 .Returns(new List<Guid>() { Guid.NewGuid() });
             _courseStructureReader.GetQuestionTypes(Arg.Any<Guid>(), Arg.Any<JObject>())
-                .Returns(new List<Tuple<Guid, int>>() { new Tuple<Guid, int>(Guid.NewGuid(), 2) });
+                .Returns(new List<Tuple<Guid, string>>() { new Tuple<Guid, string>(Guid.NewGuid(), Question.QuestionTypes.DragAndDropText) });
             _courseEntityReader.ReadCourse(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(CourseObjectMother.Create());
             _objectiveEntityReader.ReadObjective(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<JObject>())

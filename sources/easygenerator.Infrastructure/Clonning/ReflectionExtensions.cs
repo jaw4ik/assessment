@@ -18,5 +18,13 @@ namespace easygenerator.Infrastructure.Clonning
         {
             return type.GetInterface(interfaceType.Name).GetGenericArguments()[0];
         }
+
+        public static Type GetObjectType(this object obj)
+        {
+            Type originalType = obj.GetType();
+            return originalType.FullName.Contains("System.Data.Entity.DynamicProxies")
+                ? originalType.BaseType
+                : originalType;
+        }
     }
 }

@@ -15,13 +15,13 @@ namespace easygenerator.Web.Import.PublishedCourse
                 .AsEnumerable();
         }
 
-        public virtual IEnumerable<Tuple<Guid, int>> GetQuestionTypes(Guid objectiveId, JObject dataFile)
+        public virtual IEnumerable<Tuple<Guid, string>> GetQuestionTypes(Guid objectiveId, JObject dataFile)
         {
             return dataFile["objectives"]
                 .Where(o => o.Value<string>("id") == objectiveId.ToString("N").ToLower())
                 .Values("questions")
                 .SelectMany(q => q)
-                .Select(q => new Tuple<Guid, int>(Guid.Parse(q.Value<string>("id")), q.Value<int>("type")))
+                .Select(q => new Tuple<Guid, string>(Guid.Parse(q.Value<string>("id")), q.Value<string>("type")))
                 .AsEnumerable();
         }
 

@@ -30,7 +30,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityCollaborator(typeof(Objective))]
-        [Route("api/question/create/type/0")]
+        [Route("api/question/" + Question.QuestionTypes.MultipleSelect + "/create")]
         public ActionResult Create(Objective objective, string title)
         {
             if (objective == null)
