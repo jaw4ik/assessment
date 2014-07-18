@@ -49,8 +49,7 @@
                             </div>
                             <div class="question-answer-text-wrapper" data-bind="css: { active: $data == $parent.selectedAnswer() }">
                                 <div class="question-answer-text">
-                                    <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateText } }, event: { focus: function(data, event){ $parent.selectAnswer(data, event); $parent.beginEditText(data, event); }, blur: function (data, event) { $parent.endEditText(data, event) } }, hasFocus: hasFocus, selectTextInAnswer: {}">
-                                    </div>
+                                    <textarea class="editarea-editable-text selectable" data-bind="value: text, valueUpdate: 'afterkeydown', editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateText } }, event: { focus: function(data, event){ $parent.selectAnswer(data, event); $parent.beginEditText(data, event); }, blur: function (data, event) { $parent.endEditText(data, event) } }, hasFocus: hasFocus, selectText: {}"></textarea>
                                 </div>
                             </div>
                             <!-- ko if: $parent.showDeleteButton -->

@@ -27,6 +27,7 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/jquery.placeholder.js")
                     .Include("~/scripts/jquery.form.js")
                     .Include("~/scripts/jquery.extensions.js")
+                    .Include("~/scripts/jquery.autosize.js")
                     .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
                 );
 

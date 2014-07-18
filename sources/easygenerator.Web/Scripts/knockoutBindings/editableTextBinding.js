@@ -8,30 +8,30 @@
             root = bindingContext.$root
         ;
 
-        $element.attr('contenteditable', 'true');
-        $element.toggleClass('editable-text-binding', true);
+        if (multiline) {
+            $element.autosize();
+        } else {
+            $element.attr('contenteditable', 'true');
+            $element.on('paste', function (event) {
+                var clipboardData = event.originalEvent.clipboardData || window.clipboardData;
+                pasteTextAtCaret(clipboardData.getData('text'), false);
+
+                event.preventDefault();
+                event.stopPropagation();
+            }).on('keypress', function (event) {
+                if (event.keyCode != 13) {
+                    return;
+                }
+                $element.blur();
+                event.preventDefault();
+                event.stopPropagation();
+            });
+        }
+
         $element.text(ko.unwrap(text));
+        $element.toggleClass('editable-text-binding', true);
 
         $element.on('drop dragover', function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }).on('paste', function (event) {
-            var clipboardData = event.originalEvent.clipboardData || window.clipboardData;
-            pasteTextAtCaret(clipboardData.getData('text'), false);
-
-            event.preventDefault();
-            event.stopPropagation();
-        }).on('keypress', function (event) {
-            if (event.keyCode != 13) {
-                return;
-            }
-
-            if (multiline) {
-                pasteTextAtCaret('\r\n', false);
-            } else {
-                $element.blur();
-            }
-
             event.preventDefault();
             event.stopPropagation();
         });
@@ -55,6 +55,9 @@
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
             clearInterval(saveIntervalId);
+            if (multiline) {
+                $element.trigger('autosize.destroy');
+            }
         });
 
         function pasteTextAtCaret(html, selectPastedContent) {
@@ -102,10 +105,16 @@
         });
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        var text = ko.unwrap(valueAccessor().text);
-        var $element = $(element);
+        var text = ko.unwrap(valueAccessor().text),
+            $element = $(element),
+            multiline = valueAccessor().multiline;
 
-        if (text != $element.text())
+        if (text != $element.text()) {
             $element.text(text);
+        }
+
+        if (multiline) {
+            $element.trigger('autosize.resize');
+        }
     }
 };

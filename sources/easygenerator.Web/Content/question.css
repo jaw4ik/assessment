@@ -471,8 +471,15 @@
         outline: none;
     }
 
+    .question-answer-text textarea.editarea-editable-text {
+        font-family: OpenSans, sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
     .question-answer-text .editarea-editable-text {
         min-height: 41px;
+        height: 41px;
         width: 100%;
         padding: 10px;
         vertical-align: top;

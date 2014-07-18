@@ -2358,6 +2358,14 @@ span.top-navigation-item.current {
 }
 /*#endregion CURSOR*/
 
+/*#region autosize*/
+
+.autosizejs {
+    line-height: 20px !important;
+}
+
+/*#endregion autosize*/
+
 /*#region MEDIA CSS-STYLES*/
 
 @media (max-width: 640px) {
