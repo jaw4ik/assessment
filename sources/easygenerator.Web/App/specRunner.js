@@ -171,6 +171,7 @@
             'viewmodels/questions/singleSelectImage/designer.spec',
 
             'viewmodels/questions/textMatching/textMatching.spec',
+            'viewmodels/questions/textMatching/textMatchingAnswer.spec',
             'viewmodels/questions/textMatching/queries/getTextMatchingAnswersById.spec',
             'viewmodels/questions/textMatching/commands/addAnswer.spec',
             'viewmodels/questions/textMatching/commands/removeAnswer.spec',

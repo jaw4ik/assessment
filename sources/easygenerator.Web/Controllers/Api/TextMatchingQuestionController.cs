@@ -12,6 +12,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters.Authorization;
+using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
@@ -19,12 +20,14 @@ namespace easygenerator.Web.Controllers.Api
     public class TextMatchingQuestionController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
+        private readonly IEntityMapper _entityMapper;
         private readonly IDomainEventPublisher _eventPublisher;
 
-        public TextMatchingQuestionController(IEntityFactory entityFactory, IDomainEventPublisher eventPublisher)
+        public TextMatchingQuestionController(IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IEntityMapper entityMapper)
         {
             _entityFactory = entityFactory;
             _eventPublisher = eventPublisher;
+            _entityMapper = entityMapper;
         }
 
         [HttpPost]
@@ -48,40 +51,36 @@ namespace easygenerator.Web.Controllers.Api
 
         private void CreateFirstAnswers(TextMatching question)
         {
-            var defaultAnswer1 = _entityFactory.TextMatchingAnswer(Constants.TextMatching.DefaultAnswerKeyText, Constants.TextMatching.DefaultAnswerValueText, GetCurrentUsername());
-            var defaultAnswer2 = _entityFactory.TextMatchingAnswer(Constants.TextMatching.DefaultAnswerKeyText, Constants.TextMatching.DefaultAnswerValueText, GetCurrentUsername());
-            
-            question.AddAnswer(defaultAnswer1, GetCurrentUsername());
-            question.AddAnswer(defaultAnswer2, GetCurrentUsername());
+            question.AddAnswer(GetDefaultAnswer(), GetCurrentUsername());
+            question.AddAnswer(GetDefaultAnswer(), GetCurrentUsername());
+        }
+
+        private TextMatchingAnswer GetDefaultAnswer()
+        {
+            return _entityFactory.TextMatchingAnswer(Constants.TextMatching.DefaultAnswerKeyText,
+                Constants.TextMatching.DefaultAnswerValueText, GetCurrentUsername());
         }
 
         [Route("api/question/textmatching/answers")]
         public ActionResult GetAnswers(TextMatching question)
         {
-            return JsonSuccess(new
-            {
-                answers = question.Answers.Select(a => new
-                {
-                    id = a.Id.ToNString(),
-                    key = a.Key,
-                    value = a.Value
-                })
-            });
+            var textMatchingAnswers = question.Answers.Select(answer => _entityMapper.Map(answer));
+            return JsonSuccess(new { answers = textMatchingAnswers });
         }
 
         [Route("api/question/textmatching/answer/create")]
-        public ActionResult CreateAnswer(TextMatching question, string key, string value)
+        public ActionResult CreateAnswer(TextMatching question)
         {
-            if (question == null || key == null || value == null)
+            if (question == null)
             {
                 return BadRequest();
             }
 
-            var answer = _entityFactory.TextMatchingAnswer(key, value, GetCurrentUsername());
+            var answer = GetDefaultAnswer();
             question.AddAnswer(answer, GetCurrentUsername());
             _eventPublisher.Publish(new TextMatchingAnswerCreatedEvent(answer));
 
-            return JsonSuccess(answer.Id.ToNString());
+            return JsonSuccess(_entityMapper.Map(answer));
         }
 
         [Route("api/question/textmatching/answer/delete")]

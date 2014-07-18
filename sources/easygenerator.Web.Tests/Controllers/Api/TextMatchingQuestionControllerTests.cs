@@ -14,6 +14,7 @@ using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.Infrastructure;
+using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Tests.Utils;
@@ -34,13 +35,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IPrincipal _user;
         HttpContextBase _context;
         private IDomainEventPublisher _eventPublisher;
+        private IEntityMapper _entityMapper;
 
         [TestInitialize]
         public void InitializeContext()
         {
             _entityFactory = Substitute.For<IEntityFactory>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
-            _controller = new TextMatchingQuestionController(_entityFactory, _eventPublisher);
+            _entityMapper = Substitute.For<IEntityMapper>();
+
+            _controller = new TextMatchingQuestionController(_entityFactory, _eventPublisher, _entityMapper);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -138,27 +142,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void CreateTextMatchingAnswer_ShouldReturnBadRequest_WhenQuestionIsNull()
         {
             //Act
-            var result = _controller.CreateAnswer(null, "text", "value");
-
-            //Assert
-            result.Should().BeBadRequestResult();
-        }
-
-        [TestMethod]
-        public void CreateTextMatchingAnswer_ShouldReturnBadRequest_WhenKeyIsNull()
-        {
-            //Act
-            var result = _controller.CreateAnswer(Substitute.For<TextMatching>(), null, "value");
-
-            //Assert
-            result.Should().BeBadRequestResult();
-        }
-
-        [TestMethod]
-        public void CreateTextMatchingAnswer_ShouldReturnBadRequest_WhenValueIsNull()
-        {
-            //Act
-            var result = _controller.CreateAnswer(Substitute.For<TextMatching>(), "key",null);
+            var result = _controller.CreateAnswer(null);
 
             //Assert
             result.Should().BeBadRequestResult();
@@ -168,19 +152,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void CreateTextMatchingAnswer_ShouldAddAnswer()
         {
             //Arrange
-            const string key = "key";
-            const string value = "value";
-
             var question = Substitute.For<TextMatching>();
 
             const string username = "username";
             _user.Identity.Name.Returns(username);
 
-            var answer = Substitute.For<TextMatchingAnswer>(key, value, username);
-            _entityFactory.TextMatchingAnswer(key, value, username).Returns(answer);
+            var answer = Substitute.For<TextMatchingAnswer>("Define your key...", "Define your answer...", username);
+            _entityFactory.TextMatchingAnswer("Define your key...", "Define your answer...", username).Returns(answer);
 
             //Act
-            _controller.CreateAnswer(question, key, value);
+            _controller.CreateAnswer(question);
 
             //Assert
             question.Received().AddAnswer(answer, username);
@@ -194,24 +175,27 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory.TextMatchingAnswer(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(answer);
 
             //Act
-            _controller.CreateAnswer(Substitute.For<TextMatching>(), "key", "value");
+            _controller.CreateAnswer(Substitute.For<TextMatching>());
 
             //Assert
             _eventPublisher.Received().Publish(Arg.Any<TextMatchingAnswerCreatedEvent>());
         }
 
         [TestMethod]
-        public void CreateTextMatchingAnswer_ShouldReturnJsonSuccessWithAnswerId()
+        public void CreateTextMatchingAnswer_ShouldReturnJsonSuccess()
         {
             //Arrange
-            var answer = Substitute.For<TextMatchingAnswer>();
+            const string username = "username";
+            _user.Identity.Name.Returns(username);
+
+            var answer = Substitute.For<TextMatchingAnswer>("Define your key...", "Define your answer...", username);
             _entityFactory.TextMatchingAnswer(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(answer);
 
             //Act
-            var result = _controller.CreateAnswer(Substitute.For<TextMatching>(), "key", "value"); 
+            var result = _controller.CreateAnswer(Substitute.For<TextMatching>()); 
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.Should().Be(answer.Id.ToNString());
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion

@@ -220,6 +220,7 @@
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
     <Compile Include="Components\Mappers\SingleSelectImageAnswerMapper.cs" />
+    <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
     <Compile Include="Controllers\Api\FillInTheBlanksController.cs" />
     <Compile Include="Controllers\Api\SingleSelectImageController.cs" />
@@ -741,6 +742,10 @@
     <Content Include="App\viewmodels\questions\textMatching\textMatching.spec.js">
       <DependentUpon>textMatching.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\textMatching\textMatchingAnswer.spec.js">
+      <DependentUpon>textMatchingAnswer.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\textMatching\textMatchingAnswer.js" />
     <Content Include="App\views\objectives\createObjective.html" />
     <Content Include="App\views\questions\dragAndDrop\designer.html" />
     <Content Include="App\views\questions\dragAndDrop\dragAndDrop.html" />

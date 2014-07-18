@@ -1,2 +1,67 @@
 ﻿<section class="text-matching">
+
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <!-- ko if: isExpanded -->
+            <div class="expand-collapse-panel expanded">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'answerOptions' }">Answer options</span>
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
+            </div>
+            <!-- /ko -->
+            <!-- ko ifnot: isExpanded -->
+            <div class="expand-collapse-panel collapsed">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'answerOptions' }">Answer options</span>
+                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+
+    <div class="content-section-wrapper answer-options">
+        <!-- ko if: isExpanded -->
+        <div class="question-answer-options-area">
+            <div class="content-section">
+                <ul class="unstyled answer-option-list">
+                    <!-- ko if: answers().length == 0 -->
+                    <li class="empty-learning-content" data-bind="localize: { text : 'noAnswerOptionsYet' } + '...'">
+                        No answer options yet...
+                    </li>
+                    <!-- /ko -->
+                    <!-- ko foreach: answers -->
+                    <li class="answer-option-item">
+                        <div class="answer-options-list-item">
+                            <div class="question-answer-text-wrapper" data-bind="css: { active: key.isEditing()}">
+                                <div class="question-answer-text">
+                                    <textarea class="editarea-editable-text selectable" data-bind="value: key, valueUpdate: 'afterkeydown', editableText: { text: key, multiline: true }, event: { focus: key.beginEditText, blur: key.endEditText }"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-answer-text-wrapper" data-bind="css: { active: value.isEditing()}">
+                                <div class="question-answer-text">
+                                    <textarea class="editarea-editable-text selectable" data-bind="value: value, valueUpdate: 'afterkeydown', editableText: { text: value, multiline: true }, event: { focus: value.beginEditText, blur: value.endEditText }"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-answer-delete-wrapper">
+                                <div class="question-answer-delete-icon-wrapper info-tooltip-holder">
+                                    <span class="question-answer-delete-icon" data-bind="click: $parent.removeAnswer"></span>
+                                    <div class="info-tooltip question-answer right-side">
+                                        <span data-bind="localize: { text: 'delete' }">
+                                            Delete
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+                <div class="add-answer-option-wrapper">
+                    <div class="add-answer-option-btn btn green" data-bind="click: addAnswer">
+                        <span class="add-answer-option-text">Add answer option</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+
 </section>
