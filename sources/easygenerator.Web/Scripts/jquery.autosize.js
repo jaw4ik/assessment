@@ -195,7 +195,7 @@
 					}
 				}
 
-				//height += boxOffset;
+				height += boxOffset;
 
 				if (original !== height) {
 					ta.style.height = height + 'px';

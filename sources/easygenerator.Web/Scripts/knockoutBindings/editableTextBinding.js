@@ -9,7 +9,13 @@
         ;
 
         if (multiline) {
-            $element.autosize();
+            $element.autosize({
+                callback: function () {
+                    var height = $element.height(),
+                        boxOffset = $element.outerHeight() - $element.height();
+                    $element.height(height - boxOffset);
+                }
+            }); 
         } else {
             $element.attr('contenteditable', 'true');
             $element.on('paste', function (event) {
