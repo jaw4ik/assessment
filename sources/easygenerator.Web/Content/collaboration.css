@@ -7,6 +7,7 @@
 .course-collaborators-list {
     position: relative;
     list-style: none;
+    float: right;
     text-align: right;
     cursor: default;
     padding-right: 59px;
@@ -41,6 +42,12 @@
         position: absolute;
         top: 1px;
         right: 0;
+    }
+
+    .course-collaborator-item-wrapper.course-owner {
+        position: absolute;
+        top: 0;
+        right: 59px;
     }
 
 .course-collaborator-item {
@@ -177,6 +184,83 @@
 
 .course-collaborator-item:hover .course-collaborator-delete-btn {
     display: block;
+}
+
+@media (max-width: 1041px) {
+
+    .course-collaborators-list {
+        width: 340px;
+    }
+
+    .course-collaborator-item-wrapper:nth-child(5) {
+        margin-right: 47px;
+    }
+}
+
+@media (min-width: 1042px) and (max-width: 1089px) {
+
+    .course-collaborators-list {
+        width: 385px;
+    }
+
+    .course-collaborator-item-wrapper:nth-child(6) {
+        margin-right: 47px;
+    }
+}
+
+@media (min-width: 1090px) and (max-width: 1136px) {
+
+    .course-collaborators-list {
+        width: 435px;
+    }
+
+    .course-collaborator-item-wrapper:nth-child(7) {
+        margin-right: 47px;
+    }
+}
+
+@media (min-width: 1137px) and (max-width: 1183px) {
+
+    .course-collaborators-list {
+        width: 480px;
+    }
+
+    .course-collaborator-item-wrapper:nth-child(8) {
+        margin-right: 47px;
+    }
+}
+
+@media (min-width: 1184px) and (max-width: 1230px) {
+
+    .course-collaborators-list {
+        width: 525px;
+    }
+
+    .course-collaborator-item-wrapper:nth-child(9) {
+        margin-right: 47px;
+    }
+}
+
+@media (min-width: 1231px) and (max-width: 1277px) {
+
+    .course-collaborators-list {
+        width: 575px;
+    }
+
+    .course-collaborator-item-wrapper:nth-child(10) {
+        margin-right: 47px;
+    }
+}
+
+@media (min-width: 1278px) {
+
+    .course-collaborators-list {
+        width: 620px;
+    }
+
+    .course-collaborator-item-wrapper:nth-child(11) {
+        margin-right: 47px;
+    }
 }
 
 @media (max-width: 1350px) {
