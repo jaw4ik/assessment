@@ -81,6 +81,15 @@
                     });
 
                 });
+
+                describe('and when question type is textMatching', function () {
+
+                    it('should send event \'Create new question (text matching)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.textMatching.type, 'Event category');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (text matching)', 'Event category');
+                    });
+
+                });
             });
 
             describe('when event category is undefined', function () {
@@ -121,6 +130,14 @@
 
                 });
 
+                describe('when question type is textMatching', function () {
+
+                    it('should send event \'Create new question (text matching)\' with undefined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.textMatching.type);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (text matching)', undefined);
+                    });
+
+                });
             });
 
             it('should lock content', function () {

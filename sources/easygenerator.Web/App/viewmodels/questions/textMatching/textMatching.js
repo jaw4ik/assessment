@@ -20,12 +20,18 @@
             removeAnswer: removeAnswer,
 
             isExpanded: ko.observable(true),
-            toggleExpand: toggleExpand
+            toggleExpand: toggleExpand,
+
+            events: {
+                addAnswer: 'Add answer option',
+                deleteAnswer: 'Delete answer option'
+            }
         };
 
         return viewModel;
 
         function addAnswer() {
+            eventTracker.publish(viewModel.events.addAnswer);
             return addAnswerCommand.execute(viewModel.questionId).then(function (response) {
                 notify.saved();
                 viewModel.answers.push(new TextMatchingAnswer(response.Id, response.Key, response.Value));
@@ -33,6 +39,7 @@
         }
 
         function removeAnswer(answer) {
+            eventTracker.publish(viewModel.events.deleteAnswer);
             return removeAnswerCommand.execute(viewModel.questionId, answer.id).then(function () {
                 notify.saved();
                 viewModel.answers.remove(function (item) { return item.id == answer.id; });

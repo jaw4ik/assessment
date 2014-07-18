@@ -34,6 +34,9 @@
                 case constants.questionType.singleSelectImage.type:
                     eventTracker.publish('Create new question (single select image)', eventCategory);
                     break;
+                case constants.questionType.textMatching.type:
+                    eventTracker.publish('Create new question (text matching)', eventCategory);
+                    break;
             }
         }
 
