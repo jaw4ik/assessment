@@ -5,17 +5,17 @@
             text = valueAccessor().text,
             multiline = valueAccessor().multiline,
             autosave = valueAccessor().autosave,
-            root = bindingContext.$root
-        ;
+            root = bindingContext.$root;
 
         if (multiline) {
             $element.autosize({
                 callback: function () {
+                    //fix bug in pugin jquery.autosize.js
                     var height = $element.height(),
                         boxOffset = $element.outerHeight() - $element.height();
-                    $element.height(height - boxOffset);
+                    $element.height(height - boxOffset - 1e-3);
                 }
-            }); 
+            });
         } else {
             $element.attr('contenteditable', 'true');
             $element.on('paste', function (event) {
@@ -37,7 +37,7 @@
         $element.text(ko.unwrap(text));
         $element.toggleClass('editable-text-binding', true);
 
-        $element.on('drop dragover', function (event) {
+        $element.on('drop dragover', function(event) {
             event.preventDefault();
             event.stopPropagation();
         });
