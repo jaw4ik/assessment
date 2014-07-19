@@ -27,6 +27,16 @@
                         No answer options yet...
                     </li>
                     <!-- /ko -->
+                    <!-- ko if: answers().length > 0 -->
+                    <li class="answer-option-caption-wrapper">
+                        <div class="answer-option-caption">
+                            <span data-bind="localize: { text: 'keysTitle'}">Keys</span>
+                        </div>
+                        <div class="answer-option-caption">
+                            <span data-bind="localize: { text: 'answersTitle'}">Answers</span>
+                        </div>
+                    </li>
+                    <!-- /ko -->
                     <!-- ko foreach: answers -->
                     <li class="answer-option-item">
                         <div class="answer-options-list-item">
@@ -36,6 +46,7 @@
                                 </div>
                             </div>
                             <div class="question-answer-text-wrapper" data-bind="css: { active: value.isEditing()}">
+                                <div class="puzzle-item"></div>
                                 <div class="question-answer-text">
                                     <textarea class="editarea-editable-text selectable" data-bind="value: value, valueUpdate: 'afterkeydown', editableText: { text: value, multiline: true }, event: { focus: value.beginEditText, blur: value.endEditText }"></textarea>
                                 </div>

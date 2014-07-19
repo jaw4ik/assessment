@@ -505,6 +505,9 @@
     questionTitle: {
         en: 'Question title'
     },
+    informationContentTitle: {
+        en: 'Title'
+    },
     /* End resource section for model Question */
     
     /* Resource section for model Questions */
@@ -556,6 +559,9 @@
     newQuestionTitle: {
         en: 'What question do you want to ask?'
     },
+    newInformationContentTitle: {
+        en: 'What do you want to tell?'
+    },
     multipleSelect: {
         en: 'Multiple select'
     },
@@ -590,10 +596,10 @@
         en: 'Add dropspot text'
     },
     singleSelectText: {
-        en: 'Single select'
+        en: 'Single select \"text\"'
     },
     singleSelectTextEditor: {
-        en: '\"Single select\" question editor'
+        en: '\"Single select text\" question editor'
     },
     multipleSelectEditor: {
         en: '\"Multiple select\" question editor'
@@ -610,10 +616,16 @@
     textMatchingEditor: {
         en: '\"Text matching\" question editor'
     },
+    informationContentEditor: {
+        en: '\"Information\" editor'
+    },
     singleSelectImage: {
         en: 'Single select image'
     },
     infoContent: {
+        en: 'Information'
+    },
+    informationContent: {
         en: 'Information'
     },
     textMatching: {
@@ -621,6 +633,12 @@
     },
     hotSpot: {
         en: 'Hot spot'
+    },
+    keysTitle: {
+        en: 'Keys'
+    },
+    answersTitle: {
+        en: 'Answers'
     },
     /* End resource section for model Questions */
     
@@ -1142,7 +1160,7 @@
         en: 'Some general tips for the question types'
     },
     questionHelpHint: {
-        en: '<p>The <strong>\"Single select\"</strong> and <strong>\"Multiple select\"</strong> questions offer the answer options to a learner for answering the question. The answer options can be either correct or incorrect.</p></br><p><strong>Fill-in the blanks</strong> are texts with blank spaces. The student must fill in the missing words. Tips:<ul><li>Convert a word into a blank: Select it and click on \"+ Add blank\".</li><li>Create a new blank: click on \"+ Add blank\" and type in the word.</li><li>To edit a blank: click on the blank in the text.</li></ul></p></br><p>With a <strong>“Drag and Drop text\"</strong> question type a student has to put text(s) on specific places by dragging and dropping them onto a background image. Create a \"drag\'n\'drop text\" question:<ul><ol>1. Add the background image by clicking \"+ Add background image\".</ol><ol>2. Fill-in your \"drop texts\" into the fields below the \"drag&drop designer\".</ol><ol>3. In the \"drag&drop designer\" drag and drop your \"drop texts\" into the correct positions.</ol></ul></p></br><p><strong>Learning content</strong> is the information presented to the learner to assist him in answering a specific question. It can consist out of text, video or images.</p></br><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
+        en: '<p>The <strong>\"Single select text\"</strong> and <strong>\"Multiple select\"</strong> questions offer the answer options to a learner for answering the question. The answer options can be either correct or incorrect.</p></br><p><strong>Fill-in the blanks</strong> are texts with blank spaces. The student must fill in the missing words. Tips:<ul><li>Convert a word into a blank: Select it and click on \"+ Add blank\".</li><li>Create a new blank: click on \"+ Add blank\" and type in the word.</li><li>To edit a blank: click on the blank in the text.</li></ul></p></br><p>With a <strong>“Drag and Drop text\"</strong> question type a student has to put text(s) on specific places by dragging and dropping them onto a background image. Create a \"drag\'n\'drop text\" question:<ul><ol>1. Add the background image by clicking \"+ Add background image\".</ol><ol>2. Fill-in your \"drop texts\" into the fields below the \"drag&drop designer\".</ol><ol>3. In the \"drag&drop designer\" drag and drop your \"drop texts\" into the correct positions.</ol></ul></p></br><p><strong>Learning content</strong> is the information presented to the learner to assist him in answering a specific question. It can consist out of text, video or images.</p></br><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
     },
     designHelpHintTitle: {
         en: 'What is a course template?'
