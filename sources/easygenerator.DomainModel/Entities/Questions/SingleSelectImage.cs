@@ -15,7 +15,10 @@ namespace easygenerator.DomainModel.Entities.Questions
             AnswerCollection = new Collection<SingleSelectImageAnswer>();
         }
 
-        public virtual SingleSelectImageAnswer CorrectAnswer { get; private set; }
+        public virtual SingleSelectImageAnswer CorrectAnswer
+        {
+            get { return Answers.FirstOrDefault(e => e.IsCorrect); }
+        }
 
         protected internal virtual Collection<SingleSelectImageAnswer> AnswerCollection { get; set; }
         public IEnumerable<SingleSelectImageAnswer> Answers
@@ -39,14 +42,16 @@ namespace easygenerator.DomainModel.Entities.Questions
             ThrowIfAnswerIsInvalid(answer);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            AnswerCollection.Remove(answer);
+            if (!AnswerCollection.Contains(answer))
+                return;
 
-            if (answer == CorrectAnswer)
+            AnswerCollection.Remove(answer);
+            if (answer.IsCorrect)
             {
                 var firstAnswer = AnswerCollection.OrderBy(a => a.CreatedOn).FirstOrDefault();
                 if (firstAnswer != null)
                 {
-                    CorrectAnswer = firstAnswer;
+                    SetCorrectAnswer(firstAnswer);
                 }
             }
 
@@ -60,9 +65,17 @@ namespace easygenerator.DomainModel.Entities.Questions
             ThrowIfAnswerIsInvalid(answer);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            CorrectAnswer = answer;
+            SetCorrectAnswer(answer);
 
             MarkAsModified(modifiedBy);
+        }
+
+        private void SetCorrectAnswer(SingleSelectImageAnswer answer)
+        {
+            foreach (var item in Answers)
+            {
+                item.IsCorrect = item == answer;
+            }
         }
 
         private void ThrowIfAnswerIsInvalid(SingleSelectImageAnswer answer)

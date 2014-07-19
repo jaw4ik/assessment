@@ -12,6 +12,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
+using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -60,14 +61,51 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void Create_ShouldAddTwoAnswerOptionsToQuestion()
+        {
+            const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            DateTimeWrapper.Now = () => DateTime.MinValue;
+            var objective = Substitute.For<Objective>();
+            var question = SingleSelectImageObjectMother.Create();
+
+            _entityFactory.SingleSelectImageQuestion(title, user).Returns(question);
+            _entityFactory.SingleSelectImageAnswer(Arg.Any<string>(), Arg.Any<DateTime>()).Returns(Substitute.For<SingleSelectImageAnswer>());
+
+            _controller.Create(objective, title);
+
+            question.Answers.Count().Should().Be(2);
+        }
+
+        [TestMethod]
+        public void Create_ShouldSetCorrectAnswerToQuestion()
+        {
+            const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            DateTimeWrapper.Now = () => DateTime.MinValue;
+            var objective = Substitute.For<Objective>();
+            var question = SingleSelectImageObjectMother.Create();
+
+            _entityFactory.SingleSelectImageQuestion(title, user).Returns(question);
+            _entityFactory.SingleSelectImageAnswer(Arg.Any<string>(), Arg.Any<DateTime>()).Returns(Substitute.For<SingleSelectImageAnswer>());
+
+            _controller.Create(objective, title);
+
+            question.CorrectAnswer.Should().NotBeNull();
+        }
+
+
+        [TestMethod]
         public void Create_ShouldAddQuestionToObjective()
         {
             const string title = "title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             DateTimeWrapper.Now = () => DateTime.MinValue;
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question = Substitute.For<SingleSelectImage>("Question title", CreatedBy);
+            var objective = Substitute.For<Objective>();
+            var question = Substitute.For<SingleSelectImage>();
 
             _entityFactory.SingleSelectImageQuestion(title, user).Returns(question);
 
@@ -83,11 +121,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             DateTimeWrapper.Now = () => DateTime.MinValue;
-            var question = Substitute.For<SingleSelectImage>("Question title", CreatedBy);
+            var question = Substitute.For<SingleSelectImage>();
 
             _entityFactory.SingleSelectImageQuestion(title, user).Returns(question);
 
-            var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
+            var result = _controller.Create(Substitute.For<Objective>(), title);
 
             result.Should()
                 .BeJsonSuccessResult()
@@ -192,28 +230,48 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void DeleteAnswer_ShouldReturnBadRequest_WhenAnswersCountIsMinimal()
+        {
+            //Arrange
+            var question = SingleSelectImageObjectMother.Create();
+            question.AddAnswer(Substitute.For<SingleSelectImageAnswer>(), CreatedBy);
+            question.AddAnswer(Substitute.For<SingleSelectImageAnswer>(), CreatedBy);
+
+            //Act
+            var result = _controller.DeleteAnswer(question, Substitute.For<SingleSelectImageAnswer>());
+
+            //Assert
+            result.Should().BeBadRequestResult();
+        }
+
+        [TestMethod]
         public void DeleteAnswer_ShouldDeleteAnswer()
         {
             //Arrange
-            var question = Substitute.For<SingleSelectImage>();
+            var question = SingleSelectImageObjectMother.Create();
+            var answer = Substitute.For<SingleSelectImageAnswer>();
+            question.AddAnswer(answer, CreatedBy);
+            question.AddAnswer(Substitute.For<SingleSelectImageAnswer>(), CreatedBy);
+            question.AddAnswer(Substitute.For<SingleSelectImageAnswer>(), CreatedBy);
 
             const string username = "username";
             _user.Identity.Name.Returns(username);
-
-            var answer = Substitute.For<SingleSelectImageAnswer>(Url, username);
 
             //Act
             _controller.DeleteAnswer(question, answer);
 
             //Assert
-            question.Received().RemoveAnswer(answer, username);
+            question.Answers.Count().Should().Be(2);
         }
 
         [TestMethod]
         public void DeleteAnswer_ShouldReturnJsonSuccess()
         {
             //Arrange
-            var question = Substitute.For<SingleSelectImage>();
+            var question = SingleSelectImageObjectMother.Create();
+            question.AddAnswer(Substitute.For<SingleSelectImageAnswer>(), CreatedBy);
+            question.AddAnswer(Substitute.For<SingleSelectImageAnswer>(), CreatedBy);
+            question.AddAnswer(Substitute.For<SingleSelectImageAnswer>(), CreatedBy);
 
             const string username = "username";
             _user.Identity.Name.Returns(username);
@@ -284,7 +342,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var answer = Substitute.For<SingleSelectImageAnswer>(Url, username);
 
             //Act
-            var result = _controller.DeleteAnswer(question, answer);
+            var result = _controller.UpdateAnswerImage(answer, Url);
 
             //Assert
             result.Should().BeJsonSuccessResult();

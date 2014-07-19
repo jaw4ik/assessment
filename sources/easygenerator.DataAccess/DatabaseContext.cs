@@ -118,7 +118,8 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<SingleSelectImage>().HasMany(e => e.AnswerCollection).WithRequired(e => e.Question);
 
-            modelBuilder.Entity<SingleSelectImageAnswer>().Property(e => e.Image).IsRequired();
+            modelBuilder.Entity<SingleSelectImageAnswer>().Property(e => e.Image).IsOptional();
+            modelBuilder.Entity<SingleSelectImageAnswer>().Property(e => e.IsCorrect).IsRequired();
             modelBuilder.Entity<SingleSelectImageAnswer>().HasRequired(e => e.Question);
 
             modelBuilder.Entity<LearningContent>().Property(e => e.Text).IsRequired();

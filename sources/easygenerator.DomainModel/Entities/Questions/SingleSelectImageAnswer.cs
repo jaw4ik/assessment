@@ -7,11 +7,15 @@ namespace easygenerator.DomainModel.Entities.Questions
     {
         protected internal SingleSelectImageAnswer() { }
 
+        protected internal SingleSelectImageAnswer(string createdBy, DateTime createdOn)
+            : base(createdBy, createdOn)
+        {
+        }
+
         protected internal SingleSelectImageAnswer(string image, string createdBy)
             : base(createdBy)
         {
             ThrowIfImageIsInvalid(image);
-
             Image = image;
         }
 
@@ -19,12 +23,12 @@ namespace easygenerator.DomainModel.Entities.Questions
             : base(createdBy, createdOn)
         {
             ThrowIfImageIsInvalid(image);
-
             Image = image;
         }
 
         public string Image { get; private set; }
         public virtual SingleSelectImage Question { get; internal set; }
+        internal virtual bool IsCorrect { get; set; }
 
         public virtual void UpdateImage(string image, string modifiedBy)
         {

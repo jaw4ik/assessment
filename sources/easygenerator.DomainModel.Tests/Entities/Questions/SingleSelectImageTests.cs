@@ -3,8 +3,9 @@ using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
 using System;
-using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace easygenerator.DomainModel.Tests.Entities.Questions
 {
@@ -50,8 +51,8 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.Id.Should().NotBeEmpty();
             question.Title.Should().Be(title);
-            question.CorrectAnswer.Should().BeNull();
-            question.Answers.Should().BeEmpty();
+            question.Answers.Count().Should().Be(0);
+            question.CorrectAnswer.Should().Be(null);
             question.LearningContents.Should().BeEmpty();
             question.CreatedOn.Should().Be(DateTime.MaxValue);
             question.ModifiedOn.Should().Be(DateTime.MaxValue);
@@ -98,6 +99,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         {
             var answer = SingleSelectImageAnswerObjectMother.Create();
             var question = SingleSelectImageObjectMother.Create();
+            question.AddAnswer(answer, CreatedBy);
 
             question.SetCorrectAnswer(answer, ModifiedBy);
 
@@ -175,7 +177,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.AddAnswer(answer, ModifiedBy);
 
-            question.AnswerCollection.Should().NotBeNull().And.HaveCount(1).And.Contain(answer);
+            question.AnswerCollection.Should().NotBeNull().And.Contain(answer);
         }
 
         [TestMethod]
@@ -251,22 +253,32 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         }
 
         [TestMethod]
+        public void RemoveAnswer_ShouldDoNothing_WhenAnswerIsNotAttachedToQuestion()
+        {
+            var question = SingleSelectImageObjectMother.Create();
+            var answer = SingleSelectImageAnswerObjectMother.Create();
+
+            question.RemoveAnswer(answer, ModifiedBy);
+            question.AnswerCollection.Count.Should().Be(0);
+        }
+
+        [TestMethod]
         public void RemoveAnswer_ShouldRemoveAnswer()
         {
             var question = SingleSelectImageObjectMother.Create();
             var answer = SingleSelectImageAnswerObjectMother.Create();
-            question.AnswerCollection = new Collection<SingleSelectImageAnswer>() { answer };
+            question.AddAnswer(answer, CreatedBy);
 
             question.RemoveAnswer(answer, ModifiedBy);
-            question.AnswerCollection.Should().BeEmpty();
+            question.AnswerCollection.Count.Should().Be(0);
         }
 
         [TestMethod]
         public void RemoveAnswer_ShouldUnsetQuestionFromAnswer()
         {
             var question = SingleSelectImageObjectMother.Create();
-            var answer = SingleSelectImageAnswerObjectMother.Create();
-            answer.Question = question;
+            question.AddAnswer(Substitute.For<SingleSelectImageAnswer>(), CreatedBy);
+            var answer = question.AnswerCollection[0];
 
             question.RemoveAnswer(answer, ModifiedBy);
 
@@ -277,17 +289,15 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         public void RemoveAnswer_ShouldSetFirstAnswerToCorrect_WhenRemovedAnswerIsCorrect()
         {
             var question = SingleSelectImageObjectMother.Create();
-            var answer = SingleSelectImageAnswerObjectMother.Create();
-            var answer1 = SingleSelectImageAnswerObjectMother.Create();
-            var answer2 = SingleSelectImageAnswerObjectMother.Create();
+            var answer = Substitute.For<SingleSelectImageAnswer>();
+            var fisrtAnswer = Substitute.For<SingleSelectImageAnswer>();
             question.AddAnswer(answer, ModifiedBy);
-            question.AddAnswer(answer1, ModifiedBy);
-            question.AddAnswer(answer2, ModifiedBy);
-            question.SetCorrectAnswer(answer1, ModifiedBy);
+            question.AddAnswer(fisrtAnswer, ModifiedBy);
+            question.SetCorrectAnswer(answer, ModifiedBy);
 
-            question.RemoveAnswer(answer1, ModifiedBy);
+            question.RemoveAnswer(answer, ModifiedBy);
 
-            question.CorrectAnswer.Should().Be(answer);
+            question.CorrectAnswer.Should().Be(question.AnswerCollection[0]);
         }
 
         [TestMethod]
@@ -298,8 +308,9 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
-
-            question.RemoveAnswer(SingleSelectImageAnswerObjectMother.Create(), ModifiedBy);
+            var answer = Substitute.For<SingleSelectImageAnswer>();
+            question.AddAnswer(answer, CreatedBy);
+            question.RemoveAnswer(answer, ModifiedBy);
 
             question.ModifiedOn.Should().Be(dateTime);
         }
@@ -308,7 +319,8 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         public void RemoveAnswer_ShouldUpdateModifiedBy()
         {
             var question = SingleSelectImageObjectMother.Create();
-            var answer = SingleSelectImageAnswerObjectMother.Create();
+            var answer = Substitute.For<SingleSelectImageAnswer>();
+            question.AddAnswer(answer, CreatedBy);
 
             question.RemoveAnswer(answer, ModifiedBy);
 

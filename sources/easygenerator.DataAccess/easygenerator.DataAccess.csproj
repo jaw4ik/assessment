@@ -157,6 +157,14 @@
     <Compile Include="Migrations\201407171252080_AddSingleSelectImage.Designer.cs">
       <DependentUpon>201407171252080_AddSingleSelectImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407190942269_UpdateSingleSelectImage.cs" />
+    <Compile Include="Migrations\201407190942269_UpdateSingleSelectImage.Designer.cs">
+      <DependentUpon>201407190942269_UpdateSingleSelectImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407191117364_UpdateSingleSelectImageAnswer.cs" />
+    <Compile Include="Migrations\201407191117364_UpdateSingleSelectImageAnswer.Designer.cs">
+      <DependentUpon>201407191117364_UpdateSingleSelectImageAnswer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -263,6 +271,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201407171252080_AddSingleSelectImage.resx">
       <DependentUpon>201407171252080_AddSingleSelectImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407190942269_UpdateSingleSelectImage.resx">
+      <DependentUpon>201407190942269_UpdateSingleSelectImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407191117364_UpdateSingleSelectImageAnswer.resx">
+      <DependentUpon>201407191117364_UpdateSingleSelectImageAnswer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

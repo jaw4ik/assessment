@@ -433,5 +433,34 @@
             });
 
         });
+
+        describe('canRemoveAnswer:', function () {
+            it('should be computed', function() {
+                expect(viewModel.canRemoveAnswer).toBeComputed();
+            });
+
+            describe('when answers count > 2', function() {
+                beforeEach(function () {
+                    viewModel.answers.push({});
+                    viewModel.answers.push({});
+                    viewModel.answers.push({});
+                });
+
+                it('should be true', function() {
+                    expect(viewModel.canRemoveAnswer()).toBeTruthy();
+                });
+            });
+
+            describe('when answers count <= 2', function () {
+                beforeEach(function () {
+                    viewModel.answers([]);
+                    viewModel.answers.push({});
+                });
+
+                it('should be true', function () {
+                    expect(viewModel.canRemoveAnswer()).toBeFalsy();
+                });
+            });
+        });
     });
 });

@@ -28,7 +28,6 @@ namespace easygenerator.Web.Controllers.Api
             _entityMapper = entityMapper;
         }
 
-
         [EntityCollaborator(typeof(Objective))]
         [Route("api/question/" + Question.QuestionTypes.SingleSelectImage + "/create")]
         public ActionResult Create(Objective objective, string title)
@@ -39,6 +38,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var question = _entityFactory.SingleSelectImageQuestion(title, GetCurrentUsername());
+            SetInitialiData(question);
 
             objective.AddQuestion(question, GetCurrentUsername());
             _eventPublisher.Publish(new QuestionCreatedEvent(question));
@@ -84,7 +84,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/question/" + Question.QuestionTypes.SingleSelectImage + "/answer/delete")]
         public ActionResult DeleteAnswer(SingleSelectImage question, SingleSelectImageAnswer answer)
         {
-            if (question == null || answer == null)
+            if (question == null || answer == null || question.Answers.Count() <= 2)
             {
                 return BadRequest();
             }
@@ -126,6 +126,13 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess();
         }
 
+        private void SetInitialiData(SingleSelectImage question)
+        {
+            var answer = _entityFactory.SingleSelectImageAnswer(GetCurrentUsername(), DateTimeWrapper.Now());
+            question.AddAnswer(answer, GetCurrentUsername());
+            question.AddAnswer(_entityFactory.SingleSelectImageAnswer(GetCurrentUsername(), DateTimeWrapper.Now().AddSeconds(1)), GetCurrentUsername());
+            question.SetCorrectAnswer(answer, GetCurrentUsername());
+        }
 
     }
 }

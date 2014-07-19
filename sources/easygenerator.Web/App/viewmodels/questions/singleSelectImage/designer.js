@@ -26,6 +26,10 @@
             answers: ko.observableArray()
         };
 
+        viewModel.canRemoveAnswer = ko.computed(function () {
+            return viewModel.answers().length > 2;
+        });
+
         return viewModel;
 
         function activate(questionId) {

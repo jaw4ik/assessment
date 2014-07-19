@@ -815,6 +815,7 @@
     <Content Include="Content\images\info-question.png" />
     <Content Include="Content\images\lamp.png" />
     <Content Include="Content\images\singleselectimage-question.png" />
+    <Content Include="Content\images\singleSelectImageAnwer.png" />
     <Content Include="Content\images\singleselecttext-question.png" />
     <Content Include="Content\images\personalizedLearningTemplate.png" />
     <Content Include="Content\images\question-types.png" />

@@ -18,6 +18,7 @@ namespace easygenerator.DomainModel
         TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy);
         Comment Comment(string text, string createdBy);
         SingleSelectImageAnswer SingleSelectImageAnswer(string image, string createdBy);
+        SingleSelectImageAnswer SingleSelectImageAnswer(string createdBy, DateTime createdOn);
         Answer Answer(string text, bool isCorrect, Guid group, string createdBy);
         Answer Answer(string text, bool isCorrect, Guid group, string createdBy, DateTime createdOn);
         LearningContent LearningContent(string text, string createdBy);
@@ -108,11 +109,16 @@ namespace easygenerator.DomainModel
             return new SingleSelectImageAnswer(image, createdBy);
         }
 
+        public SingleSelectImageAnswer SingleSelectImageAnswer(string createdBy, DateTime createdOn)
+        {
+            return new SingleSelectImageAnswer(createdBy, createdOn);
+        }
+
         public TextMatching TextMatchingQuestion(string title, string createdBy)
         {
             return new TextMatching(title, createdBy);
         }
-        
+
         public TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy)
         {
             return new TextMatchingAnswer(key, value, createdBy);

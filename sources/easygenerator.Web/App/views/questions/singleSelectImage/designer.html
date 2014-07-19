@@ -47,11 +47,13 @@
                                         <span>Browse image</span>
                                     </div>
                                 </div>
+                                <!-- ko if: $parent.canRemoveAnswer() -->
                                 <div class="info-tooltip-holder remove-answer" data-bind="click: $parent.removeAnswer">
                                     <div class="info-tooltip">
                                         <span>Remove answer</span>
                                     </div>
                                 </div>
+                                <!-- /ko -->
                             </div>
                         </li>
                         <!-- /ko -->
