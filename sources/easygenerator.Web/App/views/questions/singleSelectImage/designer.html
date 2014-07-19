@@ -22,12 +22,12 @@
                     <ul class="unstyled">
                         <!-- ko foreach: answers -->
                         <li class="single-select-image-answer">
-                            <div class="single-select-image-answer-image" data-bind="answerImage: image">
+                            <div class="single-select-image-answer-image" data-bind="answerImage: image, css: { 'empty' : _.isNullOrUndefined(image()) }">
                             </div>
                             <div class="question-answer-value-wrapper">
-                                <div class="question-answer-radio question-answer-value info-tooltip-holder" data-bind="click: $parent.setCorrectAnswer ,css: { 'correct' : id === $parent.correctAnswerId() }">
+                                <div class="question-answer-radio question-answer-value info-tooltip-holder" data-bind="click: $parent.setCorrectAnswer, css: { 'correct' : id === $parent.correctAnswerId() }">
                                     <span data-bind="visible: id === $parent.correctAnswerId()" class="answer-correct-icon">&nbsp;</span>
-                                    <div class="info-tooltip question-answer left-side">
+                                    <div class="info-tooltip question-answer">
                                         <!-- ko if: id === $parent.correctAnswerId() -->
                                         <span data-bind="localize: { text: 'correctAnswer' }">
                                             Mark as incorrect
@@ -59,7 +59,6 @@
                         <!-- /ko -->
                         <li>
                             <div class="add-single-select-image-answer" data-bind="click: addAnswer">
-                                Add answer
                             </div>
                         </li>
                     </ul>
