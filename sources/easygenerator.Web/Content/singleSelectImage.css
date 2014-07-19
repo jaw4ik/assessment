@@ -1,0 +1,55 @@
+﻿.single-select-answer-options {
+}
+
+.single-select-image-answer {
+    position: relative;
+}
+
+.single-select-answer-options li {
+    float: left;
+    padding-left: 40px;
+}
+
+.single-select-image-answer-image {
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 3px;
+    cursor: default;
+    height: 150px;
+    width: 150px;
+}
+
+.add-single-select-image-answer {
+    background: #fff;
+    border: 2px dashed #5bc0de;
+    border-radius: 3px;
+    cursor: default;
+    height: 150px;
+    width: 150px;
+}
+
+.single-select-image-actions-wrapper {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+    .single-select-image-actions-wrapper .remove-answer,
+    .single-select-image-actions-wrapper .update-answer-image {
+        border-radius: 3px;
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+    }
+
+    .single-select-image-actions-wrapper .info-tooltip {
+        left: -18px;
+    }
+
+    .single-select-image-actions-wrapper .update-answer-image {
+        background-color: greenyellow;
+    }
+
+    .single-select-image-actions-wrapper .remove-answer {
+        background-color: red;
+    }

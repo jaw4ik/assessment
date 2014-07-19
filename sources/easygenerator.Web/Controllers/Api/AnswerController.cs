@@ -55,13 +55,13 @@ namespace easygenerator.Web.Controllers.Api
             {
                 return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
-            
+
             if (answer != null)
             {
                 question.RemoveAnswer(answer, GetCurrentUsername());
                 _eventPublisher.Publish(new AnswerDeletedEvent(question, answer));
             }
-            
+
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
 
@@ -85,7 +85,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityCollaborator(typeof (Question))]
+        [EntityCollaborator(typeof(Question))]
         [Route("api/answer/singleselecttext/changecorrectanswer")]
         public ActionResult SingleSelectTextChangeCorrectAnswer(SingleSelectText question, Answer answer)
         {

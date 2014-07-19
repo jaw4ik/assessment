@@ -169,6 +169,12 @@
 
             'viewmodels/questions/singleSelectImage/singleSelectImage.spec',
             'viewmodels/questions/singleSelectImage/designer.spec',
+            'viewmodels/questions/singleSelectImage/answer.spec',
+            'viewmodels/questions/singleSelectImage/commands/addAnswer.spec',
+            'viewmodels/questions/singleSelectImage/commands/removeAnswer.spec',
+            'viewmodels/questions/singleSelectImage/commands/setCorrectAnswer.spec',
+            'viewmodels/questions/singleSelectImage/commands/updateAnswerImage.spec',
+            'viewmodels/questions/singleSelectImage/queries/getQuestionContentById.spec',
 
             'viewmodels/questions/textMatching/textMatching.spec',
             'viewmodels/questions/textMatching/textMatchingAnswer.spec',

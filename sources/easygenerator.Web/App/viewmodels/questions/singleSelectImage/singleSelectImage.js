@@ -17,7 +17,7 @@
             viewModel.objectiveId = objectiveId;
             viewModel.questionId = question.id;
 
-            return Q.fcall(function () {
+            return designer.activate(question.id).then(function () {
                 return {
                     viewCaption: localizationManager.localize('singleSelectImageEditor'),
                     isQuestionContentNeeded: true

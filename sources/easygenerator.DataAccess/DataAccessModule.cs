@@ -36,6 +36,12 @@ namespace easygenerator.DataAccess
             builder.RegisterType<QuerableRepository<SingleSelectText>>()
                 .As<IQuerableRepository<SingleSelectText>>();
 
+            builder.RegisterType<QuerableRepository<SingleSelectImage>>()
+              .As<IQuerableRepository<SingleSelectImage>>();
+
+            builder.RegisterType<QuerableRepository<SingleSelectImageAnswer>>()
+              .As<IQuerableRepository<SingleSelectImageAnswer>>();
+
             builder.RegisterType<QuerableRepository<Multipleselect>>()
                 .As<IQuerableRepository<Multipleselect>>();
 

@@ -690,9 +690,34 @@
     <Content Include="App\viewmodels\questions\fillInTheBlank\fillInTheBlank.spec.js">
       <DependentUpon>fillInTheBlank.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\singleSelectImage\answer.js" />
+    <Content Include="App\viewmodels\questions\singleSelectImage\answer.spec.js">
+      <DependentUpon>answer.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\singleSelectImage\bindingHandlers\answerImageBindingHandler.js" />
+    <Content Include="App\viewmodels\questions\singleSelectImage\commands\addAnswer.js" />
+    <Content Include="App\viewmodels\questions\singleSelectImage\commands\addAnswer.spec.js">
+      <DependentUpon>addAnswer.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\singleSelectImage\commands\removeAnswer.js" />
+    <Content Include="App\viewmodels\questions\singleSelectImage\commands\removeAnswer.spec.js">
+      <DependentUpon>removeAnswer.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\singleSelectImage\commands\setCorrectAnswer.js" />
+    <Content Include="App\viewmodels\questions\singleSelectImage\commands\setCorrectAnswer.spec.js">
+      <DependentUpon>setCorrectAnswer.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\singleSelectImage\commands\updateAnswerImage.js" />
+    <Content Include="App\viewmodels\questions\singleSelectImage\commands\updateAnswerImage.spec.js">
+      <DependentUpon>updateAnswerImage.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\questions\singleSelectImage\designer.js" />
     <Content Include="App\viewmodels\questions\singleSelectImage\designer.spec.js">
       <DependentUpon>designer.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\singleSelectImage\queries\getQuestionContentById.js" />
+    <Content Include="App\viewmodels\questions\singleSelectImage\queries\getQuestionContentById.spec.js">
+      <DependentUpon>getQuestionContentById.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\questions\singleSelectImage\singleSelectImage.js" />
     <Content Include="App\viewmodels\questions\singleSelectImage\singleSelectImage.spec.js">
@@ -794,6 +819,7 @@
     <Content Include="Content\images\personalizedLearningTemplate.png" />
     <Content Include="Content\images\question-types.png" />
     <Content Include="Content\images\textmatching-question.png" />
+    <Content Include="Content\singleSelectImage.css" />
     <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\ForgotPasswordTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\HttpRequestFailedTemplate.cshtml" />

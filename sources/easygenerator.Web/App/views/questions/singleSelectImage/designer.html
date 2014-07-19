@@ -17,6 +17,52 @@
     </div>
     <div class="content-section-wrapper answer-options" data-bind="visible: isExpanded">
         <div class="question-answer-options-area">
+            <div class="content-section">
+                <div class="single-select-answer-options">
+                    <ul class="unstyled">
+                        <!-- ko foreach: answers -->
+                        <li class="single-select-image-answer">
+                            <div class="single-select-image-answer-image" data-bind="answerImage: image">
+                            </div>
+                            <div class="question-answer-value-wrapper">
+                                <div class="question-answer-radio question-answer-value info-tooltip-holder" data-bind="click: $parent.setCorrectAnswer ,css: { 'correct' : id === $parent.correctAnswerId() }">
+                                    <span data-bind="visible: id === $parent.correctAnswerId()" class="answer-correct-icon">&nbsp;</span>
+                                    <div class="info-tooltip question-answer left-side">
+                                        <!-- ko if: id === $parent.correctAnswerId() -->
+                                        <span data-bind="localize: { text: 'correctAnswer' }">
+                                            Mark as incorrect
+                                        </span>
+                                        <!-- /ko -->
+                                        <!-- ko ifnot: id === $parent.correctAnswerId() -->
+                                        <span data-bind="localize: { text: 'incorrectAnswer' }">
+                                            Mark as correct
+                                        </span>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-select-image-actions-wrapper">
+                                <div class="info-tooltip-holder update-answer-image" data-bind="click: $parent.updateAnswerImage">
+                                    <div class="info-tooltip">
+                                        <span>Browse image</span>
+                                    </div>
+                                </div>
+                                <div class="info-tooltip-holder remove-answer" data-bind="click: $parent.removeAnswer">
+                                    <div class="info-tooltip">
+                                        <span>Remove answer</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- /ko -->
+                        <li>
+                            <div class="add-single-select-image-answer" data-bind="click: addAnswer">
+                                Add answer
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </section>
