@@ -302,7 +302,7 @@
 
             var dfd,
                 id = 'id',
-                answer = { id: id };
+                answer = { id: ko.observable(id) };
 
             beforeEach(function () {
                 dfd = Q.defer();
@@ -316,7 +316,7 @@
 
             describe('when answer is correct', function () {
                 beforeEach(function () {
-                    viewModel.correctAnswerId(answer.id);
+                    viewModel.correctAnswerId(answer.id());
                 });
 
                 it('should not publish \'Change answer option correctness (single select image)', function () {
@@ -357,7 +357,7 @@
                         viewModel.setCorrectAnswer(answer);
 
                         dfd.promise.then(function () {
-                            expect(viewModel.correctAnswerId()).toBe(answer.id);
+                            expect(viewModel.correctAnswerId()).toBe(answer.id());
                             done();
                         });
                     });

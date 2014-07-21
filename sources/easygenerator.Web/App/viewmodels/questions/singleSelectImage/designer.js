@@ -121,12 +121,12 @@
         }
 
         function setCorrectAnswer(answer) {
-            if (answer.id === viewModel.correctAnswerId())
+            if (answer.id() === viewModel.correctAnswerId())
                 return;
 
             eventTracker.publish(events.changeAnswerOptionCorrectness);
-            setCorrectAnswerCommand.execute(self.questionId, answer.id).then(function () {
-                viewModel.correctAnswerId(answer.id);
+            setCorrectAnswerCommand.execute(self.questionId, answer.id()).then(function () {
+                viewModel.correctAnswerId(answer.id());
                 notify.saved();
             });
         }
