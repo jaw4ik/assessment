@@ -79,9 +79,9 @@
                 },
                 success: function (url) {
                     addAnswerCommand.execute(self.questionId, url).then(function (id) {
-                        answerToAdd.isImageUploading(false);
                         answerToAdd.id(id);
                         answerToAdd.image(url);
+                        answerToAdd.isImageUploading(false);
                         notify.saved();
                     });
                 },
@@ -109,8 +109,8 @@
                 },
                 success: function (url) {
                     updateAnswerImageCommand.execute(answer.id, url).then(function () {
-                        answer.isImageUploading(false);
                         answer.image(url);
+                        answer.isImageUploading(false);
                         notify.saved();
                     });
                 },

@@ -112,7 +112,7 @@
     renewMyPlan: {
         en: 'Renew my plan'
     },
-    browseImage: {
+    changeBackgroundImage: {
         en: 'Change background image'
     },
     imageSizeIsTooLarge: {
@@ -642,6 +642,18 @@
     },
     answersTitle: {
         en: 'Answers'
+    },
+    addImage: {
+        en: 'Add image'
+    },
+    removeAnswer: {
+        en: 'Remove answer'
+    },
+    processing: {
+        en: 'processing...'
+    },
+    browseImage: {
+        en: 'Browse image'
     },
     /* End resource section for model Questions */
     

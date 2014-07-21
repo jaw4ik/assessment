@@ -23,20 +23,20 @@
                     <li class="single-select-image-answer">
                         <div class="single-select-image-answer-image" data-bind="answerImage: { answer: $data, onload: $parent.answerImageLoaded }, css: { 'empty' : !hasImage() && !isLoading(), loading: isLoading() }">
                             <!-- ko if: isLoading -->
-                            <span class="single-select-image-loader-text" data-bind="localize: { text: 'loadingImage' }">loading image...</span>
+                            <span class="single-select-image-loader-text" data-bind="localize: { text: 'processing' }"></span>
                             <!-- /ko -->
                             <!-- ko ifnot: isLoading -->
                             <!-- ko if: hasImage -->
                             <div class="single-select-image-actions-wrapper">
                                 <div class="info-tooltip-holder update-answer-image" data-bind="click: $parent.updateAnswerImage">
                                     <div class="info-tooltip">
-                                        <span>Browse image</span>
+                                        <span data-bind="localize: { text: 'browseImage' }"></span>
                                     </div>
                                 </div>
                                 <!-- ko if: $parent.canRemoveAnswer() -->
                                 <div class="info-tooltip-holder remove-answer" data-bind="click: $parent.removeAnswer">
                                     <div class="info-tooltip">
-                                        <span>Remove answer</span>
+                                        <span data-bind="localize: { text: 'removeAnswer' }"></span>
                                     </div>
                                 </div>
                                 <!-- /ko -->
@@ -45,8 +45,7 @@
                             <!-- /ko -->
                             <!-- ko ifnot: hasImage -->
                             <div class="single-select-image-browse-action-wrapper" data-bind="click: $parent.updateAnswerImage">
-                                <div class="single-select-image-browse-action">
-                                    Add image
+                                <div class="single-select-image-browse-action" data-bind="localize: { text: 'addImage' }">
                                 </div>
                             </div>
                             <!-- /ko -->
