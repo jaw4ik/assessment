@@ -14,7 +14,6 @@ using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    [PlusAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
     public class SingleSelectImageController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
@@ -30,6 +29,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [EntityCollaborator(typeof(Objective))]
         [Route("api/question/" + Question.QuestionTypes.SingleSelectImage + "/create")]
+        [PlusAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
         public ActionResult Create(Objective objective, string title)
         {
             if (objective == null)

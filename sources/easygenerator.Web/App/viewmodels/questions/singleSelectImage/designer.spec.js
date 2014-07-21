@@ -12,7 +12,7 @@
         setCorrectAnswerCommand = require('viewmodels/questions/singleSelectImage/commands/setCorrectAnswer'),
         removeAnswerCommand = require('viewmodels/questions/singleSelectImage/commands/removeAnswer');
 
-    describe('question [designer]', function () {
+    describe('question single select image [designer]', function () {
 
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
@@ -121,7 +121,7 @@
                     expect(addAnswerCommand.execute).toHaveBeenCalled();
                 });
 
-                describe('and add add answer command is executed', function () {
+                describe('and add answer command is executed', function () {
 
                     beforeEach(function (done) {
                         viewModel.answers([]);
@@ -129,7 +129,7 @@
                         done();
                     });
 
-                    it('should set isImageUploading to false', function () {
+                    it('should set isImageUploading to false', function (done) {
                         viewModel.addAnswer();
 
                         dfd.promise.then(function () {
