@@ -15,8 +15,10 @@
 }
 
     .single-select-image-answer .question-answer-value-wrapper {
-        padding-top: 5px;
         display: inline-block;
+        vertical-align: top;
+        width: 30px;
+        padding-top: 5px;
     }
 
 .single-select-image-answer-image {
@@ -81,7 +83,8 @@
 }
 
     .add-single-select-image-answer:hover {
-        border-style: solid;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAjCAYAAADxG9hnAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Mzk2OEEzQzExMEM5MTFFNDhDMTU5RDVGQUE2OUVEMzIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Mzk2OEEzQzIxMEM5MTFFNDhDMTU5RDVGQUE2OUVEMzIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozOTY4QTNCRjEwQzkxMUU0OEMxNTlENUZBQTY5RUQzMiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozOTY4QTNDMDEwQzkxMUU0OEMxNTlENUZBQTY5RUQzMiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PkswwJkAAACCSURBVHjaYvSZv4OBTLAbh7grKYZsTnAH0ywM5AMXBioCJoZBAkYdMuqQUYeMOmTUIcPWIaBKLw2IBaloZjkpin0X7ARR70EOCaVyTdpBhp49o2lk1CHE5JqzVG4q7iHDrLMgh1SQ6ZD/1Gw8j6aRUYeMOmTUIaMOGXXIiHEIQIABADV1D6F6EQLwAAAAAElFTkSuQmCC);
+        border: 2px solid #4c9fb8;
     }
 
 .single-select-image-actions-wrapper {
@@ -95,11 +98,19 @@
     .single-select-image-actions-wrapper .update-answer-image {
         display: inline-block;
         vertical-align: top;
-        height: 20px;
+        height: 21px;
         width: 20px;
+        background-color: #0c0c0c;
+        background-image: url(images/sprites_16.png);
+        background-repeat: no-repeat;
         border-radius: 3px;
         cursor: pointer;
     }
+
+        .single-select-image-actions-wrapper .remove-answer:hover,
+        .single-select-image-actions-wrapper .update-answer-image:hover {
+            background-color: black;
+        }
 
     .single-select-image-actions-wrapper .info-tooltip {
         width: 100px;
@@ -107,11 +118,11 @@
     }
 
     .single-select-image-actions-wrapper .update-answer-image {
-        background-color: greenyellow;
+        background-position: -61px -39px;
     }
 
     .single-select-image-actions-wrapper .remove-answer {
-        background-color: red;
+        background-position: -82px -39px;
     }
 
 .single-select-image-browse-action-wrapper {
