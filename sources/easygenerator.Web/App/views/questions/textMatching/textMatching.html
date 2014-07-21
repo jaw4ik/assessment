@@ -40,15 +40,21 @@
                     <!-- ko foreach: answers -->
                     <li class="answer-option-item">
                         <div class="answer-options-list-item">
-                            <div class="question-answer-text-wrapper" data-bind="css: { active: key.isEditing()}">
+                            <div class="question-answer-text-wrapper" data-bind="css: { active: key.isEditing(), error: key().trim().length > '255' }">
                                 <div class="question-answer-text">
                                     <textarea class="editarea-editable-text selectable" data-bind="value: key, valueUpdate: 'afterkeydown', editableText: { text: key, multiline: true }, event: { focus: key.beginEditText, blur: key.endEditText }"></textarea>
                                 </div>
+                                <div class="chars-counter" data-bind="css: { error: key().trim().length > '255' }">
+                                    <span data-bind="text: key().trim().length"></span>/<span>255</span>
+                                </div>
                             </div>
-                            <div class="question-answer-text-wrapper" data-bind="css: { active: value.isEditing()}">
+                            <div class="question-answer-text-wrapper" data-bind="css: { active: value.isEditing(), error: value().trim().length > '255'}">
                                 <div class="puzzle-item"></div>
                                 <div class="question-answer-text">
                                     <textarea class="editarea-editable-text selectable" data-bind="value: value, valueUpdate: 'afterkeydown', editableText: { text: value, multiline: true }, event: { focus: value.beginEditText, blur: value.endEditText }"></textarea>
+                                </div>
+                                <div class="chars-counter" data-bind="css: { error: value().trim().length > '255' }">
+                                    <span data-bind="text: value().trim().length"></span>/<span>255</span>
                                 </div>
                             </div>
                             <div class="question-answer-delete-wrapper">

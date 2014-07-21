@@ -380,6 +380,7 @@
 .answer-options-list-item {
     display: table;
     table-layout: fixed;
+    height: 50px;
     width: 100%;
 }
 
@@ -965,6 +966,9 @@
             display: none;
         }
 
+.text-matching .question-answer-text {
+    height: 100%;
+}
 
 .text-matching .editarea-editable-text {
     padding: 10px 25px;
@@ -999,6 +1003,21 @@
     position: absolute;
     right: -2px;
     top: 3px;
+}
+
+.question-answer-text-wrapper.active .chars-counter {
+    display: block;
+    background-color: #5bc0de;
+}
+
+.text-matching .question-answer-text-wrapper.error,
+.text-matching .question-answer-text-wrapper.error .puzzle-item,
+.text-matching .question-answer-text-wrapper.error + .question-answer-text-wrapper .puzzle-item {
+    border-color: #f35958;
+}
+
+.question-answer-text-wrapper.error .chars-counter {
+    background-color: #f35958;
 }
 
 /*#endregion Text Matching*/
