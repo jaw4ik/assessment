@@ -380,7 +380,7 @@
 .answer-options-list-item {
     display: table;
     table-layout: fixed;
-    height: 50px;
+    height: 30px;
     width: 100%;
 }
 
