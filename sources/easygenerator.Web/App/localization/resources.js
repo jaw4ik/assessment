@@ -508,6 +508,9 @@
     informationContentTitle: {
         en: 'Title'
     },
+    loadingImage: {
+        en: 'Loading image...'
+    },
     /* End resource section for model Question */
     
     /* Resource section for model Questions */
