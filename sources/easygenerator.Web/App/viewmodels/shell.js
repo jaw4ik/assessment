@@ -102,9 +102,7 @@
                         }
                     };
 
-                    router.on('router:route:activating').then(function () {
-                        viewModel.isViewReady(false);
-
+                    router.on('router:navigation:composition-complete').then(function () {
                         var activeModuleId = router.routeData().moduleName;
                         var hasCourseId = router.routeData().courseId != null;
 
@@ -113,6 +111,10 @@
 
                         viewModel.navigation()[0].isPartOfModules(_.contains(coursesModules, activeModuleId) || hasCourseId);
                         viewModel.navigation()[1].isPartOfModules(_.contains(objectivesModules, activeModuleId) && !hasCourseId);
+                    });
+
+                    router.on('router:route:activating').then(function () {
+                        viewModel.isViewReady(false);
                     });
 
                     viewModel.navigation([
