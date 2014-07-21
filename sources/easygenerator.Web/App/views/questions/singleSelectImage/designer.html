@@ -22,7 +22,30 @@
                     <ul class="unstyled">
                         <!-- ko foreach: answers -->
                         <li class="single-select-image-answer">
-                            <div class="single-select-image-answer-image" data-bind="answerImage: image, css: { 'empty' : _.isNullOrUndefined(image()) }">
+                            <div class="single-select-image-answer-image" data-bind="answerImage: image, css: { 'empty' : !hasImage() }">
+                                <!-- ko if: hasImage -->
+                                <div class="single-select-image-actions-wrapper">
+                                    <div class="info-tooltip-holder update-answer-image" data-bind="click: $parent.updateAnswerImage">
+                                        <div class="info-tooltip">
+                                            <span>Browse image</span>
+                                        </div>
+                                    </div>
+                                    <!-- ko if: $parent.canRemoveAnswer() -->
+                                    <div class="info-tooltip-holder remove-answer" data-bind="click: $parent.removeAnswer">
+                                        <div class="info-tooltip">
+                                            <span>Remove answer</span>
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko ifnot: hasImage -->
+                                <div class="single-select-image-browse-action-wrapper" data-bind="click: $parent.updateAnswerImage">
+                                    <div class="single-select-image-browse-action">
+                                        Add image
+                                    </div>
+                                </div>
+                                <!-- /ko -->
                             </div>
                             <div class="question-answer-value-wrapper">
                                 <div class="question-answer-radio question-answer-value info-tooltip-holder" data-bind="click: $parent.setCorrectAnswer, css: { 'correct' : id === $parent.correctAnswerId() }">
@@ -30,30 +53,14 @@
                                     <div class="info-tooltip question-answer">
                                         <!-- ko if: id === $parent.correctAnswerId() -->
                                         <span data-bind="localize: { text: 'correctAnswer' }">
-                                            Mark as incorrect
                                         </span>
                                         <!-- /ko -->
                                         <!-- ko ifnot: id === $parent.correctAnswerId() -->
                                         <span data-bind="localize: { text: 'incorrectAnswer' }">
-                                            Mark as correct
                                         </span>
                                         <!-- /ko -->
                                     </div>
                                 </div>
-                            </div>
-                            <div class="single-select-image-actions-wrapper">
-                                <div class="info-tooltip-holder update-answer-image" data-bind="click: $parent.updateAnswerImage">
-                                    <div class="info-tooltip">
-                                        <span>Browse image</span>
-                                    </div>
-                                </div>
-                                <!-- ko if: $parent.canRemoveAnswer() -->
-                                <div class="info-tooltip-holder remove-answer" data-bind="click: $parent.removeAnswer">
-                                    <div class="info-tooltip">
-                                        <span>Remove answer</span>
-                                    </div>
-                                </div>
-                                <!-- /ko -->
                             </div>
                         </li>
                         <!-- /ko -->
