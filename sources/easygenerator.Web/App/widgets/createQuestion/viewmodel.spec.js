@@ -101,7 +101,7 @@
 
                     promise.fin(function () {
                         expect(viewModel.questions().length).toBe(7);
-                        expect(viewModel.questions()[0].type).toBe(constants.questionType.infoContent.type);
+                        expect(viewModel.questions()[0].type).toBe(constants.questionType.informationContent.type);
                         expect(viewModel.questions()[1].type).toBe(constants.questionType.singleSelectText.type);
                         expect(viewModel.questions()[2].type).toBe(constants.questionType.multipleSelect.type);
                         expect(viewModel.questions()[3].type).toBe(constants.questionType.singleSelectImage.type);

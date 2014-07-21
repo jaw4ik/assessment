@@ -17,6 +17,7 @@ namespace easygenerator.DomainModel.Entities.Questions
             public const string SingleSelectText = "singleSelectText";
             public const string TextMatching = "textMatching";
             public const string SingleSelectImage = "singleSelectImage";
+            public const string InformationContent = "informationContent";
         }
 
         #endregion

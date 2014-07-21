@@ -1,9 +1,9 @@
 ﻿define(['durandal/app', 'eventTracker', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'ping', 'models/backButton', 'plugins/router',
         'viewmodels/questions/questionTitle', 'viewmodels/common/contentField', 'viewmodels/questions/multipleSelect/multipleSelect',
         'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelectText/singleSelectText', 'viewmodels/questions/textMatching/textMatching',
- 'viewmodels/questions/singleSelectImage/singleSelectImage'],
+ 'viewmodels/questions/singleSelectImage/singleSelectImage', 'viewmodels/questions/informationContent/informationContent'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, vmQuestionTitle, vmContentField,
-        multipleSelect, fillInTheBlank, dragAndDrop, singleSelectText, textMatching, singleSelectImage) {
+        multipleSelect, fillInTheBlank, dragAndDrop, singleSelectText, textMatching, singleSelectImage, informationContent) {
         "use strict";
 
         var events = {
@@ -19,11 +19,13 @@
         var viewmodel = {
             objectiveId: '',
             questionId: '',
+            questionType: '',
 
             viewCaption: null,
             questionTitle: null,
             questionContent: null,
             activeQuestionViewModel: null,
+            isInformationContent: false,
 
             backButtonData: new BackButton({}),
 
@@ -63,6 +65,8 @@
                     return singleSelectImage;
                 case constants.questionType.textMatching.type:
                     return textMatching;
+                case constants.questionType.informationContent.type:
+                    return informationContent;
             }
         }
 
@@ -80,12 +84,12 @@
 
                 return questionRepository.getById(viewmodel.objectiveId, viewmodel.questionId).then(function (question) {
                     viewmodel.activeQuestionViewModel = setActiveViewModel(question);
-
+                    viewmodel.questionType = question.type;
                     return viewmodel.activeQuestionViewModel.initialize(viewmodel.objectiveId, question).then(function (viewModelData) {
                         viewmodel.viewCaption = viewModelData.viewCaption;
 
                         viewmodel.questionTitle = vmQuestionTitle(viewmodel.objectiveId, question);
-
+                        viewmodel.isInformationContent = viewModelData.isInformationContent;
                         if (viewModelData.isQuestionContentNeeded) {
                             viewmodel.questionContent = vmContentField(question.content, eventsForQuestionContent, true, function (content) {
                                 return questionRepository.updateContent(question.id, content);

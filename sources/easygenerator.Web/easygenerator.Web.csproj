@@ -197,6 +197,7 @@
     <Compile Include="BuildCourse\PackageModel\DragAndDropTextPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\DropspotPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\FillInTheBlanksPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\InformationContentPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\LearningContentPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\SingleSelectImageAnswerPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\SingleSelectImagePackageModel.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
     <Compile Include="Controllers\Api\FillInTheBlanksController.cs" />
     <Compile Include="Controllers\Api\SingleSelectImageController.cs" />
+    <Compile Include="Controllers\Api\InformationContentController.cs" />
     <Compile Include="Controllers\Api\SingleSelectTextController.cs" />
     <Compile Include="Controllers\Api\MultipleselectController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
@@ -690,6 +692,7 @@
     <Content Include="App\viewmodels\questions\fillInTheBlank\fillInTheBlank.spec.js">
       <DependentUpon>fillInTheBlank.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\informationContent\informationContent.js" />
     <Content Include="App\viewmodels\questions\singleSelectImage\answer.js" />
     <Content Include="App\viewmodels\questions\singleSelectImage\answer.spec.js">
       <DependentUpon>answer.js</DependentUpon>

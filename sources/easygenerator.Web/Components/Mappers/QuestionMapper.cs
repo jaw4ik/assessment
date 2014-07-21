@@ -50,6 +50,10 @@ namespace easygenerator.Web.Components.Mappers
             {
                 return Question.QuestionTypes.TextMatching;
             }
+            if (questionType == typeof (InformationContent))
+            {
+                return Question.QuestionTypes.InformationContent;
+            }
 
             throw new NotSupportedException();
         }

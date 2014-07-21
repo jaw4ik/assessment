@@ -5,7 +5,7 @@
             execute: function (objectiveId, courseId, questionType, eventCategory) {
                 sendActualEvent(questionType, eventCategory);
                 uiLocker.lock();
-                return questionRepository.addQuestion(objectiveId, { title: localizationManager.localize('newQuestionTitle') }, questionType).then(function (question) {
+                return questionRepository.addQuestion(objectiveId, { title: getActualQuestionName(questionType) }, questionType).then(function (question) {
                     clientContext.set('lastCreatedQuestionId', question.id);
                     uiLocker.unlock();
 
@@ -34,10 +34,20 @@
                 case constants.questionType.singleSelectImage.type:
                     eventTracker.publish('Create new question (single select image)', eventCategory);
                     break;
+                case constants.questionType.informationContent.type:
+                    eventTracker.publish('Create new information content', 'Information');
+                    break;
                 case constants.questionType.textMatching.type:
                     eventTracker.publish('Create new question (text matching)', eventCategory);
                     break;
             }
+        }
+
+        function getActualQuestionName(questionType) {
+            if (questionType === constants.questionType.informationContent.type) {
+                return localizationManager.localize('newInformationContentTitle');
+            }
+            return localizationManager.localize('newQuestionTitle');
         }
 
     }

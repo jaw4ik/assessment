@@ -48,7 +48,11 @@
                             return;
                         }
 
-                        eventTracker.publish(events.updateQuestionTitle);
+                        if (response.type === constants.questionType.informationContent.type) {
+                            eventTracker.publish(events.updateQuestionTitle, 'Information');
+                        } else {
+                            eventTracker.publish(events.updateQuestionTitle);
+                        }
 
                         if (text.isValid()) {
                             questionRepository.updateTitle(questionId, text()).then(function () {

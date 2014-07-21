@@ -251,6 +251,8 @@
                     return constants.questionType.textMatching.image;
                 case constants.questionType.singleSelectImage.type:
                     return constants.questionType.singleSelectImage.image;
+                case constants.questionType.informationContent.type:
+                    return constants.questionType.informationContent.image;
             }
         }
 

@@ -25,8 +25,8 @@
                     type: 'singleSelectText',
                     image: '/Content/images/singleselecttext-question.png'
                 },
-                infoContent: {
-                    type: 'infoContent',
+                informationContent: {
+                    type: 'informationContent',
                     image: '/Content/images/info-question.png'
                 },
                 singleSelectImage: {

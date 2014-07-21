@@ -90,6 +90,15 @@
                     });
 
                 });
+
+                describe('and when question type is informationContent', function () {
+
+                    it('should send event \'Create new information content\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.informationContent.type);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new information content', 'Information');
+                    });
+
+                });
             });
 
             describe('when event category is undefined', function () {
@@ -138,6 +147,15 @@
                     });
 
                 });
+
+                describe('when question type is informationContent', function () {
+
+                    it('should send event \'Create new information content\' with \'Information\' category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.informationContent.type);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new information content', 'Information');
+                    });
+
+                });
             });
 
             it('should lock content', function () {
@@ -171,6 +189,16 @@
                     spyOn(localizationManager, 'localize').and.returnValue('title');
                     command.execute('objectiveId', 'title', constants.questionType.singleSelectText.type);
                     expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.singleSelectText.type);
+                });
+
+            });
+
+            describe('when question type is informationContent', function () {
+
+                it('should add question to repository', function () {
+                    spyOn(localizationManager, 'localize').and.callFake(function(arg) { return arg === 'newInformationContentTitle' ? 'Information' :''; });
+                    command.execute('objectiveId', 'Information', constants.questionType.informationContent.type);
+                    expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'Information' }, constants.questionType.informationContent.type);
                 });
 
             });

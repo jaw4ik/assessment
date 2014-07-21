@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Questions\InformationContent.cs" />
     <Compile Include="Entities\Questions\SingleSelectImageAnswer.cs" />
     <Compile Include="Entities\Questions\SingleSelectImage.cs" />
     <Compile Include="Entities\Questions\SingleSelectText.cs" />

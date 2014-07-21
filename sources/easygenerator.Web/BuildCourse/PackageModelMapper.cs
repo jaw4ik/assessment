@@ -64,6 +64,10 @@ namespace easygenerator.Web.BuildCourse
             {
                 return MapSingleSelectImage(question as SingleSelectImage);
             }
+            if (questionType == typeof(InformationContent))
+            {
+                return MapInformationContent(question as InformationContent);
+            }
 
             throw new NotSupportedException();
         }
@@ -75,6 +79,11 @@ namespace easygenerator.Web.BuildCourse
                 model.Answers = question.Answers.Select(MapSingleSelectImageAnswer).ToList();
                 model.CorrectAnswerId = question.CorrectAnswer == null ? null : question.CorrectAnswer.Id.ToNString();
             });
+        }
+
+        private InformationContentPackageModel MapInformationContent(InformationContent question)
+        {
+            return MapQuestion<InformationContentPackageModel>(question);
         }
 
         private TextMatchingPackageModel MapTextMatching(TextMatching question)
@@ -118,12 +127,15 @@ namespace easygenerator.Web.BuildCourse
             });
         }
 
-        private T MapQuestion<T>(Question question, Action<T> updateQuestionModel)
+        private T MapQuestion<T>(Question question, Action<T> updateQuestionModel = null)
             where T : QuestionPackageModel, new()
         {
             var model = new T();
             MapQuestionProperties(model, question);
-            updateQuestionModel(model);
+            if (updateQuestionModel != null)
+            {
+                updateQuestionModel(model);
+            }
 
             return model;
         }

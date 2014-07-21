@@ -25,6 +25,7 @@ namespace easygenerator.DomainModel
         User User(string email, string password, string firstname, string lastname, string phone, string organization, string country, string createdBy);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
+        InformationContent InformationContent(string title, string createdBy);
     }
 
     public class EntityFactory : IEntityFactory
@@ -122,6 +123,11 @@ namespace easygenerator.DomainModel
         public TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy)
         {
             return new TextMatchingAnswer(key, value, createdBy);
+        }
+
+        public InformationContent InformationContent(string title, string createdBy)
+        {
+            return new InformationContent(title, createdBy);
         }
     }
 }

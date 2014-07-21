@@ -13,6 +13,7 @@
             autosaveInterval: constants.autosaveTimersInterval.learningContent,
             learningContents: ko.observableArray([]),
             questionId: null,
+            questionType: null,
 
             addLearningContent: addLearningContent,
             removeLearningContent: removeLearningContent,
@@ -32,8 +33,8 @@
         };
 
         viewModel.canAddLearningContent = ko.computed({
-            read: function() {
-                return !_.some(viewModel.learningContents(), function(item) {
+            read: function () {
+                return !_.some(viewModel.learningContents(), function (item) {
                     return _.isEmptyOrWhitespace(ko.unwrap(item.id));
                 });
             },
@@ -47,12 +48,12 @@
         return viewModel;
 
         function addLearningContent() {
-            eventTracker.publish(events.addLearningContent);
+            publishActualEvent(events.addLearningContent);
             doAddLearningContent();
         }
 
         function removeLearningContent(learningContent) {
-            eventTracker.publish(events.deleteLearningContent);
+            publishActualEvent(events.deleteLearningContent);
 
             if (!_.isNullOrUndefined(learningContent.isDeleted) && learningContent.isDeleted) {
                 viewModel.learningContents.remove(learningContent);
@@ -68,11 +69,11 @@
         }
 
         function beginEditText() {
-            eventTracker.publish(events.beginEditText);
+            publishActualEvent(events.beginEditText);
         }
 
         function endEditText(learningContent) {
-            eventTracker.publish(events.endEditText);
+            publishActualEvent(events.endEditText);
 
             if (!_.isNullOrUndefined(learningContent.isDeleted) && learningContent.isDeleted) {
                 viewModel.learningContents.remove(learningContent);
@@ -195,15 +196,27 @@
             notify.saved();
         }
 
-        function activate(questionId) {
+        function publishActualEvent(event) {
+            if (viewModel.questionType === constants.questionType.informationContent.type) {
+                eventTracker.publish(event, 'Information');
+            } else {
+                eventTracker.publish(event);
+            }
+        }
+
+        function activate(activationData) {
+            var questionId = activationData.questionId;
+            var questionType = activationData.questionType;
+
             return repository.getCollection(questionId).then(function (learningContentsList) {
                 viewModel.questionId = questionId;
+                viewModel.questionType = questionType;
                 viewModel.learningContents([]);
                 viewModel.isExpanded(true);
 
                 _.each(learningContentsList, doAddLearningContent);
             });
         }
-    
+
     }
 );

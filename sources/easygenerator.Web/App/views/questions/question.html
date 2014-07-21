@@ -15,7 +15,7 @@
         <div class="content-section">
             <header class="question-view-header" data-bind="css: { 'active' : text.isEditing() }">
                 <div class="expand-collapse-panel expanded">
-                    <span class="expand-collapse-panel-label" data-bind="localize: { text: 'questionTitle'}, css: { error: !text.isValid() }">Question title</span>
+                    <span class="expand-collapse-panel-label" data-bind="localize: { text: $parent.isInformationContent ? 'informationContentTitle' : 'questionTitle'}, css: { error: !text.isValid() }">Question title</span>
                 </div>
                 <div class="edit-field selectable" data-bind="editableText: { text: text, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': text.isEditing(), 'error': !text.isValid() }, autofocus: { focus: isCreatedQuestion, autoselect: isCreatedQuestion }">
                 </div>
@@ -65,9 +65,11 @@
         </div>
     </div>
     <!-- /ko -->
-
-    <!-- ko compose: activeQuestionViewModel --><!-- /ko -->
-    <!-- ko compose: { model: 'viewmodels/questions/feedback', activationData: questionId } --><!-- /ko -->
-    <!-- ko compose: { model: 'viewmodels/questions/learningContents', activationData: questionId } --><!-- /ko -->
+    
+    <!-- ko if: !isInformationContent -->
+        <!-- ko compose: activeQuestionViewModel --><!-- /ko -->
+        <!-- ko compose: { model: 'viewmodels/questions/feedback', activationData: questionId } --><!-- /ko -->
+    <!-- /ko -->
+    <!-- ko compose: { model: 'viewmodels/questions/learningContents', activationData: { questionId: questionId, questionType: questionType } } --><!-- /ko -->
 
 </section>

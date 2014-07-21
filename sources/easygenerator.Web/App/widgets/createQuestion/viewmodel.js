@@ -25,7 +25,7 @@
         return userContext.identify().then(function () {
             viewModel.questions([
                 {
-                    type: constants.questionType.infoContent.type,
+                    type: constants.questionType.informationContent.type,
                     hasAccess: true
                 },
                 {
