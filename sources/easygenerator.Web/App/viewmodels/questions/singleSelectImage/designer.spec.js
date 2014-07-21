@@ -14,7 +14,7 @@
 
     describe('question [designer]', function () {
 
-        beforeEach(function() {
+        beforeEach(function () {
             spyOn(eventTracker, 'publish');
         });
 
@@ -81,36 +81,77 @@
                 expect(imageUpload.upload).toHaveBeenCalled();
             });
 
-            describe('when image was uploaded', function () {
+            describe('when image loading started', function () {
+                beforeEach(function () {
+                    viewModel.answers([]);
+                    spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        spec.startLoading();
+                    });
+                });
+
+                it('should add answer to answers collection', function () {
+                    viewModel.addAnswer();
+                    expect(viewModel.answers().length).toBe(1);
+                });
+
+                it('should set isLoading to true for added answer', function () {
+                    viewModel.addAnswer();
+                    expect(viewModel.answers()[0].isLoading()).toBeTruthy();
+                });
+
+                it('should set isImageUploading to true for added answer', function () {
+                    viewModel.addAnswer();
+                    expect(viewModel.answers()[0].isImageUploading()).toBeTruthy();
+                });
+            });
+
+            describe('when image was uploaded successfully', function () {
 
                 var url = 'http://url.com';
 
                 beforeEach(function () {
                     spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        spec.startLoading();
                         spec.success(url);
                     });
                 });
 
-                it('should execute command to add dropspot', function () {
+                it('should execute command to add answer', function () {
                     viewModel.addAnswer();
                     expect(addAnswerCommand.execute).toHaveBeenCalled();
                 });
 
-                describe('and add dropspot command is executed', function () {
+                describe('and add add answer command is executed', function () {
 
                     beforeEach(function (done) {
+                        viewModel.answers([]);
                         dfd.resolve('id');
                         done();
                     });
 
-                    it('should add answer', function (done) {
-                        viewModel.answers([]);
-
+                    it('should set isImageUploading to false', function () {
                         viewModel.addAnswer();
 
                         dfd.promise.then(function () {
-                            expect(viewModel.answers().length).toEqual(1);
-                            expect(viewModel.answers()[0].id).toEqual('id');
+                            expect(viewModel.answers()[0].isImageUploading()).toBeFalsy();
+                            done();
+                        });
+                    });
+
+                    it('should update answer id', function (done) {
+                        viewModel.addAnswer();
+
+                        dfd.promise.then(function () {
+                            expect(viewModel.answers()[0].id()).toEqual('id');
+                            done();
+                        });
+                    });
+
+                    it('should update answer image', function (done) {
+                        viewModel.addAnswer();
+
+                        dfd.promise.then(function () {
+                            expect(viewModel.answers()[0].image()).toEqual(url);
                             done();
                         });
                     });
@@ -123,6 +164,21 @@
                             done();
                         });
                     });
+                });
+            });
+
+            describe('when failed to upload image', function () {
+                beforeEach(function () {
+                    viewModel.answers([]);
+                    spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        spec.startLoading();
+                        spec.error();
+                    });
+                });
+
+                it('should not add answers to collection', function () {
+                    viewModel.addAnswer();
+                    expect(viewModel.answers().length).toBe(0);
                 });
             });
 
@@ -321,8 +377,7 @@
         describe('updateAnswerImage:', function () {
 
             var dfd,
-                id = 'id',
-                answer = { id: id, image: ko.observable() };
+                answer = { id: ko.observable(), image: ko.observable(), isLoading: ko.observable(), isImageUploading: ko.observable() };
 
             beforeEach(function () {
                 dfd = Q.defer();
@@ -338,6 +393,26 @@
                 spyOn(imageUpload, 'upload');
                 viewModel.updateAnswerImage(answer);
                 expect(imageUpload.upload).toHaveBeenCalled();
+            });
+
+            describe('when image loading started', function () {
+                beforeEach(function () {
+                    spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        spec.startLoading();
+                    });
+                });
+
+                it('should set answer isLoading to true', function () {
+                    answer.isLoading(false);
+                    viewModel.updateAnswerImage(answer);
+                    expect(answer.isLoading()).toBeTruthy();
+                });
+
+                it('should set answer isImageUploading to true', function () {
+                    answer.isImageUploading(false);
+                    viewModel.updateAnswerImage(answer);
+                    expect(answer.isImageUploading()).toBeTruthy();
+                });
             });
 
             describe('when image was uploaded', function () {
@@ -362,6 +437,16 @@
                         done();
                     });
 
+                    it('should set answer isImageUploading to false', function () {
+                        answer.isLoading(true);
+                        viewModel.updateAnswerImage(answer);
+
+                        dfd.promise.then(function () {
+                            expect(answer.isImageUploading()).toBeFalsy();
+                            done();
+                        });
+                    });
+
                     it('should update answer image', function (done) {
                         viewModel.updateAnswerImage(answer);
 
@@ -382,6 +467,19 @@
                 });
             });
 
+            describe('when image loading failed', function () {
+                beforeEach(function () {
+                    spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        spec.error();
+                    });
+                });
+
+                it('should set answer isImageUploading to false', function () {
+                    answer.isLoading(true);
+                    viewModel.updateAnswerImage(answer);
+                    expect(answer.isImageUploading()).toBeFalsy();
+                });
+            });
         });
 
         describe('activate:', function () {

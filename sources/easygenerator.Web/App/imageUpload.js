@@ -1,11 +1,13 @@
-﻿define(['uiLocker', 'notify', 'localization/localizationManager'], function (uiLocker, notify, localizationManager) {
+﻿define(['notify', 'localization/localizationManager'], function (notify, localizationManager) {
 
     return {
         upload: function (options) {
 
             var defaults = {
+                startLoading: function () { },
                 success: function () { },
-                error: function () { }
+                error: function () { },
+                complete: function () { }
             }
 
             var settings = $.extend({}, defaults, options);
@@ -26,7 +28,7 @@
                        $(this).closest('form').ajaxSubmit({
                            global: false,
                            beforeSubmit: function () {
-                               uiLocker.lock();
+                               settings.startLoading();
                            },
                            success: function (response) {
                                try {
@@ -40,7 +42,8 @@
                                    settings.error();
                                }
                                form.remove();
-                               uiLocker.unlock();
+
+                               settings.complete();
                            },
                            error: function (event) {
                                var resourceKey = "responseFailed";
@@ -60,7 +63,8 @@
 
                                settings.error();
                                form.remove();
-                               uiLocker.unlock();
+
+                               settings.complete();
                            }
                        });
                    } else {

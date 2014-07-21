@@ -14,21 +14,37 @@
         describe('initialize:', function () {
             var objectiveId = 'objectiveId';
             var question = { id: 'questionId' };
+            var dfd;
+
+            beforeEach(function () {
+                dfd = Q.defer();
+                spyOn(viewModel.singleSelectImage, 'activate').and.returnValue(dfd.promise);
+            });
 
             it('should return promise', function () {
                 var promise = viewModel.initialize(objectiveId, question);
                 expect(promise).toBePromise();
             });
 
-            it('should initialize field', function () {
-                viewModel.initialize(objectiveId, question);
-                expect(viewModel.objectiveId).toBe(objectiveId);
-                expect(viewModel.questionId).toBe(question.id);
-            });
+            describe('when designer is activated', function () {
+                beforeEach(function (done) {
+                    dfd.resolve();
+                    done();
+                });
 
+                it('should initialize fields', function (done) {
+                    viewModel.initialize(objectiveId, question);
+                    dfd.promise.then(function () {
+                        expect(viewModel.objectiveId).toBe(objectiveId);
+                        expect(viewModel.questionId).toBe(question.id);
+                        done();
+                    });
+                });
+
+            });
         });
 
-        describe('singleSelectImage:', function() {
+        describe('singleSelectImage:', function () {
             it('should be defined', function () {
                 expect(viewModel.singleSelectImage).toBeDefined();
             });

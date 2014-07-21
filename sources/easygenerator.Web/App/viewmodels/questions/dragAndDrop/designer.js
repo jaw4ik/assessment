@@ -10,8 +10,9 @@
     'eventTracker',
 
     'imageUpload',
-    'notify'
-], function (Dropspot, dropspotToAdd, changeBackgroundCommand, addDropspotCommand, removeDropspotCommand, getQuestionContentById, eventTracker, imageUpload, notify) {
+    'notify',
+    'uiLocker'
+], function (Dropspot, dropspotToAdd, changeBackgroundCommand, addDropspotCommand, removeDropspotCommand, getQuestionContentById, eventTracker, imageUpload, notify, uiLocker) {
 
 
     var self = {
@@ -74,11 +75,17 @@
 
     function uploadBackground() {
         imageUpload.upload({
+            startLoading: function () {
+                uiLocker.lock();
+            },
             success: function (url) {
                 changeBackgroundCommand.execute(self.questionId, url);
                 designer.background(url);
                 notify.saved();
                 eventTracker.publish(self.events.changeBackground);
+            },
+            complete: function () {
+                uiLocker.unlock();
             }
         });
     }

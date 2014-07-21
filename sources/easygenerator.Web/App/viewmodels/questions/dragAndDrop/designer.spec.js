@@ -4,6 +4,7 @@
         eventTracker = require('eventTracker'),
         imageUpload = require('imageUpload'),
         notify = require('notify'),
+        uiLocker = require('uiLocker'),
         Dropspot = require('viewmodels/questions/dragAndDrop/dropspot'),
         dropspotToAdd = require('viewmodels/questions/dragAndDrop/dropspotToAdd'),
         changeBackgroundCommand = require('viewmodels/questions/dragAndDrop/commands/changeBackground'),
@@ -119,6 +120,11 @@
 
         describe('uploadBackground:', function () {
 
+            beforeEach(function() {
+                spyOn(uiLocker, 'lock');
+                spyOn(uiLocker, 'unlock');
+            });
+
             it('should be function', function () {
                 expect(designer.uploadBackground).toBeFunction();
             });
@@ -129,7 +135,21 @@
                 expect(imageUpload.upload).toHaveBeenCalled();
             });
 
-            describe('when image was uploaded', function () {
+            describe('when image loading is started', function() {
+
+                beforeEach(function() {
+                    spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        spec.startLoading();
+                    });
+                });
+
+                it('should lock ui', function () {
+                    designer.uploadBackground();
+                    expect(uiLocker.lock).toHaveBeenCalled();
+                });
+            });
+
+            describe('when image upload was successful', function () {
 
                 var url = 'http://xxx.com', dfd;
 
@@ -176,6 +196,20 @@
 
                 });
 
+            });
+
+            describe('when image upload is complete', function () {
+
+                beforeEach(function () {
+                    spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        spec.complete();
+                    });
+                });
+
+                it('should unlock ui', function () {
+                    designer.uploadBackground();
+                    expect(uiLocker.unlock).toHaveBeenCalled();
+                });
             });
 
         });

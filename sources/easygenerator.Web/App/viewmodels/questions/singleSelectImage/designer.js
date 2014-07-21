@@ -31,6 +31,7 @@
             removeAnswer: removeAnswer,
             updateAnswerImage: updateAnswerImage,
             setCorrectAnswer: setCorrectAnswer,
+            answerImageLoaded: answerImageLoaded,
             answers: ko.observableArray()
         };
 
@@ -69,12 +70,23 @@
 
         function addAnswer() {
             eventTracker.publish(events.addAnswerOption);
+            var answerToAdd = new Answer(null, null);
             imageUpload.upload({
+                startLoading: function () {
+                    answerToAdd.isLoading(true);
+                    answerToAdd.isImageUploading(true);
+                    viewModel.answers.push(answerToAdd);
+                },
                 success: function (url) {
                     addAnswerCommand.execute(self.questionId, url).then(function (id) {
-                        viewModel.answers.push(new Answer(id, url));
+                        answerToAdd.isImageUploading(false);
+                        answerToAdd.id(id);
+                        answerToAdd.image(url);
                         notify.saved();
                     });
+                },
+                error: function () {
+                    viewModel.answers.remove(answerToAdd);
                 }
             });
         }
@@ -91,11 +103,19 @@
         function updateAnswerImage(answer) {
             eventTracker.publish(events.updateAnswerOption);
             imageUpload.upload({
+                startLoading: function () {
+                    answer.isLoading(true);
+                    answer.isImageUploading(true);
+                },
                 success: function (url) {
                     updateAnswerImageCommand.execute(answer.id, url).then(function () {
+                        answer.isImageUploading(false);
                         answer.image(url);
                         notify.saved();
                     });
+                },
+                error: function () {
+                    answer.isImageUploading(false);
                 }
             });
         }
@@ -109,6 +129,10 @@
                 viewModel.correctAnswerId(answer.id);
                 notify.saved();
             });
+        }
+
+        function answerImageLoaded(answer) {
+            answer.isLoading(false);
         }
     }
 );

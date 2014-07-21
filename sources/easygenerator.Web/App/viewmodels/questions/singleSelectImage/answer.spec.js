@@ -15,12 +15,22 @@
 
         it('should define id', function () {
             var answer = new ctor(id, image);
-            expect(answer.id).toBeDefined();
+            expect(answer.id).toBeObservable();
         });
 
         it('should define image', function () {
             var answer = new ctor(id, image);
             expect(answer.image).toBeObservable();
+        });
+
+        it('should define isLoading', function () {
+            var answer = new ctor(id, image);
+            expect(answer.isLoading).toBeObservable();
+        });
+
+        it('should define isImageUploading', function () {
+            var answer = new ctor(id, image);
+            expect(answer.isImageUploading).toBeObservable();
         });
 
         describe('hasImage:', function() {
