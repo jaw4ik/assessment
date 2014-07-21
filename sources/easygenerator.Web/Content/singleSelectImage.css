@@ -140,9 +140,9 @@
         background-repeat: no-repeat;
         border-radius: 3px;
         cursor: pointer;
-        -moz-transition: top 0.2s linear;
-        -webkit-transition: top 0.2s linear;
-        transition: top 0.2s linear;
+        -moz-transition: top 0.1s linear;
+        -webkit-transition: top 0.1s linear;
+        transition: top 0.1s linear;
     }
 
         .single-select-image-actions-wrapper .remove-answer:hover,
