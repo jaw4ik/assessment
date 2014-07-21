@@ -4,6 +4,7 @@
     var viewModel = require('viewmodels/questions/singleSelectImage/designer'),
         imageUpload = require('imageUpload'),
         notify = require('notify'),
+        eventTracker = require('eventTracker'),
         Answer = require('viewmodels/questions/singleSelectImage/answer'),
         getQuestionContentById = require('viewmodels/questions/singleSelectImage/queries/getQuestionContentById'),
         addAnswerCommand = require('viewmodels/questions/singleSelectImage/commands/addAnswer'),
@@ -12,6 +13,10 @@
         removeAnswerCommand = require('viewmodels/questions/singleSelectImage/commands/removeAnswer');
 
     describe('question [designer]', function () {
+
+        beforeEach(function() {
+            spyOn(eventTracker, 'publish');
+        });
 
         it('should be defined', function () {
             expect(viewModel).toBeDefined();
@@ -63,6 +68,11 @@
 
             it('should be function', function () {
                 expect(viewModel.addAnswer).toBeFunction();
+            });
+
+            it('should publish \'Add answer option (single select image)\' event', function () {
+                viewModel.addAnswer();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option (single select image)');
             });
 
             it('should upload image', function () {
@@ -132,6 +142,11 @@
 
             it('should be function', function () {
                 expect(viewModel.removeAnswer).toBeFunction();
+            });
+
+            it('should publish \'Delete answer option (single select image)', function () {
+                viewModel.removeAnswer(answer);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option (single select image)');
             });
 
             it('should execute command to remove answer', function () {
@@ -248,6 +263,11 @@
                     viewModel.correctAnswerId(answer.id);
                 });
 
+                it('should not publish \'Change answer option correctness (single select image)', function () {
+                    viewModel.setCorrectAnswer(answer);
+                    expect(eventTracker.publish).not.toHaveBeenCalledWith('Change answer option correctness (single select image)');
+                });
+
                 it('should not execute command to set correct answer', function () {
                     viewModel.setCorrectAnswer(answer);
                     expect(setCorrectAnswerCommand.execute).not.toHaveBeenCalled();
@@ -257,6 +277,11 @@
             describe('when answer is not correct', function () {
                 beforeEach(function () {
                     viewModel.correctAnswerId(null);
+                });
+
+                it('should publish \'Change answer option correctness (single select image)', function () {
+                    viewModel.setCorrectAnswer(answer);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Change answer option correctness (single select image)');
                 });
 
                 it('should execute command to set correct answer', function () {
@@ -435,18 +460,18 @@
         });
 
         describe('canRemoveAnswer:', function () {
-            it('should be computed', function() {
+            it('should be computed', function () {
                 expect(viewModel.canRemoveAnswer).toBeComputed();
             });
 
-            describe('when answers count > 2', function() {
+            describe('when answers count > 2', function () {
                 beforeEach(function () {
                     viewModel.answers.push({});
                     viewModel.answers.push({});
                     viewModel.answers.push({});
                 });
 
-                it('should be true', function() {
+                it('should be true', function () {
                     expect(viewModel.canRemoveAnswer()).toBeTruthy();
                 });
             });

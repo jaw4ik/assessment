@@ -1,13 +1,21 @@
 ﻿define(['imageUpload',
         'notify',
+        'eventTracker',
         'viewmodels/questions/singleSelectImage/answer',
         'viewmodels/questions/singleSelectImage/commands/addAnswer',
         'viewmodels/questions/singleSelectImage/commands/removeAnswer',
         'viewmodels/questions/singleSelectImage/commands/setCorrectAnswer',
         'viewmodels/questions/singleSelectImage/commands/updateAnswerImage',
         'viewmodels/questions/singleSelectImage/queries/getQuestionContentById'],
-    function (imageUpload, notify, Answer, addAnswerCommand, removeAnswerCommand, setCorrectAnswerCommand, updateAnswerImageCommand, getQuestionContentById) {
+    function (imageUpload, notify, eventTracker, Answer, addAnswerCommand, removeAnswerCommand, setCorrectAnswerCommand, updateAnswerImageCommand, getQuestionContentById) {
         "use strict";
+
+        var events = {
+            addAnswerOption: 'Add answer option (single select image)',
+            updateAnswerOption: 'Update answer option (single select image)',
+            deleteAnswerOption: 'Delete answer option (single select image)',
+            changeAnswerOptionCorrectness: 'Change answer option correctness (single select image)'
+        };
 
         var self = {
             questionId: null
@@ -60,6 +68,7 @@
         }
 
         function addAnswer() {
+            eventTracker.publish(events.addAnswerOption);
             imageUpload.upload({
                 success: function (url) {
                     addAnswerCommand.execute(self.questionId, url).then(function (id) {
@@ -71,6 +80,7 @@
         }
 
         function removeAnswer(answer) {
+            eventTracker.publish(events.deleteAnswerOption);
             removeAnswerCommand.execute(self.questionId, answer.id).then(function (data) {
                 viewModel.correctAnswerId(data ? data.correctAnswerId : null);
                 viewModel.answers.remove(answer);
@@ -79,6 +89,7 @@
         }
 
         function updateAnswerImage(answer) {
+            eventTracker.publish(events.updateAnswerOption);
             imageUpload.upload({
                 success: function (url) {
                     updateAnswerImageCommand.execute(answer.id, url).then(function () {
@@ -93,6 +104,7 @@
             if (answer.id === viewModel.correctAnswerId())
                 return;
 
+            eventTracker.publish(events.changeAnswerOptionCorrectness);
             setCorrectAnswerCommand.execute(self.questionId, answer.id).then(function () {
                 viewModel.correctAnswerId(answer.id);
                 notify.saved();
