@@ -50,6 +50,11 @@
                     dragAndDropDropspotTextChanged: questionEventHandler.dragAndDropDropspotTextChanged,
                     dragAndDropDropspotPositionChanged: questionEventHandler.dragAndDropDropspotPositionChanged,
 
+                    textMatchingAnswerCreated: questionEventHandler.textMatchingAnswerCreated,
+                    textMatchingAnswerDeleted: questionEventHandler.textMatchingAnswerDeleted,
+                    textMatchingAnswerKeyChanged: questionEventHandler.textMatchingAnswerKeyChanged,
+                    textMatchingAnswerValueChanged: questionEventHandler.textMatchingAnswerValueChanged,
+
                     answerCreated: answerEventHandler.created,
                     answerDeleted: answerEventHandler.deleted,
                     answerTextUpdated: answerEventHandler.textUpdated,

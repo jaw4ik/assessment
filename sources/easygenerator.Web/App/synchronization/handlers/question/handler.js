@@ -10,7 +10,11 @@
     'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotCreated',
     'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotDeleted',
     'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotTextChanged',
-    'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotPositionChanged'],
+    'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotPositionChanged',
+    'synchronization/handlers/question/eventHandlers/textMatching/answerCreated',
+    'synchronization/handlers/question/eventHandlers/textMatching/answerDeleted',
+    'synchronization/handlers/question/eventHandlers/textMatching/answerKeyChanged',
+    'synchronization/handlers/question/eventHandlers/textMatching/answerValueChanged'],
     function (titleUpdated,
         contentUpdated,
         correctFeedbackUpdated,
@@ -21,7 +25,11 @@
         dragAndDropDropspotCreated, 
         dragAndDropDropspotDeleted,
         dragAndDropDropspotTextChanged,
-        dragAndDropDropspotPositionChanged) {
+        dragAndDropDropspotPositionChanged,
+        textMatchingAnswerCreated,
+        textMatchingAnswerDeleted,
+        textMatchingAnswerKeyChanged,
+        textMatchingAnswerValueChanged) {
         "use strict";
 
         return {
@@ -32,11 +40,17 @@
             created: created,
             deleted: deleted,
             fillInTheBlankUpdated: fillInTheBlankUpdated,
+
             dragAndDropBackgroundChanged: dragAndDropBackgroundChanged,
             dragAndDropDropspotCreated: dragAndDropDropspotCreated,
             dragAndDropDropspotDeleted: dragAndDropDropspotDeleted,
             dragAndDropDropspotTextChanged: dragAndDropDropspotTextChanged,
             dragAndDropDropspotPositionChanged: dragAndDropDropspotPositionChanged,
+
+            textMatchingAnswerCreated: textMatchingAnswerCreated,
+            textMatchingAnswerDeleted: textMatchingAnswerDeleted,
+            textMatchingAnswerKeyChanged: textMatchingAnswerKeyChanged,
+            textMatchingAnswerValueChanged: textMatchingAnswerValueChanged
         };
 
     });

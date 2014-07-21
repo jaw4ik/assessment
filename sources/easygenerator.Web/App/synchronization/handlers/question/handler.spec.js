@@ -62,6 +62,30 @@
                 expect(handler.dragAndDropDropspotPositionChanged).toBeFunction();
             });
         });
+
+        describe('textMatchingAnswerCreated:', function () {
+            it('should be function', function () {
+                expect(handler.textMatchingAnswerCreated).toBeFunction();
+            });
+        });
+
+        describe('textMatchingAnswerDeleted:', function () {
+            it('should be function', function () {
+                expect(handler.textMatchingAnswerDeleted).toBeFunction();
+            });
+        });
+
+        describe('textMatchingAnswerKeyChanged:', function () {
+            it('should be function', function () {
+                expect(handler.textMatchingAnswerKeyChanged).toBeFunction();
+            });
+        });
+
+        describe('textMatchingAnswerValueChanged:', function () {
+            it('should be function', function () {
+                expect(handler.textMatchingAnswerValueChanged).toBeFunction();
+            });
+        });
     });
 
 })

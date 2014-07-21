@@ -95,6 +95,7 @@
     <Compile Include="ObjectMothers\SingleSelectImageObjectMother.cs" />
     <Compile Include="ObjectMothers\SingleSelectTextObjectMother.cs" />
     <Compile Include="ObjectMothers\TemplateObjectMother.cs" />
+    <Compile Include="ObjectMothers\TextMatchingObjectMother.cs" />
     <Compile Include="ObjectMothers\UserObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

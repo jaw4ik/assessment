@@ -78,6 +78,10 @@
         app.on(constants.messages.question.learningContent.createdByCollaborator, questionUpdated);
         app.on(constants.messages.question.learningContent.deletedByCollaborator, questionUpdated);
         app.on(constants.messages.question.learningContent.textUpdatedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.dragAndDrop.dropspotCreatedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.dragAndDrop.dropspotDeletedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.textMatching.answerCreatedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.textMatching.answerDeletedByCollaborator, questionUpdated);
 
         return viewModel;
 

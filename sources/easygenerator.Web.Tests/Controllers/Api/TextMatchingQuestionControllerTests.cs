@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
@@ -222,33 +224,50 @@ namespace easygenerator.Web.Tests.Controllers.Api
             result.Should().BeBadRequestResult();
         }
 
+        [TestMethod]
+        public void DeleteTextMatchingAnswer_ShouldReturnBadRequest_WhenAnswersCountIsMinimal()
+        {
+            //Arrange
+            var question = TextMatchingObjectMother.Create();
+            question.AddAnswer(Substitute.For<TextMatchingAnswer>(), CreatedBy);
+            question.AddAnswer(Substitute.For<TextMatchingAnswer>(), CreatedBy);
+
+            //Act
+            var result = _controller.DeleteAnswer(question, Substitute.For<TextMatchingAnswer>());
+
+            //Assert
+            result.Should().BeBadRequestResult();
+        }
+
 
         [TestMethod]
         public void DeleteTextMatchingAnswer_ShouldRemoveAnswer()
         {
             //Arrange
-            var question = Substitute.For<TextMatching>();
             var answer = Substitute.For<TextMatchingAnswer>();
-
-            const string username = "username";
-            _user.Identity.Name.Returns(username);
-
+            var question = TextMatchingObjectMother.Create();
+            
+            question.AddAnswer(answer, CreatedBy);
+            question.AddAnswer(Substitute.For<TextMatchingAnswer>(), CreatedBy);
+            question.AddAnswer(Substitute.For<TextMatchingAnswer>(), CreatedBy);
+            
             //Act
             _controller.DeleteAnswer(question, answer);
 
             //Assert
-            question.Received().RemoveAnswer(answer, username);
+            question.Answers.Count().Should().Be(2);
         }
 
         [TestMethod]
         public void DeleteTextMatchingAnswer_ShouldPublishDomainEvent()
         {
             //Arrange
-            var question = Substitute.For<TextMatching>();
             var answer = Substitute.For<TextMatchingAnswer>();
+            var question = TextMatchingObjectMother.Create();
 
-            const string username = "username";
-            _user.Identity.Name.Returns(username);
+            question.AddAnswer(answer, CreatedBy);
+            question.AddAnswer(Substitute.For<TextMatchingAnswer>(), CreatedBy);
+            question.AddAnswer(Substitute.For<TextMatchingAnswer>(), CreatedBy);
 
             //Act
             _controller.DeleteAnswer(question, answer);
@@ -261,8 +280,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void DeleteTextMatchingAnswer_ShouldReturnJsonSuccess()
         {
             //Arrange
-            var question = Substitute.For<TextMatching>();
             var answer = Substitute.For<TextMatchingAnswer>();
+            var question = TextMatchingObjectMother.Create();
+
+            question.AddAnswer(answer, CreatedBy);
+            question.AddAnswer(Substitute.For<TextMatchingAnswer>(), CreatedBy);
+            question.AddAnswer(Substitute.For<TextMatchingAnswer>(), CreatedBy);
 
             //Act
             var result = _controller.DeleteAnswer(question, answer);

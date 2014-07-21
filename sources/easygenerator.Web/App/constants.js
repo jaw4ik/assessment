@@ -182,6 +182,13 @@
                         dropspotPositionChangedByCollaborator: 'question:dragAndDrop:dropspotPositionChangedByCollaborator',
                         dropspotTextChangedByCollaborator: 'question:dragAndDrop:dropspotTextChangedByCollaborator',
                         dropspotDeletedByCollaborator: 'question:dragAndDrop:dropspotDeletedByCollaborator'
+                    },
+
+                    textMatching: {
+                        answerCreatedByCollaborator: 'question:textMatching:answerCreatedByCollaborator',
+                        answerDeletedByCollaborator: 'question:textMatching:answerDeletedByCollaborator',
+                        answerKeyChangedByCollaborator: 'question:textMatching:answerKeyChangedByCollaborator',
+                        answerValueChangedByCollaborator: 'question:textMatching:answerValueChangedByCollaborator',
                     }
 
                 },

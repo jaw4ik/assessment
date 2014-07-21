@@ -86,7 +86,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/question/textmatching/answer/delete")]
         public ActionResult DeleteAnswer(TextMatching question, TextMatchingAnswer answer)
         {
-            if (question == null || answer == null)
+            if (question == null || answer == null || question.Answers.Count() <= 2)
             {
                 return BadRequest();
             }

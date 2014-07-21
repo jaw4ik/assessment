@@ -134,21 +134,7 @@
                     });
                 });
             });
-
-            describe('when it is not current question', function() {
-                var dropspot = new Dropspot('id', 'dropspot', 10, 20),
-                    questionId = 'questionId';
-
-                beforeEach(function () {
-                    viewModel.questionId = 'otherId';
-                    designer.dropspots([dropspot]);
-                });
-
-                it('should not update text', function () {
-                    viewModel.dropspotTextChangedByCollaborator(questionId, dropspot.id, 'test');
-                    expect(designer.dropspots()[0].text()).toBe('dropspot');
-                });
-            });
+           
         });
 
         describe('dropspotPositionChangedByCollaborator:', function () {

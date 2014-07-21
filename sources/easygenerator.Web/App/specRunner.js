@@ -95,6 +95,11 @@
             'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotPositionChanged.spec',
             'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotTextChanged.spec',
 
+            'synchronization/handlers/question/eventHandlers/textMatching/answerCreated.spec',
+            'synchronization/handlers/question/eventHandlers/textMatching/answerDeleted.spec',
+            'synchronization/handlers/question/eventHandlers/textMatching/answerKeyChanged.spec',
+            'synchronization/handlers/question/eventHandlers/textMatching/answerValueChanged.spec',
+
             'synchronization/handlers/learningContent/handler.spec',
             'synchronization/handlers/learningContent/eventHandlers/created.spec',
             'synchronization/handlers/learningContent/eventHandlers/deleted.spec',

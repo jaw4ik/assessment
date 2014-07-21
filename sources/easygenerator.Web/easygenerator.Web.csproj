@@ -461,6 +461,22 @@
     <Content Include="App\synchronization\handlers\question\eventHandlers\incorrectFeedbackUpdated.spec.js">
       <DependentUpon>incorrectFeedbackUpdated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\question\eventHandlers\textMatching\answerCreated.js" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\textMatching\answerCreated.spec.js">
+      <DependentUpon>answerCreated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\question\eventHandlers\textMatching\answerDeleted.js" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\textMatching\answerDeleted.spec.js">
+      <DependentUpon>answerDeleted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\question\eventHandlers\textMatching\answerKeyChanged.js" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\textMatching\answerKeyChanged.spec.js">
+      <DependentUpon>answerKeyChanged.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\question\eventHandlers\textMatching\answerValueChanged.js" />
+    <Content Include="App\synchronization\handlers\question\eventHandlers\textMatching\answerValueChanged.spec.js">
+      <DependentUpon>answerValueChanged.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToPlus.js" />
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToPlus.spec.js">
       <DependentUpon>upgradedToPlus.js</DependentUpon>

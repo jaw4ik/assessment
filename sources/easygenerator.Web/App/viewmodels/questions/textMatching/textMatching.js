@@ -10,6 +10,8 @@
     function (app, notify, constants, eventTracker, localizationManager, getTextMatchingAnswersById, addAnswerCommand, removeAnswerCommand, TextMatchingAnswer) {
         "use strict";
 
+        var minLengthOfAnswerOptions = 2;
+
         var viewModel = {
             initialize: initialize,
             objectiveId: '',
@@ -21,6 +23,12 @@
 
             isExpanded: ko.observable(true),
             toggleExpand: toggleExpand,
+            endEditAnswer: endEditAnswer,
+
+            answerCreatedByCollaborator: answerCreatedByCollaborator,
+            answerDeletedByCollaborator: answerDeletedByCollaborator,
+            answerKeyChangedByCollaborator: answerKeyChangedByCollaborator,
+            answerValueChangedByCollaborator: answerValueChangedByCollaborator,
 
             events: {
                 addAnswer: 'Add answer option',
@@ -28,7 +36,77 @@
             }
         };
 
+        app.on(constants.messages.question.textMatching.answerCreatedByCollaborator, answerCreatedByCollaborator);
+        app.on(constants.messages.question.textMatching.answerDeletedByCollaborator, answerDeletedByCollaborator);
+        app.on(constants.messages.question.textMatching.answerKeyChangedByCollaborator, answerKeyChangedByCollaborator);
+        app.on(constants.messages.question.textMatching.answerValueChangedByCollaborator, answerValueChangedByCollaborator);
+
+        viewModel.showDeleteButton = ko.computed(function() {
+            return viewModel.answers().length > minLengthOfAnswerOptions;
+        });
+
         return viewModel;
+        
+        function endEditAnswer(answer) {
+            if (answer.isDeleted) {
+                viewModel.answers.remove(answer);
+            }
+        }
+
+        function answerCreatedByCollaborator(questionId, answerId, key, value) {
+            if (viewModel.questionId != questionId)
+                return;
+
+            viewModel.answers.push(new TextMatchingAnswer(answerId, key, value));
+        }
+
+        function answerDeletedByCollaborator(questionId, answerId) {
+            if (viewModel.questionId != questionId)
+                return;
+
+            var answer = _.find(viewModel.answers(), function (item) {
+                return item.id == answerId;
+            });
+            if (_.isNullOrUndefined(answer))
+                return;
+
+            if (answer.key.isEditing() || answer.value.isEditing()) {
+                answer.isDeleted = true;
+                notify.error(localizationManager.localize('answerOptionHasBeenDeletedByCollaborator'));
+            } else {
+                viewModel.answers.remove(answer);
+            }
+        }
+
+        function answerKeyChangedByCollaborator(questionId, answerId, key) {
+            if (viewModel.questionId != questionId)
+                return;
+
+            var answer = _.find(viewModel.answers(), function (item) {
+                return item.id == answerId;
+            });
+            if (_.isNullOrUndefined(answer))
+                return;
+
+            answer.changeOriginalKey(key);
+            if (!answer.key.isEditing())
+                answer.key(key);
+        }
+
+        function answerValueChangedByCollaborator(questionId, answerId, value) {
+            if (viewModel.questionId != questionId)
+                return;
+
+            var answer = _.find(viewModel.answers(), function (item) {
+                return item.id == answerId;
+            });
+            if (_.isNullOrUndefined(answer))
+                return;
+
+            answer.changeOriginalValue(value);
+            if (!answer.value.isEditing())
+                answer.value(value);
+        }
 
         function addAnswer() {
             eventTracker.publish(viewModel.events.addAnswer);
