@@ -45,9 +45,9 @@
         background: rgba(0,0,0,0.5);
         border-radius: 3px;
         opacity: 0;
-        -moz-transition: opacity 0.3s linear 0;
-        -webkit-transition: opacity 0.3s linear 0;
-        transition: opacity 0.3s linear 0;
+        -moz-transition: opacity 0.3s ease;
+        -webkit-transition: opacity 0.3s ease;
+        transition: opacity 0.3s ease;
     }
 
         .single-select-image-answer-image .item-overlay:after {
@@ -115,11 +115,17 @@
     }
 
 .single-select-image-actions-wrapper {
+    height: 25px;
     position: absolute;
-    top: 4px;
+    top: 0;
     right: 5px;
     z-index: 1;
+    overflow: hidden;
 }
+
+    .single-select-image-actions-wrapper:hover {
+        overflow: visible;
+    }
 
     .single-select-image-actions-wrapper .remove-answer,
     .single-select-image-actions-wrapper .update-answer-image {
@@ -127,11 +133,16 @@
         vertical-align: top;
         height: 21px;
         width: 20px;
+        position: relative;
+        top: -22px;
         background-color: #0c0c0c;
         background-image: url(images/sprites_16.png);
         background-repeat: no-repeat;
         border-radius: 3px;
         cursor: pointer;
+        -moz-transition: top 0.2s linear;
+        -webkit-transition: top 0.2s linear;
+        transition: top 0.2s linear;
     }
 
         .single-select-image-actions-wrapper .remove-answer:hover,
@@ -151,6 +162,11 @@
     .single-select-image-actions-wrapper .remove-answer {
         background-position: -82px -39px;
     }
+
+.single-select-image-answer-image:hover .remove-answer,
+.single-select-image-answer-image:hover .update-answer-image {
+    top: 4px;
+}
 
 .single-select-image-browse-action-wrapper {
     display: inline-block;

@@ -1680,9 +1680,9 @@ span.top-navigation-item.current {
     text-align: center;
     opacity: 0;
     z-index: 200;
-    -moz-transition: opacity 0.2s linear 0;
-    -webkit-transition: opacity 0.2s linear 0;
-    transition: opacity 0.2s linear 0;
+    -moz-transition: opacity 0.2s ease;
+    -webkit-transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease;
 }
 
     .info-tooltip:after {
