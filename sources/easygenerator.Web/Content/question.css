@@ -1007,7 +1007,9 @@
 
 .question-answer-text-wrapper.active .chars-counter {
     display: block;
-    background-color: #5bc0de;
+    height: 15px;
+    line-height: 15px;
+    background-color: #bbb;
 }
 
 .text-matching .question-answer-text-wrapper.error,
