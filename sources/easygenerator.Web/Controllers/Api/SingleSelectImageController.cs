@@ -29,7 +29,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [EntityCollaborator(typeof(Objective))]
         [Route("api/question/" + Question.QuestionTypes.SingleSelectImage + "/create")]
-        [PlusAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
+        [StarterAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
         public ActionResult Create(Objective objective, string title)
         {
             if (objective == null)
