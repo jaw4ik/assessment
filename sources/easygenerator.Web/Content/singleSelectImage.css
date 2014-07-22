@@ -18,7 +18,12 @@
         display: inline-block;
         vertical-align: top;
         width: 30px;
-        padding-top: 5px;
+        margin-top: 5px;
+        cursor: pointer;
+    }
+
+    .single-select-image-answer .question-answer-value-wrapper.correct {
+        cursor: default;
     }
 
 .single-select-image-answer-image {
@@ -48,6 +53,7 @@
         -moz-transition: opacity 0.3s ease;
         -webkit-transition: opacity 0.3s ease;
         transition: opacity 0.3s ease;
+        cursor: pointer;
     }
 
         .single-select-image-answer-image .item-overlay:after {

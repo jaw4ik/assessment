@@ -51,7 +51,7 @@
                             <!-- /ko -->
                             <!-- /ko -->
                         </div>
-                        <div class="question-answer-value-wrapper">
+                        <div class="question-answer-value-wrapper" data-bind="css: { correct: id() === $parent.correctAnswerId() }">
                             <div class="question-answer-radio question-answer-value info-tooltip-holder" data-bind="click: $parent.setCorrectAnswer, css: { 'correct' : id() === $parent.correctAnswerId() }">
                                 <span data-bind="visible: id() === $parent.correctAnswerId()" class="answer-correct-icon">&nbsp;</span>
                                 <div class="info-tooltip question-answer">
