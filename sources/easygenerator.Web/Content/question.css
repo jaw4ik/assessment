@@ -66,6 +66,11 @@
             background-color: #f35958;
         }
 
+.informationContent .chars-counter,
+.informationContent .question-view-header:hover:after {
+    left: 40px;
+}
+
 /*#endregion question view header*/
 
 /*#region Add-new-question-button-block*/
