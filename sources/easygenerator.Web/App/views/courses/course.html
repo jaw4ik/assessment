@@ -29,14 +29,14 @@
                 <div class="entity-content-action-wrapper">
                     <!-- ko if: isContentDefined -->
                     <!-- ko if: isExpanded -->
-                    <div class="entity-content-action hide cursor-default" data-bind="click: toggleExpand, localize: { text: 'hideCourseContent' }">Hide course introduction content</div>
+                    <div class="entity-content-action hide" data-bind="click: toggleExpand, localize: { text: 'hideCourseContent' }">Hide course introduction content</div>
                     <!-- /ko -->
                     <!-- ko ifnot: isExpanded -->
-                    <div class="entity-content-action show cursor-default" data-bind="click: toggleExpand, localize: { text: 'showCourseContent' }">Show course introduction content</div>
+                    <div class="entity-content-action show" data-bind="click: toggleExpand, localize: { text: 'showCourseContent' }">Show course introduction content</div>
                     <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko ifnot: isContentDefined -->
-                    <div class="entity-content-action add cursor-default" data-bind="click: addContent, localize: { text: 'addCourseContent' }">Add course introduction content</div>
+                    <div class="entity-content-action add" data-bind="click: addContent, localize: { text: 'addCourseContent' }">Add course introduction content</div>
                     <!-- /ko -->
                 </div>
                 <!-- ko if: isContentDefined -->

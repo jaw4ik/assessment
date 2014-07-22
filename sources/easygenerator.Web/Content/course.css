@@ -353,6 +353,7 @@
         border: solid 1px #aeaeae;
         border-radius: 5px;
         background: #ffffff;
+        cursor: pointer;
     }
 
 .choose-template-list.gorizontal .choose-template-list-item {

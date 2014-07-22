@@ -48,7 +48,6 @@
             background: url('images/sprites_32.png') -74px -6px;
         }
 
-
 .navigation-tree-header {
     position: relative;
     width: 300px;
@@ -61,7 +60,7 @@
     font-size: 14px;
     font-family: 'OpenSans';
     color: #303133;
-    cursor: default;
+    cursor: pointer;
 }
 
     .navigation-tree-header:hover {

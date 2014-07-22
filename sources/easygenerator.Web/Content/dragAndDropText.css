@@ -149,6 +149,7 @@
     border: 3px dashed #dadddf;
     text-align: center;
     color: #999999;
+    cursor: default;
 }
 
 .drag-and-drop-designer-empty-title {
@@ -182,6 +183,7 @@
     background-clip: padding-box;
     border: 1px solid transparent;
     border-radius: 3px;
+    cursor: pointer;
 }
 
     .browse-image-btn:hover {

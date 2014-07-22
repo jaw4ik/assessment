@@ -44,10 +44,9 @@
                             <div class="item-overlay"></div>
                             <!-- /ko -->
                             <!-- ko ifnot: hasImage -->
-                            <div class="single-select-image-browse-action-wrapper" data-bind="click: $parent.updateAnswerImage">
-                                <div class="single-select-image-browse-action" data-bind="localize: { text: 'addImage' }">
-                                </div>
-                            </div>
+                            <button class="single-select-image-browse-image-btn" data-bind="click: $parent.updateAnswerImage">
+                                <span class="single-select-image-browse-image-text" data-bind="localize: { text: 'addImage' }"></span>
+                            </button>
                             <!-- /ko -->
                             <!-- /ko -->
                         </div>

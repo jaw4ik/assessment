@@ -32,18 +32,19 @@
 
 .tab-header {
     display: table-cell;
-    position: relative;
-    line-height: 32px;
     vertical-align: middle;
-    text-align: center;
-    float: right;
+    line-height: 32px;
     width: 130px;
+    position: relative;
+    float: right;
     background-color: #d1d1d1;
-    border-top-left-radius: 35px 100px;
-    border-top-right-radius: 35px 100px;
     border: 1px solid #C4C4C4;
     border-bottom: none;
+    border-top-left-radius: 35px 100px;
+    border-top-right-radius: 35px 100px;
     box-shadow: 0 0 4px #C4C4C4;
+    text-align: center;
+    cursor: pointer;
 }
 
     .tab-header:hover, .tab-header.active {
@@ -70,11 +71,11 @@
     bottom: 0;
     right: 0;
     left: 30px;
-    overflow: hidden;
     background-color: #f4f4f4;
     border-left: 1px solid #CECECE;
     border-top: 1px solid #CECECE;
     border-top-left-radius: 10px;
+    overflow: hidden;
 }
 
 .panel-right.expanded .tab {

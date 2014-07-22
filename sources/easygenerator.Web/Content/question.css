@@ -139,6 +139,7 @@
     background-repeat: no-repeat;
     border: 1px solid #d8dde5;
     border-radius: 3px;
+    cursor: pointer;
 }
 
     .expand-collapse-panel-btn:hover {
@@ -189,6 +190,7 @@
     border-radius: 3px;
     color: #5e5e5e;
     font-size: 12px;
+    cursor: pointer;
 }
 
     .extra-content-action-wrapper:hover {
@@ -199,7 +201,6 @@
 .extra-content-action {
     position: relative;
     padding: 5px 10px;
-    cursor: default;
 }
 
 .extra-content-action-text {
@@ -400,6 +401,7 @@
     height: 30px;
     width: 30px;
     position: relative;
+    cursor: pointer;
 }
 
 .question-answer-checkbox {
@@ -626,6 +628,7 @@
     width: 14px;
     background-image: url(images/sprites_16.png);
     background-position: -85px -22px;
+    cursor: pointer;
 }
 
     .question-answer-delete-icon:hover {
@@ -641,7 +644,7 @@
     background: white;
     border: 1px dashed #5bc0de;
     border-radius: 3px;
-    cursor: default;
+    cursor: pointer;
 }
 
     .add-button:hover {
@@ -929,7 +932,7 @@
     border-color: #5bc0de;
 }
 
-.fill-in-the-blank .blankField .cke_reset.cke_widget_mask {
+.fill-in-the-blank .cke_editable .cke_widget_mask {
     cursor: pointer;
 }
 

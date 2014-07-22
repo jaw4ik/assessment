@@ -248,27 +248,30 @@
     cursor: default;
 }
 
-
-.header-help-hint-btn:hover {
-    text-decoration: underline;
-    opacity: .5;
+.header-help-hint-btn {
+    cursor: pointer;
 }
 
-.header-help-hint-btn.disabled,
-.header-help-hint-btn.disabled:hover {
-    opacity: 0.2;
-    text-decoration: none;
-}
+    .header-help-hint-btn:hover {
+        text-decoration: underline;
+        opacity: .5;
+    }
+
+    .header-help-hint-btn.disabled,
+    .header-help-hint-btn.disabled:hover {
+        opacity: 0.2;
+        text-decoration: none;
+    }
 
 .header-menu-list-item.profile {
-    position: relative;
-    max-width: 230px;
+    height: 55px;
     min-width: 75px;
+    max-width: 230px;
+    position: relative;
     margin-left: 10px;
     border-radius: 2px 2px 0 0;
     border-bottom: 1px solid black;
-    cursor: default;
-    height: 55px;
+    cursor: pointer;
 }
 
 .header-menu-list-item.istrymode {
@@ -276,8 +279,8 @@
 }
 
 .header-menu-list-item.user-notification {
-    position: relative;
     width: 60px;
+    position: relative;
     padding: 19px 24px;
 }
 
@@ -914,6 +917,7 @@ span.top-navigation-item.current {
     .selected-item-action.delete.enabled,
     .selected-item-action.disconnect.enabled {
         color: #ff380a;
+        cursor: pointer;
     }
 
         .selected-item-action.delete.enabled:before {
@@ -1160,11 +1164,12 @@ span.top-navigation-item.current {
     }
 
 .custom-checkbox {
+    height: 100%;
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 100%;
+    cursor: pointer;
     opacity: 0;
     z-index: 10;
 }
@@ -1242,7 +1247,7 @@ span.top-navigation-item.current {
     -webkit-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
     white-space: nowrap;
-    cursor: default;
+    cursor: pointer;
 }
 
     .btn:hover {
@@ -2018,6 +2023,7 @@ span.top-navigation-item.current {
     text-align: center;
     background-color: #f9f9f9;
     border-radius: 20px;
+    cursor: pointer;
 }
 
     .entity-content-action-wrapper:hover {
