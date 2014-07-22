@@ -1288,6 +1288,7 @@ span.top-navigation-item.current {
     display: inline-block;
     margin: 0;
     padding: 15px 30px;
+    border: none;
     border-radius: 25px;
     background: #50a6e9;
     color: #ffffff;

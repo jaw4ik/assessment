@@ -1,9 +1,9 @@
 ﻿
 <div>
-    <div class="action-item-btn btn create-question" data-bind="click: show, css: { active: visible }, stopEventPropagation: { event: 'click' }">
-        <span class=" create-question-text" data-bind="localize: { text: 'createNewQuestion' }">
+    <button class="action-item-btn btn create-question" data-bind="click: show, css: { active: visible }, stopEventPropagation: { event: 'click' }">
+        <span class="create-question-text" data-bind="localize: { text: 'createNewQuestion' }">
         </span>
-    </div>
+    </button>
     <div class="question-type-action-wrapper" data-bind="visible: visible, outsideClick: { action: hide }">
         <ul class="question-type-action-list unstyled">
             <!-- ko foreach: questions -->
