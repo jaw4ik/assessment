@@ -472,6 +472,7 @@
 
 .question-answer-text-wrapper {
     display: table-cell;
+    vertical-align: top;
     background: white;
     border: 1px solid #ddd;
     border-radius: 3px;
