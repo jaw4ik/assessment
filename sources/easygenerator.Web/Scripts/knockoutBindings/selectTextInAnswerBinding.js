@@ -8,10 +8,19 @@
             $element.removeClass(activeClass);
         });
 
-        $element.click(function () {
+        $element.focus(function () {
             if (!$element.hasClass(activeClass)) {
                 element.select();
                 $element.addClass(activeClass);
+
+                // Work around WebKit's little problem
+                function mouseUpHandler() {
+                    // Prevent further mouseup intervention
+                    $element.off("mouseup", mouseUpHandler);
+                    return false;
+                }
+
+                $element.mouseup(mouseUpHandler);
             }
         });
     }
