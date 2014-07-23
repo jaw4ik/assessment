@@ -40,6 +40,20 @@
                     it('should be observable', function () {
                         expect(answer.key.isEditing).toBeObservable();
                     });
+
+                    describe('when hasFocus parameter of construnctor is defined', function() {
+                        it('should be set to hasFocus', function() {
+                            answer = new TextMatchingAnswer('id', 'key', 'value', true);
+                            expect(answer.key.isEditing()).toBeTruthy();
+                        });
+                    });
+
+                    describe('when hasFocus parameter of construnctor is not defined', function () {
+                        it('should be set to false', function() {
+                            answer = new TextMatchingAnswer('id', 'key', 'value');
+                            expect(answer.key.isEditing()).toBeFalsy();
+                        });
+                    });
                 });
 
                 describe('endEditText:', function () {

@@ -5,7 +5,7 @@
     'constants'],
     function (changeAnswerKeyCommand, changeAnswerValueCommand, eventTracker, notify, constants) {
 
-        return function (id, key, value) {
+        return function (id, key, value, hasFocus) {
         var
             that = this,
             self = {
@@ -21,7 +21,8 @@
         this.id = id;
 
         this.key = ko.observable(key);
-        this.key.isEditing = ko.observable(false);
+        this.key.isEditing = ko.observable(hasFocus);
+
         this.key.isValid = ko.computed(function() {
             return !_.isEmptyHtmlText(that.key()) && that.key().length <= constants.validation.textMatchingKeyMaxLength;
         });
