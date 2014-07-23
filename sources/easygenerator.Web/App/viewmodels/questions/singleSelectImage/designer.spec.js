@@ -94,14 +94,14 @@
                     expect(viewModel.answers().length).toBe(1);
                 });
 
-                it('should set isLoading to true for added answer', function () {
+                it('should set isProcessing to true for added answer', function () {
                     viewModel.addAnswer();
-                    expect(viewModel.answers()[0].isLoading()).toBeTruthy();
+                    expect(viewModel.answers()[0].isProcessing()).toBeTruthy();
                 });
 
-                it('should set isImageUploading to true for added answer', function () {
+                it('should set isImageLoading to true for added answer', function () {
                     viewModel.addAnswer();
-                    expect(viewModel.answers()[0].isImageUploading()).toBeTruthy();
+                    expect(viewModel.answers()[0].isImageLoading()).toBeTruthy();
                 });
             });
 
@@ -129,11 +129,11 @@
                         done();
                     });
 
-                    it('should set isImageUploading to false', function (done) {
+                    it('should set isImageLoading to false', function (done) {
                         viewModel.addAnswer();
 
                         dfd.promise.then(function () {
-                            expect(viewModel.answers()[0].isImageUploading()).toBeFalsy();
+                            expect(viewModel.answers()[0].isImageLoading()).toBeFalsy();
                             done();
                         });
                     });
@@ -377,7 +377,7 @@
         describe('updateAnswerImage:', function () {
 
             var dfd,
-                answer = { id: ko.observable(), image: ko.observable(), isLoading: ko.observable(), isImageUploading: ko.observable() };
+                answer = { id: ko.observable(), image: ko.observable(), isProcessing: ko.observable(), isImageLoading: ko.observable() };
 
             beforeEach(function () {
                 dfd = Q.defer();
@@ -402,16 +402,16 @@
                     });
                 });
 
-                it('should set answer isLoading to true', function () {
-                    answer.isLoading(false);
+                it('should set answer isProcessing to true', function () {
+                    answer.isProcessing(false);
                     viewModel.updateAnswerImage(answer);
-                    expect(answer.isLoading()).toBeTruthy();
+                    expect(answer.isProcessing()).toBeTruthy();
                 });
 
-                it('should set answer isImageUploading to true', function () {
-                    answer.isImageUploading(false);
+                it('should set answer isImageLoading to true', function () {
+                    answer.isImageLoading(false);
                     viewModel.updateAnswerImage(answer);
-                    expect(answer.isImageUploading()).toBeTruthy();
+                    expect(answer.isImageLoading()).toBeTruthy();
                 });
             });
 
@@ -437,12 +437,12 @@
                         done();
                     });
 
-                    it('should set answer isImageUploading to false', function () {
-                        answer.isLoading(true);
+                    it('should set answer isImageLoading to false', function () {
+                        answer.isImageLoading(true);
                         viewModel.updateAnswerImage(answer);
 
                         dfd.promise.then(function () {
-                            expect(answer.isImageUploading()).toBeFalsy();
+                            expect(answer.isImageLoading()).toBeFalsy();
                             done();
                         });
                     });
@@ -474,10 +474,10 @@
                     });
                 });
 
-                it('should set answer isImageUploading to false', function () {
-                    answer.isLoading(true);
+                it('should set answer isImageLoading to false', function () {
+                    answer.isImageLoading(true);
                     viewModel.updateAnswerImage(answer);
-                    expect(answer.isImageUploading()).toBeFalsy();
+                    expect(answer.isImageLoading()).toBeFalsy();
                 });
             });
         });

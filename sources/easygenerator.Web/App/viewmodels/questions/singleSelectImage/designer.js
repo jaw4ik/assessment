@@ -31,7 +31,7 @@
             removeAnswer: removeAnswer,
             updateAnswerImage: updateAnswerImage,
             setCorrectAnswer: setCorrectAnswer,
-            answerImageLoaded: answerImageLoaded,
+            finishAswerProcessing: finishAswerProcessing,
             answers: ko.observableArray()
         };
 
@@ -73,15 +73,15 @@
             var answerToAdd = new Answer(null, null);
             imageUpload.upload({
                 startLoading: function () {
-                    answerToAdd.isLoading(true);
-                    answerToAdd.isImageUploading(true);
+                    answerToAdd.isProcessing(true);
+                    answerToAdd.isImageLoading(true);
                     viewModel.answers.push(answerToAdd);
                 },
                 success: function (url) {
                     addAnswerCommand.execute(self.questionId, url).then(function (id) {
                         answerToAdd.id(id);
                         answerToAdd.image(url);
-                        answerToAdd.isImageUploading(false);
+                        answerToAdd.isImageLoading(false);
                         notify.saved();
                     });
                 },
@@ -104,18 +104,18 @@
             eventTracker.publish(events.updateAnswerOption);
             imageUpload.upload({
                 startLoading: function () {
-                    answer.isLoading(true);
-                    answer.isImageUploading(true);
+                    answer.isProcessing(true);
+                    answer.isImageLoading(true);
                 },
                 success: function (url) {
                     updateAnswerImageCommand.execute(answer.id, url).then(function () {
                         answer.image(url);
-                        answer.isImageUploading(false);
+                        answer.isImageLoading(false);
                         notify.saved();
                     });
                 },
                 error: function () {
-                    answer.isImageUploading(false);
+                    answer.isImageLoading(false);
                 }
             });
         }
@@ -131,8 +131,8 @@
             });
         }
 
-        function answerImageLoaded(answer) {
-            answer.isLoading(false);
+        function finishAswerProcessing(answer) {
+            answer.isProcessing(false);
         }
     }
 );

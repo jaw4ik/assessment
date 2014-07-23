@@ -23,14 +23,14 @@
             expect(answer.image).toBeObservable();
         });
 
-        it('should define isLoading', function () {
+        it('should define isProcessing', function () {
             var answer = new ctor(id, image);
-            expect(answer.isLoading).toBeObservable();
+            expect(answer.isProcessing).toBeObservable();
         });
 
-        it('should define isImageUploading', function () {
+        it('should define isImageLoading', function () {
             var answer = new ctor(id, image);
-            expect(answer.isImageUploading).toBeObservable();
+            expect(answer.isImageLoading).toBeObservable();
         });
 
         describe('hasImage:', function() {

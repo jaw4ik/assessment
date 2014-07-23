@@ -21,11 +21,11 @@
                 <ul class="single-select-image-list clearfix">
                     <!-- ko foreach: answers -->
                     <li class="single-select-image-answer">
-                        <div class="single-select-image-answer-image" data-bind="answerImage: { answer: $data, onload: $parent.answerImageLoaded }, css: { 'empty' : !hasImage() && !isLoading(), loading: isLoading() }">
-                            <!-- ko if: isLoading -->
+                        <div class="single-select-image-answer-image" data-bind="answerImage: { answer: $data, onload: $parent.finishAswerProcessing }, css: { 'empty' : !hasImage() && !isProcessing(), loading: isProcessing() }">
+                            <!-- ko if: isProcessing -->
                             <span class="single-select-image-loader-text" data-bind="localize: { text: 'processing' }"></span>
                             <!-- /ko -->
-                            <!-- ko ifnot: isLoading -->
+                            <!-- ko ifnot: isProcessing -->
                             <!-- ko if: hasImage -->
                             <div class="single-select-image-actions-wrapper">
                                 <div class="info-tooltip-holder update-answer-image" data-bind="click: $parent.updateAnswerImage">
