@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/question/eventHandlers/dragAndDrop/backgroundChanged'], function (handler) {
+﻿define(['synchronization/handlers/questions/dragAndDrop/eventHandlers/backgroundChanged'], function (handler) {
     "use strict";
 
     var

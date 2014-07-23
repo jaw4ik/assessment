@@ -1,6 +1,6 @@
 ﻿define([
         'durandal/system', 'synchronization/handlers/user/handler', 'synchronization/handlers/course/handler', 'synchronization/handlers/objective/handler',
-        'synchronization/handlers/question/handler', 'synchronization/handlers/answer/handler', 'synchronization/handlers/learningContent/handler', 'synchronization/handlers/collaboration/handler'
+        'synchronization/handlers/questions/handler', 'synchronization/handlers/answer/handler', 'synchronization/handlers/learningContent/handler', 'synchronization/handlers/collaboration/handler'
 ],
     function(system, userEventHandler, courseEventHandler, objectiveEventHandler, questionEventHandler, answerEventHandler, learningContentEventHandler, collaborationEventHandler) {
         "use strict";
@@ -35,25 +35,25 @@
                     objectiveTitleUpdated: objectiveEventHandler.titleUpdated,
                     objectiveQuestionsReordered: objectiveEventHandler.questionsReordered,
 
-                    questionCreated: questionEventHandler.created,
-                    questionsDeleted: questionEventHandler.deleted,
-                    questionTitleUpdated: questionEventHandler.titleUpdated,
-                    questionContentUpdated: questionEventHandler.contentUpdated,
-                    questionCorrectFeedbackUpdated: questionEventHandler.correctFeedbackUpdated,
-                    questionIncorrectFeedbackUpdated: questionEventHandler.incorrectFeedbackUpdated,
+                    questionCreated: questionEventHandler.question.created,
+                    questionsDeleted: questionEventHandler.question.deleted,
+                    questionTitleUpdated: questionEventHandler.question.titleUpdated,
+                    questionContentUpdated: questionEventHandler.question.contentUpdated,
+                    questionCorrectFeedbackUpdated: questionEventHandler.question.correctFeedbackUpdated,
+                    questionIncorrectFeedbackUpdated: questionEventHandler.question.incorrectFeedbackUpdated,
 
-                    fillInTheBlankUpdated: questionEventHandler.fillInTheBlankUpdated,
+                    fillInTheBlankUpdated: questionEventHandler.fillInTheBlank.updated,
 
-                    dragAndDropBackgroundChanged: questionEventHandler.dragAndDropBackgroundChanged,
-                    dragAndDropDropspotCreated: questionEventHandler.dragAndDropDropspotCreated,
-                    dragAndDropDropspotDeleted: questionEventHandler.dragAndDropDropspotDeleted,
-                    dragAndDropDropspotTextChanged: questionEventHandler.dragAndDropDropspotTextChanged,
-                    dragAndDropDropspotPositionChanged: questionEventHandler.dragAndDropDropspotPositionChanged,
+                    dragAndDropBackgroundChanged: questionEventHandler.dragAndDrop.backgroundChanged,
+                    dragAndDropDropspotCreated: questionEventHandler.dragAndDrop.dropspotCreated,
+                    dragAndDropDropspotDeleted: questionEventHandler.dragAndDrop.dropspotDeleted,
+                    dragAndDropDropspotTextChanged: questionEventHandler.dragAndDrop.dropspotTextChanged,
+                    dragAndDropDropspotPositionChanged: questionEventHandler.dragAndDrop.dropspotPositionChanged,
 
-                    textMatchingAnswerCreated: questionEventHandler.textMatchingAnswerCreated,
-                    textMatchingAnswerDeleted: questionEventHandler.textMatchingAnswerDeleted,
-                    textMatchingAnswerKeyChanged: questionEventHandler.textMatchingAnswerKeyChanged,
-                    textMatchingAnswerValueChanged: questionEventHandler.textMatchingAnswerValueChanged,
+                    textMatchingAnswerCreated: questionEventHandler.textMatching.answerCreated,
+                    textMatchingAnswerDeleted: questionEventHandler.textMatching.answerDeleted,
+                    textMatchingAnswerKeyChanged: questionEventHandler.textMatching.answerKeyChanged,
+                    textMatchingAnswerValueChanged: questionEventHandler.textMatching.answerValueChanged,
 
                     answerCreated: answerEventHandler.created,
                     answerDeleted: answerEventHandler.deleted,

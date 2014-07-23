@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/question/eventHandlers/incorrectFeedbackUpdated'], function (handler) {
+﻿define(['synchronization/handlers/questions/dragAndDrop/eventHandlers/dropspotCreated'], function (handler) {
     "use strict";
 
     var
@@ -7,11 +7,11 @@
         constants = require('constants')
     ;
 
-    describe('synchronization question [incorrectFeedbackUpdated]', function () {
+    describe('synchronization dragAndDrop [dropspotCreated]', function () {
 
-        var questionId = 'id',
+        var questionId = 'questionId',
+            dropspot = { Id: 'dropspotId', Text: 'some text'},
             question = { id: questionId },
-            feedbackText = 'feedback text',
             modifiedOn = new Date();
 
         beforeEach(function () {
@@ -25,27 +25,27 @@
         describe('when questionId is not a string', function () {
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(undefined, feedbackText, modifiedOn.toISOString());
+                    handler(undefined, dropspot, modifiedOn.toISOString());
                 };
 
                 expect(f).toThrow('QuestionId is not a string');
             });
         });
 
-        describe('when feedback text is not a string', function () {
+        describe('when dropspot is not an object', function () {
             it('should throw an exception', function () {
                 var f = function () {
                     handler(questionId, undefined, modifiedOn.toISOString());
                 };
 
-                expect(f).toThrow('FeedbackText is not a string');
+                expect(f).toThrow('Dropspot is not an object');
             });
         });
 
         describe('when modifiedOn is not a date', function () {
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(questionId, feedbackText, undefined);
+                    handler(questionId, dropspot, undefined);
                 };
 
                 expect(f).toThrow('ModifiedOn is not a string');
@@ -59,7 +59,7 @@
 
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(questionId, feedbackText, modifiedOn.toISOString());
+                    handler(questionId, dropspot, modifiedOn.toISOString());
                 };
 
                 expect(f).toThrow('Question has not been found');
@@ -69,15 +69,15 @@
         it('should update question modified on date', function () {
             question.modifiedOn = '';
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
-            handler(questionId, feedbackText, modifiedOn.toISOString());
-
+            handler(questionId, dropspot, modifiedOn.toISOString());
             expect(question.modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
         });
 
         it('should trigger app event', function () {
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
-            handler(questionId, feedbackText, modifiedOn.toISOString());
-            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.incorrectFeedbackUpdatedByCollaborator, question, feedbackText);
+            handler(questionId, dropspot, modifiedOn.toISOString());
+            expect(app.trigger).toHaveBeenCalled();
+            expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.messages.question.dragAndDrop.dropspotCreatedByCollaborator);
         });
     });
 })

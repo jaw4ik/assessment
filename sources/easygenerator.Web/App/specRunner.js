@@ -79,26 +79,35 @@
             'synchronization/handlers/course/eventHandlers/templateUpdated.spec',
             'synchronization/handlers/course/eventHandlers/titleUpdated.spec',
 
-            'synchronization/handlers/question/handler.spec',
-            'synchronization/handlers/question/eventHandlers/titleUpdated.spec',
-            'synchronization/handlers/question/eventHandlers/created.spec',
-            'synchronization/handlers/question/eventHandlers/deleted.spec',
-            'synchronization/handlers/question/eventHandlers/contentUpdated.spec',
-            'synchronization/handlers/question/eventHandlers/correctFeedbackUpdated.spec',
-            'synchronization/handlers/question/eventHandlers/incorrectFeedbackUpdated.spec',
+            //#region questions
 
-            'synchronization/handlers/question/eventHandlers/fillInTheBlankUpdated.spec',
+            'synchronization/handlers/questions/handler.spec',
 
-            'synchronization/handlers/question/eventHandlers/dragAndDrop/backgroundChanged.spec',
-            'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotCreated.spec',
-            'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotDeleted.spec',
-            'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotPositionChanged.spec',
-            'synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotTextChanged.spec',
+            'synchronization/handlers/questions/question/handler.spec',
+            'synchronization/handlers/questions/question/eventHandlers/titleUpdated.spec',
+            'synchronization/handlers/questions/question/eventHandlers/created.spec',
+            'synchronization/handlers/questions/question/eventHandlers/deleted.spec',
+            'synchronization/handlers/questions/question/eventHandlers/contentUpdated.spec',
+            'synchronization/handlers/questions/question/eventHandlers/correctFeedbackUpdated.spec',
+            'synchronization/handlers/questions/question/eventHandlers/incorrectFeedbackUpdated.spec',
 
-            'synchronization/handlers/question/eventHandlers/textMatching/answerCreated.spec',
-            'synchronization/handlers/question/eventHandlers/textMatching/answerDeleted.spec',
-            'synchronization/handlers/question/eventHandlers/textMatching/answerKeyChanged.spec',
-            'synchronization/handlers/question/eventHandlers/textMatching/answerValueChanged.spec',
+            'synchronization/handlers/questions/fillInTheBlank/handler.spec',
+            'synchronization/handlers/questions/fillInTheBlank/eventHandlers/updated.spec',
+
+            'synchronization/handlers/questions/dragAndDrop/handler.spec',
+            'synchronization/handlers/questions/dragAndDrop/eventHandlers/backgroundChanged.spec',
+            'synchronization/handlers/questions/dragAndDrop/eventHandlers/dropspotCreated.spec',
+            'synchronization/handlers/questions/dragAndDrop/eventHandlers/dropspotDeleted.spec',
+            'synchronization/handlers/questions/dragAndDrop/eventHandlers/dropspotPositionChanged.spec',
+            'synchronization/handlers/questions/dragAndDrop/eventHandlers/dropspotTextChanged.spec',
+
+            'synchronization/handlers/questions/textMatching/handler.spec',
+            'synchronization/handlers/questions/textMatching/eventHandlers/answerCreated.spec',
+            'synchronization/handlers/questions/textMatching/eventHandlers/answerDeleted.spec',
+            'synchronization/handlers/questions/textMatching/eventHandlers/answerKeyChanged.spec',
+            'synchronization/handlers/questions/textMatching/eventHandlers/answerValueChanged.spec',
+
+            //#endregion
 
             'synchronization/handlers/learningContent/handler.spec',
             'synchronization/handlers/learningContent/eventHandlers/created.spec',
@@ -188,7 +197,7 @@
             'viewmodels/questions/textMatching/commands/removeAnswer.spec',
             'viewmodels/questions/textMatching/commands/changeAnswerKey.spec',
             'viewmodels/questions/textMatching/commands/changeAnswerValue.spec',
-            
+
             'viewmodels/questions/questionTitle.spec',
             'viewmodels/questions/learningContents.spec',
             'viewmodels/questions/feedback.spec',

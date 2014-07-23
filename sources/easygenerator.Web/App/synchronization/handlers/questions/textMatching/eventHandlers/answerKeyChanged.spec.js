@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/question/eventHandlers/textMatching/answerValueChanged'], function (handler) {
+﻿define(['synchronization/handlers/questions/textMatching/eventHandlers/answerKeyChanged'], function (handler) {
     "use strict";
 
     var
@@ -10,7 +10,7 @@
     describe('synchronization textMatching [answerKeyChanged]', function () {
 
         var questionId = 'questionId',
-            answer = { Id: 'answerId', Value: 'some value' },
+            answer = { Id: 'answerId', Key: 'some key' },
             question = { id: questionId },
             modifiedOn = new Date();
 
@@ -77,7 +77,7 @@
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
             handler(questionId, answer, modifiedOn.toISOString());
             expect(app.trigger).toHaveBeenCalled();
-            expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.messages.question.textMatching.answerValueChangedByCollaborator);
+            expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.messages.question.textMatching.answerKeyChangedByCollaborator);
         });
     });
 })

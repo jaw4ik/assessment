@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/question/eventHandlers/deleted'], function (handler) {
+﻿define(['synchronization/handlers/questions/question/eventHandlers/deleted'], function (handler) {
     "use strict";
 
     var

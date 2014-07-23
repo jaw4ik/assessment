@@ -1,17 +1,18 @@
-﻿define(['synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotPositionChanged'], function (handler) {
+﻿define(['synchronization/handlers/questions/fillInTheBlank/eventHandlers/updated'], function (handler) {
     "use strict";
 
     var
-        dataContext = require('dataContext'),
+            dataContext = require('dataContext'),
         app = require('durandal/app'),
         constants = require('constants')
     ;
 
-    describe('synchronization dragAndDrop [dropspotPositionChanged]', function () {
+    describe('synchronization fillInTheBlank [updated]', function () {
 
-        var questionId = 'questionId',
-            dropspot = { Id: 'dropspotId', Text: 'some text' },
+        var questionId = 'id',
             question = { id: questionId },
+            content = 'content',
+            answers = [{id: 'answerId'}],
             modifiedOn = new Date();
 
         beforeEach(function () {
@@ -25,27 +26,17 @@
         describe('when questionId is not a string', function () {
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(undefined, dropspot, modifiedOn.toISOString());
+                    handler(undefined, content, answers, modifiedOn.toISOString());
                 };
 
                 expect(f).toThrow('QuestionId is not a string');
             });
         });
 
-        describe('when dropspot is not an object', function () {
-            it('should throw an exception', function () {
-                var f = function () {
-                    handler(questionId, undefined, modifiedOn.toISOString());
-                };
-
-                expect(f).toThrow('Dropspot is not an object');
-            });
-        });
-
         describe('when modifiedOn is not a date', function () {
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(questionId, dropspot, undefined);
+                    handler(questionId, content, answers, undefined);
                 };
 
                 expect(f).toThrow('ModifiedOn is not a string');
@@ -59,25 +50,33 @@
 
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(questionId, dropspot, modifiedOn.toISOString());
+                    handler(questionId, content, answers, modifiedOn.toISOString());
                 };
 
                 expect(f).toThrow('Question has not been found');
             });
         });
 
+        it('should update question content', function () {
+            question.content = '';
+            spyOn(dataContext, 'getQuestions').and.returnValue([question]);
+            handler(questionId, content, answers, modifiedOn.toISOString());
+
+            expect(question.content).toBe(content);
+        });
+
         it('should update question modified on date', function () {
             question.modifiedOn = '';
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
-            handler(questionId, dropspot, modifiedOn.toISOString());
+            handler(questionId, content, answers, modifiedOn.toISOString());
+
             expect(question.modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
         });
 
         it('should trigger app event', function () {
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
-            handler(questionId, dropspot, modifiedOn.toISOString());
-            expect(app.trigger).toHaveBeenCalled();
-            expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.messages.question.dragAndDrop.dropspotPositionChangedByCollaborator);
+            handler(questionId, content, answers, modifiedOn.toISOString());
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.fillInTheBlank.updatedByCollaborator, question);
         });
     });
 })

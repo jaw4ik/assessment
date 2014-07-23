@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/question/eventHandlers/textMatching/answerKeyChanged'], function (handler) {
+﻿define(['synchronization/handlers/questions/question/eventHandlers/titleUpdated'], function (handler) {
     "use strict";
 
     var
@@ -7,11 +7,11 @@
         constants = require('constants')
     ;
 
-    describe('synchronization textMatching [answerKeyChanged]', function () {
+    describe('synchronization question [titleUpdated]', function () {
 
-        var questionId = 'questionId',
-            answer = { Id: 'answerId', Key: 'some key' },
+        var questionId = 'id',
             question = { id: questionId },
+            title = 'title',
             modifiedOn = new Date();
 
         beforeEach(function () {
@@ -25,27 +25,27 @@
         describe('when questionId is not a string', function () {
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(undefined, answer, modifiedOn.toISOString());
+                    handler(undefined, title, modifiedOn.toISOString());
                 };
 
                 expect(f).toThrow('QuestionId is not a string');
             });
         });
 
-        describe('when answer is not an object', function () {
+        describe('when title is not a string', function () {
             it('should throw an exception', function () {
                 var f = function () {
                     handler(questionId, undefined, modifiedOn.toISOString());
                 };
 
-                expect(f).toThrow('Answer is not an object');
+                expect(f).toThrow('Title is not a string');
             });
         });
 
         describe('when modifiedOn is not a date', function () {
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(questionId, answer, undefined);
+                    handler(questionId, title, undefined);
                 };
 
                 expect(f).toThrow('ModifiedOn is not a string');
@@ -53,31 +53,39 @@
         });
 
         describe('when question is not found in data context', function () {
-            beforeEach(function () {
+            beforeEach(function() {
                 spyOn(dataContext, 'getQuestions').and.returnValue([]);
             });
 
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(questionId, answer, modifiedOn.toISOString());
+                    handler(questionId, title, modifiedOn.toISOString());
                 };
 
                 expect(f).toThrow('Question has not been found');
             });
         });
 
+        it('should update question title', function () {
+            question.title = '';
+            spyOn(dataContext, 'getQuestions').and.returnValue([question]);
+            handler(questionId, title, modifiedOn.toISOString());
+
+            expect(question.title).toBe(title);
+        });
+
         it('should update question modified on date', function () {
             question.modifiedOn = '';
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
-            handler(questionId, answer, modifiedOn.toISOString());
+            handler(questionId, title, modifiedOn.toISOString());
+
             expect(question.modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
         });
 
         it('should trigger app event', function () {
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
-            handler(questionId, answer, modifiedOn.toISOString());
-            expect(app.trigger).toHaveBeenCalled();
-            expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.messages.question.textMatching.answerKeyChangedByCollaborator);
+            handler(questionId, title, modifiedOn.toISOString());
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.titleUpdatedByCollaborator, question);
         });
     });
 })

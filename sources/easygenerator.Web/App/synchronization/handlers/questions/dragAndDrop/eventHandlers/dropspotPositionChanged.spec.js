@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/question/eventHandlers/dragAndDrop/dropspotCreated'], function (handler) {
+﻿define(['synchronization/handlers/questions/dragAndDrop/eventHandlers/dropspotPositionChanged'], function (handler) {
     "use strict";
 
     var
@@ -7,10 +7,10 @@
         constants = require('constants')
     ;
 
-    describe('synchronization dragAndDrop [dropspotCreated]', function () {
+    describe('synchronization dragAndDrop [dropspotPositionChanged]', function () {
 
         var questionId = 'questionId',
-            dropspot = { Id: 'dropspotId', Text: 'some text'},
+            dropspot = { Id: 'dropspotId', Text: 'some text' },
             question = { id: questionId },
             modifiedOn = new Date();
 
@@ -77,7 +77,7 @@
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
             handler(questionId, dropspot, modifiedOn.toISOString());
             expect(app.trigger).toHaveBeenCalled();
-            expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.messages.question.dragAndDrop.dropspotCreatedByCollaborator);
+            expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.messages.question.dragAndDrop.dropspotPositionChangedByCollaborator);
         });
     });
 })
