@@ -11,15 +11,18 @@
 
         it('should be constructor function', function () {
             expect(TextMatchingAnswer).toBeFunction();
-            expect(new TextMatchingAnswer()).toBeObject();
+            expect(new TextMatchingAnswer('id', 'key', 'value')).toBeObject();
         });
 
         describe('when create an instance of textMatchingAnswer', function () {
+            var answer;
+
+            beforeEach(function () {
+                answer = new TextMatchingAnswer('id', 'key', 'value');
+            });
 
             describe('id:', function () {
-
                 it('should be defined', function () {
-                    var answer = new TextMatchingAnswer('id');
                     expect(answer.id).toBeDefined();
                     expect(answer.id).toEqual('id');
                 });
@@ -27,12 +30,7 @@
             });
 
             describe('key:', function () {
-                var answer;
-
-                beforeEach(function() {
-                    answer = new TextMatchingAnswer('id', 'key', 'value');
-                });
-
+                
                 it('shoould be observable', function () {
                     expect(answer.key).toBeObservable();
                     expect(answer.key()).toEqual('key');
@@ -144,21 +142,35 @@
                     });
                 });
 
-                describe('changeOriginalKey:', function () {
-                    
-                    it('should be function:', function () {
-                        expect(answer.changeOriginalKey).toBeFunction();
+                describe('isValid', function () {
+                    it('should be computed', function() {
+                        expect(answer.key.isValid).toBeComputed();
+                    });
+
+                    describe('when key is empty string', function() {
+                        it('should return false', function () {
+                            answer.key('');
+                            expect(answer.key.isValid()).toBeFalsy();
+                        });
+                    });
+
+                    describe('when key has 256 symbols', function() {
+                        it('should return false', function () {
+                            answer.key(utils.createString(256));
+                            expect(answer.key.isValid()).toBeFalsy();
+                        });
                     });
                 });
             });
 
-            describe('value:', function () {
-                var answer;
+            describe('changeOriginalKey:', function () {
 
-                beforeEach(function () {
-                    answer = new TextMatchingAnswer('id', 'key', 'value');
+                it('should be function:', function () {
+                    expect(answer.changeOriginalKey).toBeFunction();
                 });
+            });
 
+            describe('value:', function () {
                 it('shoould be observable', function () {
                     expect(answer.value).toBeObservable();
                     expect(answer.value()).toEqual('value');
@@ -270,11 +282,31 @@
                     });
                 });
 
-                describe('changeOriginalValue:', function () {
-
-                    it('should be function:', function () {
-                        expect(answer.changeOriginalValue).toBeFunction();
+                describe('isValid', function () {
+                    it('should be computed', function () {
+                        expect(answer.value.isValid).toBeComputed();
                     });
+
+                    describe('when value is empty string', function () {
+                        it('should return false', function () {
+                            answer.value('');
+                            expect(answer.value.isValid()).toBeFalsy();
+                        });
+                    });
+
+                    describe('when value has 256 symbols', function () {
+                        it('should return false', function () {
+                            answer.value(utils.createString(256));
+                            expect(answer.value.isValid()).toBeFalsy();
+                        });
+                    });
+                });
+            });
+
+            describe('changeOriginalValue:', function () {
+
+                it('should be function:', function () {
+                    expect(answer.changeOriginalValue).toBeFunction();
                 });
             });
         });

@@ -40,20 +40,20 @@
                     <!-- ko foreach: answers -->
                     <li class="answer-option-item">
                         <div class="answer-options-list-item">
-                            <div class="question-answer-text-wrapper" data-bind="css: { active: key.isEditing(), error: key().trim().length > '255' }">
+                            <div class="question-answer-text-wrapper" data-bind="css: { active: key.isEditing(), error: !key.isValid() }">
                                 <div class="question-answer-text">
-                                    <textarea class="editarea-editable-text selectable" data-bind="value: key, valueUpdate: 'afterkeydown', selectTextInAnswer: {}, editableText: { text: key, multiline: true }, event: { focus: key.beginEditText, blur: function(data, event){ key.endEditText(data, event); $parent.endEditAnswer($data); } }"></textarea>
+                                    <textarea class="editarea-editable-text selectable" data-bind="value: key, valueUpdate: 'afterkeydown', editableText: { text: key, multiline: true }, event: { focus: key.beginEditText, blur: function(data, event){ key.endEditText(data, event); $parent.endEditAnswer($data); } }, selectTextInAnswer: {}"></textarea>
                                 </div>
-                                <div class="chars-counter" data-bind="css: { error: key().trim().length > '255' }">
+                                <div class="chars-counter" data-bind="css: { error: !key.isValid() }">
                                     <span data-bind="text: key().trim().length"></span>/<span>255</span>
                                 </div>
                             </div>
-                            <div class="question-answer-text-wrapper" data-bind="css: { active: value.isEditing(), error: value().trim().length > '255'}">
+                            <div class="question-answer-text-wrapper" data-bind="css: { active: value.isEditing(), error: !value.isValid()}">
                                 <div class="puzzle-item"></div>
                                 <div class="question-answer-text">
-                                    <textarea class="editarea-editable-text selectable" data-bind="value: value, valueUpdate: 'afterkeydown', selectTextInAnswer: {}, editableText: { text: value, multiline: true }, event: { focus: value.beginEditText, blur: function(data, event){ value.endEditText(data, event); $parent.endEditAnswer($data); } }"></textarea>
+                                    <textarea class="editarea-editable-text selectable" data-bind="value: value, valueUpdate: 'afterkeydown', editableText: { text: value, multiline: true }, event: { focus: value.beginEditText, blur: function(data, event){ value.endEditText(data, event); $parent.endEditAnswer($data); } }, selectTextInAnswer: {}"></textarea>
                                 </div>
-                                <div class="chars-counter" data-bind="css: { error: value().trim().length > '255' }">
+                                <div class="chars-counter" data-bind="css: { error: !value.isValid() }">
                                     <span data-bind="text: value().trim().length"></span>/<span>255</span>
                                 </div>
                             </div>
