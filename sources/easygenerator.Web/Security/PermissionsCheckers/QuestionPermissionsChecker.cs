@@ -14,8 +14,7 @@ namespace easygenerator.Web.Security.PermissionsCheckers
 
         public override bool HasCollaboratorPermissions(string username, Question entity)
         {
-            return HasOwnerPermissions(username, entity) ||
-                   _objectivePermissionsChecker.HasCollaboratorPermissions(username, entity.Objective);
+            return _objectivePermissionsChecker.HasCollaboratorPermissions(username, entity.Objective);
         }
     }
 }

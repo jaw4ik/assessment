@@ -56,20 +56,6 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
         #region HasCollaboratorPermissions
 
         [TestMethod]
-        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenQuestionIsCreatedByUser()
-        {
-            //Arrange
-            var question = MultipleselectObjectMother.CreateWithCreatedBy(Username);
-
-            //Act
-            var result = _questionPermissionChecker.HasCollaboratorPermissions(Username, question);
-
-            //Assert
-
-            result.Should().BeTrue();
-        }
-
-        [TestMethod]
         public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserHasPermissionsToObjective()
         {
             //Arrange
