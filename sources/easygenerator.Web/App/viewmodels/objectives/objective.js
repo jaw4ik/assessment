@@ -82,6 +82,8 @@
         app.on(constants.messages.question.dragAndDrop.dropspotDeletedByCollaborator, questionUpdated);
         app.on(constants.messages.question.textMatching.answerCreatedByCollaborator, questionUpdated);
         app.on(constants.messages.question.textMatching.answerDeletedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.singleSelectImage.answerCreatedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.singleSelectImage.answerDeletedByCollaborator, questionUpdated);
 
         return viewModel;
 

@@ -28,6 +28,16 @@
             expect(answer.isProcessing).toBeObservable();
         });
 
+        it('should define isDeleted', function () {
+            var answer = new ctor(id, image);
+            expect(answer.isDeleted).toBeFalsy();
+        });
+
+        it('should define isEditing', function () {
+            var answer = new ctor(id, image);
+            expect(answer.isEditing).toBeObservable();
+        });
+
         it('should define isImageLoading', function () {
             var answer = new ctor(id, image);
             expect(answer.isImageLoading).toBeObservable();

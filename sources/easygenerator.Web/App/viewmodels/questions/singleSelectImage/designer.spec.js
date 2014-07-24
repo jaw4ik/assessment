@@ -5,6 +5,7 @@
         imageUpload = require('imageUpload'),
         notify = require('notify'),
         eventTracker = require('eventTracker'),
+        localizationManager = require('localization/localizationManager'),
         Answer = require('viewmodels/questions/singleSelectImage/answer'),
         getQuestionContentById = require('viewmodels/questions/singleSelectImage/queries/getQuestionContentById'),
         addAnswerCommand = require('viewmodels/questions/singleSelectImage/commands/addAnswer'),
@@ -13,6 +14,10 @@
         removeAnswerCommand = require('viewmodels/questions/singleSelectImage/commands/removeAnswer');
 
     describe('question single select image [designer]', function () {
+
+        var questionId = 'questionId',
+            answerId = 'answerId',
+            answer = { id: answerId, image: 'image' };
 
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
@@ -377,7 +382,7 @@
         describe('updateAnswerImage:', function () {
 
             var dfd,
-                answer = { id: ko.observable(), image: ko.observable(), isProcessing: ko.observable(), isImageLoading: ko.observable() };
+                answer = { id: ko.observable(), image: ko.observable(), isProcessing: ko.observable(), isImageLoading: ko.observable(), isEditing: ko.observable() };
 
             beforeEach(function () {
                 dfd = Q.defer();
@@ -387,6 +392,13 @@
 
             it('should be function', function () {
                 expect(viewModel.updateAnswerImage).toBeFunction();
+            });
+
+            it('should set answer isEditing to true', function () {
+                answer.isEditing(false);
+                spyOn(imageUpload, 'upload');
+                viewModel.updateAnswerImage(answer);
+                expect(answer.isEditing()).toBeTruthy();
             });
 
             it('should upload image', function () {
@@ -425,43 +437,69 @@
                     });
                 });
 
-                it('should execute command to update answer image', function () {
-                    viewModel.updateAnswerImage(answer);
-                    expect(updateAnswerImageCommand.execute).toHaveBeenCalled();
+                describe('when answer is deleted', function () {
+                    beforeEach(function () {
+                        answer.isDeleted = true;
+                    });
+
+                    it('should remove answer from collection', function (done) {
+                        viewModel.updateAnswerImage(answer);
+
+                        dfd.promise.then(function () {
+                            expect(viewModel.answers().length).toBe(0);
+                            done();
+                        });
+                    });
+
+                    it('should not execute command to update answer image', function () {
+                        viewModel.updateAnswerImage(answer);
+                        expect(updateAnswerImageCommand.execute).not.toHaveBeenCalled();
+                    });
                 });
 
-                describe('and update answer image command is executed', function () {
-
-                    beforeEach(function (done) {
-                        dfd.resolve();
-                        done();
+                describe('when answer is not deleted', function () {
+                    beforeEach(function () {
+                        answer.isDeleted = false;
                     });
 
-                    it('should set answer isImageLoading to false', function () {
-                        answer.isImageLoading(true);
+                    it('should execute command to update answer image', function () {
                         viewModel.updateAnswerImage(answer);
+                        expect(updateAnswerImageCommand.execute).toHaveBeenCalled();
+                    });
 
-                        dfd.promise.then(function () {
-                            expect(answer.isImageLoading()).toBeFalsy();
+                    describe('and update answer image command is executed', function () {
+
+                        beforeEach(function (done) {
+                            dfd.resolve();
                             done();
                         });
-                    });
 
-                    it('should update answer image', function (done) {
-                        viewModel.updateAnswerImage(answer);
+                        it('should set answer isImageLoading to false', function () {
+                            answer.isImageLoading(true);
+                            viewModel.updateAnswerImage(answer);
 
-                        dfd.promise.then(function () {
-                            expect(answer.image()).toEqual(url);
-                            done();
+                            dfd.promise.then(function () {
+                                expect(answer.isImageLoading()).toBeFalsy();
+                                done();
+                            });
                         });
-                    });
 
-                    it('should notify that data was saved', function (done) {
-                        viewModel.updateAnswerImage(answer);
+                        it('should update answer image', function (done) {
+                            viewModel.updateAnswerImage(answer);
 
-                        dfd.promise.then(function () {
-                            expect(notify.saved).toHaveBeenCalled();
-                            done();
+                            dfd.promise.then(function () {
+                                expect(answer.image()).toEqual(url);
+                                done();
+                            });
+                        });
+
+                        it('should notify that data was saved', function (done) {
+                            viewModel.updateAnswerImage(answer);
+
+                            dfd.promise.then(function () {
+                                expect(notify.saved).toHaveBeenCalled();
+                                done();
+                            });
                         });
                     });
                 });
@@ -474,10 +512,45 @@
                     });
                 });
 
-                it('should set answer isImageLoading to false', function () {
-                    answer.isImageLoading(true);
+                describe('when answer is deleted', function () {
+                    beforeEach(function () {
+                        answer.isDeleted = true;
+                    });
+
+                    it('should remove answer from collection', function (done) {
+                        viewModel.updateAnswerImage(answer);
+
+                        dfd.promise.then(function () {
+                            expect(viewModel.answers().length).toBe(0);
+                            done();
+                        });
+                    });
+                });
+
+                describe('when answer is not deleted', function () {
+                    beforeEach(function () {
+                        answer.isDeleted = false;
+                    });
+
+                    it('should set answer isImageLoading to false', function () {
+                        answer.isImageLoading(true);
+                        viewModel.updateAnswerImage(answer);
+                        expect(answer.isImageLoading()).toBeFalsy();
+                    });
+                });
+            });
+
+            describe('when image loading complete', function () {
+                beforeEach(function () {
+                    spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        spec.complete();
+                    });
+                });
+
+                it('should set answer isEditing to false', function () {
+                    answer.isEditing(true);
                     viewModel.updateAnswerImage(answer);
-                    expect(answer.isImageLoading()).toBeFalsy();
+                    expect(answer.isEditing()).toBeFalsy();
                 });
             });
         });
@@ -582,6 +655,166 @@
 
                 it('should be true', function () {
                     expect(viewModel.canRemoveAnswer()).toBeFalsy();
+                });
+            });
+        });
+
+        describe('answerCreatedByCollaborator:', function () {
+            it('should be function', function () {
+                expect(viewModel.answerCreatedByCollaborator).toBeFunction();
+            });
+
+            describe('when question is current question', function () {
+                beforeEach(function () {
+                    viewModel.questionId = questionId;
+                });
+
+                it('should add answer to collection', function () {
+                    viewModel.answers([]);
+                    viewModel.answerCreatedByCollaborator(questionId, answer);
+                    expect(viewModel.answers().length).toBe(1);
+                    expect(viewModel.answers()[0].id()).toBe(answer.id);
+                });
+            });
+
+            describe('when question is not current question', function () {
+                beforeEach(function () {
+                    viewModel.questionId = '';
+                });
+
+                it('should not add answer to collection', function () {
+                    viewModel.answers([]);
+                    viewModel.answerCreatedByCollaborator(questionId, answer);
+                    expect(viewModel.answers().length).toBe(0);
+                });
+            });
+        });
+
+        describe('answerDeletedByCollaborator:', function () {
+
+            var vmAnswer = { id: ko.observable(answerId), image: ko.observable(null), isEditing: ko.observable() },
+                errorMessage = 'error';
+
+            it('should be function', function () {
+                expect(viewModel.answerDeletedByCollaborator).toBeFunction();
+            });
+
+            describe('when question is current question', function () {
+                beforeEach(function () {
+                    viewModel.questionId = questionId;
+                    viewModel.answers([vmAnswer]);
+                    spyOn(notify, 'error');
+                    spyOn(localizationManager, 'localize').and.returnValue(errorMessage);
+                });
+
+                describe('and when answer is editing', function () {
+                    beforeEach(function () {
+                        vmAnswer.isEditing(true);
+                    });
+
+                    it('should not delete answer', function () {
+                        viewModel.answerDeletedByCollaborator(questionId, answerId);
+                        expect(viewModel.answers().length).toBe(1);
+                    });
+
+                    it('should set answer isDeleted to true', function () {
+                        vmAnswer.isDeleted = false;
+                        viewModel.answerDeletedByCollaborator(questionId, answerId);
+                        expect(viewModel.answers()[0].isDeleted).toBeTruthy();
+                    });
+
+                    it('should show error message', function () {
+                        viewModel.answerDeletedByCollaborator(questionId, answerId);
+                        expect(notify.error).toHaveBeenCalledWith(errorMessage);
+                    });
+                });
+
+                describe('and when answer is not editing', function () {
+                    beforeEach(function () {
+                        vmAnswer.isEditing(false);
+                    });
+
+                    it('should delete answer', function () {
+                        viewModel.answerDeletedByCollaborator(questionId, answerId);
+                        expect(viewModel.answers().length).toBe(0);
+                    });
+                });
+            });
+
+            describe('when question is not current question', function () {
+                beforeEach(function () {
+                    viewModel.questionId = '';
+                });
+
+                it('should not updated image answer', function () {
+                    vmAnswer.image(null);
+                    viewModel.answers([vmAnswer]);
+                    viewModel.answerImageUpdatedByCollaborator(questionId, answer);
+                    expect(viewModel.answers()[0].image()).toBeNull();
+                });
+            });
+        });
+
+        describe('answerImageUpdatedByCollaborator:', function () {
+
+            var vmAnswer = { id: ko.observable(answerId), image: ko.observable(null), isEditing: ko.observable() }
+
+            it('should be function', function () {
+                expect(viewModel.answerImageUpdatedByCollaborator).toBeFunction();
+            });
+
+            describe('when question is current question', function () {
+                beforeEach(function () {
+                    viewModel.questionId = questionId;
+                });
+
+                it('should updated image answer', function () {
+                    viewModel.answers([vmAnswer]);
+                    viewModel.answerImageUpdatedByCollaborator(questionId, answer);
+                    expect(viewModel.answers()[0].image()).toBe(answer.image);
+                });
+            });
+
+            describe('when question is not current question', function () {
+                beforeEach(function () {
+                    viewModel.questionId = '';
+                });
+
+                it('should not updated image answer', function () {
+                    vmAnswer.image(null);
+                    viewModel.answers([vmAnswer]);
+                    viewModel.answerImageUpdatedByCollaborator(questionId, answer);
+                    expect(viewModel.answers()[0].image()).toBeNull();
+                });
+            });
+        });
+
+        describe('correctAnswerChangedByCollaborator:', function () {
+            it('should be function', function () {
+                expect(viewModel.correctAnswerChangedByCollaborator).toBeFunction();
+            });
+
+            describe('when question is current question', function () {
+                beforeEach(function () {
+                    viewModel.questionId = questionId;
+                });
+
+                it('should set correctAnswerId', function () {
+                    viewModel.correctAnswerId(null);
+                    viewModel.correctAnswerChangedByCollaborator(questionId, answerId);
+                    expect(viewModel.correctAnswerId()).toBe(answerId);
+                });
+            });
+
+            describe('when question is not current question', function () {
+                beforeEach(function () {
+                    viewModel.questionId = '';
+                });
+
+                it('should set correctAnswerId', function () {
+                    viewModel.correctAnswerId(null);
+                    viewModel.correctAnswerChangedByCollaborator(questionId, answerId);
+                    expect(viewModel.correctAnswerId()).toBeNull();
                 });
             });
         });

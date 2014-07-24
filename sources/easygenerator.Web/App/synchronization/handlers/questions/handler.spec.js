@@ -26,6 +26,12 @@
                 expect(handler.textMatching).toBeDefined();
             });
         });
+
+        describe('singleSelectImage:', function () {
+            it('should be defined', function () {
+                expect(handler.singleSelectImage).toBeDefined();
+            });
+        });
     });
 
 })

@@ -400,6 +400,7 @@
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\SingleSelectImageEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\TextMatchingEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\UserEventHandler.cs" />
     <Compile Include="Synchronization\Hubs\EventHub.cs" />
@@ -411,6 +412,8 @@
     <Content Include="App\dialogs\collaboration\removeCollaborator.spec.js">
       <DependentUpon>removeCollaborator.js</DependentUpon>
     </Content>
+    <Content Include="App\mappers\singleSelectImageAnswerMapper.js" />
+    <Content Include="App\models\singleSelectImageAnswer.js" />
     <Content Include="App\notifications\subscriptionExpirationNotification.spec.js">
       <DependentUpon>subscriptionExpirationNotification.js</DependentUpon>
     </Content>
@@ -439,47 +442,109 @@
       <DependentUpon>objectivesReplaced.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\backgroundChanged.js" />
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\backgroundChanged.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\backgroundChanged.spec.js">
+      <DependentUpon>backgroundChanged.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotCreated.js" />
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotCreated.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotCreated.spec.js">
+      <DependentUpon>dropspotCreated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotDeleted.js" />
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotDeleted.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotDeleted.spec.js">
+      <DependentUpon>dropspotDeleted.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotPositionChanged.js" />
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotPositionChanged.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotPositionChanged.spec.js">
+      <DependentUpon>dropspotPositionChanged.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotTextChanged.js" />
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotTextChanged.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotTextChanged.spec.js">
+      <DependentUpon>dropspotTextChanged.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\dragAndDrop\handler.js" />
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\handler.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\dragAndDrop\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\fillInTheBlank\eventHandlers\updated.js" />
-    <Content Include="App\synchronization\handlers\questions\fillInTheBlank\eventHandlers\updated.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\fillInTheBlank\eventHandlers\updated.spec.js">
+      <DependentUpon>updated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\fillInTheBlank\handler.js" />
-    <Content Include="App\synchronization\handlers\questions\fillInTheBlank\handler.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\fillInTheBlank\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\handler.js" />
-    <Content Include="App\synchronization\handlers\questions\handler.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\contentUpdated.js" />
-    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\contentUpdated.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\contentUpdated.spec.js">
+      <DependentUpon>contentUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\correctFeedbackUpdated.js" />
-    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\correctFeedbackUpdated.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\correctFeedbackUpdated.spec.js">
+      <DependentUpon>correctFeedbackUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\created.js" />
-    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\created.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\created.spec.js">
+      <DependentUpon>created.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\deleted.js" />
-    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\deleted.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\deleted.spec.js">
+      <DependentUpon>deleted.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\incorrectFeedbackUpdated.js" />
-    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\incorrectFeedbackUpdated.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\incorrectFeedbackUpdated.spec.js">
+      <DependentUpon>incorrectFeedbackUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\titleUpdated.js" />
-    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\titleUpdated.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\titleUpdated.spec.js">
+      <DependentUpon>titleUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\question\handler.js" />
-    <Content Include="App\synchronization\handlers\questions\question\handler.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\question\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\singleSelectImage\eventHandlers\answerCreated.js" />
+    <Content Include="App\synchronization\handlers\questions\singleSelectImage\eventHandlers\answerCreated.spec.js">
+      <DependentUpon>answerCreated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\singleSelectImage\eventHandlers\answerDeleted.js" />
+    <Content Include="App\synchronization\handlers\questions\singleSelectImage\eventHandlers\answerDeleted.spec.js">
+      <DependentUpon>answerDeleted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\singleSelectImage\eventHandlers\answerImageUpdated.js" />
+    <Content Include="App\synchronization\handlers\questions\singleSelectImage\eventHandlers\answerImageUpdated.spec.js">
+      <DependentUpon>answerImageUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\singleSelectImage\eventHandlers\correctAnswerChanged.js" />
+    <Content Include="App\synchronization\handlers\questions\singleSelectImage\eventHandlers\correctAnswerChanged.spec.js">
+      <DependentUpon>correctAnswerChanged.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\singleSelectImage\handler.js" />
+    <Content Include="App\synchronization\handlers\questions\singleSelectImage\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\textMatching\eventHandlers\answerCreated.js" />
-    <Content Include="App\synchronization\handlers\questions\textMatching\eventHandlers\answerCreated.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\textMatching\eventHandlers\answerCreated.spec.js">
+      <DependentUpon>answerCreated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\textMatching\eventHandlers\answerDeleted.js" />
-    <Content Include="App\synchronization\handlers\questions\textMatching\eventHandlers\answerDeleted.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\textMatching\eventHandlers\answerDeleted.spec.js">
+      <DependentUpon>answerDeleted.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\textMatching\eventHandlers\answerKeyChanged.js" />
-    <Content Include="App\synchronization\handlers\questions\textMatching\eventHandlers\answerKeyChanged.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\textMatching\eventHandlers\answerKeyChanged.spec.js">
+      <DependentUpon>answerKeyChanged.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\textMatching\eventHandlers\answerValueChanged.js" />
-    <Content Include="App\synchronization\handlers\questions\textMatching\eventHandlers\answerValueChanged.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\textMatching\eventHandlers\answerValueChanged.spec.js">
+      <DependentUpon>answerValueChanged.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\textMatching\handler.js" />
-    <Content Include="App\synchronization\handlers\questions\textMatching\handler.spec.js" />
+    <Content Include="App\synchronization\handlers\questions\textMatching\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToPlus.js" />
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToPlus.spec.js">
       <DependentUpon>upgradedToPlus.js</DependentUpon>

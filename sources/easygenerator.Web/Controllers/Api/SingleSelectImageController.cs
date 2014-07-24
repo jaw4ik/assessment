@@ -3,6 +3,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.QuestionEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.SingleSelectImageEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Authorization;
@@ -75,6 +76,7 @@ namespace easygenerator.Web.Controllers.Api
 
             var answer = _entityFactory.SingleSelectImageAnswer(imageUrl, GetCurrentUsername());
             question.AddAnswer(answer, GetCurrentUsername());
+            _eventPublisher.Publish(new SingleSelectImageAnswerCreatedEvent(answer));
 
             return JsonSuccess(answer.Id.ToNString());
         }
@@ -90,6 +92,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.RemoveAnswer(answer, GetCurrentUsername());
+            _eventPublisher.Publish(new SingleSelectImageAnswerDeletedEvent(answer, question));
 
             return JsonSuccess(new
             {
@@ -107,6 +110,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             answer.UpdateImage(imageUrl, GetCurrentUsername());
+            _eventPublisher.Publish(new SingleSelectImageAnswerImageUpdatedEvent(answer));
 
             return JsonSuccess();
         }
@@ -122,6 +126,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.SetCorrectAnswer(answer, GetCurrentUsername());
+            _eventPublisher.Publish(new SingleSelectImageCorrectAnswerChangedEvent(answer));
 
             return JsonSuccess();
         }

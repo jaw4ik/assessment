@@ -107,6 +107,12 @@
             'synchronization/handlers/questions/textMatching/eventHandlers/answerKeyChanged.spec',
             'synchronization/handlers/questions/textMatching/eventHandlers/answerValueChanged.spec',
 
+            'synchronization/handlers/questions/singleSelectImage/handler.spec',
+            'synchronization/handlers/questions/singleSelectImage/eventHandlers/answerCreated.spec',
+            'synchronization/handlers/questions/singleSelectImage/eventHandlers/answerDeleted.spec',
+            'synchronization/handlers/questions/singleSelectImage/eventHandlers/answerImageUpdated.spec',
+            'synchronization/handlers/questions/singleSelectImage/eventHandlers/correctAnswerChanged.spec',
+
             //#endregion
 
             'synchronization/handlers/learningContent/handler.spec',

@@ -1,13 +1,16 @@
 ﻿define(['imageUpload',
         'notify',
+        'constants',
         'eventTracker',
+        'durandal/app',
+        'localization/localizationManager',
         'viewmodels/questions/singleSelectImage/answer',
         'viewmodels/questions/singleSelectImage/commands/addAnswer',
         'viewmodels/questions/singleSelectImage/commands/removeAnswer',
         'viewmodels/questions/singleSelectImage/commands/setCorrectAnswer',
         'viewmodels/questions/singleSelectImage/commands/updateAnswerImage',
         'viewmodels/questions/singleSelectImage/queries/getQuestionContentById'],
-    function (imageUpload, notify, eventTracker, Answer, addAnswerCommand, removeAnswerCommand, setCorrectAnswerCommand, updateAnswerImageCommand, getQuestionContentById) {
+    function (imageUpload, notify, constants, eventTracker, app, localizationManager, Answer, addAnswerCommand, removeAnswerCommand, setCorrectAnswerCommand, updateAnswerImageCommand, getQuestionContentById) {
         "use strict";
 
         var events = {
@@ -17,11 +20,8 @@
             changeAnswerOptionCorrectness: 'Change answer option correctness (single select image)'
         };
 
-        var self = {
-            questionId: null
-        };
-
         var viewModel = {
+            questionId: null,
             activate: activate,
             correctAnswerId: ko.observable(null),
 
@@ -32,17 +32,26 @@
             updateAnswerImage: updateAnswerImage,
             setCorrectAnswer: setCorrectAnswer,
             finishAswerProcessing: finishAswerProcessing,
-            answers: ko.observableArray()
+            answers: ko.observableArray(),
+            answerCreatedByCollaborator: answerCreatedByCollaborator,
+            answerDeletedByCollaborator: answerDeletedByCollaborator,
+            answerImageUpdatedByCollaborator: answerImageUpdatedByCollaborator,
+            correctAnswerChangedByCollaborator: correctAnswerChangedByCollaborator
         };
 
         viewModel.canRemoveAnswer = ko.computed(function () {
             return viewModel.answers().length > 2;
         });
 
+        app.on(constants.messages.question.singleSelectImage.answerCreatedByCollaborator, answerCreatedByCollaborator);
+        app.on(constants.messages.question.singleSelectImage.answerDeletedByCollaborator, answerDeletedByCollaborator);
+        app.on(constants.messages.question.singleSelectImage.answerImageUpdatedByCollaborator, answerImageUpdatedByCollaborator);
+        app.on(constants.messages.question.singleSelectImage.correctAnswerChangedByCollaborator, correctAnswerChangedByCollaborator);
+
         return viewModel;
 
         function activate(questionId) {
-            self.questionId = questionId;
+            viewModel.questionId = questionId;
 
             return getQuestionContentById.execute(questionId).then(function (question) {
                 if (question) {
@@ -78,7 +87,7 @@
                     viewModel.answers.push(answerToAdd);
                 },
                 success: function (url) {
-                    addAnswerCommand.execute(self.questionId, url).then(function (id) {
+                    addAnswerCommand.execute(viewModel.questionId, url).then(function (id) {
                         answerToAdd.id(id);
                         answerToAdd.image(url);
                         answerToAdd.isImageLoading(false);
@@ -93,7 +102,7 @@
 
         function removeAnswer(answer) {
             eventTracker.publish(events.deleteAnswerOption);
-            removeAnswerCommand.execute(self.questionId, answer.id).then(function (data) {
+            removeAnswerCommand.execute(viewModel.questionId, answer.id).then(function (data) {
                 viewModel.correctAnswerId(data ? data.correctAnswerId : null);
                 viewModel.answers.remove(answer);
                 notify.saved();
@@ -102,12 +111,18 @@
 
         function updateAnswerImage(answer) {
             eventTracker.publish(events.updateAnswerOption);
+            answer.isEditing(true);
             imageUpload.upload({
                 startLoading: function () {
                     answer.isProcessing(true);
                     answer.isImageLoading(true);
                 },
                 success: function (url) {
+                    if (answer.isDeleted) {
+                        viewModel.answers.remove(answer);
+                        return;
+                    }
+
                     updateAnswerImageCommand.execute(answer.id, url).then(function () {
                         answer.image(url);
                         answer.isImageLoading(false);
@@ -115,7 +130,15 @@
                     });
                 },
                 error: function () {
+                    if (answer.isDeleted) {
+                        viewModel.answers.remove(answer);
+                        return;
+                    }
+
                     answer.isImageLoading(false);
+                },
+                complete: function () {
+                    answer.isEditing(false);
                 }
             });
         }
@@ -125,7 +148,7 @@
                 return;
 
             eventTracker.publish(events.changeAnswerOptionCorrectness);
-            setCorrectAnswerCommand.execute(self.questionId, answer.id()).then(function () {
+            setCorrectAnswerCommand.execute(viewModel.questionId, answer.id()).then(function () {
                 viewModel.correctAnswerId(answer.id());
                 notify.saved();
             });
@@ -133,6 +156,53 @@
 
         function finishAswerProcessing(answer) {
             answer.isProcessing(false);
+        }
+
+        function answerCreatedByCollaborator(questionId, answer) {
+            if (viewModel.questionId != questionId)
+                return;
+
+            viewModel.answers.push(new Answer(answer.id, answer.image));
+        }
+
+        function answerDeletedByCollaborator(questionId, answerId) {
+            if (viewModel.questionId != questionId)
+                return;
+
+            var answer = _.find(viewModel.answers(), function (item) {
+                return item.id() == answerId;
+            });
+
+            if (_.isNullOrUndefined(answer))
+                return;
+
+            if (answer.isEditing()) {
+                answer.isDeleted = true;
+                notify.error(localizationManager.localize('answerOptionHasBeenDeletedByCollaborator'));
+            } else {
+                viewModel.answers.remove(answer);
+            }
+        }
+
+        function answerImageUpdatedByCollaborator(questionId, answerData) {
+            if (viewModel.questionId != questionId)
+                return;
+
+            var answer = _.find(viewModel.answers(), function (item) {
+                return item.id() == answerData.id;
+            });
+
+            if (_.isNullOrUndefined(answer))
+                return;
+
+            answer.image(answerData.image);
+        }
+
+        function correctAnswerChangedByCollaborator(questionId, correctAnswerId) {
+            if (viewModel.questionId != questionId)
+                return;
+
+            viewModel.correctAnswerId(correctAnswerId);
         }
     }
 );

@@ -110,6 +110,11 @@
     <Compile Include="Events\QuestionEvents\QuestionEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionContentUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionTitleUpdatedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\SingleSelectImageEvents\SingleSelectImageCorrectAnswerChangedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\SingleSelectImageEvents\SingleSelectImageAnswerCreatedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\SingleSelectImageEvents\SingleSelectImageAnswerDeletedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\SingleSelectImageEvents\SingleSelectImageAnswerEvent.cs" />
+    <Compile Include="Events\QuestionEvents\SingleSelectImageEvents\SingleSelectImageAnswerImageUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\TextMatchingEvents\TextMatchingAnswerCreatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\TextMatchingEvents\TextMatchingAnswerDeletedEvent.cs" />
     <Compile Include="Events\QuestionEvents\TextMatchingEvents\TextMatchingAnswerEvent.cs" />

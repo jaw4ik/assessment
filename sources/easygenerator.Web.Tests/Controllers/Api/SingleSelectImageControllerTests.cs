@@ -2,6 +2,8 @@
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.QuestionEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.SingleSelectImageEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Mappers;
@@ -132,6 +134,22 @@ namespace easygenerator.Web.Tests.Controllers.Api
                 .And.Data.ShouldBeSimilar(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
         }
 
+        [TestMethod]
+        public void Create_ShouldPublishDomainEvent()
+        {
+            const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            DateTimeWrapper.Now = () => DateTime.MinValue;
+            var question = Substitute.For<SingleSelectImage>();
+
+            _entityFactory.SingleSelectImageQuestion(title, user).Returns(question);
+
+            var result = _controller.Create(Substitute.For<Objective>(), title);
+
+            _eventPublisher.Received().Publish(Arg.Any<QuestionCreatedEvent>());
+        }
+
         #endregion
 
         #region Create answer
@@ -180,6 +198,25 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             question.Received().AddAnswer(answer, username);
+        }
+
+        [TestMethod]
+        public void CreateAnswer_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var question = Substitute.For<SingleSelectImage>();
+
+            const string username = "username";
+            _user.Identity.Name.Returns(username);
+
+            var answer = Substitute.For<SingleSelectImageAnswer>(Url, username);
+            _entityFactory.SingleSelectImageAnswer(Url, username).Returns(answer);
+
+            //Act
+            _controller.CreateAnswer(question, Url);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<SingleSelectImageAnswerCreatedEvent>());
         }
 
         [TestMethod]
@@ -265,6 +302,26 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void DeleteAnswer_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var question = SingleSelectImageObjectMother.Create();
+            var answer = Substitute.For<SingleSelectImageAnswer>();
+            question.AddAnswer(answer, CreatedBy);
+            question.AddAnswer(Substitute.For<SingleSelectImageAnswer>(), CreatedBy);
+            question.AddAnswer(Substitute.For<SingleSelectImageAnswer>(), CreatedBy);
+
+            const string username = "username";
+            _user.Identity.Name.Returns(username);
+
+            //Act
+            _controller.DeleteAnswer(question, answer);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<SingleSelectImageAnswerDeletedEvent>());
+        }
+
+        [TestMethod]
         public void DeleteAnswer_ShouldReturnJsonSuccess()
         {
             //Arrange
@@ -331,6 +388,24 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void UpdateAnswerImage_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var question = Substitute.For<SingleSelectImage>();
+
+            const string username = "username";
+            _user.Identity.Name.Returns(username);
+
+            var answer = Substitute.For<SingleSelectImageAnswer>(Url, username);
+
+            //Act
+            _controller.UpdateAnswerImage(answer, Url);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<SingleSelectImageAnswerImageUpdatedEvent>());
+        }
+
+        [TestMethod]
         public void UpdateAnswerImage_ShouldReturnJsonSuccess()
         {
             //Arrange
@@ -393,6 +468,22 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             question.Received().SetCorrectAnswer(answer, CreatedBy);
+        }
+
+        [TestMethod]
+        public void SetCorrectAnswer_ShouldPublishDomainEvent()
+        {
+            //Arrange
+            var answer = Substitute.For<SingleSelectImageAnswer>(Url, CreatedBy);
+            var question = Substitute.For<SingleSelectImage>();
+
+            _user.Identity.Name.Returns(CreatedBy);
+
+            //Act
+            _controller.SetCorrectAnswer(question, answer);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<SingleSelectImageCorrectAnswerChangedEvent>());
         }
 
         [TestMethod]

@@ -55,6 +55,11 @@
                     textMatchingAnswerKeyChanged: questionEventHandler.textMatching.answerKeyChanged,
                     textMatchingAnswerValueChanged: questionEventHandler.textMatching.answerValueChanged,
 
+                    singleSelectImageAnswerCreated: questionEventHandler.singleSelectImage.answerCreated,
+                    singleSelectImageAnswerDeleted: questionEventHandler.singleSelectImage.answerDeleted,
+                    singleSelectImageAnswerImageUpdated: questionEventHandler.singleSelectImage.answerImageUpdated,
+                    singleSelectImageCorrectAnswerChanged: questionEventHandler.singleSelectImage.correctAnswerChanged,
+
                     answerCreated: answerEventHandler.created,
                     answerDeleted: answerEventHandler.deleted,
                     answerTextUpdated: answerEventHandler.textUpdated,

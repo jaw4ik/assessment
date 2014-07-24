@@ -166,7 +166,7 @@
                         multipleselectAnswerCorrectnessUpdatedByCollaborator: 'question:answer:multipleselectAnswerCorrectnessUpdatedByCollaborator',
                         singleSelectTextAnswerCorrectnessUpdatedByCollaborator: 'question:answer:singleSelectTextAnswerCorrectnessUpdatedByCollaborator',
                         singleSelectTextDeleteByCollaborator: 'question:answer:singleSelectTextDeletedByCollaborator'
-    },
+                    },
 
                     learningContent: {
                         createdByCollaborator: 'learningContent:createdByCollaborator',
@@ -191,6 +191,13 @@
                         answerDeletedByCollaborator: 'question:textMatching:answerDeletedByCollaborator',
                         answerKeyChangedByCollaborator: 'question:textMatching:answerKeyChangedByCollaborator',
                         answerValueChangedByCollaborator: 'question:textMatching:answerValueChangedByCollaborator',
+                    },
+
+                    singleSelectImage: {
+                        answerCreatedByCollaborator: 'question:singleSelectImage:answerCreatedByCollaborator',
+                        answerDeletedByCollaborator: 'question:singleSelectImage:answerDeletedByCollaborator',
+                        answerImageUpdatedByCollaborator: 'question:singleSelectImage:answerImageUpdatedByCollaborator',
+                        correctAnswerChangedByCollaborator: 'question:singleSelectImage:correctAnswerChangedByCollaborator'
                     }
 
                 },
