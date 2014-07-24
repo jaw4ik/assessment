@@ -429,9 +429,9 @@
                         viewModel.currentTemplate({ id: '' });
                         viewModel.lockTemplateChoosing(true);
 
-                        viewModel.selectTemplate(template);
+                        var promise = viewModel.selectTemplate(template);
 
-                        updateCourseTemplateDefer.promise.fin(function () {
+                        promise.fin(function () {
                             expect(viewModel.lockTemplateChoosing()).toBeFalsy();
                             done();
                         });
@@ -450,9 +450,7 @@
                         viewModel.currentTemplate({ id: '' });
                         viewModel.lockTemplateChoosing(true);
 
-                        viewModel.selectTemplate(template);
-
-                        var promise = updateCourseTemplateDefer.promise;
+                        var promise = viewModel.selectTemplate(template);
 
                         promise.fin(function () {
                             expect(viewModel.lockTemplateChoosing()).toBeFalsy();
