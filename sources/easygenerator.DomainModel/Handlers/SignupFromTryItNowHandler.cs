@@ -17,6 +17,7 @@ namespace easygenerator.DomainModel.Handlers
         private readonly IQuerableRepository<Question> _qustionRepository;
         private readonly IQuerableRepository<Answer> _answerRepository;
         private readonly IQuerableRepository<Dropspot> _dropspotRepository;
+        private readonly IQuerableRepository<TextMatchingAnswer> _textMatchingAnswerRepository;
         private readonly IQuerableRepository<LearningContent> _learningContentRepository;
         private readonly IImageFileRepository _imageFileRepository;
 
@@ -25,6 +26,7 @@ namespace easygenerator.DomainModel.Handlers
             IQuerableRepository<Question> qustionRepository,
             IQuerableRepository<Answer> answerRepository,
             IQuerableRepository<Dropspot> dropspotRepository,
+            IQuerableRepository<TextMatchingAnswer> textMatchingAnswerRepository,
             IQuerableRepository<LearningContent> learningContentRepository,
             IImageFileRepository imageFileRepository)
         {
@@ -33,6 +35,7 @@ namespace easygenerator.DomainModel.Handlers
             _qustionRepository = qustionRepository;
             _answerRepository = answerRepository;
             _dropspotRepository = dropspotRepository;
+            _textMatchingAnswerRepository = textMatchingAnswerRepository;
             _learningContentRepository = learningContentRepository;
             _imageFileRepository = imageFileRepository;
         }
@@ -62,6 +65,11 @@ namespace easygenerator.DomainModel.Handlers
             foreach (var dropspot in _dropspotRepository.GetCollection(e => e.CreatedBy == tryItNowUsername))
             {
                 dropspot.DefineCreatedBy(signUpUsername);
+            }
+
+            foreach (var textMatchingAnswer in _textMatchingAnswerRepository.GetCollection(e => e.CreatedBy == tryItNowUsername))
+            {
+                textMatchingAnswer.DefineCreatedBy(signUpUsername);
             }
 
             foreach (var learningContent in _learningContentRepository.GetCollection(e => e.CreatedBy == tryItNowUsername))

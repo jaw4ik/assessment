@@ -25,6 +25,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         private IQuerableRepository<Question> _questionRepository;
         private IQuerableRepository<Answer> _answerRepository;
         private IQuerableRepository<Dropspot> _dropspotRepository;
+        private IQuerableRepository<TextMatchingAnswer> _textMatchingAnswerRepository;
         private IQuerableRepository<LearningContent> _learningContentRepository;
         private IQuerableRepository<Course> _courseRepository;
         private IImageFileRepository _imageFileRepository;
@@ -36,11 +37,12 @@ namespace easygenerator.DomainModel.Tests.Handlers
             _questionRepository = Substitute.For<IQuerableRepository<Question>>();
             _answerRepository = Substitute.For<IQuerableRepository<Answer>>();
             _dropspotRepository = Substitute.For<IQuerableRepository<Dropspot>>();
+            _textMatchingAnswerRepository = Substitute.For<IQuerableRepository<TextMatchingAnswer>>();
             _learningContentRepository = Substitute.For<IQuerableRepository<LearningContent>>();
             _courseRepository = Substitute.For<IQuerableRepository<Course>>();
             _imageFileRepository = Substitute.For<IImageFileRepository>();
 
-            _handler = new SignupFromTryItNowHandler(_courseRepository, _objectiveRepository, _questionRepository, _answerRepository, _dropspotRepository, _learningContentRepository, _imageFileRepository);
+            _handler = new SignupFromTryItNowHandler(_courseRepository, _objectiveRepository, _questionRepository, _answerRepository, _dropspotRepository, _textMatchingAnswerRepository, _learningContentRepository, _imageFileRepository);
         }
 
         #region Courses
@@ -170,6 +172,33 @@ namespace easygenerator.DomainModel.Tests.Handlers
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
 
             dropspot.DidNotReceive().DefineCreatedBy(SignUpUsername);
+        }
+
+        #endregion
+
+        #region TextMatchingAnswer
+
+
+        [TestMethod]
+        public void Handle_ShouldDefineCreatedByForTextMatchingAnswersThatWereCreatedInTryMode()
+        {
+            var answer = Substitute.For<TextMatchingAnswer>("key", "value", OtherExistingUser);
+            _textMatchingAnswerRepository.GetCollection(Arg.Any<Expression<Func<TextMatchingAnswer, bool>>>()).Returns(new List<TextMatchingAnswer>() { answer });
+
+            _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
+
+            answer.Received().DefineCreatedBy(SignUpUsername);
+        }
+
+        [TestMethod]
+        public void Handle_ShouldNotDefineCreatedByForTextMatchingAnswersThatWereCreatedByOtherExistingUser()
+        {
+            var answer = Substitute.For<TextMatchingAnswer>("key", "value", OtherExistingUser);
+            _textMatchingAnswerRepository.GetCollection().Returns(new List<TextMatchingAnswer>() { answer });
+
+            _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
+
+            answer.DidNotReceive().DefineCreatedBy(SignUpUsername);
         }
 
         #endregion
