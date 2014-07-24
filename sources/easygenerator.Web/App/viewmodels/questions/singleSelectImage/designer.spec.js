@@ -432,23 +432,20 @@
                 var url = 'http://url.com';
 
                 beforeEach(function () {
+                    viewModel.answers([answer]);
                     spyOn(imageUpload, 'upload').and.callFake(function (spec) {
                         spec.success(url);
                     });
                 });
 
-                describe('when answer is deleted', function () {
+                describe('and when answer is deleted', function () {
                     beforeEach(function () {
                         answer.isDeleted = true;
                     });
 
-                    it('should remove answer from collection', function (done) {
+                    it('should remove answer from collection', function () {
                         viewModel.updateAnswerImage(answer);
-
-                        dfd.promise.then(function () {
-                            expect(viewModel.answers().length).toBe(0);
-                            done();
-                        });
+                        expect(viewModel.answers().length).toBe(0);
                     });
 
                     it('should not execute command to update answer image', function () {
@@ -457,7 +454,7 @@
                     });
                 });
 
-                describe('when answer is not deleted', function () {
+                describe('and when answer is not deleted', function () {
                     beforeEach(function () {
                         answer.isDeleted = false;
                     });
@@ -474,7 +471,7 @@
                             done();
                         });
 
-                        it('should set answer isImageLoading to false', function () {
+                        it('should set answer isImageLoading to false', function (done) {
                             answer.isImageLoading(true);
                             viewModel.updateAnswerImage(answer);
 
@@ -517,13 +514,9 @@
                         answer.isDeleted = true;
                     });
 
-                    it('should remove answer from collection', function (done) {
+                    it('should remove answer from collection', function () {
                         viewModel.updateAnswerImage(answer);
-
-                        dfd.promise.then(function () {
-                            expect(viewModel.answers().length).toBe(0);
-                            done();
-                        });
+                        expect(viewModel.answers().length).toBe(0);
                     });
                 });
 
