@@ -4,13 +4,14 @@
         'eventTracker',
         'durandal/app',
         'localization/localizationManager',
+        'widgets/imagePreview/viewmodel',
         'viewmodels/questions/singleSelectImage/answer',
         'viewmodels/questions/singleSelectImage/commands/addAnswer',
         'viewmodels/questions/singleSelectImage/commands/removeAnswer',
         'viewmodels/questions/singleSelectImage/commands/setCorrectAnswer',
         'viewmodels/questions/singleSelectImage/commands/updateAnswerImage',
         'viewmodels/questions/singleSelectImage/queries/getQuestionContentById'],
-    function (imageUpload, notify, constants, eventTracker, app, localizationManager, Answer, addAnswerCommand, removeAnswerCommand, setCorrectAnswerCommand, updateAnswerImageCommand, getQuestionContentById) {
+    function (imageUpload, notify, constants, eventTracker, app, localizationManager, imagePreview, Answer, addAnswerCommand, removeAnswerCommand, setCorrectAnswerCommand, updateAnswerImageCommand, getQuestionContentById) {
         "use strict";
 
         var events = {
@@ -32,6 +33,7 @@
             updateAnswerImage: updateAnswerImage,
             setCorrectAnswer: setCorrectAnswer,
             finishAswerProcessing: finishAswerProcessing,
+            previewAnswerImage: previewAnswerImage,
             answers: ko.observableArray(),
             answerCreatedByCollaborator: answerCreatedByCollaborator,
             answerDeletedByCollaborator: answerDeletedByCollaborator,
@@ -156,6 +158,10 @@
 
         function finishAswerProcessing(answer) {
             answer.isProcessing(false);
+        }
+
+        function previewAnswerImage(answer) {
+            imagePreview.openPreviewImage(answer.image());
         }
 
         function answerCreatedByCollaborator(questionId, answer) {

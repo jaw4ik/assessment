@@ -848,6 +848,9 @@
     <Content Include="App\widgets\createQuestion\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
+    <Content Include="App\widgets\imagePreview\bindingHandlers\fadeBindingHandler.js" />
+    <Content Include="App\widgets\imagePreview\view.html" />
+    <Content Include="App\widgets\imagePreview\viewmodel.js" />
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
     <Content Include="BuildCourse\Scorm\Templates\metadata.cshtml" />
     <Content Include="Content\dragAndDropText.css" />
@@ -870,6 +873,7 @@
     <Content Include="Content\font\rabiohead.eot" />
     <Content Include="Content\font\rabiohead.ttf" />
     <Content Include="Content\font\rabiohead.woff" />
+    <Content Include="Content\imagePreview.css" />
     <Content Include="Content\images\comingsoon.png" />
     <Content Include="Content\images\draganddroptext-question.png" />
     <Content Include="Content\images\fillintheblank-question.png" />

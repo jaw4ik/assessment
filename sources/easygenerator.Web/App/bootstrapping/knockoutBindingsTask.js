@@ -2,6 +2,7 @@
     'viewmodels/questions/dragAndDrop/bindingHandlers/backgroundBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
     'viewmodels/questions/singleSelectImage/bindingHandlers/answerImageBindingHandler',
+    'widgets/imagePreview/bindingHandlers/fadeBindingHandler',
     'viewmodels/panels/bindingHandlers/fixedPanelBindingHandler'
 ], function () {
     "use strict";

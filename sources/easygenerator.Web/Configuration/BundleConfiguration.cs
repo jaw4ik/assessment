@@ -73,6 +73,7 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/treeOfContent.css")
                 .Include("~/Content/panels.css")
                 .Include("~/Content/dragAndDropText.css")
+                .Include("~/Content/imagePreview.css")
                 .Include("~/Content/singleSelectImage.css");
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());
             bundles.Add(stylesBundle);

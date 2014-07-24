@@ -5,6 +5,7 @@
         imageUpload = require('imageUpload'),
         notify = require('notify'),
         eventTracker = require('eventTracker'),
+        imagePreview = require('widgets/imagePreview/viewmodel'),
         localizationManager = require('localization/localizationManager'),
         Answer = require('viewmodels/questions/singleSelectImage/answer'),
         getQuestionContentById = require('viewmodels/questions/singleSelectImage/queries/getQuestionContentById'),
@@ -649,6 +650,42 @@
                 it('should be true', function () {
                     expect(viewModel.canRemoveAnswer()).toBeFalsy();
                 });
+            });
+        });
+
+        describe('finishAswerProcessing:', function () {
+            var vmAnswer = {
+                   isProcessing: ko.observable()
+               };
+
+            it('should be function', function () {
+                expect(viewModel.finishAswerProcessing).toBeFunction();
+            });
+
+            it('should open image preview', function () {
+                viewModel.finishAswerProcessing(vmAnswer);
+                expect(vmAnswer.isProcessing()).toBeFalsy();
+            });
+        });
+
+        describe('previewAnswerImage:', function () {
+            var image = 'image',
+               vmAnswer = {
+                   image: ko.observable(image)
+               };
+
+            beforeEach(function () {
+                spyOn(imagePreview, 'openPreviewImage');
+            });
+
+            it('should be function', function () {
+                viewModel.previewAnswerImage(vmAnswer);
+                expect(viewModel.previewAnswerImage).toBeFunction();
+            });
+
+            it('should open image preview', function () {
+                viewModel.previewAnswerImage(vmAnswer);
+                expect(imagePreview.openPreviewImage).toHaveBeenCalledWith(image);
             });
         });
 

@@ -1,0 +1,21 @@
+﻿<div class="overlay-holder" data-bind="fade: isVisible">
+    <div class="overlay" data-bind="click:closePreview">
+    </div>
+    <div class="center">
+        <div class="center-holder">
+            <div class="center-content">
+                <div class="image-holder">
+                    <!--ko if:isLoaded-->
+                        <img class="image" data-bind="attr:{src : imageUrl}, style:{ 'maxWidth': imageMaxWidth() + 'px', 'maxHeight': imageMaxHeight() + 'px'}">
+                        <div class="overlay-close-button-holder">
+                            <a class="overlay-close-button" data-bind="click:closePreview">&nbsp;</a>
+                        </div>
+                    <!--/ko-->
+                    <!--ko ifnot:isLoaded-->
+                        <img class="image" src="/Content/images/loader.gif">
+                    <!--/ko-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
