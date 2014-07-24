@@ -169,6 +169,7 @@
             'viewmodels/questions/singleSelectText/singleSelectText.spec',
             'viewmodels/questions/fillInTheBlank/fillInTheBlank.spec',
             'viewmodels/questions/fillInTheBlank/fibControl.spec',
+            'viewmodels/questions/informationContent/informationContent.spec',
 
             'viewmodels/questions/dragAndDrop/dragAndDrop.spec',
             'viewmodels/questions/dragAndDrop/designer.spec',

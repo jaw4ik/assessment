@@ -35,7 +35,7 @@
                     eventTracker.publish('Create new question (single select image)', eventCategory);
                     break;
                 case constants.questionType.informationContent.type:
-                    eventTracker.publish('Create new information content', 'Information');
+                    eventTracker.publish('Create new information content', constants.informationContentEventCategory);
                     break;
                 case constants.questionType.textMatching.type:
                     eventTracker.publish('Create new question (text matching)', eventCategory);

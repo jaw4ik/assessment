@@ -11,6 +11,7 @@
         var questionId = 'questionId';
 
         beforeEach(function () {
+            viewModel.questionType = '';
             spyOn(notify, 'saved');
             spyOn(eventTracker, 'publish');
         });
@@ -49,6 +50,12 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Add learning content');
             });
 
+            it('should send event \'Add learning content\' with category \'Information\' for informationContent question type', function () {
+                viewModel.questionType = 'informationContent';
+                viewModel.addLearningContent();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Add learning content', 'Information');
+            });
+
         });
 
         describe('removeLearningContent:', function () {
@@ -70,6 +77,12 @@
             it('should send event \'Delete learning content\'', function () {
                 viewModel.removeLearningContent(learningContent);
                 expect(eventTracker.publish).toHaveBeenCalledWith('Delete learning content');
+            });
+
+            it('should send event \'Delete learning content\' with category \'Information\' for informationContent question type', function () {
+                viewModel.questionType = 'informationContent';
+                viewModel.removeLearningContent(learningContent);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Delete learning content', 'Information');
             });
 
             describe('when learningContent has been deleted by collaborator', function () {
@@ -198,6 +211,12 @@
                 viewModel.beginEditText({});
                 expect(eventTracker.publish).toHaveBeenCalledWith('Start editing learning content');
             });
+
+            it('should send event \'Start editing learning content\' with category \'Information\' for informationContent question type', function () {
+                viewModel.questionType = 'informationContent';
+                viewModel.beginEditText({});
+                expect(eventTracker.publish).toHaveBeenCalledWith('Start editing learning content', 'Information');
+            });
         });
 
         describe('endEditText:', function () {
@@ -216,6 +235,13 @@
                 var learningContent = { id: ko.observable('learningContentId'), text: ko.observable('') };
                 viewModel.endEditText(learningContent);
                 expect(eventTracker.publish).toHaveBeenCalledWith('End editing learning content');
+            });
+
+            it('should send event \'End editing learning content\' with category \'Information\' for informationContent question type', function () {
+                viewModel.questionType = 'informationContent';
+                var learningContent = { id: ko.observable('learningContentId'), text: ko.observable('') };
+                viewModel.endEditText(learningContent);
+                expect(eventTracker.publish).toHaveBeenCalledWith('End editing learning content', 'Information');
             });
 
             describe('when learningContent has been deleted by collaborator', function () {

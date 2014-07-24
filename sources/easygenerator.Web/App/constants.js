@@ -226,7 +226,9 @@
                 courseLimitNotification: 'Course limit notification'
             },
 
-            maxStarterPlanCollaborators: 3
+            maxStarterPlanCollaborators: 3,
+
+            informationContentEventCategory: 'Information'
         };
     }
 );

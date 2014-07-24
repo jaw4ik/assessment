@@ -488,6 +488,9 @@
     <Content Include="App\viewmodels\questions\dragAndDrop\dragAndDrop.spec.js">
       <DependentUpon>dragAndDrop.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\informationContent\informationContent.spec.js">
+      <DependentUpon>informationContent.js</DependentUpon>
+    </Content>
     <None Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -49,7 +49,7 @@
                         }
 
                         if (response.type === constants.questionType.informationContent.type) {
-                            eventTracker.publish(events.updateQuestionTitle, 'Information');
+                            eventTracker.publish(events.updateQuestionTitle, constants.informationContentEventCategory);
                         } else {
                             eventTracker.publish(events.updateQuestionTitle);
                         }

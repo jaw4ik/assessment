@@ -198,7 +198,7 @@
 
         function publishActualEvent(event) {
             if (viewModel.questionType === constants.questionType.informationContent.type) {
-                eventTracker.publish(event, 'Information');
+                eventTracker.publish(event, constants.informationContentEventCategory);
             } else {
                 eventTracker.publish(event);
             }
