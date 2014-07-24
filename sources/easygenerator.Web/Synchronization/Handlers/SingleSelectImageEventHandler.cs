@@ -43,7 +43,7 @@ namespace easygenerator.Web.Synchronization.Handlers
         public void Handle(SingleSelectImageCorrectAnswerChangedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Answer.Question)
-            .singleSelectImageCorrectAnswerChanged(args.Answer.Question.Id.ToNString(), args.Answer, args.Answer.Question.ModifiedOn);
+            .singleSelectImageCorrectAnswerChanged(args.Answer.Question.Id.ToNString(), _entityMapper.Map(args.Answer), args.Answer.Question.ModifiedOn);
         }
     }
 }
