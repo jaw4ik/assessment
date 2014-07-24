@@ -511,6 +511,9 @@
     loadingImage: {
         en: 'Loading image...'
     },
+    addTextMatchingAnswer: {
+        en: 'Add key-answer pair'
+    },
     /* End resource section for model Question */
     
     /* Resource section for model Questions */
@@ -518,7 +521,10 @@
         en: 'Edit'
     },
     relatedQuestions: {
-        en: 'Related questions'
+        en: 'Related contents'
+    },
+    relatedContents: {
+        en: 'Related contents'
     },
     objectiveProperties: {
         en: 'Learning objective properties'
@@ -623,10 +629,7 @@
         en: '\"Information\" editor'
     },
     singleSelectImage: {
-        en: 'Single select image'
-    },
-    infoContent: {
-        en: 'Information'
+        en: 'Single select \"image\"'
     },
     informationContent: {
         en: 'Information'
