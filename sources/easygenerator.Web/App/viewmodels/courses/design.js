@@ -89,7 +89,7 @@
                 .then(function () {
                     viewModel.currentTemplate(template);
                     notify.saved();
-                }).done(function () {
+                }).fin(function () {
                     viewModel.lockTemplateChoosing(false);
                 });
         }
