@@ -21,7 +21,7 @@
         this.id = id;
 
         this.key = ko.observable(key);
-        this.key.isEditing = ko.observable(hasFocus);
+        this.key.hasFocus = ko.observable(hasFocus);
 
         this.key.isValid = ko.computed(function() {
             return !_.isEmptyHtmlText(that.key()) && that.key().length <= constants.validation.textMatchingKeyMaxLength;
@@ -32,12 +32,12 @@
         };
 
         this.key.beginEditText = function () {
-            that.key.isEditing(true);
+            that.key.hasFocus(true);
         };
 
         this.key.endEditText = function () {
             that.key(that.key().trim());
-            that.key.isEditing(false);
+            that.key.hasFocus(false);
 
             if (that.isDeleted)
                 return;
@@ -59,7 +59,7 @@
         };
 
         this.value = ko.observable(value);
-        this.value.isEditing = ko.observable(false);
+        this.value.hasFocus = ko.observable(false);
         this.value.isValid = ko.computed(function () {
             return !_.isEmptyHtmlText(that.value()) && that.value().length <= constants.validation.textMatchingValueMaxLength;
         });
@@ -68,12 +68,12 @@
         };
 
         this.value.beginEditText = function () {
-            that.value.isEditing(true);
+            that.value.hasFocus(true);
         };
 
         this.value.endEditText = function () {
             that.value(that.value().trim());
-            that.value.isEditing(false);
+            that.value.hasFocus(false);
 
             if (that.isDeleted)
                 return;

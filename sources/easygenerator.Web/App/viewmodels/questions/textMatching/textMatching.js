@@ -70,7 +70,7 @@
             if (_.isNullOrUndefined(answer))
                 return;
 
-            if (answer.key.isEditing() || answer.value.isEditing()) {
+            if (answer.key.hasFocus() || answer.value.hasFocus()) {
                 answer.isDeleted = true;
                 notify.error(localizationManager.localize('answerOptionHasBeenDeletedByCollaborator'));
             } else {
@@ -89,7 +89,7 @@
                 return;
 
             answer.changeOriginalKey(key);
-            if (!answer.key.isEditing())
+            if (!answer.key.hasFocus())
                 answer.key(key);
         }
 
@@ -104,7 +104,7 @@
                 return;
 
             answer.changeOriginalValue(value);
-            if (!answer.value.isEditing())
+            if (!answer.value.hasFocus())
                 answer.value(value);
         }
 

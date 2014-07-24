@@ -267,7 +267,7 @@
 
                     describe('and answer key is in editing', function () {
                         beforeEach(function () {
-                            answer.key.isEditing = ko.observable(true);
+                            answer.key.hasFocus = ko.observable(true);
                         });
 
                         it('should not update key', function () {
@@ -278,7 +278,7 @@
 
                     describe('and answer key is not in editing', function () {
                         beforeEach(function () {
-                            answer.key.isEditing = ko.observable(false);
+                            answer.key.hasFocus = ko.observable(false);
                         });
 
                         it('should update key', function () {
@@ -332,7 +332,7 @@
 
                     describe('and answer value is in editing', function () {
                         beforeEach(function () {
-                            answer.value.isEditing = ko.observable(true);
+                            answer.value.hasFocus = ko.observable(true);
                         });
 
                         it('should not update value', function () {
@@ -343,7 +343,7 @@
 
                     describe('and answer value is not in editing', function () {
                         beforeEach(function () {
-                            answer.value.isEditing = ko.observable(false);
+                            answer.value.hasFocus = ko.observable(false);
                         });
 
                         it('should update value', function () {
@@ -383,7 +383,7 @@
 
                     describe('and answer key is in editing', function () {
                         beforeEach(function () {
-                            answer.key.isEditing = ko.observable(true);
+                            answer.key.hasFocus = ko.observable(true);
                             spyOn(notify, 'error');
                         });
 
@@ -405,7 +405,7 @@
 
                     describe('and answer value is in editing', function () {
                         beforeEach(function () {
-                            answer.value.isEditing = ko.observable(true);
+                            answer.value.hasFocus = ko.observable(true);
                             spyOn(notify, 'error');
                         });
 

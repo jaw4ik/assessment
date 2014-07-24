@@ -36,22 +36,22 @@
                     expect(answer.key()).toEqual('key');
                 });
 
-                describe('isEditing:', function () {
+                describe('hasFocus:', function () {
                     it('should be observable', function () {
-                        expect(answer.key.isEditing).toBeObservable();
+                        expect(answer.key.hasFocus).toBeObservable();
                     });
 
                     describe('when hasFocus parameter of construnctor is defined', function() {
                         it('should be set to hasFocus', function() {
                             answer = new TextMatchingAnswer('id', 'key', 'value', true);
-                            expect(answer.key.isEditing()).toBeTruthy();
+                            expect(answer.key.hasFocus()).toBeTruthy();
                         });
                     });
 
                     describe('when hasFocus parameter of construnctor is not defined', function () {
                         it('should be set to false', function() {
                             answer = new TextMatchingAnswer('id', 'key', 'value');
-                            expect(answer.key.isEditing()).toBeFalsy();
+                            expect(answer.key.hasFocus()).toBeFalsy();
                         });
                     });
                 });
@@ -76,10 +76,10 @@
                         expect(answer.key()).toEqual('key');
                     });
 
-                    it('should set isEditing to false', function () {
-                        answer.key.isEditing(true);
+                    it('should set hasFocus to false', function () {
+                        answer.key.hasFocus(true);
                         answer.key.endEditText();
-                        expect(answer.key.isEditing()).toBeFalsy();
+                        expect(answer.key.hasFocus()).toBeFalsy();
                     });
 
                     describe('when current key is empty', function () {
@@ -149,10 +149,10 @@
                         expect(answer.key.beginEditText).toBeFunction();
                     });
 
-                    it('should set isEditing to true', function () {
-                        answer.key.isEditing(false);
+                    it('should set hasFocus to true', function () {
+                        answer.key.hasFocus(false);
                         answer.key.beginEditText();
-                        expect(answer.key.isEditing).toBeTruthy();
+                        expect(answer.key.hasFocus).toBeTruthy();
                     });
                 });
 
@@ -190,9 +190,9 @@
                     expect(answer.value()).toEqual('value');
                 });
 
-                describe('isEditing:', function () {
+                describe('hasFocus:', function () {
                     it('should be observable', function () {
-                        expect(answer.value.isEditing).toBeObservable();
+                        expect(answer.value.hasFocus).toBeObservable();
                     });
                 });
 
@@ -216,10 +216,10 @@
                         expect(answer.value()).toEqual('value');
                     });
 
-                    it('should set isEditing to false', function () {
-                        answer.value.isEditing(true);
+                    it('should set hasFocus to false', function () {
+                        answer.value.hasFocus(true);
                         answer.value.endEditText();
-                        expect(answer.value.isEditing()).toBeFalsy();
+                        expect(answer.value.hasFocus()).toBeFalsy();
                     });
 
                     describe('when current value is empty', function () {
@@ -289,10 +289,10 @@
                         expect(answer.value.beginEditText).toBeFunction();
                     });
 
-                    it('should set isEditing to true', function () {
-                        answer.value.isEditing(false);
+                    it('should set hasFocus to true', function () {
+                        answer.value.hasFocus(false);
                         answer.value.beginEditText();
-                        expect(answer.value.isEditing).toBeTruthy();
+                        expect(answer.value.hasFocus).toBeTruthy();
                     });
                 });
 
