@@ -379,6 +379,7 @@
     <Compile Include="Security\PermissionsCheckers\QuestionPermissionsChecker.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Security\PermissionsCheckers\SingleSelectImageAnswerPermissionChecker.cs" />
     <Compile Include="Storage\ImageValidator.cs" />
     <Compile Include="Storage\Storage.cs" />
     <Compile Include="Synchronization\Broadcasting\Broadcaster.cs" />

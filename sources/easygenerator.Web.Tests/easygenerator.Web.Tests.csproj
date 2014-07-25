@@ -195,6 +195,7 @@
     <Compile Include="Security\PermissionsCheckers\LearningContentPermissionsCheckerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\ObjectivePermissionsCheckerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\QuestionPermissionsCheckerTests.cs" />
+    <Compile Include="Security\PermissionsCheckers\SingleSelectImageAnswerPermissionsCheckerTests.cs" />
     <Compile Include="Tasks\HttpRequestsSenderTaskTests.cs" />
     <Compile Include="Tasks\MailSenderTaskTest.cs" />
     <Compile Include="Tasks\SchedulerTest.cs" />

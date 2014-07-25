@@ -101,16 +101,17 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityCollaborator(typeof(SingleSelectImageAnswer))]
         [Route("api/question/" + Question.QuestionTypes.SingleSelectImage + "/answer/image/update")]
-        public ActionResult UpdateAnswerImage(SingleSelectImageAnswer answer, string imageUrl)
+        public ActionResult UpdateAnswerImage(SingleSelectImageAnswer singleSelectImageAnswer, string imageUrl)
         {
-            if (answer == null || imageUrl == null)
+            if (singleSelectImageAnswer == null || imageUrl == null)
             {
                 return BadRequest();
             }
 
-            answer.UpdateImage(imageUrl, GetCurrentUsername());
-            _eventPublisher.Publish(new SingleSelectImageAnswerImageUpdatedEvent(answer));
+            singleSelectImageAnswer.UpdateImage(imageUrl, GetCurrentUsername());
+            _eventPublisher.Publish(new SingleSelectImageAnswerImageUpdatedEvent(singleSelectImageAnswer));
 
             return JsonSuccess();
         }
