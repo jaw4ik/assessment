@@ -196,6 +196,8 @@
     <Compile Include="Security\PermissionsCheckers\ObjectivePermissionsCheckerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\QuestionPermissionsCheckerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\SingleSelectImageAnswerPermissionsCheckerTests.cs" />
+    <Compile Include="Security\PermissionsCheckers\DropspotPermissionsCheckerTests.cs" />
+    <Compile Include="Security\PermissionsCheckers\TextMatchingAnswerPermissionsCheckerTests.cs" />
     <Compile Include="Tasks\HttpRequestsSenderTaskTests.cs" />
     <Compile Include="Tasks\MailSenderTaskTest.cs" />
     <Compile Include="Tasks\SchedulerTest.cs" />

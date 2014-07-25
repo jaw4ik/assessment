@@ -9,6 +9,7 @@ using easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Authorization;
+using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
@@ -27,6 +28,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [PlusAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
         [Route("api/question/" + Question.QuestionTypes.DragAndDropText + "/create")]
+        [EntityCollaborator(typeof(Objective))]
         public ActionResult Create(Objective objective, string title)
         {
             if (objective == null)
@@ -44,6 +46,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [Route("api/question/draganddrop")]
+        [EntityCollaborator(typeof(Question))]
         public ActionResult GetQuestionContent(DragAndDropText question)
         {
             return JsonSuccess(new
@@ -60,6 +63,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [Route("api/question/draganddrop/dropspot/create")]
+        [EntityCollaborator(typeof(Question))]
         public ActionResult CreateDropspot(DragAndDropText question, string text)
         {
             if (question == null || text == null)
@@ -75,6 +79,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [Route("api/question/draganddrop/dropspot/delete")]
+        [EntityCollaborator(typeof(Question))]
         public ActionResult DeleteDropspot(DragAndDropText question, Dropspot dropspot)
         {
             if (question == null || dropspot == null)
@@ -89,6 +94,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [Route("api/question/draganddrop/dropspot/updateText")]
+        [EntityCollaborator(typeof(Dropspot))]
         public ActionResult ChangeDropspotText(Dropspot dropspot, string text)
         {
             if (dropspot == null || text == null)
@@ -103,6 +109,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [Route("api/question/draganddrop/dropspot/updatePosition")]
+        [EntityCollaborator(typeof(Dropspot))]
         public ActionResult ChangeDropspotPosition(Dropspot dropspot, int? x, int? y)
         {
             if (dropspot == null || !x.HasValue || !y.HasValue)
@@ -117,6 +124,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [Route("api/question/draganddrop/background/update")]
+        [EntityCollaborator(typeof(Question))]
         public ActionResult ChangeBackground(DragAndDropText question, string background)
         {
             if (question == null || background == null)

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters.Authorization;
+using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
 
@@ -33,6 +34,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [StarterAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
         [Route("api/question/" + Question.QuestionTypes.TextMatching + "/create")]
+        [EntityCollaborator(typeof(Objective))]
         public ActionResult Create(Objective objective, string title)
         {
             if (objective == null)
@@ -62,6 +64,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [Route("api/question/textmatching/answers")]
+        [EntityCollaborator(typeof(Question))]
         public ActionResult GetAnswers(TextMatching question)
         {
             var textMatchingAnswers = question.Answers.Select(answer => _entityMapper.Map(answer));
@@ -69,6 +72,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [Route("api/question/textmatching/answer/create")]
+        [EntityCollaborator(typeof(Question))]
         public ActionResult CreateAnswer(TextMatching question)
         {
             if (question == null)
@@ -84,6 +88,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [Route("api/question/textmatching/answer/delete")]
+        [EntityCollaborator(typeof(Question))]
         public ActionResult DeleteAnswer(TextMatching question, TextMatchingAnswer answer)
         {
             if (question == null || answer == null || question.Answers.Count() <= 2)
@@ -98,29 +103,31 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [Route("api/question/textmatching/answer/updateKey")]
-        public ActionResult ChangeAnswerKey(TextMatchingAnswer answer, string key)
+        [EntityCollaborator(typeof(TextMatchingAnswer))]
+        public ActionResult ChangeAnswerKey(TextMatchingAnswer textMatchingAnswer, string key)
         {
-            if (answer == null || key == null)
+            if (textMatchingAnswer == null || key == null)
             {
                 return BadRequest();
             }
 
-            answer.ChangeKey(key, GetCurrentUsername());
-            _eventPublisher.Publish(new TextMatchingAnswerKeyChangedEvent(answer));
+            textMatchingAnswer.ChangeKey(key, GetCurrentUsername());
+            _eventPublisher.Publish(new TextMatchingAnswerKeyChangedEvent(textMatchingAnswer));
 
             return JsonSuccess();
         }
 
         [Route("api/question/textmatching/answer/updateValue")]
-        public ActionResult ChangeAnswerValue(TextMatchingAnswer answer, string value)
+        [EntityCollaborator(typeof(TextMatchingAnswer))]
+        public ActionResult ChangeAnswerValue(TextMatchingAnswer textMatchingAnswer, string value)
         {
-            if (answer == null || value == null)
+            if (textMatchingAnswer == null || value == null)
             {
                 return BadRequest();
             }
 
-            answer.ChangeValue(value, GetCurrentUsername());
-            _eventPublisher.Publish(new TextMatchingAnswerValueChangedEvent(answer));
+            textMatchingAnswer.ChangeValue(value, GetCurrentUsername());
+            _eventPublisher.Publish(new TextMatchingAnswerValueChangedEvent(textMatchingAnswer));
 
             return JsonSuccess();
         }

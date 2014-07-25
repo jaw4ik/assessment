@@ -23,28 +23,48 @@
         };
 
         function courseCreated(course) {
-            treeOfContentTraversal.getTreeOfContent().children.unshift(new CourseTreeNode(course.id, course.title, "#course/" + course.id, course.createdOn));
+            var treeOfContent = treeOfContentTraversal.getTreeOfContent();
+            if (_.isNullOrUndefined(treeOfContent))
+                return;
+
+            treeOfContent.children.unshift(new CourseTreeNode(course.id, course.title, "#course/" + course.id, course.createdOn));
         }
 
         function collaborationStarted(course) {
-            var sharedCourses = treeOfContentTraversal.getTreeOfContent().sharedChildren();
+            var treeOfContent = treeOfContentTraversal.getTreeOfContent();
+            if (_.isNullOrUndefined(treeOfContent))
+                return;
+
+            var sharedCourses = treeOfContent.sharedChildren();
             sharedCourses.push(new CourseTreeNode(course.id, course.title, "#course/" + course.id, course.createdOn));
             sharedCourses = _.sortBy(sharedCourses, function (item) {
                 return -item.createdOn;
             });
-            treeOfContentTraversal.getTreeOfContent().sharedChildren(sharedCourses);
+            treeOfContent.sharedChildren(sharedCourses);
         }
 
         function collaborationFinished(courseId) {
-            deleteCourse(treeOfContentTraversal.getTreeOfContent().sharedChildren, courseId);
+            var treeOfContent = treeOfContentTraversal.getTreeOfContent();
+            if (_.isNullOrUndefined(treeOfContent))
+                return;
+
+            deleteCourse(treeOfContent.sharedChildren, courseId);
         }
 
         function courseDeleted(courseId) {
-            deleteCourse(treeOfContentTraversal.getTreeOfContent().children, courseId);
+            var treeOfContent = treeOfContentTraversal.getTreeOfContent();
+            if (_.isNullOrUndefined(treeOfContent))
+                return;
+
+            deleteCourse(treeOfContent.children, courseId);
         }
 
         function courseDeletedByCollaborator(courseId) {
-            deleteCourse(treeOfContentTraversal.getTreeOfContent().sharedChildren, courseId);
+            var treeOfContent = treeOfContentTraversal.getTreeOfContent();
+            if (_.isNullOrUndefined(treeOfContent))
+                return;
+
+            deleteCourse(treeOfContent.sharedChildren, courseId);
         }
 
         function deleteCourses(courses, courseIds) {
