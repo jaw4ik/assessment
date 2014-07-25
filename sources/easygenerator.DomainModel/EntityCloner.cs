@@ -83,7 +83,7 @@ namespace easygenerator.DomainModel
                     {
                         list.Add(Expression.Assign(Expression.Property(target, member), Expression.Call(null, Guid_NewGuidMethodInfo)));
                     }
-                    else if (member.Name == "CreatedOn" || member.Name == "ModifiedOn")
+                    else if (member.Name == "ModifiedOn")
                     {
                         list.Add(Expression.Assign(Expression.Property(target, member), Expression.Invoke(Expression.Field(null, DateTimeWrapper_NowPropertyInfo))));
                     }
