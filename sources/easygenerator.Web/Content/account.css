@@ -606,10 +606,13 @@ body.try {
     text-align: center;
 }
 
+.user-column-image-wrapper {
+    width: 100%;
+}
+
 .user-column-image {
     display: inline-block;
     vertical-align: top;
-    width: 100%;
     max-width: 576px;
     height: auto;
 }
@@ -1335,6 +1338,15 @@ body.try {
         font-size: 11px;
     }
 }
+
+@media (max-height: 790px) {
+    
+    .try .view-module {
+        padding-top: 40px;
+    }
+
+}
+
 
 @media (min-width: 1300px) {
 
