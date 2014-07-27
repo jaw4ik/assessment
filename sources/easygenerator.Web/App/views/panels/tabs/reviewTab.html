@@ -22,22 +22,34 @@
 
         <div class="tab-action-wrapper">
             <!-- ko if: !reviewUrlExists() && !isPublishing() -->
-            <button class="btn blue round tab-btn review-btn" data-bind="click: updateCourseForReview">
+            <button class="btn blue tab-btn review-btn" data-bind="click: updateCourseForReview">
                 <span class="btn-text" data-bind="localize: { text: 'reviewGetLink' }">Get link</span>
             </button>
             <!-- /ko -->
             <!-- ko if: reviewUrlExists() && !isPublishing() -->
-            <button class="btn blue round tab-btn review-btn" data-bind="click: updateCourseForReview">
+            <button class="btn blue tab-btn review-btn" data-bind="click: updateCourseForReview">
                 <span class="btn-text" data-bind="localize: { text: 'reviewUpdateCourse' }">Update course</span>
             </button>
             <!-- /ko -->
             <!-- ko if: isPublishing() -->
-            <button class="btn blue round tab-btn review-btn">
-                <span class="btn-text iconed" data-bind="localize: { text: 'reviewPublishingCourse' }">Publishing...</span>
+            <button class="btn blue tab-btn review-btn">
+                <span class="loader-container">
+                    <span class="circular-loader x16 white-circle">
+                        <span class="circular-loader-item"></span>
+                        <span class="circular-loader-item"></span>
+                        <span class="circular-loader-item"></span>
+                        <span class="circular-loader-item"></span>
+                        <span class="circular-loader-item"></span>
+                        <span class="circular-loader-item"></span>
+                        <span class="circular-loader-item"></span>
+                        <span class="circular-loader-item"></span>
+                    </span>
+                    <span class="btn-text" data-bind="localize: { text: 'reviewPublishingCourse' }">Publishing...</span>
+                </span>
             </button>
             <!-- /ko -->
         </div>
-        
+
         <!-- ko if: reviewUrlExists() -->
         <div class="review-link" data-bind="css: { disabled: isPublishing() }">
             <div class="open-review-link" data-bind="click: openCourseReviewUrl, localize: { title: 'reviewOpenLinkTitle' }" title="Open link"></div>

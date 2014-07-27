@@ -856,6 +856,7 @@
     <Content Include="App\widgets\imagePreview\viewmodel.js" />
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
     <Content Include="BuildCourse\Scorm\Templates\metadata.cshtml" />
+    <Content Include="Content\cssPreloaders.css" />
     <Content Include="Content\dragAndDropText.css" />
     <Content Include="Content\eula\easygenerator_EULA.pdf" />
     <Content Include="Content\font\buxtonsketch.eot" />
