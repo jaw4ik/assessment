@@ -20,6 +20,20 @@ namespace easygenerator.DomainModel.Entities.Questions
             ThrowIfKeyIsInvalid(key);
             ThrowIfValueIsInvalid(value);
 
+            CreateAnswer(key, value);
+        }
+
+        protected internal TextMatchingAnswer(string key, string value, string createdBy, DateTime createdOn)
+            : base(createdBy, createdOn)
+        {
+            ThrowIfKeyIsInvalid(key);
+            ThrowIfValueIsInvalid(value);
+
+            CreateAnswer(key, value);
+        }
+
+        private void CreateAnswer(string key, string value)
+        {
             Key = key;
             Value = value;
         }

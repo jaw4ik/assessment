@@ -53,8 +53,12 @@ namespace easygenerator.Web.Controllers.Api
 
         private void CreateFirstAnswers(TextMatching question)
         {
-            question.AddAnswer(GetDefaultAnswer(), GetCurrentUsername());
-            question.AddAnswer(GetDefaultAnswer(), GetCurrentUsername());
+            var defaultAnswer1 = GetDefaultAnswer();
+            var defaultAnswer2 = _entityFactory.TextMatchingAnswer(Constants.TextMatching.DefaultAnswerKeyText,
+                Constants.TextMatching.DefaultAnswerValueText, GetCurrentUsername(), DateTimeWrapper.Now().AddSeconds(1));
+
+            question.AddAnswer(defaultAnswer1, GetCurrentUsername());
+            question.AddAnswer(defaultAnswer2, GetCurrentUsername());
         }
 
         private TextMatchingAnswer GetDefaultAnswer()

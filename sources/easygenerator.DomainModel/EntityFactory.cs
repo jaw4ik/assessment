@@ -16,6 +16,7 @@ namespace easygenerator.DomainModel
         Dropspot Dropspot(string text, int x, int y, string createdBy);
         TextMatching TextMatchingQuestion(string title, string createdBy);
         TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy);
+        TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy, DateTime createdOn);
         Comment Comment(string text, string createdBy);
         SingleSelectImageAnswer SingleSelectImageAnswer(string image, string createdBy);
         SingleSelectImageAnswer SingleSelectImageAnswer(string createdBy, DateTime createdOn);
@@ -123,6 +124,11 @@ namespace easygenerator.DomainModel
         public TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy)
         {
             return new TextMatchingAnswer(key, value, createdBy);
+        }
+
+        public TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy, DateTime createdOn)
+        {
+            return new TextMatchingAnswer(key, value, createdBy, createdOn);
         }
 
         public InformationContent InformationContent(string title, string createdBy)
