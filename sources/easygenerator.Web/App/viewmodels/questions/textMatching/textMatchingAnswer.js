@@ -12,8 +12,8 @@
                 key: key,
                 value: value,
                 events: {
-                    changeAnswerKey: 'Change answer key',
-                    changeAnswerValue: 'Change answer value'
+                    changeAnswerKey: 'Change answer key (text matching)',
+                    changeAnswerValue: 'Change answer value (text matching)'
                 }
             }
         ;

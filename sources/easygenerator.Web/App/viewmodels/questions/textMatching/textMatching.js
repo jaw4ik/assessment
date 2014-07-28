@@ -31,8 +31,8 @@
             answerValueChangedByCollaborator: answerValueChangedByCollaborator,
 
             events: {
-                addAnswer: 'Add answer option',
-                deleteAnswer: 'Delete answer option'
+                addAnswer: 'Add key-answer pair (text matching)',
+                deleteAnswer: 'Delete key-answer pair (text matching)'
             }
         };
 

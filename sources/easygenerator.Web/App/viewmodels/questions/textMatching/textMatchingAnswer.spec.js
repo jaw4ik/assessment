@@ -129,12 +129,12 @@
                             });
                         });
 
-                        it('should track event \'Change answer key\'', function (done) {
+                        it('should track event \'Change answer key (text matching)\'', function (done) {
                             answer.key('key!');
                             answer.key.endEditText();
 
                             dfd.promise.then(function () {
-                                expect(eventTracker.publish).toHaveBeenCalledWith('Change answer key');
+                                expect(eventTracker.publish).toHaveBeenCalledWith('Change answer key (text matching)');
                                 done();
                             });
                         });
@@ -269,12 +269,12 @@
                             });
                         });
 
-                        it('should track event \'Change answer value\'', function (done) {
+                        it('should track event \'Change answer value (text matching)\'', function (done) {
                             answer.value('value!');
                             answer.value.endEditText();
 
                             dfd.promise.then(function () {
-                                expect(eventTracker.publish).toHaveBeenCalledWith('Change answer value');
+                                expect(eventTracker.publish).toHaveBeenCalledWith('Change answer value (text matching)');
                                 done();
                             });
                         });
