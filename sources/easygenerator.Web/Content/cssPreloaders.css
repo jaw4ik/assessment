@@ -34,6 +34,10 @@
     background-color: white;
 }
 
+.grey-circle .circular-loader-item {
+    background-color: #545654;
+}
+
 /*====================
     LOADER SIZE
 ===================== */
