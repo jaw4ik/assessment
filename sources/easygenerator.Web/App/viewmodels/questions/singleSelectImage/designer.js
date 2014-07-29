@@ -45,6 +45,10 @@
             return viewModel.answers().length > 2;
         });
 
+        viewModel.canAddAnswer = ko.computed(function () {
+            return viewModel.answers().length == 2 && (viewModel.answers()[0].hasImage() && viewModel.answers()[1].hasImage());
+        });
+
         app.on(constants.messages.question.singleSelectImage.answerCreatedByCollaborator, answerCreatedByCollaborator);
         app.on(constants.messages.question.singleSelectImage.answerDeletedByCollaborator, answerDeletedByCollaborator);
         app.on(constants.messages.question.singleSelectImage.answerImageUpdatedByCollaborator, answerImageUpdatedByCollaborator);

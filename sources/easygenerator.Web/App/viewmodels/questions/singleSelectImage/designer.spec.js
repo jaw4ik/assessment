@@ -631,9 +631,7 @@
 
             describe('when answers count > 2', function () {
                 beforeEach(function () {
-                    viewModel.answers.push({});
-                    viewModel.answers.push({});
-                    viewModel.answers.push({});
+                    viewModel.answers([{}, {}, {}]);
                 });
 
                 it('should be true', function () {
@@ -653,10 +651,55 @@
             });
         });
 
+        describe('canAddAnswer:', function () {
+            it('should be computed', function () {
+                expect(viewModel.canAddAnswer).toBeComputed();
+            });
+
+            describe('when answers count == 2', function () {
+                beforeEach(function () {
+                    viewModel.answers([{ hasImage: ko.observable(false) }, { hasImage: ko.observable(false) }]);
+                });
+
+                describe('when answer does not have image', function () {
+                    beforeEach(function () {
+                        viewModel.answers()[0].hasImage(false);
+                        viewModel.answers()[1].hasImage(true);
+                    });
+
+                    it('should be false', function () {
+                        expect(viewModel.canAddAnswer()).toBeFalsy();
+                    });
+                });
+
+                describe('when answers have images', function () {
+                    beforeEach(function () {
+                        viewModel.answers()[0].hasImage(true);
+                        viewModel.answers()[1].hasImage(true);
+                    });
+
+                    it('should be false', function () {
+                        expect(viewModel.canAddAnswer()).toBeTruthy();
+                    });
+                });
+
+            });
+
+            describe('when answers icount s not 2', function () {
+                beforeEach(function () {
+                    viewModel.answers([]);
+                });
+
+                it('should be false', function () {
+                    expect(viewModel.canAddAnswer()).toBeFalsy();
+                });
+            });
+        });
+
         describe('finishAswerProcessing:', function () {
             var vmAnswer = {
-                   isProcessing: ko.observable()
-               };
+                isProcessing: ko.observable()
+            };
 
             it('should be function', function () {
                 expect(viewModel.finishAswerProcessing).toBeFunction();
