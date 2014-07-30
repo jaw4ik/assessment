@@ -31,7 +31,9 @@ namespace easygenerator.Web.Synchronization.Handlers
         public void Handle(SingleSelectImageAnswerDeletedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Question)
-             .singleSelectImageAnswerDeleted(args.Question.Id.ToNString(), args.Answer.Id.ToNString(), args.Question.ModifiedOn);
+             .singleSelectImageAnswerDeleted(args.Question.Id.ToNString(), args.Answer.Id.ToNString(),
+             args.Question.CorrectAnswer == null ? null : args.Question.CorrectAnswer.Id.ToNString(),
+             args.Question.ModifiedOn);
         }
 
         public void Handle(SingleSelectImageAnswerImageUpdatedEvent args)

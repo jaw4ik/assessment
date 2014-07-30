@@ -631,7 +631,7 @@
 
             describe('when answers count > 2', function () {
                 beforeEach(function () {
-                    viewModel.answers([{}, {}, {}]);
+                    viewModel.answers([{ hasImage: ko.observable(false) }, { hasImage: ko.observable(false) }, { hasImage: ko.observable(false) }]);
                 });
 
                 it('should be true', function () {
@@ -642,7 +642,7 @@
             describe('when answers count <= 2', function () {
                 beforeEach(function () {
                     viewModel.answers([]);
-                    viewModel.answers.push({});
+                    viewModel.answers.push({ hasImage: ko.observable(false) });
                 });
 
                 it('should be true', function () {
@@ -685,7 +685,7 @@
 
             });
 
-            describe('when answers icount s not 2', function () {
+            describe('when answers count less than 2', function () {
                 beforeEach(function () {
                     viewModel.answers([]);
                 });
@@ -766,7 +766,8 @@
         describe('answerDeletedByCollaborator:', function () {
 
             var vmAnswer = { id: ko.observable(answerId), image: ko.observable(null), isEditing: ko.observable() },
-                errorMessage = 'error';
+                errorMessage = 'error',
+                correctAnswerId = 'correctId';
 
             it('should be function', function () {
                 expect(viewModel.answerDeletedByCollaborator).toBeFunction();
@@ -786,18 +787,18 @@
                     });
 
                     it('should not delete answer', function () {
-                        viewModel.answerDeletedByCollaborator(questionId, answerId);
+                        viewModel.answerDeletedByCollaborator(questionId, answerId, correctAnswerId);
                         expect(viewModel.answers().length).toBe(1);
                     });
 
                     it('should set answer isDeleted to true', function () {
                         vmAnswer.isDeleted = false;
-                        viewModel.answerDeletedByCollaborator(questionId, answerId);
+                        viewModel.answerDeletedByCollaborator(questionId, answerId, correctAnswerId);
                         expect(viewModel.answers()[0].isDeleted).toBeTruthy();
                     });
 
                     it('should show error message', function () {
-                        viewModel.answerDeletedByCollaborator(questionId, answerId);
+                        viewModel.answerDeletedByCollaborator(questionId, answerId, correctAnswerId);
                         expect(notify.error).toHaveBeenCalledWith(errorMessage);
                     });
                 });
@@ -808,9 +809,15 @@
                     });
 
                     it('should delete answer', function () {
-                        viewModel.answerDeletedByCollaborator(questionId, answerId);
+                        viewModel.answerDeletedByCollaborator(questionId, answerId, correctAnswerId);
                         expect(viewModel.answers().length).toBe(0);
                     });
+                });
+
+                it('should update correct answer id', function() {
+                    viewModel.correctAnswerId(null);
+                    viewModel.answerDeletedByCollaborator(questionId, answerId, correctAnswerId);
+                    expect(viewModel.correctAnswerId()).toBe(correctAnswerId);
                 });
             });
 
@@ -822,7 +829,7 @@
                 it('should not updated image answer', function () {
                     vmAnswer.image(null);
                     viewModel.answers([vmAnswer]);
-                    viewModel.answerImageUpdatedByCollaborator(questionId, answer);
+                    viewModel.answerImageUpdatedByCollaborator(questionId, answer, correctAnswerId);
                     expect(viewModel.answers()[0].image()).toBeNull();
                 });
             });

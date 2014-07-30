@@ -46,7 +46,7 @@
         });
 
         viewModel.canAddAnswer = ko.computed(function () {
-            return viewModel.answers().length == 2 && (viewModel.answers()[0].hasImage() && viewModel.answers()[1].hasImage());
+            return viewModel.answers().length >= 2 && (viewModel.answers()[0].hasImage() && viewModel.answers()[1].hasImage());
         });
 
         app.on(constants.messages.question.singleSelectImage.answerCreatedByCollaborator, answerCreatedByCollaborator);
@@ -175,7 +175,7 @@
             viewModel.answers.push(new Answer(answer.id, answer.image));
         }
 
-        function answerDeletedByCollaborator(questionId, answerId) {
+        function answerDeletedByCollaborator(questionId, answerId, correctAnswerId) {
             if (viewModel.questionId != questionId)
                 return;
 
@@ -184,7 +184,7 @@
             });
 
             if (_.isNullOrUndefined(answer))
-                return;
+                return;          
 
             if (answer.isEditing()) {
                 answer.isDeleted = true;
@@ -192,6 +192,8 @@
             } else {
                 viewModel.answers.remove(answer);
             }
+
+            viewModel.correctAnswerId(correctAnswerId);
         }
 
         function answerImageUpdatedByCollaborator(questionId, answerData) {
