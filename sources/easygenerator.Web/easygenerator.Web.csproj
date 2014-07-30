@@ -852,6 +852,7 @@
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
     <Content Include="App\widgets\imagePreview\bindingHandlers\fadeBindingHandler.js" />
+    <Content Include="App\widgets\imagePreview\bindingHandlers\imageLoaderBindingHandler.js" />
     <Content Include="App\widgets\imagePreview\view.html" />
     <Content Include="App\widgets\imagePreview\viewmodel.js" />
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />

@@ -3,6 +3,7 @@
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
     'viewmodels/questions/singleSelectImage/bindingHandlers/answerImageBindingHandler',
     'widgets/imagePreview/bindingHandlers/fadeBindingHandler',
+    'widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler',
     'viewmodels/panels/bindingHandlers/fixedPanelBindingHandler'
 ], function () {
     "use strict";

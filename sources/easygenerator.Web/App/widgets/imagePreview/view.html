@@ -5,14 +5,13 @@
         <div class="center-holder">
             <div class="center-content">
                 <div class="image-holder">
-                    <!--ko if:isLoaded-->
-                        <img class="image" data-bind="attr:{src : imageUrl}, style:{ 'maxWidth': imageMaxWidth() + 'px', 'maxHeight': imageMaxHeight() + 'px'}">
-                        <div class="overlay-close-button-holder">
-                            <a class="overlay-close-button" data-bind="click:closePreview">&nbsp;</a>
-                        </div>
-                    <!--/ko-->
+                    <div data-bind="imageLoader: { isLoaded: isLoaded, imageUrl: imageUrl}">
+                    </div>
+                    <div class="overlay-close-button-holder" data-bind="if: isLoaded">
+                        <a class="overlay-close-button" data-bind="click:closePreview">&nbsp;</a>
+                    </div>
                     <!--ko ifnot:isLoaded-->
-                        <div class="circular-loader x32 black-circle">
+                    <div class="circular-loader x32 black-circle">
                             <div class="circular-loader-item"></div>
                             <div class="circular-loader-item"></div>
                             <div class="circular-loader-item"></div>
