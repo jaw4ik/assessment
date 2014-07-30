@@ -520,9 +520,6 @@
     edit: {
         en: 'Edit'
     },
-    relatedQuestions: {
-        en: 'Related contents'
-    },
     relatedContents: {
         en: 'Related contents'
     },
@@ -657,6 +654,9 @@
     },
     browseImage: {
         en: 'Browse image'
+    },
+    changeImage: {
+        en: 'Change image'
     },
     /* End resource section for model Questions */
     
@@ -857,7 +857,10 @@
     
     /* Resource section for model SignUp form */
     CreateAccountTitle: {
-        en: 'Create account'
+        en: 'Start creating courses in just 2 minutes'
+    },
+    SignUpSecondStepTitle: {
+        en: 'Almost there...'
     },
     EmailCaption: {
         en: 'E-mail'
@@ -889,6 +892,9 @@
     HidePassword: {
         en: 'Hide password'
     },
+    Finish: {
+        en: 'Start Building!'
+    },
     NotContainWhitespaceCharacters: {
         en: 'NOT contain whitespace character(s).'
     },
@@ -916,8 +922,8 @@
     PasswordDoesNotMeetRequirements: {
         en: 'Password does not meet requirements'
     },
-    LicenseAgreeCheckBoxTitle: {
-        en: 'I have read and I agree to the <a href=\"{0}\">Terms</a> and <a href=\"{1}\">Privacy policy</a>'
+    LicenseAgreeCaption: {
+        en: 'By clicking \"Sign up\" I agree to the easygenerator\'s  <a href=\"{0}\"  target=”_blank”>Terms</a> and <a href=\"{1}\"  target=”_blank”>Privacy policy</a>'
     },
     Checking: {
         en: 'Checking...'
@@ -1316,10 +1322,10 @@
     
     /* Resource section for model Dialogs window */
     createCourseDialogDescription: {
-        en: 'It can be a simple course,<br> a personalized learning,<br> a quiz or an exam.'
+        en: 'You will have your first course done in 10 minutes!'
     },
     createCourseDialogTitle: {
-        en: '1.Create your first course'
+        en: '1. Create your first course'
     },
     /* End resource section for model Dialogs window */
     
