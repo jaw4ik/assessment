@@ -559,18 +559,18 @@
     <Content Include="App\viewmodels\questions\informationContent\informationContent.spec.js">
       <DependentUpon>informationContent.js</DependentUpon>
     </Content>
-    <None Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
+    <Content Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="BuildCourse\Scorm\Schemas\imscp_rootv1p1p2.xsd">
+    </Content>
+    <Content Include="BuildCourse\Scorm\Schemas\imscp_rootv1p1p2.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="BuildCourse\Scorm\Schemas\imsmd_rootv1p2p1.xsd">
+    </Content>
+    <Content Include="BuildCourse\Scorm\Schemas\imsmd_rootv1p2p1.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="BuildCourse\Scorm\Schemas\ims_xml.xsd">
+    </Content>
+    <Content Include="BuildCourse\Scorm\Schemas\ims_xml.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </Content>
     <Content Include="App\dialogs\collaboration\removeCollaborator.html" />
     <Content Include="App\dialogs\collaboration\removeCollaborator.js" />
     <Content Include="App\http\httpRequestSender.spec.js">
