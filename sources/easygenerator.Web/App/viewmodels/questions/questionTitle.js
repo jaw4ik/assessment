@@ -3,7 +3,8 @@
         "use strict";
 
         var events = {
-            updateQuestionTitle: 'Update question title'
+            updateQuestionTitle: 'Update question title',
+            updateInformationTitle: 'Update information title'
         };
 
         var viewModel = function (_objectiveId, question) {
@@ -49,7 +50,7 @@
                         }
 
                         if (response.type === constants.questionType.informationContent.type) {
-                            eventTracker.publish(events.updateQuestionTitle, constants.informationContentEventCategory);
+                            eventTracker.publish(events.updateInformationTitle, constants.informationContentEventCategory);
                         } else {
                             eventTracker.publish(events.updateQuestionTitle);
                         }
