@@ -410,9 +410,9 @@ namespace AccountRes {
         /// <summary>
         ///   Looks up a localized string similar to I have read and I agree to the &lt;a href=&quot;{0}&quot;&gt;Terms&lt;/a&gt; and &lt;a href=&quot;{1}&quot;&gt;Privacy&lt;/a&gt;.
         /// </summary>
-        public static string LicenseAgreeCheckBoxTitle {
+        public static string LicenseAgreeCaption {
             get {
-                return ResourceManager.GetString("LicenseAgreeCheckBoxTitle", resourceCulture);
+                return ResourceManager.GetString("LicenseAgreeCaption", resourceCulture);
             }
         }
         
@@ -737,6 +737,18 @@ namespace AccountRes {
         public static string WouldYouLikeAnIntroductionDemo {
             get {
                 return ResourceManager.GetString("WouldYouLikeAnIntroductionDemo", resourceCulture);
+            }
+        }
+
+
+        /// <summary>
+        ///   Looks up a localized string similar to Almost there... .
+        /// </summary>
+        public static string SignUpSecondStepTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("SignUpSecondStepTitle", resourceCulture);
             }
         }
     }

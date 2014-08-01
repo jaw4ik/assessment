@@ -23,7 +23,14 @@
         </div>
         <header class="page-header try">
             <div class="content-wrapper try">
-                <a href="./" class="logo">Logo</a>
+                @if (ViewBag.ClickOnLogoDisabled != null && ViewBag.ClickOnLogoDisabled)
+                {
+                    <span class="logo">Logo</span>
+                }
+                else
+                {
+                    <a href="./" class="logo">Logo</a>
+                }
             </div>
         </header>
 
@@ -41,10 +48,10 @@
             <div class="footer-item pull-right">
                 <ul class="footer-menu-list">
                     <li class="footer-menu-item">
-                        @Html.NavigationLink(Resources.TermsOfUse, "TermsOfUse", "Account", "footer-menu-link")
+                        @Html.NavigationLink(Resources.TermsOfUse, "TermsOfUse", "Account", "footer-menu-link", true)
                     </li>
                     <li class="footer-menu-item">
-                        @Html.NavigationLink(Resources.PrivacyPolicy, "PrivacyPolicy", "Account", "footer-menu-link")
+                        @Html.NavigationLink(Resources.PrivacyPolicy, "PrivacyPolicy", "Account", "footer-menu-link", true)
                     </li>
                 </ul>
             </div>

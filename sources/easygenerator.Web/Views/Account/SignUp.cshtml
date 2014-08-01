@@ -70,27 +70,17 @@
                     </div>
                 </div>
                 <div class="user-form-row submit">
-                    <div class="user-form-checkbox-holder clearfix">
-                        <div class="user-form-checkbox" data-bind="css: { checked: isLicenseAgreed }">
-                            <input id="uf-checkbox" class="custom-checkbox" type="checkbox" data-bind="checked: isLicenseAgreed" />
-                        </div>
-                        <div class="user-form-checkbox-label">
-                            <label for="uf-checkbox">
-                                @Html.Raw(String.Format(Resources.LicenseAgreeCheckBoxTitle, Url.Action("TermsOfUse", "Account"), Url.Action("PrivacyPolicy", "Account")))
-                            </label>
-                        </div>
-                    </div>
                     <div class="formBtn">
                         <button class="orange btn user-form-btn" type="submit" data-bind="css: { disabled: !isFormValid() || isSignupRequestPending() }, enable: isFormValid() && !isSignupRequestPending(), click: signUp">
                             <img class="preloader" src="/Content/images/account/signup-preloader.gif" data-bind="visible: isSignupRequestPending" />
                             <span class="title">@Resources.SignUpButton</span>
                         </button>
                     </div>
+                    <div class="user-form-license-caption">
+                        @Html.Raw(String.Format(Resources.LicenseAgreeCaption, Url.Action("TermsOfUse", "Account"), Url.Action("PrivacyPolicy", "Account")))
+                    </div>
                 </div>
             </form>
-        </div>
-        <div class="user-form-row image">
-            <img class="user-column-image" src="/Content/images/account/sign-up.png" alt="#">
         </div>
     </div>
 

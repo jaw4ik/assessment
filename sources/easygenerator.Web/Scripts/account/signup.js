@@ -16,7 +16,6 @@ app.signupModel = function () {
         lastName: ko.observable(''),
         userName: ko.observable(''),
         password: ko.observable(''),
-        isLicenseAgreed: ko.observable(false),
 
         userExists: ko.observable(false),
         checkUserExists: checkUserExists,
@@ -81,8 +80,7 @@ app.signupModel = function () {
 
     viewModel.isFormValid = ko.computed(function () {
         return viewModel.userName.isValid() && viewModel.password.isValid()
-            && viewModel.firstName.isValid() && viewModel.lastName.isValid()
-            && viewModel.isLicenseAgreed();
+            && viewModel.firstName.isValid() && viewModel.lastName.isValid();
     });
 
     viewModel.userPreciselyExists = ko.computed(function () {
@@ -163,8 +161,14 @@ app.signupModel = function () {
         $.when(app.trackEvent(app.constants.events.signupFirstStep, { username: data.email }), app.trackPageview(app.constants.pageviewUrls.signupFirstStep))
             .done(function () {
                 var href = app.getLocationHref();
+
+            if (href.indexOf('signup') != -1) {
                 app.assingLocation(href.replace(/signup/, 'signupsecondstep'));
-                viewModel.isSignupRequestPending(false);
+            } else if (href.indexOf('register') != -1) {
+                app.assingLocation(href.replace(/register/, 'signupsecondstep'));
+            }
+
+            viewModel.isSignupRequestPending(false);
             });
     }
 

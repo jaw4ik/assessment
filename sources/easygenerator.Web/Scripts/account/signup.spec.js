@@ -329,14 +329,6 @@
 
         });
 
-        describe('isLicenseAgreed:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.isLicenseAgreed).toBeObservable();
-            });
-
-        });
-
         describe('isUserNameEditing:', function () {
 
             it('should be observable', function () {
@@ -418,7 +410,6 @@
                     viewModel.password('abcABC123');
                     viewModel.lastName('lastName');
                     viewModel.firstName('firstName');
-                    viewModel.isLicenseAgreed(true);
 
                     expect(viewModel.isFormValid()).toBeTruthy();
                 });
@@ -432,7 +423,6 @@
                     viewModel.password('');
                     viewModel.lastName('');
                     viewModel.firstName('');
-                    viewModel.isLicenseAgreed(false);
 
                     expect(viewModel.isFormValid()).toBeFalsy();
                 });
@@ -446,7 +436,6 @@
                     viewModel.password('abcABC123');
                     viewModel.lastName('lastName');
                     viewModel.firstName('firstName');
-                    viewModel.isLicenseAgreed(true);
 
                     expect(viewModel.isFormValid()).toBeFalsy();
                 });
@@ -460,7 +449,6 @@
                     viewModel.password('');
                     viewModel.lastName('lastName');
                     viewModel.firstName('firstName');
-                    viewModel.isLicenseAgreed(true);
 
                     expect(viewModel.isFormValid()).toBeFalsy();
                 });
@@ -474,7 +462,6 @@
                     viewModel.password('abcABC123');
                     viewModel.lastName('lastName');
                     viewModel.firstName('');
-                    viewModel.isLicenseAgreed(true);
 
                     expect(viewModel.isFormValid()).toBeFalsy();
                 });
@@ -488,27 +475,11 @@
                     viewModel.password('abcABC123');
                     viewModel.lastName('');
                     viewModel.firstName('firstName');
-                    viewModel.isLicenseAgreed(true);
 
                     expect(viewModel.isFormValid()).toBeFalsy();
                 });
 
             });
-
-            describe('when isLicenseAgreed not valid', function () {
-
-                it('should be not valid', function () {
-                    viewModel.userName('anonymous@easygenerator.com');
-                    viewModel.password('abcABC123');
-                    viewModel.lastName('lastName');
-                    viewModel.firstName('firstName');
-                    viewModel.isLicenseAgreed(false);
-
-                    expect(viewModel.isFormValid()).toBeFalsy();
-                });
-
-            });
-
         });
 
         describe('userExists:', function () {
@@ -765,7 +736,6 @@
         describe('signUp:', function () {
 
             var data;
-            var currentHref = 'http://easygenerator.com/signup';
             var trackEventDefer, trackPageviewDefer;
 
             beforeEach(function () {
@@ -782,7 +752,6 @@
                 };
 
                 spyOn(app, 'assingLocation');
-                spyOn(app, 'getLocationHref').and.returnValue(currentHref);
                 spyOn(app.clientSessionContext, 'set');
 
                 trackEventDefer = jQuery.Deferred();
@@ -801,112 +770,233 @@
                 expect(app.clientSessionContext.set).toHaveBeenCalledWith(app.constants.userSignUpFirstStepData, data);
             });
 
-            it('should send event \'Sign up (1st step)\'', function (done) {
-                trackEventDefer.reject();
-
-                viewModel.signUp();
-
-                trackEventDefer.promise().always(function () {
-                    expect(app.trackEvent).toHaveBeenCalledWith('Sign up (1st step)', { username: data.email });
-                    done();
-                });
-            });
-
-            it('should track pageview', function (done) {
-                trackPageviewDefer.reject();
-
-                viewModel.signUp();
-
-                trackPageviewDefer.promise().always(function () {
-                    expect(app.trackPageview).toHaveBeenCalledWith(app.constants.pageviewUrls.signupFirstStep);
-                    done();
-                });
-            });
-
-            describe('when event sent and pageview tracked', function () {
+            describe('when current page is signUp page', function() {
+                var currentHref = 'http://easygenerator.com/signup';
 
                 beforeEach(function () {
-                    trackEventDefer.resolve();
-                    trackPageviewDefer.resolve();
+                    spyOn(app, 'getLocationHref').and.returnValue(currentHref);
                 });
-
-                it('should assing window location', function (done) {
-                    viewModel.signUp();
-
-                    var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
-                    var trackEventPromise = trackEventDefer.promise().always(function () { });
-
-                    $.when(trackPageviewPromise, trackEventPromise).always(function () {
-                        expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
-                        done();
-                    });
-                });
-
-            });
-
-            describe('when event send and pageview not tracked', function () {
-
-                beforeEach(function () {
-                    trackEventDefer.resolve();
-                    trackPageviewDefer.reject();
-                });
-
-                it('should assing window location', function (done) {
-                    var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
-                    var trackEventPromise = trackEventDefer.promise().always(function () { });
-
-                    viewModel.signUp();
-
-                    $.when(trackPageviewPromise, trackEventPromise).always(function () {
-                        expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
-                        done();
-                    });
-                });
-
-            });
-
-            describe('when event not send and pageview tracked', function () {
-
-                beforeEach(function () {
+                
+                it('should send event \'Sign up (1st step)\'', function (done) {
                     trackEventDefer.reject();
-                    trackPageviewDefer.resolve();
-                });
-
-                it('should assing window location', function (done) {
-                    var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
-                    var trackEventPromise = trackEventDefer.promise().always(function () { });
 
                     viewModel.signUp();
 
-                    $.when(trackPageviewPromise, trackEventPromise).always(function () {
-                        expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                    trackEventDefer.promise().always(function () {
+                        expect(app.trackEvent).toHaveBeenCalledWith('Sign up (1st step)', { username: data.email });
                         done();
                     });
                 });
 
+                it('should track pageview', function (done) {
+                    trackPageviewDefer.reject();
+
+                    viewModel.signUp();
+
+                    trackPageviewDefer.promise().always(function () {
+                        expect(app.trackPageview).toHaveBeenCalledWith(app.constants.pageviewUrls.signupFirstStep);
+                        done();
+                    });
+                });
+
+                describe('when event sent and pageview tracked', function () {
+
+                    beforeEach(function () {
+                        trackEventDefer.resolve();
+                        trackPageviewDefer.resolve();
+                    });
+
+                    it('should assing window location', function (done) {
+                        viewModel.signUp();
+
+                        var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
+                        var trackEventPromise = trackEventDefer.promise().always(function () { });
+
+                        $.when(trackPageviewPromise, trackEventPromise).always(function () {
+                            expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when event send and pageview not tracked', function () {
+
+                    beforeEach(function () {
+                        trackEventDefer.resolve();
+                        trackPageviewDefer.reject();
+                    });
+
+                    it('should assing window location', function (done) {
+                        var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
+                        var trackEventPromise = trackEventDefer.promise().always(function () { });
+
+                        viewModel.signUp();
+
+                        $.when(trackPageviewPromise, trackEventPromise).always(function () {
+                            expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when event not send and pageview tracked', function () {
+
+                    beforeEach(function () {
+                        trackEventDefer.reject();
+                        trackPageviewDefer.resolve();
+                    });
+
+                    it('should assing window location', function (done) {
+                        var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
+                        var trackEventPromise = trackEventDefer.promise().always(function () { });
+
+                        viewModel.signUp();
+
+                        $.when(trackPageviewPromise, trackEventPromise).always(function () {
+                            expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when not event send and pageview not tracked', function () {
+
+                    beforeEach(function () {
+                        trackEventDefer.reject();
+                        trackPageviewDefer.reject();
+                    });
+
+                    it('should assing window location', function (done) {
+                        var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
+                        var trackEventPromise = trackEventDefer.promise().always(function () { });
+
+                        viewModel.signUp();
+
+                        $.when(trackPageviewPromise, trackEventPromise).always(function () {
+                            expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                            done();
+                        });
+                    });
+
+                });
             });
 
-            describe('when not event send and pageview not tracked', function () {
+            describe('when current page is register page', function() {
+                var currentHref = 'http://easygenerator.com/register';
 
                 beforeEach(function () {
-                    trackEventDefer.reject();
-                    trackPageviewDefer.reject();
+                    spyOn(app, 'getLocationHref').and.returnValue(currentHref);
                 });
 
-                it('should assing window location', function (done) {
-                    var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
-                    var trackEventPromise = trackEventDefer.promise().always(function () { });
+                it('should send event \'Sign up (1st step)\'', function (done) {
+                    trackEventDefer.reject();
 
                     viewModel.signUp();
 
-                    $.when(trackPageviewPromise, trackEventPromise).always(function () {
-                        expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                    trackEventDefer.promise().always(function () {
+                        expect(app.trackEvent).toHaveBeenCalledWith('Sign up (1st step)', { username: data.email });
                         done();
                     });
                 });
 
-            });
+                it('should track pageview', function (done) {
+                    trackPageviewDefer.reject();
 
+                    viewModel.signUp();
+
+                    trackPageviewDefer.promise().always(function () {
+                        expect(app.trackPageview).toHaveBeenCalledWith(app.constants.pageviewUrls.signupFirstStep);
+                        done();
+                    });
+                });
+
+                describe('when event sent and pageview tracked', function () {
+
+                    beforeEach(function () {
+                        trackEventDefer.resolve();
+                        trackPageviewDefer.resolve();
+                    });
+
+                    it('should assing window location', function (done) {
+                        viewModel.signUp();
+
+                        var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
+                        var trackEventPromise = trackEventDefer.promise().always(function () { });
+
+                        $.when(trackPageviewPromise, trackEventPromise).always(function () {
+                            expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when event send and pageview not tracked', function () {
+
+                    beforeEach(function () {
+                        trackEventDefer.resolve();
+                        trackPageviewDefer.reject();
+                    });
+
+                    it('should assing window location', function (done) {
+                        var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
+                        var trackEventPromise = trackEventDefer.promise().always(function () { });
+
+                        viewModel.signUp();
+
+                        $.when(trackPageviewPromise, trackEventPromise).always(function () {
+                            expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when event not send and pageview tracked', function () {
+
+                    beforeEach(function () {
+                        trackEventDefer.reject();
+                        trackPageviewDefer.resolve();
+                    });
+
+                    it('should assing window location', function (done) {
+                        var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
+                        var trackEventPromise = trackEventDefer.promise().always(function () { });
+
+                        viewModel.signUp();
+
+                        $.when(trackPageviewPromise, trackEventPromise).always(function () {
+                            expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when not event send and pageview not tracked', function () {
+
+                    beforeEach(function () {
+                        trackEventDefer.reject();
+                        trackPageviewDefer.reject();
+                    });
+
+                    it('should assing window location', function (done) {
+                        var trackPageviewPromise = trackPageviewDefer.promise().always(function () { });
+                        var trackEventPromise = trackEventDefer.promise().always(function () { });
+
+                        viewModel.signUp();
+
+                        $.when(trackPageviewPromise, trackEventPromise).always(function () {
+                            expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                            done();
+                        });
+                    });
+
+                });
+            });
         });
 
     });

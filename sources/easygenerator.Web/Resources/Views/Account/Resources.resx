@@ -157,7 +157,7 @@
     <value>Country</value>
   </data>
   <data name="CreateAccountTitle" xml:space="preserve">
-    <value>Create account</value>
+    <value>Start creating courses in just 2 minutes</value>
   </data>
   <data name="EmailCaption" xml:space="preserve">
     <value>E-mail</value>
@@ -181,7 +181,7 @@
     <value>Fill in your phone number</value>
   </data>
   <data name="Finish" xml:space="preserve">
-    <value>Finish</value>
+    <value>Start Building!</value>
   </data>
   <data name="FirstNameCaption" xml:space="preserve">
     <value>First name</value>
@@ -233,8 +233,8 @@ your password.</value>
   <data name="LastNameCaption" xml:space="preserve">
     <value>Last name</value>
   </data>
-  <data name="LicenseAgreeCheckBoxTitle" xml:space="preserve">
-    <value>I have read and I agree to the &lt;a href="{0}"&gt;Terms&lt;/a&gt; and &lt;a href="{1}"&gt;Privacy policy&lt;/a&gt;</value>
+  <data name="LicenseAgreeCaption" xml:space="preserve">
+    <value>By clicking "Sign up" I agree to the easygenerator's  &lt;a href="{0}"  target='_blank'&gt;Terms&lt;/a&gt; and &lt;a href="{1}"  target='_blank'&gt;Privacy policy&lt;/a&gt;</value>
   </data>
   <data name="NoSpaces" xml:space="preserve">
     <value>No spaces</value>
@@ -356,5 +356,8 @@ your password.</value>
   </data>
   <data name="InviteCollaboratorFromDisplayName" xml:space="preserve">
     <value>{0} (easygenerator)</value>
+  </data>
+  <data name="SignUpSecondStepTitle" xml:space="preserve">
+    <value>Almost there...</value>
   </data>
 </root>

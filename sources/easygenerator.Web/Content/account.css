@@ -143,9 +143,8 @@ body.try {
 .user-title {
     padding-bottom: 6px;
     font-size: 50px;
-    white-space: nowrap;
 }
-
+    
     .user-title b {
         font-weight: normal;
         font-family: 'OpenSans-Semibold';
@@ -160,12 +159,17 @@ body.try {
     width: 100%;
 }
 
+    .view-module.sign-up .user-columns {
+        width: 553px;
+        margin: 0 auto;
+    } 
+
 .user-column {
     display: table-cell;
     width: 553px;
 }
 
-    .user-column.form {
+.user-column.form {
         width: 50%;
         padding-left: 12.5%;
         padding-right: 3.5%;
@@ -190,7 +194,7 @@ body.try {
 }
 
 .view-module.sign-up .user-form {
-    padding-top: 63px;
+    padding-top: 37px;
 }
 
 .view-module.log-in .user-form {
@@ -346,6 +350,23 @@ body.try {
     .user-form-checkbox.checked {
         background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAaVBMVEX///9ipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZipCZtaeKZAAAAInRSTlMAAwYMEBMVGCQlQUJITFBWV2BnfZuiq7Le3+Xo6e3w9fb+QaGYLwAAAGBJREFUeF7VzkkWgkAQBNG0AQdmJwrUBoz7H5I1vDoAxPLnJnWIqvhwPfvCTU4ddJ638Ds7folQryk0QZLBe+0nw4Lu8Ek3Z2aw6wilNhUzTPCSvIUhkbv8c3nl/VO7bwFcoAaFG3fmYwAAAABJRU5ErkJggg==') -1px -1px no-repeat;
     }
+
+.user-form-license-caption {
+    padding-top: 18px;
+    color: #222;
+    font-family: 'OpenSans-Semibold';
+    font-size: 12px;
+}
+
+.user-form-license-caption a {
+        color: #222;
+        text-decoration: underline;
+    }
+
+        .user-form-license-caption a:hover {
+            color: #555;
+            text-decoration: underline;
+        }
 
 .user-form-checkbox-label {
     line-height: 24px;
@@ -586,6 +607,7 @@ body.try {
 }
 
 .view-module.sign-up .user-form-row.submit {
+    padding-top: 20px;
     width: 550px;
 }
 

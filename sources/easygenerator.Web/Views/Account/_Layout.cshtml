@@ -7,12 +7,16 @@
 }
 
 <section id="content" class="content">
-    @if (this.ViewContext.RouteData.GetRequiredString("action") != "SignUpSecondStep")
+    @if (ViewBag.NavigationLinksAreDisabled == null || !ViewBag.NavigationLinksAreDisabled)
     {
         <div class="account-nav">
             <ul class="account-nav-list">
                 <li class="account-nav-item">
-                    @if (this.ViewContext.RouteData.GetRequiredString("controller") == "Account" && (this.ViewContext.RouteData.GetRequiredString("action") == "SignUp"))
+                    @Html.NavigationLink(Resources.SignIn, "SignIn", "Account", "account-link-sign-in")
+                </li>
+                <li class="account-nav-item">
+                    @if (this.ViewContext.RouteData.GetRequiredString("controller") == "Account"
+                        && (this.ViewContext.RouteData.GetRequiredString("action") == "SignUp"))
                     {
                         @Html.Label(Resources.SignUp, null, new { @class = "account-link-sign-up active" })
                     }
@@ -21,10 +25,8 @@
                         @Html.ActionLink(Resources.SignUp, "SignUp", ViewContext.RouteData.GetRequiredString("controller"), null, new { @class = "account-link-sign-up" })
                     }
                 </li>
-                <li class="account-nav-item">
-                    @Html.NavigationLink(Resources.SignIn, "SignIn", "Account", "account-link-sign-in")
-                </li>
             </ul>
+
         </div>
     }
     @RenderBody()

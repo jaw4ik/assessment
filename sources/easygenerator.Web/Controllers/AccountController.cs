@@ -58,11 +58,17 @@ namespace easygenerator.Web.Controllers
 
         public ActionResult PrivacyPolicy()
         {
+            ViewBag.ClickOnLogoDisabled = true;
+            ViewBag.NavigationLinksAreDisabled = true;
+
             return View();
         }
 
         public ActionResult TermsOfUse()
         {
+            ViewBag.ClickOnLogoDisabled = true;
+            ViewBag.NavigationLinksAreDisabled = true;
+
             return View();
         }
 
@@ -72,6 +78,8 @@ namespace easygenerator.Web.Controllers
             if (IsExistingUserAuthenticated())
                 return RedirectToRoute("Default");
 
+            ViewBag.ClickOnLogoDisabled = true;
+            
             return View();
         }
 
@@ -82,6 +90,9 @@ namespace easygenerator.Web.Controllers
             {
                 return RedirectToRoute("Default");
             }
+
+            ViewBag.ClickOnLogoDisabled = true;
+            ViewBag.NavigationLinksAreDisabled = true;
 
             return View();
         }
@@ -128,6 +139,18 @@ namespace easygenerator.Web.Controllers
             _authenticationProvider.SignIn(ticket.User.Email, true);
 
             return RedirectToRoute("Default");
+        }
+
+        [NoCache]
+        public ActionResult Register()
+        {
+            if (IsExistingUserAuthenticated())
+                return RedirectToRoute("Default");
+
+            ViewBag.ClickOnLogoDisabled = true;
+            ViewBag.NavigationLinksAreDisabled = true;
+
+            return View("SignUp");
         }
 
         [Route("account/upgrade")]

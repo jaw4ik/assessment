@@ -68,6 +68,30 @@ namespace easygenerator.Web.Tests.Controllers
             ActionResultAssert.IsViewResult(result);
         }
 
+        [TestMethod]
+        public void PrivacyPolicy_ShouldSetViewBagClickOnLogoDisabledToTrue()
+        {
+            //Arrange
+            
+            //Act
+            _controller.PrivacyPolicy();
+
+            //Assert
+            Assert.AreEqual(true, _controller.ViewBag.ClickOnLogoDisabled);
+        }
+
+        [TestMethod]
+        public void PrivacyPolicy_ShouldSetViewBagNavigationLinksAreDisabledToTrue()
+        {
+            //Arrange
+
+            //Act
+            _controller.PrivacyPolicy();
+
+            //Assert
+            Assert.AreEqual(true, _controller.ViewBag.NavigationLinksAreDisabled);
+        }
+
         #endregion
 
         #region TermsOfUse
@@ -83,6 +107,30 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             ActionResultAssert.IsViewResult(result);
+        }
+
+        [TestMethod]
+        public void TermsOfUse_ShouldSetViewBagClickOnLogoDisabledToTrue()
+        {
+            //Arrange
+
+            //Act
+            _controller.TermsOfUse();
+
+            //Assert
+            Assert.AreEqual(true, _controller.ViewBag.ClickOnLogoDisabled);
+        }
+
+        [TestMethod]
+        public void TermsOfUse_ShouldSetViewBagNavigationLinksAreDisabledToTrue()
+        {
+            //Arrange
+
+            //Act
+            _controller.TermsOfUse();
+
+            //Assert
+            Assert.AreEqual(true, _controller.ViewBag.NavigationLinksAreDisabled);
         }
 
         #endregion
@@ -116,6 +164,20 @@ namespace easygenerator.Web.Tests.Controllers
             ActionResultAssert.IsRedirectToRouteResult(result, "Default");
         }
 
+        [TestMethod]
+        public void SignUp_ShouldSetViewBagClickOnLogoDisabledToTrue_WhenExistingUserIsNotAuthenticated()
+        {
+            //Arrange
+            _authenticationProvider.IsUserAuthenticated().Returns(false);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
+
+            //Act
+            _controller.SignUp();
+
+            //Assert
+            Assert.AreEqual(true, _controller.ViewBag.ClickOnLogoDisabled);
+        }
+
         #endregion
 
         #region SignUpSecondStep
@@ -142,6 +204,34 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             ActionResultAssert.IsRedirectToRouteResult(result, "Default");
+        }
+
+        [TestMethod]
+        public void SignUpSecondStep_ShouldSetViewBagClickOnLogoDisabledToTrue_WhenExistingUserIsNotAuthenticated()
+        {
+            //Arrange
+            _authenticationProvider.IsUserAuthenticated().Returns(false);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
+
+            //Act
+            _controller.SignUpSecondStep();
+
+            //Assert
+            Assert.AreEqual(true, _controller.ViewBag.ClickOnLogoDisabled);
+        }
+
+        [TestMethod]
+        public void SignUpSecondStep_ShouldSetViewBagNavigationLinksAreDisabledToTrue_WhenExistingUserIsNotAuthenticated()
+        {
+            //Arrange
+            _authenticationProvider.IsUserAuthenticated().Returns(false);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
+
+            //Act
+            _controller.SignUpSecondStep();
+
+            //Assert
+            Assert.AreEqual(true, _controller.ViewBag.NavigationLinksAreDisabled);
         }
 
         #endregion
@@ -407,6 +497,65 @@ namespace easygenerator.Web.Tests.Controllers
                 (
                     Arg.Is<UserUpdateEvent>(_ => _.User == user && _.UserPassword == password)
                 );
+        }
+
+        #endregion
+
+        #region Register
+
+        [TestMethod]
+        public void Register_ShouldReturnSignUpViewResult()
+        {
+            //Arrange
+
+
+            //Act
+            var result = _controller.Register();
+
+            //Assert
+            ActionResultAssert.IsViewResult(result, "SignUp");
+        }
+
+        [TestMethod]
+        public void Register_ShouldRedirectToDefaultRoute_WhenExistingUserIsAlreadyAuthenticated()
+        {
+            //Arrange
+            _authenticationProvider.IsUserAuthenticated().Returns(true);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
+
+            //Act
+            var result = _controller.Register();
+
+            //Assert
+            ActionResultAssert.IsRedirectToRouteResult(result, "Default");
+        }
+
+        [TestMethod]
+        public void Register_ShouldSetViewBagClickOnLogoDisabledToTrue_WhenExistingUserIsNotAuthenticated()
+        {
+            //Arrange
+            _authenticationProvider.IsUserAuthenticated().Returns(false);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
+
+            //Act
+            _controller.Register();
+
+            //Assert
+            Assert.AreEqual(true, _controller.ViewBag.ClickOnLogoDisabled);
+        }
+
+        [TestMethod]
+        public void Register_ShouldSetViewBagNavigationLinksAreDisabledToTrue_WhenExistingUserIsNotAuthenticated()
+        {
+            //Arrange
+            _authenticationProvider.IsUserAuthenticated().Returns(false);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
+
+            //Act
+            _controller.Register();
+
+            //Assert
+            Assert.AreEqual(true, _controller.ViewBag.NavigationLinksAreDisabled);
         }
 
         #endregion
