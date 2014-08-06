@@ -230,33 +230,6 @@
 
             });
 
-            describe('when not contain upper case letter', function () {
-
-                it('should be not valid', function () {
-                    viewModel.password('password');
-                    expect(viewModel.password.isValid()).toBeFalsy();
-                });
-
-            });
-
-            describe('when not contain lower case letter', function () {
-
-                it('should be not valid', function () {
-                    viewModel.password('PASSWORD');
-                    expect(viewModel.password.isValid()).toBeFalsy();
-                });
-
-            });
-
-            describe('when not contain digit', function () {
-
-                it('should be not valid', function () {
-                    viewModel.password('Password');
-                    expect(viewModel.password.isValid()).toBeFalsy();
-                });
-
-            });
-
             describe('when contain whitespace', function () {
 
                 it('should be not valid', function () {
