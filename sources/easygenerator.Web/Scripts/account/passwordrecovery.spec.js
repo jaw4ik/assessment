@@ -11,58 +11,6 @@
                 expect(viewModel.password).toBeObservable();
             });
 
-            describe('hasUpperAndLowerCaseLetters:', function () {
-
-                it('should be computed', function () {
-                    expect(viewModel.password.hasUpperAndLowerCaseLetters).toBeComputed();
-                });
-
-                describe('when password has uppercase and lowercase letters', function () {
-
-                    it('should return true', function () {
-                        viewModel.password('SomePassword');
-                        expect(viewModel.password.hasUpperAndLowerCaseLetters()).toBeTruthy();
-                    });
-
-                });
-
-                describe('when password not has uppercase and lowercase letters', function () {
-
-                    it('should return false', function () {
-                        viewModel.password('111');
-                        expect(viewModel.password.hasUpperAndLowerCaseLetters()).toBeFalsy();
-                    });
-
-                });
-
-            });
-
-            describe('hasNumbers:', function () {
-
-                it('should be computed', function () {
-                    expect(viewModel.password.hasNumbers).toBeComputed();
-                });
-
-                describe('when password has number', function () {
-
-                    it('should return true', function () {
-                        viewModel.password('111asd');
-                        expect(viewModel.password.hasNumbers()).toBeTruthy();
-                    });
-
-                });
-
-                describe('when password not has number', function () {
-
-                    it('should return false', function () {
-                        viewModel.password('abcABC');
-                        expect(viewModel.password.hasNumbers()).toBeFalsy();
-                    });
-
-                });
-
-            });
-
             describe('hasSpaces:', function () {
 
                 it('should be computed', function () {

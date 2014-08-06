@@ -189,15 +189,6 @@ namespace easygenerator.DomainModel.Entities
             if (password.Length < 7)
                 throw new ArgumentException("Password should be longer than 7 symbols", "password");
 
-            if (!Regex.IsMatch(password, @"\d"))
-                throw new ArgumentException("Password should contain at least one digit symbol", "password");
-
-            if (!Regex.IsMatch(password, @"[A-Z]"))
-                throw new ArgumentException("Password should contain at least one upper case symbol", "password");
-
-            if (!Regex.IsMatch(password, @"[a-z]"))
-                throw new ArgumentException("Password should contain at least one lower case symbol", "password");
-
             if (password.Contains(" "))
                 throw new ArgumentException("Password should not contain whitespace symbols", "password");
         }

@@ -8,8 +8,7 @@ app.signupModel = function () {
         lastValidateLastName: null,
     };
 
-    var digitRegex = /\d/,
-        whitespaceRegex = /\s/;
+    var whitespaceRegex = /\s/;
 
     var viewModel = {
         firstName: ko.observable(''),
@@ -46,19 +45,7 @@ app.signupModel = function () {
 
     viewModel.password.isValid = ko.computed(function () {
         return viewModel.password().length >= 7
-            && viewModel.password().toLowerCase() != viewModel.password()
-            && viewModel.password().toUpperCase() != viewModel.password()
-            && digitRegex.test(viewModel.password())
             && !whitespaceRegex.test(viewModel.password());
-    });
-
-    viewModel.password.hasUpperAndLowerCaseLetters = ko.computed(function () {
-        return viewModel.password().toLowerCase() != viewModel.password()
-            && viewModel.password().toUpperCase() != viewModel.password();
-    });
-
-    viewModel.password.hasNumbers = ko.computed(function () {
-        return digitRegex.test(viewModel.password());
     });
 
     viewModel.password.hasSpaces = ko.computed(function () {

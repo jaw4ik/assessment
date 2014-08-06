@@ -92,36 +92,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void User_ShouldThrowArgumentException_WhenPasswordHasNoDigitSymbol()
-        {
-            //Arrange
-            Action action = () => UserObjectMother.CreateWithPassword("OLOLOLOLO");
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
-        }
-
-        [TestMethod]
-        public void User_ShouldThrowArgumentException_WhenPasswordHasNoUpperCaseSymbol()
-        {
-            //Arrange
-            Action action = () => UserObjectMother.CreateWithPassword("ololololo1");
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
-        }
-
-        [TestMethod]
-        public void User_ShouldThrowArgumentException_WhenPasswordHasNoLowerCaseSymbol()
-        {
-            //Arrange
-            Action action = () => UserObjectMother.CreateWithPassword("OLOLOLOLO1");
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
-        }
-
-        [TestMethod]
         public void User_ShouldThrowArgumentException_WhenPasswordHasWhitespaceSymbol()
         {
             //Arrange
@@ -417,39 +387,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void RecoverPasswordUsingTicket_ShouldThrowArgumentException_WhenPasswordHasNoDigitSymbol()
-        {
-            var user = UserObjectMother.Create();
-            var ticket = PasswordRecoveryTicketObjectMother.Create();
-
-            Action action = () => user.RecoverPasswordUsingTicket(ticket, "abcdefghujklmn");
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
-        }
-
-        [TestMethod]
-        public void RecoverPasswordUsingTicket_ShouldThrowArgumentException_WhenPasswordHasNoUpperCaseSymbol()
-        {
-            var user = UserObjectMother.Create();
-            var ticket = PasswordRecoveryTicketObjectMother.Create();
-
-            Action action = () => user.RecoverPasswordUsingTicket(ticket, "abcdefghujklmn1");
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
-        }
-
-        [TestMethod]
-        public void RecoverPasswordUsingTicket_ShouldThrowArgumentException_WhenPasswordHasNoLowerCaseSymbol()
-        {
-            var user = UserObjectMother.Create();
-            var ticket = PasswordRecoveryTicketObjectMother.Create();
-
-            Action action = () => user.RecoverPasswordUsingTicket(ticket, "ABCDEFGHIJKLMN1");
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
-        }
-
-        [TestMethod]
         public void RecoverPasswordUsingTicket_ShouldThrowArgumentException_WhenPasswordHasWhitespaceSymbol()
         {
             var user = UserObjectMother.Create();
@@ -730,36 +667,6 @@ namespace easygenerator.DomainModel.Tests.Entities
             var user = UserObjectMother.Create();
 
             Action action = () => user.UpdatePassword("qwe", "admin");
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
-        }
-
-        [TestMethod]
-        public void UpdatePassword_ShouldThrowArgumentException_WhenPasswordHasNoDigitSymbol()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.UpdatePassword("qwe", "admin");
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
-        }
-
-        [TestMethod]
-        public void UpdatePassword_ShouldThrowArgumentException_WhenPasswordHasNoUpperCaseSymbol()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.UpdatePassword("qweqwe", "admin");
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
-        }
-
-        [TestMethod]
-        public void UpdatePassword_ShouldThrowArgumentException_WhenPasswordHasNoLowerCaseSymbol()
-        {
-            var user = UserObjectMother.Create();
-
-            Action action = () => user.UpdatePassword("QWEQWE", "admin");
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
         }
