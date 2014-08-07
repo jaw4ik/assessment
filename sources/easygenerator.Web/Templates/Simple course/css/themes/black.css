@@ -209,11 +209,6 @@
 
 /*#region questions navigation styles */
 
-.questions-navigation-title {
-    color: #f7f3f7;
-    font-family: Segoe UI-Semibold, sans-serif;
-}
-
 .questions-counter {
     vertical-align: middle;
     min-width: 45px;
