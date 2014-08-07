@@ -38,3 +38,21 @@ CKEDITOR.editorConfig = function (config) {
     config.baseFloatZIndex = 200;
     config.dialog_noConfirmCancel = true;
 };
+
+CKEDITOR.on('dialogDefinition', function (ev) {
+    var dialogName = ev.data.name;
+    var dialogDefinition = ev.data.definition;
+
+    if (dialogName == 'link') {
+        var linkTargetType = dialogDefinition.getContents('target').get('linkTargetType');
+
+        linkTargetType['setup'] = function (data) {
+            if (data.target) {
+                this.setValue(data.target.type || '_blank');
+            } else {
+                this.setValue('_blank');
+            }
+            linkTargetType['onChange'].call(this);
+        };
+    }
+});
