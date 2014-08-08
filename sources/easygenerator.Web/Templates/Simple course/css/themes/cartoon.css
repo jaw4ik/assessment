@@ -550,10 +550,6 @@
     border: #5bc0de 1px solid;
 }
 
-.custom-select .select-list-item:hover {
-    background: #f3f3f3;
-}
-
 .custom-select .select-list {
     border-bottom: 1px solid #d8dde5;
     border-left: 1px solid #d8dde5;
@@ -572,7 +568,13 @@
     border-bottom-color: #41b7d8;
 }
 
-.custom-select .select-list-item.selected {
+.custom-select .select-list:hover .select-list-item.selected {
+    background-color: transparent;
+}
+
+.custom-select .select-list .select-list-item:hover,
+.custom-select .select-list:hover .select-list-item:hover,
+.custom-select .select-list .select-list-item.selected {
     background-color: #41b7d8;
 }
 /*#endregion input fill in the blank*/

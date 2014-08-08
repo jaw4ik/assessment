@@ -639,10 +639,6 @@
 
 .custom-select .select-list-item {
     color: #d6d6d6;
-} 
-
-.custom-select .select-list-item:hover {
-    background: #424242;
 }
 
 .custom-select .pointer {
@@ -657,7 +653,13 @@
     border-bottom-color: #2c6074;
 }
 
-.custom-select .select-list-item.selected {
+.custom-select .select-list:hover .select-list-item.selected {
+    background-color: transparent;
+}
+
+.custom-select .select-list .select-list-item:hover,
+.custom-select .select-list:hover .select-list-item:hover,
+.custom-select .select-list .select-list-item.selected {
     background-color: #2c6074;
 }
 

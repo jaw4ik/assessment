@@ -532,10 +532,6 @@
     border-right: 1px solid #d8dde5;
 }
 
-.custom-select .select-list-item:hover {
-    background: #FAFAFA;
-}
-
 .custom-select .pointer-wrapper {
     border-left: 1px solid #d9dde5;
 }
@@ -548,9 +544,16 @@
     border-bottom-color: #47706a;
 }
 
-.custom-select .select-list-item.selected {
+.custom-select .select-list:hover .select-list-item.selected {
+    background-color: transparent;
+}
+
+.custom-select .select-list .select-list-item:hover,
+.custom-select .select-list:hover .select-list-item:hover,
+.custom-select .select-list .select-list-item.selected {
     background-color: #41b7d8;
 }
+
 /*#endregion input fill in the blank*/
 
 /*#region drag and drop question type*/
