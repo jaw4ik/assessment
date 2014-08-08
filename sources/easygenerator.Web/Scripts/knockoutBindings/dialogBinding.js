@@ -3,7 +3,7 @@
     },
     update: function (element, valueAccessor) {
         var $element = $(element),
-            $body = $('body'),
+            $container = $('.tb-main'),
             speed = 200,
             isShown = valueAccessor().isShown,
             autoclose = ko.unwrap(valueAccessor().autoclose) || false;
@@ -15,7 +15,7 @@
         }
 
         function show() {
-            var $blockout = $('<div class="modal-dialog-blockout"></div>').appendTo($body);
+            var $blockout = $('<div class="modal-dialog-blockout"></div>').appendTo($container);
 
             $.when($blockout).done(function () {
                 $element.fadeIn(speed);
