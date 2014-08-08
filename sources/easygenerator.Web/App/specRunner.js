@@ -30,6 +30,7 @@
             'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/removeCollaborator.spec',
+            'dialogs/shareCourse/shareCourse.spec',
             'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
             'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
             'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',

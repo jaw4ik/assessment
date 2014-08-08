@@ -50,73 +50,9 @@
             });
         });
 
-        describe('buildActionClick:', function () {
-            beforeEach(function () {
-                viewModel.buildAction({ isPublishing: ko.observable(true), downloadCourse: function () { } });
-                spyOn(viewModel.buildAction(), 'downloadCourse');
-            });
-
-            it('should be function', function () {
-                expect(viewModel.buildActionClick).toBeFunction();
-            });
-
-            describe('when isPublishingProcessInProgress is false', function () {
-                beforeEach(function () {
-                    spyOn(viewModel, 'isPublishingInProgress').and.returnValue(false);
-                });
-
-                it('should call buildAction().downloadCourse()', function () {
-                    viewModel.buildActionClick();
-                    expect(viewModel.buildAction().downloadCourse).toHaveBeenCalled();
-                });
-            });
-            describe('when isPublishingProcessInProgress is true', function () {
-                beforeEach(function () {
-                    spyOn(viewModel, 'isPublishingInProgress').and.returnValue(true);
-                });
-
-                it('should not call buildAction().downloadCourse()', function () {
-                    viewModel.buildActionClick();
-                    expect(viewModel.buildAction().downloadCourse).not.toHaveBeenCalled();
-                });
-            });
-        });
-
         describe('scormBuildAction:', function () {
             it('should be observable', function () {
                 expect(viewModel.scormBuildAction).toBeObservable();
-            });
-        });
-
-        describe('scormBuildActionClick:', function () {
-            beforeEach(function () {
-                viewModel.scormBuildAction({ isPublishing: ko.observable(true), downloadCourse: function () { } });
-                spyOn(viewModel.scormBuildAction(), 'downloadCourse');
-            });
-
-            it('should be function', function () {
-                expect(viewModel.scormBuildActionClick).toBeFunction();
-            });
-
-            describe('when isPublishingProcessInProgress is false', function () {
-                beforeEach(function () {
-                    spyOn(viewModel, 'isPublishingInProgress').and.returnValue(false);
-                });
-
-                it('should call scormBuildAction().downloadCourse()', function () {
-                    viewModel.scormBuildActionClick();
-                    expect(viewModel.scormBuildAction().downloadCourse).toHaveBeenCalled();
-                });
-            });
-            describe('when isPublishingProcessInProgress is true', function () {
-                beforeEach(function () {
-                    spyOn(viewModel, 'isPublishingInProgress').and.returnValue(true);
-                });
-
-                it('should not call scormBuildAction().downloadCourse()', function () {
-                    viewModel.scormBuildActionClick();
-                    expect(viewModel.scormBuildAction().downloadCourse).not.toHaveBeenCalled();
-                });
             });
         });
         
@@ -126,133 +62,12 @@
             });
         });
 
-        describe('publishActionClick:', function () {
-            beforeEach(function () {
-                viewModel.publishAction({ isPublishing: ko.observable(true), publishCourse: function () { } });
-                spyOn(viewModel.publishAction(), 'publishCourse');
-            });
-
-            it('should be function', function () {
-                expect(viewModel.publishActionClick).toBeFunction();
-            });
-
-            describe('when isPublishingProcessInProgress is false', function () {
-                beforeEach(function () {
-                    spyOn(viewModel, 'isPublishingInProgress').and.returnValue(false);
-                });
-
-                it('should call publishAction().publishCourse()', function () {
-                    viewModel.publishActionClick();
-                    expect(viewModel.publishAction().publishCourse).toHaveBeenCalled();
-                });
-            });
-            describe('when isPublishingProcessInProgress is true', function () {
-                beforeEach(function () {
-                    spyOn(viewModel, 'isPublishingInProgress').and.returnValue(true);
-                });
-
-                it('should not call publishAction().publishCourse()', function () {
-                    viewModel.publishActionClick();
-                    expect(viewModel.publishAction().publishCourse).not.toHaveBeenCalled();
-                });
-            });
-        });
-
-        describe('publishToAim4YouActionClick:', function () {
-            beforeEach(function () {
-                viewModel.publishToAim4YouAction({ isPublishing: ko.observable(true), publishToAim4You: function () { } });
-                spyOn(viewModel.publishToAim4YouAction(), 'publishToAim4You');
-            });
-
-            it('should be function', function () {
-                expect(viewModel.publishToAim4YouActionClick).toBeFunction();
-            });
-
-            describe('when isPublishingProcessInProgress is false', function () {
-                beforeEach(function () {
-                    spyOn(viewModel, 'isPublishingInProgress').and.returnValue(false);
-                });
-
-                it('should call publishAction().publishToAim4You()', function () {
-                    viewModel.publishToAim4YouActionClick();
-                    expect(viewModel.publishToAim4YouAction().publishToAim4You).toHaveBeenCalled();
-                });
-            });
-            describe('when isPublishingProcessInProgress is true', function () {
-                beforeEach(function () {
-                    spyOn(viewModel, 'isPublishingInProgress').and.returnValue(true);
-                });
-
-                it('should not call publishAction().publishToAim4You()', function () {
-                    viewModel.publishToAim4YouActionClick();
-                    expect(viewModel.publishToAim4YouAction().publishToAim4You).not.toHaveBeenCalled();
-                });
-            });
-        });
-
         describe('publishToAim4YouAction:', function () {
 
             it('should be observable', function () {
                 expect(viewModel.publishToAim4YouAction).toBeObservable();
             });
 
-        });
-
-        describe('isPublishingProcessInProgress:', function () {
-
-            it('should be computed', function () {
-                expect(viewModel.isPublishingInProgress).toBeComputed();
-            });
-
-            describe('when all actions are not publishing', function () {
-                it('should return false', function () {
-                    viewModel.buildAction({ isPublishing: ko.observable(false) });
-                    viewModel.scormBuildAction({ isPublishing: ko.observable(false) });
-                    viewModel.publishAction({ isPublishing: ko.observable(false) });
-                    viewModel.publishToAim4YouAction({ isPublishing: ko.observable(false) });
-                    expect(viewModel.isPublishingInProgress()).toBeFalsy();
-                });
-            });
-
-            describe('when build action is defined and is publishing', function () {
-                it('should return true', function () {
-                    viewModel.buildAction({ isPublishing: ko.observable(true) });
-                    viewModel.scormBuildAction({ isPublishing: ko.observable(false) });
-                    viewModel.publishAction({ isPublishing: ko.observable(false) });
-                    viewModel.publishToAim4YouAction({ isPublishing: ko.observable(false) });
-                    expect(viewModel.isPublishingInProgress()).toBe(true);
-                });
-            });
-
-            describe('when scorm build action is defined and is publishing', function () {
-                it('should return true', function () {
-                    viewModel.buildAction({ isPublishing: ko.observable(false) });
-                    viewModel.scormBuildAction({ isPublishing: ko.observable(true) });
-                    viewModel.publishAction({ isPublishing: ko.observable(false) });
-                    viewModel.publishToAim4YouAction({ isPublishing: ko.observable(false) });
-                    expect(viewModel.isPublishingInProgress()).toBe(true);
-                });
-            });
-
-            describe('when publish action is defined and is publishing', function () {
-                it('should return true', function () {
-                    viewModel.buildAction({ isPublishing: ko.observable(false) });
-                    viewModel.scormBuildAction({ isPublishing: ko.observable(false) });
-                    viewModel.publishAction({ isPublishing: ko.observable(true) });
-                    viewModel.publishToAim4YouAction({ isPublishing: ko.observable(false) });
-                    expect(viewModel.isPublishingInProgress()).toBe(true);
-                });
-            });
-
-            describe('when publish to Aim4You action is defined and is publishing', function () {
-                it('should return true', function () {
-                    viewModel.buildAction({ isPublishing: ko.observable(false) });
-                    viewModel.scormBuildAction({ isPublishing: ko.observable(false) });
-                    viewModel.publishAction({ isPublishing: ko.observable(false) });
-                    viewModel.publishToAim4YouAction({ isPublishing: ko.observable(true) });
-                    expect(viewModel.isPublishingInProgress()).toBe(true);
-                });
-            });
         });
 
         describe('canActivate:', function () {
@@ -509,6 +324,50 @@
                 expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
             });
 
+        });
+
+        describe('courseDeliveringStarted:', function () {
+            it('should be function', function () {
+                expect(viewModel.courseDeliveringStarted).toBeFunction();
+            });
+
+            describe('when course is current course', function () {
+                it('should set isCourseDelivering to true', function () {
+                    viewModel.isCourseDelivering(false);
+                    viewModel.courseDeliveringStarted(course);
+                    expect(viewModel.isCourseDelivering()).toBeTruthy();
+                });
+            });
+
+            describe('when course is not current course', function () {
+                it('should not change isCourseDelivering', function () {
+                    viewModel.isCourseDelivering(false);
+                    viewModel.courseDeliveringStarted({ id: 'none' });
+                    expect(viewModel.isCourseDelivering()).toBeFalsy();
+                });
+            });
+        });
+
+        describe('courseDeliveringFinished:', function () {
+            it('should be function', function () {
+                expect(viewModel.courseDeliveringFinished).toBeFunction();
+            });
+
+            describe('when course is current course', function () {
+                it('should set isCourseDelivering to false', function () {
+                    viewModel.isCourseDelivering(true);
+                    viewModel.courseDeliveringFinished(course);
+                    expect(viewModel.isCourseDelivering()).toBeFalsy();
+                });
+            });
+
+            describe('when course is not current course', function () {
+                it('should not change isCourseDelivering', function () {
+                    viewModel.isCourseDelivering(true);
+                    viewModel.courseDeliveringFinished({ id: 'none' });
+                    expect(viewModel.isCourseDelivering()).toBeTruthy();
+                });
+            });
         });
 
     });

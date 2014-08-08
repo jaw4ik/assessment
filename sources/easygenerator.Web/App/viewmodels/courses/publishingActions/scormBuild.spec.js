@@ -69,12 +69,6 @@
                 });
             });
 
-            describe('isActive:', function () {
-                it('should be observable', function () {
-                    expect(viewModel.isActive).toBeObservable();
-                });
-            });
-
             describe('packageExists:', function () {
 
                 it('should be computed', function () {
@@ -134,25 +128,15 @@
                     expect(viewModel.downloadCourse).toBeFunction();
                 });
 
-                describe('when action is not active', function () {
+                describe('when course is not delivering', function () {
 
                     beforeEach(function () {
-                        viewModel.isActive(false);
+                        viewModel.isCourseDelivering(false);
                     });
 
                     it('should send event \"Download SCORM 1.2 course\"', function () {
                         viewModel.downloadCourse();
                         expect(eventTracker.publish).toHaveBeenCalledWith('Download SCORM 1.2 course');
-                    });
-
-                    it('should hide notification', function () {
-                        viewModel.downloadCourse();
-                        expect(notify.hide).toHaveBeenCalled();
-                    });
-
-                    it('should set isActive to true', function () {
-                        viewModel.downloadCourse();
-                        expect(viewModel.isActive()).toBe(true);
                     });
 
                     it('should start scorm build of current course', function (done) {
@@ -176,13 +160,6 @@
                             });
                         });
 
-                        it('should set isActive() to false', function (done) {
-                            viewModel.downloadCourse().fin(function () {
-                                expect(viewModel.isActive()).toBeFalsy();
-                                done();
-                            });
-                        });
-
                     });
 
                     describe('when course scorm build failed', function () {
@@ -200,21 +177,14 @@
                             });
                         });
 
-                        it('should set isActive() to false', function (done) {
-                            viewModel.downloadCourse().fin(function () {
-                                expect(viewModel.isActive()).toBeFalsy();
-                                done();
-                            });
-                        });
-
                     });
 
                 });
 
-                describe('when action is active', function () {
+                describe('when course is delivering', function () {
 
                     beforeEach(function () {
-                        viewModel.isActive(true);
+                        viewModel.isCourseDelivering(true);
                     });
 
                     it('should not send event \"Download SCORM 1.2 course\"', function () {
@@ -350,5 +320,54 @@
 
             });
 
+            describe('isCourseDelivering:', function () {
+                it('should be observable', function () {
+                    expect(viewModel.isCourseDelivering).toBeObservable();
+                });
+            });
+
+            describe('courseDeliveringStarted:', function () {
+                it('should be function', function () {
+                    expect(viewModel.courseDeliveringStarted).toBeFunction();
+                });
+
+                describe('when course is current course', function () {
+                    it('should set isCourseDelivering to true', function () {
+                        viewModel.isCourseDelivering(false);
+                        viewModel.courseDeliveringStarted(course);
+                        expect(viewModel.isCourseDelivering()).toBeTruthy();
+                    });
+                });
+
+                describe('when course is not current course', function () {
+                    it('should not change isCourseDelivering', function () {
+                        viewModel.isCourseDelivering(false);
+                        viewModel.courseDeliveringStarted({ id: 'none' });
+                        expect(viewModel.isCourseDelivering()).toBeFalsy();
+                    });
+                });
+            });
+
+            describe('courseDeliveringFinished:', function () {
+                it('should be function', function () {
+                    expect(viewModel.courseDeliveringFinished).toBeFunction();
+                });
+
+                describe('when course is current course', function () {
+                    it('should set isCourseDelivering to false', function () {
+                        viewModel.isCourseDelivering(true);
+                        viewModel.courseDeliveringFinished(course);
+                        expect(viewModel.isCourseDelivering()).toBeFalsy();
+                    });
+                });
+
+                describe('when course is not current course', function () {
+                    it('should not change isCourseDelivering', function () {
+                        viewModel.isCourseDelivering(true);
+                        viewModel.courseDeliveringFinished({ id: 'none' });
+                        expect(viewModel.isCourseDelivering()).toBeTruthy();
+                    });
+                });
+            });
         });
     })

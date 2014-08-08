@@ -2,8 +2,9 @@
     function (navigation) {
         "use strict";
 
-        var eventTracker = require('eventTracker');
-        var router = require('plugins/router');
+        var eventTracker = require('eventTracker'),
+            router = require('plugins/router'),
+            vmShareCourse = require('dialogs/shareCourse/shareCourse');
 
         describe('viewmodel [courseNavigation]', function () {
 
@@ -50,6 +51,20 @@
                 });
             });
 
+            describe('shareCourse:', function () {
+                beforeEach(function() {
+                    spyOn(vmShareCourse, 'show');
+                });
+
+                it('should be function', function () {
+                    expect(navigation.shareCourse).toBeFunction();
+                });
+
+                it('should set vm share course visible to true', function () {
+                    navigation.shareCourse();
+                    expect(vmShareCourse.show).toHaveBeenCalled();
+                });
+            });
 
             describe('coursePreviewLink:', function () {
                 it('should be computed', function () {

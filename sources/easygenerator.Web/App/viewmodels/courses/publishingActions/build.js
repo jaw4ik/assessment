@@ -8,7 +8,7 @@
 
         var ctor = function (course) {
 
-            var viewModel = publishingAction(course.id, course.build);
+            var viewModel = publishingAction(course, course.build);
 
             viewModel.isPublishing = ko.computed(function () {
                 return this.state() === constants.publishingStates.building;
@@ -28,10 +28,8 @@
 
 
             function downloadCourse() {
-                if (viewModel.isActive())
+                if (viewModel.isCourseDelivering())
                     return undefined;
-
-                viewModel.isActive(true);
 
                 notify.hide();
                 eventTracker.publish(events.downloadCourse);
@@ -40,8 +38,6 @@
                     fileHelper.downloadFile('download/' + courseInfo.build.packageUrl);
                 }).fail(function (message) {
                     notify.error(message);
-                }).fin(function () {
-                    viewModel.isActive(false);
                 });
             };
 

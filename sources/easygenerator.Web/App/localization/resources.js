@@ -130,6 +130,12 @@
     upgradeYourAccount: {
         en: 'upgrade your account'
     },
+    spellCheckerWindows: {
+        en: '&quot;Ctrl&quot; + &quot;right click&quot; for a spell-checker'
+    },
+    spellCheckerMac: {
+        en: '&quot;Cmd&quot; + &quot;right click&quot; for a spell-checker'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -338,13 +344,19 @@
         en: 'courses.'
     },
     upgradeToNextPlanToCreateMoreCoursesErrorMessage: {
-        en: 'Please upgrade your account to next plan to be able to create more courses.'
+        en: 'Please upgrade your account to the next plan to be able to create more courses.'
     },
     relatedLearningObjectives: {
         en: 'Related learning objectives'
     },
     sharedCourses: {
         en: 'Shared courses'
+    },
+    shareNow: {
+        en: 'Share now'
+    },
+    courseHasNotBeenPublishedDescription: {
+        en: 'This course has not been published yet. Click the button below to get the private link.'
     },
     /* End resource section for model Courses */
     
@@ -893,7 +905,7 @@
         en: 'Hide password'
     },
     Finish: {
-        en: 'Start Building!'
+        en: 'Start authoring!'
     },
     NotContainWhitespaceCharacters: {
         en: 'NOT contain whitespace character(s).'

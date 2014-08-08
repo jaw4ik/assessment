@@ -1,8 +1,8 @@
 ﻿define(['repositories/courseRepository', 'plugins/router', 'constants', 'viewmodels/courses/publishingActions/build',
         'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
-        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'ping', 'models/backButton'],
+        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'ping', 'models/backButton', 'durandal/app'],
     function (repository, router, constants, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker, ping, BackButton) {
+        clientContext, localizationManager, eventTracker, ping, BackButton, app) {
 
         var events = {
             navigateToCourses: 'Navigate to courses'
@@ -13,13 +13,13 @@
             states: constants.publishingStates,
 
             buildAction: ko.observable(),
-            buildActionClick: buildActionClick,
             scormBuildAction: ko.observable(),
-            scormBuildActionClick: scormBuildActionClick,
             publishAction: ko.observable(),
-            publishActionClick: publishActionClick,
             publishToAim4YouAction: ko.observable(),
-            publishToAim4YouActionClick: publishToAim4YouActionClick,
+
+            isCourseDelivering: ko.observable(false),
+            courseDeliveringStarted: courseDeliveringStarted,
+            courseDeliveringFinished: courseDeliveringFinished,
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
@@ -34,41 +34,30 @@
             })
         };
 
-        viewModel.isPublishingInProgress = ko.computed(function () {
-            return _.some([this.buildAction(), this.scormBuildAction(), this.publishAction(), this.publishToAim4YouAction()], function (action) {
-                return _.isObject(action) && action.isPublishing();
-            });
-        }, viewModel);
+        app.on(constants.messages.course.delivering.started).then(viewModel.courseDeliveringStarted);
+        app.on(constants.messages.course.delivering.finished).then(viewModel.courseDeliveringFinished);
 
         return viewModel;
+
+        function courseDeliveringStarted(course) {
+            if (course.id !== viewModel.courseId) {
+                return;
+            }
+
+            viewModel.isCourseDelivering(true);
+        };
+
+        function courseDeliveringFinished(course) {
+            if (course.id !== viewModel.courseId) {
+                return;
+            }
+
+            viewModel.isCourseDelivering(false);
+        };
 
         function openUpgradePlanUrl() {
             eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.scorm);
             router.openUrl(constants.upgradeUrl);
-        }
-
-        function buildActionClick() {
-            if (!viewModel.isPublishingInProgress()) {
-                viewModel.buildAction().downloadCourse();
-            }
-        }
-
-        function scormBuildActionClick() {
-            if (!viewModel.isPublishingInProgress()) {
-                viewModel.scormBuildAction().downloadCourse();
-            }
-        }
-
-        function publishActionClick() {
-            if (!viewModel.isPublishingInProgress()) {
-                viewModel.publishAction().publishCourse();
-            }
-        }
-
-        function publishToAim4YouActionClick() {
-            if (!viewModel.isPublishingInProgress()) {
-                viewModel.publishToAim4YouAction().publishToAim4You();
-            }
         }
 
         function navigateToCoursesEvent() {

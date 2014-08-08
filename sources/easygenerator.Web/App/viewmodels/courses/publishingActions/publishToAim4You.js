@@ -7,7 +7,7 @@
         };
 
         var ctor = function (course) {
-            var viewModel = publishingAction(course.id, course.publishToStore);
+            var viewModel = publishingAction(course, course.publishToStore);
 
             viewModel.isPublishing = ko.computed(function () {
                 return this.state() === constants.publishingStates.building
@@ -29,7 +29,7 @@
             viewModel.publishToAim4YouStarted = publishToAim4YouStarted;
             viewModel.publishToAim4YouCompleted = publishToAim4YouCompleted;
             viewModel.publishToAim4YouFailed = publishToAim4YouFailed;
-            viewModel.courseActionStarted = courseActionStarted;
+            viewModel.initializeCourseDelivering = initializeCourseDelivering;
 
             app.on(constants.messages.course.build.started).then(viewModel.courseBuildStarted);
             app.on(constants.messages.course.build.failed).then(viewModel.courseBuildFailed);
@@ -37,26 +37,22 @@
             app.on(constants.messages.course.publishToAim4You.started).then(viewModel.publishToAim4YouStarted);
             app.on(constants.messages.course.publishToAim4You.completed).then(viewModel.publishToAim4YouCompleted);
             app.on(constants.messages.course.publishToAim4You.failed).then(viewModel.publishToAim4YouFailed);
-            app.on(constants.messages.course.action.started).then(viewModel.courseActionStarted);
+            app.on(constants.messages.course.delivering.started).then(viewModel.initializeCourseDelivering);
 
             return viewModel;
 
 
             function publishToAim4You() {
-                if (viewModel.isActive()) {
+                if (viewModel.isCourseDelivering()) {
                     return;
                 }
 
-                viewModel.isActive(true);
-                notify.hide();
                 eventTracker.publish(events.publishToAim4You);
 
                 return course.publishToStore().then(function () {
                     viewModel.messageState(viewModel.infoMessageStates.published);
                 }).fail(function (message) {
                     notify.error(message);
-                }).fin(function () {
-                    viewModel.isActive(false);
                 });
             };
 
@@ -97,7 +93,7 @@
                 viewModel.state(constants.publishingStates.failed);
             };
 
-            function courseActionStarted(course) {
+            function initializeCourseDelivering(course) {
                 if (course.id !== viewModel.courseId) {
                     return;
                 }

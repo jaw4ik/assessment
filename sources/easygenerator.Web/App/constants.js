@@ -125,8 +125,9 @@
                         completed: 'course:publishToAim4You-comleted',
                         failed: 'course:publishToAim4You-failed'
                     },
-                    action: {
-                        started: 'course:action-started'
+                    delivering: {
+                        started: 'course:delivering-started',
+                        finished: 'course:delivering-finished'
                     },
                     collaboration: {
                         collaboratorAdded: 'course:collaboration-collaboratorAdded:',
@@ -235,7 +236,10 @@
 
             maxStarterPlanCollaborators: 3,
 
-            informationContentEventCategory: 'Information'
+            eventCategories: {
+                header: 'Header',
+                informationContent: 'Information'
+            }
         };
     }
 );

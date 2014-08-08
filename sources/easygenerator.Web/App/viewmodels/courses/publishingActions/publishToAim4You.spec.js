@@ -132,12 +132,6 @@
                 });
             });
 
-            describe('isActive:', function () {
-                it('should be observable', function () {
-                    expect(viewModel.isActive).toBeObservable();
-                });
-            });
-
             describe('messageState:', function () {
 
                 it('should be observable', function () {
@@ -190,33 +184,25 @@
                     expect(viewModel.publishToAim4You).toBeFunction();
                 });
 
-                describe('when publishing is active', function () {
+                describe('when course is delivering', function () {
 
-                    it('should return undefined', function () {
-                        viewModel.isActive(true);
-                        expect(viewModel.publishToAim4You()).toBeUndefined();
+                    beforeEach(function() {
+                        viewModel.isCourseDelivering(true);
                     });
 
+                    it('should return undefined', function () {
+                        expect(viewModel.publishToAim4You()).toBeUndefined();
+                    });
                 });
 
-                describe('when publishing is not active', function () {
+                describe('when course is not delivering', function () {
 
                     var coursePublishToStoreDefer;
 
                     beforeEach(function () {
                         coursePublishToStoreDefer = Q.defer();
                         spyOn(course, 'publishToStore').and.returnValue(coursePublishToStoreDefer.promise);
-                        viewModel.isActive(false);
-                    });
-
-                    it('should hide notify', function () {
-                        viewModel.publishToAim4You();
-                        expect(notify.hide).toHaveBeenCalled();
-                    });
-
-                    it('should activate publishing proccess', function () {
-                        viewModel.publishToAim4You();
-                        expect(viewModel.isActive()).toBeTruthy();
+                        viewModel.isCourseDelivering(false);
                     });
 
                     it('should send event \'Publish to Aim4You\'', function () {
@@ -243,13 +229,6 @@
                             coursePublishToStoreDefer.resolve();
                         });
 
-                        it('should set publishing active to false', function (done) {
-                            viewModel.publishToAim4You().fin(function () {
-                                expect(viewModel.isActive()).toBeFalsy();
-                                done();
-                            });
-                        });
-
                         it('should show publish success message', function (done) {
                             viewModel.messageState(viewModel.infoMessageStates.none);
                             viewModel.publishToAim4You().fin(function () {
@@ -270,13 +249,6 @@
                         it('should show error notification', function (done) {
                             viewModel.publishToAim4You().fin(function () {
                                 expect(notify.error).toHaveBeenCalledWith(message);
-                                done();
-                            });
-                        });
-
-                        it('should set publishing active to false', function (done) {
-                            viewModel.publishToAim4You().fin(function () {
-                                expect(viewModel.isActive()).toBeFalsy();
                                 done();
                             });
                         });
@@ -513,15 +485,64 @@
 
             });
 
-            describe('when some action was started', function () {
+            describe('when course delivering was started', function () {
 
                 it('should hide info message', function () {
-                    viewModel.courseActionStarted(course);
+                    viewModel.initializeCourseDelivering(course);
                     expect(viewModel.messageState()).toEqual(viewModel.infoMessageStates.none);
                 });
 
             });
 
+            describe('isCourseDelivering:', function () {
+                it('should be observable', function () {
+                    expect(viewModel.isCourseDelivering).toBeObservable();
+                });
+            });
+
+            describe('courseDeliveringStarted:', function () {
+                it('should be function', function () {
+                    expect(viewModel.courseDeliveringStarted).toBeFunction();
+                });
+
+                describe('when course is current course', function () {
+                    it('should set isCourseDelivering to true', function () {
+                        viewModel.isCourseDelivering(false);
+                        viewModel.courseDeliveringStarted(course);
+                        expect(viewModel.isCourseDelivering()).toBeTruthy();
+                    });
+                });
+
+                describe('when course is not current course', function () {
+                    it('should not change isCourseDelivering', function () {
+                        viewModel.isCourseDelivering(false);
+                        viewModel.courseDeliveringStarted({ id: 'none' });
+                        expect(viewModel.isCourseDelivering()).toBeFalsy();
+                    });
+                });
+            });
+
+            describe('courseDeliveringFinished:', function () {
+                it('should be function', function () {
+                    expect(viewModel.courseDeliveringFinished).toBeFunction();
+                });
+
+                describe('when course is current course', function () {
+                    it('should set isCourseDelivering to false', function () {
+                        viewModel.isCourseDelivering(true);
+                        viewModel.courseDeliveringFinished(course);
+                        expect(viewModel.isCourseDelivering()).toBeFalsy();
+                    });
+                });
+
+                describe('when course is not current course', function () {
+                    it('should not change isCourseDelivering', function () {
+                        viewModel.isCourseDelivering(true);
+                        viewModel.courseDeliveringFinished({ id: 'none' });
+                        expect(viewModel.isCourseDelivering()).toBeTruthy();
+                    });
+                });
+            });
         });
 
     });

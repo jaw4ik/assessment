@@ -50,7 +50,7 @@
                         }
 
                         if (response.type === constants.questionType.informationContent.type) {
-                            eventTracker.publish(events.updateInformationTitle, constants.informationContentEventCategory);
+                            eventTracker.publish(events.updateInformationTitle, constants.eventCategories.informationContent);
                         } else {
                             eventTracker.publish(events.updateQuestionTitle);
                         }

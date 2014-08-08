@@ -1,34 +1,40 @@
-﻿define(['viewmodels/courses/courseNavigation/items/create', 'viewmodels/courses/courseNavigation/items/design', 'viewmodels/courses/courseNavigation/items/publish', 'eventTracker', 'plugins/router'],
-    function (CreateNavigationItem, DesignNavigationItem, PublishNavigationItem, eventTracker, router) {
+﻿define(['viewmodels/courses/courseNavigation/items/create', 'viewmodels/courses/courseNavigation/items/design', 'viewmodels/courses/courseNavigation/items/publish',
+    'eventTracker', 'plugins/router', 'dialogs/shareCourse/shareCourse'],
+    function (CreateNavigationItem, DesignNavigationItem, PublishNavigationItem, eventTracker, router, vmShareCourse) {
         "use strict";
 
         var events = {
             previewCourse: 'Preview course'
         };
 
-        var navigationItems = [];
-        var activate = function () {
-            this.navigationItems = [
+        var viewModel = {
+            activate: activate,
+            shareCourse: shareCourse,
+            previewCourse: previewCourse,
+            navigationItems: []
+        };
+
+        viewModel.coursePreviewLink = ko.computed(function () {
+            return '/preview/' + router.routeData().courseId;
+        });
+
+        return viewModel;
+
+        function activate() {
+            viewModel.navigationItems = [
                 new CreateNavigationItem(),
                 new DesignNavigationItem(),
                 new PublishNavigationItem()
             ];
         };
 
-        var previewCourse = function () {
+        function previewCourse() {
             eventTracker.publish(events.previewCourse);
-            router.openUrl(coursePreviewLink());
+            router.openUrl(viewModel.coursePreviewLink());
         };
 
-        var coursePreviewLink = ko.computed(function () {
-            return '/preview/' + router.routeData().courseId;
-        });
-
-        return {
-            activate: activate,
-            previewCourse: previewCourse,
-            coursePreviewLink: coursePreviewLink,
-            navigationItems: navigationItems
+        function shareCourse() {
+            vmShareCourse.show();
         };
 
     });

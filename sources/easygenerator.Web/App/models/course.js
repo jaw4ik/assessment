@@ -15,26 +15,28 @@
             this.introductionContent = spec.introductionContent;
             this.collaborators = spec.collaborators;
 
-            this.build = buildingActionBase.call(this, buildActionHandler, spec.packageUrl);
-            this.scormBuild = actionBase.call(this, scormBuildActionHandler, spec.scormPackageUrl);
-            this.publish = buildingActionBase.call(this, publishActionHandler, spec.publishedPackageUrl);
-            this.publishForReview = buildingActionBase.call(this, publishForReviewActionHandler, spec.reviewUrl);
-            this.publishToStore = buildingActionBase.call(this, publishToStoreActionHandler);
+            this.build = deliveringAction.call(this, buildActionHandler, spec.packageUrl);
+            this.scormBuild = buildingAction.call(this, scormBuildActionHandler, spec.scormPackageUrl);
+            this.publish = deliveringAction.call(this, publishActionHandler, spec.publishedPackageUrl);
+            this.publishForReview = deliveringAction.call(this, publishForReviewActionHandler, spec.reviewUrl);
+            this.publishToStore = deliveringAction.call(this, publishToStoreActionHandler);
 
             this.getState = getState;
         };
 
         return Course;
-
-
-        function actionBase(actionHandler, packageUrl) {
+        
+        function buildingAction(actionHandler, packageUrl) {
             var course = this;
 
             var self = function () {
-                app.trigger(constants.messages.course.action.started, course);
+                app.trigger(constants.messages.course.delivering.started, course);
 
-                return actionHandler.call(course, self);
-            };
+                return actionHandler.call(course, self)
+                    .fin(function () {
+                        app.trigger(constants.messages.course.delivering.finished, course);
+                    });
+            }; 
             self.packageUrl = packageUrl;
             self.state = constants.publishingStates.notStarted;
             self.setState = function (value) {
@@ -44,23 +46,14 @@
             return self;
         };
 
-        function buildingActionBase(actionHandler, packageUrl) {
+        function deliveringAction(actionHandler, packageUrl) {
             var course = this;
 
-            var self = function () {
-                app.trigger(constants.messages.course.action.started, course);
-
-                return buildPackage.call(course, self).then(function (buildInfo) {
-                    return actionHandler.call(course, self, buildInfo);
+            return buildingAction.call(course, function (action) {
+                return buildPackage.call(course, action).then(function (buildInfo) {
+                    return actionHandler.call(course, action, buildInfo);
                 });
-            };
-            self.packageUrl = packageUrl;
-            self.state = constants.publishingStates.notStarted;
-            self.setState = function (value) {
-                this.state = course._lastState = value;
-            };
-
-            return self;
+            }, packageUrl);
         };
 
         function getState() {

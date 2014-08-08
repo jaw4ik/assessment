@@ -3,11 +3,11 @@
     describe('[publishingAction]', function () {
         var
             viewModel,
-            courseId = 'id',
+            course = { id: 'id' },
             action = { state: 'someState', packageUrl: 'some/package/url' };
 
         beforeEach(function () {
-            viewModel = publishingAction(courseId, action);
+            viewModel = publishingAction(course, action);
         });
 
         it('should be object', function () {
@@ -31,10 +31,10 @@
                 expect(viewModel.isPublishing).toBeObservable();
             });
         });
-        
-        describe('isActive:', function () {
+
+        describe('isCourseDelivering:', function () {
             it('should be observable', function () {
-                expect(viewModel.isActive).toBeObservable();
+                expect(viewModel.isCourseDelivering).toBeObservable();
             });
         });
 
@@ -54,7 +54,7 @@
             });
 
             it('should be equal to ctor \'id\' parameter', function () {
-                expect(viewModel.courseId).toBe(courseId);
+                expect(viewModel.courseId).toBe(course.id);
             });
         });
 
@@ -100,6 +100,50 @@
 
             });
 
+        });
+
+        describe('courseDeliveringStarted:', function () {
+            it('should be function', function () {
+                expect(viewModel.courseDeliveringStarted).toBeFunction();
+            });
+
+            describe('when course is current course', function () {
+                it('should set isCourseDelivering to true', function () {
+                    viewModel.isCourseDelivering(false);
+                    viewModel.courseDeliveringStarted(course);
+                    expect(viewModel.isCourseDelivering()).toBeTruthy();
+                });
+            });
+
+            describe('when course is not current course', function () {
+                it('should not change isCourseDelivering', function () {
+                    viewModel.isCourseDelivering(false);
+                    viewModel.courseDeliveringStarted({ id: 'none' });
+                    expect(viewModel.isCourseDelivering()).toBeFalsy();
+                });
+            });
+        });
+
+        describe('courseDeliveringFinished:', function () {
+            it('should be function', function () {
+                expect(viewModel.courseDeliveringFinished).toBeFunction();
+            });
+
+            describe('when course is current course', function () {
+                it('should set isCourseDelivering to false', function () {
+                    viewModel.isCourseDelivering(true);
+                    viewModel.courseDeliveringFinished(course);
+                    expect(viewModel.isCourseDelivering()).toBeFalsy();
+                });
+            });
+
+            describe('when course is not current course', function () {
+                it('should not change isCourseDelivering', function () {
+                    viewModel.isCourseDelivering(true);
+                    viewModel.courseDeliveringFinished({ id: 'none' });
+                    expect(viewModel.isCourseDelivering()).toBeTruthy();
+                });
+            });
         });
 
     });

@@ -5,9 +5,9 @@
             publishCourse: 'Publish course'
         };
 
-        var ctor = function (course) {
+        var ctor = function (course, eventCategory) {
 
-            var viewModel = publishingAction(course.id, course.publish);
+            var viewModel = publishingAction(course, course.publish);
 
             viewModel.isPublishing = ko.computed(function () {
                 return this.state() === constants.publishingStates.building || this.state() === constants.publishingStates.publishing;
@@ -15,6 +15,7 @@
 
             viewModel.publishCourse = publishCourse;
             viewModel.openPublishedCourse = openPublishedCourse;
+            viewModel.eventCategory = eventCategory;
 
             viewModel.courseBuildStarted = courseBuildStarted;
             viewModel.courseBuildFailed = courseBuildFailed;
@@ -32,18 +33,13 @@
             return viewModel;
 
             function publishCourse() {
-                if (viewModel.isActive())
+                if (viewModel.isCourseDelivering())
                     return undefined;
 
-                viewModel.isActive(true);
-
-                notify.hide();
-                eventTracker.publish(events.publishCourse);
+                eventTracker.publish(events.publishCourse, viewModel.eventCategory);
 
                 return course.publish().fail(function (message) {
                     notify.error(message);
-                }).fin(function () {
-                    viewModel.isActive(false);
                 });
             };
 
