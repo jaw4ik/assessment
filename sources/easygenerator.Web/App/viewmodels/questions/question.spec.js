@@ -81,6 +81,14 @@ define(function (require) {
 
         });
 
+        describe('localizationManager:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.localizationManager).toBeDefined();
+            });
+
+        });
+
         describe('viewCaption:', function () {
 
             it('should be defined', function () {

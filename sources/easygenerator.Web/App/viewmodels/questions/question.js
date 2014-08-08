@@ -1,9 +1,9 @@
 ﻿define(['durandal/app', 'eventTracker', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'ping', 'models/backButton', 'plugins/router',
         'viewmodels/questions/questionTitle', 'viewmodels/common/contentField', 'viewmodels/questions/multipleSelect/multipleSelect',
         'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelectText/singleSelectText', 'viewmodels/questions/textMatching/textMatching',
- 'viewmodels/questions/singleSelectImage/singleSelectImage', 'viewmodels/questions/informationContent/informationContent'],
+ 'viewmodels/questions/singleSelectImage/singleSelectImage', 'viewmodels/questions/informationContent/informationContent','localization/localizationManager'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, vmQuestionTitle, vmContentField,
-        multipleSelect, fillInTheBlank, dragAndDrop, singleSelectText, textMatching, singleSelectImage, informationContent) {
+        multipleSelect, fillInTheBlank, dragAndDrop, singleSelectText, textMatching, singleSelectImage, informationContent, localizationManager) {
         "use strict";
 
         var events = {
@@ -35,7 +35,8 @@
             contentUpdatedByCollaborator: contentUpdatedByCollaborator,
 
             canActivate: canActivate,
-            activate: activate
+            activate: activate,
+            localizationManager: localizationManager
         };
 
         app.on(constants.messages.question.titleUpdatedByCollaborator, titleUpdatedByCollaborator);

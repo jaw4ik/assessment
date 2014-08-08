@@ -58,6 +58,7 @@
 
             addContentFilter();
             addCommandsTracking();
+            addSpellCheckerForContextMenu();
 
             editor.on('focus', function () {
                 if (!isEditing())
@@ -122,6 +123,28 @@
             editor.destroy(true);
             $(element).removeAttr('contenteditable');
         });
+
+        function addSpellCheckerForContextMenu() {
+            var groupName = 'disabled',
+                iconPath = '/content/images/spell-checker.png',
+                localizationKey = CKEDITOR.env.mac ? 'spellCheckerMac' : 'spellCheckerWindows',
+                label = localizationManager.localize(localizationKey);
+
+
+            editor.addCommand('customSpellChecker', { exec: function () { } });
+            editor.addMenuGroup(groupName);
+            editor.contextMenu.addListener(function () { return { customSpellChecker: CKEDITOR.TRISTATE_DISABLED }; });
+
+            editor.addMenuItems({
+                customSpellChecker: {
+                    label: label,
+                    command: 'customSpellChecker',
+                    group: groupName,
+                    icon: iconPath,
+                    order: 1
+                }
+            });
+        }
 
         function onBlur() {
             isEditing(false);

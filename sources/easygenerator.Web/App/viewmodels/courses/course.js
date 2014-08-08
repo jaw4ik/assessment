@@ -82,7 +82,8 @@
             objectiveUpdated: objectiveUpdated,
             updateCollaborationWarning: updateCollaborationWarning,
             collaborators: collaborators,
-            openUpgradePlanUrl: openUpgradePlanUrl
+            openUpgradePlanUrl: openUpgradePlanUrl,
+            localizationManager: localizationManager
         };
 
         viewModel.title.isValid = ko.computed(function () {

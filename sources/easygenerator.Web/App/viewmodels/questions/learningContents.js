@@ -29,7 +29,8 @@
             isExpanded: ko.observable(true),
             toggleExpand: toggleExpand,
 
-            activate: activate
+            activate: activate,
+            localizationManager: localizationManager
         };
 
         viewModel.canAddLearningContent = ko.computed({

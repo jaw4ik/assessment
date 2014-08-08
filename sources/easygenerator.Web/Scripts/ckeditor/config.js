@@ -1,7 +1,7 @@
 CKEDITOR.disableAutoInline = true;
 
 CKEDITOR.editorConfig = function (config) {
-    config.skin = 'moono';
+    config.skin = 'customMoono';
 
     config.toolbar = [
         ['Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo'],

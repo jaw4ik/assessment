@@ -84,6 +84,14 @@
 
         });
 
+        describe('localizationManager:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.localizationManager).toBeDefined();
+            });
+
+        });
+
         describe('courseTitleMaxLength:', function () {
 
             it('should be defined', function () {
