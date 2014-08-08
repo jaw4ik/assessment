@@ -26,7 +26,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void Answer_ShouldCreateAnswerInstance()
         {
             const string text = "text";
-            Guid group = default(Guid);
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             var answer = AnswerObjectMother.Create(text, true, CreatedBy);
