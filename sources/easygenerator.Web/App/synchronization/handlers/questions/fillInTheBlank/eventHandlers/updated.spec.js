@@ -2,7 +2,7 @@
     "use strict";
 
     var
-            dataContext = require('dataContext'),
+        dataContext = require('dataContext'),
         app = require('durandal/app'),
         constants = require('constants')
     ;
@@ -12,7 +12,7 @@
         var questionId = 'id',
             question = { id: questionId },
             content = 'content',
-            answers = [{id: 'answerId'}],
+            answers = [{ Text: 'text', IsCorrect: 'isCorrect', GroupId: 'groupId' }],
             modifiedOn = new Date();
 
         beforeEach(function () {
@@ -60,6 +60,7 @@
         it('should update question content', function () {
             question.content = '';
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
+
             handler(questionId, content, answers, modifiedOn.toISOString());
 
             expect(question.content).toBe(content);
@@ -68,15 +69,19 @@
         it('should update question modified on date', function () {
             question.modifiedOn = '';
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
+
             handler(questionId, content, answers, modifiedOn.toISOString());
 
             expect(question.modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
         });
 
         it('should trigger app event', function () {
+            var questionData = { content: content, answers: [{ text: 'text', isCorrect: 'isCorrect', groupId: 'groupId' }] };
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
+
             handler(questionId, content, answers, modifiedOn.toISOString());
-            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.fillInTheBlank.updatedByCollaborator, question);
+
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.fillInTheBlank.updatedByCollaborator, questionId, questionData);
         });
     });
 })

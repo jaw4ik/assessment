@@ -6,7 +6,7 @@
         eventTracker = require('eventTracker'),
         notify = require('notify'),
         system = require('durandal/system'),
-        parser = require('utils/fillInTheBlankParser');
+        parser = require('./fillInTheBlankParser');
 
     describe('viewModel [fill in the blank]', function () {
 

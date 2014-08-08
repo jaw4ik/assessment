@@ -1,6 +1,7 @@
 ﻿define([
     'viewmodels/questions/dragAndDrop/bindingHandlers/backgroundBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
+    'viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankBindingHandler',
     'viewmodels/questions/singleSelectImage/bindingHandlers/answerImageBindingHandler',
     'widgets/imagePreview/bindingHandlers/fadeBindingHandler',
     'widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler',

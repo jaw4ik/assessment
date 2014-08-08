@@ -131,7 +131,7 @@ namespace easygenerator.Web.Import.PublishedCourse
 
             foreach (Guid answerId in _publishedCourseStructureReader.GetAnswers(questionId, courseData))
             {
-                var answer = _answerEntityReader.ReadAnswer(answerId, createdBy, courseData);
+                var answer = _answerEntityReader.ReadBlankAnswer(answerId, createdBy, courseData);
                 question.AddAnswer(answer, createdBy);
             }
 

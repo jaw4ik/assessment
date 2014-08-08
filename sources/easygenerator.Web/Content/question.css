@@ -899,7 +899,8 @@
     float: right;
 }
 
-.fill-in-the-blank .btn.create-blank {
+.fill-in-the-blank .btn.create-blank,
+.fill-in-the-blank .btn.create-drop-down-blank {
     height: 34px;
     padding: 6px 15px;
     background-color: #5BC0DE;
@@ -910,7 +911,12 @@
     text-shadow: none;
 }
 
-    .fill-in-the-blank .btn.create-blank:hover {
+.fill-in-the-blank .btn.create-drop-down-blank {
+    margin-right: 20px;
+}
+
+    .fill-in-the-blank .btn.create-blank:hover,
+    .fill-in-the-blank .btn.create-drop-down-blank:hover {
         background-color: #46b3d4;
     }
 

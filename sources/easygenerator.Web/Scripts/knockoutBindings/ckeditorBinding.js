@@ -19,6 +19,11 @@
 
             inPageSettings = {};
 
+        var events = {
+            addBlank: 'Add blank (fill in the blanks)',
+            addDropDownBlank: 'Add drop down (fill in the blanks)'
+        };
+
         CKEDITOR.config.language = language;
 
         //Floating Space plugin settings
@@ -31,11 +36,12 @@
         };
 
         if (fillInTheBlank) {
-            inPageSettings.extraAllowedContent = 'span[*]; input[*]';
+            inPageSettings.extraAllowedContent = 'span[*]; input[*]; select[*]; option[*]';
+            inPageSettings.floatSpaceDockedOffsetY = 45;
         } else {
             inPageSettings.removePlugins = 'fillInTheBlank';
         }
-        
+
         $(element).html(data());
 
         $(element).attr('contenteditable', true);
@@ -154,6 +160,15 @@
             editor.on('publishSemanticEvent', function (eventInfo) {
                 eventTracker.publish('Semantic tag \"' + localizationManager.localize(eventInfo.data, localizationManager.defaultCulture) + '\" applied', 'CKEditor');
             });
+            
+            if (fillInTheBlank) {
+                editor.on(CKEDITOR.plugins.fillInTheBlank.events.addBlank, function () {
+                    eventTracker.publish(events.addBlank);
+                });
+                editor.on(CKEDITOR.plugins.fillInTheBlank.events.addDropDownBlank, function () {
+                    eventTracker.publish(events.addDropDownBlank);
+                });
+            }
         }
 
         function addContentFilter() {
@@ -191,9 +206,7 @@
                                 + marginValue + marginTopValue + marginLeftValue + marginRightValue + marginBottomValue;
                         }
                         if (e.attributes.class) {
-                            if (!e.attributes['data-group-id']) {
-                                delete e.attributes.class;
-                            }
+                            delete e.attributes.class;
                         }
                     }
                 }

@@ -1,14 +1,17 @@
-﻿define(['repositories/questionRepository', 'repositories/objectiveRepository', 'models/question'],
-    function (questionRepository, objectiveRepository, QuestionModel) {
+﻿define(['repositories/questionRepository'],
+    function (questionRepository) {
         "use strict";
 
         var
-            httpWrapper = require('http/httpWrapper'),
+            app = require('durandal/app'),
             dataContext = require('dataContext'),
             constants = require('constants'),
-            app = require('durandal/app');
+            httpWrapper = require('http/httpWrapper'),
+            objectiveRepository = require('repositories/objectiveRepository'),
+            QuestionModel = require('models/question');
 
-        var questionType = 0;
+        var questionType = 0,
+            questionId = 'questionId';
 
         describe('[questionRepository]', function () {
 
@@ -224,7 +227,7 @@
 
                             var createdOnDate = new Date();
                             var response = {
-                                Id: 'questionId',
+                                Id: questionId,
                                 CreatedOn: createdOnDate.toISOString()
                             };
 
@@ -656,7 +659,6 @@
                 describe('when all arguments are valid', function () {
 
                     it('should send request to server to api/question/updateTitle', function (done) {
-                        var questionId = 'questionId';
                         var questionTitle = 'questionTitle';
 
                         post.reject();
@@ -771,7 +773,6 @@
 
                             describe('and question exists in dataContext', function () {
 
-                                var questionId = 'questionId';
                                 var questionTitle = 'questionTitle';
 
                                 beforeEach(function () {
@@ -862,7 +863,6 @@
                 describe('when all arguments are valid', function () {
 
                     it('should send request to server to api/question/updateContent', function (done) {
-                        var questionId = 'questionId';
                         var questionContent = 'questionContent';
 
                         post.reject();
@@ -978,7 +978,6 @@
 
                             describe('and question exists in dataContext', function () {
 
-                                var questionId = 'questionId';
                                 var questionContent = 'questionContent';
 
                                 beforeEach(function () {
@@ -1140,8 +1139,7 @@
 
                 describe('when all arguments are valid', function () {
 
-                    it('should send request to server to api/question/updateContent', function (done) {
-                        var questionId = 'questionId';
+                    it('should send request to server to api/question/fillintheblank/update', function (done) {
                         var fillInTheBlank = 'fillInTheBlank';
                         var answersCollection = [];
 
@@ -1149,7 +1147,7 @@
 
                         var promise = questionRepository.updateFillInTheBlank(questionId, fillInTheBlank, answersCollection);
                         promise.fin(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/updatefillintheblank', {
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/fillintheblank/update', {
                                 questionId: questionId,
                                 fillInTheBlank: fillInTheBlank,
                                 answersCollection: answersCollection
@@ -1260,7 +1258,6 @@
 
                                 describe('and question exists in dataContext', function () {
 
-                                    var questionId = 'questionId';
                                     var questionContent = 'questionContent';
 
                                     beforeEach(function () {
@@ -1297,25 +1294,32 @@
 
             });
 
-            describe('getQuestionFeedback:', function() {
+            describe('getFillInTheBlank:', function () {
 
-                it('should be function', function() {
-                    expect(questionRepository.getQuestionFeedback).toBeFunction();
+                it('should be function', function () {
+                    expect(questionRepository.getFillInTheBlank).toBeFunction();
                 });
 
                 it('should return promise', function () {
-                    expect(questionRepository.getQuestionFeedback()).toBePromise();
+                    expect(questionRepository.getFillInTheBlank()).toBePromise();
                 });
 
-                var questionId;
                 describe('when question id is undefined', function () {
 
-                    beforeEach(function () {
-                        questionId = undefined;
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.getFillInTheBlank(undefined);
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
                     });
 
+                });
+
+                describe('when question id is null', function () {
+
                     it('should reject promise', function (done) {
-                        var promise = questionRepository.getQuestionFeedback(questionId);
+                        var promise = questionRepository.getFillInTheBlank(null);
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Question id is not a string');
                             done();
@@ -1326,12 +1330,113 @@
 
                 describe('when question id is not a string', function () {
 
-                    beforeEach(function () {
-                        questionId = {};
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.getFillInTheBlank({}, '');
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
                     });
 
+                });
+
+                it('should send request to server to api/question/fillintheblank', function (done) {
+                    post.reject();
+
+                    var promise = questionRepository.getFillInTheBlank(questionId);
+                    promise.fin(function () {
+                        expect(httpWrapper.post).toHaveBeenCalledWith('api/question/fillintheblank', {
+                            questionId: questionId
+                        });
+                        done();
+                    });
+                });
+
+                describe('when request to server was not successful', function () {
+
                     it('should reject promise', function (done) {
-                        var promise = questionRepository.getQuestionFeedback(questionId);
+                        var reason = 'reason';
+                        var promise = questionRepository.getFillInTheBlank(questionId);
+
+                        post.reject(reason);
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith(reason);
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when response is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.getFillInTheBlank(questionId);
+
+                        post.resolve(undefined);
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when response is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.getFillInTheBlank(questionId);
+
+                        post.resolve(null);
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when response is not an object', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.getFillInTheBlank(questionId);
+
+                        post.resolve('');
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+                    });
+
+                });
+
+            });
+
+            describe('getQuestionFeedback:', function () {
+
+                it('should be function', function () {
+                    expect(questionRepository.getQuestionFeedback).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(questionRepository.getQuestionFeedback()).toBePromise();
+                });
+
+                describe('when question id is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.getQuestionFeedback(undefined);
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when question id is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.getQuestionFeedback({});
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Question id is not a string');
                             done();
@@ -1341,10 +1446,6 @@
                 });
 
                 describe('when question id is valid', function () {
-
-                    beforeEach(function () {
-                        questionId = 'questionId';
-                    });
 
                     it('should send request to server to api/question/getQuestionFeedback', function (done) {
                         post.reject();
@@ -1499,25 +1600,21 @@
 
             });
 
-            describe('updateCorrectFeedback:', function() {
+            describe('updateCorrectFeedback:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(questionRepository.updateCorrectFeedback).toBeFunction();
                 });
 
-                it('should return promise', function() {
+                it('should return promise', function () {
                     expect(questionRepository.updateCorrectFeedback()).toBePromise();
                 });
 
-                var questionId, feedbackText;
+                var feedbackText;
                 describe('when question id is undefined', function () {
 
-                    beforeEach(function() {
-                        questionId = undefined;
-                    });
-
                     it('should reject promise', function (done) {
-                        var promise = questionRepository.updateCorrectFeedback(questionId, feedbackText);
+                        var promise = questionRepository.updateCorrectFeedback(undefined, feedbackText);
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Question id is not a string');
                             done();
@@ -1528,12 +1625,8 @@
 
                 describe('when question id is not a string', function () {
 
-                    beforeEach(function() {
-                        questionId = {};
-                    });
-
                     it('should reject promise', function (done) {
-                        var promise = questionRepository.updateCorrectFeedback(questionId, feedbackText);
+                        var promise = questionRepository.updateCorrectFeedback({}, feedbackText);
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Question id is not a string');
                             done();
@@ -1542,10 +1635,9 @@
 
                 });
 
-                describe('when all arguments are valid', function() {
+                describe('when all arguments are valid', function () {
 
-                    beforeEach(function() {
-                        questionId = 'questionId';
+                    beforeEach(function () {
                         feedbackText = 'correct feedback text';
                     });
 
@@ -1577,15 +1669,15 @@
 
                     });
 
-                    describe('and request to server was successful', function() {
+                    describe('and request to server was successful', function () {
 
-                        describe('and response is undefined', function() {
+                        describe('and response is undefined', function () {
 
-                            it('should reject promise', function(done) {
+                            it('should reject promise', function (done) {
                                 var promise = questionRepository.updateCorrectFeedback(questionId, feedbackText);
 
                                 post.resolve(undefined);
-                                promise.fin(function() {
+                                promise.fin(function () {
                                     expect(promise).toBeRejectedWith('Response is not an object');
                                     done();
                                 });
@@ -1593,13 +1685,13 @@
 
                         });
 
-                        describe('and response is null', function() {
+                        describe('and response is null', function () {
 
-                            it('should reject promise', function(done) {
+                            it('should reject promise', function (done) {
                                 var promise = questionRepository.updateCorrectFeedback(questionId, feedbackText);
 
                                 post.resolve(null);
-                                promise.fin(function() {
+                                promise.fin(function () {
                                     expect(promise).toBeRejectedWith('Response is not an object');
                                     done();
                                 });
@@ -1607,18 +1699,18 @@
 
                         });
 
-                        describe('and response is not an object', function() {
+                        describe('and response is not an object', function () {
 
-                            it('should reject promise', function(done) {
+                            it('should reject promise', function (done) {
                                 var promise = questionRepository.updateCorrectFeedback(questionId, feedbackText);
 
                                 post.resolve('');
-                                promise.fin(function() {
+                                promise.fin(function () {
                                     expect(promise).toBeRejectedWith('Response is not an object');
                                     done();
                                 });
                             });
-                       
+
                         });
 
                         describe('and response is an object', function () {
@@ -1637,8 +1729,8 @@
 
                             });
 
-                            describe('and response has modification date', function() {
-                                
+                            describe('and response has modification date', function () {
+
                                 var createdOnDate = new Date();
                                 var response = { ModifiedOn: createdOnDate.toISOString() };
 
@@ -1706,15 +1798,11 @@
                     expect(questionRepository.updateIncorrectFeedback()).toBePromise();
                 });
 
-                var questionId, feedbackText;
+                var feedbackText;
                 describe('when question id is undefined', function () {
 
-                    beforeEach(function () {
-                        questionId = undefined;
-                    });
-
                     it('should reject promise', function (done) {
-                        var promise = questionRepository.updateIncorrectFeedback(questionId, feedbackText);
+                        var promise = questionRepository.updateIncorrectFeedback(undefined, feedbackText);
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Question id is not a string');
                             done();
@@ -1725,12 +1813,8 @@
 
                 describe('when question id is not a string', function () {
 
-                    beforeEach(function () {
-                        questionId = {};
-                    });
-
                     it('should reject promise', function (done) {
-                        var promise = questionRepository.updateIncorrectFeedback(questionId, feedbackText);
+                        var promise = questionRepository.updateIncorrectFeedback({}, feedbackText);
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Question id is not a string');
                             done();
@@ -1742,7 +1826,6 @@
                 describe('when all arguments are valid', function () {
 
                     beforeEach(function () {
-                        questionId = 'questionId';
                         feedbackText = 'correct feedback text';
                     });
 

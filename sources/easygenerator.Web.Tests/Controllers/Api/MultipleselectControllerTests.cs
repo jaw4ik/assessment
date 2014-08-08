@@ -70,12 +70,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             DateTimeWrapper.Now = () => DateTime.MinValue;
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
             var question = Substitute.For<Multipleselect>("Question title", CreatedBy);
-            var correctAnswer = Substitute.For<Answer>("Put your answer option here", true, Guid.Empty, user, DateTimeWrapper.Now());
-            var incorrectAnswer = Substitute.For<Answer>("Put your answer option here", false, Guid.Empty, user, DateTimeWrapper.Now().AddSeconds(1));
+            var correctAnswer = Substitute.For<Answer>("Put your answer option here", true, user, DateTimeWrapper.Now());
+            var incorrectAnswer = Substitute.For<Answer>("Put your answer option here", false, user, DateTimeWrapper.Now().AddSeconds(1));
 
             _entityFactory.MultipleselectQuestion(title, user).Returns(question);
-            _entityFactory.Answer("Put your answer option here", true, Guid.Empty, user, DateTimeWrapper.Now()).Returns(correctAnswer);
-            _entityFactory.Answer("Put your answer option here", false, Guid.Empty, user, DateTimeWrapper.Now().AddSeconds(1)).Returns(incorrectAnswer);
+            _entityFactory.Answer("Put your answer option here", true, user, DateTimeWrapper.Now()).Returns(correctAnswer);
+            _entityFactory.Answer("Put your answer option here", false, user, DateTimeWrapper.Now().AddSeconds(1)).Returns(incorrectAnswer);
 
             _controller.Create(objective, title);
 

@@ -1,20 +1,28 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities.Questions
 {
-    public class FillInTheBlanks : Multipleselect
+    public class FillInTheBlanks : Question
     {
-        public FillInTheBlanks()
-        {
-
-        }
+        public FillInTheBlanks(){}
 
         public FillInTheBlanks(string title, string createdBy)
             : base(title, createdBy)
         {
+            AnswersCollection = new Collection<BlankAnswer>();
         }
 
-        public virtual void UpdateAnswers(ICollection<Answer> answers, string modifiedBy)
+        protected internal virtual ICollection<BlankAnswer> AnswersCollection { get; set; }
+
+        public IEnumerable<BlankAnswer> Answers
+        {
+            get { return AnswersCollection.AsEnumerable(); }
+        }
+
+        public virtual void UpdateAnswers(ICollection<BlankAnswer> answers, string modifiedBy)
         {
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
@@ -25,6 +33,21 @@ namespace easygenerator.DomainModel.Entities.Questions
             AnswersCollection = answers;
 
             MarkAsModified(modifiedBy);
+        }
+
+        public void AddAnswer(BlankAnswer answer, string modifiedBy)
+        {
+            ThrowIfAnswerIsInvalid(answer);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            AnswersCollection.Add(answer);
+            answer.Question = this;
+            MarkAsModified(modifiedBy);
+        }
+
+        private void ThrowIfAnswerIsInvalid(BlankAnswer answer)
+        {
+            ArgumentValidation.ThrowIfNull(answer, "answer");
         }
     }
 }

@@ -128,7 +128,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         [TestMethod]
         public void Handle_ShouldDefineCreatedByForAnswersThatWereCreatedInTryMode()
         {
-            var answer = Substitute.For<Answer>("text", true, default(Guid), TryItNowUsername);
+            var answer = Substitute.For<Answer>("text", true, TryItNowUsername);
             _answerRepository.GetCollection(Arg.Any<Expression<Func<Answer, bool>>>()).Returns(new List<Answer>() { answer });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
@@ -139,7 +139,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         [TestMethod]
         public void Handle_ShouldNotDefineCreatedByForAnswersThatWereCreatedByOtherExistingUser()
         {
-            var answer = Substitute.For<Answer>("text", true, default(Guid), OtherExistingUser);
+            var answer = Substitute.For<Answer>("text", true, OtherExistingUser);
             _answerRepository.GetCollection().Returns(new List<Answer>() { answer });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);

@@ -12,6 +12,7 @@ namespace easygenerator.DomainModel
         SingleSelectImage SingleSelectImageQuestion(string title, string createdBy);
         Multipleselect MultipleselectQuestion(string title, string createdBy);
         FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
+        BlankAnswer BlankAnswer(string text, bool isCorrect, Guid groupId, string createdBy);
         DragAndDropText DragAndDropTextQuestion(string title, string createdBy);
         Dropspot Dropspot(string text, int x, int y, string createdBy);
         TextMatching TextMatchingQuestion(string title, string createdBy);
@@ -20,8 +21,8 @@ namespace easygenerator.DomainModel
         Comment Comment(string text, string createdBy);
         SingleSelectImageAnswer SingleSelectImageAnswer(string image, string createdBy);
         SingleSelectImageAnswer SingleSelectImageAnswer(string createdBy, DateTime createdOn);
-        Answer Answer(string text, bool isCorrect, Guid group, string createdBy);
-        Answer Answer(string text, bool isCorrect, Guid group, string createdBy, DateTime createdOn);
+        Answer Answer(string text, bool isCorrect, string createdBy);
+        Answer Answer(string text, bool isCorrect, string createdBy, DateTime createdOn);
         LearningContent LearningContent(string text, string createdBy);
         User User(string email, string password, string firstname, string lastname, string phone, string organization, string country, string createdBy);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
@@ -61,6 +62,11 @@ namespace easygenerator.DomainModel
             return new FillInTheBlanks(title, createdBy);
         }
 
+        public BlankAnswer BlankAnswer(string text, bool isCorrect, Guid groupId, string createdBy)
+        {
+            return new BlankAnswer(text, isCorrect, groupId, createdBy);
+        }
+
         public DragAndDropText DragAndDropTextQuestion(string title, string createdBy)
         {
             return new DragAndDropText(title, createdBy);
@@ -76,14 +82,14 @@ namespace easygenerator.DomainModel
             return new Comment(createdBy, text);
         }
 
-        public Answer Answer(string text, bool isCorrect, Guid group, string createdBy)
+        public Answer Answer(string text, bool isCorrect, string createdBy)
         {
-            return new Answer(text, isCorrect, group, createdBy);
+            return new Answer(text, isCorrect, createdBy);
         }
 
-        public Answer Answer(string text, bool isCorrect, Guid group, string createdBy, DateTime createdOn)
+        public Answer Answer(string text, bool isCorrect, string createdBy, DateTime createdOn)
         {
-            return new Answer(text, isCorrect, group, createdBy, createdOn);
+            return new Answer(text, isCorrect, createdBy, createdOn);
         }
 
         public LearningContent LearningContent(string text, string createdBy)

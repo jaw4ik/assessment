@@ -165,9 +165,25 @@
     <Compile Include="Migrations\201407191117364_UpdateSingleSelectImageAnswer.Designer.cs">
       <DependentUpon>201407191117364_UpdateSingleSelectImageAnswer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407301116176_AddBlankAnswersTable.cs" />
+    <Compile Include="Migrations\201407301116176_AddBlankAnswersTable.Designer.cs">
+      <DependentUpon>201407301116176_AddBlankAnswersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407301405258_DropColumnGroupFromAnswersTable.cs" />
+    <Compile Include="Migrations\201407301405258_DropColumnGroupFromAnswersTable.Designer.cs">
+      <DependentUpon>201407301405258_DropColumnGroupFromAnswersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201408060611566_ReorderTemplates.cs" />
     <Compile Include="Migrations\201408060611566_ReorderTemplates.Designer.cs">
       <DependentUpon>201408060611566_ReorderTemplates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408071312482_AddBlankAnswersTable.cs" />
+    <Compile Include="Migrations\201408071312482_AddBlankAnswersTable.Designer.cs">
+      <DependentUpon>201408071312482_AddBlankAnswersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408071315123_DropColumnGroupFromAnswersTable.cs" />
+    <Compile Include="Migrations\201408071315123_DropColumnGroupFromAnswersTable.Designer.cs">
+      <DependentUpon>201408071315123_DropColumnGroupFromAnswersTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -282,8 +298,20 @@
     <EmbeddedResource Include="Migrations\201407191117364_UpdateSingleSelectImageAnswer.resx">
       <DependentUpon>201407191117364_UpdateSingleSelectImageAnswer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407301116176_AddBlankAnswersTable.resx">
+      <DependentUpon>201407301116176_AddBlankAnswersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407301405258_DropColumnGroupFromAnswersTable.resx">
+      <DependentUpon>201407301405258_DropColumnGroupFromAnswersTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408060611566_ReorderTemplates.resx">
       <DependentUpon>201408060611566_ReorderTemplates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408071312482_AddBlankAnswersTable.resx">
+      <DependentUpon>201408071312482_AddBlankAnswersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408071315123_DropColumnGroupFromAnswersTable.resx">
+      <DependentUpon>201408071315123_DropColumnGroupFromAnswersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

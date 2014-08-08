@@ -114,7 +114,13 @@ namespace easygenerator.Web.BuildCourse
         {
             return MapQuestion<FillInTheBlanksPackageModel>(question, (model) =>
             {
-                model.Answers = question.Answers.Select(MapAnswer).ToList();
+                model.AnswerGroups = question.Answers
+                    .GroupBy(item => item.GroupId)
+                    .Select(group => new BlankAnswerGroupPackageModel()
+                                   {
+                                       Id = group.Key.ToNString(),
+                                       Answers = group.Select(MapBlankAnswer).ToList()
+                                   }).ToList();
             });
         }
 
@@ -159,7 +165,16 @@ namespace easygenerator.Web.BuildCourse
             {
                 Id = answer.Id.ToNString(),
                 Text = answer.Text,
-                Group = answer.Group.ToNString(),
+                IsCorrect = answer.IsCorrect
+            };
+        }
+
+        private BlankAnswerPackageModel MapBlankAnswer(BlankAnswer answer)
+        {
+            return new BlankAnswerPackageModel()
+            {
+                Id = answer.Id.ToNString(),
+                Text = answer.Text,
                 IsCorrect = answer.IsCorrect
             };
         }

@@ -48,6 +48,9 @@ namespace easygenerator.DataAccess
             builder.RegisterType<QuerableRepository<FillInTheBlanks>>()
                 .As<IQuerableRepository<FillInTheBlanks>>();
 
+            builder.RegisterType<QuerableRepository<BlankAnswer>>()
+                .As<IQuerableRepository<BlankAnswer>>();
+
             builder.RegisterType<QuerableRepository<DragAndDropText>>()
                 .As<IQuerableRepository<DragAndDropText>>();
 

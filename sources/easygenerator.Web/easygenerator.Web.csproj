@@ -193,12 +193,14 @@
     <Compile Include="BuildCourse\PackageModelMapper.cs" />
     <Compile Include="BuildCourse\PackageModelSerializer.cs" />
     <Compile Include="BuildCourse\PackageModel\AnswerOptionPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\BlankAnswerPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\CoursePackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\DragAndDropTextPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\DropspotPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\FillInTheBlanksPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\InformationContentPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\LearningContentPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\BlankAnswerGroupPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\SingleSelectImageAnswerPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\SingleSelectImagePackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\SingleSelectTextPackageModel.cs" />
@@ -217,6 +219,7 @@
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
+    <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
     <Compile Include="Components\Mappers\DropspotMapper.cs" />
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
@@ -408,7 +411,7 @@
     <Compile Include="Synchronization\Handlers\UserEventHandler.cs" />
     <Compile Include="Synchronization\Hubs\EventHub.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
-    <Compile Include="ViewModels\Api\AnswerViewModel.cs" />
+    <Compile Include="ViewModels\Api\BlankAnswerViewModel.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
@@ -693,7 +696,7 @@
     <Content Include="App\synchronization\handlers\user\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
     </Content>
-    <Content Include="App\utils\fillInTheBlankParser.js" />
+    <Content Include="App\viewmodels\questions\fillInTheBlank\fillInTheBlankParser.js" />
     <Content Include="App\viewmodels\objectives\createObjective.js" />
     <Content Include="App\viewmodels\objectives\createObjective.spec.js">
       <DependentUpon>createObjective.js</DependentUpon>
@@ -926,6 +929,7 @@
     <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\customPlugins\fillInTheBlank\dialogs\fillInTheBlank.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fillInTheBlank\dialogs\fillInTheBlankDropDown.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillInTheBlank\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillInTheBlank\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillInTheBlank\styles.css" />
@@ -965,7 +969,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockoutBindings\fillInTheBlankBinding.js" />
+    <Content Include="App\viewmodels\questions\fillInTheBlank\bindingHandlers\fillInTheBlankBindingHandler.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\moment-with-langs.js" />
     <Content Include="Scripts\moment-with-langs.min.js" />

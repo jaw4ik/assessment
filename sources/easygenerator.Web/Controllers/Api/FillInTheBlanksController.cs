@@ -12,6 +12,7 @@ using easygenerator.Web.ViewModels.Api;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -46,21 +47,21 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityCollaborator(typeof(Question))]
-        [Route("api/question/updatefillintheblank")]
-        public ActionResult Update(FillInTheBlanks question, string fillInTheBlank, ICollection<AnswerViewModel> answersCollection)
+        [Route("api/question/fillintheblank/update")]
+        public ActionResult Update(FillInTheBlanks question, string fillInTheBlank, ICollection<BlankAnswerViewModel> answersCollection)
         {
             if (question == null)
             {
                 return HttpNotFound(Errors.QuestionNotFoundError);
             }
 
-            var answers = new Collection<Answer>();
+            var answers = new Collection<BlankAnswer>();
 
             if (answersCollection != null)
             {
                 foreach (var answerViewModel in answersCollection)
                 {
-                    var answer = _entityFactory.Answer(answerViewModel.Text, answerViewModel.IsCorrect,
+                    var answer = _entityFactory.BlankAnswer(answerViewModel.Text, answerViewModel.IsCorrect,
                                 answerViewModel.GroupId, GetCurrentUsername());
                     answers.Add(answer);
                 }
@@ -70,9 +71,33 @@ namespace easygenerator.Web.Controllers.Api
 
             question.UpdateContent(fillInTheBlank, GetCurrentUsername());
 
-			_eventPublisher.Publish(new FillInTheBlankUpdatedEvent(question, answers));
-			
+            _eventPublisher.Publish(new FillInTheBlankUpdatedEvent(question, answers));
+
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
+        }
+
+        [HttpPost]
+        [EntityCollaborator(typeof(Question))]
+        [Route("api/question/fillintheblank")]
+        public ActionResult Get(FillInTheBlanks question)
+        {
+            if (question == null)
+            {
+                return HttpNotFound(Errors.QuestionNotFoundError);
+            }
+
+            return JsonSuccess(new
+            {
+                content = question.Content,
+
+                answers = question.Answers.Select(answer => new
+                {
+                    id = answer.Id.ToNString(),
+                    text = answer.Text,
+                    isCorrect = answer.IsCorrect,
+                    groupId = answer.GroupId.ToNString()
+                })
+            });
         }
 
     }

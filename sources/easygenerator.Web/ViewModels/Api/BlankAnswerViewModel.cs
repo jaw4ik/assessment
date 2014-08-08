@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace easygenerator.Web.ViewModels.Api
 {
-    public class AnswerViewModel
+    public class BlankAnswerViewModel
     {
         public Guid GroupId { get; set; }
 

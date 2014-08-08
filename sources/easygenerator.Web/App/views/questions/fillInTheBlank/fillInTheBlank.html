@@ -22,7 +22,7 @@
         <div class="question-answer-options-area">
             <div class="content-section">
                 <!-- ko if: isContentDefined -->
-                <div data-bind="fillInTheBlank: { name:'blankContent', createButtonSelector: '.create-blank', localizationManager: $root.localizationManager, eventTracker: $root.eventTracker}">
+                <div data-bind="fillInTheBlank: { name:'blankContent', createButtonSelectors: { addBlank: '.create-blank', addDropDownBlank: '.create-drop-down-blank' }, localizationManager: $root.localizationManager, eventTracker: $root.eventTracker}">
                     <div class="fib-wrapper fib-content" data-bind="css: { 'active' : hasFocus }">
                         <div class="question-learning-content selectable blankContent" data-bind="attr:{ id: 'blankContent'}, ckeditor: { fillInTheBlank: true, data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $root.localizationManager }">
                         </div>
@@ -32,6 +32,12 @@
                             <span class="create-blank-hotkey">(Ctrl+Q)</span>
                             <button class="action-item-btn btn create-blank">
                                 <span class="create-blank-text" data-bind="localize: {text: 'addBlank' }">Add blank</span>
+                            </button>
+                        </div>
+                        <div class="create-blank-wrapper">
+                            <span class="create-blank-hotkey">(Ctrl+Alt+Q)</span>
+                            <button class="action-item-btn btn create-drop-down-blank">
+                                <span class="create-blank-text">Add dropdown</span>
                             </button>
                         </div>
                     </div>

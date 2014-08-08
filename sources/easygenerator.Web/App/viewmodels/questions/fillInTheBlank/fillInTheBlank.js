@@ -1,5 +1,5 @@
-﻿define(['eventTracker', 'viewmodels/questions/fillInTheBlank/fibControl', 'repositories/questionRepository', 'repositories/answerRepository', 'localization/localizationManager', 'constants', 'durandal/app'],
-    function (eventTracker, fibControl, questionRepository, answerRepository, localizationManager, constants, app) {
+﻿define(['eventTracker', 'viewmodels/questions/fillInTheBlank/fibControl', 'repositories/questionRepository', 'localization/localizationManager', 'constants', 'durandal/app'],
+    function (eventTracker, fibControl, questionRepository, localizationManager, constants, app) {
         "use strict";
 
         var eventsForQuestionContent = {
@@ -31,8 +31,8 @@
             viewModel.objectiveId = objectiveId;
             viewModel.questionId = question.id;
             
-            return answerRepository.getCollection(question.id).then(function (answerOptions) {
-                viewModel.fillInTheBlank = fibControl(question.content, answerOptions, eventsForQuestionContent, true, function (template, answers) {
+            return questionRepository.getFillInTheBlank(question.id).then(function (questionData) {
+                viewModel.fillInTheBlank = fibControl(questionData.content, questionData.answers, eventsForQuestionContent, true, function (template, answers) {
                     return questionRepository.updateFillInTheBlank(question.id, template, answers);
                 });
 
@@ -46,12 +46,12 @@
             viewModel.isExpanded(!viewModel.isExpanded());
         }
 
-        function updatedByCollaborator(question) {
-            if (question.id != viewModel.questionId) {
+        function updatedByCollaborator(questionId, questionData) {
+            if (questionId != viewModel.questionId) {
                 return;
             }
 
-            viewModel.fillInTheBlank.updatedByCollaborator(question);
+            viewModel.fillInTheBlank.updatedByCollaborator(questionData);
         }
 
     }

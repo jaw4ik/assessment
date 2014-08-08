@@ -1,26 +1,25 @@
-﻿using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.ObjectiveEvents;
-using easygenerator.DomainModel.Events.QuestionEvents;
-using easygenerator.DomainModel.Tests.ObjectMothers;
-using easygenerator.Infrastructure;
-using easygenerator.Web.Controllers.Api;
-using easygenerator.Web.Extensions;
-using easygenerator.Web.Import.PublishedCourse.EntityReaders;
-using easygenerator.Web.Tests.Utils;
-using easygenerator.Web.ViewModels.Api;
-using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.DomainModel;
+using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.QuestionEvents;
+using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Infrastructure;
+using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Extensions;
+using easygenerator.Web.Tests.Utils;
+using easygenerator.Web.ViewModels.Api;
+using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -128,9 +127,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var question = FillInTheBlanksObjectMother.Create();
-            var answersViewmodels = new List<AnswerViewModel>();
-            var answer1 = AnswerObjectMother.Create();
-            var answer2 = AnswerObjectMother.Create();
+            var answersViewmodels = new List<BlankAnswerViewModel>();
+            var answer1 = BlankAnswerObjectMother.Create();
+            var answer2 = BlankAnswerObjectMother.Create();
             question.AddAnswer(answer1, CreatedBy);
             question.AddAnswer(answer2, CreatedBy);
 
@@ -145,23 +144,21 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void UpdateFillInTheBlank_ShouldUpdateAnswers()
         {
             const string fillInTheBlank = "updated content";
-            var answerModel = new AnswerViewModel() { GroupId = Guid.NewGuid(), IsCorrect = true, Text = "ololosh" };
-            var answersViewmodel = new List<AnswerViewModel>() { answerModel };
+            var answerModel = new BlankAnswerViewModel() { GroupId = Guid.NewGuid(), IsCorrect = true, Text = "ololosh" };
+            var answersViewmodel = new List<BlankAnswerViewModel>() { answerModel };
             _user.Identity.Name.Returns(CreatedBy);
             var question = Substitute.For<FillInTheBlanks>("Question title", CreatedBy);
 
             _controller.Update(question, fillInTheBlank, answersViewmodel);
 
-            question.Received().UpdateAnswers(Arg.Any<ICollection<Answer>>(), CreatedBy);
+            question.Received().UpdateAnswers(Arg.Any<ICollection<BlankAnswer>>(), CreatedBy);
         }
 
         [TestMethod]
         public void UpdateFillInTheBlank_ShouldUpdateQuestionContent()
         {
             const string fillInTheBlank = "updated content";
-
-            var answers = new List<Answer>();
-            var answersViewmodels = new List<AnswerViewModel>();
+            var answersViewmodels = new List<BlankAnswerViewModel>();
             _user.Identity.Name.Returns(CreatedBy);
             var question = Substitute.For<FillInTheBlanks>("Question title", CreatedBy);
 
@@ -171,11 +168,26 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void UpdateFillInTheBlank_ShouldPublishFillInTheBlankUpdatedEvent()
+        {
+            //Arrange
+            const string fillInTheBlank = "updated content";
+            var answersViewmodels = new List<BlankAnswerViewModel>();
+            _user.Identity.Name.Returns(CreatedBy);
+            var question = Substitute.For<FillInTheBlanks>("Question title", CreatedBy);
+            //Act
+            _controller.Update(question, fillInTheBlank, answersViewmodels);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Any<FillInTheBlankUpdatedEvent>());
+        }
+
+        [TestMethod]
         public void UpdateFillInTheBlank_ShouldReturnJsonSuccessResult()
         {
             var question = Substitute.For<FillInTheBlanks>("Question title", CreatedBy);
             var answers = new List<Answer>();
-            var answersViewModel = new List<AnswerViewModel>();
+            var answersViewModel = new List<BlankAnswerViewModel>();
 
             var result = _controller.Update(question, String.Empty, answersViewModel);
 
@@ -184,5 +196,32 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region Get
+
+        [TestMethod]
+        public void Get_ShouldReturnHttpNotFoundResult_WhenQuestionIsNull()
+        {
+            //Act
+            var result = _controller.Get(null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.QuestionNotFoundError);
+        }
+
+        [TestMethod]
+        public void Get_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var question = FillInTheBlanksObjectMother.Create();
+            question.AddAnswer(BlankAnswerObjectMother.Create(), "Some user");
+
+            //Act
+            var result = _controller.Get(question);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion
     }
 }

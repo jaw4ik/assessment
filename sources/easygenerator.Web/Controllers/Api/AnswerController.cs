@@ -38,7 +38,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
 
-            var answer = _entityFactory.Answer(text, isCorrect, Guid.Empty, GetCurrentUsername());
+            var answer = _entityFactory.Answer(text, isCorrect, GetCurrentUsername());
 
             question.AddAnswer(answer, GetCurrentUsername());
             _eventPublisher.Publish(new AnswerCreatedEvent(answer));

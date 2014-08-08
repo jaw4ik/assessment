@@ -144,7 +144,7 @@
                         })
                     };
 
-                    return httpWrapper.post('api/question/updatefillintheblank', data)
+                    return httpWrapper.post('api/question/fillintheblank/update', data)
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
@@ -161,6 +161,22 @@
                             question.modifiedOn = modifiedOn;
 
                             return modifiedOn;
+                        });
+                });
+            },
+
+            getFillInTheBlank = function (questionId) {
+                return Q.fcall(function () {
+                    guard.throwIfNotString(questionId, 'Question id is not a string');
+                    var data = {
+                        questionId: questionId
+                    };
+
+                    return httpWrapper.post('api/question/fillintheblank', data)
+                        .then(function (response) {
+                            guard.throwIfNotAnObject(response, 'Response is not an object');
+
+                            return response;
                         });
                 });
             },
@@ -287,6 +303,7 @@
             updateTitle: updateTitle,
             updateContent: updateContent,
             updateFillInTheBlank: updateFillInTheBlank,
+            getFillInTheBlank: getFillInTheBlank,
             getQuestionFeedback: getQuestionFeedback,
             updateCorrectFeedback: updateCorrectFeedback,
             updateIncorrectFeedback: updateIncorrectFeedback,

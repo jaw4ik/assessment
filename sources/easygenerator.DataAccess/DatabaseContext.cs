@@ -127,8 +127,14 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<Answer>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<Answer>().Property(e => e.IsCorrect).IsRequired();
-            modelBuilder.Entity<Answer>().Property(e => e.Group).IsRequired();
             modelBuilder.Entity<Answer>().HasRequired(e => e.Question);
+
+            modelBuilder.Entity<FillInTheBlanks>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
+
+            modelBuilder.Entity<BlankAnswer>().Property(e => e.Text).IsRequired();
+            modelBuilder.Entity<BlankAnswer>().Property(e => e.IsCorrect).IsRequired();
+            modelBuilder.Entity<BlankAnswer>().Property(e => e.GroupId).IsRequired();
+            modelBuilder.Entity<BlankAnswer>().HasRequired(e => e.Question);
 
             modelBuilder.Entity<User>().Property(e => e.Email).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<User>().Property(e => e.PasswordHash).IsRequired();
@@ -192,6 +198,10 @@ namespace easygenerator.DataAccess
                         entry.State = EntityState.Deleted;
                     }
                     if ((entry.Entity is Answer) && (entry.Entity as Answer).Question == null)
+                    {
+                        entry.State = EntityState.Deleted;
+                    }
+                    if ((entry.Entity is BlankAnswer) && (entry.Entity as BlankAnswer).Question == null)
                     {
                         entry.State = EntityState.Deleted;
                     }

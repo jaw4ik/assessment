@@ -339,7 +339,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
 
             var answerId = Guid.NewGuid();
             var answerText = "Some answer text";
-            var answerCorrectness = true; var answerGroup = default(Guid);
+            var answerCorrectness = true;
 
             _courseStructureReader.GetAnswers(Arg.Any<Guid>(), Arg.Any<JObject>())
                 .Returns(new List<Guid>() { answerId });
@@ -347,7 +347,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _questionEntityReader.ReadMultipleSelectQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(MultipleselectObjectMother.Create());
             _answerEntityReader.ReadAnswer(answerId, CreatedBy, Arg.Any<JObject>())
-                .Returns(AnswerObjectMother.Create(answerText, answerCorrectness, answerGroup, CreatedBy));
+                .Returns(AnswerObjectMother.Create(answerText, answerCorrectness, CreatedBy));
 
             //Act
             var course = _importer.Import(publicationPath, CreatedBy);
@@ -389,8 +389,8 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
 
             _questionEntityReader.ReadFillInTheBlanksQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(FillInTheBlanksObjectMother.Create());
-            _answerEntityReader.ReadAnswer(answerId, CreatedBy, Arg.Any<JObject>())
-                .Returns(AnswerObjectMother.Create(answerText, answerCorrectness, answerGroup, CreatedBy));
+            _answerEntityReader.ReadBlankAnswer(answerId, CreatedBy, Arg.Any<JObject>())
+                .Returns(BlankAnswerObjectMother.Create(answerText, answerCorrectness, answerGroup, CreatedBy));
 
             //Act
             var course = _importer.Import(publicationPath, CreatedBy);
@@ -401,7 +401,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             question.Answers.ElementAt(0).Text.Should().Be(answerText);
             question.Answers.ElementAt(0).IsCorrect.Should().Be(answerCorrectness);
             question.Answers.ElementAt(0).CreatedBy.Should().Be(CreatedBy);
-            _answerEntityReader.Received().ReadAnswer(answerId, CreatedBy, Arg.Any<JObject>());
+            _answerEntityReader.Received().ReadBlankAnswer(answerId, CreatedBy, Arg.Any<JObject>());
         }
 
         [TestMethod]
@@ -471,7 +471,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
 
             var answerId = Guid.NewGuid();
             var answerText = "Some answer text";
-            var answerCorrectness = true; var answerGroup = default(Guid);
+            var answerCorrectness = true;
 
             _courseStructureReader.GetAnswers(Arg.Any<Guid>(), Arg.Any<JObject>())
                 .Returns(new List<Guid>() { answerId });
@@ -479,7 +479,7 @@ namespace easygenerator.Web.Tests.Import.PublishedCourse
             _questionEntityReader.ReadSingleSelectTextQuestion(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<JObject>())
                 .Returns(SingleSelectTextObjectMother.Create());
             _answerEntityReader.ReadAnswer(answerId, CreatedBy, Arg.Any<JObject>())
-                .Returns(AnswerObjectMother.Create(answerText, answerCorrectness, answerGroup, CreatedBy));
+                .Returns(AnswerObjectMother.Create(answerText, answerCorrectness, CreatedBy));
 
             //Act
             var course = _importer.Import(publicationPath, CreatedBy);

@@ -1,4 +1,4 @@
-﻿define(['notify', 'constants', 'eventTracker', 'utils/fillInTheBlankParser'], function (notify, constants, eventTracker, fillInTheBlankParser) {
+﻿define(['notify', 'constants', 'eventTracker', './fillInTheBlankParser'], function (notify, constants, eventTracker, fillInTheBlankParser) {
     "use strict";
 
     var viewModel = function (template, answerOptions, events, onStartup, callback) {
@@ -6,66 +6,66 @@
         var fillInTheBlank = fillInTheBlankParser.getData(template, answerOptions);
 
         var
-        text = ko.observable(_.isNull(fillInTheBlank) || _.isEmpty(fillInTheBlank) ? null : fillInTheBlank),
-        originalText = ko.observable(text()),
-        hasFocus = ko.observable(false),
-        isExpanded = ko.observable(true),
-        isEditing = ko.observable(false),
+            text = ko.observable(_.isNull(fillInTheBlank) || _.isEmpty(fillInTheBlank) ? null : fillInTheBlank),
+            originalText = ko.observable(text()),
+            hasFocus = ko.observable(false),
+            isExpanded = ko.observable(true),
+            isEditing = ko.observable(false),
 
-        beginEditText = function () {
-            eventTracker.publish(events.beginEditText);
-            isEditing(true);
-        },
+            beginEditText = function () {
+                eventTracker.publish(events.beginEditText);
+                isEditing(true);
+            },
 
-        addFillInTheBlank = function () {
-            eventTracker.publish(events.addFillInTheBlank);
-            text('');
-            hasFocus(true);
-        },
+            addFillInTheBlank = function () {
+                eventTracker.publish(events.addFillInTheBlank);
+                text('');
+                hasFocus(true);
+            },
 
-        endEditText = function () {
-            eventTracker.publish(events.endEditText);
-            isEditing(false);
-        },
+            endEditText = function () {
+                eventTracker.publish(events.endEditText);
+                isEditing(false);
+            },
 
-        updateText = function () {
-            if (_.isEmptyHtmlText(text())) {
-                text(null);
-            }
+            updateText = function () {
+                if (_.isEmptyHtmlText(text())) {
+                    text(null);
+                }
 
-            var result = fillInTheBlankParser.getTemplateAndAnswers(text());
+                var result = fillInTheBlankParser.getTemplateAndAnswers(text());
 
-            if (text() != originalText()) {
-                return callback(result.template, result.answers).then(function () {
+                if (text() != originalText()) {
+                    return callback(result.template, result.answers).then(function () {
+                        originalText(text());
+                        showNotification();
+                    });
+                }
+            },
+
+            isContentDefined = ko.computed({
+                read: function () {
+                    return !_.isNullOrUndefined(text());
+                }
+            }),
+
+            toggleExpand = function () {
+                isExpanded(!isExpanded());
+            },
+
+            updatedByCollaborator = function (question) {
+                if (_.isNullOrUndefined(question.content)) {
+                    text(null);
                     originalText(text());
-                    showNotification();
-                });
-            }
-        },
+                    return;
+                }
 
-        isContentDefined = ko.computed({
-            read: function () {
-                return !_.isNullOrUndefined(text());
-            }
-        }),
+                var updatedFillInTheBlank = fillInTheBlankParser.getData(question.content, question.answers);
+                originalText(updatedFillInTheBlank);
 
-        toggleExpand = function () {
-            isExpanded(!isExpanded());
-        },
-            
-        updatedByCollaborator = function (question) {
-            if (_.isNullOrUndefined(question.content)) {
-                text(null);
-                originalText(text());
-                return;
-            }
-
-            var updatedFillInTheBlank = fillInTheBlankParser.getData(question.content, question.answers);
-            originalText(updatedFillInTheBlank);
-
-            if (!isEditing())
-                text(updatedFillInTheBlank);
-        };
+                if (!isEditing())
+                    text(updatedFillInTheBlank);
+            };
 
         function showNotification() {
             notify.saved();

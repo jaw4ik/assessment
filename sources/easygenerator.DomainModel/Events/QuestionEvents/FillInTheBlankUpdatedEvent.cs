@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using easygenerator.DomainModel.Entities;
+﻿using System.Collections.Generic;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Infrastructure;
 
@@ -11,9 +6,9 @@ namespace easygenerator.DomainModel.Events.QuestionEvents
 {
     public class FillInTheBlankUpdatedEvent: QuestionEvent
     {
-        public ICollection<Answer> Answers { get; private set; }
+        public ICollection<BlankAnswer> Answers { get; private set; }
 
-        public FillInTheBlankUpdatedEvent(Question question, ICollection<Answer> answers)
+        public FillInTheBlankUpdatedEvent(Question question, ICollection<BlankAnswer> answers)
             : base(question)
         {
             ThrowIfAnswersIsInvalid(answers);
@@ -21,7 +16,7 @@ namespace easygenerator.DomainModel.Events.QuestionEvents
             Answers = answers;
         }
 
-        private void ThrowIfAnswersIsInvalid(ICollection<Answer> answers)
+        private void ThrowIfAnswersIsInvalid(ICollection<BlankAnswer> answers)
         {
             ArgumentValidation.ThrowIfNull(answers, "answers");
         }

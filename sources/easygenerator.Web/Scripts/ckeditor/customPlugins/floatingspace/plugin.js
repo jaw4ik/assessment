@@ -75,7 +75,7 @@
 
                     switch ( newMode ) {
                         case 'top':
-                            updatePos( 'absolute', 'top', editorPos.y - spaceHeight - dockedOffsetY );
+                            updatePos( 'absolute', 'top', editorPos.y - spaceHeight );
                             break;
                         case 'pin':
                             updatePos( 'fixed', 'top', pinnedOffsetY + windowOffsetTop);
@@ -140,7 +140,7 @@
                     // |   +------------------ Editor -+   |
                     // |   |                           |   |
                     //
-                    if (spaceHeight + dockedOffsetY + windowOffsetTop <= editorRect.top)
+                    if (spaceHeight + windowOffsetTop <= editorRect.top)
                         changeMode( 'top' );
 
                     //     +- - - - - - - - -  Editor -+

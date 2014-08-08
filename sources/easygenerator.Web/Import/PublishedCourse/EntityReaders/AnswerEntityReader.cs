@@ -26,9 +26,24 @@ namespace easygenerator.Web.Import.PublishedCourse.EntityReaders
 
             var answerText = answer.Value<string>("text");
             var answerCorrectness = answer.Value<bool>("isCorrect");
-            var answerGroup = Guid.Parse(answer.Value<string>("group"));
 
-            return _entityFactory.Answer(answerText, answerCorrectness, answerGroup, createdBy);
+            return _entityFactory.Answer(answerText, answerCorrectness, createdBy);
+        }
+
+        public virtual BlankAnswer ReadBlankAnswer(Guid answerId, string createdBy, JObject courseData)
+        {
+            var answer = courseData["objectives"]
+                .Values("questions")
+                .Children()
+                .Values("answers")
+                .Children()
+                .Single(a => a.Value<string>("id") == answerId.ToString("N").ToLower());
+
+            var answerText = answer.Value<string>("text");
+            var answerCorrectness = answer.Value<bool>("isCorrect");
+            var answerGroup = Guid.Parse(answer.Value<string>("groupId"));
+
+            return _entityFactory.BlankAnswer(answerText, answerCorrectness, answerGroup, createdBy);
         }
 
         public virtual Dropspot ReadDropspot(Guid dropspotId, string createdBy, JObject courseData)

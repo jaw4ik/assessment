@@ -7,27 +7,26 @@ namespace easygenerator.DomainModel.Entities.Questions
     {
         protected internal Answer() { }
 
-        protected internal Answer(string text, bool isCorrect, Guid group, string createdBy)
+        protected internal Answer(string text, bool isCorrect, string createdBy)
             : base(createdBy)
         {
             ThrowIfTextIsInvalid(text);
 
-            CreateAnswer(text, isCorrect, group);
+            CreateAnswer(text, isCorrect);
         }
 
-        protected internal Answer(string text, bool isCorrect, Guid group, string createdBy, DateTime createdOn)
+        protected internal Answer(string text, bool isCorrect, string createdBy, DateTime createdOn)
             : base(createdBy, createdOn)
         {
             ThrowIfTextIsInvalid(text);
 
-            CreateAnswer(text, isCorrect, group);
+            CreateAnswer(text, isCorrect);
         }
 
-        private void CreateAnswer(string text, bool isCorrect, Guid group)
+        private void CreateAnswer(string text, bool isCorrect)
         {
             Text = text;
             IsCorrect = isCorrect;
-            Group = group;
         }
 
         public string Text { get; private set; }
@@ -50,8 +49,6 @@ namespace easygenerator.DomainModel.Entities.Questions
             IsCorrect = isCorrect;
             MarkAsModified(modifiedBy);
         }
-
-        public Guid Group { get; private set; }
 
         public virtual Multipleselect Question { get; internal set; }
 

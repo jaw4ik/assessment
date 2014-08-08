@@ -1,5 +1,5 @@
-﻿define(['guard', 'durandal/app', 'constants', 'dataContext', 'mappers/answerModelMapper'],
-    function (guard, app, constants, dataContext, answerModelMapper) {
+﻿define(['guard', 'durandal/app', 'constants', 'dataContext'],
+    function (guard, app, constants, dataContext) {
         "use strict";
 
         return function (questionId, content, answers, modifiedOn) {
@@ -14,8 +14,19 @@
             guard.throwIfNotAnObject(question, 'Question has not been found');
 
             question.content = content;
-            question.answers = _.map(answers, answerModelMapper.map);
             question.modifiedOn = new Date(modifiedOn);
-            app.trigger(constants.messages.question.fillInTheBlank.updatedByCollaborator, question);
+
+            var questionData = {
+                content: content,
+                answers: _.map(answers, function(answer) {
+                    return {
+                        text: answer.Text,
+                        isCorrect: answer.IsCorrect,
+                        groupId: answer.GroupId
+                    };
+                })
+            };
+
+            app.trigger(constants.messages.question.fillInTheBlank.updatedByCollaborator, questionId, questionData);
         }
     });

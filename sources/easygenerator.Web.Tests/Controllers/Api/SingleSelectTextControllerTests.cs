@@ -63,12 +63,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.Name.Returns(user);
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
             var question = Substitute.For<SingleSelectText>("Question title", CreatedBy);
-            var correctAnswer = Substitute.For<Answer>("Put your answer option here", true, Guid.Empty, user, DateTimeWrapper.Now());
-            var incorrectAnswer = Substitute.For<Answer>("Put your answer option here", false, Guid.Empty, user, DateTimeWrapper.Now().AddSeconds(1));
+            var correctAnswer = Substitute.For<Answer>("Put your answer option here", true, user, DateTimeWrapper.Now());
+            var incorrectAnswer = Substitute.For<Answer>("Put your answer option here", false, user, DateTimeWrapper.Now().AddSeconds(1));
 
             _entityFactory.SingleSelectTextQuestion(title, user).Returns(question);
-            _entityFactory.Answer("Put your answer option here", true, Guid.Empty, user, DateTimeWrapper.Now()).Returns(correctAnswer);
-            _entityFactory.Answer("Put your answer option here", false, Guid.Empty, user, DateTimeWrapper.Now().AddSeconds(1)).Returns(incorrectAnswer);
+            _entityFactory.Answer("Put your answer option here", true, user, DateTimeWrapper.Now()).Returns(correctAnswer);
+            _entityFactory.Answer("Put your answer option here", false, user, DateTimeWrapper.Now().AddSeconds(1)).Returns(incorrectAnswer);
 
             _controller.Create(objective, title);
 

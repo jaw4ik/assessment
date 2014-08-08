@@ -537,11 +537,43 @@
 
     .blankInput:focus {
         border: #5bc0de 1px solid;
+        outline: none;
     }
 
-.blank-answers.disabled .blankInput {
+.blank-answers.disabled .blankInput,
+.blank-answers.disabled .custom-select {
     color: #777;
     background: #fafafa;
+}
+
+.custom-select.active {
+    border: #5bc0de 1px solid;
+}
+
+.custom-select .select-list-item:hover {
+    background: #f3f3f3;
+}
+
+.custom-select .select-list {
+    border-bottom: 1px solid #d8dde5;
+    border-left: 1px solid #d8dde5;
+    border-right: 1px solid #d8dde5;
+}
+
+.custom-select .pointer-wrapper {
+    border-left: 1px solid #d9dde5;
+}
+
+.custom-select .pointer {
+    border-top-color: #41b7d8;
+}
+
+.custom-select.expanded .pointer {
+    border-bottom-color: #41b7d8;
+}
+
+.custom-select .select-list-item.selected {
+    background-color: #41b7d8;
 }
 /*#endregion input fill in the blank*/
 

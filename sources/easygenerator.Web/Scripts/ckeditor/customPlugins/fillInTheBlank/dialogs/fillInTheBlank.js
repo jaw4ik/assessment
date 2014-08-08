@@ -2,7 +2,7 @@
 
     var plugin = CKEDITOR.plugins.fillInTheBlank;
   
-    CKEDITOR.dialog.add(plugin.fillInTheBlankDialogName, function (editor) {
+    CKEDITOR.dialog.add(plugin.dialogNames.fillInTheBlank, function (editor) {
 
         var
             lang = editor.lang.fillInTheBlank,
@@ -12,6 +12,9 @@
                 minWidth: 400,
                 minHeight: 70,
                 resizable: CKEDITOR.DIALOG_RESIZE_NONE,
+                onShow: function () {
+                    editor.fire(plugin.events.addBlank);
+                },
                 contents: [
                 {
                     id: 'info',
@@ -21,14 +24,14 @@
                         type: 'text',
                         setup: function (widget) {
                             if (widget.data.selectedText) {
-                                this.setValue(widget.data.selectedText ? widget.data.selectedText : widget.data.blankValue);
+                                this.setValue(widget.data.selectedText.trim(plugin.spaceSymbol));
                             } else {
                                 this.setValue(widget.data.blankValue);
                             }
                         },
                         commit: function(widget) {
                             if (widget.data.selectedText) {
-                                delete widget.data.selectedText;
+                                widget.setData('selectedText', null);
                             }
                             widget.setData('blankValue', this.getValue());
                         }

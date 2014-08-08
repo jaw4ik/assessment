@@ -5,11 +5,8 @@
         viewModel = require('viewmodels/questions/fillInTheBlank/fillInTheBlank'),
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
-        answerRepository = require('repositories/answerRepository'),
-        constants = require('constants'),
-        http = require('plugins/http'),
-        learningContentRepository = require('repositories/learningContentRepository'),
-        BackButton = require('models/backButton');
+        questionRepository = require('repositories/questionRepository'),
+        http = require('plugins/http');
 
     var objectiveId = 'objectiveId';
 
@@ -52,11 +49,11 @@
         });
 
         describe('initialize:', function () {
-            var getAnswerCollectionDefer;
+            var getFillInTheBlankDefer;
 
             beforeEach(function () {
-                getAnswerCollectionDefer = Q.defer();
-                spyOn(answerRepository, 'getCollection').and.returnValue(getAnswerCollectionDefer.promise);
+                getFillInTheBlankDefer = Q.defer();
+                spyOn(questionRepository, 'getFillInTheBlank').and.returnValue(getFillInTheBlankDefer.promise);
 
                 spyOn(http, 'post');
             });
@@ -73,12 +70,11 @@
             });
 
             it('should initialize fields', function (done) {
-                getAnswerCollectionDefer.resolve();
+                getFillInTheBlankDefer.resolve();
 
                 var promise = viewModel.initialize(objectiveId, question);
                 promise.fin(function () {
                     expect(viewModel.fillInTheBlank).toBeDefined();
-                    expect(viewModel.fillInTheBlank.text()).toBe(question.content);
                     done();
                 });
             });
@@ -111,14 +107,15 @@
 
         });
 
-        describe('questionId:', function() {
-            it('should be defined', function() {
+        describe('questionId:', function () {
+            it('should be defined', function () {
                 expect(viewModel.questionId).toBeDefined();
-            });    
+            });
         });
 
         describe('updatedByCollaborator:', function () {
-            beforeEach(function() {
+            beforeEach(function () {
+                viewModel.fillInTheBlank = { updatedByCollaborator: function () { } };
                 spyOn(viewModel.fillInTheBlank, 'updatedByCollaborator');
             });
 
@@ -128,14 +125,14 @@
 
             it('should update fillInTheBlank', function () {
                 viewModel.questionId = question.id;
-                viewModel.updatedByCollaborator(question);
+                viewModel.updatedByCollaborator(question.id, {});
                 expect(viewModel.fillInTheBlank.updatedByCollaborator).toHaveBeenCalled();
             });
 
-            describe('when question is not current', function() {
-                it('should not update fillInTheBlank', function() {
+            describe('when question is not current', function () {
+                it('should not update fillInTheBlank', function () {
                     viewModel.questionId = 'someId';
-                    viewModel.updatedByCollaborator(question);
+                    viewModel.updatedByCollaborator(question.id, {});
                     expect(viewModel.fillInTheBlank.updatedByCollaborator).not.toHaveBeenCalled();
                 });
             });
