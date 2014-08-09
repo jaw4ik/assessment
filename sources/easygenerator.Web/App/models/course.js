@@ -22,6 +22,7 @@
             this.publishToStore = deliveringAction.call(this, publishToStoreActionHandler);
 
             this.getState = getState;
+            this.isDelivering = false;
         };
 
         return Course;
@@ -30,10 +31,12 @@
             var course = this;
 
             var self = function () {
+                course.isDelivering = true;
                 app.trigger(constants.messages.course.delivering.started, course);
 
                 return actionHandler.call(course, self)
                     .fin(function () {
+                        course.isDelivering = false;
                         app.trigger(constants.messages.course.delivering.finished, course);
                     });
             }; 
