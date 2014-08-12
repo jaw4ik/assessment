@@ -120,7 +120,7 @@
 
         describe('uploadBackground:', function () {
 
-            beforeEach(function() {
+            beforeEach(function () {
                 spyOn(uiLocker, 'lock');
                 spyOn(uiLocker, 'unlock');
             });
@@ -135,9 +135,9 @@
                 expect(imageUpload.upload).toHaveBeenCalled();
             });
 
-            describe('when image loading is started', function() {
+            describe('when image loading is started', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     spyOn(imageUpload, 'upload').and.callFake(function (spec) {
                         spec.startLoading();
                     });
@@ -151,7 +151,7 @@
 
             describe('when image upload was successful', function () {
 
-                var url = 'http://xxx.com', dfd;
+                var url = 'http://xxx.com', urlParams = '?width=899&height=785', dfd, questionId = null;
 
                 beforeEach(function () {
                     spyOn(imageUpload, 'upload').and.callFake(function (spec) {
@@ -169,7 +169,7 @@
                 it('should execute command to change background', function () {
                     designer.background(undefined);
                     designer.uploadBackground();
-                    expect(changeBackgroundCommand.execute).toHaveBeenCalled();
+                    expect(changeBackgroundCommand.execute).toHaveBeenCalledWith(questionId, url + urlParams);
                 });
 
                 describe('and command to change background was executed', function () {
@@ -181,7 +181,7 @@
                     it('should update background url', function () {
                         designer.background(undefined);
                         designer.uploadBackground();
-                        expect(designer.background()).toEqual(url);
+                        expect(designer.background()).toEqual(url + urlParams);
                     });
 
                     it('should notify user that everything was saved', function () {
