@@ -19,7 +19,7 @@ using easygenerator.Web.Storage;
 
 namespace easygenerator.Web.Controllers
 {
-    [NoCache]
+
     public class ImageController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
@@ -37,11 +37,10 @@ namespace easygenerator.Web.Controllers
             _imageValidator = imageValidator;
         }
 
-
         [HttpGet]
         [AllowAnonymous]
-        [Route("storage/image/{fileName}", Name = "ImageUrl")]
         [Route("filestorage/{fileName}")]
+        [Route("storage/image/{fileName}", Name = "ImageUrl")]
         public ActionResult Get(string fileName, int? width, int? height, bool? scaleBySmallerSide = false)
         {
             if (fileName == null)
@@ -57,7 +56,7 @@ namespace easygenerator.Web.Controllers
             return new ImageResult(_storage.GetFilePath(fileName), width, height, scaleBySmallerSide);
         }
 
-
+        [NoCache]
         [HttpGet]
         [Route("api/images")]
         public ActionResult GetCurrentUserImageCollection()
@@ -76,6 +75,7 @@ namespace easygenerator.Web.Controllers
             return JsonSuccess(result);
         }
 
+        [NoCache]
         [HttpPost]
         [Route("storage/image/upload")]
         public ActionResult Upload(HttpPostedFileBase file)
