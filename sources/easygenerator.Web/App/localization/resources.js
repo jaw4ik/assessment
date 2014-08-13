@@ -1087,6 +1087,30 @@
     howManyPeopleQuestion: {
         en: 'How many people at your company are authoring courses?'
     },
+    roleQuestion: {
+        en: 'What is your role?'
+    },
+    teacherOption: {
+        en: 'Teacher'
+    },
+    trainerOption: {
+        en: 'Trainer'
+    },
+    smeOption: {
+        en: 'Subject matter expert'
+    },
+    expertOption: {
+        en: 'Elearning expert'
+    },
+    designerOption: {
+        en: 'Instructional designer'
+    },
+    managerOption: {
+        en: 'eLearning manager'
+    },
+    notInTheListOption: {
+        en: 'not in the list'
+    },
     wouldYouLikeAnIntroductionDemo: {
         en: 'I would like an introduction demo!'
     },
