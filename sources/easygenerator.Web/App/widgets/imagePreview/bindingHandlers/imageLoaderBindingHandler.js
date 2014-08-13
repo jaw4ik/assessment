@@ -40,7 +40,7 @@
                 var browserHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
                 var maxSize = browserWidth > browserHeight ? browserWidth : browserHeight;
 
-                var resizedImageUrl = url + '?height=' + maxSize + '&amp;width=' + maxSize;
+                var resizedImageUrl = url + '?height=' + maxSize + '&width=' + maxSize;
                 var image = new Image();
                 image.className = 'image';
                 image.style.display = "none";
