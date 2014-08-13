@@ -1071,86 +1071,50 @@
     },
     /* End resource section for model View captions */
     
-    /* Resource section for model Sign-UP optional fields */
-    FullNameCaption: {
-        en: 'Full name'
-    },
-    PhoneNumberCaption: {
-        en: 'Phone number'
-    },
-    OrganizationNameCaption: {
-        en: 'Organization name'
-    },
-    CountryCaption: {
-        en: 'Country'
-    },
-    howManyPeopleQuestion: {
-        en: 'How many people at your company are authoring courses?'
-    },
-    roleQuestion: {
-        en: 'What is your role?'
-    },
-    teacherOption: {
-        en: 'Teacher'
-    },
-    trainerOption: {
-        en: 'Trainer'
-    },
-    smeOption: {
-        en: 'Subject matter expert'
-    },
-    expertOption: {
-        en: 'Elearning expert'
-    },
-    designerOption: {
-        en: 'Instructional designer'
-    },
-    managerOption: {
-        en: 'eLearning manager'
-    },
-    notInTheListOption: {
-        en: 'not in the list'
-    },
-    wouldYouLikeAnIntroductionDemo: {
-        en: 'I would like an introduction demo!'
-    },
-    chooseAnswer: {
-        en: 'Choose answer'
-    },
-    now: {
-        en: 'Now'
-    },
-    variant1Month: {
-        en: '1-3 Months'
-    },
-    variantMore3Months: {
-        en: '>3 Months'
-    },
-    justLooking: {
-        en: 'Just Looking'
-    },
-    powerPoint: {
-        en: 'PowerPoint'
-    },
-    anotherTool: {
-        en: 'Another authoring tool'
-    },
-    nothing: {
-        en: 'Nothing'
-    },
-    other: {
-        en: 'Other'
-    },
-    skip: {
-        en: 'Skip'
-    },
-    OptionalInformation: {
-        en: 'Optional information'
-    },
-    ChooseYourCountry: {
-        en: 'Choose your country...'
-    },
-    /* End resource section for model Sign-UP optional fields */
+    /* Resource section for model SignUp form */
+    /* End resource section for model SignUp form */
+    
+    /* Resource section for model FirstNameCaption */
+    /* End resource section for model FirstNameCaption */
+    
+    /* Resource section for model LastNameCaption */
+    /* End resource section for model LastNameCaption */
+    
+    /* Resource section for model PhoneNumberCaption */
+    /* End resource section for model PhoneNumberCaption */
+    
+    /* Resource section for model CountryCaption */
+    /* End resource section for model CountryCaption */
+    
+    /* Resource section for model RoleQuestion */
+    /* End resource section for model RoleQuestion */
+    
+    /* Resource section for model TeacherOption */
+    /* End resource section for model TeacherOption */
+    
+    /* Resource section for model TrainerOption */
+    /* End resource section for model TrainerOption */
+    
+    /* Resource section for model SmeOption */
+    /* End resource section for model SmeOption */
+    
+    /* Resource section for model ExpertOption */
+    /* End resource section for model ExpertOption */
+    
+    /* Resource section for model DesignerOption */
+    /* End resource section for model DesignerOption */
+    
+    /* Resource section for model ManagerOption */
+    /* End resource section for model ManagerOption */
+    
+    /* Resource section for model NotInTheListOption */
+    /* End resource section for model NotInTheListOption */
+    
+    /* Resource section for model wouldYouLikeAnIntroductionDemo */
+    /* End resource section for model wouldYouLikeAnIntroductionDemo */
+    
+    /* Resource section for model ChooseYourCountry */
+    /* End resource section for model ChooseYourCountry */
     
     /* Resource section for model Forgot password */
     passwordRecovery: {
