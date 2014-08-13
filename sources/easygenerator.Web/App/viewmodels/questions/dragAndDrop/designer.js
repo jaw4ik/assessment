@@ -17,8 +17,6 @@
 
     var self = {
         questionId: null,
-        maxWidth: 899,
-        maxHeight: 785,
         events: {
             createDropspot: 'Create dropspot',
             deleteDropspot: 'Delete dropspot',
@@ -81,9 +79,8 @@
                 uiLocker.lock();
             },
             success: function (url) {
-                var backgroundUrl = url + '?width=' + self.maxWidth + '&height=' + self.maxHeight;
-                changeBackgroundCommand.execute(self.questionId, backgroundUrl);
-                designer.background(backgroundUrl);
+                changeBackgroundCommand.execute(self.questionId, url);
+                designer.background(url);
                 notify.saved();
                 eventTracker.publish(self.events.changeBackground);
             },
