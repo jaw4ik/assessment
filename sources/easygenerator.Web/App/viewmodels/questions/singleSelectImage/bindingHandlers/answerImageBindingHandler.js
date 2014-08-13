@@ -9,7 +9,7 @@
                 isImageLoading = ko.unwrap(valueAccessor().answer.isImageLoading),
                 imageUrl = (image && !_.isNullOrUndefined(image)) ?
                     image + '?width=150&height=150&scaleBySmallerSide=true' :
-                    '/Content/images/singleSelectImageAnwer.png';
+                    '/Content/images/singleSelectImageAnswer.png';
 
             if (isImageLoading) {
                 $(element).css('background-image', 'url(' + '' + ')');

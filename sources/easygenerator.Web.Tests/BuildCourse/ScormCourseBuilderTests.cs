@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
@@ -11,6 +9,8 @@ using easygenerator.Web.Components;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
+using System.IO;
 
 namespace easygenerator.Web.Tests.BuildCourse
 {
@@ -32,7 +32,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         public void InitializeContext()
         {
             _course = GetCourseToBuild();
-            _coursePackageModel = new PackageModelMapper().MapCourse(_course);
+            _coursePackageModel = new PackageModelMapper(Substitute.For<IUrlHelperWrapper>()).MapCourse(_course);
 
             _fileManager = Substitute.For<PhysicalFileManager>();
 
@@ -45,7 +45,8 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             _razorTemplateProvider = Substitute.For<RazorTemplateProvider>();
 
-            var packageModelMapper = Substitute.For<PackageModelMapper>();
+            var urlHelper = Substitute.For<IUrlHelperWrapper>();
+            var packageModelMapper = Substitute.For<PackageModelMapper>(urlHelper);
             var packageModelSerializer = Substitute.For<PackageModelSerializer>();
             _buildContentProvider = Substitute.For<BuildContentProvider>(_fileManager, _buildPathProvider, packageModelSerializer, packageModelMapper);
 

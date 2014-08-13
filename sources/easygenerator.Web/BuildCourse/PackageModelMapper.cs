@@ -2,6 +2,7 @@
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.BuildCourse.PackageModel;
+using easygenerator.Web.Components;
 using easygenerator.Web.Extensions;
 using System;
 using System.Collections.ObjectModel;
@@ -11,6 +12,13 @@ namespace easygenerator.Web.BuildCourse
 {
     public class PackageModelMapper
     {
+        private readonly IUrlHelperWrapper _urlHelper;
+
+        public PackageModelMapper(IUrlHelperWrapper urlHelper)
+        {
+            _urlHelper = urlHelper;
+        }
+
         public virtual CoursePackageModel MapCourse(Course course)
         {
             if (course == null)
@@ -184,7 +192,7 @@ namespace easygenerator.Web.BuildCourse
             return new SingleSelectImageAnswerPackageModel()
             {
                 Id = answer.Id.ToNString(),
-                Image = answer.Image
+                Image = answer.Image ?? _urlHelper.ToAbsoluteUrl("~/Content/images/singleSelectImageAnswer.png")
             };
         }
 

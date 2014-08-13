@@ -1,5 +1,4 @@
-﻿using System;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -10,6 +9,7 @@ using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
 
 namespace easygenerator.Web.Tests.Controllers
 {
@@ -26,7 +26,8 @@ namespace easygenerator.Web.Tests.Controllers
         {
             _buildPathProvider = Substitute.For<BuildPathProvider>(Substitute.For<HttpRuntimeWrapper>());
             _physicalFileManager = Substitute.For<PhysicalFileManager>();
-            _packageModelMapper = Substitute.For<PackageModelMapper>();
+            var urlHelper = Substitute.For<IUrlHelperWrapper>();
+            _packageModelMapper = Substitute.For<PackageModelMapper>(urlHelper);
 
             _controller = new PreviewController(_buildPathProvider, _physicalFileManager, _packageModelMapper);
         }
