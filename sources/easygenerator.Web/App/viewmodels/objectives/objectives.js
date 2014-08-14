@@ -103,8 +103,8 @@
 
         function activate() {
 
-            viewModel.lastVisitedObjective = clientContext.get('lastVisitedObjective');
-            clientContext.set('lastVisitedObjective', null);
+            viewModel.lastVisitedObjective = clientContext.get(constants.clientContextKeys.lastVisitedObjective);
+            clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
 
             viewModel.currentLanguage = localizationManager.currentLanguage;
 

@@ -1,5 +1,6 @@
-﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'ping', 'models/backButton'],
-    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, ping, BackButton) {
+﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'ping',
+    'models/backButton', 'constants'],
+    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, ping, BackButton, constants) {
 
         var events = {
             navigateToCourses: 'Navigate to courses',
@@ -43,8 +44,8 @@
 
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;
-                clientContext.set('lastVistedCourse', course.id);
-                clientContext.set('lastVisitedObjective', null);
+                clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
+                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
 
                 return templateRepository.getCollection().then(function (templates) {
                     viewModel.templates = _.chain(templates)

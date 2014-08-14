@@ -1,5 +1,4 @@
-﻿.course.view-module,
-.create-course.view-module {
+﻿.course.view-module {
     min-width: 640px;
 }
 
@@ -354,11 +353,6 @@
         background: #ffffff;
         cursor: pointer;
     }
-
-.choose-template-list.gorizontal .choose-template-list-item {
-    width: 49%;
-    margin-bottom: 15px;
-}
 
 .choose-template-list-item.selected {
     background-color: #fafafa;
@@ -1040,18 +1034,6 @@
     font-family: OpenSansItalic;
     border-bottom: 1px dotted #BDBDBD;
 }
-
-/*#region CREATE COURSE*/
-
-.create-course .choose-template {
-    margin-top: 28px;
-}
-
-.form-create-choose-template-holder {
-    border-bottom: 1px dotted #E8E8E8;
-}
-
-/*#endregion CREATE COURSE*/
 
 /*#region COURSE CONTENT*/
 

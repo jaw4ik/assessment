@@ -229,14 +229,14 @@
 
                     it('should set course id as the last visited in client context', function (done) {
                         viewModel.activate(course.id).fin(function () {
-                            expect(clientContext.set).toHaveBeenCalledWith('lastVistedCourse', course.id);
+                            expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVistedCourse, course.id);
                             done();
                         });
                     });
 
                     it('should reset last visited objective in client context', function (done) {
                         viewModel.activate(course.id).fin(function () {
-                            expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', null);
+                            expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVisitedObjective, null);
                             done();
                         });
                     });

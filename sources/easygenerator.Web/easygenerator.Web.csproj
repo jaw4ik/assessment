@@ -415,6 +415,10 @@
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
+    <Content Include="App\commands\createCourseCommand.js" />
+    <Content Include="App\commands\createCourseCommand.spec.js">
+      <DependentUpon>createCourseCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\collaboration\removeCollaborator.spec.js">
       <DependentUpon>removeCollaborator.js</DependentUpon>
     </Content>
@@ -1500,10 +1504,6 @@
     <Content Include="App\viewmodels\courses\courses.spec.js">
       <DependentUpon>courses.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\createCourse.js" />
-    <Content Include="App\viewmodels\courses\createCourse.spec.js">
-      <DependentUpon>createCourse.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\design.js" />
     <Content Include="App\viewmodels\courses\design.spec.js">
       <DependentUpon>design.js</DependentUpon>
@@ -1580,7 +1580,6 @@
     <Content Include="App\views\courses\courseComments.html" />
     <Content Include="App\views\courses\courseNavigation\navigation.html" />
     <Content Include="App\views\courses\courses.html" />
-    <Content Include="App\views\courses\createCourse.html" />
     <Content Include="App\views\courses\design.html" />
     <Content Include="App\views\courses\publish.html" />
     <Content Include="App\views\errors\404.html" />

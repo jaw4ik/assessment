@@ -35,65 +35,69 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private ICourseBuilder _builder;
         private IScormCourseBuilder _scormCourseBuilder;
         private IEntityFactory _entityFactory;
-        private ICourseRepository _repository;
+        private ICourseRepository _courseRepository;
         private IPrincipal _user;
         private HttpContextBase _context;
         private IUrlHelperWrapper _urlHelper;
         private ICoursePublisher _coursePublisher;
         private IEntityMapper _entityMapper;
         private IDomainEventPublisher _eventPublisher;
+        private ITemplateRepository _templateRepository;
 
         [TestInitialize]
         public void InitializeContext()
         {
             _entityFactory = Substitute.For<IEntityFactory>();
-            _repository = Substitute.For<ICourseRepository>();
+            _courseRepository = Substitute.For<ICourseRepository>();
             _builder = Substitute.For<ICourseBuilder>();
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
             _coursePublisher = Substitute.For<ICoursePublisher>();
             _urlHelper = Substitute.For<IUrlHelperWrapper>();
             _entityMapper = Substitute.For<IEntityMapper>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
+            _templateRepository = Substitute.For<ITemplateRepository>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _urlHelper, _coursePublisher, _entityMapper, _eventPublisher);
+            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _entityFactory, _urlHelper, _coursePublisher, _entityMapper, _eventPublisher, _templateRepository);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
         #region Create course
 
         [TestMethod]
-        public void Create_ShouldReturnJsonSuccessResult()
+        public void Create_ShouldAddCourse()
         {
-            const string title = "title";
+            const string title = "Course title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             var course = CourseObjectMother.CreateWithTitle(title);
             var template = TemplateObjectMother.Create();
             _entityFactory.Course(title, template, user).Returns(course);
+            _templateRepository.GetDefaultTemplate().Returns(template);
 
-            var result = _controller.Create(title, template);
+            _controller.Create(title);
 
-            ActionResultAssert.IsJsonSuccessResult(result);
+            _courseRepository.Received().Add(Arg.Is<Course>(exp => exp.Title == title));
         }
 
         [TestMethod]
-        public void Create_ShouldAddCourse()
+        public void Create_ShouldReturnJsonSuccessResult()
         {
-            const string title = "title";
+            const string title = "Course title";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             var course = CourseObjectMother.CreateWithTitle(title);
             var template = TemplateObjectMother.Create();
             _entityFactory.Course(title, template, user).Returns(course);
+            _templateRepository.GetDefaultTemplate().Returns(template);
 
-            _controller.Create(title, template);
+            var result = _controller.Create(title);
 
-            _repository.Received().Add(Arg.Is<Course>(exp => exp.Title == title));
+            ActionResultAssert.IsJsonSuccessResult(result);
         }
 
         #endregion
@@ -117,7 +121,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.Delete(course);
 
-            _repository.Received().Remove(course);
+            _courseRepository.Received().Remove(course);
         }
 
         [TestMethod]
@@ -340,7 +344,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             var collection = new Collection<Course>(new List<Course>() { CourseObjectMother.Create() });
 
-            _repository.GetCollection().Returns(collection);
+            _courseRepository.GetCollection().Returns(collection);
 
             var result = _controller.GetCollection();
 

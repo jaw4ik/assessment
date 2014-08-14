@@ -10,6 +10,7 @@
         localizationManager = require('localization/localizationManager'),
         clientContext = require('clientContext'),
         ping = require('ping'),
+        constants = require('constants'),
         BackButton = require('models/backButton')
     ;
 
@@ -176,7 +177,7 @@
                     getTemplateCollectionDefer.reject();
 
                     viewModel.activate(course.id).fin(function () {
-                        expect(clientContext.set).toHaveBeenCalledWith('lastVistedCourse', course.id);
+                        expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVistedCourse, course.id);
                         done();
                     });
                 });
@@ -185,7 +186,7 @@
                     getTemplateCollectionDefer.reject();
 
                     viewModel.activate(course.id).fin(function () {
-                        expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', null);
+                        expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVisitedObjective, null);
                         done();
                     });
                 });

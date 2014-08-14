@@ -6,6 +6,7 @@
         dataContext = require('dataContext'),
         constants = require('constants'),
         app = require('durandal/app'),
+        courseMapper = require('mappers/courseModelMapper'),
         userContext = require('userContext');
 
     describe('repository [courseRepository]', function () {
@@ -135,6 +136,8 @@
 
         describe('addCourse:', function () {
 
+            var title = 'course title';
+
             it('should be function', function () {
                 expect(repository.addCourse).toBeFunction();
             });
@@ -146,10 +149,10 @@
             describe('when course title is undefined', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.addCourse(undefined, 'someTemplateId');
+                    var promise = repository.addCourse(undefined);
 
                     promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Title is not a string');
+                        expect(promise).toBeRejectedWith('Course title (string) was expected');
                         done();
                     });
                 });
@@ -159,10 +162,10 @@
             describe('when course title is null', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.addCourse(null, 'someTemplateId');
+                    var promise = repository.addCourse(null);
 
                     promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Title is not a string');
+                        expect(promise).toBeRejectedWith('Course title (string) was expected');
                         done();
                     });
                 });
@@ -172,49 +175,10 @@
             describe('when course title is not a string', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.addCourse({}, 'someTemplateId');
+                    var promise = repository.addCourse({});
 
                     promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Title is not a string');
-                        done();
-                    });
-                });
-
-            });
-
-            describe('when template id is undefined', function () {
-
-                it('should reject promise', function (done) {
-                    var promise = repository.addCourse('Some course title', undefined);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('TemplateId is not a string');
-                        done();
-                    });
-                });
-
-            });
-
-            describe('when template id is null', function () {
-
-                it('should reject promise', function (done) {
-                    var promise = repository.addCourse('Some course title', null);
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('TemplateId is not a string');
-                        done();
-                    });
-                });
-
-            });
-
-            describe('when template id is not a string', function () {
-
-                it('should reject promise', function (done) {
-                    var promise = repository.addCourse('Some course title', {});
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('TemplateId is not a string');
+                        expect(promise).toBeRejectedWith('Course title (string) was expected');
                         done();
                     });
                 });
@@ -222,12 +186,10 @@
             });
 
             it('should send request to \'api/course/create\'', function (done) {
-                var courseTitle = 'Some course title',
-                    templateId = 'SomeTemplateId';
-                var promise = repository.addCourse(courseTitle, templateId);
+                var promise = repository.addCourse(title);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/course/create', { title: courseTitle, templateId: templateId });
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/course/create', { title: title });
                     done();
                 });
 
@@ -235,11 +197,36 @@
             });
 
             describe('when course successfully created on server', function () {
+                var mappedCourse,
+                    course,
+                    courseId = 'courseId',
+                    createdOnDate = new Date();
+
+                beforeEach(function () {
+                    mappedCourse = {
+                        id: courseId,
+                        title: 'asdfg',
+                        template: {
+                            id: 'rtyu'
+                        },
+                        objectives: [],
+                        createdOn: createdOnDate.toISOString(),
+                        modifiedOn: createdOnDate.toISOString(),
+                        createdBy: 'asasd@ukr.net'
+                    };
+
+                    course = { Id: courseId, CreatedOn: createdOnDate.toISOString(), CreatedBy: mappedCourse.createdBy };
+
+                    spyOn(courseMapper, 'map').and.returnValue(mappedCourse);
+                    dataContext.templates = [mappedCourse.template];
+                    dataContext.objectives = [];
+                    dataContext.courses = [];
+                });
 
                 describe('and response is not an object', function () {
 
                     it('should reject promise', function (done) {
-                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
+                        var promise = repository.addCourse(title);
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Response is not an object');
@@ -251,256 +238,40 @@
 
                 });
 
-                describe('and created course Id is undefined', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
-
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Response Id is not a string');
-                            done();
-                        });
-
-                        post.resolve({ CreatedBy: 'asasd@ukr.net' });
-                    });
-
-                });
-
-                describe('and created course Id is null', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
-
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Response Id is not a string');
-                            done();
-                        });
-
-                        post.resolve({ Id: null, CreatedBy: 'asasd@ukr.net' });
-                    });
-
-                });
-
-                describe('and created course Id is not a string', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
-
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Response Id is not a string');
-                            done();
-                        });
-
-                        post.resolve({ Id: {}, CreatedBy: 'asasd@ukr.net' });
-                    });
-
-                });
-
-                describe('and created course CreatedOn date is undefined', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
-
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Response CreatedOn is not a string');
-                            done();
-                        });
-
-                        post.resolve({ Id: 'asdasd', CreatedBy: 'asasd@ukr.net' });
-                    });
-
-                });
-
-                describe('and created course CreatedOn date is null', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
-
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Response CreatedOn is not a string');
-                            done();
-                        });
-
-                        post.resolve({ Id: 'asdasd', CreatedOn: null, CreatedBy: 'asasd@ukr.net' });
-                    });
-
-                });
-
-                describe('and created course CreatedOn date is not a string', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
-
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Response CreatedOn is not a string');
-                            done();
-                        });
-
-                        post.resolve({ Id: 'asdasd', CreatedOn: {}, CreatedBy: 'asasd@ukr.net' });
-                    });
-
-                });
-
-                describe('and created course CreatedBy is undefined', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
-
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Response CreatedBy is not a string');
-                            done();
-                        });
-
-                        post.resolve({ Id: 'asdasd', CreatedOn: new Date().toISOString() });
-                    });
-
-                });
-
-                describe('and created course CreatedBy is null', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
-
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Response CreatedBy is not a string');
-                            done();
-                        });
-
-                        post.resolve({ Id: 'asdasd', CreatedOn: new Date().toISOString(), CreatedBy: null });
-                    });
-
-                });
-
-                describe('and created course CreatedBy is not a string', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
-
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Response CreatedBy is not a string');
-                            done();
-                        });
-
-                        post.resolve({ Id: 'asdasd', CreatedOn: new Date().toISOString(), CreatedBy: {} });
-                    });
-
-                });
-
-                describe('and template not found in dataContext', function () {
-
-                    it('should reject promise', function (done) {
-                        dataContext.templates = [];
-
-                        var promise = repository.addCourse('Some course title', 'SomeTemplateId');
-
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Template does not exist in dataContext');
-                            done();
-                        });
-
-                        post.resolve({ Id: 'asdasd', CreatedOn: new Date().toISOString(), CreatedBy: 'asasd@ukr.net' });
-                    });
-
-                });
-
                 it('should add created course to data context', function (done) {
-                    var CreatedOnDate = new Date(),
-                        CourseId = 'asdasdasd';
-
-                    var mappedCourse = {
-                        id: CourseId,
-                        title: 'asdfg',
-                        template: {
-                            id: 'rtyu'
-                        },
-                        objectives: [],
-                        createdOn: CreatedOnDate.toISOString(),
-                        modifiedOn: CreatedOnDate.toISOString(),
-                        createdBy: 'asasd@ukr.net'
-                    }
-
-                    dataContext.templates = [mappedCourse.template];
-                    dataContext.courses = [];
-
-                    var promise = repository.addCourse(mappedCourse.title, mappedCourse.template.id);
+                    var promise = repository.addCourse(title);
 
                     promise.fin(function () {
                         expect(dataContext.courses.length).toEqual(1);
-                        expect(dataContext.courses[0].id).toEqual(CourseId);
-                        expect(dataContext.courses[0].title).toEqual(mappedCourse.title);
-                        expect(dataContext.courses[0].template.id).toEqual(mappedCourse.template.id);
-                        expect(dataContext.courses[0].createdOn).toEqual(new Date(CreatedOnDate.toISOString()));
-                        expect(dataContext.courses[0].modifiedOn).toEqual(new Date(CreatedOnDate.toISOString()));
-                        expect(dataContext.courses[0].collaborators).toBe(undefined);
+                        expect(dataContext.courses[0]).toBe(mappedCourse);
                         done();
                     });
 
-                    post.resolve({ Id: CourseId, CreatedOn: CreatedOnDate.toISOString(), CreatedBy: mappedCourse.createdBy });
+                    post.resolve(course);
                 });
 
                 it('should trigger course:created event', function (done) {
-                    var CreatedOnDate = new Date(),
-                        CourseId = 'asdasdasd';
-
-                    var mappedCourse = {
-                        id: CourseId,
-                        title: 'asdfg',
-                        template: {
-                            id: 'rtyu'
-                        },
-                        objectives: [],
-                        createdOn: CreatedOnDate.toISOString(),
-                        modifiedOn: CreatedOnDate.toISOString(),
-                        createdBy: 'asasd@ukr.net'
-                    }
-
-                    dataContext.templates = [mappedCourse.template];
-                    dataContext.courses = [];
-
-                    var promise = repository.addCourse(mappedCourse.title, mappedCourse.template.id);
+                    var promise = repository.addCourse(title);
 
                     promise.fin(function () {
                         expect(app.trigger).toHaveBeenCalled();
                         expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.created);
-                        expect(app.trigger.calls.mostRecent().args[1].id).toEqual(CourseId);
-                        expect(app.trigger.calls.mostRecent().args[1].title).toEqual(mappedCourse.title);
-                        expect(app.trigger.calls.mostRecent().args[1].template.id).toEqual(mappedCourse.template.id);
-                        expect(app.trigger.calls.mostRecent().args[1].createdOn).toEqual(new Date(CreatedOnDate.toISOString()));
-                        expect(app.trigger.calls.mostRecent().args[1].modifiedOn).toEqual(new Date(CreatedOnDate.toISOString()));
+                        expect(app.trigger.calls.mostRecent().args[1]).toBe(mappedCourse);
                         done();
                     });
 
-                    post.resolve({ Id: CourseId, CreatedOn: CreatedOnDate.toISOString(), CreatedBy: mappedCourse.createdBy });
+                    post.resolve(course);
                 });
 
                 it('should resolve promise with received data', function (done) {
-                    var CreatedOnDate = new Date(),
-                        CourseId = 'asdasdasd';
-
-                    var mappedCourse = {
-                        id: CourseId,
-                        title: 'asdfg',
-                        template: {
-                            id: 'rtyu'
-                        },
-                        objectives: [],
-                        createdOn: CreatedOnDate.toISOString(),
-                        modifiedOn: CreatedOnDate.toISOString(),
-                        createdBy: 'asasd@ukr.net'
-                    }
-
-                    dataContext.templates = [mappedCourse.template];
-                    dataContext.courses = [];
-
-                    var promise = repository.addCourse(mappedCourse.title, mappedCourse.template.id);
+                    var promise = repository.addCourse(title);
 
                     promise.fin(function () {
-                        expect(promise.inspect().value.id).toEqual(CourseId);
-                        expect(promise.inspect().value.createdOn).toEqual(new Date(CreatedOnDate.toISOString()));
+                        expect(promise.inspect().value).toBe(mappedCourse);
                         done();
                     });
 
-                    post.resolve({ Id: CourseId, CreatedOn: CreatedOnDate.toISOString(), CreatedBy: mappedCourse.createdBy });
+                    post.resolve(course);
                 });
 
             });
@@ -773,7 +544,7 @@
 
                     dataContext.courses = [{ id: courseId, objectives: [] }];
                     dataContext.objectives = [{ id: objectiveId }];
-                    
+
                     var promise = repository.relateObjective(courseId, objectiveId);
 
                     promise.fin(function () {

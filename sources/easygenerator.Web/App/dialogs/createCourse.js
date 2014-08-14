@@ -1,16 +1,22 @@
-﻿define(['eventTracker', 'plugins/router', 'plugins/dialog'], function (eventTracker, router, dialog) {
+﻿define(['plugins/router', 'plugins/dialog', 'commands/createCourseCommand'], function (router, dialog, createCourseCommand) {
     "use strict";
 
-    var events = {
-        navigateToCreateCourse: 'Navigate to create course'
+    var createCourse = function() {
+        this.isCourseCreating = ko.observable(false);
     };
 
-    var createCourse = function() { };
+    createCourse.prototype.createNewCourse = function () {
+        this.isCourseCreating(true);
 
-    createCourse.prototype.navigateToCreateCourse = function() {
-        eventTracker.publish(events.navigateToCreateCourse);
-        router.navigate('course/create');
-        dialog.close(this);
+        var that = this;
+        return createCourseCommand.execute('Splash pop-up after signup')
+            .then(function(course) {
+                router.navigate('#course/' + course.id);
+                dialog.close(that);
+            })
+            .fin(function() {
+                that.isCourseCreating(false);
+            });
     };
 
     return createCourse;

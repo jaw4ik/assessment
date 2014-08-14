@@ -32,14 +32,6 @@
                 }
             },
             {
-                route: 'course/create',
-                moduleId: 'viewmodels/courses/createCourse',
-                title: 'Create Course',
-                settings: {
-                    localizationKey: 'createNewCourse'
-                }
-            },
-            {
                 route: 'objective/:objectiveId/question/:questionId',
                 moduleId: 'viewmodels/questions/question',
                 title: 'Question',

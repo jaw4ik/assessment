@@ -121,7 +121,7 @@
                         {
                             navigate: function () {
                                 eventTracker.publish(events.navigateToCourses);
-                                clientContext.set('lastVisitedObjective', null);
+                                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
                                 router.navigate('courses');
                             },
                             navigationLink: '#courses',
@@ -137,7 +137,7 @@
                         {
                             navigate: function () {
                                 eventTracker.publish(events.navigateToObjectives);
-                                clientContext.set('lastVistedCourse', null);
+                                clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
                                 router.navigate('objectives');
                             },
                             navigationLink: '#objectives',
@@ -153,8 +153,8 @@
                     ]);
                     viewModel.isTryMode = !_.isObject(userContext.identity);
 
-                    clientContext.set('lastVisitedObjective', null);
-                    clientContext.set('lastVistedCourse', null);
+                    clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
+                    clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
 
                     return router.map(routes)
                         .buildNavigationModel()

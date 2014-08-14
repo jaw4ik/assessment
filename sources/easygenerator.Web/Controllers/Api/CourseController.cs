@@ -25,42 +25,40 @@ namespace easygenerator.Web.Controllers.Api
     {
         private readonly ICourseBuilder _builder;
         private readonly IEntityFactory _entityFactory;
-        private readonly ICourseRepository _repository;
+        private readonly ICourseRepository _courseRepository;
         private readonly IUrlHelperWrapper _urlHelper;
         private readonly IScormCourseBuilder _scormCourseBuilder;
         private readonly ICoursePublisher _coursePublisher;
         private readonly IEntityMapper _entityMapper;
         private readonly IDomainEventPublisher _eventPublisher;
+        private readonly ITemplateRepository _templateRepository;
 
-        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory,
+        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository, IEntityFactory entityFactory,
             IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IEntityMapper entityMapper,
-            IDomainEventPublisher eventPublisher)
+            IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository)
         {
             _builder = courseBuilder;
-            _repository = repository;
+            _courseRepository = courseRepository;
             _entityFactory = entityFactory;
             _urlHelper = urlHelper;
             _scormCourseBuilder = scormCourseBuilder;
             _coursePublisher = coursePublisher;
             _entityMapper = entityMapper;
             _eventPublisher = eventPublisher;
+            _templateRepository = templateRepository;
         }
 
         [HttpPost]
         [LimitCoursesAmount]
         [Route("api/course/create")]
-        public ActionResult Create(string title, Template template)
+        public ActionResult Create(string title)
         {
+            var template = _templateRepository.GetDefaultTemplate();
             var course = _entityFactory.Course(title, template, GetCurrentUsername());
 
-            _repository.Add(course);
+            _courseRepository.Add(course);
 
-            return JsonSuccess(new
-            {
-                Id = course.Id.ToNString(),
-                CreatedOn = course.CreatedOn,
-                CreatedBy = course.CreatedBy
-            });
+            return JsonSuccess(_entityMapper.Map(course));
         }
 
         [HttpPost]
@@ -72,7 +70,7 @@ namespace easygenerator.Web.Controllers.Api
             {
                 var collaborators = course.Collaborators.Select(e => e.Email).ToList();
 
-                _repository.Remove(course);
+                _courseRepository.Remove(course);
 
                 _eventPublisher.Publish(new CourseDeletedEvent(course, collaborators, GetCurrentUsername()));
             }
@@ -117,7 +115,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/courses")]
         public ActionResult GetCollection()
         {
-            var courses = _repository.GetAvailableCoursesCollection(User.Identity.Name);
+            var courses = _courseRepository.GetAvailableCoursesCollection(User.Identity.Name);
 
             return JsonSuccess(courses.Select(c => _entityMapper.Map(c)));
         }

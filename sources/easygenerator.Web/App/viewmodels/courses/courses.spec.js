@@ -12,7 +12,9 @@
         localizationManage = require('localization/localizationManager'),
         notify = require('notify'),
         limitCoursesAmount = require('authorization/limitCoursesAmount'),
-        ping = require('ping')
+        ping = require('ping'),
+        uiLocker = require('uiLocker'),
+        createCourseCommand = require('commands/createCourseCommand')
     ;
 
     var
@@ -62,6 +64,8 @@
             spyOn(eventTracker, 'publish');
             spyOn(router, 'navigate');
             spyOn(router, 'replace');
+            spyOn(uiLocker, 'lock');
+            spyOn(uiLocker, 'unlock');
         });
 
         it('should be object', function () {
@@ -251,20 +255,64 @@
 
         });
 
-        describe('navigateToCreation', function () {
+        describe('createCourse:', function () {
+
+            var createCourse;
+
+            beforeEach(function() {
+                createCourse = Q.defer();
+                spyOn(createCourseCommand, 'execute').and.returnValue(createCourse.promise);
+            });
 
             it('should be a function', function () {
-                expect(viewModel.navigateToCreation).toBeFunction();
+                expect(viewModel.createNewCourse).toBeFunction();
             });
 
-            it('should send event \"Navigate to create course\"', function () {
-                viewModel.navigateToCreation();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create course');
+            it('should lock ui', function () {
+                viewModel.createNewCourse();
+                expect(uiLocker.lock).toHaveBeenCalled();
             });
 
-            it('should navigate to #course/create', function () {
-                viewModel.navigateToCreation();
-                expect(router.navigate).toHaveBeenCalledWith('course/create');
+            it('should execute create course command', function() {
+                viewModel.createNewCourse();
+                expect(createCourseCommand.execute).toHaveBeenCalledWith('Courses');
+            });
+
+            describe('when course created successfully', function () {
+
+                var course = { id: 'courseId' };
+
+                beforeEach(function () {
+                    createCourse.resolve(course);
+                });
+
+                it('should navigate to the course', function (done) {
+                    viewModel.createNewCourse().fin(function () {
+                        expect(router.navigate).toHaveBeenCalledWith('#course/courseId');
+                        done();
+                    });
+                });
+
+                it('should unlock ui', function (done) {
+                    viewModel.createNewCourse().fin(function () {
+                        expect(uiLocker.unlock).toHaveBeenCalled();
+                        done();
+                    });
+                });
+            });
+
+            describe('when failed to create course', function () {
+
+                beforeEach(function () {
+                    createCourse.reject();
+                });
+
+                it('should unlock ui', function (done) {
+                    viewModel.createNewCourse().fin(function () {
+                        expect(uiLocker.unlock).toHaveBeenCalled();
+                        done();
+                    });
+                });
             });
 
         });

@@ -6,7 +6,7 @@
                 sendActualEvent(questionType, eventCategory);
                 uiLocker.lock();
                 return questionRepository.addQuestion(objectiveId, { title: getActualQuestionName(questionType) }, questionType).then(function (question) {
-                    clientContext.set('lastCreatedQuestionId', question.id);
+                    clientContext.set(constants.clientContextKeys.lastCreatedQuestionId, question.id);
                     uiLocker.unlock();
 
                     var queryString = _.isNullOrUndefined(courseId) ? "" : '?courseId=' + courseId;

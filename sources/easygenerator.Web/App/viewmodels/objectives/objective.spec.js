@@ -11,6 +11,7 @@
             localizationManager = require('localization/localizationManager'),
             notify = require('notify'),
             uiLocker = require('uiLocker'),
+            constants = require('constants'),
             clientContext = require('clientContext'),
             BackButton = require('models/backButton'),
             createQuestionCommand = require('commands/createQuestionCommand'),
@@ -128,7 +129,7 @@
                     var promise = viewModel.activate(objective.id, null);
 
                     promise.fin(function () {
-                        expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', objective.id);
+                        expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVisitedObjective, objective.id);
                         done();
                     });
                 });

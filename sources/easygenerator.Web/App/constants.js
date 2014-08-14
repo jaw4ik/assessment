@@ -239,6 +239,13 @@
             eventCategories: {
                 header: 'Header',
                 informationContent: 'Information'
+            },
+
+            clientContextKeys: {
+                lastCreatedQuestionId: 'lastCreatedQuestionId',
+                lastCreatedCourseId: 'lastCreatedCourseId',
+                lastVistedCourse: 'lastVistedCourse',
+                lastVisitedObjective: 'lastVisitedObjective'
             }
         };
     }

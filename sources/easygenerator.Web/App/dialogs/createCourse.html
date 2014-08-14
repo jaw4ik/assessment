@@ -12,8 +12,8 @@
     <div class="create-course-dialog-footer">
         <div class="create-course-action-wrapper">
             <div class="create-item-btn-wrapper">
-                <button class="create-item-btn btn green big hideDialog" data-bind="click: navigateToCreateCourse">
-                    <span class="create-item-btn-caption" data-bind="localize: { text: 'createCourseViewCaption' }"></span>
+                <button class="create-course-btn btn" data-bind="click: createNewCourse, disable: isCourseCreating(), css: { 'creating': isCourseCreating() }">
+                    <span class="create-course-btn-caption" data-bind="localize: { text: isCourseCreating() ? 'creatingStatus' : 'createCourseButtonCaption' }"></span>
                 </button>
             </div>
         </div>

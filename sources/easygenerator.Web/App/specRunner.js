@@ -27,6 +27,7 @@
         var specs = [
             'authorization/limitCoursesAmount.spec',
             'commands/createQuestionCommand.spec',
+            'commands/createCourseCommand.spec',
             'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/removeCollaborator.spec',
@@ -143,7 +144,6 @@
             'treeOfContent/RelatedObjectiveTreeNode.spec',
             'treeOfContent/QuestionTreeNode.spec',
             'viewmodels/common/contentField.spec',
-            'viewmodels/courses/createCourse.spec',
             'viewmodels/courses/courses.spec',
             'viewmodels/courses/course.spec',
             'viewmodels/courses/design.spec',

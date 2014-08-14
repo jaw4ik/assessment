@@ -1,11 +1,12 @@
-﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'ping'],
-    function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount, ping) {
+﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
+    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'ping', 'commands/createCourseCommand', 'uiLocker'],
+    function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount, ping,
+        createCourseCommand, uiLocker) {
         "use strict";
 
         var
             events = {
                 navigateToObjectives: 'Navigate to objectives',
-                navigateToCreateCourse: 'Navigate to create course',
                 courseSelected: 'Course selected',
                 courseUnselected: 'Course unselected',
                 navigateToCourseDetails: 'Navigate to course details',
@@ -32,11 +33,11 @@
 
             toggleSelection: toggleSelection,
 
-            navigateToCreation: navigateToCreation,
             navigateToDetails: navigateToDetails,
             navigateToPublish: navigateToPublish,
 
             deleteSelectedCourses: deleteSelectedCourses,
+            createNewCourse: createNewCourse,
 
             courseCollaborationStarted: courseCollaborationStarted,
             deletedByCollaborator: deletedByCollaborator,
@@ -78,13 +79,6 @@
                 eventTracker.publish(events.courseUnselected);
 
             course.isSelected(!course.isSelected());
-        }
-
-        function navigateToCreation() {
-            if (viewModel.isCreateCourseAvailable()) {
-                eventTracker.publish(events.navigateToCreateCourse);
-                router.navigate('course/create');
-            }
         }
 
         function navigateToDetails(course) {
@@ -181,13 +175,13 @@
         }
 
         function activate() {
-            viewModel.lastVistedCourseId = clientContext.get('lastVistedCourse');
+            viewModel.lastVistedCourseId = clientContext.get(constants.clientContextKeys.lastVistedCourse);
             viewModel.currentLanguage = localizationManager.currentLanguage;
 
             return userContext.identify().then(function () {
                 var userEmail = userContext.identity.email;
 
-                clientContext.set('lastVistedCourse', null);
+                clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
 
                 viewModel.courses(mapCourses(_.filter(dataContext.courses, function (item) {
                     return item.createdBy == userEmail;
@@ -228,6 +222,18 @@
             course.objectives = item.objectives;
 
             return course;
+        }
+
+        function createNewCourse() {
+            uiLocker.lock();
+            return createCourseCommand.execute('Courses')
+                .then(function (course) {
+                    uiLocker.unlock();
+                    router.navigate('#course/' + course.id);
+                })
+                .fail(function () {
+                    uiLocker.unlock();
+                });
         }
 
     }

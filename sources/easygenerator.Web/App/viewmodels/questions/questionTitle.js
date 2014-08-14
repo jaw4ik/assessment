@@ -65,8 +65,8 @@
                     });
                 };
 
-            var lastCreatedQuestionId = clientContext.get('lastCreatedQuestionId') || '';
-            clientContext.remove('lastCreatedQuestionId');
+            var lastCreatedQuestionId = clientContext.get(constants.clientContextKeys.lastCreatedQuestionId) || '';
+            clientContext.remove(constants.clientContextKeys.lastCreatedQuestionId);
             isCreatedQuestion = lastCreatedQuestionId === question.id;
 
             return {

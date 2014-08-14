@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'models/course', 'guard', 'http/httpWrapper', 'durandal/app'],
-    function (dataContext, constants, CourseModel, guard, httpWrapper, app) {
+﻿define(['dataContext', 'constants', 'models/course', 'guard', 'http/httpWrapper', 'durandal/app', 'mappers/courseModelMapper'],
+    function (dataContext, constants, CourseModel, guard, httpWrapper, app, courseModelMapper) {
         "use strict";
 
         var repository = {
@@ -41,54 +41,20 @@
             });
         }
 
-        function addCourse(title, templateId) {
+        function addCourse(title) {
             return Q.fcall(function () {
-                guard.throwIfNotString(title, 'Title is not a string');
-                guard.throwIfNotString(templateId, 'TemplateId is not a string');
 
-                var requestArgs = {
-                    title: title,
-                    templateId: templateId
-                };
+                guard.throwIfNotString(title, 'Course title (string) was expected');
 
-                return httpWrapper.post('api/course/create', requestArgs).then(function (response) {
-
+                return httpWrapper.post('api/course/create', { title: title }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
-                    guard.throwIfNotString(response.Id, 'Response Id is not a string');
-                    guard.throwIfNotString(response.CreatedOn, 'Response CreatedOn is not a string');
-                    guard.throwIfNotString(response.CreatedBy, 'Response CreatedBy is not a string');
 
-                    var template = _.find(dataContext.templates, function (item) {
-                        return item.id === templateId;
-                    });
+                    var course = courseModelMapper.map(response, dataContext.objectives, dataContext.templates);
+                    dataContext.courses.push(course);
 
-                    guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
-                    
-                    var
-                        courseId = response.Id,
-                        createdOn = new Date(response.CreatedOn),
-                        createdCourse = new CourseModel({
-                            id: courseId,
-                            title: title,
-                            template: {
-                                id: template.id,
-                                name: template.name,
-                                image: template.image
-                            },
-                            objectives: [],
-                            createdOn: createdOn,
-                            createdBy: response.CreatedBy,
-                            modifiedOn: createdOn
-                        });
+                    app.trigger(constants.messages.course.created, course);
 
-                    dataContext.courses.push(createdCourse);
-
-                    app.trigger(constants.messages.course.created, createdCourse);
-
-                    return {
-                        id: createdCourse.id,
-                        createdOn: createdCourse.createdOn
-                    };
+                    return course;
                 });
             });
         }
@@ -257,7 +223,7 @@
         function updateIntroductionContent(courseId, introductionContent) {
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id is not a string');
-                
+
                 return httpWrapper.post('api/course/updateintroductioncontent', { courseId: courseId, introductionContent: introductionContent }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');

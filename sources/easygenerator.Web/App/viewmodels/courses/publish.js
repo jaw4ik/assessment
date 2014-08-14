@@ -74,8 +74,8 @@
                 return repository.getById(courseId).then(function (course) {
                     viewModel.courseId = course.id;
 
-                    clientContext.set('lastVistedCourse', course.id);
-                    clientContext.set('lastVisitedObjective', null);
+                    clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
+                    clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
 
                     viewModel.publishAction(publishPublishingAction(course));
                     viewModel.buildAction(buildPublishingAction(course));

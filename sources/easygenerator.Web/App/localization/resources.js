@@ -358,6 +358,9 @@
     courseHasNotBeenPublishedDescription: {
         en: 'This course has not been published yet. Click the button below to get the private link.'
     },
+    courseDefaultTitle: {
+        en: 'Untitled course'
+    },
     /* End resource section for model Courses */
     
     /* Resource section for model CreateObjective */
@@ -433,26 +436,20 @@
     /* End resource section for model CreateObjective */
     
     /* Resource section for model CreateCourse */
-    typeCourseTitleHere: {
-        en: 'Type course title here...'
-    },
     createNewCourse: {
         en: 'New course'
     },
     chooseTemplate: {
         en: 'Choose template:'
     },
-    defineCourseTitle: {
-        en: 'Define title'
-    },
-    chooseCourseTemplate: {
-        en: 'Choose template'
-    },
     createAndContinue: {
         en: 'Create and continue'
     },
     previewTemplate: {
         en: 'Preview template'
+    },
+    createCourseButtonCaption: {
+        en: 'Create course'
     },
     /* End resource section for model CreateCourse */
     
@@ -1059,9 +1056,6 @@
     },
     questionViewCaption: {
         en: 'Question editor'
-    },
-    createCourseViewCaption: {
-        en: 'Create course'
     },
     createObjectiveViewCaption: {
         en: 'Create learning objective'

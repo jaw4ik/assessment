@@ -211,7 +211,7 @@
 
             function initObjectiveInfo(id) {
                 return repository.getById(id).then(function (objective) {
-                    clientContext.set('lastVisitedObjective', id);
+                    clientContext.set(constants.clientContextKeys.lastVisitedObjective, id);
                     viewModel.objectiveId = objective.id;
                     viewModel.title(objective.title);
 

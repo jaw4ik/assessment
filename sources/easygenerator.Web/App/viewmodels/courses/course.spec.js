@@ -993,14 +993,48 @@
 
                 it('should set course id as the last visited in client context', function (done) {
                     viewModel.activate(course.id).fin(function () {
-                        expect(clientContext.set).toHaveBeenCalledWith('lastVistedCourse', course.id);
+                        expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVistedCourse, course.id);
                         done();
                     });
                 });
 
                 it('should reset last visited objective in client context', function (done) {
                     viewModel.activate(course.id).fin(function () {
-                        expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', null);
+                        expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVisitedObjective, null);
+                        done();
+                    });
+                });
+
+                describe('when last created course is current course', function () {
+                    beforeEach(function() {
+                        spyOn(clientContext, 'get').and.returnValue(course.id);
+                    });
+
+                    it('should set isLastCreatedCourse to true', function (done) {
+                        viewModel.activate(course.id).fin(function () {
+                            expect(viewModel.isLastCreatedCourse).toBeTruthy();
+                            done();
+                        });
+                    });
+                });
+
+                describe('when last created course is not current course', function () {
+                    beforeEach(function () {
+                        spyOn(clientContext, 'get').and.returnValue('some id');
+                    });
+
+                    it('should set isLastCreatedCourse to true', function (done) {
+                        viewModel.activate(course.id).fin(function () {
+                            expect(viewModel.isLastCreatedCourse).toBeFalsy();
+                            done();
+                        });
+                    });
+                });
+
+                it('should remove lastCreatedCourse key from client context', function (done) {
+                    spyOn(clientContext, 'remove');
+                    viewModel.activate(course.id).fin(function () {
+                        expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.lastCreatedCourseId);
                         done();
                     });
                 });

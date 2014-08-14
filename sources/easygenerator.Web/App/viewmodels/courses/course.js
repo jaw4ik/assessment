@@ -48,6 +48,7 @@
             courseTitleMaxLength: constants.validation.courseTitleMaxLength,
             isObjectivesListReorderedByCollaborator: ko.observable(false),
             collaborationWarning: ko.observable(''),
+            isLastCreatedCourse: false,
 
             backButtonData: new BackButton({
                 url: 'courses',
@@ -354,8 +355,8 @@
                 viewModel.id = course.id;
                 viewModel.createdBy = course.createdBy;
 
-                clientContext.set('lastVistedCourse', course.id);
-                clientContext.set('lastVisitedObjective', null);
+                clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
+                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
 
                 viewModel.title(course.title);
                 viewModel.objectivesMode(objectivesListModes.display);
@@ -369,6 +370,10 @@
                 viewModel.courseIntroductionContent = vmContentField(course.introductionContent, eventsForCourseContent, false, function (content) {
                     return repository.updateIntroductionContent(course.id, content);
                 });
+
+                var lastCreatedCourseId = clientContext.get(constants.clientContextKeys.lastCreatedCourseId) || '';
+                clientContext.remove(constants.clientContextKeys.lastCreatedCourseId);
+                viewModel.isLastCreatedCourse = lastCreatedCourseId === course.id;
 
                 viewModel.updateCollaborationWarning();
 
