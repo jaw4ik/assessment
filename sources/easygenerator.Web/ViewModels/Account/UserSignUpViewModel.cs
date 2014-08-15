@@ -13,10 +13,9 @@ namespace easygenerator.Web.ViewModels.Account
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }
-        public string Organization { get; set; }
         public string Country { get; set; }
 
-        public string PeopleBusyWithCourseDevelopmentAmount { get; set; }
+        public string UserRole { get; set; }
         public bool RequestIntroductionDemo { get; set; }
     }
 }

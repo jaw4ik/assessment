@@ -41,7 +41,6 @@ namespace easygenerator.Web.WooCommerce
                     firstname = user.FirstName,
                     lastname = user.LastName,
                     password = userPassword,
-                    organization = user.Organization,
                     country = CountriesInfo.GetCountryCode(user.Country),
                     phone = user.Phone
                 };

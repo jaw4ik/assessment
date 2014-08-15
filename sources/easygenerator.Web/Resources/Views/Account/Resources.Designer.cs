@@ -231,15 +231,7 @@ namespace AccountRes {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Fill in your organization name.
-        /// </summary>
-        public static string EnterValidOrganization {
-            get {
-                return ResourceManager.GetString("EnterValidOrganization", resourceCulture);
-            }
-        }
-        
+       
         /// <summary>
         ///   Looks up a localized string similar to Fill in your phone number.
         /// </summary>
@@ -335,15 +327,6 @@ namespace AccountRes {
         public static string HidePassword {
             get {
                 return ResourceManager.GetString("HidePassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to How many people at your company are authoring courses?.
-        /// </summary>
-        public static string HowManyPeopleQuestion {
-            get {
-                return ResourceManager.GetString("HowManyPeopleQuestion", resourceCulture);
             }
         }
         
@@ -476,15 +459,6 @@ namespace AccountRes {
         public static string OptionalInformation {
             get {
                 return ResourceManager.GetString("OptionalInformation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Organization name.
-        /// </summary>
-        public static string OrganizationNameCaption {
-            get {
-                return ResourceManager.GetString("OrganizationNameCaption", resourceCulture);
             }
         }
         
@@ -749,6 +723,94 @@ namespace AccountRes {
             get
             {
                 return ResourceManager.GetString("SignUpSecondStepTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string.
+        /// </summary>
+        public static string RoleQuestion
+        {
+            get
+            {
+                return ResourceManager.GetString("RoleQuestion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string.
+        /// </summary>
+        public static string TeacherOption
+        {
+            get
+            {
+                return ResourceManager.GetString("TeacherOption", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string.
+        /// </summary>
+        public static string TrainerOption
+        {
+            get
+            {
+                return ResourceManager.GetString("TrainerOption", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string.
+        /// </summary>
+        public static string SmeOption
+        {
+            get
+            {
+                return ResourceManager.GetString("SmeOption", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string.
+        /// </summary>
+        public static string ExpertOption
+        {
+            get
+            {
+                return ResourceManager.GetString("ExpertOption", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string.
+        /// </summary>
+        public static string DesignerOption
+        {
+            get
+            {
+                return ResourceManager.GetString("DesignerOption", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string.
+        /// </summary>
+        public static string ManagerOption
+        {
+            get
+            {
+                return ResourceManager.GetString("ManagerOption", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string.
+        /// </summary>
+        public static string NotInTheListOption
+        {
+            get
+            {
+                return ResourceManager.GetString("NotInTheListOption", resourceCulture);
             }
         }
     }

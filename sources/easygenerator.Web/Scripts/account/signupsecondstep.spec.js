@@ -12,40 +12,6 @@
             expect(viewModel).toBeObject();
         });
 
-        describe('organization:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.organization).toBeObservable();
-            });
-
-            describe('isValid:', function () {
-
-                it('should be computed', function () {
-                    expect(viewModel.organization.isValid).toBeComputed();
-                });
-
-            });
-
-            describe('when empty', function () {
-
-                it('should be not valid', function () {
-                    viewModel.organization('');
-                    expect(viewModel.organization.isValid()).toBeFalsy();
-                });
-
-            });
-
-            describe('when not empty', function () {
-
-                it('should be valid', function () {
-                    viewModel.organization('some organization');
-                    expect(viewModel.organization.isValid()).toBeTruthy();
-                });
-
-            });
-
-        });
-
         describe('country:', function () {
 
             it('should be observable', function () {
@@ -143,10 +109,10 @@
 
         });
 
-        describe('peopleBusyWithCourseDevelopmentAmount:', function () {
+        describe('userRole:', function () {
 
             it('should be observable', function () {
-                expect(viewModel.peopleBusyWithCourseDevelopmentAmount).toBeObservable();
+                expect(viewModel.userRole).toBeObservable();
             });
 
         });
@@ -160,15 +126,6 @@
         });
 
         describe('isFormValid:', function () {
-
-            describe('when organization is not valid', function () {
-
-                it('should be falsy', function () {
-                    viewModel.organization('');
-
-                    expect(viewModel.isFormValid()).toBeFalsy();
-                });
-            });
 
             describe('when country is invalid', function () {
 
@@ -188,10 +145,9 @@
                 });
             });
 
-            describe('when organization, country and phone are valid', function () {
+            describe('when country and phone are valid', function () {
 
                 it('should be true', function () {
-                    viewModel.organization('organization');
                     viewModel.country('country');
                     viewModel.phone('phone');
 
@@ -202,20 +158,6 @@
 
         });
 
-
-        describe('onFocusOrganization:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.onFocusOrganization).toBeFunction();
-            });
-
-            it('should set isOrganizationErrorVisible to false', function () {
-                viewModel.isOrganizationErrorVisible(true);
-                viewModel.onFocusOrganization();
-                expect(viewModel.isOrganizationErrorVisible()).toBeFalsy();
-            });
-
-        });
 
         describe('onFocusPhone:', function () {
 
@@ -256,15 +198,6 @@
 
         });
 
-        describe('isOrganizationErrorVisible', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.isOrganizationErrorVisible).toBeObservable();
-            });
-
-        });
-
-
         describe('validatePhone:', function () {
 
             it('should be function', function () {
@@ -295,36 +228,6 @@
 
         });
 
-        describe('validateOrganization:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.validateOrganization).toBeFunction();
-            });
-
-            describe('when organization has only whitespaces', function () {
-
-                it('should be set isOrganizationErrorVisible to true', function () {
-                    viewModel.organization('        ');
-                    viewModel.isOrganizationErrorVisible(false);
-                    viewModel.validateOrganization();
-                    expect(viewModel.isOrganizationErrorVisible()).toBeTruthy();
-                });
-
-            });
-
-            describe('when organization not has only whitespaces', function () {
-
-                it('should be set isOrganizationErrorVisible to false', function () {
-                    viewModel.organization('    some organization    ');
-                    viewModel.isOrganizationErrorVisible(true);
-                    viewModel.validateOrganization();
-                    expect(viewModel.isOrganizationErrorVisible()).toBeFalsy();
-                });
-
-            });
-        });
-
-
         describe('isSignupRequestPending:', function () {
 
             it('should be observable', function () {
@@ -344,7 +247,7 @@
             });
 
             beforeEach(function () {
-                viewModel.peopleBusyWithCourseDevelopmentAmount('2');
+                viewModel.userRole('not in the list');
             });
 
             it('should get user data from client session context', function () {
@@ -396,16 +299,6 @@
                 localStorage.removeItem('showCreateCoursePopup');
             });
 
-            describe('when organization is not valid', function () {
-
-                it('should not call \"/api/user/signup"', function () {
-                    viewModel.organization('');
-                    viewModel.signUp();
-
-                    expect($.ajax).not.toHaveBeenCalled();
-                });
-            });
-
             describe('when country is invalid', function () {
 
                 it('should not call \"/api/user/signup"', function () {
@@ -441,9 +334,8 @@
 
                 beforeEach(function () {
                     viewModel.phone('+380971234567');
-                    viewModel.organization('ism');
                     viewModel.country('Ukraine');
-                    viewModel.peopleBusyWithCourseDevelopmentAmount('2');
+                    viewModel.userRole('not in the list');
                 });
 
                 it('should get user data from client session context', function () {
@@ -472,7 +364,7 @@
                     var data;
 
                     beforeEach(function () {
-                        var userData = { email: 'user@email.com', password: 'abcABC123!@#', fullName: 'user', phone: '+380971234567', organization: 'ism', country: 'Ukraine' };
+                        var userData = { email: 'user@email.com', password: 'abcABC123!@#', fullName: 'user', phone: '+380971234567', country: 'Ukraine' };
                         spyOn(app.clientSessionContext, 'get').and.returnValue(userData);
 
                         data = {
@@ -480,9 +372,8 @@
                             password: userData.password,
                             fullName: userData.fullName,
                             phone: viewModel.phone(),
-                            organization: viewModel.organization(),
                             country: viewModel.country(),
-                            peopleBusyWithCourseDevelopmentAmount: viewModel.peopleBusyWithCourseDevelopmentAmount(),
+                            userRole: viewModel.userRole(),
                             requestIntroductionDemo: viewModel.requestIntroductionDemo()
                         };
                     });

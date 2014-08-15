@@ -4,30 +4,25 @@ app.signUpSecondStepModel = function () {
 
     var self = {
         lastValidateCountry: null,
-        lastValidatePhone: null,
-        lastValidateOrganization: null
+        lastValidatePhone: null
     };
 
     var viewModel = {
-        organization: ko.observable(''),
         country: ko.observable(null),
         countries: app.constants.countries,
         phone: ko.observable(''),
         phoneCode: ko.observable('+ ( ... )'),
-        peopleBusyWithCourseDevelopmentAmount: ko.observable(),
+        userRole: ko.observable(),
         requestIntroductionDemo: ko.observable(false),
 
-        onFocusOrganization: onFocusOrganization,
         onFocusPhone: onFocusPhone,
 
         isCountrySuccessVisible: ko.observable(false),
         isCountryErrorVisible: ko.observable(false),
         isPhoneErrorVisible: ko.observable(false),
-        isOrganizationErrorVisible: ko.observable(false),
-
+        
         validatePhone: validatePhone,
-        validateOrganization: validateOrganization,
-
+        
         isSignupRequestPending: ko.observable(false),
         isInitializationContextCorrect: isInitializationContextCorrect,
 
@@ -37,10 +32,6 @@ app.signUpSecondStepModel = function () {
 
     viewModel.phone.isValid = ko.computed(function () {
         return !_.isEmpty(viewModel.phone());
-    });
-
-    viewModel.organization.isValid = ko.computed(function () {
-        return !_.isEmpty(viewModel.organization());
     });
 
     viewModel.country.isValid = ko.computed(function () {
@@ -63,15 +54,11 @@ app.signUpSecondStepModel = function () {
     });
 
     viewModel.isFormValid = ko.computed(function () {
-        return viewModel.organization.isValid() && viewModel.country.isValid() && viewModel.phone.isValid();
+        return viewModel.country.isValid() && viewModel.phone.isValid();
     });
 
     return viewModel;
 
-
-    function onFocusOrganization() {
-        viewModel.isOrganizationErrorVisible(false);
-    }
 
     function onFocusPhone() {
         viewModel.isPhoneErrorVisible(false);
@@ -83,13 +70,6 @@ app.signUpSecondStepModel = function () {
         viewModel.phone(viewModel.phone().trim());
         viewModel.isPhoneErrorVisible(_.isEmpty(self.lastValidatePhone));
     }
-
-    function validateOrganization() {
-        self.lastValidateOrganization = viewModel.organization().trim();
-        viewModel.organization(viewModel.organization().trim());
-        viewModel.isOrganizationErrorVisible(_.isEmpty(self.lastValidateOrganization));
-    }
-
 
     function isInitializationContextCorrect() {
         var data = app.clientSessionContext.get(app.constants.userSignUpFirstStepData);
@@ -107,9 +87,8 @@ app.signUpSecondStepModel = function () {
             throw 'User sign up data is not defined';
         }
 
-        data.peopleBusyWithCourseDevelopmentAmount = viewModel.peopleBusyWithCourseDevelopmentAmount();
+        data.userRole = viewModel.userRole();
         data.phone = viewModel.phone();
-        data.organization = viewModel.organization();
         data.country = viewModel.country();
         data.requestIntroductionDemo = viewModel.requestIntroductionDemo();
 

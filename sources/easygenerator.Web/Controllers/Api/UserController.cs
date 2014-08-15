@@ -175,10 +175,10 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var user = _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone,
-                profile.Organization, profile.Country, profile.Email);
+                profile.Country, profile.Email);
 
             _repository.Add(user);
-            _eventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.PeopleBusyWithCourseDevelopmentAmount, profile.RequestIntroductionDemo));
+            _eventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.UserRole, profile.RequestIntroductionDemo));
 
             if (User.Identity.IsAuthenticated && _repository.GetUserByEmail(User.Identity.Name) == null)
             {

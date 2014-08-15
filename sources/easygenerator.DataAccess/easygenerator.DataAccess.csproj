@@ -177,6 +177,10 @@
     <Compile Include="Migrations\201408071315123_DropColumnGroupFromAnswersTable.Designer.cs">
       <DependentUpon>201408071315123_DropColumnGroupFromAnswersTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408150714191_OrganizationCanBeNullUsersTable.cs" />
+    <Compile Include="Migrations\201408150714191_OrganizationCanBeNullUsersTable.Designer.cs">
+      <DependentUpon>201408150714191_OrganizationCanBeNullUsersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -298,6 +302,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408071315123_DropColumnGroupFromAnswersTable.resx">
       <DependentUpon>201408071315123_DropColumnGroupFromAnswersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408150714191_OrganizationCanBeNullUsersTable.resx">
+      <DependentUpon>201408150714191_OrganizationCanBeNullUsersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

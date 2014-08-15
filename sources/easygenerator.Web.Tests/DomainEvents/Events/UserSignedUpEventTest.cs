@@ -26,13 +26,13 @@ namespace easygenerator.Web.Tests.DomainEvents.Events
         {
             //Arrange
             var user = Substitute.For<User>();
-            const string courseDevelopersCount = "5";
+            const string userRole = "not in the list";
 
-            var signedUpEvent = new UserSignedUpEvent(user, "abcABC123", courseDevelopersCount, true);
+            var signedUpEvent = new UserSignedUpEvent(user, "abcABC123", userRole, true);
 
             //Assert
             signedUpEvent.User.Should().Be(user);
-            signedUpEvent.CourseDevelopersCount.Should().Be(courseDevelopersCount);
+            signedUpEvent.UserRole.Should().Be(userRole);
             signedUpEvent.RequestIntroductionDemo.Should().Be(true);
         }
     }

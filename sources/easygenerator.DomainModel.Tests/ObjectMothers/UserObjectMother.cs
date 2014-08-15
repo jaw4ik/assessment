@@ -43,15 +43,10 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(country: country);
         }
 
-        public static User CreateWithOrganization(string organization)
-        {
-            return Create(oraganization: organization);
-        }
-
         public static User Create(string email = Email, string password = Password, string firstname = FirstName, string lastname = LastName, string phone = Phone,
-            string oraganization = Organization, string country = Country, string createdBy = CreatedBy)
+            string country = Country, string createdBy = CreatedBy)
         {
-            return new User(email, password, firstname, lastname, phone, oraganization, country, createdBy);
+            return new User(email, password, firstname, lastname, phone, country, createdBy);
         }
     }
 }

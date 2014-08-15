@@ -12,15 +12,13 @@
     <br />
     <label>Last Name: @Model.User.LastName</label>
     <br />
-    <label>Company Name: @Model.User.Organization</label>
-    <br />
     <label>Email Address: @Model.User.Email</label>
     <br />
     <label>Phone Number: (@CountriesInfo.GetCountryPhoneCode(@Model.User.Country)) @Model.User.Phone.Replace(@CountriesInfo.GetCountryPhoneCode(@Model.User.Country), "")</label>
     <br />
     <label>Country: @Model.User.Country</label>
     <br />
-    <label>How many people at your company are authoring courses? @Model.CourseDevelopersCount</label>
+    <label>What is your role? @Model.UserRole</label>
     <br />
     <label>Would you like an introduction demo? @Model.RequestIntroductionDemo</label>
 </body>

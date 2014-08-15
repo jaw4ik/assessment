@@ -13,7 +13,7 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal User() { }
 
-        protected internal User(string email, string password, string firstname, string lastname, string phone, string organization, string country, string createdBy)
+        protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string createdBy)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -21,7 +21,6 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNullOrEmpty(firstname, "firstname");
             ArgumentValidation.ThrowIfNullOrEmpty(lastname, "lastname");
             ArgumentValidation.ThrowIfNullOrEmpty(phone, "phone");
-            ArgumentValidation.ThrowIfNullOrEmpty(organization, "organization");
             ArgumentValidation.ThrowIfNullOrEmpty(country, "country");
 
             Email = email;
@@ -29,7 +28,6 @@ namespace easygenerator.DomainModel.Entities
             FirstName = firstname;
             LastName = lastname;
             Phone = phone;
-            Organization = organization;
             Country = country;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
 

@@ -24,7 +24,7 @@ namespace easygenerator.DomainModel
         Answer Answer(string text, bool isCorrect, string createdBy);
         Answer Answer(string text, bool isCorrect, string createdBy, DateTime createdOn);
         LearningContent LearningContent(string text, string createdBy);
-        User User(string email, string password, string firstname, string lastname, string phone, string organization, string country, string createdBy);
+        User User(string email, string password, string firstname, string lastname, string phone, string country, string createdBy);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
         InformationContent InformationContent(string title, string createdBy);
@@ -97,9 +97,9 @@ namespace easygenerator.DomainModel
             return new LearningContent(text, createdBy);
         }
 
-        public User User(string email, string password, string firstname, string lastname, string phone, string organization, string country, string createdBy)
+        public User User(string email, string password, string firstname, string lastname, string phone, string country, string createdBy)
         {
-            return new User(email, password, firstname, lastname, phone, organization, country, createdBy);
+            return new User(email, password, firstname, lastname, phone, country, createdBy);
         }
 
         public PasswordRecoveryTicket PasswordRecoveryTicket(User user)

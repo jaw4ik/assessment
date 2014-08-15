@@ -142,16 +142,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void User_ShouldThrowArgumentNullException_WhenOrganizationIsNull()
-        {
-            //Arrange
-            Action action = () => UserObjectMother.CreateWithOrganization(null);
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("organization");
-        }
-
-        [TestMethod]
         public void User_ShouldThrowArgumentNullException_WhenFirstNameIsEmpty()
         {
             //Arrange
@@ -192,16 +182,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void User_ShouldThrowArgumentException_WhenOrganizationIsEmpty()
-        {
-            //Arrange
-            Action action = () => UserObjectMother.CreateWithOrganization("");
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
-        }
-
-        [TestMethod]
         public void User_ShouldCreateUser()
         {
             //Arrange
@@ -210,12 +190,11 @@ namespace easygenerator.DomainModel.Tests.Entities
             var firstname = "easygenerator user firstname";
             var lastname = "easygenerator user lastname";
             var phone = "some phone";
-            var organization = "Easygenerator";
             var country = "some country";
             var creationDate = CurrentDate;
 
             //Act
-            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, organization, country, CreatedBy);
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, CreatedBy);
 
             //Assert
             user.Id.Should().NotBeEmpty();
@@ -224,7 +203,6 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.FirstName.Should().Be(firstname);
             user.LastName.Should().Be(lastname);
             user.Phone.Should().Be(phone);
-            user.Organization.Should().Be(organization);
             user.Country.Should().Be(country);
             user.CreatedOn.Should().Be(creationDate);
             user.ModifiedOn.Should().Be(creationDate);

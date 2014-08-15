@@ -174,9 +174,6 @@
   <data name="EnterValidLastName" xml:space="preserve">
     <value>Fill in your last name</value>
   </data>
-  <data name="EnterValidOrganization" xml:space="preserve">
-    <value>Fill in your organization name</value>
-  </data>
   <data name="EnterValidPhoneNumber" xml:space="preserve">
     <value>Fill in your phone number</value>
   </data>
@@ -221,9 +218,6 @@ your password.</value>
   <data name="HidePassword" xml:space="preserve">
     <value>Hide password</value>
   </data>
-  <data name="HowManyPeopleQuestion" xml:space="preserve">
-    <value>How many people at your company are authoring courses?</value>
-  </data>
   <data name="IncorrectEmailOrPassword" xml:space="preserve">
     <value>Such e-mail and password combination not found</value>
   </data>
@@ -256,9 +250,6 @@ your password.</value>
   </data>
   <data name="OptionalInformation" xml:space="preserve">
     <value>Optional information</value>
-  </data>
-  <data name="OrganizationNameCaption" xml:space="preserve">
-    <value>Organization name</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>Other</value>
@@ -359,5 +350,29 @@ your password.</value>
   </data>
   <data name="SignUpSecondStepTitle" xml:space="preserve">
     <value>Almost there...</value>
+  </data>
+  <data name="DesignerOption" xml:space="preserve">
+    <value>Instructional designer</value>
+  </data>
+  <data name="ExpertOption" xml:space="preserve">
+    <value>Elearning expert</value>
+  </data>
+  <data name="ManagerOption" xml:space="preserve">
+    <value>eLearning manager</value>
+  </data>
+  <data name="NotInTheListOption" xml:space="preserve">
+    <value>not in the list</value>
+  </data>
+  <data name="RoleQuestion" xml:space="preserve">
+    <value>What is your role?</value>
+  </data>
+  <data name="SmeOption" xml:space="preserve">
+    <value>Subject matter expert</value>
+  </data>
+  <data name="TeacherOption" xml:space="preserve">
+    <value>Teacher</value>
+  </data>
+  <data name="TrainerOption" xml:space="preserve">
+    <value>Trainer</value>
   </data>
 </root>
