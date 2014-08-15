@@ -360,8 +360,8 @@ your password.</value>
   <data name="ManagerOption" xml:space="preserve">
     <value>eLearning manager</value>
   </data>
-  <data name="NotInTheListOption" xml:space="preserve">
-    <value>not in the list</value>
+  <data name="OtherOption" xml:space="preserve">
+    <value>Other</value>
   </data>
   <data name="RoleQuestion" xml:space="preserve">
     <value>What is your role?</value>

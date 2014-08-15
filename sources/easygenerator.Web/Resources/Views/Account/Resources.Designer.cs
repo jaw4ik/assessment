@@ -806,11 +806,11 @@ namespace AccountRes {
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string NotInTheListOption
+        public static string OtherOption
         {
             get
             {
-                return ResourceManager.GetString("NotInTheListOption", resourceCulture);
+                return ResourceManager.GetString("OtherOption", resourceCulture);
             }
         }
     }
