@@ -4,7 +4,7 @@
 
     var cssSelectors = {
         blankInput: '.blankInput',
-        blankDropDown: '.blankSelect',
+        blankDropDown: '.blankSelect'
     };
 
     var attributes = {
@@ -38,7 +38,7 @@
             var $input = $(item),
                 value = $input.val().trim(),
                 groupId = $input.attr(attributes.groupId);
-            
+
             if (_.isEmptyOrWhitespace(groupId)) {
                 groupId = generateGuid();
                 $input.attr(attributes.groupId, groupId);
@@ -59,7 +59,7 @@
                 groupId = generateGuid();
                 $select.attr(attributes.groupId, groupId);
             }
-            
+
             $('option', $select).each(function (index, option) {
                 var $option = $(option);
 
@@ -76,9 +76,9 @@
             answers: answers
         };
     }
-    
+
     function getData(template, answers) {
-        var 
+        var
             $text = $(accessoryTag).append($.parseHTML(template)),
             blankInputs = $(cssSelectors.blankInput, $text),
             blankDropDowns = $(cssSelectors.blankDropDown, $text);
@@ -105,7 +105,13 @@
             });
 
             if (!_.isNullOrUndefined(correctAnswer)) {
-                $("option[value='" + correctAnswer.text + "']", $select).attr(attributes.checked, 'checked');
+                $('option', $select).each(function (index, element) {
+                    var $element = $(element);
+                    if ($element.val() == correctAnswer.text) {
+                        $element.attr(attributes.checked, 'checked');
+                        return false;
+                    }
+                });
             }
         });
 
