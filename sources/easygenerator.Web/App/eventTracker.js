@@ -7,6 +7,7 @@
             var
                 trackEvent = function (eventName, eventCategory) {
                     var mixpanel = window.mixpanel;
+                    var nudgespot = window.nudgespot;
                     var username = _.isObject(userContext.identity) ? userContext.identity.email : '';
 
                     if (!mixpanel) {
@@ -19,6 +20,11 @@
 
                     if (username) {
                         mixpanel.identify(username);
+
+                        if (nudgespot) {
+                            nudgespot.identify(username);
+                        }
+
                         eventProperties.Email = username;
                     }
 
