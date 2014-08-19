@@ -308,7 +308,7 @@
 
 .choose-template-holder {
     float: left;
-    width: 49%;
+    width: 48%;
     min-width: 310px;
     margin-right: 10px;
     font-family: 'OpenSans';
@@ -422,9 +422,9 @@
 .template-settings-block {
     position: relative;
     float: left;
-    width: 49%;
+    width: 48%;
     max-width: 450px;
-    min-width: 310px;
+    min-width: 315px;
 }
 
     .template-settings-block .template-settings-spinner {
