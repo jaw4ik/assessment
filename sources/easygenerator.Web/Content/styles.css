@@ -645,7 +645,7 @@ span.top-navigation-item.current {
         position: absolute;
         left: 0;
         top: 50%;
-        margin-top: -10px;
+        margin-top: -9px;
         background: url('images/sprites_24.png') -89px -32px;
     }
 

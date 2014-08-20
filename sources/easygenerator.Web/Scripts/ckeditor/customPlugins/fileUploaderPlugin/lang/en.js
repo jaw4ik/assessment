@@ -1,5 +1,5 @@
 ﻿CKEDITOR.plugins.setLang('fileUploaderPlugin', 'en', {
-    fileSizeNotMoreThan: 'File size not more than',
+    fileSizeNotMoreThan: 'Your file is too large. File size is restricted to',
 	extensions: 'Extensions',
 	uploadFailed: 'Upload failed',
 	uploadFile: 'Upload file',

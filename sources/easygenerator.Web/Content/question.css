@@ -33,7 +33,7 @@
         width: 8px;
         position: absolute;
         top: 12px;
-        left: 122px;
+        left: 90px;
         background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAALCAYAAABCm8wlAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MjZGRkNGQTZGMTYxMTFFM0FFMzhDMjU5OTI3RkQxRjYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MjZGRkNGQTdGMTYxMTFFM0FFMzhDMjU5OTI3RkQxRjYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoyNkZGQ0ZBNEYxNjExMUUzQUUzOEMyNTk5MjdGRDFGNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoyNkZGQ0ZBNUYxNjExMUUzQUUzOEMyNTk5MjdGRDFGNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuZJ9WQAAADCSURBVHjaXNCvC8JAFMDxbf7AbhIEEbEqmEwmxSJmwWSwWC2DRQ0HFlHwX7DaDILYDDazwyqCYDwMnt8HU84dfHjc3o+9zTXGOPbxfX9AqOCGuWsXkMwRemjjiLTn/J8RrqhhKQ9+E+huEVKYYSE57LwomSE0UMQbWxmvlAqT1ug1DuhjiKkkElrrMjGPJl44IaT7IgXyignkUkCAOsn9d2spqMoyeKKLlf1ZUpCNNu7gTPc9XvDAGCWSm9h/cT4CDADzpjVeqvk9BgAAAABJRU5ErkJggg==);
     }
 
@@ -54,8 +54,8 @@
     .question-view-header .chars-counter {
         height: 19px;
         line-height: 19px;
-        top: 7px;
-        left: 122px;
+        top: 8px;
+        left: 90px;
         right: auto;
         background-color: #bbb;
         border-radius: 3px;
@@ -77,7 +77,7 @@
 
 .question .btn.create-question {
     height: 38px;
-    min-width: 146px;
+    min-width: 130px;
     padding: 8px 13px;
     float: right;
     background-color: transparent;
@@ -97,7 +97,7 @@
 .question .create-question-text {
     display: block;
     position: relative;
-    padding-left: 22px;
+    padding-left: 18px;
 }
 
     .question .create-question-text:before {
@@ -106,9 +106,9 @@
         height: 12px;
         width: 12px;
         position: absolute;
-        left: 0;
+        left: 12px;
         top: 50%;
-        margin-top: -7px;
+        margin-top: -6px;
         background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QTY3MTVFNjhGMTQzMTFFMzgxRUVEMjMwNDM0RDlBRDUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QTY3MTVFNjlGMTQzMTFFMzgxRUVEMjMwNDM0RDlBRDUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBNjcxNUU2NkYxNDMxMUUzODFFRUQyMzA0MzREOUFENSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBNjcxNUU2N0YxNDMxMUUzODFFRUQyMzA0MzREOUFENSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqpPAiEAAAAuSURBVHjaYvz//z8DOog5eB8suMRekRFdjomBRDAINTBGH7j3n7Y2jMRgBQgwAPvXEQgx7AN/AAAAAElFTkSuQmCC);
     }
 

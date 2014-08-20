@@ -68,13 +68,13 @@
         en: 'Delete'
     },
     materials: {
-        en: 'My materials'
+        en: 'My Library'
     },
     packageCreatedOn: {
-        en: 'Last package created on'
+        en: 'Last zipped course created on'
     },
     packageNotCreatedStatus: {
-        en: 'Not created'
+        en: 'Failed to create zipped course'
     },
     lastEdited: {
         en: 'Last edited:'
@@ -83,19 +83,19 @@
         en: 'Delete selected'
     },
     deleteSeveralCoursesError: {
-        en: 'Please delete your courses one by one. Multidelete is not implemented yet.'
+        en: 'Please delete your courses one by one. Multi-delete is not implemented yet.'
     },
     deleteSeveralObjectivesError: {
-        en: 'You can not delete more than 1 learning objective at once.'
+        en: 'Please delete your learning objectives one by one. Multi-delete is not implemented yet.'
     },
     allChangesAreSaved: {
         en: 'All changes are saved'
     },
     upgradeAccount: {
-        en: 'Upgrade account'
+        en: 'Upgrade now'
     },
     changeOrderTooltip: {
-        en: 'Change order by Drag & Drop'
+        en: 'Reorder by dragging'
     },
     title: {
         en: 'Title'
@@ -116,13 +116,13 @@
         en: 'Change background image'
     },
     imageSizeIsTooLarge: {
-        en: 'Image file should not be larger than 10 MB. Please reduce the size or use another image'
+        en: 'Image file cannot be larger than 10 MB. Please reduce the size or use another image'
     },
     imageUploadError: {
-        en: 'Something went wrong while trying to upload the image. Please try again'
+        en: 'Something went wrong uploading the image. Please try again.'
     },
     imageIsNotSupported: {
-        en: 'This extension is not supported. Please use .jpg, .jpeg, .png, .gif or .bmp'
+        en: 'This file format is not supported. Please use jpg, jpeg, png, gif or bmp'
     },
     youHaveTo: {
         en: 'You have to'
@@ -152,16 +152,16 @@
         en: 'Add new learning objective'
     },
     learningObjectiveListIsEmpty: {
-        en: 'Learning objectives list is empty'
+        en: 'Objective list is empty'
     },
     clickToAddObjective: {
         en: 'Click to add learning objective'
     },
     objectiveCannnotBeDeleted: {
-        en: 'Learning objective cannot be deleted, while it is connected to course(s) or contains questions'
+        en: 'Learning objective cannot be deleted when it contains questions or is connected to a course'
     },
     dragLOHere: {
-        en: 'Drag learning objective here'
+        en: 'Drag objective here'
     },
     dropHere: {
         en: 'Drop here'
@@ -182,28 +182,28 @@
         en: 'Download as SCORM 1.2'
     },
     courseFailedStatus: {
-        en: 'failed'
+        en: 'Failed'
     },
     courseCompleteStatus: {
-        en: 'complete'
+        en: 'Complete'
     },
     numberOfRelatedObjectives: {
-        en: 'Number of related learning objectives'
+        en: 'Number of course learning objectives'
     },
     courseCannotBeDeleted: {
-        en: 'Course cannot be deleted while it has connected learning objective(s)'
+        en: 'Course cannot be deleted when it has learning objective(s)'
     },
     createPackage: {
-        en: 'Create package'
+        en: 'Create zipped course'
     },
     updatePackage: {
-        en: 'Update package'
+        en: 'Update zipped course'
     },
     creatingStatus: {
-        en: 'creating...'
+        en: 'Creating...'
     },
     updatingStatus: {
-        en: 'updating...'
+        en: 'Updating...'
     },
     courseCreateItem: {
         en: '1. Create'
@@ -218,49 +218,46 @@
         en: 'Publish online'
     },
     republishOnline: {
-        en: 'Republish online'
+        en: 'Update published course'
     },
     publishing: {
-        en: 'publishing...'
+        en: 'Publishing...'
     },
     republishing: {
-        en: 'republishing...'
+        en: 'Updating...'
     },
     copyLinkTitle: {
         en: 'Copy link'
     },
     publishFailed: {
-        en: 'Failed. Try again.'
+        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.'
     },
     publishingLinkDescription: {
-        en: 'Share this link with your learners'
-    },
-    publishOnlineDesciption: {
-        en: 'Use easygenerator server'
+        en: 'Copy and share this link with your learners'
     },
     republishOnlineDescription: {
-        en: 'Republish the course on easygenerator webserver'
+        en: 'Publish the course on easygenerator server'
     },
     viewCourseDescription: {
         en: 'Open link to view the course'
     },
     publishCourse: {
-        en: 'Get a link instantly and share'
+        en: 'Get an easygenerator link and share'
     },
     downloadCourse: {
-        en: 'Publish to your own server or Dropbox'
+        en: 'Publish to your webserver or cloud storage'
     },
     downloadScorm12Package: {
         en: 'Publish to LMS'
     },
     assembling: {
-        en: 'assembling...'
+        en: 'Publishing...'
     },
     reassemble: {
-        en: 'Reassemble'
+        en: 'Updating...'
     },
     upgradeToStarterPlanToUseScormErrorMessage: {
-        en: 'Please upgrade your account to \"Starter plan\" to be able to download the course as a SCORM package.'
+        en: 'Upgrade your account to \"Starter plan\" to download a SCORM course'
     },
     upgradeToStarterPlanToUseScormMessage: {
         en: 'in order to<br/>download SCORM 1.2 package'
@@ -317,13 +314,13 @@
         en: 'Publish and Sell your online course'
     },
     addCourseContent: {
-        en: 'Add course introduction content'
+        en: 'Add introduction'
     },
     showCourseContent: {
-        en: 'Show course introduction content'
+        en: 'Show introduction'
     },
     hideCourseContent: {
-        en: 'Hide course introduction content'
+        en: 'Hide introduction'
     },
     startFromHere: {
         en: 'Start from here'
@@ -347,7 +344,7 @@
         en: 'Please upgrade your account to the next plan to be able to create more courses.'
     },
     relatedLearningObjectives: {
-        en: 'Related learning objectives'
+        en: 'Course objectives'
     },
     sharedCourses: {
         en: 'Shared courses'
@@ -365,73 +362,73 @@
     
     /* Resource section for model CreateObjective */
     createNewObjective: {
-        en: 'New learning objective'
+        en: 'Add new course objective'
     },
     createObjectiveTip: {
-        en: 'Type learning objective title here...'
+        en: 'Type objective here...'
     },
     filter: {
         en: 'Filter'
     },
     showAllConnectedLearningObjectives: {
-        en: 'show all connected learning objectives'
+        en: 'Show all course objectives'
     },
     showOtherLearningObjectives: {
-        en: 'show other learning objectives'
+        en: 'Show all other objectives'
     },
     createAndConnectLearningObjective: {
-        en: 'New learning objective'
+        en: 'New objective / section'
     },
     connectSelected: {
         en: 'Connect selected'
     },
     disconnectSelected: {
-        en: 'Disconnect selected'
+        en: 'Remove selected'
     },
     noLearningObjectivesToConnect: {
-        en: 'There are no learning objectives to connect'
+        en: 'There are no objectives to add'
     },
     defineLerningObjectiveTitle: {
-        en: 'Define learning objective'
+        en: 'Create objective'
     },
     connectExistingLearningObjectives: {
-        en: 'Connect existing'
+        en: 'Add existing objectives'
     },
     finishConnectingLearningObjectives: {
-        en: 'Finish connecting'
+        en: 'Confirm'
     },
     otherObjectives: {
-        en: 'Available learning objectives'
+        en: 'Available objectives'
     },
     connectedObjectives: {
-        en: 'Already in the course'
+        en: 'Course objectives'
     },
     allObjectivesConnected: {
-        en: 'All learning objectives are already connected'
+        en: 'All objectives are used'
     },
     dragAndDropObjectivesHere: {
-        en: '<b>DROP HERE</b><br>your learning objectives'
+        en: '<b>Drop objectives here</b>'
     },
     howToCreateObjectiveTipHeader: {
-        en: 'Do you know how to create good learning objectives?'
+        en: 'Do you know how to create learning objectives?'
     },
     howToCreateObjectiveTipExamplesHeader: {
         en: 'Examples'
     },
     howToCreateObjectiveTipExample1: {
-        en: 'Sales executives will be able to assess chances of winning a client bid within 10 minutes during a first prospect meeting.'
+        en: 'Sales executives can assess the likelihood of closing client bid within 10 minutes of first prospect meeting.'
     },
     howToCreateObjectiveTipExample2: {
-        en: 'HR Managers will be able to identify the most effective use of gamification in a 1000+ employee organization within a month without hiring third party consultants.'
+        en: 'HR managers can identify most effective use of gamification in their organization within a month of finishing this course.'
     },
     howToCreateObjectiveTipExample3: {
-        en: 'Sociology Students will be able to identify important nodes in a network under the condition within a week of being given a quality dataset.'
+        en: 'Engineering students can identify important data connections in a network.'
     },
     howToCreateObjectiveTipLink: {
         en: 'Read more'
     },
     howToCreateObjectiveTipText: {
-        en: 'Click to show tip'
+        en: 'Click here for Help'
     },
     /* End resource section for model CreateObjective */
     
@@ -440,13 +437,13 @@
         en: 'New course'
     },
     chooseTemplate: {
-        en: 'Choose template:'
+        en: 'Choose course template:'
     },
     createAndContinue: {
         en: 'Create and continue'
     },
     previewTemplate: {
-        en: 'Preview template'
+        en: 'Preview course template'
     },
     createCourseButtonCaption: {
         en: 'Create course'
@@ -476,16 +473,16 @@
         en: 'Delete answer'
     },
     learningContent: {
-        en: 'Learning content'
+        en: 'Content'
     },
     clickToAddLearningContent: {
-        en: 'Click here to add learning content'
+        en: 'Click to add content'
     },
     addNewAnswerOption: {
         en: 'Add new answer option'
     },
     addNewLearningContent: {
-        en: 'Add new learning content'
+        en: 'Add new content'
     },
     markAsCorrect: {
         en: 'Mark as correct'
@@ -494,25 +491,25 @@
         en: 'Mark as incorrect'
     },
     questionContent: {
-        en: 'Question content'
+        en: 'Question instruction'
     },
     defineQuestionContent: {
-        en: 'Define question content'
+        en: 'Create question instruction'
     },
     addExtraQuestionContent: {
-        en: 'Add extra question content'
+        en: 'Add  question instruction'
     },
     hideQuestionContent: {
-        en: 'Hide extra question content'
+        en: 'Hide question instruction'
     },
     showQuestionConent: {
-        en: 'Show extra question content'
+        en: 'Show question instruction'
     },
     noAnswerOptionsYet: {
         en: 'No answer options yet'
     },
     questionTitle: {
-        en: 'Question title'
+        en: 'Question'
     },
     informationContentTitle: {
         en: 'Title'
@@ -521,7 +518,7 @@
         en: 'Loading image...'
     },
     addTextMatchingAnswer: {
-        en: 'Add key-answer pair'
+        en: 'New Term/Match'
     },
     /* End resource section for model Question */
     
@@ -530,7 +527,7 @@
         en: 'Edit'
     },
     relatedContents: {
-        en: 'Related contents'
+        en: 'Related items'
     },
     objectiveProperties: {
         en: 'Learning objective properties'
@@ -559,26 +556,26 @@
     typeQuestionTitleHere: {
         en: 'Type question title here'
     },
-    questionListIsEmpty: {
-        en: 'Question list is empty'
+    itemListIsEmpty: {
+        en: 'Item list is empty'
     },
     relatedQuestion: {
         en: 'Related question'
     },
     createNewQuestion: {
-        en: 'New content'
+        en: 'New item'
     },
     savedAt: {
         en: 'Saved at'
     },
     newQuestionTitle: {
-        en: 'What question do you want to ask?'
+        en: 'Type your question'
     },
     newInformationContentTitle: {
-        en: 'What do you want to tell?'
+        en: 'Type your content title'
     },
     multipleSelect: {
-        en: 'Multiple select'
+        en: 'Multiple choice'
     },
     fillInTheBlank: {
         en: 'Fill in the blanks'
@@ -587,19 +584,19 @@
         en: 'Add blank'
     },
     defineTheContentWithBlank: {
-        en: 'Click to define the content with blanks'
+        en: 'Click to add blank'
     },
     upgradeAccountToCreateAdvancedQuestionTypes: {
         en: 'Please upgrade your account to be able to create advanced question types'
     },
     dragAndDrop: {
-        en: 'Drag&Drop text'
+        en: 'Drag and drop text'
     },
     dragAndDropText: {
-        en: 'Drag&Drop text'
+        en: 'Drag and drop text'
     },
     dragAndDropTextDesigner: {
-        en: 'Drag&Drop designer'
+        en: 'Drag and drop designer'
     },
     dragAndDropTextEmptyBackgroundDescription: {
         en: 'No background image yet'
@@ -608,37 +605,37 @@
         en: '+ Add background image'
     },
     addDropspotText: {
-        en: 'Add dropspot text'
+        en: 'Add drop text'
     },
     singleSelectText: {
-        en: 'Single select \"text\"'
+        en: 'Single choice'
     },
     singleSelectTextEditor: {
-        en: '\"Single select text\" question editor'
+        en: '\"Single choice\" question editor'
     },
     multipleSelectEditor: {
-        en: '\"Multiple select\" question editor'
+        en: '\"Multiple choice\" question editor'
     },
     singleSelectImageEditor: {
-        en: '\"Single select image\" question editor'
+        en: '\"Single choice image\" question editor'
     },
     fillInTheBlanksEditor: {
         en: '\"Fill in the blanks\" question editor'
     },
     DragAndDropTextEditor: {
-        en: '\"Drag\'n\'Drop text\" question editor'
+        en: '\"Drag and drop text\" question editor'
     },
     textMatchingEditor: {
         en: '\"Text matching\" question editor'
     },
     informationContentEditor: {
-        en: '\"Information\" editor'
+        en: 'Content editor'
     },
     singleSelectImage: {
-        en: 'Single select \"image\"'
+        en: 'Single choice image'
     },
     informationContent: {
-        en: 'Information'
+        en: 'Content'
     },
     textMatching: {
         en: 'Text matching'
@@ -647,10 +644,10 @@
         en: 'Hot spot'
     },
     keysTitle: {
-        en: 'Keys'
+        en: 'Term'
     },
     answersTitle: {
-        en: 'Answers'
+        en: 'Match'
     },
     addImage: {
         en: 'Add image'
@@ -659,7 +656,7 @@
         en: 'Remove answer'
     },
     processing: {
-        en: 'processing...'
+        en: 'Processing...'
     },
     browseImage: {
         en: 'Browse image'
@@ -671,16 +668,16 @@
     
     /* Resource section for model QuestionFeedback */
     putYourPositiveFeedback: {
-        en: 'Put your positive feedback here'
+        en: 'Create response for correct answer'
     },
     putYourNegativeFeedback: {
-        en: 'Put your negative feedback here'
+        en: 'Create response for incorrect answer'
     },
     correctFeedback: {
-        en: 'Positive feedback'
+        en: 'Response for correct answer'
     },
     incorrectFeedback: {
-        en: 'Negative feedback'
+        en: 'Response for incorrect answer'
     },
     /* End resource section for model QuestionFeedback */
     
@@ -797,7 +794,7 @@
     
     /* Resource section for model Display course */
     clickToCreateNewObjective: {
-        en: 'To create new learning objective click \"+\" button'
+        en: 'To create objective or sub title click \"+\" button'
     },
     finish: {
         en: 'Finish'
@@ -806,22 +803,22 @@
         en: 'Learning objective'
     },
     connectedLearningObjectives: {
-        en: 'Connected learning objectives'
+        en: 'Course objectives'
     },
     noConnectedLearningObjectives: {
-        en: 'No connected learning objectives'
+        en: 'All other objectives'
     },
     noObjectivesForConnect: {
-        en: 'No learning objectives to connect'
+        en: 'No other objectives to use'
     },
     connectObjectives: {
-        en: 'Connect learning objective(s)'
+        en: 'Use objectives'
     },
     connectSelectedObjectives: {
-        en: 'Connect selected learning objective(s)'
+        en: 'Use as course objectives'
     },
     disconnectSelectedObjectives: {
-        en: 'Disconnect selected learning objective(s)'
+        en: 'Remove selected objectives from course'
     },
     viewCourse: {
         en: 'View course'
@@ -833,25 +830,28 @@
     
     /* Resource section for model Error pages */
     badRequest: {
-        en: 'Bad request'
+        en: 'Something went wrong'
     },
     badRequestDescription: {
-        en: 'Sorry, the request you sent was somehow malformed therefore we were unable to understand or process the request.'
+        en: 'Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
     },
+    /* End resource section for model Error pages */
+    
+    /* Resource section for model Error pages */
     pageNotFound: {
-        en: 'Page not found'
+        en: 'The page you requested cannot be found'
     },
     pageNotFoundDescription: {
-        en: 'Oops! We are really sorry but the page you requested cannot be found.<br/>It seems that the page you were trying to reach doesn\'t exist any more, or maybe it has just moved.<br/>We think that the best thing to do is to start again from the homepage. Feel free to contact us through the feedback form if the problem persist or if you definitely can\'t find what you are looking for. Thank you very much.'
+        en: 'Click on Home. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
     },
     homeLink: {
         en: 'Home'
     },
     serverError: {
-        en: 'Something is not right'
+        en: 'Something went wrong'
     },
     serverErrorDescription: {
-        en: 'Sorry, something went wrong.  Try checking the URL for errors, use the navigation above or click \"Home\" link below.'
+        en: 'Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
     },
     /* End resource section for model Error pages */
     
@@ -860,7 +860,7 @@
         en: 'Your browser is currently not supported. Do not worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.'
     },
     mobileDeviceNotSupport: {
-        en: 'Unfortunately, mobile devices are not supported yet. Please, use desktop or laptop computer with modern web browser to enjoy easygenerator capabilities.'
+        en: 'This function is not optimized for a phone or tablet. Use a PC or laptop for authoring. <br/> All published courses run on any device.'
     },
     /* End resource section for model Not supported browsers */
     
@@ -905,7 +905,7 @@
         en: 'Start authoring!'
     },
     NotContainWhitespaceCharacters: {
-        en: 'NOT contain whitespace character(s).'
+        en: 'The password cannot contain spaces'
     },
     EnterValidEmail: {
         en: 'Enter a valid e-mail'
@@ -923,10 +923,10 @@
         en: 'Fill in your country'
     },
     AccountAlreadyExists: {
-        en: 'This account already exists'
+        en: 'This account already exists. Click on Sign in and try again.'
     },
     PasswordIsStrongEnough: {
-        en: 'Password is strong enough'
+        en: 'Password meets requirements'
     },
     PasswordDoesNotMeetRequirements: {
         en: 'Password does not meet requirements'
@@ -950,10 +950,10 @@
         en: 'Sign in'
     },
     incorrectEmailOrPassword: {
-        en: 'Such e-mail and password combination not found'
+        en: 'E-mail and password combination do not exist. Try again or reset password.'
     },
     forgotPassword: {
-        en: 'forgot password?'
+        en: 'Forgot password?'
     },
     /* End resource section for model Sign In */
     
@@ -992,7 +992,7 @@
     
     /* Resource section for model File uploader */
     fileSizeNotMoreThan: {
-        en: 'File size not more than 10 MB'
+        en: 'Your file is too large. File size is restricted to 10MB per file'
     },
     extensions: {
         en: 'Extensions'
@@ -1022,28 +1022,28 @@
     
     /* Resource section for model Server error notification */
     courseNotFoundError: {
-        en: 'Course was not found. Please refresh your data.'
+        en: 'There is a problem opening the course.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
     },
     objectiveNotFoundError: {
-        en: 'Learning objective was not found. Please refresh your data.'
+        en: 'There is a problem opening the objective.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
     },
     objectivesNotFoundError: {
-        en: 'One or more learning objectives were not found. Please refresh your data.'
+        en: 'There is a problem opening the objective.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
     },
     answerNotFoundError: {
-        en: 'Answer option was not found. Please refresh your data.'
+        en: 'There is a problem opening the answer option.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
     },
     questionNotFoundError: {
-        en: 'Question was not found. Please refresh your data.'
+        en: 'There is a problem opening this question.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
     },
     learningContentNotFoundError: {
-        en: 'Learning content was not found. Please refresh your data.'
+        en: 'There is a problem opening this content.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
     },
     helpHintNotFoundError: {
-        en: 'Help hint was not found. Please refresh your data.'
+        en: 'There is a problem opening the Help.  Try again. Contact support@easygenerator.com if the problem persists.'
     },
     responseFailed: {
-        en: 'Response is failed'
+        en: 'We have encountered a problem.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
     },
     /* End resource section for model Server error notification */
     
@@ -1052,7 +1052,7 @@
         en: 'Course editor'
     },
     learningObjectiveViewCaption: {
-        en: 'Learning objective editor'
+        en: 'Objective editor'
     },
     questionViewCaption: {
         en: 'Question editor'
@@ -1101,8 +1101,8 @@
     /* Resource section for model ManagerOption */
     /* End resource section for model ManagerOption */
     
-    /* Resource section for model NotInTheListOption */
-    /* End resource section for model NotInTheListOption */
+    /* Resource section for model OtherOption */
+    /* End resource section for model OtherOption */
     
     /* Resource section for model wouldYouLikeAnIntroductionDemo */
     /* End resource section for model wouldYouLikeAnIntroductionDemo */
@@ -1112,13 +1112,13 @@
     
     /* Resource section for model Forgot password */
     passwordRecovery: {
-        en: 'Password recovery'
+        en: 'Reset password'
     },
     RequestError: {
-        en: 'An error was encountered while processing your request:'
+        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.'
     },
     CouldNotVerifyPasswordRecovery: {
-        en: 'Sorry! We could not verify that this user requested a password reset. Please, initiate resetting procedure again.'
+        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.'
     },
     RestorePasswordCaption: {
         en: 'Enter your new password'
@@ -1142,55 +1142,55 @@
         en: 'What is a course?'
     },
     coursesHelpHint: {
-        en: '<p><strong>Course</strong> is a name for eLearning you will be creating. It can be a simple course, a learning nugget, a personalized learning, a quiz, an exam etc. In fact it can be anything that will provide learner with a learning experience.</p><p>Course consist out of one or more learning objectives, with connected questions and learning content.</p><p><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\">Learn more...</a></p>'
+        en: '<p><strong>Courses</strong> is the generic term for the elearning that you will create. It can be a simple course, a quiz, an exam etc. On this page you will see a list all your courses. To open a course click on it. </p><p><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\">Learn more...</a></p>'
     },
     courseHelpHintTitle: {
         en: 'Why do I need to connect learning objectives?'
     },
     courseHelpHint: {
-        en: '<p>When you want to create instructional sound eLearning you should start with defining the <strong>Learning Objectives</strong>. This goes for the design process, but learning objectives are also the starting point for the learner.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p>To create instructionally sound eLearning start by defining <strong>Learning Objectives</strong>. Or you can use a sub title instead. </p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
     createCourseHelpHintTitle: {
         en: 'What is a course template?'
     },
     createCourseHelpHint: {
-        en: '<p><strong>Course template</strong> is a set of predefined graphical and instructional design parameters.</p><p>Course template defines how a learning material will be presented to a learner, how a learner will be able to interact with it and how a learner\'s responses will be affecting course.</p><p>For an author choosing certain course template will also change set of designing capabilities, depending on which of them are supported by chosen course template.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p>A<strong>course template</strong> sets the look and feel of your course and will determine how the content is organized.</p><p> Changing templates will  change the course type  into a quiz, a course or an exam.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
     objectiveHelpHintTitle: {
         en: 'What is a related question?'
     },
     objectiveHelpHint: {
-        en: '<p>A <strong>learning objective</strong> is a statement that describes the specific skills or knowledge a learner will be able to demonstrate as a result of completing a course.</p><p>See <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> for instructions and support for building proper objectives based on Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p>You need to add content and/or questions to the learning objective. Select your question type or content to add items.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
     objectivesHelpHintTitle: {
         en: 'What is a learning objective?'
     },
     objectivesHelpHint: {
-        en: '<p>A <strong>learning objective</strong> is a statement that describes the specific skills or knowledge a learner will be able to demonstrate as a result of completing a course.</p><p>See <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> for instructions and support for building proper objectives based on Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p>A <strong>learning objective</strong> describes specific skills or knowledge a learner can demonstrate after completing a course.</p><p> See our <a href=\"http://www.easygenerator.com/learningobjectives\" target=\"_blank\">website</a> for instructions on how to create a learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
     },
     createObjectiveHelpHintTitle: {
         en: 'How to formulate a correct learning objective?'
     },
     createObjectiveHelpHint: {
-        en: '<p>A <strong>learning objective</strong> is a statement that describes the specific skills or knowledge a learner will be able to demonstrate as a result of completing a course.</p><p>See <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> for instructions and support for building proper objectives based on Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p>A <strong>learning objective</strong> describes specific skills or knowledge a learner can demonstrate after completing a course.</p><p> See our <a href=\"http://www.easygenerator.com/learningobjectives\" target=\"_blank\">website</a> for instructions on how to create a learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
     },
     questionHelpHintTitle: {
         en: 'Some general tips for the question types'
     },
     questionHelpHint: {
-        en: '<p>The <strong>\"Single select text\"</strong> and <strong>\"Multiple select\"</strong> questions offer the answer options to a learner for answering the question. The answer options can be either correct or incorrect.</p></br><p><strong>Fill-in the blanks</strong> are texts with blank spaces. The student must fill in the missing words. Tips:<ul><li>Convert a word into a blank: Select it and click on \"+ Add blank\".</li><li>Create a new blank: click on \"+ Add blank\" and type in the word.</li><li>To edit a blank: click on the blank in the text.</li></ul></p></br><p>With a <strong>“Drag and Drop text\"</strong> question type a student has to put text(s) on specific places by dragging and dropping them onto a background image. Create a \"drag\'n\'drop text\" question:<ul><ol>1. Add the background image by clicking \"+ Add background image\".</ol><ol>2. Fill-in your \"drop texts\" into the fields below the \"drag&drop designer\".</ol><ol>3. In the \"drag&drop designer\" drag and drop your \"drop texts\" into the correct positions.</ol></ul></p></br><p><strong>Learning content</strong> is the information presented to the learner to assist him in answering a specific question. It can consist out of text, video or images.</p></br><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
+        en: '<p>You can add content or question pages to a learning objective/sub title. Click \"Add item\" and select the content or question type you need.  See our <a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">User guide</a> to learn more about different question types</p>'
     },
     designHelpHintTitle: {
         en: 'What is a course template?'
     },
     designHelpHint: {
-        en: '<p><strong>Course template</strong> is a set of predefined graphical and instructional design parameters.</p><p>Course template defines how a learning material will be presented to a learner, how a learner will be able to interact with it and how a learner\'s responses will be affecting course.</p><p>For an author choosing certain course template will also change set of designing capabilities, depending on which of them are supported by chosen course template.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p>A<strong>course template</strong> will set the look and feel of your course and it will determine how the content is organized.</p><p> By switching templates you can change your course into a quiz for example..</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
     publishHelpHintTitle: {
         en: 'How to deliver the course to learners?'
     },
     publishHelpHint: {
-        en: '<p>To publish this course on <strong>your own webserver</strong> - download course as HTML/JavaScript package;</p><p>To publish the course to an <strong>LMS</strong> - download the course as SCORM 1.2 package;</p><p>To publish the course to the <strong>Aim 4 You Instant Learning store</strong> - just click the button and follow simple instructions.</p><p>Or publish the course on <strong>easygenerator webserver</strong> - just get a link and share it with your learners.</p>'
+        en: '<p>If you need a link to share your course click \"Publish online\". To publish the course on <strong> a website or in the cloud </strong> click \"Download as HTML\";</p><p>To publish the course to a <strong>LMS</strong>  click \"Download the course as SCORM 1.2\"</p>'
     },
     helpCloseButton: {
         en: 'Hide'
@@ -1199,10 +1199,10 @@
     
     /* Resource section for model sorryPage */
     publishIsInProgressTitle: {
-        en: 'This course is being updated.'
+        en: 'This course in use by someone else.'
     },
     publishIsInProgressText: {
-        en: 'Please, try again after few minutes.'
+        en: 'Please try again later.'
     },
     /* End resource section for model sorryPage */
     
@@ -1223,10 +1223,10 @@
         en: 'Comments'
     },
     getReviewTabHelp: {
-        en: 'Press the get link button and then share the link with your external reviewers:'
+        en: 'Click \"Get Link\", copy and share with external reviewers.'
     },
     updateReviewTabHelp: {
-        en: 'Press the update button and then share the link with your external reviewers:'
+        en: 'Click \"Update course\", copy and share with external reviewers.'
     },
     reviewGetLink: {
         en: 'Get link'
@@ -1238,19 +1238,19 @@
         en: 'Update course'
     },
     reviewPublishingCourse: {
-        en: 'publishing...'
+        en: 'Publishing...'
     },
     reviewNoComments: {
-        en: 'No comments yet'
+        en: 'No comments from external reviewers yet'
     },
     reviewNotPaidMessage: {
         en: 'in order to read external review comments'
     },
     upgradeToStarterPlanToUseCommentsErrorMessage: {
-        en: 'Please upgrade your account to \"Starter plan\" to be able to see comments.'
+        en: 'upgrade to Starter Plan.'
     },
     loadingCourseError: {
-        en: 'Smth went wrong!'
+        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.'
     },
     /* End resource section for model Review */
     
@@ -1280,7 +1280,7 @@
         en: 'Give feedback'
     },
     questionFeedback: {
-        en: 'Question feedback'
+        en: 'Question response'
     },
     /* End resource section for model Feedback */
     
@@ -1298,19 +1298,19 @@
         en: 'New question'
     },
     openNavigationBar: {
-        en: 'Open navigation bar'
+        en: 'Open navigation'
     },
     noQuestionsTitle: {
-        en: 'No questions yet'
+        en: 'Question list is empty'
     },
     noCoursesTitle: {
-        en: 'No courses yet'
+        en: 'Course list is empty'
     },
     noObjectivesTitle: {
-        en: 'No learning objectives yet'
+        en: 'Objective list is empty'
     },
     noOwnCoursesTitle: {
-        en: 'No own courses yet'
+        en: 'Courses list is empty'
     },
     /* End resource section for model Navigation tree */
     
@@ -1328,67 +1328,67 @@
         en: 'Owner'
     },
     fillInUserEmail: {
-        en: 'Fill in user\'s email'
+        en: 'Type in email address'
     },
     enterValidEmail: {
-        en: 'Enter a valid email'
+        en: 'Enter valid email address'
     },
     enterEmailOfExistingUser: {
         en: 'Enter an email of existing easygenerator user'
     },
     addPerson: {
-        en: 'Add person'
+        en: 'Add co-author'
     },
     inviteByEmailAddress: {
-        en: 'Invite by email address...'
+        en: 'Invite by email ...'
     },
     addPeopleForCollaboration: {
-        en: 'Add people for collaboration'
+        en: 'Add co-authors'
     },
     addCollaborator: {
-        en: 'Add collaborator'
+        en: 'Add co-author'
     },
     notEnoughPermissionsErrorMessage: {
-        en: 'You don\'t have enough permissions to complete this operation'
+        en: 'Upgrade to Starter Plan to share courses'
     },
     dataHasBeenChangedErrorMessage: {
-        en: 'Data has been changed. Please refresh the page.'
+        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.'
     },
     removeCollaborator: {
-        en: 'Remove collaborator'
+        en: 'Remove co-author'
     },
     areYouSureYouWantToDeleteUser: {
-        en: 'Are you sure you want to remove this user from the course?'
+        en: 'Are you sure you want to remove co-author from course?'
     },
     courseHasBeenDeletedByTheOwner: {
-        en: 'This course has been deleted by the owner. Please go to the list of courses.'
+        en: 'This course has been deleted by owner.   Click on Courses to open another course.'
     },
     learningObjectiveHasBeenDisconnectedByCollaborator: {
-        en: 'This learning objective has been disconnected by a collaborator. Please go to the list of learning objectives.'
+        en: 'Objective has been removed by co-author. Add it again from other objectives list.'
     },
     questionHasBeenDeletedByCollaborator: {
-        en: 'This question has been deleted by a collaborator. Please go to the list of questions.'
+        en: 'Question has been deleted by co-author'
     },
     answerOptionHasBeenDeletedByCollaborator: {
-        en: 'This answer option has been deleted by a collaborator. Your changes will not be saved. Please save a copy of the necessary data before you finish the editing.'
+        en: 'Answer option has been deleted by co-author'
     },
     learningContentHasBeenDeletedByCollaborator: {
-        en: 'This learning has been deleted by a collaborator. Your changes will not be saved. Please save a copy of the necessary data before you finish the editing.'
+        en: 'Content has been deleted by co-author'
     },
     dropspotHasBeenDeletedByCollaborator: {
-        en: 'This dropspot has been deleted by a collaborator. Your changes will not be saved. Please save a copy of the necessary data before you finish the editing.'
+        en: 'Droptext has been deleted by co-author.'
     },
     courseIsNotAvailableAnyMore: {
-        en: 'This course is not available any more. Please go to the list of courses.'
+        en: 'Course is no longer shared with you.'
     },
     collaboratorWasRemoved: {
         en: '<p class=\"user-name\">'
     },
     collaboratorWasRemovedEnd: {
-        en: '</p>has been removed from your course.'
+        en: '</p>has been removed as a co-author.'
     },
     collaboratorRemovingFailed: {
-        en: 'Failed. Try again.'
+        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.'
     },
     waitingForRegistration: {
         en: 'waiting for registration...'
@@ -1403,16 +1403,16 @@
     
     /* Resource section for model InviteCollaboratorFromDisplayName */
     collaborationStarterWarning: {
-        en: 'You have exceeded the maximum of 3 collaborators in this course. Therefore collaboration is frozen for now. You need to upgrade to the Plus edition if you want to collaborate with more people.'
+        en: 'You have reached the maximum of 3 co-authors for this course.  Upgrade to Plus Plan to invite additional co-authors.'
     },
     collaborationFreeWarning: {
-        en: 'Collaboration is not available in the Free edition and is frozen for now. You need to upgrade to the Starter edition to start collaborating.'
+        en: 'Co-authoring is not available in the Free Plan. Upgrade to Starter Plan to invite co-authors.'
     },
     addCollaboratorStarterWarning: {
-        en: 'You need to upgrade to the Plus edition to collaborate with more than 3 people.'
+        en: 'You have reached the maximum of 3 co-authors for this course.  Upgrade to Plus Plan to invite additional co-authors.'
     },
     addCollaboratorFreeWarning: {
-        en: 'You need to upgrade to the Starter edition to start collaborating.'
+        en: 'Co-authoring is not available in the Free Plan. Upgrade to Starter Plan to invite co-authors.'
     }
     /* End resource section for model InviteCollaboratorFromDisplayName */
            

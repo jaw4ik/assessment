@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountAlreadyExists" xml:space="preserve">
-    <value>This account already exists</value>
+    <value>This account already exists. Click on Sign in and try again.</value>
   </data>
   <data name="AnotherTool" xml:space="preserve">
     <value>Another authoring tool</value>
@@ -133,7 +133,7 @@
     <value>Choose answer...</value>
   </data>
   <data name="ChooseYourCountry" xml:space="preserve">
-    <value>Choose your country...</value>
+    <value>Select your country...</value>
   </data>
   <data name="ContainAtLeastOneDigit" xml:space="preserve">
     <value>contain at least one digit;</value>
@@ -151,13 +151,13 @@
     <value>Continue</value>
   </data>
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
-    <value>Sorry! We could not verify that this user requested a password reset. Please, initiate resetting procedure again.</value>
+    <value>Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.</value>
   </data>
   <data name="CountryCaption" xml:space="preserve">
     <value>Country</value>
   </data>
   <data name="CreateAccountTitle" xml:space="preserve">
-    <value>Start creating courses in just 2 minutes</value>
+    <value>Start creating courses now!</value>
   </data>
   <data name="EmailCaption" xml:space="preserve">
     <value>E-mail</value>
@@ -184,33 +184,27 @@
     <value>First name</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
-    <value>Forgot your password?</value>
+    <value>Forgot password?</value>
   </data>
   <data name="ForgotPasswordBody" xml:space="preserve">
     <value>&lt;div&gt;
-	Hello,
-	&lt;p&gt;Someone recently requested a password reset for your account at &lt;a href="{0}"&gt;{0}&lt;/a&gt;.&lt;/p&gt;
+	Hi,
+	&lt;p&gt;Someone requested a password reset for your account at &lt;a href="{0}"&gt;{0}&lt;/a&gt;.&lt;/p&gt;
 	&lt;p&gt;
 		To reset the password please click on the link below:&lt;br /&gt;
 		&lt;a href="{1}"&gt;{1}&lt;/a&gt;
 	&lt;/p&gt;
 	&lt;p&gt;
-		If this is a mistake just ignore this e-mail - your password will not be changed. 
+		If you haven't made this request, ignore this message. Your password will not be changed. 
 	&lt;/p&gt;
-	&lt;p&gt;
-		Thank you for using easygenerator.com and have a nice day!      
-	&lt;/p&gt;
-	&lt;strong&gt;--&lt;/strong&gt;&lt;br /&gt;
-	&lt;strong&gt;Best regards,&lt;/strong&gt;&lt;br /&gt;
-	&lt;strong&gt;easygenerator team&lt;/strong&gt;
+	&lt;strong&gt;The easygenerator team&lt;/strong&gt;
 &lt;/div&gt;</value>
   </data>
   <data name="ForgotPasswordSent" xml:space="preserve">
-    <value>We have sent you an e-mail with instructions on how to reset
-your password.</value>
+    <value>We've sent you an e-mail with instructions on how to reset your password.</value>
   </data>
   <data name="ForgotPasswordSubject" xml:space="preserve">
-    <value>Password reset on {0}</value>
+    <value>Password for easygenerator</value>
   </data>
   <data name="FullNameCaption" xml:space="preserve">
     <value>Full name</value>
@@ -219,7 +213,7 @@ your password.</value>
     <value>Hide password</value>
   </data>
   <data name="IncorrectEmailOrPassword" xml:space="preserve">
-    <value>Such e-mail and password combination not found</value>
+    <value>E-mail and password combination do not exist. Try again or reset password.</value>
   </data>
   <data name="JustLooking" xml:space="preserve">
     <value>Just looking</value>
@@ -234,7 +228,7 @@ your password.</value>
     <value>No spaces</value>
   </data>
   <data name="NotContainWhitespaceCharacters" xml:space="preserve">
-    <value>NOT contain whitespace character(s).</value>
+    <value>The password cannot contain spaces</value>
   </data>
   <data name="Nothing" xml:space="preserve">
     <value>Nothing</value>
@@ -261,10 +255,10 @@ your password.</value>
     <value>Password does not meet requirements</value>
   </data>
   <data name="PasswordIsStrongEnough" xml:space="preserve">
-    <value>Password is strong enough</value>
+    <value>Password meets requirements</value>
   </data>
   <data name="PasswordRecovery" xml:space="preserve">
-    <value>Password recovery</value>
+    <value>Reset password</value>
   </data>
   <data name="PasswordRequirementsTitle" xml:space="preserve">
     <value>Password is required to:</value>
@@ -276,7 +270,7 @@ your password.</value>
     <value>PowerPoint</value>
   </data>
   <data name="RequestError" xml:space="preserve">
-    <value>An error was encountered while processing your request:</value>
+    <value>Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.</value>
   </data>
   <data name="RestorePasswordCaption" xml:space="preserve">
     <value>Enter your new password</value>
@@ -337,13 +331,13 @@ your password.</value>
   </data>
   <data name="InviteCollaboratorBody" xml:space="preserve">
     <value>&lt;div&gt;
-&lt;p&gt;{0} wants to work with you on an eLearning course being created in easygenerator.&lt;/p&gt;
-&lt;p&gt;If you don’t have an easygenerator account, you can create one for free. Go to: &lt;a href="{1}"&gt;{1}&lt;/a&gt; and sign up with the same email address as in this mail ({2}) and the course will be available after login.&lt;/p&gt;
+&lt;p&gt;{0} wants to work with you on an eLearning course in easygenerator.&lt;/p&gt;
+&lt;p&gt;You can create an easygenerator account for free. Go to: &lt;a href="{1}"&gt;{1}&lt;/a&gt; and register with this email address and the course will be available after login.&lt;/p&gt;
 &lt;p&gt;Kind regards,&lt;br/&gt;easygenerator Team&lt;/p&gt;
 &lt;/div&gt;</value>
   </data>
   <data name="InviteCollaboratorSubject" xml:space="preserve">
-    <value>You’ve been invited to help {0} build an elearning course about {1}</value>
+    <value>You are invited by {0} to co-author an elearning course about {1}</value>
   </data>
   <data name="InviteCollaboratorFromDisplayName" xml:space="preserve">
     <value>{0} (easygenerator)</value>
