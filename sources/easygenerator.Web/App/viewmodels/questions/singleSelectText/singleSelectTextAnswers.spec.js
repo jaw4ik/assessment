@@ -78,15 +78,6 @@
                 expect(viewModel.answers()[0].hasFocus).toBeObservable();
                 expect(viewModel.answers()[0].hasFocus()).toBeTruthy();
             });
-
-            it('should select added answer', function (done) {
-                viewModel.selectedAnswer(null);
-
-                viewModel.addAnswer().fin(function () {
-                    expect(viewModel.selectedAnswer()).toBe(viewModel.answers()[0]);
-                    done();
-                });
-            });
         });
 
         describe('toggleCorrectness:', function () {
@@ -181,85 +172,23 @@
             
         });
 
-        describe('selectAnswer:', function () {
-            var answer = { id: ko.observable('answerId'), text: ko.observable('test'), isCorrect: ko.observable(false), original: { text: 'old', correctness: true }, isDeleted: ko.observable(false) };
-
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
-
-            it('should be function', function () {
-                expect(viewModel.selectAnswer).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                viewModel.selectedAnswer(null);
-                var result = viewModel.selectAnswer(answer);
-
-                expect(result).toBePromise();
-            });
-
-            it('should set selectedAnswer', function (done) {
-                viewModel.selectedAnswer(null);
-
-                viewModel.selectAnswer(answer).fin(function () {
-                    expect(viewModel.selectedAnswer()).toBe(answer);
-                    done();
-                });
-            });
-
-            describe('when previos selected answer is not changed', function () {
-
-                var updateText;
-
-                beforeEach(function () {
-                    updateText = Q.defer();
-                    spyOn(repository, 'updateText').and.returnValue(updateText.promise);
-                    updateText.resolve(new Date());
-                });
-
-                it('should not update answer text', function (done) {
-                    viewModel.selectedAnswer(answer);
-
-                    viewModel.selectAnswer(answer).fin(function () {
-                        expect(repository.updateText).not.toHaveBeenCalled();
-                        done();
-                    });
-                });
-            });
-
-            describe('when previos selected answer is changed', function () {
-
-                describe('when previous selected answer is not null', function () {
-                    var updateText;
-
-                    beforeEach(function () {
-                        updateText = Q.defer();
-                        spyOn(repository, 'updateText').and.returnValue(updateText.promise);
-                        updateText.resolve(new Date());
-
-                        answer.original.correctness = true;
-                    });
-
-                    it('should update answer', function (done) {
-                        viewModel.selectedAnswer(answer);
-
-                        viewModel.selectAnswer(null).fin(function () {
-                            expect(repository.updateText).toHaveBeenCalled();
-                            done();
-                        });
-                    });
-                });
-            });
-
-        });
-
         describe('singleSelectTextDeleteByCollaborator:', function () {
             var answer = { id: 'id', text: 'text', isCorrect: true },
                 answer1 = { id: 'id1', text: 'text', isCorrect: false },
                 question = { id: questionId },
-                vmAnswer = { id: ko.observable(answer.id), isDeleted: ko.observable(false), isCorrect: ko.observable(false) },
-                vmAnswer1 = { id: ko.observable(answer1.id), isDeleted: ko.observable(false), isCorrect: ko.observable(false), original: { correctness: false } };
+                vmAnswer = {
+                    id: ko.observable(answer.id),
+                    isDeleted: ko.observable(false),
+                    hasFocus: ko.observable(false),
+                    isCorrect: ko.observable(false)
+                },
+                vmAnswer1 = {
+                    id: ko.observable(answer1.id),
+                    isDeleted: ko.observable(false),
+                    hasFocus: ko.observable(false),
+                    isCorrect: ko.observable(false),
+                    original: { correctness: false }
+                };
 
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
@@ -278,9 +207,12 @@
             });
 
             describe('when answer option is in edit mode', function () {
+                beforeEach(function() {
+                    vmAnswer.hasFocus(true);
+                });
+
                 it('should not delete answer', function () {
                     viewModel.answers([vmAnswer]);
-                    viewModel.selectedAnswer(vmAnswer);
                     viewModel.singleSelectTextDeleteByCollaborator(question, answer.id);
                     expect(viewModel.answers().length).toEqual(1);
                 });
@@ -288,14 +220,12 @@
                 it('should mark answer as deleted', function () {
                     vmAnswer.isDeleted(false);
                     viewModel.answers([vmAnswer]);
-                    viewModel.selectedAnswer(vmAnswer);
                     viewModel.singleSelectTextDeleteByCollaborator(question, answer.id);
                     expect(vmAnswer.isDeleted).toBeTruthy();
                 });
 
                 it('should show notification', function () {
                     viewModel.answers([vmAnswer]);
-                    viewModel.selectedAnswer(vmAnswer);
                     viewModel.singleSelectTextDeleteByCollaborator(question, answer.id);
                     expect(notify.error).toHaveBeenCalled();
                 });
@@ -305,7 +235,6 @@
                     it('should set answer to incorrect', function () {
                         vmAnswer.isCorrect(true);
                         viewModel.answers([vmAnswer, vmAnswer1]);
-                        viewModel.selectedAnswer(vmAnswer);
                         viewModel.singleSelectTextDeleteByCollaborator(question, answer.id);
                         expect(vmAnswer.isCorrect()).toBeFalsy();
                     });
@@ -314,7 +243,6 @@
                         vmAnswer.isCorrect(true);
                         vmAnswer1.isCorrect(false);
                         viewModel.answers([vmAnswer, vmAnswer1]);
-                        viewModel.selectedAnswer(vmAnswer);
                         viewModel.singleSelectTextDeleteByCollaborator(question, answer.id);
                         expect(vmAnswer1.isCorrect()).toBeTruthy();
                     });
@@ -323,8 +251,9 @@
             });
 
             it('should remove answer', function () {
-                viewModel.selectedAnswer(null);
+                vmAnswer.hasFocus(false);
                 viewModel.answers([vmAnswer]);
+
                 viewModel.singleSelectTextDeleteByCollaborator(question, answer.id);
                 expect(viewModel.answers().length).toEqual(0);
             });
@@ -333,14 +262,23 @@
 
         describe('singleSelectTextCorrectnessUpdatedByCollaborator:', function () {
             var text = 'text',
-              answer = { id: 'id', text: text, isCorrect: true },
-              answer1 = { id: 'id1', text: text, isCorrect: false },
-              question = { id: questionId },
-            vmAnswer = {
-                id: ko.observable(answer.id), isDeleted: ko.observable(false), isCorrect: ko.observable(true), original: { correctness: false }
-            },
-            vmAnswer1 = {
-                id: ko.observable(answer1.id), isDeleted: ko.observable(false), isCorrect: ko.observable(false), original: { correctness: false }
+                answer = { id: 'id', text: text, isCorrect: true },
+                answer1 = { id: 'id1', text: text, isCorrect: false },
+                question = { id: questionId },
+
+                vmAnswer = {
+                    id: ko.observable(answer.id),
+                    isDeleted: ko.observable(false),
+                    hasFocus: ko.observable(false),
+                    isCorrect: ko.observable(true),
+                    original: { correctness: false }
+                },
+                vmAnswer1 = {
+                    id: ko.observable(answer1.id),
+                    isDeleted: ko.observable(false),
+                    hasFocus: ko.observable(false),
+                    isCorrect: ko.observable(false),
+                    original: { correctness: false }
             };
 
             beforeEach(function () {
@@ -401,10 +339,12 @@
             });
 
             describe('when answer is in edit mdode', function () {
+                beforeEach(function() {
+                    vmAnswer.hasFocus(true);
+                });
 
                 it('should not update answer', function () {
                     viewModel.answers([vmAnswer, vmAnswer1]);
-                    viewModel.selectedAnswer(vmAnswer);
                     viewModel.singleSelectTextCorrectnessUpdatedByCollaborator(question, answer.id, false);
                     expect(vmAnswer.isCorrect()).toBeTruthy();
                 });
@@ -412,37 +352,8 @@
                 it('should mark answer as deleted', function () {
                     vmAnswer.isDeleted(false);
                     viewModel.answers([vmAnswer, vmAnswer1]);
-                    viewModel.selectedAnswer(vmAnswer);
                     viewModel.singleSelectTextCorrectnessUpdatedByCollaborator(question, answer.id);
                     expect(vmAnswer.isDeleted).toBeTruthy();
-                });
-
-            });
-
-        });
-
-        describe('clearSelection:', function () {
-
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
-
-            it('should be function', function () {
-                expect(viewModel.clearSelection).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                var result = viewModel.clearSelection();
-                expect(result).toBePromise();
-            });
-
-            it('should set selectedAnswer to null', function (done) {
-                var answer = { id: ko.observable('answerId'), text: ko.observable('test'), isCorrect: ko.observable(false), original: { text: 'test', correctness: false } };
-                viewModel.selectedAnswer(answer);
-
-                viewModel.clearSelection().fin(function () {
-                    expect(viewModel.selectedAnswer()).toBe(null);
-                    done();
                 });
             });
         });
@@ -468,46 +379,62 @@
             });
 
             it('should send event \'Delete answer option\'', function () {
-                viewModel.removeAnswer();
+                answer = {
+                    id: ko.observable('answerId'),
+                    text: ko.observable('test'),
+                    isCorrect: ko.observable(false),
+                    original: { correctness: false },
+                    isDeleted: ko.observable(false)
+                };
+
+                viewModel.removeAnswer(answer);
                 expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option');
             });
 
             describe('when answer id is set', function () {
 
                 beforeEach(function () {
-                    answer = { id: ko.observable('answerId'), text: ko.observable('test'), isCorrect: ko.observable(false), original: { correctness: false }, isDeleted: ko.observable(false) };
-                    answer1 = { id: ko.observable('answerId1'), text: ko.observable('test1'), isCorrect: ko.observable(true), original: { correctness: false }, isDeleted: ko.observable(false) };
+                    answer = {
+                        id: ko.observable('answerId'),
+                        text: ko.observable('test'),
+                        isCorrect: ko.observable(false),
+                        original: { correctness: false },
+                        isDeleted: ko.observable(false)
+                    };
+                    answer1 = {
+                        id: ko.observable('answerId1'),
+                        text: ko.observable('test1'),
+                        isCorrect: ko.observable(true),
+                        original: { correctness: false },
+                        isDeleted: ko.observable(false)
+                    };
                 });
 
                 describe('when answer is deleted by collaborator', function () {
-                    it('should not remove answer from repository', function (done) {
+                    it('should not remove answer from repository', function () {
                         answer.isDeleted(true);
-                        viewModel.removeAnswer(answer).fin(function () {
-                            expect(repository.removeAnswer).not.toHaveBeenCalled();
-                            done();
-                        });
+                        viewModel.removeAnswer(answer);
+                        expect(repository.removeAnswer).not.toHaveBeenCalled();
                     });
                 });
 
-                it('should remove answer from the repository', function (done) {
-                    viewModel.removeAnswer(answer).fin(function () {
-                        expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
-                        done();
-                    });
+                it('should remove answer from the repository', function () {
+                    viewModel.removeAnswer(answer);
+                    expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
                 });
 
-                it('should remove answer from the viewModel', function (done) {
+                it('should remove answer from the viewModel', function () {
                     viewModel.answers([answer]);
 
-                    viewModel.removeAnswer(answer).fin(function () {
-                        expect(viewModel.answers().length).toEqual(0);
-                        done();
-                    });
+                    viewModel.removeAnswer(answer);
+                    expect(viewModel.answers().length).toEqual(0);
                 });
 
                 it('should show notification', function (done) {
                     removeAnswer.resolve({ modifiedOn: new Date() });
-                    viewModel.removeAnswer(answer).fin(function () {
+                    viewModel.removeAnswer(answer);
+
+                    removeAnswer.promise.fin(function () {
                         expect(notify.saved).toHaveBeenCalled();
                         done();
                     });
@@ -519,7 +446,9 @@
                         viewModel.answers([answer, answer1]);
                         answer.isCorrect(true);
                         removeAnswer.resolve({ modifiedOn: new Date() });
-                        viewModel.removeAnswer(answer).fin(function () {
+
+                        viewModel.removeAnswer(answer);
+                        removeAnswer.promise.fin(function () {
                             expect(answer1.isCorrect()).toBeTruthy();
                             done();
                         });
@@ -532,23 +461,27 @@
             describe('when answer id is not set initially', function () {
                 var answerWithoutId;
                 beforeEach(function () {
-                    answerWithoutId = { id: ko.observable(''), text: ko.observable('test'), isCorrect: ko.observable(false), original: { correctness: false }, isDeleted: ko.observable(false) };
+                    answerWithoutId = {
+                        id: ko.observable(''),
+                        text: ko.observable('test'),
+                        isCorrect: ko.observable(false),
+                        original: { correctness: false },
+                        isDeleted: ko.observable(false)
+                    };
                 });
 
-                it('should not remove answer from the viewModel', function (done) {
+                it('should not remove answer from the viewModel', function () {
                     viewModel.answers([answerWithoutId]);
-
-                    viewModel.removeAnswer(answerWithoutId).fin(function () {
-                        expect(viewModel.answers().length).toEqual(1);
-                        done();
-                    });
+                    viewModel.removeAnswer(answerWithoutId);
+                    expect(viewModel.answers().length).toEqual(1);
                 });
 
                 it('should not show notification', function (done) {
                     viewModel.answers([answerWithoutId]);
                     removeAnswer.resolve({ modifiedOn: new Date() });
 
-                    viewModel.removeAnswer(answerWithoutId).fin(function () {
+                    viewModel.removeAnswer(answerWithoutId);
+                    removeAnswer.promise.fin(function () {
                         expect(notify.saved).not.toHaveBeenCalled();
                         done();
                     });
@@ -556,24 +489,20 @@
 
                 describe('and answer id is set later', function () {
 
-                    it('should remove answer from the repository', function (done) {
+                    it('should remove answer from the repository', function () {
                         viewModel.answers([answerWithoutId]);
+                        viewModel.removeAnswer(answerWithoutId);
 
-                        viewModel.removeAnswer(answerWithoutId).fin(function () {
-                            answerWithoutId.id('answerId');
-                            expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
-                            done();
-                        });
+                        answerWithoutId.id('answerId');
+                        expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
                     });
 
-                    it('should remove answer from the viewModel', function (done) {
+                    it('should remove answer from the viewModel', function () {
                         viewModel.answers([answerWithoutId]);
+                        viewModel.removeAnswer(answerWithoutId);
 
-                        viewModel.removeAnswer(answerWithoutId).fin(function () {
-                            answerWithoutId.id('answerId');
-                            expect(viewModel.answers().length).toEqual(0);
-                            done();
-                        });
+                        answerWithoutId.id('answerId');
+                        expect(viewModel.answers().length).toEqual(0);
                     });
 
                     it('should show notification', function (done) {
@@ -581,7 +510,8 @@
                         removeAnswer.resolve({ modifiedOn: new Date() });
                         answerWithoutId.id('answerId');
 
-                        viewModel.removeAnswer(answerWithoutId).fin(function () {
+                        viewModel.removeAnswer(answerWithoutId);
+                        removeAnswer.promise.fin(function () {
                             expect(notify.saved).toHaveBeenCalled();
                             done();
                         });
@@ -716,55 +646,27 @@
             describe('when text is not empty', function () {
 
                 describe('and id is not empty', function () {
-                    var answer = { id: ko.observable('answerId'), text: ko.observable('text'), isCorrect: ko.observable(false), original: { correctness: false }, isDeleted: ko.observable(false) };
-                    var answer1 = { id: ko.observable('answerId1'), text: ko.observable('22'), isCorrect: ko.observable(false), original: { correctness: false }, isDeleted: ko.observable(false) };
-                    var answer2 = { id: ko.observable('answerId2'), text: ko.observable('222'), isCorrect: ko.observable(false), original: { correctness: false }, isDeleted: ko.observable(false) };
-
+                    var answer = {
+                        id: ko.observable('answerId'),
+                        text: ko.observable('text'),
+                        isCorrect: ko.observable(false),
+                        original: { correctness: false },
+                        isDeleted: ko.observable(false)
+                    };
+                    
                     describe('when text is not modified', function () {
                         beforeEach(function () {
                             answer.original.text = 'text';
                         });
 
-                        describe('and correctness is not modified', function () {
-                            beforeEach(function () {
-                                answer.original.correctness = false;
-                            });
+                        it('should not update answer in the repository', function (done) {
+                            updateText.resolve();
 
-                            it('should not update answer in the repository', function (done) {
-                                updateText.resolve();
-
-                                viewModel.updateText(answer).fin(function () {
-                                    expect(repository.updateText).not.toHaveBeenCalledWith();
-                                    done();
-                                });
+                            viewModel.updateText(answer).fin(function () {
+                                expect(repository.updateText).not.toHaveBeenCalledWith();
+                                done();
                             });
                         });
-
-                        describe('and correctness is modified', function () {
-                            beforeEach(function () {
-                                answer.original.correctness = true;
-                                answer.text('text1');
-                                answer.id('boo');
-                            });
-
-                            it('should update answer in the repository', function (done) {
-                                updateText.resolve();
-                                viewModel.updateText(answer).fin(function () {
-                                    expect(repository.updateText).toHaveBeenCalledWith(questionId, answer.id(), answer.text());
-                                    done();
-                                });
-                            });
-
-                            it('should show notification', function (done) {
-                                updateText.resolve({ modifiedOn: new Date() });
-
-                                viewModel.updateText(answer).fin(function () {
-                                    expect(notify.saved).toHaveBeenCalled();
-                                    done();
-                                });
-                            });
-                        });
-
                     });
 
                     describe('when text is modified', function () {
@@ -772,36 +674,14 @@
                             answer.original.text = 'text old';
                         });
 
-                        describe('and correctness is not modified', function () {
-                            beforeEach(function () {
-                                answer.original.correctness = false;
-                            });
+                        it('should update answer in the repository', function (done) {
+                            updateText.resolve();
 
-                            it('should update answer in the repository11', function (done) {
-                                updateText.resolve();
-
-                                viewModel.updateText(answer).fin(function () {
-                                    expect(repository.updateText).toHaveBeenCalledWith(questionId, answer.id(), answer.text());
-                                    done();
-                                });
+                            viewModel.updateText(answer).fin(function () {
+                                expect(repository.updateText).toHaveBeenCalledWith(questionId, answer.id(), answer.text());
+                                done();
                             });
                         });
-
-                        describe('and correctness is modified', function () {
-                            beforeEach(function () {
-                                answer.original.correctness = true;
-                            });
-
-                            it('should update answer in the repository', function (done) {
-                                updateText.resolve();
-
-                                viewModel.updateText(answer).fin(function () {
-                                    expect(repository.updateText).toHaveBeenCalledWith(questionId, answer.id(), answer.text());
-                                    done();
-                                });
-                            });
-                        });
-
 
                         it('should show notification', function (done) {
                             updateText.resolve({ modifiedOn: new Date() });

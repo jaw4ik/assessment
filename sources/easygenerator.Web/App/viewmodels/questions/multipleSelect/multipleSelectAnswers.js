@@ -13,22 +13,21 @@
 
             viewModel.addAnswer = function () {
                 eventTracker.publish(events.addAnswerOption);
-                var answer = doAddAnswer();
-                return viewModel.selectAnswer(answer);
+                var answer = viewModel.doAddAnswer();
+                answer.hasFocus(true);
+                answer.text.isEditing(true);
             };
 
             viewModel.removeAnswer = function(answer) {
                 eventTracker.publish(events.deleteAnswerOption);
 
-                return viewModel.clearSelection().then(function () {
-                    performActionWhenAnswerIdIsSet(answer, function () {
-                        viewModel.answers.remove(answer);
+                performActionWhenAnswerIdIsSet(answer, function () {
+                    viewModel.answers.remove(answer);
 
-                        if (!answer.isDeleted())
-                            repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function () {
-                                showNotification();
-                            });
-                    });
+                    if (!answer.isDeleted())
+                        repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function () {
+                            showNotification();
+                        });
                 });
             };
 
@@ -75,32 +74,14 @@
                 });
             };
 
-            viewModel.toggleCorrectness = function(answer) {
+            viewModel.toggleCorrectness = function (answer) {
                 eventTracker.publish(events.toggleAnswerCorrectness);
                 var isCorrect = !answer.isCorrect();
 
                 answer.isCorrect(isCorrect);
             };
 
-            viewModel.selectAnswer = function (newAnswer) {
-                return Q.fcall(function () {
-                    var oldAnswer = viewModel.selectedAnswer();
-                    if (oldAnswer == newAnswer)
-                        return;
-
-                    viewModel.selectedAnswer(newAnswer);
-                    if (oldAnswer != null) {
-                        viewModel.updateAnswer(oldAnswer);
-                    }
-                });
-            };
-
             viewModel.deletedByCollaborator = deletedByCollaborator;
-
-            viewModel.clearSelection = function () {
-                return viewModel.selectAnswer(null);
-            };
-
             viewModel.multipleselectAnswerCorrectnessUpdatedByCollaborator = multipleselectAnswerCorrectnessUpdatedByCollaborator;
 
             app.on(constants.messages.question.answer.deletedByCollaborator, deletedByCollaborator);
@@ -129,54 +110,34 @@
                 if (questionId != question.id)
                     return;
 
-                var selectedAnswer = viewModel.selectedAnswer();
-                if (!_.isNullOrUndefined(selectedAnswer) && selectedAnswer.id() == answerId) {
-                    notify.error(localizationManager.localize('answerOptionHasBeenDeletedByCollaborator'));
-                    selectedAnswer.isDeleted(true);
-                    return;
-                }
-
-                viewModel.answers(_.reject(viewModel.answers(), function (item) {
+                var answer = _.find(viewModel.answers(), function (item) {
                     return item.id() == answerId;
-                }));
+                });
+                if (_.isNullOrUndefined(answer))
+                    return;
+
+                if (answer.hasFocus()) {
+                    answer.isDeleted(true);
+                    notify.error(localizationManager.localize('answerOptionHasBeenDeletedByCollaborator'));
+                } else {
+                    viewModel.answers.remove(answer);
+                }
             }
 
             function multipleselectAnswerCorrectnessUpdatedByCollaborator(question, answerId, isCorrect) {
                 if (questionId != question.id)
                     return;
 
-                var selectedAnswer = viewModel.selectedAnswer();
-                if (!_.isNullOrUndefined(selectedAnswer) && selectedAnswer.id() == answerId) {
-                    selectedAnswer.original.correctness = isCorrect;
-                    return;
-                }
-
                 var answer = _.find(viewModel.answers(), function (item) {
                     return item.id() == answerId;
                 });
+                if (_.isNullOrUndefined(answer))
+                    return;
 
-                if (!_.isNullOrUndefined(answer)) {
-                    answer.original.correctness = isCorrect;
+                answer.original.correctness = isCorrect;
+                if (!answer.hasFocus())
                     answer.isCorrect(isCorrect);
-                }
             }
-
-            function doAddAnswer(answer) {
-                answer = answer || { id: '', text: '', isCorrect: false };
-
-                var item = {
-                    id: ko.observable(answer.id),
-                    text: ko.observable(answer.text),
-                    original: { text: answer.text, correctness: answer.isCorrect },
-                    isCorrect: ko.observable(answer.isCorrect),
-                    isDeleted: ko.observable(false),
-                    hasFocus: ko.observable(true)
-                };
-
-                viewModel.answers.push(item);
-                return item;
-            }
-
         };
 
         return multipleselectAnswers;

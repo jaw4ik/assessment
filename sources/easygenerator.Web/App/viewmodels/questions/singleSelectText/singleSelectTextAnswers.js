@@ -29,25 +29,25 @@
                     emptyAnswer.text(emptyAnswer.original.text);
                 }
                 eventTracker.publish(events.addAnswerOption);
-                var answer = doAddAnswer();
-                return viewModel.selectAnswer(answer);
+
+                var answer = viewModel.doAddAnswer();
+                answer.hasFocus(true);
+                answer.text.isEditing(true);
             };
 
             viewModel.removeAnswer = function (answer) {
                 eventTracker.publish(events.deleteAnswerOption);
 
-                return viewModel.clearSelection().then(function () {
-                    performActionWhenAnswerIdIsSet(answer, function () {
-                        viewModel.answers.remove(answer);
+                performActionWhenAnswerIdIsSet(answer, function () {
+                    viewModel.answers.remove(answer);
 
-                        if (!answer.isDeleted())
-                            repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function () {
-                                if (answer.isCorrect()) {
-                                    setFirstAnswerCorrectness();
-                                    answer.isCorrect(false);
-                                }
-                                showNotification();
-                            });
+                    if (!answer.isDeleted())
+                        repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function () {
+                            if (answer.isCorrect()) {
+                                setFirstAnswerCorrectness();
+                                answer.isCorrect(false);
+                            }
+                            showNotification();
                         });
                 });
             };
@@ -139,23 +139,6 @@
                 });
             };
 
-            viewModel.selectAnswer = function (newAnswer) {
-                return Q.fcall(function () {
-                    var oldAnswer = viewModel.selectedAnswer();
-                    if (oldAnswer == newAnswer)
-                        return;
-
-                    viewModel.selectedAnswer(newAnswer);
-                    if (oldAnswer != null) {
-                        viewModel.updateText(oldAnswer);
-                    }
-                });
-            };
-
-            viewModel.clearSelection = function () {
-                return viewModel.selectAnswer(null);
-            };
-
             viewModel.singleSelectTextDeleteByCollaborator = singleSelectTextDeleteByCollaborator;
 
             viewModel.singleSelectTextCorrectnessUpdatedByCollaborator = singleSelectTextCorrectnessUpdatedByCollaborator;
@@ -169,28 +152,22 @@
                 if (questionId != question.id)
                     return;
 
-                var selectedAnswer = viewModel.selectedAnswer();
-                if (!_.isNullOrUndefined(selectedAnswer) && selectedAnswer.id() == answerId) {
-                    notify.error(localizationManager.localize('answerOptionHasBeenDeletedByCollaborator'));
-                    selectedAnswer.isDeleted(true);
-                    if (selectedAnswer.isCorrect()) {
-                        setFirstAnswerCorrectness();
-                        selectedAnswer.isCorrect(false);
-                    }
-                    return;
-                }
-
                 var answerForRemove = _.find(viewModel.answers(), function (item) {
                     return item.id() == answerId;
                 });
+                if (_.isNullOrUndefined(answerForRemove))
+                    return;
 
-                if (!_.isNullOrUndefined(answerForRemove)) {
-                    viewModel.answers(_.reject(viewModel.answers(), function (item) {
-                        return item.id() == answerId;
-                    }));
-                    if (answerForRemove.isCorrect()) {
-                        setFirstAnswerCorrectness();
-                    }
+                if (answerForRemove.isCorrect()) {
+                    answerForRemove.isCorrect(false);
+                    setFirstAnswerCorrectness();
+                }
+
+                if (answerForRemove.hasFocus()) {
+                    answerForRemove.isDeleted(true);
+                    notify.error(localizationManager.localize('answerOptionHasBeenDeletedByCollaborator'));
+                } else {
+                    viewModel.answers.remove(answerForRemove);
                 }
             }
 
@@ -246,24 +223,7 @@
                     return item.original.correctness;
                 });
                 prevCorrectAnswer.isCorrect(true);
-            };
-
-            function doAddAnswer(answer) {
-                answer = answer || { id: '', text: '', isCorrect: false };
-
-                var item = {
-                    id: ko.observable(answer.id),
-                    text: ko.observable(answer.text),
-                    original: { text: answer.text, correctness: answer.isCorrect },
-                    isCorrect: ko.observable(answer.isCorrect),
-                    isDeleted: ko.observable(false),
-                    hasFocus: ko.observable(true)
-                };
-
-                viewModel.answers.push(item);
-                return item;
             }
-
         };
 
         return singleSelectTextAnswers;

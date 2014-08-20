@@ -8,7 +8,6 @@
 
         var answersViewModel = function (questionId, answers) {
             var viewModel = {
-                selectedAnswer: ko.observable(null),
                 answers: ko.observableArray([]),
                 isExpanded: ko.observable(true),
                 beginEditText: beginEditText,
@@ -17,6 +16,7 @@
                 addedByCollaborator: addedByCollaborator,
                 textUpdatedByCollaborator: textUpdatedByCollaborator,
                 autosaveInterval: constants.autosaveTimersInterval.answerOption,
+                doAddAnswer: doAddAnswer
             };
 
             _.each(answers, function (item) {
@@ -30,12 +30,12 @@
 
             function beginEditText(answer) {
                 eventTracker.publish(events.beginEditText);
-                answer.hasFocus(true);
+                answer.text.isEditing(true);
             }
 
             function endEditText(answer) {
                 eventTracker.publish(events.endEditText);
-                answer.hasFocus(false);
+                answer.text.isEditing(false);
             }
 
             function toggleExpand() {
@@ -53,20 +53,15 @@
                 if (questionId != question.id)
                     return;
 
-                var selectedAnswer = viewModel.selectedAnswer();
-                if (!_.isNullOrUndefined(selectedAnswer) && selectedAnswer.id() == answerId) {
-                    selectedAnswer.original.text = text;
-                    return;
-                }
-
                 var answer = _.find(viewModel.answers(), function (item) {
                     return item.id() == answerId;
                 });
+                if (_.isNullOrUndefined(answer))
+                    return;
 
-                if (!_.isNullOrUndefined(answer)) {
+                answer.original.text = text;
+                if (!answer.hasFocus())
                     answer.text(text);
-                    answer.original.text = text;
-                }
             }
 
             function doAddAnswer(answer) {
@@ -80,6 +75,7 @@
                     isDeleted: ko.observable(false),
                     hasFocus: ko.observable(false)
                 };
+                item.text.isEditing = ko.observable(false);
 
                 viewModel.answers.push(item);
                 return item;

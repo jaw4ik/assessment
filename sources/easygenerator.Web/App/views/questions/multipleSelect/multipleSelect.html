@@ -28,10 +28,10 @@
                     </li>
                     <!-- /ko -->
                     <!-- ko foreach: answers -->
-                    <li class="answer-option-item" data-bind="outsideClick: { action: $parent.clearSelection }">
+                    <li class="answer-option-item" data-bind="containerHasFocus: { hasFocus: hasFocus, update: function(){ $parent.updateAnswer($data); } }">
                         <div class="answer-options-list-item">
                             <div class="question-answer-value-wrapper">
-                                <div class="question-answer-checkbox question-answer-value info-tooltip-holder" data-bind="click: function(data, event) { $parent.selectAnswer(data, event); $parent.toggleCorrectness(data, event); }, css: { correct: isCorrect }">
+                                <div class="question-answer-checkbox question-answer-value info-tooltip-holder" tabindex="-1" data-bind="click: $parent.toggleCorrectness, css: { correct: isCorrect }">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
                                     <div class="info-tooltip question-answer left-side">
                                         <!-- ko if: isCorrect -->
@@ -47,9 +47,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="question-answer-text-wrapper" data-bind="css: { active: $data == $parent.selectedAnswer() }">
+                            <div class="question-answer-text-wrapper" data-bind="css: { active: hasFocus() }">
                                 <div class="question-answer-text">
-                                    <textarea class="editarea-editable-text selectable" data-bind="value: text, valueUpdate: 'afterkeydown', editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateAnswer } }, event: { focus: function(data, event) { $parent.selectAnswer(data, event); $parent.beginEditText(data, event); }, blur: function (data, event) { $parent.endEditText(data, event) } }, hasFocus: hasFocus, selectTextInAnswer: {}"></textarea>
+                                    <textarea class="editarea-editable-text selectable" data-bind="value: text, valueUpdate: 'afterkeydown', event: { focus: $parent.beginEditText, blur: $parent.endEditText }, editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateAnswer } }, hasFocus: text.isEditing, selectTextInAnswer: {}"></textarea>
                                 </div>
                             </div>
                             <div class="question-answer-delete-wrapper">
@@ -66,7 +66,7 @@
                     </li>
                     <!-- /ko -->
                 </ul>
-                <div class="add-answer-option-wrapper" data-bind="outsideClick: { action: clearSelection }">
+                <div class="add-answer-option-wrapper">
                     <button class="add-answer-option-btn btn green" data-bind="click: addAnswer">
                         <span class="add-answer-option-text">Add answer option</span>
                     </button>

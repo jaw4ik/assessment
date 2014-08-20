@@ -14,27 +14,14 @@
         var questionId = 'questionId';
 
         beforeEach(function () {
+            viewModel = ctor(questionId, []);
+
             spyOn(notify, 'saved');
             spyOn(notify, 'error');
             spyOn(eventTracker, 'publish');
         });
 
-        describe('selectedAnswer:', function () {
-
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
-
-            it('should be observable', function () {
-                expect(viewModel.selectedAnswer).toBeObservable();
-            });
-        });
-
         describe('answers:', function () {
-
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
 
             it('should be observable array', function () {
                 expect(viewModel.answers).toBeObservable();
@@ -43,10 +30,6 @@
         });
 
         describe('isExpanded:', function () {
-
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
 
             it('should be observable', function () {
                 expect(viewModel.isExpanded).toBeObservable();
@@ -58,59 +41,66 @@
 
         });
 
-        describe('beginEditText:', function () {
+       describe('beginEditText:', function () {
 
             it('should be function', function () {
                 expect(viewModel.beginEditText).toBeFunction();
             });
 
             it('should send event \'Start editing answer option\'', function () {
-                var answer = { id: ko.observable('answerId'), text: ko.observable(''), hasFocus: ko.observable(false) };
+                var answer = {
+                    id: ko.observable('answerId'),
+                    text: ko.observable('')
+                };
+                answer.text.isEditing = ko.observable(false);
+
                 viewModel.beginEditText(answer);
                 expect(eventTracker.publish).toHaveBeenCalledWith('Start editing answer option');
             });
 
-            it('should set focus to answer', function () {
-                var answer = { id: ko.observable('answerId'), text: ko.observable(''), hasFocus: ko.observable(false) };
+            it('should set text isEditing to true', function () {
+                var answer = {
+                    id: ko.observable('answerId'),
+                    text: ko.observable('')
+                };
+                answer.text.isEditing = ko.observable(false);
+
                 viewModel.beginEditText(answer);
-                expect(answer.hasFocus()).toBeTruthy();
+                expect(answer.text.isEditing()).toBeTruthy();
             });
 
         });
 
         describe('endEditText:', function () {
 
-            var removeAnswer;
-
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-
-                removeAnswer = Q.defer();
-                spyOn(repository, 'removeAnswer').and.returnValue(removeAnswer.promise);
-            });
-
             it('should be function', function () {
                 expect(viewModel.endEditText).toBeFunction();
             });
 
             it('should send event \'End editing answer option\'', function () {
-                var answer = { id: ko.observable('answerId'), text: ko.observable(''), hasFocus: ko.observable(true) };
+                var answer = {
+                    id: ko.observable('answerId'),
+                    text: ko.observable('')
+                };
+                answer.text.isEditing = ko.observable(true);
+
                 viewModel.endEditText(answer);
                 expect(eventTracker.publish).toHaveBeenCalledWith('End editing answer option');
             });
 
-            it('should remove focus from answer', function () {
-                var answer = { id: ko.observable('answerId'), text: ko.observable(''), hasFocus: ko.observable(true) };
+            it('should set isEditing to false', function () {
+                var answer = {
+                    id: ko.observable('answerId'),
+                    text: ko.observable('')
+                };
+                answer.text.isEditing = ko.observable(true);
+
                 viewModel.endEditText(answer);
-                expect(answer.hasFocus()).toBeFalsy();
+                expect(answer.text.isEditing()).toBeFalsy();
             });
         });
 
         describe('toggleExpand:', function () {
-
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
 
             it('should be function', function () {
                 expect(viewModel.toggleExpand).toBeFunction();
@@ -127,10 +117,6 @@
         describe('addedByCollaborator:', function () {
             var answer = { id: 'id', text: 'text', isCorrect: true },
                 question = { id: questionId };
-
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
 
             it('should be function', function () {
                 expect(viewModel.addedByCollaborator).toBeFunction();
@@ -157,15 +143,19 @@
 
         describe('textUpdatedByCollaborator:', function () {
             var text = 'text',
-                answer = { id: 'id', text: text, isCorrect: true },
+                answer = {
+                    id: 'id',
+                    text: text,
+                    isCorrect: true
+                },
                 question = { id: questionId },
             vmAnswer = {
-                id: ko.observable(answer.id), isDeleted: ko.observable(false), text: ko.observable(''), original: { text: ''}
+                id: ko.observable(answer.id),
+                isDeleted: ko.observable(false),
+                hasFocus: ko.observable(false),
+                text: ko.observable(''),
+                original: { text: '' }
             };
-
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-            });
 
             it('should be function', function () {
                 expect(viewModel.textUpdatedByCollaborator).toBeFunction();
@@ -173,7 +163,9 @@
 
             describe('when question is not current question', function () {
                 it('should not update answer', function () {
+                    vmAnswer.hasFocus(false);
                     viewModel.answers([vmAnswer]);
+                    
                     viewModel.textUpdatedByCollaborator({ id: 'smth' }, answer.id, text);
                     expect(vmAnswer.text()).toBe('');
                 });
@@ -181,34 +173,87 @@
 
             describe('when answer is in edit mode', function () {
                 it('should not update answer', function () {
+                    vmAnswer.hasFocus(true);
                     viewModel.answers([vmAnswer]);
-                    viewModel.selectedAnswer(vmAnswer);
+
                     viewModel.textUpdatedByCollaborator(question, answer.id, text);
                     expect(vmAnswer.text()).toBe('');
                 });
 
                 it('should update original answer', function () {
+                    vmAnswer.hasFocus(true);
                     viewModel.answers([vmAnswer]);
-                    viewModel.selectedAnswer(vmAnswer);
                     viewModel.textUpdatedByCollaborator(question, answer.id, text);
                     expect(vmAnswer.original.text).toBe(text);
                 });
             });
 
             it('should update answer text', function () {
+                vmAnswer.hasFocus(false);
                 viewModel.answers([vmAnswer]);
-                viewModel.selectedAnswer(null);
                 viewModel.textUpdatedByCollaborator(question, answer.id, text);
                 expect(vmAnswer.text()).toBe(text);
             });
 
             it('should update original answer text', function () {
+                vmAnswer.hasFocus(false);
                 viewModel.answers([vmAnswer]);
-                viewModel.selectedAnswer(null);
                 viewModel.textUpdatedByCollaborator(question, answer.id, text);
                 expect(vmAnswer.original.text).toBe(text);
             });
         });
 
+        describe('doAddAnswer:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.doAddAnswer).toBeFunction();
+            });
+
+            describe('when there is no parameter', function() {
+                it('should add empty answer', function () {
+                    viewModel.answers([]);
+
+                    viewModel.doAddAnswer();
+
+                    expect(viewModel.answers().length).toEqual(1);
+                    expect(viewModel.answers()[0].id).toBeObservable();
+                    expect(viewModel.answers()[0].id()).toEqual("");
+                    expect(viewModel.answers()[0].text).toBeObservable();
+                    expect(viewModel.answers()[0].text()).toEqual("");
+                    expect(viewModel.answers()[0].isCorrect).toBeObservable();
+                    expect(viewModel.answers()[0].isCorrect()).toBeFalsy();
+                    expect(viewModel.answers()[0].hasFocus).toBeObservable();
+                    expect(viewModel.answers()[0].hasFocus()).toBeFalsy();
+                    expect(viewModel.answers()[0].text.isEditing).toBeObservable();
+                    expect(viewModel.answers()[0].text.isEditing()).toBeFalsy();
+                });
+            });
+
+            describe('when object is passed as parameter', function () {
+                var newAnswer;
+
+                beforeEach(function () {
+                    newAnswer = {id: "id", text: "answer text", isCorrect: true};
+                });
+
+                it('should add new answer with defined text and correctness', function () {
+                    viewModel.answers([]);
+
+                    viewModel.doAddAnswer(newAnswer);
+
+                    expect(viewModel.answers().length).toEqual(1);
+                    expect(viewModel.answers()[0].id).toBeObservable();
+                    expect(viewModel.answers()[0].id()).toEqual(newAnswer.id);
+                    expect(viewModel.answers()[0].text).toBeObservable();
+                    expect(viewModel.answers()[0].text()).toEqual(newAnswer.text);
+                    expect(viewModel.answers()[0].isCorrect).toBeObservable();
+                    expect(viewModel.answers()[0].isCorrect()).toEqual(newAnswer.isCorrect);
+                    expect(viewModel.answers()[0].hasFocus).toBeObservable();
+                    expect(viewModel.answers()[0].hasFocus()).toBeFalsy();
+                    expect(viewModel.answers()[0].text.isEditing).toBeObservable();
+                    expect(viewModel.answers()[0].text.isEditing()).toBeFalsy();
+                });
+            });
+        });
     });
 })
