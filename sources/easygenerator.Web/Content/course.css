@@ -310,7 +310,7 @@
     float: left;
     width: 48%;
     min-width: 310px;
-    margin-right: 10px;
+    margin-right: 1.5%;
     font-family: 'OpenSans';
     color: #303133;
 }
@@ -422,7 +422,7 @@
 .template-settings-block {
     position: relative;
     float: left;
-    width: 48%;
+    width: 49.5%;
     max-width: 450px;
     min-width: 315px;
 }
