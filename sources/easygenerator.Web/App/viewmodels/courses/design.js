@@ -79,7 +79,7 @@
 
         function selectTemplate(template) {
             if (template == viewModel.currentTemplate()) {
-                return Q.fcall(function (){});
+                return Q.fcall(function () { });
             }
 
             eventTracker.publish(events.updateCourseTemplate + ' \'' + template.name + '\'');
@@ -104,12 +104,12 @@
             function calculateHeight($iframe, counter) {
                 var iframeDocumentHeight = $iframe.contents().find('body').height();
                 if (iframeDocumentHeight === 0 && counter < 10) { // Fix for IE
-                    _.delay(function() {
+                    _.delay(function () {
                         calculateHeight($iframe, ++counter);
                     }, 10);
                     return;
                 }
-                $iframe.height(iframeDocumentHeight);
+                $iframe.height(iframeDocumentHeight + 10); //Add padding to avoid scroll
                 viewModel.settingsVisibility(true);
             }
         }
