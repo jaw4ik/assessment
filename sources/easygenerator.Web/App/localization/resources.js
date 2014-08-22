@@ -1172,7 +1172,7 @@
         en: 'How to formulate a correct learning objective?'
     },
     createObjectiveHelpHint: {
-        en: '<p>A <strong>learning objective</strong> describes specific skills or knowledge a learner can demonstrate after completing a course.</p><p> See our <a href=\"http://www.easygenerator.com/learningobjectives\" target=\"_blank\">website</a> for instructions on how to create a learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
+        en: '<p>A <strong>learning objective</strong> describes specific skills or knowledge a learner can demonstrate after completing a course.</p><p> See our <a href=\"http://www.easygenerator.com/learning-objectives\" target=\"_blank\">website</a> for instructions on how to create a learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
     },
     questionHelpHintTitle: {
         en: 'Some general tips for the question types'
