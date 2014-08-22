@@ -30,7 +30,7 @@
         var valuesList = [];
         $dropDownValuesContainer.children().each(function (index, control) {
             var value = $(selectors.textBox, control).val();
-            valuesList.push(value);
+            valuesList.push(value.trim());
         });
         return valuesList;
     }
@@ -113,7 +113,7 @@
     }
 
     function getSelectedValue() {
-        return $(selectors.checkedRadioButton, $dropDownValuesContainer).next(selectors.textBox).val();
+        return $(selectors.checkedRadioButton, $dropDownValuesContainer).next(selectors.textBox).val().trim();
     }
 
     function createDefaultValues(defaultValues, selectedText) {

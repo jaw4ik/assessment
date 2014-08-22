@@ -33,7 +33,7 @@
                             if (widget.data.selectedText) {
                                 widget.setData('selectedText', null);
                             }
-                            widget.setData('blankValue', this.getValue());
+                            widget.setData('blankValue', this.getValue().trim());
                         }
                     }
                     ]
