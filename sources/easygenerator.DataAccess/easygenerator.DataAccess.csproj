@@ -181,6 +181,10 @@
     <Compile Include="Migrations\201408150714191_OrganizationCanBeNullUsersTable.Designer.cs">
       <DependentUpon>201408150714191_OrganizationCanBeNullUsersTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408220818322_AddIndexesToDB.cs" />
+    <Compile Include="Migrations\201408220818322_AddIndexesToDB.Designer.cs">
+      <DependentUpon>201408220818322_AddIndexesToDB.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -305,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408150714191_OrganizationCanBeNullUsersTable.resx">
       <DependentUpon>201408150714191_OrganizationCanBeNullUsersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408220818322_AddIndexesToDB.resx">
+      <DependentUpon>201408220818322_AddIndexesToDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

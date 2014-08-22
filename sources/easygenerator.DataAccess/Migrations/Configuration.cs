@@ -7,6 +7,7 @@ namespace easygenerator.DataAccess.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            CommandTimeout = 600;
         }
 
         protected override void Seed(DatabaseContext context)
