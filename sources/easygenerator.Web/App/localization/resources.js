@@ -1154,7 +1154,7 @@
         en: 'What is a course template?'
     },
     createCourseHelpHint: {
-        en: '<p>A<strong>course template</strong> sets the look and feel of your course and will determine how the content is organized.</p><p> Changing templates will  change the course type  into a quiz, a course or an exam.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p>A <strong>course template</strong> sets the look and feel of your course and will determine how the content is organized.</p><p> Changing templates will  change the course type  into a quiz, a course or an exam.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
     objectiveHelpHintTitle: {
         en: 'What is a related question?'
@@ -1184,7 +1184,7 @@
         en: 'What is a course template?'
     },
     designHelpHint: {
-        en: '<p>A<strong>course template</strong> will set the look and feel of your course and it will determine how the content is organized.</p><p> By switching templates you can change your course into a quiz for example..</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p>A <strong>course template</strong> will set the look and feel of your course and it will determine how the content is organized.</p><p> By switching templates you can change your course into a quiz for example..</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
     publishHelpHintTitle: {
         en: 'How to deliver the course to learners?'
