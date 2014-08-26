@@ -83,6 +83,10 @@
                 }
             });
 
+            $(element).on('input', function () {
+                editor.fire('change');
+            });
+
             editor.on('change', function () {
                 data(editor.getData());
             });
