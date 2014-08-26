@@ -439,6 +439,8 @@
 .xapi-form-input {
     top: 8px;
     left: -11px;
+    height: 16px;
+    line-height: 16px;
     border: none;
     color: #4d4d4d;
     font-size: 14px;
