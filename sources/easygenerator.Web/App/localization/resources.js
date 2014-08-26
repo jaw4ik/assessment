@@ -569,10 +569,10 @@
         en: 'Saved at'
     },
     newQuestionTitle: {
-        en: 'Type your question'
+        en: 'Untitled question'
     },
     newInformationContentTitle: {
-        en: 'Type your content title'
+        en: 'Untitled content'
     },
     multipleSelect: {
         en: 'Multiple choice'
