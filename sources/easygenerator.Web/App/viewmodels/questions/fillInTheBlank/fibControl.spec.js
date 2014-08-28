@@ -8,7 +8,7 @@
         system = require('durandal/system'),
         parser = require('./fillInTheBlankParser');
 
-    describe('viewModel [fill in the blank]', function () {
+    describe('viewModel [fibControl]', function () {
 
         var viewModel,
             events = {
@@ -42,28 +42,28 @@
         describe('text:', function () {
 
             it('should be observable', function () {
-                viewModel = ctor(null);
+                viewModel = new ctor(null);
                 expect(viewModel.text).toBeObservable();
             });
 
             describe('when content is null', function () {
-                it('should be null', function () {
-                    viewModel = ctor(null);
-                    expect(viewModel.text()).toBeNull();
+                it('should be empty', function () {
+                    viewModel = new ctor(null);
+                    expect(viewModel.text()).toBe('');
                 });
             });
 
             describe('when content is empty string', function () {
                 it('should be null', function () {
-                    viewModel = ctor('');
-                    expect(viewModel.text()).toBeNull();
+                    viewModel = new ctor('');
+                    expect(viewModel.text()).toBe('');
                 });
             });
 
             describe('when content is string', function () {
                 it('should be content', function () {
                     var content = 'text';
-                    viewModel = ctor(content);
+                    viewModel = new ctor(content);
                     expect(viewModel.text()).toBe(content);
                 });
             });
@@ -72,27 +72,27 @@
         describe('originalText:', function () {
 
             it('should be observable', function () {
-                viewModel = ctor(null);
+                viewModel = new ctor(null);
                 expect(viewModel.originalText).toBeObservable();
             });
 
             describe('when content is null', function () {
                 it('should be equal to text', function () {
-                    viewModel = ctor(null);
+                    viewModel = new ctor(null);
                     expect(viewModel.originalText()).toBe(viewModel.text());
                 });
             });
 
             describe('when content is empty string', function () {
                 it('should be equal to text', function () {
-                    viewModel = ctor(null);
+                    viewModel = new ctor(null);
                     expect(viewModel.originalText()).toBe(viewModel.text());
                 });
             });
 
             describe('when content is string', function () {
                 it('should be equal to text', function () {
-                    viewModel = ctor(null);
+                    viewModel = new ctor(null);
                     expect(viewModel.originalText()).toBe(viewModel.text());
                 });
             });
@@ -101,7 +101,7 @@
         describe('beginEditText:', function () {
 
             beforeEach(function () {
-                viewModel = ctor(null, answers, events);
+                viewModel = new ctor(null, answers, events);
             });
 
             it('should be function', function () {
@@ -123,7 +123,7 @@
         describe('endEditText:', function () {
 
             beforeEach(function () {
-                viewModel = ctor(null, answers, events);
+                viewModel = new ctor(null, answers, events);
             });
 
             it('should be function', function () {
@@ -145,7 +145,7 @@
 
         describe('addFillInTheBlank:', function () {
             beforeEach(function () {
-                viewModel = ctor(null, answers, events);
+                viewModel = new ctor(null, answers, events);
             });
 
             it('should be function', function () {
@@ -172,7 +172,7 @@
         describe('autosaveInterval:', function () {
 
             beforeEach(function () {
-                viewModel = ctor([]);
+                viewModel = new ctor([]);
             });
 
             it('should be number', function () {
@@ -181,30 +181,45 @@
 
         });
 
-        describe('isContentDefined:', function () {
+        describe('isEmpty:', function () {
 
             beforeEach(function () {
-                viewModel = ctor(null);
+                viewModel = new ctor(null);
             });
 
             it('should be computed', function () {
-                expect(viewModel.isContentDefined).toBeComputed();
+                expect(viewModel.isEmpty).toBeComputed();
             });
 
-            describe('when text is null', function () {
+            describe('when text is empty html', function () {
 
-                it('should be false', function () {
-                    viewModel.text(null);
-                    expect(viewModel.isContentDefined()).toBeFalsy();
+                describe('and when element has no focus', function () {
+
+                    it('should be true', function () {
+                        viewModel.text('');
+                        viewModel.hasFocus(false);
+                        expect(viewModel.isEmpty()).toBeTruthy();
+                    });
+
+                });
+
+                describe('and when element has focus', function () {
+
+                    it('should be true', function () {
+                        viewModel.text('');
+                        viewModel.hasFocus(true);
+                        expect(viewModel.isEmpty()).toBeFalsy();
+                    });
+
                 });
 
             });
 
             describe('when text is not null', function () {
 
-                it('should be true', function () {
+                it('should be false', function () {
                     viewModel.text('some text');
-                    expect(viewModel.isContentDefined()).toBeTruthy();
+                    expect(viewModel.isEmpty()).toBeFalsy();
                 });
 
             });
@@ -218,19 +233,19 @@
             beforeEach(function () {
                 updateTextDefer = Q.defer();
                 spyOn(repository, 'updateFillInTheBlank').and.returnValue(updateTextDefer.promise);
-                viewModel = ctor(null, answers, events, true, repository.updateFillInTheBlank);
+                viewModel = new ctor(null, answers, events, true, repository.updateFillInTheBlank);
             });
 
             it('should be function', function () {
                 expect(viewModel.updateText).toBeFunction();
             });
 
-            describe('when text is empty', function () {
+            describe('when text is empty html', function () {
 
-                it('should set text to null', function () {
+                it('should set text to empty', function () {
                     viewModel.text('');
                     viewModel.updateText();
-                    expect(viewModel.text()).toBeNull();
+                    expect(viewModel.text()).toBe('');
                 });
 
             });
@@ -307,16 +322,16 @@
 
             describe('when question content is null', function() {
 
-                it('should set null to text', function () {
+                it('should set null to empty string', function () {
                     viewModel.text('some text');
                     viewModel.updatedByCollaborator({});
-                    expect(viewModel.text()).toBeNull();
+                    expect(viewModel.text()).toBe('');
                 });
 
-                it('should set null to original text', function () {
+                it('should set empty string to original text', function () {
                     viewModel.originalText('some text');
                     viewModel.updatedByCollaborator({});
-                    expect(viewModel.text()).toBeNull();
+                    expect(viewModel.text()).toBe('');
                 });
             });
 

@@ -21,11 +21,13 @@
         <!-- ko if: isExpanded -->
         <div class="question-answer-options-area">
             <div class="content-section">
-                <!-- ko if: isContentDefined -->
                 <div data-bind="fillInTheBlank: { name:'blankContent', createButtonSelectors: { addBlank: '.create-blank', addDropDownBlank: '.create-drop-down-blank' }, localizationManager: $root.localizationManager, eventTracker: $root.eventTracker}">
                     <div class="fib-wrapper fib-content" data-bind="css: { 'active' : hasFocus }">
-                        <div class="question-learning-content selectable blankContent" data-bind="attr:{ id: 'blankContent'}, ckeditor: { fillInTheBlank: true, data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $root.localizationManager }">
+                        <div class="question-learning-content selectable blankContent" data-bind="attr:{ id: 'blankContent'}, ckeditor: { fillInTheBlank: true, data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: endEditText, autosaveInterval: $parent.autosaveInterval, localizationManager: $root.localizationManager }">
                         </div>
+                        <!-- ko if: isEmpty -->
+                        <div class="fib-watermark-wrapper" data-bind="click: addFillInTheBlank, localize: { html: 'fillInTheBlankWatermark' }">Your content with blanks <span class="blankField"><span class="blankValue">example</span><span class="close">&nbsp;</span></span> and dropdowns <span class=""><span class="blankField blankSelect"><span class="blankValue">example</span><span class="dropDownIndicator">&nbsp;</span><span class="close">&nbsp;</span></span></span> goes here...</div>
+                        <!-- /ko -->
                     </div>
                     <div class="clearfix">
                         <div class="create-blank-wrapper">
@@ -42,14 +44,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- /ko -->
-                <!-- ko ifnot: isContentDefined -->
-                <div class="fib-wrapper" data-bind="click: addFillInTheBlank">
-                    <div class="fib-add-button-text-wrapper">
-                        <span class="fib-add-button-text selectable" data-bind="localize: { text: 'defineTheContentWithBlank' }">Define the content with blanks</span>
-                    </div>
-                </div>
-                <!-- /ko -->
             </div>
         </div>
         <!-- /ko -->

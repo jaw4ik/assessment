@@ -583,8 +583,8 @@
     addBlank: {
         en: 'Add blank'
     },
-    defineTheContentWithBlank: {
-        en: 'Click to add blank'
+    fillInTheBlankWatermark: {
+        en: 'Your content with blanks <span class=\"blankField\"><span class=\"blankValue\">example</span><span class=\"close\">&nbsp;</span></span> and dropdowns <span class=\"\"><span class=\"blankField blankSelect\"><span class=\"blankValue\">example</span><span class=\"dropDownIndicator\">&nbsp;</span><span class=\"close\">&nbsp;</span></span></span> goes here...'
     },
     upgradeAccountToCreateAdvancedQuestionTypes: {
         en: 'Please upgrade your account to be able to create advanced question types'
@@ -1413,7 +1413,13 @@
     },
     addCollaboratorFreeWarning: {
         en: 'Co-authoring is not available in the Free Plan. Upgrade to Starter Plan to invite co-authors.'
-    }
+    },
     /* End resource section for model InviteCollaboratorFromDisplayName */
+    
+    /* Resource section for model OnBoarding */
+    whatNow: {
+        en: 'What now?'
+    }
+    /* End resource section for model OnBoarding */
            
 });

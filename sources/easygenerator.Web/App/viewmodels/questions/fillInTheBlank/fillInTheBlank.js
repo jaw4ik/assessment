@@ -32,7 +32,7 @@
             viewModel.questionId = question.id;
             
             return questionRepository.getFillInTheBlank(question.id).then(function (questionData) {
-                viewModel.fillInTheBlank = fibControl(questionData.content, questionData.answers, eventsForQuestionContent, true, function (template, answers) {
+                viewModel.fillInTheBlank = new fibControl(questionData.content, questionData.answers, eventsForQuestionContent, true, function (template, answers) {
                     return questionRepository.updateFillInTheBlank(question.id, template, answers);
                 });
 

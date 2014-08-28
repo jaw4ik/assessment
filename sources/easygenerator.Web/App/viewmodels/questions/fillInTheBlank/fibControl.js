@@ -1,97 +1,78 @@
-﻿define(['notify', 'constants', 'eventTracker', './fillInTheBlankParser'], function (notify, constants, eventTracker, fillInTheBlankParser) {
-    "use strict";
+﻿define(['notify', 'constants', 'eventTracker', './fillInTheBlankParser'],
+ function (notify, constants, eventTracker, fillInTheBlankParser) {
+     "use strict";
 
-    var viewModel = function (template, answerOptions, events, onStartup, callback) {
-
-        var fillInTheBlank = fillInTheBlankParser.getData(template, answerOptions);
-
-        var
-            text = ko.observable(_.isNull(fillInTheBlank) || _.isEmpty(fillInTheBlank) ? null : fillInTheBlank),
-            originalText = ko.observable(text()),
-            hasFocus = ko.observable(false),
-            isExpanded = ko.observable(true),
-            isEditing = ko.observable(false),
-
-            beginEditText = function () {
-                eventTracker.publish(events.beginEditText);
-                isEditing(true);
-            },
-
-            addFillInTheBlank = function () {
-                eventTracker.publish(events.addFillInTheBlank);
-                text('');
-                hasFocus(true);
-            },
-
-            endEditText = function () {
-                eventTracker.publish(events.endEditText);
-                isEditing(false);
-            },
-
-            updateText = function () {
-                if (_.isEmptyHtmlText(text())) {
-                    text(null);
-                }
-
-                var result = fillInTheBlankParser.getTemplateAndAnswers(text());
-
-                if (text() != originalText()) {
-                    return callback(result.template, result.answers).then(function () {
-                        originalText(text());
-                        showNotification();
-                    });
-                }
-            },
-
-            isContentDefined = ko.computed({
-                read: function () {
-                    return !_.isNullOrUndefined(text());
-                }
-            }),
-
-            toggleExpand = function () {
-                isExpanded(!isExpanded());
-            },
-
-            updatedByCollaborator = function (question) {
-                if (_.isNullOrUndefined(question.content)) {
-                    text(null);
-                    originalText(text());
-                    return;
-                }
-
-                var updatedFillInTheBlank = fillInTheBlankParser.getData(question.content, question.answers);
-                originalText(updatedFillInTheBlank);
-
-                if (!isEditing())
-                    text(updatedFillInTheBlank);
-            };
-
-        function showNotification() {
-            notify.saved();
-        }
-
-        return {
-            text: text,
-            originalText: originalText,
-            hasFocus: hasFocus,
-            isExpanded: isExpanded,
-            toggleExpand: toggleExpand,
-
-            isContentDefined: isContentDefined,
-            addFillInTheBlank: addFillInTheBlank,
-            beginEditText: beginEditText,
-            endEditText: endEditText,
-            isEditing: isEditing,
-
-            updateText: updateText,
-            updatedByCollaborator: updatedByCollaborator,
-
-            autosaveInterval: constants.autosaveTimersInterval.entityContent
+     return function (template, answerOptions, events, onStartup, callback) {
+        var self = {
+            showNotification: function () {
+                notify.saved();
+            }
         };
 
-    };
+        var that = this;
+        var fillInTheBlank = fillInTheBlankParser.getData(template, answerOptions);
 
-    return viewModel;
+        this.autosaveInterval = constants.autosaveTimersInterval.entityContent;
+        this.text = ko.observable(_.isNull(fillInTheBlank) || _.isEmpty(fillInTheBlank) ? '' : fillInTheBlank);
+        this.originalText = ko.observable(this.text());
+        this.hasFocus = ko.observable(false);
+        this.isExpanded = ko.observable(true);
+        this.isEditing = ko.observable(false);
 
-});
+
+        this.beginEditText = function () {
+            eventTracker.publish(events.beginEditText);
+            that.isEditing(true);
+        }
+
+        this.addFillInTheBlank = function () {
+            eventTracker.publish(events.addFillInTheBlank);
+            that.hasFocus(true);
+        }
+
+        this.endEditText = function () {
+            that.updateText();
+
+            eventTracker.publish(events.endEditText);
+            that.isEditing(false);
+        }
+
+        this.updateText = function () {
+            if (_.isEmptyHtmlText(that.text())) {
+                that.text('');
+            }
+            var result = fillInTheBlankParser.getTemplateAndAnswers(that.text());
+
+            if (that.text() != that.originalText()) {
+                return callback(result.template, result.answers).then(function () {
+                    that.originalText(that.text());
+                    self.showNotification();
+                });
+            }
+        }
+
+        this.isEmpty = ko.computed({
+            read: function () {
+                return _.isEmptyHtmlText(that.text()) && !that.hasFocus();
+            }
+        });
+
+        this.toggleExpand = function () {
+            that.isExpanded(!that.isExpanded());
+        }
+
+        this.updatedByCollaborator = function (question) {
+            if (_.isNullOrUndefined(question.content)) {
+                that.text('');
+                that.originalText(that.text());
+                return;
+            }
+
+            var updatedFillInTheBlank = fillInTheBlankParser.getData(question.content, question.answers);
+            that.originalText(updatedFillInTheBlank);
+
+            if (!that.isEditing())
+                that.text(updatedFillInTheBlank);
+        }
+     };
+ });

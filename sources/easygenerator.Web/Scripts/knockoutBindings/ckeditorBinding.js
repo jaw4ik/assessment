@@ -151,12 +151,12 @@
         }
 
         function onBlur() {
-            isEditing(false);
-
-            if (!!blurHandler)
-                blurHandler.call(that, viewModel);
-
             clearInterval(saveIntervalId);
+
+            isEditing(false);
+            if (!!blurHandler) {
+                blurHandler.call(that, viewModel);
+            }
         };
 
         function saveData() {
@@ -288,16 +288,19 @@
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var data = valueAccessor().data(),
-            isEditing = valueAccessor().isEditing();
-
+            isEditing = valueAccessor().isEditing(),
+            fillInTheBlank = valueAccessor().fillInTheBlank || false;
+        var editor = _.find(CKEDITOR.instances, function (item) {
+            return item.element.$ == element;
+        });
 
         if (!isEditing) {
-            var editor = _.find(CKEDITOR.instances, function (item) {
-                return item.element.$ == element;
-            });
             if (!_.isNullOrUndefined(editor) && editor.getData() != data) {
                 editor.setData(data);
             }
+        }
+        else if (fillInTheBlank && !editor.focusManager.hasFocus) {
+            editor.focus();
         }
     }
 };
