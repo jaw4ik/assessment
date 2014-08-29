@@ -136,6 +136,15 @@
     spellCheckerMac: {
         en: '&quot;Cmd&quot; + &quot;right click&quot; for a spell-checker'
     },
+    pptxSizeIsTooLarge: {
+        en: 'Presentation file cannot be larger than 10 MB. Please reduce the size or use another presentation.'
+    },
+    pptxUploadError: {
+        en: 'Something went wrong uploading the presentation. Please try again.'
+    },
+    presentationIsNotSupported: {
+        en: 'This file format is not supported. Please use pptx.'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -357,6 +366,12 @@
     },
     courseDefaultTitle: {
         en: 'Untitled course'
+    },
+    import: {
+        en: 'Import'
+    },
+    importing: {
+        en: 'Importing...'
     },
     /* End resource section for model Courses */
     
@@ -584,7 +599,7 @@
         en: 'Add blank'
     },
     fillInTheBlankWatermark: {
-        en: 'Your content with blanks <span class=\"blankField\"><span class=\"blankValue\">example</span><span class=\"close\">&nbsp;</span></span> and dropdowns <span class=\"\"><span class=\"blankField blankSelect\"><span class=\"blankValue\">example</span><span class=\"dropDownIndicator\">&nbsp;</span><span class=\"close\">&nbsp;</span></span></span> goes here...'
+        en: 'Type or paste your content with <span class=\"blankField\"><span class=\"blankValue\">blanks</span><span class=\"close\">&nbsp;</span></span> and <span class=\"\"><span class=\"blankField blankSelect\"><span class=\"blankValue\">dropdowns</span><span class=\"dropDownIndicator\">&nbsp;</span><span class=\"close\">&nbsp;</span></span></span> here...'
     },
     upgradeAccountToCreateAdvancedQuestionTypes: {
         en: 'Please upgrade your account to be able to create advanced question types'
@@ -1419,6 +1434,30 @@
     /* Resource section for model OnBoarding */
     whatNow: {
         en: 'What now?'
+    },
+    congratulations: {
+        en: 'Congratulations'
+    },
+    helpCenter: {
+        en: 'Help center'
+    },
+    congratulationsCaption: {
+        en: 'Look at you. You are now an expert. If you want to know more checkout our'
+    },
+    onboardingCreateCourse: {
+        en: 'Create course'
+    },
+    onboardingDefineObjective: {
+        en: 'Define objective'
+    },
+    onboardingAddContent: {
+        en: 'Add content'
+    },
+    onboardingAddQuestions: {
+        en: 'Add at least 4 questions'
+    },
+    onboardingPublish: {
+        en: 'Publish'
     }
     /* End resource section for model OnBoarding */
            
