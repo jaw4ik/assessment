@@ -1,27 +1,17 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace easygenerator.Web.Controllers.Api
 {
     [NoCache]
     public class QuestionController : DefaultController
     {
-        private readonly IDomainEventPublisher _eventPublisher;
-
-        public QuestionController(IDomainEventPublisher eventPublisher)
-        {
-            _eventPublisher = eventPublisher;
-        }
-
         [HttpPost]
         [EntityCollaborator(typeof(Question))]
         [Route("api/question/updateTitle")]
@@ -33,7 +23,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.UpdateTitle(title, GetCurrentUsername());
-            _eventPublisher.Publish(new QuestionTitleUpdatedEvent(question));
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
@@ -50,7 +39,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.UpdateContent(content, GetCurrentUsername());
-            _eventPublisher.Publish(new QuestionContentUpdatedEvent(question));
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
@@ -84,7 +72,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.UpdateCorrectFeedbackText(feedbackText);
-            _eventPublisher.Publish(new QuestionCorrectFeedbackUpdatedEvent(question));
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
@@ -100,7 +87,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.UpdateIncorrectFeedbackText(feedbackText);
-            _eventPublisher.Publish(new QuestionIncorrectFeedbackUpdatedEvent(question));
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
@@ -125,7 +111,6 @@ namespace easygenerator.Web.Controllers.Api
                 objective.RemoveQuestion(question, GetCurrentUsername());
             }
 
-            _eventPublisher.Publish(new QuestionsDeletedEvent(objective, questions));
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
 

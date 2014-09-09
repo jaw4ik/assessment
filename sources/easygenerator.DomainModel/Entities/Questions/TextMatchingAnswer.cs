@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities.Questions
@@ -48,6 +49,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             Key = key;
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new TextMatchingAnswerKeyChangedEvent(this));
         }
 
         public virtual void ChangeValue(string value, string modifiedBy)
@@ -58,16 +61,20 @@ namespace easygenerator.DomainModel.Entities.Questions
             Value = value;
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new TextMatchingAnswerValueChangedEvent(this));
         }
 
         private void ThrowIfValueIsInvalid(string value)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(value, "value");
+            ArgumentValidation.ThrowIfLongerThan255(value, "value");
         }
 
         private void ThrowIfKeyIsInvalid(string key)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(key, "key");
+            ArgumentValidation.ThrowIfLongerThan255(key, "key");
         }
     }
 }

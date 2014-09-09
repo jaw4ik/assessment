@@ -1,10 +1,7 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Permissions;
@@ -15,12 +12,10 @@ namespace easygenerator.Web.Controllers.Api
     public class InformationContentController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
-        private readonly IDomainEventPublisher _eventPublisher;
 
-        public InformationContentController(IEntityFactory entityFactory, IDomainEventPublisher eventPublisher)
+        public InformationContentController(IEntityFactory entityFactory)
         {
             _entityFactory = entityFactory;
-            _eventPublisher = eventPublisher;
         }
 
         [HttpPost]
@@ -36,7 +31,6 @@ namespace easygenerator.Web.Controllers.Api
             var question = _entityFactory.InformationContent(title, GetCurrentUsername());
 
             objective.AddQuestion(question, GetCurrentUsername());
-            _eventPublisher.Publish(new QuestionCreatedEvent(question));
 
             return JsonSuccess(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
         }

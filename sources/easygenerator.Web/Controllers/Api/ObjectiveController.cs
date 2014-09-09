@@ -1,8 +1,6 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
@@ -22,18 +20,13 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityFactory _entityFactory;
         private readonly IObjectiveRepository _repository;
         private readonly IEntityMapper _entityMapper;
-        private readonly IDomainEventPublisher _eventPublisher;
 
 
-        public ObjectiveController(IObjectiveRepository repository, 
-            IEntityFactory entityFactory, 
-            IEntityMapper entityMapper,
-            IDomainEventPublisher eventPublisher)
+        public ObjectiveController(IObjectiveRepository repository, IEntityFactory entityFactory, IEntityMapper entityMapper)
         {
             _repository = repository;
             _entityFactory = entityFactory;
             _entityMapper = entityMapper;
-            _eventPublisher = eventPublisher;
         }
 
         [HttpPost]
@@ -53,12 +46,7 @@ namespace easygenerator.Web.Controllers.Api
 
             _repository.Add(objective);
 
-            return JsonSuccess(new
-            {
-                Id = objective.Id.ToNString(),
-                CreatedOn = objective.CreatedOn,
-                CreatedBy = objective.CreatedBy
-            });
+            return JsonSuccess(new { Id = objective.Id.ToNString(), CreatedOn = objective.CreatedOn, CreatedBy = objective.CreatedBy });
         }
 
         [HttpPost]
@@ -72,7 +60,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             objective.UpdateTitle(title, GetCurrentUsername());
-            _eventPublisher.Publish(new ObjectiveTitleUpdatedEvent(objective));
 
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
@@ -86,8 +73,7 @@ namespace easygenerator.Web.Controllers.Api
             {
                 if (objective.Courses.Any() || objective.Questions.Any())
                 {
-                    return JsonLocalizableError(Errors.ObjectiveCannotBeDeleted,
-                                                Errors.ObjectiveCannotBeDeletedResourceKey);
+                    return JsonLocalizableError(Errors.ObjectiveCannotBeDeleted, Errors.ObjectiveCannotBeDeletedResourceKey);
                 }
                 _repository.Remove(objective);
             }
@@ -106,8 +92,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             objective.UpdateQuestionsOrder(questions, GetCurrentUsername());
-            _eventPublisher.Publish(new QuestionsReorderedEvent(objective));
-            
+
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
     }

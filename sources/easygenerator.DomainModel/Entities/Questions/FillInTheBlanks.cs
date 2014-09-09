@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities.Questions
 {
     public class FillInTheBlanks : Question
     {
-        public FillInTheBlanks(){}
+        public FillInTheBlanks() { }
 
         public FillInTheBlanks(string title, string createdBy)
             : base(title, createdBy)
@@ -43,6 +44,16 @@ namespace easygenerator.DomainModel.Entities.Questions
             AnswersCollection.Add(answer);
             answer.Question = this;
             MarkAsModified(modifiedBy);
+        }
+
+        public override void UpdateContent(string content, string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            Content = content;
+            MarkAsModified(modifiedBy);
+
+            RaiseEvent(new FillInTheBlankUpdatedEvent(this, AnswersCollection));
         }
 
         private void ThrowIfAnswerIsInvalid(BlankAnswer answer)

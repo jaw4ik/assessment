@@ -1,4 +1,5 @@
 ﻿using System;
+using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -118,7 +119,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void UpdateText_ShouldUpdateMoidifiedBy()
+        public void UpdateText_ShouldUpdateModifiedBy()
         {
             var learningContent = LearningContentObjectMother.Create();
             const string user = "Some user";
@@ -126,6 +127,16 @@ namespace easygenerator.DomainModel.Tests.Entities
             learningContent.UpdateText("Some text", user);
 
             learningContent.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void UpdateText_ShouldAddLearningContentDeletedEvent()
+        {
+            var learningContent = LearningContentObjectMother.Create();
+
+            learningContent.UpdateText("Some text", "username");
+
+            learningContent.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(LearningContentUpdatedEvent));
         }
 
         #endregion

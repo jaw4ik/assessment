@@ -1,4 +1,5 @@
-﻿using easygenerator.Infrastructure;
+﻿using easygenerator.DomainModel.Events.QuestionEvents.SingleSelectImageEvents;
+using easygenerator.Infrastructure;
 using System;
 
 namespace easygenerator.DomainModel.Entities.Questions
@@ -37,6 +38,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             ThrowIfImageIsInvalid(image);
             Image = image;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new SingleSelectImageAnswerImageUpdatedEvent(this));
         }
 
         private void ThrowIfImageIsInvalid(string text)

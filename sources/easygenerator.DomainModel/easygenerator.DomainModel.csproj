@@ -87,6 +87,7 @@
     <Compile Include="Events\CourseEvents\CourseTitleUpdatedEvent.cs" />
     <Compile Include="Events\DomainEventHandlersProvider.cs" />
     <Compile Include="Events\DomainEventPublisher.cs" />
+    <Compile Include="Events\Event.cs" />
     <Compile Include="Events\IDomainEventHandler.cs" />
     <Compile Include="Events\IDomainEventHandlersProvider.cs" />
     <Compile Include="Events\IDomainEventPublisher.cs" />

@@ -1,6 +1,4 @@
 ﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
@@ -17,24 +15,21 @@ namespace easygenerator.Web.Controllers
         private readonly IAuthenticationProvider _authenticationProvider;
         private readonly IUserRepository _repository;
         private readonly IWooCommerceAutologinUrlProvider _wooCommerceAutologinUrlProvider;
-        private readonly IDomainEventPublisher _eventPublisher;
 
-        public AccountController(IAuthenticationProvider authenticationProvider,
-            IUserRepository repository,
-            IWooCommerceAutologinUrlProvider wooCommerceAutologinUrlProvider,
-            IDomainEventPublisher eventPublisher)
+        public AccountController(IAuthenticationProvider authenticationProvider, IUserRepository repository, IWooCommerceAutologinUrlProvider wooCommerceAutologinUrlProvider)
         {
             _authenticationProvider = authenticationProvider;
             _repository = repository;
             _wooCommerceAutologinUrlProvider = wooCommerceAutologinUrlProvider;
-            _eventPublisher = eventPublisher;
         }
 
         [NoCache]
         public ActionResult TryWithoutSignup()
         {
             if (_authenticationProvider.IsUserAuthenticated())
+            {
                 return RedirectToRoute("Default");
+            }
 
             return View("TryNow");
         }
@@ -79,7 +74,7 @@ namespace easygenerator.Web.Controllers
                 return RedirectToRoute("Default");
 
             ViewBag.ClickOnLogoDisabled = true;
-            
+
             return View();
         }
 
@@ -135,7 +130,7 @@ namespace easygenerator.Web.Controllers
             }
 
             ticket.User.RecoverPasswordUsingTicket(ticket, password);
-            _eventPublisher.Publish(new UserUpdateEvent(ticket.User, password));
+            //_eventPublisher.Publish(new UserUpdateEvent(ticket.User, password));
             _authenticationProvider.SignIn(ticket.User.Email, true);
 
             return RedirectToRoute("Default");

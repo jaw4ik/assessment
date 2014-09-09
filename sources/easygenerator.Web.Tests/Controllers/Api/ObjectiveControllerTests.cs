@@ -37,7 +37,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IPrincipal _user;
         HttpContextBase _context;
         IEntityMapper _entityMapper;
-        private IDomainEventPublisher _eventPublisher;
 
         [TestInitialize]
         public void InitializeContext()
@@ -45,8 +44,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory = Substitute.For<IEntityFactory>();
             _repository = Substitute.For<IObjectiveRepository>();
             _entityMapper = Substitute.For<IEntityMapper>();
-            _eventPublisher = Substitute.For<IDomainEventPublisher>();
-            _controller = new ObjectiveController(_repository, _entityFactory, _entityMapper, _eventPublisher);
+            _controller = new ObjectiveController(_repository, _entityFactory, _entityMapper);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -127,18 +125,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Update(objective, title);
 
             objective.Received().UpdateTitle(title, ModifiedBy);
-        }
-
-        [TestMethod]
-        public void Update_ShouldPublishDomainEvent()
-        {
-            const string title = "updated title";
-            _user.Identity.Name.Returns(ModifiedBy);
-            var objective = Substitute.For<Objective>("Some title", CreatedBy);
-
-            _controller.Update(objective, title);
-
-            _eventPublisher.Received().Publish(Arg.Any<ObjectiveTitleUpdatedEvent>());
         }
 
         [TestMethod]
@@ -227,21 +213,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             objective.Received().UpdateQuestionsOrder(questions, ModifiedBy);
-        }
-
-        [TestMethod]
-        public void UpdateQuestionsOrder_ShouldPublishDomainEvent()
-        {
-            //Arrange
-            var objective = Substitute.For<Objective>();
-            var questions = new Collection<Question>();
-            _user.Identity.Name.Returns(ModifiedBy);
-
-            //Act
-            _controller.UpdateQuestionsOrder(objective, questions);
-
-            //Assert
-            _eventPublisher.Received().Publish(Arg.Any<QuestionsReorderedEvent>());
         }
 
         [TestMethod]

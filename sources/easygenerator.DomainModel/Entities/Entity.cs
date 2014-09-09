@@ -1,15 +1,22 @@
-﻿using easygenerator.Infrastructure;
+﻿using System.Collections.Generic;
+using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Events;
+using easygenerator.Infrastructure;
 using System;
 
 namespace easygenerator.DomainModel.Entities
 {
     public abstract class Entity
     {
+        private readonly List<Event> _events;
+
         protected internal Entity()
         {
             Id = Guid.NewGuid();
             CreatedOn = DateTimeWrapper.Now();
             ModifiedOn = DateTimeWrapper.Now();
+
+            _events = new List<Event>();
         }
 
         protected internal Entity(string createdBy)
@@ -35,6 +42,14 @@ namespace easygenerator.DomainModel.Entities
         public DateTime CreatedOn { get; protected internal set; }
         public string ModifiedBy { get; protected set; }
         public DateTime ModifiedOn { get; protected internal set; }
+
+
+        internal IEnumerable<Event> Events { get { return _events; } }
+
+        protected void RaiseEvent(Event @event)
+        {
+            _events.Add(@event);
+        }
 
         protected internal virtual void DefineCreatedBy(string createdBy)
         {

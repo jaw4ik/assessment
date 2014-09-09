@@ -41,6 +41,8 @@ namespace easygenerator.DomainModel.Entities
 
             Template = template;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new CourseTemplateUpdatedEvent(this));
         }
 
         protected internal virtual ICollection<CourseCollaborator> CollaboratorsCollection { get; set; }
@@ -59,24 +61,25 @@ namespace easygenerator.DomainModel.Entities
             var collaborator = new CourseCollaborator(this, username, createdBy);
             CollaboratorsCollection.Add(collaborator);
 
+            RaiseEvent(new CourseCollaboratorAddedEvent(collaborator));
+
             return collaborator;
         }
 
-        public virtual void RemoveCollaborator(IDomainEventPublisher eventPublisher, ICloner entityCloner, CourseCollaborator collaborator)
+        public virtual void RemoveCollaborator(ICloner entityCloner, CourseCollaborator collaborator)
         {
             ThrowIfCollaboratorIsInvalid(collaborator);
 
             collaborator.Course = null;
             CollaboratorsCollection.Remove(collaborator);
-            var collaboratorRemovedEvent = new CourseCollaboratorRemovedEvent(this, collaborator);
-            eventPublisher.Publish(collaboratorRemovedEvent);
-
-            CloneObjectivesOfCollaborator(eventPublisher, entityCloner, collaborator.Email);
+            CloneObjectivesOfCollaborator(entityCloner, collaborator.Email);
 
             MarkAsModified(CreatedBy);
+
+            RaiseEvent(new CourseCollaboratorRemovedEvent(this, collaborator));
         }
 
-        private void CloneObjectivesOfCollaborator(IDomainEventPublisher eventPublisher, ICloner entityCloner, string collaboratorEmail)
+        private void CloneObjectivesOfCollaborator(ICloner entityCloner, string collaboratorEmail)
         {
             var clonedObjectives = new Dictionary<Guid, Objective>();
             var objectives = GetOrderedRelatedObjectives();
@@ -102,10 +105,10 @@ namespace easygenerator.DomainModel.Entities
 
             if (objectivesWereCloned)
             {
-                UpdateObjectivesOrder(objectives, CreatedBy);
+                DoUpdateOrder(objectives, CreatedBy);
                 if (clonedObjectives.Any())
                 {
-                    eventPublisher.Publish(new CourseObjectivesClonedEvent(this, clonedObjectives));
+                    RaiseEvent(new CourseObjectivesClonedEvent(this, clonedObjectives));
                 }
             }
         }
@@ -155,12 +158,14 @@ namespace easygenerator.DomainModel.Entities
                 {
                     objectives.Add(objective);
                 }
-                UpdateObjectivesOrder(objectives, modifiedBy);
+                DoUpdateOrder(objectives, modifiedBy);
 
                 RelatedObjectivesCollection.Add(objective);
             }
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new CourseObjectiveRelatedEvent(this, objective, index));
         }
 
         public virtual void UnrelateObjective(Objective objective, string modifiedBy)
@@ -170,14 +175,22 @@ namespace easygenerator.DomainModel.Entities
 
             var objectives = GetOrderedRelatedObjectives();
             objectives.Remove(objective);
-            UpdateObjectivesOrder(objectives, modifiedBy);
+            DoUpdateOrder(objectives, modifiedBy);
 
             RelatedObjectivesCollection.Remove(objective);
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new CourseObjectivesUnrelatedEvent(this, new[] { objective }));
         }
 
         public void UpdateObjectivesOrder(ICollection<Objective> objectives, string modifiedBy)
+        {
+            DoUpdateOrder(objectives, modifiedBy);
+            RaiseEvent(new CourseObjectivesReorderedEvent(this));
+        }
+
+        private void DoUpdateOrder(ICollection<Objective> objectives, string modifiedBy)
         {
             ObjectivesOrder = objectives.Count == 0 ? null : String.Join(",", objectives.Select(i => i.Id).ToArray());
             MarkAsModified(modifiedBy);
@@ -233,6 +246,8 @@ namespace easygenerator.DomainModel.Entities
 
             Title = title;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new CourseTitleUpdatedEvent(this));
         }
 
         public DateTime? BuildOn { get; protected internal set; }
@@ -253,6 +268,8 @@ namespace easygenerator.DomainModel.Entities
         {
             IntroductionContent = introductionContent;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new CourseIntroductionContentUpdated(this));
         }
 
         public string ScormPackageUrl { get; private set; }
@@ -271,6 +288,8 @@ namespace easygenerator.DomainModel.Entities
         {
             PublicationUrl = publicationUrl;
             PublishedOn = DateTimeWrapper.Now();
+
+            RaiseEvent(new CoursePublishedEvent(this));
         }
 
         #region Course template settings

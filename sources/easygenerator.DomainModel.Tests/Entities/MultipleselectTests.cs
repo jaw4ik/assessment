@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Events.AnswerEvents;
+using easygenerator.DomainModel.Events.LearningContentEvents;
+using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -45,7 +44,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void Question_ShouldCreateQuestionInstance()
         {
-            const string title = "title";            
+            const string title = "title";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             var question = MultipleselectObjectMother.Create(title, CreatedBy);
@@ -149,6 +148,16 @@ namespace easygenerator.DomainModel.Tests.Entities
             question.ModifiedBy.Should().Be(user);
         }
 
+        [TestMethod]
+        public void UpdateTitle_ShouldAddQuestionTitleUpdatedEvent()
+        {
+            var question = MultipleselectObjectMother.Create();
+
+            question.UpdateTitle("title", "user");
+
+            question.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionTitleUpdatedEvent));
+        }
+
         #endregion
 
         #region Update content
@@ -207,6 +216,16 @@ namespace easygenerator.DomainModel.Tests.Entities
             question.UpdateContent("Some content", user);
 
             question.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void UpdateContent_ShouldAddQuestionContentUpdatedEvent()
+        {
+            var question = MultipleselectObjectMother.Create();
+
+            question.UpdateContent("content", "user");
+
+            question.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionContentUpdatedEvent));
         }
 
         #endregion
@@ -291,6 +310,18 @@ namespace easygenerator.DomainModel.Tests.Entities
             question.AddAnswer(answer, user);
 
             question.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void AddAnswer_ShouldAddAnswerCreatedEvent()
+        {
+            var question = MultipleselectObjectMother.Create();
+            var answer = AnswerObjectMother.Create();
+            var user = "Some user";
+
+            question.AddAnswer(answer, user);
+
+            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(AnswerCreatedEvent));
         }
 
         #endregion
@@ -378,6 +409,18 @@ namespace easygenerator.DomainModel.Tests.Entities
             question.ModifiedBy.Should().Be(user);
         }
 
+        [TestMethod]
+        public void RemoveAnswer_ShouldAddCourseTitleUpdatedEvent()
+        {
+            var question = SingleSelectTextObjectMother.Create();
+            var answer = AnswerObjectMother.Create();
+            var user = "Some user";
+
+            question.RemoveAnswer(answer, user);
+
+            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(AnswerDeletedEvent));
+        }
+
         #endregion
 
         #region Add learning content
@@ -451,7 +494,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void AddExplanation_ShouldUpdateMoidifiedBy()
+        public void AddExplanation_ShouldUpdateModifiedBy()
         {
             var question = MultipleselectObjectMother.Create();
             var explanation = LearningContentObjectMother.Create();
@@ -460,6 +503,16 @@ namespace easygenerator.DomainModel.Tests.Entities
             question.AddLearningContent(explanation, user);
 
             question.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void AddExplanation_ShouldAddLearningContentCreatedEvent()
+        {
+            var question = MultipleselectObjectMother.Create();
+
+            question.AddLearningContent(LearningContentObjectMother.Create(), "username");
+
+            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(LearningContentCreatedEvent));
         }
 
         #endregion
@@ -545,6 +598,16 @@ namespace easygenerator.DomainModel.Tests.Entities
             question.RemoveLearningContent(explanation, user);
 
             question.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void RemoveExplanation_ShouldAddLearningContentDeletedEvent()
+        {
+            var question = MultipleselectObjectMother.Create();
+
+            question.RemoveLearningContent(LearningContentObjectMother.Create(), "username");
+
+            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(LearningContentDeletedEvent));
         }
 
         #endregion

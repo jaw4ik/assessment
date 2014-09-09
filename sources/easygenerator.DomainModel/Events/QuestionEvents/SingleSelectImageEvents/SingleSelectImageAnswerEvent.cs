@@ -3,7 +3,7 @@ using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Events.QuestionEvents.SingleSelectImageEvents
 {
-    public abstract class SingleSelectImageAnswerEvent
+    public abstract class SingleSelectImageAnswerEvent : Event
     {
         public SingleSelectImageAnswer Answer { get; private set; }
 

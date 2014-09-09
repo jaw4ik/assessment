@@ -1,6 +1,4 @@
 ﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
@@ -19,16 +17,13 @@ namespace easygenerator.Web.Controllers.Api
     {
         private readonly IUserRepository _userRepository;
         private readonly IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
-        private readonly IDomainEventPublisher _eventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly ICloner _cloner;
 
-        public CollaborationController(IUserRepository userRepository, IDomainEventPublisher eventPublisher,
-            IEntityModelMapper<CourseCollaborator> collaboratorEntityModelMapper, IMailSenderWrapper mailSenderWrapper, ICloner cloner)
+        public CollaborationController(IUserRepository userRepository, IEntityModelMapper<CourseCollaborator> collaboratorEntityModelMapper, IMailSenderWrapper mailSenderWrapper, ICloner cloner)
         {
             _userRepository = userRepository;
             _collaboratorEntityModelMapper = collaboratorEntityModelMapper;
-            _eventPublisher = eventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
             _cloner = cloner;
         }
@@ -87,8 +82,6 @@ namespace easygenerator.Web.Controllers.Api
                 _mailSenderWrapper.SendInviteCollaboratorMessage(email, author.FullName, course.Title);
             }
 
-            _eventPublisher.Publish(new CourseCollaboratorAddedEvent(collaborator));
-
             return JsonSuccess(_collaboratorEntityModelMapper.Map(collaborator));
         }
 
@@ -107,8 +100,8 @@ namespace easygenerator.Web.Controllers.Api
                 return HttpNotFound(Errors.CollaboratorNotFoundError);
             }
 
-            course.RemoveCollaborator(_eventPublisher, _cloner, courseCollaborator);
-            
+            course.RemoveCollaborator(_cloner, courseCollaborator);
+
             return JsonSuccess();
         }
     }

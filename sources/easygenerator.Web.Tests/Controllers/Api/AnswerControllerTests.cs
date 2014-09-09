@@ -5,8 +5,6 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Mappers;
@@ -26,7 +24,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private HttpContextBase _context;
         private IEntityFactory _entityFactory;
         private IEntityMapper _entityMapper;
-        private IDomainEventPublisher _eventPublisher;
 
         AnswerController _controller;
 
@@ -35,11 +32,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             _entityFactory = Substitute.For<IEntityFactory>();
             _entityMapper = Substitute.For<IEntityMapper>();
-            _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
-            _controller = new AnswerController(_entityFactory, _entityMapper, _eventPublisher);
+            _controller = new AnswerController(_entityFactory, _entityMapper);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -73,25 +69,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Create(question, text, isCorrect);
 
             question.Received().AddAnswer(answer, user);
-        }
-
-        [TestMethod]
-        public void Create_ShouldPublishDomainEvent()
-        {
-            const string text = "text";
-            const bool isCorrect = true;
-            const string user = "username@easygenerator.com";
-
-            _user.Identity.Name.Returns(user);
-
-            var question = Substitute.For<Multipleselect>();
-            var answer = Substitute.For<Answer>();
-
-            _entityFactory.Answer(text, isCorrect, user).Returns(answer);
-
-            _controller.Create(question, text, isCorrect);
-
-            _eventPublisher.Received().Publish(Arg.Any<AnswerCreatedEvent>());
         }
 
         [TestMethod]
@@ -150,19 +127,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ShouldPublishDomainEvent()
-        {
-            const string user = "username@easygenerator.com";
-            _user.Identity.Name.Returns(user);
-            var question = Substitute.For<Multipleselect>();
-            var answer = Substitute.For<Answer>();
-
-            _controller.Delete(question, answer);
-
-            _eventPublisher.Received().Publish(Arg.Any<AnswerDeletedEvent>());
-        }
-
-        [TestMethod]
         public void Delete_ShouldReturnJsonSuccessResultWithModifiedOnDate()
         {
             var question = Substitute.For<Multipleselect>();
@@ -216,32 +180,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Update_ShouldPublishUpdateAnswerCorrectnessUpdatedDomainEvent()
-        {
-            const bool isCorrect = true;
-            const string user = "username@easygenerator.com";
-            _user.Identity.Name.Returns(user);
-            var answer = Substitute.For<Answer>();
-
-            _controller.Update(answer, "", isCorrect);
-
-            _eventPublisher.Received().Publish(Arg.Any<MultipleselectAnswerCorrectnessUpdatedEvent>());
-        }
-
-        [TestMethod]
-        public void Update_ShouldPublishUpdateAnswerTExtUpdatedDomainEvent()
-        {
-            const bool isCorrect = true;
-            const string user = "username@easygenerator.com";
-            _user.Identity.Name.Returns(user);
-            var answer = Substitute.For<Answer>();
-
-            _controller.Update(answer, "", isCorrect);
-
-            _eventPublisher.Received().Publish(Arg.Any<AnswerTextUpdatedEvent>());
-        }
-
-        [TestMethod]
         public void Update_ShouldReturnJsonSuccessResult()
         {
             var answer = Substitute.For<Answer>();
@@ -277,18 +215,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.UpdateText(answer, text);
 
             answer.Received().UpdateText(text, user);
-        }
-
-        [TestMethod]
-        public void UpdateText_ShouldPublishUpdateAnswerTExtUpdatedDomainEvent()
-        {
-            const string user = "username@easygenerator.com";
-            _user.Identity.Name.Returns(user);
-            var answer = Substitute.For<Answer>();
-
-            _controller.UpdateText(answer, "");
-
-            _eventPublisher.Received().Publish(Arg.Any<AnswerTextUpdatedEvent>());
         }
 
         [TestMethod]
@@ -334,19 +260,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.SingleSelectTextChangeCorrectAnswer(question, answer);
 
             question.Received().SetCorrectAnswer(answer, user);
-        }
-
-        [TestMethod]
-        public void SingleSelectTextChangeCorrectAnswer_ShouldPublishSingleSelectTextAnswerCorrectnessUpdateEvent()
-        {
-            var question = Substitute.For<SingleSelectText>();
-            var answer = Substitute.For<Answer>();
-            const string user = "username@easygenerator.com";
-            _user.Identity.Name.Returns(user);
-
-            _controller.SingleSelectTextChangeCorrectAnswer(question, answer);
-
-            _eventPublisher.Received().Publish(Arg.Any<SingleSelectTextAnswerCorrectnessUpdateEvent>());
         }
 
         [TestMethod]

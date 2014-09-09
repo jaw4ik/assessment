@@ -8,7 +8,7 @@ using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Events.ObjectiveEvents
 {
-    public abstract class  ObjectiveEvent
+    public abstract class ObjectiveEvent : Event
     {
         public Objective Objective { get; private set; }
 

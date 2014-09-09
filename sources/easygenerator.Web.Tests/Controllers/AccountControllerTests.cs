@@ -1,6 +1,4 @@
 ﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -29,7 +27,6 @@ namespace easygenerator.Web.Tests.Controllers
         private IAuthenticationProvider _authenticationProvider;
         private IUserRepository _userRepository;
         private IWooCommerceAutologinUrlProvider _wooCommerceAutologinUrlProvider;
-        private IDomainEventPublisher _eventPublisher;
 
         IPrincipal _user;
         HttpContextBase _context;
@@ -41,8 +38,7 @@ namespace easygenerator.Web.Tests.Controllers
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _userRepository = Substitute.For<IUserRepository>();
             _wooCommerceAutologinUrlProvider = Substitute.For<IWooCommerceAutologinUrlProvider>();
-            _eventPublisher = Substitute.For<IDomainEventPublisher>();
-            _controller = new AccountController(_authenticationProvider, _userRepository, _wooCommerceAutologinUrlProvider, _eventPublisher);
+            _controller = new AccountController(_authenticationProvider, _userRepository, _wooCommerceAutologinUrlProvider);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -72,7 +68,7 @@ namespace easygenerator.Web.Tests.Controllers
         public void PrivacyPolicy_ShouldSetViewBagClickOnLogoDisabledToTrue()
         {
             //Arrange
-            
+
             //Act
             _controller.PrivacyPolicy();
 
@@ -478,25 +474,6 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             user.Received().RecoverPasswordUsingTicket(ticket, "NewPassword123123");
-        }
-
-        [TestMethod]
-        public void PasswordRecovery_ShouldRaiseEventAboutUserUpdate()
-        {
-            //Arrange
-            var ticket = Substitute.For<PasswordRecoveryTicket>();
-            var user = Substitute.For<User>();
-            var password = "NewPassword123123";
-            ticket.User.Returns(user);
-
-            //Act
-            _controller.PasswordRecovery(ticket, password);
-
-            //Assert
-            _eventPublisher.Received().Publish
-                (
-                    Arg.Is<UserUpdateEvent>(_ => _.User == user && _.UserPassword == password)
-                );
         }
 
         #endregion

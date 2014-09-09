@@ -3,9 +3,6 @@ using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.QuestionEvents;
-using easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Authorization;
@@ -17,12 +14,10 @@ namespace easygenerator.Web.Controllers.Api
     public class DragAndDropTextQuestionController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
-        private readonly IDomainEventPublisher _eventPublisher;
 
-        public DragAndDropTextQuestionController(IEntityFactory entityFactory, IDomainEventPublisher eventPublisher)
+        public DragAndDropTextQuestionController(IEntityFactory entityFactory)
         {
             _entityFactory = entityFactory;
-            _eventPublisher = eventPublisher;
         }
 
         [HttpPost]
@@ -40,7 +35,6 @@ namespace easygenerator.Web.Controllers.Api
 
 
             objective.AddQuestion(question, GetCurrentUsername());
-            _eventPublisher.Publish(new QuestionCreatedEvent(question));
 
             return JsonSuccess(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
         }
@@ -52,13 +46,7 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new
             {
                 background = question.Background,
-                dropspots = question.Dropspots.Select(d => new
-                {
-                    id = d.Id.ToNString(),
-                    text = d.Text,
-                    x = d.X,
-                    y = d.Y
-                })
+                dropspots = question.Dropspots.Select(d => new { id = d.Id.ToNString(), text = d.Text, x = d.X, y = d.Y })
             });
         }
 
@@ -73,7 +61,6 @@ namespace easygenerator.Web.Controllers.Api
 
             var dropspot = _entityFactory.Dropspot(text, 0, 0, GetCurrentUsername());
             question.AddDropspot(dropspot, GetCurrentUsername());
-            _eventPublisher.Publish(new DropspotCreatedEvent(dropspot));
 
             return JsonSuccess(dropspot.Id.ToNString());
         }
@@ -88,7 +75,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.RemoveDropspot(dropspot, GetCurrentUsername());
-            _eventPublisher.Publish(new DropspotDeletedEvent(question, dropspot));
 
             return JsonSuccess();
         }
@@ -103,7 +89,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             dropspot.ChangeText(text, GetCurrentUsername());
-            _eventPublisher.Publish(new DropspotTextChangedEvent(dropspot));
 
             return JsonSuccess();
         }
@@ -118,7 +103,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             dropspot.ChangePosition(x.Value, y.Value, GetCurrentUsername());
-            _eventPublisher.Publish(new DropspotPositionChangedEvent(dropspot));
 
             return JsonSuccess();
         }
@@ -133,7 +117,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.ChangeBackground(background, GetCurrentUsername());
-            _eventPublisher.Publish(new BackgroundChangedEvent(question, background));
 
             return JsonSuccess();
         }

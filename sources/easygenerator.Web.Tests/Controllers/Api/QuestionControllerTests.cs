@@ -1,22 +1,14 @@
-﻿using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.ObjectiveEvents;
-using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
-using easygenerator.Web.Extensions;
-using easygenerator.Web.Import.PublishedCourse.EntityReaders;
 using easygenerator.Web.Tests.Utils;
-using easygenerator.Web.ViewModels.Api;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -33,13 +25,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         IPrincipal _user;
         HttpContextBase _context;
-        private IDomainEventPublisher _eventPublisher;
 
         [TestInitialize]
         public void InitializeContext()
         {
-            _eventPublisher = Substitute.For<IDomainEventPublisher>();
-            _controller = new QuestionController(_eventPublisher);
+            _controller = new QuestionController();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -85,18 +75,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ShouldPublishDomainEvent()
-        {
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question1 = Substitute.For<Question>("Question title 1", CreatedBy);
-            var question2 = Substitute.For<Question>("Question title 2", CreatedBy);
-
-            _controller.Delete(objective, new List<Question>() { question1, question2 });
-
-            _eventPublisher.Received().Publish(Arg.Any<QuestionsDeletedEvent>());
-        }
-
-        [TestMethod]
         public void Delete_ShouldReturnJsonSuccessResult()
         {
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
@@ -139,18 +117,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             question.Received().UpdateTitle(title, user);
         }
 
-
-        [TestMethod]
-        public void Update_ShouldPublishDomainEvent()
-        {
-            var question = Substitute.For<Question>("Question title", CreatedBy);
-
-            var result = _controller.UpdateTitle(question, String.Empty);
-
-            _eventPublisher.Received().Publish(Arg.Any<QuestionTitleUpdatedEvent>());
-        }
-
-
         [TestMethod]
         public void Update_ShouldReturnJsonSuccessResult()
         {
@@ -188,16 +154,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.UpdateContent(question, content);
 
             question.Received().UpdateContent(content, user);
-        }
-
-        [TestMethod]
-        public void UpdateContent_ShouldPublishDomainEvent()
-        {
-            var question = Substitute.For<Question>("Question title", CreatedBy);
-
-            _controller.UpdateContent(question, String.Empty);
-
-            _eventPublisher.Received().Publish(Arg.Any<QuestionContentUpdatedEvent>());
         }
 
         [TestMethod]
@@ -263,16 +219,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void UpdateCorrectFeedback_ShouldPublishDomainEvent()
-        {
-            var question = MultipleselectObjectMother.Create("Question title", CreatedBy);
-
-            _controller.UpdateCorrectFeedback(question, String.Empty);
-
-            _eventPublisher.Received().Publish(Arg.Any<QuestionCorrectFeedbackUpdatedEvent>());
-        }
-
-        [TestMethod]
         public void UpdateCorrectFeedback_ShouldReturnJsonSuccessResult()
         {
             var question = MultipleselectObjectMother.Create("Question title", CreatedBy);
@@ -303,16 +249,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.UpdateIncorrectFeedback(question, "incorrect feedback");
 
             question.Received().UpdateIncorrectFeedbackText("incorrect feedback");
-        }
-
-        [TestMethod]
-        public void UpdateIncorrectFeedback_ShouldPublishDomainEvent()
-        {
-            var question = MultipleselectObjectMother.Create("Question title", CreatedBy);
-
-            _controller.UpdateIncorrectFeedback(question, String.Empty);
-
-            _eventPublisher.Received().Publish(Arg.Any<QuestionIncorrectFeedbackUpdatedEvent>());
         }
 
         [TestMethod]

@@ -11,7 +11,6 @@ using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
-using easygenerator.Web.Extensions;
 using easygenerator.Web.Publish;
 using System;
 using System.Collections.Generic;
@@ -100,7 +99,7 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult Publish(Course course)
         {
             var args = course == null ? null : new CoursePublishedEvent(course);
-            return Deliver(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = course.PublicationUrl }), () => _eventPublisher.Publish(args));
+            return Deliver(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = course.PublicationUrl }));
         }
 
         [HttpPost]
@@ -131,7 +130,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.UpdateTitle(courseTitle, GetCurrentUsername());
-            _eventPublisher.Publish(new CourseTitleUpdatedEvent(course));
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }
@@ -147,7 +145,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.UpdateTemplate(template, GetCurrentUsername());
-            _eventPublisher.Publish(new CourseTemplateUpdatedEvent(course));
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }
@@ -168,7 +165,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.RelateObjective(objective, index, GetCurrentUsername());
-            _eventPublisher.Publish(new CourseObjectiveRelatedEvent(course, objective, index));
 
             return JsonSuccess(new
             {
@@ -190,13 +186,11 @@ namespace easygenerator.Web.Controllers.Api
             {
                 return JsonLocalizableError(Errors.ObjectivesNotFoundError, Errors.ObjectivesNotFoundResourceKey);
             }
-            
+
             foreach (var objective in objectives)
             {
                 course.UnrelateObjective(objective, GetCurrentUsername());
             }
-
-            _eventPublisher.Publish(new CourseObjectivesUnrelatedEvent(course, objectives));
 
             return JsonSuccess(new
             {
@@ -253,7 +247,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.UpdateIntroductionContent(introductionContent, GetCurrentUsername());
-            _eventPublisher.Publish(new CourseIntroductionContentUpdated(course));
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }
@@ -269,7 +262,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.UpdateObjectivesOrder(objectives, GetCurrentUsername());
-            _eventPublisher.Publish(new CourseObjectivesReorderedEvent(course));
 
             return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
         }
@@ -279,7 +271,7 @@ namespace easygenerator.Web.Controllers.Api
             return _urlHelper.ToAbsoluteUrl(string.Format("~/review/{0}/", courseId));
         }
 
-        private ActionResult Deliver(Course course, Func<bool> publishAction, Func<ActionResult> getSuccessResultAction, Action publishEventOnSuccess = null)
+        private ActionResult Deliver(Course course, Func<bool> publishAction, Func<ActionResult> getSuccessResultAction)
         {
             if (course == null)
             {
@@ -291,11 +283,6 @@ namespace easygenerator.Web.Controllers.Api
             if (!result)
             {
                 return JsonLocalizableError(Errors.CoursePublishActionFailedError, Errors.CoursePublishActionFailedResourceKey);
-            }
-
-            if (publishEventOnSuccess != null)
-            {
-                publishEventOnSuccess();
             }
 
             return getSuccessResultAction();

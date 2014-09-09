@@ -33,14 +33,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IEntityFactory _entityFactory;
         IPrincipal _user;
         HttpContextBase _context;
-        private IDomainEventPublisher _eventPublisher;
 
         [TestInitialize]
         public void InitializeContext()
         {
             _entityFactory = Substitute.For<IEntityFactory>();
-            _eventPublisher = Substitute.For<IDomainEventPublisher>();
-            _controller = new FillInTheBlanksController(_entityFactory, _eventPublisher);
+            _controller = new FillInTheBlanksController(_entityFactory);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -73,22 +71,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Create(objective, title);
 
             objective.Received().AddQuestion(question, user);
-        }
-
-        [TestMethod]
-        public void CreateFillInTheBlank_ShouldPublishDomainEvent()
-        {
-            const string title = "title";
-            var user = "Test user";
-            _user.Identity.Name.Returns(user);
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question = Substitute.For<FillInTheBlanks>("Question title", CreatedBy);
-
-            _entityFactory.FillInTheBlanksQuestion(title, user).Returns(question);
-
-            _controller.Create(objective, title);
-
-            _eventPublisher.Received().Publish(Arg.Any<QuestionCreatedEvent>());
         }
 
         [TestMethod]
@@ -165,21 +147,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Update(question, fillInTheBlank, answersViewmodels);
 
             question.Received().UpdateContent(fillInTheBlank, CreatedBy);
-        }
-
-        [TestMethod]
-        public void UpdateFillInTheBlank_ShouldPublishFillInTheBlankUpdatedEvent()
-        {
-            //Arrange
-            const string fillInTheBlank = "updated content";
-            var answersViewmodels = new List<BlankAnswerViewModel>();
-            _user.Identity.Name.Returns(CreatedBy);
-            var question = Substitute.For<FillInTheBlanks>("Question title", CreatedBy);
-            //Act
-            _controller.Update(question, fillInTheBlank, answersViewmodels);
-
-            //Assert
-            _eventPublisher.Received().Publish(Arg.Any<FillInTheBlankUpdatedEvent>());
         }
 
         [TestMethod]

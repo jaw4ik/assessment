@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities.Questions
@@ -35,14 +36,17 @@ namespace easygenerator.DomainModel.Entities.Questions
             Text = text;
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new DropspotTextChangedEvent(this));
         }
 
         public virtual void ChangePosition(int x, int y, string modifiedBy)
         {
             ThrowIfModifiedByIsInvalid(modifiedBy);
-            X = x;
-            Y = y;
+            X = x; Y = y;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new DropspotPositionChangedEvent(this));
         }
 
 

@@ -27,14 +27,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IEntityFactory _entityFactory;
         IPrincipal _user;
         HttpContextBase _context;
-        private IDomainEventPublisher _eventPublisher;
 
         [TestInitialize]
         public void InitializeContext()
         {
             _entityFactory = Substitute.For<IEntityFactory>();
-            _eventPublisher = Substitute.For<IDomainEventPublisher>();
-            _controller = new SingleSelectTextController(_entityFactory, _eventPublisher);
+            _controller = new SingleSelectTextController(_entityFactory);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();

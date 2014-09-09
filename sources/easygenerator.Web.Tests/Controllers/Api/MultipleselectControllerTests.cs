@@ -34,14 +34,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IEntityFactory _entityFactory;
         IPrincipal _user;
         HttpContextBase _context;
-        private IDomainEventPublisher _eventPublisher;
 
         [TestInitialize]
         public void InitializeContext()
         {
             _entityFactory = Substitute.For<IEntityFactory>();
-            _eventPublisher = Substitute.For<IDomainEventPublisher>();
-            _controller = new MultipleselectController(_entityFactory, _eventPublisher);
+            _controller = new MultipleselectController(_entityFactory);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -116,22 +114,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             result.Should()
                 .BeJsonSuccessResult()
                 .And.Data.ShouldBeSimilar(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
-        }
-
-        [TestMethod]
-        public void CreateMultipleSelect_ShouldPublishDomainEvent()
-        {
-            const string title = "title";
-            var user = "Test user";
-            _user.Identity.Name.Returns(user);
-            DateTimeWrapper.Now = () => DateTime.MinValue;
-            var question = Substitute.For<Multipleselect>("Question title", CreatedBy);
-
-            _entityFactory.MultipleselectQuestion(title, user).Returns(question);
-
-            _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
-
-            _eventPublisher.Received().Publish(Arg.Any<QuestionCreatedEvent>());
         }
 
         #endregion

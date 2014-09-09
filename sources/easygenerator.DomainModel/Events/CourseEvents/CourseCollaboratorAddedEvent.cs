@@ -3,7 +3,7 @@ using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Events.CourseEvents
 {
-    public class CourseCollaboratorAddedEvent
+    public class CourseCollaboratorAddedEvent : Event
     {
         public CourseCollaborator Collaborator { get; private set; }
 

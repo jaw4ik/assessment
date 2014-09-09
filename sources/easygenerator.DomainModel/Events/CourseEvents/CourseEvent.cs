@@ -3,7 +3,7 @@ using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Events.CourseEvents
 {
-    public abstract class CourseEvent
+    public abstract class CourseEvent : Event
     {
         public Course Course { get; private set; }
 

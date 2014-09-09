@@ -13,6 +13,16 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
         private const string Value = "Value";
         private const string CreatedBy = "username@easygenerator.com";
 
+        public static TextMatchingAnswer CreateWithKey(string key)
+        {
+            return Create(key: key);
+        }
+
+        public static TextMatchingAnswer CreateWithValue(string value)
+        {
+            return Create(value: value);
+        }
+
         public static TextMatchingAnswer Create(string key = Key, string value = Value, string createdBy = CreatedBy)
         {
             return new TextMatchingAnswer(key, value, createdBy);

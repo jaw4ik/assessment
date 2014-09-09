@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities.Questions
@@ -30,6 +31,8 @@ namespace easygenerator.DomainModel.Entities.Questions
 
             Background = background;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new BackgroundChangedEvent(this, background));
         }
 
         public virtual void AddDropspot(Dropspot dropspot, string modifiedBy)
@@ -41,6 +44,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             dropspot.Question = this;
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new DropspotCreatedEvent(dropspot));
         }
 
         public virtual void RemoveDropspot(Dropspot dropspot, string modifiedBy)
@@ -52,6 +57,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             dropspot.Question = null;
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new DropspotDeletedEvent(this, dropspot));
         }
 
         private void ThrowIfBackgroundIsInvalid(string background)

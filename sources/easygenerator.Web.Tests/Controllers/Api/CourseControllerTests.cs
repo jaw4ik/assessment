@@ -276,21 +276,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PublishedPackageUrl = course.PublicationUrl });
         }
 
-        [TestMethod]
-        public void Publish_ShouldPublishDomainEvent_WhenSuccess()
-        {
-            //Arrange
-            var course = CourseObjectMother.Create();
-            _coursePublisher.Publish(course).Returns(true);
-            course.UpdatePublicationUrl("url");
-
-            //Act
-            _controller.Publish(course);
-
-            //Assert
-            _eventPublisher.Received().Publish(Arg.Any<CoursePublishedEvent>());
-        }
-
         #endregion
 
         #region Publish course for review
@@ -378,16 +363,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Update_ShouldPublishDomainEvent()
-        {
-            var course = Substitute.For<Course>("Some title", TemplateObjectMother.Create(), CreatedBy);
-
-            _controller.UpdateTitle(course, String.Empty);
-
-           _eventPublisher.Received().Publish(Arg.Any<CourseTitleUpdatedEvent>());
-        }
-
-        [TestMethod]
         public void Update_ShouldReturnJsonSuccessResult()
         {
             var course = Substitute.For<Course>("Some title", TemplateObjectMother.Create(), CreatedBy);
@@ -431,22 +406,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             course.Received().UpdateTemplate(template, user);
-        }
-
-        [TestMethod]
-        public void UpdateTemplate_ShouldPublishDomainEvent()
-        {
-            //Arrange
-            var user = "Test user";
-            _user.Identity.Name.Returns(user);
-            var course = Substitute.For<Course>("Some title", TemplateObjectMother.Create(), CreatedBy);
-            var template = TemplateObjectMother.Create();
-
-            //Act
-            _controller.UpdateTemplate(course, template);
-
-            //Assert
-            _eventPublisher.Received().Publish(Arg.Any<CourseTemplateUpdatedEvent>());
         }
 
         [TestMethod]
@@ -496,22 +455,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             course.Received().RelateObjective(objective, null, user);
-        }
-
-        [TestMethod]
-        public void RelateObjectives_ShouldPublishDomainEvent()
-        {
-            //Arrange
-            var user = "Test user";
-            _user.Identity.Name.Returns(user);
-            var course = Substitute.For<Course>("title", TemplateObjectMother.Create(), CreatedBy);
-            var objective = ObjectiveObjectMother.Create();
-
-            //Act
-            _controller.RelateObjective(course, objective, null);
-
-            //Assert
-            _eventPublisher.Received().Publish(Arg.Any<CourseObjectiveRelatedEvent>());
         }
 
         [TestMethod]
@@ -576,22 +519,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             course.Received().UnrelateObjective(objective, user);
-        }
-
-        [TestMethod]
-        public void UnrelateObjectives_ShouldPublishDomainEvent()
-        {
-            //Arrange
-            var user = "Test user";
-            _user.Identity.Name.Returns(user);
-            var objective = ObjectiveObjectMother.Create();
-            var course = Substitute.For<Course>("title", TemplateObjectMother.Create(), CreatedBy);
-
-            //Act
-            _controller.UnrelateObjectives(course, new List<Objective>() { objective });
-
-            //Assert
-            _eventPublisher.Received().Publish(Arg.Any<CourseObjectivesUnrelatedEvent>());
         }
 
         [TestMethod]
@@ -773,20 +700,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             course.IntroductionContent.Should().Be(content);
         }
 
-
-        [TestMethod]
-        public void UpdateIntroductionContent_ShouldPublishDomainEvent()
-        {
-            //Arrange
-            var course = CourseObjectMother.Create();
-
-            //Act
-            _controller.UpdateIntroductionContent(course, "some content");
-
-            //Assert
-            _eventPublisher.Received().Publish(Arg.Any<CourseIntroductionContentUpdated>());
-        }
-
         [TestMethod]
         public void UpdateIntroductionContent_ShouldReturnJsonSuccessResult()
         {
@@ -829,21 +742,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             course.Received().UpdateObjectivesOrder(objectivesCollection, "user");
-        }
-
-        [TestMethod]
-        public void UpdateObjectivesOrderedList_ShouldPublishDomainEvent()
-        {
-            //Arrange
-            var course = Substitute.For<Course>();
-            var objectivesCollection = new Collection<Objective>();
-            _user.Identity.Name.Returns("user");
-
-            //Act
-            _controller.UpdateObjectivesOrderedList(course, objectivesCollection);
-
-            //Assert
-            _eventPublisher.Received().Publish(Arg.Any<CourseObjectivesReorderedEvent>());
         }
 
         [TestMethod]

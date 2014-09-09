@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using easygenerator.DomainModel.Events.AnswerEvents;
 
 namespace easygenerator.DomainModel.Entities.Questions
 {
@@ -45,6 +46,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             }
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new AnswerDeletedEvent(this, answer));
         }
     }
 }

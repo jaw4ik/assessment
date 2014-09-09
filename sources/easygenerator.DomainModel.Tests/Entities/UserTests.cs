@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -418,6 +419,19 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.RecoverPasswordUsingTicket(ticket, password);
 
             user.PasswordRecoveryTicketCollection.Should().NotContain(ticket);
+        }
+
+        [TestMethod]
+        public void RecoverPasswordUsingTicket_ShouldAddUserUpdateEvent()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+            user.PasswordRecoveryTicketCollection.Add(ticket);
+            const string password = "easyGenerAtoR123!";
+
+            user.RecoverPasswordUsingTicket(ticket, password);
+
+            user.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(UserUpdateEvent));
         }
         #endregion
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -110,6 +111,18 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.RemoveAnswer(answer, user);
 
             question.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void RemoveAnswer_ShouldAddCourseTitleUpdatedEvent()
+        {
+            var question = SingleSelectTextObjectMother.Create();
+            var answer = AnswerObjectMother.Create();
+            var user = "Some user";
+
+            question.RemoveAnswer(answer, user);
+
+            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(AnswerDeletedEvent));
         }
 
         #endregion

@@ -1,6 +1,9 @@
-﻿using easygenerator.DataAccess.Migrations;
+﻿using System.Reflection;
+using System.Security.Policy;
+using easygenerator.DataAccess.Migrations;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Events;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.DomainModel;
 using System;
@@ -13,6 +16,8 @@ namespace easygenerator.DataAccess
 {
     public class DatabaseContext : DbContext, IDataContext, IUnitOfWork
     {
+        private readonly IDomainEventPublisher _publisher;
+
         static DatabaseContext()
         {
             var _ = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
@@ -28,13 +33,14 @@ namespace easygenerator.DataAccess
         }
 
         public DatabaseContext()
-            : this("DefaultConnection")
+            : this(null)
         {
         }
 
-        public DatabaseContext(string connectionString)
-            : base(connectionString)
+        public DatabaseContext(IDomainEventPublisher publisher)
+            : base("DefaultConnection")
         {
+            _publisher = publisher;
             ((IObjectContextAdapter)this).ObjectContext.ObjectMaterialized += (sender, args) => DateTimeObjectMaterializer.Materialize(args.Entity);
         }
 
@@ -104,7 +110,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Multipleselect>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
 
             modelBuilder.Entity<DragAndDropText>().HasMany(e => e.DropspotsCollection).WithRequired(e => e.Question);
-            
+
             modelBuilder.Entity<Dropspot>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<Dropspot>().Property(e => e.X).IsRequired();
             modelBuilder.Entity<Dropspot>().Property(e => e.Y).IsRequired();
@@ -177,6 +183,22 @@ namespace easygenerator.DataAccess
         public void Save()
         {
             SaveChanges();
+
+            foreach (DbEntityEntry entry in ChangeTracker.Entries<Entity>())
+            {
+                var entity = entry.Entity as Entity;
+
+                if (entity == null || entity.Events == null)
+                {
+                    continue;
+                }
+
+                foreach (var @event in entity.Events)
+                {
+                    var method = typeof(IDomainEventPublisher).GetMethod("Publish").MakeGenericMethod(@event.GetType());
+                    method.Invoke(_publisher, new object[] { @event });
+                }
+            }
         }
 
         public override int SaveChanges()

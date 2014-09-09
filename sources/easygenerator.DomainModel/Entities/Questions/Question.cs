@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using easygenerator.DomainModel.Events.LearningContentEvents;
+using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities.Questions
@@ -38,7 +40,7 @@ namespace easygenerator.DomainModel.Entities.Questions
         public string Title { get; private set; }
 
         //TODO: Move to derived type
-        public string Content { get; private set; }
+        public string Content { get; protected set; }
 
         public virtual Objective Objective { get; internal set; }
 
@@ -54,11 +56,15 @@ namespace easygenerator.DomainModel.Entities.Questions
         public virtual void UpdateCorrectFeedbackText(string feedbackText)
         {
             Feedback.CorrectText = feedbackText;
+
+            RaiseEvent(new QuestionCorrectFeedbackUpdatedEvent(this));
         }
 
         public virtual void UpdateIncorrectFeedbackText(string feedbackText)
         {
             Feedback.IncorrectText = feedbackText;
+
+            RaiseEvent(new QuestionIncorrectFeedbackUpdatedEvent(this));
         }
 
         public virtual void UpdateTitle(string title, string modifiedBy)
@@ -68,6 +74,8 @@ namespace easygenerator.DomainModel.Entities.Questions
 
             Title = title;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new QuestionTitleUpdatedEvent(this));
         }
 
         public virtual void UpdateContent(string content, string modifiedBy)
@@ -76,6 +84,8 @@ namespace easygenerator.DomainModel.Entities.Questions
 
             Content = content;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new QuestionContentUpdatedEvent(this));
         }
 
 
@@ -87,6 +97,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             LearningContentsCollection.Add(learningContent);
             learningContent.Question = this;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new LearningContentCreatedEvent(learningContent));
         }
 
         public virtual void RemoveLearningContent(LearningContent learningContent, string modifiedBy)
@@ -97,6 +109,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             LearningContentsCollection.Remove(learningContent);
             learningContent.Question = null;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new LearningContentDeletedEvent(this, learningContent));
         }
 
         private void ThrowIfTitleIsInvalid(string title)

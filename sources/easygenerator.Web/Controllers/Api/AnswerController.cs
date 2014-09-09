@@ -1,10 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
@@ -19,13 +16,11 @@ namespace easygenerator.Web.Controllers.Api
     {
         private readonly IEntityFactory _entityFactory;
         private readonly IEntityMapper _entityMapper;
-        private readonly IDomainEventPublisher _eventPublisher;
 
-        public AnswerController(IEntityFactory entityFactory, IEntityMapper entityMapper, IDomainEventPublisher eventPublisher)
+        public AnswerController(IEntityFactory entityFactory, IEntityMapper entityMapper)
         {
             _entityFactory = entityFactory;
             _entityMapper = entityMapper;
-            _eventPublisher = eventPublisher;
         }
 
         [HttpPost]
@@ -41,7 +36,6 @@ namespace easygenerator.Web.Controllers.Api
             var answer = _entityFactory.Answer(text, isCorrect, GetCurrentUsername());
 
             question.AddAnswer(answer, GetCurrentUsername());
-            _eventPublisher.Publish(new AnswerCreatedEvent(answer));
 
             return JsonSuccess(new { Id = answer.Id.ToNString(), CreatedOn = answer.CreatedOn });
         }
@@ -59,7 +53,6 @@ namespace easygenerator.Web.Controllers.Api
             if (answer != null)
             {
                 question.RemoveAnswer(answer, GetCurrentUsername());
-                _eventPublisher.Publish(new AnswerDeletedEvent(question, answer));
             }
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
@@ -76,10 +69,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             answer.UpdateText(text, GetCurrentUsername());
-            _eventPublisher.Publish(new AnswerTextUpdatedEvent(answer));
-
             answer.UpdateCorrectness(isCorrect, GetCurrentUsername());
-            _eventPublisher.Publish(new MultipleselectAnswerCorrectnessUpdatedEvent(answer));
 
             return JsonSuccess(new { ModifiedOn = answer.ModifiedOn });
         }
@@ -100,7 +90,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.SetCorrectAnswer(answer, GetCurrentUsername());
-            _eventPublisher.Publish(new SingleSelectTextAnswerCorrectnessUpdateEvent(answer));
 
             return JsonSuccess(new { ModifiedOn = answer.ModifiedOn });
         }
@@ -116,7 +105,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             answer.UpdateText(text, GetCurrentUsername());
-            _eventPublisher.Publish(new AnswerTextUpdatedEvent(answer));
 
             return JsonSuccess(new { ModifiedOn = answer.ModifiedOn });
         }

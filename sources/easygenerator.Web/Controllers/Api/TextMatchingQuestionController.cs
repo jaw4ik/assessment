@@ -1,15 +1,9 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.QuestionEvents;
-using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
@@ -22,12 +16,10 @@ namespace easygenerator.Web.Controllers.Api
     {
         private readonly IEntityFactory _entityFactory;
         private readonly IEntityMapper _entityMapper;
-        private readonly IDomainEventPublisher _eventPublisher;
 
-        public TextMatchingQuestionController(IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IEntityMapper entityMapper)
+        public TextMatchingQuestionController(IEntityFactory entityFactory, IEntityMapper entityMapper)
         {
             _entityFactory = entityFactory;
-            _eventPublisher = eventPublisher;
             _entityMapper = entityMapper;
         }
 
@@ -46,7 +38,6 @@ namespace easygenerator.Web.Controllers.Api
             CreateFirstAnswers(question);
 
             objective.AddQuestion(question, GetCurrentUsername());
-            _eventPublisher.Publish(new QuestionCreatedEvent(question));
 
             return JsonSuccess(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
         }
@@ -63,8 +54,7 @@ namespace easygenerator.Web.Controllers.Api
 
         private TextMatchingAnswer GetDefaultAnswer()
         {
-            return _entityFactory.TextMatchingAnswer(Constants.TextMatching.DefaultAnswerKeyText,
-                Constants.TextMatching.DefaultAnswerValueText, GetCurrentUsername());
+            return _entityFactory.TextMatchingAnswer(Constants.TextMatching.DefaultAnswerKeyText, Constants.TextMatching.DefaultAnswerValueText, GetCurrentUsername());
         }
 
         [Route("api/question/textmatching/answers")]
@@ -86,7 +76,6 @@ namespace easygenerator.Web.Controllers.Api
 
             var answer = GetDefaultAnswer();
             question.AddAnswer(answer, GetCurrentUsername());
-            _eventPublisher.Publish(new TextMatchingAnswerCreatedEvent(answer));
 
             return JsonSuccess(_entityMapper.Map(answer));
         }
@@ -101,7 +90,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.RemoveAnswer(answer, GetCurrentUsername());
-            _eventPublisher.Publish(new TextMatchingAnswerDeletedEvent(question, answer));
 
             return JsonSuccess();
         }
@@ -116,7 +104,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             textMatchingAnswer.ChangeKey(key, GetCurrentUsername());
-            _eventPublisher.Publish(new TextMatchingAnswerKeyChangedEvent(textMatchingAnswer));
 
             return JsonSuccess();
         }
@@ -131,7 +118,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             textMatchingAnswer.ChangeValue(value, GetCurrentUsername());
-            _eventPublisher.Publish(new TextMatchingAnswerValueChangedEvent(textMatchingAnswer));
 
             return JsonSuccess();
         }

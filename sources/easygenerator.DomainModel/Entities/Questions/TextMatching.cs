@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities.Questions
@@ -33,6 +31,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             answer.Question = this;
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new TextMatchingAnswerCreatedEvent(answer));
         }
 
         public virtual void RemoveAnswer(TextMatchingAnswer answer, string modifiedBy)
@@ -44,6 +44,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             answer.Question = null;
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new TextMatchingAnswerDeletedEvent(this, answer));
         }
 
         private void ThrowIfAnswerIsInvalid(TextMatchingAnswer answer)

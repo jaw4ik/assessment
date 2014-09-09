@@ -8,7 +8,7 @@ using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents
 {
-    public abstract class TextMatchingAnswerEvent
+    public abstract class TextMatchingAnswerEvent : Event
     {
         public TextMatchingAnswer Answer { get; private set; }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities.Questions
@@ -31,6 +32,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             AnswersCollection.Add(answer);
             answer.Question = this;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new AnswerCreatedEvent(answer));
         }
 
         public virtual void RemoveAnswer(Answer answer, string modifiedBy)
@@ -41,6 +44,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             AnswersCollection.Remove(answer);
             answer.Question = null;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new AnswerDeletedEvent(this, answer));
         }
 
         protected void ThrowIfAnswerIsInvalid(Answer answer)

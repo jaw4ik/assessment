@@ -1,10 +1,13 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Linq.Expressions;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using FluentAssertions;
+using FluentAssertions.Collections;
+using FluentAssertions.Execution;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
@@ -216,6 +219,16 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.ModifiedBy.Should().Be(user);
         }
 
+        [TestMethod]
+        public void RelateObjective_ShouldAddCourseObjectiveRelatedEvent()
+        {
+            var course = CourseObjectMother.Create();
+
+            course.RelateObjective(ObjectiveObjectMother.Create(), null, "user");
+
+            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CourseObjectiveRelatedEvent));
+        }
+
         #endregion
 
         #region UnrelateObjective
@@ -320,6 +333,18 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.ModifiedBy.Should().Be(user);
         }
 
+        [TestMethod]
+        public void UnrelateObjective_ShouldAddCourseObjectiveRelatedEvent()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            var course = CourseObjectMother.Create();
+            course.RelateObjective(objective, null, ModifiedBy);
+
+            course.UnrelateObjective(objective, "user");
+
+            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CourseObjectivesUnrelatedEvent));
+        }
+
         #endregion
 
         #region Update title
@@ -410,6 +435,16 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.ModifiedBy.Should().Be(user);
         }
 
+        [TestMethod]
+        public void UpdateTitle_ShouldAddCourseTitleUpdatedEvent()
+        {
+            var course = CourseObjectMother.Create();
+
+            course.UpdateTitle("updated title", "user");
+
+            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CourseTitleUpdatedEvent));
+        }
+
         #endregion
 
         #region UpdateTemplate
@@ -492,6 +527,16 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.UpdateTemplate(template, user);
 
             course.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void UpdateTemplate_ShouldAddCourseTemplateUpdatedEvent()
+        {
+            var course = CourseObjectMother.Create();
+
+            course.UpdateTemplate(TemplateObjectMother.Create(), "user");
+
+            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CourseTemplateUpdatedEvent));
         }
 
         #endregion
@@ -669,110 +714,14 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.PublicationUrl.Should().Be("some url");
         }
 
-        #endregion
-
-        #region GetTemplateSettings
-
         [TestMethod]
-        public void GetTemplateSettings_ShouldThrowArgumentNullException_WhenTemplateIsNull()
+        public void UpdatePublicationUrl_ShouldAddCoursePublishedEvent()
         {
-            //Arrange
             var course = CourseObjectMother.Create();
 
-            //Act
-            Action action = () => course.GetTemplateSettings(null);
+            course.UpdatePublicationUrl("url");
 
-            //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("template");
-        }
-
-        [TestMethod]
-        public void GetTemplateSettings_ShouldReturnNull_WhenThereAreNoSettingsForCurrentTemplate()
-        {
-            //Arrange
-            var course = CourseObjectMother.Create();
-            course.TemplateSettings = new List<Course.CourseTemplateSettings>();
-
-            //Act
-            var settings = course.GetTemplateSettings(TemplateObjectMother.Create());
-
-            //Assert
-            settings.Should().BeNull();
-        }
-
-        [TestMethod]
-        public void GetTemplateSettings_ShouldReturnTemplateSettings()
-        {
-            //Arrange
-            var course = CourseObjectMother.Create();
-            var template = TemplateObjectMother.Create();
-            const string json = "{ url: \"http://google.com\"";
-            course.TemplateSettings = new List<Course.CourseTemplateSettings>()
-            {
-                CourseTemplateSettingsObjectMother.Create(course, template, json)
-            };
-
-            //Act
-            var settings = course.GetTemplateSettings(template);
-
-            //Assert
-            settings.Should().Be(json);
-        }
-
-        #endregion
-
-        #region SaveTemplateSettings
-
-        [TestMethod]
-        public void SaveTemplateSettings_ShouldThrowArgumentNullException_WhenTemplateIsNull()
-        {
-            //Arrange
-            var course = CourseObjectMother.Create();
-
-            //Act
-            Action action = () => course.SaveTemplateSettings(null, null);
-
-            //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("template");
-        }
-
-        [TestMethod]
-        public void SaveTemplateSettings_ShouldUpdateSettings_WhenTheyAlreadyExist()
-        {
-            //Arrange
-            var course = CourseObjectMother.Create();
-            var template = TemplateObjectMother.Create();
-            const string settings = "settings";
-            course.TemplateSettings = new Collection<Course.CourseTemplateSettings>()
-            {
-                CourseTemplateSettingsObjectMother.Create(course, template, "previous settings")
-            };
-
-            //Act
-            course.SaveTemplateSettings(template, settings);
-
-            //Assert
-            course.TemplateSettings.Count.Should().Be(1);
-            course.TemplateSettings.First().Settings.Should().Be(settings);
-        }
-
-        [TestMethod]
-        public void SaveTemplateSettings_ShouldAddSettings_WhenTheyDoNotExistYet()
-        {
-            //Arrange
-            var course = CourseObjectMother.Create();
-            var template = TemplateObjectMother.Create();
-            const string settings = "settings";
-            course.TemplateSettings = new Collection<Course.CourseTemplateSettings>();
-
-            //Act
-            course.SaveTemplateSettings(template, settings);
-
-            //Assert
-            course.TemplateSettings.Count.Should().Be(1);
-            course.TemplateSettings.First().Course.Should().Be(course);
-            course.TemplateSettings.First().Template.Should().Be(template);
-            course.TemplateSettings.First().Settings.Should().Be(settings);
+            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CoursePublishedEvent));
         }
 
         #endregion
@@ -852,6 +801,16 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldAddCourseIntroductionContentUpdated()
+        {
+            var course = CourseObjectMother.Create();
+
+            course.UpdateIntroductionContent("updated introduction", "user");
+
+            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CourseIntroductionContentUpdated));
         }
 
         #endregion UpdateIntroductionContent
@@ -954,6 +913,16 @@ namespace easygenerator.DomainModel.Tests.Entities
             result.Should().BeNull();
         }
 
+        [TestMethod]
+        public void Collaborate_ShouldAddCourseCollaboratorAddedEvent()
+        {
+            const string email = "owner@www.com";
+            var course = CourseObjectMother.Create(createdBy: UserEmail);
+            course.Collaborate(email, CreatedBy);
+
+            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CourseCollaboratorAddedEvent));
+        }
+
         #endregion
 
         #region AddComment
@@ -995,7 +964,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         #region UpdateObjectivesOrder
 
         [TestMethod]
-        public void UpdateObjectivesOrderedList_ShouldUpdateObjectivesOrderedList()
+        public void UpdateObjectivesOrder_ShouldUpdateObjectivesOrderedList()
         {
             //Arrange
             var user = "some user";
@@ -1016,7 +985,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void UpdateObjectivesOrderedList_ShouldUpdateModificationDate()
+        public void UpdateObjectivesOrder_ShouldUpdateModificationDate()
         {
             //Arrange
             var user = "some user";
@@ -1038,7 +1007,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void UpdateObjectivesOrderedList_ShouldUpdateModifiedBy()
+        public void UpdateObjectivesOrder_ShouldUpdateModifiedBy()
         {
             //Arrange
             var user = "some user";
@@ -1055,7 +1024,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void UpdateObjectivesOrderedList_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        public void UpdateObjectivesOrder_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -1072,7 +1041,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void UpdateObjectivesOrderedList_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        public void UpdateObjectivesOrder_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -1086,6 +1055,19 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateObjectivesOrder_ShouldAddCourseObjectivesReorderedEvent()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            var course = CourseObjectMother.Create();
+            course.RelatedObjectivesCollection.Add(objective);
+
+            course.UpdateObjectivesOrder(new Collection<Objective> { objective }, "user");
+
+            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CourseObjectivesReorderedEvent));
         }
 
         #endregion UpdateObjectivesOrder
@@ -1204,7 +1186,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create();
 
             // Act
-            Action action = () => course.RemoveCollaborator(_eventPublisher, _cloner, null);
+            Action action = () => course.RemoveCollaborator(_cloner, null);
 
             // Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("courseCollaborator");
@@ -1219,14 +1201,14 @@ namespace easygenerator.DomainModel.Tests.Entities
             var collaborator = course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+            course.RemoveCollaborator(_cloner, collaborator);
 
             // Assert
             course.Collaborators.Count().Should().Be(0);
         }
 
         [TestMethod]
-        public void RemoveCollaborator_ShouldRaiseEventAboutDeletedCollaborator()
+        public void RemoveCollaborator_ShouldAddCourseCollaboratorRemovedEvent()
         {
             // Arrange
             var course = CourseObjectMother.Create();
@@ -1234,10 +1216,10 @@ namespace easygenerator.DomainModel.Tests.Entities
             var collaborator = course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+            course.RemoveCollaborator(_cloner, collaborator);
 
             // Assert
-            _eventPublisher.Received().Publish(Arg.Is<CourseCollaboratorRemovedEvent>(args => args.Collaborator == collaborator && args.Course == course));
+            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CourseCollaboratorRemovedEvent));
         }
 
         [TestMethod]
@@ -1250,7 +1232,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var collaborator = course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+            course.RemoveCollaborator(_cloner, collaborator);
 
             // Assert
             course.ModifiedOn.Should().Be(_currentDate);
@@ -1277,13 +1259,13 @@ namespace easygenerator.DomainModel.Tests.Entities
             var collaborator = course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+            course.RemoveCollaborator(_cloner, collaborator);
 
             // Assert
-            _eventPublisher.Received().Publish(Arg.Is<CourseObjectivesClonedEvent>(args => args.Course == course
-                && args.ReplacedObjectives.Count == 2 && args.ReplacedObjectives.ContainsKey(objective.Id) &&
-                args.ReplacedObjectives.ContainsKey(objective2.Id) && args.ReplacedObjectives[objective.Id] == clonedObjective &&
-                args.ReplacedObjectives[objective2.Id] == clonedObjective2));
+            course.Events.Where(e => e.GetType() == typeof(CourseObjectivesClonedEvent))
+                .Cast<CourseObjectivesClonedEvent>()
+                .Should()
+                .Contain(args => args.Course == course && args.ReplacedObjectives.Count == 2 && args.ReplacedObjectives.ContainsKey(objective.Id) && args.ReplacedObjectives.ContainsKey(objective2.Id) && args.ReplacedObjectives[objective.Id] == clonedObjective && args.ReplacedObjectives[objective2.Id] == clonedObjective2);
         }
 
         [TestMethod]
@@ -1306,12 +1288,13 @@ namespace easygenerator.DomainModel.Tests.Entities
             var collaborator = course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+            course.RemoveCollaborator(_cloner, collaborator);
 
-            // Assert
-            _eventPublisher.Received().Publish(Arg.Is<CourseObjectivesClonedEvent>(args => args.Course == course
-               && args.ReplacedObjectives.Count == 1 && args.ReplacedObjectives.ContainsKey(objective.Id) &&
-               args.ReplacedObjectives[objective.Id] == clonedObjective));
+            // Assert            
+            course.Events.Where(e => e.GetType() == typeof(CourseObjectivesClonedEvent))
+                .Cast<CourseObjectivesClonedEvent>()
+                .Should()
+                .Contain(args => args.Course == course && args.ReplacedObjectives.Count == 1 && args.ReplacedObjectives.ContainsKey(objective.Id) && args.ReplacedObjectives[objective.Id] == clonedObjective);
         }
 
         [TestMethod]
@@ -1329,7 +1312,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var collaborator = course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+            course.RemoveCollaborator(_cloner, collaborator);
 
             // Assert
             course.RelatedObjectivesCollection.ElementAt(0).Should().Be(clonedObjective);
@@ -1355,7 +1338,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var collaborator = course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+            course.RemoveCollaborator(_cloner, collaborator);
 
             // Assert
             course.ObjectivesOrder.Should().Be(clonedObjective2.Id + "," + clonedObjective.Id);
@@ -1404,6 +1387,113 @@ namespace easygenerator.DomainModel.Tests.Entities
             result[0].Should().Be(clonedObjective3);
             result[1].Should().Be(clonedObjective1);
             result[2].Should().Be(clonedObjective2);
+        }
+
+        #endregion
+
+
+        #region GetTemplateSettings
+
+        [TestMethod]
+        public void GetTemplateSettings_ShouldThrowArgumentNullException_WhenTemplateIsNull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            Action action = () => course.GetTemplateSettings(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("template");
+        }
+
+        [TestMethod]
+        public void GetTemplateSettings_ShouldReturnNull_WhenThereAreNoSettingsForCurrentTemplate()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.TemplateSettings = new List<Course.CourseTemplateSettings>();
+
+            //Act
+            var settings = course.GetTemplateSettings(TemplateObjectMother.Create());
+
+            //Assert
+            settings.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void GetTemplateSettings_ShouldReturnTemplateSettings()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            const string json = "{ url: \"http://google.com\"";
+            course.TemplateSettings = new List<Course.CourseTemplateSettings>()
+            {
+                CourseTemplateSettingsObjectMother.Create(course, template, json)
+            };
+
+            //Act
+            var settings = course.GetTemplateSettings(template);
+
+            //Assert
+            settings.Should().Be(json);
+        }
+
+        #endregion
+
+        #region SaveTemplateSettings
+
+        [TestMethod]
+        public void SaveTemplateSettings_ShouldThrowArgumentNullException_WhenTemplateIsNull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            Action action = () => course.SaveTemplateSettings(null, null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("template");
+        }
+
+        [TestMethod]
+        public void SaveTemplateSettings_ShouldUpdateSettings_WhenTheyAlreadyExist()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            const string settings = "settings";
+            course.TemplateSettings = new Collection<Course.CourseTemplateSettings>()
+            {
+                CourseTemplateSettingsObjectMother.Create(course, template, "previous settings")
+            };
+
+            //Act
+            course.SaveTemplateSettings(template, settings);
+
+            //Assert
+            course.TemplateSettings.Count.Should().Be(1);
+            course.TemplateSettings.First().Settings.Should().Be(settings);
+        }
+
+        [TestMethod]
+        public void SaveTemplateSettings_ShouldAddSettings_WhenTheyDoNotExistYet()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            const string settings = "settings";
+            course.TemplateSettings = new Collection<Course.CourseTemplateSettings>();
+
+            //Act
+            course.SaveTemplateSettings(template, settings);
+
+            //Assert
+            course.TemplateSettings.Count.Should().Be(1);
+            course.TemplateSettings.First().Course.Should().Be(course);
+            course.TemplateSettings.First().Template.Should().Be(template);
+            course.TemplateSettings.First().Settings.Should().Be(settings);
         }
 
         #endregion

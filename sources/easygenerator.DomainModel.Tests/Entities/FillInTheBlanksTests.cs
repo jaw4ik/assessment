@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -134,6 +135,77 @@ namespace easygenerator.DomainModel.Tests.Entities
             question.AddAnswer(answer, user);
 
             question.ModifiedBy.Should().Be(user);
+        }
+
+        #endregion
+
+
+        #region UpdateContent
+
+        [TestMethod]
+        public void UpdateContent_ShouldUpdateContent()
+        {
+            const string content = "content";
+            var question = FillInTheBlanksObjectMother.Create();
+
+            question.UpdateContent(content, ModifiedBy);
+
+            question.Content.Should().Be(content);
+        }
+
+        [TestMethod]
+        public void UpdateContent_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var question = FillInTheBlanksObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            question.UpdateContent("content", ModifiedBy);
+
+            question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdateContent_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var question = FillInTheBlanksObjectMother.Create();
+
+            Action action = () => question.UpdateContent("Some content", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateContent_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var question = FillInTheBlanksObjectMother.Create();
+
+            Action action = () => question.UpdateContent("Some content", string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateContent_ShouldUpdateMoidifiedBy()
+        {
+            var question = FillInTheBlanksObjectMother.Create();
+            var user = "Some user";
+
+            question.UpdateContent("Some content", user);
+
+            question.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void UpdateContent_ShouldAddFillInTheBlankUpdatedEvent()
+        {
+            var question = FillInTheBlanksObjectMother.Create();
+
+            question.UpdateContent("content", "user");
+
+            question.Events.Should().ContainSingle(e => e.GetType() == typeof(FillInTheBlankUpdatedEvent));
         }
 
         #endregion

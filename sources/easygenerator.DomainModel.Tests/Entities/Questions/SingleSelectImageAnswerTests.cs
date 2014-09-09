@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Tests.ObjectMothers;
+﻿using easygenerator.DomainModel.Events.QuestionEvents.SingleSelectImageEvents;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -107,6 +108,16 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             answer.UpdateImage("text", user);
 
             answer.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void UpdateImage_ShouldAddSingleSelectImageAnswerImageUpdatedEvent()
+        {
+            var answer = SingleSelectImageAnswerObjectMother.Create();
+
+            answer.UpdateImage("text", "username");
+
+            answer.Events.Should().ContainSingle(e => e.GetType() == typeof(SingleSelectImageAnswerImageUpdatedEvent));
         }
 
         #endregion

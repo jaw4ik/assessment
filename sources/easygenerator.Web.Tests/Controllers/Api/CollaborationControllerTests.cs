@@ -1,6 +1,4 @@
 ﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -28,7 +26,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         private CollaborationController _controller;
         private IUserRepository _userRepository;
-        private IDomainEventPublisher _eventPublisher;
         private IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
         private IMailSenderWrapper _mailSenderWrapper;
         private ICloner _cloner;
@@ -48,11 +45,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _context.User.Returns(_user);
             _collaboratorEntityModelMapper = Substitute.For<IEntityModelMapper<CourseCollaborator>>();
 
-            _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
             _cloner = Substitute.For<ICloner>();
 
-            _controller = new CollaborationController(_userRepository, _eventPublisher, _collaboratorEntityModelMapper, _mailSenderWrapper, _cloner);
+            _controller = new CollaborationController(_userRepository, _collaboratorEntityModelMapper, _mailSenderWrapper, _cloner);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
             DateTimeWrapper.Now = () => CurrentDate;
         }
@@ -152,24 +148,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Add_ShouldNotPublishEvent_WhenCollaboratorWasNotAdded()
-        {
-            //Arrange
-            _user.Identity.Name.Returns(CreatedBy);
-
-            var course = Substitute.For<Course>();
-            course.Collaborate(Arg.Any<string>(), Arg.Any<string>()).Returns(null as CourseCollaborator);
-            var user = UserObjectMother.Create();
-            _userRepository.GetUserByEmail(UserEmail).Returns(user);
-
-            //Act
-            _controller.AddCollaborator(course, UserEmail);
-
-            //Assert
-            _eventPublisher.DidNotReceive().Publish(Arg.Any<CourseCollaboratorAddedEvent>());
-        }
-
-        [TestMethod]
         public void Add_ShouldReturnJsonSuccessResult_WhenCollaboratorAdded()
         {
             //Arrange
@@ -187,26 +165,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonSuccessResult();
-        }
-
-        [TestMethod]
-        public void Add_ShouldPublishEvent_WhenCollaboratorAdded()
-        {
-            //Arrange
-            _user.Identity.Name.Returns(CreatedBy);
-
-            var course = Substitute.For<Course>();
-            var user = UserObjectMother.Create();
-            var collaborator = CourseCollaboratorObjectMother.Create(course, "user@www.www");
-            course.Collaborate(Arg.Any<string>(), Arg.Any<string>()).Returns(collaborator);
-
-            _userRepository.GetUserByEmail(UserEmail).Returns(user);
-
-            //Act
-            _controller.AddCollaborator(course, UserEmail);
-
-            //Assert
-            _eventPublisher.Received().Publish(Arg.Any<CourseCollaboratorAddedEvent>());
         }
 
         #endregion
@@ -240,7 +198,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var collaborator = CourseCollaboratorObjectMother.Create(course, "aa@aa.aa");
             _controller.RemoveCollaborator(course, collaborator);
 
-            course.Received().RemoveCollaborator(_eventPublisher, _cloner, collaborator);
+            course.Received().RemoveCollaborator(_cloner, collaborator);
         }
 
         [TestMethod]

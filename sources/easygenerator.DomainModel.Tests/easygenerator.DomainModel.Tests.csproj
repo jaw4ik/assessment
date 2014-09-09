@@ -74,6 +74,8 @@
     <Compile Include="Entities\Questions\SingleSelectImageAnswerTests.cs" />
     <Compile Include="Entities\Questions\SingleSelectImageTests.cs" />
     <Compile Include="Entities\Questions\SingleSelectTextTests.cs" />
+    <Compile Include="Entities\Questions\TextMatchingAnswerTests.cs" />
+    <Compile Include="Entities\Questions\TextMatchingTests.cs" />
     <Compile Include="Entities\TemplateTests.cs" />
     <Compile Include="Entities\CommentTests.cs" />
     <Compile Include="Entities\UserTests.cs" />

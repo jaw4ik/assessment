@@ -1,8 +1,12 @@
-﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Entities.Questions;
+﻿using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.ObjectiveEvents;
+using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
+using FluentAssertions.Collections;
+using FluentAssertions.Primitives;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -159,6 +163,16 @@ namespace easygenerator.DomainModel.Tests.Entities
             objective.ModifiedBy.Should().Be(user);
         }
 
+        [TestMethod]
+        public void UpdateTitle_ShouldAddObjectiveTitleUpdatedEvent()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            objective.UpdateTitle("title", "user");
+
+            objective.Events.Should().ContainSingle(e => e.GetType() == typeof(ObjectiveTitleUpdatedEvent));
+        }
+
         #endregion
 
         #region Add question
@@ -281,6 +295,20 @@ namespace easygenerator.DomainModel.Tests.Entities
             objective.QuestionsCollection.Count.Should().Be(1);
         }
 
+        [TestMethod]
+        public void AddQuestion_ShouldAddObjectiveTitleUpdatedEvent()
+        {
+            //Arrange
+            var objective = ObjectiveObjectMother.Create();
+            objective.QuestionsCollection = new Collection<Question>();
+
+            //Act
+            objective.AddQuestion(SingleSelectTextObjectMother.Create(), ModifiedBy);
+
+            //Assert
+            objective.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionCreatedEvent));
+        }
+
         #endregion
 
         #region Remove question
@@ -386,6 +414,18 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Assert
             objective.QuestionsOrder.Should().Be(String.Format("{0},{1}", question1.Id, question3.Id));
+        }
+
+        [TestMethod]
+        public void RemoveQuestion_ShouldAddQuestionsDeletedEvent()
+        {
+            var question = SingleSelectTextObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+
+            objective.RemoveQuestion(question, ModifiedBy);
+
+            objective.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionsDeletedEvent));
+
         }
 
         #endregion
@@ -511,6 +551,19 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Assert
             objective.QuestionsOrder.Should().Be(String.Format("{0},{1}", questions[0].Id, questions[1].Id));
+        }
+
+        [TestMethod]
+        public void UpdateQuestionsOrder_ShouldAddQuestionsReorderedEvent()
+        {
+            //Arrange
+            var objective = ObjectiveObjectMother.Create();
+
+            //Act
+            objective.UpdateQuestionsOrder(new List<Question>(), ModifiedBy);
+
+            //Assert
+            objective.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionsReorderedEvent));
         }
 
         #endregion

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -143,6 +144,16 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.ModifiedBy.Should().Be(user);
         }
 
+        [TestMethod]
+        public void ChangeBackground_ShouldAddDropspotPositionChangedEvent()
+        {
+            var question = DragAndDropTextObjectMother.Create();
+
+            question.ChangeBackground("background", "username");
+
+            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(BackgroundChangedEvent));
+        }
+
         #endregion
 
         #region Add dropspot
@@ -225,6 +236,18 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.AddDropspot(dropspot, user);
 
             question.ModifiedBy.Should().Be(user);
+        }
+
+
+        [TestMethod]
+        public void AddDropspot_ShouldAddCourseTitleUpdatedEvent()
+        {
+            var question = DragAndDropTextObjectMother.Create();
+            var dropspot = DropspotObjectMother.Create();
+
+            question.AddDropspot(dropspot, "username");
+
+            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(DropspotCreatedEvent));
         }
 
         #endregion
@@ -310,6 +333,17 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.RemoveDropspot(dropspot, user);
 
             question.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void RemoveDropspot_ShouldAddCourseTitleUpdatedEvent()
+        {
+            var question = DragAndDropTextObjectMother.Create();
+            var dropspot = DropspotObjectMother.Create();
+
+            question.RemoveDropspot(dropspot, "username");
+
+            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(DropspotDeletedEvent));
         }
 
         #endregion

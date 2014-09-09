@@ -1,4 +1,5 @@
 ﻿using System;
+using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities.Questions
@@ -38,6 +39,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             ThrowIfTextIsInvalid(text);
             Text = text;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new AnswerTextUpdatedEvent(this));
         }
 
         public bool IsCorrect { get; private set; }
@@ -48,6 +51,8 @@ namespace easygenerator.DomainModel.Entities.Questions
 
             IsCorrect = isCorrect;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new MultipleselectAnswerCorrectnessUpdatedEvent(this));
         }
 
         public virtual Multipleselect Question { get; internal set; }

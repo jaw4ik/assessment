@@ -4,7 +4,7 @@ using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Events.QuestionEvents
 {
-    public abstract class QuestionEvent
+    public abstract class QuestionEvent : Event
     {
         public Question Question { get; private set; }
 

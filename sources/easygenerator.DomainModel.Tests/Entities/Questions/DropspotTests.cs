@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -109,7 +110,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         }
 
         [TestMethod]
-        public void RemoveDropspot_ShouldUpdateModifiedBy()
+        public void ChangePosition_ShouldUpdateModifiedBy()
         {
             var dropspot = DropspotObjectMother.Create();
             const string user = "user";
@@ -117,6 +118,16 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             dropspot.ChangePosition(0, 0, user);
 
             dropspot.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void ChangePosition_ShouldAddDropspotPositionChangedEvent()
+        {
+            var dropspot = DropspotObjectMother.Create();
+
+            dropspot.ChangePosition(0, 0, "username");
+
+            dropspot.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(DropspotPositionChangedEvent));
         }
 
         #endregion
@@ -200,6 +211,16 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             dropspot.ChangeText("text", user);
 
             dropspot.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void ChangeText_ShouldAddDropspotTextChangedEvent()
+        {
+            var dropspot = DropspotObjectMother.Create();
+
+            dropspot.ChangeText("text", "username");
+
+            dropspot.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(DropspotTextChangedEvent));
         }
 
         #endregion

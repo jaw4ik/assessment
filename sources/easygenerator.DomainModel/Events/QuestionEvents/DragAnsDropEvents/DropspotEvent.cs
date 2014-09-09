@@ -8,7 +8,7 @@ using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents
 {
-    public abstract class DropspotEvent 
+    public abstract class DropspotEvent : Event
     {
         public Dropspot Dropspot { get; private set; }
 
@@ -22,6 +22,6 @@ namespace easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents
         private void ThrowIfDropspotIsInvalid(Dropspot dropspot)
         {
             ArgumentValidation.ThrowIfNull(dropspot, "dropspot");
-        } 
+        }
     }
 }

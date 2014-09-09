@@ -1,4 +1,5 @@
-﻿using easygenerator.Infrastructure;
+﻿using easygenerator.DomainModel.Events.UserEvents;
+using easygenerator.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -79,6 +80,8 @@ namespace easygenerator.DomainModel.Entities
 
             PasswordHash = Cryptography.GetHash(password);
             PasswordRecoveryTicketCollection.Remove(ticket);
+
+            RaiseEvent(new UserUpdateEvent(this, password));
         }
 
         public virtual bool HasStarterAccess()

@@ -1,4 +1,6 @@
 ﻿using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Events.ObjectiveEvents;
+using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -31,6 +33,8 @@ namespace easygenerator.DomainModel.Entities
 
             Title = title;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new ObjectiveTitleUpdatedEvent(this));
         }
 
         protected internal virtual ICollection<Course> RelatedCoursesCollection { get; set; }
@@ -65,6 +69,8 @@ namespace easygenerator.DomainModel.Entities
             }
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new QuestionCreatedEvent(question));
         }
 
         public virtual void RemoveQuestion(Question question, string modifiedBy)
@@ -79,6 +85,8 @@ namespace easygenerator.DomainModel.Entities
             QuestionsCollection.Remove(question);
             question.Objective = null;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new QuestionsDeletedEvent(this, new[] { question }));
         }
 
         public virtual void UpdateQuestionsOrder(ICollection<Question> questions, string modifiedBy)
@@ -87,6 +95,8 @@ namespace easygenerator.DomainModel.Entities
 
             DoUpdateQuestionsOrder(questions);
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new QuestionsReorderedEvent(this));
         }
 
         public virtual IList<Question> OrderClonedQuestions(ICollection<Question> clonedQuestions)

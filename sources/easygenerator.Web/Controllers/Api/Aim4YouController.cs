@@ -1,14 +1,8 @@
-﻿using System.Threading;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using easygenerator.Web.Publish.Aim4You;
-using easygenerator.Web.Extensions;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.Web.Controllers.Api

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -12,8 +8,6 @@ using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.QuestionEvents;
-using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Mappers;
@@ -36,17 +30,15 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IEntityFactory _entityFactory;
         IPrincipal _user;
         HttpContextBase _context;
-        private IDomainEventPublisher _eventPublisher;
         private IEntityMapper _entityMapper;
 
         [TestInitialize]
         public void InitializeContext()
         {
             _entityFactory = Substitute.For<IEntityFactory>();
-            _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _entityMapper = Substitute.For<IEntityMapper>();
 
-            _controller = new TextMatchingQuestionController(_entityFactory, _eventPublisher, _entityMapper);
+            _controller = new TextMatchingQuestionController(_entityFactory, _entityMapper);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -77,11 +69,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var question = Substitute.For<TextMatching>("Question title", CreatedBy);
             var defaultAnswer1 = Substitute.For<TextMatchingAnswer>("Define your key...", "Define your answer...", user);
             var defaultAnswer2 = Substitute.For<TextMatchingAnswer>("Define your key...", "Define your answer...", user, DateTimeWrapper.Now().AddSeconds(1));
-            
+
             _entityFactory.TextMatchingQuestion(title, user).Returns(question);
             _entityFactory.TextMatchingAnswer("Define your key...", "Define your answer...", user).Returns(defaultAnswer1);
             _entityFactory.TextMatchingAnswer("Define your key...", "Define your answer...", user, DateTimeWrapper.Now().AddSeconds(1)).Returns(defaultAnswer2);
-            
+
             _controller.Create(objective, title);
 
             question.Received().AddAnswer(defaultAnswer1, user);
@@ -123,22 +115,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
                 .And.Data.ShouldBeSimilar(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
         }
 
-        [TestMethod]
-        public void CreateTextMatching_ShouldPublishDomainEvent()
-        {
-            const string title = "title";
-            var user = "Test user";
-            _user.Identity.Name.Returns(user);
-            DateTimeWrapper.Now = () => DateTime.MinValue;
-            var question = Substitute.For<TextMatching>("Question title", CreatedBy);
-
-            _entityFactory.TextMatchingQuestion(title, user).Returns(question);
-
-            _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
-
-            _eventPublisher.Received().Publish(Arg.Any<QuestionCreatedEvent>());
-        }
-
         #endregion
 
         #region Create Answer
@@ -173,20 +149,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void CreateTextMatchingAnswer_ShouldPublishDomainEvent()
-        {
-            //Arrange
-            var answer = Substitute.For<TextMatchingAnswer>();
-            _entityFactory.TextMatchingAnswer(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(answer);
-
-            //Act
-            _controller.CreateAnswer(Substitute.For<TextMatching>());
-
-            //Assert
-            _eventPublisher.Received().Publish(Arg.Any<TextMatchingAnswerCreatedEvent>());
-        }
-
-        [TestMethod]
         public void CreateTextMatchingAnswer_ShouldReturnJsonSuccess()
         {
             //Arrange
@@ -197,14 +159,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory.TextMatchingAnswer(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(answer);
 
             //Act
-            var result = _controller.CreateAnswer(Substitute.For<TextMatching>()); 
+            var result = _controller.CreateAnswer(Substitute.For<TextMatching>());
 
             //Assert
             result.Should().BeJsonSuccessResult();
         }
 
         #endregion
-        
+
         #region Delete Answer
 
         [TestMethod]
@@ -249,34 +211,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var answer = Substitute.For<TextMatchingAnswer>();
             var question = TextMatchingObjectMother.Create();
-            
+
             question.AddAnswer(answer, CreatedBy);
             question.AddAnswer(Substitute.For<TextMatchingAnswer>(), CreatedBy);
             question.AddAnswer(Substitute.For<TextMatchingAnswer>(), CreatedBy);
-            
+
             //Act
             _controller.DeleteAnswer(question, answer);
 
             //Assert
             question.Answers.Count().Should().Be(2);
-        }
-
-        [TestMethod]
-        public void DeleteTextMatchingAnswer_ShouldPublishDomainEvent()
-        {
-            //Arrange
-            var answer = Substitute.For<TextMatchingAnswer>();
-            var question = TextMatchingObjectMother.Create();
-
-            question.AddAnswer(answer, CreatedBy);
-            question.AddAnswer(Substitute.For<TextMatchingAnswer>(), CreatedBy);
-            question.AddAnswer(Substitute.For<TextMatchingAnswer>(), CreatedBy);
-
-            //Act
-            _controller.DeleteAnswer(question, answer);
-
-            //Assert
-            _eventPublisher.Received().Publish(Arg.Any<TextMatchingAnswerDeletedEvent>());
         }
 
         [TestMethod]
@@ -338,23 +282,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             answer.Received().ChangeKey(key, username);
         }
 
-        [TestMethod]
-        public void ChangeTextMatchingAnswerKey_ShouldPublishDomainEvent()
-        {
-            //Arrange
-            var answer = Substitute.For<TextMatchingAnswer>();
-            const string key = "key";
-
-            const string username = "username";
-            _user.Identity.Name.Returns(username);
-
-            //Act
-            _controller.ChangeAnswerKey(answer, key);
-
-            //Assert
-            _eventPublisher.Received().Publish(Arg.Any<TextMatchingAnswerKeyChangedEvent>());
-        }
-        
         #endregion
 
         #region Change Answer Value
@@ -394,23 +321,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             answer.Received().ChangeValue(value, username);
-        }
-
-        [TestMethod]
-        public void ChangeTextMatchingAnswerValue_ShouldPublishDomainEvent()
-        {
-            //Arrange
-            var answer = Substitute.For<TextMatchingAnswer>();
-            const string value = "value";
-
-            const string username = "username";
-            _user.Identity.Name.Returns(username);
-
-            //Act
-            _controller.ChangeAnswerValue(answer, value);
-
-            //Assert
-            _eventPublisher.Received().Publish(Arg.Any<TextMatchingAnswerValueChangedEvent>());
         }
 
         #endregion

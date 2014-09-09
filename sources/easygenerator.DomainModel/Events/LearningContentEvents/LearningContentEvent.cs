@@ -8,7 +8,7 @@ using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Events.LearningContentEvents
 {
-    public abstract class LearningContentEvent
+    public abstract class LearningContentEvent : Event
     {
         public LearningContent LearningContent { get; private set; }
 

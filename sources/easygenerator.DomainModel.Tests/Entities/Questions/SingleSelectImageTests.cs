@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Events.QuestionEvents.SingleSelectImageEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -123,7 +124,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         }
 
         [TestMethod]
-        public void ChangeBackground_ShouldUpdateMoidifiedBy()
+        public void SetCorrectAnswer_ShouldUpdateMoidifiedBy()
         {
             var question = SingleSelectImageObjectMother.Create();
             var answer = SingleSelectImageAnswerObjectMother.Create();
@@ -131,6 +132,17 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.SetCorrectAnswer(answer, ModifiedBy);
 
             question.ModifiedBy.Should().Be(ModifiedBy);
+        }
+
+        [TestMethod]
+        public void SetCorrectAnswer_ShouldAddSingleSelectImageAnswerDeletedEvent()
+        {
+            var question = SingleSelectImageObjectMother.Create();
+            var answer = SingleSelectImageAnswerObjectMother.Create();
+
+            question.SetCorrectAnswer(answer, ModifiedBy);
+
+            question.Events.Should().ContainSingle(e => e.GetType() == typeof(SingleSelectImageCorrectAnswerChangedEvent));
         }
 
         #endregion
@@ -214,6 +226,16 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.AddAnswer(answer, ModifiedBy);
 
             question.ModifiedBy.Should().Be(ModifiedBy);
+        }
+
+        [TestMethod]
+        public void AddAnswer_ShouldAddObjectiveTitleUpdatedEvent()
+        {
+            var question = SingleSelectImageObjectMother.Create();
+
+            question.AddAnswer(SingleSelectImageAnswerObjectMother.Create(), ModifiedBy);
+
+            question.Events.Should().ContainSingle(e => e.GetType() == typeof(SingleSelectImageAnswerCreatedEvent));
         }
 
         #endregion
@@ -325,6 +347,18 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.RemoveAnswer(answer, ModifiedBy);
 
             question.ModifiedBy.Should().Be(ModifiedBy);
+        }
+
+        [TestMethod]
+        public void AddAnswer_ShouldAddSingleSelectImageAnswerDeletedEvent()
+        {
+            var question = SingleSelectImageObjectMother.Create();
+            var answer = Substitute.For<SingleSelectImageAnswer>();
+            question.AddAnswer(answer, CreatedBy);
+
+            question.RemoveAnswer(answer, ModifiedBy);
+
+            question.Events.Should().ContainSingle(e => e.GetType() == typeof(SingleSelectImageAnswerDeletedEvent));
         }
 
         #endregion

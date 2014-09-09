@@ -1,4 +1,5 @@
-﻿using easygenerator.Infrastructure;
+﻿using easygenerator.DomainModel.Events.QuestionEvents.SingleSelectImageEvents;
+using easygenerator.Infrastructure;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -35,6 +36,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             answer.Question = this;
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new SingleSelectImageAnswerCreatedEvent(answer));
         }
 
         public virtual void RemoveAnswer(SingleSelectImageAnswer answer, string modifiedBy)
@@ -58,6 +61,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             answer.Question = null;
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new SingleSelectImageAnswerDeletedEvent(answer, this));
         }
 
         public virtual void SetCorrectAnswer(SingleSelectImageAnswer answer, string modifiedBy)
@@ -68,6 +73,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             SetCorrectAnswer(answer);
 
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new SingleSelectImageCorrectAnswerChangedEvent(answer));
         }
 
         private void SetCorrectAnswer(SingleSelectImageAnswer answer)

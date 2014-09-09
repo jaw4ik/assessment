@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
@@ -26,6 +27,8 @@ namespace easygenerator.DomainModel.Entities
 
             Text = text;
             MarkAsModified(modifiedBy);
+
+            RaiseEvent(new LearningContentUpdatedEvent(this));
         }
 
         private void ThrowIfTextIsInvalid(string text)

@@ -1,4 +1,5 @@
 ﻿using System;
+using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -110,6 +111,18 @@ namespace easygenerator.DomainModel.Tests.Entities
             answer.ModifiedBy.Should().Be(user);
         }
 
+
+        [TestMethod]
+        public void UpdateText_ShouldAddAnswerTextUpdatedEvent()
+        {
+            var answer = AnswerObjectMother.Create();
+            var user = "Some user";
+
+            answer.UpdateText("text", user);
+
+            answer.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(AnswerTextUpdatedEvent));
+        }
+
         #endregion
 
         #region Update correctness
@@ -167,6 +180,17 @@ namespace easygenerator.DomainModel.Tests.Entities
             answer.UpdateCorrectness(true, user);
 
             answer.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void UpdateCorrectness_ShouldAddMultipleselectAnswerCorrectnessUpdatedEvent()
+        {
+            var answer = AnswerObjectMother.Create();
+            var user = "Some user";
+
+            answer.UpdateCorrectness(true, user);
+
+            answer.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(MultipleselectAnswerCorrectnessUpdatedEvent));
         }
 
         #endregion
