@@ -34,7 +34,7 @@
         }
         var settings = $.extend({
             scrollTarget: target,
-            offsetTop: 50,
+            offsetTop: 150,
             duration: 400,
             easing: 'swing'
         }, options);
