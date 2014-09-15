@@ -26,90 +26,146 @@
                 expect(designer.background).toBeObservable();
             });
 
-            describe('backgroundSizeChanged:', function () {
-
-                var dropspot = new Dropspot('id', 'text', 0, 0);
-
-                beforeEach(function () {
-                    designer.dropspots([dropspot]);
-                    spyOn(dropspot.position, 'endMoveDropspot');
+            describe('width:', function () {
+                it('should be observable', function () {
+                    expect(designer.background.width).toBeObservable();
                 });
+            });
+
+            describe('height:', function () {
+                it('should be observable', function () {
+                    expect(designer.background.height).toBeObservable();
+                });
+            });
+
+            describe('isDirty:', function () {
+                it('should be observable', function () {
+                    expect(designer.background.isDirty).toBeObservable();
+                });
+            });
+
+            describe('onload:', function () {
+
+                var width = 10;
+                var height = 100;
 
                 it('should be function', function () {
-                    expect(designer.background.backgroundSizeChanged).toBeFunction();
+                    expect(designer.background.onload).toBeFunction();
                 });
 
-                describe('when dropspot left position is out of background area', function () {
+                it('should set new width', function () {
+                    designer.background.width(5);
+                    designer.background.onload(width, height);
 
-                    it('should move it to the top left corner', function () {
-                        dropspot.position.x(100);
-                        dropspot.position.y(5);
-                        dropspot.size.width(5);
-                        dropspot.size.height(5);
+                    expect(designer.background.width()).toBe(width);
+                });
 
-                        designer.background.backgroundSizeChanged(50, 50);
+                it('should set new height', function () {
+                    designer.background.height(5);
+                    designer.background.onload(width, height);
 
-                        expect(dropspot.position.endMoveDropspot).toHaveBeenCalledWith(0, 0);
+                    expect(designer.background.height()).toBe(height);
+                });
+
+                describe('when dropspots are present', function () {
+
+                    var dropspot = new Dropspot('id', 'text', 0, 0);
+
+                    beforeEach(function () {
+                        designer.dropspots([dropspot]);
+                        spyOn(dropspot.position, 'endMoveDropspot');
+                    });
+
+
+                    describe('and when dropspot left position is out of background area', function () {
+
+                        it('should move it to the top left corner', function () {
+                            dropspot.position.x(100);
+                            dropspot.position.y(5);
+                            dropspot.size.width(5);
+                            dropspot.size.height(5);
+
+                            designer.background.onload(50, 50);
+
+                            expect(dropspot.position.endMoveDropspot).toHaveBeenCalledWith(0, 0);
+                        });
+
+                    });
+
+                    describe('and when dropspot top position is out of background area', function () {
+
+                        it('should move it to top left corner', function () {
+                            dropspot.position.x(5);
+                            dropspot.position.y(100);
+                            dropspot.size.width(5);
+                            dropspot.size.height(5);
+
+                            designer.background.onload(50, 50);
+
+                            expect(dropspot.position.endMoveDropspot).toHaveBeenCalledWith(0, 0);
+                        });
+
+                    });
+
+                    describe('and when dropspot right position is out of background area', function () {
+
+                        it('should move it to the top left corner', function () {
+                            dropspot.position.x(5);
+                            dropspot.position.y(5);
+                            dropspot.size.width(100);
+                            dropspot.size.height(5);
+
+                            designer.background.onload(50, 50);
+
+                            expect(dropspot.position.endMoveDropspot).toHaveBeenCalledWith(0, 0);
+                        });
+
+                    });
+
+                    describe('and when dropspot bottom position is out of background area', function () {
+
+                        it('should move it to the top left corner', function () {
+                            dropspot.position.x(5);
+                            dropspot.position.y(5);
+                            dropspot.size.width(5);
+                            dropspot.size.height(100);
+
+                            designer.background.onload(50, 50);
+
+                            expect(dropspot.position.endMoveDropspot).toHaveBeenCalledWith(0, 0);
+                        });
+
+                    });
+
+                    describe('and when dropspot is within the background area', function () {
+
+                        it('should not change position', function () {
+                            dropspot.position.x(5);
+                            dropspot.position.y(5);
+                            dropspot.size.width(5);
+                            dropspot.size.height(5);
+
+                            designer.background.onload(50, 50);
+
+                            expect(dropspot.position.endMoveDropspot).not.toHaveBeenCalled();
+                        });
+
                     });
 
                 });
 
-                describe('when dropspot top position is out of background area', function () {
+                describe('when dropspots are not present and when background is dirty', function () {
 
-                    it('should move it to top left corner', function () {
-                        dropspot.position.x(5);
-                        dropspot.position.y(100);
-                        dropspot.size.width(5);
-                        dropspot.size.height(5);
-
-                        designer.background.backgroundSizeChanged(50, 50);
-
-                        expect(dropspot.position.endMoveDropspot).toHaveBeenCalledWith(0, 0);
+                    beforeEach(function () {
+                        designer.dropspots([]);
+                        designer.background.isDirty(true);
+                        spyOn(designer.dropspotToAdd, 'show');
                     });
 
-                });
-
-                describe('when dropspot right position is out of background area', function () {
-
-                    it('should move it to the top left corner', function () {
-                        dropspot.position.x(5);
-                        dropspot.position.y(5);
-                        dropspot.size.width(100);
-                        dropspot.size.height(5);
-
-                        designer.background.backgroundSizeChanged(50, 50);
-
-                        expect(dropspot.position.endMoveDropspot).toHaveBeenCalledWith(0, 0);
-                    });
-
-                });
-
-                describe('when dropspot bottom position is out of background area', function () {
-
-                    it('should move it to the top left corner', function () {
-                        dropspot.position.x(5);
-                        dropspot.position.y(5);
-                        dropspot.size.width(5);
-                        dropspot.size.height(100);
-
-                        designer.background.backgroundSizeChanged(50, 50);
-
-                        expect(dropspot.position.endMoveDropspot).toHaveBeenCalledWith(0, 0);
-                    });
-
-                });
-
-                describe('when dropspot is within the background area', function () {
-
-                    it('should not change position', function () {
-                        dropspot.position.x(5);
-                        dropspot.position.y(5);
-                        dropspot.size.width(5);
-                        dropspot.size.height(5);
-
-                        designer.background.backgroundSizeChanged(50, 50);
-
-                        expect(dropspot.position.endMoveDropspot).not.toHaveBeenCalled();
+                    it('should show dropspotToAdd', function () {
+                        designer.background.onload(width, height);
+                        
+                        expect(designer.dropspotToAdd.show).toHaveBeenCalled();
                     });
 
                 });

@@ -14,6 +14,14 @@
 
         });
 
+        describe('hasFocus:', function () {
+
+            it('should be observable', function () {
+                expect(dropspotToAdd.hasFocus).toBeObservable();
+            });
+
+        });
+
         describe('show:', function () {
 
             it('should be function', function () {
@@ -25,6 +33,13 @@
                 dropspotToAdd.show();
 
                 expect(dropspotToAdd.isVisible()).toBeTruthy();
+            });
+
+            it('should change hasFocus to true', function () {
+                dropspotToAdd.hasFocus(false);
+                dropspotToAdd.show();
+
+                expect(dropspotToAdd.hasFocus()).toBeTruthy();
             });
 
         });

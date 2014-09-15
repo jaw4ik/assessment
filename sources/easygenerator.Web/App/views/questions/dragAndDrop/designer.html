@@ -58,7 +58,7 @@
                         <!-- ko if: dropspotToAdd.isVisible -->
                         <li class="dropspot-text">
                             <div>
-                                <div class="editarea-editable-text selectable" data-bind="editableText: { text: dropspotToAdd, multiline: false }, event: { blur: addDropspot }, hasFocus: true">
+                                <div class="editarea-editable-text selectable" data-bind="editableText: { text: dropspotToAdd, multiline: false }, event: { blur: addDropspot }, hasFocus: dropspotToAdd.hasFocus, scrollOnFocus: true">
                                 </div>
                             </div>
                             <div class="dropspot-text-delete-wrapper">

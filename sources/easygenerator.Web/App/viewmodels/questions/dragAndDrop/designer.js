@@ -45,7 +45,11 @@
 
     designer.background.width = ko.observable();
     designer.background.height = ko.observable();
-    designer.background.backgroundSizeChanged = function (width, height) {
+    designer.background.isDirty = ko.observable(false);
+    designer.background.onload = function (width, height) {
+        designer.background.width(width);
+        designer.background.height(height);
+
         _.each(designer.dropspots(), function (dropspot) {
             if (dropspot.position.x() > width ||
                 dropspot.position.y() > height ||
@@ -54,6 +58,10 @@
                 dropspot.position.endMoveDropspot(0, 0);
             }
         });
+
+        if (designer.dropspots() && designer.dropspots().length === 0 && designer.background.isDirty()) {
+            designer.dropspotToAdd.show();
+        }
     }
 
     return designer;
@@ -84,6 +92,7 @@
                 var backgroundUrl = url + '?width=' + self.maxWidth + '&height=' + self.maxHeight;
                 changeBackgroundCommand.execute(self.questionId, backgroundUrl);
                 designer.background(backgroundUrl);
+                designer.background.isDirty(true);
                 notify.saved();
                 eventTracker.publish(self.events.changeBackground);
             },

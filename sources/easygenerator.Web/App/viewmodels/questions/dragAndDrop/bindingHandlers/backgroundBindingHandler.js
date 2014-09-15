@@ -11,17 +11,20 @@
             if (value) {
                 var src = value();
                 var image = new Image();
-                image.src = src;
+                image.onload = function () {
 
-                image.onload = function() {
-                    $(element)
-                        .css('background-image', 'url(' + src + ')')
-                        .css('height', image.height)
-                        .css('width', image.width);
-
-                    if (_.isFunction(value.backgroundSizeChanged)) {
-                        value.backgroundSizeChanged(image.width, image.height);
-                    }
+                    $(element).animate({ opacity: 0 }, 200, function() {
+                        $(element).css('background-image', 'url(' + src + ')')
+                            .css('width', image.width)
+                            .animate({ height: image.height }, 200, function () {
+                                $(element).animate({ opacity: 1 }, 300, function () {
+                                    if (_.isFunction(value.onload)) {
+                                        value.onload(image.width, image.height);
+                                    }
+                                });
+                            });
+                    });
+                    
 
                     if (ko.isWriteableObservable(value.width)) {
                         value.width(image.width);
@@ -31,6 +34,7 @@
                         value.height(image.height);
                     }
                 };
+                image.src = src;
             }
         }
     };

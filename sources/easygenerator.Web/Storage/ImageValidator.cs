@@ -14,8 +14,10 @@ namespace easygenerator.Web.Storage
         {
             try
             {
-                var bitmap = Image.FromStream(stream);
-                return true;
+                using (var bitmap = Image.FromStream(stream))
+                {
+                    return true;
+                }
             }
             catch
             {
