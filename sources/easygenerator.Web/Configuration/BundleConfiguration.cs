@@ -10,18 +10,16 @@ namespace easygenerator.Web.Configuration
             var bundles = BundleTable.Bundles;
             bundles.IgnoreList.Clear();
             bundles.IgnoreList.Ignore("*.spec.js");
-
             bundles.Add(new ScriptBundle("~/scripts/vendor")
                     .Include("~/scripts/jquery-{version}.js")
                     .Include("~/scripts/jquery-ui-{version}.custom.js")
                     .Include("~/scripts/jquery.signalR-{version}.js")
                     .Include("~/scripts/knockout-{version}.js")
-                    .Include("~/scripts/knockout.validation.debug.js")
+                    .Include("~/scripts/knockout.validation.js")
                     .Include("~/scripts/knockout-sortable.js")
                     .Include("~/scripts/q.js")
                     .Include("~/scripts/underscore.js")
                     .Include("~/scripts/underscore.extensions.js")
-                    .Include("~/scripts/ckeditor/ckeditor.js")
                     .Include("~/scripts/has.js")
                     .Include("~/scripts/moment.js")
                     .Include("~/scripts/jquery.placeholder.js")
@@ -30,6 +28,10 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/jquery.autosize.js")
                     .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
                 );
+
+            //CKEditor.js doesn't pass javascript validation, because of that it can't be minified in vendor bundle
+            //so we used already minified version in separate bundle
+            bundles.Add(new Bundle("~/scripts/ckeditor.min").Include("~/scripts/ckeditor/ckeditor.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts/account")
                     .Include("~/scripts/jquery-{version}.js")
