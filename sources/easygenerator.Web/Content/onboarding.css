@@ -145,6 +145,7 @@
     background: url('images/sprites_16.png') -129px -44px no-repeat;
     width: 10px;
     height: 10px;
+    cursor: pointer;
 }
 
     .onboarding-congratulations-close:hover {
