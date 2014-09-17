@@ -23,7 +23,7 @@
         var tasks = this;
         return httpWrapper.post('api/onboarding/objectivecreated').then(function () {
             app.off(constants.messages.onboarding.objectiveCreated, objectiveCreated);
-            tasks.objectiveCreated.isCompleted(true);s
+            tasks.objectiveCreated.isCompleted(true);
         });
     }
 
