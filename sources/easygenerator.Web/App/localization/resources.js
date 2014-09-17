@@ -1431,7 +1431,7 @@
     },
     /* End resource section for model InviteCollaboratorFromDisplayName */
     
-    /* Resource section for model OnBoarding */
+    /* Resource section for model User activation wizard */
     whatNow: {
         en: 'What now?'
     },
@@ -1439,26 +1439,26 @@
         en: 'Congratulations'
     },
     helpCenter: {
-        en: 'Help center'
+        en: 'Help Center'
     },
     congratulationsCaption: {
         en: 'Look at you. You are now an expert. If you want to know more checkout our'
     },
-    onboardingCreateCourse: {
+    courseCreated: {
         en: 'Create course'
     },
-    onboardingDefineObjective: {
+    objectiveCreated: {
         en: 'Define objective'
     },
-    onboardingAddContent: {
+    contentCreated: {
         en: 'Add content'
     },
-    onboardingAddQuestions: {
-        en: 'Add at least 4 questions'
+    createdQuestionsCount: {
+        en: 'Add at least 3 questions'
     },
-    onboardingPublish: {
+    coursePublished: {
         en: 'Publish'
     }
-    /* End resource section for model OnBoarding */
+    /* End resource section for model User activation wizard */
            
 });

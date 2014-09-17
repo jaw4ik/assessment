@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/queries/getObjectiveByIdQuery'], function (getObjectiveByIdQuery) {
+﻿define(['./getObjectiveByIdQuery'], function (getObjectiveByIdQuery) {
 
     describe('query [getObjectiveByIdQuery]', function () {
 

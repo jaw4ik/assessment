@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/queries/getCourseByIdQuery'], function (getCourseByIdQuery) {
+﻿define(['./getCourseByIdQuery'], function (getCourseByIdQuery) {
 
     describe('query [getCourseByIdQuery]', function () {
 

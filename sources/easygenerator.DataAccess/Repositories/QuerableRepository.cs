@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace easygenerator.DataAccess.Repositories
 {
-    public class QuerableRepository<T> : IQuerableRepository<T> where T : Entity
+    public class QuerableRepository<T> : IQuerableRepository<T> where T : Identifiable
     {
         protected readonly IDataContext _dataContext;
 

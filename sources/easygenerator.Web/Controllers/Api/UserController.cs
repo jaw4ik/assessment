@@ -27,6 +27,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly PublishedCourseImporter _publishedCourseImporter;
         private readonly ICourseRepository _courseRepository;
+        private readonly IOnboardingRepository _onboardingRepository;
 
         public UserController(IUserRepository repository,
             IEntityFactory entityFactory,
@@ -35,7 +36,8 @@ namespace easygenerator.Web.Controllers.Api
             IDomainEventPublisher eventPublisher,
             IMailSenderWrapper mailSenderWrapper,
             PublishedCourseImporter publishedCourseImporter,
-            ICourseRepository courseRepository)
+            ICourseRepository courseRepository,
+            IOnboardingRepository onboardingRepository)
         {
             _repository = repository;
             _entityFactory = entityFactory;
@@ -45,6 +47,7 @@ namespace easygenerator.Web.Controllers.Api
             _mailSenderWrapper = mailSenderWrapper;
             _publishedCourseImporter = publishedCourseImporter;
             _courseRepository = courseRepository;
+            _onboardingRepository = onboardingRepository;
         }
 
         [HttpPost]
@@ -179,6 +182,9 @@ namespace easygenerator.Web.Controllers.Api
 
             _repository.Add(user);
             _eventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.UserRole, profile.RequestIntroductionDemo));
+
+            var onboarding = _entityFactory.Onboarding(false, false, false, 0, false, false, user.Email);
+            _onboardingRepository.Add(onboarding);
 
             if (User.Identity.IsAuthenticated && _repository.GetUserByEmail(User.Identity.Name) == null)
             {

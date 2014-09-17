@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Identifiable.cs" />
+    <Compile Include="Entities\Onboarding.cs" />
     <Compile Include="Entities\Questions\BlankAnswer.cs" />
     <Compile Include="Entities\Questions\InformationContent.cs" />
     <Compile Include="Entities\Questions\SingleSelectImageAnswer.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ICourseCollaboratorRepository.cs" />
     <Compile Include="Repositories\IImageFileRepository.cs" />
+    <Compile Include="Repositories\IOnboardingRepository.cs" />
     <Compile Include="Repositories\IPasswordRecoveryTicketRepository.cs" />
     <Compile Include="Repositories\IQueryableRepository.cs" />
     <Compile Include="Repositories\ICourseRepository.cs" />
@@ -147,6 +150,7 @@
       <Name>easygenerator.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

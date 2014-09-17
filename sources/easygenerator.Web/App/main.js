@@ -33,6 +33,7 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
 
         app.start().then(function () {
             bootstrapper.run();
+
             return userContext.identify().then(function () {
                 return synchronization.start().then(function () {
                     app.setRoot('viewmodels/shell');

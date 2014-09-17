@@ -6,13 +6,13 @@ using System;
 
 namespace easygenerator.DomainModel.Entities
 {
-    public abstract class Entity
+    public abstract class Entity : Identifiable
     {
         private readonly List<Event> _events;
 
         protected internal Entity()
+            :base()
         {
-            Id = Guid.NewGuid();
             CreatedOn = DateTimeWrapper.Now();
             ModifiedOn = DateTimeWrapper.Now();
 
@@ -37,7 +37,6 @@ namespace easygenerator.DomainModel.Entities
             ModifiedOn = createdOn;
         }
 
-        public Guid Id { get; protected set; }
         public string CreatedBy { get; protected set; }
         public DateTime CreatedOn { get; protected internal set; }
         public string ModifiedBy { get; protected set; }

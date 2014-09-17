@@ -3,7 +3,7 @@ using easygenerator.DomainModel.Repositories;
 
 namespace easygenerator.DataAccess.Repositories
 {
-    public class Repository<T> : QuerableRepository<T>, IRepository<T> where T : Entity
+    public class Repository<T> : QuerableRepository<T>, IRepository<T> where T : Identifiable
     {
         public Repository(IDataContext dataContext)
             : base(dataContext)

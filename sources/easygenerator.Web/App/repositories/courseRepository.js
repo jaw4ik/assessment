@@ -53,6 +53,7 @@
                     dataContext.courses.push(course);
 
                     app.trigger(constants.messages.course.created, course);
+                    app.trigger(constants.messages.onboarding.courseCreated);
 
                     return course;
                 });

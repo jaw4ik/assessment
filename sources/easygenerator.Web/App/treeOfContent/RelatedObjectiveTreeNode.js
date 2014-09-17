@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/TreeNode', 'treeOfContent/QuestionTreeNode', 'treeOfContent/queries/getObjectiveByIdQuery', 'commands/createQuestionCommand', 'eventTracker', 'plugins/router'],
+﻿define(['./TreeNode', './QuestionTreeNode', './queries/getObjectiveByIdQuery', 'commands/createQuestionCommand', 'eventTracker', 'plugins/router'],
     function (TreeNode, QuestionTreeNode, getObjectiveByIdQuery, createQuestionCommand, eventTracker, router) {
 
         return function (objectiveId, courseId, title, url) {

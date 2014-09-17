@@ -36,6 +36,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IMailSenderWrapper _mailSenderWrapper;
         private PublishedCourseImporter _publishedCourseImporter;
         private ICourseRepository _courseRepository;
+        private IOnboardingRepository _onboardingRepository;
 
         IPrincipal _user;
         HttpContextBase _context;
@@ -52,6 +53,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
             _publishedCourseImporter = Substitute.For<PublishedCourseImporter>();
             _courseRepository = Substitute.For<ICourseRepository>();
+            _onboardingRepository = Substitute.For<IOnboardingRepository>();
 
             _controller = new UserController(_userRepository,
                 _entityFactory,
@@ -60,7 +62,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
                 _eventPublisher,
                 _mailSenderWrapper,
                 _publishedCourseImporter,
-                _courseRepository);
+                _courseRepository,
+                _onboardingRepository);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -469,6 +472,21 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void Signup_ShouldAddOnboardingToRepository()
+        {
+            var profile = GetTestUserSignUpViewModel();
+            var user = UserObjectMother.Create(profile.Email, profile.Password);
+            var onboarding = OnboardingObjectMother.CreateWithUserEmail(user.Email);
+
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.Email).Returns(user);
+            _entityFactory.Onboarding(false, false, false, 0, false, false, user.Email).Returns(onboarding);
+
+            _controller.Signup(profile);
+            
+            _onboardingRepository.Received().Add(onboarding);
+        }
+
+        [TestMethod]
         public void Signup_ShouldRaiseEventAboutUserCreation()
         {
             //Arrange
@@ -684,7 +702,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             {
                 email = user.Email,
                 firstname = user.FirstName,
-                lastname = user.LastName,
+                lastname = user.LastName
             });
         }
 

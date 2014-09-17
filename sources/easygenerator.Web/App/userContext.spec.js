@@ -95,7 +95,7 @@
                 ajax.resolve({});
 
                 userContext.identify().fin(function () {
-                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.identified, {});
+                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.identified, null);
                     done();
                 }).done();
             });

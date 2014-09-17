@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/handlers/treeOfContentTraversal', 'treeOfContent/CourseTreeNode', 'treeOfContent/RelatedObjectiveTreeNode', 'treeOfContent/QuestionTreeNode'], function (treeOfContentTraversal, CourseTreeNode, ObjectiveTreeNode, QuestionTreeNode) {
+﻿define(['./treeOfContentTraversal', '../CourseTreeNode', '../RelatedObjectiveTreeNode', '../QuestionTreeNode'], function (treeOfContentTraversal, CourseTreeNode, ObjectiveTreeNode, QuestionTreeNode) {
 
     var eventHandler = function () {
 

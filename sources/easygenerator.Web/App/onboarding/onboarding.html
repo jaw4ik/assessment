@@ -1,0 +1,43 @@
+﻿<section class="onboarding-wrapper" data-bind="css: { minimazed: isMinimized }">
+    <!-- ko ifnot: isMinimized -->
+    <div class="onboarding" data-bind="css: { 'onboarding-congratulations': isCompleted }">
+        <!-- ko ifnot: isCompleted -->
+        <header data-bind="localize: { text: 'whatNow' }" class="onboarding-header">What now?</header>
+        <ul class="onboarding-steps-list unstyled" data-bind="foreach: tasks">
+            <li class="onboarding-step-item" data-bind="css: { completed: isCompleted }">
+                <span class="onboarding-step-index" data-bind="text: $index() + 1"></span>
+                <span class="onboarding-step-title" data-bind="text: title"></span>
+            </li>
+        </ul>
+        <!-- /ko -->
+        <!-- ko if: isCompleted -->
+        <header data-bind="localize: { text: 'congratulations' }" class="onboarding-header">Congratulations</header>
+        <span class="onboarding-congratulations-close" data-bind="click: close"></span>
+        <article class="onboarding-congratulations-content">
+            <figure>
+                <img class="onboarding-congratulations-image" src="/Content/images/onboarding-congratulations-icon.png" alt="Congratulation" />
+                <figcaption>
+                    <div class="onboarding-congratulations-caption" data-bind="localize: { text: 'congratulationsCaption' }">
+                        Look at you. You are now an expert. If you want to know more checkout our
+                    </div>
+                    <a href="http://help.easygenerator.com/" target="_blank" class="onboarding-congratulations-help-center" data-bind="localize: { text: 'helpCenter' }"></a>
+                </figcaption>
+            </figure>
+        </article>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+    <!-- ko if: isMinimized -->
+    <div class="onboarding-mini">
+        <div class="onboarding-mini-map"></div>
+        <ul class="onboarding-steps-list unstyled" data-bind="foreach: tasks">
+            <li class="onboarding-step-item info-tooltip-holder" data-bind="css: { completed: isCompleted }">
+                <span class="onboarding-step-index" data-bind="text: $index() + 1"></span>
+                <div class="info-tooltip left-side">
+                    <span data-bind="text: title"></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- /ko -->
+</section> 

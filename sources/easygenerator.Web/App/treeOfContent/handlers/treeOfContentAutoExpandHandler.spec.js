@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/handlers/treeOfContentAutoExpandHandler'], function (handler) {
+﻿define(['./treeOfContentAutoExpandHandler'], function (handler) {
 
     describe('handler [treeOfContentAutoExpandHandler]', function () {
 

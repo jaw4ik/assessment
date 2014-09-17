@@ -4,49 +4,26 @@
     'plugins/router',
     'constants',
     'authorization/limitCoursesAmount',
-    'treeOfContent/handlers/treeOfContentEventHandler',
-    'treeOfContent/handlers/treeOfContentAutoExpandHandler',
-    'treeOfContent/handlers/treeOfContentHighlightHandler',
+    './handlers/treeOfContentEventHandler',
+    './handlers/treeOfContentAutoExpandHandler',
+    './handlers/treeOfContentHighlightHandler',
     'repositories/courseRepository',
-    'treeOfContent/CourseTreeNode',
+    './CourseTreeNode',
     'userContext',
 
-    'text!treeOfContent/CourseTreeNode.html',
-    'text!treeOfContent/RelatedObjectiveTreeNode.html',
-    'text!treeOfContent/QuestionTreeNode.html'],
+    'text!./CourseTreeNode.html',
+    'text!./RelatedObjectiveTreeNode.html',
+    'text!./QuestionTreeNode.html'],
 
 function (app, eventTracker, router, constants, limitCoursesAmount, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, courseRepository, CourseTreeNode, userContext) {
 
     var viewModel = {
         children: ko.observableArray([]),
         sharedChildren: ko.observableArray(),
-        isExpanded: ko.observable(true),
-        isTreeVisible: ko.observable(true),
-
-        expand: expand,
-        collapse: collapse,
-        onCollapsed: onCollapsed,
 
         activate: activate,
         compositionComplete: compositionComplete,
     };
-
-    function expand() {
-        eventTracker.publish('Expand navigation bar');
-        viewModel.isExpanded(true);
-        viewModel.isTreeVisible(true);
-        app.trigger(constants.messages.treeOfContent.expanded);
-    }
-
-    function collapse() {
-        eventTracker.publish('Collapse navigation bar');
-        viewModel.isExpanded(false);
-        app.trigger(constants.messages.treeOfContent.collapsed);
-    }
-
-    function onCollapsed() {
-        viewModel.isTreeVisible(false);
-    }
 
     var self = {
         handler: treeOfContentEventHandler()

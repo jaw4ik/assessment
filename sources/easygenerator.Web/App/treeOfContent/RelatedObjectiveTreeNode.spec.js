@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/RelatedObjectiveTreeNode'], function (RelatedObjectiveTreeNode) {
+﻿define(['./RelatedObjectiveTreeNode'], function (RelatedObjectiveTreeNode) {
 
     var
         getObjectiveByIdQuery = require('treeOfContent/queries/getObjectiveByIdQuery'),

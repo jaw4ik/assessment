@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/QuestionTreeNode'], function (QuestionTreeNode) {
+﻿define(['./QuestionTreeNode'], function (QuestionTreeNode) {
 
     var
         eventTracker = require('eventTracker'),

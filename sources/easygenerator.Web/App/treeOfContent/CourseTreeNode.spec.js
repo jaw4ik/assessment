@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/CourseTreeNode'], function (CourseTreeNode) {
+﻿define(['./CourseTreeNode'], function (CourseTreeNode) {
 
     var
         getCourseByIdQuery = require('treeOfContent/queries/getCourseByIdQuery'),

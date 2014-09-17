@@ -186,6 +186,10 @@
     <Compile Include="Migrations\201408220818322_AddIndexesToDB.Designer.cs">
       <DependentUpon>201408220818322_AddIndexesToDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201409091340190_AddOnboardingsTable.cs" />
+    <Compile Include="Migrations\201409091340190_AddOnboardingsTable.Designer.cs">
+      <DependentUpon>201409091340190_AddOnboardingsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -194,6 +198,7 @@
     <Compile Include="Repositories\ImageFileRepository.cs" />
     <Compile Include="Repositories\MailNotificationRepository.cs" />
     <Compile Include="Repositories\ObjectiveRepository.cs" />
+    <Compile Include="Repositories\OnboardingRepository.cs" />
     <Compile Include="Repositories\PasswordRecoveryTicketRepository.cs" />
     <Compile Include="Repositories\QuerableRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
@@ -313,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408220818322_AddIndexesToDB.resx">
       <DependentUpon>201408220818322_AddIndexesToDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409091340190_AddOnboardingsTable.resx">
+      <DependentUpon>201409091340190_AddOnboardingsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

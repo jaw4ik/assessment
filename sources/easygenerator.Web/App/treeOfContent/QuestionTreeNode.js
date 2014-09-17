@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/TreeNode', 'eventTracker', 'plugins/router'], function (TreeNode, eventTracker, router) {
+﻿define(['./TreeNode', 'eventTracker', 'plugins/router'], function (TreeNode, eventTracker, router) {
 
     return function (id, title, url) {
         TreeNode.call(this, id, title, url);

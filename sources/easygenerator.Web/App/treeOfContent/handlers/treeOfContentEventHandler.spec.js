@@ -1,4 +1,4 @@
-﻿define(['treeOfContent/handlers/treeOfContentEventHandler'], function (ctor) {
+﻿define(['./treeOfContentEventHandler'], function (ctor) {
 
     var
         treeOfContentTraversal = require('treeOfContent/handlers/treeOfContentTraversal')

@@ -7,6 +7,6 @@ namespace easygenerator.DataAccess
 {
     public interface IDataContext
     {
-        IDbSet<T> GetSet<T>() where T : Entity;
+        IDbSet<T> GetSet<T>() where T : Identifiable;
     }
 }

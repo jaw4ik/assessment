@@ -136,6 +136,7 @@
 
             //#endregion
 
+            'navigationBar/navigationBar.spec',
             'treeOfContent/handlers/treeOfContentEventHandler.spec',
             'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
             'treeOfContent/queries/getCourseByIdQuery.spec',
@@ -143,6 +144,9 @@
             'treeOfContent/CourseTreeNode.spec',
             'treeOfContent/RelatedObjectiveTreeNode.spec',
             'treeOfContent/QuestionTreeNode.spec',
+            'onboarding/inititalization.spec',
+            'onboarding/handlers.spec',
+
             'viewmodels/common/contentField.spec',
             'viewmodels/courses/courses.spec',
             'viewmodels/courses/course.spec',

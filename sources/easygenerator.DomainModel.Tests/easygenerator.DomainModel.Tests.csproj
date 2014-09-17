@@ -63,6 +63,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Entities\OnboardingTests.cs" />
     <Compile Include="Entities\Questions\AnswerTests.cs" />
     <Compile Include="Entities\FillInTheBlanksTests.cs" />
     <Compile Include="Entities\ImageFileTest.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="ObjectMothers\CourseObjectMother.cs" />
     <Compile Include="ObjectMothers\LearningContentObjectMother.cs" />
     <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
+    <Compile Include="ObjectMothers\OnboardingObjectMother.cs" />
     <Compile Include="ObjectMothers\PasswordRecoveryTicketObjectMother.cs" />
     <Compile Include="ObjectMothers\MultipleselectObjectMother.cs" />
     <Compile Include="ObjectMothers\SingleSelectImageAnswerObjectMother.cs" />

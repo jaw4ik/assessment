@@ -144,6 +144,7 @@
                     }
                 },
                 objective: {
+                    created: 'objective:created',
                     titleUpdated: 'objective:titleUpdated',
                     titleUpdatedByCollaborator: 'objective:titleUpdatedByCollaborator',
                     questionsReordered: 'objective:questionsReordered',
@@ -209,6 +210,14 @@
                 treeOfContent: {
                     expanded: 'treeOfContent:expanded',
                     collapsed: 'treeOfContent:collapsed'
+                },
+                onboarding: {
+                    courseCreated: 'onboarding:courseCreated',
+                    objectiveCreated: 'onboarding:objectiveCreated',
+                    contentCreated: 'onboarding:contentCreated',
+                    createdQuestionsCount: 'onboarding:createdQuestionsCount',
+                    coursePublished: 'onboarding:coursePublished',
+                    closed: 'onboarding:closed'
                 }
             },
 

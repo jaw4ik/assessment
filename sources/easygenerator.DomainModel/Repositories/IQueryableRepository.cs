@@ -8,7 +8,7 @@ using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Repositories
 {
-    public interface IQuerableRepository<T> where T : Entity
+    public interface IQuerableRepository<T> where T : Identifiable
     {
         T Get(Guid id);
 

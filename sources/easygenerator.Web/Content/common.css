@@ -50,6 +50,38 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'IntroRegular';
+    src: url('./font/intro-regular.eot');
+    src: url('./font/intro-regular.eot?#iefix') format('embedded-opentype'), url('./font/intro-regular.woff') format('woff'), url('./font/intro-regular.ttf') format('truetype'), url('./font/intro-regular.svg#IntroRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'RobotoSlab-Bold';
+    src: url('./font/robotoslab-bold.eot');
+    src: url('./font/robotoslab-bold.eot?#iefix') format('embedded-opentype'), url('./font/robotoslab-bold.woff') format('woff'), url('./font/robotoslab-bold.ttf') format('truetype'), url('./font/robotoslab-bold.svg#RobotoSlab-Bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyriadProRegular';
+    src: url('./font/myriadpro-regular.eot');
+    src: url('./font/myriadpro-regular.eot?#iefix') format('embedded-opentype'), url('./font/myriadpro-regular.woff') format('woff'), url('./font/myriadpro-regular.ttf') format('truetype'), url('./font/myriadpro-regular.svg#MyriadProRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyriadProSemibold';
+    src: url('./font/myriadpro-semibold.eot');
+    src: url('./font/myriadpro-semibold.eot?#iefix') format('embedded-opentype'), url('./font/myriadpro-semibold.woff') format('woff'), url('./font/myriadpro-semibold.ttf') format('truetype'), url('./font/myriadpro-semibold.svg#MyriadProSemibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*#endregion FONTS CONNECTIONS*/
 
 /*#region RESET CSS-STYLES IN FOREIGN BROWSERS */

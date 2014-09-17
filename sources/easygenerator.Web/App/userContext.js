@@ -18,7 +18,7 @@
             dataType: 'json'
         })).then(function (user) {
             userContext.identity = _.isString(user.email) ? new User(user) : null;
-            app.trigger(constants.messages.user.identified, user);
+            app.trigger(constants.messages.user.identified, userContext.identity);
         });
     }
 

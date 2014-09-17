@@ -1,5 +1,5 @@
-﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'clientContext', 'userContext', 'notify', 'uiLocker', 'localization/localizationManager', 'repositories/courseRepository', 'ping', 'models/backButton'],
-    function (objectiveRepository, router, eventTracker, constants, clientContext, userContext, notify, uiLocker, localizationManager, courseRepository, ping, BackButton) {
+﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'durandal/app', 'constants', 'clientContext', 'userContext', 'notify', 'uiLocker', 'localization/localizationManager', 'repositories/courseRepository', 'ping', 'models/backButton'],
+    function (objectiveRepository, router, eventTracker, app, constants, clientContext, userContext, notify, uiLocker, localizationManager, courseRepository, ping, BackButton) {
         "use strict";
 
         var
@@ -91,6 +91,7 @@
                 uiLocker.lock();
                 return objectiveRepository.addObjective({ title: title() }).then(function (createdObjective) {
                     title('');
+                    app.trigger(constants.messages.onboarding.objectiveCreated);
                     if (_.isString(that.contextCourseId)) {
                         return objectiveRepository.getById(createdObjective.id).then(function (objective) {
                             return courseRepository.relateObjective(that.contextCourseId, objective.id).then(function () {

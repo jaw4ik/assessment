@@ -1,0 +1,186 @@
+﻿.onboarding-wrapper {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 360px;
+    border-top: 1px solid #dedede;
+    background-color: #fff;
+    box-shadow: 0 -1px 5px #dedede;
+}
+
+.onboarding-wrapper.minimazed {
+    left: auto;
+}
+
+.onboarding {
+    width: 100%;
+    height: 100%;
+    padding: 30px 0 40px;
+}
+
+.onboarding-header {
+    border-bottom: 1px solid #dddddd;
+    padding-bottom: 14px;
+    margin: 0 33px 21px;
+    font-family: 'RobotoSlab-Bold';
+    text-align: center;
+    text-transform: uppercase;
+    color: #469dd5;
+    font-size: 18px;
+    line-height: 18px;
+}
+
+/*#region Wizard*/
+
+.onboarding-step-item {
+    position: relative;
+    padding: 10px 33px;
+    cursor: default;
+    font-size: 16px;
+    color: #068ace;
+}
+
+    .onboarding-step-item:hover {
+        background-color: #e7f3ff;
+    }
+
+.onboarding-step-index {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    font-family: 'IntroRegular';
+    background-color: #fff;
+    border: 1px solid #0090d9;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+}
+
+.onboarding-step-item.completed .onboarding-step-index {
+    position: relative;
+    background-color: #469dd5;
+    color: #469dd5;
+}
+
+    .onboarding-step-item.completed .onboarding-step-index:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 14px;
+        height: 12px;
+        margin-top: -6px;
+        margin-left: -7px;
+        background: url('images/sprites_16.png') -106px -44px no-repeat;
+    }
+
+.onboarding-step-title {
+    font-family: 'MyriadProRegular';
+    margin-left: 15px;
+}
+
+.onboarding-step-item.completed .onboarding-step-title {
+    color: #95afbc;
+    text-decoration: line-through;
+}
+
+/*#endregion Wizard*/
+
+/*#region Wizard Mini*/
+
+.onboarding-mini-map {
+    width: 38px;
+    height: 38px;
+    margin: 30px 6px 15px;
+    background: url('images/sprites_64.png') -220px -81px no-repeat;
+}
+
+.onboarding-mini .onboarding-step-item {
+    padding: 10px;
+}
+
+    .onboarding-mini .onboarding-step-item:hover {
+        background-color: #fff;
+    }
+
+.onboarding-mini .onboarding-step-index:hover {
+    background-color: #469dd5;
+    color: #fff;
+    -webkit-transition: background-color 0.3s linear 0s;
+    -moz-transition: background-color 0.3s linear 0s;
+    -o-transition: background-color 0.3s linear 0s;
+    transition: background-color 0.3s linear 0s;
+}
+
+.onboarding-mini .onboarding-step-item.completed .onboarding-step-index:hover {
+    color: transparent;
+}
+
+.onboarding-mini .info-tooltip {
+    width: 150px;
+    top: 100%;
+    left: 100%;
+    bottom: auto;
+    margin-top: -40px;
+}
+
+.onboarding-mini .info-tooltip:after {
+    top: 50%;
+    left: 0;
+}
+
+/*#endregion Wizard Mini*/
+
+/*#region Congratulations*/
+
+.onboarding-congratulations {
+    padding: 80px 32px;
+}
+
+.onboarding-congratulations-close {
+    position: absolute;
+    top: 21px;
+    right: 15px;
+    background: url('images/sprites_16.png') -129px -44px no-repeat;
+    width: 10px;
+    height: 10px;
+}
+
+    .onboarding-congratulations-close:hover {
+        background: url('images/sprites_16.png') -150px -44px no-repeat;
+    }
+
+.onboarding-congratulations .onboarding-header {
+    margin: 0 0 15px;
+}
+
+.onboarding-congratulations-content {
+    color: #469dd5;
+    text-align: center;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.onboarding-congratulations-image {
+    display: block;
+    margin: 0 auto 14px;
+}
+
+.onboarding-congratulations-caption {
+    font-family: 'MyriadProRegular';
+}
+
+.onboarding-congratulations-help-center {
+    font-family: 'MyriadProSemibold';
+    text-decoration: underline;
+    line-height: 24px;
+    color: #469dd5;
+}
+
+    .onboarding-congratulations-help-center:hover,
+    .onboarding-congratulations-help-center:active {
+        color: #2f6e97;
+    }
+
+/*#endregion Congratulations*/

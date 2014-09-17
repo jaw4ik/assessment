@@ -53,8 +53,9 @@ namespace easygenerator.DataAccess
         public DbSet<User> Users { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<CourseCollaborator> CourseCollaborators { get; set; }
+        public DbSet<Onboarding> Onboardings { get; set; }
 
-        public IDbSet<T> GetSet<T>() where T : Entity
+        public IDbSet<T> GetSet<T>() where T : Identifiable
         {
             return Set<T>();
         }
@@ -176,6 +177,14 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<HttpRequest>().Property(e => e.ServiceName).HasMaxLength(127).IsRequired();
 
             modelBuilder.Entity<ImageFile>().Property(e => e.Title).HasMaxLength(255).IsRequired();
+
+            modelBuilder.Entity<Onboarding>().Property(e => e.CourseCreated).IsRequired();
+            modelBuilder.Entity<Onboarding>().Property(e => e.ObjectiveCreated).IsRequired();
+            modelBuilder.Entity<Onboarding>().Property(e => e.ContentCreated).IsRequired();
+            modelBuilder.Entity<Onboarding>().Property(e => e.CreatedQuestionsCount).IsRequired();
+            modelBuilder.Entity<Onboarding>().Property(e => e.CoursePublished).IsRequired();
+            modelBuilder.Entity<Onboarding>().Property(e => e.IsClosed).IsRequired();
+            modelBuilder.Entity<Onboarding>().Property(e => e.UserEmail).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

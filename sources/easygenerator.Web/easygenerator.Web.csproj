@@ -227,6 +227,7 @@
     <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
     <Compile Include="Controllers\Api\FillInTheBlanksController.cs" />
+    <Compile Include="Controllers\Api\OnboardingController.cs" />
     <Compile Include="Controllers\Api\SingleSelectImageController.cs" />
     <Compile Include="Controllers\Api\InformationContentController.cs" />
     <Compile Include="Controllers\Api\SingleSelectTextController.cs" />
@@ -415,6 +416,7 @@
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
+    <Content Include="App\bootstrapping\onboardingTask.js" />
     <Content Include="App\commands\createCourseCommand.js" />
     <Content Include="App\commands\createCourseCommand.spec.js">
       <DependentUpon>createCourseCommand.js</DependentUpon>
@@ -423,6 +425,13 @@
     <Content Include="Scripts\jquery.signalR-2.1.2.min.js" />
     <Content Include="Scripts\knockout-3.2.0.debug.js" />
     <Content Include="Scripts\knockout-3.2.0.js" />
+    <Content Include="App\onboarding\handlers.js" />
+    <Content Include="App\onboarding\handlers.spec.js">
+      <DependentUpon>handlers.js</DependentUpon>
+    </Content>
+    <Content Include="App\onboarding\inititalization.spec.js">
+      <DependentUpon>inititalization.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\knockoutBindings\customHasFocusBinding.js" />
     <Content Include="App\dialogs\collaboration\removeCollaborator.spec.js">
       <DependentUpon>removeCollaborator.js</DependentUpon>
@@ -434,9 +443,20 @@
     <Content Include="App\dialogs\shareCourse\shareCourse.html" />
     <Content Include="App\mappers\singleSelectImageAnswerMapper.js" />
     <Content Include="App\models\singleSelectImageAnswer.js" />
+    <Content Include="App\navigationBar\navigationBar.html" />
+    <Content Include="App\navigationBar\navigationBar.js" />
+    <Content Include="App\navigationBar\navigationBar.spec.js">
+      <DependentUpon>navigationBar.js</DependentUpon>
+    </Content>
     <Content Include="App\notifications\subscriptionExpirationNotification.spec.js">
       <DependentUpon>subscriptionExpirationNotification.js</DependentUpon>
     </Content>
+    <Content Include="App\onboarding\onboarding.spec.js">
+      <DependentUpon>onboarding.js</DependentUpon>
+    </Content>
+    <Content Include="App\onboarding\inititalization.js" />
+    <Content Include="App\onboarding\onboarding.html" />
+    <Content Include="App\onboarding\onboarding.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\multipleSelectAnswerCorrectnessUpdated.spec.js">
       <DependentUpon>multipleSelectAnswerCorrectnessUpdated.js</DependentUpon>
     </Content>
@@ -880,6 +900,9 @@
     <Content Include="Content\font\buxtonsketch.eot" />
     <Content Include="Content\font\buxtonsketch.ttf" />
     <Content Include="Content\font\buxtonsketch.woff" />
+    <Content Include="Content\font\intro-regular.svg" />
+    <Content Include="Content\font\myriadpro-regular.svg" />
+    <Content Include="Content\font\myriadpro-semibold.svg" />
     <Content Include="Content\font\opensans-italic.eot" />
     <Content Include="Content\font\opensans-italic.ttf" />
     <Content Include="Content\font\opensans-italic.woff" />
@@ -895,12 +918,14 @@
     <Content Include="Content\font\rabiohead.eot" />
     <Content Include="Content\font\rabiohead.ttf" />
     <Content Include="Content\font\rabiohead.woff" />
+    <Content Include="Content\font\robotoslab-bold.svg" />
     <Content Include="Content\imagePreview.css" />
     <Content Include="Content\images\comingsoon.png" />
     <Content Include="Content\images\draganddroptext-question.png" />
     <Content Include="Content\images\fillintheblank-question.png" />
     <Content Include="Content\images\info-question.png" />
     <Content Include="Content\images\lamp.png" />
+    <Content Include="Content\images\onboarding-congratulations-icon.png" />
     <Content Include="Content\images\singleselectimage-question.png" />
     <Content Include="Content\images\singleSelectImageAnswer.png" />
     <Content Include="Content\images\singleselecttext-question.png" />
@@ -908,6 +933,8 @@
     <Content Include="Content\images\question-types.png" />
     <Content Include="Content\images\spell-checker.png" />
     <Content Include="Content\images\textmatching-question.png" />
+    <Content Include="Content\navigationBar.css" />
+    <Content Include="Content\onboarding.css" />
     <Content Include="Content\singleSelectImage.css" />
     <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\ForgotPasswordTemplate.cshtml" />
@@ -916,6 +943,18 @@
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
     <Content Include="packages.config" />
     <Content Include="Mail\MailTemplates\InviteCollaboratorTemplate.cshtml" />
+    <Content Include="Content\font\intro-regular.eot" />
+    <Content Include="Content\font\intro-regular.ttf" />
+    <Content Include="Content\font\intro-regular.woff" />
+    <Content Include="Content\font\robotoslab-bold.eot" />
+    <Content Include="Content\font\robotoslab-bold.ttf" />
+    <Content Include="Content\font\robotoslab-bold.woff" />
+    <Content Include="Content\font\myriadpro-regular.eot" />
+    <Content Include="Content\font\myriadpro-regular.ttf" />
+    <Content Include="Content\font\myriadpro-regular.woff" />
+    <Content Include="Content\font\myriadpro-semibold.eot" />
+    <Content Include="Content\font\myriadpro-semibold.ttf" />
+    <Content Include="Content\font\myriadpro-semibold.woff" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\1b4769525d54430295cc1f0971833894\5c9a4fae198944f38b32c09152b9d416\b5800ad8eefa4d628fe981234b5ca6c4.html" />
     <Content Include="Sample Course\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
@@ -990,6 +1029,7 @@
     <Content Include="Scripts\durandal\plugins\serializer.js" />
     <Content Include="Scripts\durandal\plugins\widget.js" />
     <Content Include="Scripts\durandal\system.js" />
+    <Content Include="Scripts\durandal\transitions\fadeTransition.js" />
     <Content Include="Scripts\durandal\viewEngine.js" />
     <Content Include="Scripts\durandal\viewLocator.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -1259,6 +1299,10 @@
     <ProjectReference Include="..\easygenerator.DataAccess\easygenerator.DataAccess.csproj">
       <Project>{67A666AE-DE1A-4744-80BC-455536DB1171}</Project>
       <Name>easygenerator.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\easygenerator.DomainModel.Tests\easygenerator.DomainModel.Tests.csproj">
+      <Project>{796D0AB4-489A-416F-A510-B2A8E6BC011B}</Project>
+      <Name>easygenerator.DomainModel.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\easygenerator.DomainModel\easygenerator.DomainModel.csproj">
       <Project>{B1A55D50-7948-471A-9FA8-403512C179A6}</Project>

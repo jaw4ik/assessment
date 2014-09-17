@@ -255,8 +255,7 @@
 
                     promise.fin(function () {
                         expect(app.trigger).toHaveBeenCalled();
-                        expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.created);
-                        expect(app.trigger.calls.mostRecent().args[1]).toBe(mappedCourse);
+                        expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.onboarding.courseCreated);
                         done();
                     });
 

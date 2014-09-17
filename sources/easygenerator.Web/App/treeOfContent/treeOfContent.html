@@ -1,58 +1,34 @@
-﻿<div class="tb-cell navigation-tree-wrapper" data-bind="css: { expanded: isTreeVisible }, expander: { isExpanded: isExpanded, minSize: 50, maxSize: 300, onCollapsed: onCollapsed }, cellSize: true">
-
-    <div class="navigation-tree-wrapper-inner">
-
-        <div class="navigation-tree-wrapper-absolute-holder">
-
-            <div class="navigation-tree" data-bind="visible: isTreeVisible">
-
-                <div class="navigation-tree-header" data-bind="click: collapse, localize: { text: 'hideNavigationTree' }">Hide navigation</div>
-
-                <div class="navigation-tree-content">
-                    <!-- ko if: children().length == 0 && sharedChildren().length == 0 -->
-                    <div class="navigation-tree-no-courses-wrapper">
-                        <span class="navigation-tree-no-courses-icon"></span>
-                        <span class="navigation-tree-no-courses-caption" data-bind="localize: { text: 'noCoursesTitle' }">No courses yet</span>
-                    </div>
-                    <!-- /ko -->
-                    <ul>
-                        <!-- ko ifnot: children().length -->
-                        <li class="navigation-tree-node course empty">
-                            <div class="navigation-tree-node-caption-wrapper disabled">
-                                <span class="navigation-tree-node-icon empty"></span>
-                                <span class="navigation-tree-node-caption" data-bind="localize: { text: 'noOwnCoursesTitle' }"></span>
-                            </div>
-                        </li>
-                        <!-- /ko -->
-                        <!-- ko foreach: children -->
-                        <!-- ko compose: { model: $data, preserveContext: true }-->
-                        <!-- /ko -->
-                        <!-- /ko -->
-                    </ul>
-                    <!-- ko if: sharedChildren().length != 0 -->
-                    <div class="navigation-tree-title-wrapper">
-                        <span class="navigation-tree-list-title" data-bind="localize: { text: 'sharedCourses' }"></span>
-                    </div>
-                    <ul>
-                        <!-- ko foreach: sharedChildren -->
-                        <!-- ko compose: { model: $data, preserveContext: true }-->
-                        <!-- /ko -->
-                        <!-- /ko -->
-                    </ul>
-                    <!-- /ko -->
-                </div>
-
-            </div>
-
-            <!-- ko ifnot: isExpanded -->
-            <div class="navigation-tree collapsed" data-bind="click: expand, localize: { title: 'openNavigationBar' }">&nbsp;</div>
-            <!-- /ko -->
-
-        </div>
-
+﻿<section class="navigation-tree-content">
+    <!-- ko if: children().length == 0 && sharedChildren().length == 0 -->
+    <div class="navigation-tree-no-courses-wrapper">
+        <span class="navigation-tree-no-courses-icon"></span>
+        <span class="navigation-tree-no-courses-caption" data-bind="localize: { text: 'noCoursesTitle' }">No courses yet</span>
     </div>
-
-</div>
-
-
+    <!-- /ko -->
+    <ul>
+        <!-- ko ifnot: children().length -->
+        <li class="navigation-tree-node course empty">
+            <div class="navigation-tree-node-caption-wrapper disabled">
+                <span class="navigation-tree-node-icon empty"></span>
+                <span class="navigation-tree-node-caption" data-bind="localize: { text: 'noOwnCoursesTitle' }"></span>
+            </div>
+        </li>
+        <!-- /ko -->
+        <!-- ko foreach: children -->
+        <!-- ko compose: { model: $data, preserveContext: true }-->
+        <!-- /ko -->
+        <!-- /ko -->
+    </ul>
+    <!-- ko if: sharedChildren().length != 0 -->
+    <div class="navigation-tree-title-wrapper">
+        <span class="navigation-tree-list-title" data-bind="localize: { text: 'sharedCourses' }"></span>
+    </div>
+    <ul>
+        <!-- ko foreach: sharedChildren -->
+        <!-- ko compose: { model: $data, preserveContext: true }-->
+        <!-- /ko -->
+        <!-- /ko -->
+    </ul>
+    <!-- /ko -->
+</section>
 
