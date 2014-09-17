@@ -108,19 +108,15 @@
             Called when a connection reconnects to the <see cref="T:Microsoft.AspNet.SignalR.Hubs.IHub"/> after a timeout.
             </summary>
         </member>
-        <member name="M:Microsoft.AspNet.SignalR.Hubs.IHub.OnDisconnected">
-            <summary>
-            Called when a connection has disconnected gracefully from the <see cref="T:Microsoft.AspNet.SignalR.Hubs.IHub"/>,
-            i.e. stop was called on the client.
-            </summary>
-        </member>
         <member name="M:Microsoft.AspNet.SignalR.Hubs.IHub.OnDisconnected(System.Boolean)">
             <summary>
-            Called when a connection is disconnected from the <see cref="T:Microsoft.AspNet.SignalR.Hubs.IHub"/>.
+            Called when a connection disconnects from the <see cref="T:Microsoft.AspNet.SignalR.Hubs.IHub"/> gracefully or due to a timeout.
             </summary>
             <param name="stopCalled">
             true, if stop was called on the client closing the connection gracefully;
-            false, if the client timed out. Timeouts can be caused by clients reconnecting to another SignalR server in scaleout.
+            false, if the connection has been lost for longer than the
+            <see cref="P:Microsoft.AspNet.SignalR.Configuration.IConfigurationManager.DisconnectTimeout"/>.
+            Timeouts can be caused by clients reconnecting to another SignalR server in scaleout.
             </param>
         </member>
         <member name="P:Microsoft.AspNet.SignalR.Hubs.IHub.Context">
@@ -138,20 +134,15 @@
             Gets the <see cref="T:Microsoft.AspNet.SignalR.IGroupManager"/> the hub instance.
             </summary>
         </member>
-        <member name="M:Microsoft.AspNet.SignalR.Hubs.HubBase.OnDisconnected">
-            <summary>
-            Called when a connection has disconnected gracefully from this hub instance,
-            i.e. stop was called on the client.
-            </summary>
-            <returns>A <see cref="T:System.Threading.Tasks.Task"/></returns>
-        </member>
         <member name="M:Microsoft.AspNet.SignalR.Hubs.HubBase.OnDisconnected(System.Boolean)">
             <summary>
-            Called when a connection disconnects from this hub instance.
+            Called when a connection disconnects from this hub gracefully or due to a timeout.
             </summary>
             <param name="stopCalled">
             true, if stop was called on the client closing the connection gracefully;
-            false, if the client timed out. Timeouts can be caused by clients reconnecting to another SignalR server in scaleout.
+            false, if the connection has been lost for longer than the
+            <see cref="P:Microsoft.AspNet.SignalR.Configuration.IConfigurationManager.DisconnectTimeout"/>.
+            Timeouts can be caused by clients reconnecting to another SignalR server in scaleout.
             </param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/></returns>
         </member>
@@ -2499,25 +2490,17 @@
             <param name="data">The payload sent to the connection.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> that completes when the receive operation is complete.</returns>
         </member>
-        <member name="M:Microsoft.AspNet.SignalR.PersistentConnection.OnDisconnected(Microsoft.AspNet.SignalR.IRequest,System.String)">
-            <summary>
-            Called when a connection disconnects gracefully.
-            </summary>
-            <param name="request">The <see cref="T:Microsoft.AspNet.SignalR.IRequest"/> for the current connection.</param>
-            <param name="connectionId">The id of the disconnected connection.</param>
-            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that completes when the disconnect operation is complete.</returns>
-        </member>
         <member name="M:Microsoft.AspNet.SignalR.PersistentConnection.OnDisconnected(Microsoft.AspNet.SignalR.IRequest,System.String,System.Boolean)">
             <summary>
             Called when a connection disconnects gracefully or due to a timeout.
-            Timeouts can occur in scaleout when clients reconnect with another server.
             </summary>
             <param name="request">The <see cref="T:Microsoft.AspNet.SignalR.IRequest"/> for the current connection.</param>
             <param name="connectionId">The id of the disconnected connection.</param>
             <param name="stopCalled">
-            True if the connection has been lost for longer than the
-            <see cref="P:Microsoft.AspNet.SignalR.Configuration.IConfigurationManager.DisconnectTimeout"/>;
-            False if the connection has been closed gracefully.
+            true, if stop was called on the client closing the connection gracefully;
+            false, if the connection has been lost for longer than the
+            <see cref="P:Microsoft.AspNet.SignalR.Configuration.IConfigurationManager.DisconnectTimeout"/>.
+            Timeouts can occur in scaleout when clients reconnect with another server.
             </param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> that completes when the disconnect operation is complete.</returns>
         </member>
