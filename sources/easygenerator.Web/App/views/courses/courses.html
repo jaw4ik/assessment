@@ -40,9 +40,16 @@
                     <!-- /ko -->
                 </div>
                 <div class="list-item-action create">
-                    <button class="action-item-btn create-item btn green" data-bind="click: createNewCourse, css:{ disabled: !isCreateCourseAvailable() }">
+                    <!-- ko if: isCreateCourseAvailable -->
+                    <button class="action-item-btn create-item btn green" data-bind="click: createNewCourse">
                         <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
                     </button>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isCreateCourseAvailable -->
+                    <button class="action-item-btn create-item btn green disabled" disabled="disabled">
+                        <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
+                    </button>
+                    <!-- /ko -->
                     <!-- ko if: courses().length === 0 && sharedCourses().length === 0 -->
                     <div class="tip-arrow-holder right">
                         <div class="tip-arrow-text" data-bind="localize: { text : 'startFromHere' }">Start from here</div>
