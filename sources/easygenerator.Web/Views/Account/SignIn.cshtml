@@ -12,7 +12,7 @@
                     <div class="user-form-row" data-bind="css: { error: hasError() || (!username.isValid() && username.isModified()) }">
                         <div class="user-form-input-holder email">
                             <span class="user-form-input-wrapper"></span>
-                            <input class="user-form-input" type="text" name="email" autocomplete="off" placeholder="@Resources.EmailCaption" data-bind="value: username, valueUpdate: 'afterkeydown', event: { blur: username.markAsModified }, placeholder: {}" ondrop="return false;" />
+                            <input class="user-form-input" type="text" name="email" autocomplete="off" placeholder="@Resources.EmailCaption" data-bind="value: username, valueUpdate: 'afterkeydown', event: { blur: username.markAsModified }" ondrop="return false;" />
                         </div>
                         <!-- ko if: !username.isValid() && username.isModified() -->
                         <span class="user-form-message">@Resources.EnterValidEmailMessage</span>
@@ -21,7 +21,7 @@
                     <div class="user-form-row" data-bind="css: { error: hasError }">
                         <div class="user-form-input-holder password">
                             <span class="user-form-input-wrapper"></span>
-                            <input class="user-form-input" type="password" name="password" placeholder="@Resources.PasswordCaption" autocomplete="off" data-bind="value: password, valueUpdate: 'afterkeydown', attr: { type: isPasswordVisible() ? 'text' : 'password' }, placeholder: {}" ondrop="return false;" />
+                            <input class="user-form-input" type="password" name="password" placeholder="@Resources.PasswordCaption" autocomplete="off" data-bind="value: password, valueUpdate: 'afterkeydown', attr: { type: isPasswordVisible() ? 'text' : 'password' }" ondrop="return false;" />
                             <div class="user-form-checkbox-holder password clearfix" data-bind="attr: { title: isPasswordVisible() ? '@Resources.HidePassword' : '@Resources.ShowPassword' } ">
                                 <div class="user-form-checkbox password" data-bind="css: { checked: isPasswordVisible }">
                                     <input id="uf-checkbox" class="custom-checkbox" type="checkbox" data-bind="checked: isPasswordVisible" />

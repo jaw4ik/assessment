@@ -19,7 +19,7 @@
                     <div class="user-form-row pull-right" data-bind="css: { error: isPhoneErrorVisible(), success: !isPhoneErrorVisible() && phone.isValid() }">
                         <div class="user-form-input-holder">
                             <span class="user-form-input-wrapper"></span>
-                            <input tabindex="3" class="user-form-input phone" type="text" name="phone" placeholder="@Resources.PhoneNumberCaption" data-bind="value: phone, valueUpdate: 'afterkeydown', event: { blur: validatePhone, focus: onFocusPhone }, placeholder: {}" ondrop="return false;" />
+                            <input tabindex="3" class="user-form-input phone" type="text" name="phone" placeholder="@Resources.PhoneNumberCaption" data-bind="value: phone, valueUpdate: 'afterkeydown', event: { blur: validatePhone, focus: onFocusPhone }" ondrop="return false;" />
                             <div class="phone-code-wrapper" data-bind="text: phoneCode">+ ( ... )</div>
                         </div>
                         <span class="user-form-message" data-bind="visible: isPhoneErrorVisible()">@Resources.EnterValidPhoneNumber</span>

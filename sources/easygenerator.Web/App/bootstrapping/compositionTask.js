@@ -10,7 +10,6 @@
     function execute() {
         composition.addBindingHandler('autofocus');
         composition.addBindingHandler('scrollToElement');
-        composition.addBindingHandler('placeholder');
         composition.addBindingHandler('dialog');
         composition.addBindingHandler('ckeditor');
         composition.addBindingHandler('editableText');

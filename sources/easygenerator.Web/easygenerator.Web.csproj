@@ -1038,11 +1038,6 @@
     <Content Include="Scripts\jquery.autosize.min.js" />
     <Content Include="Scripts\jquery.extensions.js" />
     <Content Include="Scripts\jquery.form.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="App\viewmodels\questions\fillInTheBlank\bindingHandlers\fillInTheBlankBindingHandler.js" />
     <Content Include="Scripts\knockoutBindings\containerHasFocusBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
@@ -1978,7 +1973,6 @@
     <Content Include="Scripts\jasmine\utils.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
-    <Content Include="Scripts\jquery.placeholder.js" />
     <Content Include="Scripts\knockout-sortable.js" />
     <Content Include="Scripts\knockout-sortable.min.js" />
     <Content Include="Scripts\knockout.validation.debug.js" />
@@ -1996,7 +1990,6 @@
     <Content Include="Scripts\knockoutBindings\layoutBinding.js" />
     <Content Include="Scripts\knockoutBindings\notificationsBinding.js" />
     <Content Include="Scripts\knockoutBindings\outsideClickBinding.js" />
-    <Content Include="Scripts\knockoutBindings\placeholderBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToTopBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectBoxBinding.js" />

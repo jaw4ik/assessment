@@ -22,7 +22,6 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/underscore.extensions.js")
                     .Include("~/scripts/has.js")
                     .Include("~/scripts/moment.js")
-                    .Include("~/scripts/jquery.placeholder.js")
                     .Include("~/scripts/jquery.form.js")
                     .Include("~/scripts/jquery.extensions.js")
                     .Include("~/scripts/jquery.autosize.js")
@@ -41,7 +40,6 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/underscore.js")
                     .Include("~/scripts/underscore.extensions.js")
                     .Include("~/scripts/knockoutBindings/selectBoxBinding.js")
-                    .Include("~/scripts/jquery.placeholder.js")
                     .Include("~/scripts/knockoutBindings/placeholderBinding.js")
                 );
 
@@ -52,7 +50,6 @@ namespace easygenerator.Web.Configuration
                    .IncludeDirectory("~/scripts/common", "*.js")
                    .Include("~/scripts/underscore.js")
                    .Include("~/scripts/underscore.extensions.js")
-                   .Include("~/scripts/jquery.placeholder.js")
                    .Include("~/scripts/knockoutBindings/slidingDialogBinding.js")
                    .Include("~/scripts/knockoutBindings/placeholderBinding.js")
                );
