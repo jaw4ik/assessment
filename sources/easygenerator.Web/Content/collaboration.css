@@ -43,6 +43,14 @@
         right: 0;
     }
 
+.course-collaborators-list.shared-course {
+    padding-right: 0;
+}
+
+.course-collaborators-list.shared-course:after {
+    display: none;
+}
+
 .course-collaborator-item {
     position: relative;
     border: 1px solid #EFEFEF;

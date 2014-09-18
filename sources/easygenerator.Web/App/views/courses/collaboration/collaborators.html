@@ -1,5 +1,5 @@
 ﻿<div class="course-collaborators-wrapper">
-    <ul class="course-collaborators-list">
+    <ul class="course-collaborators-list" data-bind="css: { 'shared-course': !canAddMember() }">
         <!-- ko foreach: members -->
         <li class="course-collaborator-item-wrapper" data-bind="css: { 'course-owner': isOwner }">
             <!-- ko if: !isRemoving() -->
