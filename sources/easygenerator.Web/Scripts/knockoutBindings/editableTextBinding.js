@@ -37,30 +37,27 @@
         $element.text(ko.unwrap(text));
         $element.toggleClass('editable-text-binding', true);
 
-        $element.on('drop dragover', function(event) {
+        $element.on('drop dragover', function (event) {
             event.preventDefault();
             event.stopPropagation();
         });
 
-        if (autosave && $.isFunction(autosave.handler)) {
-            var autosaveIntervalId;
-            $element.on('focus', function () {
+        var autosaveIntervalId;
+        $element.on('focus', function () {
+            if (autosave && $.isFunction(autosave.handler)) {
                 autosaveIntervalId = setInterval(function () {
                     autosave.handler.call(root, viewModel);
                 }, autosave.interval);
-            }).on('blur', function () {
-                clearInterval(autosaveIntervalId);
-            });
-        }
-
-        var saveIntervalId = setInterval(function () {
+            }
+        }).on('blur', function () {
+            clearInterval(autosaveIntervalId);
+        }).on('DOMSubtreeModified', function () {
             if (ko.unwrap(text) != $element.text()) {
                 text($element.text());
             }
-        }, 100);
+        });
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-            clearInterval(saveIntervalId);
             if (multiline) {
                 $element.trigger('autosize.destroy');
             }
