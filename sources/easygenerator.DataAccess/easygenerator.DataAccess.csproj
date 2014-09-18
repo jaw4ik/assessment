@@ -194,6 +194,10 @@
     <Compile Include="Migrations\201409171500330_UpdateColumnUserEmailLength.Designer.cs">
       <DependentUpon>201409171500330_UpdateColumnUserEmailLength.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201409181151054_UpdateSimpleCourseTemplateDescription.cs" />
+    <Compile Include="Migrations\201409181151054_UpdateSimpleCourseTemplateDescription.Designer.cs">
+      <DependentUpon>201409181151054_UpdateSimpleCourseTemplateDescription.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -328,6 +332,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409171500330_UpdateColumnUserEmailLength.resx">
       <DependentUpon>201409171500330_UpdateColumnUserEmailLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409181151054_UpdateSimpleCourseTemplateDescription.resx">
+      <DependentUpon>201409181151054_UpdateSimpleCourseTemplateDescription.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
