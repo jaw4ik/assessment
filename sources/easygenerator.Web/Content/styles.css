@@ -801,7 +801,7 @@ span.top-navigation-item.current {
     display: table;
     height: 40px;
     width: 100%;
-    padding: 4px 10px;
+    padding: 2px 10px;
     border: 1px solid #faebcc;
     border-radius: 4px;
     background-color: #fcf8e3;
@@ -810,6 +810,7 @@ span.top-navigation-item.current {
 
 .limit-courses-informer-text {
     display: table-cell;
+    vertical-align: middle;
     padding: 6px 0;
     padding-left: 40px;
     padding-right: 10px;
@@ -1706,7 +1707,8 @@ span.top-navigation-item.current {
 
 .upgrade-user-btn {
     min-width: 90px;
-    padding: 8px 20px;
+    line-height: 1;
+    padding: 9px 15px;
     font-size: 12px;
     font-family: 'OpenSans';
     cursor: pointer;
