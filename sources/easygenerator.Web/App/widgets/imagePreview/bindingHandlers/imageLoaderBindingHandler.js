@@ -32,7 +32,9 @@
                 imageUrl = data.imageUrl();
             $element.empty();//Clear element to avoid blinking;
             isLoaded(false);
-            loadNewImage(imageUrl, $element, isLoaded);
+            if (imageUrl && imageUrl != '') {
+                loadNewImage(imageUrl, $element, isLoaded);
+            }
 
             function loadNewImage(url, $rootElement, isLoaded) {
 
