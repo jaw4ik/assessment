@@ -15,7 +15,7 @@
     return onboarding;
 
     function initialize() {
-        return getStates().then(function (onboardingStates) {
+        return httpWrapper.post('api/onboarding').then(function (onboardingStates) {
             if (!_.isNullOrUndefined(onboardingStates.isClosed)) {
                 onboarding.isClosed(onboardingStates.isClosed);
                 return;
@@ -54,9 +54,4 @@
     function getTasksList() {
         return _.toArray(tasks);
     }
-
-    function getStates() {
-        return httpWrapper.post('api/onboarding');
-    }
-
 });

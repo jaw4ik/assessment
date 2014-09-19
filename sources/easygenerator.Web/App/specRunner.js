@@ -23,7 +23,6 @@
     require(['bootstrapper'], function (bootstrapper) {
         bootstrapper.run();
 
-
         var specs = [
             'authorization/limitCoursesAmount.spec',
             'commands/createQuestionCommand.spec',
@@ -56,6 +55,14 @@
             'repositories/questionRepository.spec',
             'routing/routerExtender.spec',
             'services/publishService.spec',
+
+            //#region onboarding
+
+            'onboarding/inititalization.spec',
+            'onboarding/handlers.spec',
+            'onboarding/onboarding.spec',
+
+            //#endregion
 
             //#region synchronization
 
@@ -144,8 +151,6 @@
             'treeOfContent/CourseTreeNode.spec',
             'treeOfContent/RelatedObjectiveTreeNode.spec',
             'treeOfContent/QuestionTreeNode.spec',
-            'onboarding/inititalization.spec',
-            'onboarding/handlers.spec',
 
             'viewmodels/common/contentField.spec',
             'viewmodels/courses/courses.spec',
