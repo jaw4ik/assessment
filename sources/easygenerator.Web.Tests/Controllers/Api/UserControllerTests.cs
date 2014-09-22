@@ -428,13 +428,17 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string username = "username@easygenerator.com";
             const string password = "Abc123!";
 
-            var user = Substitute.For<User>();
-            user.VerifyPassword(password).Returns(true);
+            var user = UserObjectMother.Create(username, password);
             _userRepository.GetUserByEmail(username).Returns(user);
 
             var result = _controller.Signin(username, password);
 
-            result.Should().BeJsonSuccessResult();
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new
+            {
+                username = user.Email,
+                firstname = user.FirstName,
+                lastname = user.LastName
+            });
         }
 
         #endregion

@@ -358,6 +358,8 @@
             describe('when username is an email string and password is not empty or whitespace', function () {
 
                 var username = "username@easygenerator.com";
+                var firstname = "test first name";
+                var lastname = "test last name";
                 var password = "Abc123! ";
 
                 beforeEach(function () {
@@ -501,18 +503,23 @@
                     describe('and response is successful', function () {
 
                         var trackEvent;
+                        var user = {
+                            username: username,
+                            firstname: firstname,
+                            lastname: lastname
+                        };
 
                         beforeEach(function (done) {
                             trackEvent = $.Deferred();
                             spyOn(app, 'trackEvent').and.returnValue(trackEvent.promise());
 
-                            ajax.resolve({ success: true });
+                            ajax.resolve({ success: true, data: user });
                             done();
                         });
 
                         it('should track event \'Sign in\'', function () {
                             viewModel.submit();
-                            expect(app.trackEvent).toHaveBeenCalledWith('Sign in', { username: username });
+                            expect(app.trackEvent).toHaveBeenCalledWith('Sign in', user);
                         });
 
                         describe('and event is tracked', function () {

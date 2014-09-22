@@ -102,7 +102,7 @@ app.signUpSecondStepModel = function () {
             app.clientSessionContext.remove(app.constants.userSignUpFirstStepData);
 
             $.when(
-                app.trackEvent(app.constants.events.signupSecondStep, { username: response.data }),
+                app.trackEvent(app.constants.events.signupSecondStep, { username: response.data, firstname: data.firstName, lastname: data.lastName }),
                 app.trackPageview(app.constants.pageviewUrls.signupSecondStep)
                 ).done(function () {
                     localStorage.setItem('showCreateCoursePopup', true);

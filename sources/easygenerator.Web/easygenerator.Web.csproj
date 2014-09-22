@@ -416,6 +416,10 @@
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
+    <Content Include="App\analytics\providers.js" />
+    <Content Include="App\analytics\providers\consoleProvider.js" />
+    <Content Include="App\analytics\providers\mixpanelProvider.js" />
+    <Content Include="App\analytics\providers\nudgespotProvider.js" />
     <Content Include="App\commands\createCourseCommand.js" />
     <Content Include="App\commands\createCourseCommand.spec.js">
       <DependentUpon>createCourseCommand.js</DependentUpon>

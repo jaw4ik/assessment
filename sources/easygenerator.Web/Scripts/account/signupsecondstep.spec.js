@@ -364,12 +364,14 @@
                     var data;
 
                     beforeEach(function () {
-                        var userData = { email: 'user@email.com', password: 'abcABC123!@#', fullName: 'user', phone: '+380971234567', country: 'Ukraine' };
+                        var userData = { email: 'user@email.com', password: 'abcABC123!@#', firstName: 'first name', lastName: 'last name', fullName: 'user', phone: '+380971234567', country: 'Ukraine' };
                         spyOn(app.clientSessionContext, 'get').and.returnValue(userData);
 
                         data = {
                             email: userData.email,
                             password: userData.password,
+                            firstName: userData.firstName,
+                            lastName: userData.lastName,
                             fullName: userData.fullName,
                             phone: viewModel.phone(),
                             country: viewModel.country(),
@@ -413,7 +415,7 @@
 
                             spyOn(app, 'openHomePage');
 
-                            ajax.resolve({ data: 'username@easygenerator.com' });
+                            ajax.resolve({ data: username });
                             done();
                         });
 
@@ -424,7 +426,7 @@
 
                         it('should track event \'Sign up (2nd step)\'', function () {
                             viewModel.signUp();
-                            expect(app.trackEvent).toHaveBeenCalledWith('Sign up (2nd step)', { username: username });
+                            expect(app.trackEvent).toHaveBeenCalledWith('Sign up (2nd step)', { username: username,  firstname: data.firstName, lastname: data.lastName});
                         });
 
                         it('should track pageview', function () {

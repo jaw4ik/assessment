@@ -8,6 +8,7 @@
                 var deferred = jQuery.Deferred();
 
                 var mixpanel = window.mixpanel;
+
                 if (mixpanel) {
                     var username = eventProperties.username;
                     var properties = {};
@@ -30,10 +31,49 @@
                         }
 
                         properties.Email = username;
-                    }
-                    mixpanel.track(eventName, properties, resolve);
-                    _.delay(resolve, application.constants.timeout.mixpanel);
 
+                        mixpanel.track(eventName, properties, resolve);
+                        _.delay(resolve, application.constants.timeout.mixpanel);
+                    } else {
+                        console.error('mixpanel can\'t identify a user');
+                        resolve();
+                    }
+                } else {
+                    resolve();
+                }
+
+                function resolve() {
+                    deferred.resolve();
+                }
+
+                return deferred.promise();
+            }
+        };
+    }
+
+    function nudgespotAnalyticsProvider() {
+        return {
+            trackEvent: function (eventName, eventProperties) {
+                var deferred = jQuery.Deferred();
+                var nudgespot = window.nudgespot;
+
+                if (nudgespot) {
+                    var username = eventProperties.username;
+                    var firstname = eventProperties.firstname;
+                    var lastname = eventProperties.lastname;
+
+                    var properties = {};
+
+                    if (username && firstname && lastname) {
+                        nudgespot.identify(username, { "first_name": firstname, "last_name": lastname });
+                        properties.email = username;
+
+                        nudgespot.track(eventName, properties);
+                        _.delay(resolve, application.constants.timeout.nudgespot);
+                    } else {
+                        console.error('nudgespot can\'t identify a user');
+                        resolve();
+                    }
                 } else {
                     resolve();
                 }
@@ -88,12 +128,14 @@
         };
     }
 
-    var mixpanelAnalyticesProvider = mixpanelAnalyticsProvider();
+    var mixpanelProvider = mixpanelAnalyticsProvider();
+    var nudgespotProvider = nudgespotAnalyticsProvider();
     var googleAnalyticesProvider = googleAnalyticsProvider();
 
     application.trackEvent = function (eventName, eventProperties) {
         return jQuery.when(
-            mixpanelAnalyticesProvider.trackEvent(eventName, eventProperties)
+            nudgespotProvider.trackEvent(eventName, eventProperties),
+            mixpanelProvider.trackEvent(eventName, eventProperties)
         );
     };
 

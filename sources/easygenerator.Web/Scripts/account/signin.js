@@ -71,7 +71,7 @@ app.signinViewModel = function () {
         $.ajax(requestArgs).done(function (response) {
             if (response) {
                 if (response.success) {
-                    app.trackEvent(app.constants.events.signin, { username: data.username }).done(function () {
+                    app.trackEvent(app.constants.events.signin, response.data).done(function () {
                         app.openHomePage();
                     });
                 } else {

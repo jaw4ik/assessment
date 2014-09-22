@@ -165,7 +165,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             _authenticationProvider.SignIn(username, true);
-            return JsonSuccess();
+            return JsonSuccess(new { username = user.Email, firstname = user.FirstName, lastname = user.LastName });
         }
 
         [HttpPost]

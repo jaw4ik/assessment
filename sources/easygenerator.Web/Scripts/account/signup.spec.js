@@ -704,7 +704,7 @@
                     viewModel.signUp();
 
                     trackEventDefer.promise().always(function () {
-                        expect(app.trackEvent).toHaveBeenCalledWith('Sign up (1st step)', { username: data.email });
+                        expect(app.trackEvent).toHaveBeenCalledWith('Sign up (1st step)', { username: data.email, firstname: data.firstName, lastname: data.lastName });
                         done();
                     });
                 });
@@ -818,7 +818,7 @@
                     viewModel.signUp();
 
                     trackEventDefer.promise().always(function () {
-                        expect(app.trackEvent).toHaveBeenCalledWith('Sign up (1st step)', { username: data.email });
+                        expect(app.trackEvent).toHaveBeenCalledWith('Sign up (1st step)', { username: data.email, firstname: data.firstName, lastname: data.lastName });
                         done();
                     });
                 });
