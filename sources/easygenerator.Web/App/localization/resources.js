@@ -223,8 +223,8 @@
     coursePublishItem: {
         en: '3. Publish'
     },
-    publishOnline: {
-        en: 'Publish online'
+    getPublicationLink: {
+        en: 'Get link'
     },
     republishOnline: {
         en: 'Update published course'
@@ -358,9 +358,6 @@
     sharedCourses: {
         en: 'Shared courses'
     },
-    shareNow: {
-        en: 'Share now'
-    },
     courseHasNotBeenPublishedDescription: {
         en: 'This course has not been published yet. Click the button below to get the private link.'
     },
@@ -372,6 +369,9 @@
     },
     importing: {
         en: 'Importing...'
+    },
+    publishNow: {
+        en: 'Publish now'
     },
     /* End resource section for model Courses */
     
