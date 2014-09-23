@@ -64,7 +64,7 @@
 
                     var properties = {};
 
-                    if (username && firstname && lastname) {
+                    if (username) {
                         nudgespot.identify(username, { "first_name": firstname, "last_name": lastname });
                         properties.email = username;
 

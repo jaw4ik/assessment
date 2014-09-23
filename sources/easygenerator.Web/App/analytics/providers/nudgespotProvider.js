@@ -30,7 +30,7 @@
                     var firstname = _.isObject(userContext.identity) ? userContext.identity.firstname : '';
                     var lastname = _.isObject(userContext.identity) ? userContext.identity.lastname : '';
 
-                    if (username && firstname && lastname) {
+                    if (username) {
                         nudgespot.identify(username, { "first_name": firstname, "last_name": lastname });
                     } else {
                         console.error('nudgespot can\'t identify a user');
