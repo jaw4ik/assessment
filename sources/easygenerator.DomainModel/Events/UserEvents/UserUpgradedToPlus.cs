@@ -4,7 +4,7 @@ namespace easygenerator.DomainModel.Events.UserEvents
 {
     public class UserUpgradedToPlus : UserEvent
     {
-        public UserUpgradedToPlus(User user)
+        internal UserUpgradedToPlus(User user)
             : base(user)
         {
 

@@ -18,7 +18,7 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<CourseCollaboratorAddedEvent>,
         IDomainEventHandler<CourseCollaboratorRemovedEvent>,
         IDomainEventHandler<UserSignedUpEvent>,
-        IDomainEventHandler<UserDonwgraded>,
+        IDomainEventHandler<UserDowngraded>,
         IDomainEventHandler<UserUpgradedToStarter>,
         IDomainEventHandler<UserUpgradedToPlus>
     {
@@ -27,15 +27,17 @@ namespace easygenerator.Web.Synchronization.Handlers
         private readonly ICourseRepository _courseRepository;
         private readonly IEntityMapper _entityMapper;
         private readonly IFeatureAvailabilityChecker _featureAvailabilityCheker;
+        private readonly ICourseCollaboratorRepository _collaboratorRepository;
 
         public CollaborationEventHandler(IUserCollaborationBroadcaster userBroadcaster, ICourseRepository courseRepository, IEntityMapper entityMapper,
-            ICollaborationBroadcaster<Course> courseCollaborationBroadcaster, IFeatureAvailabilityChecker featureAvailabilityCheker)
+            ICollaborationBroadcaster<Course> courseCollaborationBroadcaster, IFeatureAvailabilityChecker featureAvailabilityCheker, ICourseCollaboratorRepository collaboratorRepository)
         {
             _userBroadcaster = userBroadcaster;
             _courseRepository = courseRepository;
             _entityMapper = entityMapper;
             _courseCollaborationBroadcaster = courseCollaborationBroadcaster;
             _featureAvailabilityCheker = featureAvailabilityCheker;
+            _collaboratorRepository = collaboratorRepository;
         }
 
         public void Handle(UserSignedUpEvent args)
@@ -76,18 +78,15 @@ namespace easygenerator.Web.Synchronization.Handlers
             }
         }
 
-        public void Handle(UserDonwgraded args)
+        public void Handle(UserDowngraded args)
         {
+            _collaboratorRepository.LockCollaboration(args.User.Email);
             FinishCoursesCollaboration(args.User.Email, _courseRepository.GetOwnedCourses(args.User.Email));
         }
 
         public void Handle(UserUpgradedToStarter args)
         {
-            var coursesToDisableCollaboration =
-                _courseRepository.GetOwnedCourses(args.User.Email)
-                .Where(e => e.Collaborators.Count() > Constants.Collaboration.MaxCollaboratorsCountForStarterPlan);
-
-            FinishCoursesCollaboration(args.User.Email, coursesToDisableCollaboration);
+            _collaboratorRepository.UnlockCollaboration(args.User.Email, Constants.Collaboration.MaxCollaboratorsCountForStarterPlan);
 
             var coursesToEnabledCollaboration =
                 _courseRepository.GetOwnedCourses(args.User.Email)
@@ -98,6 +97,7 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(UserUpgradedToPlus args)
         {
+            _collaboratorRepository.UnlockCollaboration(args.User.Email);
             StartCoursesCollaboration(args.User.Email, _courseRepository.GetOwnedCourses(args.User.Email));
         }
 

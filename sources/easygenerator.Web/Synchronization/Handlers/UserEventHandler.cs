@@ -4,8 +4,8 @@ using easygenerator.Web.Synchronization.Broadcasting;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {
-    public class UserEventHandler : 
-        IDomainEventHandler<UserDonwgraded>, 
+    public class UserEventHandler :
+        IDomainEventHandler<UserDowngraded>, 
         IDomainEventHandler<UserUpgradedToStarter>,
         IDomainEventHandler<UserUpgradedToPlus>
     {
@@ -16,7 +16,7 @@ namespace easygenerator.Web.Synchronization.Handlers
             _broadcaster = broadcaster;
         }
 
-        public void Handle(UserDonwgraded args)
+        public void Handle(UserDowngraded args)
         {
             _broadcaster.User(args.User.Email).userDowngraded();
         }

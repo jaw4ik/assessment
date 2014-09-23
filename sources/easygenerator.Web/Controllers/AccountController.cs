@@ -130,7 +130,6 @@ namespace easygenerator.Web.Controllers
             }
 
             ticket.User.RecoverPasswordUsingTicket(ticket, password);
-            //_eventPublisher.Publish(new UserUpdateEvent(ticket.User, password));
             _authenticationProvider.SignIn(ticket.User.Email, true);
 
             return RedirectToRoute("Default");

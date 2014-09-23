@@ -3,8 +3,10 @@
 
     var
         dataContext = require('dataContext'),
+        userContext = require('userContext'),
         app = require('durandal/app'),
-        constants = require('constants')
+        constants = require('constants'),
+        userName = 'userName'
     ;
 
     describe('synchronization collaboration [finished]', function () {
@@ -14,6 +16,7 @@
 
         beforeEach(function () {
             spyOn(app, 'trigger');
+            userContext.identity = { email: userName };
         });
 
         it('should be function', function () {
@@ -36,19 +39,23 @@
             expect(dataContext.courses.length).toBe(0);
         });
 
-        it('should delete not used objectives from data context', function () {
-            var objective = { id: 'objId' },
-                objective2 = { id: 'objId2' },
-                objective3 = { id: 'obj3' };
+        it('should delete not used objectives created by another users', function() {
+            var objective = { id: 'obj1', createdBy: userName },
+                objective2 = { id: 'obj2', createdBy: 'userName2' },
+                objective3 = { id: 'obj3', createdBy: 'userName2' },
+                objective4 = { id: 'obj4', createdBy: userName };
 
-            dataContext.objectives = [objective, objective2, objective3];
-            course.objectives = [objective, objective2, objective3];
-            var course2 = { objectives: [objective] };
+            dataContext.objectives = [objective, objective2, objective3, objective4];
+
+            var course = { objectives: [objective, objective2], id: courseId };
+            var course2 = { objectives: [objective3], id: 'courseId2' };
+
             dataContext.courses = [course, course2];
-
             handler(courseId);
-            expect(dataContext.objectives.length).toBe(1);
+            expect(dataContext.objectives.length).toBe(3);
             expect(dataContext.objectives[0].id).toBe(objective.id);
+            expect(dataContext.objectives[1].id).toBe(objective3.id);
+            expect(dataContext.objectives[2].id).toBe(objective4.id);
         });
 
         it('should trigger app event', function () {

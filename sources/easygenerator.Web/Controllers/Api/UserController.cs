@@ -107,8 +107,6 @@ namespace easygenerator.Web.Controllers.Api
 
             user.DowngradePlanToFree();
 
-            _eventPublisher.Publish(new UserDonwgraded(user));
-
             return Success();
         }
 
@@ -128,8 +126,6 @@ namespace easygenerator.Web.Controllers.Api
 
             user.UpgradePlanToStarter(expirationDate.Value);
 
-            _eventPublisher.Publish(new UserUpgradedToStarter(user));
-
             return Success();
         }
 
@@ -148,8 +144,6 @@ namespace easygenerator.Web.Controllers.Api
                 throw new ArgumentException("User with specified email does not exist", "email");
 
             user.UpgradePlanToPlus(expirationDate.Value);
-
-            _eventPublisher.Publish(new UserUpgradedToPlus(user));
 
             return Success();
         }

@@ -162,6 +162,8 @@ namespace easygenerator.DomainModel.Entities
 
             AccessType = AccessType.Starter;
             ExpirationDate = expirationDate;
+
+            RaiseEvent(new UserUpgradedToStarter(this));
         }
 
         public void UpgradePlanToPlus(DateTime expirationDate)
@@ -170,12 +172,16 @@ namespace easygenerator.DomainModel.Entities
 
             AccessType = AccessType.Plus;
             ExpirationDate = expirationDate;
+
+            RaiseEvent(new UserUpgradedToPlus(this));
         }
 
         public virtual void DowngradePlanToFree()
         {
             AccessType = AccessType.Free;
             ExpirationDate = null;
+
+            RaiseEvent(new UserDowngraded(this));
         }
 
         private void ThrowIfEmailIsNotValid(string email)

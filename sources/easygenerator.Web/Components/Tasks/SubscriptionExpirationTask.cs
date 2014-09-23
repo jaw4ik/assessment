@@ -10,22 +10,19 @@ namespace easygenerator.Web.Components.Tasks
     public class SubscriptionExpirationTask : ITask
     {
         private readonly IUserRepository _userRepository;
-        private readonly IDomainEventPublisher _eventPublisher;
 
-        public SubscriptionExpirationTask(IUserRepository userRepository, IDomainEventPublisher eventPublisher)
+        public SubscriptionExpirationTask(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _eventPublisher = eventPublisher;
         }
 
         public void Execute()
         {
-            DateTime currentDate = DateTimeWrapper.Now();
-            var expiredUsers = _userRepository.GetCollection(u => u.ExpirationDate < currentDate);
+            var currentDate = DateTimeWrapper.Now();
+            var expiredUsers = _userRepository.GetCollection(u => u.ExpirationDate < currentDate, 10);
             foreach (User expiredUser in expiredUsers)
             {
                 expiredUser.DowngradePlanToFree();
-                _eventPublisher.Publish(new UserDonwgraded(expiredUser));
             }
         }
     }

@@ -90,6 +90,7 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<CourseCollaborator>().HasRequired(e => e.Course);
             modelBuilder.Entity<CourseCollaborator>().Property(e => e.Email).IsRequired().HasMaxLength(254);
+            modelBuilder.Entity<CourseCollaborator>().Property(e => e.Locked).IsRequired();
 
             modelBuilder.Entity<Aim4YouIntegration>().HasKey(e => new { e.Id });
             modelBuilder.Entity<Aim4YouIntegration>().Property(e => e.Aim4YouCourseId).IsRequired();

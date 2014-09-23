@@ -2,9 +2,9 @@
 
 namespace easygenerator.DomainModel.Events.UserEvents
 {
-    public class UserDonwgraded : UserEvent
+    public class UserDowngraded : UserEvent
     {
-        public UserDonwgraded(User user)
+        internal UserDowngraded(User user)
             : base(user)
         {
         }

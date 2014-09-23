@@ -242,18 +242,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             user.Received().DowngradePlanToFree();
         }
 
-        [TestMethod]
-        public void Downgrade_ShouldPublishUserDowngradedEvent()
-        {
-            const string email = "test@test.test";
-            var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(email).Returns(user);
-
-            _controller.Downgrade(email);
-
-            _eventPublisher.Received().Publish(Arg.Is<UserDonwgraded>(_ => _.User == user));
-        }
-
         #endregion
 
         #region UpgradeToStarter
@@ -305,18 +293,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             user.Received().UpgradePlanToStarter(expDate);
         }
 
-        [TestMethod]
-        public void UpgradeToStarter_ShouldPublishUserUpgradedToStarterEvent()
-        {
-            const string email = "test@test.test";
-            var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(email).Returns(user);
-
-            _controller.UpgradeToStarter(email, DateTime.MaxValue);
-
-            _eventPublisher.Received().Publish(Arg.Is<UserUpgradedToStarter>(_ => _.User == user));
-        }
-
         #endregion
 
         #region UpgradeToPlus
@@ -366,18 +342,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.UpgradeToPlus(email, expDate);
 
             user.Received().UpgradePlanToPlus(expDate);
-        }
-
-        [TestMethod]
-        public void UpgradeToPlus_ShouldPublishUserUpgradedToPlusEvent()
-        {
-            const string email = "test@test.test";
-            var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(email).Returns(user);
-
-            _controller.UpgradeToPlus(email, DateTime.MaxValue);
-
-            _eventPublisher.Received().Publish(Arg.Is<UserUpgradedToPlus>(_ => _.User == user));
         }
 
         #endregion

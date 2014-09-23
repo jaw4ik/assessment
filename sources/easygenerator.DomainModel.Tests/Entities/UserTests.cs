@@ -1166,6 +1166,19 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.ExpirationDate.Should().Be(expirationDate);
         }
 
+        [TestMethod]
+        public void UpgradePlanToStarter_ShouldAddUserUpgradedToStarter()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpgradePlanToStarter(DateTime.Now);
+
+            //Assert
+            user.Events.Should().ContainSingle(e => e.GetType() == typeof(UserUpgradedToStarter));
+        }
+
         #endregion
 
         #region UpgradePlanToPlus
@@ -1186,7 +1199,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void UpgradePlanToPlus_ShouldSetAccessTypeToStarter()
+        public void UpgradePlanToPlus_ShouldSetAccessTypeToPlus()
         {
             //Arrange
             var user = UserObjectMother.Create();
@@ -1210,6 +1223,19 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Assert
             user.ExpirationDate.Should().Be(expirationDate);
+        }
+
+        [TestMethod]
+        public void UpgradePlanToPlus_ShouldAddUserUpgradedToPlus()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpgradePlanToPlus(DateTime.Now);
+
+            //Assert
+            user.Events.Should().ContainSingle(e => e.GetType() == typeof(UserUpgradedToPlus));
         }
 
         #endregion
@@ -1241,6 +1267,20 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Assert
             user.ExpirationDate.Should().Be(null);
         }
+
+        [TestMethod]
+        public void DowngradePlanToFree_ShouldAddUserDowngradedEvent()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.DowngradePlanToFree();
+
+            //Assert
+            user.Events.Should().ContainSingle(e => e.GetType() == typeof(UserDowngraded));
+        }
+
 
         #endregion
 
