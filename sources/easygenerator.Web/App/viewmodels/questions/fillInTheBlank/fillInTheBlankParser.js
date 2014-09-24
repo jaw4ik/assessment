@@ -43,7 +43,7 @@
                 groupId = generateGuid();
                 $input.attr(attributes.groupId, groupId);
             }
-            $input.attr(attributes.value, null);
+            $input.attr(attributes.value, '');
 
             answers.push({
                 groupId: groupId,
