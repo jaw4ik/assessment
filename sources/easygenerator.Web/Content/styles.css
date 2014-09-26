@@ -2352,7 +2352,7 @@ h2 + .tooltip-icon {
     position: relative;
     z-index: 2;
     padding: 30px 20px 20px 20px;
-    font-family: 'MyriadProRegular';
+    font-family: 'OpenSans';
     font-size: 14px;
     line-height: 18px;
     color:#ffffff;
@@ -2360,7 +2360,7 @@ h2 + .tooltip-icon {
 
 .tooltip-content-holder h4 {
     font-family: 'IntroRegular';
-    font-size: 16px;
+    font-size: 17px;
     text-transform: uppercase;
     font-weight: normal;
     color:#95afbc;

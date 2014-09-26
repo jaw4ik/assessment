@@ -79,7 +79,7 @@
     }
 
 .onboarding-step-title {
-    font-family: 'MyriadProRegular';
+    font-family: 'OpenSans';
     margin-left: 15px;
 }
 
@@ -169,7 +169,7 @@
 }
 
 .onboarding-congratulations-caption {
-    font-family: 'MyriadProRegular';
+    font-family: 'OpenSans';
 }
 
 .onboarding-congratulations-help-center {
@@ -278,7 +278,8 @@
     }
 
     .onboarding-hint section b {
-        font-family: 'MyriadProSemibold';
+        font-family: 'OpenSans-Semibold';
+        font-weight: normal;
     }
 
     .onboarding-hint section header {
@@ -286,7 +287,7 @@
         margin-bottom: 12px;
         color: #95afbc;
         line-height: 18px;
-        font-size: 16px;
+        font-size: 17px;
         text-transform: uppercase;
     }
 
