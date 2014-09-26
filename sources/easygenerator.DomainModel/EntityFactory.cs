@@ -9,13 +9,16 @@ namespace easygenerator.DomainModel
         Objective Objective(string title, string createdBy);
         Course Course(string title, Template template, string createdBy);
         SingleSelectText SingleSelectTextQuestion(string title, string createdBy);
+        SingleSelectText SingleSelectTextQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer);
         SingleSelectImage SingleSelectImageQuestion(string title, string createdBy);
+        SingleSelectImage SingleSelectImageQuestion(string title, string createdBy, SingleSelectImageAnswer correctAnswer, SingleSelectImageAnswer incorrectAnswer);
         Multipleselect MultipleselectQuestion(string title, string createdBy);
+        Multipleselect MultipleselectQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer);
         FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
         BlankAnswer BlankAnswer(string text, bool isCorrect, Guid groupId, string createdBy);
         DragAndDropText DragAndDropTextQuestion(string title, string createdBy);
         Dropspot Dropspot(string text, int x, int y, string createdBy);
-        TextMatching TextMatchingQuestion(string title, string createdBy);
+        TextMatching TextMatchingQuestion(string title, string createdBy, TextMatchingAnswer questionAnswer1, TextMatchingAnswer questionAnswer2);
         TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy);
         TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy, DateTime createdOn);
         Comment Comment(string text, string createdBy);
@@ -49,14 +52,29 @@ namespace easygenerator.DomainModel
             return new SingleSelectText(title, createdBy);
         }
 
+        public SingleSelectText SingleSelectTextQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer)
+        {
+            return new SingleSelectText(title, createdBy, correctAnswer, incorrectAnswer);
+        }
+
         public SingleSelectImage SingleSelectImageQuestion(string title, string createdBy)
         {
             return new SingleSelectImage(title, createdBy);
         }
 
+        public SingleSelectImage SingleSelectImageQuestion(string title, string createdBy, SingleSelectImageAnswer correctAnswer, SingleSelectImageAnswer incorrectAnswer)
+        {
+            return new SingleSelectImage(title, createdBy, correctAnswer, incorrectAnswer);
+        }
+
         public Multipleselect MultipleselectQuestion(string title, string createdBy)
         {
             return new Multipleselect(title, createdBy);
+        }
+
+        public Multipleselect MultipleselectQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer)
+        {
+            return new Multipleselect(title, createdBy, correctAnswer, incorrectAnswer);
         }
 
         public FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy)
@@ -124,9 +142,9 @@ namespace easygenerator.DomainModel
             return new SingleSelectImageAnswer(createdBy, createdOn);
         }
 
-        public TextMatching TextMatchingQuestion(string title, string createdBy)
+        public TextMatching TextMatchingQuestion(string title, string createdBy, TextMatchingAnswer questionAnswer1, TextMatchingAnswer questionAnswer2)
         {
-            return new TextMatching(title, createdBy);
+            return new TextMatching(title, createdBy, questionAnswer1, questionAnswer2);
         }
 
         public TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy)

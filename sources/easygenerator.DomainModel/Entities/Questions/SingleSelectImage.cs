@@ -16,6 +16,17 @@ namespace easygenerator.DomainModel.Entities.Questions
             AnswerCollection = new Collection<SingleSelectImageAnswer>();
         }
 
+        public SingleSelectImage(string title, string createdBy, SingleSelectImageAnswer correctAnswer, SingleSelectImageAnswer incorrectAnswer)
+            : this(title, createdBy)
+        {
+            ThrowIfAnswerIsInvalid(correctAnswer);
+            ThrowIfAnswerIsInvalid(incorrectAnswer);
+
+            correctAnswer.IsCorrect = true;
+            AnswerCollection.Add(correctAnswer);
+            AnswerCollection.Add(incorrectAnswer);
+        }
+
         public virtual SingleSelectImageAnswer CorrectAnswer
         {
             get { return Answers.FirstOrDefault(e => e.IsCorrect); }

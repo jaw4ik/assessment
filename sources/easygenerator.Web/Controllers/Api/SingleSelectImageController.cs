@@ -33,8 +33,10 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
             }
 
-            var question = _entityFactory.SingleSelectImageQuestion(title, GetCurrentUsername());
-            SetInitialiData(question);
+            var correctAnswer = _entityFactory.SingleSelectImageAnswer(GetCurrentUsername(), DateTimeWrapper.Now());
+            var incorrectAnswer = _entityFactory.SingleSelectImageAnswer(GetCurrentUsername(), DateTimeWrapper.Now().AddSeconds(1));
+
+            var question = _entityFactory.SingleSelectImageQuestion(title, GetCurrentUsername(), correctAnswer, incorrectAnswer);
 
             objective.AddQuestion(question, GetCurrentUsername());
 
@@ -118,17 +120,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.SetCorrectAnswer(answer, GetCurrentUsername());
-            //_eventPublisher.Publish(new SingleSelectImageCorrectAnswerChangedEvent(answer));
-
             return JsonSuccess();
-        }
-
-        private void SetInitialiData(SingleSelectImage question)
-        {
-            var answer = _entityFactory.SingleSelectImageAnswer(GetCurrentUsername(), DateTimeWrapper.Now());
-            question.AddAnswer(answer, GetCurrentUsername());
-            question.AddAnswer(_entityFactory.SingleSelectImageAnswer(GetCurrentUsername(), DateTimeWrapper.Now().AddSeconds(1)), GetCurrentUsername());
-            question.SetCorrectAnswer(answer, GetCurrentUsername());
         }
 
     }

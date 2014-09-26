@@ -70,14 +70,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var defaultAnswer1 = Substitute.For<TextMatchingAnswer>("Define your key...", "Define your answer...", user);
             var defaultAnswer2 = Substitute.For<TextMatchingAnswer>("Define your key...", "Define your answer...", user, DateTimeWrapper.Now().AddSeconds(1));
 
-            _entityFactory.TextMatchingQuestion(title, user).Returns(question);
+            _entityFactory.TextMatchingQuestion(title, user, defaultAnswer1, defaultAnswer2).Returns(question);
             _entityFactory.TextMatchingAnswer("Define your key...", "Define your answer...", user).Returns(defaultAnswer1);
             _entityFactory.TextMatchingAnswer("Define your key...", "Define your answer...", user, DateTimeWrapper.Now().AddSeconds(1)).Returns(defaultAnswer2);
 
             _controller.Create(objective, title);
 
-            question.Received().AddAnswer(defaultAnswer1, user);
-            question.Received().AddAnswer(defaultAnswer2, user);
+            _entityFactory.Received().TextMatchingQuestion(title, user, defaultAnswer1, defaultAnswer2);
         }
 
         [TestMethod]
@@ -90,7 +89,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
             var question = Substitute.For<TextMatching>("Question title", CreatedBy);
 
-            _entityFactory.TextMatchingQuestion(title, user).Returns(question);
+            _entityFactory.TextMatchingQuestion(title, user, Arg.Any<TextMatchingAnswer>(), Arg.Any<TextMatchingAnswer>()).Returns(question);
 
             _controller.Create(objective, title);
 
@@ -106,7 +105,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             DateTimeWrapper.Now = () => DateTime.MinValue;
             var question = Substitute.For<TextMatching>("Question title", CreatedBy);
 
-            _entityFactory.TextMatchingQuestion(title, user).Returns(question);
+            _entityFactory.TextMatchingQuestion(title, user, Arg.Any<TextMatchingAnswer>(), Arg.Any<TextMatchingAnswer>()).Returns(question);
 
             var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
 

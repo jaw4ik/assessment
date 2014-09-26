@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -19,10 +21,20 @@ namespace easygenerator.DataAccess.Repositories
 
         public ICollection<Objective> GetAvailableObjectivesCollection(string username)
         {
-            return _dataContext.GetSet<Objective>().Where(objective => objective.CreatedBy == username ||
-                    objective.RelatedCoursesCollection.Any(course => course.CollaboratorsCollection.Any(
-                        collaboration => collaboration.Email == username && !collaboration.Locked))
-                    ).ToList();
+            const string query = @"
+	            SELECT * FROM Objectives WHERE CreatedBy = @createdBy OR Id IN
+	            (
+		            SELECT co.Objective_Id FROM CourseObjectives co WHERE Course_Id IN
+		            (
+			            SELECT c.Id FROM Courses c WHERE c.CreatedBy = @createdBy
+			            UNION
+			            SELECT cc.Course_Id FROM CourseCollaborators cc	WHERE cc.Email = @createdBy AND cc.Locked = 0
+		            )
+	            )
+            ";
+
+            return ((DbSet<Objective>) _dataContext.GetSet<Objective>()).SqlQuery(query,
+                new SqlParameter("@createdBy", username)).AsNoTracking().ToList();
         }
     }
 }

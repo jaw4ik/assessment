@@ -16,6 +16,16 @@ namespace easygenerator.DomainModel.Entities.Questions
             AnswersCollection = new Collection<Answer>();
         }
 
+        public Multipleselect(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer)
+            : this(title, createdBy)
+        {
+            ThrowIfAnswerIsInvalid(correctAnswer);
+            ThrowIfAnswerIsInvalid(incorrectAnswer);
+
+            AnswersCollection.Add(correctAnswer);
+            AnswersCollection.Add(incorrectAnswer);
+        }
+
 
         protected internal virtual ICollection<Answer> AnswersCollection { get; set; }
 

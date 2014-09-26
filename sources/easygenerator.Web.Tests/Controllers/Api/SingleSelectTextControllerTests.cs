@@ -64,14 +64,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var correctAnswer = Substitute.For<Answer>("Put your answer option here", true, user, DateTimeWrapper.Now());
             var incorrectAnswer = Substitute.For<Answer>("Put your answer option here", false, user, DateTimeWrapper.Now().AddSeconds(1));
 
-            _entityFactory.SingleSelectTextQuestion(title, user).Returns(question);
-            _entityFactory.Answer("Put your answer option here", true, user, DateTimeWrapper.Now()).Returns(correctAnswer);
-            _entityFactory.Answer("Put your answer option here", false, user, DateTimeWrapper.Now().AddSeconds(1)).Returns(incorrectAnswer);
+            _entityFactory.SingleSelectTextQuestion(title, user, correctAnswer, incorrectAnswer).Returns(question);
+            _entityFactory.Answer(Constants.DefaultAnswerOptionText, true, user, Arg.Any<DateTime>()).Returns(correctAnswer);
+            _entityFactory.Answer(Constants.DefaultAnswerOptionText, false, user, Arg.Any<DateTime>()).Returns(incorrectAnswer);
 
             _controller.Create(objective, title);
-
-            question.Received().AddAnswer(correctAnswer, user);
-            question.Received().AddAnswer(incorrectAnswer, user);
+            _entityFactory.Received().SingleSelectTextQuestion(title, user, correctAnswer, incorrectAnswer);
         }
 
         [TestMethod]
@@ -84,7 +82,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
             var question = Substitute.For<SingleSelectText>("Question title", CreatedBy);
 
-            _entityFactory.SingleSelectTextQuestion(title, user).Returns(question);
+            _entityFactory.SingleSelectTextQuestion(title, user, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
 
             _controller.Create(objective, title);
 
@@ -100,7 +98,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             DateTimeWrapper.Now = () => DateTime.MinValue;
             var question = Substitute.For<SingleSelectText>("Question title", CreatedBy);
 
-            _entityFactory.SingleSelectTextQuestion(title, user).Returns(question);
+            _entityFactory.SingleSelectTextQuestion(title, user, Arg.Any<Answer>(), Arg.Any<Answer>()).Returns(question);
 
             var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
 

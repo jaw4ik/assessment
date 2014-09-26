@@ -1,9 +1,11 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Data.Entity;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.SqlClient;
 
 namespace easygenerator.DataAccess.Repositories
 {
@@ -22,9 +24,15 @@ namespace easygenerator.DataAccess.Repositories
 
         public ICollection<Course> GetAvailableCoursesCollection(string username)
         {
-            return _dataContext.GetSet<Course>().Where(course => course.CreatedBy == username ||
-                    course.CollaboratorsCollection.Any(collaboration => collaboration.Email == username && !collaboration.Locked)
-                    ).ToList();
+            const string query = @"
+                SELECT * FROM Courses WHERE CreatedBy = @createdBy OR Id IN
+                (
+		            SELECT cc.Course_Id FROM CourseCollaborators cc	WHERE cc.Email = @createdBy AND cc.Locked = 0
+                )
+            ";
+
+            return ((DbSet<Course>)_dataContext.GetSet<Course>()).SqlQuery(query,
+               new SqlParameter("@createdBy", username)).AsNoTracking().ToList();
         }
     }
 }

@@ -70,32 +70,15 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var objective = Substitute.For<Objective>();
             var question = SingleSelectImageObjectMother.Create();
 
-            _entityFactory.SingleSelectImageQuestion(title, user).Returns(question);
-            _entityFactory.SingleSelectImageAnswer(Arg.Any<string>(), Arg.Any<DateTime>()).Returns(Substitute.For<SingleSelectImageAnswer>());
+            var answer = Substitute.For<SingleSelectImageAnswer>(user, DateTimeWrapper.Now());
 
+            _entityFactory.SingleSelectImageAnswer(Arg.Any<string>(), Arg.Any<DateTime>()).Returns(answer);
+            _entityFactory.SingleSelectImageQuestion(title, user, answer, answer).Returns(question);
+            
             _controller.Create(objective, title);
 
-            question.Answers.Count().Should().Be(2);
+            _entityFactory.Received().SingleSelectImageQuestion(title, user, answer, answer);
         }
-
-        [TestMethod]
-        public void Create_ShouldSetCorrectAnswerToQuestion()
-        {
-            const string title = "title";
-            var user = "Test user";
-            _user.Identity.Name.Returns(user);
-            DateTimeWrapper.Now = () => DateTime.MinValue;
-            var objective = Substitute.For<Objective>();
-            var question = SingleSelectImageObjectMother.Create();
-
-            _entityFactory.SingleSelectImageQuestion(title, user).Returns(question);
-            _entityFactory.SingleSelectImageAnswer(Arg.Any<string>(), Arg.Any<DateTime>()).Returns(Substitute.For<SingleSelectImageAnswer>());
-
-            _controller.Create(objective, title);
-
-            question.CorrectAnswer.Should().NotBeNull();
-        }
-
 
         [TestMethod]
         public void Create_ShouldAddQuestionToObjective()
@@ -107,7 +90,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var objective = Substitute.For<Objective>();
             var question = Substitute.For<SingleSelectImage>();
 
-            _entityFactory.SingleSelectImageQuestion(title, user).Returns(question);
+            _entityFactory.SingleSelectImageQuestion(title, user, Arg.Any<SingleSelectImageAnswer>(), Arg.Any<SingleSelectImageAnswer>()).Returns(question);
 
             _controller.Create(objective, title);
 
@@ -123,7 +106,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             DateTimeWrapper.Now = () => DateTime.MinValue;
             var question = Substitute.For<SingleSelectImage>();
 
-            _entityFactory.SingleSelectImageQuestion(title, user).Returns(question);
+            _entityFactory.SingleSelectImageQuestion(title, user, Arg.Any<SingleSelectImageAnswer>(), Arg.Any<SingleSelectImageAnswer>()).Returns(question);
 
             var result = _controller.Create(Substitute.For<Objective>(), title);
 

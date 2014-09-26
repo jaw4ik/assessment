@@ -61,6 +61,47 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.ModifiedBy.Should().Be(CreatedBy);
         }
 
+        [TestMethod]
+        public void SingleSelectImage_ShouldThrowExceptionIfAnswer1IsNull()
+        {
+            const string title = "title";
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var answer = new SingleSelectImageAnswer(CreatedBy, DateTimeWrapper.Now());
+
+            Action action = () => new SingleSelectImage(title, CreatedBy, null, answer);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("answer");
+        }
+
+        [TestMethod]
+        public void SingleSelectImage_ShouldThrowExceptionIfAnswer2IsNull()
+        {
+            const string title = "title";
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var answer = new SingleSelectImageAnswer(CreatedBy, DateTimeWrapper.Now());
+
+            Action action = () => new SingleSelectImage(title, CreatedBy, answer, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("answer");
+        }
+
+        [TestMethod]
+        public void SingleSelectImage_ShouldCreateQuestionInstanceWithAnswers()
+        {
+            const string title = "title";
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var answer1 = new SingleSelectImageAnswer(CreatedBy, DateTimeWrapper.Now());
+            var answer2 = new SingleSelectImageAnswer(CreatedBy, DateTimeWrapper.Now());
+
+            var question = new SingleSelectImage(title, CreatedBy, answer1, answer2);
+            question.Answers.Count().Should().Be(2);
+            question.Answers.ElementAt(0).Should().Be(answer1);
+            question.Answers.ElementAt(1).Should().Be(answer2);
+        }
+
         #endregion
 
         #region SetCorrectAnswer

@@ -60,6 +60,47 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.ModifiedBy.Should().Be(CreatedBy);
         }
 
+        [TestMethod]
+        public void TextMatching_ShouldThrowExceptionIfAnswer1IsNull()
+        {
+            const string title = "title";
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var answer = new TextMatchingAnswer("text", "text", CreatedBy, DateTimeWrapper.Now());
+
+            Action action = () => new TextMatching(title, CreatedBy, null, answer);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("answer");
+        }
+
+        [TestMethod]
+        public void TextMatching_ShouldThrowExceptionIfAnswer2IsNull()
+        {
+            const string title = "title";
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var answer = new TextMatchingAnswer("text", "text", CreatedBy, DateTimeWrapper.Now());
+
+            Action action = () => new TextMatching(title, CreatedBy, null, answer);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("answer");
+        }
+
+        [TestMethod]
+        public void TextMatching_ShouldCreateQuestionInstanceWithAnswers()
+        {
+            const string title = "title";
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var answer1 = new TextMatchingAnswer("text", "text", CreatedBy, DateTimeWrapper.Now());
+            var answer2 = new TextMatchingAnswer("text", "text", CreatedBy, DateTimeWrapper.Now());
+
+            var question = new TextMatching(title, CreatedBy, answer1, answer2);
+            question.Answers.Count().Should().Be(2);
+            question.Answers.ElementAt(0).Should().Be(answer1);
+            question.Answers.ElementAt(1).Should().Be(answer2);
+        }
+
         #endregion
 
         #region AddAnswer

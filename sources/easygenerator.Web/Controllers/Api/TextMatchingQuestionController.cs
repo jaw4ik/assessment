@@ -34,22 +34,15 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
             }
 
-            var question = _entityFactory.TextMatchingQuestion(title, GetCurrentUsername());
-            CreateFirstAnswers(question);
-
-            objective.AddQuestion(question, GetCurrentUsername());
-
-            return JsonSuccess(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
-        }
-
-        private void CreateFirstAnswers(TextMatching question)
-        {
             var defaultAnswer1 = GetDefaultAnswer();
             var defaultAnswer2 = _entityFactory.TextMatchingAnswer(Constants.TextMatching.DefaultAnswerKeyText,
                 Constants.TextMatching.DefaultAnswerValueText, GetCurrentUsername(), DateTimeWrapper.Now().AddSeconds(1));
 
-            question.AddAnswer(defaultAnswer1, GetCurrentUsername());
-            question.AddAnswer(defaultAnswer2, GetCurrentUsername());
+            var question = _entityFactory.TextMatchingQuestion(title, GetCurrentUsername(), defaultAnswer1, defaultAnswer2);
+
+            objective.AddQuestion(question, GetCurrentUsername());
+
+            return JsonSuccess(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
         }
 
         private TextMatchingAnswer GetDefaultAnswer()

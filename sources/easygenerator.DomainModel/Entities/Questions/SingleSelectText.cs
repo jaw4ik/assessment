@@ -12,6 +12,11 @@ namespace easygenerator.DomainModel.Entities.Questions
         {
         }
 
+        public SingleSelectText(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer)
+            : base(title, createdBy, correctAnswer, incorrectAnswer)
+        {
+        }
+
         public virtual void SetCorrectAnswer(Answer correctAnswer, string modifiedBy)
         {
             ThrowIfAnswerIsInvalid(correctAnswer);

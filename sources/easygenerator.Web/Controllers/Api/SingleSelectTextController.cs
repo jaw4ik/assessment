@@ -28,21 +28,14 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
             }
 
-            var question = _entityFactory.SingleSelectTextQuestion(title, GetCurrentUsername());
+            var incorrectAnswer = _entityFactory.Answer(Constants.DefaultAnswerOptionText, false, GetCurrentUsername(), DateTimeWrapper.Now().AddSeconds(1));
+            var correctAnswer = _entityFactory.Answer(Constants.DefaultAnswerOptionText, true, GetCurrentUsername(), DateTimeWrapper.Now());
 
-            CreateFirstAnswers(question);
+            var question = _entityFactory.SingleSelectTextQuestion(title, GetCurrentUsername(), correctAnswer, incorrectAnswer);
 
             objective.AddQuestion(question, GetCurrentUsername());
 
             return JsonSuccess(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
-        }
-
-        private void CreateFirstAnswers(Multipleselect question)
-        {
-            var incorrectAnswer = _entityFactory.Answer(Constants.DefaultAnswerOptionText, false, GetCurrentUsername(), DateTimeWrapper.Now().AddSeconds(1));
-            var correctAnswer = _entityFactory.Answer(Constants.DefaultAnswerOptionText, true, GetCurrentUsername(), DateTimeWrapper.Now());
-            question.AddAnswer(correctAnswer, GetCurrentUsername());
-            question.AddAnswer(incorrectAnswer, GetCurrentUsername());
         }
     }
 }

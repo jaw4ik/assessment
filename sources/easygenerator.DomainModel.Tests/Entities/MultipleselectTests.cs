@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
@@ -56,6 +58,47 @@ namespace easygenerator.DomainModel.Tests.Entities
             question.ModifiedOn.Should().Be(DateTime.MaxValue);
             question.CreatedBy.Should().Be(CreatedBy);
             question.ModifiedBy.Should().Be(CreatedBy);
+        }
+
+        [TestMethod]
+        public void Question_ShouldThrowExceptionIfAnswer1IsNull()
+        {
+            const string title = "title";
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var answer = new Answer("text", true, CreatedBy, DateTimeWrapper.Now());
+
+            Action action = () => new Multipleselect(title, CreatedBy, null, answer);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("answer");
+        }
+
+        [TestMethod]
+        public void Question_ShouldThrowExceptionIfAnswer2IsNull()
+        {
+            const string title = "title";
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var answer = new Answer("text", true, CreatedBy, DateTimeWrapper.Now());
+
+            Action action = () => new Multipleselect(title, CreatedBy, answer, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("answer");
+        }
+
+        [TestMethod]
+        public void Question_ShouldCreateQuestionInstanceWithAnswers()
+        {
+            const string title = "title";
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var answer1 = new Answer("text", true, CreatedBy, DateTimeWrapper.Now());
+            var answer2 = new Answer("text", false, CreatedBy, DateTimeWrapper.Now());
+
+            var question = new Multipleselect(title, CreatedBy, answer1, answer2);
+            question.Answers.Count().Should().Be(2);
+            question.Answers.ElementAt(0).Should().Be(answer1);
+            question.Answers.ElementAt(1).Should().Be(answer2);
         }
 
         #endregion

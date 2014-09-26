@@ -16,6 +16,16 @@ namespace easygenerator.DomainModel.Entities.Questions
             AnswersCollection = new Collection<TextMatchingAnswer>();
         }
 
+        public TextMatching(string title, string createdBy, TextMatchingAnswer questionAnswer1, TextMatchingAnswer questionAnswer2)
+            : this(title, createdBy)
+        {
+            ThrowIfAnswerIsInvalid(questionAnswer1);
+            ThrowIfAnswerIsInvalid(questionAnswer2);
+
+            AnswersCollection.Add(questionAnswer1);
+            AnswersCollection.Add(questionAnswer2);
+        }
+
         protected internal virtual Collection<TextMatchingAnswer> AnswersCollection { get; set; }
         public IEnumerable<TextMatchingAnswer> Answers
         {
