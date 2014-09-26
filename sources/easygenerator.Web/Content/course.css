@@ -317,6 +317,7 @@
 
 .template-settings-title,
 .choose-template-title {
+    display:inline-block;
     padding-bottom: 15px;
     color: #303133;
     font-family: 'OpenSans-Semibold';

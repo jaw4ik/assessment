@@ -4,12 +4,26 @@
             <!-- ko if: isExpanded -->
             <div class="expand-collapse-panel expanded">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'dragAndDropTextDesigner' }">Drag'n'drop designer</span>
+                <div class="tooltip-icon" data-bind="tooltip:'top'">
+                    <h4 class="tooltip-title" data-bind="localize: {html:'tooltipDragAndDropTitle'}"></h4>
+                    <div class="tooltip-content" data-bind="localize:{html: 'tooltipDragAndDropDescription'}">
+                    </div>
+                    <div class="tooltip-buttons-holder" data-bind="localize: {html: 'tooltipDragAndDropLink'}">
+                    </div>
+                </div>
                 <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
             </div>
             <!-- /ko -->
             <!-- ko ifnot: isExpanded -->
             <div class="expand-collapse-panel collapsed">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'dragAndDropTextDesigner' }">Drag'n'drop designer</span>
+                <div class="tooltip-icon" data-bind="tooltip:'top'">
+                    <h4 class="tooltip-title" data-bind="localize: {html:'tooltipContentTitle'}"></h4>
+                    <div class="tooltip-content" data-bind="localize:{html: 'tooltipContentDescription'}">
+                    </div>
+                    <div class="tooltip-buttons-holder" data-bind="localize: {html: 'tooltipContentLink'}">
+                    </div>
+                </div>
                 <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
             </div>
             <!-- /ko -->

@@ -5,12 +5,26 @@
             <!-- ko if: isExpanded -->
             <div class="expand-collapse-panel expanded">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'fillInTheBlank' }">Fill in the blank</span>
+                <div class="tooltip-icon" data-bind="tooltip:'top'">
+                    <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipFibTitle'}"></h4>
+                    <div class="tooltip-content" data-bind="localize: { html: 'tooltipFibDescription'}">
+                    </div>
+                    <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipFibLink'}">
+                    </div>
+                </div>
                 <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
             </div>
             <!-- /ko -->
             <!-- ko ifnot: isExpanded -->
             <div class="expand-collapse-panel collapsed">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'fillInTheBlank' }">Fill in the blank</span>
+                <div class="tooltip-icon" data-bind="tooltip:'top'">
+                    <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipFibTitle'}"></h4>
+                    <div class="tooltip-content" data-bind="localize: { html: 'tooltipFibDescription'}">
+                    </div>
+                    <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipFibLink'}">
+                    </div>
+                </div>
                 <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
             </div>
             <!-- /ko -->

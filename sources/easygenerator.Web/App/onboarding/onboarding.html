@@ -8,7 +8,7 @@
                 <span class="onboarding-step-index" data-bind="text: $index() + 1"></span>
                 <span class="onboarding-step-title" data-bind="text: title"></span>
                 <span class="onboarding-lamp" data-bind="visible: markedAsNext"></span>
-                <div class="onboarding-hint tooltip-holder left" data-bind="css: { visible: isHintVisible }">
+                <div class="onboarding-hint tooltip-holder right" data-bind="css: { visible: isHintVisible }">
                     <div class="tooltip-content-holder" data-bind="html: description, stopEventPropagation: { event: 'click' }"></div>
                     <div class="tooltip-background"></div>
                     <a class="tooltip-close-button" data-bind="click: closeHint, stopEventPropagation: { event: 'click' }, localize: { title: 'hideHint' }"></a>
@@ -40,7 +40,7 @@
         <ul class="onboarding-steps-list unstyled" data-bind="foreach: tasks">
             <li class="onboarding-step-item" data-bind="css: { completed: isCompleted }">
                 <span class="onboarding-step-index" data-bind="click: showHint, text: $index() + 1"></span>
-                <div class="onboarding-hint tooltip-holder left" data-bind="css: { visible: isHintVisible }">
+                <div class="onboarding-hint tooltip-holder right" data-bind="css: { visible: isHintVisible }">
                     <div class="tooltip-content-holder" data-bind="html: description"></div>
                     <div class="tooltip-background"></div>
                     <a class="tooltip-close-button" data-bind="click: closeHint, stopEventPropagation: { event: 'click' }, localize: { title: 'hideHint' }"></a>

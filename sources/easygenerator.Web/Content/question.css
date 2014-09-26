@@ -167,6 +167,7 @@
     font-family: 'OpenSans-Semibold', sans-serif;
     font-size: 14px;
     text-transform: uppercase;
+    vertical-align: middle;
 }
 
     .expand-collapse-panel-label.error {

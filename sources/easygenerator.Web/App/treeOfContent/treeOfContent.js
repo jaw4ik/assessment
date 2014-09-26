@@ -22,7 +22,7 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
         sharedChildren: ko.observableArray(),
 
         activate: activate,
-        compositionComplete: compositionComplete,
+        compositionComplete: compositionComplete
     };
 
     var self = {

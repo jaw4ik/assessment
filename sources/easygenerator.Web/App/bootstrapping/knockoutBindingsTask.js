@@ -1,13 +1,14 @@
-﻿define([
-    'viewmodels/questions/dragAndDrop/bindingHandlers/backgroundBindingHandler',
-    'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
-    'viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankBindingHandler',
-    'viewmodels/questions/singleSelectImage/bindingHandlers/answerImageBindingHandler',
-    'widgets/imagePreview/bindingHandlers/fadeBindingHandler',
-    'widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler',
-    'viewmodels/panels/bindingHandlers/fixedPanelBindingHandler'
-], function() {
+﻿define(function (require) {
     "use strict";
+
+    require('components/bindingHandlers/tooltipBindingHandler').install();
+    require('viewmodels/questions/dragAndDrop/bindingHandlers/backgroundBindingHandler');
+    require('viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler');
+    require('viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankBindingHandler');
+    require('viewmodels/questions/singleSelectImage/bindingHandlers/answerImageBindingHandler');
+    require('widgets/imagePreview/bindingHandlers/fadeBindingHandler');
+    require('widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler');
+    require('viewmodels/panels/bindingHandlers/fixedPanelBindingHandler');
 
     var task = {
         execute: execute

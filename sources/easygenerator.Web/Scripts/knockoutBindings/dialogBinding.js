@@ -15,9 +15,10 @@
         }
 
         function show() {
-            var $blockout = $('<div class="modal-dialog-blockout"></div>').appendTo($container);
+            var $blockout = $('<div class="modal-dialog-blockout" style="display:none;"></div>').appendTo($container);
 
             $.when($blockout).done(function () {
+                $blockout.fadeIn(speed);
                 $element.fadeIn(speed);
                 $element.find('.autofocus').first().focus();
             });
@@ -31,7 +32,9 @@
 
         function hide() {
             $element.fadeOut(speed, function () {
-                $('.modal-dialog-blockout').remove();
+                $('.modal-dialog-blockout').fadeOut(speed, function() {
+                    $(this).remove();
+                });
             });
         }
     }

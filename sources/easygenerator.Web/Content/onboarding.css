@@ -189,15 +189,17 @@
 /*#region Hints*/
 
 .onboarding-hint.tooltip-holder {
+    display: block;
     right: -450px;
     top: auto;
     left: auto;
     cursor: default;
     opacity: 0;
+    visibility:hidden;
     -webkit-transform: translateZ(0);
-    -moz-transition: opacity 0.2s linear, right 0.2s linear;
+    transition:  opacity 0.2s linear, right 0.2s linear;
+    -moz-transition:  opacity 0.2s linear, right 0.2s linear;
     -webkit-transition: opacity 0.2s linear, right 0.2s linear;
-    transition: opacity 0.2s linear, right 0.2s linear;
 }
 
 .onboarding-step-item:nth-child(1) .onboarding-hint.tooltip-holder {
@@ -220,10 +222,13 @@
     bottom: -17px;
 }
 
-    .onboarding-hint.tooltip-holder.visible {
-        right: -432px;
-        opacity: 1;
-    }
+.onboarding-hint.tooltip-holder.visible {
+    margin-top: 8px;
+    opacity:1;
+    visibility:visible;
+    transition-delay:0s;
+    right: -432px;
+}
 
 .onboarding-hint .tooltip-pointer {
     top: auto;
