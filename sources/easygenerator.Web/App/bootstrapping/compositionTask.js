@@ -1,4 +1,4 @@
-﻿define(['durandal/composition'], function (composition) {
+﻿define(['durandal/composition'], function(composition) {
     "use strict";
 
     var task = {
@@ -14,4 +14,5 @@
         composition.addBindingHandler('ckeditor');
         composition.addBindingHandler('editableText');
     }
-})
+
+});

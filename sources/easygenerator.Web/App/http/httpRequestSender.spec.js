@@ -151,6 +151,23 @@
 
         });
 
+        describe('configure:', function() {
+
+            it('should be function', function() {
+                expect(httpRequestSender.configure).toBeFunction();
+            });
+
+            it('should configure ajax requests', function() {
+                spyOn($, 'ajaxSetup');
+                httpRequestSender.configure();
+                expect($.ajaxSetup).toHaveBeenCalledWith({
+                    type: 'POST',
+                    headers: { "cache-control": "no-cache" }
+                });
+            });
+
+        });
+
     });
 
 });

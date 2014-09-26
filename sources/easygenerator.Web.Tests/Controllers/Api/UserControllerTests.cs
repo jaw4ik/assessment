@@ -447,7 +447,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var onboarding = OnboardingObjectMother.CreateWithUserEmail(user.Email);
 
             _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.Email).Returns(user);
-            _entityFactory.Onboarding(false, false, false, 0, false, false, user.Email).Returns(onboarding);
+            _entityFactory.Onboarding(user.Email).Returns(onboarding);
 
             _controller.Signup(profile);
             

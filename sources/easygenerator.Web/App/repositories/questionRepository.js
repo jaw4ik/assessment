@@ -36,15 +36,6 @@
 
                             app.trigger(constants.messages.question.created, objectiveId, createdQuestion);
 
-                            switch (questionType) {
-                                case constants.questionType.informationContent.type:
-                                    app.trigger(constants.messages.onboarding.contentCreated);
-                                    break;
-                                default:
-                                    app.trigger(constants.messages.onboarding.createdQuestionsCount);
-                                    break;
-                            }
-
                             return {
                                 id: createdQuestion.id,
                                 createdOn: createdQuestion.createdOn

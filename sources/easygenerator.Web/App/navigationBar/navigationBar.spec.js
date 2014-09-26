@@ -3,7 +3,7 @@
 
     var
         app = require('durandal/app'),
-        onboarding = require('onboarding/inititalization'),
+        onboarding = require('onboarding/initialization'),
         eventTracker = require('eventTracker'),
         constants = require('constants');
 
@@ -53,12 +53,6 @@
                 viewModel.isExpanded(false);
                 viewModel.expand();
                 expect(viewModel.isExpanded()).toBeTruthy();
-            });
-
-            it('should set isVisible to true', function () {
-                viewModel.isVisible(false);
-                viewModel.expand();
-                expect(viewModel.isVisible()).toBeTruthy();
             });
 
             it('should trigger event ' + constants.messages.treeOfContent.expanded, function () {
@@ -112,9 +106,9 @@
                 expect(viewModel.activate).toBeFunction();
             });
 
-            it('should set isUserActivationWizardVisible from userContext', function () {
+            it('should set onboardingClosed', function () {
                 viewModel.onboardingClosed(false);
-                onboarding.isClosed(false);
+                onboarding.isClosed(true);
                 viewModel.activate();
                 expect(viewModel.onboardingClosed()).toBeTruthy();
             });

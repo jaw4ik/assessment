@@ -1,7 +1,7 @@
 ﻿define(['onboarding/onboarding'], function (onboarding) {
     "use strict";
 
-    var inititalization = require('onboarding/inititalization');
+    var initialization = require('onboarding/initialization');
 
     describe('viewmodel [onboarding]', function() {
 
@@ -57,16 +57,16 @@
 
         });
 
-        describe('close:', function () {
+        describe('closeOnboarding:', function () {
 
             it('should be function', function () {
-                expect(onboarding.close).toBeFunction();
+                expect(onboarding.closeOnboarding).toBeFunction();
             });
 
-            it('should call inititalization.close function', function () {
-                spyOn(inititalization, 'close').and.callFake(function () { });
-                onboarding.close();
-                expect(inititalization.close).toHaveBeenCalled();
+            it('should call initialization.closeOnboarding function', function () {
+                spyOn(initialization, 'closeOnboarding').and.callFake(function () { });
+                onboarding.closeOnboarding();
+                expect(initialization.closeOnboarding).toHaveBeenCalled();
             });
 
         });
@@ -79,10 +79,10 @@
 
             var tasksList = [{ title: 'task 1', isCompleted: ko.observable(true) }, { title: 'task 2', isCompleted: ko.observable(true) }];
             beforeEach(function () {
-                spyOn(inititalization, 'getTasksList').and.returnValue(tasksList);
+                spyOn(initialization, 'getTasksList').and.returnValue(tasksList);
             });
 
-            it('should fill tasks from inititalization', function () {
+            it('should fill tasks from initialization', function () {
                 onboarding.tasks([]);
 
                 onboarding.activate({});

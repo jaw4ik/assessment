@@ -3,10 +3,11 @@ using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
-using Microsoft.Ajax.Utilities;
+using easygenerator.Web.Components.ActionFilters;
 
 namespace easygenerator.Web.Controllers.Api
 {
+    [NoCache]
     public class OnboardingController : DefaultController
     {
         private readonly IOnboardingRepository _onboardingRepository;
@@ -38,12 +39,9 @@ namespace easygenerator.Web.Controllers.Api
                         courseCreated = onboarding.CourseCreated,
                         objectiveCreated = onboarding.ObjectiveCreated,
                         contentCreated = onboarding.ContentCreated,
-                        createdQuestionsCount = new
-                        {
-                            value = onboarding.CreatedQuestionsCount,
-                            rule = OnboardingRules.CreatedQuestionsCount
-                        },
+                        createdQuestionsCount = onboarding.CreatedQuestionsCount,
                         coursePublished = onboarding.CoursePublished,
+                        isClosed = onboarding.IsClosed
                     });
         }
 

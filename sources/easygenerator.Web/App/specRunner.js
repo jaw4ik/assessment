@@ -58,8 +58,8 @@
 
             //#region onboarding
 
-            'onboarding/inititalization.spec',
-            'onboarding/handlers.spec',
+            'onboarding/initialization.spec',
+            'onboarding/tasks.spec',
             'onboarding/onboarding.spec',
 
             //#endregion

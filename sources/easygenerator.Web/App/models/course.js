@@ -38,7 +38,6 @@
                     .fin(function () {
                         course.isDelivering = false;
                         app.trigger(constants.messages.course.delivering.finished, course);
-                        app.trigger(constants.messages.onboarding.coursePublished);
                     });
             }; 
             self.packageUrl = packageUrl;

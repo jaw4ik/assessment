@@ -1,4 +1,4 @@
-﻿define(['localization/localizationManager'], function (localizationManager) {
+﻿define(['localization/localizationManager'], function(localizationManager) {
     "use strict";
 
     var task = {
@@ -11,4 +11,4 @@
         localizationManager.initialize(window.top.userCultures);
     }
 
-})
+});

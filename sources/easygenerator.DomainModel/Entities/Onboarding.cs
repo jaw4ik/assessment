@@ -17,6 +17,11 @@ namespace easygenerator.DomainModel.Entities
             UserEmail = userEmail;
         }
 
+        public Onboarding(string userEmail)
+        {
+            UserEmail = userEmail;
+        }
+
         public bool CourseCreated { get; private set; }
 
         public bool ObjectiveCreated { get; private set; }

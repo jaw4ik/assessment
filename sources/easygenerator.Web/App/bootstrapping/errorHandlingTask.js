@@ -1,4 +1,4 @@
-﻿define(['errorHandling/errorHandlingConfiguration', 'errorHandling/globalErrorHandler'], function (errorHandlingConfiguration, globalErrorHandler) {
+﻿define(['errorHandling/errorHandlingConfiguration', 'errorHandling/globalErrorHandler'], function(errorHandlingConfiguration, globalErrorHandler) {
     "use strict";
 
     var task = {
@@ -12,4 +12,4 @@
         globalErrorHandler.subscribeOnAjaxErrorEvents();
     }
 
-})
+});

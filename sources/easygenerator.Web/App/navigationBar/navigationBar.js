@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'onboarding/inititalization'], function (app, constants, eventTracker, userContext, inititalization) {
+﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'onboarding/initialization'], function (app, constants, eventTracker, userContext, initialization) {
     "use strict";
 
     var viewModel = {
@@ -18,13 +18,13 @@
     return viewModel;
 
     function onOnboardingClosed() {
-        viewModel.onboardingClosed(false);
+        viewModel.onboardingClosed(true);
     }
 
     function expand() {
         eventTracker.publish('Expand navigation bar');
         viewModel.isExpanded(true);
-        viewModel.isVisible(true);
+        _.defer(function() { viewModel.isVisible(true); });
         app.trigger(constants.messages.treeOfContent.expanded);
     }
 
@@ -39,7 +39,7 @@
     }
 
     function activate() {
-        viewModel.onboardingClosed(!inititalization.isClosed());
+        viewModel.onboardingClosed(initialization.isClosed());
     }
 
 });

@@ -420,20 +420,21 @@
     <Content Include="App\analytics\providers\consoleProvider.js" />
     <Content Include="App\analytics\providers\mixpanelProvider.js" />
     <Content Include="App\analytics\providers\nudgespotProvider.js" />
+    <Content Include="App\bootstrapping\httpRequestSenderTask.js" />
     <Content Include="App\commands\createCourseCommand.js" />
     <Content Include="App\commands\createCourseCommand.spec.js">
       <DependentUpon>createCourseCommand.js</DependentUpon>
+    </Content>
+    <Content Include="App\onboarding\initialization.spec.js">
+      <DependentUpon>initialization.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.signalR-2.1.2.js" />
     <Content Include="Scripts\jquery.signalR-2.1.2.min.js" />
     <Content Include="Scripts\knockout-3.2.0.debug.js" />
     <Content Include="Scripts\knockout-3.2.0.js" />
-    <Content Include="App\onboarding\handlers.js" />
-    <Content Include="App\onboarding\handlers.spec.js">
-      <DependentUpon>handlers.js</DependentUpon>
-    </Content>
-    <Content Include="App\onboarding\inititalization.spec.js">
-      <DependentUpon>inititalization.js</DependentUpon>
+    <Content Include="App\onboarding\tasks.js" />
+    <Content Include="App\onboarding\tasks.spec.js">
+      <DependentUpon>tasks.js</DependentUpon>
     </Content>
     <Content Include="Scripts\knockoutBindings\customHasFocusBinding.js" />
     <Content Include="App\dialogs\collaboration\removeCollaborator.spec.js">
@@ -457,7 +458,7 @@
     <Content Include="App\onboarding\onboarding.spec.js">
       <DependentUpon>onboarding.js</DependentUpon>
     </Content>
-    <Content Include="App\onboarding\inititalization.js" />
+    <Content Include="App\onboarding\initialization.js" />
     <Content Include="App\onboarding\onboarding.html" />
     <Content Include="App\onboarding\onboarding.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\multipleSelectAnswerCorrectnessUpdated.spec.js">

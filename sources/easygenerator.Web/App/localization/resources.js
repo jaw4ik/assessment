@@ -1157,49 +1157,49 @@
         en: 'What is a course?'
     },
     coursesHelpHint: {
-        en: '<p><strong>Courses</strong> is the generic term for the elearning that you will create. It can be a simple course, a quiz, an exam etc. On this page you will see a list all your courses. To open a course click on it. </p><p><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\">Learn more...</a></p>'
+        en: '<p><strong>Courses</strong> is the generic term for the elearning that you will create. It can be a simple course, a quiz, an exam etc. On this page you will see a list all your courses. To open a course click on it. </p><p><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\">Learn more...</a></p>'
     },
     courseHelpHintTitle: {
         en: 'Why do I need to connect learning objectives?'
     },
     courseHelpHint: {
-        en: '<p>To create instructionally sound eLearning start by defining <strong>Learning Objectives</strong>. Or you can use a sub title instead. </p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p>To create instructionally sound eLearning start by defining <strong>Learning Objectives</strong>. Or you can use a sub title instead. </p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
     createCourseHelpHintTitle: {
         en: 'What is a course template?'
     },
     createCourseHelpHint: {
-        en: '<p>A <strong>course template</strong> sets the look and feel of your course and will determine how the content is organized.</p><p> Changing templates will  change the course type  into a quiz, a course or an exam.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p>A <strong>course template</strong> sets the look and feel of your course and will determine how the content is organized.</p><p> Changing templates will  change the course type  into a quiz, a course or an exam.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
     objectiveHelpHintTitle: {
         en: 'What is a related question?'
     },
     objectiveHelpHint: {
-        en: '<p>You need to add content and/or questions to the learning objective. Select your question type or content to add items.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p>You need to add content and/or questions to the learning objective. Select your question type or content to add items.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
     objectivesHelpHintTitle: {
         en: 'What is a learning objective?'
     },
     objectivesHelpHint: {
-        en: '<p>A <strong>learning objective</strong> describes specific skills or knowledge a learner can demonstrate after completing a course.</p><p> See our <a href=\"http://www.easygenerator.com/learning-objectives\" target=\"_blank\">website</a> for instructions on how to create a learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
+        en: '<p>A <strong>learning objective</strong> describes specific skills or knowledge a learner can demonstrate after completing a course.</p><p> See our <a href=\"http://www.easygenerator.com/learning-objectives\" target=\"_blank\">website</a> for instructions on how to create a learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
     },
     createObjectiveHelpHintTitle: {
         en: 'How to formulate a correct learning objective?'
     },
     createObjectiveHelpHint: {
-        en: '<p>A <strong>learning objective</strong> describes specific skills or knowledge a learner can demonstrate after completing a course.</p><p> See our <a href=\"http://www.easygenerator.com/learning-objectives\" target=\"_blank\">website</a> for instructions on how to create a learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
+        en: '<p>A <strong>learning objective</strong> describes specific skills or knowledge a learner can demonstrate after completing a course.</p><p> See our <a href=\"http://www.easygenerator.com/learning-objectives\" target=\"_blank\">website</a> for instructions on how to create a learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
     },
     questionHelpHintTitle: {
         en: 'Some general tips for the question types'
     },
     questionHelpHint: {
-        en: '<p>You can add content or question pages to a learning objective/sub title. Click \"Add item\" and select the content or question type you need.  See our <a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">User guide</a> to learn more about different question types</p>'
+        en: '<p>You can add content or question pages to a learning objective/sub title. Click \"Add item\" and select the content or question type you need.  See our <a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">User guide</a> to learn more about different question types</p>'
     },
     designHelpHintTitle: {
         en: 'What is a course template?'
     },
     designHelpHint: {
-        en: '<p>A <strong>course template</strong> will set the look and feel of your course and it will determine how the content is organized.</p><p> By switching templates you can change your course into a quiz for example..</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
+        en: '<p>A <strong>course template</strong> will set the look and feel of your course and it will determine how the content is organized.</p><p> By switching templates you can change your course into a quiz for example..</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
     publishHelpHintTitle: {
         en: 'How to deliver the course to learners?'
@@ -1431,7 +1431,7 @@
     },
     /* End resource section for model InviteCollaboratorFromDisplayName */
     
-    /* Resource section for model User activation wizard */
+    /* Resource section for model Onboarding */
     whatNow: {
         en: 'What now?'
     },
@@ -1444,21 +1444,87 @@
     congratulationsCaption: {
         en: 'Look at you. You are now an expert. If you want to know more checkout our'
     },
-    courseCreated: {
+    hideHint: {
+        en: 'Hide'
+    },
+    createCourseOnboardingTaskTitle: {
         en: 'Create course'
     },
-    objectiveCreated: {
+    createCourseOnboardingTaskDescription: {
+        en: '<section><header>What for?</header><article>Creating a new course  has never been easier. Do you have a topic? It can be anything - from accounting to business writing to time management. Or, here are some additional suggestions:</article><ul><li>Basic HTML</li><li>Statistics 101</li><li>Pythagorean theorem</li></ul></section><section><header>How to create course?</header><ol><li>Click on <b>\"New course\"</b> on the list of courses</li><li>Type in the title of your first course</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#How-to-Create-a-Course\">Read more</a></div></section>'
+    },
+    defineObjectiveOnboardingTaskTitle: {
         en: 'Define objective'
     },
-    contentCreated: {
+    defineObjectiveOnboardingTaskDescription: {
+        en: '<section><header>What for?</header><article>Specify exactly what you want students to know or be able to do at the end of the course.</article></section><section><header>How to define objective?</header><ol><li>Click on <b>\"New objective/section\"</b> In the course editor</li><li>Type in your learning objective or section header</li><li>Click on <b>\"Create and continue\"</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Read more</a></div></section>'
+    },
+    addContentOnboardingTaskTitle: {
         en: 'Add content'
     },
-    createdQuestionsCount: {
-        en: 'Add at least 3 questions'
+    addContentOnboardingTaskDescription: {
+        en: '<section><header>What for?</header><article>Give  learners the information they need to be able to answer the question.  Create visually engaging courses by embedding videos and images.</article></section><section><header>How to add content?</header><ol><li>After you have added (or opened) a learning objective, a new page will be displayed.</li><li>Click on <b>\"New item\"</b> and click on <b>\"Content\"</b> after</li><li>Type in a title and add your content</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Content\">Read more</a></div></section>'
     },
-    coursePublished: {
+    createQuestionsOnboardingTaskTitle: {
+        en: 'Add 3 questions ({0}/3)'
+    },
+    createQuestionsOnboardingTaskDescription: {
+        en: '<section><header>What for?</header><article>Engage  users by using multiple question types like: Drag and Drop Text, Text Matching, Single Image choice and many more.</article></section><section><header>How to add questions?</header><ol><li>Click on <b>\"New item\"</b> (On the Learning objective page, or on the page where you create questions or content)</li><li>Select the question type you want to create</li><li>Type in a question title and other properties</li><li>Create a minimum of 3 different questions</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content\">Read more</a></div></section>'
+    },
+    publishOnboardingTaskTitle: {
         en: 'Publish'
+    },
+    publishOnboardingTaskDescription: {
+        en: '<section><header>What for?</header><article>Publish with one click to the cloud.</article></section><section><header>How to publish?</header><ol><li>Click on <b>\"Publish\"</b> on any course page</li><li>Click on <b>\"Get link\"</b></li><li>Copy the link and share it via mail, twitter or any other channel</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Read more</a></div></section>'
+    },
+    /* End resource section for model Onboarding */
+    
+    /* Resource section for model ExplanationTooltips */
+    tooltipContentTitle: {
+        en: 'Content'
+    },
+    tooltipContentDescription: {
+        en: '<p>Learning content is the content the learner needs to be able to answer a question. In easygenerator this content can be added directly to the question. The template you choose in the Design step determines how the content and the question will be organized and presented to the learner.</p>'
+    },
+    tooltipContentLink: {
+        en: '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Content\">read more</a>'
+    },
+    tooltipFibTitle: {
+        en: 'Fill in the blanks'
+    },
+    tooltipFibDescription: {
+        en: '<p>Use a fill in the blank to check active knowledge in the context of a text. The learner is given text with blank spaces. There are two options -- the learner can type in the text in the bland space, or chose the correct text from a drop down list.</p>'
+    },
+    tooltipFibLink: {
+        en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Fill-in-the-Blanks\" target=\"_blank\">read more</a>'
+    },
+    tooltipTextMatchingTitle: {
+        en: 'Text Matching'
+    },
+    tooltipTextMatchingDescription: {
+        en: '<p>A text matching question tests the ability to match corresponding terms to each other. The learner is given a question with two lists, and is asked to drag the provided terms to the correct match or definition.</p>'
+    },
+    tooltipTextMatchingLink: {
+        en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Text-Matching\" target=\"_blank\">read more</a>'
+    },
+    tooltipDragAndDropTitle: {
+        en: 'Drag and Drop Text'
+    },
+    tooltipDragAndDropDescription: {
+        en: '<p>Use Drag and Drop when the user needs to recognize and name parts of an image. A question with a background image is provided and the leaner needs to drop the correct text label to its corresponding spot.</p>'
+    },
+    tooltipDragAndDropLink: {
+        en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Drag-and-Drop-Text\" target=\"_blank\">read more</a>'
+    },
+    tooltipCourseTemplateTitle: {
+        en: 'Course template'
+    },
+    tooltipCourseTemplateDescription: {
+        en: '<p>A course template determines how a course is organized and functions. Easygenerator is flexible, allowing content to be presented in   different formats. Click on ‘preview course template’ to see what each template is.  Select the correct template before publishing.</p>'
+    },
+    tooltipCourseTemplateLink: {
+        en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/course-templates\" target=\"_blank\">read more</a>'
     }
-    /* End resource section for model User activation wizard */
+    /* End resource section for model ExplanationTooltips */
            
 });

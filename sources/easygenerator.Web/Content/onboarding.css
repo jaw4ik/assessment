@@ -9,9 +9,9 @@
     box-shadow: 0 -1px 5px #dedede;
 }
 
-.onboarding-wrapper.minimazed {
-    left: auto;
-}
+    .onboarding-wrapper.minimized {
+        left: auto;
+    }
 
 .onboarding {
     width: 100%;
@@ -35,13 +35,15 @@
 
 .onboarding-step-item {
     position: relative;
-    padding: 10px 33px;
+    padding: 10px 10px 10px 33px;
     cursor: default;
     font-size: 16px;
     color: #068ace;
+    cursor: pointer;
 }
 
-    .onboarding-step-item:hover {
+    .onboarding-step-item:hover,
+    .onboarding-step-item.opened {
         background-color: #e7f3ff;
     }
 
@@ -55,6 +57,7 @@
     border-radius: 50%;
     text-align: center;
     line-height: 30px;
+    cursor: pointer;
 }
 
 .onboarding-step-item.completed .onboarding-step-index {
@@ -85,6 +88,15 @@
     text-decoration: line-through;
 }
 
+.onboarding-step-item .onboarding-lamp {
+    display: inline-block;
+    float: right;
+    width: 13px;
+    height: 24px;
+    margin-top: 3px;
+    background: url('images/sprites_24.png') -180px -58px;
+}
+
 /*#endregion Wizard*/
 
 /*#region Wizard Mini*/
@@ -98,6 +110,7 @@
 
 .onboarding-mini .onboarding-step-item {
     padding: 10px;
+    cursor: default;
 }
 
     .onboarding-mini .onboarding-step-item:hover {
@@ -115,19 +128,6 @@
 
 .onboarding-mini .onboarding-step-item.completed .onboarding-step-index:hover {
     color: transparent;
-}
-
-.onboarding-mini .info-tooltip {
-    width: 150px;
-    top: 100%;
-    left: 100%;
-    bottom: auto;
-    margin-top: -40px;
-}
-
-.onboarding-mini .info-tooltip:after {
-    top: 50%;
-    left: 0;
 }
 
 /*#endregion Wizard Mini*/
@@ -185,3 +185,143 @@
     }
 
 /*#endregion Congratulations*/
+
+/*#region Hints*/
+
+.onboarding-hint.tooltip-holder {
+    right: -450px;
+    top: auto;
+    left: auto;
+    cursor: default;
+    opacity: 0;
+    -webkit-transform: translateZ(0);
+    -moz-transition: opacity 0.2s linear, right 0.2s linear;
+    -webkit-transition: opacity 0.2s linear, right 0.2s linear;
+    transition: opacity 0.2s linear, right 0.2s linear;
+}
+
+.onboarding-step-item:nth-child(1) .onboarding-hint.tooltip-holder {
+    bottom: -217px;
+}
+
+.onboarding-step-item:nth-child(2) .onboarding-hint.tooltip-holder {
+    bottom: -167px;
+}
+
+.onboarding-step-item:nth-child(3) .onboarding-hint.tooltip-holder {
+    bottom: -117px;
+}
+
+.onboarding-step-item:nth-child(4) .onboarding-hint.tooltip-holder {
+    bottom: -67px;
+}
+
+.onboarding-step-item:nth-child(5) .onboarding-hint.tooltip-holder {
+    bottom: -17px;
+}
+
+    .onboarding-hint.tooltip-holder.visible {
+        right: -432px;
+        opacity: 1;
+    }
+
+.onboarding-hint .tooltip-pointer {
+    top: auto;
+}
+
+.onboarding-step-item:nth-child(1) .onboarding-hint .tooltip-pointer {
+    bottom: 225px;
+}
+
+.onboarding-step-item:nth-child(2) .onboarding-hint .tooltip-pointer {
+    bottom: 175px;
+}
+
+.onboarding-step-item:nth-child(3) .onboarding-hint .tooltip-pointer {
+    bottom: 125px;
+}
+
+.onboarding-step-item:nth-child(4) .onboarding-hint .tooltip-pointer {
+    bottom: 75px;
+}
+
+.onboarding-step-item:nth-child(5) .onboarding-hint .tooltip-pointer {
+    bottom: 25px;
+}
+
+.onboarding-hint .tooltip-content-holder {
+    padding: 10px 0 0 0;
+}
+
+.onboarding-hint .tooltip-content-holder .read-more-btn {
+    margin-top: 20px;
+}
+
+.onboarding-hint section {
+    padding: 20px;
+    border-top: 1px solid #566474;
+    border-bottom: 1px solid #44505c;
+    line-height: 20px;
+}
+
+    .onboarding-hint section:first-of-type {
+        border-top: none;
+    }
+
+    .onboarding-hint section:last-of-type {
+        border-bottom: none;
+    }
+
+    .onboarding-hint section b {
+        font-family: 'MyriadProSemibold';
+    }
+
+    .onboarding-hint section header {
+        font-family: 'IntroRegular';
+        margin-bottom: 12px;
+        color: #95afbc;
+        line-height: 18px;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+
+    .onboarding-hint section ul {
+        list-style-type: disc;
+        padding: 6px 0 0 6px;
+    }
+
+    .onboarding-hint section ol {
+        counter-reset: item;
+        list-style-type: none;
+    }
+
+        .onboarding-hint section ol li {
+            margin-bottom: 10px;
+        }
+
+            .onboarding-hint section ol li:last-child {
+                margin-bottom: 0;
+            }
+
+            .onboarding-hint section ol li:before {
+                content: counter(item) " ";
+                counter-increment: item;
+                display: inline-block;
+                width: 15px;
+                height: 15px;
+                margin-right: 10px;
+                border-radius: 50%;
+                background: #ffffff;
+                box-shadow: 0px 2px 0px 0.00px rgba(0, 0, 0, 0.1);
+                font-family: 'IntroRegular';
+                font-size: 12px;
+                line-height: 16px;
+                text-align: center;
+                color: #556270;
+            }
+
+.onboarding-hint .tooltip-buttons-holder {
+    margin-top: 20px;
+}
+
+/*#endregion Hints*/

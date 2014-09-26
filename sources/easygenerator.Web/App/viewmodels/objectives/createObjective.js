@@ -91,10 +91,10 @@
                 uiLocker.lock();
                 return objectiveRepository.addObjective({ title: title() }).then(function (createdObjective) {
                     title('');
-                    app.trigger(constants.messages.onboarding.objectiveCreated);
                     if (_.isString(that.contextCourseId)) {
                         return objectiveRepository.getById(createdObjective.id).then(function (objective) {
                             return courseRepository.relateObjective(that.contextCourseId, objective.id).then(function () {
+                                app.trigger(constants.messages.objective.createdInCourse);
                                 navigateToObjectiveEditor.call(that, createdObjective);
                             });
                         });

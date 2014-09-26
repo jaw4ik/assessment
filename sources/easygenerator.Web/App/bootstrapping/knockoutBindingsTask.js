@@ -6,7 +6,7 @@
     'widgets/imagePreview/bindingHandlers/fadeBindingHandler',
     'widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler',
     'viewmodels/panels/bindingHandlers/fixedPanelBindingHandler'
-], function () {
+], function() {
     "use strict";
 
     var task = {
@@ -23,7 +23,7 @@
             containment: 'body',
             tolerance: 'pointer',
             cursor: 'move',
-            start: function (e, ui) {
+            start: function(e, ui) {
                 if (/MSIE/i.test(navigator.userAgent)) {
                     ui.placeholder.height(ui.item.height());
                 }
@@ -35,4 +35,4 @@
         });
     }
 
-})
+});

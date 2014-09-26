@@ -1,18 +1,25 @@
-﻿<section class="onboarding-wrapper" data-bind="css: { minimazed: isMinimized }">
+﻿<section class="onboarding-wrapper" data-bind="if: isVisible, outsideClick: { action: closeAllHints }, css: { minimized: isMinimized }">
     <!-- ko ifnot: isMinimized -->
     <div class="onboarding" data-bind="css: { 'onboarding-congratulations': isCompleted }">
         <!-- ko ifnot: isCompleted -->
         <header data-bind="localize: { text: 'whatNow' }" class="onboarding-header">What now?</header>
         <ul class="onboarding-steps-list unstyled" data-bind="foreach: tasks">
-            <li class="onboarding-step-item" data-bind="css: { completed: isCompleted }">
+            <li class="onboarding-step-item" data-bind="click: showHint, css: { completed: isCompleted, opened: isHintVisible }">
                 <span class="onboarding-step-index" data-bind="text: $index() + 1"></span>
                 <span class="onboarding-step-title" data-bind="text: title"></span>
+                <span class="onboarding-lamp" data-bind="visible: markedAsNext"></span>
+                <div class="onboarding-hint tooltip-holder left" data-bind="css: { visible: isHintVisible }">
+                    <div class="tooltip-content-holder" data-bind="html: description, stopEventPropagation: { event: 'click' }"></div>
+                    <div class="tooltip-background"></div>
+                    <a class="tooltip-close-button" data-bind="click: closeHint, stopEventPropagation: { event: 'click' }, localize: { title: 'hideHint' }"></a>
+                    <span class="tooltip-pointer"></span>
+                </div>
             </li>
         </ul>
         <!-- /ko -->
         <!-- ko if: isCompleted -->
         <header data-bind="localize: { text: 'congratulations' }" class="onboarding-header">Congratulations</header>
-        <span class="onboarding-congratulations-close" data-bind="click: close"></span>
+        <span class="onboarding-congratulations-close" data-bind="click: closeOnboarding"></span>
         <article class="onboarding-congratulations-content">
             <figure>
                 <img class="onboarding-congratulations-image" src="/Content/images/onboarding-congratulations-icon.png" alt="Congratulation" />
@@ -31,10 +38,13 @@
     <div class="onboarding-mini">
         <div class="onboarding-mini-map"></div>
         <ul class="onboarding-steps-list unstyled" data-bind="foreach: tasks">
-            <li class="onboarding-step-item info-tooltip-holder" data-bind="css: { completed: isCompleted }">
-                <span class="onboarding-step-index" data-bind="text: $index() + 1"></span>
-                <div class="info-tooltip left-side">
-                    <span data-bind="text: title"></span>
+            <li class="onboarding-step-item" data-bind="css: { completed: isCompleted }">
+                <span class="onboarding-step-index" data-bind="click: showHint, text: $index() + 1"></span>
+                <div class="onboarding-hint tooltip-holder left" data-bind="css: { visible: isHintVisible }">
+                    <div class="tooltip-content-holder" data-bind="html: description"></div>
+                    <div class="tooltip-background"></div>
+                    <a class="tooltip-close-button" data-bind="click: closeHint, stopEventPropagation: { event: 'click' }, localize: { title: 'hideHint' }"></a>
+                    <span class="tooltip-pointer"></span>
                 </div>
             </li>
         </ul>

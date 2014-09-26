@@ -1,11 +1,14 @@
-﻿define(['onboarding/inititalization'], function (inititalization) {
+﻿define(['onboarding/initialization'], function (onboardingInitialization) {
     "use strict";
 
     var viewModel = {
         tasks: ko.observableArray([]),
         isMinimized: ko.observable(false),
+        isVisible: ko.observable(false),
 
-        close: close,
+        closeOnboarding: closeOnboarding,
+        closeAllHints: onboardingInitialization.closeAllHints,
+
         activate: activate
     };
 
@@ -18,11 +21,13 @@
     return viewModel;
 
     function activate(settings) {
-        viewModel.tasks(inititalization.getTasksList());
+        viewModel.isVisible(false);
+        viewModel.tasks(onboardingInitialization.getTasksList());
         viewModel.isMinimized(settings.isMinimized);
+        viewModel.isVisible(true);
     }
 
-    function close() {
-        inititalization.close();
+    function closeOnboarding() {
+        onboardingInitialization.closeOnboarding();
     }
 })

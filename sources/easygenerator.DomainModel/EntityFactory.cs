@@ -31,8 +31,7 @@ namespace easygenerator.DomainModel
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
         InformationContent InformationContent(string title, string createdBy);
-        Onboarding Onboarding(bool courseCreated, bool objectiveCreated, bool contentCreated, int createdQuestionsCount,
-            bool coursePublished, bool isClosed, string userEmail);
+        Onboarding Onboarding(string userEmail);
     }
 
     public class EntityFactory : IEntityFactory
@@ -162,10 +161,9 @@ namespace easygenerator.DomainModel
             return new InformationContent(title, createdBy);
         }
 
-        public Onboarding Onboarding(bool courseCreated, bool objectiveCreated, bool contentCreated, int createdQuestionsCount,
-            bool coursePublished, bool isClosed, string userEmail)
+        public Onboarding Onboarding(string userEmail)
         {
-            return new Onboarding(courseCreated, objectiveCreated, contentCreated, createdQuestionsCount, coursePublished, isClosed, userEmail);
+            return new Onboarding(userEmail);
         }
     }
 }

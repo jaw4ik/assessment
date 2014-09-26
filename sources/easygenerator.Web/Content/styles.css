@@ -1737,9 +1737,9 @@ span.top-navigation-item.current {
     text-align: center;
     opacity: 0;
     z-index: 200;
+    transition: opacity 0.2s ease;
     -moz-transition: opacity 0.2s ease;
     -webkit-transition: opacity 0.2s ease;
-    transition: opacity 0.2s ease;
 }
 
     .info-tooltip:after {
@@ -2280,6 +2280,172 @@ span.top-navigation-item.current {
 }
 
 /*#endregion DIALOGS STYLE*/
+
+/*#region TOOLTIP*/
+
+.tooltip-icon {
+    background: url("images/sprites_24.png") repeat scroll -61px -61px rgba(0, 0, 0, 0);
+    content: "";
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 0 1px rgba(0, 144, 217, 0);
+    transition-delay: 0s;
+    transition-duration: 0.15s;
+    transition-property: box-shadow;
+    transition-timing-function: linear;
+}
+
+.tooltip-icon:hover {
+    background-position: -90px -61px;
+    box-shadow: 0 0 6px rgba(0, 144, 217, 0.6);
+}
+
+.tooltip-holder {
+    position: absolute;
+    z-index: 1000;
+    top:300px;
+    left:400px;
+    width: 420px;
+    margin: 8px;
+    margin-top: 30px;
+    opacity: 0;
+    visibility:hidden;
+    transition: visibility 0s linear 0.2s, opacity 0.2s linear, margin 0.2s linear;
+    -moz-transition: visibility 0s linear 0.2s, opacity 0.2s linear, margin 0.2s linear;
+    -webkit-transition: visibility 0s linear 0.2s, opacity 0.2s linear, margin 0.2s linear; 
+}
+
+.tooltip-holder.visible {
+    margin-top: 8px;
+    opacity:1;
+    visibility:visible;
+    transition-delay:0s;
+}
+
+.tooltip-background {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #435160;
+    opacity: 0.95;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.tooltip-close-button {
+    position: absolute;
+    display: block;
+    top: 10px;
+    right: 10px;
+    height: 24px;
+    width: 24px;
+    z-index: 2;
+    cursor: pointer;
+    background: url("images/sprites_24.png") repeat scroll -116px -58px rgba(0, 0, 0, 0);
+}
+
+.tooltip-close-button:hover {
+    background-position: -145px -58px;
+}
+
+.tooltip-content-holder {
+    position: relative;
+    z-index: 2;
+    padding: 30px 20px 20px 20px;
+    font-family: 'MyriadProRegular';
+    font-size: 14px;
+    line-height: 18px;
+    color:#ffffff;
+}
+
+.tooltip-content-holder h4 {
+    font-family: 'IntroRegular';
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: normal;
+    color:#95afbc;
+    margin-bottom: 20px;
+}
+
+.tooltip-content-holder p {
+    margin-bottom: 7px;
+}
+
+.tooltip-content {
+    margin-bottom: 20px;
+}
+
+.tooltip-buttons-holder {
+    text-align: center;
+}
+
+.tooltip-buttons-holder a {
+    display: inline-block;
+    padding: 10px 30px;
+    border: 2px #8aa1ae solid;
+    border-radius: 3px;
+    color:#ededed;
+    background:  rgba(44, 51, 59, 0);
+    font-family: 'IntroRegular';
+    font-size: 16px;
+    line-height: 18px;
+    text-transform: uppercase;
+    transition-delay: 0s;
+    transition-duration: 0.15s;
+    transition-property: background-color;
+    transition-timing-function: linear;
+}
+
+.tooltip-buttons-holder a:hover {
+    background:  rgba(44, 51, 59, 1);
+}
+
+.tooltip-pointer {
+    content: "";
+    display: block;
+    height: 0;
+    width: 0;
+    position: absolute;
+    opacity: 0.95;
+}
+
+.top .tooltip-pointer {
+    top: -8px;
+    left: 18px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #435160;
+}
+.bottom .tooltip-pointer {
+    bottom: -8px;
+    left: 18px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #435160;
+}
+
+.left .tooltip-pointer {
+    top: 18px;
+    left: -8px;
+    border-right: 8px solid #435160;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+
+.right .tooltip-pointer {
+    top: 18px;
+    right: -8px;
+    border-left: 8px solid #435160;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+
+/*#endregion TOOLTIP*/
 
 /*#region CURSOR*/
 .cursor-default {

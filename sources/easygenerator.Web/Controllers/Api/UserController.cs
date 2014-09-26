@@ -177,7 +177,7 @@ namespace easygenerator.Web.Controllers.Api
             _repository.Add(user);
             _eventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.UserRole, profile.RequestIntroductionDemo));
 
-            var onboarding = _entityFactory.Onboarding(false, false, false, 0, false, false, user.Email);
+            var onboarding = _entityFactory.Onboarding(user.Email);
             _onboardingRepository.Add(onboarding);
 
             if (User.Identity.IsAuthenticated && _repository.GetUserByEmail(User.Identity.Name) == null)

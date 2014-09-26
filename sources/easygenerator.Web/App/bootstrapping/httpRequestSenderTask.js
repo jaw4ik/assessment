@@ -1,4 +1,4 @@
-﻿define(['durandal/viewLocator'], function(viewLocator) {
+﻿define(['http/httpRequestSender'], function (httpRequestSender) {
     "use strict";
 
     var task = {
@@ -8,7 +8,7 @@
     return task;
 
     function execute() {
-        viewLocator.useConvention();
+        httpRequestSender.configure();
     }
 
 });
