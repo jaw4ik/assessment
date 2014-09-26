@@ -24,15 +24,9 @@ namespace easygenerator.DataAccess.Repositories
 
         public ICollection<Course> GetAvailableCoursesCollection(string username)
         {
-            const string query = @"
-                SELECT * FROM Courses WHERE CreatedBy = @createdBy OR Id IN
-                (
-		            SELECT cc.Course_Id FROM CourseCollaborators cc	WHERE cc.Email = @createdBy AND cc.Locked = 0
-                )
-            ";
-
-            return ((DbSet<Course>)_dataContext.GetSet<Course>()).SqlQuery(query,
-               new SqlParameter("@createdBy", username)).AsNoTracking().ToList();
+            return _dataContext.GetSet<Course>().Where(course => course.CreatedBy == username ||
+                   course.CollaboratorsCollection.Any(collaboration => collaboration.Email == username && !collaboration.Locked)
+                   ).AsNoTracking().ToList();
         }
     }
 }
