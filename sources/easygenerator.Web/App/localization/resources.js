@@ -1457,7 +1457,7 @@
         en: 'Define objective'
     },
     defineObjectiveOnboardingTaskDescription: {
-        en: '<section><header>What for?</header><article>Specify exactly what you want students to know or be able to do at the end of the course.</article></section><section><header>How to define objective?</header><ol><li>Click on <b>\"New objective/section\"</b> In the course editor</li><li>Type in your learning objective or section header</li><li>Click on <b>\"Create and continue\"</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Read more</a></div></section>'
+        en: '<section><header>What for?</header><article>Specify exactly what you want students to know or be able to do at the end of the course.</article></section><section><header>How to define objective?</header><ol><li>Click on <b>\"New objective/section\"</b> in the course editor</li><li>Type in your learning objective or section header title</li><li>Click on <b>\"Create and continue\"</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Read more</a></div></section>'
     },
     addContentOnboardingTaskTitle: {
         en: 'Add content'
@@ -1484,7 +1484,7 @@
         en: 'Content'
     },
     tooltipContentDescription: {
-        en: '<p>Learning content is the content the learner needs to be able to answer a question. In easygenerator this content can be added directly to the question. The template you choose in the Design step determines how the content and the question will be organized and presented to the learner.</p>'
+        en: '<p>Learning content is the content the learner needs to be able to answer a question.</p><p>In easygenerator this content can be added directly to the question.</p><p>The template you choose in the Design step determines how the content and the question will be organized and presented to the learner.</p>'
     },
     tooltipContentLink: {
         en: '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Content\">read more</a>'
@@ -1493,7 +1493,7 @@
         en: 'Fill in the blanks'
     },
     tooltipFibDescription: {
-        en: '<p>Use a fill in the blank to check active knowledge in the context of a text. The learner is given text with blank spaces. There are two options -- the learner can type in the text in the bland space, or chose the correct text from a drop down list.</p>'
+        en: '<p>Use a fill in the blank to check active knowledge in the context of a text.</p><p>The learner is given text with blank spaces. There are two options -- the learner can type in the text in the bland space, or chose the correct text from a drop down list.</p>'
     },
     tooltipFibLink: {
         en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Fill-in-the-Blanks\" target=\"_blank\">read more</a>'
@@ -1502,7 +1502,7 @@
         en: 'Text Matching'
     },
     tooltipTextMatchingDescription: {
-        en: '<p>A text matching question tests the ability to match corresponding terms to each other. The learner is given a question with two lists, and is asked to drag the provided terms to the correct match or definition.</p>'
+        en: '<p>A text matching question tests the ability to match corresponding terms to each other.</p><p>The learner is given a question with two lists, and is asked to drag the provided terms to the correct match or definition.</p>'
     },
     tooltipTextMatchingLink: {
         en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Text-Matching\" target=\"_blank\">read more</a>'
@@ -1511,7 +1511,7 @@
         en: 'Drag and Drop Text'
     },
     tooltipDragAndDropDescription: {
-        en: '<p>Use Drag and Drop when the user needs to recognize and name parts of an image. A question with a background image is provided and the leaner needs to drop the correct text label to its corresponding spot.</p>'
+        en: '<p>Use Drag and Drop when the user needs to recognize and name parts of an image.</p><p>A question with a background image is provided and the leaner needs to drop the correct text label to its corresponding spot.</p>'
     },
     tooltipDragAndDropLink: {
         en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Drag-and-Drop-Text\" target=\"_blank\">read more</a>'
@@ -1520,7 +1520,7 @@
         en: 'Course template'
     },
     tooltipCourseTemplateDescription: {
-        en: '<p>A course template determines how a course is organized and functions. Easygenerator is flexible, allowing content to be presented in   different formats. Click on ‘preview course template’ to see what each template is.  Select the correct template before publishing.</p>'
+        en: '<p>A course template determines how a course is organized and functions.</p><p>Easygenerator is flexible, allowing content to be presented in different formats.</p><p>Click on ‘preview course template’ to see what each template is. Select the correct template before publishing.</p>'
     },
     tooltipCourseTemplateLink: {
         en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/course-templates\" target=\"_blank\">read more</a>'
