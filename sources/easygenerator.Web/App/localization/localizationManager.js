@@ -52,9 +52,6 @@
 
     (function () {
         ko.bindingHandlers.localize = {
-            init: function (element, valueAccessor) {
-                localizeValue(element, valueAccessor);
-            },
             update: function (element, valueAccessor) {
                 localizeValue(element, valueAccessor);
             }

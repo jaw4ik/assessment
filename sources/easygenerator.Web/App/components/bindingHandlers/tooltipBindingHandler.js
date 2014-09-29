@@ -14,11 +14,14 @@
         app.on(constants.messages.treeOfContent.collapsed, closeAllTooltips);
 
         ko.bindingHandlers.tooltip = {
-            init: function (element, valueAccessor) {
+            init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+                ko.applyBindingsToDescendants(bindingContext, element);
+
                 initTooltip(element, valueAccessor() || 'top');
+                return { controlsDescendantBindings: true };
             },
             update: function (element, valueAccessor) {
-
+                
             }
         };
 
@@ -157,6 +160,5 @@
             return position;
         }
 
-        composition.addBindingHandler('tooltip');
     }
 });
