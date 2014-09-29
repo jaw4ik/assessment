@@ -170,6 +170,10 @@
         padding-left: 145px;
     }
 
+    .header .content-section-wrapper .content-section {
+        min-width: 740px;
+    }
+
 .header-logo-holder {
     padding: 14px 4px;
 }
