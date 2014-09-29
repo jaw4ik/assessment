@@ -1,28 +1,28 @@
 ﻿define(['durandal/app', 'constants', 'http/httpWrapper', 'onboarding/tasks'],
     function (app, constants, httpWrapper, tasks) {
-    "use strict";
+        "use strict";
 
         var tasksList = [];
 
-    var onboarding = {
-        getTasksList: getTasksList,
+        var onboarding = {
+            getTasksList: getTasksList,
 
             isClosed: ko.observable(false),
             closeOnboarding: closeOnboarding,
             closeAllHints: closeAllHints,
 
             initialize: initialize
-    };
+        };
 
-    return onboarding;
+        return onboarding;
 
-    function initialize() {
+        function initialize() {
             return httpWrapper.post('api/onboarding').then(function (onboardingStates) {
                 onboarding.isClosed(!_.isNullOrUndefined(onboardingStates) ? onboardingStates.isClosed : true);
 
                 if (onboarding.isClosed()) {
-                return;
-            }
+                    return;
+                }
 
                 _.each(tasks, function (taskInitializer) {
                     var task = taskInitializer(onboardingStates);
@@ -37,10 +37,10 @@
                     };
 
                     task.markedAsNext = ko.observable(false);
-                    task.markAsNext = function() {
-                        _.each(tasksList, function(item) {
+                    task.markAsNext = function () {
+                        _.each(tasksList, function (item) {
                             item.markedAsNext(false);
-                    });
+                        });
                         task.markedAsNext(true);
                     };
 
@@ -49,15 +49,15 @@
                             this.dispose();
                             openFirstUncompletedTaskHint();
                             markFirstUncompletedTaskAsNext();
-                }
-            });
+                        }
+                    });
 
                     tasksList.push(task);
-        });
+                });
 
                 markFirstUncompletedTaskAsNext();
             });
-    }
+        }
 
         function openFirstUncompletedTaskHint() {
             _.every(tasksList, function (task) {
@@ -86,13 +86,14 @@
         }
 
         function closeOnboarding() {
-        return httpWrapper.post('api/onboarding/close').then(function () {
-            app.trigger(constants.messages.onboarding.closed);
-        });
-    }
+            return httpWrapper.post('api/onboarding/close').then(function () {
+                onboarding.isClosed(true);
+                app.trigger(constants.messages.onboarding.closed);
+            });
+        }
 
-    function getTasksList() {
+        function getTasksList() {
             return tasksList;
-    }
+        }
     }
 );

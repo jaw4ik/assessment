@@ -51,6 +51,14 @@
                     httpPostDefer.resolve();
                 });
 
+                it('should set isClosed to true', function () {
+                    viewModel.isClosed(false);
+                    viewModel.closeOnboarding().fin(function () {
+                        expect(viewModel.isClosed()).toBeTruthy();
+                        done();
+                    });
+                });
+
                 it('should trigger event ' + constants.messages.onboarding.closed, function (done) {
                     viewModel.closeOnboarding().fin(function () {
                         expect(app.trigger).toHaveBeenCalledWith(constants.messages.onboarding.closed);
