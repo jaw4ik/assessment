@@ -2293,6 +2293,7 @@ span.top-navigation-item.current {
     display: inline-block;
     height: 18px;
     width: 18px;
+    margin-left: 7px;
     cursor: pointer;
     vertical-align: middle;
     line-height: 20px;
