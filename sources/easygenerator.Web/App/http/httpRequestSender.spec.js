@@ -161,7 +161,6 @@
                 spyOn($, 'ajaxSetup');
                 httpRequestSender.configure();
                 expect($.ajaxSetup).toHaveBeenCalledWith({
-                    type: 'POST',
                     headers: { "cache-control": "no-cache" }
                 });
             });

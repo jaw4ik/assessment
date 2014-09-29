@@ -44,7 +44,6 @@
 
         function configure() {
             $.ajaxSetup({
-                type: 'POST',
                 headers: { "cache-control": "no-cache" }
             });
         }
