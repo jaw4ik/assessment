@@ -52,7 +52,7 @@ namespace easygenerator.DomainModel.Entities.Questions
             IsCorrect = isCorrect;
             MarkAsModified(modifiedBy);
 
-            RaiseEvent(new MultipleselectAnswerCorrectnessUpdatedEvent(this));
+            RaiseEvent(new AnswerCorrectnessUpdatedEvent(this));
         }
 
         public virtual Multipleselect Question { get; internal set; }

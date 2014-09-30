@@ -82,10 +82,10 @@
             };
 
             viewModel.deletedByCollaborator = deletedByCollaborator;
-            viewModel.multipleselectAnswerCorrectnessUpdatedByCollaborator = multipleselectAnswerCorrectnessUpdatedByCollaborator;
+            viewModel.answerCorrectnessUpdatedByCollaborator = answerCorrectnessUpdatedByCollaborator;
 
             app.on(constants.messages.question.answer.deletedByCollaborator, deletedByCollaborator);
-            app.on(constants.messages.question.answer.multipleselectAnswerCorrectnessUpdatedByCollaborator, multipleselectAnswerCorrectnessUpdatedByCollaborator);
+            app.on(constants.messages.question.answer.answerCorrectnessUpdatedByCollaborator, answerCorrectnessUpdatedByCollaborator);
 
             return viewModel;
 
@@ -124,7 +124,7 @@
                 }
             }
 
-            function multipleselectAnswerCorrectnessUpdatedByCollaborator(question, answerId, isCorrect) {
+            function answerCorrectnessUpdatedByCollaborator(question, answerId, isCorrect) {
                 if (questionId != question.id)
                     return;
 

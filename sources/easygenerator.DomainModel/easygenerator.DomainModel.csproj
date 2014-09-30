@@ -69,12 +69,11 @@
     <Compile Include="Entities\Template.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="EntityFactory.cs" />
-    <Compile Include="Events\AnswerEvents\MultipleselectAnswerCorrectnessUpdatedEvent.cs" />
+    <Compile Include="Events\AnswerEvents\AnswerCorrectnessUpdatedEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerCreatedEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerDeletedEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerTextUpdatedEvent.cs" />
-    <Compile Include="Events\AnswerEvents\SingleSelectTextAnswerCorrectnessUpdateEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseCollaboratorRemovedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseDeletedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseEvent.cs" />

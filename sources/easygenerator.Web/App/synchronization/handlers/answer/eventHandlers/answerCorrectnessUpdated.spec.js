@@ -1,4 +1,4 @@
-﻿define(['synchronization/handlers/answer/eventHandlers/singleSelectTextAnswerCorrectnessUpdated'], function (handler) {
+﻿define(['synchronization/handlers/answer/eventHandlers/answerCorrectnessUpdated'], function (handler) {
     "use strict";
 
     var dataContext = require('dataContext'),
@@ -6,7 +6,7 @@
         constants = require('constants')
     ;
 
-    describe('synchronization answer [singleSelectTextAnswerCorrectnessUpdated]', function () {
+    describe('synchronization answer [answerCorrectnessUpdated]', function () {
 
         var questionId = 'id',
             answerId = 'answerId',
@@ -87,7 +87,7 @@
         it('should trigger app event', function () {
             spyOn(dataContext, 'getQuestions').and.returnValue([question]);
             handler(questionId, answerId, isCorrect, modifiedOn.toISOString());
-            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.singleSelectTextAnswerCorrectnessUpdatedByCollaborator, question, answerId, isCorrect);
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.answer.answerCorrectnessUpdatedByCollaborator, question, answerId, isCorrect);
         });
     });
 })

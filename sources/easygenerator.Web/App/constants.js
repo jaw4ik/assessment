@@ -165,8 +165,7 @@
                         addedByCollaborator: 'question:answer:addedByCollaborator',
                         deletedByCollaborator: 'question:answer:deletedByCollaborator',
                         textUpdatedByCollaborator: 'question:answer:textUpdatedByCollaborator',
-                        multipleselectAnswerCorrectnessUpdatedByCollaborator: 'question:answer:multipleselectAnswerCorrectnessUpdatedByCollaborator',
-                        singleSelectTextAnswerCorrectnessUpdatedByCollaborator: 'question:answer:singleSelectTextAnswerCorrectnessUpdatedByCollaborator',
+                        answerCorrectnessUpdatedByCollaborator: 'question:answer:answerCorrectnessUpdatedByCollaborator',
                         singleSelectTextDeleteByCollaborator: 'question:answer:singleSelectTextDeletedByCollaborator'
                     },
 

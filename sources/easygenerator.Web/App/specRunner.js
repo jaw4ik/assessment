@@ -133,9 +133,8 @@
             'synchronization/handlers/answer/eventHandlers/created.spec',
             'synchronization/handlers/answer/eventHandlers/deleted.spec',
             'synchronization/handlers/answer/eventHandlers/textUpdated.spec',
-            'synchronization/handlers/answer/eventHandlers/multipleSelectAnswerCorrectnessUpdated.spec',
-            'synchronization/handlers/answer/eventHandlers/singleSelectTextAnswerCorrectnessUpdated.spec',
-
+            'synchronization/handlers/answer/eventHandlers/answerCorrectnessUpdated.spec',
+            
             'synchronization/handlers/user/handler.spec',
             'synchronization/handlers/user/eventHandlers/upgradedToStarter.spec',
             'synchronization/handlers/user/eventHandlers/upgradedToPlus.spec',

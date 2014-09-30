@@ -63,9 +63,8 @@
                     answerCreated: answerEventHandler.created,
                     answerDeleted: answerEventHandler.deleted,
                     answerTextUpdated: answerEventHandler.textUpdated,
-                    multipleSelectAnswerCorrectnessUpdated: answerEventHandler.multipleSelectAnswerCorrectnessUpdated,
-                    singleSelectTextAnswerCorrectnessUpdated: answerEventHandler.singleSelectTextAnswerCorrectnessUpdated,
-
+                    answerCorrectnessUpdated: answerEventHandler.answerCorrectnessUpdated,
+                    
                     learningContentCreated: learningContentEventHandler.created,
                     learningContentUpdated: learningContentEventHandler.textUpdated,
                     learningContentDeleted: learningContentEventHandler.deleted

@@ -476,7 +476,7 @@
 
         });
 
-        describe('multipleselectAnswerCorrectnessUpdatedByCollaborator:', function () {
+        describe('answerCorrectnessUpdatedByCollaborator:', function () {
             var text = 'text',
                 answer = { id: 'id', text: text, isCorrect: true },
                 question = { id: questionId },
@@ -493,13 +493,13 @@
             });
 
             it('should be function', function () {
-                expect(viewModel.multipleselectAnswerCorrectnessUpdatedByCollaborator).toBeFunction();
+                expect(viewModel.answerCorrectnessUpdatedByCollaborator).toBeFunction();
             });
 
             describe('when question is not current question', function () {
                 it('should not update answer', function () {
                     viewModel.answers([vmAnswer]);
-                    viewModel.multipleselectAnswerCorrectnessUpdatedByCollaborator({ id: 'smth' }, answer.id, false);
+                    viewModel.answerCorrectnessUpdatedByCollaborator({ id: 'smth' }, answer.id, false);
                     expect(vmAnswer.isCorrect()).toBeTruthy();
                 });
             });
@@ -511,14 +511,14 @@
 
                 it('should not update answer', function () {
                     viewModel.answers([vmAnswer]);
-                    viewModel.multipleselectAnswerCorrectnessUpdatedByCollaborator(question, answer.id, false);
+                    viewModel.answerCorrectnessUpdatedByCollaborator(question, answer.id, false);
                     expect(vmAnswer.isCorrect()).toBeTruthy();
                 });
 
                 it('should update original correctness', function () {
                     vmAnswer.original.isCorect = true;
                     viewModel.answers([vmAnswer]);
-                    viewModel.multipleselectAnswerCorrectnessUpdatedByCollaborator(question, answer.id, false);
+                    viewModel.answerCorrectnessUpdatedByCollaborator(question, answer.id, false);
                     expect(vmAnswer.original.isCorrect).toBeFalsy();
                 });
             });
@@ -527,7 +527,7 @@
                 vmAnswer.hasFocus(false);
                 viewModel.answers([vmAnswer]);
 
-                viewModel.multipleselectAnswerCorrectnessUpdatedByCollaborator(question, answer.id, false);
+                viewModel.answerCorrectnessUpdatedByCollaborator(question, answer.id, false);
                 expect(vmAnswer.isCorrect()).toBeFalsy();
             });
 
@@ -536,7 +536,7 @@
                 vmAnswer.hasFocus(false);
                 viewModel.answers([vmAnswer]);
 
-                viewModel.multipleselectAnswerCorrectnessUpdatedByCollaborator(question, answer.id, false);
+                viewModel.answerCorrectnessUpdatedByCollaborator(question, answer.id, false);
                 expect(vmAnswer.original.isCorrect).toBeFalsy();
             });
         });

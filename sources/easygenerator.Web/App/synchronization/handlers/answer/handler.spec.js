@@ -21,18 +21,11 @@
             });
         });
 
-        describe('correctnessUpdated:', function () {
+        describe('answerCorrectnessUpdated:', function () {
             it('should be function', function () {
-                expect(handler.multipleSelectAnswerCorrectnessUpdated).toBeFunction();
+                expect(handler.answerCorrectnessUpdated).toBeFunction();
             });
         });
-
-        describe('singleSelectTextAnswerCorrectnessUpdated:', function () {
-            it('should be function', function () {
-                expect(handler.singleSelectTextAnswerCorrectnessUpdated).toBeFunction();
-            });
-        });
-
     });
 
 })

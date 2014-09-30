@@ -190,7 +190,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             answer.UpdateCorrectness(true, user);
 
-            answer.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(MultipleselectAnswerCorrectnessUpdatedEvent));
+            answer.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(AnswerCorrectnessUpdatedEvent));
         }
 
         #endregion

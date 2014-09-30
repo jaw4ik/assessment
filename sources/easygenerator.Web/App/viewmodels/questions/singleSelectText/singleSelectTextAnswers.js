@@ -141,9 +141,9 @@
 
             viewModel.singleSelectTextDeleteByCollaborator = singleSelectTextDeleteByCollaborator;
 
-            viewModel.singleSelectTextCorrectnessUpdatedByCollaborator = singleSelectTextCorrectnessUpdatedByCollaborator;
+            viewModel.answerCorrectnessUpdatedByCollaborator = answerCorrectnessUpdatedByCollaborator;
 
-            app.on(constants.messages.question.answer.singleSelectTextAnswerCorrectnessUpdatedByCollaborator, singleSelectTextCorrectnessUpdatedByCollaborator);
+            app.on(constants.messages.question.answer.answerCorrectnessUpdatedByCollaborator, answerCorrectnessUpdatedByCollaborator);
             app.on(constants.messages.question.answer.singleSelectTextDeleteByCollaborator, singleSelectTextDeleteByCollaborator);
 
             return viewModel;
@@ -171,7 +171,7 @@
                 }
             }
 
-            function singleSelectTextCorrectnessUpdatedByCollaborator(question, answerId, isCorrect) {
+            function answerCorrectnessUpdatedByCollaborator(question, answerId, isCorrect) {
                 if (questionId != question.id)
                     return;
 

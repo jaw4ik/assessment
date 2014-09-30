@@ -260,7 +260,7 @@
 
         });
 
-        describe('singleSelectTextCorrectnessUpdatedByCollaborator:', function () {
+        describe('answerCorrectnessUpdatedByCollaborator:', function () {
             var text = 'text',
                 answer = { id: 'id', text: text, isCorrect: true },
                 answer1 = { id: 'id1', text: text, isCorrect: false },
@@ -286,14 +286,14 @@
             });
 
             it('should be function', function () {
-                expect(viewModel.singleSelectTextCorrectnessUpdatedByCollaborator).toBeFunction();
+                expect(viewModel.answerCorrectnessUpdatedByCollaborator).toBeFunction();
             });
 
             describe('when question is not current question', function () {
 
                 it('should not update answer', function () {
                     viewModel.answers([vmAnswer, vmAnswer1]);
-                    viewModel.singleSelectTextCorrectnessUpdatedByCollaborator({ id: 'smth' }, answer.id, false);
+                    viewModel.answerCorrectnessUpdatedByCollaborator({ id: 'smth' }, answer.id, false);
                     expect(vmAnswer.isCorrect()).toBeTruthy();
                 });
 
@@ -307,7 +307,7 @@
                         vmAnswer.isCorrect(false);
                         vmAnswer1.isCorrect(true);
                         viewModel.answers([vmAnswer, vmAnswer1]);
-                        viewModel.singleSelectTextCorrectnessUpdatedByCollaborator({ id: questionId }, answer.id, true);
+                        viewModel.answerCorrectnessUpdatedByCollaborator({ id: questionId }, answer.id, true);
                         expect(vmAnswer.isCorrect()).toBeTruthy();
                         expect(vmAnswer1.isCorrect()).toBeFalsy();
                     });
@@ -319,7 +319,7 @@
                     it('should not update answer', function () {
                         vmAnswer.isCorrect(true);
                         viewModel.answers([vmAnswer, vmAnswer1]);
-                        viewModel.singleSelectTextCorrectnessUpdatedByCollaborator({ id: 'smth' }, answer.id, false);
+                        viewModel.answerCorrectnessUpdatedByCollaborator({ id: 'smth' }, answer.id, false);
                         expect(vmAnswer.isCorrect()).toBeTruthy();
                     });
 
@@ -332,7 +332,7 @@
                 it('should not update answer', function () {
                     vmAnswer.isCorrect(true);
                     viewModel.answers([]);
-                    viewModel.singleSelectTextCorrectnessUpdatedByCollaborator({ id: questionId }, answer.id, false);
+                    viewModel.answerCorrectnessUpdatedByCollaborator({ id: questionId }, answer.id, false);
                     expect(vmAnswer.isCorrect()).toBeTruthy();
                 });
 
@@ -345,14 +345,14 @@
 
                 it('should not update answer', function () {
                     viewModel.answers([vmAnswer, vmAnswer1]);
-                    viewModel.singleSelectTextCorrectnessUpdatedByCollaborator(question, answer.id, false);
+                    viewModel.answerCorrectnessUpdatedByCollaborator(question, answer.id, false);
                     expect(vmAnswer.isCorrect()).toBeTruthy();
                 });
 
                 it('should mark answer as deleted', function () {
                     vmAnswer.isDeleted(false);
                     viewModel.answers([vmAnswer, vmAnswer1]);
-                    viewModel.singleSelectTextCorrectnessUpdatedByCollaborator(question, answer.id);
+                    viewModel.answerCorrectnessUpdatedByCollaborator(question, answer.id);
                     expect(vmAnswer.isDeleted).toBeTruthy();
                 });
             });

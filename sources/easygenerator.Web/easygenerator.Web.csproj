@@ -430,6 +430,9 @@
     </Content>
     <Content Include="App\components\bindingHandlers\tooltipBindingHandler.js" />
     <Content Include="App\components\tooltip\view.html" />
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
+      <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.signalR-2.1.2.js" />
     <Content Include="Scripts\jquery.signalR-2.1.2.min.js" />
     <Content Include="Scripts\knockout-3.2.0.debug.js" />
@@ -463,12 +466,6 @@
     <Content Include="App\onboarding\initialization.js" />
     <Content Include="App\onboarding\onboarding.html" />
     <Content Include="App\onboarding\onboarding.js" />
-    <Content Include="App\synchronization\handlers\answer\eventHandlers\multipleSelectAnswerCorrectnessUpdated.spec.js">
-      <DependentUpon>multipleSelectAnswerCorrectnessUpdated.js</DependentUpon>
-    </Content>
-    <Content Include="App\synchronization\handlers\answer\eventHandlers\singleSelectTextAnswerCorrectnessUpdated.spec.js">
-      <DependentUpon>singleSelectTextAnswerCorrectnessUpdated.js</DependentUpon>
-    </Content>
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorRemoved.js" />
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\collaboratorRemoved.spec.js">
       <DependentUpon>collaboratorRemoved.js</DependentUpon>
@@ -632,8 +629,7 @@
     <Content Include="App\repositories\objectiveRepository.spec.js">
       <DependentUpon>objectiveRepository.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\answer\eventHandlers\multipleSelectAnswerCorrectnessUpdated.js" />
-    <Content Include="App\synchronization\handlers\answer\eventHandlers\singleSelectTextAnswerCorrectnessUpdated.js" />
+    <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\textUpdated.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\textUpdated.spec.js">
       <DependentUpon>textUpdated.js</DependentUpon>
