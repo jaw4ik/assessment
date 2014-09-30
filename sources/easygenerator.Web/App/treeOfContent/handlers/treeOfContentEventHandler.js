@@ -113,7 +113,7 @@
 
         function objectivesReordered(course) {
             _.each(treeOfContentTraversal.getCourseTreeNodeCollection(course.id), function (courseTreeNode) {
-                if (ko.unwrap(courseTreeNode.isExpanded)) {
+                if (courseTreeNode.children().length) {
                     courseTreeNode.children(_.map(course.objectives, function (objective) {
                         return _.find(courseTreeNode.children(), function (objectiveTreeNode) {
                             return objectiveTreeNode.id == objective.id;
@@ -152,7 +152,7 @@
 
         function questionsReordered(objective) {
             _.each(treeOfContentTraversal.getObjectiveTreeNodeCollection(objective.id), function (objectiveTreeNode) {
-                if (ko.unwrap(objectiveTreeNode.isExpanded)) {
+                if (objectiveTreeNode.children().length) {
                     objectiveTreeNode.children(_.map(objective.questions, function (item) {
                         return _.find(objectiveTreeNode.children(), function (question) {
                             return question.id == item.id;
