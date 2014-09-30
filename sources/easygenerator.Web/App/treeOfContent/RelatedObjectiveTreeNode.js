@@ -23,9 +23,16 @@
 
         function expand() {
             var that = this;
-            return getQuestions(that.id, that.courseId).then(function (questions) {
-                that.children(questions);
-                that.isExpanded(true);
+            return Q.fcall(function () {
+                if (that.children().length) {
+                    that.isExpanded(true);
+                    return undefined;
+                } else {
+                    return getQuestions(that.id, that.courseId).then(function (questions) {
+                        that.children(questions);
+                        that.isExpanded(true);
+                    });
+                }
             });
         }
 

@@ -67,12 +67,6 @@
             deleteCourse(treeOfContent.sharedChildren, courseId);
         }
 
-        function deleteCourses(courses, courseIds) {
-            courses(_.reject(courses(), function (course) {
-                return _.some(courseIds, function (courseId) { return course.id == courseId; });
-            }));
-        }
-
         function deleteCourse(courses, courseId) {
             _.each(courses(), function (course) {
                 if (course.id == courseId) {
@@ -113,7 +107,7 @@
 
         function objectivesReordered(course) {
             _.each(treeOfContentTraversal.getCourseTreeNodeCollection(course.id), function (courseTreeNode) {
-                if (ko.unwrap(courseTreeNode.isExpanded)) {
+                if (courseTreeNode.children().length) {
                     courseTreeNode.children(_.map(course.objectives, function (objective) {
                         return _.find(courseTreeNode.children(), function (objectiveTreeNode) {
                             return objectiveTreeNode.id == objective.id;
@@ -152,7 +146,7 @@
 
         function questionsReordered(objective) {
             _.each(treeOfContentTraversal.getObjectiveTreeNodeCollection(objective.id), function (objectiveTreeNode) {
-                if (ko.unwrap(objectiveTreeNode.isExpanded)) {
+                if (objectiveTreeNode.children().length) {
                     objectiveTreeNode.children(_.map(objective.questions, function (item) {
                         return _.find(objectiveTreeNode.children(), function (question) {
                             return question.id == item.id;

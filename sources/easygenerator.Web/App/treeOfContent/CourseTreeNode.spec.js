@@ -68,25 +68,59 @@
                 expect(courseTreeNode.expand()).toBePromise();
             });
 
+            describe('when children array is empty', function () {
 
-            it('should get children', function (done) {
-                execute.resolve({ objectives: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
+                beforeEach(function () {
+                    courseTreeNode.children([]);
+                });
 
-                courseTreeNode.expand().fin(function () {
-                    expect(courseTreeNode.children()[0]).toBeObjectiveTreeNode();
-                    expect(courseTreeNode.children()[1]).toBeObjectiveTreeNode();
-                    done();
+                it('should get children', function (done) {
+                    execute.resolve({ objectives: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
+
+                    courseTreeNode.expand().fin(function () {
+                        expect(courseTreeNode.children()[0]).toBeObjectiveTreeNode();
+                        expect(courseTreeNode.children()[1]).toBeObjectiveTreeNode();
+                        done();
+                    });
+                });
+
+                it('should mark node as expanded', function (done) {
+                    execute.resolve({ objectives: [] });
+                    courseTreeNode.isExpanded(false);
+
+                    courseTreeNode.expand().fin(function () {
+                        expect(courseTreeNode.isExpanded()).toBeTruthy();
+                        done();
+                    });
                 });
             });
 
-            it('should mark node as expanded', function (done) {
-                execute.resolve({ objectives: [] });
-                courseTreeNode.isExpanded(false);
+            describe('when children array is not empty', function () {
 
-                courseTreeNode.expand().fin(function () {
-                    expect(courseTreeNode.isExpanded()).toBeTruthy();
-                    done();
+                beforeEach(function () {
+                    courseTreeNode.children([{}, {}]);
                 });
+
+                it('should not get children', function (done) {
+                    execute.resolve({ objectives: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
+
+                    courseTreeNode.expand().fin(function () {
+                        expect(getCourseByIdQuery.execute).not.toHaveBeenCalled();
+                        done();
+                    });
+                });
+
+
+                it('should mark node as expanded', function (done) {
+                    execute.resolve({ objectives: [] });
+                    courseTreeNode.isExpanded(false);
+
+                    courseTreeNode.expand().fin(function () {
+                        expect(courseTreeNode.isExpanded()).toBeTruthy();
+                        done();
+                    });
+                });
+
             });
 
         });
@@ -114,14 +148,14 @@
         });
 
         describe('navigateToCourse:', function () {
-
+            
             var courseTreeNode;
 
             beforeEach(function () {
                 courseTreeNode = new CourseTreeNode('id', 'title', 'url');
             });
 
-            it('should be function', function () {
+            it('should be function', function() {
                 expect(courseTreeNode.navigateToCourse).toBeFunction();
             });
 

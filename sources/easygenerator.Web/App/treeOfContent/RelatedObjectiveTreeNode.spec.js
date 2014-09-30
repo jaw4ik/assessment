@@ -64,25 +64,59 @@
                 expect(objectiveTreeNode.expand()).toBePromise();
             });
 
+            describe('when children array is empty', function () {
 
-            it('should get children', function (done) {
-                execute.resolve({ questions: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
-
-                objectiveTreeNode.expand().fin(function () {
-                    expect(objectiveTreeNode.children()[0]).toBeQuestionTreeNode();
-                    expect(objectiveTreeNode.children()[1]).toBeQuestionTreeNode();
-                    done();
+                beforeEach(function () {
+                    objectiveTreeNode.children([]);
                 });
+
+                it('should get children', function (done) {
+                    execute.resolve({ questions: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
+
+                    objectiveTreeNode.expand().fin(function () {
+                        expect(objectiveTreeNode.children()[0]).toBeQuestionTreeNode();
+                        expect(objectiveTreeNode.children()[1]).toBeQuestionTreeNode();
+                        done();
+                    });
+                });
+
+                it('should mark node as expanded', function (done) {
+                    execute.resolve({ questions: [] });
+                    objectiveTreeNode.isExpanded(false);
+
+                    objectiveTreeNode.expand().fin(function () {
+                        expect(objectiveTreeNode.isExpanded()).toBeTruthy();
+                        done();
+                    });
+                });
+
             });
 
-            it('should mark node as expanded', function (done) {
-                execute.resolve({ questions: [] });
-                objectiveTreeNode.isExpanded(false);
+            describe('when children array is not empty', function () {
 
-                objectiveTreeNode.expand().fin(function () {
-                    expect(objectiveTreeNode.isExpanded()).toBeTruthy();
-                    done();
+                beforeEach(function () {
+                    objectiveTreeNode.children([{}, {}]);
                 });
+
+                it('should not get children', function (done) {
+                    execute.resolve({ questions: [{ id: 1, title: '1' }, { id: 2, title: '2' }] });
+
+                    objectiveTreeNode.expand().fin(function () {
+                        expect(getObjectiveByIdQuery.execute).not.toHaveBeenCalled();
+                        done();
+                    });
+                });
+
+                it('should mark node as expanded', function (done) {
+                    execute.resolve({ questions: [] });
+                    objectiveTreeNode.isExpanded(false);
+
+                    objectiveTreeNode.expand().fin(function () {
+                        expect(objectiveTreeNode.isExpanded()).toBeTruthy();
+                        done();
+                    });
+                });
+
             });
 
         });
@@ -106,14 +140,14 @@
         });
 
         describe('navigateToObjective:', function () {
-
+            
             var objectiveTreeNode;
 
             beforeEach(function () {
                 objectiveTreeNode = new RelatedObjectiveTreeNode('id', 'courseId');
             });
 
-            it('should be function', function () {
+            it('should be function', function() {
                 expect(objectiveTreeNode.navigateToObjective).toBeFunction();
             });
 
