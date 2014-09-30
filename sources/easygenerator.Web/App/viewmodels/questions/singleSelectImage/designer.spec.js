@@ -77,6 +77,7 @@
             });
 
             it('should publish \'Add answer option (single select image)\' event', function () {
+                spyOn(imageUpload, 'upload');
                 viewModel.addAnswer();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option (single select image)');
             });
