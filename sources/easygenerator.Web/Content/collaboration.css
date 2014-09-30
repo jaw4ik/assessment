@@ -141,8 +141,8 @@
     font-size: 12px;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: pre-line;
     text-align: center;
-    white-space: pre-wrap;
 }
 
 .course-collaborator-delete-btn {
