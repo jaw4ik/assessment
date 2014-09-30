@@ -69,7 +69,7 @@
 
         function deleteCourses(courses, courseIds) {
             courses(_.reject(courses(), function (course) {
-                return _.some(courseIds, function(courseId) { return course.id == courseId; });
+                return _.some(courseIds, function (courseId) { return course.id == courseId; });
             }));
         }
 
@@ -113,11 +113,13 @@
 
         function objectivesReordered(course) {
             _.each(treeOfContentTraversal.getCourseTreeNodeCollection(course.id), function (courseTreeNode) {
-                courseTreeNode.children(_.map(course.objectives, function (objective) {
-                    return _.find(courseTreeNode.children(), function (objectiveTreeNode) {
-                        return objectiveTreeNode.id == objective.id;
-                    });
-                }));
+                if (ko.unwrap(courseTreeNode.isExpanded)) {
+                    courseTreeNode.children(_.map(course.objectives, function (objective) {
+                        return _.find(courseTreeNode.children(), function (objectiveTreeNode) {
+                            return objectiveTreeNode.id == objective.id;
+                        });
+                    }));
+                }
             });
         }
 
@@ -150,11 +152,13 @@
 
         function questionsReordered(objective) {
             _.each(treeOfContentTraversal.getObjectiveTreeNodeCollection(objective.id), function (objectiveTreeNode) {
-                objectiveTreeNode.children(_.map(objective.questions, function (item) {
-                    return _.find(objectiveTreeNode.children(), function (question) {
-                        return question.id == item.id;
-                    });
-                }));
+                if (ko.unwrap(objectiveTreeNode.isExpanded)) {
+                    objectiveTreeNode.children(_.map(objective.questions, function (item) {
+                        return _.find(objectiveTreeNode.children(), function (question) {
+                            return question.id == item.id;
+                        });
+                    }));
+                }
             });
         }
 
