@@ -97,9 +97,9 @@
                 expect(handler.questionsDeleted).toBeFunction();
             });
 
-            describe('when objective node has chidren', function () {
+            describe('when objective node is expanded', function () {
 
-                it('should reorder questions', function () {
+                it('should reorder questions in objective in index', function () {
                     var objectiveTreeNode1 = { id: 'objectiveId', isExpanded: ko.observable(true), children: ko.observableArray([{ id: 'questionId_#1', title: 'title' }, { id: 'questionId_#2', title: 'title' }, { id: 'questionId_#3', title: 'title' }]) };
                     spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').and.returnValue([objectiveTreeNode1]);
 
@@ -112,9 +112,9 @@
 
             });
 
-            describe('when objective does not have children', function () {
+            describe('when objective node is not expanded', function () {
 
-                it('should not add children to objective', function () {
+                it('should not add questions to objective', function () {
                     var objectiveTreeNode1 = { id: 'objectiveId', isExpanded: ko.observable(false), children: ko.observableArray([]) };
                     spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').and.returnValue([objectiveTreeNode1]);
 
@@ -232,7 +232,7 @@
                 expect(handler.objectivesReordered).toBeFunction();
             });
 
-            describe('when course node has children', function () {
+            describe('when course node is expaned', function () {
 
                 it('should reorder objectives', function () {
                     var courseTreeNode1 = { id: 'courseId', isExpanded: ko.observable(true), children: ko.observableArray([{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }, { id: 'objectiveId_#3', title: 'title' }]) }
@@ -248,9 +248,9 @@
 
             });
 
-            describe('when course node does not have children', function () {
+            describe('when course node is not expanded', function () {
 
-                it('should not add children to course', function () {
+                it('should not add objectives to course', function () {
                     var courseTreeNode1 = { id: 'courseId', isExpanded: ko.observable(false), children: ko.observableArray([]) }
 
                     spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
