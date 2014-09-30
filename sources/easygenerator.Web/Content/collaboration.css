@@ -141,6 +141,7 @@
     font-size: 12px;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
     white-space: pre-wrap;
 }
 
