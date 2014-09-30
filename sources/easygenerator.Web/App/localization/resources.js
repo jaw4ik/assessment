@@ -1496,7 +1496,7 @@
         en: '<p>Use a fill in the blank to check active knowledge in the context of a text.</p><p>The learner is given text with blank spaces. There are two options -- the learner can type in the text in the bland space, or chose the correct text from a drop down list.</p>'
     },
     tooltipFibLink: {
-        en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Fill-in-the-Blanks\" target=\"_blank\">read more</a>'
+        en: '<a href=\"http://youtu.be/mxqA95gW6UE\" target=\"_blank\">watch video</a>'
     },
     tooltipTextMatchingTitle: {
         en: 'Text Matching'
@@ -1505,7 +1505,7 @@
         en: '<p>A text matching question tests the ability to match corresponding terms to each other.</p><p>The learner is given a question with two lists, and is asked to drag the provided terms to the correct match or definition.</p>'
     },
     tooltipTextMatchingLink: {
-        en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Text-Matching\" target=\"_blank\">read more</a>'
+        en: '<a href=\"http://youtu.be/4VhGiuHNlbc\" target=\"_blank\">watch video</a>'
     },
     tooltipDragAndDropTitle: {
         en: 'Drag and Drop Text'
@@ -1514,7 +1514,7 @@
         en: '<p>Use Drag and Drop when the user needs to recognize and name parts of an image.</p><p>A question with a background image is provided and the leaner needs to drop the correct text label to its corresponding spot.</p>'
     },
     tooltipDragAndDropLink: {
-        en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Drag-and-Drop-Text\" target=\"_blank\">read more</a>'
+        en: '<a href=\"http://youtu.be/7L9O6nhc1Ls\" target=\"_blank\">watch video</a>'
     },
     tooltipCourseTemplateTitle: {
         en: 'Course template'
