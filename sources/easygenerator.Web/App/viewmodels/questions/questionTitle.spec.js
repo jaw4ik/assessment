@@ -2,11 +2,11 @@
 
     "use strict";
 
-    var 
+    var
         eventTracker = require('eventTracker'),
         questionRepository = require('repositories/questionRepository'),
         constants = require('constants'),
-        clientContext = require('clientContext'),
+        localizationManager = require('localization/localizationManager'),
         notify = require('notify');
 
     describe('viewModel [questionTitlte]', function () {
@@ -68,13 +68,13 @@
 
             });
 
-            describe('trim:', function() {
+            describe('trim:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(viewModel.text.trim).toBeFunction();
                 });
 
-                it('should trim title value', function() {
+                it('should trim title value', function () {
                     viewModel.text('   asd    ');
                     viewModel.text.trim();
                     expect(viewModel.text()).toBe('asd');
@@ -86,7 +86,7 @@
 
         describe('questionTitleMaxLength:', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.questionTitleMaxLength).toBeDefined();
             });
 
@@ -98,7 +98,7 @@
 
         describe('isCreatedQuestion:', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.isCreatedQuestion).toBeDefined();
             });
 
@@ -120,11 +120,13 @@
 
         describe('endEditQuestionTitle:', function () {
             var updateDeferred, getByIdDeferred;
-
+            var errorMessage = 'error';
             beforeEach(function () {
                 updateDeferred = Q.defer();
                 getByIdDeferred = Q.defer();
 
+                spyOn(notify, 'error');
+                spyOn(localizationManager, 'localize').and.returnValue(errorMessage);
                 spyOn(questionRepository, 'updateTitle').and.returnValue(updateDeferred.promise);
                 spyOn(questionRepository, 'getById').and.returnValue(getByIdDeferred.promise);
                 question = {
@@ -147,6 +149,24 @@
                 viewModel.text('    Some title    ');
                 viewModel.endEditQuestionTitle();
                 expect(viewModel.text()).toEqual('Some title');
+            });
+
+            describe('when question is not found', function () {
+                var promise = null;
+                beforeEach(function () {
+                    viewModel.text(question.title);
+                    promise = getByIdDeferred.promise.finally(function () { });
+                    getByIdDeferred.reject();
+                });
+
+                it('should show error', function (done) {
+                    viewModel.endEditQuestionTitle();
+
+                    promise.fin(function () {
+                        expect(notify.error).toHaveBeenCalledWith(errorMessage);
+                        done();
+                    });
+                });
             });
 
             describe('when text is not modified', function () {
@@ -260,7 +280,7 @@
 
         describe('isExpanded:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.isExpanded).toBeObservable();
             });
 
@@ -268,11 +288,11 @@
 
         describe('toggleExpand:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.toggleExpand).toBeFunction();
             });
 
-            it('should toggle isExpanded', function() {
+            it('should toggle isExpanded', function () {
                 viewModel.isExpanded(false);
 
                 viewModel.toggleExpand();
@@ -281,123 +301,6 @@
             });
 
         });
-
-        //describe('initialize:', function() {
-
-        //    it('should be function', function() {
-        //        expect(viewModel.initialize).toBeFunction();
-        //    });
-
-        //    it('should return promise', function() {
-        //        expect(viewModel.initialize()).toBePromise();
-        //    });
-
-        //    it('should set objectiveId', function(done) {
-        //        viewModel.objectiveId = null;
-
-        //        viewModel.initialize(objectiveId, question).fin(function () {
-        //            expect(viewModel.objectiveId).toBe(objectiveId);
-        //            done();
-        //        });
-        //    });
-
-        //    it('should set questionId', function (done) {
-        //        viewModel.questionId = null;
-
-        //        viewModel.initialize(objectiveId, question).fin(function () {
-        //            expect(viewModel.questionId).toBe(question.id);
-        //            done();
-        //        });
-        //    });
-
-        //    it('should set text', function (done) {
-        //        viewModel.text('');
-
-        //        viewModel.initialize(objectiveId, question).fin(function () {
-        //            expect(viewModel.text()).toBe(question.title);
-        //            done();
-        //        });
-        //    });
-
-        //    it('should set isExpanded to true', function (done) {
-        //        viewModel.isExpanded(false);
-
-        //        viewModel.initialize(objectiveId, question).fin(function () {
-        //            expect(viewModel.isExpanded()).toBeTruthy();
-        //            done();
-        //        });
-        //    });
-
-        //    describe('when \'lastCreatedQuestionId\' is not current question id', function () {
-
-        //        beforeEach(function() {
-        //            clientContext.set('lastCreatedQuestionId', 'some id');
-        //        });
-
-        //        it('should set isCreatedQuestion to false', function (done) {
-        //            viewModel.isCreatedQuestion = true;
-
-        //            viewModel.initialize(objectiveId, question).fin(function () {
-        //                expect(viewModel.isCreatedQuestion).toBeFalsy();
-        //                done();
-        //            });
-        //        });
-
-        //    });
-
-        //    describe('when \'lastCreatedQuestionId\' is current question id', function () {
-                
-        //        beforeEach(function () {
-        //            clientContext.set('lastCreatedQuestionId', question.id);
-        //        });
-
-        //        it('should set isCreatedQuestion to true', function (done) {
-        //            viewModel.isCreatedQuestion = false;
-
-        //            viewModel.initialize(objectiveId, question).fin(function () {
-        //                expect(viewModel.isCreatedQuestion).toBeTruthy();
-        //                done();
-        //            });
-        //        });
-
-        //    });
-
-        //    var isQuestionContentNeeded;
-        //    describe('when isQuestionContentNeeded = false', function () {
-
-        //        beforeEach(function () {
-        //            isQuestionContentNeeded = false;
-        //        });
-
-        //        it('should set questionContent to null', function (done) {
-        //            viewModel.questionContent = {};
-
-        //            viewModel.initialize(objectiveId, question, isQuestionContentNeeded).fin(function () {
-        //                expect(viewModel.questionContent).toBeNull();
-        //                done();
-        //            });
-        //        });
-
-        //    });
-
-        //    describe('when isQuestionContentNeeded = true', function () {
-
-        //        beforeEach(function() {
-        //            isQuestionContentNeeded = true;
-        //        });
-
-        //        it('should initialize questionContent', function (done) {
-        //            viewModel.questionContent = null;
-
-        //            viewModel.initialize(objectiveId, question, isQuestionContentNeeded).fin(function () {
-        //                expect(viewModel.questionContent).not.toBeNull();
-        //                done();
-        //            });
-        //        });
-
-        //    });
-
-        //});
 
     });
 

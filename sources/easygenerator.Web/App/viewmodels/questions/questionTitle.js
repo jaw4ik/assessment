@@ -1,5 +1,5 @@
-﻿define(['eventTracker', 'repositories/questionRepository', 'constants', 'notify', 'clientContext'],
-    function (eventTracker, questionRepository, constants, notify, clientContext) {
+﻿define(['eventTracker', 'repositories/questionRepository', 'constants', 'notify', 'clientContext', 'localization/localizationManager'],
+    function (eventTracker, questionRepository, constants, notify, clientContext, localizationManager) {
         "use strict";
 
         var events = {
@@ -62,7 +62,9 @@
                         } else {
                             text(questionTitle);
                         }
-                    });
+                    }).fail(function () {
+                        notify.error(localizationManager.localize('questionNotFoundError'));
+                    });;
                 };
 
             var lastCreatedQuestionId = clientContext.get(constants.clientContextKeys.lastCreatedQuestionId) || '';

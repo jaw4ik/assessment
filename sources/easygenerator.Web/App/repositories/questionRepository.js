@@ -282,7 +282,11 @@
                         return item.id === questionId;
                     });
 
-                    deferred.resolve(question);
+                    if (!_.isObject(question)) {
+                        deferred.reject('Question does not exist');
+                    } else {
+                        deferred.resolve(question);
+                    }
                 });
 
                 return deferred.promise;

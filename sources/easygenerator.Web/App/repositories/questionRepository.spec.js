@@ -1075,14 +1075,36 @@
 
                     describe('when objective exists', function () {
                         var question = { id: 0, title: 'lalal' };
-                        var objective = { id: 1, questions: [question] };
+                        var objective = { id: 1, questions: [] };
 
-                        it('should resolve promise with question value', function (done) {
-                            var promise = questionRepository.getById(objective.id, question.id);
-                            getObjectiveDeferred.resolve(objective);
-                            promise.fin(function () {
-                                expect(promise.inspect().value).toEqual(question);
-                                done();
+
+                        describe('when question does not exist', function () {
+                            beforeEach(function() {
+                                objective.questions = [];
+                            });
+
+                            it('should reject promise', function (done) {
+                                var promise = questionRepository.getById(0, 0);
+                                getObjectiveDeferred.resolve(objective);
+                                promise.fin(function () {
+                                    expect(promise).toBeRejectedWith('Question does not exist');
+                                    done();
+                                });
+                            });
+                        });
+
+                        describe('when question exists', function () {
+                            beforeEach(function () {
+                                objective.questions = [question];
+                            });
+
+                            it('should resolve promise with question', function (done) {
+                                var promise = questionRepository.getById(0, 0);
+                                getObjectiveDeferred.resolve(objective);
+                                promise.fin(function () {
+                                    expect(promise).toBeResolvedWith(question);
+                                    done();
+                                });
                             });
                         });
                     });
