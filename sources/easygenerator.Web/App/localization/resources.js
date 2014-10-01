@@ -1469,13 +1469,13 @@
         en: 'Add 3 questions ({0}/3)'
     },
     createQuestionsOnboardingTaskDescription: {
-        en: '<section><header>What for?</header><article>Engage  users by using multiple question types like: Drag and Drop Text, Text Matching, Single Image choice and many more.</article></section><section><header>How to add questions?</header><ol><li>Click on <b>\"New item\"</b> (On the Learning objective page, or on the page where you create questions or content)</li><li>Select the question type you want to create</li><li>Type in a question title and other properties</li><li>Create a minimum of 3 different questions</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content\">Read more</a></div></section>'
+        en: '<section><header>What for?</header><article>Engage users by using multiple question types like: Drag and Drop Text, Text Matching, Single Choice Image and many more.</article></section><section><header>How to add questions?</header><ol><li>Click on <b>\"New item\"</b> (On the Learning objective page, or on the page where you create questions or content)</li><li>Select the question type you want to create</li><li>Type in a question title and other properties</li><li>Create a minimum of 3 different questions</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content\">Read more</a></div></section>'
     },
     publishOnboardingTaskTitle: {
         en: 'Publish'
     },
     publishOnboardingTaskDescription: {
-        en: '<section><header>What for?</header><article>Publish with one click to the cloud.</article></section><section><header>How to publish?</header><ol><li>Click on <b>\"Publish\"</b> on any course page</li><li>Click on <b>\"Get link\"</b></li><li>Copy the link and share it via mail, twitter or any other channel</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Read more</a></div></section>'
+        en: '<section><header>What for?</header><article>Publish with one click to the cloud.</article></section><section><header>How to publish?</header><ol><li>Click on <b>\"Publish now\"</b> on any course page</li><li>Click on <b>\"Get link\"</b></li><li>Copy the link and share it via mail, twitter or any other channel</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Read more</a></div></section>'
     },
     /* End resource section for model Onboarding */
     
