@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
@@ -8,6 +6,8 @@ using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {

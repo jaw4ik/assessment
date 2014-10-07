@@ -207,6 +207,7 @@
     <Compile Include="BuildCourse\PackageModel\MultipleselectPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\ObjectivePackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\QuestionPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\StatementPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\TextMatchingAnswerPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\TextMatchingPackageModel.cs" />
     <Compile Include="BuildCourse\Scorm\IScormCourseBuilder.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="Controllers\Api\InformationContentController.cs" />
     <Compile Include="Controllers\Api\SingleSelectTextController.cs" />
     <Compile Include="Controllers\Api\MultipleselectController.cs" />
+    <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
     <Compile Include="Mail\IMailSenderWrapper.cs" />
     <Compile Include="Components\Mappers\LearningContentMapper.cs" />
@@ -433,6 +435,18 @@
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\statement\statement.js" />
+    <Content Include="App\viewmodels\questions\statement\statement.spec.js">
+      <DependentUpon>statement.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\statement\statementAnswers.js" />
+    <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
+      <DependentUpon>statementAnswers.js</DependentUpon>
+    </Content>
+    <Content Include="App\views\questions\statement\statement.html" />
+    <Content Include="Content\images\statement-question.png" />
+    <Content Include="Content\statement.css" />
+    <Content Include="Content\switchToggle.css" />
     <Content Include="Scripts\jquery.signalR-2.1.2.js" />
     <Content Include="Scripts\jquery.signalR-2.1.2.min.js" />
     <Content Include="Scripts\knockout-3.2.0.debug.js" />
@@ -1043,6 +1057,7 @@
     <Content Include="App\viewmodels\questions\fillInTheBlank\bindingHandlers\fillInTheBlankBindingHandler.js" />
     <Content Include="Scripts\knockoutBindings\containerHasFocusBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
+    <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
     <Content Include="Scripts\moment-with-langs.js" />
     <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />
@@ -2055,7 +2070,9 @@
     <EmbeddedResource Include="Resources\Views\Review\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Statement\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

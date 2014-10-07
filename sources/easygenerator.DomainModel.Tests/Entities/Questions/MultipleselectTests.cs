@@ -9,7 +9,7 @@ using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace easygenerator.DomainModel.Tests.Entities
+namespace easygenerator.DomainModel.Tests.Entities.Questions
 {
     [TestClass]
     public class MultipleselectTests

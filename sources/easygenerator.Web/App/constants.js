@@ -36,6 +36,10 @@
                 textMatching: {
                     type: 'textMatching',
                     image: '/Content/images/textmatching-question.png'
+                },
+                statement: {
+                    type: 'statement',
+                    image: '/Content/images/statement-question.png'
                 }
             },
 

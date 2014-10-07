@@ -1,12 +1,23 @@
 ﻿define(['repositories/answerRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker', 'durandal/app'],
     function (repository, localizationManager, notify, constants, eventTracker, app) {
 
-        var events = {
-            beginEditText: 'Start editing answer option',
-            endEditText: 'End editing answer option'
-        };
+        var events,
+            eventsValues = {
+                editText: 'Edit answer option'
+            };
 
-        var answersViewModel = function (questionId, answers) {
+        var options,
+            optionsValues = {
+                newAnswerDefaultValues: {
+                    isCorrect: false,
+                    text: ''
+                }
+            };
+
+        var answersViewModel = function (questionId, answers, eventsEx, optionsEx) {
+            events = _.extend({}, eventsValues, eventsEx);
+            options = _.extend({}, optionsValues, optionsEx);
+
             var viewModel = {
                 answers: ko.observableArray([]),
                 isExpanded: ko.observable(true),
@@ -29,12 +40,11 @@
             return viewModel;
 
             function beginEditText(answer) {
-                eventTracker.publish(events.beginEditText);
                 answer.text.isEditing(true);
             }
 
             function endEditText(answer) {
-                eventTracker.publish(events.endEditText);
+                eventTracker.publish(events.editText);
                 answer.text.isEditing(false);
             }
 
@@ -65,7 +75,12 @@
             }
 
             function doAddAnswer(answer) {
-                answer = answer || { id: '', text: '', isCorrect: false };
+                answer = answer ||
+                    {
+                        id: '',
+                        text: options.newAnswerDefaultValues.text,
+                        isCorrect: options.newAnswerDefaultValues.isCorrect
+                    };
 
                 var item = {
                     id: ko.observable(answer.id),

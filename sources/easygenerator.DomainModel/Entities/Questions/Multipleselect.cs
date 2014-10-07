@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using easygenerator.DomainModel.Events.AnswerEvents;
+using easygenerator.Infrastructure;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using easygenerator.DomainModel.Events.AnswerEvents;
-using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities.Questions
 {
@@ -25,7 +25,6 @@ namespace easygenerator.DomainModel.Entities.Questions
             AnswersCollection.Add(correctAnswer);
             AnswersCollection.Add(incorrectAnswer);
         }
-
 
         protected internal virtual ICollection<Answer> AnswersCollection { get; set; }
 

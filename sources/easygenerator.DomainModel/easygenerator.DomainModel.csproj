@@ -47,6 +47,7 @@
     <Compile Include="Entities\Questions\SingleSelectImageAnswer.cs" />
     <Compile Include="Entities\Questions\SingleSelectImage.cs" />
     <Compile Include="Entities\Questions\SingleSelectText.cs" />
+    <Compile Include="Entities\Questions\Statement.cs" />
     <Compile Include="Entities\Questions\TextMatching.cs" />
     <Compile Include="Entities\Questions\TextMatchingAnswer.cs" />
     <Compile Include="EntityCloner.cs" />

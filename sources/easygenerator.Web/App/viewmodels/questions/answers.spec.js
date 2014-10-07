@@ -47,17 +47,6 @@
                 expect(viewModel.beginEditText).toBeFunction();
             });
 
-            it('should send event \'Start editing answer option\'', function () {
-                var answer = {
-                    id: ko.observable('answerId'),
-                    text: ko.observable('')
-                };
-                answer.text.isEditing = ko.observable(false);
-
-                viewModel.beginEditText(answer);
-                expect(eventTracker.publish).toHaveBeenCalledWith('Start editing answer option');
-            });
-
             it('should set text isEditing to true', function () {
                 var answer = {
                     id: ko.observable('answerId'),
@@ -77,7 +66,7 @@
                 expect(viewModel.endEditText).toBeFunction();
             });
 
-            it('should send event \'End editing answer option\'', function () {
+            it('should send event \'Edit answer option\'', function () {
                 var answer = {
                     id: ko.observable('answerId'),
                     text: ko.observable('')
@@ -85,7 +74,7 @@
                 answer.text.isEditing = ko.observable(true);
 
                 viewModel.endEditText(answer);
-                expect(eventTracker.publish).toHaveBeenCalledWith('End editing answer option');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Edit answer option');
             });
 
             it('should set isEditing to false', function () {

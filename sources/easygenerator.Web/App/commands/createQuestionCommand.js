@@ -40,14 +40,21 @@
                 case constants.questionType.textMatching.type:
                     eventTracker.publish('Create new question (text matching)', eventCategory);
                     break;
+                case constants.questionType.statement.type:
+                    eventTracker.publish('Create new question (statement)', eventCategory);
+                    break;
             }
         }
 
         function getActualQuestionName(questionType) {
-            if (questionType === constants.questionType.informationContent.type) {
-                return localizationManager.localize('newInformationContentTitle');
+            switch (questionType) {
+                case constants.questionType.informationContent.type:
+                    return localizationManager.localize('newInformationContentTitle');
+                case constants.questionType.statement.type:
+                    return localizationManager.localize('newStatementQuestionTitle');
+                default:
+                    return localizationManager.localize('newQuestionTitle');
             }
-            return localizationManager.localize('newQuestionTitle');
         }
 
     }

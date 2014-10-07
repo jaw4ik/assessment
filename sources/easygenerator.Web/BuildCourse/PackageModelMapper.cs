@@ -52,6 +52,10 @@ namespace easygenerator.Web.BuildCourse
             {
                 return MapFillInTheBlanks(question as FillInTheBlanks);
             }
+            if (questionType == typeof(Statement))
+            {
+                return MapStatement(question as Statement);
+            }
             if (questionType == typeof(SingleSelectText))
             {
                 return MapSingleSelectText(question as SingleSelectText);
@@ -99,6 +103,14 @@ namespace easygenerator.Web.BuildCourse
             return MapQuestion<TextMatchingPackageModel>(question, (model) =>
             {
                 model.Answers = (question.Answers ?? new Collection<TextMatchingAnswer>()).Select(MapTextMatchingAnswer).ToList();
+            });
+        }
+
+        private MultipleselectPackageModel MapStatement(Statement question)
+        {
+            return MapQuestion<StatementPackageModel>(question, (model) =>
+            {
+                model.Answers = question.Answers.Select(MapAnswer).ToList();
             });
         }
 

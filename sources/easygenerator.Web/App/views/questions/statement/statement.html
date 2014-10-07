@@ -1,0 +1,71 @@
+﻿<section class="statement">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="expand-collapse-panel" data-bind="css: { expanded: isExpanded, collapsed: !isExpanded() }">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'statementsEditor' }"></span>
+                <div class="tooltip-icon" data-bind="tooltip:'top'">
+                    <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipStatementTitle' }"></h4>
+                    <div class="tooltip-content" data-bind="localize: { html: 'tooltipStatementDescription'}">
+                    </div>
+                    <div class="tooltip-buttons-holder" style="display: none" data-bind="localize: { html: 'tooltipStatementLink'}">
+                    </div>
+                </div>
+                <!-- ko if: isExpanded -->
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
+                <!-- /ko -->
+                <!-- ko ifnot: isExpanded -->
+                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+    <div class="content-section-wrapper answer-options" data-bind="with: answers, visible: isExpanded">
+        <div class="question-answer-options-area">
+            <div class="content-section">
+                <div class="content-section-header">
+                    <div class="content-section-answer-value-header" data-bind="localize: { text: 'correctness' }"></div>
+                    <div class="content-section-answer-text-header" data-bind="localize: { text: 'statements' }"></div>
+                </div>
+                <ul class="unstyled answer-option-list">
+                    <!-- ko foreach: answers -->
+                    <li class="answer-option-item" data-bind="containerHasFocus: { hasFocus: hasFocus, update: function(){ $parent.updateAnswer($data); } }">
+                        <div class="answer-options-list-item">
+                            <div class="question-answer-value-wrapper">
+                                <div class="question-answer-value" tabindex="-1">
+                                    <div class="switch-toggle-slider" data-bind="switchToggle: { value: isCorrect, onValueChanged: $parent.statementCorrectnessUpdated }">
+                                        <div class="switch-toggle-wrapper">
+                                            <div class="switch-toggle-on">true</div>
+                                            <div class="switch-toogle-blob"></div>
+                                            <div class="switch-toggle-off">false</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="question-answer-text-wrapper" data-bind="css: { active: hasFocus() }">
+                                <div class="question-answer-text">
+                                    <textarea class="editarea-editable-text selectable" data-bind="value: text, valueUpdate: 'afterkeydown', event: { focus: $parent.beginEditText, blur: $parent.endEditText }, editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateAnswer } }, hasFocus: text.isEditing, selectTextInAnswer: {}"></textarea>
+                                </div>
+                            </div>
+                            <!-- ko if: $parent.canRemoveAnswer -->
+                            <div class="question-answer-delete-wrapper">
+                                <div class="question-answer-delete-icon-wrapper info-tooltip-holder">
+                                    <span class="question-answer-delete-icon" data-bind="click: $parent.removeAnswer"></span>
+                                    <div class="info-tooltip question-answer right-side">
+                                        <span data-bind="localize: { text: 'delete' }"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+                <div class="add-answer-option-wrapper">
+                    <button class="add-answer-option-btn btn green" data-bind="click: addAnswer">
+                        <span class="add-answer-option-text" data-bind="localize: { text: 'addStatement' }"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

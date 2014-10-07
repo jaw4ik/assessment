@@ -681,6 +681,30 @@
     },
     /* End resource section for model Questions */
     
+    /* Resource section for model StatementQuestion */
+    statement: {
+        en: 'Statement'
+    },
+    statementQuestionEditor: {
+        en: '\"Statement\" question editor'
+    },
+    statementsEditor: {
+        en: 'Statements editor'
+    },
+    correctness: {
+        en: 'Correctness'
+    },
+    statements: {
+        en: 'Statements'
+    },
+    addStatement: {
+        en: 'Add statement'
+    },
+    newStatementQuestionTitle: {
+        en: 'Untitled statement question'
+    },
+    /* End resource section for model StatementQuestion */
+    
     /* Resource section for model QuestionFeedback */
     putYourPositiveFeedback: {
         en: 'Create response for correct answer'
@@ -1524,6 +1548,15 @@
     },
     tooltipCourseTemplateLink: {
         en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/course-templates\" target=\"_blank\">read more</a>'
+    },
+    tooltipStatementTitle: {
+        en: 'Statement'
+    },
+    tooltipStatementDescription: {
+        en: '<p>The learner will get a list of statements and has to indicate if they are true or false.</p><p><b>Examples:</b></p><p>[True] Five is a Prime number<br>[False] The Atlantic Ocean is the biggest ocean on Earth.</p><p><b>How to</b>:<ul><ol>1. Define the title (Question)</ol><ol>2. Type statements</ol><ol>3. Select true or false for all the statements</ol></ul><p>'
+    },
+    tooltipStatementLink: {
+        en: '&lt;will be defined later on&gt;'
     }
     /* End resource section for model ExplanationTooltips */
            

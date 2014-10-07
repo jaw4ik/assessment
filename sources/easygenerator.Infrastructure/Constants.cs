@@ -4,6 +4,11 @@
     {
         public const string EmailValidationRegexp = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$";
         public const string DefaultAnswerOptionText = "Put your answer option here";
+        
+        public class Statement
+        {
+            public const string DefaultStatementText = "Type your statement here...";
+        }
 
         public class TextMatching
         {

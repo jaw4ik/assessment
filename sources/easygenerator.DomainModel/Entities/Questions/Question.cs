@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using easygenerator.DomainModel.Events.LearningContentEvents;
+﻿using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace easygenerator.DomainModel.Entities.Questions
 {
@@ -20,6 +20,7 @@ namespace easygenerator.DomainModel.Entities.Questions
             public const string TextMatching = "textMatching";
             public const string SingleSelectImage = "singleSelectImage";
             public const string InformationContent = "informationContent";
+            public const string Statement = "statement";
         }
 
         #endregion

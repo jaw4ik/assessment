@@ -1,9 +1,9 @@
 ﻿define(['durandal/app', 'eventTracker', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'ping', 'models/backButton', 'plugins/router',
         'viewmodels/questions/questionTitle', 'viewmodels/common/contentField', 'viewmodels/questions/multipleSelect/multipleSelect',
         'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelectText/singleSelectText', 'viewmodels/questions/textMatching/textMatching',
- 'viewmodels/questions/singleSelectImage/singleSelectImage', 'viewmodels/questions/informationContent/informationContent','localization/localizationManager'],
+ 'viewmodels/questions/singleSelectImage/singleSelectImage', 'viewmodels/questions/informationContent/informationContent', 'viewmodels/questions/statement/statement', 'localization/localizationManager'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, vmQuestionTitle, vmContentField,
-        multipleSelect, fillInTheBlank, dragAndDrop, singleSelectText, textMatching, singleSelectImage, informationContent, localizationManager) {
+        multipleSelect, fillInTheBlank, dragAndDrop, singleSelectText, textMatching, singleSelectImage, informationContent, statement, localizationManager) {
         "use strict";
 
         var events = {
@@ -53,6 +53,7 @@
         }
 
         function setActiveViewModel(question) {
+
             switch (question.type) {
                 case constants.questionType.multipleSelect.type:
                     return multipleSelect;
@@ -68,13 +69,14 @@
                     return textMatching;
                 case constants.questionType.informationContent.type:
                     return informationContent;
+                case constants.questionType.statement.type:
+                    return statement;
             }
         }
 
         function activate(objectiveId, questionId, queryParams) {
             viewmodel.objectiveId = objectiveId;
             viewmodel.questionId = questionId;
-
             return objectiveRepository.getById(objectiveId).then(function (objective) {
                 viewmodel.backButtonData.configure({
                     url: 'objective/' + objective.id,

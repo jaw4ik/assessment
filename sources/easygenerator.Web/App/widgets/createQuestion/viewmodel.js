@@ -51,6 +51,10 @@
                 {
                     type: constants.questionType.dragAndDropText.type,
                     hasAccess: userContext.hasPlusAccess()
+                },
+                {
+                    type: constants.questionType.statement.type,
+                    hasAccess: userContext.hasPlusAccess()
                 }
             ]);
         });

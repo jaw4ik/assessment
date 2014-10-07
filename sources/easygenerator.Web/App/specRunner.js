@@ -88,7 +88,23 @@
             'synchronization/handlers/course/eventHandlers/templateUpdated.spec',
             'synchronization/handlers/course/eventHandlers/titleUpdated.spec',
 
-            //#region questions
+            'synchronization/handlers/learningContent/handler.spec',
+            'synchronization/handlers/learningContent/eventHandlers/created.spec',
+            'synchronization/handlers/learningContent/eventHandlers/deleted.spec',
+            'synchronization/handlers/learningContent/eventHandlers/textUpdated.spec',
+
+            'synchronization/handlers/answer/handler.spec',
+            'synchronization/handlers/answer/eventHandlers/created.spec',
+            'synchronization/handlers/answer/eventHandlers/deleted.spec',
+            'synchronization/handlers/answer/eventHandlers/textUpdated.spec',
+            'synchronization/handlers/answer/eventHandlers/answerCorrectnessUpdated.spec',
+            
+            'synchronization/handlers/user/handler.spec',
+            'synchronization/handlers/user/eventHandlers/upgradedToStarter.spec',
+            'synchronization/handlers/user/eventHandlers/upgradedToPlus.spec',
+            'synchronization/handlers/user/eventHandlers/downgraded.spec',
+
+            //#region synchronization questions
 
             'synchronization/handlers/questions/handler.spec',
 
@@ -123,22 +139,6 @@
             'synchronization/handlers/questions/singleSelectImage/eventHandlers/correctAnswerChanged.spec',
 
             //#endregion
-
-            'synchronization/handlers/learningContent/handler.spec',
-            'synchronization/handlers/learningContent/eventHandlers/created.spec',
-            'synchronization/handlers/learningContent/eventHandlers/deleted.spec',
-            'synchronization/handlers/learningContent/eventHandlers/textUpdated.spec',
-
-            'synchronization/handlers/answer/handler.spec',
-            'synchronization/handlers/answer/eventHandlers/created.spec',
-            'synchronization/handlers/answer/eventHandlers/deleted.spec',
-            'synchronization/handlers/answer/eventHandlers/textUpdated.spec',
-            'synchronization/handlers/answer/eventHandlers/answerCorrectnessUpdated.spec',
-            
-            'synchronization/handlers/user/handler.spec',
-            'synchronization/handlers/user/eventHandlers/upgradedToStarter.spec',
-            'synchronization/handlers/user/eventHandlers/upgradedToPlus.spec',
-            'synchronization/handlers/user/eventHandlers/downgraded.spec',
 
             //#endregion
 
@@ -176,6 +176,9 @@
             'viewmodels/panels/sidePanel.spec',
             'viewmodels/panels/tabs/reviewTab.spec',
             'viewmodels/panels/tabs/feedbackTab.spec',
+
+            //#region questions
+
             'viewmodels/questions/question.spec',
             'viewmodels/questions/answers.spec',
             'viewmodels/questions/multipleSelect/multipleSelectAnswers.spec',
@@ -185,6 +188,9 @@
             'viewmodels/questions/fillInTheBlank/fillInTheBlank.spec',
             'viewmodels/questions/fillInTheBlank/fibControl.spec',
             'viewmodels/questions/informationContent/informationContent.spec',
+
+            'viewmodels/questions/statement/statement.spec',
+            'viewmodels/questions/statement/statementAnswers.spec',
 
             'viewmodels/questions/dragAndDrop/dragAndDrop.spec',
             'viewmodels/questions/dragAndDrop/designer.spec',
@@ -217,6 +223,9 @@
             'viewmodels/questions/questionTitle.spec',
             'viewmodels/questions/learningContents.spec',
             'viewmodels/questions/feedback.spec',
+
+            //#endregion
+            
             'viewmodels/user/userMenu.spec',
             'viewmodels/shell.spec',
             'widgets/backButton/viewmodel.spec',
