@@ -206,6 +206,10 @@
     <Compile Include="Migrations\201409181302535_ConfigureDBIndexes.Designer.cs">
       <DependentUpon>201409181302535_ConfigureDBIndexes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410060706552_CreateIndexesForOnboarding.cs" />
+    <Compile Include="Migrations\201410060706552_CreateIndexesForOnboarding.Designer.cs">
+      <DependentUpon>201410060706552_CreateIndexesForOnboarding.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -349,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409181302535_ConfigureDBIndexes.resx">
       <DependentUpon>201409181302535_ConfigureDBIndexes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410060706552_CreateIndexesForOnboarding.resx">
+      <DependentUpon>201410060706552_CreateIndexesForOnboarding.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
