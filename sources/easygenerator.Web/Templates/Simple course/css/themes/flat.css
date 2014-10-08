@@ -665,6 +665,19 @@
 
 /* #endregion */
 
+/* #region statement question type */
+.statement-header {
+    font-size: 18px;
+    font-family: 'Segoe UI-Semibold';
+    color: #42706a;
+}
+
+.statement-label {
+    font-size: 16px;
+    font-family: 'Segoe UI';
+}
+/* #endregion */
+
 .course-intro-text a,
 .learning-contents a,
 .question-content-wrapper a,
