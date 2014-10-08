@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
@@ -29,7 +30,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         public void InitializeContext()
         {
             _course = GetCourseToBuild();
-            _coursePackageModel = new PackageModelMapper(Substitute.For<IUrlHelperWrapper>()).MapCourse(_course);
+            _coursePackageModel = new PackageModelMapper(Substitute.For<IUrlHelperWrapper>(), Substitute.For<IUserRepository>()).MapCourse(_course);
 
             _fileManager = Substitute.For<PhysicalFileManager>();
             _packageModelSerializer = Substitute.For<PackageModelSerializer>();
@@ -38,8 +39,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _httpRuntimeWrapper.GetDomainAppPath().Returns(string.Empty);
 
             _buildPathProvider = Substitute.For<BuildPathProvider>(_httpRuntimeWrapper);
-            var urlHelper = Substitute.For<IUrlHelperWrapper>();
-            _packageModelMapper = Substitute.For<PackageModelMapper>(urlHelper);
+            _packageModelMapper = Substitute.For<PackageModelMapper>(Substitute.For<IUrlHelperWrapper>(), Substitute.For<IUserRepository>());
             _packageModelMapper.MapCourse(_course).Returns(_coursePackageModel);
 
             _buildContentProvider = new BuildContentProvider(_fileManager, _buildPathProvider, _packageModelSerializer, _packageModelMapper);

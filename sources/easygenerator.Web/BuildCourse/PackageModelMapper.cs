@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.BuildCourse.PackageModel;
 using easygenerator.Web.Components;
@@ -13,10 +14,12 @@ namespace easygenerator.Web.BuildCourse
     public class PackageModelMapper
     {
         private readonly IUrlHelperWrapper _urlHelper;
+        private readonly IUserRepository _userRepository;
 
-        public PackageModelMapper(IUrlHelperWrapper urlHelper)
+        public PackageModelMapper(IUrlHelperWrapper urlHelper, IUserRepository userRepository)
         {
             _urlHelper = urlHelper;
+            _userRepository = userRepository;
         }
 
         public virtual CoursePackageModel MapCourse(Course course)
@@ -24,10 +27,13 @@ namespace easygenerator.Web.BuildCourse
             if (course == null)
                 throw new ArgumentNullException();
 
+            var author = _userRepository.GetUserByEmail(course.CreatedBy);
+
             return new CoursePackageModel()
             {
                 Id = course.Id.ToNString(),
                 Title = course.Title,
+                CreatedBy = author != null ? author.FullName : null,
                 HasIntroductionContent = !String.IsNullOrWhiteSpace(course.IntroductionContent),
                 IntroductionContent = course.IntroductionContent,
                 Objectives = (course.RelatedObjectives ?? new Collection<Objective>()).Select(MapObjective).ToList()

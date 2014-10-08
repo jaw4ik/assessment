@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
@@ -26,8 +27,8 @@ namespace easygenerator.Web.Tests.Controllers
         {
             _buildPathProvider = Substitute.For<BuildPathProvider>(Substitute.For<HttpRuntimeWrapper>());
             _physicalFileManager = Substitute.For<PhysicalFileManager>();
-            var urlHelper = Substitute.For<IUrlHelperWrapper>();
-            _packageModelMapper = Substitute.For<PackageModelMapper>(urlHelper);
+
+            _packageModelMapper = Substitute.For<PackageModelMapper>(Substitute.For<IUrlHelperWrapper>(), Substitute.For<IUserRepository>());
 
             _controller = new PreviewController(_buildPathProvider, _physicalFileManager, _packageModelMapper);
         }
