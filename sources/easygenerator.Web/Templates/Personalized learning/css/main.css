@@ -318,7 +318,7 @@ html {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     font-size: 100%;
-    overflow-x: hidden;
+    overflow-x: auto;
     overflow-y: scroll;
 }
 body {
@@ -548,7 +548,7 @@ hr {
     width: 32px;
 }
 .checkbox-icon, .radio-icon {
-    display: block;
+    display: inline-block;
     width: 32px;
     height: 32px;
     background: url(../images/sprite.png) 0 0 no-repeat;
@@ -565,7 +565,8 @@ hr {
     .checkbox.checked .checkbox-icon {
         background-position: 0 -37px;
     }
-    .radio.checked .radio-icon {
+    .radio.checked .radio-icon,
+    .radio-icon.checked {
         background-position: -37px -37px;
     }
 .checkbox-text, .radio-text {
@@ -618,8 +619,53 @@ hr {
         -ms-border-radius: 0;
         border-radius: 0;
     }
+.statement {
+    display: table;
+    padding: 0 65px;
+    width: 100%;
+    table-layout: fixed;
+}
+.statement-headers-group {
+    display: table-header-group;
+}
+.statement-header {
+    display: table-cell;
+    font-size: 18px;
+    font-family: 'OpenSans-Semibold';
+    height: 50px;
+    vertical-align: middle;
+}
+.statement-item {
+    display: table-row;
+    height: 60px;
+}
+.statement-item:hover {
+    background-color: #f9f9f9;
+}
+.statement-label,
+.statement-option {
+    display: table-cell;
+    vertical-align: middle;
+}
+.statement-option .radio-icon {
+    vertical-align: middle;
+    cursor: pointer;
+}
+.statement-header,
+.statement-option {
+    text-align: center;
+}
+.statement-option {
+    width: 100px;
+}
+.statement-label {
+    padding: 10px;
+    word-wrap: break-word;
+    white-space: pre-line;
+}
 .view {
-    margin: -85px 20px 40px;
+    margin: -85px 20px 0;
+    padding-bottom: 40px;
 }
 .view-header {
     position: relative;
@@ -682,9 +728,12 @@ hr {
     color: #000;
     font-size: 14px;
     font-family: 'OpenSans-Semibold';
+    word-wrap: break-word;
 }
 .preassessment .question-content {
     margin-top: 10px;
+    word-wrap: break-word;
+    overflow: auto;
 }
 .preassessment .submit-wrapper {
     margin-top: 40px;
@@ -793,9 +842,12 @@ hr {
     width: 350px;
 }
 .question .question-title {
+    word-wrap: break-word;
 }
 .question .question-content {
     margin: 20px 0;
+    word-wrap: break-word;
+    overflow: auto;
 }
 .question .question-submit-wrapper {
     margin-top: 40px;
@@ -1291,23 +1343,26 @@ hr {
         background: url(../images/sprite.png) -15px -389px no-repeat;
         content: "";
     }
-.studyadvice .objective-recommended-reading {
+.studyadvice .objective-recommended-readings {
     display: table;
     width: 100%;
+    table-layout: fixed;
+}
+.studyadvice .objective-recommended-reading {
+    display: table-row;
 }
 .studyadvice .objective-recommended-reading-title {
     display: table-cell;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    width: 100%;
+    padding: 25px 0;
     color: #3c3c3c;
     vertical-align: middle;
+    word-wrap: break-word;
 }
 .studyadvice .objective-recommended-reading-start {
     display: table-cell;
-    padding-left: 20px;
-    width: 1%;
+    width: 100px;
     vertical-align: middle;
+    text-align: right;
 }
 .studyadvice .mastered-objective {
     display: table;
