@@ -692,10 +692,10 @@
         en: 'Statements editor'
     },
     correctness: {
-        en: 'Correctness'
+        en: 'True / False'
     },
     statements: {
-        en: 'Statements'
+        en: 'Statement'
     },
     addStatement: {
         en: 'Add statement'
