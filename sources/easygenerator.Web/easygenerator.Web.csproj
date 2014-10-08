@@ -1085,10 +1085,6 @@
     <Content Include="Templates\Exam\content\content.html" />
     <Content Include="Templates\Exam\content\data.js" />
     <Content Include="Templates\Exam\css\fonts\opensans-regular.svg" />
-    <Content Include="Templates\Exam\css\fonts\ubuntu-regular.eot" />
-    <Content Include="Templates\Exam\css\fonts\ubuntu-regular.svg" />
-    <Content Include="Templates\Exam\css\fonts\ubuntu-regular.ttf" />
-    <Content Include="Templates\Exam\css\fonts\ubuntu-regular.woff" />
     <Content Include="Templates\Exam\css\general.css" />
     <Content Include="Templates\Exam\css\images\error-message.png" />
     <Content Include="Templates\Exam\css\images\graphChart.png" />
@@ -1194,10 +1190,6 @@
     <Content Include="Templates\Quiz\content\content.html" />
     <Content Include="Templates\Quiz\content\data.js" />
     <Content Include="Templates\Quiz\css\fonts\opensans-regular.svg" />
-    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.eot" />
-    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.svg" />
-    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.ttf" />
-    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.woff" />
     <Content Include="Templates\Quiz\css\general.css" />
     <Content Include="Templates\Quiz\css\images\error-message.png" />
     <Content Include="Templates\Quiz\css\images\graphChart.png" />
