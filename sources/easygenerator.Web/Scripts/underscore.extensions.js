@@ -15,9 +15,21 @@
             return _.isUndefined(obj) || _.isNull(obj);
         },
         isEmptyHtmlText: function (obj) {
-            var removeTagsRegex = /<\s*p?|(div)?\s*>(\s|&nbsp;|<\/?\s?br\s?\/?>)*<\s*\/p?|(div)?\s*>|<\s*p?|(div)?\s*\/>|(\s|&nbsp;|<\/?\s?br\s?\/?>)*/g;
-            var textWithoutTagsAndWhiteSpace = obj.replace(removeTagsRegex, '').trim();
-            return _.isEmpty(textWithoutTagsAndWhiteSpace);
+            if (_.isNullOrUndefined(obj)) {
+                return true;
+            }
+
+            return _.isEmpty(obj
+                .replace(/<\/?span[^>]*>/g, '')
+                .replace(/<\/?div[^>]*>/g, '')
+                .replace(/<\/?p[^>]*>/g, '')
+                .replace(/<\/?br[^>]*>/g, '')
+
+                .replace(/\n/g, '')
+
+                .replace(/[\u200B-\u200D\uFEFF]/g, '')
+                .replace(/&nbsp;/g, '')
+                .trim());
         }
     });
 
