@@ -18,6 +18,10 @@
                         eventProperties.Email = username;
                     }
 
+                    mixpanel.people.set({
+                        "$last_seen": new Date()
+                    });
+
                     mixpanel.track(eventName, eventProperties);
                 },
 

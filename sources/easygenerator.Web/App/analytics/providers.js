@@ -8,7 +8,7 @@
                 if (_.isFunction(provider.identify))
                     provider.identify();
             });
-        }
+        };
 
         if (!has('release')) {
             providers.push(consoleProvider());
