@@ -46,17 +46,10 @@
             </li>
             <!-- /ko -->
         </ul>
-        <div class="add-button" data-bind="css: { disabled: !canAddLearningContent() }">
-            <!-- ko if: canAddLearningContent -->
+        <div class="add-button">
             <div class="add-button-text-wrapper" data-bind="click: addLearningContent">
                 <span class="add-button-text selectable" data-bind="localize: { text: 'clickToAddLearningContent' }"></span>
             </div>
-            <!-- /ko -->
-            <!-- ko ifnot: canAddLearningContent -->
-            <div class="add-button-text-wrapper">
-                <span class="add-button-text selectable" data-bind="localize: { text: 'clickToAddLearningContent' }"></span>
-            </div>
-            <!-- /ko -->
         </div>
         <!-- /ko -->
     </div>

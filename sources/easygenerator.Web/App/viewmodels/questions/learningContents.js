@@ -33,15 +33,6 @@
             localizationManager: localizationManager
         };
 
-        viewModel.canAddLearningContent = ko.computed({
-            read: function () {
-                return !_.some(viewModel.learningContents(), function (item) {
-                    return _.isEmptyOrWhitespace(ko.unwrap(item.id));
-                });
-            },
-            deferEvaluation: true
-        });
-
         app.on(constants.messages.question.learningContent.createdByCollaborator, createdByCollaborator);
         app.on(constants.messages.question.learningContent.deletedByCollaborator, deletedByCollaborator);
         app.on(constants.messages.question.learningContent.textUpdatedByCollaborator, textUpdatedByCollaborator);

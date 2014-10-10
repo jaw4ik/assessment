@@ -480,32 +480,6 @@
 
         });
 
-        describe('canAddLearningContent:', function () {
-
-            it('should be computed', function () {
-                expect(viewModel.canAddLearningContent).toBeComputed();
-            });
-
-            describe('when a learning content with empty id exist', function () {
-
-                it('should be false', function () {
-                    viewModel.learningContents([{ id: '' }]);
-                    expect(viewModel.canAddLearningContent()).toBeFalsy();
-                });
-
-            });
-
-            describe('when a learning content with empty id does not exist', function () {
-
-                it('should be true', function () {
-                    viewModel.learningContents([]);
-                    expect(viewModel.canAddLearningContent()).toBeTruthy();
-                });
-
-            });
-
-        });
-
         describe('createdByCollaborator:', function () {
             var question = { id: questionId },
                 learningContent = { id: 'learningContentId', text: 'some text' };
