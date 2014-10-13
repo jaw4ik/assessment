@@ -13,6 +13,7 @@
         composition.addBindingHandler('dialog');
         composition.addBindingHandler('ckeditor');
         composition.addBindingHandler('editableText');
+        composition.addBindingHandler('autosize');
     }
 
 });

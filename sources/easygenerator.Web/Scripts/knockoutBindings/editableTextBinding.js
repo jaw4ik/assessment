@@ -1,72 +1,42 @@
 ﻿ko.bindingHandlers.editableText = {
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+    init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var
             $element = $(element),
-            text = valueAccessor().text,
-            multiline = valueAccessor().multiline,
-            autosave = valueAccessor().autosave,
-            root = bindingContext.$root;
-
-        if (multiline) {
-            $element.autosize({
-                callback: function () {
-                    //fix bug in pugin jquery.autosize.js
-                    var height = $element.height(),
-                        boxOffset = $element.outerHeight() - $element.height();
-                    $element.height(height - boxOffset - 1e-3);
-                }
-            });
-        } else {
-            $element.attr('contenteditable', 'true');
-            $element.on('paste', function (event) {
-                var clipboardData = event.originalEvent.clipboardData || window.clipboardData;
-                pasteTextAtCaret(clipboardData.getData('text'), false);
-
-                event.preventDefault();
-                event.stopPropagation();
-            }).on('keypress', function (event) {
-                if (event.keyCode != 13) {
-                    return;
-                }
-                $element.blur();
-                event.preventDefault();
-                event.stopPropagation();
-            });
-        }
+            text = valueAccessor().text;
 
         $element.text(ko.unwrap(text));
         $element.toggleClass('editable-text-binding', true);
+        $element.attr('contenteditable', 'true');
 
-        $element.on('drop dragover', function (event) {
+        $element.on('paste', function(event) {
+            var clipboardData = event.originalEvent.clipboardData || window.clipboardData;
+            pasteTextAtCaret(clipboardData.getData('text'), false);
+
             event.preventDefault();
             event.stopPropagation();
+        }).on('keypress', function(event) {
+            if (event.keyCode != 13) {
+                return;
+            }
+            $element.blur();
+            event.preventDefault();
+            event.stopPropagation();
+        }).on('drop dragover', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }).on('focus', function() {
+            $element.on('DOMSubtreeModified', updateValue);
+        }).on('blur', function() {
+            $element.off('DOMSubtreeModified', updateValue);
         });
 
-        var autosaveIntervalId;
-        $element.on('focus', function () {
-            if (autosave && $.isFunction(autosave.handler)) {
-                autosaveIntervalId = setInterval(function () {
-                    autosave.handler.call(root, viewModel);
-                }, autosave.interval);
-            }
-        }).on('blur', function () {
-            clearInterval(autosaveIntervalId);
-        }).on('DOMSubtreeModified', function () {
+        function updateValue() {
             if (ko.unwrap(text) != $element.text()) {
                 text($element.text());
             }
-        });
-
-        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-            if (multiline) {
-                $element.trigger('autosize.destroy');
-            }
-        });
+        }
 
         function pasteTextAtCaret(html, selectPastedContent) {
-            if (!multiline)
-                html = html.replace(/(\r\n|\n|\r)/gm, " ");
-
             var sel, range;
 
             sel = window.getSelection();
@@ -100,24 +70,13 @@
                 }
             }
         }
-
-        $(window).one("hashchange", function () {
-            if ($element.is(':focus')) {
-                $element.blur();
-            }
-        });
     },
-    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var text = ko.unwrap(valueAccessor().text),
-            $element = $(element),
-            multiline = valueAccessor().multiline;
+            $element = $(element);
 
         if (text != $element.text()) {
             $element.text(text);
-        }
-
-        if (multiline) {
-            $element.trigger('autosize.resize');
         }
     }
 };

@@ -17,7 +17,7 @@
                 <div class="expand-collapse-panel expanded">
                     <span class="expand-collapse-panel-label" data-bind="localize: { text: $parent.isInformationContent ? 'informationContentTitle' : 'questionTitle'}, css: { error: !text.isValid() }">Question title</span>
                 </div>
-                <div class="edit-field selectable" data-bind="editableText: { text: text, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': text.isEditing(), 'error': !text.isValid() }, autofocus: { focus: isCreatedQuestion, autoselect: isCreatedQuestion }">
+                <div class="edit-field selectable" data-bind="editableText: { text: text }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': text.isEditing(), 'error': !text.isValid() }, autofocus: { focus: isCreatedQuestion, autoselect: isCreatedQuestion }">
                 </div>
                 <div class="chars-counter" data-bind="css: { error: !text.isValid() }">
                     <span data-bind="text: text().trim().length"></span>/<span data-bind="text: questionTitleMaxLength"></span>
