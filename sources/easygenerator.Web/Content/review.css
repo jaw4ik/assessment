@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     border: none;
-    overflow: hidden;
 }
 
 iframe {
@@ -20,6 +19,7 @@ iframe {
     z-index: 5000;
     width: 300px;
     bottom: -269px;
+    overflow: hidden;
 }
 
 .review-content, .course-review {
@@ -38,6 +38,7 @@ iframe {
     height: 40px;
     background-color: #7A7A7A;
     line-height: 40px;
+    overflow: hidden;
 }
 
     .comments-header:hover {
