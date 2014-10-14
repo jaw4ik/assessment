@@ -95,7 +95,7 @@
 .finish-btn,
 .try-again-btn {
     color: white;
-    background-color: #f58972;
+    background-color: #f26c4f;
     border: 1px solid #d77864;
     opacity: 0.8;
 }
@@ -105,19 +105,7 @@
     .try-again-btn:hover,
     .try-again-btn:active {
         color: white;
-        background-color: #f26c4f;
-    }
-
-.red-btn {
-    color: white;
-    background-color: #f58972;
-    border: 1px solid #d77864;
-    opacity: 0.8;
-}
-
-    .red-btn:hover,
-    .red-btn:active {
-        background-color: #f26c4f;
+        background-color: #d5553a;
     }
 
 /*#endregion action-buttons*/
