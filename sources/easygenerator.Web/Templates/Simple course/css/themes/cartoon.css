@@ -126,6 +126,16 @@
     border-radius: 10px;
 }
 
+.objective-progressbar-wrapper.not-affect-progress {
+    border-color: #f8f8f8;
+    background-color: #f8f8f8;
+    text-align: center;
+    font-family: 'OpenSans';
+    color: #999;
+    font-size: 13px;
+    line-height: 10px;
+}
+
 .objective-progressbar-inside {
     background: -moz-linear-gradient(left, #41b7d8 0%, #3492ad 100%);
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#41b7d8), color-stop(100%,#3492ad));
