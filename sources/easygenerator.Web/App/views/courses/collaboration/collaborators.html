@@ -8,7 +8,7 @@
             <div class="course-collaborator-item" data-bind="css: { 'course-owner': isOwner, 'disable': !registered() || ( $parent.isCollaborationDisabled() && !isOwner ), 'removing': isRemoving }">
                 <div class="user-avatar course-collaborator-item-user-avatar">
                     <span data-bind="text: isRemoving() ? '' : avatarLetter"></span>
-                    <div class="circular-loader x16 white-circle align-center" data-bind="visible: isRemoving">
+                    <div class="circular-loader x16 white align-center" data-bind="visible: isRemoving">
                         <div class="circular-loader-item"></div>
                         <div class="circular-loader-item"></div>
                         <div class="circular-loader-item"></div>

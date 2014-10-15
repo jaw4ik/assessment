@@ -26,15 +26,15 @@
     LOADER COLOR
 ===================== */
 
-.black-circle .circular-loader-item {
+.circular-loader.black .circular-loader-item {
     background-color: black;
 }
 
-.white-circle .circular-loader-item {
+.circular-loader.white .circular-loader-item {
     background-color: white;
 }
 
-.grey-circle .circular-loader-item {
+.circular-loader.grey .circular-loader-item {
     background-color: #545654;
 }
 
