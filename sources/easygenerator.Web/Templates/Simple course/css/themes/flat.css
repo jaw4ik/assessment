@@ -1,12 +1,34 @@
-﻿body {
+﻿/*#region tag styles*/
+
+body {
     background-color: #ebeff2;
     color: #4d4d4d;
     font-family: Segoe UI, sans-serif;
 }
 
+.course-intro-text a,
+.learning-contents a,
+.question-content-wrapper a,
+.question-feedback-holder a {
+    color: #41b7d8;
+}
+
+    .course-intro-text a:hover, .course-intro-text a:active, .course-intro-text a:focus,
+    .learning-contents a:hover, .learning-contents a:active, .learning-contents a:focus,
+    .question-content-wrapper a:hover, .question-content-wrapper a:active, .question-content-wrapper a:focus,
+    .question-feedback-holder a:hover, .question-feedback-holder a:active, .question-feedback-holder a:focus {
+        color: #3493ad;
+    }
+
+/*#endregion tag styles*/
+
+/*#region header css-styles*/
+
 .header {
     background-color: #2e404e;
 }
+
+/*#endregion header css-styles*/
 
 /*#region content css-styles*/
 
@@ -142,15 +164,15 @@
     border-radius: 10px;
 }
 
-.objective-progressbar-wrapper.not-affect-progress {
-    border-color: #eaeaea;
-    background-color: #eaeaea;
-    text-align: center;
-    font-family: 'Segoe UI';
-    color: #999;
-    font-size: 13px;
-    line-height: 10px;
-}
+    .objective-progressbar-wrapper.not-affect-progress {
+        border-color: #eaeaea;
+        background-color: #eaeaea;
+        text-align: center;
+        font-family: 'Segoe UI';
+        color: #999;
+        font-size: 13px;
+        line-height: 10px;
+    }
 
 .objective-progressbar-inside {
     background: -moz-linear-gradient(left, #8dceff 0%, #68b6ef 46%, #4193d0 100%);
@@ -321,10 +343,6 @@
     background-color: #f0f0f0;
 }
 
-.question-answer-wrapper {
-    margin-top: -12px;
-}
-
 .question-answer-checkbox {
     background-color: white;
     border: 2px solid #aaaaaa;
@@ -332,7 +350,7 @@
 }
 
     .question-answer-checkbox.checked {
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAMCAYAAABr5z2BAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUI2MTA1RTFEQzJCMTFFM0FDQUVGNUREODI5QzM1MkEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUI2MTA1RTJEQzJCMTFFM0FDQUVGNUREODI5QzM1MkEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QjYxMDVERkRDMkIxMUUzQUNBRUY1REQ4MjlDMzUyQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QjYxMDVFMERDMkIxMUUzQUNBRUY1REQ4MjlDMzUyQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PjkG1V8AAADwSURBVHjanNE9agJREMBxvxBF8AKewyIgGlaxSDrRIOkknRbmAoIK4gHEykZSBAXBQoTEQuzsrLSINgFTaGEhiIKV/wezIEtcXRd+xXuzM8ybsWvvWdsdXxAlJF13JIfQhx8th8XkKL4keY+6lQJP6MGHHZ7xfWuBBLrwYos4RiqgFwiYJL+iDTc20DDWgw65WKAMuyH5DR9Qw17jEZPzH1SBvLRWwCc8EsuhASf+EMHU2J4qkEJTzmkMUURNOvpFGD//vU+1dkQGc1TwIGxyF8Py0oDOt1DFCw5ynknbS7P1GNfYkXYHMrDVtf2eBBgAXAAptT8SjE4AAAAASUVORK5CYII=) no-repeat scroll center center white;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAOCAYAAAAi2ky3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjFCREU5RDY1NTM2MTFFNEE0QkQ4NTdFNTY0QTU1NzQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjFCREU5RDc1NTM2MTFFNEE0QkQ4NTdFNTY0QTU1NzQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2MUJERTlENDU1MzYxMUU0QTRCRDg1N0U1NjRBNTU3NCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2MUJERTlENTU1MzYxMUU0QTRCRDg1N0U1NjRBNTU3NCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pixi+R0AAADiSURBVHjaYnQqyGKgAIQBse3e/qm5LBQYEg7ES4GY2bkw+ykTpYZA+WJMVDBkAhAXk+q1CCBegmwIMHwKQQxSXBSJbggQF8IkYQapICnAZchiJDX9yIbADAIZcgyI1wIxJxZDotAM6QPiInRFIIPmArEoEPsD8T4gFkGSjwbiRWiGFGNzMsigOCC+BuVbQF2nDDVkIZIhvbgMgRn0EIhtgPgQVEwViE+iGdIDxCX4YgIW2O+B2A2IV0H5wmiGlBKKUuTo/wlNJ71IYt3EGAIC6AnyP9QLz4BYHIjLiU1kAAEGABGNKzWWw9s+AAAAAElFTkSuQmCC) no-repeat scroll center center white;
     }
 
 .question-answer-radiobutton {
@@ -675,29 +693,22 @@
 
 /* #endregion */
 
-/* #region statement question type */
+/*#region statement question type*/
+
 .statement-header {
-    font-size: 18px;
-    font-family: 'Segoe UI-Semibold';
+    font-family: 'Segoe UI-Semibold', sans-serif;
     color: #42706a;
 }
 
+.statement-item.enabled:hover {
+    background: none;
+}
+
+.statement-item.enabled:nth-child(2n) {
+    background-color: #f0f0f0;
+}
+
 .statement-label {
-    font-size: 16px;
     font-family: 'Segoe UI';
 }
-/* #endregion */
-
-.course-intro-text a,
-.learning-contents a,
-.question-content-wrapper a,
-.question-feedback-holder a {
-    color: #41b7d8;
-}
-
-    .course-intro-text a:hover, .course-intro-text a:active, .course-intro-text a:focus,
-    .learning-contents a:hover, .learning-contents a:active, .learning-contents a:focus,
-    .question-content-wrapper a:hover, .question-content-wrapper a:active, .question-content-wrapper a:focus,
-    .question-feedback-holder a:hover, .question-feedback-holder a:active, .question-feedback-holder a:focus {
-        color: #3493ad;
-    }
+/*#endregion statement question type*/
