@@ -51,6 +51,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Autofac.Mvc5.3.3.3\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Elmah">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
@@ -182,6 +187,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildCourse\BuildContentProvider.cs" />
@@ -218,6 +224,7 @@
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
+    <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
@@ -226,6 +233,7 @@
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
     <Compile Include="Components\Mappers\SingleSelectImageAnswerMapper.cs" />
     <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
+    <Compile Include="Controllers\Api\CourseImportController.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
     <Compile Include="Controllers\Api\FillInTheBlanksController.cs" />
     <Compile Include="Controllers\Api\OnboardingController.cs" />
@@ -235,6 +243,12 @@
     <Compile Include="Controllers\Api\MultipleselectController.cs" />
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
+    <Compile Include="Import\Presentation\Model\Position.cs" />
+    <Compile Include="Import\Presentation\Model\Shape.cs" />
+    <Compile Include="Import\Presentation\PresentationMapper.cs" />
+    <Compile Include="Import\Presentation\Model\Presentation.cs" />
+    <Compile Include="Import\Presentation\Model\Slide.cs" />
+    <Compile Include="Import\Presentation\ShapePositionReceiver.cs" />
     <Compile Include="Mail\IMailSenderWrapper.cs" />
     <Compile Include="Components\Mappers\LearningContentMapper.cs" />
     <Compile Include="Components\Tasks\SubscriptionExpirationTask.cs" />
@@ -388,7 +402,7 @@
     </Compile>
     <Compile Include="Security\PermissionsCheckers\SingleSelectImageAnswerPermissionChecker.cs" />
     <Compile Include="Security\PermissionsCheckers\TextMatchingAnswerPermissionsChecker.cs" />
-    <Compile Include="Storage\ImageValidator.cs" />
+    <Compile Include="Storage\FileTypeChecker.cs" />
     <Compile Include="Storage\Storage.cs" />
     <Compile Include="Synchronization\Broadcasting\Broadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaborationBroadcaster.cs" />
@@ -428,6 +442,10 @@
     <Content Include="App\commands\createCourseCommand.spec.js">
       <DependentUpon>createCourseCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\commands\presentationCourseImportCommand.js" />
+    <Content Include="App\commands\presentationCourseImportCommand.spec.js">
+      <DependentUpon>presentationCourseImportCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\onboarding\initialization.spec.js">
       <DependentUpon>initialization.js</DependentUpon>
     </Content>
@@ -466,6 +484,7 @@
       <DependentUpon>shareCourse.js</DependentUpon>
     </Content>
     <Content Include="App\dialogs\shareCourse\shareCourse.html" />
+    <Content Include="App\fileUpload.js" />
     <Content Include="App\mappers\singleSelectImageAnswerMapper.js" />
     <Content Include="App\models\singleSelectImageAnswer.js" />
     <Content Include="App\navigationBar\navigationBar.html" />
@@ -2065,8 +2084,10 @@
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\CourseImport\" />
     <Folder Include="Views\Statement\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

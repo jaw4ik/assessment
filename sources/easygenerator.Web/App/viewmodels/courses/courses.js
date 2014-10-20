@@ -1,7 +1,7 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
-    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'ping', 'commands/createCourseCommand', 'uiLocker'],
+    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'ping', 'commands/createCourseCommand', 'uiLocker', 'commands/presentationCourseImportCommand'],
     function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount, ping,
-        createCourseCommand, uiLocker) {
+        createCourseCommand, uiLocker, presentationCourseImportCommand) {
         "use strict";
 
         var
@@ -15,7 +15,7 @@
                 courseBuildFailed: 'Course build is failed',
                 coursePublishFailed: 'Course publish is failed',
                 publishCourse: 'Publish course',
-                deleteCourse: "Delete selected courses"
+                deleteCourse: 'Delete selected courses'
             };
 
 
@@ -38,6 +38,7 @@
 
             deleteSelectedCourses: deleteSelectedCourses,
             createNewCourse: createNewCourse,
+            importCourseFromPresentation: importCourseFromPresentation,
 
             courseCollaborationStarted: courseCollaborationStarted,
             deletedByCollaborator: deletedByCollaborator,
@@ -236,5 +237,18 @@
                 });
         }
 
+        function importCourseFromPresentation() {
+            return presentationCourseImportCommand.execute({
+                startLoading: function () {
+                    uiLocker.lock();
+                },
+                success: function (course) {
+                    router.navigate('#course/' + course.id);
+                },
+                complete: function () {
+                    uiLocker.unlock();
+                }
+            });
+        }
     }
 );

@@ -27,6 +27,7 @@
             'authorization/limitCoursesAmount.spec',
             'commands/createQuestionCommand.spec',
             'commands/createCourseCommand.spec',
+            'commands/presentationCourseImportCommand.spec',
             'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/removeCollaborator.spec',

@@ -11,8 +11,13 @@
     </div>
     <div class="create-course-dialog-footer">
         <div class="create-course-action-wrapper">
-            <div class="create-item-btn-wrapper">
-                <button class="create-course-btn btn" data-bind="click: createNewCourse, disable: isCourseCreating(), css: { 'creating': isCourseCreating() }">
+            <div class="create-course-btn-wrapper">
+                <button class="action-item-btn btn blue import-course-btn" data-bind="click: importCourseFromPresentation, disable: isProcessing(), css: { 'importing': isCourseImporting(), disabled: isProcessing() }">
+                    <span class="import-course-btn-caption" data-bind="localize: { text: isCourseImporting() ? 'importing' : 'import' }"></span>
+                </button>
+            </div>
+            <div class="create-course-btn-wrapper">
+                <button class="create-course-btn btn" data-bind="click: createNewCourse, disable: isProcessing(), css: { creating: isCourseCreating(), disabled: isProcessing() }">
                     <span class="create-course-btn-caption" data-bind="localize: { text: isCourseCreating() ? 'creatingStatus' : 'createCourseButtonCaption' }"></span>
                 </button>
             </div>

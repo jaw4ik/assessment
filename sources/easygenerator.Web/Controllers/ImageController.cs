@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.UI;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionResults;
 using easygenerator.Web.Storage;
+using System;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers
 {
@@ -26,15 +20,15 @@ namespace easygenerator.Web.Controllers
         private readonly IStorage _storage;
         private readonly IImageFileRepository _repository;
         private readonly IUrlHelperWrapper _urlHelperWrapper;
-        private readonly IImageValidator _imageValidator;
+        private readonly IFileTypeChecker _fileTypeChecker;
 
-        public ImageController(IEntityFactory entityFactory, IStorage storage, IImageFileRepository repository, IUrlHelperWrapper urlHelperWrapper, IImageValidator imageValidator)
+        public ImageController(IEntityFactory entityFactory, IStorage storage, IImageFileRepository repository, IUrlHelperWrapper urlHelperWrapper, IFileTypeChecker fileTypeChecker)
         {
             _entityFactory = entityFactory;
             _storage = storage;
             _repository = repository;
             _urlHelperWrapper = urlHelperWrapper;
-            _imageValidator = imageValidator;
+            _fileTypeChecker = fileTypeChecker;
         }
 
         [HttpGet]
@@ -85,7 +79,7 @@ namespace easygenerator.Web.Controllers
                 return BadRequest();
             }
 
-            if (!_imageValidator.IsImage(file.InputStream))
+            if (!_fileTypeChecker.IsImage(file.InputStream))
             {
                 return BadRequest();
             }

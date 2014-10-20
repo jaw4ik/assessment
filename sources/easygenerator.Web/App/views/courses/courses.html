@@ -39,6 +39,11 @@
                     </div>
                     <!-- /ko -->
                 </div>
+                <div class="list-item-action import">
+                    <button class="action-item-btn btn blue" data-bind="click: importCourseFromPresentation, css:{ disabled: !isCreateCourseAvailable() }">
+                        <span class="action-item-btn-caption" data-bind="localize: { text: 'import' }"></span>
+                    </button>
+                </div>
                 <div class="list-item-action create">
                     <!-- ko if: isCreateCourseAvailable -->
                     <button class="action-item-btn create-item btn green" data-bind="click: createNewCourse">

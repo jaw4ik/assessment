@@ -37,6 +37,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
@@ -149,6 +153,7 @@
     <Compile Include="Controllers\Api\CollaborationControllerTests.cs" />
     <Compile Include="Controllers\Api\CommentControllerTests.cs" />
     <Compile Include="Controllers\Api\CourseControllerTests.cs" />
+    <Compile Include="Controllers\Api\CourseImportControllerTests.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionControllerTests.cs">
       <SubType>Code</SubType>
     </Compile>

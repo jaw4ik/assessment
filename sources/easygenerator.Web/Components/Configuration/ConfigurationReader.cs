@@ -1,6 +1,6 @@
-﻿using System.Configuration;
-using easygenerator.Web.Components.Configuration.ExternalApi;
+﻿using easygenerator.Web.Components.Configuration.ExternalApi;
 using easygenerator.Web.Components.Configuration.MailSender;
+using System.Configuration;
 
 namespace easygenerator.Web.Components.Configuration
 {
@@ -75,6 +75,14 @@ namespace easygenerator.Web.Components.Configuration
             get
             {
                 return ConfigurationManager.GetSection("publication") as PublicationConfigurationSection;
+            }
+        }
+
+        public virtual CourseImportConfigurationSection CourseImportConfiguration
+        {
+            get
+            {
+                return ConfigurationManager.GetSection("courseImport") as CourseImportConfigurationSection;
             }
         }
 

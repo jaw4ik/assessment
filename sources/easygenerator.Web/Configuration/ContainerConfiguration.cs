@@ -3,7 +3,6 @@ using Autofac.Builder;
 using Autofac.Integration.Mvc;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.Infrastructure;
@@ -18,6 +17,7 @@ using easygenerator.Web.Components.Elmah;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.ModelBinding;
 using easygenerator.Web.Components.Tasks;
+using easygenerator.Web.Import.Presentation;
 using easygenerator.Web.Import.PublishedCourse;
 using easygenerator.Web.Import.PublishedCourse.EntityReaders;
 using easygenerator.Web.Mail;
@@ -69,6 +69,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<ConfigurationReader>();
             builder.RegisterType<RazorTemplateProvider>().SingleInstance();
 
+
             builder.RegisterModule(new DataAccessModule());
 
             builder.RegisterType<EntityFactory>().As<IEntityFactory>();
@@ -80,7 +81,7 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<Broadcaster>().As<IBroadcaster>();
             RegisterGenericTypes(builder, applicationAssembly, typeof(IEntityCollaboratorProvider<>));
-            builder.RegisterGeneric(typeof(CollaborationBroadcaster<>)).As(typeof (ICollaborationBroadcaster<>));
+            builder.RegisterGeneric(typeof(CollaborationBroadcaster<>)).As(typeof(ICollaborationBroadcaster<>));
             builder.RegisterType<UserCollaborationBroadcaster>().As<IUserCollaborationBroadcaster>();
 
             #endregion
@@ -173,13 +174,14 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<AnswerEntityReader>();
             builder.RegisterType<LearningContentEntityReader>();
             builder.RegisterType<PublishedCourseImporter>();
+            builder.RegisterType<PresentationMapper>();
 
             #endregion
 
             builder.RegisterType<UrlHelperWrapper>().As<IUrlHelperWrapper>();
             builder.RegisterType<Storage.Storage>().As<IStorage>();
 
-            builder.RegisterType<ImageValidator>().As<IImageValidator>();
+            builder.RegisterType<FileTypeChecker>().As<IFileTypeChecker>();
             builder.RegisterType<WooCommerceAutologinUrlProvider>().As<IWooCommerceAutologinUrlProvider>();
 
             #region Log

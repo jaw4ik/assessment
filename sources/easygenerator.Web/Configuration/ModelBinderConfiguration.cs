@@ -1,5 +1,4 @@
-﻿
-using easygenerator.Web.Components.ModelBinding;
+﻿using easygenerator.Web.Components.ModelBinding;
 using System;
 using System.Web.Mvc;
 

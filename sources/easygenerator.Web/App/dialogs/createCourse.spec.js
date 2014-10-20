@@ -1,20 +1,21 @@
-﻿define(['dialogs/createCourse'], function(Dialog) {
+﻿define(['dialogs/createCourse'], function (Dialog) {
 
     var router = require('plugins/router'),
         appDialog = require('plugins/dialog'),
-        createCourseCommand = require('commands/createCourseCommand');
+        createCourseCommand = require('commands/createCourseCommand'),
+        presentationCourseImportCommand = require('commands/presentationCourseImportCommand');
 
-    describe('dialog [createCourse]', function() {
+    describe('dialog [createCourse]', function () {
 
         var dialog;
 
-        beforeEach(function() {
+        beforeEach(function () {
             spyOn(router, 'navigate');
             spyOn(appDialog, 'close');
             dialog = new Dialog();
         });
 
-        it('should be function', function() {
+        it('should be function', function () {
             expect(Dialog).toBeFunction();
         });
 
@@ -26,11 +27,58 @@
 
         });
 
+        describe('isCourseImporting:', function () {
+
+            it('should be observable', function () {
+                expect(dialog.isCourseImporting).toBeObservable();
+            });
+
+        });
+
+        describe('isProcessing:', function () {
+
+            beforeEach(function () {
+                dialog.isCourseCreating(false);
+                dialog.isCourseImporting(false);
+            });
+
+            it('should be computed', function () {
+                expect(dialog.isProcessing).toBeComputed();
+            });
+
+            describe('when course is importing', function () {
+                beforeEach(function () {
+                    dialog.isCourseImporting(true);
+                });
+
+                it('should be true', function () {
+                    expect(dialog.isProcessing()).toBeTruthy();
+                });
+            });
+
+            describe('when course is creating', function () {
+                beforeEach(function () {
+                    dialog.isCourseCreating(true);
+                });
+
+                it('should be true', function () {
+                    expect(dialog.isProcessing()).toBeTruthy();
+                });
+            });
+
+            describe('when course is not creating or publishing', function () {
+                it('should be false', function () {
+                    expect(dialog.isProcessing()).toBeFalsy();
+                });
+            });
+
+        });
+
         describe('createNewCourse:', function () {
-            
+
             var createCourse;
 
-            beforeEach(function() {
+            beforeEach(function () {
                 createCourse = Q.defer();
                 spyOn(createCourseCommand, 'execute').and.returnValue(createCourse.promise);
             });
@@ -39,7 +87,7 @@
                 expect(dialog.createNewCourse).toBeFunction();
             });
 
-            it('should isCourseCreating operation', function() {
+            it('should isCourseCreating operation', function () {
                 dialog.isCourseCreating(false);
 
                 dialog.createNewCourse();
@@ -47,7 +95,7 @@
                 expect(dialog.isCourseCreating()).toBeTruthy();
             });
 
-            it('should call command to create course', function() {
+            it('should call command to create course', function () {
                 dialog.isCourseCreating(false);
 
                 dialog.createNewCourse();
@@ -55,9 +103,9 @@
                 expect(createCourseCommand.execute).toHaveBeenCalledWith('Splash pop-up after signup');
             });
 
-            describe('when course is created', function() {
+            describe('when course is created', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     createCourse.resolve({ id: 'courseId' });
                 });
 
@@ -84,9 +132,9 @@
 
             });
 
-            describe('when course is not created', function() {
+            describe('when course is not created', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     createCourse.reject('error');
                 });
 
@@ -112,6 +160,65 @@
                 });
             });
 
+        });
+
+        describe('importCourseFromPresentation:', function () {
+            it('should be a function', function () {
+                expect(dialog.importCourseFromPresentation).toBeFunction();
+            });
+
+            it('should execute import course command', function () {
+                spyOn(presentationCourseImportCommand, 'execute');
+                dialog.importCourseFromPresentation();
+                expect(presentationCourseImportCommand.execute).toHaveBeenCalled();
+            });
+
+            describe('when course import started', function () {
+                beforeEach(function () {
+                    dialog.isCourseImporting(false);
+                    spyOn(presentationCourseImportCommand, 'execute').and.callFake(function (spec) {
+                        spec.startLoading();
+                    });
+                });
+
+                it('should set isCourseImporting to true', function () {
+                    dialog.importCourseFromPresentation();
+                    expect(dialog.isCourseImporting()).toBeTruthy();
+                });
+            });
+
+            describe('when course import completed', function () {
+                beforeEach(function () {
+                    dialog.isCourseImporting(true);
+                    spyOn(presentationCourseImportCommand, 'execute').and.callFake(function (spec) {
+                        spec.complete();
+                    });
+                });
+
+                it('should set isCourseImporting to false', function () {
+                    dialog.importCourseFromPresentation();
+                    expect(dialog.isCourseImporting()).toBeFalsy();
+                });
+            });
+
+            describe('when course import succeded', function () {
+                var course = { id: 'id' };
+                beforeEach(function () {
+                    spyOn(presentationCourseImportCommand, 'execute').and.callFake(function (spec) {
+                        spec.success(course);
+                    });
+                });
+
+                it('should navigate to created course', function () {
+                    dialog.importCourseFromPresentation();
+                    expect(router.navigate).toHaveBeenCalledWith('#course/' + course.id);
+                });
+
+                it('should close dialog', function () {
+                    dialog.importCourseFromPresentation();
+                    expect(appDialog.close).toHaveBeenCalledWith(dialog);
+                });
+            });
         });
 
     });

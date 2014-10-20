@@ -34,7 +34,7 @@ namespace easygenerator.Web.Tests.Controllers
         private IStorage _storage;
         private IImageFileRepository _repository;
         private IUrlHelperWrapper _urlHelperWrapper;
-        private IImageValidator _imageValidator;
+        private IFileTypeChecker _fileTypeChecker;
 
         private IPrincipal _user;
         private HttpContextBase _context;
@@ -47,7 +47,7 @@ namespace easygenerator.Web.Tests.Controllers
             _storage = Substitute.For<IStorage>();
             _repository = Substitute.For<IImageFileRepository>();
             _urlHelperWrapper = Substitute.For<IUrlHelperWrapper>();
-            _imageValidator = Substitute.For<IImageValidator>();
+            _fileTypeChecker = Substitute.For<IFileTypeChecker>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -55,7 +55,7 @@ namespace easygenerator.Web.Tests.Controllers
             _context.User.Returns(_user);
 
 
-            _controller = new ImageController(_entityFactory, _storage, _repository, _urlHelperWrapper, _imageValidator);
+            _controller = new ImageController(_entityFactory, _storage, _repository, _urlHelperWrapper, _fileTypeChecker);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -298,7 +298,7 @@ namespace easygenerator.Web.Tests.Controllers
 
         private void ArrangeImageValidator(bool isImage = true)
         {
-            _imageValidator.IsImage(Arg.Any<Stream>()).Returns(isImage);
+            _fileTypeChecker.IsImage(Arg.Any<Stream>()).Returns(isImage);
         }
 
         private void ArrangeStorageMaxFileSize(long maxFileSize = 100)

@@ -145,6 +145,15 @@
     presentationIsNotSupported: {
         en: 'This file format is not supported. Please use pptx.'
     },
+    uploadingImage: {
+        en: 'Uploading image...'
+    },
+    chooseBackgroundImage: {
+        en: 'Choose background image'
+    },
+    chooseImage: {
+        en: '&#43; Choose image'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -604,9 +613,6 @@
     upgradeAccountToCreateAdvancedQuestionTypes: {
         en: 'Please upgrade your account to be able to create advanced question types'
     },
-    dragAndDrop: {
-        en: 'Drag and drop text'
-    },
     dragAndDropText: {
         en: 'Drag and drop text'
     },
@@ -640,6 +646,9 @@
     DragAndDropTextEditor: {
         en: '\"Drag and drop text\" question editor'
     },
+    hotSpotTextEditor: {
+        en: '\"Hotspot\" question editor'
+    },
     textMatchingEditor: {
         en: '\"Text matching\" question editor'
     },
@@ -655,7 +664,7 @@
     textMatching: {
         en: 'Text matching'
     },
-    hotSpot: {
+    hotspot: {
         en: 'Hot spot'
     },
     keysTitle: {
@@ -680,6 +689,42 @@
         en: 'Change image'
     },
     /* End resource section for model Questions */
+    
+    /* Resource section for model HotspotQuestion */
+    newHotspotQuestionTitle: {
+        en: 'Untitled hotspot question'
+    },
+    hotSpotDesigner: {
+        en: 'Hotspot designer'
+    },
+    singleResponse: {
+        en: 'Single response'
+    },
+    multipleResponse: {
+        en: 'Multiple response'
+    },
+    clickAndDragToCreateHotSpots: {
+        en: 'Click and drag to create hotspots'
+    },
+    defineHotspots: {
+        en: 'and define hotspots'
+    },
+    hotspotHasBeenDeletedByCollaborator: {
+        en: 'Hotspot has been deleted by co-author.'
+    },
+    hotSpotTooltipCreate: {
+        en: 'Click and drag to create hotspots'
+    },
+    hotSpotTooltipDrag: {
+        en: 'Click to select hotspot'
+    },
+    hotSpotTooltipActive: {
+        en: 'Press \"Delete\" key to remove hotspot'
+    },
+    hotSpotTooltipResize: {
+        en: 'Drag to change size of hotspot'
+    },
+    /* End resource section for model HotspotQuestion */
     
     /* Resource section for model StatementQuestion */
     statement: {
@@ -995,30 +1040,6 @@
         en: 'Forgot password?'
     },
     /* End resource section for model Sign In */
-    
-    /* Resource section for model Try now */
-    tryNow: {
-        en: 'Try now'
-    },
-    tryWarningMessage: {
-        en: 'In Try It Now mode your content is not safe!'
-    },
-    tryTitle: {
-        en: 'Introducing easygenerator'
-    },
-    trySubtitle: {
-        en: 'A revolutionary eLearning platform'
-    },
-    trySubmitCaption: {
-        en: 'Try it now'
-    },
-    tryImageDevelopOn: {
-        en: 'Develop on'
-    },
-    tryImagePublishTo: {
-        en: 'Publish to'
-    },
-    /* End resource section for model Try now */
     
     /* Resource section for model Sign Out */
     signOutButton: {
@@ -1553,7 +1574,7 @@
         en: 'Statement'
     },
     tooltipStatementDescription: {
-        en: '<p>The learner will get a list of statements and has to indicate if they are true or false.</p><p><b>Examples:</b></p><p>[True] Five is a Prime number<br>[False] The Atlantic Ocean is the biggest ocean on Earth.</p><p><b>How to</b>:<ul><ol>1. Define the title (Question)</ol><ol>2. Type statements</ol><ol>3. Select true or false for all the statements</ol></ul><p>'
+        en: '<p>The learner gets a list of statements and has to indicate if they are true or false.</p><p><b>Examples:</b></p><p>[True] Five is a Prime number<br>[False] The Atlantic Ocean is the biggest ocean on Earth.</p><p><b>How to</b>:<ul><ol>1. Define the title (Question)</ol><ol>2. Type statements</ol><ol>3. Select true or false for all the statements</ol></ul><p>'
     },
     tooltipStatementLink: {
         en: '&lt;will be defined later on&gt;'

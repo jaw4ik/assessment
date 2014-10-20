@@ -14,7 +14,8 @@
         limitCoursesAmount = require('authorization/limitCoursesAmount'),
         ping = require('ping'),
         uiLocker = require('uiLocker'),
-        createCourseCommand = require('commands/createCourseCommand')
+        createCourseCommand = require('commands/createCourseCommand'),
+        presentationCourseImportCommand = require('commands/presentationCourseImportCommand')
     ;
 
     var
@@ -255,11 +256,11 @@
 
         });
 
-        describe('createCourse:', function () {
+        describe('createNewCourse:', function () {
 
             var createCourse;
 
-            beforeEach(function() {
+            beforeEach(function () {
                 createCourse = Q.defer();
                 spyOn(createCourseCommand, 'execute').and.returnValue(createCourse.promise);
             });
@@ -273,7 +274,7 @@
                 expect(uiLocker.lock).toHaveBeenCalled();
             });
 
-            it('should execute create course command', function() {
+            it('should execute create course command', function () {
                 viewModel.createNewCourse();
                 expect(createCourseCommand.execute).toHaveBeenCalledWith('Courses');
             });
@@ -315,6 +316,59 @@
                 });
             });
 
+        });
+
+        describe('importCourseFromPresentation:', function () {
+
+            it('should be a function', function () {
+                expect(viewModel.importCourseFromPresentation).toBeFunction();
+            });
+
+            it('should execute import course command', function () {
+                spyOn(presentationCourseImportCommand, 'execute');
+                viewModel.importCourseFromPresentation();
+                expect(presentationCourseImportCommand.execute).toHaveBeenCalled();
+            });
+
+            describe('when course import started', function () {
+                beforeEach(function () {
+                    spyOn(presentationCourseImportCommand, 'execute').and.callFake(function (spec) {
+                        spec.startLoading();
+                    });
+                });
+
+                it('should unlock ui', function () {
+                    viewModel.importCourseFromPresentation();
+                    expect(uiLocker.lock).toHaveBeenCalled();
+                });
+            });
+
+            describe('when course import succeded', function () {
+                var course = { id: 'id' };
+                beforeEach(function () {
+                    spyOn(presentationCourseImportCommand, 'execute').and.callFake(function (spec) {
+                        spec.success(course);
+                    });
+                });
+
+                it('should navigate to created course', function () {
+                    viewModel.importCourseFromPresentation();
+                    expect(router.navigate).toHaveBeenCalledWith('#course/' + course.id);
+                });
+            });
+
+            describe('when course import completed', function () {
+                beforeEach(function () {
+                    spyOn(presentationCourseImportCommand, 'execute').and.callFake(function (spec) {
+                        spec.complete();
+                    });
+                });
+
+                it('should unlock ui', function () {
+                    viewModel.importCourseFromPresentation();
+                    expect(uiLocker.unlock).toHaveBeenCalled();
+                });
+            });
         });
 
         describe('navigateToDetails:', function () {
