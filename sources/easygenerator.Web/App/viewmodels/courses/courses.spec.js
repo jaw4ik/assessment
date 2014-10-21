@@ -351,10 +351,28 @@
                     });
                 });
 
-                it('should navigate to created course', function () {
-                    viewModel.importCourseFromPresentation();
-                    expect(router.navigate).toHaveBeenCalledWith('#course/' + course.id);
+                describe('and course has objective', function() {
+                    beforeEach(function() {
+                        course.objectives = [{ id: 'objectiveId' }];
+                    });
+
+                    it('should navigate to created course', function() {
+                        viewModel.importCourseFromPresentation();
+                        expect(router.navigate).toHaveBeenCalledWith('#objective/' + course.objectives[0].id + '?courseId=' + course.id);
+                    });
                 });
+
+                describe('and course does not have objectives', function() {
+                    beforeEach(function() {
+                        course.objectives = [];
+                    });
+                    
+                    it('should navigate to created course', function() {
+                        viewModel.importCourseFromPresentation();
+                        expect(router.navigate).toHaveBeenCalledWith('#course/' + course.id);
+                    });
+                });
+                
             });
 
             describe('when course import completed', function () {

@@ -242,8 +242,12 @@
                 startLoading: function () {
                     uiLocker.lock();
                 },
-                success: function (course) {
-                    router.navigate('#course/' + course.id);
+                success: function(course) {
+                    if (course.objectives.length) {
+                        router.navigate('#objective/' + course.objectives[0].id + '?courseId=' + course.id);
+                    } else {
+                        router.navigate('#course/' + course.id);
+                    }
                 },
                 complete: function () {
                     uiLocker.unlock();

@@ -202,16 +202,34 @@
             });
 
             describe('when course import succeded', function () {
-                var course = { id: 'id' };
+                var course = { id: 'id', objectives: [] };
                 beforeEach(function () {
                     spyOn(presentationCourseImportCommand, 'execute').and.callFake(function (spec) {
                         spec.success(course);
                     });
                 });
 
-                it('should navigate to created course', function () {
-                    dialog.importCourseFromPresentation();
-                    expect(router.navigate).toHaveBeenCalledWith('#course/' + course.id);
+                describe('and course has objective', function() {
+
+                    beforeEach(function() {
+                        course.objectives = [{ id: 'objectiveId' }];
+                    });
+
+                    it('should navigate to objective', function() {
+                        dialog.importCourseFromPresentation();
+                        expect(router.navigate).toHaveBeenCalledWith('#objective/' + course.objectives[0].id + '?courseId=' + course.id);
+                    });
+                });
+
+                describe('and course does not have objectives', function() {
+                    beforeEach(function() {
+                        course.objectives = [];
+                    });
+
+                    it('should navigate to created course', function() {
+                        dialog.importCourseFromPresentation();
+                        expect(router.navigate).toHaveBeenCalledWith('#course/' + course.id);
+                    });
                 });
 
                 it('should close dialog', function () {
