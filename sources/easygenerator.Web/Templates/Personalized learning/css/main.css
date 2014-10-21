@@ -1172,6 +1172,7 @@ hr {
     padding: 15px 30px 15px 15px;
     table-layout: fixed;
     width: 100%;
+    word-wrap: break-word;
 }
 .text-matchig-source-text {
     display: table-cell;
@@ -1179,7 +1180,6 @@ hr {
     vertical-align: middle;
     white-space: pre-wrap;
     width: 100%;
-    word-break: break-all;
 }
 .text-matching-target-wrapper {
     height: 100%;
@@ -1227,6 +1227,7 @@ hr {
     padding: 15px;
     table-layout: fixed;
     width: 100%;
+    word-wrap: break-word;
 }
 .text-matching-target-text {
     display: table-cell;
@@ -1234,7 +1235,6 @@ hr {
     vertical-align: middle;
     white-space: pre-wrap;
     width: 100%;
-    word-break: break-all;
 }
 .text-matching-target-placeholder-wrapper {
     height: 100%;
