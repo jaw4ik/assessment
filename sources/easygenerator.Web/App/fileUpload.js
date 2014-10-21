@@ -6,6 +6,7 @@
                 action: '',
                 supportedExtensions: [],
                 notSupportedFileMessage: 'This file format is not supported.',
+                acceptedTypes: '*',
 
                 startLoading: function () { },
                 success: function () { },
@@ -23,7 +24,7 @@
                       .insertAfter("body");
 
             var input = $("<input>")
-               //.attr('accept', 'image/jpeg, image/gif, image/png, image/bmp')
+               .attr('accept', settings.acceptedTypes)
                .attr('type', 'file')
                .attr('name', 'file')
                .on('change', function () {

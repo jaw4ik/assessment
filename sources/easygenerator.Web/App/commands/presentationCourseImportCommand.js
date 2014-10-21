@@ -9,6 +9,7 @@
                 return fileUpload.upload({
                     action: 'api/course/import/presentation',
                     supportedExtensions: ['pptx'],
+                    acceptedTypes: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
                     notSupportedFileMessage: localizationManager.localize('presentationIsNotSupported'),
 
                     startLoading: function () {
