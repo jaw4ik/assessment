@@ -463,6 +463,7 @@
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
     <Content Include="App\views\questions\statement\statement.html" />
+    <Content Include="Content\images\comingsoon1024.png" />
     <Content Include="Content\images\statement-question.png" />
     <Content Include="Content\statement.css" />
     <Content Include="Content\switchToggle.css" />

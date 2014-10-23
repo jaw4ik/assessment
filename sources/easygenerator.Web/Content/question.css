@@ -821,7 +821,6 @@
     }
 
     .question-type-text.statement:before {
-        width: 58px;
         background-position: -163px -78px;
     }
 
@@ -836,6 +835,73 @@
     .question-type-text.disabled:before {
         background-image: none;
     }
+
+@media(max-height: 780px) {
+
+    .question-type-action-wrapper {
+        width: 430px;
+    }
+
+    .question-type-action-item {
+        width: 141px;
+        padding: 10px 0;
+    }
+
+    .question-type-text {
+        padding-top: 60px;
+    }
+
+        .question-type-text:before {
+            height: 60px;
+            width: 40px;
+            margin-left: -20px;
+        }
+
+        .question-type-text.informationContent:before {
+            background: url(images/info-question.png) 0 0;
+        }
+
+        .question-type-text.singleSelectText:before {
+            background: url(images/singleselecttext-question.png) 0 0;
+        }
+
+        .question-type-text.multipleSelect:before {
+            background: url(images/multiselect-question.png) 0 0;
+        }
+
+        .question-type-text.singleSelectImage:before {
+            background: url(images/singleselectimage-question.png) 0 0;
+        }
+
+        .question-type-text.fillInTheBlank:before {
+            background: url(images/fillintheblank-question.png) 0 0;
+        }
+
+        .question-type-text.textMatching:before {
+            background: url(images/textmatching-question.png) 0 0;
+        }
+
+        .question-type-text.dragAndDropText:before {
+            width: 46px;
+            background: url(images/draganddroptext-question.png) 0 0;
+        }
+
+        .question-type-text.statement:before {
+            background: url(images/statement-question.png) 0 0;
+        }
+
+        .question-type-text.hotspot:before {
+            background: url(images/hotspot-question.png) 0 0;
+        }
+        
+        .question-type-text.empty:before {
+            height: 79px;
+            width: 100px;
+            top: -13px;
+            margin-left: -50px;
+            background-image: url('images/comingsoon1024.png');
+        }
+}
 
 /*#endregion Question type create actions*/
 
