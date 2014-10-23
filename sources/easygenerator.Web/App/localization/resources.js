@@ -152,7 +152,7 @@
         en: 'Choose background image'
     },
     chooseImage: {
-        en: '&#43; Choose image'
+        en: '&#43; Choose background image'
     },
     /* End resource section for model General */
     
@@ -460,6 +460,12 @@
     createNewCourse: {
         en: 'New course'
     },
+    powerPointImport: {
+        en: 'Power Point import'
+    },
+    createCourse: {
+        en: 'Create course'
+    },
     chooseTemplate: {
         en: 'Choose course template:'
     },
@@ -623,7 +629,7 @@
         en: 'No background image yet'
     },
     browse: {
-        en: '+ Add background image'
+        en: '&#43; Choose background image'
     },
     addDropspotText: {
         en: 'Add drop text'
@@ -1577,13 +1583,13 @@
         en: '<p>The learner gets a list of statements and has to indicate if they are true or false.</p><p><b>Examples:</b></p><p>[True] Five is a Prime number<br>[False] The Atlantic Ocean is the biggest ocean on Earth.</p><p><b>How to</b>:<ul><ol>1. Define the title (Question)</ol><ol>2. Type statements</ol><ol>3. Select true or false for all the statements</ol></ul><p>'
     },
     tooltipStatementLink: {
-        en: '&lt;will be defined later on&gt;'
+        en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Statement\" target=\"_blank\">read more</a>'
     },
     tooltipHotspotTitle: {
         en: 'Hotspot'
     },
     tooltipHotspotDescription: {
-        en: '<p>The learner sees an image and has to click on one or more places in order to give an answer:</p><p><b>Example:</b> \"Geography: Locate areas on a map\".</p><p>Options:<ul><li style=\"padding-bottom: 8px;\">Single response – learners are able to select only one area. If there are several hotspots to choose, the question is answered correctly when the learner clicks on ANY of the hotspots.</li><li>Multiple response – learners are able to select multiple areas. The question is answered correctly when the learner clicks all hotspots without choosing any wrong places.</li></ul></p><p><strong>How to:</strong><ul><ol>1. Define the title (Question)</ol><ol>2. Upload the image</ol><ol>3. Choose between single and multiple response</ol><ol>4. Create your hotspots</ol></ul></p>'
+        en: '<p>The learner sees an image and has to click on one or more places in order to give an answer:</p><p><b>Example:</b> \"Geography: Locate areas on a map\".</p><p>Options:<ul><li style=\"padding-bottom: 8px;\">Single response – learners are able to select only one area. If there are several hotspots to choose, the question is answered correctly when the learner clicks on ANY of the hotspots.</li><li>Multiple response – learners are able to select multiple areas. The question is answered correctly when the learner clicks ALL hotspots without choosing any wrong places.</li></ul></p><p><strong>How to:</strong><ul><ol>1. Define the title (Question)</ol><ol>2. Upload the image</ol><ol>3. Choose between single and multiple response</ol><ol>4. Create your hotspots</ol></ul></p>'
     },
     tooltipHotspotLink: {
         en: '<a style=\"display:none;\" href=\"\">read more</a>'
