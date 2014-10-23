@@ -5,8 +5,9 @@
         'viewmodels/questions/textMatching/textMatching',
         'viewmodels/questions/singleSelectImage/singleSelectImage',
         'viewmodels/questions/informationContent/informationContent',
+        'viewmodels/questions/statement/statement',
         'viewmodels/questions/hotSpot/hotSpot'],
-    function (multipleSelect, fillInTheBlank, dragAndDropText, singleSelectText, textMatching, singleSelectImage, informationContent, hotspot) {
+    function (multipleSelect, fillInTheBlank, dragAndDropText, singleSelectText, textMatching, singleSelectImage, informationContent, statement, hotspot) {
         "use strict";
 
         return {
@@ -17,6 +18,7 @@
             textMatching: textMatching,
             singleSelectImage: singleSelectImage,
             informationContent: informationContent,
+            statement:statement,
             hotspot: hotspot
         };
 
