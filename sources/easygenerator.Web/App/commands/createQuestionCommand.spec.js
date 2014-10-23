@@ -55,11 +55,20 @@
 
                 });
 
-                describe('and when question type is dragAndDrop', function () {
+                describe('and when question type is dragAndDropText', function () {
 
                     it('should send event \'Create new question (drag and drop)\' with defined event category ', function () {
                         command.execute('objectiveId', 'courseId', constants.questionType.dragAndDropText.type, 'Event category');
                         expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (drag and drop)', 'Event category');
+                    });
+
+                });
+
+                describe('and when question type is hotspot', function () {
+
+                    it('should send event \'Create new question (hotspot)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.hotspot.type, 'Event category');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (hotspot)', 'Event category');
                     });
 
                 });
@@ -121,7 +130,7 @@
 
                 });
 
-                describe('when question type is dragAndDrop', function () {
+                describe('when question type is dragAndDropText', function () {
 
                     it('should send event \'Create new question (drag and drop)\' with defined event category ', function () {
                         command.execute('objectiveId', 'courseId', constants.questionType.dragAndDropText.type);

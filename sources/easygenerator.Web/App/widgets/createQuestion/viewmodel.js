@@ -55,6 +55,10 @@
                 {
                     type: constants.questionType.statement.type,
                     hasAccess: userContext.hasPlusAccess()
+                },
+                {
+                    type: constants.questionType.hotspot.type,
+                    hasAccess: userContext.hasPlusAccess()
                 }
             ]);
         });

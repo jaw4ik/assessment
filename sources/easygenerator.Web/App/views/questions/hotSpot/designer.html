@@ -1,0 +1,68 @@
+﻿<section data-bind="with: designer">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="expand-collapse-panel" data-bind="css: { expanded: isExpanded, collapsed: !isExpanded() }">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'hotSpotDesigner' }">Hotspot designer</span>
+                <div class="tooltip-icon" data-bind="tooltip: 'top' ">
+                    <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipHotspotTitle'}"></h4>
+                    <div class="tooltip-content" data-bind="localize: { html: 'tooltipHotspotDescription'}">
+                    </div>
+                    <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipHotspotLink'}">
+                    </div>
+                </div>
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: isExpanded() ? 'collapse' : 'expand' }"></div>
+            </div>
+        </div>
+    </div>
+    <div class="content-section-wrapper answer-options" data-bind="visible: isExpanded">
+        <div class="question-answer-options-area">
+            <div class="content-section">
+                <div class="switcher" data-bind="css: { disable: !background() }">
+                    <div class="switcher-text" data-bind="localize: { text: 'singleResponse' }, css: { selected: !isMultiple() }"></div>
+                    <div class="switch-toggle-slider" data-bind="switchToggle: { value: isMultiple, onValueChanged: changeType }">
+                        <div class="switch-toggle-wrapper">
+                            <div class="switch-toggle-on"></div>
+                            <div class="switch-toogle-blob"></div>
+                            <div class="switch-toggle-off"></div>
+                        </div>
+                    </div>
+                    <div class="switcher-text multiple" data-bind="localize: { text: 'multipleResponse' }, css: { selected: isMultiple() }"></div>
+                    <div class="overlay"></div>
+                </div>
+                <!-- ko ifnot: background -->
+                <div class="hotspot-designer empty">
+                    <div class="hotspot-designer-empty-holder">
+                        <div class="hotspot-designer-empty-image"></div>
+                        <div class="hotspot-designer-empty-content">
+                            <div class="hotspot-designer-empty-content-title" data-bind="localize: { text: 'chooseBackgroundImage' }"></div>
+                            <div class="hotspot-designer-empty-content-text" data-bind="localize: { text: 'defineHotspots' }">and define hotspots</div>
+                            <div class="hotspot-designer-empty-browse-btn-wrapper">
+                                <button class="hotspot-browse-image-btn btn green" data-bind="click: uploadBackground, localize: { html: 'chooseImage' }"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: background -->
+                <div class="hotspot-designer background">
+                    <div class="hotspot-designer-background-wrapper">
+                        <div class="hotspot-designer-background" data-bind="background: background, polygonsEditor: {background:background, polygons:polygons, actions: {addPolygon: addPolygon, updatePolygon: updatePolygon, removePolygon:removePolygon}}">
+                        </div>
+                    </div>
+                    <div class="cursor-tooltip">
+                        <span class="create" data-bind="localize: { text: 'hotSpotTooltipCreate' }">Click and drag to create hotspots</span>
+                        <span class="drag" data-bind="localize: { text: 'hotSpotTooltipDrag' }">Click to select hotspot</span>
+                        <span class="active" data-bind="localize: { text: 'hotSpotTooltipActive' }">Press "Delete" key to remove hotspot</span>
+                        <span class="resize" data-bind="localize: { text: 'hotSpotTooltipResize' }">Drag to change size of hotspot</span>
+                    </div>
+                    <div class="upload-background-image info-tooltip-holder" data-bind="click: uploadBackground">
+                        <div class="info-tooltip browse-image">
+                            <span data-bind="localize: { text: 'changeBackgroundImage' }">Browse image</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</section>

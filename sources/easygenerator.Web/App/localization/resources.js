@@ -1578,6 +1578,15 @@
     },
     tooltipStatementLink: {
         en: '&lt;will be defined later on&gt;'
+    },
+    tooltipHotspotTitle: {
+        en: 'Hotspot'
+    },
+    tooltipHotspotDescription: {
+        en: '<p>The learner sees an image and has to click on one or more places in order to give an answer:</p><p><b>Example:</b> \"Geography: Locate areas on a map\".</p><p>Options:<ul><li style=\"padding-bottom: 8px;\">Single response – learners are able to select only one area. If there are several hotspots to choose, the question is answered correctly when the learner clicks on ANY of the hotspots.</li><li>Multiple response – learners are able to select multiple areas. The question is answered correctly when the learner clicks all hotspots without choosing any wrong places.</li></ul></p><p><strong>How to:</strong><ul><ol>1. Define the title (Question)</ol><ol>2. Upload the image</ol><ol>3. Choose between single and multiple response</ol><ol>4. Create your hotspots</ol></ul></p>'
+    },
+    tooltipHotspotLink: {
+        en: '<a style=\"display:none;\" href=\"\">read more</a>'
     }
     /* End resource section for model ExplanationTooltips */
            

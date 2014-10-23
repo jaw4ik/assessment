@@ -20,6 +20,7 @@ namespace easygenerator.DomainModel.Entities.Questions
             public const string TextMatching = "textMatching";
             public const string SingleSelectImage = "singleSelectImage";
             public const string InformationContent = "informationContent";
+            public const string HotSpot = "hotspot";
             public const string Statement = "statement";
         }
 

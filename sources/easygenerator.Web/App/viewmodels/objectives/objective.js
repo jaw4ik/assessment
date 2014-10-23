@@ -78,12 +78,16 @@
         app.on(constants.messages.question.learningContent.createdByCollaborator, questionUpdated);
         app.on(constants.messages.question.learningContent.deletedByCollaborator, questionUpdated);
         app.on(constants.messages.question.learningContent.textUpdatedByCollaborator, questionUpdated);
-        app.on(constants.messages.question.dragAndDrop.dropspotCreatedByCollaborator, questionUpdated);
-        app.on(constants.messages.question.dragAndDrop.dropspotDeletedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.dragAndDropText.dropspotCreatedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.dragAndDropText.dropspotDeletedByCollaborator, questionUpdated);
         app.on(constants.messages.question.textMatching.answerCreatedByCollaborator, questionUpdated);
         app.on(constants.messages.question.textMatching.answerDeletedByCollaborator, questionUpdated);
         app.on(constants.messages.question.singleSelectImage.answerCreatedByCollaborator, questionUpdated);
         app.on(constants.messages.question.singleSelectImage.answerDeletedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.hotSpot.polygonCreatedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.hotSpot.polygonDeletedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.hotSpot.polygonUpdatedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.hotSpot.isMultipleUpdatedByCollaborator, questionUpdated);
 
         return viewModel;
 
@@ -244,24 +248,7 @@
         }
 
         function getQuestionImageLink(type) {
-            switch (type) {
-                case constants.questionType.multipleSelect.type:
-                    return constants.questionType.multipleSelect.image;
-                case constants.questionType.fillInTheBlank.type:
-                    return constants.questionType.fillInTheBlank.image;
-                case constants.questionType.dragAndDropText.type:
-                    return constants.questionType.dragAndDropText.image;
-                case constants.questionType.singleSelectText.type:
-                    return constants.questionType.singleSelectText.image;
-                case constants.questionType.textMatching.type:
-                    return constants.questionType.textMatching.image;
-                case constants.questionType.singleSelectImage.type:
-                    return constants.questionType.singleSelectImage.image;
-                case constants.questionType.informationContent.type:
-                    return constants.questionType.informationContent.image;
-                case constants.questionType.statement.type:
-                    return constants.questionType.statement.image;
-            }
+            return constants.questionType[type].image;
         }
 
         function getSelectedQuestions() {

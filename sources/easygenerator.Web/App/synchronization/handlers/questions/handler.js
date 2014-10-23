@@ -1,23 +1,26 @@
 ﻿define([
-    'synchronization/handlers/questions/dragAndDrop/handler',
+    'synchronization/handlers/questions/dragAndDropText/handler',
     'synchronization/handlers/questions/fillInTheBlank/handler',
     'synchronization/handlers/questions/question/handler',
     'synchronization/handlers/questions/textMatching/handler',
-    'synchronization/handlers/questions/singleSelectImage/handler'],
+    'synchronization/handlers/questions/singleSelectImage/handler',
+    'synchronization/handlers/questions/hotSpot/handler'],
     function (
-        dragAndDrop,
+        dragAndDropText,
         fillInTheBlank,
         question,
         textMatching,
-        singleSelectImage) {
+        singleSelectImage,
+        hotSpot) {
         "use strict";
 
         return {
-            dragAndDrop: dragAndDrop,
+            dragAndDropText: dragAndDropText,
             fillInTheBlank: fillInTheBlank,
             question: question,
             textMatching: textMatching,
-            singleSelectImage: singleSelectImage
+            singleSelectImage: singleSelectImage,
+            hotSpot: hotSpot
         };
 
     });

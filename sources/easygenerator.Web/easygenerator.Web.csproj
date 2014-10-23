@@ -204,6 +204,7 @@
     <Compile Include="BuildCourse\PackageModel\DragAndDropTextPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\DropspotPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\FillInTheBlanksPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\HotSpotPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\InformationContentPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\LearningContentPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\BlankAnswerGroupPackageModel.cs" />
@@ -230,10 +231,12 @@
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
     <Compile Include="Components\Mappers\DropspotMapper.cs" />
     <Compile Include="Components\Mappers\EntityMapper.cs" />
+    <Compile Include="Components\Mappers\HotSpotPolygonMapper.cs" />
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
     <Compile Include="Components\Mappers\SingleSelectImageAnswerMapper.cs" />
     <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
     <Compile Include="Controllers\Api\CourseImportController.cs" />
+    <Compile Include="Controllers\Api\HotSpotQuestionController.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
     <Compile Include="Controllers\Api\FillInTheBlanksController.cs" />
     <Compile Include="Controllers\Api\OnboardingController.cs" />
@@ -384,6 +387,7 @@
     <Compile Include="Security\PermissionsCheckers\CoursePermissionsChecker.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Security\PermissionsCheckers\HotSpotPolygonPermissionsChecker.cs" />
     <Compile Include="Security\PermissionsCheckers\DropspotPermissionsChecker.cs" />
     <Compile Include="Security\PermissionsCheckers\EntityPermissionsChecker.cs">
       <SubType>Code</SubType>
@@ -420,6 +424,7 @@
     <Compile Include="Synchronization\Handlers\CollaborationEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\DragAndDropEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\HotSpotEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
@@ -446,6 +451,8 @@
     <Content Include="App\commands\presentationCourseImportCommand.spec.js">
       <DependentUpon>presentationCourseImportCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\components\polygonsEditor\polygonShape.js" />
+    <Content Include="App\components\polygonsEditor\polygonsEditor.js" />
     <Content Include="App\onboarding\initialization.spec.js">
       <DependentUpon>initialization.js</DependentUpon>
     </Content>
@@ -453,6 +460,26 @@
     <Content Include="App\components\tooltip\view.html" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\isMultipleChanged.js" />
+    <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\isMultipleChanged.spec.js">
+      <DependentUpon>isMultipleChanged.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonChanged.spec.js">
+      <DependentUpon>polygonChanged.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonDeleted.spec.js">
+      <DependentUpon>polygonDeleted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonDeleted.js" />
+    <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonChanged.js" />
+    <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonCreated.js" />
+    <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonCreated.spec.js">
+      <DependentUpon>polygonCreated.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
+    <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
+      <DependentUpon>changeType.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\questions\statement\statement.js" />
     <Content Include="App\viewmodels\questions\statement\statement.spec.js">
@@ -463,11 +490,58 @@
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
     <Content Include="App\views\questions\statement\statement.html" />
-    <Content Include="Content\images\comingsoon1024.png" />
-    <Content Include="Content\images\disabled-question1024.png" />
+    <Content Include="Content\hotSpot.css" />
+    <Content Include="Content\images\closedhand.cur" />
+    <Content Include="Content\images\hotSpot-empty.png" />
+    <Content Include="Content\images\no-spots.png" />
+    <Content Include="Content\images\openhand.cur" />
     <Content Include="Content\images\statement-question.png" />
     <Content Include="Content\statement.css" />
     <Content Include="Content\switchToggle.css" />
+    <Content Include="App\synchronization\handlers\questions\hotSpot\handler.js" />
+    <Content Include="App\synchronization\handlers\questions\hotSpot\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\hotSpot\bindingHandlers\polygonsEditorBindingHandler.js" />
+    <Content Include="App\viewmodels\questions\dragAndDropText\dragAndDropText.spec.js">
+      <DependentUpon>dragAndDropText.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\hotSpot\commands\addPolygon.js" />
+    <Content Include="App\viewmodels\questions\hotSpot\commands\addPolygon.spec.js">
+      <DependentUpon>addPolygon.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\hotSpot\commands\changeBackground.js" />
+    <Content Include="App\viewmodels\questions\hotSpot\commands\changeBackground.spec.js">
+      <DependentUpon>changeBackground.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\hotSpot\commands\updatePolygon.js" />
+    <Content Include="App\viewmodels\questions\hotSpot\commands\updatePolygon.spec.js">
+      <DependentUpon>updatePolygon.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\hotSpot\commands\removePolygon.js" />
+    <Content Include="App\viewmodels\questions\hotSpot\commands\removePolygon.spec.js">
+      <DependentUpon>removePolygon.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\hotSpot\designer.js" />
+    <Content Include="App\viewmodels\questions\hotSpot\designer.spec.js">
+      <DependentUpon>designer.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\hotSpot\hotSpot.js" />
+    <Content Include="App\viewmodels\questions\hotSpot\hotSpot.spec.js">
+      <DependentUpon>hotSpot.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\hotSpot\polygon.spec.js">
+      <DependentUpon>polygon.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\hotSpot\polygon.js" />
+    <Content Include="App\viewmodels\questions\hotSpot\queries\getQuestionContentById.js" />
+    <Content Include="App\viewmodels\questions\hotSpot\queries\getQuestionContentById.spec.js">
+      <DependentUpon>getQuestionContentById.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\questionViewModelFactory.js" />
+    <Content Include="App\views\questions\hotSpot\designer.html" />
+    <Content Include="App\views\questions\hotSpot\hotSpot.html" />
+    <Content Include="Content\images\hotspot-question.png" />
     <Content Include="Scripts\jquery.signalR-2.1.2.js" />
     <Content Include="Scripts\jquery.signalR-2.1.2.min.js" />
     <Content Include="Scripts\knockout-3.2.0.debug.js" />
@@ -521,28 +595,28 @@
     <Content Include="App\synchronization\handlers\course\eventHandlers\objectivesReplaced.spec.js">
       <DependentUpon>objectivesReplaced.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\backgroundChanged.js" />
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\backgroundChanged.spec.js">
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\backgroundChanged.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\backgroundChanged.spec.js">
       <DependentUpon>backgroundChanged.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotCreated.js" />
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotCreated.spec.js">
+    <Content Include="App\synchronization\handlers\questions\dragAndDropText\eventHandlers\dropspotCreated.js" />
+    <Content Include="App\synchronization\handlers\questions\dragAndDropText\eventHandlers\dropspotCreated.spec.js">
       <DependentUpon>dropspotCreated.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotDeleted.js" />
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotDeleted.spec.js">
+    <Content Include="App\synchronization\handlers\questions\dragAndDropText\eventHandlers\dropspotDeleted.js" />
+    <Content Include="App\synchronization\handlers\questions\dragAndDropText\eventHandlers\dropspotDeleted.spec.js">
       <DependentUpon>dropspotDeleted.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotPositionChanged.js" />
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotPositionChanged.spec.js">
+    <Content Include="App\synchronization\handlers\questions\dragAndDropText\eventHandlers\dropspotPositionChanged.js" />
+    <Content Include="App\synchronization\handlers\questions\dragAndDropText\eventHandlers\dropspotPositionChanged.spec.js">
       <DependentUpon>dropspotPositionChanged.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotTextChanged.js" />
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\eventHandlers\dropspotTextChanged.spec.js">
+    <Content Include="App\synchronization\handlers\questions\dragAndDropText\eventHandlers\dropspotTextChanged.js" />
+    <Content Include="App\synchronization\handlers\questions\dragAndDropText\eventHandlers\dropspotTextChanged.spec.js">
       <DependentUpon>dropspotTextChanged.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\handler.js" />
-    <Content Include="App\synchronization\handlers\questions\dragAndDrop\handler.spec.js">
+    <Content Include="App\synchronization\handlers\questions\dragAndDropText\handler.js" />
+    <Content Include="App\synchronization\handlers\questions\dragAndDropText\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\questions\fillInTheBlank\eventHandlers\updated.js" />
@@ -630,9 +704,7 @@
       <DependentUpon>upgradedToPlus.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\panels\bindingHandlers\fixedPanelBindingHandler.js" />
-    <Content Include="App\viewmodels\questions\dragAndDrop\dragAndDrop.spec.js">
-      <DependentUpon>dragAndDrop.js</DependentUpon>
-    </Content>
+
     <Content Include="App\viewmodels\questions\informationContent\informationContent.spec.js">
       <DependentUpon>informationContent.js</DependentUpon>
     </Content>
@@ -778,43 +850,43 @@
     <Content Include="App\viewmodels\questions\answers.spec.js">
       <DependentUpon>answers.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\dragAndDrop\bindingHandlers\backgroundBindingHandler.js" />
-    <Content Include="App\viewmodels\questions\dragAndDrop\commands\addDropspot.js" />
-    <Content Include="App\viewmodels\questions\dragAndDrop\commands\addDropspot.spec.js">
+    <Content Include="App\components\bindingHandlers\backgroundBindingHandler.js" />
+    <Content Include="App\viewmodels\questions\dragAndDropText\commands\addDropspot.js" />
+    <Content Include="App\viewmodels\questions\dragAndDropText\commands\addDropspot.spec.js">
       <DependentUpon>addDropspot.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\dragAndDrop\commands\changeDropspotPosition.js" />
-    <Content Include="App\viewmodels\questions\dragAndDrop\commands\changeDropspotPosition.spec.js">
+    <Content Include="App\viewmodels\questions\dragAndDropText\commands\changeDropspotPosition.js" />
+    <Content Include="App\viewmodels\questions\dragAndDropText\commands\changeDropspotPosition.spec.js">
       <DependentUpon>changeDropspotPosition.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\dragAndDrop\commands\changeDropspotText.js" />
-    <Content Include="App\viewmodels\questions\dragAndDrop\commands\changeBackground.js" />
-    <Content Include="App\viewmodels\questions\dragAndDrop\commands\changeDropspotText.spec.js">
+    <Content Include="App\viewmodels\questions\dragAndDropText\commands\changeDropspotText.js" />
+    <Content Include="App\viewmodels\questions\dragAndDropText\commands\changeBackground.js" />
+    <Content Include="App\viewmodels\questions\dragAndDropText\commands\changeDropspotText.spec.js">
       <DependentUpon>changeDropspotText.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\dragAndDrop\commands\changeBackground.spec.js">
+    <Content Include="App\viewmodels\questions\dragAndDropText\commands\changeBackground.spec.js">
       <DependentUpon>changeBackground.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\dragAndDrop\commands\removeDropspot.js" />
-    <Content Include="App\viewmodels\questions\dragAndDrop\commands\removeDropspot.spec.js">
+    <Content Include="App\viewmodels\questions\dragAndDropText\commands\removeDropspot.js" />
+    <Content Include="App\viewmodels\questions\dragAndDropText\commands\removeDropspot.spec.js">
       <DependentUpon>removeDropspot.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\dragAndDrop\designer.js" />
-    <Content Include="App\viewmodels\questions\dragAndDrop\designer.spec.js">
+    <Content Include="App\viewmodels\questions\dragAndDropText\designer.js" />
+    <Content Include="App\viewmodels\questions\dragAndDropText\designer.spec.js">
       <DependentUpon>designer.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\dragAndDrop\dragAndDrop.js" />
-    <Content Include="App\viewmodels\questions\dragAndDrop\bindingHandlers\draggableTextBindingHandler.js" />
-    <Content Include="App\viewmodels\questions\dragAndDrop\dropspot.js" />
-    <Content Include="App\viewmodels\questions\dragAndDrop\dropspot.spec.js">
+    <Content Include="App\viewmodels\questions\dragAndDropText\dragAndDropText.js" />
+    <Content Include="App\viewmodels\questions\dragAndDropText\bindingHandlers\draggableTextBindingHandler.js" />
+    <Content Include="App\viewmodels\questions\dragAndDropText\dropspot.js" />
+    <Content Include="App\viewmodels\questions\dragAndDropText\dropspot.spec.js">
       <DependentUpon>dropspot.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\dragAndDrop\dropspotToAdd.js" />
-    <Content Include="App\viewmodels\questions\dragAndDrop\dropspotToAdd.spec.js">
+    <Content Include="App\viewmodels\questions\dragAndDropText\dropspotToAdd.js" />
+    <Content Include="App\viewmodels\questions\dragAndDropText\dropspotToAdd.spec.js">
       <DependentUpon>dropspotToAdd.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\dragAndDrop\queries\getQuestionContentById.js" />
-    <Content Include="App\viewmodels\questions\dragAndDrop\queries\getQuestionContentById.spec.js">
+    <Content Include="App\viewmodels\questions\dragAndDropText\queries\getQuestionContentById.js" />
+    <Content Include="App\viewmodels\questions\dragAndDropText\queries\getQuestionContentById.spec.js">
       <DependentUpon>getQuestionContentById.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\questions\feedback.js" />
@@ -912,8 +984,8 @@
     </Content>
     <Content Include="App\viewmodels\questions\textMatching\textMatchingAnswer.js" />
     <Content Include="App\views\objectives\createObjective.html" />
-    <Content Include="App\views\questions\dragAndDrop\designer.html" />
-    <Content Include="App\views\questions\dragAndDrop\dragAndDrop.html" />
+    <Content Include="App\views\questions\dragAndDropText\designer.html" />
+    <Content Include="App\views\questions\dragAndDropText\dragAndDropText.html" />
     <Content Include="App\views\questions\feedback.html" />
     <Content Include="App\views\questions\fillInTheBlank\fillInTheBlank.html" />
     <Content Include="App\views\questions\learningContents.html" />
@@ -1085,6 +1157,8 @@
     <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\paper-full-0.9.20.js" />
+    <Content Include="Scripts\paper-full-0.9.20.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\underscore-min.map" />

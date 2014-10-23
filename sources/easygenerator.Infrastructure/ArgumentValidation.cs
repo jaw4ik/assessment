@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace easygenerator.Infrastructure
 {
@@ -89,13 +91,35 @@ namespace easygenerator.Infrastructure
 
         public static void ThrowIfNotValidEmail(string email, string argumentName)
         {
-           ThrowIfNullOrEmpty(email, argumentName);
+            ThrowIfNullOrEmpty(email, argumentName);
 
             if (email.Length > 254)
                 throw new ArgumentException("Invalid email", argumentName);
 
             if (!Regex.IsMatch(email, Constants.EmailValidationRegexp))
                 throw new ArgumentException("Invalid email format", argumentName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentNullException"/> if the object to validate is <c>null</c>.
+        /// Throws <see cref="ArgumentException"/> if it is an empty or whitespace string or it is not valid JSON format.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="toValidate"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="toValidate"/> is an empty or whitespace string or it is not valid JSON format.</exception>
+        public static void ThrowIfNotValidJsonFormat<T>(string toValidate, string argumentName)
+        {
+            ThrowIfNullOrEmpty(toValidate, argumentName);
+
+            try
+            {
+                JsonConvert.DeserializeObject<T>(toValidate);
+            }
+            catch
+            {
+                Type argType = typeof (T);
+                string typeName = String.Format("{0}{1}", argType.Name, argType.IsGenericType ? "<" + String.Concat(argType.GenericTypeArguments.Select(t => t.Name)) + ">" : "");
+                throw new ArgumentException(String.Format("The value of {0} need to be of {1} type.", argumentName, typeName), argumentName);
+            }
         }
 
         #endregion

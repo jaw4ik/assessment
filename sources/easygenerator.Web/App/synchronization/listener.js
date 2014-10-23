@@ -2,11 +2,11 @@
         'durandal/system', 'synchronization/handlers/user/handler', 'synchronization/handlers/course/handler', 'synchronization/handlers/objective/handler',
         'synchronization/handlers/questions/handler', 'synchronization/handlers/answer/handler', 'synchronization/handlers/learningContent/handler', 'synchronization/handlers/collaboration/handler'
 ],
-    function(system, userEventHandler, courseEventHandler, objectiveEventHandler, questionEventHandler, answerEventHandler, learningContentEventHandler, collaborationEventHandler) {
+    function (system, userEventHandler, courseEventHandler, objectiveEventHandler, questionEventHandler, answerEventHandler, learningContentEventHandler, collaborationEventHandler) {
         "use strict";
 
         return {
-            start: function() {
+            start: function () {
                 var dfd = Q.defer();
 
                 var hub = $.connection.eventHub;
@@ -41,14 +41,14 @@
                     questionContentUpdated: questionEventHandler.question.contentUpdated,
                     questionCorrectFeedbackUpdated: questionEventHandler.question.correctFeedbackUpdated,
                     questionIncorrectFeedbackUpdated: questionEventHandler.question.incorrectFeedbackUpdated,
+                    questionBackgroundChanged: questionEventHandler.question.backgroundChanged,
 
                     fillInTheBlankUpdated: questionEventHandler.fillInTheBlank.updated,
-
-                    dragAndDropBackgroundChanged: questionEventHandler.dragAndDrop.backgroundChanged,
-                    dragAndDropDropspotCreated: questionEventHandler.dragAndDrop.dropspotCreated,
-                    dragAndDropDropspotDeleted: questionEventHandler.dragAndDrop.dropspotDeleted,
-                    dragAndDropDropspotTextChanged: questionEventHandler.dragAndDrop.dropspotTextChanged,
-                    dragAndDropDropspotPositionChanged: questionEventHandler.dragAndDrop.dropspotPositionChanged,
+                    
+                    dragAndDropDropspotCreated: questionEventHandler.dragAndDropText.dropspotCreated,
+                    dragAndDropDropspotDeleted: questionEventHandler.dragAndDropText.dropspotDeleted,
+                    dragAndDropDropspotTextChanged: questionEventHandler.dragAndDropText.dropspotTextChanged,
+                    dragAndDropDropspotPositionChanged: questionEventHandler.dragAndDropText.dropspotPositionChanged,
 
                     textMatchingAnswerCreated: questionEventHandler.textMatching.answerCreated,
                     textMatchingAnswerDeleted: questionEventHandler.textMatching.answerDeleted,
@@ -64,17 +64,22 @@
                     answerDeleted: answerEventHandler.deleted,
                     answerTextUpdated: answerEventHandler.textUpdated,
                     answerCorrectnessUpdated: answerEventHandler.answerCorrectnessUpdated,
-                    
+
                     learningContentCreated: learningContentEventHandler.created,
                     learningContentUpdated: learningContentEventHandler.textUpdated,
-                    learningContentDeleted: learningContentEventHandler.deleted
+                    learningContentDeleted: learningContentEventHandler.deleted,
+
+                    hotSpotPolygonCreated: questionEventHandler.hotSpot.polygonCreated,
+                    hotSpotPolygonDeleted: questionEventHandler.hotSpot.polygonDeleted,
+                    hotSpotPolygonChanged: questionEventHandler.hotSpot.polygonChanged,
+                    hotSpotIsMultipleChanged: questionEventHandler.hotSpot.isMultipleChanged
                 };
 
                 $.connection.hub.start()
-                    .done(function() {
+                    .done(function () {
                         system.log("Synchronization with server was established");
                         dfd.resolve();
-                    }).fail(function() {
+                    }).fail(function () {
                         dfd.reject('Could not establish synchronization with server');
                     });
 

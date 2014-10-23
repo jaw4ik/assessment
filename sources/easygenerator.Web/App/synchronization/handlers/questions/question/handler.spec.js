@@ -15,6 +15,12 @@
             });
         });
 
+        describe('backgroundChanged:', function () {
+            it('should be function', function () {
+                expect(handler.backgroundChanged).toBeFunction();
+            });
+        });
+
         describe('correctFeedbackUpdated:', function () {
             it('should be defined', function () {
                 expect(handler.correctFeedbackUpdated).toBeDefined();

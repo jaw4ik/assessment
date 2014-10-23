@@ -28,6 +28,9 @@
                 case constants.questionType.dragAndDropText.type:
                     eventTracker.publish('Create new question (drag and drop)', eventCategory);
                     break;
+                case constants.questionType.hotspot.type:
+                    eventTracker.publish('Create new question (hotspot)', eventCategory);
+                    break;
                 case constants.questionType.singleSelectText.type:
                     eventTracker.publish('Create new question (single select text)', eventCategory);
                     break;
@@ -52,6 +55,8 @@
                     return localizationManager.localize('newInformationContentTitle');
                 case constants.questionType.statement.type:
                     return localizationManager.localize('newStatementQuestionTitle');
+                case constants.questionType.hotspot.type:
+                    return localizationManager.localize('newHotspotQuestionTitle');
                 default:
                     return localizationManager.localize('newQuestionTitle');
             }

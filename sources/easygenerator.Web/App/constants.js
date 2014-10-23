@@ -37,6 +37,10 @@
                     type: 'textMatching',
                     image: '/Content/images/textmatching-question.png'
                 },
+                hotspot: {
+                    type: 'hotspot',
+                    image: '/Content/images/hotspot-question.png'
+                },
                 statement: {
                     type: 'statement',
                     image: '/Content/images/statement-question.png'
@@ -161,6 +165,7 @@
                     titleUpdated: 'question:titleUpdated',
                     titleUpdatedByCollaborator: 'question:titleUpdatedByCollaborator',
                     contentUpdatedByCollaborator: 'question:contentUpdatedByCollaborator',
+                    backgroundChangedByCollaborator: 'question:backgroundChangedByCollaborator',
                     correctFeedbackUpdatedByCollaborator: 'question:correctFeedbackUpdatedByCollaborator',
                     incorrectFeedbackUpdatedByCollaborator: 'question:incorrectFeedbackUpdatedByCollaborator',
                     deletedByCollaborator: 'question:deletedByCollaborator',
@@ -176,26 +181,32 @@
                     learningContent: {
                         createdByCollaborator: 'learningContent:createdByCollaborator',
                         deletedByCollaborator: 'learningContent:deletedByCollaborator',
-                        textUpdatedByCollaborator: 'learningContent:textUpdatedByCollaborator',
+                        textUpdatedByCollaborator: 'learningContent:textUpdatedByCollaborator'
                     },
 
                     fillInTheBlank: {
                         updatedByCollaborator: 'question:fillInTheBlank:updatedByCollaborator'
                     },
 
-                    dragAndDrop: {
-                        backgroundChangedByCollaborator: 'question:dragAndDrop:backgroundChangedByCollaborator',
+                    dragAndDropText: {
                         dropspotCreatedByCollaborator: 'question:dragAndDrop:dropspotCreatedByCollaborator',
                         dropspotPositionChangedByCollaborator: 'question:dragAndDrop:dropspotPositionChangedByCollaborator',
                         dropspotTextChangedByCollaborator: 'question:dragAndDrop:dropspotTextChangedByCollaborator',
                         dropspotDeletedByCollaborator: 'question:dragAndDrop:dropspotDeletedByCollaborator'
                     },
 
+                    hotSpot: {
+                        polygonCreatedByCollaborator: 'question:hotSpot:polygonCreatedByCollaborator',
+                        polygonUpdatedByCollaborator: 'question:hotSpot:polygonUpdatedByCollaborator',
+                        polygonDeletedByCollaborator: 'question:hotSpot:polygonDeletedByCollaborator',
+                        isMultipleUpdatedByCollaborator: 'question:hotSpot:isMultipleUpdatedByCollaborator'
+                    },
+
                     textMatching: {
                         answerCreatedByCollaborator: 'question:textMatching:answerCreatedByCollaborator',
                         answerDeletedByCollaborator: 'question:textMatching:answerDeletedByCollaborator',
                         answerKeyChangedByCollaborator: 'question:textMatching:answerKeyChangedByCollaborator',
-                        answerValueChangedByCollaborator: 'question:textMatching:answerValueChangedByCollaborator',
+                        answerValueChangedByCollaborator: 'question:textMatching:answerValueChangedByCollaborator'
                     },
 
                     singleSelectImage: {

@@ -30,7 +30,8 @@
                 expect(command.execute).toBeFunction();
             });
 
-            it('should send event \'Open "choose PowerPoint file" dialogue\'', function() {
+            it('should send event \'Open "choose PowerPoint file" dialogue\'', function () {
+                spyOn(fileUpload, 'upload');
                 command.execute(options);
                 expect(eventTracker.publish).toHaveBeenCalledWith('Open "choose PowerPoint file" dialogue');
             });

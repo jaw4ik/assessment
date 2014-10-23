@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Collections.Generic;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure.Clonning;
@@ -8,6 +9,7 @@ using easygenerator.Web.Extensions;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace easygenerator.Web.BuildCourse
 {
@@ -73,6 +75,10 @@ namespace easygenerator.Web.BuildCourse
             if (questionType == typeof(DragAndDropText))
             {
                 return MapDragAndDropText(question as DragAndDropText);
+            }
+            if (questionType == typeof(HotSpot))
+            {
+                return MapHotSpot(question as HotSpot);
             }
             if (questionType == typeof(TextMatching))
             {
@@ -159,6 +165,16 @@ namespace easygenerator.Web.BuildCourse
             });
         }
 
+        private HotSpotPackageModel MapHotSpot(HotSpot question)
+        {
+            return MapQuestion<HotSpotPackageModel>(question, (model) =>
+            {
+                model.Background = question.Background;
+                model.IsMultiple = question.IsMultiple;
+                model.Spots = (question.HotSpotPolygons ?? new Collection<HotSpotPolygon>()).Select(MapHotSpot).ToList();
+            });
+        }
+
         private T MapQuestion<T>(Question question, Action<T> updateQuestionModel = null)
             where T : QuestionPackageModel, new()
         {
@@ -223,6 +239,11 @@ namespace easygenerator.Web.BuildCourse
                 X = dropspot.X,
                 Y = dropspot.Y
             };
+        }
+
+        private dynamic MapHotSpot(HotSpotPolygon polygon)
+        {
+            return JsonConvert.DeserializeObject<dynamic>(polygon.Points);
         }
 
         private LearningContentPackageModel MapLearningContent(LearningContent learningContent)

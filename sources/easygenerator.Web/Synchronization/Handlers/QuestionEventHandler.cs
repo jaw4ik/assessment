@@ -1,17 +1,17 @@
-﻿using System.Linq;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Entities.Questions;
+﻿using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
+using System.Linq;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {
     public class QuestionEventHandler :
         IDomainEventHandler<QuestionCreatedEvent>,
         IDomainEventHandler<QuestionTitleUpdatedEvent>,
+        IDomainEventHandler<QuestionBackgroundChangedEvent>,
         IDomainEventHandler<QuestionContentUpdatedEvent>,
         IDomainEventHandler<QuestionCorrectFeedbackUpdatedEvent>,
         IDomainEventHandler<QuestionIncorrectFeedbackUpdatedEvent>,
@@ -42,6 +42,12 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster.OtherCollaborators(args.Question)
                 .questionTitleUpdated(args.Question.Id.ToNString(), args.Question.Title, args.Question.ModifiedOn);
+        }
+
+        public void Handle(QuestionBackgroundChangedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Question)
+                .questionBackgroundChanged(args.Question.Id.ToNString(), args.Background, args.Question.ModifiedOn);
         }
 
         public void Handle(QuestionCorrectFeedbackUpdatedEvent args)

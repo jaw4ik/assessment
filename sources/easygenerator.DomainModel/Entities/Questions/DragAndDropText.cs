@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.DragAndDropEvents;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities.Questions
 {
-    public class DragAndDropText : Question
+    public class DragAndDropText : QuestionWithBackground
     {
         public DragAndDropText() { }
 
@@ -16,23 +16,10 @@ namespace easygenerator.DomainModel.Entities.Questions
             DropspotsCollection = new Collection<Dropspot>();
         }
 
-        public string Background { get; private set; }
-
         protected internal virtual Collection<Dropspot> DropspotsCollection { get; set; }
         public IEnumerable<Dropspot> Dropspots
         {
             get { return DropspotsCollection.AsEnumerable(); }
-        }
-
-        public virtual void ChangeBackground(string background, string modifiedBy)
-        {
-            ThrowIfBackgroundIsInvalid(background);
-            ThrowIfModifiedByIsInvalid(modifiedBy);
-
-            Background = background;
-            MarkAsModified(modifiedBy);
-
-            RaiseEvent(new BackgroundChangedEvent(this, background));
         }
 
         public virtual void AddDropspot(Dropspot dropspot, string modifiedBy)
@@ -59,11 +46,6 @@ namespace easygenerator.DomainModel.Entities.Questions
             MarkAsModified(modifiedBy);
 
             RaiseEvent(new DropspotDeletedEvent(this, dropspot));
-        }
-
-        private void ThrowIfBackgroundIsInvalid(string background)
-        {
-            ArgumentValidation.ThrowIfNullOrEmpty(background, "background");
         }
 
         private void ThrowIfDropspotIsInvalid(Dropspot dropspot)

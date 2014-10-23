@@ -42,6 +42,10 @@ namespace easygenerator.Web.Components.Mappers
             {
                 return Question.QuestionTypes.DragAndDropText;
             }
+            if (questionType == typeof(HotSpot))
+            {
+                return Question.QuestionTypes.HotSpot;
+            }
             if (questionType == typeof(SingleSelectImage))
             {
                 return Question.QuestionTypes.SingleSelectImage;

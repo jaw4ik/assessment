@@ -111,12 +111,19 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<Multipleselect>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
 
+            modelBuilder.Entity<QuestionWithBackground>().Property(e => e.Background).IsOptional();
+
             modelBuilder.Entity<DragAndDropText>().HasMany(e => e.DropspotsCollection).WithRequired(e => e.Question);
 
             modelBuilder.Entity<Dropspot>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<Dropspot>().Property(e => e.X).IsRequired();
             modelBuilder.Entity<Dropspot>().Property(e => e.Y).IsRequired();
             modelBuilder.Entity<Dropspot>().HasRequired(e => e.Question);
+
+            modelBuilder.Entity<HotSpot>().HasMany(e => e.HotSpotPolygonsCollection).WithRequired(e => e.Question);
+
+            modelBuilder.Entity<HotSpotPolygon>().Property(e => e.Points).IsRequired();
+            modelBuilder.Entity<HotSpotPolygon>().HasRequired(e => e.Question);
 
             modelBuilder.Entity<TextMatching>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
 
@@ -129,6 +136,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<SingleSelectImageAnswer>().Property(e => e.Image).IsOptional();
             modelBuilder.Entity<SingleSelectImageAnswer>().Property(e => e.IsCorrect).IsRequired();
             modelBuilder.Entity<SingleSelectImageAnswer>().HasRequired(e => e.Question);
+
+            modelBuilder.Entity<HotSpot>().HasMany(e => e.HotSpotPolygonsCollection).WithRequired(e => e.Question);
+
+            modelBuilder.Entity<HotSpotPolygon>().Property(e => e.Points).IsRequired();
 
             modelBuilder.Entity<LearningContent>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<LearningContent>().HasRequired(e => e.Question);
@@ -226,6 +237,10 @@ namespace easygenerator.DataAccess
                         entry.State = EntityState.Deleted;
                     }
                     if ((entry.Entity is Dropspot) && (entry.Entity as Dropspot).Question == null)
+                    {
+                        entry.State = EntityState.Deleted;
+                    }
+                    if ((entry.Entity is HotSpotPolygon) && (entry.Entity as HotSpotPolygon).Question == null)
                     {
                         entry.State = EntityState.Deleted;
                     }

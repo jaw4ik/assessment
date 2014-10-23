@@ -5,7 +5,7 @@ using System.Web;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.QuestionEvents;
-using easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.DragAndDropEvents;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
@@ -13,7 +13,6 @@ using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 namespace easygenerator.Web.Synchronization.Handlers
 {
     public class DragAndDropEventHandler :
-        IDomainEventHandler<BackgroundChangedEvent>,
         IDomainEventHandler<DropspotCreatedEvent>,
         IDomainEventHandler<DropspotDeletedEvent>,
         IDomainEventHandler<DropspotTextChangedEvent>,
@@ -27,13 +26,7 @@ namespace easygenerator.Web.Synchronization.Handlers
             _broadcaster = broadcaster;
             _entityMapper = entityMapper;
         }
-
-        public void Handle(BackgroundChangedEvent args)
-        {
-            _broadcaster.OtherCollaborators(args.Question)
-                .dragAndDropBackgroundChanged(args.Question.Id.ToNString(), args.Background, args.Question.ModifiedOn);
-        }
-
+      
         public void Handle(DropspotCreatedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Dropspot.Question)

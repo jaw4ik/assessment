@@ -4,7 +4,7 @@ using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Events.QuestionEvents
 {
-    public class FillInTheBlankUpdatedEvent: QuestionEvent
+    public class FillInTheBlankUpdatedEvent : QuestionEvent
     {
         public ICollection<BlankAnswer> Answers { get; private set; }
 

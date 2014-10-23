@@ -2,8 +2,9 @@
     "use strict";
 
     require('components/bindingHandlers/tooltipBindingHandler').install();
-    require('viewmodels/questions/dragAndDrop/bindingHandlers/backgroundBindingHandler');
-    require('viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler');
+    require('components/bindingHandlers/backgroundBindingHandler');
+    require('viewmodels/questions/dragAndDropText/bindingHandlers/draggableTextBindingHandler');
+    require('viewmodels/questions/hotSpot/bindingHandlers/polygonsEditorBindingHandler').install();
     require('viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankBindingHandler');
     require('viewmodels/questions/singleSelectImage/bindingHandlers/answerImageBindingHandler');
     require('widgets/imagePreview/bindingHandlers/fadeBindingHandler');

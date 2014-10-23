@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using easygenerator.DomainModel.Entities.Questions;
-using easygenerator.DomainModel.Events.QuestionEvents.DragAnsDropEvents;
+using easygenerator.DomainModel.Events.QuestionEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.DragAndDropEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -145,13 +146,13 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         }
 
         [TestMethod]
-        public void ChangeBackground_ShouldAddDropspotPositionChangedEvent()
+        public void ChangeBackground_ShouldAddBackgroundChangedEvent()
         {
             var question = DragAndDropTextObjectMother.Create();
 
             question.ChangeBackground("background", "username");
 
-            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(BackgroundChangedEvent));
+            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(QuestionBackgroundChangedEvent));
         }
 
         #endregion
@@ -240,7 +241,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
 
         [TestMethod]
-        public void AddDropspot_ShouldAddCourseTitleUpdatedEvent()
+        public void AddDropspot_ShouldAddDropspotCreatedEvent()
         {
             var question = DragAndDropTextObjectMother.Create();
             var dropspot = DropspotObjectMother.Create();

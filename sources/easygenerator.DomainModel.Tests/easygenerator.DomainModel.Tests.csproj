@@ -75,6 +75,8 @@
     <Compile Include="Entities\Questions\BlankAnswerTests.cs" />
     <Compile Include="Entities\Questions\DragAndDropTextTests.cs" />
     <Compile Include="Entities\Questions\DropspotTests.cs" />
+    <Compile Include="Entities\Questions\HotSpotPolygonTests.cs" />
+    <Compile Include="Entities\Questions\HotSpotTests.cs" />
     <Compile Include="Entities\Questions\SingleSelectImageAnswerTests.cs" />
     <Compile Include="Entities\Questions\SingleSelectImageTests.cs" />
     <Compile Include="Entities\Questions\SingleSelectTextTests.cs" />
@@ -93,6 +95,10 @@
     <Compile Include="ObjectMothers\DragAndDropTextObjectMother.cs" />
     <Compile Include="ObjectMothers\DropspotObjectMother.cs" />
     <Compile Include="ObjectMothers\FillInTheBlanksObjectMother.cs" />
+    <Compile Include="ObjectMothers\HotspotObjectMother.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectMothers\HotSpotPolygonObjectMother.cs" />
     <Compile Include="ObjectMothers\ImageFileObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseObjectMother.cs" />
     <Compile Include="ObjectMothers\LearningContentObjectMother.cs" />

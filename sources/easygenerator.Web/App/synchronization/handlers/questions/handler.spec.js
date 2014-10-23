@@ -3,9 +3,9 @@
 
     describe('synchronization questions [handler]', function () {
 
-        describe('dragAndDrop:', function () {
+        describe('dragAndDropText:', function () {
             it('should be defined', function () {
-                expect(handler.dragAndDrop).toBeDefined();
+                expect(handler.dragAndDropText).toBeDefined();
             });
         });
 
@@ -30,6 +30,12 @@
         describe('singleSelectImage:', function () {
             it('should be defined', function () {
                 expect(handler.singleSelectImage).toBeDefined();
+            });
+        });
+
+        describe('hotSpot:', function () {
+            it('should be defined', function () {
+                expect(handler.hotSpot).toBeDefined();
             });
         });
     });

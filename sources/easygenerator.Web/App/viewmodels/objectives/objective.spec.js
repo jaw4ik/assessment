@@ -27,10 +27,10 @@
                 modifiedOn: new Date(),
                 image: '',
                 questions: [
-                    { id: 0, title: 'A' },
-                    { id: 1, title: 'b' },
-                    { id: 2, title: 'B' },
-                    { id: 3, title: 'a' }
+                    { id: 0, title: 'A', type: 'multipleSelect' },
+                    { id: 1, title: 'b', type: 'multipleSelect' },
+                    { id: 2, title: 'B', type: 'multipleSelect' },
+                    { id: 3, title: 'a', type: 'multipleSelect' }
                 ]
             };
 
@@ -1381,7 +1381,7 @@
 
             describe('questionCreatedByCollaborator:', function () {
 
-                var question = { id: 'questionId' };
+                var question = { id: 'questionId', type: 'multipleSelect' };
 
                 it('should be function', function () {
                     expect(viewModel.questionCreatedByCollaborator).toBeFunction();

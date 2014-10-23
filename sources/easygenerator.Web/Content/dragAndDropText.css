@@ -175,16 +175,16 @@
 .drag-and-drop-designer-empty {
     width: 100%;
     padding: 45px 0;
-    border: 3px dashed #dadddf;
+    border: 2px dashed #a5c0d2;
     text-align: center;
-    color: #999999;
+    color: #80a6c6;
     cursor: default;
 }
 
 .drag-and-drop-designer-empty-title {
     line-height: 1;
     font-family: 'OpenSans-Semibold';
-    font-size: 20px;
+    font-size: 18px;
     text-transform: uppercase;
 }
 

@@ -54,11 +54,17 @@ namespace easygenerator.DataAccess
             builder.RegisterType<QuerableRepository<DragAndDropText>>()
                 .As<IQuerableRepository<DragAndDropText>>();
 
+            builder.RegisterType<QuerableRepository<HotSpot>>()
+                .As<IQuerableRepository<HotSpot>>();
+
             builder.RegisterType<QuerableRepository<Answer>>()
                 .As<IQuerableRepository<Answer>>();
 
             builder.RegisterType<QuerableRepository<Dropspot>>()
                 .As<IQuerableRepository<Dropspot>>();
+
+            builder.RegisterType<QuerableRepository<HotSpotPolygon>>()
+                .As<IQuerableRepository<HotSpotPolygon>>();
 
             builder.RegisterType<QuerableRepository<TextMatching>>()
                .As<IQuerableRepository<TextMatching>>();

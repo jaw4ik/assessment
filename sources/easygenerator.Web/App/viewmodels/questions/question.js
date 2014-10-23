@@ -1,9 +1,13 @@
-﻿define(['durandal/app', 'eventTracker', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'ping', 'models/backButton', 'plugins/router',
-        'viewmodels/questions/questionTitle', 'viewmodels/common/contentField', 'viewmodels/questions/multipleSelect/multipleSelect',
-        'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelectText/singleSelectText', 'viewmodels/questions/textMatching/textMatching',
- 'viewmodels/questions/singleSelectImage/singleSelectImage', 'viewmodels/questions/informationContent/informationContent', 'viewmodels/questions/statement/statement', 'localization/localizationManager'],
+﻿
+define(['durandal/app', 'eventTracker', 'constants',
+        'repositories/questionRepository', 'repositories/objectiveRepository',
+        'ping', 'models/backButton', 'plugins/router',
+        'viewmodels/questions/questionTitle',
+        'viewmodels/common/contentField',
+        'viewmodels/questions/questionViewModelFactory',
+        'localization/localizationManager'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, vmQuestionTitle, vmContentField,
-        multipleSelect, fillInTheBlank, dragAndDrop, singleSelectText, textMatching, singleSelectImage, informationContent, statement, localizationManager) {
+        questionViewModelFactory, localizationManager) {
         "use strict";
 
         var events = {
@@ -53,25 +57,9 @@
         }
 
         function setActiveViewModel(question) {
-
-            switch (question.type) {
-                case constants.questionType.multipleSelect.type:
-                    return multipleSelect;
-                case constants.questionType.fillInTheBlank.type:
-                    return fillInTheBlank;
-                case constants.questionType.dragAndDropText.type:
-                    return dragAndDrop;
-                case constants.questionType.singleSelectText.type:
-                    return singleSelectText;
-                case constants.questionType.singleSelectImage.type:
-                    return singleSelectImage;
-                case constants.questionType.textMatching.type:
-                    return textMatching;
-                case constants.questionType.informationContent.type:
-                    return informationContent;
-                case constants.questionType.statement.type:
-                    return statement;
-            }
+            var activeViewModel = questionViewModelFactory[question.type];
+            if (!activeViewModel) throw "Question with type " + question.type.toString() + " is not found in questionViewModelFactory";
+            return activeViewModel;
         }
 
         function activate(objectiveId, questionId, queryParams) {
@@ -84,7 +72,6 @@
                     callback: navigateToObjectiveEvent,
                     alwaysVisible: _.isNullOrUndefined(queryParams) || !_.isString(queryParams.courseId)
                 });
-
                 return questionRepository.getById(viewmodel.objectiveId, viewmodel.questionId).then(function (question) {
                     viewmodel.activeQuestionViewModel = setActiveViewModel(question);
                     viewmodel.questionType = question.type;

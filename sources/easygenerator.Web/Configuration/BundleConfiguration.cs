@@ -22,6 +22,7 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/underscore.extensions.js")
                     .Include("~/scripts/has.js")
                     .Include("~/scripts/moment.js")
+                    .Include("~/scripts/paper-full-{version}.js")
                     .Include("~/scripts/jquery.form.js")
                     .Include("~/scripts/jquery.extensions.js")
                     .Include("~/scripts/jquery.autosize.js")
@@ -78,7 +79,8 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/navigationBar.css")
                 .Include("~/Content/treeOfContent.css")
                 .Include("~/Content/switchToggle.css")
-                .Include("~/Content/onboarding.css");
+                .Include("~/Content/onboarding.css")
+                .Include("~/Content/hotSpot.css");
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());
             bundles.Add(stylesBundle);
 

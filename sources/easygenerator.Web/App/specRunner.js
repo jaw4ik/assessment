@@ -111,6 +111,7 @@
 
             'synchronization/handlers/questions/question/handler.spec',
             'synchronization/handlers/questions/question/eventHandlers/titleUpdated.spec',
+            'synchronization/handlers/questions/question/eventHandlers/backgroundChanged.spec',
             'synchronization/handlers/questions/question/eventHandlers/created.spec',
             'synchronization/handlers/questions/question/eventHandlers/deleted.spec',
             'synchronization/handlers/questions/question/eventHandlers/contentUpdated.spec',
@@ -120,12 +121,11 @@
             'synchronization/handlers/questions/fillInTheBlank/handler.spec',
             'synchronization/handlers/questions/fillInTheBlank/eventHandlers/updated.spec',
 
-            'synchronization/handlers/questions/dragAndDrop/handler.spec',
-            'synchronization/handlers/questions/dragAndDrop/eventHandlers/backgroundChanged.spec',
-            'synchronization/handlers/questions/dragAndDrop/eventHandlers/dropspotCreated.spec',
-            'synchronization/handlers/questions/dragAndDrop/eventHandlers/dropspotDeleted.spec',
-            'synchronization/handlers/questions/dragAndDrop/eventHandlers/dropspotPositionChanged.spec',
-            'synchronization/handlers/questions/dragAndDrop/eventHandlers/dropspotTextChanged.spec',
+            'synchronization/handlers/questions/dragAndDropText/handler.spec',
+            'synchronization/handlers/questions/dragAndDropText/eventHandlers/dropspotCreated.spec',
+            'synchronization/handlers/questions/dragAndDropText/eventHandlers/dropspotDeleted.spec',
+            'synchronization/handlers/questions/dragAndDropText/eventHandlers/dropspotPositionChanged.spec',
+            'synchronization/handlers/questions/dragAndDropText/eventHandlers/dropspotTextChanged.spec',
 
             'synchronization/handlers/questions/textMatching/handler.spec',
             'synchronization/handlers/questions/textMatching/eventHandlers/answerCreated.spec',
@@ -138,6 +138,12 @@
             'synchronization/handlers/questions/singleSelectImage/eventHandlers/answerDeleted.spec',
             'synchronization/handlers/questions/singleSelectImage/eventHandlers/answerImageUpdated.spec',
             'synchronization/handlers/questions/singleSelectImage/eventHandlers/correctAnswerChanged.spec',
+
+            'synchronization/handlers/questions/hotSpot/handler.spec',
+            'synchronization/handlers/questions/hotSpot/eventHandlers/polygonCreated.spec',
+            'synchronization/handlers/questions/hotSpot/eventHandlers/polygonDeleted.spec',
+            'synchronization/handlers/questions/hotSpot/eventHandlers/polygonChanged.spec',
+            'synchronization/handlers/questions/hotSpot/eventHandlers/isMultipleChanged.spec',
 
             //#endregion
 
@@ -193,16 +199,16 @@
             'viewmodels/questions/statement/statement.spec',
             'viewmodels/questions/statement/statementAnswers.spec',
 
-            'viewmodels/questions/dragAndDrop/dragAndDrop.spec',
-            'viewmodels/questions/dragAndDrop/designer.spec',
-            'viewmodels/questions/dragAndDrop/dropspot.spec',
-            'viewmodels/questions/dragAndDrop/dropspotToAdd.spec',
-            'viewmodels/questions/dragAndDrop/commands/addDropspot.spec',
-            'viewmodels/questions/dragAndDrop/commands/removeDropspot.spec',
-            'viewmodels/questions/dragAndDrop/commands/changeDropspotText.spec',
-            'viewmodels/questions/dragAndDrop/commands/changeDropspotPosition.spec',
-            'viewmodels/questions/dragAndDrop/commands/changeBackground.spec',
-            'viewmodels/questions/dragAndDrop/queries/getQuestionContentById.spec',
+            'viewmodels/questions/dragAndDropText/dragAndDropText.spec',
+            'viewmodels/questions/dragAndDropText/designer.spec',
+            'viewmodels/questions/dragAndDropText/dropspot.spec',
+            'viewmodels/questions/dragAndDropText/dropspotToAdd.spec',
+            'viewmodels/questions/dragAndDropText/commands/addDropspot.spec',
+            'viewmodels/questions/dragAndDropText/commands/removeDropspot.spec',
+            'viewmodels/questions/dragAndDropText/commands/changeDropspotText.spec',
+            'viewmodels/questions/dragAndDropText/commands/changeDropspotPosition.spec',
+            'viewmodels/questions/dragAndDropText/commands/changeBackground.spec',
+            'viewmodels/questions/dragAndDropText/queries/getQuestionContentById.spec',
 
             'viewmodels/questions/singleSelectImage/singleSelectImage.spec',
             'viewmodels/questions/singleSelectImage/designer.spec',
@@ -220,6 +226,16 @@
             'viewmodels/questions/textMatching/commands/removeAnswer.spec',
             'viewmodels/questions/textMatching/commands/changeAnswerKey.spec',
             'viewmodels/questions/textMatching/commands/changeAnswerValue.spec',
+
+            'viewmodels/questions/hotspot/designer.spec',
+            'viewmodels/questions/hotspot/hotSpot.spec',
+            'viewmodels/questions/hotspot/polygon.spec',
+            'viewmodels/questions/hotspot/commands/addPolygon.spec',
+            'viewmodels/questions/hotspot/commands/removePolygon.spec',
+            'viewmodels/questions/hotspot/commands/updatePolygon.spec',
+            'viewmodels/questions/hotspot/commands/changeBackground.spec',
+            'viewmodels/questions/hotspot/commands/changeType.spec',
+            'viewmodels/questions/hotspot/queries/getQuestionContentById.spec',
 
             'viewmodels/questions/questionTitle.spec',
             'viewmodels/questions/learningContents.spec',

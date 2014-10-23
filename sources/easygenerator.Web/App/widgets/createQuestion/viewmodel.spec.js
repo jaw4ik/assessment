@@ -100,7 +100,7 @@
                     var promise = viewModel.activate(settings);
 
                     promise.fin(function () {
-                        expect(viewModel.questions().length).toBe(8);
+                        expect(viewModel.questions().length).toBe(9);
                         expect(viewModel.questions()[0].type).toBe(constants.questionType.informationContent.type);
                         expect(viewModel.questions()[1].type).toBe(constants.questionType.singleSelectText.type);
                         expect(viewModel.questions()[2].type).toBe(constants.questionType.multipleSelect.type);
@@ -109,6 +109,7 @@
                         expect(viewModel.questions()[5].type).toBe(constants.questionType.textMatching.type);
                         expect(viewModel.questions()[6].type).toBe(constants.questionType.dragAndDropText.type);
                         expect(viewModel.questions()[7].type).toBe(constants.questionType.statement.type);
+                        expect(viewModel.questions()[8].type).toBe(constants.questionType.hotspot.type);
 
                         done();
                     });
@@ -150,6 +151,19 @@
                         promise.fin(function () {
                             var question = _.find(viewModel.questions(), function (item) {
                                 return item.type === constants.questionType.dragAndDropText.type;
+                            });
+                            expect(question.hasAccess).toBeFalsy();
+                            done();
+                        });
+                    });
+
+
+                    it('should has not access to hotspot', function (done) {
+                        var promise = viewModel.activate(settings);
+
+                        promise.fin(function () {
+                            var question = _.find(viewModel.questions(), function (item) {
+                                return item.type === constants.questionType.hotspot.type;
                             });
                             expect(question.hasAccess).toBeFalsy();
                             done();
@@ -223,7 +237,19 @@
                         });
                     });
 
-                    it('should have no access to drag and drop text', function (done) {
+                    it('should have no access to hotspot', function (done) {
+                        var promise = viewModel.activate(settings);
+
+                        promise.fin(function () {
+                            var question = _.find(viewModel.questions(), function (item) {
+                                return item.type === constants.questionType.hotspot.type;
+                            });
+                            expect(question.hasAccess).toBeFalsy();
+                            done();
+                        });
+                    });
+
+                    it('should have no access to statement', function (done) {
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {

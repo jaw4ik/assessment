@@ -154,6 +154,7 @@
     <Compile Include="Controllers\Api\CommentControllerTests.cs" />
     <Compile Include="Controllers\Api\CourseControllerTests.cs" />
     <Compile Include="Controllers\Api\CourseImportControllerTests.cs" />
+    <Compile Include="Controllers\Api\HotSpotQuestionControllerTests.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionControllerTests.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -199,6 +200,7 @@
     <Compile Include="Security\FeatureAvailability\FeatureAvailabilityCheckerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\AnswerPermissionsCheckerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\CoursePermissionsCheckerTests.cs" />
+    <Compile Include="Security\PermissionsCheckers\HotSpotPolygonPermissionsCheckerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\LearningContentPermissionsCheckerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\ObjectivePermissionsCheckerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\QuestionPermissionsCheckerTests.cs" />
