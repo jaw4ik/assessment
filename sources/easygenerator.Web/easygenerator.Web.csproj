@@ -492,6 +492,8 @@
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="Content\hotSpot.css" />
     <Content Include="Content\images\closedhand.cur" />
+    <Content Include="Content\images\comingsoon1024.png" />
+    <Content Include="Content\images\disabled-question1024.png" />
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\no-spots.png" />
     <Content Include="Content\images\openhand.cur" />
@@ -704,7 +706,6 @@
       <DependentUpon>upgradedToPlus.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\panels\bindingHandlers\fixedPanelBindingHandler.js" />
-
     <Content Include="App\viewmodels\questions\informationContent\informationContent.spec.js">
       <DependentUpon>informationContent.js</DependentUpon>
     </Content>
