@@ -20,6 +20,36 @@
         margin: 40px auto 20px;
     }
 
+.hotspot-designer-background-loader-wrapper {
+    min-height: 90px;
+}
+
+.hotspot-designer-background-loader {
+    width: 100px;
+    height: 60px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+    margin-top: -30px;
+    text-align: center;
+}
+
+.hotspot-designer-background-loader-spinner {
+    position: relative;
+    height: 30px;
+}
+
+.hotspot-designer-background-loader-text {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 1;
+    position: relative;
+    padding-top: 10px;
+    color: #777;
+    font-size: 12px;
+}
+
 .hotspot-designer-empty-image {
     display: inline-block;
     width: 157px;

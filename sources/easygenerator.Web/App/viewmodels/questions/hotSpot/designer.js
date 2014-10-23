@@ -49,7 +49,10 @@
     designer.background.width = ko.observable();
     designer.background.height = ko.observable();
     designer.background.isDirty = ko.observable(false);
+    designer.background.isLoading = ko.observable(false);
     designer.background.onload = function (width, height) {
+        designer.background.isLoading(false);
+
         fitPointsIntoBounds(width, height);
 
         designer.background.width(width);
@@ -77,6 +80,7 @@
 
         return getQuestionContentById.execute(questionId).then(function (question) {
             if (question) {
+                designer.background.isLoading(true);
                 designer.isMultiple(question.isMultiple);
                 designer.background(question.background);
                 designer.polygons(_.map(question.polygons, function (polygon) {
@@ -102,6 +106,7 @@
                 uiLocker.lock();
             },
             success: function (url) {
+                designer.background.isLoading(true);
                 var backgroundUrl = url + '?width=' + self.maxWidth + '&height=' + self.maxHeight;
                 changeBackgroundCommand.execute(self.questionId, backgroundUrl);
                 designer.background(backgroundUrl);

@@ -29,6 +29,12 @@
 
         });
 
+        describe('isLoading:', function () {
+            it('should be observable', function () {
+                expect(designer.background.isLoading).toBeObservable();
+            });
+        });
+
         describe('changeType:', function () {
 
             var dfd;
@@ -43,7 +49,16 @@
             it('should be function', function () {
                 expect(designer.changeType).toBeFunction();
             });
+            
+            it('should set isLoading to false', function () {
+                var width = 10;
+                var height = 100;
+                designer.background.isLoading(true);
+                designer.background.onload(width, height);
 
+                expect(designer.background.isLoading()).toBeFalsy();
+            });
+            
             it('should return promise', function () {
                 expect(designer.changeType()).toBePromise();
             });
@@ -177,7 +192,6 @@
                     spyOn(eventTracker, 'publish');
                 });
 
-
                 it('should execute command to change background', function () {
                     designer.background(undefined);
                     designer.uploadBackground();
@@ -188,6 +202,12 @@
 
                     beforeEach(function () {
                         dfd.resolve();
+                    });
+
+                    it('should set background isLoading to true', function () {
+                        designer.background.isLoading(false);
+                        designer.uploadBackground();
+                        expect(designer.background.isLoading()).toBeTruthy();
                     });
 
                     it('should update background url', function () {
@@ -507,6 +527,16 @@
             });
 
             describe('when hotspot content exists', function () {
+                
+                it('should set background isLoading to true', function (done) {
+                    designer.background.isLoading(false);
+                    dfd.resolve({ background: 'background' });
+
+                    designer.activate().then(function () {
+                        expect(designer.background.isLoading()).toBeTruthy();
+                        done();
+                    });
+                });
 
                 it('should set type', function (done) {
                     designer.isMultiple(undefined);

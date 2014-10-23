@@ -45,8 +45,27 @@
                 <!-- /ko -->
                 <!-- ko if: background -->
                 <div class="hotspot-designer background">
+                    <!-- ko if: background.isLoading -->
+                    <div class="hotspot-designer-background-loader-wrapper">
+                        <div class="hotspot-designer-background-loader">
+                            <div class="hotspot-designer-background-loader-spinner">
+                                <div class="circular-loader x32 grey align-center">
+                                    <div class="circular-loader-item"></div>
+                                    <div class="circular-loader-item"></div>
+                                    <div class="circular-loader-item"></div>
+                                    <div class="circular-loader-item"></div>
+                                    <div class="circular-loader-item"></div>
+                                    <div class="circular-loader-item"></div>
+                                    <div class="circular-loader-item"></div>
+                                    <div class="circular-loader-item"></div>
+                                </div>
+                            </div>
+                            <div class="hotspot-designer-background-loader-text" data-bind="localize: { text: 'loadingImage' }"></div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
                     <div class="hotspot-designer-background-wrapper">
-                        <div class="hotspot-designer-background" data-bind="background: background, polygonsEditor: {background:background, polygons:polygons, actions: {addPolygon: addPolygon, updatePolygon: updatePolygon, removePolygon:removePolygon}}">
+                        <div class="hotspot-designer-background" data-bind="background: background, style: { visibility: background.isLoading() ? 'hidden' : 'visible' }, polygonsEditor: {background:background, polygons:polygons, actions: {addPolygon: addPolygon, updatePolygon: updatePolygon, removePolygon:removePolygon}}">
                         </div>
                     </div>
                     <div class="cursor-tooltip">

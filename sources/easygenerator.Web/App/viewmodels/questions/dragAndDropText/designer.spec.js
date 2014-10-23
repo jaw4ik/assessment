@@ -44,6 +44,12 @@
                 });
             });
 
+            describe('isLoading:', function () {
+                it('should be observable', function () {
+                    expect(designer.background.isLoading).toBeObservable();
+                });
+            });
+
             describe('onload:', function () {
 
                 var width = 10;
@@ -51,6 +57,13 @@
 
                 it('should be function', function () {
                     expect(designer.background.onload).toBeFunction();
+                });
+
+                it('should set isLoading to false', function () {
+                    designer.background.isLoading(true);
+                    designer.background.onload(width, height);
+
+                    expect(designer.background.isLoading()).toBeFalsy();
                 });
 
                 it('should set new width', function () {
@@ -232,6 +245,12 @@
 
                     beforeEach(function () {
                         dfd.resolve();
+                    });
+
+                    it('should set background isLoading to true', function () {
+                        designer.background.isLoading(false);
+                        designer.uploadBackground();
+                        expect(designer.background.isLoading()).toBeTruthy();
                     });
 
                     it('should update background url', function () {
@@ -514,6 +533,16 @@
             });
 
             describe('when drag and drop content exists', function () {
+
+                it('should set background isLoading to true', function (done) {
+                    designer.background.isLoading(false);
+                    dfd.resolve({ background: 'background' });
+
+                    designer.activate().then(function () {
+                        expect(designer.background.isLoading()).toBeTruthy();
+                        done();
+                    });
+                });
 
                 it('should set background image', function (done) {
                     designer.background(undefined);

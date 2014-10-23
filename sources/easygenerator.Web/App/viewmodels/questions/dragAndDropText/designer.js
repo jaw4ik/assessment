@@ -46,7 +46,9 @@
     designer.background.width = ko.observable();
     designer.background.height = ko.observable();
     designer.background.isDirty = ko.observable(false);
+    designer.background.isLoading = ko.observable(false);
     designer.background.onload = function (width, height) {
+        designer.background.isLoading(false);
         designer.background.width(width);
         designer.background.height(height);
 
@@ -71,6 +73,7 @@
 
         return getQuestionContentById.execute(questionId).then(function (question) {
             if (question) {
+                designer.background.isLoading(true);
                 designer.background(question.background);
 
                 designer.dropspots(_.map(question.dropspots, function (dropspot) {
@@ -89,6 +92,7 @@
                 uiLocker.lock();
             },
             success: function (url) {
+                designer.background.isLoading(true);
                 var backgroundUrl = url + '?width=' + self.maxWidth + '&height=' + self.maxHeight;
                 changeBackgroundCommand.execute(self.questionId, backgroundUrl);
                 designer.background(backgroundUrl);

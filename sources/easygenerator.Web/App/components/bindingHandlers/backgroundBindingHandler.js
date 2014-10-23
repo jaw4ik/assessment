@@ -17,14 +17,13 @@
                         $(element).css('background-image', 'url(' + src + ')')
                             .css('width', image.width)
                             .animate({ height: image.height }, 200, function () {
-                                $(element).animate({ opacity: 1 }, 300, function () {
-                                    if (_.isFunction(value.onload)) {
-                                        value.onload(image.width, image.height);
-                                    }
-                                });
+                                if (_.isFunction(value.onload)) {
+                                    value.onload(image.width, image.height);
+                                }
+
+                                $(element).animate({ opacity: 1 }, 300);
                             });
                     });
-                    
 
                     if (ko.isWriteableObservable(value.width)) {
                         value.width(image.width);
