@@ -61,13 +61,36 @@ namespace easygenerator.Web.Import.Presentation
                 }
 
                 var slide = new Slide();
-                foreach (var shape in slidePart.Slide.Descendants<DocumentFormat.OpenXml.Presentation.Shape>())
+
+                foreach (var shape in slidePart.Slide.Descendants<Shape>())
                 {
                     var text = GetText(shape);
                     var position = ShapePositionReceiver.GetPosition(shape, slidePart);
 
                     slide.AddShape(new Model.Shape(text, position));
                 }
+
+                foreach (var picture in slidePart.Slide.Descendants<DocumentFormat.OpenXml.Presentation.Picture>())
+                {
+                    string rId = picture.BlipFill.Blip.Embed.Value;
+                    var imagePart = (ImagePart)slidePart.GetPartById(rId);
+
+                    byte[] imageBytes;
+                    using (var streamReader = new MemoryStream())
+                    {
+
+                        imagePart.GetStream().CopyTo(streamReader);
+                        imageBytes = streamReader.ToArray();
+                    }
+
+                    var position = ShapePositionReceiver.GetPictureRect(picture, slidePart);
+                    var picturePosition = new Model.Position(position.X, position.Y);
+
+                    var dataUrl = String.Format("<img height=\"{0}px\" width=\"{1}px\" src=\"data:{2};base64,{3}\" />",position.Height, position.Width, imagePart.ContentType, Convert.ToBase64String(imageBytes));
+
+                    slide.AddShape(new Model.Shape(dataUrl, picturePosition));
+                }
+
                 presentation.Slides.Add(slide);
             }
         }

@@ -1,41 +1,101 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Presentation;
 using GroupShape = DocumentFormat.OpenXml.Presentation.GroupShape;
 using ModelShape = easygenerator.Web.Import.Presentation.Model.Shape;
+using Picture = DocumentFormat.OpenXml.Presentation.Picture;
 using Position = easygenerator.Web.Import.Presentation.Model.Position;
+using Shape = DocumentFormat.OpenXml.Presentation.Shape;
 
 namespace easygenerator.Web.Import.Presentation
 {
     public class ShapePositionReceiver
     {
+        private const int Resolution = 9525; // 1 pixel =9525 EMUs for 96 dpi
+
         public static Position GetPosition(Shape shape, SlidePart slidePart)
         {
-            var position = GetPositionFromShape(shape) ??
-                            GetPositionFromLayoutPart(shape, slidePart.SlideLayoutPart.SlideLayout) ??
-                            GetPositionFromLayoutPart(shape, slidePart.SlideLayoutPart.SlideMasterPart.SlideMaster) ??
-                            new Position(0, 0);
-
-            return position;
+            var rect = GetRectFromShape(shape.ShapeProperties, shape.NonVisualShapeProperties.ApplicationNonVisualDrawingProperties.PlaceholderShape, slidePart);
+            return new Position(rect.X, rect.Y);
         }
 
-        private static Position GetPositionFromLayoutPart(Shape shape, DocumentFormat.OpenXml.OpenXmlElement element)
+        public static Rect GetPictureRect(Picture picture, SlidePart slidePart)
         {
-            var placeholder = shape.NonVisualShapeProperties.ApplicationNonVisualDrawingProperties.PlaceholderShape;
+            return GetRectFromShape(picture.ShapeProperties, picture.NonVisualPictureProperties.ApplicationNonVisualDrawingProperties.PlaceholderShape, slidePart);
+        }
+
+        public static Rect GetRectFromShape(DocumentFormat.OpenXml.Presentation.ShapeProperties shapeProperties, PlaceholderShape placeholder, SlidePart slidePart)
+        {
+            if (CanGetRectFromShape(shapeProperties))
+            {
+                return GetRectFromShapeProperties(shapeProperties);
+            }
 
             if (placeholder == null)
-                return null;
+            {
+                return new Rect(0, 0, 0, 0);
+            }
 
+            var layoutShape = GetShapeFromPlaceholder(placeholder, slidePart.SlideLayoutPart.SlideLayout);
+            if (layoutShape != null && CanGetRectFromShape(layoutShape.ShapeProperties))
+            {
+                return GetRectFromShapeProperties(layoutShape.ShapeProperties);
+            }
+
+            var slideMasterShape = GetShapeFromPlaceholder(placeholder, slidePart.SlideLayoutPart.SlideMasterPart.SlideMaster);
+            if (slideMasterShape != null && CanGetRectFromShape(slideMasterShape.ShapeProperties))
+            {
+                return GetRectFromShapeProperties(slideMasterShape.ShapeProperties);
+            }
+
+            return new Rect(0, 0, 0, 0);
+        }
+
+        private static bool CanGetRectFromShape(DocumentFormat.OpenXml.Presentation.ShapeProperties shapeProperties)
+        {
+            return shapeProperties.Transform2D != null && shapeProperties.Transform2D.Offset != null && shapeProperties.Transform2D.Extents != null;
+        }
+
+        private static Rect GetRectFromShapeProperties(DocumentFormat.OpenXml.Presentation.ShapeProperties shapeProperties)
+        {
+            double X = (double)shapeProperties.Transform2D.Offset.X.Value;
+            double Y = (double)shapeProperties.Transform2D.Offset.Y.Value;
+            double cX = (double)shapeProperties.Transform2D.Extents.Cx.Value;
+            double cY = (double)shapeProperties.Transform2D.Extents.Cy.Value;
+
+            OpenXmlElement element = shapeProperties.Parent;
+            while (element.Parent != null)
+            {
+                if (element is GroupShape)
+                {
+                    TransformGroup transform = ((GroupShape)element).GroupShapeProperties.TransformGroup;
+                    double koeffX = (double)transform.Extents.Cx / (double)transform.ChildExtents.Cx;
+                    double koeffY = (double)transform.Extents.Cy / (double)transform.ChildExtents.Cy;
+                    X = (X - (double)transform.ChildOffset.X.Value) * koeffX + (double)transform.Offset.X;
+                    Y = (Y - (double)transform.ChildOffset.Y.Value) * koeffY + (double)transform.Offset.Y;
+                    cX *= koeffX;
+                    cY *= koeffY;
+                }
+                element = element.Parent;
+            }
+
+            return new Rect(ConvertEmuToPx(X), ConvertEmuToPx(Y), ConvertEmuToPx(cX), ConvertEmuToPx(cY));
+        }
+
+        private static Shape GetShapeFromPlaceholder( PlaceholderShape placeholder, OpenXmlElement element)
+        {
             IEnumerable<Shape> shapes;
 
             //by id and type
             if (placeholder.Type != null && placeholder.Index != null)
             {
                 shapes = element.Descendants<Shape>()
-                    .Where(e =>
-                        e.NonVisualShapeProperties.ApplicationNonVisualDrawingProperties.PlaceholderShape != null &&
+                    .Where(e => e.NonVisualShapeProperties.ApplicationNonVisualDrawingProperties.PlaceholderShape != null &&
                         e.NonVisualShapeProperties.ApplicationNonVisualDrawingProperties.PlaceholderShape.Type != null &&
                         e.NonVisualShapeProperties.ApplicationNonVisualDrawingProperties.PlaceholderShape.Type.Value == placeholder.Type.Value &&
                         e.NonVisualShapeProperties.ApplicationNonVisualDrawingProperties.PlaceholderShape.Index != null &&
@@ -43,10 +103,15 @@ namespace easygenerator.Web.Import.Presentation
                     .Select(e => e);
 
                 if (shapes.Count() > 1)
+                {
                     throw new InvalidOperationException();
+                }
 
-                if (shapes.Any() && shapes.First() != null)
-                    return GetPositionFromShape(shapes.First());
+                if (shapes.Any())
+                {
+                    return shapes.First();
+                }
+
             }
 
             //by type
@@ -62,10 +127,15 @@ namespace easygenerator.Web.Import.Presentation
                     .Select(e => e);
 
                 if (shapes.Count() > 1)
+                {
                     throw new InvalidOperationException();
+                }
 
-                if (shapes.Any() && shapes.First() != null)
-                    return GetPositionFromShape(shapes.First());
+                if (shapes.Any())
+                {
+                    return shapes.First();
+                }
+
             }
 
             //by id
@@ -79,40 +149,23 @@ namespace easygenerator.Web.Import.Presentation
                     .Select(e => e);
 
                 if (shapes.Count() > 1)
+                {
                     throw new InvalidOperationException();
+                }
 
-                if (shapes.Any() && shapes.First() != null)
-                    return GetPositionFromShape(shapes.First());
+                if (shapes.Any())
+                {
+                    return shapes.First();
+                }
+
             }
 
             return null;
         }
 
-        private static Position GetPositionFromShape(Shape shape)
+        private static int ConvertEmuToPx(double emu)
         {
-            var prop = shape.ShapeProperties;
-            if (prop.Transform2D == null || prop.Transform2D.Offset == null || prop.Transform2D.Extents == null)
-                return null;
-
-            var x = (double)prop.Transform2D.Offset.X.Value;
-            var y = (double)prop.Transform2D.Offset.Y.Value;
-
-            var element = prop.Parent;
-            while (element.Parent != null)
-            {
-                var groupShape = element as GroupShape;
-                if (groupShape != null)
-                {
-                    var transform = groupShape.GroupShapeProperties.TransformGroup;
-                    var koeffX = transform.Extents.Cx / transform.ChildExtents.Cx;
-                    var koeffY = transform.Extents.Cy / transform.ChildExtents.Cy;
-                    x = (x - transform.ChildOffset.X.Value) * koeffX + transform.Offset.X;
-                    y = (y - transform.ChildOffset.Y.Value) * koeffY + transform.Offset.Y;
-                }
-                element = element.Parent;
-            }
-
-            return new Position(x, y);
+            return (int)(emu / Resolution); // 1 pixel =9525 EMUs for 96 dpi
         }
 
         private static bool IsTitlePlaceholder(PlaceholderShape placeholderShape)
@@ -131,5 +184,6 @@ namespace easygenerator.Web.Import.Presentation
                     return false;
             }
         }
+
     }
 }
