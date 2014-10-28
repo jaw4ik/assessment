@@ -1,26 +1,28 @@
 ﻿<div class="create-course-dialog-wrapper">
-    <div class="create-course-dialog-header">
-        <img src="/Content/images/dialog-header.png" />
-    </div>
-    <div class="create-course-dialog-content">
-        <div class="create-course-image-wrapper">
-            <span class="create-course-image"></span>
+    <div class="create-course-dialog-header"></div>
+    <div class="create-course-dialog-content clearfix">
+        <div class="create-course-dialog-content-loading-overlay" data-bind="css: { visible: isCourseImporting() }">
+            <div class="create-course-dialog-content-loading-wrapper">
+                <span class="dialog-content-loading-overlay-image"></span>
+                <span class="dialog-content-loading-overlay-text" data-bind="localize: { text: 'uploadingPresentation' }">uploading presentation...</span>
+            </div>
         </div>
-        <h1 class="create-course-title" data-bind="localize: { text: 'createCourseDialogTitle' }"></h1>
-        <div class="create-course-description" data-bind="localize: { html: 'createCourseDialogDescription' }"></div>
-    </div>
-    <div class="create-course-dialog-footer">
-        <div class="create-course-action-wrapper">
-            <div class="create-course-btn-wrapper">
-                <button class="action-item-btn btn blue import-course-btn" data-bind="click: importCourseFromPresentation, disable: isProcessing(), css: { 'importing': isCourseImporting(), disabled: isProcessing() }">
-                    <span class="import-course-btn-caption" data-bind="localize: { text: isCourseImporting() ? 'importing' : 'import' }"></span>
-                </button>
+
+        <div class="dialod-btn-wrapper" data-bind="click: createNewCourse">
+            <div class="dialog-btn">
+                <span class="dialog-btn-icon new-course-action-create-course-icon"></span>
+                <span class="dialog-btn-title" data-bind="localize: { text: 'createCourseButtonTitle' }">Create own course</span>
+                <span class="dialog-btn-description" data-bind="localize: { text: 'createCourseButtonDescription' }">An course can be a quiz, a learning you come up with</span>
             </div>
-            <div class="create-course-btn-wrapper">
-                <button class="create-course-btn btn" data-bind="click: createNewCourse, disable: isProcessing(), css: { creating: isCourseCreating(), disabled: isProcessing() }">
-                    <span class="create-course-btn-caption" data-bind="localize: { text: isCourseCreating() ? 'creatingStatus' : 'createCourseButtonCaption' }"></span>
-                </button>
+            <div class="dialog-btn-shadow"></div>
+        </div>
+        <div class="dialod-btn-wrapper" data-bind="click: importCourseFromPresentation">
+            <div class="dialog-btn">
+                <span class="dialog-btn-icon new-course-action-import-pptx-icon"></span>
+                <span class="dialog-btn-title" data-bind="localize: { text: 'importCourseButtonTitle' }">Import from Power Point</span>
+                <span class="dialog-btn-description" data-bind="localize: { text: 'importCourseButtonDescription' }">Import slides from power point and create course with its</span>
             </div>
+            <div class="dialog-btn-shadow"></div>
         </div>
     </div>
 </div>

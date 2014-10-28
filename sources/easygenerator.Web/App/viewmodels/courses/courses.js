@@ -36,6 +36,10 @@
             navigateToDetails: navigateToDetails,
             navigateToPublish: navigateToPublish,
 
+            newCoursePopoverVisible: ko.observable(false),
+            showNewCoursePopover: showNewCoursePopover,
+            hideNewCoursePopover: hideNewCoursePopover,
+
             deleteSelectedCourses: deleteSelectedCourses,
             createNewCourse: createNewCourse,
             importCourseFromPresentation: importCourseFromPresentation,
@@ -67,6 +71,14 @@
         app.on(constants.messages.course.collaboration.finished, viewModel.collaborationFinished);
 
         return viewModel;
+
+        function showNewCoursePopover() {
+            viewModel.newCoursePopoverVisible(!viewModel.newCoursePopoverVisible());
+        }
+
+        function hideNewCoursePopover() {
+            viewModel.newCoursePopoverVisible(false);
+        }
 
         function openUpgradePlanUrl() {
             eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.courseLimitNotification);

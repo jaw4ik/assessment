@@ -1,4 +1,4 @@
-﻿<div class="notify">
+﻿<div class="notify" data-bind="css: { moved: moved }">
     <!-- ko if: enabled -->
     <div class="notifications-container" data-bind="foreach: { data: notifications, afterAdd: addNotice }">
         <div>

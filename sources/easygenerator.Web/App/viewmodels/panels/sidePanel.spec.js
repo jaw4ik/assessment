@@ -5,7 +5,6 @@
         constants = require('constants'),
         repository = require('repositories/courseRepository'),
         router = require('plugins/router'),
-        reviewTab = require('viewmodels/panels/tabs/reviewTab'),
         notify = require('notify'),
         Course = require('models/course')
     ;
@@ -191,6 +190,12 @@
                     viewModel.toggleTabVisibility(tab);
                     expect(viewModel.isExpanded()).toBeTruthy();
                 });
+
+                it('should trigger event ' + constants.messages.sidePanel.expanded, function () {
+                    spyOn(app, 'trigger');
+                    viewModel.toggleTabVisibility(tab);
+                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.sidePanel.expanded);
+                });
             });
 
         });
@@ -203,10 +208,14 @@
 
             it('should reset active tab', function () {
                 viewModel.activeTab({});
-
                 viewModel.onCollapsed();
-
                 expect(viewModel.activeTab()).toBe(null);
+            });
+
+            it('should trigger event ' + constants.messages.sidePanel.collapsed, function () {
+                spyOn(app, 'trigger');
+                viewModel.onCollapsed();
+                expect(app.trigger).toHaveBeenCalledWith(constants.messages.sidePanel.collapsed);
             });
 
         });

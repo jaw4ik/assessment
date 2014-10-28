@@ -84,6 +84,8 @@
             if (!isTabActive) {
                 viewModel.activeTab(tab);
                 viewModel.isExpanded(true);
+
+                app.trigger(constants.messages.sidePanel.expanded);
             } else {
                 viewModel.isExpanded(false);
             }
@@ -91,6 +93,8 @@
 
         function onCollapsed() {
             viewModel.activeTab(null);
+
+            app.trigger(constants.messages.sidePanel.collapsed);
         }
     }
 );

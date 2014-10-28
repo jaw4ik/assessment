@@ -227,6 +227,10 @@
                 },
                 onboarding: {
                     closed: 'onboarding:closed'
+                },
+                sidePanel: {
+                    expanded: 'sidePanel:expanded',
+                    collapsed: 'sidePanel:collapsed'
                 }
             },
 

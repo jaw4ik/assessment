@@ -87,156 +87,210 @@
                 expect(dialog.createNewCourse).toBeFunction();
             });
 
-            it('should isCourseCreating operation', function () {
-                dialog.isCourseCreating(false);
+            describe('when another operation processing', function() {
 
-                dialog.createNewCourse();
-
-                expect(dialog.isCourseCreating()).toBeTruthy();
-            });
-
-            it('should call command to create course', function () {
-                dialog.isCourseCreating(false);
-
-                dialog.createNewCourse();
-
-                expect(createCourseCommand.execute).toHaveBeenCalledWith('Splash pop-up after signup');
-            });
-
-            describe('when course is created', function () {
-
-                beforeEach(function () {
-                    createCourse.resolve({ id: 'courseId' });
+                beforeEach(function() {
+                    dialog.isCourseImporting(true);
                 });
 
-                it('should navigate to created course', function (done) {
-                    dialog.createNewCourse().fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('#course/courseId');
-                        done();
-                    });
+                it('should not set isCourseCreating to true', function () {
+                    dialog.isCourseCreating(false);
+
+                    dialog.createNewCourse();
+
+                    expect(dialog.isCourseCreating()).toBeFalsy();
                 });
 
-                it('should close dialog', function (done) {
-                    dialog.createNewCourse().fin(function () {
-                        expect(appDialog.close).toHaveBeenCalledWith(dialog);
-                        done();
-                    });
-                });
+                it('should not call command to create course', function () {
+                    dialog.createNewCourse();
 
-                it('should set \'isCourseCreating\' to false', function (done) {
-                    dialog.createNewCourse().fin(function () {
-                        expect(dialog.isCourseCreating()).toBeFalsy();
-                        done();
-                    });
+                    expect(createCourseCommand.execute).not.toHaveBeenCalled();
                 });
 
             });
 
-            describe('when course is not created', function () {
+            describe('when no other operation processing', function() {
 
-                beforeEach(function () {
-                    createCourse.reject('error');
+                beforeEach(function() {
+                    dialog.isCourseImporting(false);
                 });
 
-                it('should not navigate to course view', function (done) {
-                    dialog.createNewCourse().fin(function () {
-                        expect(router.navigate).not.toHaveBeenCalled();
-                        done();
+                it('should isCourseCreating operation', function () {
+                    dialog.isCourseCreating(false);
+
+                    dialog.createNewCourse();
+
+                    expect(dialog.isCourseCreating()).toBeTruthy();
+                });
+
+                it('should call command to create course', function () {
+                    dialog.isCourseCreating(false);
+
+                    dialog.createNewCourse();
+
+                    expect(createCourseCommand.execute).toHaveBeenCalledWith('Splash pop-up after signup');
+                });
+
+                describe('when course is created', function () {
+
+                    beforeEach(function () {
+                        createCourse.resolve({ id: 'courseId' });
+                    });
+
+                    it('should navigate to created course', function (done) {
+                        dialog.createNewCourse().fin(function () {
+                            expect(router.navigate).toHaveBeenCalledWith('#course/courseId');
+                            done();
+                        });
+                    });
+
+                    it('should close dialog', function (done) {
+                        dialog.createNewCourse().fin(function () {
+                            expect(appDialog.close).toHaveBeenCalledWith(dialog);
+                            done();
+                        });
+                    });
+
+                    it('should set \'isCourseCreating\' to false', function (done) {
+                        dialog.createNewCourse().fin(function () {
+                            expect(dialog.isCourseCreating()).toBeFalsy();
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when course is not created', function () {
+
+                    beforeEach(function () {
+                        createCourse.reject('error');
+                    });
+
+                    it('should not navigate to course view', function (done) {
+                        dialog.createNewCourse().fin(function () {
+                            expect(router.navigate).not.toHaveBeenCalled();
+                            done();
+                        });
+                    });
+
+                    it('should not close dialog', function (done) {
+                        dialog.createNewCourse().fin(function () {
+                            expect(appDialog.close).not.toHaveBeenCalled();
+                            done();
+                        });
+                    });
+
+                    it('should set \'isCourseCreating\' to false', function (done) {
+                        dialog.createNewCourse().fin(function () {
+                            expect(dialog.isCourseCreating()).toBeFalsy();
+                            done();
+                        });
                     });
                 });
 
-                it('should not close dialog', function (done) {
-                    dialog.createNewCourse().fin(function () {
-                        expect(appDialog.close).not.toHaveBeenCalled();
-                        done();
-                    });
-                });
-
-                it('should set \'isCourseCreating\' to false', function (done) {
-                    dialog.createNewCourse().fin(function () {
-                        expect(dialog.isCourseCreating()).toBeFalsy();
-                        done();
-                    });
-                });
             });
 
         });
 
         describe('importCourseFromPresentation:', function () {
+
             it('should be a function', function () {
                 expect(dialog.importCourseFromPresentation).toBeFunction();
             });
 
-            it('should execute import course command', function () {
-                spyOn(presentationCourseImportCommand, 'execute');
-                dialog.importCourseFromPresentation();
-                expect(presentationCourseImportCommand.execute).toHaveBeenCalled();
-            });
+            describe('when another operation processing', function() {
 
-            describe('when course import started', function () {
-                beforeEach(function () {
-                    dialog.isCourseImporting(false);
-                    spyOn(presentationCourseImportCommand, 'execute').and.callFake(function (spec) {
-                        spec.startLoading();
-                    });
+                beforeEach(function() {
+                    dialog.isCourseCreating(true);
                 });
 
-                it('should set isCourseImporting to true', function () {
+                it('should not execute import course command', function () {
+                    spyOn(presentationCourseImportCommand, 'execute');
                     dialog.importCourseFromPresentation();
-                    expect(dialog.isCourseImporting()).toBeTruthy();
+                    expect(presentationCourseImportCommand.execute).not.toHaveBeenCalled();
                 });
+
             });
 
-            describe('when course import completed', function () {
-                beforeEach(function () {
-                    dialog.isCourseImporting(true);
-                    spyOn(presentationCourseImportCommand, 'execute').and.callFake(function (spec) {
-                        spec.complete();
-                    });
+            describe('when no other operation processing', function() {
+
+                beforeEach(function() {
+                    dialog.isCourseCreating(false);
                 });
 
-                it('should set isCourseImporting to false', function () {
+                it('should execute import course command', function () {
+                    spyOn(presentationCourseImportCommand, 'execute');
                     dialog.importCourseFromPresentation();
-                    expect(dialog.isCourseImporting()).toBeFalsy();
-                });
-            });
-
-            describe('when course import succeded', function () {
-                var course = { id: 'id', objectives: [] };
-                beforeEach(function () {
-                    spyOn(presentationCourseImportCommand, 'execute').and.callFake(function (spec) {
-                        spec.success(course);
-                    });
+                    expect(presentationCourseImportCommand.execute).toHaveBeenCalled();
                 });
 
-                describe('and course has objective', function() {
-
-                    beforeEach(function() {
-                        course.objectives = [{ id: 'objectiveId' }];
+                describe('when course import started', function () {
+                    beforeEach(function () {
+                        dialog.isCourseImporting(false);
+                        spyOn(presentationCourseImportCommand, 'execute').and.callFake(function (spec) {
+                            spec.startLoading();
+                        });
                     });
 
-                    it('should navigate to objective', function() {
+                    it('should set isCourseImporting to true', function () {
                         dialog.importCourseFromPresentation();
-                        expect(router.navigate).toHaveBeenCalledWith('#objective/' + course.objectives[0].id + '?courseId=' + course.id);
+                        expect(dialog.isCourseImporting()).toBeTruthy();
                     });
                 });
 
-                describe('and course does not have objectives', function() {
-                    beforeEach(function() {
-                        course.objectives = [];
+                describe('when course import completed', function () {
+                    beforeEach(function () {
+                        spyOn(presentationCourseImportCommand, 'execute').and.callFake(function (spec) {
+                            spec.complete();
+                        });
                     });
 
-                    it('should navigate to created course', function() {
+                    it('should set isCourseImporting to false', function () {
                         dialog.importCourseFromPresentation();
-                        expect(router.navigate).toHaveBeenCalledWith('#course/' + course.id);
+                        expect(dialog.isCourseImporting()).toBeFalsy();
                     });
                 });
 
-                it('should close dialog', function () {
-                    dialog.importCourseFromPresentation();
-                    expect(appDialog.close).toHaveBeenCalledWith(dialog);
+                describe('when course import succeded', function () {
+                    var course = { id: 'id', objectives: [] };
+                    beforeEach(function () {
+                        spyOn(presentationCourseImportCommand, 'execute').and.callFake(function (spec) {
+                            spec.success(course);
+                        });
+                    });
+
+                    describe('and course has objective', function () {
+
+                        beforeEach(function () {
+                            course.objectives = [{ id: 'objectiveId' }];
+                        });
+
+                        it('should navigate to objective', function () {
+                            dialog.importCourseFromPresentation();
+                            expect(router.navigate).toHaveBeenCalledWith('#objective/' + course.objectives[0].id + '?courseId=' + course.id);
+                        });
+                    });
+
+                    describe('and course does not have objectives', function () {
+                        beforeEach(function () {
+                            course.objectives = [];
+                        });
+
+                        it('should navigate to created course', function () {
+                            dialog.importCourseFromPresentation();
+                            expect(router.navigate).toHaveBeenCalledWith('#course/' + course.id);
+                        });
+                    });
+
+                    it('should close dialog', function () {
+                        dialog.importCourseFromPresentation();
+                        expect(appDialog.close).toHaveBeenCalledWith(dialog);
+                    });
+
                 });
+
             });
+
         });
 
     });

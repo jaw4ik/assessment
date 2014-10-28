@@ -4,7 +4,7 @@
 
         return {
             execute: function (options) {
-                eventTracker.publish('Open "choose PowerPoint file" dialogue');
+                eventTracker.publish('Open "choose PowerPoint file" dialogue', options.eventCategory);
 
                 return fileUpload.upload({
                     action: 'api/course/import/presentation',
@@ -13,7 +13,7 @@
                     notSupportedFileMessage: localizationManager.localize('presentationIsNotSupported'),
 
                     startLoading: function () {
-                        eventTracker.publish('Import from PowerPoint file');
+                        eventTracker.publish('Import from PowerPoint file', options.eventCategory);
                         options.startLoading();
                     },
                     success: function (response) {

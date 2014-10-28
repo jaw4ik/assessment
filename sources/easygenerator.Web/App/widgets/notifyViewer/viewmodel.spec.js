@@ -1,6 +1,9 @@
 ﻿define(['widgets/notifyViewer/viewmodel'], function (viewModel) {
-
     "use strict";
+
+    var 
+        app = require('durandal/app'),
+        constants = require('constants');
 
     describe('viewmodel [notifyViewer]', function () {
 
@@ -8,134 +11,93 @@
             expect(viewModel).toBeDefined();
         });
 
-        describe('prototype:', function () {
+        describe('notifications:', function () {
 
-            describe('activate:', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.prototype.activate).toBeFunction();
-                });
-
-                it('should set enabled', function () {
-                    viewModel.prototype.activate();
-                    expect(viewModel.prototype.enabled).toBeDefined();
-                });
-
-                it('should set notifications', function () {
-                    viewModel.prototype.activate();
-                    expect(viewModel.prototype.notifications).toBeDefined();
-                });
-
+            it('should be observable array', function() {
+                expect(viewModel.notifications).toBeObservableArray();
             });
 
-            describe('closeNotice:', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.prototype.closeNotice).toBeFunction();
-                });
-
-                it('should remove notice from array', function () {
-                    var notice = { text: 'notice1' };
-                    viewModel.prototype.notifications = ko.observableArray([notice]);
-                    viewModel.prototype.closeNotice(notice);
-                    expect(viewModel.prototype.notifications().length).toBe(0);
-                });
-
-            });
-
-            describe('addNotice:', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.prototype.addNotice).toBeFunction();
-                });
-
-                beforeEach(function () {
-                    spyOn($.fn, 'hide').and.returnValue($.fn);
-                    spyOn($.fn, 'fadeIn');
-                });
-
-                describe('when node type is not 1', function () {
-
-                    it('should not show notice', function () {
-                        viewModel.prototype.addNotice({ nodeType: 0 });
-                        expect($.fn.hide).not.toHaveBeenCalled();
-                        expect($.fn.fadeIn).not.toHaveBeenCalled();
-                    });
-
-                });
-
-                describe('when node type is 1', function () {
-                    beforeEach(function() {
-                        spyOn(viewModel.queue, 'push');
-                    });
-
-                    it('should hide notice', function () {
-                        viewModel.prototype.addNotice({ nodeType: 1 });
-                        expect($.fn.hide).toHaveBeenCalled();
-                    });
-
-                    it('should add show notice animation to queue', function () {
-                        var notice = { nodeType: 1 };
-                        viewModel.prototype.addNotice(notice);
-                        expect(viewModel.queue.push).toHaveBeenCalledWith(viewModel.showItem, notice);
-                    });
-
-                });
-
-            });
         });
 
-        describe('showItem:', function () {
-            var timerCallback;
+        describe('enabled:', function () {
 
-            beforeEach(function () {
-                timerCallback = jasmine.createSpy("timerCallback");
-                jasmine.clock().install();
+            it('should be observable', function () {
+                expect(viewModel.enabled).toBeObservable();
             });
 
-            afterEach(function () {
-                jasmine.clock().uninstall();
+        });
+
+        describe('moved:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.moved).toBeObservable();
             });
+
+        });
+
+        describe('addNotice:', function () {
 
             it('should be function', function () {
-                expect(viewModel.showItem).toBeFunction();
+                expect(viewModel.addNotice).toBeFunction();
             });
 
-            it('should return promise', function () {
-                expect(viewModel.showItem()).toBePromise();
-            });
-
-            it('should fade in item', function () {
+            beforeEach(function () {
+                spyOn($.fn, 'hide').and.returnValue($.fn);
                 spyOn($.fn, 'fadeIn');
-                viewModel.showItem();
-                expect($.fn.fadeIn).toHaveBeenCalled();
-            });
-
-            it('should fade out in 7 seconds', function() {
                 spyOn($.fn, 'fadeOut');
-                viewModel.showItem();
-
-                jasmine.clock().tick(8000);
-
-                expect($.fn.fadeOut).toHaveBeenCalled();
-            });
-        });
-
-        describe('queue:', function () {
-
-            it('should be defined', function () {
-                expect(viewModel.queue).toBeDefined();
             });
 
-            it('should call pushed function', function (done) {
-                var obj = { func: function () { } };
-                spyOn(obj, 'func');
-                viewModel.queue.promise = Q();
+            var notice = { nodeType: null };
 
-                viewModel.queue.push(obj.func).fin(function () {
-                    expect(obj.func).toHaveBeenCalled();
-                    done();
+            describe('when node type is not 1', function () {
+
+                beforeEach(function() {
+                    notice.nodeType = 0;
                 });
+
+                it('should not show notice', function () {
+                    viewModel.addNotice(notice);
+                    expect($.fn.hide).not.toHaveBeenCalled();
+                    expect($.fn.fadeIn).not.toHaveBeenCalled();
+                });
+
+            });
+
+            describe('when node type is 1', function () {
+
+                beforeEach(function () {
+                    notice.nodeType = 1;
+                });
+
+                it('should hide notice', function () {
+                    viewModel.addNotice(notice);
+
+                    expect($.fn.hide).toHaveBeenCalled();
+                });
+
+                it('should hide item', function () {
+                    viewModel.addNotice(notice);
+
+                    expect($.fn.hide).toHaveBeenCalled();
+                });
+
+                it('should fade in item', function () {
+                    viewModel.addNotice(notice);
+
+                    expect($.fn.fadeIn).toHaveBeenCalled();
+                });
+
+                it('should fade out in 7 seconds', function () {
+                    jasmine.clock().install();
+
+                    viewModel.addNotice(notice);
+                    jasmine.clock().tick(8000);
+
+                    expect($.fn.fadeOut).toHaveBeenCalled();
+
+                    jasmine.clock().uninstall();
+                });
+
             });
 
         });

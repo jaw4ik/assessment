@@ -19,7 +19,8 @@
             var options = {
                 startLoading: function() { },
                 complete: function() { },
-                success: function() { }
+                success: function () { },
+                eventCategory: 'category'
             };
 
             beforeEach(function() {
@@ -33,7 +34,7 @@
             it('should send event \'Open "choose PowerPoint file" dialogue\'', function () {
                 spyOn(fileUpload, 'upload');
                 command.execute(options);
-                expect(eventTracker.publish).toHaveBeenCalledWith('Open "choose PowerPoint file" dialogue');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open "choose PowerPoint file" dialogue', options.eventCategory);
             });
 
             describe('when upload is started', function() {
@@ -46,7 +47,7 @@
 
                 it('should send event \'Import from PowerPoint file\'', function() {
                     command.execute(options);
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Import from PowerPoint file');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Import from PowerPoint file', options.eventCategory);
                 });
 
                 it('should call options startLoading function', function() {

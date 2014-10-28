@@ -1,9 +1,13 @@
 ﻿.notify {
     position: absolute;
-    right: 312px;
+    right: 30px;
     bottom: 12px;
-    z-index: 200;
+    z-index: 1500;
     white-space: nowrap;
+}
+
+.notify.moved {
+    margin-right: 300px;
 }
 
 .notifications-container {

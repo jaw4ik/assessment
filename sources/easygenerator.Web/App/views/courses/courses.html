@@ -39,16 +39,26 @@
                     </div>
                     <!-- /ko -->
                 </div>
-                <div class="list-item-action import">
-                    <button class="action-item-btn btn blue" data-bind="click: importCourseFromPresentation, css:{ disabled: !isCreateCourseAvailable() }">
-                        <span class="action-item-btn-caption" data-bind="localize: { text: 'import' }"></span>
-                    </button>
-                </div>
                 <div class="list-item-action create">
                     <!-- ko if: isCreateCourseAvailable -->
-                    <button class="action-item-btn create-item btn green" data-bind="click: createNewCourse">
-                        <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
-                    </button>
+                    <div class="action-item-btn-wrapper">
+                        <button class="action-item-btn create-item btn green" data-bind="click: showNewCoursePopover, outsideClick: { action: hideNewCoursePopover }">
+                            <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
+                        </button>
+                        <div class="new-course-action-wrapper" data-bind="visible: newCoursePopoverVisible">
+                            <div class="new-course-action-background"></div>
+                            <ul class="new-course-action-items">
+                                <li class="new-course-action-item" data-bind="click: importCourseFromPresentation">
+                                    <span class="new-course-action-import-pptx-icon"></span>
+                                    <span class="new-course-action-item-title" data-bind="localize: { text: 'powerPointImport' }">Power Point import</span>
+                                </li>
+                                <li class="new-course-action-item" data-bind="click: createNewCourse">
+                                    <span class="new-course-action-create-course-icon"></span>
+                                    <span class="new-course-action-item-title" data-bind="localize: { text: 'createCourse' }">Create course</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     <!-- /ko -->
                     <!-- ko ifnot: isCreateCourseAvailable -->
                     <button class="action-item-btn create-item btn green disabled" disabled="disabled">

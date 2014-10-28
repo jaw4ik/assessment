@@ -2,6 +2,8 @@
     function (router, dialog, createCourseCommand, presentationCourseImportCommand) {
         "use strict";
 
+        var eventCategory = 'Splash pop-up after signup';
+
         var createCourse = function () {
             var self = this;
             self.isCourseCreating = ko.observable(false);
@@ -12,10 +14,14 @@
         };
 
         createCourse.prototype.createNewCourse = function () {
-            this.isCourseCreating(true);
-
             var that = this;
-            return createCourseCommand.execute('Splash pop-up after signup')
+
+            if (that.isProcessing()) {
+                return;
+            }
+
+            that.isCourseCreating(true);
+            return createCourseCommand.execute(eventCategory)
                 .then(function (course) {
                     router.navigate('#course/' + course.id);
                     dialog.close(that);
@@ -27,6 +33,11 @@
 
         createCourse.prototype.importCourseFromPresentation = function () {
             var that = this;
+
+            if (that.isProcessing()) {
+                return;
+            }
+
             return presentationCourseImportCommand.execute({
                 startLoading: function () {
                     that.isCourseImporting(true);
@@ -42,7 +53,8 @@
                 },
                 complete: function () {
                     that.isCourseImporting(false);
-                }
+                },
+                eventCategory: eventCategory
             });
         };
 

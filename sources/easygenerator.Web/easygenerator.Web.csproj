@@ -493,10 +493,13 @@
     <Content Include="Content\hotSpot.css" />
     <Content Include="Content\images\closedhand.cur" />
     <Content Include="Content\images\comingsoon1024.png" />
+    <Content Include="Content\images\create-course.png" />
     <Content Include="Content\images\disabled-question1024.png" />
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\no-spots.png" />
     <Content Include="Content\images\openhand.cur" />
+    <Content Include="Content\images\import-pptx.png" />
+    <Content Include="Content\images\dialog-header-background.png" />
     <Content Include="Content\images\statement-question.png" />
     <Content Include="Content\statement.css" />
     <Content Include="Content\switchToggle.css" />
@@ -1810,7 +1813,6 @@
     <Content Include="Content\images\buildprogress.gif" />
     <Content Include="Content\images\disabled-question.png" />
     <Content Include="Content\images\collapse-btn-icon.png" />
-    <Content Include="Content\images\dialog-header.png" />
     <Content Include="Content\images\disabled.png" />
     <Content Include="Content\images\download-scorm-loader.GIF" />
     <Content Include="Content\images\drag-and-drop.png" />
