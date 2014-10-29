@@ -1306,6 +1306,24 @@ span.top-navigation-item.current {
         box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset;
     }
 
+    .btn.dropdown {
+        padding-right: 30px;
+    }
+    .btn.dropdown:after {
+        content: '';
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        display: inline-block;
+        width: 10px;
+        height: 6px;
+        margin-top: -3px;
+        background: url('images/sprites_16.png') -171px -51px no-repeat;
+    }
+    .btn.dropdown.expanded:after {
+        background-position: -171px -43px;
+    }
+
 .btn-small {
     min-width: 90px;
     line-height: normal;

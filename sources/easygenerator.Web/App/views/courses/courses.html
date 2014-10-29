@@ -42,10 +42,10 @@
                 <div class="list-item-action create">
                     <!-- ko if: isCreateCourseAvailable -->
                     <div class="action-item-btn-wrapper">
-                        <button class="action-item-btn create-item btn green" data-bind="click: showNewCoursePopover, outsideClick: { action: hideNewCoursePopover }">
+                        <button class="action-item-btn create-item btn dropdown green" data-bind="click: showNewCoursePopover, outsideClick: { action: hideNewCoursePopover }, css: { expanded: newCoursePopoverVisible() }">
                             <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
                         </button>
-                        <div class="new-course-action-wrapper" data-bind="visible: newCoursePopoverVisible">
+                        <div class="new-course-action-wrapper" data-bind="css: { visible: newCoursePopoverVisible() }">
                             <div class="new-course-action-background"></div>
                             <ul class="new-course-action-items">
                                 <li class="new-course-action-item" data-bind="click: importCourseFromPresentation">
