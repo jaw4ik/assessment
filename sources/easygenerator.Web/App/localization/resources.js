@@ -461,10 +461,10 @@
         en: 'New course'
     },
     createCourseButtonTitle: {
-        en: 'Create own course'
+        en: 'Create new course'
     },
     createCourseButtonDescription: {
-        en: 'An course can be a quiz, a learning you come up with'
+        en: 'An empty course will be created'
     },
     createCourse: {
         en: 'Create course'
@@ -482,16 +482,16 @@
         en: 'Create course'
     },
     powerPointImport: {
-        en: 'Power Point import'
+        en: 'PowerPoint import'
     },
     uploadingPresentation: {
         en: 'uploading presentation...'
     },
     importCourseButtonTitle: {
-        en: 'Import from Power Point'
+        en: 'Import from PowerPoint'
     },
     importCourseButtonDescription: {
-        en: 'Import slides from power point and create course with its'
+        en: 'Import slides from PowerPoint and use them as content'
     },
     /* End resource section for model CreateCourse */
     
