@@ -18,6 +18,8 @@ using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.ModelBinding;
 using easygenerator.Web.Components.Tasks;
 using easygenerator.Web.Import.Presentation;
+using easygenerator.Web.Import.Presentation.HtmlComposers;
+using easygenerator.Web.Import.Presentation.Mappers;
 using easygenerator.Web.Import.PublishedCourse;
 using easygenerator.Web.Import.PublishedCourse.EntityReaders;
 using easygenerator.Web.Mail;
@@ -174,7 +176,19 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<AnswerEntityReader>();
             builder.RegisterType<LearningContentEntityReader>();
             builder.RegisterType<PublishedCourseImporter>();
-            builder.RegisterType<PresentationMapper>();
+            builder.RegisterType<PresentationModelMapper>().As<IPresentationModelMapper>();
+            builder.RegisterType<ShapeMapper>();
+            builder.RegisterType<ParagraphMapper>();
+            builder.RegisterType<ParagraphCollectionMapper>();
+            builder.RegisterType<ShapePositionReceiver>();
+            builder.RegisterType<ShapeHtmlComposer>();
+            builder.RegisterType<TableHtmlComposer>();
+            builder.RegisterType<SlideHtmlComposer>().As<ISlideHtmlComposer>();
+            builder.RegisterType<ImageHtmlComposer>();
+            builder.RegisterType<ParagraphHtmlComposer>();
+            builder.RegisterType<PresentationCourseImporter>().As<IPresentationCourseImporter>();
+            builder.RegisterType<ImageMapper>();
+            builder.RegisterType<TableMapper>();
 
             #endregion
 

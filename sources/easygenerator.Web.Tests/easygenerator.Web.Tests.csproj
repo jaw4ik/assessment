@@ -182,6 +182,7 @@
     <Compile Include="Controllers\PreviewControllerTests.cs" />
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
     <Compile Include="DomainEvents\Events\UserSignedUpEventTest.cs" />
+    <Compile Include="Import\Presentation\PresentationCourseImporterTests.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\AnswerEntityReaderTests.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\CourseEntityReaderTests.cs" />
     <Compile Include="Import\PublishedCourse\EntityReaders\LearningContentEntityReaderTests.cs" />

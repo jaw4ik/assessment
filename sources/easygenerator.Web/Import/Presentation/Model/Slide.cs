@@ -1,36 +1,26 @@
-﻿using System;
+﻿using easygenerator.Infrastructure;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Web;
-using DocumentFormat.OpenXml.Office.CustomUI;
-using easygenerator.Infrastructure;
 
 namespace easygenerator.Web.Import.Presentation.Model
 {
     public class Slide
     {
-        protected internal ICollection<Shape> ShapesCollection { get; set; }
-
-        public IEnumerable<Shape> Shapes
-        {
-            get { return ShapesCollection.OrderBy(item => item.Position.Y).ThenBy(item => item.Position.X).AsEnumerable(); }
-        }
-
+        public List<SlideElement> Elements { get; private set; }
+        
         public Slide()
         {
-            ShapesCollection = new Collection<Shape>();
+            Elements = new List<SlideElement>();
         }
 
-        public void AddShape(Shape shape)
+        public void AddElement(SlideElement element)
         {
-            ThrowIfShapeIsInvalid(shape);
-            ShapesCollection.Add(shape);
+            ThrowIfShapeIsInvalid(element);
+            Elements.Add(element);
         }
 
-        private void ThrowIfShapeIsInvalid(Shape shape)
+        private void ThrowIfShapeIsInvalid(SlideElement element)
         {
-            ArgumentValidation.ThrowIfNull(shape, "shape");
+            ArgumentValidation.ThrowIfNull(element, "element");
         }
     }
 }
