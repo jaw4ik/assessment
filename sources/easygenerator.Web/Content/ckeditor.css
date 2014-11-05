@@ -3,11 +3,6 @@
     width: 121px !important;
 }
 
-.cke_editable > p:before
-{
-    content: "\200B";
-}
-
 /* Special class appended to the Ok button. */
 a.cke_dialog_ui_button_ok
 {
