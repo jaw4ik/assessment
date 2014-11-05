@@ -55,7 +55,7 @@ namespace easygenerator.Web.Import.Presentation.Mappers
                 }
                 else if (level > listItem.List.Level)
                 {
-                    listItem = AppendNestedListItem(listItem, listType, paragraphModel);
+                    listItem = AppendNestedListItem(listItem, level, listType, paragraphModel);
                 }
                 else if (level < listItem.List.Level)
                 {
@@ -78,9 +78,9 @@ namespace easygenerator.Web.Import.Presentation.Mappers
             return listItem;
         }
 
-        private static ListItem AppendNestedListItem(ListItem listItem, ListTypes listType, Model.ShapeElements.Paragraph paragraphModel)
+        private static ListItem AppendNestedListItem(ListItem listItem, int level, ListTypes listType, Model.ShapeElements.Paragraph paragraphModel)
         {
-            var subList = listItem.AddNestedList(listType);
+            var subList = listItem.AddNestedList(listType, level);
             listItem = subList.AddListItem(paragraphModel);
             return listItem;
         }

@@ -16,9 +16,12 @@ namespace easygenerator.Web.Import.Presentation.Model.ShapeElements
             NestedLists = new List<List>();
         }
 
-        public List AddNestedList(ListTypes listType)
+        public List AddNestedList(ListTypes listType, int level = -1)
         {
-            var nestedList = new List(listType, List.Level + 1, this);
+            if (level == -1)
+                level = List.Level + 1;
+
+            var nestedList = new List(listType, level, this);
             NestedLists.Add(nestedList);
 
             return nestedList;
