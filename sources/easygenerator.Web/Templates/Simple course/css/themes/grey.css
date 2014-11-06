@@ -61,13 +61,7 @@ body {
         background: #95a7ba;
     }
 
-.course-name {
-    color: #333;
-    font-family: Segoe UI-Semibold, sans-serif;
-    font-weight: normal;
-}
-
-.course-title:before {
+.course-label {
     color: #333;
     font-family: Segoe UI-Semibold, sans-serif;
 }
@@ -174,6 +168,12 @@ body {
         font-size: 13px;
         line-height: 10px;
     }
+
+        .objective-progressbar-wrapper.not-affect-progress .objective-progressbar-border {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
 .objective-progressbar-inside {
     background: #727272;
@@ -741,3 +741,23 @@ body {
     font-family: 'OpenSans';
 }
 /*#endregion statement question type*/
+
+
+@-moz-document url-prefix() {
+
+    button.small-page-action-btn, input[type='button'].small-page-action-btn {
+        padding: 0;
+    }
+
+        button.small-page-action-btn::-moz-focus-inner, input[type='button'].small-page-action-btn::-moz-focus-inner {
+            padding: 11px 8px;
+        }
+
+    button.xapi-error-container-button, input[type='button'].xapi-error-container-button {
+        padding: 0;
+    }
+
+        button.xapi-error-container-button::-moz-focus-inner, input[type='button'].xapi-error-container-button::-moz-focus-inner {
+            padding: 0 10px;
+        }
+}

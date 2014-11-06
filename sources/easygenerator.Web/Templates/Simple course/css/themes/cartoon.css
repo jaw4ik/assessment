@@ -66,7 +66,7 @@ body {
         background: linear-gradient(to right, #c9e9e5 0%,#c9e9e5 16%,#cdeeaa 16%,#cdeeaa 33%,#f9f0a8 33%,#f9f0a8 50%,#e0cfdf 50%,#e0cfdf 66%,#faced2 66%,#faced2 83%,#bcd8f0 83%,#bcd8f0 100%);
     }
 
-.course-title:before {
+.course-label {
     color: #da5132;
     font-family: OpenSans-Semibold, sans-serif;
 }
@@ -158,6 +158,12 @@ body {
         font-size: 13px;
         line-height: 10px;
     }
+
+        .objective-progressbar-wrapper.not-affect-progress .objective-progressbar-border {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
 .objective-progressbar-inside {
     background: -moz-linear-gradient(left, #41b7d8 0%, #3492ad 100%);
@@ -708,3 +714,23 @@ body {
     font-family: 'OpenSans';
 }
 /*#endregion statement question type*/
+
+
+@-moz-document url-prefix() {
+
+    button.small-page-action-btn, input[type='button'].small-page-action-btn {
+        padding: 0;
+    }
+
+        button.small-page-action-btn::-moz-focus-inner, input[type='button'].small-page-action-btn::-moz-focus-inner {
+            padding: 11px 10px;
+        }
+
+    button.xapi-error-container-button, input[type='button'].xapi-error-container-button {
+        padding: 0;
+    }
+
+        button.xapi-error-container-button::-moz-focus-inner, input[type='button'].xapi-error-container-button::-moz-focus-inner {
+            padding: 0 10px;
+        }
+}

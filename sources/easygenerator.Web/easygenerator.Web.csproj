@@ -1373,7 +1373,8 @@
     <Content Include="Templates\Simple course\settings\img\flat.png" />
     <Content Include="Templates\Simple course\settings\img\grey.png" />
     <Content Include="Templates\Simple course\settings\img\saltbox-banner.png" />
-    <Content Include="Templates\Simple course\settings\js\vendor.js" />
+    <Content Include="Templates\Simple course\settings\js\settings.min.js" />
+    <Content Include="Templates\Simple course\settings\js\vendor.min.js" />
     <Content Include="Templates\Simple course\settings\settings.html" />
     <Content Include="Views\Account\InvalidPasswordRecovery.cshtml" />
     <Content Include="Views\Account\PasswordRecovery.cshtml" />

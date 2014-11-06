@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="css/settings.min.css" rel="stylesheet" />
-    <script src="js/vendor.js"></script>
+    <script src="js/vendor.min.js"></script>
+    <script src="js/settings.min.js"></script>
 </head>
 <body>
     <div class="page-container">
@@ -238,6 +239,37 @@
                         <a href="https://www.waxlrs.com/?utm_medium=affiliate&utm_source=easy_generator" target="_blank">
                             <img src="img/saltbox-banner.png" class="saltbox-banner" alt="Saltbox banner" />
                         </a>
+                    </div>
+                </div>
+                <div class="content-header">
+                    <div class="page-title-wrapper">
+                        <h1 class="page-title translations">Interface language</h1>
+                    </div>
+                </div>
+                <div class="content-wrapper translations">
+                    <div class="content-row top-row">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Key</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- ko foreach: translations -->
+                                <tr>
+                                    <td data-bind="text: key"></td>
+                                    <td>
+                                        <div class="edit-icon"></div>
+                                        <div class="input-wrapper">
+                                            <input data-bind="value: value" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- /ko -->
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>
