@@ -187,6 +187,9 @@
     coursePublishItem: {
         en: '3. Publish'
     },
+    courseResultsItem: {
+        en: '3. Results'
+    },
     getPublicationLink: {
         en: 'Get link'
     },
@@ -325,6 +328,27 @@
     publishNow: {
         en: 'Publish now'
     },
+    learnersResults: {
+        en: 'Learners results'
+    },
+    nameAndEmail: {
+        en: 'Name (Email)'
+    },
+    result: {
+        en: 'Result'
+    },
+    score: {
+        en: 'Score'
+    },
+    dateTime: {
+        en: 'Date Time'
+    },
+    noReportedResults: {
+        en: 'No reported results yet...'
+    },
+    showMore: {
+        en: 'Show More'
+    },
     /* End resource section for model Courses */
     
     /* Resource section for model CreateObjective */
@@ -401,7 +425,7 @@
         en: 'Create new course'
     },
     createCourseButtonDescription: {
-        en: 'An empty course will be created'
+        en: 'Start a new course from scratch'
     },
     createCourse: {
         en: 'Create course'
@@ -428,7 +452,7 @@
         en: 'Import from PowerPoint'
     },
     importCourseButtonDescription: {
-        en: 'Import slides from PowerPoint and use them as content'
+        en: 'Import slides from PowerPoint and use them as your course content'
     },
     /* End resource section for model CreateCourse */
     
@@ -968,7 +992,7 @@
     
     /* Resource section for model Dialogs window */
     createCourseDialogDescription: {
-        en: 'You will have your first course done in 10 minutes!'
+        en: 'Start a new course from scratch'
     },
     createCourseDialogTitle: {
         en: '1. Create your first course'
