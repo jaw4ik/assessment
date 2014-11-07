@@ -10,15 +10,6 @@
     back: {
         en: 'Back'
     },
-    sortBy: {
-        en: 'Sort by'
-    },
-    firstLetter: {
-        en: 'A'
-    },
-    lastLetter: {
-        en: 'Z'
-    },
     open: {
         en: 'Open'
     },
@@ -31,9 +22,6 @@
     backTo: {
         en: 'Back to'
     },
-    language: {
-        en: 'Language'
-    },
     remove: {
         en: 'Remove'
     },
@@ -42,15 +30,6 @@
     },
     collapse: {
         en: 'Collapse'
-    },
-    sortByTitle: {
-        en: 'Sort by title'
-    },
-    ascending: {
-        en: 'Ascending'
-    },
-    descending: {
-        en: 'Descending'
     },
     createdOn: {
         en: 'Created on'
@@ -61,20 +40,11 @@
     builtOn: {
         en: 'Built on'
     },
-    notBuilt: {
-        en: 'Not built'
-    },
     delete: {
         en: 'Delete'
     },
     materials: {
         en: 'My Library'
-    },
-    packageCreatedOn: {
-        en: 'Last zipped course created on'
-    },
-    packageNotCreatedStatus: {
-        en: 'Failed to create zipped course'
     },
     lastEdited: {
         en: 'Last edited:'
@@ -90,9 +60,6 @@
     },
     allChangesAreSaved: {
         en: 'All changes are saved'
-    },
-    upgradeAccount: {
-        en: 'Upgrade now'
     },
     changeOrderTooltip: {
         en: 'Reorder by dragging'
@@ -154,6 +121,12 @@
     chooseImage: {
         en: '&#43; Choose background image'
     },
+    signOutButton: {
+        en: 'Sign out'
+    },
+    help: {
+        en: 'Help'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -199,29 +172,11 @@
     courseDownloadScormAction: {
         en: 'Download as SCORM 1.2'
     },
-    courseFailedStatus: {
-        en: 'Failed'
-    },
-    courseCompleteStatus: {
-        en: 'Complete'
-    },
-    numberOfRelatedObjectives: {
-        en: 'Number of course learning objectives'
-    },
     courseCannotBeDeleted: {
         en: 'Course cannot be deleted when it has learning objective(s)'
     },
-    createPackage: {
-        en: 'Create zipped course'
-    },
-    updatePackage: {
-        en: 'Update zipped course'
-    },
     creatingStatus: {
         en: 'Creating...'
-    },
-    updatingStatus: {
-        en: 'Updating...'
     },
     courseCreateItem: {
         en: '1. Create'
@@ -241,20 +196,11 @@
     publishing: {
         en: 'Publishing...'
     },
-    republishing: {
-        en: 'Updating...'
-    },
-    copyLinkTitle: {
-        en: 'Copy link'
-    },
     publishFailed: {
         en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.'
     },
     publishingLinkDescription: {
         en: 'Copy and share this link with your learners'
-    },
-    republishOnlineDescription: {
-        en: 'Publish the course on easygenerator server'
     },
     viewCourseDescription: {
         en: 'Open link to view the course'
@@ -270,9 +216,6 @@
     },
     assembling: {
         en: 'Publishing...'
-    },
-    reassemble: {
-        en: 'Updating...'
     },
     upgradeToStarterPlanToUseScormErrorMessage: {
         en: 'Upgrade your account to \"Starter plan\" to download a SCORM course'
@@ -393,12 +336,6 @@
     },
     filter: {
         en: 'Filter'
-    },
-    showAllConnectedLearningObjectives: {
-        en: 'Show all course objectives'
-    },
-    showOtherLearningObjectives: {
-        en: 'Show all other objectives'
     },
     createAndConnectLearningObjective: {
         en: 'New objective / section'
@@ -786,117 +723,6 @@
     },
     /* End resource section for model QuestionFeedback */
     
-    /* Resource section for model customLocalizationPlugin */
-    abbr: {
-        en: 'Abbreviation'
-    },
-    acronym: {
-        en: 'Acronym'
-    },
-    blockquote: {
-        en: 'Long quotation'
-    },
-    q: {
-        en: 'Short inline quotation'
-    },
-    cite: {
-        en: 'Citation'
-    },
-    dfn: {
-        en: 'Definition'
-    },
-    code: {
-        en: 'Code reference'
-    },
-    samp: {
-        en: 'Sample output'
-    },
-    tt: {
-        en: 'Teletype text'
-    },
-    em: {
-        en: 'Emphasis'
-    },
-    strong: {
-        en: 'Strong emphasis'
-    },
-    sub: {
-        en: 'Subscript'
-    },
-    sup: {
-        en: 'Superscript'
-    },
-    hr: {
-        en: 'Thematic break'
-    },
-    article: {
-        en: 'Article'
-    },
-    section: {
-        en: 'Section'
-    },
-    aside: {
-        en: 'Aside content'
-    },
-    header: {
-        en: 'Header'
-    },
-    footer: {
-        en: 'Footer'
-    },
-    mark: {
-        en: 'Marked/highlighted text'
-    },
-    figcaption: {
-        en: 'Caption of Figure'
-    },
-    figure: {
-        en: 'Figure'
-    },
-    nav: {
-        en: 'Navigation element'
-    },
-    time: {
-        en: 'Date/Time'
-    },
-    h1: {
-        en: 'First level headline'
-    },
-    h2: {
-        en: 'Second level headline'
-    },
-    h3: {
-        en: 'Third level headline'
-    },
-    h4: {
-        en: 'Fourth level headline'
-    },
-    h5: {
-        en: 'Fifth level headline'
-    },
-    h6: {
-        en: 'Sixth level headline'
-    },
-    address: {
-        en: 'Address'
-    },
-    label: {
-        en: 'Semantic'
-    },
-    panelTitle: {
-        en: 'Semantic'
-    },
-    paragraphTitle: {
-        en: 'Paragraph Format'
-    },
-    selectionTitle: {
-        en: 'Selection Format'
-    },
-    p: {
-        en: 'Normal'
-    },
-    /* End resource section for model customLocalizationPlugin */
-    
     /* Resource section for model Display course */
     clickToCreateNewObjective: {
         en: 'To create objective or sub title click \"+\" button'
@@ -934,15 +760,6 @@
     /* End resource section for model Display course */
     
     /* Resource section for model Error pages */
-    badRequest: {
-        en: 'Something went wrong'
-    },
-    badRequestDescription: {
-        en: 'Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
-    },
-    /* End resource section for model Error pages */
-    
-    /* Resource section for model Error pages */
     pageNotFound: {
         en: 'The page you requested cannot be found'
     },
@@ -952,154 +769,7 @@
     homeLink: {
         en: 'Home'
     },
-    serverError: {
-        en: 'Something went wrong'
-    },
-    serverErrorDescription: {
-        en: 'Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
-    },
     /* End resource section for model Error pages */
-    
-    /* Resource section for model Not supported browsers */
-    browserNotSupport: {
-        en: 'Your browser is currently not supported. Do not worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.'
-    },
-    mobileDeviceNotSupport: {
-        en: 'This function is not optimized for a phone or tablet. Use a PC or laptop for authoring. <br/> All published courses run on any device.'
-    },
-    /* End resource section for model Not supported browsers */
-    
-    /* Resource section for model SignUp form */
-    CreateAccountTitle: {
-        en: 'Start creating courses in just 2 minutes'
-    },
-    SignUpSecondStepTitle: {
-        en: 'Almost there...'
-    },
-    EmailCaption: {
-        en: 'E-mail'
-    },
-    PasswordCaption: {
-        en: 'Password'
-    },
-    signUpButton: {
-        en: 'Sign up'
-    },
-    PasswordRequirementsTitle: {
-        en: 'Password is required to:'
-    },
-    BeAtLeast7CharaterLong: {
-        en: 'be at least 7 characters long;'
-    },
-    ContainAtLeastOneLowerCaseLetter: {
-        en: 'contain at least one lower case letter;'
-    },
-    ContainAtLeastOneUpperCaseLetter: {
-        en: 'contain at least one upper case letter;'
-    },
-    ContainAtLeastOneDigit: {
-        en: 'contain at least one digit;'
-    },
-    ShowPassword: {
-        en: 'Show password'
-    },
-    HidePassword: {
-        en: 'Hide password'
-    },
-    Finish: {
-        en: 'Start authoring!'
-    },
-    NotContainWhitespaceCharacters: {
-        en: 'The password cannot contain spaces'
-    },
-    EnterValidEmail: {
-        en: 'Enter a valid e-mail'
-    },
-    EnterValidFullName: {
-        en: 'Fill in your full name'
-    },
-    EnterValidOrganization: {
-        en: 'Fill in your organization name'
-    },
-    EnterValidPhoneNumber: {
-        en: 'Fill in your phone number'
-    },
-    EnterValidCountry: {
-        en: 'Fill in your country'
-    },
-    AccountAlreadyExists: {
-        en: 'This account already exists. Click on Sign in and try again.'
-    },
-    PasswordIsStrongEnough: {
-        en: 'Password meets requirements'
-    },
-    PasswordDoesNotMeetRequirements: {
-        en: 'Password does not meet requirements'
-    },
-    LicenseAgreeCaption: {
-        en: 'By clicking \"Sign up\" I agree to the easygenerator\'s  <a href=\"{0}\"  target=”_blank”>Terms</a> and <a href=\"{1}\"  target=”_blank”>Privacy policy</a>'
-    },
-    Checking: {
-        en: 'Checking...'
-    },
-    /* End resource section for model SignUp form */
-    
-    /* Resource section for model Sign In */
-    email: {
-        en: 'E-mail'
-    },
-    password: {
-        en: 'Password'
-    },
-    signIn: {
-        en: 'Sign in'
-    },
-    incorrectEmailOrPassword: {
-        en: 'E-mail and password combination do not exist. Try again or reset password.'
-    },
-    forgotPassword: {
-        en: 'Forgot password?'
-    },
-    /* End resource section for model Sign In */
-    
-    /* Resource section for model Sign Out */
-    signOutButton: {
-        en: 'Sign out'
-    },
-    help: {
-        en: 'Help'
-    },
-    /* End resource section for model Sign Out */
-    
-    /* Resource section for model File uploader */
-    fileSizeNotMoreThan: {
-        en: 'Your file is too large. File size is restricted to 10MB per file'
-    },
-    extensions: {
-        en: 'Extensions'
-    },
-    uploadFailed: {
-        en: 'Upload failed'
-    },
-    chooseFile: {
-        en: 'Choose file'
-    },
-    /* End resource section for model File uploader */
-    
-    /* Resource section for model Terms Of Use and Privacy policy */
-    TermsOfUse: {
-        en: 'Terms of use'
-    },
-    PrivacyPolicy: {
-        en: 'Privacy policy'
-    },
-    /* End resource section for model Terms Of Use and Privacy policy */
-    
-    /* Resource section for model Copyright */
-    CopyrightText: {
-        en: 'Copyright © 2014 easygenerator. All rights reserved.'
-    },
-    /* End resource section for model Copyright */
     
     /* Resource section for model Server error notification */
     courseNotFoundError: {
@@ -1145,78 +815,6 @@
         en: 'Create question'
     },
     /* End resource section for model View captions */
-    
-    /* Resource section for model SignUp form */
-    /* End resource section for model SignUp form */
-    
-    /* Resource section for model FirstNameCaption */
-    /* End resource section for model FirstNameCaption */
-    
-    /* Resource section for model LastNameCaption */
-    /* End resource section for model LastNameCaption */
-    
-    /* Resource section for model PhoneNumberCaption */
-    /* End resource section for model PhoneNumberCaption */
-    
-    /* Resource section for model CountryCaption */
-    /* End resource section for model CountryCaption */
-    
-    /* Resource section for model RoleQuestion */
-    /* End resource section for model RoleQuestion */
-    
-    /* Resource section for model TeacherOption */
-    /* End resource section for model TeacherOption */
-    
-    /* Resource section for model TrainerOption */
-    /* End resource section for model TrainerOption */
-    
-    /* Resource section for model SmeOption */
-    /* End resource section for model SmeOption */
-    
-    /* Resource section for model ExpertOption */
-    /* End resource section for model ExpertOption */
-    
-    /* Resource section for model DesignerOption */
-    /* End resource section for model DesignerOption */
-    
-    /* Resource section for model ManagerOption */
-    /* End resource section for model ManagerOption */
-    
-    /* Resource section for model OtherOption */
-    /* End resource section for model OtherOption */
-    
-    /* Resource section for model wouldYouLikeAnIntroductionDemo */
-    /* End resource section for model wouldYouLikeAnIntroductionDemo */
-    
-    /* Resource section for model ChooseYourCountry */
-    /* End resource section for model ChooseYourCountry */
-    
-    /* Resource section for model Forgot password */
-    passwordRecovery: {
-        en: 'Reset password'
-    },
-    RequestError: {
-        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.'
-    },
-    CouldNotVerifyPasswordRecovery: {
-        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.'
-    },
-    RestorePasswordCaption: {
-        en: 'Enter your new password'
-    },
-    Continue: {
-        en: 'Continue'
-    },
-    ForgotPassword: {
-        en: 'Forgot your password?'
-    },
-    ForgotPasswordSent: {
-        en: 'We\'ve sent you an e-mail with instructions on how to reset your password.'
-    },
-    /* End resource section for model Forgot password */
-    
-    /* Resource section for model ForgotPasswordBody */
-    /* End resource section for model ForgotPasswordBody */
     
     /* Resource section for model Help hints */
     coursesHelpHintTitle: {
@@ -1278,24 +876,6 @@
     },
     /* End resource section for model Help hints */
     
-    /* Resource section for model sorryPage */
-    publishIsInProgressTitle: {
-        en: 'This course in use by someone else.'
-    },
-    publishIsInProgressText: {
-        en: 'Please try again later.'
-    },
-    /* End resource section for model sorryPage */
-    
-    /* Resource section for model CKEditor */
-    embedMedia: {
-        en: 'Embed Media'
-    },
-    pasteEmbedCodeHere: {
-        en: 'Paste Embed Code Here'
-    },
-    /* End resource section for model CKEditor */
-    
     /* Resource section for model Review */
     review: {
         en: 'Review'
@@ -1329,9 +909,6 @@
     },
     upgradeToStarterPlanToUseCommentsErrorMessage: {
         en: 'upgrade to Starter Plan.'
-    },
-    loadingCourseError: {
-        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.'
     },
     /* End resource section for model Review */
     
@@ -1381,17 +958,11 @@
     openNavigationBar: {
         en: 'Open navigation'
     },
-    noQuestionsTitle: {
-        en: 'Question list is empty'
-    },
     noCoursesTitle: {
         en: 'Course list is empty'
     },
     noObjectivesTitle: {
         en: 'Objective list is empty'
-    },
-    noOwnCoursesTitle: {
-        en: 'Courses list is empty'
     },
     /* End resource section for model Navigation tree */
     
@@ -1474,15 +1045,6 @@
     waitingForRegistration: {
         en: 'waiting for registration...'
     },
-    /* End resource section for model Collaboration */
-    
-    /* Resource section for model InviteCollaboratorSubject */
-    /* End resource section for model InviteCollaboratorSubject */
-    
-    /* Resource section for model InviteCollaboratorBody */
-    /* End resource section for model InviteCollaboratorBody */
-    
-    /* Resource section for model InviteCollaboratorFromDisplayName */
     collaborationStarterWarning: {
         en: 'You have reached the maximum of 3 co-authors for this course.  Upgrade to Plus Plan to invite additional co-authors.'
     },
@@ -1495,7 +1057,7 @@
     addCollaboratorFreeWarning: {
         en: 'Co-authoring is not available in the Free Plan. Upgrade to Starter Plan to invite co-authors.'
     },
-    /* End resource section for model InviteCollaboratorFromDisplayName */
+    /* End resource section for model Collaboration */
     
     /* Resource section for model Onboarding */
     whatNow: {
@@ -1529,13 +1091,13 @@
         en: 'Add content'
     },
     addContentOnboardingTaskDescription: {
-        en: '<section><header>What for?</header><article>Give  learners the information they need to be able to answer the question.  Create visually engaging courses by embedding videos and images.</article></section><section><header>How to add content?</header><ol><li>After you have added (or opened) a learning objective, a new page will be displayed.</li><li>Click on <b>\"New item\"</b> and click on <b>\"Content\"</b> after</li><li>Type in a title and add your content</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Content\">Read more</a></div></section>'
+        en: '<section><header>What for?</header><article>Give  learners the information they need to be able to answer the question.  Create visually engaging courses by embedding videos and images.</article></section><section><header>How to add content?</header><ol><li>After you have added (or opened) a learning objective, a new page will be displayed.</li><li>Click on <b>\"New item\"</b> and click on <b>\"Content\"</b> after</li><li>Type in a title and add your content</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Read more</a></div></section>'
     },
     createQuestionsOnboardingTaskTitle: {
         en: 'Add 3 questions ({0}/3)'
     },
     createQuestionsOnboardingTaskDescription: {
-        en: '<section><header>What for?</header><article>Engage users by using multiple question types like: Drag and Drop Text, Text Matching, Single Choice Image and many more.</article></section><section><header>How to add questions?</header><ol><li>Click on <b>\"New item\"</b> (On the Learning objective page, or on the page where you create questions or content)</li><li>Select the question type you want to create</li><li>Type in a question title and other properties</li><li>Create a minimum of 3 different questions</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content\">Read more</a></div></section>'
+        en: '<section><header>What for?</header><article>Engage users by using multiple question types like: Drag and Drop Text, Text Matching, Single Choice Image and many more.</article></section><section><header>How to add questions?</header><ol><li>Click on <b>\"New item\"</b> (On the Learning objective page, or on the page where you create questions or content)</li><li>Select the question type you want to create</li><li>Type in a question title and other properties</li><li>Create a minimum of 3 different questions</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions\">Read more</a></div></section>'
     },
     publishOnboardingTaskTitle: {
         en: 'Publish'
@@ -1553,7 +1115,7 @@
         en: '<p>Learning content is the content the learner needs to be able to answer a question.</p><p>In easygenerator this content can be added directly to the question.</p><p>The template you choose in the Design step determines how the content and the question will be organized and presented to the learner.</p>'
     },
     tooltipContentLink: {
-        en: '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content#Content\">read more</a>'
+        en: '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">read more</a>'
     },
     tooltipFibTitle: {
         en: 'Fill in the blanks'
@@ -1608,7 +1170,37 @@
     },
     tooltipHotspotLink: {
         en: '<a style=\"display:none;\" href=\"\">read more</a>'
-    }
+    },
     /* End resource section for model ExplanationTooltips */
+    
+    /* Resource section for model File uploader */
+    fileSizeNotMoreThan: {
+        en: 'Your file is too large. File size is restricted to 10MB per file'
+    },
+    extensions: {
+        en: 'Extensions'
+    },
+    uploadFailed: {
+        en: 'Upload failed'
+    },
+    chooseFile: {
+        en: 'Choose file'
+    },
+    /* End resource section for model File uploader */
+    
+    /* Resource section for model Terms Of Use and Privacy policy */
+    TermsOfUse: {
+        en: 'Terms of use'
+    },
+    PrivacyPolicy: {
+        en: 'Privacy policy'
+    },
+    /* End resource section for model Terms Of Use and Privacy policy */
+    
+    /* Resource section for model Copyright */
+    CopyrightText: {
+        en: 'Copyright © 2014 easygenerator. All rights reserved.'
+    }
+    /* End resource section for model Copyright */
            
 });

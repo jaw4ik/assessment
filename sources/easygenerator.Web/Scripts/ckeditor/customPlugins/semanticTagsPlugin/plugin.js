@@ -1,6 +1,6 @@
 ﻿var tagsGroup = {
-    tagsSelectionFormat: ['abbr', 'acronym', 'blockquote', 'q', 'cite', 'dfn', 'code', 'samp', 'em', 'strong', 'sub', 'sup', 'mark', 'time'],
-    tagsParagraphFormat: ['address', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'article', 'section', 'aside', 'header', 'footer', 'figure', 'nav'],
+    tagsSelectionFormat: ['blockquote', 'mark'],
+    tagsParagraphFormat: ['h1', 'h2', 'h3'],
     normalTag: 'p'
 };
 /* 
@@ -17,18 +17,11 @@ CKEDITOR.plugins.semanticTagsPlugin = {
         var config = editor.config,
             lang = editor.lang.semanticTagsPlugin;
 
-        var elements = {},
+        var styles = {},
             allowedContent = [];
 
-        addTagToElements(tagsGroup.normalTag);
-
-        for (var i = 0; i < tagsGroup.tagsParagraphFormat.length; i++) {
-            addTagToElements(tagsGroup.tagsParagraphFormat[i]);
-        }
-
-        for (var i = 0; i < tagsGroup.tagsSelectionFormat.length; i++) {
-            addTagToElements(tagsGroup.tagsSelectionFormat[i]);
-        }
+        fillInStyles();
+        fillInAllowedContent();
 
         editor.ui.addRichCombo('semanticTags', {
             label: lang.label,
@@ -45,33 +38,30 @@ CKEDITOR.plugins.semanticTagsPlugin = {
             },
 
             init: function () {
-                addTagToRichCombo(this, tagsGroup.normalTag);
+                var richCombo = this;
+                addItem(tagsGroup.normalTag);
 
-                this.startGroup(lang.paragraphTitle);
-                for (var i = 0; i < tagsGroup.tagsParagraphFormat.length; i++) {
-                    addTagToRichCombo(this, tagsGroup.tagsParagraphFormat[i]);
-                }
+                richCombo.startGroup(lang.paragraphTitle);
+                _.each(tagsGroup.tagsParagraphFormat, function (tag) {
+                    addItem(tag);
+                });
 
-                this.startGroup(lang.selectionTitle);
-                for (var i = 0; i < tagsGroup.tagsSelectionFormat.length; i++) {
-                    addTagToRichCombo(this, tagsGroup.tagsSelectionFormat[i]);
-                }
+                richCombo.startGroup(lang.selectionTitle);
+                _.each(tagsGroup.tagsSelectionFormat, function (tag) {
+                    addItem(tag);
+                });
 
-                function addTagToRichCombo(richCombo, tag) {
+                function addItem(tag) {
                     var label = lang[tag];
-                    richCombo.add(tag, label, label);
+                    richCombo.add(tag, styles[tag].buildPreview(label), label);
                 }
-
             },
 
             onClick: function (value) {
                 editor.focus();
                 editor.fire('saveSnapshot');
-                var element = elements[value];
-                if (value == 'hr')
-                    editor.insertElement(editor.document.createElement('hr'));
-                else
-                    element.checkActive(editor.elementPath()) ? editor.removeStyle(element) : editor.applyStyle(element);
+                var element = styles[value];
+                element.checkActive(editor.elementPath()) ? editor.removeStyle(element) : editor.applyStyle(element);
                 editor.fire('saveSnapshot');
                 editor.fire('publishSemanticEvent', value);
             },
@@ -80,8 +70,8 @@ CKEDITOR.plugins.semanticTagsPlugin = {
                 editor.on('selectionChange', function (evt) {
                     var currentTag = this.getValue(),
                         elementPath = evt.data.path;
-                    for (var tag in elements) {
-                        if (elements[tag].checkActive(elementPath)) {
+                    for (var tag in styles) {
+                        if (styles[tag].checkActive(elementPath)) {
                             if (tag != currentTag)
                                 this.setValue(tag, lang[tag]);
                             return;
@@ -92,12 +82,21 @@ CKEDITOR.plugins.semanticTagsPlugin = {
             }
         });
 
-        function addTagToElements(tag) {
-            var element = new CKEDITOR.style({ element: tag });
-            if (!editor.filter.customConfig || editor.filter.check(element)) {
-                elements[tag] = element;
-                elements[tag]._.enterMode = config.enterMode;
-                allowedContent.push(element);
+        function fillInStyles() {
+            var tags = _.union([tagsGroup.normalTag], tagsGroup.tagsParagraphFormat, tagsGroup.tagsSelectionFormat);
+
+            _.each(tags, function(tag) {
+                var element = new CKEDITOR.style({ element: tag });
+                if (!editor.filter.customConfig || editor.filter.check(element)) {
+                    styles[tag] = element;
+                    styles[tag]._.enterMode = config.enterMode;
+                }
+            });
+        }
+
+        function fillInAllowedContent() {
+            for (var tag in styles) {
+                allowedContent.push(styles[tag]);
             }
         }
     }
