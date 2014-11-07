@@ -1183,6 +1183,7 @@
     <Content Include="Scripts\knockoutBindings\containerHasFocusBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
+    <Content Include="Scripts\md5.js" />
     <Content Include="Scripts\moment-with-langs.js" />
     <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />

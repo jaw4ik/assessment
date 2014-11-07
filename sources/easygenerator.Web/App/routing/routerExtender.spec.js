@@ -5,6 +5,103 @@
 
         describe('execute:', function () {
 
+            describe('setDefaultLocationHash:', function () {
+                var locationHash = '';
+
+                beforeEach(function () {
+                    locationHash = '';
+                    spyOn(router, "setLocationHash").and.callFake(function (data) {
+                        return locationHash = data;
+                    });
+                });
+
+                it('should be function', function () {
+                    expect(router.setDefaultLocationHash).toBeFunction();
+                });
+
+                describe('when window.location.hash exists', function () {
+             
+                    describe('when window.location.hash equals "#404"', function () {
+
+                        describe('when hash exists in localStorage', function () {
+
+                            beforeEach(function () {
+                                spyOn(router, "getLocationHash").and.returnValue('#404');
+                            });
+
+                            it('should redirect user to root', function () {
+                                expect(router.setDefaultLocationHash({ hash : '#objectives' })).toBe('courses');
+                            });
+
+                        });
+
+                        describe('when hash not exists in localStorage', function () {
+
+                            beforeEach(function () {
+                                spyOn(router, "getLocationHash").and.returnValue('#404');
+                            });
+
+                            it('should redirect user to root', function () {
+                                expect(router.setDefaultLocationHash(false)).toBe('courses');
+                            });
+
+                        });
+                       
+                    });
+
+                    describe('when window.location.hash not equals "#404"', function () {
+
+                        beforeEach(function () {
+                            spyOn(router, "getLocationHash").and.returnValue('#test');
+                        });
+
+                        it('should redirect to hash from url', function () {
+                            expect(router.setDefaultLocationHash({ hash: '#objectives' })).toBe('#test');
+                            expect(router.setDefaultLocationHash(false)).toBe('#test');
+                        });
+
+                    });
+
+                });
+
+                describe('when window.location.hash not exists', function () {
+
+                    beforeEach(function () {
+                        spyOn(router, "getLocationHash").and.returnValue('');
+                    });
+
+                    describe('when hash exists in localStorage', function () {
+
+                        describe('when hash equals "#404"', function () {
+                            
+                            it('should redirect user to root', function () {
+                                expect(router.setDefaultLocationHash({hash : '#404'})).toBe('courses')
+                            });
+
+                        });
+
+                        describe('when hash not equals "#404"', function () {
+  
+                            it('should redirect user to last visited page', function () {
+                                expect(router.setDefaultLocationHash({ hash: '#test' })).toBe('#test')
+                            });
+
+                        });
+
+                    });
+
+                    describe('when hash not exists in localStorage', function () {
+
+                        it('should be empty', function () {
+                            expect(router.setDefaultLocationHash(false)).toBe('');
+                        });
+
+                    });
+
+                });
+
+            });
+
             describe('should extend router with routeData', function () {
 
                 describe('[routeData]:', function () {

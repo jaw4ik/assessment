@@ -14,6 +14,7 @@
             coursesModules = ['courses', 'createCourse', 'course', 'design', 'publish'];
 
         var requestsCounter = ko.observable(0);
+        var isFirstVisitPage = true;
 
         var viewModel = {
             activate: activate,
@@ -79,6 +80,10 @@
             return dataContext.initialize()
                 .then(function () {
                     router.guardRoute = function (routeInfo, params) {
+                        
+                        if (isFirstVisitPage && routeInfo.__moduleId__ == "viewmodels/errors/404") {
+                            return 'courses';
+                        }
 
                         if (requestsCounter() == 0) {
                             return true;
@@ -101,7 +106,7 @@
                             }
                         }
                     };
-
+                   
                     router.on('router:navigation:composition-complete').then(function () {
                         var activeModuleId = router.routeData().moduleName;
                         var hasCourseId = router.routeData().courseId != null;
@@ -111,6 +116,8 @@
 
                         viewModel.navigation()[0].isPartOfModules(_.contains(coursesModules, activeModuleId) || hasCourseId);
                         viewModel.navigation()[1].isPartOfModules(_.contains(objectivesModules, activeModuleId) && !hasCourseId);
+                       
+                        clientContext.set(hex_md5(userContext.identity.email), {hash: window.location.hash});
                     });
 
                     router.on('router:route:activating').then(function () {
@@ -155,7 +162,14 @@
 
                     clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
                     clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
+                    
+                    var compositionComplete = router.on('router:navigation:composition-complete').then(function () {
+                        isFirstVisitPage = false;
+                        compositionComplete.off();
+                    });
 
+                    router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));
+                    
                     return router.map(routes)
                         .buildNavigationModel()
                         .mapUnknownRoutes('viewmodels/errors/404', '404')

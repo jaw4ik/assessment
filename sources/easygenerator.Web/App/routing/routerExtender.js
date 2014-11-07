@@ -44,6 +44,25 @@
             window.open(downloadUrl);
         };
 
+        router.setDefaultLocationHash = function (hash) {
+            var locationHash = router.getLocationHash();
+            if (hash && hash.hash && hash.hash.length && !locationHash.length) {
+                locationHash = hash.hash;
+            }
+            if (locationHash == '#404') {
+                locationHash = 'courses';
+            }
+            return router.setLocationHash(locationHash);
+        }
+
+        router.getLocationHash = function () {
+            return window.location.hash;
+        };
+
+        router.setLocationHash = function (hash) {
+            return window.location.hash = hash;
+        };
+
         // add routeData to routing
         var namedParamPattern = /(\(\?)?:\w+/g;
         var defaultRouteData = {
@@ -59,7 +78,7 @@
                 var urlFragment = instruction.config.route;
                 var match, routeParam, counter = 0;
 
-                // intialize route params
+                // initialize route params
                 if (urlFragment) {
                     while ((match = namedParamPattern.exec(urlFragment))) {
                         if (match[0]) {

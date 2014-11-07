@@ -138,6 +138,14 @@
                 expect(backButton.update).toBeFunction();
             });
 
+            describe('when viewmodel parameter equals null or undefined', function () {
+
+                it('should not throw error', function () {
+                    expect(function () { backButton.update(null); }).not.toThrow();
+                });
+
+            });
+
             var viewdata = {};
             describe('when backButtonData not instance of BackButton', function () {
 

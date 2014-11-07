@@ -34,7 +34,7 @@
             };
 
             this.update = function (viewmodel) {
-
+                if (!viewmodel) return;
                 var backButtonData = viewmodel.backButtonData;
                 if (!(backButtonData instanceof BackButton)) {
                     that.enabled(false);
