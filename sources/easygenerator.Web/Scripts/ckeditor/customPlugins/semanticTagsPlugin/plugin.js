@@ -1,6 +1,5 @@
 ﻿var tagsGroup = {
-    tagsSelectionFormat: ['blockquote', 'mark'],
-    tagsParagraphFormat: ['h1', 'h2', 'h3'],
+    tagsFormat: ['h1', 'h2', 'h3', 'blockquote', 'mark'],
     normalTag: 'p'
 };
 /* 
@@ -11,7 +10,7 @@ CKEDITOR.plugins.semanticTagsPlugin = {
     lang: 'en',
 
     init: function (editor) {
-        if (tagsGroup.tagsSelectionFormat.length == 0 && tagsGroup.tagsParagraphFormat.length == 0)
+        if (tagsGroup.tagsFormat.length == 0)
             return;
 
         var config = editor.config,
@@ -41,13 +40,7 @@ CKEDITOR.plugins.semanticTagsPlugin = {
                 var richCombo = this;
                 addItem(tagsGroup.normalTag);
 
-                richCombo.startGroup(lang.paragraphTitle);
-                _.each(tagsGroup.tagsParagraphFormat, function (tag) {
-                    addItem(tag);
-                });
-
-                richCombo.startGroup(lang.selectionTitle);
-                _.each(tagsGroup.tagsSelectionFormat, function (tag) {
+                _.each(tagsGroup.tagsFormat, function (tag) {
                     addItem(tag);
                 });
 
@@ -83,9 +76,9 @@ CKEDITOR.plugins.semanticTagsPlugin = {
         });
 
         function fillInStyles() {
-            var tags = _.union([tagsGroup.normalTag], tagsGroup.tagsParagraphFormat, tagsGroup.tagsSelectionFormat);
+            var tags = _.union([tagsGroup.normalTag], tagsGroup.tagsFormat);
 
-            _.each(tags, function(tag) {
+            _.each(tags, function (tag) {
                 var element = new CKEDITOR.style({ element: tag });
                 if (!editor.filter.customConfig || editor.filter.check(element)) {
                     styles[tag] = element;
