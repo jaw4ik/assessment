@@ -11,14 +11,17 @@
 }
 
     .switch-toggle-slider.on {
+        background-color: #089082;
         box-shadow: 0 0 0 1px #089082;
     }
 
     .switch-toggle-slider.off {
+        background-color: #D55856;
         box-shadow: 0 0 0 1px #D55856;
     }
 
 .switch-toggle-wrapper {
+    height: 100%;
     width: 150px;
 }
 
