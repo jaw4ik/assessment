@@ -1,5 +1,5 @@
 ﻿var tagsGroup = {
-    tagsFormat: ['h1', 'h2', 'h3', 'blockquote', 'mark'],
+    tagsFormat: ['h1', 'h2', 'h3', 'cite', 'mark'],
     normalTag: 'p'
 };
 /* 

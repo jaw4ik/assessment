@@ -50,7 +50,7 @@
     min-height: 18px;
     min-width: 100px;
     max-width: 250px;
-    padding: 0 5px;
+    padding: 0 20px 0 5px;
     text-overflow: ellipsis;
     white-space: nowrap;
     word-break: keep-all;
@@ -65,10 +65,11 @@
 
 .blankContent .blankField .dropDownIndicator {
     display: inline-block;
-    float: right;
+    position: absolute;
     width: 10px;
     height: 100%;
-    margin-right: 5px;
+    top: 0;
+    right: 30px;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAJCAYAAAALpr0TAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAWdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjA76PVpAAAAdElEQVQoU2NIS0vbD8T/CeDdIIUGaILo+DcQGzCAAJAxH0kCHc8HKwIBIEcCiD8jScLwdyCWgSqDAKBADZICGG6HSiMAUJADiB8jKXoNxAJQaVQAlIhBUlgAFcYOgAqOA/FtIGaBCmEHQAUWQBwB5UIBAwMAHlhxHitHob4AAAAASUVORK5CYII=) center no-repeat;
 }
 

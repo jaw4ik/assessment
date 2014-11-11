@@ -42,6 +42,7 @@
             inPageSettings.removePlugins = 'fillInTheBlank';
         }
 
+        $(element).addClass('styled-content');
         $(element).html(data());
 
         $(element).attr('contenteditable', true);

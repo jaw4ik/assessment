@@ -516,6 +516,10 @@
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
     <Content Include="App\views\questions\statement\statement.html" />
+    <Content Include="Content\font\heuristica-bold.svg" />
+    <Content Include="Content\font\heuristica-bolditalic.svg" />
+    <Content Include="Content\font\heuristica-italic.svg" />
+    <Content Include="Content\font\heuristica-regular.svg" />
     <Content Include="Content\hotSpot.css" />
     <Content Include="Content\images\closedhand.cur" />
     <Content Include="Content\images\comingsoon1024.png" />
@@ -1096,6 +1100,18 @@
     <Content Include="Content\font\myriadpro-semibold.eot" />
     <Content Include="Content\font\myriadpro-semibold.ttf" />
     <Content Include="Content\font\myriadpro-semibold.woff" />
+    <Content Include="Content\font\heuristica-bold.eot" />
+    <Content Include="Content\font\heuristica-bold.ttf" />
+    <Content Include="Content\font\heuristica-bold.woff" />
+    <Content Include="Content\font\heuristica-bolditalic.eot" />
+    <Content Include="Content\font\heuristica-bolditalic.ttf" />
+    <Content Include="Content\font\heuristica-bolditalic.woff" />
+    <Content Include="Content\font\heuristica-italic.eot" />
+    <Content Include="Content\font\heuristica-italic.ttf" />
+    <Content Include="Content\font\heuristica-italic.woff" />
+    <Content Include="Content\font\heuristica-regular.eot" />
+    <Content Include="Content\font\heuristica-regular.ttf" />
+    <Content Include="Content\font\heuristica-regular.woff" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\1b4769525d54430295cc1f0971833894\5c9a4fae198944f38b32c09152b9d416\b5800ad8eefa4d628fe981234b5ca6c4.html" />
     <Content Include="Sample Course\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
@@ -1357,12 +1373,19 @@
     <Content Include="Templates\Quiz\settings\js\vendor.js" />
     <Content Include="Templates\Quiz\settings\settings.html" />
     <Content Include="Templates\Simple course\app\main.js" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bold.svg" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.svg" />
+    <Content Include="Templates\Simple course\css\font\heuristica-italic.svg" />
+    <Content Include="Templates\Simple course\css\font\heuristica-regular.svg" />
+    <Content Include="Templates\Simple course\css\font\intro.svg" />
     <Content Include="Templates\Simple course\css\font\opensans-regular.eot" />
     <Content Include="Templates\Simple course\css\font\opensans-regular.ttf" />
     <Content Include="Templates\Simple course\css\font\opensans-regular.woff" />
     <Content Include="Templates\Simple course\css\font\opensans-semibold.eot" />
     <Content Include="Templates\Simple course\css\font\opensans-semibold.ttf" />
     <Content Include="Templates\Simple course\css\font\opensans-semibold.woff" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-bold.svg" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-regular.svg" />
     <Content Include="Templates\Simple course\css\font\segoeui-semibold.svg" />
     <Content Include="Templates\Simple course\css\general.css" />
     <Content Include="Templates\Simple course\img\singleSelectImageAnwer.png" />
@@ -1421,6 +1444,27 @@
     <Content Include="Templates\Quiz\css\fonts\opensans-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\opensans-regular.ttf" />
     <Content Include="Templates\Quiz\css\fonts\opensans-regular.woff" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bold.eot" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bold.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bold.woff" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.eot" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.woff" />
+    <Content Include="Templates\Simple course\css\font\heuristica-italic.eot" />
+    <Content Include="Templates\Simple course\css\font\heuristica-italic.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-italic.woff" />
+    <Content Include="Templates\Simple course\css\font\heuristica-regular.eot" />
+    <Content Include="Templates\Simple course\css\font\heuristica-regular.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-regular.woff" />
+    <Content Include="Templates\Simple course\css\font\intro.eot" />
+    <Content Include="Templates\Simple course\css\font\intro.ttf" />
+    <Content Include="Templates\Simple course\css\font\intro.woff" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-bold.eot" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-bold.ttf" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-bold.woff" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-regular.eot" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-regular.ttf" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-regular.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

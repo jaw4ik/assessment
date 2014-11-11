@@ -1083,9 +1083,7 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 12px 10px;
     vertical-align: top;
-    overflow: hidden;
 }
 
     .course-introduction ul, .course-introduction ol {

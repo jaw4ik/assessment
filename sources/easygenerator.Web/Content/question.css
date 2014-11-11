@@ -570,20 +570,14 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 12px 10px;
     vertical-align: top;
     word-wrap: break-word;
 }
 
     .question-learning-content.blankContent {
         vertical-align: middle;
-        overflow: auto;
         clear: both;
     }
-
-.question-content {
-    padding: 12px 10px;
-}
 
 /*#endregion Learning content*/
 
@@ -702,16 +696,6 @@
 }
 
 /*#endregion add button*/
-
-/*ck-editor list styles fix*/
-.question-learning-content ul,
-.question-learning-content ol,
-.question-content ul,
-.question-content ol {
-    padding-left: 30px;
-}
-
-/*#endregion Answer options & learning objects*/
 
 /*#region Question type create actions*/
 
@@ -1363,10 +1347,7 @@
 .question-feedback-text-wrapper {
     min-height: 46px;
     position: relative;
-    padding: 13px 10px;
     background: rgba(255, 255, 255, 0.01);
-    overflow-y: hidden;
-    overflow-x: auto;
     word-wrap: break-word;
     z-index: 1;
 }

@@ -1,6 +1,6 @@
 ﻿CKEDITOR.plugins.setLang('semanticTagsPlugin', 'en', {
     p: 'Normal',
-    blockquote: 'Quote',
+    cite: 'Quote',
     mark: 'Highlighted',
     h1: 'Heading 1',
     h2: 'Heading 2',
