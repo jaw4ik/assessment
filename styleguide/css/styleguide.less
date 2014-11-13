@@ -1,0 +1,125 @@
+﻿@main-width: 980px;
+@main-color: #4d4d4d;
+@main-margin: 30px;
+@main-font-family: Helvetica, sans-serif;
+@main-font-size: 14px;
+@header-color: lighten(@main-color, 20%);
+
+.clearfix:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+body {
+    color: @main-color;
+}
+
+.content {
+    width: @main-width;
+    margin: 0 auto;
+    font-size: @main-font-size;
+    font-family: @main-font-family;
+    min-height: 600px;
+}
+
+h1 {
+    color: @main-color;
+    text-align: center;
+    font-size: @main-font-size + 12;
+    margin-bottom: @main-margin;
+}
+
+h2 {
+    color: @main-color;
+    text-align: center;
+    font-size: @main-font-size + 10;
+    margin-bottom: @main-margin - 5px;
+}
+
+h3 {
+    color: @main-color;
+    text-align: center;
+    font-size: @main-font-size + 8;
+    margin-bottom: @main-margin - 10px;
+}
+
+.content-section {
+    margin-bottom: @main-margin;
+    border-bottom: 1px solid @main-color;
+}
+
+@article-example-width: 400px;
+
+.article-example {
+    width: @article-example-width;
+    float: left;
+    margin-bottom: @main-margin;
+}
+
+aside {
+    width: @main-width - @article-example-width - 30px;
+    float: left;
+    border-left: 1px solid @main-color;
+    padding-left: 20px;
+}
+
+@container-color: #469DD5;
+
+.element-container-caption {
+    text-align: center;
+    color: @container-color;
+}
+
+
+@element-container-size: 250px;
+
+.element-container {
+    width: @element-container-size;
+    height: @element-container-size;
+    margin: 0 auto;
+    border: 2px solid @container-color;
+    text-align: center;
+    vertical-align: middle;
+}
+
+@wrapper-color: #65BD77;
+
+.element-wrapper-caption {
+    text-align: center;
+    color: @wrapper-color;
+}
+
+@element-wrapper-padding: 10px;
+@element-wrapper-margin: 10px;
+
+.element-wrapper {
+    margin: 0 @element-wrapper-margin;
+    padding: @element-wrapper-padding;
+    border: 2px solid @wrapper-color;
+    text-align: center;
+}
+
+.element-image {
+    display: inline-block;
+    width: 153px;
+    height: 28px;
+}
+
+@correct-color: #4cff00;
+@incorrect-color: #ff0000;
+
+.code {
+    &.correct {
+        color: @container-color;
+    }
+
+    &.incorrect {
+        color: @incorrect-color;
+    }
+}
+
+footer {
+    width: 980px;
+    margin: 0 auto;
+}
