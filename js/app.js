@@ -19,12 +19,21 @@
                         if (Array.isArray(dto.questions)) {
                             dto.questions.forEach(function (dtq) {
                                 if (dtq) {
+                                    var question;
+
                                     if (dtq.type == "singleSelectText") {
-                                        result.push(new SinglselectText(dtq.title, dtq.answers));
+                                        question = new SinglselectText();
                                     }
 
                                     if (dtq.type == "dragAndDropText") {
-                                        result.push(new DragAndDropText(dtq.title, dtq.background));
+                                        question = new DragAndDropText();
+                                    }
+
+                                    if (question) {
+                                        question.title = dtq.title;
+                                        question.content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum";
+
+                                        result.push(question);
                                     }
                                 }
                             });
@@ -38,22 +47,13 @@
             });
 
 
-            function SinglselectText(title, answers) {
-                this.title = title;
-                this.answers = answers;
-                this.type = "SinglselectText";
-            }
-
-            function DragAndDropText(title, background) {
-                this.title = title;
-                this.background = background;
-                this.type = "DragAndDropText";
-            }
+            function SinglselectText() { }
+            function DragAndDropText() { }
 
         }
     ]);
 
-    app.directive('singleselectText', function() {
+    app.directive('singleselectText', function () {
         return {
             restrict: 'E',
             templateUrl: 'views/singleSelectText.html'
