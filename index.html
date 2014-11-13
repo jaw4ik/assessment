@@ -9,28 +9,30 @@
     <div ng-controller="QuizController as quizController">
         <header></header>
 
-        <h1>Course: {{ quizController.title }}.</h1>
+        <div class="container">
+            <h1>Course: {{ quizController.title }}.</h1>
 
 
-        <ul>
-            <li ng-repeat="question in quizController.questions">
-                <article>
-                    <h1>
-                        {{question.title}}
-                    </h1>
+            <ul class="unstyled">
+                <li class="question" ng-repeat="question in quizController.questions">
+                    <article>
+                        <h1>
+                            <span class="index">{{$index}}</span>
+                            {{question.title}}
+                        </h1>
 
-                    <div ng-switch="question.constructor.name">
-                        <article ng-switch-when="SinglselectText">
-                            <singleselect-text></singleselect-text>
-                        </article>
-                        <div ng-switch-when="DragAndDropText">
-                            <drag-and-drop-text></drag-and-drop-text>
+                        <div ng-switch="question.constructor.name">
+                            <article ng-switch-when="SinglselectText">
+                                <singleselect-text></singleselect-text>
+                            </article>
+                            <div ng-switch-when="DragAndDropText">
+                                <drag-and-drop-text></drag-and-drop-text>
+                            </div>
                         </div>
-                    </div>
-                </article>
-
-            </li>
-        </ul>
+                    </article>
+                </li>
+            </ul>
+        </div>
 
         <footer></footer>
     </div>

@@ -19,6 +19,11 @@
   src: url('fonts/robotoslab-light.eot');
   src: url('fonts/robotoslab-light.eot?#iefix') format('embedded-opentype'), url('fonts/robotoslab-light.woff') format('woff'), url('fonts/robotoslab-light.ttf') format('truetype'), url('fonts/robotoslab-light.svg#RobotoslabBold') format('svg');
 }
+ul.unstyled {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 html,
 body {
   padding: 0;
@@ -26,6 +31,10 @@ body {
 }
 body {
   font-family: 'RobotoslabLight';
+}
+.container {
+  margin: 0 auto;
+  max-width: 1024px;
 }
 header {
   height: 70px;
@@ -40,5 +49,10 @@ header:before {
   display: block;
   content: "";
   margin-left: 50px;
+}
+.question h1 {
+  color: #222222;
+  font-family: 'RobotoslabRegular';
+  font-size: 22px;
 }
 /*# sourceMappingURL=styles.css.map */

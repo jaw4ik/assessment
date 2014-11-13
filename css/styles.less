@@ -1,6 +1,15 @@
 ﻿@import "common.less";
 
-@DefaultFont: 'RobotoslabLight';
+@text-font: 'RobotoslabLight';
+
+
+
+@question-title-font: 'RobotoslabRegular';
+
+
+@index-color: #f16462;
+@question-title-color: #222222;
+@question-content-color: @question-title-color;
 
 html, body {
     padding: 0;
@@ -8,7 +17,12 @@ html, body {
 }
 
 body {
-    font-family: @DefaultFont;
+    font-family: @text-font;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1024px;
 }
 
 header {
@@ -25,4 +39,15 @@ header:before {
     display: block;
     content: "";
     margin-left: 50px;
+}
+
+
+
+.question {
+
+    h1 {
+        color: @question-title-color;
+        font-family: @question-title-font;
+        font-size: 22px;
+    }
 }
