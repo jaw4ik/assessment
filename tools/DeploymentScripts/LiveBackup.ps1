@@ -1,3 +1,7 @@
+#Before running this script be sure that you have needed execution policy:
+#Get-ExecutionPolicy -Scope CurrentUser
+#To set correct execution policy run this command:
+#Set-ExecutionPolicy Unrestricted -Scope CurrentUser
 $ErrorActionPreference = "Stop"
 
 $title = "EG Live Backup Script:"
