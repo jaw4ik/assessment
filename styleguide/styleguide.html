@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="css/styleguide.min.css" rel="stylesheet" />
+</head>
+<body>
+    <header></header>
+    <section class="content">
+        <h1>Quiz Style Guid</h1>
+        <section class="content-section">
+            <h2>HTML and CSS</h2>
+            <article class="clearfix">
+                <h3>Nesting Elements Structure</h3>
+                <div class="article-example">
+                    <div class="element-container-caption">class="&lt;element-name&gt;-container"</div>
+                    <div class="element-container">
+                        <div class="element-wrapper-caption">class="&lt;element-name&gt;-wrapper"</div>
+                        <div class="element-wrapper">
+                            <img src="images/lamp.jpg" />
+                        </div>
+                    </div>
+                </div>
+                <aside>
+                    <div>Element <strong>container (aka holder)</strong> - is usually used for placing element relatively to other elements.</div>
+                    <div>Element <strong>wrapper</strong> - is usually used for centering (overflowing) element inside container.</div>
+                    <div><strong>CAUTION:</strong> usually developer can use styles for both container and wrapper in single container.</div>
+                </aside>
+            </article>
+            
+            <h2>LESS</h2>
+            <article class="clearfix">
+                <h3>Variables naming</h3>
+                <div class="article-example">
+                    <h4>Correct</h4>
+                    <code class="code correct">
+                        @main-width: 980px;<br/>
+                        @main-color: #4d4d4d;<br />
+                        @main-margin: 30px;<br />
+                    </code>
+                    <h4>Incorrect</h4>
+                    <code class="code incorrect">
+                        @maincolor: #4d4d4d;<br />
+                        @mainWidth: 980px;<br />
+                        @MainMarGin: 30px;<br />
+                    </code>
+                </div>
+                <aside>
+                    <div>In <strong>variables naming</strong> please use dash separation instead of case changing.</div>
+                </aside>
+            </article>
+        </section>
+    </section>
+    <footer>Copyright © 2014 easygenerator. All rights reserved.</footer>
+</body>
+</html>
