@@ -39,3 +39,7 @@ a.cke_dialog_ui_button_ok span
 {
     text-shadow: 0 1px 0 #fff !important;
 }
+
+.cke_combopanel {
+    height: 175px !important;
+}
