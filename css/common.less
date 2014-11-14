@@ -1,38 +1,4 @@
-﻿@font-face {
-    font-family: 'RobotoslabRegular';
-    src: url('./fonts/robotoslab-regular.eot');
-    src: url('./fonts/robotoslab-regular.eot?#iefix') format('embedded-opentype'), url('./fonts/robotoslab-regular.woff') format('woff'), url('./fonts/robotoslab-regular.ttf') format('truetype'), url('./fonts/robotoslab-regular.svg#RobotoslabRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
-@font-face {
-    font-family: 'RobotoslabBold';
-    font-style: normal;
-    font-weight: normal;
-    src: url('./fonts/robotoslab-bold.eot');
-    src: url('./fonts/robotoslab-bold.eot?#iefix') format('embedded-opentype'), url('./fonts/robotoslab-bold.woff') format('woff'), url('./fonts/robotoslab-bold.ttf') format('truetype'), url('./fonts/robotoslab-bold.svg#RobotoslabBold') format('svg');
-}
-
-@font-face {
-    font-family: 'RobotoslabLight';
-    font-style: normal;
-    font-weight: normal;
-    src: url('./fonts/robotoslab-light.eot');
-    src: url('./fonts/robotoslab-light.eot?#iefix') format('embedded-opentype'), url('./fonts/robotoslab-light.woff') format('woff'), url('./fonts/robotoslab-light.ttf') format('truetype'), url('./fonts/robotoslab-light.svg#RobotoslabLight') format('svg');
-}
-
-@font-face {
-    font-family: 'TwCenMTCondensed';
-    font-style: normal;
-    font-weight: normal;
-    src: url('./fonts/twcenmt-condensed.eot');
-    src: url('./fonts/twcenmt-condensed?#iefix') format('embedded-opentype'), url('./fonts/twcenmt-condensed.woff') format('woff'), url('./fontstwcenmt-condensed.ttf') format('truetype'), url('./fonts/twcenmt-condensed.svg#TwCenMTCondensed') format('svg');
-}
-
-
-.border-box() {
+﻿.border-box() {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -112,11 +78,13 @@ ul {
 
 
 .button {
-    line-height: 1;
+    border: 2px solid;
+    cursor: pointer;
     font-size: 20px;
-    border: 1px solid;
+    line-height: 1;
 
     &.primary {
+        font-family: 'RobotoslabBold';
         background-color: #50b2ac;
         border-color: #43aaa3;
         color: #fff;
