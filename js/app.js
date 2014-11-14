@@ -22,7 +22,7 @@
                                     var question;
 
                                     if (dtq.type == "singleSelectText") {
-                                        question = new SinglselectText();
+                                        question = new SinglselectText(dtq.title, dtq.answers);
                                     }
 
                                     if (dtq.type == "dragAndDropText") {
@@ -47,7 +47,26 @@
             });
 
 
-            function SinglselectText() { }
+            function SinglselectText(title, options) {
+                var
+                    that = this
+                ;
+
+                that.title = title;
+                that.answers = options.map(function (option) {
+                    return {
+                        text: option.text,
+                        checked: false
+                    };
+                });
+                that.checkAnswer = function (answer) {
+                    that.answers.forEach(function (item) {
+                        item.checked = false;
+                    });
+                    answer.checked = true;
+                };
+            }
+
             function DragAndDropText() { }
 
         }

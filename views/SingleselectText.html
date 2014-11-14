@@ -1,5 +1,12 @@
-﻿<div>
-    
-    Singleselect text
+﻿<div class="single-select-text">
+
+    <ul class="unstyled clearfix">
+        <li ng-repeat="answer in question.answers">
+            <label class="radio" ng-click="question.checkAnswer(answer)" ng-class="{ checked: answer.checked }">
+                {{ answer.text }}
+            </label>
+        </li>
+    </ul>
+
 
 </div>

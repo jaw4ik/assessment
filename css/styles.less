@@ -42,7 +42,6 @@ header:before {
 }
 
 
-
 .question {
 
     .question-title {
@@ -71,5 +70,28 @@ header:before {
         font-size: 18px;
         padding-left: 60px;
         text-align: justify;
+    }
+
+
+    .single-select-text {
+
+        ul {
+            margin-top: 30px;
+        }
+
+        li {
+            .border-box();
+            float: left;
+            padding: 10px 0;
+            width: 50%;
+
+            &:nth-child(even) {
+                padding-left: 10px;
+            }
+
+            &:nth-child(odd) {
+                padding-right: 10px;
+            }
+        }
     }
 }
