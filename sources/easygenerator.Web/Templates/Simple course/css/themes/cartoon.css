@@ -12,7 +12,6 @@ body {
 
 .header {
     background-color: #40494c;
-    border-bottom: 3px solid black;
 }
 
 /*#endregion header css-styles*/
@@ -64,7 +63,7 @@ body {
 /*#region action-buttons*/
 
 .small-page-action-btn {
-    width: 138px;
+    min-width: 140px;
     padding: 11px 10px;
     border-radius: 5px;
 }
@@ -165,6 +164,32 @@ body {
     color: #444;
 }
 
+.objective-progressbar-masteryscore-indicator {
+    height: 19px;
+    width: 19px;
+    top: 3px;
+    margin-left: -10px;
+}
+
+.objective-progressbar-masteryscore-indicator-value {
+    background-color: #8dc552;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAICAYAAAArzdW1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QkJGMDdFQjk2OEJDMTFFNEI1MkRCNzkzMDdGMjhDRTkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QkJGMDdFQkE2OEJDMTFFNEI1MkRCNzkzMDdGMjhDRTkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpCQkYwN0VCNzY4QkMxMUU0QjUyREI3OTMwN0YyOENFOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpCQkYwN0VCODY4QkMxMUU0QjUyREI3OTMwN0YyOENFOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pm8+3HoAAABzSURBVHjaYvz//z8DHtALxFcYQIpw4Mz/ELAOlwIXIP4DxCeAmAubAl0g/gDEt4FYFOwcIJEIxLOAmBEqeAeIXwCxCkwjC9BhtkCcCMQgthYQi0DF7sCdD1TJBMSzoY78CcRO6E6AMUBWTQXiaGweAQgwAGFWtLFVz9g/AAAAAElFTkSuQmCC');
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 1px solid #84b84e;
+    border-radius: 50%;
+}
+
+.objective-progressbar-masteryscore-indicator-tooltip {
+    margin-bottom: 8px;
+    background: #55626f;
+    border-radius: 3px;
+}
+
+    .objective-progressbar-masteryscore-indicator-tooltip:after {
+        background: #55626f;
+    }
+
 /*#endregion objective linear progressbar*/
 
 /*#region sub navigation partial*/
@@ -230,6 +255,7 @@ body {
 .questions-counter {
     vertical-align: middle;
     color: #777;
+    white-space: nowrap;
 }
 
 .question-navigation-button {
@@ -495,7 +521,7 @@ body {
 }
 
 .xapi-nav-btn .small-page-action-btn {
-    min-width: 267px;
+    width: 267px;
 }
 
 .xapi-nav-link {
@@ -506,6 +532,27 @@ body {
     .xapi-nav-link:hover {
         color: #0088ae;
     }
+
+@media (max-width: 800px) {
+
+    .xapi-btn-container {
+        text-align: center;
+    }
+
+    .xapi-nav-link {
+        max-width: none;
+        float: none;
+        margin-bottom: 20px;
+    }
+
+    .xapi-nav-btn {
+        float: none;
+    }
+
+        .xapi-nav-btn .small-page-action-btn {
+            width: auto;
+        }
+}
 
 /*#endregion xapi-btn-container*/
 
@@ -719,14 +766,15 @@ body {
         .styled-content cite:after {
             color: #63c4df;
         }
+
         .styled-content cite:after {
             margin-left: 5px;
         }
 
-        .styled-content ul > li:before {
-            content: "\2022 ";
-            color: #76cbe3;
-        }
+    .styled-content ul > li:before {
+        content: "\2022 ";
+        color: #76cbe3;
+    }
 
     .styled-content img {
         border-radius: 5px;
@@ -749,11 +797,12 @@ body {
     }
 
     .styled-content table {
-        display: inline-block;
+        display: block;
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
         border-radius: 5px;
         border-collapse: collapse;
+        overflow: hidden;
         color: #3c3c3c;
     }
 
@@ -783,13 +832,14 @@ body {
         border-width: 0;
         border-bottom-width: 2px;
     }
+
     .styled-content tbody tr:last-child {
         border: none;
     }
 
-    .learning-content-items .learning-content-item:after {
-        width: 200px;
-        border-top: solid 1px #e0e0e0;
-    }
+.learning-content-items .learning-content-item:after {
+    width: 200px;
+    border-top: solid 1px #e0e0e0;
+}
 
 /*#endregion styled content */
