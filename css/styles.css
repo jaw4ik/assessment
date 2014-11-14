@@ -101,6 +101,9 @@ header:before {
   margin-left: 50px;
   width: 200px;
 }
+.question {
+  margin-bottom: 100px;
+}
 .question .question-title {
   color: #222222;
   font-family: 'RobotoslabRegular';
@@ -127,14 +130,14 @@ header:before {
   text-align: justify;
 }
 .question .single-select-text ul {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 .question .single-select-text li {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   float: left;
-  padding: 10px 0;
+  margin-top: 20px;
   width: 50%;
 }
 .question .single-select-text li:nth-child(even) {

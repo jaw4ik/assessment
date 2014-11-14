@@ -17,11 +17,11 @@
                 <li class="question" ng-repeat="question in quizController.questions">
                     <article>
                         <h1 class="question-title">
-                            <span class="index">{{$index}}</span>
+                            <span class="index">{{$index + 1 | pad: 2}}</span>
                             {{question.title}}
                         </h1>
-                        <div class="question-content" ng-show="question.content && question.content.length">
-                            {{question.content}}
+                        <div class="question-content" ng-show="question.contentUrl && question.contentUrl.length">
+                            <div ng-include src="question.contentUrl"></div>
                         </div>
                         <div ng-switch="question.constructor.name">
                             <article ng-switch-when="SinglselectText">
