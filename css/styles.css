@@ -26,6 +26,13 @@
   src: url('fonts/twcenmt-condensed.eot');
   src: url('fonts/twcenmt-condensed?#iefix') format('embedded-opentype'), url('fonts/twcenmt-condensed.woff') format('woff'), url('fonts/twcenmt-condensed.ttf') format('truetype'), url('fonts/twcenmt-condensed.svg#TwCenMTCondensed') format('svg');
 }
+@font-face {
+  font-family: 'RobotoBold';
+  font-style: normal;
+  font-weight: normal;
+  src: url('fonts/roboto-bold.eot');
+  src: url('fonts/roboto-bold?#iefix') format('embedded-opentype'), url('fonts/roboto-bold.woff') format('woff'), url('fonts/roboto-bold.ttf') format('truetype'), url('fonts/roboto-bold.svg#RobotoBold') format('svg');
+}
 ul.unstyled {
   list-style: none;
   padding: 0;
@@ -77,12 +84,13 @@ ul.unstyled {
 }
 .button {
   border: 2px solid;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 20px;
   line-height: 1;
 }
 .button.primary {
-  font-family: 'RobotoslabBold';
+  font-family: 'RobotoBold';
   background-color: #50b2ac;
   border-color: #43aaa3;
   color: #fff;
