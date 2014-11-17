@@ -3,7 +3,7 @@
         <li class="question" ng-repeat="question in quiz.questions">
             <article>
                 <h1 class="question-title">
-                    <span class="index">{{$index + 1 | pad: 2}}</span>
+                    <span class="index">{{$index + 1 | leadingZeros: 2}}</span>
                     {{question.title}}
                 </h1>
                 <div class="question-content" ng-show="question.contentUrl && question.contentUrl.length">
