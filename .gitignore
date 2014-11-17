@@ -4,6 +4,6 @@
 
 *.suo
 
-bower_components/
-node_modules/
-/src/content
+bower_components
+node_modules
+src/content
