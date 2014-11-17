@@ -78,22 +78,48 @@ header:before {
 
     .single-select-text {
 
-        ul {
-            margin-top: 20px;
+        @radio-background-color: rgba(200, 209, 215, 0.2);
+        @radio-border-color: @radio-background-color;
+
+
+        @radio-hover-border-color: rgba(204, 233, 220, 1);
+        @radio-hover-box-shadow: rgba(231, 247, 240, 1);
+
+        @radio-checked-background-color: rgba(136, 216, 181, 0.2);
+        @radio-checked-border-color: @radio-checked-background-color;
+
+        .answers {
+            border-collapse: separate;
+            border-spacing: 10px 5px;
+            display: table;
+            table-layout: fixed;
+            width: 100%;
         }
 
-        li {
-            .border-box();
-            float: left;
-            margin-top: 20px;
-            width: 50%;
+        .answer-pair {
+            display: table-row;
+            height: 100%;
+            width: 100%;
+        }
 
-            &:nth-child(even) {
-                padding-left: 10px;
+        .answer {
+            background-color: @radio-background-color;
+            border: 1px solid @radio-border-color;
+            border-radius: 5px;
+            cursor: pointer;
+            height: 100%;
+            display: table-cell;
+            width: 50%;
+            vertical-align: middle;
+
+            &:hover {
+                border-color: @radio-hover-border-color;
+                box-shadow: inset 0 0 15px 0 @radio-hover-box-shadow;
             }
 
-            &:nth-child(odd) {
-                padding-right: 10px;
+            &.checked {
+                background-color: @radio-checked-background-color;
+                border-color: @radio-checked-border-color;
             }
         }
     }

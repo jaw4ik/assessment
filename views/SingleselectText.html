@@ -1,12 +1,18 @@
 ﻿<div class="single-select-text">
 
-    <ul class="unstyled clearfix">
-        <li ng-repeat="answer in question.answers">
-            <label class="radio" ng-click="question.checkAnswer(answer)" ng-class="{ checked: answer.checked }">
-                {{ answer.text }}
-            </label>
-        </li>
-    </ul>
-
+    <div class="answers" ng-repeat="answer in question.answers">
+        <div class="answer-pair" ng-if="$even">
+            <div class="answer" ng-click="question.checkAnswer(answer)" ng-class="{ checked: answer.checked }">
+                <label class="radio" ng-class="{ checked: answer.checked }">
+                    {{ answer.text }}
+                </label>
+            </div>
+            <div class="answer" ng-click="question.checkAnswer(question.answers[$index + 1])" ng-class="{ checked: question.answers[$index + 1].checked }">
+                <label class="radio" ng-class="{ checked: question.answers[$index + 1].checked }">
+                    {{ question.answers[$index + 1].text }}
+                </label>
+            </div>
+        </div>
+    </div>
 
 </div>
