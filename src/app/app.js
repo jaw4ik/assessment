@@ -53,4 +53,12 @@
         };
     });
 
+    app.directive('tooltip', function () {
+        return {
+            restrict: 'E',
+            templateUrl: 'views/widgets/tooltip.html',
+            transclude: true,
+        };
+    });
+
 }());

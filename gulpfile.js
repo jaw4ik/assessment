@@ -4,7 +4,6 @@
 
     jshint = require('gulp-jshint'),
     jscs = require('gulp-jscs');
-;
 
 require('jshint-stylish');
 

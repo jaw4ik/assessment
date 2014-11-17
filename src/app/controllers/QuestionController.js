@@ -84,7 +84,7 @@
         var that = this;
         that.title = title;
 
-        that.answers = options.map(function (option) {
+        that.statements = options.map(function (option) {
             return {
                 text: option.text,
                 state: undefined
