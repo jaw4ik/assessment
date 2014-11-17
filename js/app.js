@@ -58,6 +58,7 @@
 
         function SinglselectText(title, options) {
             var that = this;
+            that.title = title;
 
             that.answers = options.map(function (option) {
                 return {
@@ -77,8 +78,10 @@
 
         }
 
-        function Statement(options) {
+        function Statement(title, options) {
             var that = this;
+            that.title = title;
+
             that.answers = options.map(function (option) {
                 return {
                     text: option.text,
