@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/andreydrebot/quiz-v2/issues"
   },
-  "homepage": "https://github.com/andreydrebot/quiz-v2"
+  "homepage": "https://github.com/andreydrebot/quiz-v2",
+  "devDependencies": {
+    "gulp": "^3.8.10"
+  }
 }

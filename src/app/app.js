@@ -12,7 +12,7 @@
             $location.path('/summary');
         }
 
-        $http.get('/content/data.js').success(function (response) {
+        $http.get('../content/data.js').success(function (response) {
             that.title = response.title;
 
             var result = [];
@@ -38,7 +38,7 @@
                                     question.title = dtq.title;
 
                                     if (dtq.hasContent) {
-                                        question.contentUrl = '/content/' + dto.id + '/' + dtq.id + '/content.html';
+                                        question.contentUrl = '../content/' + dto.id + '/' + dtq.id + '/content.html';
                                         console.log(question.contentUrl);
                                     }
 
