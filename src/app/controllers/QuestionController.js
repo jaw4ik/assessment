@@ -41,7 +41,6 @@
 
                                     if (dtq.hasContent) {
                                         question.contentUrl = '../content/' + dto.id + '/' + dtq.id + '/content.html';
-                                        console.log(question.contentUrl);
                                     }
 
                                     result.push(question);
@@ -78,7 +77,7 @@
     }
 
     function DragAndDropText() {
-        console.log(1);
+
     }
 
     function Statement(title, options) {
