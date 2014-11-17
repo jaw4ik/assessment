@@ -31,7 +31,7 @@
                                     question = new DragAndDropText();
                                 }
                                 if (dtq.type == "statement") {
-                                    question = new Statement(dtq.answers);
+                                    question = new Statement(dtq.title, dtq.answers);
                                 }
 
                                 if (question) {
