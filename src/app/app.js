@@ -8,7 +8,7 @@
             $routeProvider
                 .when('/questions', {
                     templateUrl: 'views/questions.html',
-                    controller: 'QuizController',
+                    controller: 'QuestionController',
                     controllerAs: 'quiz'
                 })
                 .when('/summary', {
