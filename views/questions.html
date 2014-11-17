@@ -10,12 +10,9 @@
                     <div ng-include src="question.contentUrl"></div>
                 </div>
                 <div ng-switch="question.constructor.name">
-                    <article ng-switch-when="SinglselectText">
-                        <singleselect-text></singleselect-text>
-                    </article>
-                    <div ng-switch-when="DragAndDropText">
-                        <drag-and-drop-text></drag-and-drop-text>
-                    </div>
+                    <singleselect-text ng-switch-when="SinglselectText"></singleselect-text>
+                    <drag-and-drop-text ng-switch-when="DragAndDropText"></drag-and-drop-text>
+                    <statement ng-switch-when="Statement"></statement>
                 </div>
             </article>
         </li>
