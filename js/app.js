@@ -30,6 +30,9 @@
                                 if (dtq.type == "dragAndDropText") {
                                     question = new DragAndDropText();
                                 }
+                                if (dtq.type == "statement") {
+                                    question = new Statement(dtq.title, dtq.answers);
+                                }
 
                                 if (question) {
                                     question.title = dtq.title;
@@ -55,8 +58,8 @@
 
         function SinglselectText(title, options) {
             var that = this;
-
             that.title = title;
+
             that.answers = options.map(function (option) {
                 return {
                     text: option.text,
@@ -73,6 +76,21 @@
 
         function DragAndDropText() {
 
+        }
+
+        function Statement(title, options) {
+            var that = this;
+            that.title = title;
+
+            that.answers = options.map(function (option) {
+                return {
+                    text: option.text,
+                    state: undefined
+                };
+            });
+            that.checkAnswer = function (answer) {
+                answer.checked = true;
+            };
         }
 
     }
@@ -127,6 +145,13 @@
         return {
             restrict: 'E',
             templateUrl: 'views/dragAndDropText.html'
+        };
+    });
+
+    app.directive('statement', function () {
+        return {
+            restrict: 'E',
+            templateUrl: 'views/statement.html'
         };
     });
 
