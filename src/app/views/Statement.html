@@ -1,12 +1,12 @@
 ﻿<div class="statements">
     <tooltip>Choose true or false for every statement below</tooltip>
 
-    <ul class="unstyled clearfix">
-        <li ng-repeat="statement in question.statements">
-            <div>{{ statement.text }}</div>
+    <ul class="unstyled clearfix statements-list">
+        <li class="statement-item" ng-repeat="statement in question.statements">
+            <div class="title">{{ statement.text }}</div>
             <div>
-                <button class="">True</button>
-                <button class="">False</button>
+                <button class="statement-true-button">True</button>
+                <button class="statement-false-button">False</button>
             </div>
         </li>
     </ul>
