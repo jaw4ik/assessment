@@ -557,8 +557,8 @@ span.top-navigation-item.current {
 
 .course-navigation-link {
     display: block;
+    width: 130px;
     line-height: 46px;
-    width: 150px;
     padding-left: 25px;
     color: #877f78;
     font-size: 13px;
@@ -2492,19 +2492,20 @@ h2 + .tooltip-icon {
     .create-tip {
         left: -17px;
     }
+
+    .course-action-item-link {
+        padding: 0 8px 0 8px;
+    }
 }
 
 @media (max-width: 1150px) {
 
     /*#region Course actions list*/
 
+  
     .course-action-item {
         text-align: left;
         width: 40px;
-    }
-
-    .course-action-item-link {
-        padding: 0 8px 0 8px;
     }
 
     /*#endregion Course actions list*/
@@ -2540,6 +2541,12 @@ h2 + .tooltip-icon {
 
     /*#endregion HEADER*/
 
+
+    /*#region Course actions list*/
+    .course-navigation-link {
+        width: 110px;
+    }
+    /*#endregion Course actions list*/
 }
 
 @media (max-width: 1260px) {

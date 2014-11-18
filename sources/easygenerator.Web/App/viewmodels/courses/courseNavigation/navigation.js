@@ -1,6 +1,9 @@
-﻿define(['viewmodels/courses/courseNavigation/items/create', 'viewmodels/courses/courseNavigation/items/design', 'viewmodels/courses/courseNavigation/items/publish',
-    'eventTracker', 'plugins/router', 'dialogs/shareCourse/shareCourse'],
-    function (CreateNavigationItem, DesignNavigationItem, PublishNavigationItem, eventTracker, router, vmShareCourse) {
+﻿define(['viewmodels/courses/courseNavigation/items/create',
+        'viewmodels/courses/courseNavigation/items/design',
+        'viewmodels/courses/courseNavigation/items/publish',
+        'viewmodels/courses/courseNavigation/items/results',
+        'eventTracker', 'plugins/router', 'dialogs/shareCourse/shareCourse'],
+    function (CreateNavigationItem, DesignNavigationItem, PublishNavigationItem, ResultsNavigationItem, eventTracker, router, vmShareCourse) {
         "use strict";
 
         var events = {
@@ -24,7 +27,8 @@
             viewModel.navigationItems = [
                 new CreateNavigationItem(),
                 new DesignNavigationItem(),
-                new PublishNavigationItem()
+                new PublishNavigationItem(),
+                new ResultsNavigationItem()
             ];
         };
 

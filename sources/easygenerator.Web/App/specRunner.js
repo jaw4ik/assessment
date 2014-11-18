@@ -43,6 +43,7 @@
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
+            'models/reportingStatement.spec',
             'notifications/notification.spec',
             'notifications/subscriptionExpirationNotificationController.spec',
             'notifications/subscriptionExpirationNotification.spec',
@@ -64,6 +65,8 @@
             'onboarding/onboarding.spec',
 
             //#endregion
+
+            'reporting/xApiProvider.spec',
 
             //#region synchronization
 
@@ -163,6 +166,7 @@
             'viewmodels/courses/course.spec',
             'viewmodels/courses/design.spec',
             'viewmodels/courses/publish.spec',
+            'viewmodels/courses/results.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',
             'viewmodels/courses/publishingActions/build.spec',
             'viewmodels/courses/publishingActions/publish.spec',
@@ -172,6 +176,7 @@
             'viewmodels/courses/courseNavigation/items/create.spec',
             'viewmodels/courses/courseNavigation/items/design.spec',
             'viewmodels/courses/courseNavigation/items/publish.spec',
+            'viewmodels/courses/courseNavigation/items/results.spec',
             'viewmodels/courses/courseNavigation/items/navigationItem.spec',
             'viewmodels/courses/courseNavigation/navigation.spec',
             'viewmodels/courses/collaboration/collaborator.spec',

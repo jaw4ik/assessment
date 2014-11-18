@@ -43,8 +43,10 @@
 
             beforeEach(function () {
                 spyOn($.fn, 'hide').and.returnValue($.fn);
-                spyOn($.fn, 'fadeIn');
-                spyOn($.fn, 'fadeOut');
+                spyOn($.fn, 'fadeIn').and.returnValue($.fn);
+                spyOn($.fn, 'delay').and.returnValue($.fn);
+                spyOn($.fn, 'fadeOut').and.returnValue($.fn);
+                spyOn($.fn, 'remove').and.returnValue($.fn);
             });
 
             var notice = { nodeType: null };
@@ -70,12 +72,7 @@
                 });
 
                 it('should hide notice', function () {
-                    viewModel.addNotice(notice);
 
-                    expect($.fn.hide).toHaveBeenCalled();
-                });
-
-                it('should hide item', function () {
                     viewModel.addNotice(notice);
 
                     expect($.fn.hide).toHaveBeenCalled();

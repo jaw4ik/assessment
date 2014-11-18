@@ -797,12 +797,10 @@ body {
     }
 
     .styled-content table {
-        display: block;
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
         border-radius: 5px;
         border-collapse: collapse;
-        overflow: hidden;
         color: #3c3c3c;
     }
 

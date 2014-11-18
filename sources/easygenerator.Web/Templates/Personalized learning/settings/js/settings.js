@@ -15,11 +15,41 @@ $(function () {
         starterAccessType = 1;
 
     var viewModel = {
-        enableXAPI: ko.observable(false),
-        lrsUrl: ko.observable(''),
-        authenticationRequired: ko.observable(false),
-        lapLogin: ko.observable(),
-        lapPassword: ko.observable(),
+        trackingData: (function() {
+            var data = {};
+
+            data.enableXAPI = ko.observable(false),
+
+            data.lrsOptions = [
+                { key: 'default', text: 'easygenerator (recommended)' },
+                { key: 'custom', text: 'custom LRS' }
+            ];
+            data.selectedLrs = ko.observable(data.lrsOptions[0].key);
+
+            data.customLrsEnabled = ko.computed(function() {
+                return data.enableXAPI() && data.selectedLrs() != data.lrsOptions[0].key;
+            });
+
+            data.lrsUrl = ko.observable('');
+            data.authenticationRequired = ko.observable(false);
+            data.lapLogin = ko.observable();
+            data.lapPassword = ko.observable();
+
+            data.credentialsEnabled = ko.computed(function() {
+                return data.customLrsEnabled() && data.authenticationRequired();
+            });
+
+            data.statements = {
+                started: ko.observable(true),
+                stopped: ko.observable(true),
+                mastered: ko.observable(true),
+                passed: ko.observable(true),
+                failed: ko.observable(true)
+            };
+
+            return data;
+        })(),
+
         isSaved: ko.observable(false),
         isFailed: ko.observable(false),
 
@@ -42,18 +72,7 @@ $(function () {
         })(),
 
         hasStarterPlan: ko.observable(true),
-        statements: {
-            started: ko.observable(true),
-            stopped: ko.observable(true),
-            mastered: ko.observable(true),
-            passed: ko.observable(true),
-            failed: ko.observable(true)
-        }
     };
-
-    viewModel.credentialsEnabled = ko.computed(function () {
-        return viewModel.enableXAPI() && viewModel.authenticationRequired();
-    });
 
     viewModel.saveChanges = function () {
         var settings = {
@@ -61,16 +80,17 @@ $(function () {
                 url: viewModel.hasStarterPlan() ? viewModel.logo.url() : ''
             },
             xApi: {
-                enabled: viewModel.enableXAPI(),
+                enabled: viewModel.trackingData.enableXAPI(),
+                selectedLrs: viewModel.trackingData.selectedLrs(),
                 lrs: {
-                    uri: viewModel.lrsUrl(),
-                    authenticationRequired: viewModel.authenticationRequired(),
+                    uri: viewModel.trackingData.lrsUrl(),
+                    authenticationRequired: viewModel.trackingData.authenticationRequired(),
                     credentials: {
-                        username: viewModel.lapLogin(),
-                        password: viewModel.lapPassword()
+                        username: viewModel.trackingData.lapLogin(),
+                        password: viewModel.trackingData.lapPassword()
                     }
                 },
-                allowedVerbs: $.map(viewModel.statements, function (value, key) {
+                allowedVerbs: $.map(viewModel.trackingData.statements, function(value, key) {
                     return value() ? key : undefined;
                 })
             }
@@ -99,18 +119,20 @@ $(function () {
             } catch (e) {
                 settings = { logo: {}, xApi: { lrs: { credentials: {} } } };
             }
-            viewModel.enableXAPI(settings.xApi.enabled || false);
-            viewModel.lrsUrl(settings.xApi.lrs.uri || '');
-            viewModel.authenticationRequired(settings.xApi.lrs.authenticationRequired || false);
-            viewModel.lapLogin(settings.xApi.lrs.credentials.username || '');
-            viewModel.lapPassword(settings.xApi.lrs.credentials.password || '');
-            viewModel.logo.url(settings.logo.url || '');
+            viewModel.trackingData.enableXAPI(settings.xApi.enabled || false);
+            viewModel.trackingData.selectedLrs(settings.xApi.selectedLrs || 'default');
+            viewModel.trackingData.lrsUrl(settings.xApi.lrs.uri || '');
+            viewModel.trackingData.authenticationRequired(settings.xApi.lrs.authenticationRequired || false);
+            viewModel.trackingData.lapLogin(settings.xApi.lrs.credentials.username || '');
+            viewModel.trackingData.lapPassword(settings.xApi.lrs.credentials.password || '');
 
             if (settings.xApi.allowedVerbs) {
-                $.each(viewModel.statements, function (key, value) {
+                $.each(viewModel.trackingData.statements, function(key, value) {
                     value($.inArray(key, settings.xApi.allowedVerbs) > -1);
                 });
             }
+
+            viewModel.logo.url(settings.logo.url || '');
         },
 
     });
@@ -165,6 +187,197 @@ $(function () {
         init: function (element) {
             $(element).on('dragstart', function (event) {
                 event.preventDefault();
+            });
+        }
+    };
+
+    ko.bindingHandlers.switchToggle = {
+        init: function(element, valueAccessor) {
+            var switchToggle = ko.bindingHandlers.switchToggle,
+                viewModel = switchToggle.viewModel(element, valueAccessor),
+                value = ko.unwrap(valueAccessor().value());
+
+            viewModel.setInitialValue(value);
+
+            switchToggle.onClick(element, function() {
+                viewModel.toggle();
+
+                var currentValue = ko.unwrap(valueAccessor().value());
+                valueAccessor().value(!currentValue);
+            });
+        },
+        update: function(element, valueAccessor) {
+            var viewModel = ko.bindingHandlers.switchToggle.viewModel(element, valueAccessor),
+                value = ko.unwrap(valueAccessor().value());
+
+            viewModel.updateValue(value);
+        },
+        viewModel: function(element) {
+            var $element = $(element),
+                $wrapper = $('.switch-toggle-wrapper', $element);
+
+            function setInitialValue(value) {
+                setElementValue(value);
+                updateElementPosition(value);
+            }
+
+            function toggle() {
+                var value = getValue();
+                setElementValue(!value);
+
+                $wrapper.stop().animate({
+                    marginLeft: calculateElementLeftMargin(!value)
+                }, 250);
+            }
+
+            function getValue() {
+                return $element.hasClass('on');
+            }
+
+            function updateValue(value) {
+                if (getValue() != value) {
+                    setInitialValue(value);
+                }
+            }
+
+            function setElementValue(value) {
+                $element.toggleClass('on', value);
+                $element.toggleClass('off', !value);
+            }
+
+            function updateElementPosition(value) {
+                $wrapper.css('margin-left', calculateElementLeftMargin(value) + 'px');
+            }
+
+            function calculateElementLeftMargin(value) {
+                return value ? 0 : $element.height() - $element.width();
+            }
+
+            return {
+                setInitialValue: setInitialValue,
+                updateValue: updateValue,
+                toggle: toggle
+            }
+        },
+        onClick: function(element, handler) {
+            var $element = $(element),
+                isMouseDownFired = false;
+
+            $element.mousedown(function(event) {
+                if (event.which != 1)
+                    return;
+
+                isMouseDownFired = true;
+                handler();
+            });
+
+            $element.click(function() {
+                if (isMouseDownFired) {
+                    isMouseDownFired = false;
+                    return;
+                }
+
+                handler();
+            });
+        }
+    };
+
+    ko.bindingHandlers.dropdown = {
+        cssClasses: {
+            dropdown: 'dropdown',
+            disabled: 'disabled',
+            expanded: 'expanded',
+            optionsList: 'dropdown-options-list',
+            optionItem: 'dropdown-options-item',
+            currentItem: 'dropdown-current-item',
+            currentItemText: 'dropdown-current-item-text',
+            indicatorHolder: 'dropdown-indicator-holder',
+            indicator: 'dropdown-indicator'
+        },
+        init: function(element, valueAccessor) {
+            var $element = $(element),
+                cssClasses = ko.bindingHandlers.dropdown.cssClasses;
+
+            $element.addClass(cssClasses.dropdown);
+
+            var $currentItemElement = $('<div />')
+                .addClass(cssClasses.currentItem)
+                .appendTo($element);
+
+            $('<div />')
+                .addClass(cssClasses.currentItemText)
+                .appendTo($currentItemElement);
+
+            var $indicatorHolder = $('<div />')
+                .addClass(cssClasses.indicatorHolder)
+                .appendTo($currentItemElement);
+
+            $('<span />')
+                .addClass(cssClasses.indicator)
+                .appendTo($indicatorHolder);
+
+            $('<ul />')
+                .addClass(cssClasses.optionsList)
+                .appendTo($element);
+
+            $currentItemElement.on('click', function(e) {
+                if ($element.hasClass(cssClasses.disabled)) {
+                    return;
+                }
+
+                $currentItemElement.toggleClass(cssClasses.expanded);
+                e.stopPropagation();
+            });
+
+            var collapseHandler = function() {
+                $currentItemElement.removeClass(cssClasses.expanded);
+            };
+
+            $('html').bind('click', collapseHandler);
+            $(window).bind('blur', collapseHandler);
+
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+                $('html').unbind('click', collapseHandler);
+                $(window).unbind('blur', collapseHandler);
+            });
+        },
+        update: function(element, valueAccessor) {
+            var $element = $(element),
+                cssClasses = ko.bindingHandlers.dropdown.cssClasses,
+
+                $optionsListElement = $element.find('ul.' + cssClasses.optionsList),
+                $currentItemTextElement = $element.find('div.' + cssClasses.currentItemText);
+
+
+            var options = valueAccessor().options,
+                optionsText = valueAccessor().optionsText,
+                value = valueAccessor().value,
+                optionsValue = valueAccessor().optionsValue,
+                currentValue = ko.unwrap(value),
+                disable = ko.unwrap(valueAccessor().disable);
+
+            if (disable) {
+                $element.toggleClass(cssClasses.disabled);
+            } else {
+                $element.removeClass(cssClasses.disabled);
+            }
+
+            $optionsListElement.empty();
+
+            $.each(options, function(index, option) {
+                if (option[optionsValue] == currentValue) {
+                    $currentItemTextElement.text(option[optionsText]);
+                    return;
+                }
+
+                $('<li />')
+                    .addClass(cssClasses.optionItem)
+                    .appendTo($optionsListElement)
+                    .text(option[optionsText])
+                    .on('click', function(e) {
+                        value(option[optionsValue]);
+                        $element.trigger('change');
+                    });
             });
         }
     };

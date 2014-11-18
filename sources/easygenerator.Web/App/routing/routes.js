@@ -70,6 +70,14 @@
                 settings: {
                     localizationKey: 'course'
                 }
+            },
+            {
+                route: 'results/:courseId',
+                moduleId: 'viewmodels/courses/results',
+                title: 'Results',
+                settings: {
+                    localizationKey: 'course'
+                }
             }
         ];
     }

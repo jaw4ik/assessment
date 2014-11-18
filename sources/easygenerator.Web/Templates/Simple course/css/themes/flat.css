@@ -804,13 +804,11 @@ body {
         background-color: #7eccc2;
     }
 
-    .styled-content table {
-        display: block;
+    .styled-content table {`
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
         border-radius: 5px;
         border-collapse: collapse;
-        overflow: hidden;
         color: #3c3c3c;
     }
 

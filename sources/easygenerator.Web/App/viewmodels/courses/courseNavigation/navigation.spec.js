@@ -26,7 +26,7 @@
 
                 it('should fill items collection', function () {
                     navigation.activate();
-                    expect(navigation.navigationItems.length).toBe(3);
+                    expect(navigation.navigationItems.length).toBe(4);
                 });
             });
 

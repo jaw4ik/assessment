@@ -4,6 +4,7 @@
 
         return {
             post: post,
+            get: get,
             configure: configure
         };
 
@@ -42,10 +43,22 @@
             return deferred.promise;
         }
 
+        function get(url, query, headers) {
+            var deferred = Q.defer();
+
+             $.ajax(url, { data: query, headers: headers })
+                .done(function (response) {
+                    deferred.resolve(response);
+                }).fail(function (reason) {
+                    deferred.reject(reason);
+            });
+
+            return deferred.promise;
+        }
+
         function configure() {
             $.ajaxSetup({
                 headers: { "cache-control": "no-cache" }
             });
         }
-
     });

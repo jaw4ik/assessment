@@ -11,7 +11,7 @@
 
         var
             objectivesModules = ['objectives', 'objective', 'createObjective', 'createQuestion', 'question'],
-            coursesModules = ['courses', 'createCourse', 'course', 'design', 'publish'];
+            coursesModules = ['courses', 'createCourse', 'course', 'design', 'publish', 'results'];
 
         var requestsCounter = ko.observable(0);
         var isFirstVisitPage = true;
@@ -110,7 +110,6 @@
                     router.on('router:navigation:composition-complete').then(function () {
                         var activeModuleId = router.routeData().moduleName;
                         var hasCourseId = router.routeData().courseId != null;
-
                         viewModel.showCourseNavigation(hasCourseId);
                         viewModel.showTreeOfContent(_.contains(coursesModules, activeModuleId) || hasCourseId);
 

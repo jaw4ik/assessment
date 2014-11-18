@@ -268,6 +268,17 @@
                 lastCreatedCourseId: 'lastCreatedCourseId',
                 lastVistedCourse: 'lastVistedCourse',
                 lastVisitedObjective: 'lastVisitedObjective'
+            },
+
+            reporting: {
+                xApiVerbIds:
+                {
+                    passed: 'http://adlnet.gov/expapi/verbs/passed',
+                    failed: 'http://adlnet.gov/expapi/verbs/failed'
+                },
+                extensionKeys: {
+                    courseId: 'context.extensions.http://easygenerator/expapi/course/id'
+                }
             }
         };
     }

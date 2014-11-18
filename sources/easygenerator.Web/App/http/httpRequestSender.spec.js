@@ -151,13 +151,23 @@
 
         });
 
-        describe('configure:', function() {
+        describe('get:', function () {
+            it('should be function', function () {
+                expect(httpRequestSender.get).toBeFunction();
+            });
 
-            it('should be function', function() {
+            it('should return promise', function() {
+                expect(httpRequestSender.get()).toBePromise();
+            });
+        });
+
+        describe('configure:', function () {
+
+            it('should be function', function () {
                 expect(httpRequestSender.configure).toBeFunction();
             });
 
-            it('should configure ajax requests', function() {
+            it('should configure ajax requests', function () {
                 spyOn($, 'ajaxSetup');
                 httpRequestSender.configure();
                 expect($.ajaxSetup).toHaveBeenCalledWith({
@@ -166,7 +176,5 @@
             });
 
         });
-
     });
-
 });

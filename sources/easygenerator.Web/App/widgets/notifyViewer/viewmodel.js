@@ -28,15 +28,13 @@
         if (notice.nodeType !== nodeTypeContent) {
             return;
         }
-
-        $(notice).hide();
-        $(notice).fadeIn();
-
-        _.delay(function () {
-            $(notice).fadeOut(noticefadeOutLifetime, function () {
-                $(notice).remove();
-            });
-        }, noticelifeTime);
+        $(notice).hide()
+                 .fadeIn()
+                 .delay(noticelifeTime)
+                 .fadeOut(noticefadeOutLifetime, function () {
+                     $(this).remove();
+                 });
+           
     }
 
 });

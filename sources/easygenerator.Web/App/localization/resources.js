@@ -188,7 +188,7 @@
         en: '3. Publish'
     },
     courseResultsItem: {
-        en: '3. Results'
+        en: '4. Results'
     },
     getPublicationLink: {
         en: 'Get link'
@@ -346,8 +346,17 @@
     noReportedResults: {
         en: 'No reported results yet...'
     },
+    loadingReportedResults: {
+        en: 'Loading data...'
+    },
     showMore: {
         en: 'Show More'
+    },
+    passed: {
+        en: 'Passed'
+    },
+    failed: {
+        en: 'Failed'
     },
     /* End resource section for model Courses */
     

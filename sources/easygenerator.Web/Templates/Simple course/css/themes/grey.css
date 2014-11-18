@@ -844,6 +844,7 @@ body {
     }
 
     .styled-content table {
+        margin-bottom: 10px;
         border: 2px solid #999999;
         border-collapse: separate;
     }
