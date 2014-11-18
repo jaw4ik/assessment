@@ -1,5 +1,5 @@
 ﻿define([],
-    function () {
+    function() {
 
         return {
             accessType: {
@@ -279,7 +279,21 @@
                 extensionKeys: {
                     courseId: 'context.extensions.http://easygenerator/expapi/course/id'
                 }
-            }
-        };
+            },
+            frameSize: {
+                width: {
+                    name: 'frameWidth',
+                    value: 930
+                },
+                height: {
+                    name: 'frameHeight',
+                    value: 700
+                }
+            },
+
+            embedCode: '<iframe width="{W}" height="{H}" src="{src}" frameborder="0" allowfullscreen></iframe>',
+
+            copyToClipboardWait: 5000
+        }
     }
 );

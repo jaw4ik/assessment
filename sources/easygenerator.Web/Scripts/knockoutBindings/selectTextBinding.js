@@ -9,7 +9,9 @@ ko.bindingHandlers.selectText = {
         var value = valueAccessor();
         var valueUnwrapped = ko.unwrap(value);
         if (valueUnwrapped) {
-            element.select();
+            _.defer(function() {
+                element.select();
+            });
         }
     }
 };

@@ -47,9 +47,9 @@
     padding-right: 0;
 }
 
-.course-collaborators-list.shared-course:after {
-    display: none;
-}
+    .course-collaborators-list.shared-course:after {
+        display: none;
+    }
 
 .course-collaborator-item {
     position: relative;
@@ -237,7 +237,7 @@
 }
 
 .modal-dialog-header {
-    background-color: #EAEAEA;
+    background-color: #fff;
     border-bottom: 1px solid #DEDEDE;
     height: 47px;
     text-align: center;
@@ -250,12 +250,13 @@
 .modal-dialog-header-text {
     display: inline-block;
     line-height: 47px;
-    color: #747474;
+    color: #464d5d;
     font-family: 'OpenSans', sans-serif;
     font-size: 16px;
 }
 
 .modal-dialog-content {
+    background-color: #fdfdfd;
     margin: 10px 15px;
 }
 
@@ -416,7 +417,9 @@
 
 .add-collaborator .action-item-btn-wrapper {
     padding-top: 24px;
+    font: 13px 'OpenSans-Semibold';
     text-align: center;
+    text-transform: uppercase;
 }
 
 .add-collaborator .modal-dialog-form-input-separator {
@@ -459,16 +462,10 @@
     border-bottom: 1px solid #eeeeee;
 }
 
-.remove-collaborator.modal-dialog-wrapper:after {
-    border-bottom-color: #ee6556;
-}
-
-.remove-collaborator .modal-dialog-header {
-    background-color: #ee6556;
-}
-
 .remove-collaborator .modal-dialog-header-text {
-    color: white;
+    font: 20px 'OpenSans-Semibold';
+    line-height: 44px;
+    color: #e85e5d;
 }
 
 .remove-collaborator .action-item-btn-wrapper {
@@ -477,13 +474,16 @@
 
 .remove-collaborator .dialog-cancel-btn {
     float: left;
-    margin: 10px 45px;
-    color: #747474;
+    padding: 11px 45px;
     font-size: 12px;
+    border: 1px solid #cacaca;
+    border-radius: 3px;
+    color: #777;
 }
 
-    .remove-collaborator .dialog-cancel-btn:hover {
-        text-decoration: underline;
+.remove-collaborator .dialog-cancel-btn:hover {
+        border-color: #999;
+        color: #333;
     }
 
 .remove-collaborator .dialog-remove-btn {
@@ -491,15 +491,20 @@
     padding: 10px 30px;
     margin: 0;
     background: transparent;
-    border: 1px solid #ee6556;
+    border: 2px solid #e85e5d;
     border-radius: 3px;
+    text-transform: uppercase;
     color: #ee6556;
     cursor: pointer;
+    transition-delay: 0s;
+    transition-duration: 0.15s;
+    transition-property: background-color;
+    transition-timing-function: linear;
 }
 
     .remove-collaborator .dialog-remove-btn:hover {
-        border-color: #c55448;
-        color: #c55448;
+        background-color: #e85e5d;
+        color: #fff;
     }
 
 .remove-collaborator .modal-dialog-content {
@@ -530,6 +535,7 @@
 
 .remove-collaborator .dialog-remove-btn-text {
     display: inline-block;
+    font: 13px 'OpenSans-Semibold';
     vertical-align: top;
     position: relative;
     padding-left: 20px;
@@ -549,7 +555,7 @@
     }
 
 .remove-collaborator .dialog-remove-btn:hover .dialog-remove-btn-text:before {
-    background-position: -66px -24px;
+    background-position: -24px -66px;
 }
 
 .add-collaborator-warning {

@@ -1569,6 +1569,38 @@ span.top-navigation-item.current {
 
 /*#region action button*/
 
+/*green-white button*/
+.btn.green-white {
+    background: #fdfdfd;
+    border-color: #61b472;
+    border-bottom-color: #61b472;
+    color: #61b472;
+    text-shadow: none;
+}
+
+    .btn.green-white:hover,
+    .btn.green-white.active,
+    .btn.green-white.active:active {
+        background: #5fb06f;
+        border-color: #61b472;
+        border-bottom-color: #61b472;
+        color: #fdfdfd;
+        text-shadow: none;
+        box-shadow: none;
+    }
+
+    .btn.green-white:active,
+    .btn.green-white.disabled,
+    .btn.green-white.disabled:hover,
+    .btn.green-white.disabled:active {
+        background: #5fb06f;
+        border-color: #61b472;
+        color: #fdfdfd;
+        text-shadow: none;
+    }
+
+/*#region action button*/
+
 .action-item-btn-wrapper {
     position: relative;
     height: 100%;

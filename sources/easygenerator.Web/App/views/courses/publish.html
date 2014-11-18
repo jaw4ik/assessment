@@ -1,184 +1,20 @@
 ﻿<section class="course publish view-module">
-
     <div class="content-section-wrapper">
         <div class="content-section">
             <div class="package-actions-holder clearfix">
-
                 <div class="package-action-column">
                     <!-- ko ifnot: publishToAim4YouAction().isTryMode -->
-                    <div class="package-action-item blue">
-                        <div class="package-action-header">
-                            <h5 class="package-action-title" data-bind="localize: { text: 'publishToCatalog' }"></h5>
-                            <span class="package-action-subtitle" data-bind="localize: { text: 'publishToAim4YouPublishDescription' }"></span>
-                        </div>
-                        <div class="package-action-body">
-                            <div class="package-action-slider-wrapper" data-bind="slider:true">
-                                <ul class="package-action-slider slides">
-                                    <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide01.png" /><span class="package-action-slider-item-description" data-bind="localize: { text: 'publishToAim4YouSlideText' }"></span></li>
-                                    <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide02.png" /><span class="package-action-slider-item-description" data-bind="localize: { text: 'publishToAim4YouSlideText1' }"></span></li>
-                                    <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide03.png" /><span class="package-action-slider-item-description" data-bind="localize: { text: 'publishToAim4YouSlideText2' }"></span></li>
-                                    <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide04.png" /><span class="package-action-slider-item-description" data-bind="localize: { text: 'publishToAim4YouSlideText3' }"></span></li>
-                                </ul>
-                                <div class="package-action-slider-arrows">
-                                    <a class="package-action-slider-nav-prew slider-nav-prew" href="javascript:void(0)"></a>
-                                    <a class="package-action-slider-nav-next slider-nav-next" href="javascript:void(0)"></a>
-                                </div>
-                                <div class="package-action-slider-nav slider-nav-links">
-                                    <a class="package-action-slider-nav-link slider-nav-link" href="javascript:void(0)"></a>
-                                </div>
-                            </div>
-                            <div class="package-action-description">
-                                <ul class="package-action-description-list">
-                                    <li>
-                                        <div class="package-action-description-list-image-wrapper">
-                                            <img src="/Content/images/Aim4YouPublish/List01.png" />
-                                        </div>
-                                        <div class="package-action-description-list-description" data-bind="localize: { text: 'publishToAim4YouListText' }"></div>
-                                    </li>
-                                    <li>
-                                        <div class="package-action-description-list-image-wrapper">
-                                            <img src="/Content/images/Aim4YouPublish/List02.png" />
-                                        </div>
-                                        <div class="package-action-description-list-description" data-bind="localize: { text: 'publishToAim4YouListText1' }"></div>
-                                    </li>
-                                    <li>
-                                        <div class="package-action-description-list-image-wrapper">
-                                            <img src="/Content/images/Aim4YouPublish/List03.png" />
-                                        </div>
-                                        <div class="package-action-description-list-description" data-bind="localize: { text: 'publishToAim4YouListText2' }"></div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="package-action-btn-holder">
-                                <button data-bind="click: publishToAim4YouAction().publishToAim4You, css:{'disabled': isCourseDelivering(), 'progress':publishToAim4YouAction().isPublishing()}" class="action-item-btn btn">
-                                    <!-- ko if: publishToAim4YouAction().isPublishing() -->
-                                    <!-- ko if: publishToAim4YouAction().state() === states.building -->
-                                    <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption"></span>
-                                    <!-- /ko -->
-                                    <!-- ko if: publishToAim4YouAction().state() === states.publishing -->
-                                    <span data-bind="localize: { text: 'publishing' }" class="action-item-btn-caption"></span>
-                                    <!-- /ko -->
-                                    <!-- /ko -->
-                                    <!-- ko ifnot: publishToAim4YouAction().isPublishing() -->
-                                    <span data-bind="localize: { text: 'publishToStore' }" class="action-item-btn-caption"></span>
-                                    <!-- /ko -->
-                                </button>
-                            </div>
-                        </div>
-                        <!-- ko if: !isCourseDelivering() && publishToAim4YouAction().messageState() == publishToAim4YouAction().infoMessageStates.published -->
-                        <div class="package-action-message-wrapper success">
-                            <div class="message">
-                                <span data-bind="localize: { text: 'publishToAim4YouSuccessMessage' }">Your course is successfully  published. Check your email for more details.</span>
-                            </div>
-                        </div>
-                        <!-- /ko -->
-                    </div>
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToAim4You', model: { publishToAim4YouAction: publishToAim4YouAction, isCourseDelivering: isCourseDelivering, states: states } } -->
+                    <!-- /ko -->
                     <!-- /ko -->
                 </div>
                 <div class="package-action-column">
-                    <div class="package-action-item light-green">
-                        <div class="package-action-header ">
-                            <h5 class="package-action-title" data-bind="localize: { text: 'publishCourse' }"></h5>
-                        </div>
-                        <div class="package-action-body">
-                            <!-- ko if: publishAction().packageExists() -->
-                            <div class="copy-link-control-wrapper">
-                                <div class="copy-link-control" data-bind="css: { disabled: isCourseDelivering() }">
-                                    <div class="copy-link-input-wrapper">
-                                        <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: publishAction().packageUrl(), css: { selectable: !isCourseDelivering() }, selectText: publishAction().state() === states.succeed" />
-                                    </div>
-                                    <div class="view-course-btn-wrapper">
-                                        <div class="view-course-description-wrapper">
-                                            <!-- ko ifnot: isCourseDelivering() -->
-                                            <a class="view-course-btn" data-bind="click: publishAction().openPublishedCourse, attr: { href: publishAction().packageUrl() }">
-                                                <span class="view-course-text" data-bind="localize: { text: 'viewCourse' }"></span>
-                                            </a>
-                                            <!-- /ko -->
-                                            <!-- ko if: isCourseDelivering() -->
-                                            <a class="view-course-btn" href="javascript:void(0)">
-                                                <span class="view-course-text" data-bind="localize: { text: 'viewCourse' }"></span>
-                                            </a>
-                                            <!-- /ko -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="copy-link-description-holder" data-bind="css: { disabled: isCourseDelivering() }">
-                                    <span data-bind="localize: { text: 'publishingLinkDescription' }"></span>
-                                </div>
-                            </div>
-                            <!-- /ko -->
-                            <div class="package-action-btn-holder">
-                                <button data-bind="click: publishAction().publishCourse, css:{'disabled': isCourseDelivering(),'progress' : publishAction().isPublishing()}" class="action-item-btn btn">
-                                    <!-- ko if: publishAction().isPublishing() -->
-                                    <!-- ko if: publishAction().state() === states.building -->
-                                    <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption"></span>
-                                    <!-- /ko -->
-                                    <!-- ko if: publishAction().state() === states.publishing -->
-                                    <span data-bind="localize: { text: 'publishing' }" class="action-item-btn-caption"></span>
-                                    <!-- /ko -->
-                                    <!-- /ko -->
-                                    <!-- ko ifnot: publishAction().isPublishing() -->
-                                    <!-- ko if: publishAction().packageExists() -->
-                                    <span data-bind="localize: { text: 'republishOnline' }" class="action-item-btn-caption"></span>
-                                    <!-- /ko -->
-                                    <!-- ko ifnot: publishAction().packageExists() -->
-                                    <span data-bind="localize: { text: 'getPublicationLink' }" class="action-item-btn-caption"></span>
-                                    <!-- /ko -->
-                                    <!-- /ko -->
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="package-action-item">
-                        <div class="package-action-header ">
-                            <h5 class="package-action-title" data-bind="localize: { text: 'downloadScorm12Package'}"></h5>
-                        </div>
-                        <div class="package-action-body">
-                            <div class="package-action-btn-holder">
-                                <!-- ko if: scormBuildAction() -->
-                                <button data-bind="click: scormBuildAction().downloadCourse, css:{'disabled': isCourseDelivering(),'progress' : scormBuildAction().isPublishing()}" class="action-item-btn btn">
-                                    <!-- ko if: scormBuildAction().isPublishing() -->
-                                    <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption"></span>
-                                    <!-- /ko -->
-                                    <!-- ko ifnot: scormBuildAction().isPublishing() -->
-                                    <span data-bind="localize: { text: 'courseDownloadScormAction' }" class="action-item-btn-caption"></span>
-                                    <!-- /ko -->
-                                </button>
-                                <!-- /ko -->
-                                <!-- ko ifnot: scormBuildAction() -->
-                                <button class="action-item-btn btn">
-                                    <span data-bind="localize: { text: 'courseDownloadScormAction' }" class="action-item-btn-caption"></span>
-                                </button>
-                                <div class="package-action-access-message-overlay"></div>
-                                <div class="package-action-access-message-wrapper">
-                                    <div class="package-action-access-message-icon"></div>
-                                    <div class="package-action-access-message">
-                                        <span data-bind="localize: { text: 'youHaveTo' }">You have to</span>
-                                        <a href="" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeYourAccount' }">upgrade your account</a>
-                                        <span data-bind="localize: { html: 'upgradeToStarterPlanToUseScormMessage' }">in order to read external review comments</span>
-                                    </div>
-                                </div>
-                                <!-- /ko -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="package-action-item">
-                        <div class="package-action-header ">
-                            <h5 class="package-action-title" data-bind="localize: { text: 'downloadCourse' }"></h5>
-                        </div>
-                        <div class="package-action-body">
-                            <div class="package-action-btn-holder">
-                                <button data-bind="click: buildAction().downloadCourse, css:{'disabled': isCourseDelivering(),'progress' : buildAction().isPublishing()}" class="action-item-btn btn">
-                                    <!-- ko if: buildAction().isPublishing() -->
-                                    <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption"></span>
-                                    <!-- /ko -->
-                                    <!-- ko ifnot: buildAction().isPublishing() -->
-                                    <span data-bind="localize: { text: 'courseDownloadAction' }" class="action-item-btn-caption"></span>
-                                    <!-- /ko -->
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServer', model: { publishAction: publishAction, isCourseDelivering: isCourseDelivering, states: states } } -->
+                    <!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsScorm', model: { scormBuildAction: scormBuildAction, isCourseDelivering: isCourseDelivering, openUpgradePlanUrl: openUpgradePlanUrl } } -->
+                    <!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsHtml', model: { buildAction: buildAction, isCourseDelivering: isCourseDelivering } } -->
+                    <!-- /ko -->
                 </div>
             </div>
         </div>

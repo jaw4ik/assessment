@@ -4,7 +4,7 @@
 
         var eventTracker = require('eventTracker'),
             router = require('plugins/router'),
-            vmShareCourse = require('dialogs/shareCourse/shareCourse');
+            vmPublishCourse = require('dialogs/publishCourse/publishCourse');
 
         describe('viewmodel [courseNavigation]', function () {
 
@@ -51,18 +51,18 @@
                 });
             });
 
-            describe('shareCourse:', function () {
+            describe('publishCourse:', function () {
                 beforeEach(function() {
-                    spyOn(vmShareCourse, 'show');
+                    spyOn(vmPublishCourse, 'show');
                 });
 
                 it('should be function', function () {
-                    expect(navigation.shareCourse).toBeFunction();
+                    expect(navigation.publishCourse).toBeFunction();
                 });
 
                 it('should set vm share course visible to true', function () {
-                    navigation.shareCourse();
-                    expect(vmShareCourse.show).toHaveBeenCalled();
+                    navigation.publishCourse();
+                    expect(vmPublishCourse.show).toHaveBeenCalled();
                 });
             });
 

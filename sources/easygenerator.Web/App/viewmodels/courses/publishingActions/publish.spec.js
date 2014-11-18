@@ -555,5 +555,159 @@
                     });
                 });
             });
+
+            describe('embedTabOpened:', function () {
+
+                it('should be observable', function() {
+                    expect(viewModel.embedCode).toBeObservable();
+                });
+
+            });
+
+            describe('linkTabOpened', function () {
+
+                it('should be observable', function() {
+                    expect(viewModel.linkTabOpened).toBeObservable();
+                });
+
+            });
+
+            describe('openEmbedTab:', function () {
+
+                it('should be function', function() {
+                    expect(viewModel.openEmbedTab).toBeFunction();
+                });
+
+                describe('when embed tab not opened', function () {
+
+                    beforeEach(function() {
+                        viewModel.embedTabOpened(false);
+                    });
+
+                    it('should send event \'Open embed tab\'', function () {
+                        viewModel.eventCategory = 'category';
+                        viewModel.openEmbedTab();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Open embed tab', 'category');
+                    });
+
+                    it('should close link tab', function() {
+                        viewModel.linkTabOpened(true);
+                        viewModel.openEmbedTab();
+                        expect(viewModel.linkTabOpened()).toBeFalsy();
+                    });
+
+                    it('should open embed tab', function () {
+                        viewModel.linkTabOpened(true);
+                        viewModel.openEmbedTab();
+                        expect(viewModel.embedTabOpened()).toBeTruthy();
+                    });
+
+                });
+
+            });
+            
+            describe('openLinkTab:', function () {
+
+                it('should be function', function() {
+                    expect(viewModel.openLinkTab).toBeFunction();
+                });
+
+                describe('when embed tab not opened', function () {
+
+                    beforeEach(function() {
+                        viewModel.linkTabOpened(false);
+                    });
+
+                    it('should send event \'Open link tab\'', function () {
+                        viewModel.eventCategory = 'category';
+                        viewModel.openLinkTab();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Open link tab', 'category');
+                    });
+
+                    it('should open link tab', function() {
+                        viewModel.embedTabOpened(true);
+                        viewModel.openLinkTab();
+                        expect(viewModel.linkTabOpened()).toBeTruthy();
+                    });
+
+                    it('should close embed tab', function () {
+                        viewModel.embedTabOpened(true);
+                        viewModel.openLinkTab();
+                        expect(viewModel.embedTabOpened()).toBeFalsy();
+                    });
+
+                });
+            });
+
+            describe('frameWidth:', function () {
+
+                it('should be observable', function() {
+                    expect(viewModel.frameWidth).toBeObservable();
+                });
+
+                it('should be equal \'constants.frameSize.width.value\'', function () {
+                    expect(viewModel.frameWidth()).toBe(constants.frameSize.width.value);
+                });
+
+            });
+
+            describe('frameHeight:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.frameHeight).toBeObservable();
+                });
+
+                it('should be equal \'constants.frameSize.height.value\'', function () {
+                    expect(viewModel.frameHeight()).toBe(constants.frameSize.height.value);
+                });
+
+            });
+
+            describe('embedCode:', function () {
+
+                var embedCode;
+
+                beforeEach(function() {
+                    embedCode = constants.embedCode.replace('{W}', viewModel.frameWidth()).replace('{H}', viewModel.frameHeight()).replace('{src}', course.publish.packageUrl);
+                });
+
+                it('should be observable', function() {
+                    expect(viewModel.embedCode).toBeObservable();
+                });
+
+                it('should be equal embedCode', function() {
+                    expect(viewModel.embedCode()).toBe(embedCode);
+                });
+
+            });
+
+            describe('copyLinkToClipboard:', function () {
+
+                it('should be function', function() {
+                    expect(viewModel.copyLinkToClipboard).toBeFunction();
+                });
+
+                it('should send event \'Copy publish link\'', function () {
+                    viewModel.eventCategory = 'category';
+                    viewModel.copyLinkToClipboard();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Copy publish link', 'category');
+                });
+
+            });
+
+            describe('copyLinkToClipboard:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.copyEmbedCodeToClipboard).toBeFunction();
+                });
+
+                it('should send event \'Copy embed code\'', function () {
+                    viewModel.eventCategory = 'category';
+                    viewModel.copyEmbedCodeToClipboard();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Copy embed code', 'category');
+                });
+
+            });
+
         });
-    })
+    });

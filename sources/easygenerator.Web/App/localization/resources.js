@@ -127,6 +127,48 @@
     help: {
         en: 'Help'
     },
+    link: {
+        en: 'Link'
+    },
+    embed: {
+        en: 'Embed'
+    },
+    privateLink: {
+        en: 'Private link'
+    },
+    openInNewWindow: {
+        en: 'Open in new window'
+    },
+    code: {
+        en: 'Code'
+    },
+    copy: {
+        en: 'Copy'
+    },
+    copied: {
+        en: 'Copied'
+    },
+    frameSize: {
+        en: 'Frame size'
+    },
+    croppedWidth: {
+        en: 'W:'
+    },
+    croppedHeight: {
+        en: 'H:'
+    },
+    croppedPixels: {
+        en: 'px'
+    },
+    getEmbedCode: {
+        en: 'Get embed code'
+    },
+    getPrivateLink: {
+        en: 'Get private link'
+    },
+    update: {
+        en: 'update'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */

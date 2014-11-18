@@ -2,8 +2,8 @@
         'viewmodels/courses/courseNavigation/items/design',
         'viewmodels/courses/courseNavigation/items/publish',
         'viewmodels/courses/courseNavigation/items/results',
-        'eventTracker', 'plugins/router', 'dialogs/shareCourse/shareCourse'],
-    function (CreateNavigationItem, DesignNavigationItem, PublishNavigationItem, ResultsNavigationItem, eventTracker, router, vmShareCourse) {
+        'eventTracker', 'plugins/router', 'dialogs/publishCourse/publishCourse'],
+    function (CreateNavigationItem, DesignNavigationItem, PublishNavigationItem, ResultsNavigationItem, eventTracker, router, vmPublishCourse) {
         "use strict";
 
         var events = {
@@ -12,7 +12,7 @@
 
         var viewModel = {
             activate: activate,
-            shareCourse: shareCourse,
+            publishCourse: publishCourse,
             previewCourse: previewCourse,
             navigationItems: []
         };
@@ -37,8 +37,8 @@
             router.openUrl(viewModel.coursePreviewLink());
         };
 
-        function shareCourse() {
-            vmShareCourse.show();
+        function publishCourse() {
+            vmPublishCourse.show();
         };
 
     });

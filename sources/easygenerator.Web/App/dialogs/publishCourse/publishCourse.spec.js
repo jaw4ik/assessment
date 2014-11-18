@@ -1,4 +1,4 @@
-﻿define(['dialogs/shareCourse/shareCourse'], function (viewModel) {
+﻿define(['dialogs/publishCourse/publishCourse'], function (viewModel) {
 
     "use strict";
 
@@ -6,7 +6,7 @@
         router = require('plugins/router'),
         Course = require('models/course');
 
-    describe('dialog [shareCourse]', function () {
+    describe('dialog [publishCourse]', function () {
 
         it('should be defined', function () {
             expect(viewModel).toBeDefined();

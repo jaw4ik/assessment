@@ -1,0 +1,17 @@
+﻿<div class="package-action-item">
+    <div class="package-action-header ">
+        <h5 class="package-action-title" data-bind="localize: { text: 'downloadCourse' }"></h5>
+    </div>
+    <div class="package-action-body">
+        <div class="package-action-btn-holder">
+            <button data-bind="click: buildAction().downloadCourse, css:{'disabled': isCourseDelivering(),'progress' : buildAction().isPublishing()}" class="action-item-btn btn">
+                <!-- ko if: buildAction().isPublishing() -->
+                <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption"></span>
+                <!-- /ko -->
+                <!-- ko ifnot: buildAction().isPublishing() -->
+                <span data-bind="localize: { text: 'courseDownloadAction' }" class="action-item-btn-caption"></span>
+                <!-- /ko -->
+            </button>
+        </div>
+    </div>
+</div>

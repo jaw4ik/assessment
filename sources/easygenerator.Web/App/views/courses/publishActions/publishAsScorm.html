@@ -1,0 +1,33 @@
+﻿<div class="package-action-item">
+    <div class="package-action-header ">
+        <h5 class="package-action-title" data-bind="localize: { text: 'downloadScorm12Package'}"></h5>
+    </div>
+    <div class="package-action-body">
+        <div class="package-action-btn-holder">
+            <!-- ko if: scormBuildAction() -->
+            <button data-bind="click: scormBuildAction().downloadCourse, css:{'disabled': isCourseDelivering(),'progress' : scormBuildAction().isPublishing()}" class="action-item-btn btn">
+                <!-- ko if: scormBuildAction().isPublishing() -->
+                <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption"></span>
+                <!-- /ko -->
+                <!-- ko ifnot: scormBuildAction().isPublishing() -->
+                <span data-bind="localize: { text: 'courseDownloadScormAction' }" class="action-item-btn-caption"></span>
+                <!-- /ko -->
+            </button>
+            <!-- /ko -->
+            <!-- ko ifnot: scormBuildAction() -->
+            <button class="action-item-btn btn">
+                <span data-bind="localize: { text: 'courseDownloadScormAction' }" class="action-item-btn-caption"></span>
+            </button>
+            <div class="package-action-access-message-overlay"></div>
+            <div class="package-action-access-message-wrapper">
+                <div class="package-action-access-message-icon"></div>
+                <div class="package-action-access-message">
+                    <span data-bind="localize: { text: 'youHaveTo' }">You have to</span>
+                    <a href="" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeYourAccount' }">upgrade your account</a>
+                    <span data-bind="localize: { html: 'upgradeToStarterPlanToUseScormMessage' }">in order to read external review comments</span>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+</div>

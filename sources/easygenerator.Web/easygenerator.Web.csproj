@@ -485,6 +485,11 @@
       <DependentUpon>reportingStatement.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\xApiProvider.js" />
+    <Content Include="App\dialogs\publishCourse\publishCourse.html" />
+    <Content Include="App\dialogs\publishCourse\publishCourse.js" />
+    <Content Include="App\dialogs\publishCourse\publishCourse.spec.js">
+      <DependentUpon>publishCourse.js</DependentUpon>
+    </Content>
     <Content Include="App\onboarding\initialization.spec.js">
       <DependentUpon>initialization.js</DependentUpon>
     </Content>
@@ -533,6 +538,10 @@
     <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
+    <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
+    <Content Include="App\views\courses\publishActions\publishToPublicationServer.html" />
+    <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
+    <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\results.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="Content\font\heuristica-bold.svg" />
@@ -605,15 +614,11 @@
       <DependentUpon>tasks.js</DependentUpon>
     </Content>
     <Content Include="Scripts\knockoutBindings\autosizeBinding.js" />
+    <Content Include="Scripts\knockoutBindings\copyToClipboardBinding.js" />
     <Content Include="Scripts\knockoutBindings\customHasFocusBinding.js" />
     <Content Include="App\dialogs\collaboration\removeCollaborator.spec.js">
       <DependentUpon>removeCollaborator.js</DependentUpon>
     </Content>
-    <Content Include="App\dialogs\shareCourse\shareCourse.js" />
-    <Content Include="App\dialogs\shareCourse\shareCourse.spec.js">
-      <DependentUpon>shareCourse.js</DependentUpon>
-    </Content>
-    <Content Include="App\dialogs\shareCourse\shareCourse.html" />
     <Content Include="App\fileUpload.js" />
     <Content Include="App\mappers\singleSelectImageAnswerMapper.js" />
     <Content Include="App\models\singleSelectImageAnswer.js" />
@@ -1216,6 +1221,7 @@
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="App\viewmodels\questions\fillInTheBlank\bindingHandlers\fillInTheBlankBindingHandler.js" />
     <Content Include="Scripts\knockoutBindings\containerHasFocusBinding.js" />
+    <Content Include="Scripts\knockoutBindings\numericFieldBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
     <Content Include="Scripts\md5.js" />
@@ -1228,6 +1234,8 @@
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\underscore-min.map" />
+    <Content Include="Scripts\zeroclipboard.js" />
+    <Content Include="Scripts\zeroclipboard.swf" />
     <Content Include="Templates\Exam\app\main.js" />
     <Content Include="Templates\Exam\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
     <Content Include="Templates\Exam\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
