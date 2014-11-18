@@ -12,6 +12,8 @@
 @question-title-color: #222222;
 @question-content-color: @question-title-color;
 
+@transition-settings: 0.2s ease-out 0.0s;
+
 html, body {
     padding: 0;
     margin: 0;
@@ -43,8 +45,6 @@ header:before {
 }
 
 
-
-
 .question {
     margin-bottom: 100px;
 
@@ -54,6 +54,7 @@ header:before {
         font-size: 22px;
         padding: 10px 0 10px 60px;
         position: relative;
+        font-weight: normal;
 
         .index {
             border-right: 1px solid #91a4af;
@@ -135,16 +136,75 @@ header:before {
             margin: 20px 20px 0 0;
             padding: 30px 20px 15px;
             border-radius: 8px;
+            border-bottom: 1px solid #d1d8dc;
             background: #f9f9f9;
+
+            &.true {
+                box-shadow: inset 0px 0px 50px 30px rgba(231,247,240,1);
+            }
+
+            &.false {
+                box-shadow: inset 0px 0px 50px 30px rgba(252,234,234,1);
+            }
 
             &:last-child {
                 margin-right: 0;
             }
 
             .title {
+                color: #3a4046;
                 font-size: 16px;
                 font-family: 'RobotoslabRegular';
                 line-height: 28px;
+                margin-bottom: 28px;
+            }
+
+            .statement-buttons-hodler {
+                text-align: center;
+            }
+
+            .statement-button {
+                margin: 0 10px 0;
+                padding: 0 30px 0;
+                border: 0;
+                border-radius: 8px;
+                font-family: 'RobotoslabRegular';
+                font-size: 24px;
+                line-height: 62px;
+                text-transform: uppercase;
+                color: #fefefe;
+                cursor: pointer;
+                transition: background @transition-settings, box-shadow @transition-settings;
+
+                &.selected {
+                    box-shadow: inset 0px 3px 5px 0px rgba(0,0,0,0.25);
+                }
+
+                &.true {
+                    @true-button-color: #74b3ae;
+                    background: @true-button-color;
+
+                    &:hover {
+                        background: darken( @true-button-color, 5%);
+                    }
+
+                    &.selected {
+                        background: @true-button-color;
+                    }
+                }
+
+                &.false {
+                    @false-button-color: #f8887a;
+                    background: @false-button-color;
+
+                    &:hover {
+                        background: darken( @false-button-color, 5%);
+                    }
+
+                    &.selected {
+                        background: @false-button-color;
+                    }
+                }
             }
         }
 

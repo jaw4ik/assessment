@@ -1,0 +1,5 @@
+﻿<div class="title">{{ statement.text }}</div>
+<div class="statement-buttons-hodler">
+    <button class="statement-button true" ng-class="{selected: statement.state == true }" ng-click="question.setTrueState(statement)">True</button>
+    <button class="statement-button false" ng-class="{selected: statement.state == false }" ng-click="question.setFalseState(statement)">False</button>
+</div>

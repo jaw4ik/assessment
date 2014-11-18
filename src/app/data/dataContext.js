@@ -105,9 +105,14 @@
                 state: undefined
             };
         });
-        that.checkAnswer = function (answer) {
-            answer.checked = true;
+
+        that.setTrueState = function (statement) {
+            statement.state = statement.state === true ? undefined : true;
         };
+
+        that.setFalseState = function (statement) {
+            statement.state = statement.state === false ? undefined : false;
+         };
     }
 
 }());
