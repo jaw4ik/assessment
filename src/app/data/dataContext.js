@@ -112,7 +112,7 @@
 
         that.setFalseState = function (statement) {
             statement.state = statement.state === false ? undefined : false;
-         };
+        };
     }
 
 }());

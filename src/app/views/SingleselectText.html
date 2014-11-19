@@ -2,15 +2,23 @@
 
     <div class="answers" ng-repeat="answer in question.answers">
         <div class="answer-pair" ng-if="$even">
-            <div class="answer" ng-click="question.checkAnswer(answer)" ng-class="{ checked: answer.checked }">
-                <label class="radio" ng-class="{ checked: answer.checked }">
-                    {{ answer.text }}
-                </label>
+            <div class="answer-container left">
+                <div class="answer-wrapper">
+                    <div class="answer" ng-click="question.checkAnswer(answer)" ng-class="{ checked: answer.checked }">
+                        <label class="radio" ng-class="{ checked: answer.checked }">
+                            {{ answer.text }}
+                        </label>
+                    </div>
+                </div>
             </div>
-            <div class="answer" ng-click="question.checkAnswer(question.answers[$index + 1])" ng-class="{ checked: question.answers[$index + 1].checked }">
-                <label class="radio" ng-class="{ checked: question.answers[$index + 1].checked }">
-                    {{ question.answers[$index + 1].text }}
-                </label>
+            <div class="answer-container right">
+                <div class="answer-wrapper">
+                    <div class="answer" ng-click="question.checkAnswer(question.answers[$index + 1])" ng-class="{ checked: question.answers[$index + 1].checked }">
+                        <label class="radio" ng-class="{ checked: question.answers[$index + 1].checked }">
+                            {{ question.answers[$index + 1].text }}
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

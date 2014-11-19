@@ -78,6 +78,8 @@ header:before {
     }
 
     .single-select-text {
+        .border-box();
+        margin-left: 60px;
 
         @radio-background-color: rgba(200, 209, 215, 0.2);
         @radio-border-color: @radio-background-color;
@@ -90,15 +92,38 @@ header:before {
         @radio-checked-border-color: @radio-checked-background-color;
 
         .answers {
-            border-collapse: separate;
-            border-spacing: 10px 5px;
-            display: table;
-            table-layout: fixed;
             width: 100%;
         }
 
         .answer-pair {
-            display: table-row;
+            border-collapse: separate;
+            border-spacing: 0;
+            display: table;
+            height: 100%;
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        .answer-container {
+            display: table-cell;
+            height: 100%;
+            vertical-align: top;
+            width: 50%;
+            padding-bottom: 20px;
+
+            &.left {
+                padding-right: 10px;
+            }
+
+            &.right {
+                padding-left: 10px;
+            }
+        }
+
+
+
+        .answer-wrapper {
+            display: table;
             height: 100%;
             width: 100%;
         }
@@ -110,7 +135,7 @@ header:before {
             cursor: pointer;
             height: 100%;
             display: table-cell;
-            width: 50%;
+            width: 100%;
             vertical-align: middle;
 
             &:hover {
@@ -280,4 +305,9 @@ header:before {
 .submit-wrapper {
     text-align: center;
     padding-bottom: 100px;
+}
+
+
+@media (max-width:640px) {
+    @import "640";
 }
