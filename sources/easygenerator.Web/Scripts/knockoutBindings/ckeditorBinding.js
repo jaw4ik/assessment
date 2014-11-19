@@ -61,7 +61,18 @@
             addCommandsTracking();
             addSpellCheckerForContextMenu();
 
-            editor.on('focus', function () {
+            editor.editable().on('keyup', function (e) {
+                var event = e || window.event;
+                if (!event.data.$.charCode) {
+                    checkTableButtonVisibility();
+                }
+            });
+           
+            editor.editable().on('click', function (e) {
+                checkTableButtonVisibility();
+            });
+
+            editor.on('focus', function (e) {
                 if (!isEditing())
                     isEditing(true);
 
@@ -70,6 +81,7 @@
 
                 updateToolbarPosition();
                 saveIntervalId = setInterval(saveData, autosaveInterval);
+                editor.document.on('mouseup', setData);
             });
 
             if (isEditing()) {
@@ -88,8 +100,14 @@
                 editor.fire('change');
             });
 
-            editor.on('change', function () {
+            editor.on('change', function (evt) {
                 data(editor.getData());
+                evt.cancel();
+                return;
+            });
+
+            editor.on('afterSetData', function (evt) {
+                evt.cancel();
             });
 
             // FIX for IE.
@@ -97,9 +115,14 @@
                 if (evt.data.name === 'undo' || evt.data.name === 'redo') {
                     editor.focus();
                 }
+                checkTableButtonVisibility();
             });
 
-            editor.on('paste', function () {
+            editor.on('paste', function (e) {
+                var event = e || window.event;
+                if (isElementInFocus("table") && event.data.dataValue.indexOf('<table') != -1) {
+                    event.cancel();
+                }
                 setTimeout(function () {
                     filterContent(editor.editable().$);
                 }, 100);
@@ -129,6 +152,37 @@
             $(element).removeAttr('contenteditable');
         });
 
+        function setData(){
+            setTimeout(function () {
+                data(editor.getData());
+            }, 100);
+        }
+
+        function isElementInFocus(tagName) {
+            var focusedElement = editor.getSelection().getStartElement();
+
+            while (focusedElement) {
+                if (focusedElement && focusedElement.getName() == tagName) {
+                    return true;
+                }
+                focusedElement = focusedElement.getParent();
+            }
+            return false;
+        }
+
+        function checkTableButtonVisibility() {
+            var tableButton = editor.ui.instances.Table._;
+
+            if (isElementInFocus("table")) {
+                tableButton.state = CKEDITOR.TRISTATE_DISABLED;
+                $('#' + tableButton.id).addClass('cke_button_disabled');
+            }
+            else {
+                tableButton.state = CKEDITOR.TRISTATE_OFF;
+                $('#' + tableButton.id).removeClass('cke_button_disabled');
+            }
+        }
+
         function addSpellCheckerForContextMenu() {
             var groupName = 'disabled',
                 iconPath = '/content/images/spell-checker.png',
@@ -157,6 +211,7 @@
             isEditing(false);
             if (!!blurHandler) {
                 blurHandler.call(that, viewModel);
+                editor.document.removeListener('mouseup', setData);
             }
         };
 
@@ -188,7 +243,7 @@
             editor.on('publishSemanticEvent', function (eventInfo) {
                 eventTracker.publish('Semantic tag \"' + localizationManager.localize(eventInfo.data, localizationManager.defaultCulture) + '\" applied', 'CKEditor');
             });
-            
+
             if (fillInTheBlank) {
                 editor.on(CKEDITOR.plugins.fillInTheBlank.events.addBlank, function () {
                     eventTracker.publish(events.addBlank);

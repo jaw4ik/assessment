@@ -439,18 +439,18 @@ img:hover {
     }
 
     .styled-content table {
-        display: block;
         margin: 20px auto;
         border: none;
         border-collapse: collapse;
         font-size: 16px;
-        overflow: hidden;
         color: #3c3c3c;
+        table-layout:fixed;
     }
 
     .styled-content th,
     .styled-content td {
         border: 1px dashed #ccc;
+        overflow:hidden;
     }
 
     .styled-content th {

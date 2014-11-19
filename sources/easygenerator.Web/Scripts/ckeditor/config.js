@@ -1,7 +1,7 @@
 CKEDITOR.disableAutoInline = true;
 
 CKEDITOR.editorConfig = function (config) {
-    config.skin = 'customMoono';
+    config.skin = 'moono';
 
     config.toolbar = [
         ['Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo'],
@@ -54,5 +54,11 @@ CKEDITOR.on('dialogDefinition', function (ev) {
             }
             linkTargetType['onChange'].call(this);
         };
+    }
+    else if (dialogName == 'table' || dialogName == 'tableProperties') {
+        dialogDefinition.getContents('info').remove('txtSummary');
+        dialogDefinition.getContents('info').remove('txtBorder');
+        dialogDefinition.getContents('info').remove('txtCellSpace');
+        dialogDefinition.getContents('info').remove('txtCellPad');
     }
 });
