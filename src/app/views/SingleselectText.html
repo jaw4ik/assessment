@@ -5,18 +5,14 @@
             <div class="answer-container left">
                 <div class="answer-wrapper">
                     <div class="answer" ng-click="question.checkAnswer(answer)" ng-class="{ checked: answer.checked }">
-                        <label class="radio" ng-class="{ checked: answer.checked }">
-                            {{ answer.text }}
-                        </label>
+                        <radio title="{{ answer.text }}" checked="answer.checked"></radio>
                     </div>
                 </div>
             </div>
             <div class="answer-container right">
                 <div class="answer-wrapper">
                     <div class="answer" ng-click="question.checkAnswer(question.answers[$index + 1])" ng-class="{ checked: question.answers[$index + 1].checked }">
-                        <label class="radio" ng-class="{ checked: question.answers[$index + 1].checked }">
-                            {{ question.answers[$index + 1].text }}
-                        </label>
+                        <radio title="{{ question.answers[$index + 1].text }}" checked="question.answers[$index + 1].checked"></radio>
                     </div>
                 </div>
             </div>
