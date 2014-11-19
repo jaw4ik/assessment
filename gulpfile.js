@@ -1,4 +1,5 @@
-﻿var
+/// <vs AfterBuild='analyze' />
+var
     gulp = require('gulp'),
     merge = require('merge-stream'),
 
