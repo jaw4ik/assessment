@@ -81,7 +81,7 @@
 
                 updateToolbarPosition();
                 saveIntervalId = setInterval(saveData, autosaveInterval);
-                editor.document.on('mouseup', setData);
+                $('html').bind('mouseup', setData);
             });
 
             if (isEditing()) {
@@ -211,7 +211,7 @@
             isEditing(false);
             if (!!blurHandler) {
                 blurHandler.call(that, viewModel);
-                editor.document.removeListener('mouseup', setData);
+                $('html').unbind('mouseup', setData);
             }
         };
 
