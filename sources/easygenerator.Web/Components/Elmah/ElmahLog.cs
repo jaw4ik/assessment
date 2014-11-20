@@ -9,7 +9,7 @@ namespace easygenerator.Web.Components.Elmah
     {
         public void LogException(Exception e)
         {
-            if (HttpContext.Current != null)
+            if (HttpContext.Current != null && HttpContext.Current.ApplicationInstance != null)
             {
                 ErrorSignal.FromCurrentContext().Raise(e);
             }
