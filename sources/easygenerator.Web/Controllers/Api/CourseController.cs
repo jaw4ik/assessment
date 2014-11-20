@@ -213,13 +213,18 @@ namespace easygenerator.Web.Controllers.Api
                 return HttpNotFound(Errors.TemplateNotFoundError);
             }
 
-            return Json(course.GetTemplateSettings(template), JsonRequestBehavior.AllowGet);
+            return Json(new
+            {
+                settings = course.GetTemplateSettings(template),
+                extraData = course.GetExtraDataForTemplate(template)
+            },
+                JsonRequestBehavior.AllowGet);
         }
 
         [EntityCollaborator(typeof(Course))]
         [ActionName("TemplateSettings"), HttpPost]
         [Route("api/course/{courseId}/template/{templateId}")]
-        public ActionResult SaveTemplateSettings(Course course, Template template, string settings)
+        public ActionResult SaveTemplateSettings(Course course, Template template, string settings, string extraData)
         {
             if (course == null)
             {
@@ -231,8 +236,8 @@ namespace easygenerator.Web.Controllers.Api
                 return HttpNotFound(Errors.TemplateNotFoundError);
             }
 
-            course.SaveTemplateSettings(template, settings);
-
+            course.SaveTemplateSettings(template, settings, extraData);
+            
             return Json(true);
         }
 

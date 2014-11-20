@@ -108,8 +108,8 @@
                         calculateHeight($iframe, ++counter);
                     }, 10);
                     return;
-                }
-                $iframe.height(iframeDocumentHeight + 10); //Add padding to avoid scroll
+        }
+                $iframe.height(iframeDocumentHeight + 950); //Add padding to avoid scroll
                 viewModel.settingsVisibility(true);
             }
         }

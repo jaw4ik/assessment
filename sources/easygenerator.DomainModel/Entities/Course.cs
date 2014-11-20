@@ -310,6 +310,7 @@ namespace easygenerator.DomainModel.Entities
             public virtual Course Course { get; set; }
             public virtual Template Template { get; set; }
             public string Settings { get; set; }
+            public string ExtraData { get; set; }
         }
 
         protected internal virtual ICollection<CourseTemplateSettings> TemplateSettings { get; set; }
@@ -322,7 +323,15 @@ namespace easygenerator.DomainModel.Entities
             return templateSettings != null ? templateSettings.Settings : null;
         }
 
-        public virtual void SaveTemplateSettings(Template template, string settings)
+        public virtual string GetExtraDataForTemplate(Template template)
+        {
+            ThrowIfTemplateIsInvaid(template);
+
+            var templateSettings = TemplateSettings.SingleOrDefault(e => e.Template == template);
+            return templateSettings != null ? templateSettings.ExtraData : null;
+        }
+
+        public virtual void SaveTemplateSettings(Template template, string settings, string extraData)
         {
             ThrowIfTemplateIsInvaid(template);
 
@@ -330,6 +339,7 @@ namespace easygenerator.DomainModel.Entities
             if (existingSettings != null)
             {
                 existingSettings.Settings = settings;
+                existingSettings.ExtraData = extraData;
                 return;
             }
 
@@ -337,10 +347,11 @@ namespace easygenerator.DomainModel.Entities
             {
                 Course = this,
                 Template = template,
-                Settings = settings
+                Settings = settings,
+                ExtraData = extraData
             });
         }
-
+        
         #endregion
 
         #region Aim4You integration

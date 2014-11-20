@@ -256,6 +256,12 @@
                 </div>
                 <div class="content-wrapper translations">
                     <div class="content-row top-row">
+                        <label for="selectedLanguage" class="content-label">Language</label>
+                        <div class="select-language">
+                            <div id="selectedLanguage" data-bind="dropdown: { options: languages, value: selectedLanguage, optionsValue: 'key', optionsText: 'name' }"></div>
+                        </div>
+                    </div>
+                    <div class="content-row">
                         <table>
                             <thead>
                                 <tr>
@@ -269,8 +275,13 @@
                                     <td data-bind="text: key"></td>
                                     <td>
                                         <div class="input-wrapper">
+                                            <!-- ko if: $parent.isCustom() -->
                                             <input data-bind="value: value" />
                                             <div class="edit-icon"></div>
+                                            <!-- /ko -->
+                                            <!-- ko ifnot: $parent.isCustom() -->
+                                            <span data-bind="text: value"></span>
+                                            <!-- /ko -->
                                         </div>
                                     </td>
                                 </tr>

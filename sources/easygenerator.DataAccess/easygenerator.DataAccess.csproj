@@ -214,6 +214,10 @@
     <Compile Include="Migrations\201410131412305_AddHotSpot.Designer.cs">
       <DependentUpon>201410131412305_AddHotSpot.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411141225118_AddExtraDataColumnToCourseTemplateSettings.cs" />
+    <Compile Include="Migrations\201411141225118_AddExtraDataColumnToCourseTemplateSettings.Designer.cs">
+      <DependentUpon>201411141225118_AddExtraDataColumnToCourseTemplateSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -363,6 +367,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410131412305_AddHotSpot.resx">
       <DependentUpon>201410131412305_AddHotSpot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411141225118_AddExtraDataColumnToCourseTemplateSettings.resx">
+      <DependentUpon>201411141225118_AddExtraDataColumnToCourseTemplateSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

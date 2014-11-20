@@ -212,7 +212,6 @@ body:before {
 /*#region sub navigation partial*/
 
 .navigation-home-link-block {
-    height: 59px;
     background: #1d1e1f;
     border: 2px solid #4a494a;
     border-left: 0;
@@ -241,8 +240,8 @@ body:before {
 }
 
 .navigation-home-link-arrow {
-    height: 36px;
-    width: 37px;
+    height: 40px;
+    width: 40px;
     left: -2px;
     background-color: #1d1e1f;
     border: 2px solid #4a494a;

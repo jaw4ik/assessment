@@ -580,19 +580,21 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void GetTemplateSettings_ShouldReturnJsonResultWithTemplateSettings()
+        public void GetTemplateSettings_ShouldReturnJsonResultWithTemplateSettingsAndExtraData()
         {
             //Arrange
             const string settings = "settings";
+            const string extraData = "settings";
             var course = Substitute.For<Course>();
             var template = Substitute.For<Template>();
             course.GetTemplateSettings(template).Returns(settings);
+            course.GetExtraDataForTemplate(template).Returns(extraData);
 
             //Act
             var result = _controller.GetTemplateSettings(course, template);
 
             //Assert
-            result.Should().BeJsonResult().And.Data.Should().Be(settings);
+            result.Should().BeJsonResult().And.Data.ShouldBeSimilar(new { settings = settings, extraData = extraData });
         }
 
         [TestMethod]
@@ -620,7 +622,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
 
             //Act
-            var result = _controller.SaveTemplateSettings(null, Substitute.For<Template>(), null);
+            var result = _controller.SaveTemplateSettings(null, Substitute.For<Template>(), null, null);
 
             //Assert
             result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
@@ -633,7 +635,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
 
             //Act
-            var result = _controller.SaveTemplateSettings(Substitute.For<Course>(), null, null);
+            var result = _controller.SaveTemplateSettings(Substitute.For<Course>(), null, null, null);
 
             //Assert
             result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.TemplateNotFoundError);
@@ -646,12 +648,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var course = Substitute.For<Course>();
             var template = Substitute.For<Template>();
             const string settings = "settings";
+            const string extraData = "extra data";
 
             //Act
-            _controller.SaveTemplateSettings(course, template, settings);
+            _controller.SaveTemplateSettings(course, template, settings, extraData);
 
             //Assert
-            course.Received().SaveTemplateSettings(template, settings);
+            course.Received().SaveTemplateSettings(template, settings, extraData);
 
         }
 
@@ -662,9 +665,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var course = Substitute.For<Course>();
             var template = Substitute.For<Template>();
             const string settings = "settings";
+            const string extraData = "extra data";
 
             //Act
-            var result = _controller.SaveTemplateSettings(course, template, settings);
+            var result = _controller.SaveTemplateSettings(course, template, settings, extraData);
 
             //Assert
             result.Should().BeJsonResult().And.Data.Should().Be(true);

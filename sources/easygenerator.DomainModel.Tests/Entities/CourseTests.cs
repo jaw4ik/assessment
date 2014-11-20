@@ -1390,7 +1390,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
-
+        
 
         #region GetTemplateSettings
 
@@ -1430,7 +1430,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string json = "{ url: \"http://google.com\"";
             course.TemplateSettings = new List<Course.CourseTemplateSettings>()
             {
-                CourseTemplateSettingsObjectMother.Create(course, template, json)
+                CourseTemplateSettingsObjectMother.Create(course, template, json, "")
             };
 
             //Act
@@ -1438,6 +1438,56 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Assert
             settings.Should().Be(json);
+        }
+
+        #endregion
+
+        #region GetExtraDataForTemplate
+
+        [TestMethod]
+        public void GetExtraDataForTemplate_ShouldThrowArgumentNullException_WhenTemplateIsNull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            Action action = () => course.GetExtraDataForTemplate(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("template");
+        }
+
+        [TestMethod]
+        public void GetExtraDataForTemplate_ShouldReturnNull_WhenThereAreNoExtraDataForCurrentTemplate()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.TemplateSettings = new List<Course.CourseTemplateSettings>();
+
+            //Act
+            var settings = course.GetExtraDataForTemplate(TemplateObjectMother.Create());
+
+            //Assert
+            settings.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void GetExtraDataForTemplate_ShouldReturnExtraData()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            const string extraData = "some extra data";
+            course.TemplateSettings = new List<Course.CourseTemplateSettings>()
+            {
+                CourseTemplateSettingsObjectMother.Create(course, template, "", extraData)
+            };
+
+            //Act
+            var data = course.GetExtraDataForTemplate(template);
+
+            //Assert
+            data.Should().Be(extraData);
         }
 
         #endregion
@@ -1451,7 +1501,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create();
 
             //Act
-            Action action = () => course.SaveTemplateSettings(null, null);
+            Action action = () => course.SaveTemplateSettings(null, null, null);
 
             //Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("template");
@@ -1464,17 +1514,19 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create();
             var template = TemplateObjectMother.Create();
             const string settings = "settings";
+            const string extraData = "extra data";
             course.TemplateSettings = new Collection<Course.CourseTemplateSettings>()
             {
-                CourseTemplateSettingsObjectMother.Create(course, template, "previous settings")
+                CourseTemplateSettingsObjectMother.Create(course, template, "previous settings", "previous extra data")
             };
 
             //Act
-            course.SaveTemplateSettings(template, settings);
+            course.SaveTemplateSettings(template, settings, extraData);
 
             //Assert
             course.TemplateSettings.Count.Should().Be(1);
             course.TemplateSettings.First().Settings.Should().Be(settings);
+            course.TemplateSettings.First().ExtraData.Should().Be(extraData);
         }
 
         [TestMethod]
@@ -1484,16 +1536,18 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create();
             var template = TemplateObjectMother.Create();
             const string settings = "settings";
+            const string extraData = "extra data";
             course.TemplateSettings = new Collection<Course.CourseTemplateSettings>();
 
             //Act
-            course.SaveTemplateSettings(template, settings);
+            course.SaveTemplateSettings(template, settings, extraData);
 
             //Assert
             course.TemplateSettings.Count.Should().Be(1);
             course.TemplateSettings.First().Course.Should().Be(course);
             course.TemplateSettings.First().Template.Should().Be(template);
             course.TemplateSettings.First().Settings.Should().Be(settings);
+            course.TemplateSettings.First().ExtraData.Should().Be(extraData);
         }
 
         #endregion

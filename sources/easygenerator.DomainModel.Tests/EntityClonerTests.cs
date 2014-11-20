@@ -206,7 +206,7 @@ namespace easygenerator.DomainModel.Tests
         {
             var course = CourseObjectMother.Create();
             var template = TemplateObjectMother.Create();
-            var courseTemplateSettings = CourseTemplateSettingsObjectMother.Create(course, template, "settings");
+            var courseTemplateSettings = CourseTemplateSettingsObjectMother.Create(course, template, "settings", "extra data");
 
             var clonedSettings = _cloner.Clone(courseTemplateSettings, "owner");
 
