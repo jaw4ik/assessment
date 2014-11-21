@@ -119,6 +119,7 @@
     <Compile Include="Controllers\PublishController.cs" />
     <Compile Include="Extensions\DependencyResolverExtensions.cs" />
     <Compile Include="Extensions\StaticFileOptionsExtensions.cs" />
+    <Compile Include="PublicationFileServer.cs" />
     <Compile Include="PublicationServerStartup.cs" />
     <Compile Include="Publish\CoursePublisher.cs" />
     <Compile Include="ElmahLog.cs" />

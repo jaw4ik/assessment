@@ -22,7 +22,7 @@ namespace easygenerator.PublicationServer
 
             #region [ Files server configuration ]
 
-            StaticFilesConfiguration.Configure(appBuilder);
+            StaticFilesConfiguration.Configure(config, appBuilder);
 
             #endregion
 

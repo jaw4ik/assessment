@@ -266,40 +266,6 @@ namespace easygenerator.Web.Tests.BuildCourse
 
         #endregion
 
-        #region GetPublishFolderPath
-
-        [TestMethod]
-        public void GetPublishFolderPath_ShouldReturnCoursePublishFolder()
-        {
-            //Arrange
-            var courseId = "courseId";
-
-            //Act
-            var result = _buildPathProvider.GetPublishFolderPath(courseId);
-
-            //Assert
-            result.Should().Be(PublishPath + "\\courseId");
-        }
-
-        #endregion
-
-        #region GetPublishedResourcePath
-
-        [TestMethod]
-        public void GetPublishedResourcePath_ShouldReturnPublishedResource()
-        {
-            //Arrange
-            var resource = "resource";
-
-            //Act
-            var result = _buildPathProvider.GetPublishedResourcePath(resource);
-
-            //Assert
-            result.Should().Be(PublishPath + "\\resource");
-        }
-
-        #endregion
-
         #region GetBuildedPackagePath
 
         [TestMethod]
