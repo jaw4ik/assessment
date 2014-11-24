@@ -338,21 +338,26 @@ header:before {
   text-align: center;
   padding-bottom: 100px;
 }
-@media (max-width: 640px) {
-  .question .single-select-text {
+@media (max-width: 1023px) {
+  .question .single-select-text,
+  .question .statements {
     margin-left: 0;
   }
-  .question .single-select-text .answer-pair {
+  .question .single-select-text .answer-pair,
+  .question .statements .answer-pair {
     display: block;
   }
-  .question .single-select-text .answer-container {
+  .question .single-select-text .answer-container,
+  .question .statements .answer-container {
     display: block;
     width: 100%;
   }
-  .question .single-select-text .answer-container.left {
+  .question .single-select-text .answer-container.left,
+  .question .statements .answer-container.left {
     padding-right: 0;
   }
-  .question .single-select-text .answer-container.right {
+  .question .single-select-text .answer-container.right,
+  .question .statements .answer-container.right {
     padding-left: 0;
   }
 }
