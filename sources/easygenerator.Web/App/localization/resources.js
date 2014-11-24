@@ -166,8 +166,11 @@
     getPrivateLink: {
         en: 'Get private link'
     },
-    update: {
-        en: 'update'
+    updating: {
+        en: 'updating'
+    },
+    updateCourseDescription: {
+        en: 'Apply the latest changes to the published course by clicking this button'
     },
     /* End resource section for model General */
     
@@ -1067,7 +1070,7 @@
         en: 'Add co-author'
     },
     inviteByEmailAddress: {
-        en: 'Invite by email ...'
+        en: 'Invite users by email ...'
     },
     addPeopleForCollaboration: {
         en: 'Add co-authors'

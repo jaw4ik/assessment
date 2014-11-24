@@ -1281,7 +1281,7 @@ span.top-navigation-item.current {
     min-width: 100px;
     margin: 0;
     border: 1px solid transparent;
-    border-radius: 5px;
+    border-radius: 4px;
     font-family: 'OpenSans-Semibold';
     -webkit-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);

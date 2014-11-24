@@ -231,7 +231,7 @@
     width: 100px;
     background-color: #fff;
     box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.5);
-    border-radius: 3px;
+    border-radius: 4px;
     position: absolute;
     z-index: 10000;
 }
@@ -239,31 +239,33 @@
 .modal-dialog-header {
     background-color: #fff;
     border-bottom: 1px solid #DEDEDE;
-    height: 47px;
+    height: 60px;
     text-align: center;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
     vertical-align: middle;
     cursor: default;
 }
 
 .modal-dialog-header-text {
     display: inline-block;
-    line-height: 47px;
+    line-height: 60px;
     color: #464d5d;
-    font-family: 'OpenSans', sans-serif;
-    font-size: 16px;
+    font-family: 'OpenSans-Semibold', sans-serif;
+    font-size: 20px;
 }
 
 .modal-dialog-content {
     background-color: #fdfdfd;
-    margin: 10px 15px;
+    padding: 15px 20px 20px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
 
 .modal-dialog-form-input-holder {
     position: relative;
     padding: 0 10px 0 45px;
-    height: 34px;
+    height: 40px;
 }
 
 .modal-dialog-form-input-separator:before {
@@ -277,15 +279,15 @@
 .modal-dialog-form-input-separator {
     display: block;
     position: absolute;
-    width: 25px;
-    height: 25px;
-    top: 7px;
-    left: 12px;
+    width: 34px;
+    top: 1px;
+    bottom: 1px;
+    left: 0;
 }
 
 .modal-dialog-form-input-wrapper {
     width: 100%;
-    height: 34px;
+    height: 100%;
     position: absolute;
     left: 0;
     display: inline-block;
@@ -331,14 +333,15 @@
 .modal-dialog-form-input {
     display: block;
     position: relative;
-    height: 24px;
+    height: 100%;
     width: 100%;
-    top: 5px;
+    top: 0;
     left: 0;
     right: 40px;
     border: none;
+    background-color: transparent;
     color: #333;
-    font-size: 12px;
+    font-size: 13px;
     font-family: 'OpenSans';
 }
 
@@ -392,69 +395,68 @@
 /*#region ADD COLLABORATOR MODAL DIALOG*/
 
 .add-collaborator.modal-dialog-wrapper {
-    width: 335px;
-    height: 175px;
-    right: 37px;
-    top: -7px;
+    width: 345px;
+    right: 44px;
+    top: -9px;
 }
 
 .add-collaborator:after, .remove-collaborator:after {
     content: '';
-    display: block;
-    height: 1px;
-    width: 1px;
     position: absolute;
-    right: -12px;
-    top: 18px;
+    display: block;
+    height: 0;
+    width: 0;
+    right: -8px;
+    top: 17px;
     border: 8px solid transparent;
-    border-bottom: 8px solid #EAEAEA;
-    border-top-width: 0;
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
+    border-left: 8px solid #fff;
+    border-right-width: 0;
 }
 
 .add-collaborator .action-item-btn-wrapper {
-    padding-top: 24px;
+    padding-top: 20px;
     font: 13px 'OpenSans-Semibold';
     text-align: center;
-    text-transform: uppercase;
 }
 
 .add-collaborator .modal-dialog-form-input-separator {
     border-right: 1px solid #d9dadb;
-    height: 20px;
 }
 
     .add-collaborator .modal-dialog-form-input-separator:before {
-        top: 2px;
-        width: 16px;
+        top: 50%;
+        left: 50%;
+        width: 18px;
         height: 16px;
-        padding-right: 7px;
+        margin-top: -8px;
+        margin-left: -7px;
         background-image: url(data:image/png;base64,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);
         background-repeat: no-repeat;
     }
 
 .remove-collaborator.modal-dialog-wrapper {
     height: auto;
-    width: 328px;
-    top: -7px;
-    right: 42px;
+    width: 345px;
+    top: -9px;
+    right: 44px;
 }
 
 .modal-dialog-message {
-    padding: 0 15px;
+    padding: 20px 15px;
     text-align: center;
     color: #555555;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .modal-dialog-user-info {
-    padding-top: 15px;
     text-align: center;
     color: #999999;
     font-size: 12px;
+}
+
+.modal-dialog-message,
+.modal-dialog-user-info {
+    background-color: #fdfdfd;
 }
 
 .modal-dialog-user-name {
@@ -463,25 +465,23 @@
 }
 
 .remove-collaborator .modal-dialog-header-text {
-    font: 20px 'OpenSans-Semibold';
-    line-height: 44px;
     color: #e85e5d;
 }
 
 .remove-collaborator .action-item-btn-wrapper {
-    padding-top: 10px;
+    padding: 20px 30px;
 }
 
 .remove-collaborator .dialog-cancel-btn {
     float: left;
     padding: 11px 45px;
-    font-size: 12px;
+    font-size: 13px;
     border: 1px solid #cacaca;
     border-radius: 3px;
     color: #777;
 }
 
-.remove-collaborator .dialog-cancel-btn:hover {
+    .remove-collaborator .dialog-cancel-btn:hover {
         border-color: #999;
         color: #333;
     }
@@ -508,7 +508,8 @@
     }
 
 .remove-collaborator .modal-dialog-content {
-    margin: 15px 20px 10px;
+    padding: 0;
+    background-color: inherit;
 }
 
 .remove-collaborator .course-collaborator-item-user-avatar {
