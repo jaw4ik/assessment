@@ -376,8 +376,6 @@ body {
 }
 
 .incorrect .result-text {
-    display: inline-block;
-    height: 30px;
     padding-left: 40px;
 }
 
