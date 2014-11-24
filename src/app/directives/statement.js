@@ -16,23 +16,28 @@
     function statementItem() {
         return {
             restrict: 'A',
+            scope: {
+                question: '=',
+                statement: '='
+            },
             templateUrl: 'views/statementItem.html',
             link: link
         };
     }
 
-    function link(scope, element, attrs) {
+    function link(scope, element) {
         var $element = $(element);
+        var $statementItem = $('.statement-item', $element);
         $('.statement-button.true', $element).hover(function () {
-            $element.removeClass('false').addClass("true");
+            $statementItem.removeClass('hover-false').addClass('hover-true');
         }, function () {
-            $element.removeClass("true");
+            $statementItem.removeClass('hover-true');
         });
 
         $('.statement-button.false', $element).hover(function () {
-            $element.removeClass('true').addClass("false");
+            $statementItem.removeClass('hover-true').addClass('hover-false');
         }, function () {
-            $element.removeClass("false");
+            $statementItem.removeClass('hover-false');
         });
     }
 
