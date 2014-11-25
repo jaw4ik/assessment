@@ -34,11 +34,16 @@
                             if (dtq) {
                                 var question;
 
+                                console.log(dtq.type);
                                 if (dtq.type === 'singleSelectText') {
                                     question = new SinglselectText(dtq.title, dtq.answers);
                                 }
                                 if (dtq.type === 'statement') {
                                     question = new Statement(dtq.title, dtq.answers);
+                                }
+
+                                if (dtq.type === 'dragAndDropText') {
+                                    question = new DragAndDropText(dtq.id, dtq.title, dtq.background, dtq.dropspots);
                                 }
 
                                 if (question) {
@@ -113,6 +118,44 @@
         that.setFalseState = function (statement) {
             statement.state = statement.state === false ? undefined : false;
         };
+    }
+
+
+    function DragAndDropText(id, title, background, dropspots) {
+        var that = this;
+        that.id = id;
+        that.title = title;
+        that.background = background;
+
+        that.texts = dropspots.map(function (dropspot) {
+            return dropspot.text;
+        });
+        that.texts.acceptValue = function (value) {
+            that.texts.push(value);
+        };
+        that.texts.rejectValue = function (value) {
+            var index = that.texts.indexOf(value);
+            that.texts.splice(index, 1);
+
+        };
+
+        that.spots = dropspots.map(function (dropspot) {
+            var spot = {
+                x: dropspot.x,
+                y: dropspot.y,
+                value: undefined,
+                acceptValue: function (value) {
+                    spot.value = value;
+                },
+                rejectValue: function () {
+                    spot.value = null;
+                }
+
+            };
+
+            return spot;
+        });
+
     }
 
 }());

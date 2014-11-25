@@ -108,10 +108,10 @@
     "TermSemicolons": true
   },
   "Less": {
-    "CompileOnBuild": false,
+    "CompileOnBuild": true,
     "CompileOnSave": true,
     "EnableChainCompilation": true,
-    "GenerateSourceMaps": true,
+    "GenerateSourceMaps": false,
     "MinifyInPlace": false,
     "OutputDirectory": null,
     "ProcessSourceMapsForEditorEnhancements": true,
