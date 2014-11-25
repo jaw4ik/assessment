@@ -12,7 +12,7 @@
                 accept: '=',
                 scope: '='
             },
-            link: function ($scope, element, atts) {
+            link: function ($scope, element) {
                 $(element).droppable({
                     accept: function (arg) {
                         if ($(element).find(arg).length) {
@@ -27,21 +27,19 @@
                     hoverClass: 'hover',
                     scope: $scope.scope || 'default',
                     tolerance: 'pointer',
-                    drop: function (event, ui) {                        
+                    drop: function (event, ui) {
                         ui.draggable.trigger('dragstop');
                         $(element).removeClass('hover active');
 
                         var draggable = ui.draggable.isolateScope();
                         var previous = $(ui.draggable).closest('[droppable]').isolateScope();
 
-                        if (previous == $scope) {
+                        if (previous === $scope) {
                             return;
                         }
 
-
                         $scope.acceptValue(draggable.value);
                         $scope.$apply();
-
 
                         if (previous && previous.rejectValue) {
                             previous.rejectValue(draggable.value);
@@ -51,7 +49,7 @@
                     }
                 });
             }
-        }
+        };
     }
 
 }());

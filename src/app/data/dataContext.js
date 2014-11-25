@@ -124,7 +124,6 @@
         };
     }
 
-
     function DragAndDropText(id, title, background, dropspots) {
         var that = this;
         that.id = id;

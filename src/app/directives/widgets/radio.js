@@ -12,7 +12,7 @@
             replace: true,
             restrict: 'E',
             template: '<label class="radio" ng-class="{ checked: checked }">{{title}}</label>'
-        }
+        };
     }
 
 }());
