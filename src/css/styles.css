@@ -98,6 +98,9 @@ body {
 body {
   font-family: 'RobotoslabLight';
 }
+button {
+  outline: 0;
+}
 .container {
   margin: 0 auto;
   max-width: 1024px;
@@ -147,16 +150,10 @@ header:before {
   padding-right: 10px;
   text-align: justify;
 }
-.question .single-select-text {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  margin-left: 60px;
-}
-.question .single-select-text .answers {
+.question .answers {
   width: 100%;
 }
-.question .single-select-text .answer-pair {
+.question .answer-pair {
   border-collapse: separate;
   border-spacing: 0;
   display: table;
@@ -164,39 +161,47 @@ header:before {
   table-layout: fixed;
   width: 100%;
 }
-.question .single-select-text .answer-container {
+.question .answer-container {
   display: table-cell;
   height: 100%;
   vertical-align: top;
   width: 50%;
   padding-bottom: 20px;
 }
-.question .single-select-text .answer-container.left {
+.question .answer-container:first-child {
   padding-right: 10px;
 }
-.question .single-select-text .answer-container.right {
+.question .answer-container:last-child {
   padding-left: 10px;
 }
-.question .single-select-text .answer-wrapper {
+.question .answer-wrapper {
   display: table;
   height: 100%;
   width: 100%;
+}
+.question .answer {
+  height: 100%;
+  display: table-cell;
+  width: 100%;
+  vertical-align: middle;
+}
+.question .single-select-text {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-left: 60px;
 }
 .question .single-select-text .answer {
   background-color: rgba(200, 209, 215, 0.2);
   border: 1px solid rgba(200, 209, 215, 0.2);
   border-radius: 5px;
   cursor: pointer;
-  height: 100%;
-  display: table-cell;
-  width: 100%;
-  vertical-align: middle;
 }
-.question .single-select-text .answer:hover {
+.question .single-select-text:hover {
   border-color: #cce9dc;
   box-shadow: inset 0 0 15px 0 #e7f7f0;
 }
-.question .single-select-text .answer.checked {
+.question .single-select-text.checked {
   background-color: rgba(136, 216, 181, 0.2);
   border-color: rgba(136, 216, 181, 0.2);
 }
@@ -204,31 +209,41 @@ header:before {
   margin-left: 60px;
 }
 .question .statements .statement-item {
-  float: left;
-  width: 430px;
-  margin: 20px 20px 0 0;
-  padding: 30px 20px 15px;
   border-radius: 8px;
   border-bottom: 1px solid #d1d8dc;
   background: #f9f9f9;
+  vertical-align: top;
+  transition: background 0.2s ease-out 0s, box-shadow 0.2s ease-out 0s;
+  position: relative;
 }
 .question .statements .statement-item.true {
-  box-shadow: inset 0px 0px 50px 30px #e7f7f0;
+  background: #e7f7f0;
 }
 .question .statements .statement-item.false {
-  box-shadow: inset 0px 0px 50px 30px #fceaea;
+  background: #fceaea;
 }
-.question .statements .statement-item:last-child {
-  margin-right: 0;
+.question .statements .statement-item.hover-true {
+  box-shadow: inset 0px 0px 50px 30px #e7f7f0;
+  background: #f9f9f9;
+}
+.question .statements .statement-item.hover-false {
+  box-shadow: inset 0px 0px 50px 30px #fceaea;
+  background: #f9f9f9;
 }
 .question .statements .statement-item .title {
   color: #3a4046;
   font-size: 16px;
   font-family: 'RobotoslabRegular';
+  padding: 30px 20px 108px;
   line-height: 28px;
-  margin-bottom: 28px;
 }
-.question .statements .statement-item .statement-buttons-hodler {
+.question .statements .statement-item .statement-buttons-container {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 20px;
+  left: 0;
+  right: 0;
   text-align: center;
 }
 .question .statements .statement-item .statement-button {
@@ -486,21 +501,26 @@ header:before {
 [draggable] {
   cursor: move;
 }
-@media (max-width: 640px) {
-  .question .single-select-text {
+@media (max-width: 1023px) {
+  .question .single-select-text,
+  .question .statements {
     margin-left: 0;
   }
-  .question .single-select-text .answer-pair {
+  .question .single-select-text .answer-pair,
+  .question .statements .answer-pair {
     display: block;
   }
-  .question .single-select-text .answer-container {
+  .question .single-select-text .answer-container,
+  .question .statements .answer-container {
     display: block;
     width: 100%;
   }
-  .question .single-select-text .answer-container.left {
+  .question .single-select-text .answer-container.left,
+  .question .statements .answer-container.left {
     padding-right: 0;
   }
-  .question .single-select-text .answer-container.right {
+  .question .single-select-text .answer-container.right,
+  .question .statements .answer-container.right {
     padding-left: 0;
   }
 }

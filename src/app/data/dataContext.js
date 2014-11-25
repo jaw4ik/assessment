@@ -42,6 +42,10 @@
                                     question = new Statement(dtq.title, dtq.answers);
                                 }
 
+                                if (dtq.type === 'singleSelectImage') {
+                                    question = new SingleSelectImage(dtq.title, dtq.answers);
+                                }
+
                                 if (dtq.type === 'dragAndDropText') {
                                     question = new DragAndDropText(dtq.id, dtq.title, dtq.background, dtq.dropspots);
                                 }
@@ -156,6 +160,24 @@
             return spot;
         });
 
+    }
+
+    function SingleSelectImage(title, options) {
+        var that = this;
+        that.title = title;
+
+        that.answers = options.map(function (option) {
+            return {
+                image: option.image,
+                checked: false
+            };
+        });
+        that.checkAnswer = function (answer) {
+            that.answers.forEach(function (item) {
+                item.checked = false;
+            });
+            answer.checked = true;
+        };
     }
 
 }());
