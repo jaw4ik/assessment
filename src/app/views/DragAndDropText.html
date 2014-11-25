@@ -1,15 +1,15 @@
-﻿<div>
+﻿<section class="drag-and-drop-text">
 
+    <tooltip>Drag items on markers</tooltip>
 
     <div droppable accept-value="question.texts.acceptValue" reject-value="question.texts.rejectValue" scope="question.id" class="draggables" ng-class="{ empty: question.texts.length === 0 }">
-        <div ng-if="question.texts.length > 0">
+        <div class="clearfix" ng-if="question.texts.length > 0">
             <div ng-repeat="text in question.texts" class="draggable-wrapper">
                 <div class="draggable" draggable value="text" scope="question.id">
                     <div class="draggable-text">{{ text }}</div>
                 </div>
 
             </div>
-            <div style="clear: both;"></div>
         </div>
         <div ng-if="question.texts.length === 0">
             All texts are placed
@@ -33,4 +33,5 @@
 
         </div>
     </div>
-</div>
+
+</section>

@@ -4,6 +4,32 @@
     box-sizing: border-box;
 }
 
+.before-image(@url, @top, @left,@width, @height) {
+    background-image: @url;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: absolute;
+    left: @left;
+    top: @top;
+    content: "";
+    display: block;
+    width: @width;
+    height: @height;
+}
+
+.text-overflow-with-dots() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.unselectable() {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 ul {
     &.unstyled {
         list-style: none;

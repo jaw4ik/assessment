@@ -13,7 +13,7 @@
             link: function ($scope, element) {
                 $(element).draggable({
                     containment: 'body',
-                    appendTo: 'body',
+                    appendTo: $(element).closest('section'),
                     helper: 'clone',
                     scope: $scope.scope || 'default',
                     tolerance: 'pointer',
