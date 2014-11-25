@@ -34,6 +34,9 @@
             viewModel.frameWidth = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.width.name)) ? constants.frameSize.width.value : clientContext.get(constants.frameSize.width.name));
             viewModel.frameHeight = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.height.name)) ? constants.frameSize.height.value : clientContext.get(constants.frameSize.height.name));
             viewModel.embedCode = ko.observable();
+            viewModel.validateFrameWidth = validateFrameWidth;
+            viewModel.validateFrameHeight = validateFrameHeight;
+
 
             viewModel.linkCopied = ko.observable(false);
             viewModel.copyLinkToClipboard = copyLinkToClipboard;
@@ -51,12 +54,6 @@
 
             viewModel.embedCode = ko.computed({
                 read: function () {
-                    if (!viewModel.frameWidth() || viewModel.frameWidth() == 0) {
-                        viewModel.frameWidth(constants.frameSize.width.value);
-                    }
-                    if (!viewModel.frameHeight() || viewModel.frameHeight() == 0) {
-                        viewModel.frameHeight(constants.frameSize.height.value);
-                    }
                     clientContext.set(constants.frameSize.width.name, viewModel.frameWidth());
                     clientContext.set(constants.frameSize.height.name, viewModel.frameHeight());
                     return constants.embedCode.replace('{W}', viewModel.frameWidth()).replace('{H}', viewModel.frameHeight()).replace('{src}', viewModel.packageUrl());
@@ -65,6 +62,18 @@
             });
 
             return viewModel;
+
+            function validateFrameWidth() {
+                if (!viewModel.frameWidth() || viewModel.frameWidth() == 0) {
+                    viewModel.frameWidth(constants.frameSize.width.value);
+                }
+            }
+
+            function validateFrameHeight() {
+                if (!viewModel.frameHeight() || viewModel.frameHeight() == 0) {
+                    viewModel.frameHeight(constants.frameSize.height.value);
+                }
+            }
 
             function copyLinkToClipboard() {
                 eventTracker.publish(events.copyPublishLink, viewModel.eventCategory);

@@ -495,6 +495,10 @@
     color: #444;
 }
 
+.package-action-item.publish-course .package-action-header {
+    padding: 17px 11px;
+}
+
     .package-action-header:before {
         position: absolute;
         left: 50%;
@@ -533,7 +537,7 @@
     }
 
 .package-action-item.light-green .package-action-header {
-    background: #c8eaba;
+    background: #c8e9ba;
     color: #488e49;
 }
 
@@ -981,6 +985,10 @@
 .package-action-tabs-container {
     padding-top: 30px;
     color: #555;
+}
+
+.package-action-item.publish-course .package-action-tabs-container {
+    padding-top: 20px;
 }
 
 .package-action-tabs {
@@ -1467,18 +1475,18 @@ li.package-action-tabs-link {
     padding-top: 15px;
 }
 
-.modal-dialog-wrapper.publish-course .package-action-item .package-action-tabs-item,
-.modal-dialog-wrapper.publish-course .package-action-item .package-action-update-course-container,
-.modal-dialog-wrapper.publish-course .package-action-item .package-action-tabs-item-overlay {
-    background-color: #fdfdfd;
-}
-
 .modal-dialog-wrapper.publish-course .package-action-item.light-green.package-action-item.light-green .package-action-header:before,
 .modal-dialog-wrapper.publish-course .package-action-item.light-green.package-action-item.light-green .package-action-header:after {
     display: none;
 }
 
-/*#endregion SHARE COURSE POPUP*/
+.package-action-item.publish-course .package-action-tabs-item,
+.package-action-item.publish-course .package-action-update-course-container,
+.package-action-item.publish-course .package-action-tabs-item-overlay {
+    background-color: #fdfdfd;
+}
+
+/*#endregion SHARE COURSE DIALOG*/
 
 /*#region RESULTS TAB*/
 .module-results .navigation {

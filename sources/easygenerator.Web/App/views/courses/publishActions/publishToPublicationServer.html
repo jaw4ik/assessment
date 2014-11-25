@@ -1,5 +1,5 @@
-﻿<div class="package-action-item light-green">
-    <div class="package-action-header ">
+﻿<div class="package-action-item light-green publish-course">
+    <div class="package-action-header">
         <h5 class="package-action-title" data-bind="localize: { text: 'publishCourse' }"></h5>
     </div>
     <div class="package-action-body">
@@ -46,16 +46,15 @@
                     <span class="proportions-title" data-bind="localize: { text: 'frameSize' }"></span>
                     <span class="proportions-value-container">
                         <span class="proportions-text" data-bind="localize: { text: 'croppedWidth' }"></span>
-                        <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: publishAction().frameWidth, valueUpdate: ['afterkeydown', 'input']" />
+                        <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: publishAction().frameWidth, valueUpdate: ['afterkeydown', 'input'], event: { blur: publishAction().validateFrameWidth }" />
                     </span>
                     <span class="proportions-value-container">
                         <span class="proportions-text" data-bind="localize: { text: 'croppedHeight' }"></span>
-                        <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: publishAction().frameHeight, valueUpdate: ['afterkeydown', 'input']" />
+                        <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: publishAction().frameHeight, valueUpdate: ['afterkeydown', 'input'], event: { blur: publishAction().validateFrameHeight }" />
                     </span>
                     <span class="propotions-size-unit" data-bind="localize: { text: 'croppedPixels' }"></span>
                 </div>
                 <!-- /ko -->
-
             </div>
             <div class="package-action-tabs-item-seperate-line"></div>
             <!-- /ko -->

@@ -1,6 +1,6 @@
 ﻿define(['viewmodels/courses/publishingActions/publish', 'viewmodels/courses/publishingActions/publishingAction', 'models/course',
-    'constants', 'durandal/app', 'notify', 'eventTracker', 'plugins/router'],
-    function (publish, publishingAction, Course, constants, app, notify, eventTracker, router) {
+    'constants', 'durandal/app', 'notify', 'eventTracker', 'plugins/router', 'clientContext'],
+    function (publish, publishingAction, Course, constants, app, notify, eventTracker, router, clientContext) {
 
         describe('course delivering action [publish]', function () {
 
@@ -16,6 +16,7 @@
                 spyOn(eventTracker, 'publish');
                 spyOn(notify, 'hide');
                 spyOn(router, 'openUrl');
+                spyOn(clientContext, 'set');
             });
 
             it('should be object', function () {
@@ -645,20 +646,12 @@
                     expect(viewModel.frameWidth).toBeObservable();
                 });
 
-                it('should be equal \'constants.frameSize.width.value\'', function () {
-                    expect(viewModel.frameWidth()).toBe(constants.frameSize.width.value);
-                });
-
             });
 
             describe('frameHeight:', function () {
 
                 it('should be observable', function () {
                     expect(viewModel.frameHeight).toBeObservable();
-                });
-
-                it('should be equal \'constants.frameSize.height.value\'', function () {
-                    expect(viewModel.frameHeight()).toBe(constants.frameSize.height.value);
                 });
 
             });
@@ -705,6 +698,62 @@
                     viewModel.eventCategory = 'category';
                     viewModel.copyEmbedCodeToClipboard();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Copy embed code', 'category');
+                });
+
+            });
+
+            describe('validateFrameWidth:', function () {
+
+                it('should be function', function() {
+                    expect(viewModel.validateFrameWidth).toBeFunction();
+                });
+
+                describe('when frameWidth is not validate', function() {
+
+                    it('should set frameWidth to default value', function() {
+                        viewModel.frameWidth(0);
+                        viewModel.validateFrameWidth();
+                        expect(viewModel.frameWidth()).toBe(constants.frameSize.width.value);
+                    });
+
+                });
+
+                describe('when frameWidth is validate', function() {
+
+                    it('should not update frameWidth', function() {
+                        viewModel.frameWidth(25);
+                        viewModel.validateFrameWidth();
+                        expect(viewModel.frameWidth()).toBe(25);
+                    });
+
+                });
+
+            });
+
+            describe('validateFrameHeight:', function () {
+
+                it('should be function', function() {
+                    expect(viewModel.validateFrameHeight).toBeFunction();
+                });
+
+                describe('when frameHeight is not validate', function () {
+
+                    it('should set frameHeight to default value', function () {
+                        viewModel.frameHeight(0);
+                        viewModel.validateFrameHeight();
+                        expect(viewModel.frameHeight()).toBe(constants.frameSize.height.value);
+                    });
+
+                });
+
+                describe('when frameHeight is validate', function () {
+
+                    it('should not update frameHeight', function () {
+                        viewModel.frameHeight(25);
+                        viewModel.validateFrameHeight();
+                        expect(viewModel.frameHeight()).toBe(25);
+                    });
+
                 });
 
             });
