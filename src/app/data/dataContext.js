@@ -82,7 +82,7 @@
     function Quiz(title, questions) {
         var that = this;
 
-        that.title = '';
+        that.title = title;
         that.questions = questions || [];
     }
 

@@ -84,18 +84,40 @@ ul {
 }
 
 
+@button-text-font: RobotoBold;
+@transition-settings: 0.2s ease-out 0.0s;
+
 .button {
     border: 2px solid;
     border-radius: 5px;
     cursor: pointer;
+    display: inline-block;
+    font-family: @button-text-font;
     font-size: 20px;
     line-height: 1;
+    transition: background @transition-settings, box-shadow @transition-settings;
+
+    &.default {
+        background-color: transparent;
+        color: #50b2ac;
+
+        &:hover {
+            background-color: #43aaa3;
+            border-color: #43aaa3;
+            color: #fff;
+        }
+    }
 
     &.primary {
-        font-family: 'RobotoBold';
         background-color: #50b2ac;
         border-color: #43aaa3;
         color: #fff;
+        font-family: 'RobotoBold';
+
+        &:hover {
+            background-color: #369690;
+            border-color: #369690;
+        }
     }
 
     &.large {
@@ -106,6 +128,3 @@ ul {
         text-transform: uppercase;
     }
 }
-
-
-

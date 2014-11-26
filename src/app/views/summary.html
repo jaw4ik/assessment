@@ -1,3 +1,29 @@
-﻿<div>
-    Summary
+﻿<div class="summary">
+    <div class="summary-header">
+        <div class="header-background">
+            <div class="header-content">
+                <div class="header-title-container">
+                    <div class="header-quiz-label">Quiz</div>
+                    <div class="header-quiz-title" ng-bind="summary.title"></div>
+                    <div class="header-questions-label">{{summary.questions.length}} questions</div>
+                </div>
+                <div class="summary-progress-control">
+                    <progress-control progress="summary.progress" mastery-score="80"></progress-control>
+                </div>
+                <div class="summary-buttons">
+                    <button class="summary-button button primary large emphasize" ng-click="summary.tryAgain()">Try again</button>
+                    <button class="summary-button button default large emphasize" ng-click="summary.finish()">Finish course</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="summary-questions">
+        <div class="summary-questions-title">Particulary results</div>
+        <ul class="questions unstyled" ng-repeat="question in summary.questions">
+            <li>
+                <span class="question-number">{{$index + 1 | leadingZeros: 2}}</span>
+                <span class="question-title">{{question.title}}</span>
+            </li>
+        </ul>
+    </div>
 </div>
