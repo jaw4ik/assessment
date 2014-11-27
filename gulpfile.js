@@ -1,10 +1,16 @@
 /// <vs AfterBuild='analyze' />
 var
     gulp = require('gulp'),
+    path = require('path'),
     merge = require('merge-stream'),
 
     jshint = require('gulp-jshint'),
-    jscs = require('gulp-jscs');
+    jscs = require('gulp-jscs'),
+
+    less = require('gulp-less'),
+    css = require("gulp-minify-css"),
+    csso = require('gulp-csso')
+;
 
 require('jshint-stylish');
 
@@ -28,3 +34,12 @@ function analyzejscs(sources) {
         .src(sources)
         .pipe(jscs('.jscsrc'));
 }
+
+
+gulp.task('css', function () {
+    gulp.src('./src/css/styles.less')
+       .pipe(less())
+       .pipe(css())
+       .pipe(csso())
+       .pipe(gulp.dest('./src/css/'));
+});
