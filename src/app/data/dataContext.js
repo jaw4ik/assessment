@@ -50,6 +50,11 @@
                                     question = new DragAndDropText(dtq.id, dtq.title, dtq.background, dtq.dropspots);
                                 }
 
+                                if (dtq.type === 'textMatching') {
+                                    question = new TextMatching(dtq.id, dtq.title, dtq.answers);
+
+                                }
+
                                 if (question) {
                                     question.title = dtq.title;
 
@@ -177,6 +182,35 @@
             });
             answer.checked = true;
         };
+    }
+
+    function TextMatching(id, title, answers) {
+        var that = this;
+        that.sources = answers.map(function (answer) {
+            return {
+                id: answer.id,
+                key: answer.key,
+                value: null,
+
+                acceptValue: function (value) {
+                    this.value = value;
+                },
+                rejectValue: function () {
+                    this.value = null;
+                }
+            };
+        });
+        that.targets = answers.map(function (answer) {
+            return {
+                value: answer.value,
+                acceptValue: function (value) {
+                    this.value = value;
+                },
+                rejectValue: function () {
+                    this.value = null;
+                }
+            };
+        });
     }
 
 }());
