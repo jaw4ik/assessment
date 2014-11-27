@@ -40,7 +40,8 @@
                         </tbody>
                     </table>
                     <!-- ko if: !isLoading() && noResults() -->
-                    <div class="no-results" data-bind="localize: { text: 'noReportedResults' }">No reported results yet...</div>
+                        <!-- ko compose: { view: 'views/courses/results/noResultsHint', model: {}  } -->
+                        <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: isLoading -->
                     <div class="loading-results">

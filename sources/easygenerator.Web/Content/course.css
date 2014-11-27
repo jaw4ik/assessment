@@ -1611,10 +1611,66 @@ td.r-name {
 }
 
 .results-data .no-results {
-    padding: 95px 0 95px;
-    color: #999999;
-    font-size: 16px;
+    color: #469dd5;
+    font-family: 'OpenSans-Semibold';
+    font-size: 18px;
+    padding: 52px 0 5px;
     text-align: center;
+    text-transform: uppercase;
+}
+
+.no-results-hint {
+    color: #546677;
+    font-family: 'OpenSans';
+    font-size: 15px;
+    line-height: 24px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.no-results-steps-container {
+    display: table;
+    padding: 45px 20px;
+    width: 100%;
+}
+
+.no-results-steps-row {
+    display: table-row;
+}
+
+.no-results-step {
+    display: table-cell;  
+    text-align: center;  
+}
+
+    .no-results-step.arrow {
+        vertical-align: middle;  
+    }
+
+    .no-results-step.desc {
+        width: 172px;  
+    }
+
+.no-results-step-arrow {
+    background: url("images/sprites_32.png") -222px 0 no-repeat;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+}
+
+.no-results-hint-step-img {
+    background: url("images/noResultsHintSteps.png") no-repeat;
+    display: inline-block;
+    height: 134px;
+    width: 134px;
+}
+
+.no-results-hint-step-img.step2 {
+    background-position: -136px 0;
+}
+
+.no-results-hint-step-img.step3 {
+    background-position: -272px 0;
 }
 
 .results-data .loading-results {
@@ -1676,6 +1732,19 @@ td.r-name {
 
     .r-date {
         width: 175px;
+    }
+
+    .no-results-steps-container {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .no-results-step.desc {
+        width: 134px;  
+    }
+
+    .no-results-hint {
+        margin: 0 -20px;
     }
 }
 

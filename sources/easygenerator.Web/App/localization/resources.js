@@ -167,7 +167,7 @@
         en: 'Get private link'
     },
     updating: {
-        en: 'updating'
+        en: 'updating...'
     },
     updateCourseDescription: {
         en: 'Apply the latest changes to the published course by clicking this button'
@@ -391,6 +391,18 @@
     noReportedResults: {
         en: 'No reported results yet...'
     },
+    makeSureTrackingResultsIsEnabled: {
+        en: 'Make sure you tracking and tracing is enabled:'
+    },
+    goToDesignStep: {
+        en: '1. Go to design step'
+    },
+    resultTrackingShouldBeEnabled: {
+        en: '2. Result tracking should<br/>be enabled'
+    },
+    confirmByApply: {
+        en: '3. Confirm by<br/>pressing \"Apply\"'
+    },
     loadingReportedResults: {
         en: 'Loading data...'
     },
@@ -497,13 +509,13 @@
         en: 'Create course'
     },
     powerPointImport: {
-        en: 'PowerPoint import'
+        en: 'Create from PowerPoint'
     },
     uploadingPresentation: {
         en: 'uploading presentation...'
     },
     importCourseButtonTitle: {
-        en: 'Import from PowerPoint'
+        en: 'Create from PowerPoint'
     },
     importCourseButtonDescription: {
         en: 'Import slides from PowerPoint and use them as your course content'
@@ -701,7 +713,7 @@
         en: 'Text matching'
     },
     hotspot: {
-        en: 'Hot spot'
+        en: 'Hotspot'
     },
     keysTitle: {
         en: 'Term'

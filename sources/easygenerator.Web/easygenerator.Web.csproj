@@ -543,6 +543,7 @@
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\results.html" />
+    <Content Include="App\views\courses\results\noResultsHint.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="Content\font\heuristica-bold.svg" />
     <Content Include="Content\font\heuristica-bolditalic.svg" />
@@ -555,6 +556,7 @@
     <Content Include="Content\images\disabled-question1024.png" />
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\no-spots.png" />
+    <Content Include="Content\images\noResultsHintSteps.png" />
     <Content Include="Content\images\openhand.cur" />
     <Content Include="Content\images\import-pptx.png" />
     <Content Include="Content\images\dialog-header-background.png" />
