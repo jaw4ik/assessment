@@ -60,8 +60,6 @@
             { "key": "[tracking and tracing error hint]", "value": "If you continue without restarting, your learning progress will not be reported." },
             { "key": "[tracking and tracing restart course]", "value": "Restart course" },
             { "key": "[tracking and tracing continue anyway]", "value": "Continue anyway" },
-            { "key": "[tracking and tracing reporting progress]", "value": "reporting progress..." },
-            { "key": "[tracking and tracing not supported]", "value": "Progress tracking cannot be established" },
-            { "key": "[tracking and tracing not supported hint]", "value": "Sorry, this course does not support progress tracking in Internet Explorer 9. Please use one of the following browser: Chrome, Firefox, Safari, IE10+ in order to track your progress, or just start the course without tracking." }
+            { "key": "[tracking and tracing reporting progress]", "value": "reporting progress..." }
         ]
 }
