@@ -43,3 +43,9 @@ gulp.task('css', function () {
        .pipe(csso())
        .pipe(gulp.dest('./src/css/'));
 });
+
+
+gulp.task('watch', function () {
+    gulp.watch('./src/css/*', ['css']);
+
+});
