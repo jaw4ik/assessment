@@ -377,7 +377,7 @@
         en: 'Learners results'
     },
     nameAndEmail: {
-        en: 'Name (Email)'
+        en: 'Name (E-mail)'
     },
     result: {
         en: 'Result'
@@ -392,16 +392,16 @@
         en: 'No reported results yet...'
     },
     makeSureTrackingResultsIsEnabled: {
-        en: 'Make sure you tracking and tracing is enabled:'
+        en: 'Make sure that \"results tracking\" is enabled for this course:'
     },
     goToDesignStep: {
-        en: '1. Go to design step'
+        en: '1. Go to the \"Design\"<br/>step'
     },
     resultTrackingShouldBeEnabled: {
-        en: '2. Result tracking should<br/>be enabled'
+        en: '2. Results tracking should<br/>be enabled'
     },
     confirmByApply: {
-        en: '3. Confirm by<br/>pressing \"Apply\"'
+        en: '3. Confirm by<br/>clicking \"Apply\"'
     },
     loadingReportedResults: {
         en: 'Loading data...'
@@ -1259,7 +1259,7 @@
         en: '<p>The learner sees an image and has to click on one or more places in order to give an answer:</p><p><b>Example:</b> \"Geography: Locate areas on a map\".</p><p>Options:<ul><li style=\"padding-bottom: 8px;\">Single response – learners are able to select only one area. If there are several hotspots to choose, the question is answered correctly when the learner clicks on ANY of the hotspots.</li><li>Multiple response – learners are able to select multiple areas. The question is answered correctly when the learner clicks ALL hotspots without choosing any wrong places.</li></ul></p><p><strong>How to:</strong><ul><ol>1. Define the title (Question)</ol><ol>2. Upload the image</ol><ol>3. Choose between single and multiple response</ol><ol>4. Create your hotspots</ol></ul></p>'
     },
     tooltipHotspotLink: {
-        en: '<a style=\"display:none;\" href=\"\">read more</a>'
+        en: '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Hot-Spot\" target=\"_blank\">read more</a>'
     },
     /* End resource section for model ExplanationTooltips */
     
