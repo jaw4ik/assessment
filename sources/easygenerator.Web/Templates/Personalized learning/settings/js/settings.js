@@ -113,11 +113,12 @@ $(function () {
         url: settingsURL,
         dataType: "json",
         success: function (json) {
+            var defaultSettings = { logo: {}, xApi: { lrs: { credentials: {} } } };
             var settings;
             try {
-                settings = JSON.parse(json);
+                settings = JSON.parse(json.settings) || defaultSettings;
             } catch (e) {
-                settings = { logo: {}, xApi: { lrs: { credentials: {} } } };
+                settings = defaultSettings;
             }
             viewModel.trackingData.enableXAPI(settings.xApi.enabled || false);
             viewModel.trackingData.selectedLrs(settings.xApi.selectedLrs || 'default');
