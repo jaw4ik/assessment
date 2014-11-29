@@ -115,7 +115,7 @@
     "MinifyInPlace": false,
     "OutputDirectory": null,
     "ProcessSourceMapsForEditorEnhancements": true,
-    "ShowPreviewPane": true,
+    "ShowPreviewPane": false,
     "StrictMath": false
   },
   "LiveScript": {

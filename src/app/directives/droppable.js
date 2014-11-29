@@ -38,12 +38,15 @@
                             return;
                         }
 
-                        $scope.acceptValue(draggable.value);
-                        $scope.$apply();
+                        if ($scope.acceptValue) {
+                            $scope.acceptValue(draggable.value);
+                            $scope.$apply();
 
-                        if (previous && previous.rejectValue) {
-                            previous.rejectValue(draggable.value);
-                            previous.$apply();
+                            if (previous && previous.rejectValue) {
+                                previous.rejectValue(draggable.value);
+                                previous.$apply();
+                            }
+
                         }
 
                     }

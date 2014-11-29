@@ -4,17 +4,18 @@
     box-sizing: border-box;
 }
 
-.before-image(@url, @top, @left,@width, @height) {
+.before-image(@url, @left, @top, @width, @height) {
     background-image: @url;
-    background-repeat: no-repeat;
     background-position: center center;
-    position: absolute;
-    left: @left;
-    top: @top;
+    background-repeat: no-repeat;
     content: "";
     display: block;
-    width: @width;
     height: @height;
+    left: @left;
+    margin-top: -(@height/2);
+    position: absolute;
+    top: @top;
+    width: @width;
 }
 
 .text-overflow-with-dots() {
@@ -127,4 +128,8 @@ ul {
     &.emphasize {
         text-transform: uppercase;
     }
+}
+
+[draggable] {
+    cursor: move;
 }

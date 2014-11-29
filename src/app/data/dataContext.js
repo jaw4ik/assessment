@@ -34,7 +34,6 @@
                             if (dtq) {
                                 var question;
 
-                                console.log(dtq.type);
                                 if (dtq.type === 'singleSelectText') {
                                     question = new SinglselectText(dtq.title, dtq.answers);
                                 }
@@ -186,30 +185,37 @@
 
     function TextMatching(id, title, answers) {
         var that = this;
+        that.id = id;
+        that.title = title;
         that.sources = answers.map(function (answer) {
-            return {
+            var source = {
                 id: answer.id,
                 key: answer.key,
                 value: null,
 
                 acceptValue: function (value) {
-                    this.value = value;
+                    source.value = value;
                 },
                 rejectValue: function () {
-                    this.value = null;
+                    source.value = null;
                 }
             };
+
+            return source;
         });
+
+
         that.targets = answers.map(function (answer) {
-            return {
+            var target = {
                 value: answer.value,
                 acceptValue: function (value) {
-                    this.value = value;
+                    target.value = value;
                 },
                 rejectValue: function () {
-                    this.value = null;
+                    target.value = null;
                 }
             };
+            return target;
         });
     }
 
