@@ -43,10 +43,10 @@
                             $(this).height(maxHeight);
                         });
                     }
-                }
+
+                };
 
                 $(window).on('resize', _.debounce(handler));
-
 
             }
         };

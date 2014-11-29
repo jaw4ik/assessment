@@ -204,7 +204,6 @@
             return source;
         });
 
-
         that.targets = answers.map(function (answer) {
             var target = {
                 value: answer.value,
