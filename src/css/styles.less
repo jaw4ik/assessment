@@ -24,9 +24,8 @@ body {
     font-family: @default-font;
 }
 
-button{
-    outline:0;
-
+button {
+    outline: 0;
 }
 
 .container {
@@ -53,6 +52,7 @@ header:before {
 
 .question {
     margin-bottom: 100px;
+    position: relative;
 
     .question-title {
         color: @question-title-color;
@@ -85,42 +85,42 @@ header:before {
         text-align: justify;
     }
 
-        .answers {
-            width: 100%;
-        }
+    .answers {
+        width: 100%;
+    }
 
-        .answer-pair {
-            border-collapse: separate;
-            border-spacing: 0;
-            display: table;
-            height: 100%;
-            table-layout: fixed;
-            width: 100%;
-        }
+    .answer-pair {
+        border-collapse: separate;
+        border-spacing: 0;
+        display: table;
+        height: 100%;
+        table-layout: fixed;
+        width: 100%;
+    }
 
-        .answer-container {
-            display: table-cell;
-            height: 100%;
-            vertical-align: top;
-            width: 50%;
-            padding-bottom: 20px;
+    .answer-container {
+        display: table-cell;
+        height: 100%;
+        vertical-align: top;
+        width: 50%;
+        padding-bottom: 20px;
 
         &:first-child {
-                padding-right: 10px;
-            }
+            padding-right: 10px;
+        }
 
         &:last-child {
-                padding-left: 10px;
-            }
+            padding-left: 10px;
         }
+    }
 
-        .answer-wrapper {
-            display: table;
-            height: 100%;
-            width: 100%;
-        }
+    .answer-wrapper {
+        display: table;
+        height: 100%;
+        width: 100%;
+    }
 
-        .answer {
+    .answer {
         height: 100%;
         display: table-cell;
         width: 100%;
@@ -150,16 +150,16 @@ header:before {
             cursor: pointer;
         }
 
-            &:hover {
-                border-color: @radio-hover-border-color;
-                box-shadow: inset 0 0 15px 0 @radio-hover-box-shadow;
-            }
-
-            &.checked {
-                background-color: @radio-checked-background-color;
-                border-color: @radio-checked-border-color;
-            }
+        &:hover {
+            border-color: @radio-hover-border-color;
+            box-shadow: inset 0 0 15px 0 @radio-hover-box-shadow;
         }
+
+        &.checked {
+            background-color: @radio-checked-background-color;
+            border-color: @radio-checked-border-color;
+        }
+    }
 
     .statements {
         .statements-list {
@@ -317,9 +317,9 @@ header:before {
         background: #edfafd;
         color: #7ebdca;
         vertical-align: middle;
-        -webkit-box-shadow: 0px 1px 4px 0px rgba(50, 50, 50, 0.1);
-        -moz-box-shadow: 0px 1px 4px 0px rgba(50, 50, 50, 0.1);
-        box-shadow: 0px 1px 4px 0px rgba(50, 50, 50, 0.1);
+        -webkit-box-shadow: 0 1px 4px 0 rgba(50, 50, 50, 0.1);
+        -moz-box-shadow: 0 1px 4px 0 rgba(50, 50, 50, 0.1);
+        box-shadow: 0 1px 4px 0 rgba(50, 50, 50, 0.1);
         font-size: 16px;
     }
 }
