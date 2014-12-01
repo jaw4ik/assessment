@@ -395,13 +395,13 @@
         en: 'Make sure that \"results tracking\" is enabled for this course:'
     },
     goToDesignStep: {
-        en: '1. Go to the \"Design\"<br/>step'
+        en: '1. Go to the \"Design\" step'
     },
     resultTrackingShouldBeEnabled: {
-        en: '2. Results tracking should<br/>be enabled'
+        en: '2. Enable results tracking and confirm by clicking \"Apply\"'
     },
     confirmByApply: {
-        en: '3. Confirm by<br/>clicking \"Apply\"'
+        en: '3. Go to the \"Publish\" step and update the course'
     },
     loadingReportedResults: {
         en: 'Loading data...'

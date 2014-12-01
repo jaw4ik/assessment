@@ -1630,7 +1630,7 @@ td.r-name {
 
 .no-results-steps-container {
     display: table;
-    padding: 45px 15px;
+    padding: 45px 0;
     width: 100%;
 }
 
@@ -1648,7 +1648,7 @@ td.r-name {
     }
 
     .no-results-step.desc {
-        width: 180px;  
+        width: 210px;  
     }
 
 .no-results-step-arrow {
@@ -1740,11 +1740,7 @@ td.r-name {
     }
 
     .no-results-step.desc {
-        width: 134px;  
-    }
-
-    .no-results-hint {
-        margin: 0 -23px;
+        width: 150px;  
     }
 }
 
