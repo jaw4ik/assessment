@@ -10,14 +10,12 @@
         var that = this;
         that.load = load;
 
-        function load(url, width, height) {
+        function load(url, width, height, scaleBySmallerSide) {
             var deferred = $q.defer();
 
-            var browserWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-            var browserHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-            var maxSize = browserWidth > browserHeight ? browserWidth : browserHeight;
+            var maxSize = width > height ? width : height;
 
-            var resizedImageUrl = url + '?height=' + maxSize + '&width=' + maxSize;
+            var resizedImageUrl = url + '?height=' + maxSize + '&width=' + maxSize + (scaleBySmallerSide ? '&amp;scaleBySmallerSide=true' : '');
             var image = new Image();
             image.className = 'image';
             image.style.display = "none";

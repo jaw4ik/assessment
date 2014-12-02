@@ -9,7 +9,7 @@
         return {
             restrict: 'E',
             replace: true,
-            scope: {width: '=', height:'=', url:'='},
+            scope: { width: '=', height: '=', url: '=' },
             templateUrl: 'views/widgets/imageLoader.html',
             link: link
         };
