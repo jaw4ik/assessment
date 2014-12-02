@@ -10,7 +10,7 @@
         var that = this;
         that.load = load;
 
-        function load(url) {
+        function load(url, width, height) {
             var deferred = $q.defer();
 
             var browserWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -21,6 +21,8 @@
             var image = new Image();
             image.className = 'image';
             image.style.display = "none";
+            image.style.maxWidth = width + 'px';
+            image.style.maxHeight = height + 'px';
             image.onload = function () {
                 deferred.resolve(image);
             }

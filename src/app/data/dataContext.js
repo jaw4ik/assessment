@@ -31,7 +31,6 @@
                                 dto.questions.forEach(function (dtq) {
                                     if (dtq) {
                                         var question;
-
                                         if (dtq.type === 'singleSelectText') {
                                             question = new SingleSelectText(dtq.id, dtq.title, dtq.answers);
                                         }
@@ -41,7 +40,7 @@
                                         }
 
                                         if (dtq.type === 'singleSelectImage') {
-                                            question = new SingleSelectImage(dtq.title, dtq.answers);
+                                            question = new SingleSelectImage(dtq.id, dtq.title, dtq.answers);
                                         }
 
                                         if (dtq.type === 'dragAndDropText') {

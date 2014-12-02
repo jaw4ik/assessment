@@ -24,7 +24,9 @@
                     <div class="center">
                         <div class="center-content">
                             <div class="image-holder">
-                                <image-loader url="preview.imageUrl"></image-loader>
+                                <image-fullscreen-preview >
+                                    <image-loader url="preview.imageUrl" width="preview.width" height="preview.height"></image-loader>
+                                </image-fullscreen-preview>
                                 <div class="overlay-close-button-container">
                                     <a class="overlay-close-button" ng-click="preview.hide()"></a>
                                 </div>
@@ -78,6 +80,7 @@
     <script src="directives/widgets/radio.js"></script>
     <script src="directives/widgets/progressControl.js"></script>
     <script src="directives/widgets/imageLoader.js"></script>
+    <script src="directives/widgets/imageFullscreenPreview.js"></script>
 
     <script src="directives/singleSelectText.js"></script>
     <script src="directives/dragAndDropText.js"></script>
