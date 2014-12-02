@@ -9,7 +9,7 @@
             restrict: 'E',
             template: '<canvas></canvas>',
             scope: {
-                progress: '=',
+                progress: '@',
                 masteryScore: '@'
             },
             link: createProgressControl

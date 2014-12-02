@@ -12,6 +12,7 @@
             that.title = '"' + quiz.title + '"';
             that.questions = quiz.questions;
             that.progress = 90;
+            that.masteryScore = 50;
         });
 
         that.tryAgain = function () {
