@@ -1,0 +1,58 @@
+﻿(function () {
+    'use strict';
+
+    angular
+        .module('quiz')
+        .factory('DragAndDropTextViewModel', ['QuestionViewModel', function (QuestionViewModel) {
+
+            return function DragAndDropTextViewModel(question) {
+                var that = this;
+
+                QuestionViewModel.call(that, question);
+
+                that.background = question.background;
+
+                that.texts = question.dropspots.map(function (dropspot) {
+                    return dropspot.text;
+                });
+                that.texts.acceptValue = function (value) {
+                    that.texts.push(value);
+                };
+                that.texts.rejectValue = function (value) {
+                    var index = that.texts.indexOf(value);
+                    that.texts.splice(index, 1);
+
+                };
+
+                that.spots = question.dropspots.map(function (dropspot) {
+                    var spot = {
+                        x: dropspot.x,
+                        y: dropspot.y,
+                        value: undefined,
+                        acceptValue: function (value) {
+                            spot.value = value;
+                        },
+                        rejectValue: function () {
+                            spot.value = null;
+                        }
+
+                    };
+
+                    return spot;
+                });
+
+                that.submit = function () {
+                    question.answer(_.map(that.spots, function (spot) {
+                        return {
+                            x: spot.x,
+                            y: spot.y,
+                            text: spot.value
+                        };
+                    }));
+                };
+
+            };
+
+        }]);
+
+}());

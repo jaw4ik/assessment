@@ -11,7 +11,8 @@
         dataContext.getQuiz().then(function (quiz) {
             that.title = '"' + quiz.title + '"';
             that.questions = quiz.questions;
-            that.progress = 90;
+
+            that.progress = quiz.getResult();
         });
 
         that.tryAgain = function () {
