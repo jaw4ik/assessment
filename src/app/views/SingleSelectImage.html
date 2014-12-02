@@ -5,9 +5,10 @@
                 <span class=" thumbnail-animation-container">
                 <span class="thumbnail-wrapper">
                     <img class=" thumbnail-image" ng-src="{{answer.image}}?height=200&amp;width=250&amp;scaleBySmallerSide=true" />
-                </span><span class="preview-button-container"><span class="preview-button">&nbsp;</span></span>
+                </span><span class="preview-button-container"><span class="preview-button" ng-click="singleSelectImage.openPreviewImage(answer.image)"></span></span>
                 </span>
             </a>
         </div>
     </div>
 </div>
+    

@@ -3,7 +3,10 @@
 
     angular
         .module('quiz')
-        .controller('QuestionController', ['$http', '$location', 'dataContext', QuestionController]);
+        .controller('QuestionController', QuestionController);
+
+    QuestionController.$inject = ['$http', '$location', 'dataContext'];
+
 
     function QuestionController($http, $location, dataContext) {
         var that = this;
@@ -18,6 +21,7 @@
             //});
             $location.path('/summary');
         };
+
     }
 
 }());
