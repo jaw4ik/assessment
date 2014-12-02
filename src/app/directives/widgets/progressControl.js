@@ -52,7 +52,6 @@
             masteryScoreAngle = 2 * Math.PI * (scope.masteryScore / 100) - 0.5 * Math.PI,
             circleX = 300, circleY = 125, circleRadius = 82;
 
-
         //  drawing outer circle with border
         context.beginPath();
         context.arc(circleX, circleY, circleRadius, -0.5 * Math.PI, 1.5 * Math.PI, false);
@@ -131,7 +130,6 @@
 
         drawText(context, statusText.toUpperCase(), '19px robotoslabbold', statusTextColor, circleX + 2, circleY + 36, 'center', 160);
 
-
         // draw mastery score hint text
         var masteryScoreHintTextX = (scope.masteryScore >= 50) ? masteryScoreX - 185 : masteryScoreX + 65,
             masteryScoreHintTextY = masteryScoreY + 10;
@@ -146,7 +144,6 @@
         context.beginPath();
         context.drawImage(arrow, masteryScoreArrowX, masteryScoreArrowY);
         context.closePath();
-
     }
 
     function drawText(context, text, font, color, positionX, positionY, align, maxWidth) {

@@ -1,22 +1,13 @@
 ﻿<div class="single-select-image">
-
-    <div class="answers" ng-repeat="answer in question.answers">
-        <div class="answer-pair" ng-if="$even">
-            <div class="answer-container">
-                <div class="answer-wrapper">
-                    <div class="answer" ng-click="question.checkAnswer(answer)" ng-class="{ checked: answer.checked }">
-                        <radio title="{{ answer.image }}" checked="answer.checked"></radio>
-                    </div>
-                </div>
-            </div>
-            <div class="answer-container">
-                <div class="answer-wrapper">
-                    <div class="answer" ng-click="question.checkAnswer(question.answers[$index + 1])" ng-class="{ checked: question.answers[$index + 1].checked }">
-                        <radio title="{{ question.answers[$index + 1].image }}" checked="question.answers[$index + 1].checked"></radio>
-                    </div>
-                </div>
-            </div>
+    <div class="single-select-image-list">
+        <div class="single-select-image-list-item" ng-repeat="answer in question.answers">
+            <a class="thumbnail-container" ng-click="question.checkAnswer(answer)" ng-class="{ checked: answer.checked }">
+                <span class=" thumbnail-animation-container">
+                <span class="thumbnail-wrapper">
+                    <img class=" thumbnail-image" ng-src="{{answer.image}}?height=200&amp;width=250&amp;scaleBySmallerSide=true" />
+                </span><span class="preview-button-container"><span class="preview-button">&nbsp;</span></span>
+                </span>
+            </a>
         </div>
     </div>
-
 </div>

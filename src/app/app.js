@@ -11,7 +11,7 @@
                 controllerAs: 'quiz',
                 resolve: {
                     questions: function (dataContext) {
-                        return dataContext.initialize();
+                        return dataContext.getQuiz();
                     }
                 }
             })
@@ -21,7 +21,7 @@
                 controllerAs: 'summary',
                 resolve: {
                     questions: function (dataContext) {
-                        return dataContext.initialize();
+                        return dataContext.getQuiz();
                     }
                 }
             })

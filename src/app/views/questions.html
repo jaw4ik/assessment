@@ -10,11 +10,11 @@
                     <div ng-include src="question.contentUrl"></div>
                 </div>
                 <div ng-switch="question.constructor.name">
-                    <singleselect-text ng-switch-when="SinglselectText"></singleselect-text>
-                    <drag-and-drop-text ng-switch-when="DragAndDropText"></drag-and-drop-text>
-                    <statement ng-switch-when="Statement"></statement>
-                    <single-select-image ng-switch-when="SingleSelectImage"></single-select-image>
-                    <text-matching ng-switch-when="TextMatching"></text-matching>
+                    <singleselect-text ng-switch-when="SingleSelectTextViewModel"></singleselect-text>
+                    <drag-and-drop-text ng-switch-when="DragAndDropTextViewModel"></drag-and-drop-text>
+                    <statement ng-switch-when="StatementViewModel"></statement>
+                    <single-select-image ng-switch-when="SingleSelectImageViewModel"></single-select-image>
+                    <text-matching ng-switch-when="TextMatchingViewModel"></text-matching>
                 </div>
             </article>
         </li>

@@ -14,7 +14,15 @@
                 $(element).draggable({
                     containment: 'body',
                     appendTo: $(element).closest('section'),
-                    helper: 'clone',
+                    helper: function () {
+                        return $(element)
+                            .clone()
+                            .addClass('handle')
+                            .css({
+                                width: $(this).outerWidth(),
+                                height: $(this).outerHeight()
+                            });
+                    },
                     scope: $scope.scope || 'default',
                     tolerance: 'pointer',
                     revert: true,
