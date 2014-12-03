@@ -7,15 +7,15 @@
 
     QuestionController.$inject = [
         '$http', '$location',
-        'SingleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage',
-        'SingleSelectTextViewModel', 'TextMatchingViewModel', 'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel',
+        'SingleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks',
+        'SingleSelectTextViewModel', 'TextMatchingViewModel', 'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel',
         'dataContext'
     ];
 
 
     function QuestionController($http, $location,
-        SingleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage,
-        SingleSelectTextViewModel, TextMatchingViewModel, DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel,
+        SingleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks,
+        SingleSelectTextViewModel, TextMatchingViewModel, DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel,
         dataContext) {
 
         var that = this;
@@ -38,6 +38,10 @@
                 if (question instanceof SingleSelectImage) {
                     return new SingleSelectImageViewModel(question);
                 }
+                if (question instanceof FillInTheBlanks) {
+                    return new FillInTheBlanksViewModel(question);
+                }
+
 
                 throw 'Unknown question type';
             });
