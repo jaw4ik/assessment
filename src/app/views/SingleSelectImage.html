@@ -4,7 +4,7 @@
             <a class="thumbnail-container" ng-click="question.checkAnswer(answer)" ng-class="{ checked: answer.checked }">
                 <span class="thumbnail-wrapper">
                     <span class="thumbnail-selected"></span>
-                    <img class=" thumbnail-image" ng-src="{{answer.image}}?height=200&amp;width=250&amp;scaleBySmallerSide=true" />
+                    <image-loader url="answer.image" width="250" height="200" scale-by-smaller-side="true"></image-loader>
                 </span><span class="preview-button-container"><span class="preview-button" ng-click="singleSelectImage.openPreviewImage(answer.image)"></span></span>
             </a>
         </div>

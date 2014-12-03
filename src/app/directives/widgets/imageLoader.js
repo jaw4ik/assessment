@@ -8,24 +8,37 @@
     function imageLoader(imageLoaderService) {
         return {
             restrict: 'E',
-            replace: true,
-            scope: { width: '=', height: '=', url: '=' },
+            scope: { width: '=', height: '=', url: '=', scaleBySmallerSide: '=' },
             templateUrl: 'views/widgets/imageLoader.html',
             link: link
         };
 
         function link(scope, element) {
             var $element = $(element);
-            var $imageContainer = $('.image-container', $element);
             var $imageLoaderIcon = $('.image-loader-icon', $element);
 
             scope.$watch('url', function (url) {
-                $imageContainer.empty();
+                $('.image', $element).remove();
                 $imageLoaderIcon.show();
                 if (url) {
-                    imageLoaderService.load(url, scope.width, scope.height).then(function (image) {
+                    var width = scope.width;
+                    var height = scope.height;
+                    var resizedImageUrl = '';
+                    if (scope.scaleBySmallerSide) {
+                        resizedImageUrl = url + '?height=' + height + '&width=' + width + '&scaleBySmallerSide=true';
+                    } else {
+                        var maxSize = width > height ? width : height; // grab image with bigger size to avoid reloading afre screen rotation
+                        resizedImageUrl = url + '?height=' + maxSize + '&width=' + maxSize;
+                    }
+                    imageLoaderService.load(resizedImageUrl).then(function (image) {
                         if (image) {
-                            $imageContainer.append(image);
+                            image.className = 'image';
+                            image.style.display = "none";
+                            if (!scope.scaleBySmallerSide) {
+                                image.style.maxWidth = width + 'px';
+                                image.style.maxHeight = height + 'px';
+                            }
+                            $element.append(image);
                             $imageLoaderIcon.hide();
                             $(image).fadeIn();
                         }
