@@ -4,17 +4,14 @@
     angular
         .module('quiz')
         .factory('SingleSelectImage', ['Question', function (Question) {
-        
-            return function SingleSelectImage(id, title, answers) {
+
+            return function SingleSelectImage(id, title, answers, correctAnswerId) {
                 var that = this;
                 Question.call(that, id, title);
+                that.correctAnswerId = correctAnswerId;
                 that.options = answers;
-                that.answer = function (image) {
-                    that.options.forEach(function (option) {
-                        if (option.image === image && option.isCorrect) {
-                            that.score = 100;
-                        }
-                    });
+                that.answer = function (selectedOptionId) {
+                    that.score = selectedOptionId === that.correctAnswerId ? 100 : 0;
                 };
             };
 

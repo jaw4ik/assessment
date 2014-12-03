@@ -7,7 +7,8 @@
         return {
             restrict: 'E',
             transclude: true,
-           
+            replace: true,
+
             template: '<ng-transclude></ng-transclude>',
             link: link
         };
