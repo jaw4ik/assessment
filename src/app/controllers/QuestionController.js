@@ -3,10 +3,15 @@
 
     angular
         .module('quiz')
-        .controller('QuestionController', ['$http', '$location',
-            'SingleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage',
-            'SingleSelectTextViewModel', 'TextMatchingViewModel', 'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel',
-            'dataContext', QuestionController]);
+        .controller('QuestionController', QuestionController);
+
+    QuestionController.$inject = [
+        '$http', '$location',
+        'SingleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage',
+        'SingleSelectTextViewModel', 'TextMatchingViewModel', 'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel',
+        'dataContext'
+    ];
+
 
     function QuestionController($http, $location,
         SingleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage,

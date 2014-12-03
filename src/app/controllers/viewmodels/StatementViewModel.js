@@ -9,7 +9,6 @@
                 var that = this;
 
                 QuestionViewModel.call(that, question);
-
                 that.statements = question.options.map(function (option) {
                     return {
                         text: option.text,

@@ -15,6 +15,28 @@
 
         </div>
 
+        <div ng-controller="ImagePreviewController as preview">
+
+            <div class="overlay-container" ng-show="preview.visible">
+                <div class="overlay" ng-click="preview.hide()">
+                </div>
+                <div class="center-containter">
+                    <div class="center">
+                        <div class="center-content">
+                            <div class="image-holder">
+                                <image-fullscreen-preview >
+                                    <image-loader url="preview.imageUrl" width="preview.width" height="preview.height"></image-loader>
+                                </image-fullscreen-preview>
+                                <div class="overlay-close-button-container">
+                                    <a class="overlay-close-button" ng-click="preview.hide()"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <footer></footer>
     </div>
 
@@ -51,19 +73,26 @@
 
     <script src="filters/leadingZeros.js"></script>
 
-    <script src="directives/singleSelectText.js"></script>
-    <script src="directives/dragAndDropText.js"></script>
-    <script src="directives/statement.js"></script>
-    <script src="directives/singleSelectImage.js"></script>
-    <script src="directives/textMatching.js"></script>
+    <script src="factories/imagePreviewFactory.js"></script>
+    <script src="services/imageLoaderService.js"></script>
+
     <script src="directives/widgets/tooltip.js"></script>
     <script src="directives/widgets/radio.js"></script>
     <script src="directives/widgets/progressControl.js"></script>
+    <script src="directives/widgets/imageLoader.js"></script>
+    <script src="directives/widgets/imageFullscreenPreview.js"></script>
+
+    <script src="directives/singleSelectText.js"></script>
+    <script src="directives/dragAndDropText.js"></script>
+    <script src="directives/statement.js"></script>
+    <script src="directives/textMatching.js"></script>
+    <script src="directives/singleSelectImage.js"></script>
 
     <script src="directives/draggable.js"></script>
     <script src="directives/droppable.js"></script>
     <script src="directives/background.js"></script>
 
+    <script src="controllers/ImagePreviewController.js"></script>
     <script src="controllers/QuestionController.js"></script>
     <script src="controllers/SummaryController.js"></script>
 
