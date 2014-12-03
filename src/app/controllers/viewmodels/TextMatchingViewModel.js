@@ -6,9 +6,12 @@
         .factory('TextMatchingViewModel', ['QuestionViewModel', function (QuestionViewModel) {
 
             return function TextMatchingViewModel(question) {
-                var that = this;
+                QuestionViewModel.call(this, question);
 
-                QuestionViewModel.call(that, question);
+                var that = this;
+                that.getType = function () {
+                    return 'textMatching';
+                }
 
                 that.sources = question.answers.map(function (answer) {
                     var source = {

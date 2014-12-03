@@ -12,8 +12,12 @@
                 that.title = question.title;
                 that.contentUrl = question.contentUrl;
 
-                that.submit = function () {
+                that.getType = function () {
+                    throw 'Could not determine question type for question #' + that.id + ' (' + question.title + ')';
+                };
 
+                that.submit = function () {
+                    throw 'Question #' + that.id + ' could not be submitted';
                 };
 
             };

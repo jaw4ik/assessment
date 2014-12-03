@@ -5,7 +5,6 @@
 
     function statement() {
         return {
-            restrict: 'E',
             templateUrl: 'views/statement.html'
         };
     }

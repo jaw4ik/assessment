@@ -6,9 +6,13 @@
         .factory('StatementViewModel', ['QuestionViewModel', function (QuestionViewModel) {
 
             return function StatementViewModel(question) {
-                var that = this;
+                QuestionViewModel.call(this, question);
 
-                QuestionViewModel.call(that, question);
+                var that = this;
+                that.getType = function () {
+                    return 'statement';
+                };
+
                 that.statements = question.options.map(function (option) {
                     return {
                         text: option.text,

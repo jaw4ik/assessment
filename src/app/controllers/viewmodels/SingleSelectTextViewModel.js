@@ -6,9 +6,13 @@
         .factory('SingleSelectTextViewModel', ['QuestionViewModel', function (QuestionViewModel) {
 
             return function SingleSelectTextViewModel(question) {
-                var that = this;
 
-                QuestionViewModel.call(that, question);
+                QuestionViewModel.call(this, question);
+
+                var that = this;
+                that.getType = function () {
+                    return 'singleSelectText';
+                };
 
                 that.answers = question.options.map(function (option) {
                     return {
