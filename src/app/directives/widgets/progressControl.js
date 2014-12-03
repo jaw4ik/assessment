@@ -10,7 +10,7 @@
             template: '<canvas></canvas>',
             scope: {
                 progress: '=',
-                masteryScore: '@'
+                masteryScore: '='
             },
             link: createProgressControl
         };
@@ -40,13 +40,10 @@
     }
 
     function removeFontPreloadelements(element) {
-        setTimeout(function () {
-            $('.fontPreload').remove();
-        }, 1000);
+        $('.fontPreload').remove();
     }
 
     function buildProgressControl(scope, context) {
-
         var color = (scope.progress >= scope.masteryScore) ? '#4cbae6' : '#d24a45',
             progressAngle = 2 * Math.PI * (scope.progress / 100) - 0.5 * Math.PI,
             masteryScoreAngle = 2 * Math.PI * (scope.masteryScore / 100) - 0.5 * Math.PI,
