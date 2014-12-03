@@ -1,4 +1,4 @@
-﻿<div class="summary">
+﻿<div class="summary" ng-init="scrollToTop()">
     <div class="summary-header">
         <div class="header-background"></div>
         <div class="header-content">
@@ -11,8 +11,8 @@
                 <progress-control progress="summary.progress" mastery-score="summary.masteryScore"></progress-control>
             </div>
             <div class="summary-buttons">
-                <button class="summary-button button primary large emphasize" ng-click="summary.tryAgain()">Try again</button>
-                <button class="summary-button button default large emphasize" ng-click="summary.finish()">Finish course</button>
+                <button class="summary-button button large emphasize" ng-class="{ primary:!summary.reachMasteryScore, default:summary.reachMasteryScore }" ng-click="summary.tryAgain()">Try again</button>
+                <button class="summary-button button large emphasize" ng-class="{ primary:summary.reachMasteryScore, default:!summary.reachMasteryScore }" ng-click="summary.finish()">Finish course</button>
             </div>
         </div>
     </div>

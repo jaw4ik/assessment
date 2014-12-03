@@ -18,7 +18,8 @@
             });
 
             that.progress = quiz.getResult().toFixed();
-            that.masteryScore = 50;
+            that.masteryScore = 80;
+            that.reachMasteryScore = that.progress >= that.masteryScore;
         });
 
         that.tryAgain = function () {
