@@ -16,6 +16,7 @@
 
                 that.answers = question.options.map(function (option) {
                     return {
+                        id: option.id,
                         image: option.image,
                         checked: false
                     };
@@ -32,7 +33,7 @@
                     var item = _.find(that.answers, function (answer) {
                         return answer.checked;
                     });
-                    question.answer(item ? item.image : null);
+                    question.answer(item ? item.id : null);
                 };
             };
 

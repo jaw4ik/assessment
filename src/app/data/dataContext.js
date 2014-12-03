@@ -40,7 +40,7 @@
                                         }
 
                                         if (dtq.type === 'singleSelectImage') {
-                                            question = new SingleSelectImage(dtq.id, dtq.title, dtq.answers);
+                                            question = new SingleSelectImage(dtq.id, dtq.title, dtq.answers, dtq.correctAnswerId);
                                         }
 
                                         if (dtq.type === 'dragAndDropText') {
