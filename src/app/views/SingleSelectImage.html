@@ -2,13 +2,11 @@
     <div class="single-select-image-list">
         <div class="single-select-image-list-item" ng-repeat="answer in question.answers">
             <a class="thumbnail-container" ng-click="question.checkAnswer(answer)" ng-class="{ checked: answer.checked }">
-                <span class=" thumbnail-animation-container">
                 <span class="thumbnail-wrapper">
+                    <span class="thumbnail-selected"></span>
                     <img class=" thumbnail-image" ng-src="{{answer.image}}?height=200&amp;width=250&amp;scaleBySmallerSide=true" />
                 </span><span class="preview-button-container"><span class="preview-button" ng-click="singleSelectImage.openPreviewImage(answer.image)"></span></span>
-                </span>
             </a>
         </div>
     </div>
 </div>
-    
