@@ -1,15 +1,6 @@
 ﻿(function () {
 
     angular.module('quiz')
-        .directive('statement', statement);
-
-    function statement() {
-        return {
-            templateUrl: 'views/statement.html'
-        };
-    }
-
-    angular.module('quiz')
       .directive('statementItem', statementItem);
 
     function statementItem() {
