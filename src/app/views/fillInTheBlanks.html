@@ -1,4 +1,6 @@
-﻿<section>
+﻿<section class="fill-in-the-blank">
+    <div ng-include="question.templateUrl" class="template-content">
+    </div>
 
     <div ng-repeat="answer in question.answers" blank>
         {{ answer.groupId}} {{ answer.text }}

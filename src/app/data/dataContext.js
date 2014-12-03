@@ -68,7 +68,6 @@
                                         }
 
                                         if (question) {
-                                            question.title = dtq.title;
 
                                             if (dtq.hasContent) {
                                                 question.contentUrl = '../content/' + dto.id + '/' + dtq.id + '/content.html';

@@ -9,10 +9,14 @@
                 QuestionViewModel.call(this, question);
 
                 var that = this;
+
+
+                that.templateUrl = question.contentUrl;
+                delete that.contentUrl;
+
                 that.getType = function () {
                     return 'fillInTheBlanks';
                 };
-
 
                 that.answers = question.answers.map(function (option) {
                     return {
