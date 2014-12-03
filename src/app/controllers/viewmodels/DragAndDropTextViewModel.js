@@ -6,9 +6,13 @@
         .factory('DragAndDropTextViewModel', ['QuestionViewModel', function (QuestionViewModel) {
 
             return function DragAndDropTextViewModel(question) {
-                var that = this;
 
-                QuestionViewModel.call(that, question);
+                QuestionViewModel.call(this, question);
+
+                var that = this;
+                that.getType = function () {
+                    return 'dragAndDropText';
+                };                
 
                 that.background = question.background;
 

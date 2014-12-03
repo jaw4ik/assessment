@@ -9,12 +9,7 @@
                 <div class="question-content" ng-show="question.contentUrl && question.contentUrl.length">
                     <div ng-include src="question.contentUrl"></div>
                 </div>
-                <div ng-switch="question.constructor.name">
-                    <singleselect-text ng-switch-when="SingleSelectTextViewModel"></singleselect-text>
-                    <drag-and-drop-text ng-switch-when="DragAndDropTextViewModel"></drag-and-drop-text>
-                    <statement ng-switch-when="StatementViewModel"></statement>
-                    <single-select-image ng-switch-when="SingleSelectImageViewModel"></single-select-image>
-                    <text-matching ng-switch-when="TextMatchingViewModel"></text-matching>
+                <div ng-include="'views/' + question.getType() + '.html '">
                 </div>
             </article>
         </li>

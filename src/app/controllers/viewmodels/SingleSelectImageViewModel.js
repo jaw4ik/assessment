@@ -6,9 +6,13 @@
         .factory('SingleSelectImageViewModel', ['QuestionViewModel', function (QuestionViewModel) {
 
             return function SingleSelectImageViewModel(question) {
-                var that = this;
 
-                QuestionViewModel.call(that, question);
+                QuestionViewModel.call(this, question);
+
+                var that = this;
+                that.getType = function () {
+                    return 'singleSelectImage';
+                };
 
                 that.answers = question.options.map(function (option) {
                     return {

@@ -5,11 +5,8 @@
 
     function singleSelectImage() {
         return {
-            restrict: 'E',
-            templateUrl: 'views/SingleSelectImage.html',
             controller: ['imagePreviewFactory', singleSelectImageController],
             controllerAs: 'singleSelectImage'
-
         };
     }
 
