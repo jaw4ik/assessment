@@ -10,9 +10,14 @@
 
         dataContext.getQuiz().then(function (quiz) {
             that.title = '"' + quiz.title + '"';
-            that.questions = quiz.questions;
+            that.questions = quiz.questions.map(function(question) {
+                return {
+                    title: question.title,
+                    isCorrect: question.score == 100
+                }
+            });
 
-            that.progress = quiz.getResult();
+            that.progress = quiz.getResult().toFixed();
             that.masteryScore = 50;
         });
 

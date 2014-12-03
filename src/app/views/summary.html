@@ -8,7 +8,7 @@
                 <div class="header-questions-label">{{summary.questions.length}} questions</div>
             </div>
             <div class="summary-progress-control">
-                <progress-control progress="{{summary.progress}}" mastery-score="{{summary.masteryScore}}"></progress-control>
+                <progress-control progress="summary.progress" mastery-score="summary.masteryScore"></progress-control>
             </div>
             <div class="summary-buttons">
                 <button class="summary-button button primary large emphasize" ng-click="summary.tryAgain()">Try again</button>
@@ -18,8 +18,8 @@
     </div>
     <div class="summary-questions">
         <div class="summary-questions-title">Particulary results</div>
-        <ul class="questions unstyled" ng-repeat="question in summary.questions">
-            <li>
+        <ul class="questions unstyled">
+            <li ng-repeat="question in summary.questions" ng-class="{correct: question.isCorrect}">
                 <span class="question-number">{{$index + 1 | leadingZeros: 2}}</span>
                 <span class="question-title">{{question.title}}</span>
             </li>

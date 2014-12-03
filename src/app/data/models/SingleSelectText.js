@@ -11,6 +11,7 @@
 
                 that.options = options;
                 that.answer = function (text) {
+                    that.score = 0;
                     that.options.forEach(function (option) {
                         if (option.text === text && option.isCorrect) {
                             that.score = 100;
