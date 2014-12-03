@@ -11,8 +11,16 @@
 
                 that.answers = answers;
 
-                that.answer = function (text) {
-                    debugger;
+                that.answer = function (userAnswers) {
+                    var correct = 0;
+                    _.each(that.answers, function (answer) {
+                        if (_.find(userAnswers, function (userAnswer) {
+                            return answer.groupId == userAnswer.groupId && answer.text == userAnswer.text;
+                        })) {
+                            correct++;
+                        }
+                    });                    
+                    that.score = correct == that.answers.length ? 100 : 0;
                 };
             };
 

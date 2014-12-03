@@ -13,9 +13,16 @@
                     return 'fillInTheBlanks';
                 };
 
+
+                that.answers = question.answers.map(function (option) {
+                    return {
+                        groupId: option.groupId,
+                        text: ''
+                    };
+                });
+
                 that.submit = function () {
-                    debugger;
-                    question.answer();
+                    question.answer(that.answers);
                 };
             };
 
