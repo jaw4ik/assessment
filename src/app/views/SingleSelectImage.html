@@ -5,7 +5,7 @@
                 <span class="thumbnail-wrapper">
                     <span class="thumbnail-selected"></span>
                     <image-loader url="answer.image" width="250" height="200" scale-by-smaller-side="true"></image-loader>
-                </span><span class="preview-button-container"><span class="preview-button" ng-click="singleSelectImage.openPreviewImage(answer.image)"></span></span>
+                </span><span class="preview-button-container"><span class="preview-button" ng-click="singleSelectImage.openPreviewImage(answer.image);$event.stopPropagation();"></span></span>
             </a>
         </div>
     </div>
