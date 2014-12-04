@@ -5,9 +5,6 @@
 
     function textMatching() {
         return {
-            restrict: 'E',
-            replace: true,
-            templateUrl: 'views/TextMatching.html?v=' + Math.random(),
             link: function ($scope, element) {
                 var clone;
 
