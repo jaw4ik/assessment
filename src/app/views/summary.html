@@ -1,6 +1,6 @@
 ﻿<div class="summary" ng-init="scrollToTop()">
     <div class="summary-header">
-        <div class="header-content">
+        <div class="summary-header-content">
             <div class="header-title-container">
                 <div class="header-quiz-label">Quiz</div>
                 <div class="header-quiz-title" ng-bind="summary.title"></div>
@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="summary-questions">
-        <div class="questions-container">
+        <div class="summary-questions-container">
             <div class="questions-title">Particulary results</div>
             <ul class="questions unstyled">
                 <li ng-repeat="question in summary.questions" ng-class="{correct: question.isCorrect}">
