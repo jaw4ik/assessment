@@ -7,15 +7,15 @@
 
     QuestionController.$inject = [
         '$http', '$location',
-        'SingleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks',
-        'SingleSelectTextViewModel', 'TextMatchingViewModel', 'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel',
+        'SingleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
+        'SingleSelectTextViewModel', 'TextMatchingViewModel', 'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel','HotspotViewModel',
         'dataContext'
     ];
 
 
     function QuestionController($http, $location,
-        SingleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks,
-        SingleSelectTextViewModel, TextMatchingViewModel, DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel,
+        SingleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot,
+        SingleSelectTextViewModel, TextMatchingViewModel, DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel, HotspotViewModel,
         dataContext) {
 
         var that = this;
@@ -40,6 +40,9 @@
                 }
                 if (question instanceof FillInTheBlanks) {
                     return new FillInTheBlanksViewModel(question);
+                }
+                if (question instanceof Hotspot) {
+                    return new HotspotViewModel(question);
                 }
 
 
