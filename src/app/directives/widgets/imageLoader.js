@@ -34,6 +34,8 @@
                         if (image) {
                             image.className = 'image';
                             image.style.display = "none";
+                            image.style.width = 'auto';
+                            image.style.height = 'auto';
                             if (!scope.scaleBySmallerSide) {
                                 image.style.maxWidth = width + 'px';
                                 image.style.maxHeight = height + 'px';

@@ -68,7 +68,7 @@
                                         }
 
                                         if (dtq.type === 'hotspot') {
-                                            question = new Hotspot(dtq.id, dtq.title, dtq.background);
+                                            question = new Hotspot(dtq.id, dtq.title, dtq.background, dtq.spots, dtq.isMultiple);
                                         }
 
 

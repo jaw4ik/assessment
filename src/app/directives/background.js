@@ -12,14 +12,13 @@
                 var src = attrs.background, image;
                 if (src) {
                     image = new Image();
-                    image.src = src;
-
                     image.onload = function () {
                         element
                             .css('background-image', 'url(' + src + ')')
                             .css('height', image.height)
                             .css('width', image.width);
                     };
+                    image.src = src;
                 }
             }
         };
