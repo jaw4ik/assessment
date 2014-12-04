@@ -15,9 +15,24 @@
                 };                
 
                 that.background = question.background;
+                that.spots = question.spots;
+                that.isMultiple = question.isMultiple;
+                that.marks = [];
+
+                that.addMark = function (mark) {
+                    if (!that.isMultiple) {
+                        that.marks.splice(0, that.marks.length);
+                    }
+                    that.marks.push(mark);
+                };
+
+                that.removeMark = function (mark) {
+                    that.marks = _.without(that.marks, _.findWhere(that.marks, mark));
+                };
 
                 that.submit = function () {
-                    question.answer(null);
+                    debugger;
+                    question.answer(that.marks);
                 };
 
             };
