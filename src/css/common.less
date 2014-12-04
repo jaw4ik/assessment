@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+.break-word() {
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
 .before-image(@url, @left, @top, @width, @height) {
     background-image: @url;
     background-position: center center;
@@ -53,16 +58,16 @@ ul {
 
 
 .radio, .checkbox {
+    .border-box();
+    .break-word();
     color: @radio-text-color;
     cursor: pointer;
     display: inline-block;
-    font-family: @radio-text-font;
-    font-size: 18px;
-    line-height: 30px;
+    font: 18px/30px @radio-text-font;
     padding: 20px 20px 20px 70px;
     position: relative;
     width: 100%;
-    .border-box();
+
 
     &:before {
         content: "";
@@ -139,7 +144,7 @@ ul {
         background-color: #50b2ac;
         border-color: #43aaa3;
         color: #fff;
-        font-family: 'RobotoBold';
+        font-family: @button-text-font;
 
         &:hover {
             background-color: #369690;
