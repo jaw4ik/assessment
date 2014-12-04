@@ -7,15 +7,15 @@
 
     QuestionController.$inject = [
         '$http', '$location',
-        'SingleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
-        'SingleSelectTextViewModel', 'TextMatchingViewModel', 'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel','HotspotViewModel',
+        'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
+        'SingleSelectTextViewModel', 'MultipleSelectTextViewModel', 'TextMatchingViewModel', 'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel', 'HotspotViewModel',
         'dataContext'
     ];
 
 
     function QuestionController($http, $location,
-        SingleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot,
-        SingleSelectTextViewModel, TextMatchingViewModel, DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel, HotspotViewModel,
+        SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot,
+        SingleSelectTextViewModel, MultipleSelectTextViewModel, TextMatchingViewModel, DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel, HotspotViewModel,
         dataContext) {
 
         var that = this;
@@ -25,6 +25,9 @@
             that.questions = quiz.questions.map(function (question) {
                 if (question instanceof SingleSelectText) {
                     return new SingleSelectTextViewModel(question);
+                }
+                if (question instanceof MultipleSelectText) {
+                    return new MultipleSelectTextViewModel(question);
                 }
                 if (question instanceof TextMatching) {
                     return new TextMatchingViewModel(question);
