@@ -3,10 +3,10 @@
 
     angular.module('quiz').factory('dataContext', [
         '$q', '$http',
-        'Quiz', 'SingleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks',
+        'Quiz', 'SingleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
         dataContext]);
 
-    function dataContext($q, $http, Quiz, SingleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks) {
+    function dataContext($q, $http, Quiz, SingleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot) {
 
         var
             self = {
@@ -66,6 +66,11 @@
                                             });
                                             question = new FillInTheBlanks(dtq.id, dtq.title, answers);
                                         }
+
+                                        if (dtq.type === 'hotspot') {
+                                            question = new Hotspot(dtq.id, dtq.title, dtq.background);
+                                        }
+
 
                                         if (question) {
 

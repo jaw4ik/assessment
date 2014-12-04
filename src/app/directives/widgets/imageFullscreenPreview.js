@@ -5,11 +5,9 @@
 
     function imageFullscreenPreview() {
         return {
-            restrict: 'E',
+            restrict: 'A',
             transclude: true,
-            replace: true,
-
-            template: '<ng-transclude></ng-transclude>',
+            template: '',
             link: link
         };
 
