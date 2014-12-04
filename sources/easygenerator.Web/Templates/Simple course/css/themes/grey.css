@@ -67,8 +67,6 @@ body {
 /*#region action-buttons*/
 
 .small-page-action-btn {
-    min-width: 130px;
-    padding: 11px 8px;
     border-radius: 1px;
 }
 
@@ -144,7 +142,7 @@ body {
 }
 
 .objective-progress {
-    bottom: -2px;
+    bottom: 1px;
 }
 
 .objective-progressbar-wrapper {
@@ -196,12 +194,11 @@ body {
 }
 
 .objective-progressbar-masteryscore-indicator-tooltip {
-    margin-bottom: 9px;
     background: #3c6490;
     border: 1px solid #d6edf5;
 }
 
-    .objective-progressbar-masteryscore-indicator-tooltip:after {
+    .objective-progressbar-masteryscore-indicator-tooltip-wrapper:after {
         background: #3c6490;
         box-shadow: 1px 1px 0 #d6edf5;
     }
@@ -264,7 +261,6 @@ body {
 /*#region questions navigation styles */
 
 .questions-counter {
-    vertical-align: top;
     color: #555;
     font-family: Arial, sans-serif;
 }

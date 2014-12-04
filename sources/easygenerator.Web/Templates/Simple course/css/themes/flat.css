@@ -61,8 +61,6 @@ body {
 /*#region action-buttons*/
 
 .small-page-action-btn {
-    min-width: 127px;
-    padding: 11px 10px;
     border: 1px solid black;
     border-radius: 5px;
 }
@@ -142,7 +140,7 @@ body {
 }
 
 .objective-progress {
-    bottom: -4px;
+    bottom: 1px;
 }
 
 .objective-progressbar-wrapper {
@@ -199,12 +197,11 @@ body {
 }
 
 .objective-progressbar-masteryscore-indicator-tooltip {
-    margin-bottom: 9px;
     background: #55626f;
     border-radius: 3px;
 }
 
-    .objective-progressbar-masteryscore-indicator-tooltip:after {
+    .objective-progressbar-masteryscore-indicator-tooltip-wrapper:after {
         background: #55626f;
     }
 
@@ -265,7 +262,6 @@ body {
 /*#region questions navigation styles */
 
 .questions-counter {
-    vertical-align: top;
     color: #777;
     font-family: Arial, sans-serif;
 }
@@ -402,14 +398,6 @@ body {
     }
 
 /*#endregion question view */
-
-/*#region introduction view */
-
-.intro .small-page-action-btn {
-    width: 138px;
-}
-
-/*#endregion introduction view*/
 
 /*#region xapi-login-form*/
 
