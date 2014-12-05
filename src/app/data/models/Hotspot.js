@@ -19,7 +19,7 @@
                 };
 
                 function calculateScore(isMultiple, spots, placedMarks) {
-                    if (!_.isArray(spots) || spots.length == 0) {
+                    if (!_.isArray(spots) || spots.length === 0) {
                         return placedMarks.length ? 0 : 100;
                     }
 
@@ -57,13 +57,15 @@
                         var xi = spot[i].x, yi = spot[i].y;
                         var xj = spot[j].x, yj = spot[j].y;
 
-                        var intersect = ((yi > y) != (yj > y))
+                        var intersect = ((yi > y) !== (yj > y))
                             && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-                        if (intersect) inside = !inside;
+                        if (intersect) {
+                            inside = !inside;
+                        }
                     }
 
                     return inside;
-                };
+                }
             };
 
         }]);

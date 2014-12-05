@@ -7,10 +7,10 @@
     imagePreviewFactory.$inject = ['$rootScope'];
 
     function imagePreviewFactory($rootScope) {
-        var factory ={
+        var factory = {
             showEventName: 'imagePreview.show',
             showImage: showImage
-        }
+        };
 
         return factory;
 

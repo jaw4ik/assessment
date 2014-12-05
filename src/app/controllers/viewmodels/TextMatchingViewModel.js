@@ -11,7 +11,7 @@
                 var that = this;
                 that.getType = function () {
                     return 'textMatching';
-                }
+                };
 
                 that.sources = question.answers.map(function (answer) {
                     var source = {

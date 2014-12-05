@@ -15,7 +15,7 @@
         function link(scope, element) {
             var offset, x, y;
 
-            var clickHandler =  $(element).on('click', handler);
+            var clickHandler = $(element).on('click', handler);
             scope.$on('$destroy', clickHandler);
 
             function handler(e) {
@@ -30,7 +30,7 @@
                     y -= window.scrollY;
                 }
 
-                if (typeof (scope.clickHandler) == "function") {
+                if (typeof (scope.clickHandler) === 'function') {
                     scope.clickHandler({ x: x, y: y });
                     scope.$apply();
                 }
@@ -39,7 +39,7 @@
             function isChromeWithPageCoordsBug() {
                 var ua = navigator.userAgent.toLowerCase();
                 if (ua.match(/(chrome)\/?\s*([\d\.]+)/i)) {
-                    return window.navigator.appVersion.match(/Chrome\/(.*?) /)[1] == "38.0.2125.102";
+                    return window.navigator.appVersion.match(/Chrome\/(.*?) /)[1] === '38.0.2125.102';
                 }
                 return false;
             }

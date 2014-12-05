@@ -51,7 +51,7 @@
                                             question = new TextMatching(dtq.id, dtq.title, dtq.answers);
                                         }
 
-                                        if (dtq.type == 'fillInTheBlank') {
+                                        if (dtq.type === 'fillInTheBlank') {
                                             var answers = [];
                                             _.each(dtq.answerGroups, function (group) {
                                                 _.each(group.answers, function (answer) {
@@ -74,7 +74,6 @@
                                         if (dtq.type === 'multipleSelect') {
                                             question = new MultipleSelectText(dtq.id, dtq.title, dtq.answers);
                                         }
-
 
                                         if (question) {
 

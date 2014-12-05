@@ -21,7 +21,7 @@
                 updatePreviewImageSize($element);
             });
 
-            var orientationChangeHandler = $(window).on("orientationchange", function () {
+            var orientationChangeHandler = $(window).on('orientationchange', function () {
                 updatePreviewImageSize($element);
             });
 

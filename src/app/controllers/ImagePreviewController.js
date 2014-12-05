@@ -5,8 +5,6 @@
 
     ImagePreviewController.$inject = ['$scope', '$rootScope', 'imagePreviewFactory'];
 
-
-
     function ImagePreviewController($scope, $rootScope, imagePreviewFactory) {
         var that = this;
 
@@ -21,7 +19,6 @@
         that.hide = function () {
             that.visible = false;
         };
-
 
         var unbind = $rootScope.$on(imagePreviewFactory.showEventName, function (event, imageUrl) {
             that.show(imageUrl);

@@ -36,7 +36,7 @@
                     imageLoaderService.load(resizedImageUrl).then(function (image) {
                         if (image) {
                             image.className = 'image';
-                            image.style.display = "none";
+                            image.style.display = 'none';
                             image.style.width = 'auto';
                             image.style.height = 'auto';
                             if (!scope.scaleBySmallerSide) {

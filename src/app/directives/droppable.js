@@ -31,7 +31,6 @@
                     drop: function (event, ui) {
                         ui.draggable.trigger('dragstop');
 
-
                         var draggable = ui.draggable.isolateScope();
                         if (draggable) {
 
