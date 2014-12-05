@@ -45,7 +45,6 @@
 
                         answerCorrect = _.uniq(spotsWithMarks).length === spots.length && _.uniq(marksOnSpots).length === placedMarks.length;
                     }
-
                     return answerCorrect ? 100 : 0;
                 }
 

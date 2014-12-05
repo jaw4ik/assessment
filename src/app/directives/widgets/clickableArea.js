@@ -16,7 +16,6 @@
             var offset, x, y;
 
             var clickHandler = $(element).on('click', handler);
-            scope.$on('$destroy', clickHandler);
 
             function handler(e) {
                 offset = $(element).offset();
