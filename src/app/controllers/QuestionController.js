@@ -48,7 +48,6 @@
                     return new HotspotViewModel(question);
                 }
 
-
                 throw 'Unknown question type';
             });
         });

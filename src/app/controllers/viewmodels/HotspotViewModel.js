@@ -31,7 +31,6 @@
                 };
 
                 that.submit = function () {
-                    debugger;
                     question.answer(that.marks);
                 };
 
