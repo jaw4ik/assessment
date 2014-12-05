@@ -24,29 +24,32 @@
                         return $(arg).hasClass('ui-draggable');
                     },
                     activeClass: 'active',
+                    greedy: true,
                     hoverClass: 'hover',
                     scope: $scope.scope || 'default',
                     tolerance: 'pointer',
                     drop: function (event, ui) {
                         ui.draggable.trigger('dragstop');
-                        $(element).removeClass('hover active');
+
 
                         var draggable = ui.draggable.isolateScope();
-                        var previous = $(ui.draggable).closest('[droppable]').isolateScope();
+                        if (draggable) {
 
-                        if (previous === $scope) {
-                            return;
-                        }
-
-                        if ($scope.acceptValue) {
-                            $scope.acceptValue(draggable.value);
-                            $scope.$apply();
-
-                            if (previous && previous.rejectValue) {
-                                previous.rejectValue(draggable.value);
-                                previous.$apply();
+                            var previous = $(ui.draggable).closest('[droppable]').isolateScope();
+                            if (previous === $scope) {
+                                return;
                             }
 
+                            if ($scope.acceptValue) {
+                                $scope.acceptValue(draggable.value);
+                                $scope.$apply();
+
+                                if (previous && previous.rejectValue) {
+                                    previous.rejectValue(draggable.value);
+                                    previous.$apply();
+                                }
+
+                            }
                         }
 
                     }

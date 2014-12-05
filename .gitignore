@@ -4,8 +4,8 @@
 
 *.suo
 
-bower_components
-node_modules
-src/content
-/src/css/*.css
-/src/vendor
+bower_components/
+node_modules/
+src/content/
+src/css/*.css
+src/vendor/

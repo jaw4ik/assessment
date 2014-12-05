@@ -68,12 +68,15 @@ header:before {
         font-weight: normal;
 
         .index {
+            .border-box();
             border-right: 1px solid #91a4af;
             color: @question-index-color;
-            display: inline-block;
             font-family: @question-index-font;
+            direction: rtl;
+            display: inline-block;
             font-size: 50px;
             left: 0;
+            padding-right: 5px;
             position: absolute;
             top: 0;
             width: 45px;
@@ -122,6 +125,7 @@ header:before {
     .answer-wrapper {
         display: table;
         height: 100%;
+        table-layout: fixed;
         width: 100%;
     }
 
@@ -132,36 +136,36 @@ header:before {
         vertical-align: middle;
     }
 
-    .single-select-text {
+    .single-select-text, .multiple-select-text {
         .border-box();
         margin-left: 60px;
 
 
-        @radio-background-color: rgba(200, 209, 215, 0.2);
-        @radio-border-color: @radio-background-color;
+        @answer-background-color: rgba(200, 209, 215, 0.2);
+        @answer-border-color: @answer-background-color;
 
 
-        @radio-hover-border-color: rgba(204, 233, 220, 1);
-        @radio-hover-box-shadow: rgba(231, 247, 240, 1);
+        @answer-hover-border-color: rgba(204, 233, 220, 1);
+        @answer-hover-box-shadow: rgba(231, 247, 240, 1);
 
-        @radio-checked-background-color: rgba(136, 216, 181, 0.2);
-        @radio-checked-border-color: @radio-checked-background-color;
+        @answer-checked-background-color: rgba(136, 216, 181, 0.2);
+        @answer-checked-border-color: @answer-checked-background-color;
 
 
         .answer {
-            background-color: @radio-background-color;
-            border: 1px solid @radio-border-color;
+            background-color: @answer-background-color;
+            border: 1px solid @answer-border-color;
             border-radius: 5px;
             cursor: pointer;
 
             &:hover {
-                border-color: @radio-hover-border-color;
-                box-shadow: inset 0 0 15px 0 @radio-hover-box-shadow;
+                border-color: @answer-hover-border-color;
+                box-shadow: inset 0 0 15px 0 @answer-hover-box-shadow;
             }
 
             &.checked {
-                background-color: @radio-checked-background-color;
-                border-color: @radio-checked-border-color;
+                background-color: @answer-checked-background-color;
+                border-color: @answer-checked-border-color;
             }
         }
     }
@@ -348,6 +352,7 @@ header:before {
 @import "ssi";
 @import "fib";
 @import "ip";
+@import "hs";
 @import "preloader";
 
 @media (max-width:1023px) {

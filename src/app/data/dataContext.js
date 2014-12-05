@@ -3,10 +3,10 @@
 
     angular.module('quiz').factory('dataContext', [
         '$q', '$http',
-        'Quiz', 'SingleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
+        'Quiz', 'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
         dataContext]);
 
-    function dataContext($q, $http, Quiz, SingleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot) {
+    function dataContext($q, $http, Quiz, SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot) {
 
         var
             self = {
@@ -68,7 +68,11 @@
                                         }
 
                                         if (dtq.type === 'hotspot') {
-                                            question = new Hotspot(dtq.id, dtq.title, dtq.background);
+                                            question = new Hotspot(dtq.id, dtq.title, dtq.background, dtq.spots, dtq.isMultiple);
+                                        }
+
+                                        if (dtq.type === 'multipleSelect') {
+                                            question = new MultipleSelectText(dtq.id, dtq.title, dtq.answers);
                                         }
 
 

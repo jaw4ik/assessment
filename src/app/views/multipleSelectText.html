@@ -1,0 +1,22 @@
+﻿<div class="multiple-select-text">
+
+    <div class="answers" ng-repeat="answer in question.answers">
+        <div class="answer-pair" ng-if="$even">
+            <div class="answer-container">
+                <div class="answer-wrapper">
+                    <div class="answer" ng-click="question.checkAnswer(answer)" ng-class="{ checked: answer.checked }">
+                        <checkbox title="{{ answer.text }}" checked="answer.checked"></checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="answer-container">
+                <div class="answer-wrapper">
+                    <div class="answer" ng-click="question.checkAnswer(question.answers[$index + 1])" ng-class="{ checked: question.answers[$index + 1].checked }" ng-if="$index + 1 < question.answers.length">
+                        <checkbox title="{{ question.answers[$index + 1].text }}" checked="question.answers[$index + 1].checked"></checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
