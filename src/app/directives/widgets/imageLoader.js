@@ -19,8 +19,11 @@
 
             scope.$watch('url', function (url) {
                 $('.image', $element).remove();
+                $element.addClass('loading');
                 $imageLoaderIcon.show();
                 if (url) {
+                    $element.addClass('loading');
+
                     var width = scope.width;
                     var height = scope.height;
                     var resizedImageUrl = '';
@@ -42,6 +45,7 @@
                             }
                             $element.append(image);
                             $imageLoaderIcon.hide();
+                            $element.removeClass('loading');
                             $(image).fadeIn();
                         }
                     });
