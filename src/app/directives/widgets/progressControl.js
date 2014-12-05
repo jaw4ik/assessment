@@ -12,7 +12,11 @@
                 progress: '=',
                 masteryScore: '='
             },
-            link: createProgressControl
+            link: function($scope, $element) {
+                $scope.$watch(['progress', 'masteryScore'], function() {
+                    createProgressControl($scope, $element);
+                });
+            }
         };
     }
 
@@ -23,13 +27,13 @@
         var canvas = $(element).children('canvas');
         canvas.attr('width', '600');
         canvas.attr('height', '250');
+        canvas.attr('data-score', scope.progress);
+        canvas.attr('data-masteryScore', scope.masteryScore);
 
         var context = canvas[0].getContext('2d');
         context.clearRect(0, 0, 600, 250);
 
-        setTimeout(function () {
-            buildProgressControl(scope, context);
-        }, 0);
+        buildProgressControl(scope, context);
     }
 
     function loadArrowImages(scope) {
@@ -138,9 +142,12 @@
         var masteryScoreArrowX = scope.masteryScore >= 50 ? masteryScoreX - 63 : masteryScoreX + 22,
             masteryScoreArrowY = scope.masteryScore >= 50 ? masteryScoreY - 5 : masteryScoreY - 8,
             arrow = scope.masteryScore >= 50 ? scope.leftArrow : scope.rightArrow;
-        context.beginPath();
-        context.drawImage(arrow, masteryScoreArrowX, masteryScoreArrowY);
-        context.closePath();
+        
+        arrow.onload = function () {
+            context.beginPath();
+            context.drawImage(arrow, masteryScoreArrowX, masteryScoreArrowY);
+            context.closePath();
+        }
     }
 
     function drawText(context, text, font, color, positionX, positionY, align, maxWidth) {
