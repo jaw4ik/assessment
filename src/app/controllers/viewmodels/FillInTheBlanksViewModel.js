@@ -18,15 +18,31 @@
                     return 'fillInTheBlanks';
                 };
 
-                that.answers = question.answers.map(function (option) {
+                that.groups = question.groups.map(function (group) {
                     return {
-                        groupId: option.groupId,
-                        text: ''
+                        groupId: group.id,
+                        answer: null,
+                        answers: group.answers.map(function (answer) {
+                            return {
+                                text: answer.text
+                            };
+                        })
                     };
                 });
 
                 that.submit = function () {
-                    question.answer(that.answers);
+                    question.answer(_.chain(that.groups)
+                        .map(function (group) {
+                            return {
+                                groupId: group.groupId,
+                                answer: group.answer
+                            }
+                        })
+                        .reduce(function (obj, ctx) {
+                            obj[ctx.groupId] = ctx.answer;
+                            return obj;
+                        }, {})
+                        .value());
                 };
             };
 

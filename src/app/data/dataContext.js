@@ -31,6 +31,7 @@
                                 dto.questions.forEach(function (dtq) {
                                     if (dtq) {
                                         var question;
+
                                         if (dtq.type === 'singleSelectText') {
                                             question = new SingleSelectText(dtq.id, dtq.title, dtq.answers);
                                         }
@@ -52,19 +53,7 @@
                                         }
 
                                         if (dtq.type == 'fillInTheBlank') {
-                                            var answers = [];
-                                            _.each(dtq.answerGroups, function (group) {
-                                                _.each(group.answers, function (answer) {
-                                                    if (answer.isCorrect) {
-                                                        answers.push({
-                                                            id: answer.id,
-                                                            groupId: group.id,
-                                                            text: answer.text
-                                                        });
-                                                    }
-                                                });
-                                            });
-                                            question = new FillInTheBlanks(dtq.id, dtq.title, answers);
+                                            question = new FillInTheBlanks(dtq.id, dtq.title, dtq.answerGroups);
                                         }
 
                                         if (dtq.type === 'hotspot') {
