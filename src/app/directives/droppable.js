@@ -27,7 +27,7 @@
                     greedy: true,
                     hoverClass: 'hover',
                     scope: $scope.scope || 'default',
-                    tolerance: 'pointer',
+                    tolerance: 'intersect',
                     drop: function (event, ui) {
                         ui.draggable.trigger('dragstop');
 

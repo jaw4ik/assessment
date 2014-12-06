@@ -23,8 +23,7 @@
                                 height: $(this).outerHeight()
                             });
                     },
-                    scope: $scope.scope || 'default',
-                    tolerance: 'pointer',
+                    scope: $scope.scope || 'default',                    
                     revert: true,
                     revertDuration: 0,
                     zIndex: 10000,
