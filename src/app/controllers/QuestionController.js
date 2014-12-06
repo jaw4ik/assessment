@@ -7,11 +7,12 @@
 
     QuestionController.$inject = [
         '$http', '$location',
-        'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
-        'SingleSelectTextViewModel', 'MultipleSelectTextViewModel', 'TextMatchingViewModel', 'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel', 'HotspotViewModel',
+        'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText',
+        'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
+        'SingleSelectTextViewModel', 'MultipleSelectTextViewModel', 'TextMatchingViewModel',
+        'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel', 'HotspotViewModel',
         'dataContext'
     ];
-
 
     function QuestionController($http, $location,
         SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot,
@@ -47,7 +48,6 @@
                 if (question instanceof Hotspot) {
                     return new HotspotViewModel(question);
                 }
-
 
                 throw 'Unknown question type';
             });

@@ -64,7 +64,6 @@
                                             question = new MultipleSelectText(dtq.id, dtq.title, dtq.answers);
                                         }
 
-
                                         if (question) {
 
                                             if (dtq.hasContent) {

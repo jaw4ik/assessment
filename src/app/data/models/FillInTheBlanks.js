@@ -19,7 +19,7 @@
                         })) {
                             correct++;
                         }
-                    });
+                    });                    
 
                     that.score = correct == that.groups.length ? 100 : 0;
                 };

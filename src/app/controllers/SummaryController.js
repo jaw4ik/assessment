@@ -14,7 +14,7 @@
                 return {
                     title: question.title,
                     isCorrect: question.score == 100
-                }
+                };
             });
 
             that.progress = quiz.getResult().toFixed();

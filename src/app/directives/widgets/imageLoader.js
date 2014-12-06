@@ -19,8 +19,11 @@
 
             scope.$watch('url', function (url) {
                 $('.image', $element).remove();
+                $element.addClass('loading');
                 $imageLoaderIcon.show();
                 if (url) {
+                    $element.addClass('loading');
+
                     var width = scope.width;
                     var height = scope.height;
                     var resizedImageUrl = '';
@@ -33,7 +36,7 @@
                     imageLoaderService.load(resizedImageUrl).then(function (image) {
                         if (image) {
                             image.className = 'image';
-                            image.style.display = "none";
+                            image.style.display = 'none';
                             image.style.width = 'auto';
                             image.style.height = 'auto';
                             if (!scope.scaleBySmallerSide) {
@@ -42,6 +45,7 @@
                             }
                             $element.append(image);
                             $imageLoaderIcon.hide();
+                            $element.removeClass('loading');
                             $(image).fadeIn();
                         }
                     });
