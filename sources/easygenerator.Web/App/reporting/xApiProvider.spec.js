@@ -51,6 +51,7 @@
 
                 dfd = Q.defer();
                 spyOn(httpRequestSender, 'get').and.returnValue(dfd.promise);
+                
                 dfd.resolve({ statements: statements });
             });
 
@@ -63,16 +64,14 @@
             });
 
             it('should call httpRequestSender send method with correct params', function () {
+
                 xApiProvider.getReportingStatements(courseId);
-
-                var queryParams = {};
-                queryParams[constants.reporting.extensionKeys.courseId] = courseId;
-
-                var headers = [];
-                headers["X-Experience-API-Version"] = config.lrs.version;
-                headers["Content-Type"] = "application/json";
-
-                expect(httpRequestSender.get).toHaveBeenCalledWith(config.lrs.uri, queryParams, headers);
+                var args = httpRequestSender.get.calls.mostRecent().args;
+                expect(args[0]).toBe(config.lrs.uri);
+                expect(args[1][constants.reporting.extensionKeys.courseId]).toBe(courseId);
+                expect(args[1]['v']).toBeDefined();
+                expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
+                expect(args[2]["Content-Type"]).toBe("application/json");
             });
 
             describe('if statements were returned', function () {

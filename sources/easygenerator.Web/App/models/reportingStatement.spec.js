@@ -80,33 +80,5 @@
                 expect(reportingStatement.score).toBe(50);
             });
         });
-
-        describe('getFormattedDate:', function () {
-            var statementSpec;
-            beforeEach(function () {
-                statementSpec = {
-                    timestamp: "2013-12-27T07:58:07.617000+00:00",
-                    actor: {
-                        name: "Username",
-                        mbox: "mailto:email@example.com"
-                    },
-                    verb: {
-                        id: constants.reporting.xApiVerbIds.passed
-                    },
-                    result: {
-                        score: {
-                            "scaled": 0.5
-                        }
-                    }
-                }
-            });
-
-            it('should format date in proper string format', function () {
-                var statement = new ReportingStatement(statementSpec);
-                statement.date = new Date(Date.parse("March 21, 2012 17:02"));
-                
-                expect(statement.getFormattedDate()).toBe("Mar 21, 2012 5:02 PM");
-            });
-        });
     });
 });

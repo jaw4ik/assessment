@@ -309,7 +309,9 @@
 
                             it('should open template preview in new tab', function () {
                                 template.openPreview(template, event);
-                                expect(router.openUrl).toHaveBeenCalledWith(template.previewDemoUrl);
+                                var previewUrl = router.openUrl.calls.mostRecent().args[0];
+                                var url = previewUrl.substring(0, previewUrl.indexOf('?'));
+                                expect(url).toBe(template.previewDemoUrl);
                             });
 
                         });

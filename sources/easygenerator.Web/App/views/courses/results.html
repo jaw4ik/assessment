@@ -34,7 +34,7 @@
                                     <!-- /ko -->
                                 </td>
                                 <td class="r-score" data-bind="text: score">score</td>
-                                <td class="r-date" data-bind="text: getFormattedDate()">date</td>
+                                <td class="r-date" data-bind="date: { value: date, formatString: 'MMM D, YYYY h:mm A' }">date</td>
                             </tr>
                             <!-- /ko -->
                         </tbody>

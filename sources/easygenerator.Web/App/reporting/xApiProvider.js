@@ -12,6 +12,7 @@
 
             var queryParams = {};
             queryParams[constants.reporting.extensionKeys.courseId] = courseId;
+            queryParams['v'] = +new Date();
 
             return httpRequestSender.get(config.lrs.uri, queryParams, headers).then(function (response) {
                 if (response && response.statements) {

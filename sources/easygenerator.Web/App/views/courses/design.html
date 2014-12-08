@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <!-- /ko -->
-                <iframe data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: currentTemplate().settingsUrl + '?v=' + (+(new Date())) + '&courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: resizeFrame }" frameborder="0" width="100%"></iframe>
+                <iframe data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: currentTemplate().settingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: resizeFrame }" frameborder="0" width="100%"></iframe>
             </div>
         </div>
     </div>

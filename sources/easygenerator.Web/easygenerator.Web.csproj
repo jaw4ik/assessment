@@ -1290,9 +1290,10 @@
     <Content Include="Templates\Exam\js\vendor.min.js" />
     <Content Include="Templates\Exam\publishSettings.js" />
     <Content Include="Templates\Exam\settings.js" />
-    <Content Include="Templates\Exam\settings\css\settings.min.css" />
+    <Content Include="Templates\Exam\settings\css\settings.css" />
     <Content Include="Templates\Exam\settings\img\saltbox-banner.png" />
-    <Content Include="Templates\Exam\settings\js\vendor.js" />
+    <Content Include="Templates\Exam\settings\js\settings.js" />
+    <Content Include="Templates\Exam\settings\js\vendor.min.js" />
     <Content Include="Templates\Exam\settings\settings.html" />
     <Content Include="Templates\Personalized learning\app\main.js" />
     <Content Include="Templates\Personalized learning\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
@@ -1325,7 +1326,7 @@
     <Content Include="Templates\Personalized learning\css\font\opensans-semibold.svg" />
     <Content Include="Templates\Personalized learning\css\font\opensans-semibold.ttf" />
     <Content Include="Templates\Personalized learning\css\font\opensans-semibold.woff" />
-    <Content Include="Templates\Personalized learning\css\main.css" />
+    <Content Include="Templates\Personalized learning\css\general.css" />
     <Content Include="Templates\Personalized learning\images\chrome.png" />
     <Content Include="Templates\Personalized learning\images\firefox.png" />
     <Content Include="Templates\Personalized learning\images\ie10.png" />
@@ -1395,9 +1396,10 @@
     <Content Include="Templates\Quiz\js\vendor.min.js" />
     <Content Include="Templates\Quiz\publishSettings.js" />
     <Content Include="Templates\Quiz\settings.js" />
-    <Content Include="Templates\Quiz\settings\css\settings.min.css" />
+    <Content Include="Templates\Quiz\settings\css\settings.css" />
     <Content Include="Templates\Quiz\settings\img\saltbox-banner.png" />
-    <Content Include="Templates\Quiz\settings\js\vendor.js" />
+    <Content Include="Templates\Quiz\settings\js\settings.js" />
+    <Content Include="Templates\Quiz\settings\js\vendor.min.js" />
     <Content Include="Templates\Quiz\settings\settings.html" />
     <Content Include="Templates\Simple course\app\main.js" />
     <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
@@ -1436,13 +1438,13 @@
     <Content Include="Templates\Simple course\img\singleSelectImageAnwer.png" />
     <Content Include="Templates\Simple course\img\xapi\error-message.png" />
     <Content Include="Templates\Simple course\img\xapi\xapierror.png" />
-    <Content Include="Templates\Simple course\settings\css\settings.min.css" />
+    <Content Include="Templates\Simple course\settings\css\settings.css" />
     <Content Include="Templates\Simple course\settings\img\black.png" />
     <Content Include="Templates\Simple course\settings\img\cartoon.png" />
     <Content Include="Templates\Simple course\settings\img\flat.png" />
     <Content Include="Templates\Simple course\settings\img\grey.png" />
     <Content Include="Templates\Simple course\settings\img\saltbox-banner.png" />
-    <Content Include="Templates\Simple course\settings\js\settings.min.js" />
+    <Content Include="Templates\Simple course\settings\js\settings.js" />
     <Content Include="Templates\Simple course\settings\js\vendor.min.js" />
     <Content Include="Templates\Simple course\settings\settings.html" />
     <Content Include="Views\Account\InvalidPasswordRecovery.cshtml" />
@@ -1510,6 +1512,10 @@
     <Content Include="Templates\Simple course\css\font\robotoslab-regular.eot" />
     <Content Include="Templates\Simple course\css\font\robotoslab-regular.ttf" />
     <Content Include="Templates\Simple course\css\font\robotoslab-regular.woff" />
+    <Content Include="Templates\Exam\app\main.js.map" />
+    <Content Include="Templates\Personalized learning\app\main.js.map" />
+    <Content Include="Templates\Quiz\app\main.js.map" />
+    <Content Include="Templates\Simple course\app\main.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

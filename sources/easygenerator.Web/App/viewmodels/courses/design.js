@@ -60,7 +60,7 @@
                                 order: template.order,
                                 openPreview: function (item, event) {
                                     event.stopPropagation();
-                                    router.openUrl(item.previewDemoUrl);
+                                    router.openUrl(item.previewDemoUrl + '?v=' + window.top.appVersion);
                                 }
                             };
                         })
