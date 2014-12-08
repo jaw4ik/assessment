@@ -15,7 +15,7 @@
         function link(scope, element) {
             var offset, x, y;
 
-            var clickHandler = $(element).on('click', handler);
+            $(element).on('click', handler);
 
             function handler(e) {
                 offset = $(element).offset();
@@ -30,7 +30,10 @@
                 }
 
                 if (typeof (scope.clickHandler) === 'function') {
-                    scope.clickHandler({ x: x, y: y });
+                    scope.clickHandler({
+                        x: x,
+                        y: y
+                    });
                     scope.$apply();
                 }
             }

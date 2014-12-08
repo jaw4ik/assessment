@@ -42,8 +42,6 @@
         };
     }
 
-
-
     function show($element, options, callback) {
 
         $element.addClass('active');
@@ -80,14 +78,13 @@
         //.slideToggle('fast')
         ;
 
-
         var handler = function () {
             container.remove();
             $element.removeClass('active');
 
             $('html').off('click', handler);
             $(window).off('resize', handler);
-        }
+        };
 
         setTimeout(function () {
             $('html').on('click', handler);
