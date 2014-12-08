@@ -1,3 +1,7 @@
+﻿﻿.questions-container {
+    margin: 90px 40px 90px;
+}
+
 ﻿.question {
     .single-select-text, .multiple-select-text, .statements {
         margin-left: 0;
@@ -21,7 +25,13 @@
     }
 
     .single-select-image-list-item {
-        margin: 0;
+        margin: 0 20px 0 0;
+        padding-left: 0px;
+
+        &:nth-child(even) {
+            margin: 0;
+            padding-right: 0px;
+        }
     }
 
     .text-matching-table-wrapper {
