@@ -31,8 +31,8 @@
                             $scope.group.answer = newValue;
                             $scope.$apply();
                         });
-                        e.preventDefault();
-                        e.stopImmediatePropagation();
+                        //e.preventDefault();
+                        //e.stopImmediatePropagation();
                     });
             },
             template: '<div class="select-wrapper">' +
@@ -43,6 +43,10 @@
     }
 
     function show($element, options, callback) {
+
+        if ($element.hasClass('active')) {
+            return;
+        }
 
         $element.addClass('active');
 
@@ -81,7 +85,7 @@
         var handler = function () {
             container.remove();
             $element.removeClass('active');
-
+            console.log('handler');
             $('html').off('click', handler);
             $(window).off('resize', handler);
         };

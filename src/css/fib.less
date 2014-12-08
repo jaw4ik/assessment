@@ -84,11 +84,12 @@
     }
 
     .select-wrapper {
+        cursor: pointer;
         display: inline-block;
-        width: 225px;
+        outline: none;
         position: relative;
         vertical-align: top;
-        outline: none;
+        width: 225px;
 
         &:focus {
             outline: none;
@@ -96,7 +97,6 @@
 
         .current {
             .text-overflow-with-dots();
-            cursor: pointer;
             min-height: 52px;
             overflow: hidden;
             padding-left: 10px;
