@@ -54,6 +54,8 @@ header:before {
 .questions-container {
     margin: 0 auto;
     max-width: 1024px;
+    min-width: 560px;
+    padding: 0 40px 40px;
 }
 
 .question {
@@ -73,14 +75,15 @@ header:before {
             .border-box();
             border-right: 1px solid #91a4af;
             color: @question-index-color;
-            font-family: @question-index-font;
             direction: rtl;
             display: inline-block;
+            font-family: @question-index-font;
             font-size: 50px;
             left: 0;
             padding-right: 5px;
             position: absolute;
             top: 0;
+            white-space: nowrap;
             width: 45px;
         }
     }
@@ -207,6 +210,7 @@ header:before {
 
                 .statement-button.false {
                     opacity: 0.5;
+                    box-shadow: none;
                 }
             }
 
@@ -215,6 +219,7 @@ header:before {
 
                 .statement-button.true {
                     opacity: 0.5;
+                    box-shadow: none;
                 }
             }
 
@@ -230,10 +235,9 @@ header:before {
 
             .title {
                 color: #3a4046;
-                font-size: 16px;
-                font-family: 'RobotoslabRegular';
+                font: 16px/28px 'RobotoslabRegular';
                 padding: 30px 20px 108px;
-                line-height: 28px;
+                word-wrap: break-word;
             }
 
             .statement-buttons-container {
@@ -257,35 +261,38 @@ header:before {
                 text-transform: uppercase;
                 color: #fefefe;
                 cursor: pointer;
-                transition: background @transition-settings, box-shadow @transition-settings;
+                transition: background @transition-settings, box-shadow @transition-settings, opacity @transition-settings;
 
-                &.selected {
-                    box-shadow: inset 0px 3px 5px 0px rgba(0,0,0,0.25);
-                }
 
                 &.true {
                     @true-button-color: #74b3ae;
                     background: @true-button-color;
+                    box-shadow: 0 15px 30px -15px @true-button-color;
 
                     &:hover {
                         background: darken( @true-button-color, 5%);
+                        opacity: 1;
                     }
 
                     &.selected {
                         background: @true-button-color;
+                        box-shadow: inset 0px 3px 5px 0px rgba(0,0,0,0.25);
                     }
                 }
 
                 &.false {
                     @false-button-color: #f8887a;
                     background: @false-button-color;
+                    box-shadow: 0 15px 30px -15px @false-button-color;
 
                     &:hover {
                         background: darken( @false-button-color, 5%);
+                        opacity: 1;
                     }
 
                     &.selected {
                         background: @false-button-color;
+                        box-shadow: inset 0px 3px 5px 0px rgba(0,0,0,0.25);
                     }
                 }
             }
