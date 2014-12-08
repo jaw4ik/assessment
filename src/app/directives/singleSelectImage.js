@@ -15,7 +15,6 @@
 
         that.openPreviewImage = openPreviewImage;
 
-
         function openPreviewImage(imageUrl) {
             imagePreviewFactory.showImage(imageUrl);
         }

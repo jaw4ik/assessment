@@ -8,7 +8,12 @@
     function imageLoader(imageLoaderService) {
         return {
             restrict: 'E',
-            scope: { width: '=', height: '=', url: '=', scaleBySmallerSide: '=' },
+            scope: {
+                width: '=',
+                height: '=',
+                url: '=',
+                scaleBySmallerSide: '='
+            },
             templateUrl: 'views/widgets/imageLoader.html',
             link: link
         };

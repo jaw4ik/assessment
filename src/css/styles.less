@@ -96,9 +96,11 @@ header:before {
         padding-left: 60px;
         padding-right: 10px;
         text-align: justify;
+        word-wrap: break-word;
     }
 
     .answers {
+        .border-box();
         width: 100%;
     }
 
@@ -144,7 +146,7 @@ header:before {
 
     .single-select-text, .multiple-select-text {
         .border-box();
-        margin-left: 60px;
+        padding-left: 60px;
 
 
         @answer-background-color: rgba(200, 209, 215, 0.2);
@@ -194,7 +196,7 @@ header:before {
 
     .statements {
         .statements-list {
-            margin-left: 60px;
+            padding-left: 60px;
         }
 
         .statement-item {
@@ -308,7 +310,7 @@ header:before {
 
 
 .question-tooltip {
-    margin: 30px 0;
+    margin: 20px 0;
 
     .question-tooltip-icon {
         display: inline-block;
@@ -369,7 +371,6 @@ header:before {
 
 .submit-wrapper {
     text-align: center;
-    padding-bottom: 100px;
 }
 
 
@@ -381,6 +382,6 @@ header:before {
 @import "hs";
 @import "preloader";
 
-@media (max-width:1023px) {
+@media (max-width:640px) {
     @import "640";
 }

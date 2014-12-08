@@ -13,7 +13,7 @@
             that.questions = quiz.questions.map(function(question) {
                 return {
                     title: question.title,
-                    isCorrect: question.score == 100
+                    isCorrect: question.score === 100
                 };
             });
 

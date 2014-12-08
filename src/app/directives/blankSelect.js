@@ -36,13 +36,11 @@
                     });
             },
             template: '<div class="select-wrapper">' +
-                        '<div class="current default">Choose value</div>' +
+                        '<div class="current default">Choose the answer</div>' +
                         '<div class="highlight">' +
                       '</div>'
         };
     }
-
-
 
     function show($element, options, callback) {
 
@@ -80,14 +78,13 @@
         //.slideToggle('fast')
         ;
 
-
         var handler = function () {
             container.remove();
             $element.removeClass('active');
 
             $('html').off('click', handler);
             $(window).off('resize', handler);
-        }
+        };
 
         setTimeout(function () {
             $('html').on('click', handler);

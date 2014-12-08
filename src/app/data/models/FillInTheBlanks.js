@@ -19,9 +19,9 @@
                         })) {
                             correct++;
                         }
-                    });                    
+                    });
 
-                    that.score = correct == that.groups.length ? 100 : 0;
+                    that.score = correct === that.groups.length ? 100 : 0;
                 };
             };
 

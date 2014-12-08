@@ -10,7 +10,6 @@
 
                 var that = this;
 
-
                 that.templateUrl = question.contentUrl;
                 delete that.contentUrl;
 
@@ -36,7 +35,7 @@
                             return {
                                 groupId: group.groupId,
                                 answer: group.answer
-                            }
+                            };
                         })
                         .reduce(function (obj, ctx) {
                             obj[ctx.groupId] = ctx.answer;

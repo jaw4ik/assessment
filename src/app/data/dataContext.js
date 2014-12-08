@@ -52,7 +52,7 @@
                                             question = new TextMatching(dtq.id, dtq.title, dtq.answers);
                                         }
 
-                                        if (dtq.type == 'fillInTheBlank') {
+                                        if (dtq.type === 'fillInTheBlank') {
                                             question = new FillInTheBlanks(dtq.id, dtq.title, dtq.answerGroups);
                                         }
 
