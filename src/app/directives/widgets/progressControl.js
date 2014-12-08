@@ -106,8 +106,12 @@
     }
 
     function drawCircle(context, circleX, circleY, circleRadius, color, shadowColor, lineWidth, angle) {
+        if (angle == undefined) {
+            angle = 1.5 * Math.PI;
+        }
+
         context.beginPath();
-        context.arc(circleX, circleY, circleRadius, -0.5 * Math.PI, angle || 1.5 * Math.PI, false);
+        context.arc(circleX, circleY, circleRadius, -0.5 * Math.PI, angle, false);
         context.shadowColor = shadowColor;
         context.shadowBlur = 1;
         context.shadowOffsetX = 1;
