@@ -26,7 +26,7 @@
             link: function ($scope, $element) {
                 $element
                     .removeClass('blankInput')
-                    .on('change', 'input', function () {
+                    .on('change', 'input', function () {                    
                         $scope.group.answer = $(this).val();
                         $scope.$apply();
                     });

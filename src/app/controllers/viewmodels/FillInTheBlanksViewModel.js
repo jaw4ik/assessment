@@ -20,7 +20,7 @@
                 that.groups = question.groups.map(function (group) {
                     return {
                         groupId: group.id,
-                        answer: null,
+                        answer: '',
                         answers: group.answers.map(function (answer) {
                             return {
                                 text: answer.text

@@ -26,7 +26,7 @@
             link: function ($scope, $element) {
                 $element
                     .removeClass('blankSelect')
-                    .on('click', function (e) {
+                    .on('click', function () {
                         show($element, $scope.group.answers, function (newValue) {
                             $scope.group.answer = newValue;
                             $scope.$apply();
