@@ -18,7 +18,7 @@
             });
 
             that.progress = quiz.getResult().toFixed();
-            that.masteryScore = 80;
+            that.masteryScore = 90;
             that.reachMasteryScore = that.progress >= that.masteryScore;
         });
 
