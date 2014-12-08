@@ -36,7 +36,7 @@
                     });
             },
             template: '<div class="select-wrapper">' +
-                        '<div class="current default">Choose value</div>' +
+                        '<div class="current default">Choose the answer</div>' +
                         '<div class="highlight">' +
                       '</div>'
         };
