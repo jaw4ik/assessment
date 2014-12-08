@@ -13,35 +13,41 @@
                     return 'textMatching';
                 };
 
-                that.sources = question.answers.map(function (answer) {
-                    var source = {
-                        id: answer.id,
-                        key: answer.key,
-                        value: null,
+                that.sources = _.chain(question.answers)
+                    .map(function (answer) {
+                        var source = {
+                            id: answer.id,
+                            key: answer.key,
+                            value: null,
 
-                        acceptValue: function (value) {
-                            source.value = value;
-                        },
-                        rejectValue: function () {
-                            source.value = null;
-                        }
-                    };
+                            acceptValue: function (value) {
+                                source.value = value;
+                            },
+                            rejectValue: function () {
+                                source.value = null;
+                            }
+                        };
 
-                    return source;
-                });
+                        return source;
+                    })
+                    .shuffle()
+                    .value();
 
-                that.targets = question.answers.map(function (answer) {
-                    var target = {
-                        value: answer.value,
-                        acceptValue: function (value) {
-                            target.value = value;
-                        },
-                        rejectValue: function () {
-                            target.value = null;
-                        }
-                    };
-                    return target;
-                });
+                that.targets = _.chain(question.answers)
+                    .map(function (answer) {
+                        var target = {
+                            value: answer.value,
+                            acceptValue: function (value) {
+                                target.value = value;
+                            },
+                            rejectValue: function () {
+                                target.value = null;
+                            }
+                        };
+                        return target;
+                    })
+                    .shuffle()
+                    .value();
 
                 that.submit = function () {
                     question.answer(_.map(that.sources, function (source) {
