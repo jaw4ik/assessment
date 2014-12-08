@@ -148,6 +148,7 @@ header:before {
         @answer-border-color: @answer-background-color;
 
 
+        @answer-hover-background-color: rgba(249, 249, 249, 1);
         @answer-hover-border-color: rgba(204, 233, 220, 1);
         @answer-hover-box-shadow: rgba(231, 247, 240, 1);
 
@@ -163,7 +164,8 @@ header:before {
 
             &:hover {
                 border-color: @answer-hover-border-color;
-                box-shadow: inset 0 0 15px 0 @answer-hover-box-shadow;
+                background: none repeat scroll 0 0 @answer-hover-background-color;
+                box-shadow: 0 0 50px 30px @answer-hover-box-shadow inset;
             }
 
             &.checked {
@@ -203,12 +205,12 @@ header:before {
             }
 
             &.hover-true {
-                box-shadow: inset 0px 0px 50px 30px rgba(231,247,240,1);
+                box-shadow: inset 0 0 50px 30px rgba(231,247,240,1);
                 background: #f9f9f9;
             }
 
             &.hover-false {
-                box-shadow: inset 0px 0px 50px 30px rgba(252,234,234,1);
+                box-shadow: inset 0 0 50px 30px rgba(252,234,234,1);
                 background: #f9f9f9;
             }
 
