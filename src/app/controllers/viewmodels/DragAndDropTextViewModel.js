@@ -20,7 +20,7 @@
                     return { text: dropspot.text };
                 });
                 that.texts.acceptValue = function (value) {
-                    that.texts.push({ text: value });
+                    that.texts.push(value);
                 };
                 that.texts.rejectValue = function (value) {
                     var index = that.texts.indexOf(value);
@@ -50,7 +50,7 @@
                         return {
                             x: spot.x,
                             y: spot.y,
-                            text: spot.value
+                            text: spot.value && spot.value.text
                         };
                     }));
                 };
