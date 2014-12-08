@@ -26,13 +26,13 @@
             link: function ($scope, $element) {
                 $element
                     .removeClass('blankSelect')
-                    .on('click', function () {
+                    .on('click', function (e) {
                         show($element, $scope.group.answers, function (newValue) {
                             $scope.group.answer = newValue;
                             $scope.$apply();
                         });
-                        //e.preventDefault();
-                        //e.stopImmediatePropagation();
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
                     });
             },
             template: '<div class="select-wrapper">' +
