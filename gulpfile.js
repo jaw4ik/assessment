@@ -37,7 +37,7 @@ function analyzejscs(sources) {
 
 
 gulp.task('css', function () {
-    gulp.src('./src/css/styles.less')
+    gulp.src(['./src/css/fonts/fonts.less','./src/css/styles.less'])
        .pipe(less())
        .pipe(css())
        .pipe(csso())
