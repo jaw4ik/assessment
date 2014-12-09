@@ -218,6 +218,10 @@
     <Compile Include="Migrations\201411141225118_AddExtraDataColumnToCourseTemplateSettings.Designer.cs">
       <DependentUpon>201411141225118_AddExtraDataColumnToCourseTemplateSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412051440452_AddDefaultCourseTemplateSettingsWithDisabledLRS.cs" />
+    <Compile Include="Migrations\201412051440452_AddDefaultCourseTemplateSettingsWithDisabledLRS.Designer.cs">
+      <DependentUpon>201412051440452_AddDefaultCourseTemplateSettingsWithDisabledLRS.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -370,6 +374,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411141225118_AddExtraDataColumnToCourseTemplateSettings.resx">
       <DependentUpon>201411141225118_AddExtraDataColumnToCourseTemplateSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412051440452_AddDefaultCourseTemplateSettingsWithDisabledLRS.resx">
+      <DependentUpon>201412051440452_AddDefaultCourseTemplateSettingsWithDisabledLRS.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

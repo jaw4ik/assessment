@@ -543,7 +543,6 @@
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\results.html" />
-    <Content Include="App\views\courses\results\noResultsHint.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="Content\font\heuristica-bold.svg" />
     <Content Include="Content\font\heuristica-bolditalic.svg" />
