@@ -40,6 +40,7 @@
         padding-right: 5px;
         position: relative;
         width: 225px;
+        margin: 0 5px;
 
         .highlight {
             &:before {
@@ -89,8 +90,11 @@
         display: inline-block;
         outline: none;
         position: relative;
-        vertical-align: top;
+        vertical-align: middle;
+        line-height: 45px;
+        height: 50px;
         width: 225px;
+        margin: 0 5px;
 
         &:focus {
             outline: none;
@@ -98,7 +102,6 @@
 
         .current {
             .text-overflow-with-dots();
-            min-height: 40px;
             overflow: hidden;
             padding-left: 10px;
             padding-right: 30px;
