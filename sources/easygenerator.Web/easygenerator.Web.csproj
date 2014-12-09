@@ -1276,7 +1276,7 @@
     <Content Include="Templates\Exam\img\divider.png" />
     <Content Include="Templates\Exam\img\explanation.png" />
     <Content Include="Templates\Exam\img\firefox.png" />
-    <Content Include="Templates\Exam\img\ie10.png" />
+    <Content Include="Templates\Exam\img\ie.png" />
     <Content Include="Templates\Exam\img\loader.gif" />
     <Content Include="Templates\Exam\img\objective.png" />
     <Content Include="Templates\Exam\img\previous.png" />
@@ -1329,7 +1329,7 @@
     <Content Include="Templates\Personalized learning\css\general.css" />
     <Content Include="Templates\Personalized learning\images\chrome.png" />
     <Content Include="Templates\Personalized learning\images\firefox.png" />
-    <Content Include="Templates\Personalized learning\images\ie10.png" />
+    <Content Include="Templates\Personalized learning\images\ie.png" />
     <Content Include="Templates\Personalized learning\images\safari.png" />
     <Content Include="Templates\Personalized learning\images\sprite.png" />
     <Content Include="Templates\Personalized learning\index.html" />
@@ -1382,7 +1382,7 @@
     <Content Include="Templates\Quiz\img\divider.png" />
     <Content Include="Templates\Quiz\img\explanation.png" />
     <Content Include="Templates\Quiz\img\firefox.png" />
-    <Content Include="Templates\Quiz\img\ie10.png" />
+    <Content Include="Templates\Quiz\img\ie.png" />
     <Content Include="Templates\Quiz\img\loader.gif" />
     <Content Include="Templates\Quiz\img\objective.png" />
     <Content Include="Templates\Quiz\img\previous.png" />
@@ -1435,6 +1435,7 @@
     <Content Include="Templates\Simple course\css\font\robotoslab-regular.svg" />
     <Content Include="Templates\Simple course\css\font\segoeui-semibold.svg" />
     <Content Include="Templates\Simple course\css\general.css" />
+    <Content Include="Templates\Simple course\img\ie.png" />
     <Content Include="Templates\Simple course\img\singleSelectImageAnwer.png" />
     <Content Include="Templates\Simple course\img\xapi\error-message.png" />
     <Content Include="Templates\Simple course\img\xapi\xapierror.png" />
@@ -2251,7 +2252,6 @@
     <Content Include="Templates\Simple course\css\themes\grey.css" />
     <Content Include="Templates\Simple course\img\chrome.png" />
     <Content Include="Templates\Simple course\img\firefox.png" />
-    <Content Include="Templates\Simple course\img\ie10.png" />
     <Content Include="Templates\Simple course\img\loader.gif" />
     <Content Include="Templates\Simple course\img\safari.png" />
     <Content Include="Templates\Simple course\index.html" />
