@@ -34,6 +34,8 @@
 
             function updatePreviewImageSize($element) {
                 var size = getPreviewImageSize();
+                scope.preview.width = size.width;
+                scope.preview.height = size.height;
                 var browserWidth = size.width;
                 var browserHeight = size.height;
 
