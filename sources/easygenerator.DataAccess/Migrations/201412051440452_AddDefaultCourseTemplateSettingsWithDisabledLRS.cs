@@ -8,7 +8,7 @@ namespace easygenerator.DataAccess.Migrations
         public override void Up()
         {
             Sql("INSERT INTO CourseTemplateSettings " +
-                "SELECT NEWID(), '{ \"logo\": {}, \"xApi\": { \"lrs\": { \"credentials\": {} } } }', c.CreatedBy, GETDATE(), c.ModifiedBy, GETDATE(), c.Template_Id, c.Id, NULL " +
+                "SELECT NEWID(), '{ \"logo\": {\"url\":\"\"}, \"xApi\": { \"enabled\": false, \"lrs\": { \"credentials\": {} } } }', c.CreatedBy, GETDATE(), c.ModifiedBy, GETDATE(), c.Template_Id, c.Id, NULL " +
                 "FROM Courses c " +
                 "LEFT JOIN CourseTemplateSettings cts " +
                 "ON c.Id = cts.Course_Id AND c.Template_Id = cts.Template_Id " +
