@@ -76,7 +76,7 @@
             masteryScoreY = circleY + (Math.sin(masteryScoreAngle) * (circleRadius)),
             masteryScoreRadius = 17;
 
-        drawFillCircle(context, masteryScoreX, masteryScoreY, masteryScoreRadius, 'rgba(0, 0, 0, 0.3)', 'rgba(0, 0, 0, 0.3)', '#f0f0f0', 2);
+        drawFillCircle(context, masteryScoreX, masteryScoreY, masteryScoreRadius, '#c3c3c3', '#c3c3c3', '#f0f0f0', 1);
 
         // draw mastery score text
         drawText(context, scope.masteryScore + '%', '13px robotoslabregular', '#222', masteryScoreX, masteryScoreY + 4, 'center', 34);
@@ -122,8 +122,8 @@
         context.arc(circleX, circleY, circleRadius, 0, 2 * Math.PI, false);
         context.shadowColor = shadowColor;
         context.shadowBlur = 1;
-        context.shadowOffsetX = 1;
-        context.shadowOffsetY = 1;
+        context.shadowOffsetX = 0;
+        context.shadowOffsetY = 0;
         context.lineWidth = lineWidth;
         context.strokeStyle = color;
         context.stroke();
