@@ -49,21 +49,16 @@
 
     function buildProgressControl(scope, context) {
         var color = (scope.progress >= scope.masteryScore) ? '#4cbae6' : '#d24a45',
+            fadeColor = (scope.progress >= scope.masteryScore) ? '#3a91b4' : '#bc4d4d',
             progressAngle = 2 * Math.PI * (scope.progress / 100) - 0.5 * Math.PI,
             masteryScoreAngle = 2 * Math.PI * (scope.masteryScore / 100) - 0.5 * Math.PI,
-            circleX = 300, circleY = 125, circleRadius = 82;
-
-        //  drawing outer circle with border
-        drawCircle(context, circleX, circleY, circleRadius, '#f0f0f0', 'rgba(0, 0, 0, 0.3)', 2);
-
-        //  drawing inner circle with border
-        drawCircle(context, circleX, circleY, circleRadius - 6, '#f0f0f0', 'rgba(0, 0, 0, 0.3)', 2);
+            circleX = 300, circleY = 125, circleRadius = 80;
 
         //  drawing circle background
-        drawCircle(context, circleX, circleY, circleRadius - 3, '#f0f0f0', '#f0f0f0', 4);
+        drawCircle(context, circleX, circleY, circleRadius, '#f0f0f0', 'rgba(0, 0, 0, 0.3)', 4);
 
         //  drawing circle
-        drawCircle(context, circleX, circleY, circleRadius - 3, color, color, 6, progressAngle);
+        drawCircle(context, circleX, circleY, circleRadius, color, fadeColor, 4, progressAngle);
 
         // draw score text
         var scoreTextColor = scope.progress >= scope.masteryScore ? '#4cbae6' : '#f16162';
@@ -77,8 +72,8 @@
         drawText(context, statusText.toUpperCase(), '19px robotoslabbold', statusTextColor, circleX + 2, circleY + 36, 'center', 160);
 
         // draw mastery score circle
-        var masteryScoreX = circleX + (Math.cos(masteryScoreAngle) * (circleRadius - 2)),
-            masteryScoreY = circleY + (Math.sin(masteryScoreAngle) * (circleRadius - 2)),
+        var masteryScoreX = circleX + (Math.cos(masteryScoreAngle) * (circleRadius)),
+            masteryScoreY = circleY + (Math.sin(masteryScoreAngle) * (circleRadius)),
             masteryScoreRadius = 17;
 
         drawFillCircle(context, masteryScoreX, masteryScoreY, masteryScoreRadius, 'rgba(0, 0, 0, 0.3)', 'rgba(0, 0, 0, 0.3)', '#f0f0f0', 2);
