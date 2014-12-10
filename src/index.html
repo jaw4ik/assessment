@@ -12,7 +12,20 @@
 </head>
 <body>
     <div>
-        <div class="container" ng-view autoscroll="true"></div>
+        <div class="container" ng-view autoscroll="true">
+            <span class="image-loader-icon circular-loader x32 black align-center">
+                <span class="circular-loader x32 black align-center">
+                    <span class="circular-loader-item"></span>
+                    <span class="circular-loader-item"></span>
+                    <span class="circular-loader-item"></span>
+                    <span class="circular-loader-item"></span>
+                    <span class="circular-loader-item"></span>
+                    <span class="circular-loader-item"></span>
+                    <span class="circular-loader-item"></span>
+                    <span class="circular-loader-item"></span>
+                </span>
+            </span>
+        </div>
 
         <div ng-controller="ImagePreviewController as preview">
 
