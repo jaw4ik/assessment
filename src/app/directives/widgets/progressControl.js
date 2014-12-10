@@ -48,7 +48,7 @@
     }
 
     function buildProgressControl(scope, context) {
-        var color = (scope.progress >= scope.masteryScore) ? '#4cbae6' : '#d24a45',
+        var color = (scope.progress >= scope.masteryScore) ? '#4cbae6' : '#f16162',
             fadeColor = (scope.progress >= scope.masteryScore) ? '#3a91b4' : '#bc4d4d',
             progressAngle = 2 * Math.PI * (scope.progress / 100) - 0.5 * Math.PI,
             masteryScoreAngle = 2 * Math.PI * (scope.masteryScore / 100) - 0.5 * Math.PI,
