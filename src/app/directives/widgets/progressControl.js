@@ -142,6 +142,7 @@
         context.font = 'normal normal ' + font;
         context.fillStyle = color;
         context.textAlign = align;
+        context.shadowColor = 'rgba(0,0,0,0)';
         if (maxWidth) {
             context.fillText(text, positionX, positionY, maxWidth);
         } else {

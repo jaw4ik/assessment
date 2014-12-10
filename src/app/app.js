@@ -33,7 +33,7 @@
 
     WebFont.load({
         custom: {
-            families: ['RobotoslabRegular', 'RobotoslabBold', 'Rabiohead'],
+            families: ['RobotoslabRegular', 'RobotoslabBold', 'Rabiohead', 'RobotoslabLight', 'TwCenMTCondensed', 'RobotoBold'],
             urls: ['../css/fonts.css']
         },
         active: function () {
