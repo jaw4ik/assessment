@@ -38,7 +38,7 @@
             var $input = $(item),
                 value = $input.val().trim(),
                 groupId = $input.attr(attributes.groupId);
-
+            
             if (_.isEmptyOrWhitespace(groupId)) {
                 groupId = generateGuid();
                 $input.attr(attributes.groupId, groupId);
@@ -59,7 +59,7 @@
                 groupId = generateGuid();
                 $select.attr(attributes.groupId, groupId);
             }
-
+            
             $('option', $select).each(function (index, option) {
                 var $option = $(option);
 
@@ -92,7 +92,7 @@
             });
 
             if (!_.isNullOrUndefined(answer)) {
-                $input.attr(attributes.value, answer.text);
+                $input.attr(attributes.value, encodeString(answer.text));
             }
         });
 
@@ -103,14 +103,14 @@
             var correctAnswer = _.find(answers, function (item) {
                 return item.groupId === groupId && item.isCorrect;
             });
-
+            
             if (!_.isNullOrUndefined(correctAnswer)) {
                 $('option', $select).each(function (index, element) {
                     var $element = $(element);
                     if ($element.val() == correctAnswer.text) {
                         $element.attr(attributes.checked, 'checked');
-                        return false;
                     }
+                    $element.val(encodeString($element.val()));
                 });
             }
         });
@@ -120,6 +120,10 @@
 
     function generateGuid() {
         return system.guid().replace(/[-]/g, '');
+    }
+
+    function encodeString(str) {
+        return $('<div/>').text(str).html();
     }
 
 });

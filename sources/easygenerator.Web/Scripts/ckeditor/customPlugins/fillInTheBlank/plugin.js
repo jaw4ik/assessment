@@ -37,6 +37,21 @@
         },
         widgetTag: 'span',
         groupIdAttribute: 'data-group-id',
+        encodeString: function (str) {
+            var htmlRegex = /<[a-z].*>/gi;
+            return htmlRegex.test(str)
+                ? $('<div/>').text(str).html()
+                : str;
+        },
+        decodeString: function (str) {
+            var encodedHtmlRegex = /(&amp;|&quot;|&#39;|&lt;|&gt;)/gi;
+            var decodedString = $('<div/>').html(str).text();
+            if (encodedHtmlRegex.test(decodedString)) {
+                return CKEDITOR.plugins.fillInTheBlank.decodeString(decodedString);
+            } else {
+                return decodedString;
+            }
+        },
         init: function (editor) {
 
             var extraRemoveFormatTags = "a";
@@ -79,7 +94,7 @@
 
             function setWidgetData() {
                 if (!_.isNullOrUndefined(this.data.blankValue)) {
-                    this.parts.blankValue.setHtml(this.data.blankValue);
+                    this.parts.blankValue.setHtml(plugin.encodeString(this.data.blankValue));
                 }
             }
 
@@ -152,7 +167,7 @@
                 },
                 upcast: function (element, data) {
                     if (element.name === plugin.dataTags.fillInTheBlank && _.contains(element.classes, classNames.blankInput)) {
-                        data.blankValue = element.attributes.value;
+                        data.blankValue = plugin.decodeString(element.attributes.value);
                         var groupId = element.attributes[plugin.groupIdAttribute];
 
                         var blankFieldElement = new CKEDITOR.htmlParser.element(widgetTag, {
@@ -180,7 +195,7 @@
                 downcast: function (element) {
                     if (element.hasClass(plugin.classNames.blankInput)) {
                         var
-                            value = this.data.blankValue,
+                            value = plugin.encodeString(this.data.blankValue),
                             groupId = element.attributes[plugin.groupIdAttribute] || '';
 
                         return new CKEDITOR.htmlParser.element(plugin.dataTags.fillInTheBlank, {
@@ -218,9 +233,10 @@
                     if (element.name === plugin.dataTags.fillInTheBlankDropDown && _.contains(element.classes, classNames.blankSelect)) {
                         data.dropDownValues = [];
                         element.children.forEach(function (item) {
-                            data.dropDownValues.push(item.attributes.value);
+                            var decodedValue = plugin.decodeString(item.attributes.value);
+                            data.dropDownValues.push(decodedValue);
                             if (item.attributes.checked) {
-                                data.blankValue = item.attributes.value;
+                                data.blankValue = decodedValue;
                             }
                         });
 
@@ -262,11 +278,11 @@
                             'data-group-id': groupId,
                             'class': plugin.classNames.blankSelect
                         });
-
+                        
                         var data = this.data;
                         data.dropDownValues.forEach(function (value) {
                             var optionDefinition = {
-                                value: value
+                                value: plugin.encodeString(value)
                             };
                             if (value === data.blankValue) {
                                 optionDefinition.checked = 'checked';
