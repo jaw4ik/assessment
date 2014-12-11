@@ -21,8 +21,12 @@
             <div class="questions-title">Particulary results</div>
             <ul class="questions unstyled">
                 <li ng-repeat="question in summary.questions" ng-class="{correct: question.isCorrect}">
-                    <div class="question-number-container"><span class="question-number">{{$index + 1 | leadingZeros: 2}}</span></div>
-                    <span class="question-title">{{question.title}}</span>
+                    <div class="question-number-cell">
+                        <div class="question-number-container">
+                            <span class="question-number">{{$index + 1 | leadingZeros: 2}}</span>
+                        </div>
+                    </div>
+                    <div class="question-title-cell">{{question.title}}</div>
                 </li>
             </ul>
         </div>
