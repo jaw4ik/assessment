@@ -1,0 +1,51 @@
+﻿@import "common";
+
+.question {
+    .single-select-text, .multiple-select-text {
+        .border-box();
+        padding-left: 60px;
+
+        @answer-background-color: rgba(200, 209, 215, 0.2);
+        @answer-border-color: @answer-background-color;
+
+
+        @answer-hover-background-color: rgba(249, 249, 249, 1);
+        @answer-hover-border-color: rgba(204, 233, 220, 1);
+        @answer-hover-box-shadow: rgba(231, 247, 240, 1);
+
+
+        @answer-checked-background-color: rgba(136, 216, 181, 0.2);
+        @answer-checked-box-shadow-color: rgba(136, 216, 181, 0.75);
+        @answer-checked-border-color: @answer-checked-background-color;
+
+        .answer {
+            background-color: @answer-background-color;
+            border: 1px solid @answer-border-color;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &:hover {
+                border-color: @answer-hover-border-color;
+                background: none repeat scroll 0 0 @answer-hover-background-color;
+                box-shadow: 0 0 50px 30px @answer-hover-box-shadow inset;
+
+                .checkbox, .radio {
+                    &:before {
+                        box-shadow: 0 0 1px 1px @answer-checked-box-shadow-color inset;
+                    }
+                }
+            }
+
+            &.checked {
+                background-color: @answer-checked-background-color;
+                border-color: @answer-checked-border-color;
+
+                .checkbox, .radio {
+                    &:before {
+                        box-shadow: none;
+                    }
+                }
+            }
+        }
+    }
+}
