@@ -19,10 +19,11 @@
         };
 
         function getQuiz() {
+            var dfd = $q.defer();
             if (self.quiz) {
-                return $q.when(self.quiz);
+                dfd.resolve(self.quiz);
             } else {
-                return $http.get('../content/data.js').success(function (response) {
+                $http.get('../content/data.js').success(function (response) {
 
                     var questions = [];
                     if (Array.isArray(response.objectives)) {
@@ -83,9 +84,11 @@
 
                     self.quiz = new Quiz(response.title, questions);
 
-                    return self.quiz;
+                    dfd.resolve(self.quiz);
                 });
             }
+
+            return dfd.promise;
         }
 
     }

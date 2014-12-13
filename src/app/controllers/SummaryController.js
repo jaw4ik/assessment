@@ -3,24 +3,22 @@
 
     angular
         .module('quiz')
-        .controller('SummaryController', ['dataContext', '$location', SummaryController]);
+        .controller('SummaryController', ['dataContext', '$location', 'quiz', SummaryController]);
 
-    function SummaryController(dataContext, $location) {
+    function SummaryController(dataContext, $location, quiz) {
         var that = this;
 
-        dataContext.getQuiz().then(function (quiz) {
-            that.title = '"' + quiz.title + '"';
-            that.questions = quiz.questions.map(function(question) {
-                return {
-                    title: question.title,
-                    isCorrect: question.score === 100
-                };
-            });
-
-            that.progress = quiz.getResult().toFixed();
-            that.masteryScore = 90;
-            that.reachMasteryScore = that.progress >= that.masteryScore;
+        that.title = '"' + quiz.title + '"';
+        that.questions = quiz.questions.map(function (question) {
+            return {
+                title: question.title,
+                isCorrect: question.score === 100
+            };
         });
+
+        that.progress = quiz.getResult().toFixed();
+        that.masteryScore = 90;
+        that.reachMasteryScore = that.progress >= that.masteryScore;
 
         that.tryAgain = function () {
             $location.path('/');

@@ -9,7 +9,17 @@ var
 
     less = require('gulp-less'),
     css = require("gulp-minify-css"),
-    csso = require('gulp-csso')
+    csso = require('gulp-csso'),
+
+    uglify = require('gulp-uglify'),
+
+
+    gulpif = require('gulp-if'),
+    useref = require('gulp-useref'),
+
+    del = require('del'),
+
+    output = './.output'
 ;
 
 require('jshint-stylish');
@@ -37,7 +47,7 @@ function analyzejscs(sources) {
 
 
 gulp.task('css', function () {
-    gulp.src(['./src/css/fonts/fonts.less','./src/css/styles.less'])
+    gulp.src(['./src/css/fonts/fonts.less', './src/css/styles.less'])
        .pipe(less())
        .pipe(css())
        .pipe(csso())
@@ -47,5 +57,42 @@ gulp.task('css', function () {
 
 gulp.task('watch', function () {
     gulp.watch('./src/css/*', ['css']);
+});
+
+
+gulp.task('clean', function (cb) {
+    del([output], cb);
+});
+
+gulp.task('build', ['clean', 'css'], function () {
+    var assets = useref.assets();
+
+    return merge(
+
+            gulp.src('./src/index.html')
+                .pipe(assets)
+                .pipe(gulpif('*.js', uglify()))
+                .pipe(gulpif('*.css', css()))
+                .pipe(assets.restore())
+                .pipe(useref())
+                .pipe(gulp.dest(output)),
+
+            gulp.src(['./src/css/fonts/**', '!./src/css/fonts/*.less'])
+                .pipe(gulp.dest(output + '/css/fonts')),
+
+            gulp.src(['./src/css/img/**'])
+                .pipe(gulp.dest(output + '/css/img')),
+
+            gulp.src(['./src/css/*.css'])
+                .pipe(gulp.dest(output + '/css')),
+
+
+            gulp.src(['./src/app/views/**/*.html'])
+                .pipe(gulp.dest(output + '/app/views'))
+
+            //gulp.src(['./src/content/**/*.*'])
+            //    .pipe(gulp.dest(output + '/content'))
+        );
 
 });
+

@@ -10,9 +10,9 @@
                 controller: 'QuestionController',
                 controllerAs: 'quiz',
                 resolve: {
-                    questions: function (dataContext) {
+                    quiz: ['dataContext', function (dataContext) {
                         return dataContext.getQuiz();
-                    }
+                    }]
                 }
             })
             .when('/summary', {
@@ -20,9 +20,9 @@
                 controller: 'SummaryController',
                 controllerAs: 'summary',
                 resolve: {
-                    questions: function (dataContext) {
+                    quiz: ['dataContext', function (dataContext) {
                         return dataContext.getQuiz();
-                    }
+                    }]
                 }
             })
             .otherwise({
