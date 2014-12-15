@@ -1,5 +1,5 @@
 ﻿(function () {
-
+    
     angular.module('quiz')
         .directive('background', radio);
 

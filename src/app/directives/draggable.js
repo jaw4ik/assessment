@@ -27,6 +27,7 @@
                     revert: true,
                     revertDuration: 0,
                     zIndex: 10000,
+                    refreshPositions: true,
 
                     start: function () {
                         $(element).css('visibility', 'hidden');
@@ -38,5 +39,4 @@
             }
         };
     }
-
 }());
