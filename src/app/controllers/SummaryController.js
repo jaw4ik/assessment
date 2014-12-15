@@ -3,7 +3,9 @@
 
     angular
         .module('quiz')
-        .controller('SummaryController', ['dataContext', '$location', 'quiz', SummaryController]);
+        .controller('SummaryController', SummaryController);
+
+    SummaryController.$inject = ['dataContext', '$location', 'quiz'];
 
     function SummaryController(dataContext, $location, quiz) {
         var that = this;

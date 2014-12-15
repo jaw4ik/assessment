@@ -11,13 +11,14 @@
         'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
         'SingleSelectTextViewModel', 'MultipleSelectTextViewModel', 'TextMatchingViewModel',
         'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel', 'HotspotViewModel',
-
         'quiz'
     ];
 
     function QuestionController($http, $location,
-        SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot,
-        SingleSelectTextViewModel, MultipleSelectTextViewModel, TextMatchingViewModel, DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel, HotspotViewModel,
+        SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText,
+        Statement, SingleSelectImage, FillInTheBlanks, Hotspot,
+        SingleSelectTextViewModel, MultipleSelectTextViewModel, TextMatchingViewModel,
+        DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel, HotspotViewModel,
 
         quiz) {
 

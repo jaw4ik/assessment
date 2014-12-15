@@ -1,8 +1,9 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('quiz')
-           .service('imageLoaderService', imageLoaderService);
+    angular
+        .module('quiz')
+        .service('imageLoaderService', imageLoaderService);
 
     imageLoaderService.$inject = ['$q'];
 

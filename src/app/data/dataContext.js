@@ -1,10 +1,11 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('quiz').factory('dataContext', [
-        '$q', '$http',
-        'Quiz', 'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
-        dataContext]);
+    angular
+        .module('quiz')
+        .factory('dataContext', dataContext);
+
+    dataContext.$inject = ['$q', '$http', 'Quiz', 'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot'];
 
     function dataContext($q, $http, Quiz, SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot) {
 
