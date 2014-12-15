@@ -17,6 +17,7 @@ var
     gulpif = require('gulp-if'),
     useref = require('gulp-useref'),
 
+    replace = require('gulp-replace'),
     del = require('del'),
 
     output = './.output'
@@ -75,6 +76,7 @@ gulp.task('build', ['clean', 'css'], function () {
                 .pipe(gulpif('*.css', css()))
                 .pipe(assets.restore())
                 .pipe(useref())
+                .pipe(replace(/(app\/)(.+).js/gi, '$2.js'))
                 .pipe(gulp.dest(output)),
 
             gulp.src(['./src/css/fonts/**', '!./src/css/fonts/*.less'])
@@ -88,10 +90,10 @@ gulp.task('build', ['clean', 'css'], function () {
 
 
             gulp.src(['./src/app/views/**/*.html'])
-                .pipe(gulp.dest(output + '/app/views'))
+                .pipe(gulp.dest(output + '/app/views')),
 
-            //gulp.src(['./src/content/**/*.*'])
-            //    .pipe(gulp.dest(output + '/content'))
+            gulp.src(['./src/content/**/*.*'])
+                .pipe(gulp.dest(output + '/content'))
         );
 
 });
