@@ -9,7 +9,7 @@
             transclude: 'element',
             replace: true,
             scope: true,
-            controller: function ($scope, $element) {
+            controller: ['$scope', '$element', function ($scope, $element) {
                 var
                     attr = $element.attr('data-group-id'),
                     question = $scope.question,
@@ -22,11 +22,11 @@
                 }
 
                 $scope.group = group;
-            },
+            }],
             link: function ($scope, $element) {
                 $element
                     .removeClass('blankInput')
-                    .on('change', 'input', function () {                    
+                    .on('change', 'input', function () {
                         $scope.group.answer = $(this).val();
                         $scope.$apply();
                     });
