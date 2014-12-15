@@ -13,7 +13,7 @@
         'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel', 'HotspotViewModel',
         'quiz'
     ];
-
+    
     function QuestionController($http, $location,
         SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText,
         Statement, SingleSelectImage, FillInTheBlanks, Hotspot,
@@ -25,6 +25,7 @@
         var that = this;
 
         that.title = quiz.title;
+
         that.questions = quiz.questions.map(function (question) {
             if (question instanceof SingleSelectText) {
                 return new SingleSelectTextViewModel(question);

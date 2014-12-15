@@ -5,7 +5,6 @@
         .module('quiz')
         .factory('QuestionViewModel', factory);
 
-
     function factory() {
         return function QuestionViewModel(question) {
             var that = this;
