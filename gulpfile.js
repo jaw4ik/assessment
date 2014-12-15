@@ -1,4 +1,4 @@
-/// <vs AfterBuild='analyze, css' SolutionOpened='watch' />
+/// <vs AfterBuild='analyze, build' SolutionOpened='watch' />
 var
     gulp = require('gulp'),
     path = require('path'),
