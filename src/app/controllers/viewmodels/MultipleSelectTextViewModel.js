@@ -3,39 +3,40 @@
 
     angular
         .module('quiz')
-        .factory('MultipleSelectTextViewModel', ['QuestionViewModel', function (QuestionViewModel) {
+        .factory('MultipleSelectTextViewModel', factory);
 
-            return function MultipleSelectTextViewModel(question) {
+    factory.$inject('QuestionViewModel');
 
-                QuestionViewModel.call(this, question);
+    function factory(QuestionViewModel) {
+        return function MultipleSelectTextViewModel(question) {
 
-                var that = this;
-                that.getType = function () {
-                    return 'multipleSelectText';
-                };
+            QuestionViewModel.call(this, question);
 
-                that.answers = question.options.map(function (option) {
-                    return {
-                        text: option.text,
-                        checked: false
-                    };
-                });
-
-                that.checkAnswer = function (answer) {
-                    answer.checked = !answer.checked;
-                };
-
-                that.submit = function () {
-                    question.answer(_.chain(that.answers)
-                        .filter(function (answer) {
-                            return answer.checked;
-                        })
-                        .map(function (answer) {
-                            return answer.text;
-                        }).value());
-                };
+            var that = this;
+            that.getType = function () {
+                return 'multipleSelectText';
             };
 
-        }]);
+            that.answers = question.options.map(function (option) {
+                return {
+                    text: option.text,
+                    checked: false
+                };
+            });
 
+            that.checkAnswer = function (answer) {
+                answer.checked = !answer.checked;
+            };
+
+            that.submit = function () {
+                question.answer(_.chain(that.answers)
+                    .filter(function (answer) {
+                        return answer.checked;
+                    })
+                    .map(function (answer) {
+                        return answer.text;
+                    }).value());
+            };
+        };
+    }
 }());

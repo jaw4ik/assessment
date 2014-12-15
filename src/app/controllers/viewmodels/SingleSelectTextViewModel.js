@@ -3,39 +3,41 @@
 
     angular
         .module('quiz')
-        .factory('SingleSelectTextViewModel', ['QuestionViewModel', function (QuestionViewModel) {
+        .factory('SingleSelectTextViewModel', factory);
 
-            return function SingleSelectTextViewModel(question) {
+    factory.$inject('QuestionViewModel');
 
-                QuestionViewModel.call(this, question);
+    function factory(QuestionViewModel) {
+        return function SingleSelectTextViewModel(question) {
 
-                var that = this;
-                that.getType = function () {
-                    return 'singleSelectText';
-                };
+            QuestionViewModel.call(this, question);
 
-                that.answers = question.options.map(function (option) {
-                    return {
-                        text: option.text,
-                        checked: false
-                    };
-                });
-
-                that.checkAnswer = function (answer) {
-                    that.answers.forEach(function (item) {
-                        item.checked = false;
-                    });
-                    answer.checked = true;
-                };
-
-                that.submit = function () {
-                    var item = _.find(that.answers, function (answer) {
-                        return answer.checked;
-                    });
-                    question.answer(item ? item.text : null);
-                };
+            var that = this;
+            that.getType = function () {
+                return 'singleSelectText';
             };
 
-        }]);
+            that.answers = question.options.map(function (option) {
+                return {
+                    text: option.text,
+                    checked: false
+                };
+            });
+
+            that.checkAnswer = function (answer) {
+                that.answers.forEach(function (item) {
+                    item.checked = false;
+                });
+                answer.checked = true;
+            };
+
+            that.submit = function () {
+                var item = _.find(that.answers, function (answer) {
+                    return answer.checked;
+                });
+                question.answer(item ? item.text : null);
+            };
+        };
+    }
 
 }());

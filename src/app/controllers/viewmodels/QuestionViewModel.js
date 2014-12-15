@@ -3,25 +3,27 @@
 
     angular
         .module('quiz')
-        .factory('QuestionViewModel', function () {
+        .factory('QuestionViewModel', factory);
 
-            return function QuestionViewModel(question) {
-                var that = this;
+    factory.$inject('QuestionViewModel');
 
-                that.id = question.id;
-                that.title = question.title;
-                that.contentUrl = question.contentUrl;
+    function factory() {
+        return function QuestionViewModel(question) {
+            var that = this;
 
-                that.getType = function () {
-                    throw 'Could not determine question type for question #' + that.id + ' (' + question.title + ')';
-                };
+            that.id = question.id;
+            that.title = question.title;
+            that.contentUrl = question.contentUrl;
 
-                that.submit = function () {
-                    throw 'Question #' + that.id + ' could not be submitted';
-                };
-
+            that.getType = function () {
+                throw 'Could not determine question type for question #' + that.id + ' (' + question.title + ')';
             };
 
-        });
+            that.submit = function () {
+                throw 'Question #' + that.id + ' could not be submitted';
+            };
+
+        };
+    }
 
 }());
