@@ -15,14 +15,13 @@
                     addWidth(element);
                     $('.dropspot.ui-droppable').css('width', '');
                 });
-
             }
         };
 
         function addWidth(element) {
             $(element).one('drag', function () {
                 $('.dropspot.ui-droppable.active').css('width', $(element).css('width'));
-
+                
             });
         }
     }
