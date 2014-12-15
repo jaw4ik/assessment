@@ -5,7 +5,7 @@
         .module('quiz')
         .factory('MultipleSelectTextViewModel', factory);
 
-    factory.$inject('QuestionViewModel');
+    factory.$inject = ['QuestionViewModel'];
 
     function factory(QuestionViewModel) {
         return function MultipleSelectTextViewModel(question) {

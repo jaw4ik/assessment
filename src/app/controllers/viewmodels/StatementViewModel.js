@@ -5,7 +5,7 @@
         .module('quiz')
         .factory('StatementViewModel', factory);
 
-    factory.$inject('QuestionViewModel');
+    factory.$inject = ['QuestionViewModel'];
 
     function factory(QuestionViewModel) {
         return function StatementViewModel(question) {

@@ -5,7 +5,7 @@
         .module('quiz')
         .factory('TextMatchingViewModel', factory);
 
-    factory.$inject('QuestionViewModel');
+    factory.$inject = ['QuestionViewModel'];
 
     function factory(QuestionViewModel) {
         return function TextMatchingViewModel(question) {

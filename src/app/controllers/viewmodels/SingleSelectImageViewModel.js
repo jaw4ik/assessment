@@ -5,7 +5,7 @@
         .module('quiz')
         .factory('SingleSelectImageViewModel', factory);
 
-    factory.$inject('QuestionViewModel');
+    factory.$inject = ['QuestionViewModel'];
 
     function factory(QuestionViewModel) {
         return function SingleSelectImageViewModel(question) {
