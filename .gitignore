@@ -9,3 +9,4 @@ node_modules/
 src/content/
 src/css/*.css
 src/vendor/
+/.output

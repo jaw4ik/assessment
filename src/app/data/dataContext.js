@@ -1,12 +1,13 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('quiz').factory('dataContext', [
-        '$q', '$http',
-        'Quiz', 'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
-        dataContext]);
+    angular
+        .module('quiz')
+        .factory('dataContext', dataContext);
 
-    function dataContext($q, $http, Quiz, SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot) {
+    dataContext.$inject = ['$q', '$http', 'Quiz', 'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot'];
+
+    function dataContext($q, $http, Quiz, SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot) { // jshint ignore:line
 
         var
             self = {
@@ -19,10 +20,11 @@
         };
 
         function getQuiz() {
+            var dfd = $q.defer();
             if (self.quiz) {
-                return $q.when(self.quiz);
+                dfd.resolve(self.quiz);
             } else {
-                return $http.get('../content/data.js').success(function (response) {
+                $http.get('../content/data.js').success(function (response) {
 
                     var questions = [];
                     if (Array.isArray(response.objectives)) {
@@ -83,9 +85,11 @@
 
                     self.quiz = new Quiz(response.title, questions);
 
-                    return self.quiz;
+                    dfd.resolve(self.quiz);
                 });
             }
+
+            return dfd.promise;
         }
 
     }

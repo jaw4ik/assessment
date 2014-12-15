@@ -3,24 +3,24 @@
 
     angular
         .module('quiz')
-        .factory('Quiz', function () {
+        .factory('Quiz', factory);
 
-            return function Quiz(title, questions) {
-                var that = this;
+    function factory() {
+        return function Quiz(title, questions) {
+            var that = this;
 
-                that.title = title;
-                that.questions = questions || [];
+            that.title = title;
+            that.questions = questions || [];
 
-                that.getResult = function () {
-                    var correct = 0;
-                    that.questions.forEach(function (question) {
-                        correct += question.score;
-                    });
-                    return correct / that.questions.length;
-                };
-
+            that.getResult = function () {
+                var correct = 0;
+                that.questions.forEach(function (question) {
+                    correct += question.score;
+                });
+                return correct / that.questions.length;
             };
 
-        });
+        };
+    }
 
 }());

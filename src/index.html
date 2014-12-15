@@ -52,6 +52,7 @@
         <footer></footer>
     </div>
 
+    <!-- build:js(src/app) app/vendor.js  -->
     <script src="../vendor/jquery/dist/jquery.min.js"></script>
     <script src="../vendor/jquery-ui/jquery-ui.min.js"></script>
     <script src="../vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js"></script>
@@ -59,7 +60,8 @@
     <script src="../vendor/angular/angular.js"></script>
     <script src="../vendor/angular-route/angular-route.min.js"></script>
     <script src="../vendor/components-webfontloader/webfont.js"></script>
-
+    <!-- endbuild -->
+    <!-- build:js(src/app) app/app.js  -->
     <script src="app.js" type="text/javascript"></script>
 
     <script src="data/models/Quiz.js"></script>
@@ -106,14 +108,12 @@
     <script src="directives/droppable.js"></script>
     <script src="directives/dropspotWidth.js"></script>
     <script src="directives/background.js"></script>
-    <script src="directives/blank.js"></script>
     <script src="directives/blankInput.js"></script>
     <script src="directives/blankSelect.js"></script>
 
     <script src="controllers/ImagePreviewController.js"></script>
     <script src="controllers/QuestionController.js"></script>
     <script src="controllers/SummaryController.js"></script>
-
-
+    <!-- endbuild -->
 </body>
 </html>

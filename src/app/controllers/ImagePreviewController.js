@@ -1,6 +1,7 @@
 ﻿(function () {
 
-    angular.module('quiz')
+    angular
+        .module('quiz')
         .controller('ImagePreviewController', ImagePreviewController);
 
     ImagePreviewController.$inject = ['$scope', '$rootScope', 'imagePreviewFactory'];
@@ -25,7 +26,6 @@
         });
 
         $scope.$on('$destroy', unbind);
-
     }
 
 }());

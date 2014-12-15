@@ -3,29 +3,30 @@
 
     angular
         .module('quiz')
-        .factory('TextMatching', ['Question', function (Question) {
+        .factory('TextMatching', factory);
 
-            return function TextMatching(id, title, answers) {
-                var that = this;
-                Question.call(that, id, title);
+    factory.$inject = ['Question'];
 
-                that.answers = answers;
-                that.answer = function (pairs) {
-                    var correct = 0;
+    function factory(Question) {
+        return function TextMatching(id, title, answers) {
+            var that = this;
+            Question.call(that, id, title);
 
-                    pairs.forEach(function (pair) {
-                        if (_.find(that.answers, function (item) {
-                            return item.key === pair.key && item.value === pair.value;
-                        })) {
-                            correct++;
-                        }
-                    });
+            that.answers = answers;
+            that.answer = function (pairs) {
+                var correct = 0;
 
-                    that.score = (correct === that.answers.length) ? 100 : 0;
-                };
+                pairs.forEach(function (pair) {
+                    if (_.find(that.answers, function (item) {
+                        return item.key === pair.key && item.value === pair.value;
+                    })) {
+                        correct++;
+                    }
+                });
 
+                that.score = (correct === that.answers.length) ? 100 : 0;
             };
-
-        }]);
+        };
+    }
 
 }());

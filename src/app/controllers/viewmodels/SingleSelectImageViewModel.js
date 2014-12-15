@@ -3,40 +3,42 @@
 
     angular
         .module('quiz')
-        .factory('SingleSelectImageViewModel', ['QuestionViewModel', function (QuestionViewModel) {
+        .factory('SingleSelectImageViewModel', factory);
 
-            return function SingleSelectImageViewModel(question) {
+    factory.$inject = ['QuestionViewModel'];
 
-                QuestionViewModel.call(this, question);
+    function factory(QuestionViewModel) {
+        return function SingleSelectImageViewModel(question) {
 
-                var that = this;
-                that.getType = function () {
-                    return 'singleSelectImage';
-                };
+            QuestionViewModel.call(this, question);
 
-                that.answers = question.options.map(function (option) {
-                    return {
-                        id: option.id,
-                        image: option.image,
-                        checked: false
-                    };
-                });
-
-                that.checkAnswer = function (answer) {
-                    that.answers.forEach(function (item) {
-                        item.checked = false;
-                    });
-                    answer.checked = true;
-                };
-
-                that.submit = function () {
-                    var item = _.find(that.answers, function (answer) {
-                        return answer.checked;
-                    });
-                    question.answer(item ? item.id : null);
-                };
+            var that = this;
+            that.getType = function () {
+                return 'singleSelectImage';
             };
 
-        }]);
+            that.answers = question.options.map(function (option) {
+                return {
+                    id: option.id,
+                    image: option.image,
+                    checked: false
+                };
+            });
+
+            that.checkAnswer = function (answer) {
+                that.answers.forEach(function (item) {
+                    item.checked = false;
+                });
+                answer.checked = true;
+            };
+
+            that.submit = function () {
+                var item = _.find(that.answers, function (answer) {
+                    return answer.checked;
+                });
+                question.answer(item ? item.id : null);
+            };
+        };
+    }
 
 }());
