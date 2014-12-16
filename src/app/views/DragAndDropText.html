@@ -5,7 +5,7 @@
     <div droppable accept-value="question.texts.acceptValue" reject-value="question.texts.rejectValue" scope="question.id" class="draggables" ng-class="{ empty: question.texts.length === 0 }">
         <div class="clearfix" ng-if="question.texts.length > 0">
             <div ng-repeat="item in question.texts" class="draggable-wrapper">
-                <div class="draggable" dropspot-width draggable value="item" scope="question.id">
+                <div class="draggable" adjust-dropspot-width draggable value="item" scope="question.id">
                     <div class="draggable-text">{{ item.text }}</div>
                 </div>
 
@@ -20,7 +20,7 @@
         <div background="{{ question.background}}">
             <div ng-repeat="spot in question.spots" ng-style="{ 'left': {{ spot.x }} + 'px', 'top': {{ spot.y }} + 'px'}" class="dropspot-wrapper">
                 <div class="dropspot" droppable accept-value="spot.acceptValue" reject-value="spot.rejectValue" accept="1" scope="question.id">
-                    <div class="draggable" draggable dropspot-width value="spot.value" scope="question.id" ng-if="spot.value">
+                    <div class="draggable" draggable adjust-dropspot-width value="spot.value" scope="question.id" ng-if="spot.value">
                         <div class="draggable-text">{{ spot.value.text }}</div>
                     </div>
                 </div>
