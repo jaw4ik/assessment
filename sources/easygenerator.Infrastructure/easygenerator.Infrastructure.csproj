@@ -75,6 +75,7 @@
     <Compile Include="Mail\IMailTemplate.cs" />
     <Compile Include="Mail\IMailTemplatesProvider.cs" />
     <Compile Include="Mail\MailNotificationManager.cs" />
+    <Compile Include="ManifestFileManager.cs" />
     <Compile Include="PhysicalFileManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

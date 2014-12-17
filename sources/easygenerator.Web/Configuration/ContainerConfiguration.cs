@@ -62,6 +62,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<BuildPathProvider>();
             builder.RegisterType<BuildContentProvider>();
             builder.RegisterType<PhysicalFileManager>();
+            builder.RegisterType<ManifestFileManager>().As<ManifestFileManager>().SingleInstance();
             builder.RegisterType<HttpRuntimeWrapper>();
             builder.RegisterType<BuildPackageCreator>();
             builder.RegisterType<PackageModelMapper>();

@@ -172,6 +172,15 @@
     updateCourseDescription: {
         en: 'Apply the latest changes to the published course by clicking this button'
     },
+    plus: {
+        en: '&#43;'
+    },
+    minus: {
+        en: '&#8211;'
+    },
+    preview: {
+        en: 'Preview'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -234,6 +243,15 @@
     },
     courseResultsItem: {
         en: '4. Results'
+    },
+    changeTemplate: {
+        en: 'Change template'
+    },
+    selectedTemplate: {
+        en: 'Selected'
+    },
+    currentTemplate: {
+        en: 'Current template'
     },
     getPublicationLink: {
         en: 'Get link'
@@ -497,13 +515,13 @@
         en: 'Create course'
     },
     chooseTemplate: {
-        en: 'Choose course template:'
+        en: 'Choose template'
     },
     createAndContinue: {
         en: 'Create and continue'
     },
     previewTemplate: {
-        en: 'Preview course template'
+        en: 'Preview template'
     },
     createCourseButtonCaption: {
         en: 'Create course'

@@ -10,6 +10,7 @@
     require('widgets/imagePreview/bindingHandlers/fadeBindingHandler');
     require('widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler');
     require('viewmodels/panels/bindingHandlers/fixedPanelBindingHandler');
+    require('viewmodels/courses/bindingHandlers/elementCollapseBinding');
 
     var task = {
         execute: execute

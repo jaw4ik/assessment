@@ -7,8 +7,9 @@
             var obj = new Entity(spec);
 
             obj.name = spec.name;
-            obj.image = spec.image;
-            obj.description = spec.description;
+            obj.thumbnail = spec.thumbnail;
+            obj.previewImages = spec.previewImages;
+            obj.shortDescription = spec.shortDescription;
             obj.settingsUrl = spec.settingsUrl;
             obj.previewDemoUrl = spec.previewDemoUrl;
             obj.order = spec.order;

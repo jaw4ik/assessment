@@ -153,8 +153,8 @@
 
                 var
                     templates = [
-                        { id: "0", name: "Default", image: "path/to/image1.png", description: "Default template", previewDemoUrl: 'preview_url_default', order: 1 },
-                        { id: "1", name: "Quiz", image: "path/to/image2.png", description: "Quiz template", previewDemoUrl: 'preview_url_quiz', order: 0 }
+                        { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', order: 1 },
+                        { id: "1", name: "Quiz", thumbnail: "path/to/image2.png", previewImages: ["path/to/previewImg.png"], description: "Quiz template", previewDemoUrl: 'preview_url_quiz', order: 0 }
                     ],
                     template = templates[1],
                     course = { id: 'courseId', template: template };
@@ -279,10 +279,18 @@
 
                         });
 
-                        describe('image:', function () {
+                        describe('thumbnail:', function () {
 
                             it('should be defined', function () {
-                                expect(template.image).toBeDefined();
+                                expect(template.thumbnail).toBeDefined();
+                            });
+
+                        });
+
+                        describe('previewImages:', function () {
+
+                            it('should be array', function () {
+                                expect(template.previewImages.length).toBeDefined();
                             });
 
                         });
@@ -427,50 +435,8 @@
                         });
                     });
 
-                    it('should hide progress bar', function (done) {
-                        var template = { id: 'templateId' };
-                        viewModel.currentTemplate({ id: '' });
-                        viewModel.lockTemplateChoosing(true);
-
-                        var promise = viewModel.selectTemplate(template);
-
-                        promise.fin(function () {
-                            expect(viewModel.lockTemplateChoosing()).toBeFalsy();
-                            done();
-                        });
-                    });
-
                 });
 
-                describe('and template was not changed', function () {
-
-                    beforeEach(function () {
-                        updateCourseTemplateDefer.reject();
-                    });
-
-                    it('should hide progress bar', function (done) {
-                        var template = { id: 'templateId' };
-                        viewModel.currentTemplate({ id: '' });
-                        viewModel.lockTemplateChoosing(true);
-
-                        var promise = viewModel.selectTemplate(template);
-
-                        promise.fin(function () {
-                            expect(viewModel.lockTemplateChoosing()).toBeFalsy();
-                            done();
-                        });
-                    });
-
-                });
-
-            });
-
-        });
-
-        describe('lockTemplateChoosing', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.lockTemplateChoosing).toBeObservable();
             });
 
         });
@@ -509,6 +475,56 @@
                 expect(viewModel.backButtonData.url).toBe('courses');
                 expect(viewModel.backButtonData.backViewName).toBe(localizationManager.localize('courses'));
                 expect(viewModel.backButtonData.callback).toBe(viewModel.navigateToCoursesEvent);
+            });
+
+        });
+
+        describe('frameLoaded:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.frameLoaded).toBeFunction();
+            });
+
+            it('should show template settings', function () {
+                viewModel.settingsVisibility(false);
+                viewModel.frameLoaded();
+                expect(viewModel.settingsVisibility()).toBeTruthy();
+            });
+
+        });
+
+        describe('templatesListCollapsed:', function () {
+
+            it('should be observable', function() {
+                expect(viewModel.templatesListCollapsed).toBeObservable();
+            });
+
+        });
+
+        describe('toggleTemplatesListVisibility:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.toggleTemplatesListVisibility).toBeFunction();
+            });
+
+            describe('when templates list is not collapsed', function() {
+
+                it('should collapse templates list', function () {
+                    viewModel.templatesListCollapsed(false);
+                    viewModel.toggleTemplatesListVisibility();
+                    expect(viewModel.templatesListCollapsed()).toBeTruthy();
+                });
+
+            });
+
+            describe('when templates list is collapsed', function () {
+
+                it('should expand templates list', function () {
+                    viewModel.templatesListCollapsed(true);
+                    viewModel.toggleTemplatesListVisibility();
+                    expect(viewModel.templatesListCollapsed()).toBeFalsy();
+                });
+
             });
 
         });

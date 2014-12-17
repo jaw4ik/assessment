@@ -1223,7 +1223,7 @@
                         modifiedDate = new Date();
 
                     dataContext.courses = [{ id: courseId, title: '', modifiedOn: new Date('') }];
-                    dataContext.templates = [{ id: templateId, name: 'template.name', image: 'template.image' }];
+                    dataContext.templates = [{ id: templateId, name: 'template.name', thumbnail: 'template.image' }];
 
                     var promise = repository.updateCourseTemplate(courseId, templateId);
 
@@ -1243,7 +1243,7 @@
                         modifiedDate = new Date();
 
                     dataContext.courses = [{ id: courseId, title: '', modifiedOn: new Date('') }];
-                    dataContext.templates = [{ id: templateId, name: 'template.name', image: 'template.image' }];
+                    dataContext.templates = [{ id: templateId, name: 'template.name', thumbnail: 'template.image' }];
 
                     var promise = repository.updateCourseTemplate(courseId, templateId);
 

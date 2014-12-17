@@ -228,7 +228,7 @@
 
             course.id = item.id;
             course.title = ko.observable(item.title);
-            course.image = item.template.image;
+            course.thumbnail = item.template.thumbnail;
             course.modifiedOn = ko.observable(item.modifiedOn);
             course.createdOn = item.createdOn;
             course.isSelected = ko.observable(false);

@@ -22,27 +22,15 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void Template_ShouldThrowArgumentNullException_WhenImageIsNull()
-        {
-            Action action = () => TemplateObjectMother.CreateWithImage(null);
-
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("image");
-        }
-
-        [TestMethod]
         public void Course_ShouldCreateTemplateInstance()
         {
             const string name = "name";
-            const string image = "image";
-            const string description = "description";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var course = TemplateObjectMother.Create(name, image, description, CreatedBy);
+            var course = TemplateObjectMother.Create(name, CreatedBy);
 
             course.Id.Should().NotBeEmpty();
             course.Name.Should().Be(name);
-            course.Image.Should().Be(image);
-            course.Description.Should().Be(description);
             course.CreatedOn.Should().Be(DateTime.MaxValue);
             course.ModifiedOn.Should().Be(DateTime.MaxValue);
             course.CreatedBy.Should().Be(CreatedBy);

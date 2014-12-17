@@ -209,7 +209,7 @@
 
                     guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
 
-                    course.template = { id: template.id, name: template.name, image: template.image };
+                    course.template = { id: template.id, name: template.name, thumbnail: template.thumbnail };
                     course.modifiedOn = new Date(response.ModifiedOn);
 
                     return {

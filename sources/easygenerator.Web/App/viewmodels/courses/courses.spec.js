@@ -20,7 +20,7 @@
 
     var
         userName = 'user@user.com',
-        template = { id: '0', name: 'name', image: 'img' },
+        template = { id: '0', name: 'name', thumbnail: 'img' },
         courses = [
             new CourseModel({
                 id: 'testId3',

@@ -74,6 +74,7 @@
     <Compile Include="DomainModel\HttpRequestTests.cs" />
     <Compile Include="DomainModel\MailNotificationTests.cs" />
     <Compile Include="Http\HttpRequestsManagerTests.cs" />
+    <Compile Include="ManifestFileManagerTests.cs" />
     <Compile Include="ObjectMothers\HttpRequestObjectMother.cs" />
     <Compile Include="ObjectMothers\MailNotificationObjectMother.cs" />
     <Compile Include="PhysicalFileManagerTests.cs" />

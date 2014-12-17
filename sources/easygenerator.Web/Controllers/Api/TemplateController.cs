@@ -1,7 +1,6 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Web.BuildCourse;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
@@ -13,13 +12,16 @@ namespace easygenerator.Web.Controllers.Api
     public class TemplateController : DefaultController
     {
         private readonly ITemplateRepository _repository;
+        private readonly ManifestFileManager _manifestFileManager;
 
-        public TemplateController(ITemplateRepository repository)
+        public TemplateController(ITemplateRepository repository, ManifestFileManager manifestFileManager)
         {
             _repository = repository;
+            _manifestFileManager = manifestFileManager;
         }
 
         [HttpPost]
+        [Route("api/templates")]
         public ActionResult GetCollection()
         {
             var templates = _repository.GetCollection();
@@ -27,10 +29,7 @@ namespace easygenerator.Web.Controllers.Api
             var result = templates.Select(tmpl => new
             {
                 Id = tmpl.Id.ToNString(),
-                Name = tmpl.Name,
-                Image = tmpl.Image,
-                SettingsUrl = "/Templates/" + tmpl.Name + "/settings/settings.html",
-                Description = tmpl.Description,
+                Manifest = _manifestFileManager.ReadManifest(tmpl.Id,  tmpl.PreviewUrl),
                 PreviewDemoUrl = tmpl.PreviewUrl,
                 Order = tmpl.Order
             });

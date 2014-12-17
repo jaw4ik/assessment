@@ -519,6 +519,7 @@
       <DependentUpon>polygonCreated.js</DependentUpon>
     </Content>
     <Content Include="App\utils\base64.js" />
+    <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\items\results.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\items\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
@@ -549,6 +550,7 @@
     <Content Include="Content\font\heuristica-bolditalic.svg" />
     <Content Include="Content\font\heuristica-italic.svg" />
     <Content Include="Content\font\heuristica-regular.svg" />
+    <Content Include="Content\font\opensans-bold.svg" />
     <Content Include="Content\hotSpot.css" />
     <Content Include="Content\images\closedhand.cur" />
     <Content Include="Content\images\comingsoon1024.png" />
@@ -560,6 +562,7 @@
     <Content Include="Content\images\openhand.cur" />
     <Content Include="Content\images\import-pptx.png" />
     <Content Include="Content\images\dialog-header-background.png" />
+    <Content Include="Content\images\preview.png" />
     <Content Include="Content\images\statement-question.png" />
     <Content Include="Content\statement.css" />
     <Content Include="Content\switchToggle.css" />
@@ -1179,6 +1182,9 @@
     <Content Include="Content\font\heuristica-regular.eot" />
     <Content Include="Content\font\heuristica-regular.ttf" />
     <Content Include="Content\font\heuristica-regular.woff" />
+    <Content Include="Content\font\opensans-bold.eot" />
+    <Content Include="Content\font\opensans-bold.ttf" />
+    <Content Include="Content\font\opensans-bold.woff" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
@@ -1279,11 +1285,13 @@
     <Content Include="Templates\Exam\img\ie.png" />
     <Content Include="Templates\Exam\img\loader.gif" />
     <Content Include="Templates\Exam\img\objective.png" />
+    <Content Include="Templates\Exam\img\previewImages\previewExam.jpg" />
     <Content Include="Templates\Exam\img\previous.png" />
     <Content Include="Templates\Exam\img\progress.png" />
     <Content Include="Templates\Exam\img\safari.png" />
     <Content Include="Templates\Exam\img\spiner.GIF" />
     <Content Include="Templates\Exam\img\sprite.png" />
+    <Content Include="Templates\Exam\img\thumbnail.png" />
     <Content Include="Templates\Exam\img\tooltip.png" />
     <Content Include="Templates\Exam\index.html" />
     <Content Include="Templates\Exam\js\require.js" />
@@ -1291,7 +1299,10 @@
     <Content Include="Templates\Exam\publishSettings.js" />
     <Content Include="Templates\Exam\settings.js" />
     <Content Include="Templates\Exam\settings\css\settings.css" />
-    <Content Include="Templates\Exam\settings\img\saltbox-banner.png" />
+    <Content Include="Templates\Exam\settings\img\graphical.png" />
+    <Content Include="Templates\Exam\settings\img\mastery.png" />
+    <Content Include="Templates\Exam\settings\img\sprites_16.png" />
+    <Content Include="Templates\Exam\settings\img\track.png" />
     <Content Include="Templates\Exam\settings\js\settings.js" />
     <Content Include="Templates\Exam\settings\js\vendor.min.js" />
     <Content Include="Templates\Exam\settings\settings.html" />
@@ -1330,15 +1341,19 @@
     <Content Include="Templates\Personalized learning\images\chrome.png" />
     <Content Include="Templates\Personalized learning\images\firefox.png" />
     <Content Include="Templates\Personalized learning\images\ie.png" />
+    <Content Include="Templates\Personalized learning\images\previewImages\previewPersonilized.jpg" />
     <Content Include="Templates\Personalized learning\images\safari.png" />
     <Content Include="Templates\Personalized learning\images\sprite.png" />
+    <Content Include="Templates\Personalized learning\images\thumbnail.png" />
     <Content Include="Templates\Personalized learning\index.html" />
     <Content Include="Templates\Personalized learning\js\require\require.js" />
     <Content Include="Templates\Personalized learning\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\publishSettings.js" />
     <Content Include="Templates\Personalized learning\settings.js" />
     <Content Include="Templates\Personalized learning\settings\css\settings.css" />
-    <Content Include="Templates\Personalized learning\settings\img\saltbox-banner.png" />
+    <Content Include="Templates\Personalized learning\settings\img\graphical.png" />
+    <Content Include="Templates\Personalized learning\settings\img\sprites_16.png" />
+    <Content Include="Templates\Personalized learning\settings\img\track.png" />
     <Content Include="Templates\Personalized learning\settings\js\settings.js" />
     <Content Include="Templates\Personalized learning\settings\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\settings\settings.html" />
@@ -1385,11 +1400,13 @@
     <Content Include="Templates\Quiz\img\ie.png" />
     <Content Include="Templates\Quiz\img\loader.gif" />
     <Content Include="Templates\Quiz\img\objective.png" />
+    <Content Include="Templates\Quiz\img\previewImages\previewQuiz.jpg" />
     <Content Include="Templates\Quiz\img\previous.png" />
     <Content Include="Templates\Quiz\img\progress.png" />
     <Content Include="Templates\Quiz\img\safari.png" />
     <Content Include="Templates\Quiz\img\spiner.GIF" />
     <Content Include="Templates\Quiz\img\sprite.png" />
+    <Content Include="Templates\Quiz\img\thumbnail.png" />
     <Content Include="Templates\Quiz\img\tooltip.png" />
     <Content Include="Templates\Quiz\index.html" />
     <Content Include="Templates\Quiz\js\require.js" />
@@ -1397,7 +1414,10 @@
     <Content Include="Templates\Quiz\publishSettings.js" />
     <Content Include="Templates\Quiz\settings.js" />
     <Content Include="Templates\Quiz\settings\css\settings.css" />
-    <Content Include="Templates\Quiz\settings\img\saltbox-banner.png" />
+    <Content Include="Templates\Quiz\settings\img\graphical.png" />
+    <Content Include="Templates\Quiz\settings\img\mastery.png" />
+    <Content Include="Templates\Quiz\settings\img\sprites_16.png" />
+    <Content Include="Templates\Quiz\settings\img\track.png" />
     <Content Include="Templates\Quiz\settings\js\settings.js" />
     <Content Include="Templates\Quiz\settings\js\vendor.min.js" />
     <Content Include="Templates\Quiz\settings\settings.html" />
@@ -1436,15 +1456,18 @@
     <Content Include="Templates\Simple course\css\font\segoeui-semibold.svg" />
     <Content Include="Templates\Simple course\css\general.css" />
     <Content Include="Templates\Simple course\img\ie.png" />
+    <Content Include="Templates\Simple course\img\previewImages\previewSimple.jpg" />
     <Content Include="Templates\Simple course\img\singleSelectImageAnwer.png" />
+    <Content Include="Templates\Simple course\img\thumbnail.png" />
     <Content Include="Templates\Simple course\img\xapi\error-message.png" />
     <Content Include="Templates\Simple course\img\xapi\xapierror.png" />
     <Content Include="Templates\Simple course\settings\css\settings.css" />
-    <Content Include="Templates\Simple course\settings\img\black.png" />
-    <Content Include="Templates\Simple course\settings\img\cartoon.png" />
-    <Content Include="Templates\Simple course\settings\img\flat.png" />
-    <Content Include="Templates\Simple course\settings\img\grey.png" />
-    <Content Include="Templates\Simple course\settings\img\saltbox-banner.png" />
+    <Content Include="Templates\Simple course\settings\img\graphical.png" />
+    <Content Include="Templates\Simple course\settings\img\language.png" />
+    <Content Include="Templates\Simple course\settings\img\mastery.png" />
+    <Content Include="Templates\Simple course\settings\img\preview-templates-sprite.png" />
+    <Content Include="Templates\Simple course\settings\img\sprites_16.png" />
+    <Content Include="Templates\Simple course\settings\img\track.png" />
     <Content Include="Templates\Simple course\settings\js\settings.js" />
     <Content Include="Templates\Simple course\settings\js\vendor.min.js" />
     <Content Include="Templates\Simple course\settings\settings.html" />
@@ -1517,6 +1540,14 @@
     <Content Include="Templates\Personalized learning\app\main.js.map" />
     <Content Include="Templates\Quiz\app\main.js.map" />
     <Content Include="Templates\Simple course\app\main.js.map" />
+    <Content Include="Templates\Exam\settings\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Exam\manifest.json" />
+    <Content Include="Templates\Personalized learning\manifest.json" />
+    <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Quiz\manifest.json" />
+    <Content Include="Templates\Quiz\settings\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Simple course\manifest.json" />
+    <Content Include="Templates\Simple course\settings\css\fonts\opensans-bold.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

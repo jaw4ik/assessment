@@ -1,40 +1,45 @@
 ﻿<section class="course design view-module">
-
     <div class="content-section-wrapper">
-        <div class="content-section clearfix">
-            <div class="choose-template-holder">
-                <div>
-                    <h2 class="choose-template-title" data-bind="localize: { text: 'chooseTemplate' }">Choose template:</h2>
-                    <div class="tooltip-icon" data-bind="tooltip:'top'">
-                        <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipCourseTemplateTitle'}"></h4>
-                        <div class="tooltip-content" data-bind="localize: { html: 'tooltipCourseTemplateDescription'}">
-                        </div>
-                        <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipCourseTemplateLink'}">
-                        </div>
+        <div class="content-section">
+            <div class="choose-template-title-container" data-bind="click: templatesListCollapsed() ? toggleTemplatesListVisibility : null, css: { clickable: templatesListCollapsed() }">
+                <h2 class="choose-template-title">
+                    <span data-bind="localize: { text: templatesListCollapsed() ? 'currentTemplate' : 'chooseTemplate' }"></span>
+                    <span class="current-template-name-minus" data-bind="visible: templatesListCollapsed">-</span>
+                    <span class="current-template-name" data-bind="text: '('+currentTemplate().name+')', visible: templatesListCollapsed"></span>
+                </h2>
+                <div class="tooltip-icon" data-bind="tooltip:'top', stopEventPropagation: { event: 'click' }">
+                    <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipCourseTemplateTitle'}"></h4>
+                    <div class="tooltip-content" data-bind="localize: { html: 'tooltipCourseTemplateDescription'}">
+                    </div>
+                    <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipCourseTemplateLink'}">
                     </div>
                 </div>
-                <ul class="choose-template-list">
+                <button class="visibility-switcher"
+                        data-bind="localize: { html: templatesListCollapsed() ? 'plus' : 'minus' }, click: toggleTemplatesListVisibility, stopEventPropagation: { event: 'click' }"></button>
+            </div>
+            <div class="choose-template-holder" data-bind="elementCollapse: templatesListCollapsed">
+                <ul class="choose-template-list unstyled" data-animate="">
                     <!-- ko foreach: templates -->
-                    <li class="choose-template-list-item" data-bind="css: { selected: $data == $parent.currentTemplate() }, click: $parent.selectTemplate">
-                        <div class="template-image-holder">
-                            <img class="template-image" data-bind="attr: { src: image }" src="" />
-                        </div>
-                        <div class="template-info-wrapper">
-                            <div class="template-title" data-bind="text: name">
-                                &nbsp;
+                    <li class="choose-template-item">
+                        <div class="template-image-container" data-bind="css: { selected: $data == $parent.currentTemplate() }, click: $parent.selectTemplate">
+                            <img class="template-image" data-bind="attr: {src: previewImages[0]}" src="" alt="" />
+                            <div class="choose-template-action-container">
+                                <a href="" class="preview-link" data-bind="localize: { text: 'preview'}, visible: previewDemoUrl, click: openPreview">Preview</a>
+                                <button class="choose-template-btn preview" data-bind="localize: { text: 'preview'}, visible: previewDemoUrl, click: openPreview">Preview</button>
+                                <button class="choose-template-btn select" data-bind="localize: { text: 'select'}">Select</button>
                             </div>
-                            <div class="template-desc" data-bind="text: description">
-                                &nbsp;
-                            </div>
+                            <div class="selected-template"></div>
                         </div>
-                        <div class="template-preview-link" data-bind="visible: previewDemoUrl, click: openPreview, localize: { text: 'previewTemplate' }">Preview template</div>
+                        <div class="template-name" data-bind="text: name"></div>
                     </li>
                     <!-- /ko -->
-                    <div class="choose-template-lock-layout" data-bind="visible: lockTemplateChoosing"></div>
                 </ul>
             </div>
+        </div>
+    </div>
+    <div class="content-section-wrapper template-settings">
+        <div class="content-section">
             <div class="template-settings-block">
-                <h2 class="template-settings-title" data-bind="localize: { text: 'templateSettings' }">Course template settings:</h2>
                 <!-- ko ifnot: settingsVisibility -->
                 <div class="template-settings-spinner">
                     <div class="circular-loader x32 black align-center">
@@ -49,7 +54,7 @@
                     </div>
                 </div>
                 <!-- /ko -->
-                <iframe data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: currentTemplate().settingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: resizeFrame }" frameborder="0" width="100%"></iframe>
+                <iframe data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: currentTemplate().settingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: frameLoaded }" frameborder="0" width="100%" height="2400px"></iframe>
             </div>
         </div>
     </div>

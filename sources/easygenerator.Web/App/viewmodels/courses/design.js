@@ -13,15 +13,16 @@
             templates: [],
 
             settingsVisibility: ko.observable(false),
-            lockTemplateChoosing: ko.observable(false),
             selectTemplate: selectTemplate,
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
             canActivate: canActivate,
             activate: activate,
+            toggleTemplatesListVisibility: toggleTemplatesListVisibility,
+            templatesListCollapsed: ko.observable(false),
 
-            resizeFrame: resizeFrame,
+            frameLoaded: frameLoaded,
 
             backButtonData: new BackButton({
                 url: 'courses',
@@ -31,6 +32,10 @@
         };
 
         return viewModel;
+
+        function toggleTemplatesListVisibility() {
+            viewModel.templatesListCollapsed(!viewModel.templatesListCollapsed());
+        }
 
         function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);
@@ -53,7 +58,8 @@
                             return {
                                 id: template.id,
                                 name: template.name,
-                                image: template.image,
+                                thumbnail: template.thumbnail,
+                                previewImages: template.previewImages,
                                 description: template.description,
                                 settingsUrl: template.settingsUrl,
                                 previewDemoUrl: template.previewDemoUrl,
@@ -83,35 +89,17 @@
             }
 
             eventTracker.publish(events.updateCourseTemplate + ' \'' + template.name + '\'');
-            viewModel.lockTemplateChoosing(true);
             viewModel.settingsVisibility(false);
 
             return courseRepository.updateCourseTemplate(viewModel.courseId, template.id)
-                .then(function () {
+                .then(function() {
                     viewModel.currentTemplate(template);
                     notify.saved();
-                }).fin(function () {
-                    viewModel.lockTemplateChoosing(false);
                 });
         }
 
-        function resizeFrame(vm, event) {
-            var $targetIframe = $(event.target);
-            $targetIframe.height(0);
-
-            calculateHeight($targetIframe, 0);
-
-            function calculateHeight($iframe, counter) {
-                var iframeDocumentHeight = $iframe.contents().find('body').height();
-                if (iframeDocumentHeight === 0 && counter < 10) { // Fix for IE
-                    _.delay(function () {
-                        calculateHeight($iframe, ++counter);
-                    }, 10);
-                    return;
-        }
-                $iframe.height(iframeDocumentHeight + 950); //Add padding to avoid scroll
-                viewModel.settingsVisibility(true);
-            }
+        function frameLoaded() {
+            viewModel.settingsVisibility(true);
         }
 
     }

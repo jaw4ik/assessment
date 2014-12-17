@@ -1,5 +1,9 @@
-﻿using easygenerator.Web.Components;
+﻿using System.Linq;
+using easygenerator.Infrastructure;
+using easygenerator.Web.Components.ActionResults;
+using easygenerator.Web.Extensions;
 using FluentAssertions;
+using FluentAssertions.Common;
 using NSubstitute;
 using easygenerator.DomainModel.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,13 +19,15 @@ namespace easygenerator.Web.Tests.Controllers.Api
     public class TemplateControllerTests
     {
         private ITemplateRepository _repository;
+        private ManifestFileManager _manifestFileManager;
         private TemplateController _controller;
 
         [TestInitialize]
         public void InitializeContext()
         {
             _repository = Substitute.For<ITemplateRepository>();
-            _controller = new TemplateController(_repository);
+            _manifestFileManager = Substitute.For<ManifestFileManager>(Arg.Any<PhysicalFileManager>());
+            _controller = new TemplateController(_repository, _manifestFileManager);
         }
 
         #region GetCollection
@@ -29,13 +35,25 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void GetCollection_ShouldReturnJsonSuccessResult()
         {
-            var collection = new Collection<Template>() { TemplateObjectMother.Create() };
+            var previewUrl = "url";
+            
+            var template = TemplateObjectMother.CreateWithPreviewUrl(previewUrl);
+            var collection = new Collection<Template>() { template };
+            
+            var resultActual = collection.Select(tmpl => new
+            {
+                Id = tmpl.Id.ToNString(),
+                Manifest = "string",
+                PreviewDemoUrl = tmpl.PreviewUrl,
+                Order = tmpl.Order
+            });
+            var actual = new JsonSuccessResult(resultActual);
 
             _repository.GetCollection().Returns(collection);
 
             var result = _controller.GetCollection();
 
-            result.Should().BeJsonSuccessResult();
+            result.Should().BeJsonSuccessResult().And.Data.IsSameOrEqualTo(actual.Data);
         }
 
         #endregion

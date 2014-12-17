@@ -172,8 +172,6 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.ModifiedOn);
 
             modelBuilder.Entity<Template>().Property(e => e.Name).IsRequired().HasMaxLength(255);
-            modelBuilder.Entity<Template>().Property(e => e.Image).IsRequired().HasMaxLength(255);
-            modelBuilder.Entity<Template>().Property(e => e.Description).IsRequired();
             modelBuilder.Entity<Template>().Property(e => e.PreviewUrl).HasMaxLength(255);
             modelBuilder.Entity<Template>().Property(e => e.Order);
             modelBuilder.Entity<Template>().HasMany(e => e.Courses);
