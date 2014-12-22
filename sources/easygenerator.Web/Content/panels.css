@@ -317,6 +317,9 @@
     width: 130px;
 }
 
+.tab-btn.review-btn .circular-loader {
+    left: 0;
+}
 
 .review-comments-section {
     height: 100%;
