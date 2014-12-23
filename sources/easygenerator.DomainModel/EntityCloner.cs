@@ -67,7 +67,7 @@ namespace easygenerator.DomainModel
                     if (type == typeof(Course))
                     {
                         if (member.Name == "BuildOn" || member.Name == "PackageUrl" || member.Name == "PublishedOn" || member.Name == "ScormPackageUrl" || member.Name == "PublicationUrl"
-                            || member.Name == "CommentsCollection" || member.Name == "CollaboratorsCollection" || member.Name == "TemplateSettings")
+                            || member.Name == "CommentsCollection" || member.Name == "CollaboratorsCollection" || member.Name == "TemplateSettings" || member.Name == "Aim4YouIntegration")
                         {
                             continue;
                         }

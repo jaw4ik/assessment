@@ -78,7 +78,7 @@ namespace easygenerator.Web.Tests.Controllers
             var courseTitle = courseToAdd.Title;
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>()).Returns(courseToAdd);
             _demoCourseController.AddDemoCourse(courseToAdd);
-            
+
             courseToAdd.Title.Should().Be(courseTitle);
             _demoCourseController.TempData["ErrorMessage"].Should()
                .Be(
@@ -102,7 +102,7 @@ namespace easygenerator.Web.Tests.Controllers
         public void AddDemoCourse_Should_AddDemoCourseInfoToMemoryStorage()
         {
             Course courseToAdd = CourseObjectMother.Create();
-            _cloner.Clone(Arg.Any<easygenerator.DomainModel.Entities.Course>(), Arg.Any<string>()).Returns(courseToAdd);
+            _cloner.Clone<Course>(Arg.Any<Course>(), Arg.Any<string>()).Returns(courseToAdd);
 
             var demoCourseInfo = DemoCourseInfoObjectMother.Create(null, courseToAdd);
             _entityFactory.DemoCourseInfo(Arg.Any<Course>(), Arg.Any<Course>(), Arg.Any<string>()).Returns(demoCourseInfo);
