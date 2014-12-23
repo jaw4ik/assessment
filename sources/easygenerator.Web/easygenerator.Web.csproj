@@ -224,6 +224,7 @@
     <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
@@ -247,6 +248,9 @@
     <Compile Include="Controllers\Api\MultipleselectController.cs" />
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
+    <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="InMemoryStorages\DemoCoursesInMemoryStorage.cs" />
+    <Compile Include="InMemoryStorages\IDemoCoursesStorage.cs" />
     <Compile Include="Import\Presentation\Extensions\ParagraphExtensions.cs" />
     <Compile Include="Import\Presentation\Extensions\PlaceholderShapeExtensions.cs" />
     <Compile Include="Import\Presentation\Extensions\ShapeExtensions.cs" />
@@ -374,14 +378,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Import\PublishedCourse\EntityReaders\AnswerEntityReader.cs" />
-    <Compile Include="Import\PublishedCourse\EntityReaders\CourseEntityReader.cs" />
-    <Compile Include="Import\PublishedCourse\EntityReaders\LearningContentEntityReader.cs" />
-    <Compile Include="Import\PublishedCourse\EntityReaders\ObjectiveEntityReader.cs" />
-    <Compile Include="Import\PublishedCourse\EntityReaders\QuestionEntityReader.cs" />
-    <Compile Include="Import\PublishedCourse\ImportContentReader.cs" />
-    <Compile Include="Import\PublishedCourse\PublishedCourseImporter.cs" />
-    <Compile Include="Import\PublishedCourse\PublishedCourseStructureReader.cs" />
     <Compile Include="Mail\MailSender.cs" />
     <Compile Include="Mail\MailSenderTask.cs" />
     <Compile Include="Mail\MailSenderWrapper.cs" />
@@ -461,6 +457,7 @@
     <Compile Include="Synchronization\Hubs\EventHub.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Api\BlankAnswerViewModel.cs" />
+    <Compile Include="ViewModels\DemoCourses\DemoCoursesViewModel.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
@@ -1548,6 +1545,7 @@
     <Content Include="Templates\Quiz\settings\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Simple course\manifest.json" />
     <Content Include="Templates\Simple course\settings\css\fonts\opensans-bold.woff" />
+    <Content Include="Views\DemoCourses\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

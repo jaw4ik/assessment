@@ -3,16 +3,17 @@ using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
+using easygenerator.Web.InMemoryStorages;
 using easygenerator.Web.Extensions;
-using easygenerator.Web.Import.PublishedCourse;
 using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
 using System;
-using System.IO;
 using System.Web.Mvc;
+using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -25,9 +26,11 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ISignupFromTryItNowHandler _signupFromTryItNowHandler;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
-        private readonly PublishedCourseImporter _publishedCourseImporter;
         private readonly ICourseRepository _courseRepository;
         private readonly IOnboardingRepository _onboardingRepository;
+        private readonly IDemoCoursesStorage _demoCoursesInMemoryStorage;
+        private readonly ITemplateRepository _templateRepository;
+        private readonly ICloner _cloner;
 
         public UserController(IUserRepository repository,
             IEntityFactory entityFactory,
@@ -35,9 +38,11 @@ namespace easygenerator.Web.Controllers.Api
             ISignupFromTryItNowHandler signupFromTryItNowHandler,
             IDomainEventPublisher eventPublisher,
             IMailSenderWrapper mailSenderWrapper,
-            PublishedCourseImporter publishedCourseImporter,
             ICourseRepository courseRepository,
-            IOnboardingRepository onboardingRepository)
+            IOnboardingRepository onboardingRepository,
+            IDemoCoursesStorage demoCoursesInMemoryStorage,
+            ITemplateRepository templateRepository,
+            ICloner cloner)
         {
             _repository = repository;
             _entityFactory = entityFactory;
@@ -45,9 +50,11 @@ namespace easygenerator.Web.Controllers.Api
             _signupFromTryItNowHandler = signupFromTryItNowHandler;
             _eventPublisher = eventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
-            _publishedCourseImporter = publishedCourseImporter;
             _courseRepository = courseRepository;
             _onboardingRepository = onboardingRepository;
+            _demoCoursesInMemoryStorage = demoCoursesInMemoryStorage;
+            _templateRepository = templateRepository;
+            _cloner = cloner;
         }
 
         [HttpPost]
@@ -187,8 +194,14 @@ namespace easygenerator.Web.Controllers.Api
 
             _authenticationProvider.SignIn(profile.Email, true);
 
-            var course = _publishedCourseImporter.Import(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample Course"), profile.Email);
-            _courseRepository.Add(course);
+            var demoCourses = _demoCoursesInMemoryStorage.DemoCourses;
+            var defaultTemplate = _templateRepository.GetDefaultTemplate();
+            demoCourses.ForEach(demoCourse =>
+            {
+                var clonedCourse = _cloner.Clone(demoCourse, profile.Email);
+                clonedCourse.UpdateTemplate(defaultTemplate, clonedCourse.CreatedBy);
+                _courseRepository.Add(clonedCourse);
+            });
 
             return JsonSuccess(profile.Email);
         }

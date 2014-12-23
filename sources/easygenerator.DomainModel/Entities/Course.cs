@@ -13,6 +13,10 @@ namespace easygenerator.DomainModel.Entities
     {
         protected internal Course()
         {
+            RelatedObjectivesCollection = new Collection<Objective>();
+            CommentsCollection = new Collection<Comment>();
+            CollaboratorsCollection = new Collection<CourseCollaborator>();
+            TemplateSettings = new Collection<CourseTemplateSettings>();
         }
 
         protected internal Course(string title, Template template, string createdBy)
@@ -351,7 +355,7 @@ namespace easygenerator.DomainModel.Entities
                 ExtraData = extraData
             });
         }
-        
+
         #endregion
 
         #region Aim4You integration

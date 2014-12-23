@@ -58,7 +58,7 @@ namespace easygenerator.Web.Tests.Import.Presentation
             var presentation = Substitute.For<easygenerator.Web.Import.Presentation.Model.Presentation>();
             presentation.Slides.Add(new Slide());
 
-            _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(Substitute.For<Course>());
+            _entityFactory.Course(Arg.Any<string>(), Arg.Any<easygenerator.DomainModel.Entities.Template>(), Arg.Any<string>()).Returns(Substitute.For<Course>());
 
             var objective = Substitute.For<Objective>();
             _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);

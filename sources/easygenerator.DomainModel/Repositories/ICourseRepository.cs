@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System;
+using easygenerator.DomainModel.Entities;
 using System.Collections.Generic;
 
 namespace easygenerator.DomainModel.Repositories
@@ -7,5 +8,6 @@ namespace easygenerator.DomainModel.Repositories
     {
         ICollection<Course> GetOwnedCourses(string email);
         ICollection<Course> GetAvailableCoursesCollection(string username);
+        void RemoveCourseWithObjectives(Guid courseId);
     }
 }

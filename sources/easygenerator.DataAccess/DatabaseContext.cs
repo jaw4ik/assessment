@@ -197,6 +197,9 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Onboarding>().Property(e => e.IsClosed).IsRequired();
             modelBuilder.Entity<Onboarding>().Property(e => e.UserEmail).IsRequired().HasMaxLength(254);
 
+            modelBuilder.Entity<DemoCourseInfo>().HasRequired(e => e.DemoCourse);
+            modelBuilder.Entity<DemoCourseInfo>().HasOptional(e => e.SourceCourse);
+
             base.OnModelCreating(modelBuilder);
         }
 

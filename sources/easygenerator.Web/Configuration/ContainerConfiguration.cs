@@ -17,11 +17,10 @@ using easygenerator.Web.Components.Elmah;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.ModelBinding;
 using easygenerator.Web.Components.Tasks;
+using easygenerator.Web.InMemoryStorages;
 using easygenerator.Web.Import.Presentation;
 using easygenerator.Web.Import.Presentation.HtmlComposers;
 using easygenerator.Web.Import.Presentation.Mappers;
-using easygenerator.Web.Import.PublishedCourse;
-using easygenerator.Web.Import.PublishedCourse.EntityReaders;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
@@ -169,14 +168,6 @@ namespace easygenerator.Web.Configuration
 
             #region Import
 
-            builder.RegisterType<PublishedCourseStructureReader>();
-            builder.RegisterType<ImportContentReader>();
-            builder.RegisterType<CourseEntityReader>();
-            builder.RegisterType<ObjectiveEntityReader>();
-            builder.RegisterType<QuestionEntityReader>();
-            builder.RegisterType<AnswerEntityReader>();
-            builder.RegisterType<LearningContentEntityReader>();
-            builder.RegisterType<PublishedCourseImporter>();
             builder.RegisterType<PresentationModelMapper>().As<IPresentationModelMapper>();
             builder.RegisterType<ShapeMapper>();
             builder.RegisterType<ParagraphMapper>();
@@ -206,10 +197,13 @@ namespace easygenerator.Web.Configuration
             #endregion
 
             builder.RegisterType<EntityCloner>().As<ICloner>().SingleInstance();
+            builder.RegisterType<DemoCoursesInMemoryStorage>().As<IDemoCoursesStorage>().SingleInstance();
 
             var container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+            DependencyResolver.Current.GetService<IDemoCoursesStorage>().Initialize();
         }
 
         private static bool IsAssignableToGenericType(Type givenType, Type genericType)

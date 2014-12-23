@@ -18,7 +18,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IUserRepository _userRepository;
         private readonly IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
         private readonly IMailSenderWrapper _mailSenderWrapper;
-        private readonly ICloner _cloner;
+        private readonly ICloner _cloner; 
 
         public CollaborationController(IUserRepository userRepository, IEntityModelMapper<CourseCollaborator> collaboratorEntityModelMapper, IMailSenderWrapper mailSenderWrapper, ICloner cloner)
         {

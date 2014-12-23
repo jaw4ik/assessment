@@ -6,10 +6,11 @@ using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Components;
 using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.InMemoryStorages;
 using easygenerator.Web.Extensions;
-using easygenerator.Web.Import.PublishedCourse;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Tests.Utils;
 using easygenerator.Web.ViewModels.Account;
@@ -34,10 +35,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private ISignupFromTryItNowHandler _signupFromTryItNowHandler;
         private IDomainEventPublisher _eventPublisher;
         private IMailSenderWrapper _mailSenderWrapper;
-        private PublishedCourseImporter _publishedCourseImporter;
         private ICourseRepository _courseRepository;
         private IOnboardingRepository _onboardingRepository;
-
+        private IDemoCoursesStorage _demoCoursesInMemoryStorage;
+        private ITemplateRepository _templateRepository;
+        private ICloner _cloner;
         IPrincipal _user;
         HttpContextBase _context;
 
@@ -51,9 +53,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _signupFromTryItNowHandler = Substitute.For<ISignupFromTryItNowHandler>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
-            _publishedCourseImporter = Substitute.For<PublishedCourseImporter>();
             _courseRepository = Substitute.For<ICourseRepository>();
             _onboardingRepository = Substitute.For<IOnboardingRepository>();
+            _demoCoursesInMemoryStorage = Substitute.For<IDemoCoursesStorage>();
+            _templateRepository = Substitute.For<ITemplateRepository>();
+            _cloner = Substitute.For<ICloner>();
 
             _controller = new UserController(_userRepository,
                 _entityFactory,
@@ -61,9 +65,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
                 _signupFromTryItNowHandler,
                 _eventPublisher,
                 _mailSenderWrapper,
-                _publishedCourseImporter,
                 _courseRepository,
-                _onboardingRepository);
+                _onboardingRepository,
+                _demoCoursesInMemoryStorage,
+                _templateRepository,
+                _cloner);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -450,7 +456,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory.Onboarding(user.Email).Returns(onboarding);
 
             _controller.Signup(profile);
-            
+
             _onboardingRepository.Received().Add(onboarding);
         }
 
@@ -523,22 +529,32 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Signup_ShouldCreateSampleCourse()
+        public void Signup_ShouldCreateDemoCoursesWithDefaultTemplate()
         {
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
             _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.Email).Returns(user);
 
-            var course = CourseObjectMother.Create();
-            _publishedCourseImporter.Import(Arg.Any<string>(), profile.Email).Returns(course);
+            var demoCourse1 = CourseObjectMother.Create();
+            var demoCourse2 = CourseObjectMother.Create();
+            var defaultTemplate = TemplateObjectMother.Create();
+            var otherTemplate = TemplateObjectMother.Create();
+
+            demoCourse1.UpdateTemplate(otherTemplate, demoCourse1.ModifiedBy);
+            demoCourse2.UpdateTemplate(otherTemplate, demoCourse2.ModifiedBy);
+
+            _demoCoursesInMemoryStorage.DemoCourses.Returns(new[] { demoCourse1, demoCourse2 });
+            _templateRepository.GetDefaultTemplate().Returns(defaultTemplate);
+            _cloner.Clone(demoCourse1, profile.Email).Returns(demoCourse1);
+            _cloner.Clone(demoCourse2, profile.Email).Returns(demoCourse2);
 
             //Act
             _controller.Signup(profile);
 
             //Assert
-            _publishedCourseImporter.Received().Import(Arg.Any<string>(), profile.Email);
-            _courseRepository.Received().Add(course);
+            _courseRepository.Received().Add(demoCourse1);
+            _courseRepository.Received().Add(demoCourse2);
         }
 
         private UserSignUpViewModel GetTestUserSignUpViewModel()

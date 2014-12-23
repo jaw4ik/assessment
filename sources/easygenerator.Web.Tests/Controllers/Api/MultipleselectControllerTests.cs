@@ -8,7 +8,6 @@ using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Extensions;
-using easygenerator.Web.Import.PublishedCourse.EntityReaders;
 using easygenerator.Web.Tests.Utils;
 using easygenerator.Web.ViewModels.Api;
 using FluentAssertions;

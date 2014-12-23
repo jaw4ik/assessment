@@ -8,7 +8,6 @@ using easygenerator.Infrastructure.Clonning;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using NSubstitute.Core;
 
 namespace easygenerator.DomainModel.Tests
 {
@@ -211,6 +210,51 @@ namespace easygenerator.DomainModel.Tests
             var clonedSettings = _cloner.Clone(courseTemplateSettings, "owner");
 
             clonedSettings.Template.Should().Be(template);
+        }
+
+        [TestMethod]
+        public void Cloner_ShouldIgnoreCourseComments()
+        {
+            var course = CourseObjectMother.Create();
+
+            course.AddComment(CommentObjectMother.Create());
+            course.AddComment(CommentObjectMother.Create());
+
+            var clonedCourse = _cloner.Clone(course, "owner");
+            clonedCourse.Comments.Count().Should().Be(0);
+        }
+
+        [TestMethod]
+        public void Cloner_ShouldIgnoreCourseCollaborators()
+        {
+            var course = CourseObjectMother.Create();
+
+            course.Collaborate("collaborator1@example.com", "cratedBy");
+            course.Collaborate("collaborator2@example.com", "cratedBy");
+
+            var clonedCourse = _cloner.Clone(course, "owner");
+            clonedCourse.Collaborators.Count().Should().Be(0);
+        }
+
+        [TestMethod]
+        public void Cloner_ShouldIgnoreCourseTemplateSettings()
+        {
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            course.SaveTemplateSettings(template, "settings", null);
+
+            var clonedCourse = _cloner.Clone(course, "owner");
+            clonedCourse.GetTemplateSettings(template).Should().Be(null);
+        }
+
+        [TestMethod]
+        public void Cloner_ShouldUpdateCreateOnWithCurrentDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var course = CourseObjectMother.Create();
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+            var clonedCourse = _cloner.Clone(course, "owner");
+            clonedCourse.CreatedOn.Should().Be(DateTime.MaxValue);
         }
     }
 }

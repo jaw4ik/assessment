@@ -1,0 +1,138 @@
+﻿@model easygenerator.Web.ViewModels.DemoCourses.DemoCoursesViewModel
+@{
+    ViewBag.Title = "Edit Demo courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var errorMessage = TempData["ErrorMessage"] as string;
+    var successMessage = TempData["SuccessMessage"] as string;
+}
+<style>
+    .democourses,
+    .owncourses {
+        width: 500px;
+        float: left;
+    }
+
+    .democourses {
+        padding-right: 20px;
+    }
+
+    table {
+        border: 1px solid #ddd;
+    }
+
+    tr, th, td {
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .success-message,
+    .error-message {
+        padding-bottom: 20px;
+    }
+
+    .error-message {
+        color: red;
+    }
+
+    .success-message {
+        color: green;
+    }
+
+    .tip {
+        font-style: italic;
+    }
+
+    .centered {
+        text-align: center;
+    }
+
+    .title {
+        max-width: 300px;
+        overflow: hidden;
+    }
+
+    .clear {
+        clear: both;
+        padding-top: 20px;
+    }
+</style>
+<script>
+
+</script>
+<section class="view-module">
+    <h1 class="document-title">Demo courses</h1>
+    <div class="democourses">
+        <h2>Demo courses:</h2>
+        @if (Model.DemoCoursesInfo != null && Model.DemoCoursesInfo.Any())
+        {
+            <table>
+                @foreach (var demoCourseInfo in Model.DemoCoursesInfo)
+                {
+                    <tr>
+                        <td class="title">@demoCourseInfo.Title</td>
+                        <td class="centered">
+                            @using (Html.BeginRouteForm("UpdateDemoCourse"))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("demoCourseInfoId", demoCourseInfo.Id)
+                                <input type="submit" value="Update" />
+                            }
+                        </td>
+                        <td class="centered">
+                            @using (Html.BeginRouteForm("RemoveDemoCourse"))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("demoCourseInfoId", demoCourseInfo.Id)
+                                <input type="submit" value="Remove" />
+                            }
+
+                        </td>
+                    </tr>
+                }
+                @if (Model.DemoCoursesInfo.Count() > 1)
+                {
+                    <tfoot>
+                        <tr><td colspan="3" class="tip">Please, note that demo courses will be created in the same order as they are ordered in the list (starting from the first one).</td></tr>
+                    </tfoot>
+                }
+            </table>
+        }
+    </div>
+    <div class="owncourses">
+        <h2>Your courses:</h2>
+        @if (Model.UserCourses != null && Model.UserCourses.Any())
+        {
+            <table>
+                @foreach (var userCourse in Model.UserCourses)
+                {
+                    <tr>
+                        <td class="title">
+                            @userCourse.Title
+                        </td>
+                        <td class="centered">
+                            @using (Html.BeginRouteForm("AddDemoCourse"))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("courseId", userCourse.Id)
+                                <input type="submit" value="Make a demo course" />
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+    <div class="clear"></div>
+    @if (!String.IsNullOrWhiteSpace(errorMessage))
+    {
+        <div class="error-message">
+            <span>@errorMessage</span>
+        </div>
+    }
+    @if (!String.IsNullOrWhiteSpace(successMessage))
+    {
+        <div class="success-message">
+            <span>@successMessage</span>
+        </div>
+    }
+</section>

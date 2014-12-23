@@ -37,6 +37,7 @@ namespace easygenerator.DomainModel
         ImageFile ImageFile(string title, string createdBy);
         InformationContent InformationContent(string title, string createdBy);
         Onboarding Onboarding(string userEmail);
+        DemoCourseInfo DemoCourseInfo(Course sourceCourse, Course demoCourse, string createdBy);
     }
 
     public class EntityFactory : IEntityFactory
@@ -186,6 +187,11 @@ namespace easygenerator.DomainModel
         public Onboarding Onboarding(string userEmail)
         {
             return new Onboarding(userEmail);
+        }
+
+        public DemoCourseInfo DemoCourseInfo(Course sourceCourse, Course demoCourse, string createdBy)
+        {
+            return new DemoCourseInfo(sourceCourse, demoCourse, createdBy);
         }
     }
 }

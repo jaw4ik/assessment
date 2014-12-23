@@ -66,8 +66,15 @@ namespace easygenerator.DomainModel
 
                     if (type == typeof(Course))
                     {
-                        if (member.Name == "BuildOn" || member.Name == "PackageUrl" || member.Name == "PublishedOn" || member.Name == "ScormPackageUrl" || member.Name == "PublicationUrl")
+                        if (member.Name == "BuildOn" || member.Name == "PackageUrl" || member.Name == "PublishedOn" || member.Name == "ScormPackageUrl" || member.Name == "PublicationUrl"
+                            || member.Name == "CommentsCollection" || member.Name == "CollaboratorsCollection" || member.Name == "TemplateSettings")
                         {
+                            continue;
+                        }
+
+                        if (member.Name == "CreatedOn")
+                        {
+                            list.Add(Expression.Assign(Expression.Property(target, member), Expression.Invoke(Expression.Field(null, DateTimeWrapper_NowPropertyInfo))));
                             continue;
                         }
                     }
