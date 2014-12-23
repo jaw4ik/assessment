@@ -1,0 +1,298 @@
+﻿@import "common";
+
+@default-font: 'RobotoslabRegular';
+@default-font-color: #222222;
+@default-font-size: 18px;
+@thead-background: #a8c4da;
+@tbody-background: #f3f3f3;
+@bold-font: 'RobotoSlabBold';
+@th-font-color: #43aaa3;
+@wrapper-border-radius: 10px;
+@reference-color: #49b8e7;
+@reference-hover-color: #50a1d7;
+@mark-background-color: #faaf4a;
+@list-style-type-color: #76cbe3;
+
+.wrapper() {
+    text-align: center;
+    overflow-x: auto;
+}
+
+.default-table() {
+    opacity: 0.9;
+    font-size: 16px;
+}
+
+.basic() {
+    margin: 0 0 20px 0;
+    line-height: 30px;
+}
+
+.list() {
+    padding-left: 38px;
+}
+
+.header(@margin, @font-size) {
+    margin: @margin;
+    font-size: @font-size;
+    font-family: @bold-font;
+    font-weight: normal;
+}
+
+.styled-content {
+    font-family: @default-font;
+    font-size: @default-font-size;
+    color: @default-font-color;
+
+    p {
+        .basic;
+    }
+
+    ul {
+        .basic;
+        .list;
+        list-style-type: none;
+
+        li:before {
+            position: relative;
+            bottom: -5px;
+            font-size: 30px;
+            display: inline-block;
+            width: 15px;
+            content: "\2022 ";
+            color: @list-style-type-color;
+        }
+    }
+
+    ol {
+        .basic;
+        .list;
+        list-style-position: inside;
+    }
+
+    a {
+        color: @reference-color;
+        text-decoration: underline;
+        cursor: pointer;
+
+        &:hover {
+            color: @reference-hover-color;
+        }
+    }
+
+    mark {
+        background-color: @mark-background-color;
+        border-radius: 5px;
+        padding: 0 3px;
+    }
+
+    h1 {
+        .header(35px 0 20px 0, 26px);
+    }
+
+    h2 {
+        .header(30px 0 18px 0, 24px);
+    }
+
+    h3 {
+        .header(25px 0 16px 0, 20px);
+    }
+
+
+    u {
+        text-decoration: none;
+        border-bottom: 1px solid @default-font-color;
+    }
+
+    cite {
+        position: relative;
+        display: block;
+        margin: 15px 165px;
+        font-size: 18px;
+        font-style: normal;
+        line-height: 30px;
+        white-space: pre-line;
+
+        &:before, &:after {
+            position: absolute;
+            font: 50px 'Helvetica';
+            font-weight: bold;
+            color: #44b8e2;
+            line-height: 20px;
+        }
+
+        &:before {
+            content: "\201C";
+            margin-left: -35px;
+        }
+
+        &:after {
+            content: "\201D";
+            bottom: -23px;
+            margin-left: 10px;
+        }
+    }
+
+    .image-wrapper {
+        .wrapper;
+        margin: 30px 0;
+
+        img {
+            border-radius: @wrapper-border-radius;
+        }
+
+        &[style^="float: right"] {
+            margin: 0 0 5px 20px;
+        }
+
+        &[style^="float:right"] {
+            margin: 0 0 5px 20px;
+        }
+
+        &[style^="float: left"] {
+            margin: 0 20px 5px 0;
+        }
+
+        &[style^="float:left"] {
+            margin: 0 20px 5px 0;
+        }
+    }
+
+    .table-wrapper {
+        .wrapper;
+        margin: 40px 0;
+
+        table {
+            text-align: left;
+            table-layout: fixed;
+            font-size: 16px;
+            border: none;
+            border-spacing: 0 15px;
+            display: inline-table;
+
+            p {
+                margin: 0;
+            }
+
+            thead {
+                .default-table;
+                font-family: @bold-font;
+
+                tr {
+
+                    &:last-child {
+
+                        td, th {
+
+                            &:first-child {
+                                border-bottom-left-radius: 0;
+                            }
+
+                            &:last-child {
+                                border-bottom-right-radius: 0;
+                            }
+                        }
+
+                        th {
+                            background-color: @thead-background;
+                        }
+                    }
+                }
+
+                & + tbody {
+
+                    tr {
+
+                        &:first-child {
+
+                            td, th {
+
+                                &:first-child {
+                                    border-top-left-radius: 0;
+                                }
+
+                                &:last-child {
+                                    border-top-right-radius: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                .default-table;
+
+                th {
+                    font-family: @bold-font;
+                    color: @th-font-color;
+                    background-color: @tbody-background;
+                }
+
+                td {
+                    background-color: @tbody-background;
+                }
+            }
+
+            td, th {
+                padding: 20px;
+                box-sizing: border-box;
+                border: none;
+                text-align: left;
+            }
+
+            tr {
+
+                &:first-child {
+
+                    td {
+
+                        &:first-child {
+                            border-top-left-radius: @wrapper-border-radius;
+                        }
+
+                        &:last-child {
+                            border-top-right-radius: @wrapper-border-radius;
+                        }
+                    }
+
+                    th {
+
+                        &:first-child {
+                            border-top-left-radius: @wrapper-border-radius;
+                        }
+
+                        &:last-child {
+                            border-top-right-radius: @wrapper-border-radius;
+                        }
+                    }
+                }
+
+                &:last-child {
+
+                    td {
+
+                        &:first-child {
+                            border-bottom-left-radius: @wrapper-border-radius;
+                        }
+
+                        &:last-child {
+                            border-bottom-right-radius: @wrapper-border-radius;
+                        }
+                    }
+
+                    th {
+
+                        &:first-child {
+                            border-bottom-left-radius: @wrapper-border-radius;
+                        }
+
+                        &:last-child {
+                            border-bottom-right-radius: @wrapper-border-radius;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
