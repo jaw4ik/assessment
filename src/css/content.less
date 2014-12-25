@@ -23,9 +23,13 @@
     font-size: 16px;
 }
 
+.line-height() {
+    line-height: 30px;
+}
+
 .basic() {
     margin: 0 0 20px 0;
-    line-height: 30px;
+    .line-height;
 }
 
 .list() {
@@ -37,6 +41,14 @@
     font-size: @font-size;
     font-family: @bold-font;
     font-weight: normal;
+}
+
+.cell() {
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 10px,rgba(243,243,243,1) 10px,rgba(243,243,243,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(243,243,243,0)), color-stop(10px,rgba(243,243,243,0)), color-stop(10px,rgba(80,105,122,1)), color-stop(100%,rgba(80,105,122,1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 10px,rgba(243,243,243,1) 10px,rgba(243,243,243,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 10px,rgba(243,243,243,1) 10px,rgba(243,243,243,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 10px,rgba(243,243,243,1) 10px,rgba(243,243,243,1) 100%);
 }
 
 .styled-content {
@@ -53,6 +65,7 @@
         .list;
         list-style-type: none;
 
+
         li:before {
             position: relative;
             bottom: -5px;
@@ -60,6 +73,7 @@
             display: inline-block;
             width: 15px;
             content: "\2022 ";
+            margin-right: 7px;
             color: @list-style-type-color;
         }
     }
@@ -67,13 +81,15 @@
     ol {
         .basic;
         .list;
-        list-style-position: inside;
+        padding-left: 60px;
+        list-style-position: outside;
     }
 
     a {
         color: @reference-color;
         text-decoration: underline;
         cursor: pointer;
+        .line-height;
 
         &:hover {
             color: @reference-hover-color;
@@ -84,6 +100,11 @@
         background-color: @mark-background-color;
         border-radius: 5px;
         padding: 0 3px;
+        .line-height;
+    }
+
+    strong, em, span {
+        .line-height;
     }
 
     h1 {
@@ -102,6 +123,7 @@
     u {
         text-decoration: none;
         border-bottom: 1px solid @default-font-color;
+        .line-height;
     }
 
     cite {
@@ -109,16 +131,18 @@
         display: block;
         margin: 15px 165px;
         font-size: 18px;
-        font-style: normal;
+        font-style: italic;
         line-height: 30px;
         white-space: pre-line;
+        overflow: hidden;
+        padding: 10px 40px;
 
         &:before, &:after {
             position: absolute;
             font: 50px 'Helvetica';
             font-weight: bold;
             color: #44b8e2;
-            line-height: 20px;
+            line-height: 35px;
         }
 
         &:before {
@@ -167,8 +191,14 @@
             table-layout: fixed;
             font-size: 16px;
             border: none;
-            border-spacing: 0 15px;
+            border-collapse: collapse;
             display: inline-table;
+
+            caption {
+                font-family: @bold-font;
+                margin: 15px;
+            }
+
 
             p {
                 margin: 0;
@@ -177,6 +207,10 @@
             thead {
                 .default-table;
                 font-family: @bold-font;
+
+                th {
+                    background: @thead-background;
+                }
 
                 tr {
 
@@ -192,10 +226,6 @@
                                 border-bottom-right-radius: 0;
                             }
                         }
-
-                        th {
-                            background-color: @thead-background;
-                        }
                     }
                 }
 
@@ -206,6 +236,7 @@
                         &:first-child {
 
                             td, th {
+                                .cell();
 
                                 &:first-child {
                                     border-top-left-radius: 0;
@@ -217,6 +248,28 @@
                             }
                         }
                     }
+                }
+
+                & + caption + tbody {
+
+                     tr {
+
+                        &:first-child {
+
+                            td, th {
+                                .cell();
+
+                                &:first-child {
+                                    border-top-left-radius: 0;
+                                }
+
+                                &:last-child {
+                                    border-top-right-radius: 0;
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
 
@@ -235,10 +288,18 @@
             }
 
             td, th {
-                padding: 20px;
+                padding: 25px 20px 20px 20px;
                 box-sizing: border-box;
                 border: none;
                 text-align: left;
+                background: @tbody-background;
+            }
+
+            tr + tr {
+
+                td, th {
+                    .cell();
+                }
             }
 
             tr {
