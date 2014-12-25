@@ -60,11 +60,19 @@
         .basic;
     }
 
-    ul {
+    ol, ul {
         .basic;
         .list;
-        list-style-type: none;
 
+        li {
+            p, div {
+                display: inline-block;
+            }
+        }
+    }
+
+    ul {
+        list-style-type: none;
 
         li:before {
             position: relative;
@@ -79,8 +87,6 @@
     }
 
     ol {
-        .basic;
-        .list;
         padding-left: 60px;
         list-style-position: outside;
     }
@@ -252,7 +258,7 @@
 
                 & + caption + tbody {
 
-                     tr {
+                    tr {
 
                         &:first-child {
 
@@ -269,7 +275,6 @@
                             }
                         }
                     }
-
                 }
             }
 
