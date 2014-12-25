@@ -10,7 +10,7 @@
                 <div class="question-content" ng-show="question.contentUrl && question.contentUrl.length">
                     <div ng-include src="question.contentUrl" styled-content></div>
                 </div>
-                <div ng-include="'views/' + question.getType() + '.html '" styled-content>
+                <div ng-include="'views/' + question.getType() + '.html '">
                 </div>
             </article>
         </li>
