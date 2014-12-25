@@ -14,7 +14,7 @@
                 $element.addClass('styled-content');
 
                 $scope.$on('$includeContentLoaded', function () {
-      
+
                     $('img', $element).each(function (index, image) {
                         var $image = $(image),
                             $wrapper = $(imageWrapper).css('float', $image.css('float'));
