@@ -1,0 +1,359 @@
+﻿@import "common";
+
+@default-font: 'RobotoslabRegular';
+@default-font-color: #222222;
+@default-font-size: 18px;
+@thead-background: #a8c4da;
+@tbody-background: #f3f3f3;
+@bold-font: 'RobotoSlabBold';
+@th-font-color: #43aaa3;
+@wrapper-border-radius: 10px;
+@reference-color: #49b8e7;
+@reference-hover-color: #50a1d7;
+@mark-background-color: #faaf4a;
+@list-style-type-color: #76cbe3;
+
+.wrapper() {
+    text-align: center;
+    overflow-x: auto;
+}
+
+.default-table() {
+    opacity: 0.9;
+    font-size: 16px;
+}
+
+.line-height() {
+    line-height: 30px;
+}
+
+.basic() {
+    margin: 0 0 20px 0;
+    .line-height;
+}
+
+.list() {
+    padding-left: 38px;
+}
+
+.header(@margin, @font-size) {
+    margin: @margin;
+    font-size: @font-size;
+    font-family: @bold-font;
+    font-weight: normal;
+}
+
+.cell() {
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 10px,rgba(243,243,243,1) 10px,rgba(243,243,243,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(243,243,243,0)), color-stop(10px,rgba(243,243,243,0)), color-stop(10px,rgba(80,105,122,1)), color-stop(100%,rgba(80,105,122,1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 10px,rgba(243,243,243,1) 10px,rgba(243,243,243,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 10px,rgba(243,243,243,1) 10px,rgba(243,243,243,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 10px,rgba(243,243,243,1) 10px,rgba(243,243,243,1) 100%);
+}
+
+.styled-content {
+    font-family: @default-font;
+    font-size: @default-font-size;
+    color: @default-font-color;
+
+    p {
+        .basic;
+    }
+
+    ul {
+        .basic;
+        .list;
+        list-style-type: none;
+
+
+        li:before {
+            position: relative;
+            bottom: -5px;
+            font-size: 30px;
+            display: inline-block;
+            width: 15px;
+            content: "\2022 ";
+            margin-right: 7px;
+            color: @list-style-type-color;
+        }
+    }
+
+    ol {
+        .basic;
+        .list;
+        padding-left: 60px;
+        list-style-position: outside;
+    }
+
+    a {
+        color: @reference-color;
+        text-decoration: underline;
+        cursor: pointer;
+        .line-height;
+
+        &:hover {
+            color: @reference-hover-color;
+        }
+    }
+
+    mark {
+        background-color: @mark-background-color;
+        border-radius: 5px;
+        padding: 0 3px;
+        .line-height;
+    }
+
+    strong, em, span {
+        .line-height;
+    }
+
+    h1 {
+        .header(35px 0 20px 0, 26px);
+    }
+
+    h2 {
+        .header(30px 0 18px 0, 24px);
+    }
+
+    h3 {
+        .header(25px 0 16px 0, 20px);
+    }
+
+
+    u {
+        text-decoration: none;
+        border-bottom: 1px solid @default-font-color;
+        .line-height;
+    }
+
+    cite {
+        position: relative;
+        display: block;
+        margin: 15px 165px;
+        font-size: 18px;
+        font-style: italic;
+        line-height: 30px;
+        white-space: pre-line;
+        overflow: hidden;
+        padding: 10px 40px;
+
+        &:before, &:after {
+            position: absolute;
+            font: 50px 'Helvetica';
+            font-weight: bold;
+            color: #44b8e2;
+            line-height: 35px;
+        }
+
+        &:before {
+            content: "\201C";
+            margin-left: -35px;
+        }
+
+        &:after {
+            content: "\201D";
+            bottom: -23px;
+            margin-left: 10px;
+        }
+    }
+
+    .image-wrapper {
+        .wrapper;
+        margin: 30px 0;
+
+        img {
+            border-radius: @wrapper-border-radius;
+        }
+
+        &[style^="float: right"] {
+            margin: 0 0 5px 20px;
+        }
+
+        &[style^="float:right"] {
+            margin: 0 0 5px 20px;
+        }
+
+        &[style^="float: left"] {
+            margin: 0 20px 5px 0;
+        }
+
+        &[style^="float:left"] {
+            margin: 0 20px 5px 0;
+        }
+    }
+
+    .table-wrapper {
+        .wrapper;
+        margin: 40px 0;
+
+        table {
+            text-align: left;
+            table-layout: fixed;
+            font-size: 16px;
+            border: none;
+            border-collapse: collapse;
+            display: inline-table;
+
+            caption {
+                font-family: @bold-font;
+                margin: 15px;
+            }
+
+
+            p {
+                margin: 0;
+            }
+
+            thead {
+                .default-table;
+                font-family: @bold-font;
+
+                th {
+                    background: @thead-background;
+                }
+
+                tr {
+
+                    &:last-child {
+
+                        td, th {
+
+                            &:first-child {
+                                border-bottom-left-radius: 0;
+                            }
+
+                            &:last-child {
+                                border-bottom-right-radius: 0;
+                            }
+                        }
+                    }
+                }
+
+                & + tbody {
+
+                    tr {
+
+                        &:first-child {
+
+                            td, th {
+                                .cell();
+
+                                &:first-child {
+                                    border-top-left-radius: 0;
+                                }
+
+                                &:last-child {
+                                    border-top-right-radius: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                & + caption + tbody {
+
+                     tr {
+
+                        &:first-child {
+
+                            td, th {
+                                .cell();
+
+                                &:first-child {
+                                    border-top-left-radius: 0;
+                                }
+
+                                &:last-child {
+                                    border-top-right-radius: 0;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            tbody {
+                .default-table;
+
+                th {
+                    font-family: @bold-font;
+                    color: @th-font-color;
+                    background-color: @tbody-background;
+                }
+
+                td {
+                    background-color: @tbody-background;
+                }
+            }
+
+            td, th {
+                padding: 25px 20px 20px 20px;
+                box-sizing: border-box;
+                border: none;
+                text-align: left;
+                background: @tbody-background;
+            }
+
+            tr + tr {
+
+                td, th {
+                    .cell();
+                }
+            }
+
+            tr {
+
+                &:first-child {
+
+                    td {
+
+                        &:first-child {
+                            border-top-left-radius: @wrapper-border-radius;
+                        }
+
+                        &:last-child {
+                            border-top-right-radius: @wrapper-border-radius;
+                        }
+                    }
+
+                    th {
+
+                        &:first-child {
+                            border-top-left-radius: @wrapper-border-radius;
+                        }
+
+                        &:last-child {
+                            border-top-right-radius: @wrapper-border-radius;
+                        }
+                    }
+                }
+
+                &:last-child {
+
+                    td {
+
+                        &:first-child {
+                            border-bottom-left-radius: @wrapper-border-radius;
+                        }
+
+                        &:last-child {
+                            border-bottom-right-radius: @wrapper-border-radius;
+                        }
+                    }
+
+                    th {
+
+                        &:first-child {
+                            border-bottom-left-radius: @wrapper-border-radius;
+                        }
+
+                        &:last-child {
+                            border-bottom-right-radius: @wrapper-border-radius;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
