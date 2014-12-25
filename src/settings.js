@@ -1,4 +1,7 @@
 ﻿{
+    "logo": {
+        "url": ""
+    },
 	"xApi": {
 	    "enabled": false,
 		"selectedLrs": "custom",
@@ -16,5 +19,8 @@
 		"answered",
 		"passed",
 		"failed"]
+	},
+	"masteryScore": {
+	    "score": 75
 	}
 }

@@ -5,11 +5,10 @@
         .module('quiz')
         .controller('SummaryController', SummaryController);
 
-    SummaryController.$inject = ['dataContext', '$location', 'quiz'];
+    SummaryController.$inject = ['dataContext', '$location', 'quiz', 'settings'];
 
-    function SummaryController(dataContext, $location, quiz) {
+    function SummaryController(dataContext, $location, quiz, settings) {
         var that = this;
-
         that.title = '"' + quiz.title + '"';
         that.questions = quiz.questions.map(function (question) {
             return {
@@ -19,7 +18,7 @@
         });
 
         that.progress = quiz.getResult().toFixed();
-        that.masteryScore = 90;
+        that.masteryScore = settings.masteryScore.score;
         that.reachMasteryScore = that.progress >= that.masteryScore;
 
         that.tryAgain = function () {
