@@ -5,10 +5,10 @@
            .provider('settings', settingsProvider);
 
     function settingsProvider() {
-        var settings;
-        settings = {
-            masteryScore: {score: 90}
-        };
+        var settings,
+            defaultSettings = {
+                masteryScore: {score: 90}
+            };
 
         return {
             setSettings: function (value) {
@@ -16,7 +16,7 @@
                     return;
                 }
 
-                settings = value;
+                settings = $.extend(true, {}, defaultSettings, value);
             },
             $get: function () {
                 return settings;
