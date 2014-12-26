@@ -7,7 +7,7 @@
     function settingsProvider() {
         var settings,
             defaultSettings = {
-                masteryScore: {score: 90}
+                masteryScore: {score: 100}
             };
 
         return {
