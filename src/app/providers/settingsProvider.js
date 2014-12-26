@@ -12,11 +12,12 @@
 
         return {
             setSettings: function (value) {
-                if (!value) {
+                if (!_.isObject(value)) {
+                    settings = defaultSettings;
                     return;
                 }
 
-                settings = $.extend(true, {}, defaultSettings, value);
+                settings = $.extend({}, defaultSettings, value);
             },
             $get: function () {
                 return settings;

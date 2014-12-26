@@ -13,6 +13,10 @@
             that.questions = questions || [];
 
             that.getResult = function () {
+				if(that.questions.length === 0){
+					return 0;
+				}
+			
                 var correct = 0;
                 that.questions.forEach(function (question) {
                     correct += question.score;
