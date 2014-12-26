@@ -17,7 +17,7 @@
                 that.questions.forEach(function (question) {
                     correct += question.score;
                 });
-                return correct / that.questions.length;
+                return Math.floor(correct / that.questions.length);
             };
 
         };
