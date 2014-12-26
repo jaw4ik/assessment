@@ -42,7 +42,7 @@ var addBuildVersion = function () {
 };
 
 gulp.task('analyze', function () {
-    var paths = ['./src/app/**/*.js', './src/settings/js/*.js'];
+    var paths = ['./src/app/**/*.js', './src/settings/js/settings.js'];
 
     var jshint = analyzejshint(paths);
     var jscs = analyzejscs(paths);
@@ -81,44 +81,44 @@ gulp.task('clean', function (cb) {
 gulp.task('build', ['clean', 'css', 'build-app', 'build-settings'], function () {
 });
 
-gulp.task('build-app', ['clean'], function () {
+gulp.task('build-app', ['clean', 'css'], function () {
     var assets = useref.assets();
 
     return merge(
 
-            gulp.src('./src/index.html')
-                .pipe(assets)
-                .pipe(gulpif('*.js', uglify()))
-                .pipe(gulpif('*.css', css()))
-                .pipe(assets.restore())
-                .pipe(useref())
-                .pipe(replace(/(app\/)(.+).js/gi, '$2.js'))
-                .pipe(gulp.dest(output)),
+        gulp.src('./src/index.html')
+            .pipe(assets)
+            .pipe(gulpif('*.js', uglify()))
+            .pipe(gulpif('*.css', css()))
+            .pipe(assets.restore())
+            .pipe(useref())
+            .pipe(replace(/(app\/)(.+).js/gi, '$2.js'))
+            .pipe(gulp.dest(output)),
 
-            gulp.src(['./src/css/fonts/**', '!./src/css/fonts/*.less'])
-                .pipe(gulp.dest(output + '/css/fonts')),
+        gulp.src(['./src/css/fonts/**', '!./src/css/fonts/*.less'])
+            .pipe(gulp.dest(output + '/css/fonts')),
 
-            gulp.src(['./src/css/img/**'])
-                .pipe(gulp.dest(output + '/css/img')),
+        gulp.src(['./src/css/img/**'])
+            .pipe(gulp.dest(output + '/css/img')),
 
-            gulp.src(['./src/css/*.css'])
-                .pipe(gulp.dest(output + '/css')),
+        gulp.src(['./src/css/*.css'])
+            .pipe(gulp.dest(output + '/css')),
 
-            gulp.src(['./src/app/views/**/*.html'])
-                .pipe(gulp.dest(output + '/app/views')),
+        gulp.src(['./src/app/views/**/*.html'])
+            .pipe(gulp.dest(output + '/app/views')),
 
-            gulp.src(['./src/content/**/*.*'])
-                .pipe(gulp.dest(output + '/content')),
-				
-			gulp.src('manifest.json')
-				.pipe(gulp.dest(output)),
-				
-			gulp.src(['settings.js', 'publishSettings.js'])
-				.pipe(gulp.dest(output))
-        );		
+        gulp.src(['./src/content/**/*.*'])
+            .pipe(gulp.dest(output + '/content')),
+
+        gulp.src('./src/manifest.json')
+            .pipe(gulp.dest(output)),
+
+        gulp.src(['./src/settings.js'])
+            .pipe(gulp.dest(output))
+        );
 });
 
-gulp.task('build-settings', ['clean'], function () {
+gulp.task('build-settings', ['clean', 'css'], function () {
     var assets = useref.assets();
 
     gulp.src(['src/settings/settings.html'])
@@ -133,11 +133,9 @@ gulp.task('build-settings', ['clean'], function () {
       .pipe(gulp.dest(output + '/settings/css/fonts'));
 
     gulp.src('src/settings/css/settings.css')
-      .pipe(addBuildVersion())
       .pipe(css())
       .pipe(gulp.dest(output + '/settings/css'));
 
     gulp.src('src/settings/img/**')
       .pipe(gulp.dest(output + '/settings/img'));
 });
-

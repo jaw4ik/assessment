@@ -3,7 +3,10 @@
     angular.module('settings', [])
         .controller('SettingsController', ['$scope', SettingsController])
         .directive('tabs', tabs)
-        .directive('switchToggle', switchToggle);
+        .directive('switchToggle', switchToggle)
+        .directive('disableDragAndDrop', disableDragAndDrop)
+        .directive('spinner', spinner)
+        .directive('number', number);
 
     function SettingsController($scope) {
         var that = $scope,
@@ -61,6 +64,7 @@
 
             return data;
         })();
+        that.masteryScore = '';
 
         that.isSaved = false;
         that.isFailed = false;
@@ -85,6 +89,9 @@
                     allowedVerbs: $.map(that.trackingData.statements, function (value, key) {
                         return value ? key : undefined;
                     })
+                },
+                masteryScore: {
+                    score: that.masteryScore
                 }
             };
 
@@ -109,7 +116,7 @@
             url: settingsUrl,
             dataType: 'json',
             success: function (json) {
-                var defaultSettings = {xApi: {enabled: true, selectedLrs: 'default', lrs: {credentials: {}}}};
+                var defaultSettings = {xApi: {enabled: true, selectedLrs: 'default', lrs: {credentials: {}}}, masteryScore: {}};
                 var settings;
                 try {
                     settings = JSON.parse(json.settings) || defaultSettings;
@@ -130,6 +137,16 @@
                     });
                 }
 
+                if (typeof settings.masteryScore !== 'undefined' && settings.masteryScore.score >= 0 && settings.masteryScore.score <= 100) {
+                    that.masteryScore = settings.masteryScore.score;
+                } else {
+                    that.masteryScore = 100;
+                }
+
+                that.$apply();
+            },
+            error: function () {
+                that.masteryScore = 100;
                 that.$apply();
             }
         });
@@ -171,6 +188,52 @@
                         $tabs.hide();
                         currentContentTab.show();
                     });
+                });
+            }
+        };
+    }
+
+    function disableDragAndDrop() {
+        return {
+            restrict: 'A',
+            link: function(scope, element) {
+                $(element).on('dragstart', function(event) {
+                    event.preventDefault();
+                });
+            }
+        };
+    }
+
+    function spinner() {
+        return {
+            restrict: 'A',
+            scope: {spinnerValue: '='},
+            link: function(scope, element) {
+                $(element)
+                    .spinner('changed', function(e, newValue) {
+                        scope.spinnerValue = newValue;
+                        scope.$apply();
+                    });
+            }
+        };
+    }
+
+    function number() {
+        return {
+            restrict: 'A',
+            link: function(scope, element) {
+                var $element = $(element),
+                    maxValue = 100;
+
+                $element.on('keydown', function(e) {
+                    var key = e.charCode || e.keyCode || 0;
+                    return (key === 8 || key === 9 || key === 46 || (key >= 37 && key <= 40) ||
+                    (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
+                });
+                $element.on('keyup', function() {
+                    if ($(this).val() > maxValue) {
+                        $(this).val(maxValue);
+                    }
                 });
             }
         };
