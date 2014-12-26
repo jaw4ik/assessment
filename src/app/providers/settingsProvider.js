@@ -17,7 +17,7 @@
                     return;
                 }
 
-                settings = $.extend({}, defaultSettings, value);
+                settings = $.extend(true, {}, defaultSettings, value);
             },
             $get: function () {
                 return settings;
