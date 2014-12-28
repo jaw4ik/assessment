@@ -12,7 +12,8 @@
 
         return {
             setSettings: function (value) {
-                if (!value) {
+                if (!_.isObject(value)) {
+                    settings = defaultSettings;
                     return;
                 }
 

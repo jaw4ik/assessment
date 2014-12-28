@@ -16,7 +16,8 @@
         function readSettings(url) {
             var defer = $q.defer();
             $http.get(url).success(function (json) {
-                defer.resolve(json);
+                var result = _.isObject(json) ? json : null;
+                defer.resolve(result);
             }).error(function () {
                 defer.resolve(null);
             });
