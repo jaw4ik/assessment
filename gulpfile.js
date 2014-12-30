@@ -76,7 +76,6 @@ gulp.task('build', ['clean', 'css'], function () {
                 .pipe(gulpif('*.css', css()))
                 .pipe(assets.restore())
                 .pipe(useref())
-                .pipe(replace(/(app\/)(.+).js/gi, '$2.js'))
                 .pipe(gulp.dest(output)),
 
             gulp.src(['./src/css/fonts/**', '!./src/css/fonts/*.less'])

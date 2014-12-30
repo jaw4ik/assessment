@@ -4,9 +4,10 @@
     var app = angular.module('quiz', ['ngRoute']);
 
     app.config(['$routeProvider', function ($routeProvider) {
+
         $routeProvider
             .when('/questions', {
-                templateUrl: 'views/questions.html',
+                templateUrl: 'app/views/questions.html',
                 controller: 'QuestionController',
                 controllerAs: 'quiz',
                 resolve: {
@@ -16,7 +17,7 @@
                 }
             })
             .when('/summary', {
-                templateUrl: 'views/summary.html',
+                templateUrl: 'app/views/summary.html',
                 controller: 'SummaryController',
                 controllerAs: 'summary',
                 resolve: {

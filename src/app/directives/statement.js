@@ -10,7 +10,7 @@
                 question: '=',
                 statement: '='
             },
-            templateUrl: 'views/statementItem.html',
+            templateUrl: 'app/views/statementItem.html',
             link: link
         };
     }
