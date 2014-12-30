@@ -408,6 +408,7 @@
     function number() {
         return {
             restrict: 'A',
+            scope: { numberValue: '=' },
             link: function (scope, element) {
                 var $element = $(element),
                     maxValue = 100;
@@ -418,8 +419,9 @@
                     (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
                 });
                 $element.on('keyup', function () {
-                    if ($(this).val() > maxValue) {
-                        $(this).val(maxValue);
+                    if (scope.numberValue > maxValue) {
+                        scope.numberValue = maxValue;
+                        scope.$apply();
                     }
                 });
             }
