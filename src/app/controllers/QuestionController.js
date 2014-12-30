@@ -11,7 +11,7 @@
         'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
         'SingleSelectTextViewModel', 'MultipleSelectTextViewModel', 'TextMatchingViewModel',
         'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel', 'HotspotViewModel',
-        'quiz'
+        'quiz', 'settings'
     ];
     
     function QuestionController($http, $location,
@@ -20,11 +20,12 @@
         SingleSelectTextViewModel, MultipleSelectTextViewModel, TextMatchingViewModel,
         DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel, HotspotViewModel,
 
-        quiz) {
+        quiz, settings) {
 
         var that = this;
 
         that.title = quiz.title;
+        that.logoUrl = settings.logo.url;
 
         that.questions = quiz.questions.map(function (question) {
             if (question instanceof SingleSelectText) {
