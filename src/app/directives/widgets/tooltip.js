@@ -7,7 +7,7 @@
         return {
             transclude: true,
             restrict: 'E',
-            templateUrl: 'views/widgets/tooltip.html'
+            templateUrl: 'app/views/widgets/tooltip.html'
         };
     }
 
