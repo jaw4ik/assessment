@@ -14,13 +14,23 @@
     background-position: center center;
     background-repeat: no-repeat;
     content: "";
-    display: block;
-    height: @height;
-    left: @left;
-    margin-top: -(@height/2);
     position: absolute;
-    top: @top;
+    display: block;
     width: @width;
+    height: @height;
+    top: @top;
+    left: @left;
+}
+
+.before-image-vertically-center(@url, @left, @width, @height) {
+    .before-image(@url, @left, 50%, @width, @height);
+    margin-top: -(@height/2);
+}
+
+.before-image-center(@url, @width, @height) {
+    .before-image(@url, 50%, 50%, @width, @height);
+    margin-top: -(@height/2);
+    margin-left: -(@width/2);
 }
 
 .text-overflow-with-dots() {
@@ -34,6 +44,35 @@
     -ms-user-select: none;
     -webkit-user-select: none;
     user-select: none;
+}
+
+.display-flex() {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flex-direction(@direction) {
+    -ms-flex-direction: @direction;
+    -webkit-flex-direction: @direction;
+    flex-direction: @direction;
+}
+
+.align-items(@align) {
+    -ms-flex-align: @align;
+    -webkit-align-items: @align;
+    align-items: @align;
+}
+
+.flex(@flex-value) {
+    -ms-flex: @flex-value;
+    -webkit-flex: @flex-value;
+    flex: @flex-value;
+}
+
+.animation(@animation-options) {
+    -webkit-animation: @animation-options;
+    animation: @animation-options;
 }
 
 @button-text-font: RobotoBold;
@@ -125,7 +164,7 @@ ul {
     display: inline-block;
     font-family: @button-text-font;
     font-size: 20px;
-    line-height: 1;
+    line-height: 54px;
     transition: background @transition-settings, box-shadow @transition-settings;
 
     &.default {
@@ -153,7 +192,10 @@ ul {
 
     &.large {
         padding: 0 90px;
-        line-height: 54px;
+    }
+
+    &.small {
+        padding: 0 50px;
     }
 
     &.emphasize {

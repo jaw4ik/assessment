@@ -3,10 +3,10 @@
 
     angular
         .module('quiz')
-        .controller('QuestionController', QuestionController);
+        .controller('MainController', MainController);
 
-    QuestionController.$inject = [
-        '$http', '$location',
+    MainController.$inject = [
+        '$sce', '$location',
         'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText',
         'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
         'SingleSelectTextViewModel', 'MultipleSelectTextViewModel', 'TextMatchingViewModel',
@@ -14,18 +14,17 @@
         'quiz'
     ];
     
-    function QuestionController($http, $location,
+    function MainController($sce, $location,
         SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText,
         Statement, SingleSelectImage, FillInTheBlanks, Hotspot,
         SingleSelectTextViewModel, MultipleSelectTextViewModel, TextMatchingViewModel,
         DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel, HotspotViewModel,
-
         quiz) {
 
         var that = this;
 
         that.title = quiz.title;
-
+        that.introductionContent = quiz.introductionContent;
         that.questions = quiz.questions.map(function (question) {
             if (question instanceof SingleSelectText) {
                 return new SingleSelectTextViewModel(question);

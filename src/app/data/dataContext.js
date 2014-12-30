@@ -83,9 +83,16 @@
                         });
                     }
 
-                    self.quiz = new Quiz(response.title, questions);
+                    if (response.hasIntroductionContent) {
+                        $http.get('content/content.html').success(function(introductionContent) {
+                            self.quiz = new Quiz(response.title, questions, introductionContent);
+                            dfd.resolve(self.quiz);
+                        });
+                    } else {
+                        self.quiz = new Quiz(response.title, questions);
+                        dfd.resolve(self.quiz);
+                    }
 
-                    dfd.resolve(self.quiz);
                 });
             }
 

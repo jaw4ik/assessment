@@ -6,9 +6,9 @@
     app.config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider
-            .when('/questions', {
-                templateUrl: 'app/views/questions.html',
-                controller: 'QuestionController',
+            .when('/', {
+                templateUrl: 'app/views/main.html',
+                controller: 'MainController',
                 controllerAs: 'quiz',
                 resolve: {
                     quiz: ['dataContext', function (dataContext) {
@@ -27,8 +27,8 @@
                 }
             })
             .otherwise({
-                redirectTo: '/questions'
+                redirectTo: '/'
             });
-
     }]);
+
 }());

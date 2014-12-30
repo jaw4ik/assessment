@@ -1,0 +1,59 @@
+﻿<scroll-control class="main-container">
+    <fixed-container class="introduction-container">
+        <div class="introduction-wrapper" fixed-block>
+            <div class="header" header>
+                <img class="logo" src="/src/css/img/logo.png" />
+                <div class="button-container" ng-click="scrollToSecondContainer()">
+                    <button class="button small emphasize default">Start quiz</button>
+                </div>
+            </div>
+            <div class="content-container">
+                <div class="content-wrapper" scrollable-block>
+                    <div class="header-title-container">
+                        <div class="header-title-wrapper">
+                            <div class="header-quiz-label">Quiz</div>
+                            <div class="header-quiz-title">“{{quiz.title}}”</div>
+                            <div class="header-questions-label">{{quiz.questions.length}} questions</div>
+                        </div>
+                    </div>
+                    <div ng-include="'content/content.html'" onload="contentLoaded()" styled-content></div>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div class="controls">
+                <div class="buttons-container">
+                    <button class="button large emphasize primary" ng-click="scrollToSecondContainer()">Start quiz</button>
+                </div>
+                <div class="scroll-hint-container" show-on-bottom>
+                    <span class="text">Or scroll to start</span>
+                    <div class="icon-wrapper">
+                        <span class="icon"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fixed-container>
+    <secondary-container class="questions-container">
+        <div class="questions-wrapper">
+            <ul class="unstyled">
+                <li class="question" ng-repeat="question in quiz.questions">
+                    <article>
+                        <h1 class="question-title">
+                            <span class="index">{{$index + 1 | leadingZeros: 2}}</span>
+                            {{question.title}}
+                        </h1>
+                        <div class="question-content" ng-show="question.contentUrl && question.contentUrl.length">
+                            <div ng-include src="question.contentUrl" styled-content></div>
+                        </div>
+                        <div ng-include="'app/views/' + question.getType() + '.html '">
+                        </div>
+                    </article>
+                </li>
+            </ul>
+
+            <div class="submit-wrapper">
+                <button class="button large primary emphasize" ng-click="quiz.submit()">Submit all answers</button>
+            </div>
+        </div>
+    </secondary-container>
+</scroll-control>
