@@ -265,22 +265,20 @@
                             <img src="img/mastery.png" />
                             <div class="tab-header-wrapper">
                                 <h1 class="tab-header-title">Mastery score settings</h1>
-                                <div class="tab-header-content">
-                                    <span class="tab-header-content-text">The score a learner needs to pass the course</span>
+                                <div class="tab-content-container">
+                                    <div class="mastery-score-container">
+                                        <div class="mastery-score-title">Mastery score (for each learning objective):</div>
+                                        <div data-trigger="spinner" class="spinner" spinner spinner-value="masteryScore">
+                                            <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
+                                            <input type="text" maxlength="3" id="masteryScore" class="content-text-input" data-rule="quantity" data-max="100" data-min="0" number ng-model="masteryScore">
+                                            <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
+                                            <div class="spiner-seperator"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-content-container">
-                            <div class="mastery-score-container">
-                                <div class="mastery-score-title">Mastery score (for each learning objective):</div>
-                                <div data-trigger="spinner" class="spinner" spinner spinner-value="masteryScore">
-                                    <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
-                                    <input type="text" maxlength="3" id="masteryScore" class="content-text-input" data-rule="quantity" data-max="100" data-min="0" number ng-model="masteryScore">
-                                    <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
-                                    <div class="spiner-seperator"></div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
