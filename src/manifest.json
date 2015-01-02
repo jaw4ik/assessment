@@ -1,0 +1,9 @@
+{
+    "name": "Quiz",
+    "shortDescription": "Use this when you want to create an assessment",
+    "thumbnail": "img/thumbnail.png",
+    "previewImages": [
+        "img/previewImages/previewQuiz.jpg"
+    ],
+    "settingsUrl": "settings/settings.html"
+}
