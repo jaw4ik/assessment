@@ -10,6 +10,7 @@
     function SummaryController(dataContext, $location, quiz, settings) {
         var that = this;
         that.title = '"' + quiz.title + '"';
+        that.logoUrl = settings.logo.url;
         that.questions = quiz.questions.map(function (question) {
             return {
                 title: question.title,
