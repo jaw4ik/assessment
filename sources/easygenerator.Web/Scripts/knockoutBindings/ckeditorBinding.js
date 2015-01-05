@@ -67,7 +67,7 @@
                     checkTableButtonVisibility();
                 }
             });
-           
+
             editor.editable().on('click', function (e) {
                 checkTableButtonVisibility();
             });
@@ -119,10 +119,26 @@
             });
 
             editor.on('paste', function (e) {
-                var event = e || window.event;
-                if (isElementInFocus("table") && event.data.dataValue.indexOf('<table') != -1) {
+                var event = e || window.event,
+                    pasteData = event.data.dataValue;
+
+                if (isElementInFocus("table") && pasteData.indexOf('<table') != -1) {
                     event.cancel();
+                } else {
+
+                    var $pasteData = $('<paste>').append($.parseHTML(pasteData)),
+                        $refs = $('a', $pasteData);
+
+                    $.each($refs, function (index, item) {
+                        var $item = $(item);
+                        if ($item.attr('target') != '_self') {
+                            $item.attr('target', '_blank');
+                        };
+                    });
+                    
+                    event.data.dataValue = $pasteData.html();
                 }
+
                 setTimeout(function () {
                     filterContent(editor.editable().$);
                 }, 100);
@@ -152,7 +168,7 @@
             $(element).removeAttr('contenteditable');
         });
 
-        function setData(){
+        function setData() {
             setTimeout(function () {
                 data(editor.getData());
             }, 100);
