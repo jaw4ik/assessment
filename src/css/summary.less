@@ -191,6 +191,23 @@ header.summary-logo {
     }
 }
 
+.blockout {
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #323a45;
+    transition: opacity 250ms ease-in;
+    z-index: 100;
+
+    &.active {
+        visibility: visible;
+        opacity: 0.8;
+    }
+}
+
 @media (min-width:1920px) {
     .summary {
         .summary-header {
