@@ -14,7 +14,7 @@
                 url: '=',
                 scaleBySmallerSide: '='
             },
-            templateUrl: 'views/widgets/imageLoader.html',
+            templateUrl: 'app/views/widgets/imageLoader.html',
             link: link
         };
 

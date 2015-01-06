@@ -24,7 +24,7 @@
             if (self.quiz) {
                 dfd.resolve(self.quiz);
             } else {
-                $http.get('../content/data.js').success(function (response) {
+                $http.get('content/data.js').success(function (response) {
 
                     var questions = [];
                     if (Array.isArray(response.objectives)) {
@@ -69,7 +69,7 @@
                                         if (question) {
 
                                             if (dtq.hasContent) {
-                                                question.contentUrl = '../content/' + dto.id + '/' + dtq.id + '/content.html';
+                                                question.contentUrl = 'content/' + dto.id + '/' + dtq.id + '/content.html';
                                             }
 
                                             questions.push(question);

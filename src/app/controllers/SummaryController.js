@@ -1,13 +1,13 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular
         .module('quiz')
         .controller('SummaryController', SummaryController);
 
-    SummaryController.$inject = ['dataContext', '$location', 'quiz', 'settings'];
+    SummaryController.$inject = ['dataContext', '$location', '$timeout', 'settings', 'quiz'];
 
-    function SummaryController(dataContext, $location, quiz, settings) {
+    function SummaryController(dataContext, $location, $timeout, settings, quiz) {
         var that = this;
         that.title = '"' + quiz.title + '"';
         that.logoUrl = settings.logo.url;
@@ -21,14 +21,20 @@
         that.progress = quiz.getResult();
         that.masteryScore = settings.masteryScore.score;
         that.reachMasteryScore = that.progress >= that.masteryScore;
+        that.finished = false;
 
         that.tryAgain = function () {
+            if (that.finished) return;
             $location.path('/');
         };
 
         that.finish = function () {
+            if (that.finished) return;
+            that.finished = true;
             window.close();
-            alert('Course can be closed');
+            $timeout(function() {
+                 alert('Thank you, you can close the page now');
+            }, 100);
         };
     }
 

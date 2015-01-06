@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
     angular.module('bootstraping')
            .service('readSettingsService', readSettingsService);
@@ -10,7 +10,7 @@
             ticks = new Date().getTime();
 
         that.read = function () {
-            return readSettings('../settings.js?_=' + ticks);
+            return readSettings('settings.js?_=' + ticks);
         };
 
         function readSettings(url) {
