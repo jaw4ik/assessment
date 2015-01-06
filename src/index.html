@@ -89,7 +89,7 @@
                                 </td>
                                 <td class="supported-browser-item firefox">
                                     <a href="http://www.mozilla.com/firefox" class="download-browser-link" target="_blank">
-                                        <img src="img/firefox.png" alt="">
+                                        <img class="browser-image" src="img/firefox.png" alt="">
                                         <p>
                                             <span class="browser-title">mozilla firefox</span>
                                         </p>
@@ -139,6 +139,9 @@
 
         if (!browserSupport.isSupportedMobile && !browserSupport.isSupportedBrowser) {
             getById('main-app').style.display = 'none';
+            document.getElementsByTagName("html")[0].style.height = '100%';
+            document.getElementsByTagName("body")[0].style.height = '100%';
+
             var view = getById('not-supported-page');
             view.style.display = 'block';
 
@@ -259,6 +262,9 @@
 
         function bindSkip(id) {
             getById(id).onclick = function () {
+                document.getElementsByTagName("html")[0].style.height = '';
+                document.getElementsByTagName("body")[0].style.height = '';
+
                 getById('not-supported-page').style.display = 'none';
                 getById('main-app').style.display = '';
             }
