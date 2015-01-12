@@ -67,11 +67,11 @@
                                         }
 
                                         if (question) {
-
                                             if (dtq.hasContent) {
                                                 question.contentUrl = 'content/' + dto.id + '/' + dtq.id + '/content.html';
                                             }
 
+                                            question.hints = getQuestionHints(dto, dtq);
                                             questions.push(question);
                                         }
 
@@ -92,6 +92,18 @@
             return dfd.promise;
         }
 
+        function getQuestionHints(objective, question) {
+            var hints = [];
+            if (Array.isArray(question.learningContents)) {
+                question.learningContents.forEach(function (learningContent) {
+                    if (learningContent) {
+                        var hintUrl = 'content/' + objective.id + '/' + question.id + '/' + learningContent.id + '.html';
+                        hints.push(hintUrl);
+                    }
+                });
+            }
+            return hints;
+        }
     }
 
 }());

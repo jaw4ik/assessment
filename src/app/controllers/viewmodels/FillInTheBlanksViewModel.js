@@ -32,7 +32,7 @@
                 };
             });
 
-            that.submit = function () {
+            that.submitAnswer = function () {
                 question.answer(_.chain(that.groups)
                     .map(function (group) {
                         return {
