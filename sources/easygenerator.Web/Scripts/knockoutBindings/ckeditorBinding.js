@@ -135,7 +135,7 @@
                             $item.attr('target', '_blank');
                         };
                     });
-                    
+
                     event.data.dataValue = $pasteData.html();
                 }
 
@@ -229,6 +229,13 @@
                 blurHandler.call(that, viewModel);
                 $('html').unbind('mouseup', setData);
             }
+           
+            var doc = editor.document,
+                newRange = new CKEDITOR.dom.range(doc),
+                body = doc.getBody();
+            newRange.setStart(body, 0);
+            newRange.setEnd(body, 0);
+            newRange.select();
         };
 
         function saveData() {
