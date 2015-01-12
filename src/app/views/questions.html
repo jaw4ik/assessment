@@ -12,28 +12,7 @@
                 </div>
                 <div ng-include="'app/views/' + question.getType() + '.html '">
                 </div>
-                <div class="question-hint-container" ng-if="question.hints && question.hints.length">
-                    <div class="hint-button-container">
-                        <div class="hint-button" ng-click="question.hintsDisplayed ? question.hideHint() : question.showHint()" ng-class="{'hint-displayed': question.hintsDisplayed}">
-                            <span class="hint-button-caption">{{question.hintsDisplayed ? 'Hide hint' : 'Show hint'}}</span>
-                        </div>
-                    </div>
-                    <div class="question-hint" slide-toggle="question.hintsDisplayed">
-                        <div class="hint-content-container">
-                            <div class="hint-content" ng-repeat="hintUrl in question.hints">
-                                <div ng-include src="hintUrl" styled-content></div>
-                            </div>
-                        </div>
-                        <div class="hint-footer">
-                            <div class="hint-hide-button" ng-click="question.hideHint()">
-                                <div class="button-caption"></div>
-                                <div class="button-hover-caption">
-                                    <span class="text-container">Hide</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div ng-if="question.hint.exists" ng-include="'app/views/hint.html'"></div>
             </article>
         </li>
     </ul>
