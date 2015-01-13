@@ -9,7 +9,7 @@
             link: function ($scope, element) {
                 var $element = $(element);
 
-                changeHeight()
+                changeHeight();
 
                 $(window).resize(function () {
                     changeHeight();

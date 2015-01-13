@@ -3,54 +3,59 @@
 
     angular.module('quiz.xApi').factory('learningContentDataBuilder', factory);
 
-    factory.$inject = ['xApiVerbs'];
+    factory.$inject = ['xApiVerbs', 'objectivesQueries'];
 
-    function factory(verbs) {// jshint ignore:line
+    function factory(verbs, objectivesQueries) {
 
         return {
             learningContentExperienced: learningContentExperienced
         };
 
-        function learningContentExperienced(objective, question, spentTime) {// jshint ignore:line
-            /*var objectiveUrl = getObjectiveUrl(objective.id, question.id);
-            var questionUrl = getQuestionUrl(objective.id, question.id);
-            var learningContentUrl = rootUrl + '#objective/' + objective.id + '/question/' + question.id + '/learningContents';
-            var result = entityFactory.Result({
+        function learningContentExperienced(question, spentTime, rootUrl) {
+            var objective = objectivesQueries.getObjectiveByQuestionId(question.id),
+                questionUrl = rootUrl + '#objective/' + objective.id + '/question/' + question.id,
+                parentUrl = rootUrl + '#objectives?objective_id=' + objective.id,
+                learningContentUrl = rootUrl + '#objective/' + objective.id + '/question/' + question.id + '/learningContents';
+
+            var result = new TinCan.Result({
                 duration: TinCan.Utils.getISODateString(spentTime)
             });
-            var activity = entityFactory.Activity({
+
+            var activity = new TinCan.Activity({
                 id: learningContentUrl,
-                definition: entityFactory.ActivityDefinition({
-                    name: entityFactory.LanguageMap(question.title)
+                definition: new TinCan.ActivityDefinition({
+                    name: {
+                        'en-US': question.title
+                    }
                 })
             });
-            var context = entityFactory.Context({
-                extensions: {
-                    'http://easygenerator/expapi/course/id': courseId
-                },
-                contextActivities: entityFactory.ContextActivities({
-                    parent: [entityFactory.Activity({
+
+            var context = new TinCan.Context({
+                contextActivities: new TinCan.ContextActivities({
+                    parent: [new TinCan.Activity({
                         id: questionUrl,
-                        definition: entityFactory.ActivityDefinition({
-                            name: entityFactory.LanguageMap(question.title)
+                        definition: new TinCan.ActivityDefinition({
+                            name: {
+                                'en-US': question.title
+                            }
                         })
                     })],
-                    grouping: [entityFactory.Activity({
-                        id: objectiveUrl,
-                        definition: entityFactory.ActivityDefinition({
-                            name: entityFactory.LanguageMap(objective.title)
+                    grouping: [new TinCan.Activity({
+                        id: parentUrl,
+                        definition: new TinCan.ActivityDefinition({
+                            name: {
+                                'en-US': objective.title
+                            }
                         })
                     })]
                 })
             });
 
-            return entityFactory.Statement({
-                actor: agent,
-                verb: verbs.answered,
+            return {
                 object: activity,
                 result: result,
                 context: context
-            });*/
+            };
         }
     }
 }());

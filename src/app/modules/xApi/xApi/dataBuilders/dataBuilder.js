@@ -78,10 +78,12 @@
             return new TinCan.Statement(data);
         }
 
-        function learningContentExperienced(learningContent) {
-            var data = learningContentDataBuilder.learningContentExperienced(learningContent);
-            data.context = defaultContext();
+        function learningContentExperienced(item) {
+            var data = learningContentDataBuilder.learningContentExperienced(item.question, item.time, rootUrl);
+            data.context = addExtensionsToContext(data.context);
             data.actor = actor;
+            
+            return new TinCan.Statement(data);
         }
 
         function defaultActivity() {
