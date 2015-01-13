@@ -20,7 +20,6 @@
                 var questionsLength = that.questions.length;
                 return questionsLength === 0 ? 0 : Math.floor(result / questionsLength);
             };
-
         };
     }
 

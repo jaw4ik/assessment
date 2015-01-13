@@ -38,8 +38,8 @@
                 $rootScope.$emit('course:finished', that, callback);
             };
 
-            that.restartCourse = function () {
-                $rootScope.$emit('course:restart');
+            that.courseResults = function () {
+                $rootScope.$emit('course:results', that);
             };
         };
     }

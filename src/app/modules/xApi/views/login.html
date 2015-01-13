@@ -15,11 +15,11 @@
                         <div>So, your achivements will be reported</div>
                     </div>
                     <div class="login-input-container name">
-                        <input type="text" ng-model="login.username" ng-blur="login.markUsernameAsModified()" placeholder="Type your name..." class="login-input" />
+                        <input type="text" ng-model="login.username" ng-class="{ 'error': !login.usernameIsValid() && login.usernameModified }" ng-blur="login.markUsernameAsModified()" placeholder="Type your name..." class="login-input" />
                         <span class="login-error-text" ng-style="{ visibility: !login.usernameIsValid() && login.usernameModified ? 'visible' : 'hidden' }">Fill your name</span>
                     </div>
                     <div class="login-input-container email">
-                        <input type="text" ng-model="login.email" ng-blur="login.markEmailAsModified()" placeholder="Type your e-mail..." class="login-input" />
+                        <input type="text" ng-model="login.email" ng-class="{ 'error': !login.emailIsValid() && login.emailModified }" ng-blur="login.markEmailAsModified()" placeholder="Type your e-mail..." class="login-input" />
                         <span class="login-error-text" ng-style="{ visibility: !login.emailIsValid() && login.emailModified ? 'visible' : 'hidden' }">Enter a valid e-mail</span>
                     </div>
                     <div class="login-form-submit-container">

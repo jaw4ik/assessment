@@ -12,13 +12,14 @@
             sendStatementIfAllowed(dataBuilder.courseStarted());
         }));
 
-        unbindFunctions.push($rootScope.$on('course:finished', function (scope, data, callback) {
+        unbindFunctions.push($rootScope.$on('course:results', function (scope, data) {
             _.each(data.objectives, function (objective) {
                 sendStatementIfAllowed(dataBuilder.objectiveMastered(objective));
             });
-
             sendStatementIfAllowed(dataBuilder.courseResults(data));
+        }));
 
+        unbindFunctions.push($rootScope.$on('course:finished', function (scope, data, callback) {
             sendStatementIfAllowed(dataBuilder.courseStopped(), callback);
         }));
 

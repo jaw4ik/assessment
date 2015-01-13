@@ -28,10 +28,11 @@
         z-index: 10;
 
         .login-wrapper {
+            display: table;
+            height: 100%;
             width: 505px;
             margin: 0 auto;
-            height: 100%;
-            display: table;
+            table-layout: fixed;
 
             .login-content {
                 display: table-cell;
@@ -40,6 +41,7 @@
                 .course-title-container {
                     font-family: 'RobotoslabBold';
                     margin-bottom: 37px;
+                    word-wrap: break-word;
 
                     .questions-count {
                         font-size: 14px;
@@ -48,6 +50,7 @@
                     }
 
                     .course-title {
+                        margin-top: 8px;
                         font-size: 36px;
                         color: #222;
                         text-align: center;
@@ -91,8 +94,9 @@
                             border-bottom: 1px solid #c8d1d7;
                             color: #222;
 
-                            &:active, &:focus {
-                                border-bottom-color: #49b8e7;
+                            &:active, &:focus,
+                            &.error:active, &.error:focus{
+                                border-bottom-color: #49b8e7 !important;
                                 box-shadow: 0px 2px 2px -2px rgba(73, 184, 231, 0.75);
                             }
 
@@ -102,7 +106,7 @@
                         }
 
                         .login-error-text {
-                            font: 12px 'RobotoBold';
+                            font: 12px 'RobotoRegular';
                             color: #f16162;
                         }
                     }
@@ -171,6 +175,7 @@
             background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QURFNjNDMTk4RUYxMTFFNDg0QzA4MDc2M0RDNjkxRjgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QURFNjNDMUE4RUYxMTFFNDg0QzA4MDc2M0RDNjkxRjgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBREU2M0MxNzhFRjExMUU0ODRDMDgwNzYzREM2OTFGOCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBREU2M0MxODhFRjExMUU0ODRDMDgwNzYzREM2OTFGOCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PnpbtOIAAAEfSURBVHjalJVNDoIwEIWhyh3YmbDQLRxAoksvBFHXGvUGXkR2SvQA3MB4DxL0TTIkpPZnmOQF2tIvD/pawjRNA9Qa2kB7qA3GVQQdoFvTNHUIIMGOPPCEyhFQmnOGcp6zU+ws4gdyfiAaCevbm0kcxzVuFtCMB+g6h+5QJ4RRvaCtYqsFdwQCpzZYgW/YKu6QQp0waqjBgA16YZAXRhVybPRXIshSm/j1wXSHLqdLE8wUL2VZRRPUC3MB+/oK+7xA0wJIImUE2lbzKYEqaWh5j/9BsyyLbEAXrGWVpvAPoUrLni8a1h3VQ5UjyLZoOKF02pzQWElzxtXxaaSfUgk5rAaTJTCbU2pX5PCDmzc0pfNs5C+gd5pAV+zrx0+AAQAiIHSR9rAx+wAAAABJRU5ErkJggg==');
             background-position: center;
             background-repeat: no-repeat;
+            box-shadow: 3px 0 3px 0 rgba(220, 220, 220, 1) inset;
             cursor: pointer;
         }
 
@@ -189,10 +194,19 @@
         .login-skip-link {
             display: none;
             margin: 20px 0;
-            font: 14px 'Roboto-Regular';
+            font: 14px 'RobotoRegular';
             text-transform: uppercase;
             color: #777;
             cursor: pointer;
+        }
+    }
+}
+
+
+@media (max-width: 1024px){
+    .login {
+        .login-container{
+            max-width: 625px;
         }
     }
 }

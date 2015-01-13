@@ -60,6 +60,8 @@
             that.questions.forEach(function (question) {
                 question.submit();
             });
+            
+            quiz.courseResults();
 
             $location.path('/summary').replace();
         };
