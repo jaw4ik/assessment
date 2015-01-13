@@ -9,7 +9,8 @@
             defaultSettings = {
                 masteryScore: {score: 100},
                 xApi: {
-                    enabled: false
+                    enabled: true,
+                    selectedLrs: 'default'
                 },
                 logo: {
                     /* jshint ignore:start */

@@ -18,7 +18,7 @@
                 settingsProvider.setSettings(data.readSettings);
             }]);
 
-            if (data.readSettings.xApi.enabled) {
+            if (typeof data.readSettings !== null || data.readSettings.xApi.enabled) {
                 angular.bootstrap(document, ['quiz', 'quiz.xApi']);
             } else {
                 angular.bootstrap(document, ['quiz']);

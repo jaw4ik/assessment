@@ -35,7 +35,11 @@
             };
 
             that.courseFinished = function (callback) {
-                $rootScope.$emit('course:finished', that, callback);
+                if (!!$rootScope.$$listenerCount['course:finished']) {
+                    $rootScope.$emit('course:finished', that, callback);
+                } else {
+                    callback.apply();
+                }
             };
 
             that.courseResults = function (masteryScore) {

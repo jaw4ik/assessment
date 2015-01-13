@@ -1,9 +1,9 @@
 (function () {
 
     angular.module('quiz')
-        .directive('xapiPage', xapiPage);
+        .directive('pageResizer', pageResizer);
 
-    function xapiPage() {
+    function pageResizer() {
         return {
             restrict: 'A',
             link: function ($scope, element) {
