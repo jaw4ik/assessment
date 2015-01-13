@@ -92,7 +92,6 @@ gulp.task('build-app', ['clean', 'css'], function () {
             .pipe(gulpif('*.css', css()))
             .pipe(assets.restore())
             .pipe(useref())
-            .pipe(replace(/(app\/)(.+).js/gi, '$2.js'))
             .pipe(gulp.dest(output)),
 
         gulp.src(['./src/css/fonts/**', '!./src/css/fonts/*.less'])
@@ -103,9 +102,15 @@ gulp.task('build-app', ['clean', 'css'], function () {
 
         gulp.src(['./src/css/*.css'])
             .pipe(gulp.dest(output + '/css')),
+        
+        gulp.src(['./src/img/**'])
+            .pipe(gulp.dest(output + '/img')),
 
         gulp.src(['./src/app/views/**/*.html'])
             .pipe(gulp.dest(output + '/app/views')),
+        
+        gulp.src(['./src/app/modules/xApi/views/**/*.html'])
+            .pipe(gulp.dest(output + '/app/modules/xApi/views')),
 
         gulp.src(['./src/content/**/*.*'])
             .pipe(gulp.dest(output + '/content')),

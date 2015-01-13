@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular.module('bootstraping', []).run(runBlock);
@@ -14,11 +14,16 @@
         };
 
         $q.all(tasks).then(function (data) {
-            angular.module('quiz').config(['settingsProvider', function (settingsProvider) {
+            angular.module('quiz').config(['$routeProvider', 'settingsProvider', function ($routeProvider, settingsProvider) {
                 settingsProvider.setSettings(data.readSettings);
             }]);
 
-            angular.bootstrap(document, ['quiz']);
+            if (data.readSettings.xApi.enabled) {
+                angular.bootstrap(document, ['quiz', 'quiz.xApi']);
+            } else {
+                angular.bootstrap(document, ['quiz']);
+            }
+
         });
     }
 

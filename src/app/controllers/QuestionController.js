@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular
@@ -13,7 +13,7 @@
         'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel', 'HotspotViewModel',
         'quiz', 'settings'
     ];
-    
+
     function QuestionController($http, $location,
         SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText,
         Statement, SingleSelectImage, FillInTheBlanks, Hotspot,
@@ -61,7 +61,7 @@
                 question.submit();
             });
 
-            $location.path('/summary');
+            $location.path('/summary').replace();
         };
     }
 

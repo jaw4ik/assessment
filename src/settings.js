@@ -1,9 +1,9 @@
-﻿{
+{
     "logo": {
         "url": ""
     },
 	"xApi": {
-	    "enabled": false,
+	    "enabled": true,
 		"selectedLrs": "custom",
 		"lrs": {
 		    "uri": "http://cloud.scorm.com/ScormEngineInterface/TCAPI/public/statements?limit=25&related_activities=false&related_agents=false",

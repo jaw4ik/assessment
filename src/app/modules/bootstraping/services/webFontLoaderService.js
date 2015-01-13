@@ -1,11 +1,11 @@
-﻿(function () {
+(function () {
     'use strict';
     angular.module('bootstraping')
-           .service('webFontLoaderService', webFontLoaderService);
+           .service('webFontLoaderService', WebFontLoaderService);
 
-    webFontLoaderService.$inject = ['$q'];
+    WebFontLoaderService.$inject = ['$q'];
 
-    function webFontLoaderService($q) {
+    function WebFontLoaderService($q) {
         var that = this;
         that.load = load;
 
@@ -13,7 +13,7 @@
             var deferred = $q.defer();
             WebFont.load({
                 custom: {
-                    families: ['RobotoslabRegular', 'RobotoslabBold', 'Rabiohead', 'RobotoslabLight', 'TwCenMTCondensed', 'RobotoBold', 'RobotoCondensedRegular', 'OpenSans'],
+                    families: ['RobotoslabRegular', 'RobotoslabBold', 'Rabiohead', 'RobotoslabLight', 'TwCenMTCondensed', 'RobotoBold', 'RobotoCondensedRegular', 'OpenSans', 'RobotoRegular', 'OCRAExtended'],// jshint ignore:line
                     urls: ['css/fonts.css']
                 },
                 active: function () {

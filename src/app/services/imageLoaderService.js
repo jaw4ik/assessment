@@ -1,16 +1,13 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular.module('quiz')
-           .service('imageLoaderService', imageLoaderService);
+        .service('imageLoaderService', ImageLoaderService);
 
-    imageLoaderService.$inject = ['$q'];
+    ImageLoaderService.$inject = ['$q'];
 
-    function imageLoaderService($q) {
-        var that = this;
-        that.load = load;
-
-        function load(url) {
+    function ImageLoaderService($q) {
+        this.load = function (url) {
             var deferred = $q.defer();
             var image = new Image();
 
@@ -23,7 +20,7 @@
             image.src = url;
 
             return deferred.promise;
-        }
+        };
     }
 
 }());
