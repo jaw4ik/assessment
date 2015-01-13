@@ -10,7 +10,7 @@
                 <div class="question-content" ng-if="question.contentUrl && question.contentUrl.length">
                     <div ng-include src="question.contentUrl" styled-content></div>
                 </div>
-                <div ng-include="'app/views/' + question.getType() + '.html '">
+                <div class="question-body" ng-include="'app/views/' + question.getType() + '.html '">
                 </div>
                 <div ng-if="question.hint.exists" ng-include="'app/views/hint.html'"></div>
             </article>
