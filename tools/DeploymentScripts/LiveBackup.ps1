@@ -1,7 +1,7 @@
 #Before running this script be sure that you have needed execution policy:
 #Get-ExecutionPolicy -Scope CurrentUser
 #To set correct execution policy run this command:
-#Set-ExecutionPolicy Unrestricted -Scope CurrentUser
+#Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 $ErrorActionPreference = "Stop"
 
 $title = "EG Live Backup Script:"
@@ -38,7 +38,7 @@ $dbBackupName = $dbName + "-" + $date + ".bak"
 $dbBackupPath = "D:\SQL_Backup\" + $dbBackupName 
 $query = "BACKUP DATABASE [" + $dbName + "] TO DISK='" + $dbBackupPath + "' WITH STATS"
 
-SqlCmd -E -S .\sqlexpress -Q $query
+SqlCmd -E -S . -Q $query
 
 echo "Creating website backup:"
 
