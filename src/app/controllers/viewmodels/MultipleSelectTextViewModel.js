@@ -28,7 +28,7 @@
                 answer.checked = !answer.checked;
             };
 
-            that.submit = function () {
+            that.submitAnswer = function () {
                 question.answer(_.chain(that.answers)
                     .filter(function (answer) {
                         return answer.checked;
