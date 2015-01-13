@@ -20,7 +20,7 @@
 
         that.progress = quiz.getResult();
         that.masteryScore = settings.masteryScore.score;
-        that.reachMasteryScore = quiz.isCompleted = that.progress >= that.masteryScore;
+        that.reachMasteryScore = that.progress >= that.masteryScore;
         that.finished = false;
 
         that.tryAgain = function () {

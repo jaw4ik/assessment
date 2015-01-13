@@ -38,7 +38,8 @@
                 $rootScope.$emit('course:finished', that, callback);
             };
 
-            that.courseResults = function () {
+            that.courseResults = function (masteryScore) {
+                that.isCompleted = that.getResult() >= masteryScore;
                 $rootScope.$emit('course:results', that);
             };
         };
