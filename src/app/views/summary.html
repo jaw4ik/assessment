@@ -1,4 +1,8 @@
-﻿<header class="summary-logo"></header>
+﻿<header class="summary-logo">
+    <div class="main-logo-wrapper">
+        <img alt="" src="" class="main-logo" ng-src="{{summary.logoUrl}}">
+    </div>
+</header>
 <div class="summary" ng-init="scrollToTop()">
     <div class="summary-header">
         <div class="summary-header-content">
@@ -32,3 +36,4 @@
         </div>
     </div>
 </div>
+<div class="blockout" ng-class="{ active: summary.finished }"></div>

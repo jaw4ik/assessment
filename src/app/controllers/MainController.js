@@ -6,25 +6,27 @@
         .controller('MainController', MainController);
 
     MainController.$inject = [
-        '$sce', '$location',
+        '$location',
         'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText',
         'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
         'SingleSelectTextViewModel', 'MultipleSelectTextViewModel', 'TextMatchingViewModel',
         'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel', 'HotspotViewModel',
-        'quiz'
+        'quiz', 'settings'
     ];
     
-    function MainController($sce, $location,
+    function MainController($location,
         SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText,
         Statement, SingleSelectImage, FillInTheBlanks, Hotspot,
         SingleSelectTextViewModel, MultipleSelectTextViewModel, TextMatchingViewModel,
         DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel, HotspotViewModel,
-        quiz) {
+        quiz, settings) {
 
         var that = this;
 
         that.title = quiz.title;
-        that.introductionContent = quiz.introductionContent;
+        that.hasIntroductionContent = quiz.hasIntroductionContent;
+        that.logoUrl = settings.logo.url;
+        
         that.questions = quiz.questions.map(function (question) {
             if (question instanceof SingleSelectText) {
                 return new SingleSelectTextViewModel(question);

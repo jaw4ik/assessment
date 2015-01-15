@@ -36,11 +36,21 @@
     padding-left: 38px;
 }
 
+.clear {
+
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
 .header(@margin, @font-size) {
     margin: @margin;
     font-size: @font-size;
     font-family: @bold-font;
     font-weight: normal;
+    .clear;
 }
 
 .cell() {
@@ -59,6 +69,7 @@
 
     p {
         .basic;
+        .clear;
     }
 
     ol, ul {
@@ -68,6 +79,7 @@
         li {
             p, div {
                 display: inline-block;
+                .clear;
             }
         }
     }
@@ -172,19 +184,19 @@
         }
 
         &[style^="float: right"] {
-            margin: 0 0 5px 20px;
+            margin: 10px 0 0 20px;
         }
 
         &[style^="float:right"] {
-            margin: 0 0 5px 20px;
+            margin: 10px 0 0 20px;
         }
 
         &[style^="float: left"] {
-            margin: 0 20px 5px 0;
+            margin: 10px 20px 0 0;
         }
 
         &[style^="float:left"] {
-            margin: 0 20px 5px 0;
+            margin: 10px 20px 0 0;
         }
     }
 

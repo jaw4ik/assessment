@@ -1,0 +1,1 @@
+CALL gulp build

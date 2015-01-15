@@ -1,159 +1,126 @@
 ﻿(function () {
 
     angular.module('quiz')
-        .directive('scrollControl', scrollControl)
-        .directive('fixedContainer', fixedContainer)
-        .directive('secondaryContainer', secondaryContainer);
+        .directive('scrollControl', scrollControl);
 
     function isMobileDevice() {
         var ua = navigator.userAgent.toLowerCase();
         return ua.indexOf('ipod') !== -1 || ua.indexOf('iphone') !== -1 || ua.indexOf('ipad') !== -1 || ua.indexOf('android') !== -1;
     }
 
-    function scrollControl() {
+    scrollControl.$inject = ['$routeParams'];
+
+    function scrollControl($routeParams) {
         return {
-            restrict: 'E',
-            controller: function () {
-                var scrollPauseValue = 700; //700px - scroll height pause
+            restrict: 'A',
+            link: function ($scope, $element) {
+                var $questions = $element.children('questions');
 
-                this.scrollableHeight = 0;
-                this.scrollWithPause = false;
-
-                this.setScrollableHeight = function (height) {
-                    this.scrollableHeight = height;
+                $scope.scrollToQuestions = function () {
+                    scrollTo($questions.offset().top);
                 };
+                //$routeParams.tryAgain
 
-                this.getScrollableHeight = function () {
-                    return this.scrollWithPause ? this.scrollableHeight + scrollPauseValue : this.scrollableHeight;
-                };
-
-                this.isMobileDevice = isMobileDevice();
+                if (isMobileDevice()) {
+                    subscribeToMobileEvents($scope, $element);
+                } else if ($scope.quiz.hasIntroductionContent) {
+                    subscribeToEvents($scope, $element);
+                }
             }
         };
     }
 
-    function fixedContainer() {
-        return {
-            restrict: 'E',
-            require: "^^scrollControl",
-            link: function ($scope, $element, attrs, scrollCtrl) {
-                var $window = $(window),
-                    $fixedBlock = $('[fixed-block]', $element),
-                    $scrollableBlock = $('[scrollable-block]', $element),
-                    $headerBlock = $('[header]', $element);
+    function scrollTo(scrollTop) {
+        $('html, body').animate({ scrollTop: scrollTop }, 1000);
+    }
 
-                $scope.scrollToSecondContainer = function () {
-                    $('html, body').animate({ scrollTop: $window.height() + scrollCtrl.getScrollableHeight() - $headerBlock.height() });
-                };
+    function subscribeToMobileEvents($scope, $container) {
+        var $window = $(window),
+            $header = $container.children('header'),
+            $questions = $container.children('questions');
 
-                if (scrollCtrl.isMobileDevice) {
-                    return;
+        var mobileScrollHandler = function () {
+            $header.toggleClass('hide-buttons', $window.scrollTop() >= $questions.offset().top - $header.height());
+        };
+
+        $window.bind('scroll', mobileScrollHandler);
+
+        $scope.$on('$destroy', function () {
+            $window.unbind('scroll', mobileScrollHandler);
+        });
+    }
+
+    function subscribeToEvents($scope, $container) {
+        var $window = $(window),
+            $introduction = $container.children('introduction'),
+            $header = $container.children('header'),
+            $questions = $container.children('questions'),
+            $introductionContent = $introduction.find('[content]'),
+
+            //Events handlers
+            windowScrollHandler = function () {
+                var scrollableHeight = $questions.offset().top - $introduction.height(),
+                    windowScrollTop = $window.scrollTop();
+
+                if (windowScrollTop >= scrollableHeight) {
+                    $introduction
+                        .css('top', scrollableHeight)
+                        .css('position', 'absolute');
+                } else {
+                    $introduction
+                        .css('top', 0)
+                        .css('position', 'fixed');
                 }
 
-                $element.height($window.height());
-                $window.resize(function () {
-                    $element.height($window.height());
-                });
+                $introductionContent.scrollTop(windowScrollTop);
 
-                setPositionFixed($fixedBlock);
-
-                $window.scroll(function () {
-                    var scrollableHeight = scrollCtrl.getScrollableHeight(),
-                        windowScrollTop = $window.scrollTop();
-
-                    if (windowScrollTop >= scrollableHeight) {
-                        setTopPosition($fixedBlock, scrollableHeight);
-                        setPositionRelative($fixedBlock);
-                    } else {
-                        setTopPosition($fixedBlock, 0);
-                        setPositionFixed($fixedBlock);
-                    }
-
-                    $scrollableBlock.scrollTop(windowScrollTop);
-
-                    //Header logo appearance
-                    $headerBlock.toggleClass('overlapping', windowScrollTop >= ($window.height() + scrollCtrl.getScrollableHeight() - $headerBlock.height()));
-                });
-
-                //----------------
+                //Header logo appearance
+                $container.toggleClass('scrolled-to-questions', windowScrollTop >= ($questions.offset().top - $header.height()));
+            },
+            windowResizeHandler = function () {
+                $introduction.height($window.height());
+            },
+            introContentScrollHandler = function () {
                 var topPositionClass = 'at-top-position',
-                    bottomPositionClass = 'at-bottom-position',
+                    bottomPositionClass = 'at-bottom-position';
 
-                    $scrollableBlockParent = $scrollableBlock.parent();
+                var scrollTop = Math.round($introductionContent.scrollTop()),
+                    isTopPosition = scrollTop === 0,
+                    isBottomPosition = scrollTop >= $introductionContent[0].scrollHeight - $introductionContent.outerHeight() - 5;
 
-                $scrollableBlockParent.addClass(topPositionClass).addClass(bottomPositionClass);
+                $introduction
+                    .toggleClass(topPositionClass, isTopPosition)
+                    .toggleClass(bottomPositionClass, isBottomPosition);
+            },
+            introHeightUpdatedHandler = function () {
+                var introductionContentOuterHeight = $introductionContent.outerHeight(),
+                    introductionContentScrollHeight = $introductionContent[0].scrollHeight;
 
-                $scope.contentLoaded = function () {
-                    var scrollableBlockHeight = $scrollableBlock.height(),
-                        scrollableBlockOuterHeight = $scrollableBlock.outerHeight(),
-                        scrollableBlockScrollHeight = $scrollableBlock[0].scrollHeight;
-
-                    $scope.$watch(function () {
-                        return $scrollableBlock[0].scrollHeight;
-                    }, function () {
-                        scrollableBlockHeight = $scrollableBlock.height();
-                        scrollableBlockOuterHeight = $scrollableBlock.outerHeight();
-                        scrollableBlockScrollHeight = $scrollableBlock[0].scrollHeight;
-
-                        scrollCtrl.setScrollableHeight(scrollableBlockScrollHeight - scrollableBlockOuterHeight);
-                    });
-
-                    var $showOnBottom = $('[show-on-bottom]');
-                    $showOnBottom.hide();
-
-                    if (scrollableBlockHeight < scrollableBlockScrollHeight - scrollableBlockOuterHeight + scrollableBlockHeight) {
-                        scrollCtrl.scrollWithPause = true;
-
-                        $scrollableBlockParent.removeClass(bottomPositionClass);
-
-                        $scrollableBlock.scroll(function () {
-                            var scrollTop = Math.round($scrollableBlock.scrollTop()),
-                                isTopPosition = scrollTop === 0,
-                                isBottomPosition = scrollableBlockScrollHeight - scrollTop <= scrollableBlockOuterHeight;
-
-                            $scrollableBlockParent.toggleClass(topPositionClass, isTopPosition).toggleClass(bottomPositionClass, isBottomPosition);
-
-                            if (!$showOnBottom.is(':visible') && isBottomPosition) {
-                                $('html, body').finish().animate({ scrollTop: $window.scrollTop() + $showOnBottom.height() }, 300);
-                                $showOnBottom.fadeIn(300);
-                            }
-                        });
-                    } else {
-                        $showOnBottom.show();
-                    }
-                };
-            }
-        };
-    }
-
-    function secondaryContainer() {
-        return {
-            restrict: 'E',
-            require: "^^scrollControl",
-            link: function ($scope, $element, attrs, scrollCtrl) {
-                if (scrollCtrl.isMobileDevice) {
-                    return;
+                if (introductionContentScrollHeight > introductionContentOuterHeight) {
+                    $questions.css('top', introductionContentScrollHeight - introductionContentOuterHeight + $introduction.height() + 500); // 500px - scroll pause between intro and questions
+                    $introductionContent.bind('scroll', introContentScrollHandler).addClass('scrollable');
+                } else {
+                    $questions.css('top', $introduction.height());
                 }
+                introContentScrollHandler();
+            };
 
-                $scope.$watch(function () {
-                    return scrollCtrl.getScrollableHeight();
-                }, function () {
-                    setTopPosition($element, scrollCtrl.getScrollableHeight());
-                });
-            }
-        };
-    }
+        $scope.$watch(function () {
+            return $introductionContent.outerHeight() + $introductionContent[0].scrollHeight;
+        }, introHeightUpdatedHandler);
 
-    function setPositionFixed($element) {
-        $element.css('position', 'fixed');
-    }
+        $window
+            .bind('resize', windowResizeHandler)
+            .bind('resize', introHeightUpdatedHandler)
+            .bind('scroll resize', windowScrollHandler)
+            .ready(windowResizeHandler);
 
-    function setPositionRelative($element) {
-        $element.css('position', 'relative');
-    }
-
-    function setTopPosition($element, top) {
-        $element.css('top', top);
+        $scope.$on('$destroy', function () {
+            $window
+                .unbind('resize', windowResizeHandler)
+                .unbind('resize', introHeightUpdatedHandler)
+                .unbind('scroll resize', windowScrollHandler);
+        });
     }
 
 })();

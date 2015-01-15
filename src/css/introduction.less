@@ -1,16 +1,71 @@
 ﻿@import "common";
 
+.bottom-border() {
+    border-bottom: 1px solid #dadada;
+}
+
+.background() {
+    background-image: url(img/summary-header-background.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed !important;
+    background-size: cover !important;
+    background-position: top right;
+    /*background: fixed url(img/summary-header-background.jpg) top right no-repeat;*/
+}
+
+.vertical-align-helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.logo {
+    position: relative;
+    margin-left: 50px;
+    vertical-align: middle;
+}
+
+@header-full-height: 96px;
+@header-small-height: 70px;
+
+.main-header {
+    position: fixed;
+    visibility: hidden;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: @header-full-height;
+    .bottom-border;
+    .background;
+    z-index: 100;
+
+    .scrolled-to-questions &,
+    .without-intro & {
+        visibility: visible;
+        height: @header-small-height;
+    }
+
+    .scrolled-to-questions &{
+        transition: height .2s linear;
+    }
+
+    .button-container {
+        display: none;
+        float: right;
+        height: 100%;
+        margin-right: 50px;
+
+        .button {
+            vertical-align: middle;
+        }
+    }
+}
+
 .introduction-container {
+    position: fixed;
     display: block;
     width: 100%;
-
-    .touch & {
-        height: auto !important;
-    }
-
-    .bottom-border() {
-        border-bottom: 1px solid #dadada;
-    }
+    height: 100%;
 
     .introduction-wrapper {
         .display-flex;
@@ -18,75 +73,34 @@
         .align-items(center);
         .bottom-border;
         .border-box;
+        .background;
         width: 100%;
         height: 100%;
         overflow: auto;
 
-        .touch & {
-            position: relative !important;
+        .scrolled-to-questions & {
+            visibility: hidden;
         }
 
         .header {
             position: absolute;
-            .display-flex;
-            .align-items(center);
-            height: 96px;
+            height: @header-full-height;
             top: 0;
             left: 0;
+            transition: height .2s linear;
+
+            .scrolled-to-questions & {
+                height: @header-small-height;
+            }
 
             @media (min-width: 1500px) {
                 & {
                     position: fixed;
                 }
             }
-
-            .touch &,
-            &.overlapping {
-                position: fixed;
-                width: 100%;
-                .bottom-border;
-                z-index: 1;
-
-                &:before {
-                    .before-image(url(img/summary-header-background.jpg), 0, 0, 100%, 96px);
-                    position: fixed;
-                }
-
-                @media (min-width:1920px) {
-                    &:before {
-                        background-position: top center;
-                    }
-                }
-
-                @media (max-width:1919px) {
-                    &:before {
-                        background-position: top right;
-                    }
-                }
-            }
-
-            .touch & {
-                box-shadow: 0 0 30px -10px #323232;
-            }
-
-            .logo {
-                .flex(0 0 auto);
-                position: relative;
-                margin-left: 50px;
-            }
-
-            .button-container {
-                display: none;
-                .flex(1 1 auto);
-                position: relative;
-                margin-right: 50px;
-                text-align: right;
-
-                .touch & {
-                    display: block;
-                }
-            }
         }
+
+        @scroll-hint-height: 77px;
 
         .content-container {
             .display-flex;
@@ -117,13 +131,9 @@
                 top: -(@shadow-block-height - 1);
                 box-shadow: 0px 7px 15px -9px @border-color;
 
-                .touch & {
-                    display: none;
+                .at-top-position& {
+                    opacity: 0;
                 }
-            }
-
-            &.at-top-position:before {
-                opacity: 0;
             }
 
             &:after {
@@ -131,13 +141,9 @@
                 bottom: -(@shadow-block-height - 1);
                 box-shadow: 0px -9px 15px -9px @border-color;
 
-                .touch & {
-                    display: none;
+                .at-bottom-position& {
+                    opacity: 0;
                 }
-            }
-
-            &.at-bottom-position:after {
-                opacity: 0;
             }
 
             .overlay {
@@ -188,17 +194,25 @@
                         }
                     }
                 }
+
+                &.scrollable {
+                    .content {
+                        padding-bottom: @scroll-hint-height;
+                        transition: padding-bottom .2s linear;
+
+                        .at-bottom-position& {
+                            padding-bottom: 0px;
+                        }
+                    }
+                }
             }
         }
 
         .controls {
             .flex(0 0 auto);
+            .unselectable;
             text-align: center;
             margin-bottom: 20px;
-
-            .touch & {
-                display: none;
-            }
 
             .buttons-container {
                 margin-bottom: 30px;
@@ -210,12 +224,20 @@
                 text-align: center;
                 overflow: hidden;
                 color: @hint-color;
+                // Hiden by default
+                height: 0;
+                transition: height .2s linear;
+
+                .at-bottom-position& {
+                    height: @scroll-hint-height;
+                }
 
                 .text {
-                    display: block;
+                    display: inline-block;
                     text-transform: uppercase;
                     margin-bottom: 15px;
                     font-family: 'RobotoRegular';
+                    cursor: pointer;
                 }
 
                 .icon-wrapper {
@@ -223,6 +245,7 @@
                     width: 40px;
                     height: 40px;
                     margin: 0 auto;
+                    cursor: pointer;
 
                     .icon {
                         position: absolute;
@@ -244,3 +267,5 @@
         }
     }
 }
+
+@import "introductionMobile.less";

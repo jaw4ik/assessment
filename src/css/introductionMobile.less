@@ -1,0 +1,55 @@
+﻿.touch {
+
+    .without-intro {
+        .button-container {
+            display: none !important;
+        }
+    }
+
+    .main-header {
+        display: block;
+        box-shadow: 0 0 30px -10px #323232;
+        opacity: 0.97;
+
+        &:before{
+            background-image: none !important;
+            background-color: #eee;
+        }
+
+        .button-container {
+            display: inline-block;
+        }
+
+        &.hide-buttons {
+            .button-container {
+                display: none;
+            }
+        }
+    }
+
+    .introduction-container {
+        position: relative !important;
+        height: auto !important;
+
+        .introduction-wrapper:before{
+            /*background-size: 100% 100%;*/
+            background-image: none !important;
+            background-color: #ddd;
+        }
+
+        .header {
+            display: none;
+        }
+
+        .content-container {
+            &:before,
+            &:after {
+                display: none;
+            }
+        }
+
+        .controls {
+            display: none;
+        }
+    }
+}

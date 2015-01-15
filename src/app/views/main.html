@@ -1,14 +1,12 @@
-﻿<scroll-control class="main-container">
-    <fixed-container class="introduction-container">
-        <div class="introduction-wrapper" fixed-block>
-            <div class="header" header>
-                <img class="logo" src="/src/css/img/logo.png" />
-                <div class="button-container" ng-click="scrollToSecondContainer()">
-                    <button class="button small emphasize default">Start quiz</button>
-                </div>
-            </div>
+﻿<div class="main-container" ng-class="{'without-intro': !quiz.hasIntroductionContent}" scroll-control>
+    <introduction class="introduction-container" ng-show="quiz.hasIntroductionContent">
+        <div class="introduction-wrapper">
+            <header class="header">
+                <img class="logo" ng-src="{{quiz.logoUrl}}" />
+                <span class="vertical-align-helper"></span>
+            </header>
             <div class="content-container">
-                <div class="content-wrapper" scrollable-block>
+                <div class="content-wrapper" content>
                     <div class="header-title-container">
                         <div class="header-title-wrapper">
                             <div class="header-quiz-label">Quiz</div>
@@ -16,15 +14,15 @@
                             <div class="header-questions-label">{{quiz.questions.length}} questions</div>
                         </div>
                     </div>
-                    <div ng-include="'content/content.html'" onload="contentLoaded()" styled-content></div>
+                    <div class="content" ng-include src="'content/content.html'" styled-content></div>
                 </div>
                 <div class="overlay"></div>
             </div>
-            <div class="controls">
+            <div class="controls" ng-click="scrollToQuestions()">
                 <div class="buttons-container">
-                    <button class="button large emphasize primary" ng-click="scrollToSecondContainer()">Start quiz</button>
+                    <button class="button large emphasize primary">Start quiz</button>
                 </div>
-                <div class="scroll-hint-container" show-on-bottom>
+                <div class="scroll-hint-container">
                     <span class="text">Or scroll to start</span>
                     <div class="icon-wrapper">
                         <span class="icon"></span>
@@ -32,8 +30,16 @@
                 </div>
             </div>
         </div>
-    </fixed-container>
-    <secondary-container class="questions-container">
+    </introduction>
+    <header class="main-header">
+        <img class="logo" ng-src="{{quiz.logoUrl}}" />
+        <span class="vertical-align-helper"></span>
+        <div class="button-container" ng-click="scrollToQuestions()">
+            <button class="button small emphasize default">Start quiz</button>
+            <span class="vertical-align-helper"></span>
+        </div>
+    </header>
+    <questions class="questions-container">
         <div class="questions-wrapper">
             <ul class="unstyled">
                 <li class="question" ng-repeat="question in quiz.questions">
@@ -55,5 +61,5 @@
                 <button class="button large primary emphasize" ng-click="quiz.submit()">Submit all answers</button>
             </div>
         </div>
-    </secondary-container>
-</scroll-control>
+    </questions>
+</div>

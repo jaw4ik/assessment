@@ -1,6 +1,5 @@
 ﻿(function () {
     'use strict';
-
     var app = angular.module('quiz', ['ngRoute']);
 
     app.config(['$routeProvider', function ($routeProvider) {
