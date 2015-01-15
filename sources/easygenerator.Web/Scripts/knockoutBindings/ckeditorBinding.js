@@ -171,7 +171,7 @@
         function setData() {
             setTimeout(function () {
                 data(editor.getData());
-            }, 100);
+            }, 10);
         }
 
         function isElementInFocus(tagName) {
@@ -229,9 +229,13 @@
                 blurHandler.call(that, viewModel);
                 $('html').unbind('mouseup', setData);
             }
-           
-            var doc = editor.document,
-                newRange = new CKEDITOR.dom.range(doc),
+
+            var doc = editor.document;
+            if (!doc) {
+                return;
+            }
+
+            var newRange = new CKEDITOR.dom.range(doc),
                 body = doc.getBody();
             newRange.setStart(body, 0);
             newRange.setEnd(body, 0);

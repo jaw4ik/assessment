@@ -77,7 +77,6 @@
     position: absolute;
     top: 70px;
     right: 0;
-    width: 452px;
     border: 1px solid #414b56;
     border-radius: 5px;
     opacity: 0;
@@ -122,6 +121,7 @@
 .new-course-action-items {
     list-style-type: none;
     position: relative;
+    width: 450px;
 }
 
 .new-course-action-item {

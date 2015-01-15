@@ -203,10 +203,6 @@ input::-ms-clear {
     outline: none;
 }
 
-ul, ol {
-    list-style-position: inside;
-}
-
 a {
     outline: 0;
     text-decoration: none;
@@ -344,17 +340,21 @@ img:hover {
 
     .styled-content ul,
     .styled-content ol {
-        padding-left: 30px;
-        list-style-position: inside;
+        padding-left: 50px;
     }
 
     .styled-content ul {
         list-style: none;
     }
 
+    .styled-content ul > li {
+        position: relative;
+    }
+
         .styled-content ul > li:before {
             content: "• ";
-            display: inline-block;
+            position: absolute;
+            left: -20px;
             width: 20px;
             color: #76cbe3; /* or whatever color you prefer */
         }
