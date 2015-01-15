@@ -19,7 +19,7 @@
                     var screenHeight = $(window).height(),
                         scrollHeight = $('html')[0].scrollHeight;
                     
-                    $element.css('height', screenHeight > scrollHeight ? screenHeight : scrollHeight);
+                    $element.css('height', screenHeight);
                 }
             }
         };
