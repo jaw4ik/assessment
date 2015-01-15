@@ -59,7 +59,7 @@ namespace easygenerator.DomainModel.Entities
         public virtual CourseCollaborator Collaborate(string username, string createdBy)
         {
             ThrowIfUserEmailIsInvalid(username);
-            if (CreatedBy == username || Collaborators.Any(e => e.Email == username))
+            if (CreatedBy == username || Collaborators.Any(e => e.Email.Equals(username, StringComparison.InvariantCultureIgnoreCase)))
                 return null;
 
             var collaborator = new CourseCollaborator(this, username, createdBy);

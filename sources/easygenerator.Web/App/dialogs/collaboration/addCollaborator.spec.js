@@ -12,6 +12,7 @@
 
         var localizedMessage = 'message',
             email = 'email@email.com',
+            emailWithSpacesAndCapitalCases = ' emaIL@email.com ',
             courseId = 'courseId';
 
         beforeEach(function () {
@@ -186,6 +187,12 @@
 
             it('should add collaborator', function () {
                 viewModel.email(email);
+                viewModel.submit();
+                expect(repository.add).toHaveBeenCalledWith(courseId, email);
+            });
+
+            it('should trim and change case to lower of collaborator email', function () {
+                viewModel.email(emailWithSpacesAndCapitalCases);
                 viewModel.submit();
                 expect(repository.add).toHaveBeenCalledWith(courseId, email);
             });

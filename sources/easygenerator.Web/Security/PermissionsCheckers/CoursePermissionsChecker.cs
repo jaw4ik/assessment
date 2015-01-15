@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Web.Security.FeatureAvailability;
 
@@ -15,8 +16,8 @@ namespace easygenerator.Web.Security.PermissionsCheckers
 
         public override bool HasCollaboratorPermissions(string username, Course course)
         {
-            return HasOwnerPermissions(username, course) || 
-                (course.Collaborators.Any(e => e.Email == username) && _featureAvailabilityChecker.IsCourseCollaborationEnabled(course));
+            return HasOwnerPermissions(username, course) ||
+                (course.Collaborators.Any(e => e.Email.Equals(username, StringComparison.InvariantCultureIgnoreCase) && _featureAvailabilityChecker.IsCourseCollaborationEnabled(course)));
         }
     }
 }

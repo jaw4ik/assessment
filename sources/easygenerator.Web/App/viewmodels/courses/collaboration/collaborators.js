@@ -19,7 +19,7 @@
             collaboratorRemoved: collaboratorRemoved,
             activate: activate,
             deactivate: deactivate,
-            updateCollaborationStatus: updateCollaborationStatus,
+            updateCollaborationStatus: updateCollaborationStatus
         };
 
         return viewModel;

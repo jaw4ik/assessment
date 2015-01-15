@@ -23,6 +23,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
     {
         private const string CreatedBy = "easygenerator@easygenerator.com";
         private const string UserEmail = "user@easygenerator.com";
+        private const string UserEmailWithCapitalsAndSpaces = " uSEr@easyGENErator.com   ";
 
         private CollaborationController _controller;
         private IUserRepository _userRepository;
@@ -93,7 +94,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Add_ShouldSendInviteCollaboratorMeaasge_WnenUserIsNotFound()
+        public void Add_ShouldSendInviteCollaboratorMessage_WnenUserIsNotFound()
         {
             //Arrange
             _user.Identity.Name.Returns(CreatedBy);
@@ -108,6 +109,23 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             _mailSenderWrapper.Received().SendInviteCollaboratorMessage(UserEmail, author.FullName, course.Title);
+        }
+
+        [TestMethod]
+        public void Add_ShouldTransformEmailToLowerInvariantAndTrimSpaces()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(CreatedBy);
+
+            var course = Substitute.For<Course>();
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(UserEmailWithCapitalsAndSpaces).Returns(user);
+
+            //Act
+            _controller.AddCollaborator(course, UserEmailWithCapitalsAndSpaces);
+
+            //Assert
+            course.Received().Collaborate(UserEmail, CreatedBy);
         }
 
         [TestMethod]

@@ -66,20 +66,20 @@ namespace easygenerator.Web.Controllers.Api
             {
                 return HttpNotFound(Errors.CourseNotFoundError);
             }
-
+            var colaboratorEmail = email.Trim().ToLowerInvariant();
             var authorName = GetCurrentUsername();
-            var collaborator = course.Collaborate(email, authorName);
+            var collaborator = course.Collaborate(colaboratorEmail, authorName);
             if (collaborator == null)
             {
                 return JsonSuccess(true);
             }
 
-            var user = _userRepository.GetUserByEmail(email);
+            var user = _userRepository.GetUserByEmail(colaboratorEmail);
             if (user == null)
             {
                 var author = _userRepository.GetUserByEmail(authorName);
 
-                _mailSenderWrapper.SendInviteCollaboratorMessage(email, author.FullName, course.Title);
+                _mailSenderWrapper.SendInviteCollaboratorMessage(colaboratorEmail, author.FullName, course.Title);
             }
 
             return JsonSuccess(_collaboratorEntityModelMapper.Map(collaborator));

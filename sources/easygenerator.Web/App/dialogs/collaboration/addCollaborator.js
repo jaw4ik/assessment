@@ -71,7 +71,7 @@
             viewModel.actionInProgress(true);
             eventTracker.publish(events.addPersonForCollaboration);
             var courseId = router.routeData().courseId;
-            return repository.add(courseId, this.email().trim())
+            return repository.add(courseId, this.email().trim().toLowerCase())
                 .then(function (collaborator) {
                     if (!_.isNullOrUndefined(collaborator)) {
                         app.trigger(constants.messages.course.collaboration.collaboratorAdded + courseId, collaborator);
