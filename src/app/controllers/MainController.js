@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular
@@ -61,7 +61,9 @@
                 question.submit();
             });
 
-            $location.path('/summary');
+            quiz.courseResults(settings.masteryScore.score);
+
+            $location.path('/summary').replace();
         };
     }
 

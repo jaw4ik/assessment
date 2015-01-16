@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular
@@ -8,18 +8,25 @@
     factory.$inject = ['Question'];
 
     function factory(Question) {
-        return function Hotspot(id, title, background, spots, isMultiple) {
-            var that = this;
-            Question.call(that, id, title);
+        return function Hotspot(id, title, type, background, spots, isMultiple) {
+            var that = this,
+                _protected = {
+                    answer: answer
+                };
+
+            Question.call(that, id, title, type, _protected);
 
             that.background = background;
+
             that.spots = spots;
+
             that.isMultiple = isMultiple;
-            that.answer = function (marks) {
+
+            function answer(marks) {
                 var score = calculateScore(that.isMultiple, that.spots, marks);
 
                 that.score = score;
-            };
+            }
 
             function calculateScore(isMultiple, spots, placedMarks) {
                 if (!_.isArray(spots) || spots.length === 0) {
@@ -52,15 +59,17 @@
             }
 
             function markIsInSpot(mark, spot) {
-                var x = mark.x, y = mark.y;
+                var x = mark.x,
+                    y = mark.y;
 
                 var inside = false;
                 for (var i = 0, j = spot.length - 1; i < spot.length; j = i++) {
-                    var xi = spot[i].x, yi = spot[i].y;
-                    var xj = spot[j].x, yj = spot[j].y;
+                    var xi = spot[i].x,
+                        yi = spot[i].y;
+                    var xj = spot[j].x,
+                        yj = spot[j].y;
 
-                    var intersect = ((yi > y) !== (yj > y))
-                        && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+                    var intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
                     if (intersect) {
                         inside = !inside;
                     }

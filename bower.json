@@ -24,6 +24,7 @@
     "jquery-ui": "~1.11.2",
     "jqueryui-touch-punch": "*",
     "underscore": "~1.7.0",
-    "components-webfontloader": "*"
+    "components-webfontloader": "*",
+    "tincan": "*"
   }
 }

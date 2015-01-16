@@ -1,0 +1,36 @@
+<div class="login" ng-init="scrollToTop()" page-resizer>
+    <div class="login-overlay"></div>
+    <div class="login-container">
+        <div class="login-skip-button" ng-click="login.skip()"></div>
+        <div class="login-skip-text">Skip step</div>
+        <div class="login-wrapper">
+            <div class="login-content">
+                <div class="course-title-container">
+                    <span class="questions-count">{{login.questionsLength}}</span>
+                    <div class="course-title" course-title>{{login.courseTitle}}</div>
+                </div>
+                <div class="login-form-container">
+                    <div class="login-tooltip-container">
+                        Please introduce youself
+                        <div>So, your achivements will be reported</div>
+                    </div>
+                    <div class="login-input-container name">
+                        <input type="text" ng-model="login.username" ng-class="{ 'error': !login.usernameIsValid() && login.usernameModified }" ng-blur="login.markUsernameAsModified()" placeholder="Type your name..." class="login-input" />
+                        <span class="login-error-text" ng-style="{ visibility: !login.usernameIsValid() && login.usernameModified ? 'visible' : 'hidden' }">Fill your name</span>
+                    </div>
+                    <div class="login-input-container email">
+                        <input type="text" ng-model="login.email" ng-class="{ 'error': !login.emailIsValid() && login.emailModified }" ng-blur="login.markEmailAsModified()" placeholder="Type your e-mail..." class="login-input" />
+                        <span class="login-error-text" ng-style="{ visibility: !login.emailIsValid() && login.emailModified ? 'visible' : 'hidden' }">Enter a valid e-mail</span>
+                    </div>
+                    <div class="login-form-submit-container">
+                        <button class="button large emphasize primary" ng-click="login.submit()">START and report my progress *</button>
+                        <div class="login-skip-link" ng-click="login.skip()">Do not report, just start</div>
+                        <span class="login-description">
+                            * By clicking the button ‘Start and report my progress” you agree to the fact that your results and scores will be stored. These results will only be visible to the organizer (author) of your course.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

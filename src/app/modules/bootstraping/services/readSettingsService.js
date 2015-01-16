@@ -1,11 +1,11 @@
 (function () {
     'use strict';
     angular.module('bootstraping')
-           .service('readSettingsService', readSettingsService);
+           .service('readSettingsService', ReadSettingsService);
 
-    readSettingsService.$inject = ['$q', '$http'];
+    ReadSettingsService.$inject = ['$q', '$http'];
 
-    function readSettingsService($q, $http) {
+    function ReadSettingsService($q, $http) {
         var that = this,
             ticks = new Date().getTime();
 

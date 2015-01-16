@@ -1,0 +1,23 @@
+<div class="error-page-container" page-resizer>
+    <header class="error">
+        <div class="main-logo-wrapper">
+            <span class="main-logo-helper"></span>
+            <img alt="" src="" class="main-logo" ng-src="{{xApiError.logoUrl}}">
+        </div>
+    </header>
+    <div class="error-container" ng-init="scrollToTop()">
+        <div class="error-content-container xapi-error">
+            <div class="error-title-container">
+                Something is wrong
+            </div>
+            <div class="error-message-container">
+                If you continue without restarting, your learning results will not be reported
+            </div>
+            <div class="error-button-container">
+                <button ng-click="xApiError.continue()" class="button large emphasize default">Continue anyway</button>
+                <button ng-click="xApiError.restartCourse()" class="button large emphasize primary">Restart course</button>
+            </div>
+        </div>
+        <div class="error-footer-container"></div>
+    </div>
+</div>

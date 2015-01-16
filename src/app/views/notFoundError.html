@@ -1,0 +1,24 @@
+<div class="error-page-container" page-resizer>
+    <header class="error">
+        <div class="main-logo-wrapper">
+            <span class="main-logo-helper"></span>
+            <img alt="" src="" class="main-logo" ng-src="{{notFoundError.logoUrl}}">
+        </div>
+    </header>
+    <div class="error-container" ng-init="scrollToTop()">
+        <div class="error-content-container not-found-error">
+            <div class="error-title-container">
+                404
+            </div>
+            <div class="error-message-container">
+                <span class="error-message">
+        Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click 'Home' link below.
+    </span>
+                <div class="error-button-container">
+                    <button ng-click="notFoundError.goHome()" class="button large emphasize default">Go home</button>
+                </div>
+            </div>
+        </div>
+        <div class="error-footer-container"></div>
+    </div>
+</div>

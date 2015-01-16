@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
     angular.module('settings', [])
         .controller('SettingsController', ['$scope', SettingsController])
@@ -19,11 +19,16 @@
 
         that.trackingData = (function () {
             var data = {};
-
             data.enableXAPI = true,
-                data.lrsOptions = [
-                    { key: 'default', text: 'easygenerator (recommended)' },
-                    { key: 'custom', text: 'custom LRS' }
+            data.lrsOptions = [
+                {
+                    key: 'default',
+                    text: 'easygenerator (recommended)'
+                },
+                {
+                    key: 'custom',
+                    text: 'custom LRS'
+                }
                 ];
             data.selectedLrs = data.lrsOptions[0].key;
 
@@ -123,7 +128,9 @@
             that.isFailed = false;
             that.isSaved = false;
 
-            $.post(settingsUrl, {settings: JSON.stringify(settings)})
+            $.post(settingsUrl, {
+                settings: JSON.stringify(settings)
+            })
                 .done(function () {
                     that.isSaved = true;
                     that.$apply();
@@ -140,7 +147,10 @@
             apiUrl: baseUrl + '/storage/image/upload',
             maxFileSize: 10, //MB
             supportedExtensions: ['jpeg', 'jpg', 'png', 'bmp', 'gif'],
-            somethingWentWrongMessage: {title: 'Something went wrong', description: 'Please, try again'},
+            somethingWentWrongMessage: {
+                title: 'Something went wrong',
+                description: 'Please, try again'
+            },
 
             status: {
                 default: function () {
@@ -195,11 +205,17 @@
                     fileExtension = file.name.split('.').pop().toLowerCase();
 
                 if ($.inArray(fileExtension, imageUploader.supportedExtensions) === -1) {
-                    imageUploader.status.fail({title: 'Unsupported image format', description: '(Allowed formats: ' + imageUploader.supportedExtensions.join(', ') + ')'});
+                    imageUploader.status.fail({
+                        title: 'Unsupported image format',
+                        description: '(Allowed formats: ' + imageUploader.supportedExtensions.join(', ') + ')'
+                    });
                     return;
                 }
                 if (file.size > imageUploader.maxFileSize * 1024 * 1024) {
-                    imageUploader.status.fail({title: 'File is too large', description: '(Max file size: ' + imageUploader.maxFileSize + 'MB)'});
+                    imageUploader.status.fail({
+                        title: 'File is too large',
+                        description: '(Max file size: ' + imageUploader.maxFileSize + 'MB)'
+                    });
                     return;
                 }
                 imageUploader.uploadFile(file);
@@ -262,7 +278,16 @@
             url: settingsUrl,
             dataType: 'json',
             success: function (json) {
-                var defaultSettings = {xApi: {enabled: true, selectedLrs: 'default', lrs: {credentials: {}}}, masteryScore: {}};
+                var defaultSettings = {
+                    xApi: {
+                        enabled: true,
+                        selectedLrs: 'default',
+                        lrs: {
+                            credentials: {}
+                        }
+                    },
+                    masteryScore: {}
+                };
                 var settings;
                 try {
                     settings = JSON.parse(json.settings) || defaultSettings;
@@ -394,7 +419,9 @@
     function spinner() {
         return {
             restrict: 'A',
-            scope: {spinnerValue: '='},
+            scope: {
+                spinnerValue: '='
+            },
             link: function (scope, element) {
                 $(element)
                     .spinner('changed', function (e, newValue) {
@@ -408,7 +435,9 @@
     function number() {
         return {
             restrict: 'A',
-            scope: { numberValue: '=' },
+            scope: {
+                numberValue: '='
+            },
             link: function (scope, element) {
                 var $element = $(element),
                     maxValue = 100;
@@ -416,7 +445,7 @@
                 $element.on('keydown', function (e) {
                     var key = e.charCode || e.keyCode || 0;
                     return (key === 8 || key === 9 || key === 46 || (key >= 37 && key <= 40) ||
-                    (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
+                        (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
                 });
                 $element.on('keyup', function () {
                     if (scope.numberValue > maxValue) {
@@ -431,7 +460,9 @@
     function fadeVisible() {
         return {
             restrict: 'A',
-            scope: {fadeVisibleValue: '='},
+            scope: {
+                fadeVisibleValue: '='
+            },
             link: function (scope, element) {
                 var $element = $(element);
 
@@ -451,7 +482,9 @@
     function switchToggle() {
         return {
             restrict: 'A',
-            scope: {toggleValue: '='},
+            scope: {
+                toggleValue: '='
+            },
             link: function (scope, element) {
                 var $element = $(element),
                     viewModel = initViewModel();

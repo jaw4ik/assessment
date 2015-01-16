@@ -1,0 +1,220 @@
+@import "common";
+
+
+
+.login {
+    position: relative;
+    height: 100%;
+    background: url('img/login-background.png') right top no-repeat;
+    background-size: cover;
+
+    .login-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: #000;
+        opacity: 0.8;
+        z-index: 0;
+    }
+
+    .login-container {
+        position: relative;
+        height: 100%;
+        max-width: 800px;
+        min-width: 560px;
+        background-color: #f0f0f0;
+        z-index: 10;
+
+        .login-wrapper {
+            display: table;
+            height: 100%;
+            width: 505px;
+            margin: 0 auto;
+            table-layout: fixed;
+
+            .login-content {
+                display: table-cell;
+                vertical-align: middle;
+
+                .course-title-container {
+                    font-family: 'RobotoslabBold';
+                    margin-bottom: 37px;
+                    word-wrap: break-word;
+
+                    .questions-count {
+                        font-size: 14px;
+                        color: #555;
+                        text-transform: uppercase;
+                    }
+
+                    .course-title {
+                        margin-top: 8px;
+                        font-size: 36px;
+                        color: #222;
+                        text-align: center;
+                    }
+                }
+
+                .login-form-container {
+
+                    .login-tooltip-container {
+                    }
+
+                    .login-input-container {
+                        position: relative;
+                        width: 100%;
+                        padding: 0 5px 0 50px;
+                        box-sizing:border-box;
+
+
+                        &.name {
+                            margin-bottom: 26px;
+
+                            &:before {
+                                .before-image(url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAfCAYAAADwbH0HAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjcyQzdGNkU2ODlFMjExRTRCQzlFQTI1RUEzMUVGNUIyIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjcyQzdGNkU3ODlFMjExRTRCQzlFQTI1RUEzMUVGNUIyIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NzJDN0Y2RTQ4OUUyMTFFNEJDOUVBMjVFQTMxRUY1QjIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NzJDN0Y2RTU4OUUyMTFFNEJDOUVBMjVFQTMxRUY1QjIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz71NkWEAAAESUlEQVR42rRXbWhbVRh+cvPdfDdt2tR26cdsnXZbdR3TqVQU9vFDGFNhQ0QRBBHFX4I60D+T+bG/4hD8AEFBUWGzMnSMTloRrS3runVrZ9q1JuuWpE3TJEva5Mb33HuTtV3vucmYLzzk3Jz3nOee835e3bsD36BCMRPuJrjNbrte0AsLNL5CmK9kE0OZevcRniXsIWwlCOvoBAm/ENhJftPaUNCYZyQ/E84R3iLcz1nTSniZcIYwSNh9O8TsJg4rG+wl6Co0xzbCScLXBGe5xA5CL+FQBaZQk4OEvwgtWsRVip124c5Ju2LzRh7xl4QHceeFkZ4gWNcjfp7wDP4/6SIcWRtOzAE+4q0qiCJmRyYQuTiFzEIShbwIs8MGm88DT0sD6rvaYbSatchfJXzGoqRI/AqhVk07m0jhz2PfIxG6rrqjyW7FI288h+q2Rh6xXnHaA4ISKi/xtIe/6uWSMllK3kDf4c9x5r0vMPfPvzzV/QQfI+5Wgn9dSYQjiI1Pyx5yl5dLLi7nEBmbxOCnP/LUjIR97Kp7eFrzk+HS+PUXHoWLrvTsWAijl8IITscQvr6APNl71cuGItJLCEbVNNDDZrbwiJfTmdLY53XA46pCvc+J3T2bpP9yORGxeAqLqQz+GJrCtz8Nyco6brLbwq66iesNJqP063ZaJdJbcqtBQF2NAxsDtdi/Zyvx6STvFgx6blwzYjtPw+KSp9sCNfI1JjOIziVL83kKsyuhOTntWU3SS3gaarTCysWIMzwNh192qI7WOun3w2On8OYHx0vzJ/su4LV3vsPkTEx6rvXa4Qn4tYjTzMbcOLH7vLDYLOhok4kPPLlNsmdRHnqgBctk5ya/R9YnXbGjWYs4yogvclXIR5o2t2Fjs5xfOjtWn6babcO+XTf9U0/2rb63RYv4AiPu18zwj++ApcrEEqdmQm64JwDR49BS+11QOoZFnlZVXTWm8uWVZmf35nLUjjPitNInceXskunmql/PIZPNSeMTp0aRvrEkJxudEXG75mn/JowUj3GU8CKv44iJAsZzRrQblrGzuxW9p0dRoJtv9LulMGIyZHCWc9ojK8viBOFjlhV5K/qzZrh0Iuo8Njy1t2vV3Hm9HSHBokXKzPrD2vb2kNLybFqrnc/lEb8WxWJsHkeTKTwWcGF7oxsusxGzySz6glEMR9Kwe92UPHzwbvBD0N+SuRaUW5U8VLemoWeN+sDK2hyduYrZ4DTEfL7sVsNoMaN1eyfc9aVtmBM8rbQ/6/ZcE0rTfo09XL08hfDEZEWkUmHJZDE+MIxEZK5IenAlqVp7y8rLzkwqPRiZCd92g8VapemRSyEaPlG0azkNfTAVTzxM1nhbK8ZVhMXaJ+n4YmehUOiv8BNGt6S4frPy+TJWBmFICc12pY+L61Tqsmrc2lylRMAM9b6CDYQdrFgpXxzMdVOEy4qJzq+qbOTlavKfAAMAVkg79TuKOhIAAAAASUVORK5CYII='),6px,15px,30px, 31px);
+                            }
+                        }
+
+                        &.email {
+                            margin-bottom: 30px;
+
+                            &:before {
+                                .before-image(url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAfCAYAAADwbH0HAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjZDREFBMTJGODlFMjExRTQ4MTFERTczRDU2NjM1MkRFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjZDREFBMTMwODlFMjExRTQ4MTFERTczRDU2NjM1MkRFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NkNEQUExMkQ4OUUyMTFFNDgxMURFNzNENTY2MzUyREUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NkNEQUExMkU4OUUyMTFFNDgxMURFNzNENTY2MzUyREUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz735kUEAAAC4UlEQVR42ryXy08TURTGv5lpKW9bXiVAEXkIVUEIJhBdsDDxsdKYuCDGmJiYGOM/oCzcmGAiW+NWN7pzodEYdxp142MBUUAUggYDhQCVFkplBr9LLoh12pkp0JP8kmbu3PvNPefc6TfKjTcP4TA8pIF4Pd58TdXUMH+Pkzkni7hs3refnCMnyEGimtwzSl4QsZNXVguqFuNC5BkZINdIW4o5teQyeUnek+PpCItM3JQLnCSKw3K0k+fkASm0K1xAnpIeB6VIFt3kHdljJZwr63QM2xd7Zc2rUgnfI53Y/hCiT0iOmfAFchY7F62kN1FYNMBt7HxcJc2bha+Q0gwIa7Jp14TFUbmEzMUZUiaOyyF5+DfCtxRGa2QMbmMl9RJTqYd1VcOgvwlzPv/my25yWuy4K3FCZWTaWtROXg0dpbOTZkNdQrgl8WpddQVc2cUIR420RSNLBhS3F7VcyyRaRKoDZiOByhJUlBfhy+hPxKK/4C3QbAnGlg3E9Czsa9wNT5YLoSTnWgjnJ02VpiLYUIXFpTgGhr7DrSzDV2D+Fl3RVxGa11FXE0B5WaHV8+0SqY5Z3ZWbk4WOtnpUVAYwNqkjHPlbf4PVmJiOI/o7D53tQTuiIhbF44fs1q28tBD+kiCGv4UwOD4JD2cbihvtzbUo8uY5aYEZITzkZIaiKGiq96MmUIyFaAwlvry1aw7jsxB+nU7XZnO72Z78dJv+rSodwwIyG4+F8KL0SZmKD6R//U+iT5yIjaPh2OmkeG3+v1bv5n+nEXJnfaQ/7kZsdevicS4/rP3T7aKsjxLtbY+0PMEfugv3o9aNQ18N+mq7zyH890WymuhAouQUmd6BusbJeem9TT3XiDTtU9ss2i09V0p7+5Eclp56qzFBjq7X1Y6hFyk5Qq6necbFCblLDiR7QakWKRKtXyM/XwZt7rBPemnh4+a38tE2S25JqkkHaZRfHJpsyq+yRJ/spuSPAAMAQpKnYn8yPysAAAAASUVORK5CYII='),6px,15px,30px, 31px);
+                            }
+                        }
+
+                        .login-input {
+                            width: 100%;
+                            padding-bottom: 6px;
+                            font: 18px 'RobotoslabRegular';
+                            background-color: transparent;
+                            border: 0;
+                            border-bottom: 1px solid #c8d1d7;
+                            color: #222;
+
+                            &:active, &:focus,
+                            &.error:active, &.error:focus{
+                                border-bottom-color: #49b8e7 !important;
+                                box-shadow: 0px 2px 2px -2px rgba(73, 184, 231, 0.75);
+                            }
+
+                            &.error {
+                                border-bottom-color: #f16162;
+                            }
+                        }
+
+                        .login-error-text {
+                            font: 12px 'RobotoRegular';
+                            color: #f16162;
+                        }
+                    }
+                }
+
+                .login-tooltip-container {
+                    position: relative;
+                    display: inline-block;
+                    margin-bottom: 20px;
+                    padding: 16px 27px 19px;
+                    font: 18px 'RobotoslabRegular';
+                    color: #63939d;
+                    border: 1px solid #d6e5e9;
+                    background-color: #d9ecf1;
+                    border-radius: 10px;
+                    line-height: 28px;
+
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        width: 10px;
+                        height: 10px;
+                        left: 37px;
+                        bottom: -6px;
+                        background-color: #d9ecf1;
+                        border-bottom: 1px solid #d6e5e9;
+                        border-right: 1px solid #d6e5e9;
+                        -webkit-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                    }
+
+                    div {
+                        font: 14px 'RobotoslabLight';
+                    }
+                }
+
+                .login-form-submit-container {
+                    width: 392px;
+                    margin: 0 auto;
+                    text-align: center;
+
+                    .button.large {
+                        display: block;
+                        padding: 0 19px;
+                    }
+
+                    .login-description {
+                        font: 12px 'Roboto-Regular';
+                        color: #999;
+                    }
+                }
+            }
+        }
+
+        .login-skip-button {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: 20px;
+            right: -51px;
+            border: 1px solid #c8d1d7;
+            border-left: none;
+            border-bottom-right-radius: 10px;
+            border-top-right-radius: 10px;
+            background-color: #f0f0f0;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QURFNjNDMTk4RUYxMTFFNDg0QzA4MDc2M0RDNjkxRjgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QURFNjNDMUE4RUYxMTFFNDg0QzA4MDc2M0RDNjkxRjgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBREU2M0MxNzhFRjExMUU0ODRDMDgwNzYzREM2OTFGOCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBREU2M0MxODhFRjExMUU0ODRDMDgwNzYzREM2OTFGOCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PnpbtOIAAAEfSURBVHjalJVNDoIwEIWhyh3YmbDQLRxAoksvBFHXGvUGXkR2SvQA3MB4DxL0TTIkpPZnmOQF2tIvD/pawjRNA9Qa2kB7qA3GVQQdoFvTNHUIIMGOPPCEyhFQmnOGcp6zU+ws4gdyfiAaCevbm0kcxzVuFtCMB+g6h+5QJ4RRvaCtYqsFdwQCpzZYgW/YKu6QQp0waqjBgA16YZAXRhVybPRXIshSm/j1wXSHLqdLE8wUL2VZRRPUC3MB+/oK+7xA0wJIImUE2lbzKYEqaWh5j/9BsyyLbEAXrGWVpvAPoUrLni8a1h3VQ5UjyLZoOKF02pzQWElzxtXxaaSfUgk5rAaTJTCbU2pX5PCDmzc0pfNs5C+gd5pAV+zrx0+AAQAiIHSR9rAx+wAAAABJRU5ErkJggg==');
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 3px 0 3px 0 rgba(220, 220, 220, 1) inset;
+            cursor: pointer;
+        }
+
+        .login-skip-text {
+            position: absolute;
+            font: 18px 'Rabiohead';
+            color: #8f8f8f;
+            top: 60px;
+            right: 30px;
+
+            &:before {
+                .before-image(url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAANCAYAAAAqlHdlAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODYxRUQyM0M4RUYxMTFFNEI2OUVGNjY5Rjc5QkM5RTAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODYxRUQyM0Q4RUYxMTFFNEI2OUVGNjY5Rjc5QkM5RTAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4NjFFRDIzQThFRjExMUU0QjY5RUY2NjlGNzlCQzlFMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4NjFFRDIzQjhFRjExMUU0QjY5RUY2NjlGNzlCQzlFMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pg4DHVYAAAGRSURBVHjatNVLKIRRGMZxjJBriFwSSpSwmCmXnSjWEgsbFhplwUYpNpRkZ8XGRklK2ViglDTKNSxI7pRyC7kWcvufehY2xsz0zalfs5jO1/O973nPF+h0OgP8vDLQjhVM4drTjcF+DhaEGqSgGlVYxiw28OVus83hcPgz3DcWMY0rFcOOMlQiBo+4t7JyNlUjGXGIRDgC8YE3vONJHlQxEzIM+ShQUFPRc7V9Dfva61W4JBTBlDodFzjDrcL8PksmaDTSEIt4JCACd9p7CRfGFCZLbc/W/7uehMtFrcItYASHapm3K1QVT9Vz67GKHuygRF0xAbfchTNv2qBpG8WSj4F+L1PhU+So+n16ppnmQhxhBr2mmn+FK0UjJtGvc2TVtWJa94kbtOiczqMNJ+4GIgTNyEM3DiwKZYagDhW6PqJwjGEFe/1vWs3UdeIFrfq1Ypl2NSFRB9+l1u15eglnogvrGLSojbHqQrGmeghzePbmC2HXgZzAuMWfLTMAHdj2ZZhMuHIMqNxWrk3xef0IMACumWDhPmSz8gAAAABJRU5ErkJggg=='), 30px, -10px, 39px, 13px)
+            }
+        }
+
+        .login-skip-link {
+            display: none;
+            margin: 20px 0;
+            font: 14px 'RobotoRegular';
+            text-transform: uppercase;
+            color: #777;
+            cursor: pointer;
+        }
+    }
+}
+
+
+@media (max-width: 1024px){
+    .login {
+        .login-container{
+            max-width: 625px;
+            
+            .login-skip-text{
+                right: 10px;
+                
+                &:before{
+                    left: 18px;
+                }
+            }
+        }
+    }
+}

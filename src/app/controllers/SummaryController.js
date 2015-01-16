@@ -1,13 +1,13 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular
         .module('quiz')
         .controller('SummaryController', SummaryController);
 
-    SummaryController.$inject = ['$location', '$timeout', 'settings', 'quiz'];
+    SummaryController.$inject = ['$location', '$timeout', 'settings', '$window', 'quiz'];
 
-    function SummaryController($location, $timeout, settings, quiz) {
+    function SummaryController($location, $timeout, settings, $window, quiz) {
         var that = this;
             that.title = quiz.title;
         that.logoUrl = settings.logo.url;
@@ -24,17 +24,24 @@
         that.finished = false;
 
         that.tryAgain = function () {
-            if (that.finished) return;
-           $location.path('/').search('tryAgain');
+            if (that.finished) {
+                return;
+            }
+            $location.path('/').search('tryAgain');
         };
 
         that.finish = function () {
-            if (that.finished) return;
+            if (that.finished) {
+                return;
+            }
             that.finished = true;
-            window.close();
+
+            quiz.courseFinished(function () {
+                $window.close();
             $timeout(function() {
                  alert('Thank you, you can close the page now');
             }, 100);
+            });
         };
     }
 

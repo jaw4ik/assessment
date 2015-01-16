@@ -1,4 +1,4 @@
-﻿@import "common";
+@import "common";
 
 @default-font: 'RobotoslabLight';
 
@@ -19,7 +19,6 @@ menu, nav, section, summary, mark, audio, video, img {
 }
 
 html, body {
-    min-height: 100%;
     padding: 0;
     margin: 0;
 }
@@ -38,15 +37,21 @@ button {
 }
 
 .main-logo-wrapper {
-    display: table-cell;
-    height: 96px;
+    height: 50px;
+    padding: 10px 0 10px 50px;
+}
+
+.main-logo-helper{
+    display: inline-block;
+    height: 100%;
     vertical-align: middle;
-    padding-left: 50px;
 }
 
 .main-logo {
+    display: inline-block;
     max-height: 50px;
     max-width: 300px;
+    vertical-align: middle;
 }
 
 @import "dragAndDropText";
@@ -67,6 +72,13 @@ button {
 @import "introduction";
 @import "questions";
 
+@import "login";
+@import "errors";
+
 @media (max-width:800px) {
+    @import "800";
+}
+
+@media (max-width: 640px){
     @import "640";
 }

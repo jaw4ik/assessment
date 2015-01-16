@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular
@@ -8,12 +8,17 @@
     factory.$inject = ['Question'];
 
     function factory(Question) {
-        return function Statement(id, title, options) {
-            var that = this;
-            Question.call(that, id, title);
+        return function Statement(id, title, type, options) {
+            var that = this,
+                _protected = {
+                    answer: answer
+                };
+
+            Question.call(that, id, title, type, _protected);
 
             that.options = options;
-            that.answer = function (statements) {
+
+            function answer(statements) {
                 var correct = 0;
 
                 statements.forEach(function (statement) {
@@ -25,7 +30,7 @@
                 });
 
                 that.score = (correct === that.options.length) ? 100 : 0;
-            };
+            }
         };
     }
 
