@@ -1,9 +1,9 @@
-(function () {
+﻿(function () {
 
     angular.module('quiz')
-        .directive('pageResizer', pageResizer);
+        .directive('errorPage', errorPage);
 
-    function pageResizer() {
+    function errorPage() {
         return {
             restrict: 'A',
             link: function ($scope, element) {
@@ -16,10 +16,8 @@
                 });
 
                 function changeHeight() {
-                    var screenHeight = $(window).height(),
-                        scrollHeight = $('html')[0].scrollHeight;
-                    
-                    $element.css('height', screenHeight);
+                    var screenHeight = $(window).height();
+                        $element.css('height', screenHeight);
                 }
             }
         };

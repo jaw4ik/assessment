@@ -5,9 +5,9 @@
         .module('quiz')
         .controller('SummaryController', SummaryController);
 
-    SummaryController.$inject = ['dataContext', '$location', '$timeout', 'settings', '$window', 'quiz'];
+    SummaryController.$inject = ['$scope', 'dataContext', '$location', '$timeout', 'settings', '$window', 'quiz'];
 
-    function SummaryController(dataContext, $location, $timeout, settings, $window, quiz) {
+    function SummaryController($scope, dataContext, $location, $timeout, settings, $window, quiz) {
         var that = this;
         that.title = '"' + quiz.title + '"';
         that.logoUrl = settings.logo.url;
@@ -38,12 +38,13 @@
             that.finished = true;
             that.isSendingRequest = true;
 
-            quiz.courseFinished(function () {
+            quiz.finish(function () {
                 that.isSendingRequest = false;
+                $scope.$apply();
                 $window.close();
                 $timeout(function () {
                     alert('Thank you, you can close the page now');
-                }, 200);
+                }, 100);
             });
         };
     }

@@ -61,7 +61,7 @@
                 question.submit();
             });
             
-            quiz.courseResults(settings.masteryScore.score);
+            quiz.sendCourseResult(settings.masteryScore.score);
 
             $location.path('/summary').replace();
         };

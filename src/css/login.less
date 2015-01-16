@@ -149,7 +149,7 @@
                     text-align: center;
 
                     .button.large {
-                        display: block;
+                        display:block;
                         padding: 0 19px;
                     }
 
@@ -203,7 +203,7 @@
 }
 
 
-@media (max-width: 1024px){
+@media (max-width: 1040px){
     .login {
         .login-container{
             max-width: 625px;
@@ -216,5 +216,41 @@
                 }
             }
         }
+    }
+}
+
+@media (max-width: 980px){
+    .login {
+        .login-container{
+            max-width: 800px;
+            
+            .login-skip-text{
+                right: 30px;
+                
+                &:before{
+                    left: 30px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 810px){
+    .login{
+        .login-container{
+
+            .login-skip-button {
+                display: none;
+            }
+
+            .login-skip-text {
+                display: none;
+            }
+
+            .login-skip-link {
+                display: block;
+            }
+        }
+
     }
 }

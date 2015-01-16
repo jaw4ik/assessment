@@ -55,7 +55,7 @@
         };
 
         function startCourse() {
-            quiz.courseStarted();
+            quiz.start();
             $location.path('/').replace();
         }
     }
