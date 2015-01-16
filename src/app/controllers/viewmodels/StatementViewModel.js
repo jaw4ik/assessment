@@ -31,7 +31,7 @@
                 statement.state = statement.state === false ? undefined : false;
             };
 
-            that.submit = function () {
+            that.submitAnswer = function () {
                 question.answer(that.statements.map(function (statement) {
                     return {
                         text: statement.text,

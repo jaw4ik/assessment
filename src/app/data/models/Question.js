@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     'use strict';
 
     angular
@@ -21,6 +21,13 @@
                 $rootScope.$emit('question:answered', {
                     question: that,
                     answers: arguments[0]
+                });
+            };
+
+            that.learningContentsExperienced = function (time) {
+                $rootScope.$emit('learningContent:experienced', {
+                    question: that,
+                    time: time
                 });
             };
         };

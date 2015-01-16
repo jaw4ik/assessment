@@ -3,9 +3,9 @@
 
     angular.module('quiz.xApi').factory('learningContentDataBuilder', factory);
 
-    factory.$inject = ['xApiVerbs', 'objectivesQueries'];
+    factory.$inject = ['xApiVerbs', 'objectivesQueries', 'dateTimeConverter'];
 
-    function factory(verbs, objectivesQueries) {
+    function factory(verbs, objectivesQueries, dateTimeConverter) {
 
         return {
             learningContentExperienced: learningContentExperienced
@@ -18,7 +18,7 @@
                 learningContentUrl = rootUrl + '#objective/' + objective.id + '/question/' + question.id + '/learningContents';
 
             var result = new TinCan.Result({
-                duration: TinCan.Utils.getISODateString(spentTime)
+                duration: dateTimeConverter.timeToISODurationString(spentTime)
             });
 
             var activity = new TinCan.Activity({
@@ -54,7 +54,8 @@
             return {
                 object: activity,
                 result: result,
-                context: context
+                context: context,
+                verb: verbs.experienced
             };
         }
     }

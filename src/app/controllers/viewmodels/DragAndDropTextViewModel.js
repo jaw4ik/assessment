@@ -50,7 +50,7 @@
                 return spot;
             });
 
-            that.submit = function () {
+            that.submitAnswer = function () {
                 question.answer(_.map(that.spots, function (spot) {
                     return {
                         x: spot.x,
