@@ -2,20 +2,29 @@
 
     return {
         upload: function (options) {
+            var defaults = {
+                startLoading: function () { },
+                success: function () { },
+                error: function () { },
+                complete: function () { }
+            }
+
+            var settings = $.extend({}, defaults, options);
+
             return fileUpload.upload({
                 action: '/storage/image/upload',
                 supportedExtensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp'],
                 notSupportedFileMessage: localizationManager.localize('imageIsNotSupported'),
 
                 startLoading: function () {
-                    options.startLoading();
+                    settings.startLoading();
                 },
                 success: function (data) {
                     var obj = JSON.parse(data);
                     if (obj.data && obj.data.url) {
-                        options.success(obj.data.url);
+                        settings.success(obj.data.url);
                     } else {
-                        options.error();
+                        settings.error();
                     }
                 },
                 error: function (event) {
@@ -33,10 +42,10 @@
                     }
 
                     notify.error(localizationManager.localize(resourceKey));
-                    options.error();
+                    settings.error();
                 },
                 complete: function () {
-                    options.complete();
+                    settings.complete();
                 }
             });
         }
