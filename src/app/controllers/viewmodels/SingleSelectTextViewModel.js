@@ -31,7 +31,7 @@
                 answer.checked = true;
             };
 
-            that.submit = function () {
+            that.submitAnswer = function () {
                 var item = _.find(that.answers, function (answer) {
                     return answer.checked;
                 });

@@ -52,7 +52,7 @@
                 .shuffle()
                 .value();
 
-            that.submit = function () {
+            that.submitAnswer = function () {
                 question.answer(_.map(that.sources, function (source) {
                     return {
                         key: source.key,

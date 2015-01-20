@@ -69,9 +69,9 @@ header:before {
 
 .questions-container {
     margin: 0 auto;
-    max-width: 1024px;
+    max-width: 1104px;
     min-width: 560px;
-    padding: 90px 40px 40px;
+    padding: 90px 0 40px;
 }
 
 .question {
@@ -84,6 +84,7 @@ header:before {
         font-size: 22px;
         font-weight: normal;
         padding: 10px 10px 10px 60px;
+        margin: 18px 40px;
         position: relative;
         word-wrap: break-word;
 
@@ -108,11 +109,15 @@ header:before {
         color: @question-content-color;
         font-family: @question-content-font;
         font-size: 18px;
-        margin-bottom: 50px;
+        margin: 0 40px 50px;
         padding-left: 60px;
         padding-right: 10px;
         text-align: justify;
         word-wrap: break-word;
+    }
+
+    .question-body{
+        margin: 0 40px;
     }
 
     .answers {
@@ -163,6 +168,7 @@ header:before {
 
 .submit-wrapper {
     text-align: center;
+    padding-left: 60px;
 }
 
 @import "dragAndDropText";
@@ -172,7 +178,7 @@ header:before {
 @import "singleSelectImage";
 @import "singleSelectText";
 @import "stement";
-
+@import "hint";
 
 @import "imagePreview";
 @import "tooltip";

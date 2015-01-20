@@ -24,16 +24,20 @@
         that.finished = false;
 
         that.tryAgain = function () {
-            if (that.finished) return;
+            if (that.finished) {
+                return;
+            }
             $location.path('/');
         };
 
         that.finish = function () {
-            if (that.finished) return;
+            if (that.finished) {
+                return;
+            }
             that.finished = true;
             window.close();
-            $timeout(function() {
-                 alert('Thank you, you can close the page now');
+            $timeout(function () {
+                alert('Thank you, you can close the page now');
             }, 100);
         };
     }

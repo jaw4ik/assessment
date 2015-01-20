@@ -5,9 +5,9 @@
         .module('quiz')
         .factory('dataContext', dataContext);
 
-    dataContext.$inject = ['$q', '$http', 'Quiz', 'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot'];
+    dataContext.$inject = ['$q', '$http', 'Quiz', 'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot', 'LearningContent']; // jshint ignore:line
 
-    function dataContext($q, $http, Quiz, SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot) { // jshint ignore:line
+    function dataContext($q, $http, Quiz, SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot, LearningContent) { // jshint ignore:line
 
         var
             self = {
@@ -67,11 +67,11 @@
                                         }
 
                                         if (question) {
-
                                             if (dtq.hasContent) {
                                                 question.contentUrl = 'content/' + dto.id + '/' + dtq.id + '/content.html';
                                             }
 
+                                            question.learningContents = getLearningContents(dto, dtq);
                                             questions.push(question);
                                         }
 
@@ -92,6 +92,18 @@
             return dfd.promise;
         }
 
+        function getLearningContents(objective, question) {
+            var learningContents = [];
+            if (Array.isArray(question.learningContents)) {
+                question.learningContents.forEach(function (learningContent) {
+                    if (learningContent) {
+                        var learningContentUrl = 'content/' + objective.id + '/' + question.id + '/' + learningContent.id + '.html';
+                        learningContents.push(new LearningContent(learningContent.id, learningContentUrl));
+                    }
+                });
+            }
+            return learningContents;
+        }
     }
 
 }());
