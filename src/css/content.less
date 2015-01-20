@@ -33,7 +33,7 @@
 }
 
 .list() {
-    padding-left: 38px;
+    padding-left: 60px;
 }
 
 .clear {
@@ -87,21 +87,18 @@
     ul {
         list-style-type: none;
 
+        li {
+            position:relative;
+        }
+
         li:before {
-            position: relative;
-            bottom: -5px;
+            position: absolute;
             font-size: 30px;
-            display: inline-block;
             width: 15px;
             content: "\2022 ";
-            margin-right: 7px;
+            left:-22px;
             color: @list-style-type-color;
         }
-    }
-
-    ol {
-        padding-left: 60px;
-        list-style-position: outside;
     }
 
     a {
