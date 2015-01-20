@@ -19,8 +19,8 @@
             sendStatementIfAllowed(dataBuilder.courseResults(data));
         }));
 
-        unbindFunctions.push($rootScope.$on('course:finished', function (scope, data, callback) {
-            sendStatementIfAllowed(dataBuilder.courseStopped(), callback);
+        unbindFunctions.push($rootScope.$on('course:finished', function () {
+            return sendStatementIfAllowed(dataBuilder.courseStopped());
         }));
 
         unbindFunctions.push($rootScope.$on('question:answered', function (scope, data) {
@@ -31,11 +31,13 @@
             sendStatementIfAllowed(dataBuilder.learningContentExperienced(data));
         }));
 
-        function sendStatementIfAllowed(statement, callback) {
-            if (_.contains(xApiSettings.xApi.allowedVerbs, statement.verb.display['en-US'])) {
-                statementsStorage.push(statement, callback);
-                requestManager.sendStatement();
+        function sendStatementIfAllowed(statement) {
+            if (!_.contains(xApiSettings.xApi.allowedVerbs, statement.verb.display['en-US'])) {
+                return undefined;
             }
+
+            statementsStorage.push(statement);
+            return requestManager.sendStatement();
         }
 
         function unbindAll() {

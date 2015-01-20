@@ -119,6 +119,9 @@ gulp.task('build-app', ['clean', 'css'], function () {
             .pipe(gulp.dest(output)),
 
         gulp.src(['./src/settings.js'])
+            .pipe(gulp.dest(output)),
+
+        gulp.src(['./src/publishSettings.js'])
             .pipe(gulp.dest(output))
         );
 });

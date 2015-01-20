@@ -4,11 +4,12 @@
     angular.module('quiz.xApi')
         .factory('xApiRequestManager', xApiRequestManager);
 
-    xApiRequestManager.$inject = ['StatementsStorage', 'errorsHandler'];
+    xApiRequestManager.$inject = ['$q', 'StatementsStorage', 'errorsHandler'];
 
-    function xApiRequestManager(statementsStorage, errorsHandler) {
+    function xApiRequestManager($q, statementsStorage, errorsHandler) {
         var isPending = false,
-            xApi = null;
+            xApi = null,
+            defers = [];
 
         return {
             sendStatement: sendStatement,
@@ -20,7 +21,11 @@
         }
 
         function sendStatement() {
+            var defer = $q.defer();
+            defers.push(defer);
             send();
+
+            return defer.promise;
         }
 
         function send() {
@@ -33,22 +38,23 @@
                     _.each(stmts, function (stmt) {
                         tempArray.push(stmt.item);
                     });
+
                     xApi.sendStatements(tempArray, function (errors) {
                         _.each(errors, function (error) {
                             if (error.err != null) {
                                 errorsHandler.handleError();
                             }
                         });
+
                         isPending = false;
-                        _.each(stmts, function (item) {
-                            if (typeof item.callback === 'function') {
-                                item.callback.apply();
-                            }
-                        });
                         send();
                     });
                 } else {
-                    return;
+                    defers.forEach(function (defer) {
+                        defer.resolve();
+                    });
+
+                    defers.length = 0;
                 }
             }
         }

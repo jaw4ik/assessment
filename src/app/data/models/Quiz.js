@@ -5,9 +5,9 @@
         .module('quiz')
         .factory('Quiz', factory);
 
-    factory.$inject = ['$rootScope'];
+    factory.$inject = ['$rootScope', 'eventPublisher'];
 
-    function factory($rootScope) {
+    function factory($rootScope, eventPublisher) {
         return function Quiz(id, title, objectives, questions) {
             var that = this;
 
@@ -31,20 +31,16 @@
 
             that.courseStarted = function () {
                 $rootScope.isCourseStarted = true;
-                $rootScope.$emit('course:started');
+                eventPublisher.publishRootScopeEvent('course:started');
             };
 
             that.courseFinished = function (callback) {
-                if (!!$rootScope.$$listenerCount['course:finished']) {
-                    $rootScope.$emit('course:finished', that, callback);
-                } else {
-                    callback.apply();
-                }
+                eventPublisher.publishRootScopeEvent('course:finished', that, callback);
             };
 
             that.courseResults = function (masteryScore) {
                 that.isCompleted = that.getResult() >= masteryScore;
-                $rootScope.$emit('course:results', that);
+                eventPublisher.publishRootScopeEvent('course:results', that);
             };
         };
     }

@@ -3,28 +3,40 @@
 
     angular.module('bootstraping', []).run(runBlock);
 
-    runBlock.$inject = ['$q', 'detectDeviceTask', 'loadFontsTask', 'readSettingsTask'];
+    runBlock.$inject = ['$q', 'detectDeviceTask', 'loadFontsTask', 'readSettingsTask', 'readPublishSettingsTask'];
 
-    function runBlock($q, detectDeviceTask, loadFontsTask, readSettingsTask) {
-
+    function runBlock($q, detectDeviceTask, loadFontsTask, readSettingsTask, readPublishSettingsTask) {
         var tasks = {
-            'readSettings': readSettingsTask,
             'detectDeviceTask': detectDeviceTask,
-            'loadFontsTask': loadFontsTask
+            'loadFontsTask': loadFontsTask,
+            'readSettings': readSettingsTask,
+            'readPublishSettings': readPublishSettingsTask
         };
 
         $q.all(tasks).then(function (data) {
+            var bootstrapModules = ['quiz'],
+                settings = data.readSettings,
+                publishSettings = data.readPublishSettings;
+
             angular.module('quiz').config(['$routeProvider', 'settingsProvider', function ($routeProvider, settingsProvider) {
-                settingsProvider.setSettings(data.readSettings);
+                settingsProvider.setSettings(settings);
             }]);
 
-            if (typeof data.readSettings !== null || data.readSettings.xApi.enabled) {
-                angular.bootstrap(document, ['quiz', 'quiz.xApi']);
-            } else {
-                angular.bootstrap(document, ['quiz']);
+            if (!settings || settings.xApi.enabled) {
+                bootstrapModules.push('quiz.xApi');
             }
 
-        });
-    }
+            if (publishSettings) {
+                angular.module('quiz.publishSettingsSetup').config(['publishSettingsProvider', function (publishSettingsProvider) {
+                    publishSettingsProvider.setSettings(publishSettings);
+                }
+                ]);
 
+                bootstrapModules.push('quiz.publishSettingsSetup');
+            }
+
+            angular.bootstrap(document, bootstrapModules);
+        });
+
+    };
 }());

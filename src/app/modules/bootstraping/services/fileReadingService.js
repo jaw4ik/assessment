@@ -1,21 +1,17 @@
 (function () {
     'use strict';
     angular.module('bootstraping')
-           .service('readSettingsService', ReadSettingsService);
+           .service('fileReadingService', FileReadingService);
 
-    ReadSettingsService.$inject = ['$q', '$http'];
+    FileReadingService.$inject = ['$q', '$http'];
 
-    function ReadSettingsService($q, $http) {
+    function FileReadingService($q, $http) {
         var that = this,
             ticks = new Date().getTime();
 
-        that.read = function () {
-            return readSettings('settings.js?_=' + ticks);
-        };
-
-        function readSettings(url) {
+        that.readJson = function (url) {
             var defer = $q.defer();
-            $http.get(url).success(function (json) {
+            $http.get(url + '?v=' + ticks).success(function (json) {
                 var result = _.isObject(json) ? json : null;
                 defer.resolve(result);
             }).error(function () {

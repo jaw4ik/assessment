@@ -25,6 +25,7 @@
     "jqueryui-touch-punch": "*",
     "underscore": "~1.7.0",
     "components-webfontloader": "*",
-    "tincan": "*"
+    "tincan": "*",
+    "scriptjs": "*"
   }
 }

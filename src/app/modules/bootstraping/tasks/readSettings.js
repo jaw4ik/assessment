@@ -3,10 +3,10 @@
 
     angular.module('bootstraping').factory('readSettingsTask', readSettingsTask);
 
-    readSettingsTask.$inject = ['readSettingsService'];
+    readSettingsTask.$inject = ['fileReadingService'];
 
-    function readSettingsTask(readSettingsService) {
-        return readSettingsService.read();
+    function readSettingsTask(fileReadingService) {
+        return fileReadingService.readJson('settings.js');
     }
 
 }());
