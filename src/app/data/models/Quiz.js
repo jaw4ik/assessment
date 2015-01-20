@@ -29,16 +29,16 @@
                 return Math.floor(correct / that.questions.length);
             };
 
-            that.courseStarted = function () {
+            that.start = function () {
                 $rootScope.isCourseStarted = true;
                 eventPublisher.publishRootScopeEvent('course:started');
             };
 
-            that.courseFinished = function (callback) {
+            that.finish = function (callback) {
                 eventPublisher.publishRootScopeEvent('course:finished', that, callback);
             };
 
-            that.courseResults = function (masteryScore) {
+            that.sendCourseResult = function (masteryScore) {
                 that.isCompleted = that.getResult() >= masteryScore;
                 eventPublisher.publishRootScopeEvent('course:results', that);
             };

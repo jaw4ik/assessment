@@ -121,7 +121,7 @@ gulp.task('build-app', ['clean', 'css'], function () {
         gulp.src(['./src/settings.js'])
             .pipe(gulp.dest(output)),
 
-        gulp.src(['./src/publishSettings.js'])
+	    gulp.src(['./src/publishSettings.js'])
             .pipe(gulp.dest(output))
         );
 });

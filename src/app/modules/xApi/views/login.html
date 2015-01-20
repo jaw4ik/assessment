@@ -1,7 +1,7 @@
-<div class="login" ng-init="scrollToTop()" page-resizer>
+<div class="login content-size" ng-init="scrollToTop()" login-page>
     <div class="login-overlay"></div>
     <div class="login-container">
-        <div class="login-skip-button" ng-click="login.skip()"></div>
+        <div class="login-skip-button" login-leave="skip"></div>
         <div class="login-skip-text">Skip step</div>
         <div class="login-wrapper">
             <div class="login-content">
@@ -23,10 +23,10 @@
                         <span class="login-error-text" ng-style="{ visibility: !login.emailIsValid() && login.emailModified ? 'visible' : 'hidden' }">Enter a valid e-mail</span>
                     </div>
                     <div class="login-form-submit-container">
-                        <button class="button large emphasize primary" ng-click="login.submit()">START and report my progress *</button>
-                        <div class="login-skip-link" ng-click="login.skip()">Do not report, just start</div>
+                        <button class="button large emphasize primary" login-leave="submit">START and report my progress *</button>
+                        <div class="login-skip-link" login-leave="skip">Do not report, just start</div>
                         <span class="login-description">
-                            * By clicking the button ‘Start and report my progress” you agree to the fact that your results and scores will be stored. These results will only be visible to the organizer (author) of your course.
+                            * By clicking the button “Start and report my progress” you agree to the fact that your results and scores will be stored. These results will only be visible to the organizer (author) of your course.
                         </span>
                     </div>
                 </div>

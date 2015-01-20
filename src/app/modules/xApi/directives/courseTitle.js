@@ -1,6 +1,6 @@
 (function () {
 
-    angular.module('quiz')
+    angular.module('quiz.xApi')
         .directive('courseTitle', courseTitle);
 
     function courseTitle() {

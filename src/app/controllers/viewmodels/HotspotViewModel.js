@@ -33,7 +33,7 @@
                 that.marks = _.without(that.marks, _.findWhere(that.marks, mark));
             };
 
-            that.submit = function () {
+            that.submitAnswer = function () {
                 question.answer(that.marks);
             };
 

@@ -1,13 +1,13 @@
-(function () {
+﻿(function () {
     'use strict';
 
     angular
         .module('quiz')
         .factory('dataContext', dataContext);
 
-    dataContext.$inject = ['$q', '$http', 'Quiz', 'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot', 'Objective'];// jshint ignore:line
+    dataContext.$inject = ['$q', '$http', 'Quiz', 'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot', 'Objective', 'LearningContent'];// jshint ignore:line
 
-    function dataContext($q, $http, Quiz, SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot, Objective) { // jshint ignore:line
+    function dataContext($q, $http, Quiz, SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot, Objective, LearningContent) { // jshint ignore:line
 
         var
             self = {
@@ -27,6 +27,7 @@
                 $http.get('content/data.js').success(function (response) {
                     var objectives = [];
                     var questions = [];
+                    var promises = [];
                     if (Array.isArray(response.objectives)) {
                         var dtoQuestions = [];
                         response.objectives.forEach(function (dto) {
@@ -68,10 +69,13 @@
                                         }
 
                                         if (question) {
-
                                             if (dtq.hasContent) {
-                                                question.contentUrl = 'content/' + dto.id + '/' + dtq.id + '/content.html';
+                                                promises.push($http.get('content/' + dto.id + '/' + dtq.id + '/content.html', {dataType: 'html'}).success(function (content) {
+                                                    question.content = content;
+                                                }));
                                             }
+
+                                            getLearningContents(dto, dtq, question, promises);
 
                                             questions.push(question);
                                             dtoQuestions.push(question);
@@ -87,13 +91,32 @@
 
                     self.quiz = new Quiz(response.id, response.title, objectives, questions);
 
-                    dfd.resolve(self.quiz);
+                    $q.all(promises).then(function () {
+                        dfd.resolve(self.quiz);
+                    })
+                    ['catch'](function (reason) {
+                        dfd.reject(reason);
+                    });
                 });
             }
 
             return dfd.promise;
         }
 
+        function getLearningContents(dto, dtq, question, promises) {
+            question.learningContents = [];
+
+            if (Array.isArray(dtq.learningContents)) {
+                dtq.learningContents.forEach(function (learningContent) {
+                    if (learningContent) {
+                        promises.push($http.get('content/' + dto.id + '/' + dtq.id + '/' + learningContent.id + '.html', {dataType: 'html'})
+                            .success(function (content) {
+                                question.learningContents.push(new LearningContent(learningContent.id, content));
+                            }));
+                    }
+                });
+            }
+        }
     }
 
 }());

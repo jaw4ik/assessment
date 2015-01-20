@@ -38,7 +38,6 @@
             }
 
             $q.all(promises).then(function () {
-                console.log('all ok');
                 callback.apply();
             });
 

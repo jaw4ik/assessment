@@ -6,7 +6,7 @@
         .controller('QuestionController', QuestionController);
 
     QuestionController.$inject = [
-        '$http', '$location',
+        '$location', '$rootScope',
         'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText',
         'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
         'SingleSelectTextViewModel', 'MultipleSelectTextViewModel', 'TextMatchingViewModel',
@@ -14,17 +14,16 @@
         'quiz', 'settings'
     ];
 
-    function QuestionController($http, $location,
+    function QuestionController($location, $rootScope,
         SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText,
         Statement, SingleSelectImage, FillInTheBlanks, Hotspot,
         SingleSelectTextViewModel, MultipleSelectTextViewModel, TextMatchingViewModel,
         DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel, HotspotViewModel,
 
         quiz, settings) {
-
         var that = this;
 
-        that.title = quiz.title;
+        that.title = $rootScope.title = quiz.title;
         that.logoUrl = settings.logo.url;
 
         that.questions = quiz.questions.map(function (question) {
@@ -61,7 +60,7 @@
                 question.submit();
             });
             
-            quiz.courseResults(settings.masteryScore.score);
+            quiz.sendCourseResult(settings.masteryScore.score);
 
             $location.path('/summary').replace();
         };

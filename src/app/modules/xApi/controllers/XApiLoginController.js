@@ -9,11 +9,13 @@
         .module('quiz.xApi')
         .controller('XApiLoginController', LoginController);
 
-    LoginController.$inject = ['$location', 'xAPIManager', 'settings', 'quiz'];
+    LoginController.$inject = ['$rootScope', '$location', 'xAPIManager', 'settings', 'quiz'];
 
-    function LoginController($location, xAPIManager, settings, quiz) {
+    function LoginController($rootScope, $location, xAPIManager, settings, quiz) {
         var that = this,
             length = quiz.questions.length;
+
+        $rootScope.title = quiz.title;
 
         that.courseTitle = '"' + quiz.title + '"';
         that.questionsLength = length === 1 ? length + ' question' : length + ' questions';
@@ -55,7 +57,7 @@
         };
 
         function startCourse() {
-            quiz.courseStarted();
+            quiz.start();
             $location.path('/').replace();
         }
     }
