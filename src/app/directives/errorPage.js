@@ -17,7 +17,8 @@
 
                 function changeHeight() {
                     var screenHeight = $(window).height();
-                        $element.css('height', screenHeight);
+
+                    $element.css('height', screenHeight);
                 }
             }
         };

@@ -5,10 +5,12 @@
         .module('quiz')
         .controller('NotFoundErrorController', ErrorController);
 
-    ErrorController.$inject = ['$location', 'settings'];
+    ErrorController.$inject = ['$rootScope', '$location', 'settings', 'quiz'];
 
-    function ErrorController($location, settings) {
+    function ErrorController($rootScope, $location, settings, quiz) {
         var that = this;
+
+        $rootScope.title = '404 |' + quiz.title;
         
         that.logoUrl = settings.logo.url;
         

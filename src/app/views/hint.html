@@ -7,7 +7,7 @@
     <div class="question-hint" slide-toggle="question.hint.isDisplayed">
         <div class="hint-content-container">
             <div class="hint-content" ng-repeat="learningContent in question.hint.learningContents">
-                <div ng-include src="learningContent.url" styled-content></div>
+                <div html-compile="learningContent.content" styled-content></div>
             </div>
         </div>
         <div class="hint-footer">

@@ -13,7 +13,7 @@
 
             that.id = question.id;
             that.title = question.title;
-            that.contentUrl = question.contentUrl;
+            that.content = question.content;
             that.hint = new HintViewModel(question);
             
             that.getType = function () {

@@ -5,10 +5,11 @@
         .module('quiz')
         .controller('SummaryController', SummaryController);
 
-    SummaryController.$inject = ['$scope', 'dataContext', '$location', '$timeout', 'settings', '$window', 'quiz'];
+    SummaryController.$inject = ['$rootScope', '$scope', 'dataContext', '$location', '$timeout', 'settings', '$window', 'quiz'];
 
-    function SummaryController($scope, dataContext, $location, $timeout, settings, $window, quiz) {
+    function SummaryController($rootScope, $scope, dataContext, $location, $timeout, settings, $window, quiz) {
         var that = this;
+        $rootScope.title = 'Summary | ' + quiz.title;
         that.title = '"' + quiz.title + '"';
         that.logoUrl = settings.logo.url;
         that.questions = quiz.questions.map(function (question) {
