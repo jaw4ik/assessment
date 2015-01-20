@@ -15,7 +15,7 @@
                 <div class="question-content">
                     <div html-compile="question.content" styled-content></div>
                 </div>
-                <div ng-include="'app/views/' + question.getType() + '.html '">
+                <div class="question-body" ng-include="'app/views/' + question.getType() + '.html '">
                 </div>
                 <div ng-if="question.hint.exists" ng-include="'app/views/hint.html'"></div>
             </article>
