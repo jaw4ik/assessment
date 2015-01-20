@@ -85,10 +85,6 @@
         var handler = function () {
             container.remove();
             $element.removeClass('active');
-<<<<<<< .merge_file_a12096
-=======
-            console.log('handler');
->>>>>>> .merge_file_a13060
             $('html').off('click', handler);
             $(window).off('resize', handler);
         };

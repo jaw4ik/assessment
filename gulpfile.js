@@ -102,13 +102,13 @@ gulp.task('build-app', ['clean', 'css'], function () {
 
         gulp.src(['./src/css/*.css'])
             .pipe(gulp.dest(output + '/css')),
-        
+
         gulp.src(['./src/img/**'])
             .pipe(gulp.dest(output + '/img')),
 
         gulp.src(['./src/app/views/**/*.html'])
             .pipe(gulp.dest(output + '/app/views')),
-        
+
         gulp.src(['./src/app/modules/xApi/views/**/*.html'])
             .pipe(gulp.dest(output + '/app/modules/xApi/views')),
 
@@ -121,7 +121,7 @@ gulp.task('build-app', ['clean', 'css'], function () {
         gulp.src(['./src/settings.js'])
             .pipe(gulp.dest(output)),
 
-	    gulp.src(['./src/publishSettings.js'])
+        gulp.src(['./src/publishSettings.js'])
             .pipe(gulp.dest(output))
         );
 });
