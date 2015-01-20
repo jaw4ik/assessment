@@ -3,9 +3,9 @@
     angular.module('quiz.publishSettingsSetup')
            .service('publishModuleLoader', PublishModuleLoader);
 
-    PublishModuleLoader.$inject = ['$q'];
+    PublishModuleLoader.$inject = ['$q', '$window'];
 
-    function PublishModuleLoader($q) {
+    function PublishModuleLoader($q, $window) {
         var that = this;
 
         that.loadModule = function (moduleName) {
@@ -14,8 +14,8 @@
             $script('app/' + moduleName + '.js', dependencyName);
             $script.ready(dependencyName,
                 function () {
-                    if (window[moduleName]) {
-                        deferred.resolve(window[moduleName]);
+                    if ($window[moduleName]) {
+                        deferred.resolve($window[moduleName]);
                     } else {
                         deferred.reject();
                     }
