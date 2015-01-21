@@ -8,13 +8,14 @@
     factory.$inject = ['$rootScope'];
 
     function factory($rootScope) {
-        return function Quiz(id, title, objectives, questions) {
+        return function Quiz(id, title, objectives, questions, hasIntroductionContent) {
             var that = this;
 
             that.id = id;
             that.title = title;
             that.objectives = objectives;
             that.questions = questions || [];
+            that.hasIntroductionContent = hasIntroductionContent || false;
             that.isCompleted = false;
 
             that.getResult = function () {
@@ -32,14 +33,14 @@
             that.start = function () {
                 $rootScope.isCourseStarted = true;
                 $rootScope.$emit('course:started');
-            };
+        };
 
             that.finish = function (callback) {
                 if (!!$rootScope.$$listenerCount['course:finished']) {
                     $rootScope.$emit('course:finished', that, callback);
                 } else {
                     callback.apply();
-                }
+    }
             };
 
             that.sendCourseResult = function (masteryScore) {
