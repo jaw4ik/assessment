@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular
@@ -13,7 +13,7 @@
 
             that.id = question.id;
             that.title = question.title;
-            that.contentUrl = question.contentUrl;
+            that.content = question.content;
             that.hint = new HintViewModel(question);
             
             that.getType = function () {
@@ -21,7 +21,7 @@
             };
 
             that.submit = function () {
-                that.hint.hide();
+                that.hint.deactivate();
                 that.submitAnswer();
             };
 

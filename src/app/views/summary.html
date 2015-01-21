@@ -1,4 +1,9 @@
-﻿<header class="summary-logo"></header>
+<header>
+    <div class="main-logo-wrapper">
+       <span class="main-logo-helper"></span>
+        <img alt="" src="" class="main-logo" ng-src="{{summary.logoUrl}}">
+    </div>
+</header>
 <div class="summary" ng-init="scrollToTop()">
     <div class="summary-header">
         <div class="summary-header-content">
@@ -33,3 +38,8 @@
     </div>
 </div>
 <div class="blockout" ng-class="{ active: summary.finished }"></div>
+<div class="request-loader-container" ng-show="summary.isSendingRequest">
+    <div class="request-loader">
+        <span class="request-loader-text">reporting progress...</span>
+    </div>
+</div>

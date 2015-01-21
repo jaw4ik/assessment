@@ -1,16 +1,17 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular
         .module('quiz')
         .controller('SummaryController', SummaryController);
 
-    SummaryController.$inject = ['dataContext', '$location', '$timeout', 'quiz'];
+    SummaryController.$inject = ['$rootScope', '$scope', 'dataContext', '$location', '$timeout', 'settings', '$window', 'quiz'];
 
-    function SummaryController(dataContext, $location, $timeout, quiz) {
+    function SummaryController($rootScope, $scope, dataContext, $location, $timeout, settings, $window, quiz) {
         var that = this;
-
+        $rootScope.title = 'Summary | ' + quiz.title;
         that.title = '"' + quiz.title + '"';
+        that.logoUrl = settings.logo.url;
         that.questions = quiz.questions.map(function (question) {
             return {
                 title: question.title,
@@ -18,16 +19,17 @@
             };
         });
 
-        that.progress = quiz.getResult().toFixed();
-        that.masteryScore = 90;
+        that.progress = quiz.getResult();
+        that.masteryScore = settings.masteryScore.score;
         that.reachMasteryScore = that.progress >= that.masteryScore;
         that.finished = false;
+        that.isSendingRequest = false;
 
         that.tryAgain = function () {
             if (that.finished) {
                 return;
             }
-            $location.path('/');
+            $location.path('/').replace();
         };
 
         that.finish = function () {
@@ -35,10 +37,16 @@
                 return;
             }
             that.finished = true;
-            window.close();
-            $timeout(function () {
-                alert('Thank you, you can close the page now');
-            }, 100);
+            that.isSendingRequest = true;
+
+            quiz.finish(function () {
+                that.isSendingRequest = false;
+                $scope.$apply();
+                $window.close();
+                $timeout(function () {
+                    alert('Thank you, you can close the page now');
+                }, 100);
+            });
         };
     }
 

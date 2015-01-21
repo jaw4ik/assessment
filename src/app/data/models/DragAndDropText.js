@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular
@@ -9,13 +9,18 @@
 
     function factory(Question) {
 
-        return function DragAndDropText(id, title, background, dropspots) {
-            var that = this;
-            Question.call(that, id, title);
+        return function DragAndDropText(id, title, type, background, dropspots) {
+            var that = this,
+                _protected = {
+                    answer: answer
+                };
+
+            Question.call(that, id, title, type, _protected);
 
             that.background = background;
             that.dropspots = dropspots;
-            that.answer = function (spots) {
+
+            function answer(spots) {
                 var correct = 0;
                 spots.forEach(function (spot) {
                     if (_.find(that.dropspots, function (dropspot) {
@@ -26,7 +31,7 @@
                 });
 
                 that.score = (correct === that.dropspots.length) ? 100 : 0;
-            };
+            }
         };
 
     }
