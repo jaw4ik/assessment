@@ -1,4 +1,5 @@
 ﻿<div class="main-container" ng-class="{'without-intro': !quiz.hasIntroductionContent}" scroll-control>
+    <div class="background"></div>
     <introduction class="introduction-container" ng-show="quiz.hasIntroductionContent">
         <div class="introduction-wrapper">
             <header class="header">
@@ -14,9 +15,8 @@
                             <div class="header-questions-label">{{quiz.questions.length}} questions</div>
                         </div>
                     </div>
-                    <div class="content" ng-include src="'content/content.html'" styled-content></div>
+                    <div class="content" ng-include src="'content/content.html'" onload="contentLoaded()" styled-content></div>
                 </div>
-                <div class="overlay"></div>
             </div>
             <div class="controls" ng-click="scrollToQuestions()">
                 <div class="buttons-container">
@@ -32,6 +32,7 @@
         </div>
     </introduction>
     <header class="main-header">
+        <div class="background"></div>
         <img class="logo" ng-src="{{quiz.logoUrl}}" />
         <span class="vertical-align-helper"></span>
         <div class="button-container" ng-click="scrollToQuestions()">

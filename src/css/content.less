@@ -14,8 +14,11 @@
 @list-style-type-color: #76cbe3;
 
 .wrapper() {
+    position: relative;
+    display: inline-block;
     text-align: center;
     overflow-x: auto;
+    width: 100%;
 }
 
 .default-table() {
@@ -66,6 +69,7 @@
     font-size: @default-font-size;
     color: @default-font-color;
     text-align: justify;
+    word-wrap: break-word;
 
     p {
         .basic;
@@ -88,7 +92,7 @@
         list-style-type: none;
 
         li {
-            position:relative;
+            position: relative;
         }
 
         li:before {
@@ -96,7 +100,7 @@
             font-size: 30px;
             width: 15px;
             content: "\2022 ";
-            left:-22px;
+            left: -22px;
             color: @list-style-type-color;
         }
     }
@@ -303,7 +307,7 @@
 
             td, th {
                 padding: 25px 20px 20px 20px;
-                box-sizing: border-box;
+                .border-box;
                 border: none;
                 text-align: left;
                 background: @tbody-background;

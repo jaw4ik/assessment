@@ -8,23 +8,22 @@
         return ua.indexOf('ipod') !== -1 || ua.indexOf('iphone') !== -1 || ua.indexOf('ipad') !== -1 || ua.indexOf('android') !== -1;
     }
 
-    scrollControl.$inject = ['$routeParams'];
+    scrollControl.$inject = ['$routeParams', '$location', '$timeout'];
 
-    function scrollControl($routeParams) {
+    function scrollControl($routeParams, $location, $timeout) {
         return {
             restrict: 'A',
             link: function ($scope, $element) {
-                var $questions = $element.children('questions');
-
-                $scope.scrollToQuestions = function () {
-                    scrollTo($questions.offset().top);
-                };
-                //$routeParams.tryAgain
-
                 if (isMobileDevice()) {
                     subscribeToMobileEvents($scope, $element);
                 } else if ($scope.quiz.hasIntroductionContent) {
-                    subscribeToEvents($scope, $element);
+                    subscribeToEvents($scope, $element, $timeout);
+                }
+
+                if ($routeParams.tryAgain) {
+                    $timeout($scope.scrollToQuestions, 1000).then(function () {
+                        $location.search('tryAgain', null);
+                    });
                 }
             }
         };
@@ -39,28 +38,66 @@
             $header = $container.children('header'),
             $questions = $container.children('questions');
 
-        var mobileScrollHandler = function () {
-            $header.toggleClass('hide-buttons', $window.scrollTop() >= $questions.offset().top - $header.height());
+        $scope.scrollToQuestions = function () {
+            scrollTo($questions.offset().top - $header.height());
         };
 
-        $window.bind('scroll', mobileScrollHandler);
+        var 
+            //Events handlers
+            windowScrollHandler = function () {
+                var introEndReached = $window.scrollTop() >= $questions.offset().top - $header.height(),
+                    documentEndReached = $window.scrollTop() >= $(document).height() - $window.height() - 10;
+
+                $header.toggleClass('hide-buttons', introEndReached || documentEndReached);
+            },
+
+            previousWindowSize = {},
+            windowResizeHandler = function () {
+                var windowWidth = $window.width(),
+                    windowHeight = $window.height() + 250; //250px - reserve for Chrome window height resize
+
+                //Check if mobile device orientation changed
+                if (windowWidth != previousWindowSize.width && windowHeight != previousWindowSize.height) {
+                    $('.background', $container).height(windowHeight);
+                }
+
+                previousWindowSize.width = windowWidth;
+                previousWindowSize.height = windowHeight;
+            };
+
+        $window
+            .bind('scroll', windowScrollHandler)
+            .bind('resize', windowResizeHandler)
+            .ready(windowResizeHandler);
 
         $scope.$on('$destroy', function () {
-            $window.unbind('scroll', mobileScrollHandler);
+            $window
+                .unbind('scroll', windowScrollHandler)
+                .unbind('resize', windowResizeHandler);
         });
     }
 
-    function subscribeToEvents($scope, $container) {
+    function subscribeToEvents($scope, $container, $timeout) {
         var $window = $(window),
             $introduction = $container.children('introduction'),
             $header = $container.children('header'),
             $questions = $container.children('questions'),
-            $introductionContent = $introduction.find('[content]'),
+            $introductionContent = $introduction.find('[content]');
 
-            //Events handlers
+        $scope.scrollToQuestions = function () {
+            scrollTo($questions.offset().top);
+        };
+
+        //Events handlers
+        var
             windowScrollHandler = function () {
                 var scrollableHeight = $questions.offset().top - $introduction.height(),
                     windowScrollTop = $window.scrollTop();
+
+                //Fix for browser initial scrolling
+                if (scrollableHeight < 0) {
+                    return;
+                }
 
                 if (windowScrollTop >= scrollableHeight) {
                     $introduction
@@ -79,6 +116,7 @@
             },
             windowResizeHandler = function () {
                 $introduction.height($window.height());
+                $('.background', $header).height($window.height());
             },
             introContentScrollHandler = function () {
                 var topPositionClass = 'at-top-position',
@@ -105,9 +143,9 @@
                 introContentScrollHandler();
             };
 
-        $scope.$watch(function () {
-            return $introductionContent.outerHeight() + $introductionContent[0].scrollHeight;
-        }, introHeightUpdatedHandler);
+        $scope.contentLoaded = function () {
+            $timeout(introHeightUpdatedHandler, 500);
+        };
 
         $window
             .bind('resize', windowResizeHandler)

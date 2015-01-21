@@ -4,15 +4,6 @@
     border-bottom: 1px solid #dadada;
 }
 
-.background() {
-    background-image: url(img/summary-header-background.jpg);
-    background-repeat: no-repeat;
-    background-attachment: fixed !important;
-    background-size: cover !important;
-    background-position: top right;
-    /*background: fixed url(img/summary-header-background.jpg) top right no-repeat;*/
-}
-
 .vertical-align-helper {
     display: inline-block;
     height: 100%;
@@ -23,6 +14,20 @@
     position: relative;
     margin-left: 50px;
     vertical-align: middle;
+}
+
+.main-container {
+    .background {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        top: 0px;
+        left: 0px;
+        background-image: url(img/summary-header-background.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: top right;
+    }
 }
 
 @header-full-height: 96px;
@@ -36,8 +41,13 @@
     left: 0;
     height: @header-full-height;
     .bottom-border;
-    .background;
+    overflow: hidden;
+    opacity: 0.97;
     z-index: 100;
+
+    .background {
+        position: absolute;
+    }
 
     .scrolled-to-questions &,
     .without-intro & {
@@ -45,7 +55,7 @@
         height: @header-small-height;
     }
 
-    .scrolled-to-questions &{
+    .scrolled-to-questions & {
         transition: height .2s linear;
     }
 
@@ -73,13 +83,13 @@
         .align-items(center);
         .bottom-border;
         .border-box;
-        .background;
         width: 100%;
         height: 100%;
         overflow: auto;
 
         .scrolled-to-questions & {
-            visibility: hidden;
+            background-color: #fff;
+            border-bottom: none;
         }
 
         .header {
@@ -106,8 +116,9 @@
             .display-flex;
             .flex(1 1 auto);
             position: relative;
+            width: 100%;
             max-width: 960px;
-            margin: 95px 20px 50px;
+            margin: 95px auto 50px;
             overflow: hidden;
 
             @border-color: #323232;
@@ -118,8 +129,8 @@
                 position: absolute;
                 display: inline-block;
                 height: @shadow-block-height;
-                left: 0;
-                right: 0;
+                left: 20px;
+                right: 20px;
                 background-color: #dadada;
                 z-index: 1;
                 opacity: 1;
@@ -146,21 +157,10 @@
                 }
             }
 
-            .overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: transparent;
-                z-index: 1;
-            }
-
             .content-wrapper {
-                position: relative;
-                margin: 0 -20px;
-                padding: 65px 40px 40px;
-                overflow-y: scroll;
+                padding: 65px 50px 40px;
+                overflow-y: hidden;
+                .border-box;
 
                 .header-title-container {
                     font-family: RobotoslabBold;
