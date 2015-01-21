@@ -37,7 +37,7 @@
             }
 
             statementsStorage.push(statement);
-            return requestManager.sendStatement();
+            return requestManager.sendStatements();
         }
 
         function unbindAll() {

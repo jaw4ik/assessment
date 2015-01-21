@@ -7,10 +7,9 @@
     function statementsStorage() {
         var statements = [];
 
-        function push(stmt, callback) {
+        function push(stmt) {
             statements.push({
-                item: stmt,
-                callback: callback
+                item: stmt
             });
         }
 

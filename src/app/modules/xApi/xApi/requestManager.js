@@ -12,7 +12,7 @@
             defers = [];
 
         return {
-            sendStatement: sendStatement,
+            sendStatements: sendStatements,
             init: init
         };
 
@@ -20,12 +20,13 @@
             xApi = xapi;
         }
 
-        function sendStatement() {
+        function sendStatements() {
             var defer = $q.defer();
             defers.push(defer);
+
             send();
 
-            return defer.promise;
+            return defer;
         }
 
         function send() {
@@ -50,7 +51,7 @@
                         send();
                     });
                 } else {
-                    defers.forEach(function (defer) {
+                    _.each(defers, function (defer) {
                         defer.resolve();
                     });
 
