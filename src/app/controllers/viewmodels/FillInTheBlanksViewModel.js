@@ -13,8 +13,8 @@
 
             var that = this;
 
-            that.templateUrl = question.contentUrl;
-            delete that.contentUrl;
+            that.template = question.content;
+            delete that.content;
 
             that.getType = function () {
                 return 'fillInTheBlanks';

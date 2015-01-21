@@ -30,12 +30,12 @@
                 return Math.floor(correct / that.questions.length);
             };
 
-            that.courseStarted = function () {
+            that.start = function () {
                 $rootScope.isCourseStarted = true;
                 $rootScope.$emit('course:started');
         };
 
-            that.courseFinished = function (callback) {
+            that.finish = function (callback) {
                 if (!!$rootScope.$$listenerCount['course:finished']) {
                     $rootScope.$emit('course:finished', that, callback);
                 } else {
@@ -43,7 +43,7 @@
     }
             };
 
-            that.courseResults = function (masteryScore) {
+            that.sendCourseResult = function (masteryScore) {
                 that.isCompleted = that.getResult() >= masteryScore;
                 $rootScope.$emit('course:results', that);
             };

@@ -5,11 +5,13 @@
         .module('quiz.xApi')
         .controller('XApiErrorController', ErrorsController);
 
-    ErrorsController.$inject = ['$rootScope', '$location', '$routeParams', 'settings', 'xAPIManager'];
+    ErrorsController.$inject = ['$rootScope', '$location', '$routeParams', 'settings', 'xAPIManager', 'quiz'];
 
-    function ErrorsController($rootScope, $location, $routeParams, settings, xAPIManager) {
+    function ErrorsController($rootScope, $location, $routeParams, settings, xAPIManager, quiz) {
         var that = this,
             backUrl = $routeParams.backUrl || '/';
+
+        $rootScope.title = quiz.title;
 
         that.logoUrl = settings.logo.url;
 

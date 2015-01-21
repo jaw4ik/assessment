@@ -18,7 +18,12 @@
             .when('/error/xapi/:backUrl?', {
                 templateUrl: 'app/modules/xApi/views/xApiError.html',
                 controller: 'XApiErrorController',
-                controllerAs: 'xApiError'
+                controllerAs: 'xApiError',
+                resolve: {
+                    quiz: ['dataContext', function (dataContext) {
+                        return dataContext.getQuiz();
+                    }]
+                }
             });
     }]);
 

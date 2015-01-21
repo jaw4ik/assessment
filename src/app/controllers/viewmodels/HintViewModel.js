@@ -12,13 +12,15 @@
             that.learningContents = question.learningContents;
             that.exists = question.learningContents && question.learningContents.length;
             that.isDisplayed = false;
+            that.collapseToQuestion = false;
 
             that.show = function () {
                 that.isDisplayed = true;
                 that.hintStartTime = new Date();
             };
 
-            that.hide = function () {
+            that.hide = function (collapseToQuestion) {
+                that.collapseToQuestion = collapseToQuestion;
                 that.isDisplayed = false;
                 sendLearningContentsExperienced();
             };
