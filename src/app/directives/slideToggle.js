@@ -10,8 +10,8 @@
             link: function ($scope, element, attr) {
                 $(element).hide();
                 $scope.$watch(attr.slideToggle, function (value) {
-                    var collapseTo = $scope.$eval(attr.slideToggleCollapseTo);
-                    var $collapseToElement = $(element).closest(collapseTo);
+                    var collapseTo = $scope.$eval(attr.slideToggleCollapseTo),
+                        $collapseToElement = $(element).closest(collapseTo);
 
                     $(element).animate({
                         height: value ? 'show' : 'hide'
