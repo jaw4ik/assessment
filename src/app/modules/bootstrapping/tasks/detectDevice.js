@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('bootstraping').factory('detectDeviceTask', detectDeviceTask);
+    angular.module('bootstrapping').factory('detectDeviceTask', detectDeviceTask);
 
     detectDeviceTask.$inject = ['$q', '$document'];
 

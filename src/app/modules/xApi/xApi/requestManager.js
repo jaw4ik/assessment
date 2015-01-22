@@ -26,7 +26,7 @@
 
             send();
 
-            return defer;
+            return defer.promise;
         }
 
         function send() {

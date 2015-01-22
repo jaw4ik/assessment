@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('bootstraping', []).run(runBlock);
+    angular.module('bootstrapping', []).run(runBlock);
 
     runBlock.$inject = ['$q', 'detectDeviceTask', 'loadFontsTask', 'readSettingsTask', 'readPublishSettingsTask'];
 
@@ -27,16 +27,16 @@
             }
 
             if (publishSettings) {
-                angular.module('quiz.publishSettingsSetup').config(['publishSettingsProvider', function (publishSettingsProvider) {
+                angular.module('quiz.publishSettings').config(['publishSettingsProvider', function (publishSettingsProvider) {
                     publishSettingsProvider.setSettings(publishSettings);
                 }
                 ]);
 
-                bootstrapModules.push('quiz.publishSettingsSetup');
+                bootstrapModules.push('quiz.publishSettings');
             }
 
             angular.bootstrap(document, bootstrapModules);
         });
 
-    };
+    }
 }());

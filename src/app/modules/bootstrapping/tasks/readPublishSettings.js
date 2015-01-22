@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('bootstraping').factory('readPublishSettingsTask', readPublishSettingsTask);
+    angular.module('bootstrapping').factory('readPublishSettingsTask', readPublishSettingsTask);
 
     readPublishSettingsTask.$inject = ['fileReadingService'];
 

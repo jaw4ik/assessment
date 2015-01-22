@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('quiz.publishSettingsSetup')
+    angular.module('quiz.publishSettings')
            .provider('publishSettings', settingsProvider);
 
     function settingsProvider() {

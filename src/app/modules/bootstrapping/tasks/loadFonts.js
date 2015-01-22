@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('bootstraping').factory('loadFontsTask', loadFontsTask);
+    angular.module('bootstrapping').factory('loadFontsTask', loadFontsTask);
 
     loadFontsTask.$inject = ['webFontLoaderService'];
 

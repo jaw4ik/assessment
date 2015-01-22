@@ -41,7 +41,7 @@
         $rootScope.$on('$routeChangeStart', function (event, next) {
             var xApiEnabled = settings.xApi.enabled;
             if (xApiEnabled && !$rootScope.isCourseStarted) {
-                if (next.originalPath !== '/login') {
+                if (next.originalPath !== '/login') { 
                     $location.path('/login');
                 }
             }

@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict';
-    angular.module('quiz.publishSettingsSetup')
+    angular.module('quiz.publishSettings')
            .service('publishModulesInitializer', PublishModulesInitializer);
 
     PublishModulesInitializer.$inject = ['$rootScope', '$q', 'publishModuleLoader'];
@@ -8,20 +8,20 @@
     function PublishModulesInitializer($rootScope, $q, publishModuleLoader) {
         var that = this;
 
-        that.initModules = function (modules) {
+        that.init = function(modules) {
             var promises = {};
-            _.each(modules, function (module) {
-                promises[module.name] = publishModuleLoader.loadModule(module.name).then(
-                    function (moduleInstance) {
+            _.each(modules, function(module) {
+                promises[module.name] = publishModuleLoader.load(module.name).then(
+                    function(moduleInstance) {
                         initModule(moduleInstance);
                     },
-                    function () {
+                    function() {
                         throw 'Cannot load publish module "' + module.name + '".';
                     });
             });
 
             return $q.all(promises);
-        }
+        };
 
         function initModule(module) {
             if (_.isFunction(module.initialize)) {
