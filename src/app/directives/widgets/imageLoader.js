@@ -22,8 +22,8 @@
             image.style.width = 'auto';
             image.style.height = 'auto';
             if (!scope.scaleBySmallerSide) {
-                image.style.maxWidth = width + 'px';
-                image.style.maxHeight = height + 'px';
+                image.style.maxWidth = scope.width + 'px';
+                image.style.maxHeight = scope.height + 'px';
             }
             $element.append(image);
             var $image = $(image);
