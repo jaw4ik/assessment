@@ -6,7 +6,7 @@ namespace easygenerator.Web.Components.Configuration
     {
         [ConfigurationProperty("MaximumFileSize", DefaultValue = "10485760", IsRequired = true)]
         [LongValidator(MinValue = 1)]
-        public long MaximumFileSize
+        public virtual long MaximumFileSize
         {
             get
             {
@@ -19,7 +19,7 @@ namespace easygenerator.Web.Components.Configuration
         }
 
         [ConfigurationProperty("Path", IsRequired = true)]
-        public string Path
+        public virtual string Path
         {
             get
             {

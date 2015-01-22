@@ -8,6 +8,7 @@ using easygenerator.DomainModel.Handlers;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Infrastructure.Http;
+using easygenerator.Infrastructure.ImageProcessors;
 using easygenerator.Infrastructure.Mail;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
@@ -61,6 +62,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<BuildPathProvider>();
             builder.RegisterType<BuildContentProvider>();
             builder.RegisterType<PhysicalFileManager>();
+            builder.RegisterType<MagickImageResizer>().As<IImageResizer>();
             builder.RegisterType<ManifestFileManager>().As<ManifestFileManager>().SingleInstance();
             builder.RegisterType<HttpRuntimeWrapper>();
             builder.RegisterType<BuildPackageCreator>();

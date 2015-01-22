@@ -95,7 +95,7 @@ namespace easygenerator.Infrastructure.Tests
             //Arrange
 
             //Act
-            _physicalFileManager.WriteToFile("asasd", null);
+            _physicalFileManager.WriteToFile("asasd", null as String);
 
             //Assert
         }

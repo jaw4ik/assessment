@@ -1,8 +1,10 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionResults;
+using easygenerator.Web.Components.Elmah;
 using easygenerator.Web.Storage;
 using System;
 using System.IO;
@@ -21,14 +23,16 @@ namespace easygenerator.Web.Controllers
         private readonly IImageFileRepository _repository;
         private readonly IUrlHelperWrapper _urlHelperWrapper;
         private readonly IFileTypeChecker _fileTypeChecker;
+        private readonly ILog _elmahLog;
 
-        public ImageController(IEntityFactory entityFactory, IStorage storage, IImageFileRepository repository, IUrlHelperWrapper urlHelperWrapper, IFileTypeChecker fileTypeChecker)
+        public ImageController(IEntityFactory entityFactory, IStorage storage, IImageFileRepository repository, IUrlHelperWrapper urlHelperWrapper, IFileTypeChecker fileTypeChecker, ILog elmahLog)
         {
             _entityFactory = entityFactory;
             _storage = storage;
             _repository = repository;
             _urlHelperWrapper = urlHelperWrapper;
             _fileTypeChecker = fileTypeChecker;
+            _elmahLog = elmahLog;
         }
 
         [HttpGet]
@@ -47,7 +51,32 @@ namespace easygenerator.Web.Controllers
                 return HttpNotFound();
             }
 
-            return new ImageResult(_storage.GetFilePath(fileName), width, height, scaleBySmallerSide);
+            string filePath;
+
+            if (width.HasValue && height.HasValue)
+            {
+                try
+                {
+                    filePath = _storage.GetCachedImagePath(fileName, width.Value, height.Value,
+                        scaleBySmallerSide.HasValue && scaleBySmallerSide.Value);
+                }
+                catch (InvalidOperationException e)
+                {
+                    _elmahLog.LogException(e);
+                    return BadRequest();
+                }
+                catch (ArgumentException e)
+                {
+                    _elmahLog.LogException(e);
+                    return HttpNotFound();
+                }
+            }
+            else
+            {
+                filePath = _storage.GetFilePath(fileName);
+            }
+
+            return new ImageResult(filePath);
         }
 
         [NoCache]

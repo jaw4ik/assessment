@@ -15,6 +15,7 @@ using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Controllers;
 using easygenerator.Web.Storage;
@@ -35,6 +36,7 @@ namespace easygenerator.Web.Tests.Controllers
         private IImageFileRepository _repository;
         private IUrlHelperWrapper _urlHelperWrapper;
         private IFileTypeChecker _fileTypeChecker;
+        private ILog _elmahLog;
 
         private IPrincipal _user;
         private HttpContextBase _context;
@@ -48,6 +50,7 @@ namespace easygenerator.Web.Tests.Controllers
             _repository = Substitute.For<IImageFileRepository>();
             _urlHelperWrapper = Substitute.For<IUrlHelperWrapper>();
             _fileTypeChecker = Substitute.For<IFileTypeChecker>();
+            _elmahLog = Substitute.For<ILog>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -55,7 +58,7 @@ namespace easygenerator.Web.Tests.Controllers
             _context.User.Returns(_user);
 
 
-            _controller = new ImageController(_entityFactory, _storage, _repository, _urlHelperWrapper, _fileTypeChecker);
+            _controller = new ImageController(_entityFactory, _storage, _repository, _urlHelperWrapper, _fileTypeChecker, _elmahLog);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -102,7 +105,7 @@ namespace easygenerator.Web.Tests.Controllers
             var result = _controller.Get(String.Empty, width, height, scaleBySmallerSide);
 
             //Assert
-            result.Should().BeImageResult().And.ShouldBeEquivalentTo(new { FilePath = path, Width = width, Height = height, ScaleBySmallerSide = scaleBySmallerSide });
+            result.Should().BeImageResult();
         }
 
 
