@@ -36,7 +36,9 @@
             return new TinCan.LRS({
                 endpoint: lrsUrl,
                 version: xApi.version,
-                auth: 'Basic ' + TinCan.Utils.getBase64String(xApi.lrs.username + ':' + xApi.lrs.password)
+                username: xApi.lrs.credentials.username,
+                password: xApi.lrs.credentials.password,
+                allowFail: false
             });
         }
 

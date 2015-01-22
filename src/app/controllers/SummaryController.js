@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     'use strict';
 
     angular
@@ -29,7 +29,7 @@
             if (that.finished) {
                 return;
             }
-            $location.path('/').replace();
+            $location.path('/').search('tryAgain');
         };
 
         that.finish = function () {

@@ -1,0 +1,118 @@
+﻿@import "common";
+
+@question-index-font: 'TwCenMTCondensed';
+@question-title-font: 'RobotoslabRegular';
+
+@question-index-color: #f16462;
+@question-title-color: #222222;
+
+
+.questions-container {
+    position: relative;
+    display: block;
+    width: 100%;
+    background-color: #fff;
+
+    .without-intro &{
+        padding-top: 100px;
+    }
+}
+
+.questions-wrapper {
+    margin: 0 auto;
+    max-width: 1024px;
+    min-width: 300px;
+    padding: 90px 0 40px;
+}
+
+.question {
+    margin-bottom: 100px;
+    position: relative;
+
+    .question-title {
+        color: @question-title-color;
+        font-family: @question-title-font;
+        font-size: 22px;
+        font-weight: normal;
+        padding: 10px 10px 10px 60px;
+        margin: 18px 40px;
+        position: relative;
+        word-wrap: break-word;
+
+        .index {
+            .border-box();
+            border-right: 1px solid #91a4af;
+            color: @question-index-color;
+            direction: rtl;
+            display: inline-block;
+            font-family: @question-index-font;
+            font-size: 50px;
+            left: 0;
+            padding-right: 5px;
+            position: absolute;
+            top: 0;
+            white-space: nowrap;
+            width: 45px;
+        }
+    }
+
+    .question-content {
+        margin: 0 40px 50px;
+        padding-left: 60px;
+        padding-right: 10px;
+    }
+
+    .question-body{
+        margin: 0 40px;
+    }
+
+    .answers {
+        .border-box();
+        width: 100%;
+    }
+
+    .answer-pair {
+        border-collapse: separate;
+        border-spacing: 0;
+        display: table;
+        height: 100%;
+        min-height: 1px;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    .answer-container {
+        display: table-cell;
+        height: 100%;
+        vertical-align: top;
+        width: 50%;
+        padding-bottom: 20px;
+
+        &:first-child {
+            padding-right: 10px;
+        }
+
+        &:last-child {
+            padding-left: 10px;
+        }
+    }
+
+    .answer-wrapper {
+        display: table;
+        height: 100%;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    .answer {
+        height: 100%;
+        display: table-cell;
+        width: 100%;
+        vertical-align: middle;
+    }
+}
+
+.submit-wrapper {
+    text-align: center;
+    padding-left: 60px;
+}

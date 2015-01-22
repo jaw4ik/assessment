@@ -3,9 +3,9 @@
 
     angular
         .module('quiz')
-        .controller('QuestionController', QuestionController);
+        .controller('MainController', MainController);
 
-    QuestionController.$inject = [
+    MainController.$inject = [
         '$location', '$rootScope',
         'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText',
         'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
@@ -13,19 +13,19 @@
         'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel', 'HotspotViewModel',
         'quiz', 'settings'
     ];
-
-    function QuestionController($location, $rootScope,
+    
+    function MainController($location, $rootScope,
         SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText,
         Statement, SingleSelectImage, FillInTheBlanks, Hotspot,
         SingleSelectTextViewModel, MultipleSelectTextViewModel, TextMatchingViewModel,
         DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel, HotspotViewModel,
-
         quiz, settings) {
         var that = this;
 
         that.title = $rootScope.title = quiz.title;
+        that.hasIntroductionContent = quiz.hasIntroductionContent;
         that.logoUrl = settings.logo.url;
-
+        
         that.questions = quiz.questions.map(function (question) {
             if (question instanceof SingleSelectText) {
                 return new SingleSelectTextViewModel(question);
@@ -59,7 +59,7 @@
             that.questions.forEach(function (question) {
                 question.submit();
             });
-            
+
             quiz.sendCourseResult(settings.masteryScore.score);
 
             $location.path('/summary').replace();
