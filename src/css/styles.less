@@ -41,7 +41,7 @@ button {
     padding: 10px 0 10px 50px;
 }
 
-.main-logo-helper{
+.main-logo-helper {
     display: inline-block;
     height: 100%;
     vertical-align: middle;
@@ -52,6 +52,24 @@ button {
     max-height: 50px;
     max-width: 300px;
     vertical-align: middle;
+}
+
+.main-background {
+    position: fixed;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    background-image: url(img/main-background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top right;
+    opacity: 0.2;
+
+    .touch & {
+        z-index: -1;
+    }
 }
 
 @import "dragAndDropText";
