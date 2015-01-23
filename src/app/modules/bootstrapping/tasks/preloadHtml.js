@@ -9,7 +9,13 @@
         var dfr = $q.defer(),
             promises = [],
             templates = [];
-        
+
+        promises.push(fileReadingService.readHtml('app/views/widgets/tooltip.html').then(function (response) {
+            setTemplate('app/views/widgets/tooltip.html', response);
+        }));
+        promises.push(fileReadingService.readHtml('app/views/main.html').then(function (response) {
+            setTemplate('app/views/main.html', response);
+        }));
         promises.push(fileReadingService.readHtml('app/views/hint.html').then(function(response) {
             setTemplate('app/views/hint.html', response);
         }));

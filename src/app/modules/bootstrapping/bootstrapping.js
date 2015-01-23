@@ -3,16 +3,15 @@
 
     angular.module('bootstrapping', []).run(runBlock);
 
-    runBlock.$inject = ['$q', 'detectDeviceTask', 'loadFontsTask', 'readSettingsTask', 'readPublishSettingsTask', 'preloadImages'];
+    runBlock.$inject = ['$q', 'detectDeviceTask', 'loadFontsTask', 'readSettingsTask', 'readPublishSettingsTask', 'preloadImages', 'preloadHtmlTask'];
 
-    function runBlock($q, detectDeviceTask, loadFontsTask, readSettingsTask, readPublishSettingsTask, preloadImages) {
+    function runBlock($q, detectDeviceTask, loadFontsTask, readSettingsTask, readPublishSettingsTask, preloadImages, preloadHtmlTask) {
         var tasks = {
             'detectDeviceTask': detectDeviceTask,
             'loadFontsTask': loadFontsTask,
             'readSettings': readSettingsTask,
             'readPublishSettings': readPublishSettingsTask,
-            'preloadHtmlTask': preloadHtmlTask
-            'readPublishSettings': readPublishSettingsTask,
+            'preloadHtmlTask': preloadHtmlTask,
             'preloadImages': preloadImages
         };
 
