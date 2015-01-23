@@ -3,23 +3,26 @@
 
     angular.module('bootstrapping', []).run(runBlock);
 
-    runBlock.$inject = ['$q', 'detectDeviceTask', 'loadFontsTask', 'readSettingsTask', 'readPublishSettingsTask'];
+    runBlock.$inject = ['$q', 'detectDeviceTask', 'loadFontsTask', 'readSettingsTask', 'readPublishSettingsTask', 'preloadHtmlTask'];
 
-    function runBlock($q, detectDeviceTask, loadFontsTask, readSettingsTask, readPublishSettingsTask) {
+    function runBlock($q, detectDeviceTask, loadFontsTask, readSettingsTask, readPublishSettingsTask, preloadHtmlTask) {
         var tasks = {
             'detectDeviceTask': detectDeviceTask,
             'loadFontsTask': loadFontsTask,
             'readSettings': readSettingsTask,
-            'readPublishSettings': readPublishSettingsTask
+            'readPublishSettings': readPublishSettingsTask,
+            'preloadHtmlTask': preloadHtmlTask
         };
 
         $q.all(tasks).then(function (data) {
             var bootstrapModules = ['quiz'],
                 settings = data.readSettings,
-                publishSettings = data.readPublishSettings;
+                publishSettings = data.readPublishSettings,
+                preloadHtmls = data.preloadHtmlTask;
 
-            angular.module('quiz').config(['$routeProvider', 'settingsProvider', function ($routeProvider, settingsProvider) {
+            angular.module('quiz').config(['$routeProvider', 'settingsProvider', 'htmlTemplatesCacheProvider', function ($routeProvider, settingsProvider, htmlTemplatesCacheProvider) {
                 settingsProvider.setSettings(settings);
+                htmlTemplatesCacheProvider.set(preloadHtmls);
             }]);
 
             if (!settings || settings.xApi.enabled) {
@@ -29,8 +32,7 @@
             if (publishSettings) {
                 angular.module('quiz.publishSettings').config(['publishSettingsProvider', function (publishSettingsProvider) {
                     publishSettingsProvider.setSettings(publishSettings);
-                }
-                ]);
+                }]);
 
                 bootstrapModules.push('quiz.publishSettings');
             }

@@ -95,7 +95,7 @@
                     }
 
                     self.quiz = new Quiz(response.id, response.title, objectives, questions, response.hasIntroductionContent);
-
+                    
                     $q.all(promises).then(function () {
                         dfd.resolve(self.quiz);
                     })

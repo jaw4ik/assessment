@@ -47,7 +47,7 @@
                 });
         }
     ]).run([
-        '$rootScope', '$location', 'settings', function ($rootScope, $location, settings) {
+        '$rootScope', '$location', 'settings', 'htmlTemplatesCache', '$templateCache', function ($rootScope, $location, settings, htmlTemplatesCache, $templateCache) {
             $rootScope.$on('$routeChangeStart', function (event, next) {
                 var xApiEnabled = settings.xApi.enabled;
                 if (xApiEnabled && !$rootScope.isCourseStarted) {
@@ -55,6 +55,10 @@
                         $location.path('/login');
                     }
                 }
+            });
+
+            _.each(htmlTemplatesCache, function (template) {
+                $templateCache.put(template.key, template.value);
             });
         }
     ]);

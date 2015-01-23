@@ -21,6 +21,8 @@
                 that.isDisplayed = true;
                 if (!that.isLoaded) {
                     getLearningContents(question.learningContents);
+                } else {
+                    that.hintStartTime = new Date();
                 }
             };
 
@@ -46,7 +48,7 @@
             function getLearningContents(learningContents) {
                 var promises = [];
                 _.each(learningContents, function (learningContent) {
-                    promises.push($http.get(learningContent.contentUrl, { dataType: 'html' }).success(function (response) {
+                    promises.push($http.get(learningContent.contentUrl, {dataType: 'html'}).success(function (response) {
                         that.learningContents.push({
                             id: learningContent.id,
                             content: response
