@@ -85,7 +85,6 @@
         var handler = function () {
             container.remove();
             $element.removeClass('active');
-            console.log('handler');
             $('html').off('click', handler);
             $(window).off('resize', handler);
         };

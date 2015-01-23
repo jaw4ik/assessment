@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('bootstraping')
+    angular.module('bootstrapping')
            .service('webFontLoaderService', WebFontLoaderService);
 
     WebFontLoaderService.$inject = ['$q'];
