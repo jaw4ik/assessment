@@ -16,20 +16,6 @@
     vertical-align: middle;
 }
 
-.main-container {
-    .background {
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        top: 0px;
-        left: 0px;
-        background-image: url(img/summary-header-background.jpg);
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: top right;
-    }
-}
-
 @header-full-height: 96px;
 @header-small-height: 70px;
 
@@ -42,10 +28,11 @@
     height: @header-full-height;
     .bottom-border;
     overflow: hidden;
+    background-color: #fff;
     opacity: 0.97;
     z-index: 100;
 
-    .background {
+    .main-background {
         position: absolute;
     }
 
@@ -268,4 +255,48 @@
     }
 }
 
-@import "introductionMobile.less";
+.touch {
+
+    .introduction-container {
+        position: relative !important;
+        height: auto !important;
+
+        .header {
+            display: none;
+        }
+
+        .content-container {
+            &:before,
+            &:after {
+                display: none;
+            }
+        }
+
+        .controls {
+            display: none;
+        }
+    }
+
+    .main-header {
+        visibility: visible;
+        box-shadow: 0 0 30px -10px #323232;
+
+        .button-container {
+            display: inline-block;
+        }
+
+        &.hide-buttons {
+            .button-container {
+                display: none;
+            }
+        }
+    }
+
+    .without-intro {
+        .main-header {
+            .button-container {
+                display: none !important;
+            }
+        }
+    }
+}
