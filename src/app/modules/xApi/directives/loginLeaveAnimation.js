@@ -30,8 +30,8 @@
                     $containerToLeft.animate({
                         left: '-' + (containerWidth + 60) + 'px'
                     }, duration, function () {
-                        $parent.animate({
-                            opacity: 0
+                        $parent.find('.login-overlay').animate({
+                            'background-color': 'white'
                         }, duration, function () {
                             calllback.apply();
                             $scope.$apply();

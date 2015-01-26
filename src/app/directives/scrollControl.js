@@ -30,7 +30,7 @@
     }
 
     function scrollTo(scrollTop) {
-        $('html, body').animate({ scrollTop: scrollTop }, 1000);
+        $('html, body').animate({scrollTop: scrollTop}, 1000);
     }
 
     function subscribeToMobileEvents($scope, $container) {
@@ -57,7 +57,7 @@
                     windowHeight = $window.height() + 250; //250px - reserve for Chrome window height resize
 
                 //Check if mobile device orientation changed
-                if (windowWidth != previousWindowSize.width && windowHeight != previousWindowSize.height) {
+                if (windowWidth !== previousWindowSize.width && windowHeight !== previousWindowSize.height) {
                     $('.main-background', $container).height(windowHeight);
                 }
 

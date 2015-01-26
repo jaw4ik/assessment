@@ -19,7 +19,7 @@
 
                     if ($collapseToElement.length) {
                         $('html, body').animate({
-                            scrollTop: $collapseToElement.offset().top
+                            scrollTop: $collapseToElement.offset().top - 75
                         });
                     }
                 });
