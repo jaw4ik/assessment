@@ -136,12 +136,17 @@
                 var introductionContentOuterHeight = $introductionContent.outerHeight(),
                     introductionContentScrollHeight = $introductionContent[0].scrollHeight;
 
+                var introContentHeight;
                 if (introductionContentScrollHeight > introductionContentOuterHeight) {
-                    $questions.css('top', introductionContentScrollHeight - introductionContentOuterHeight + $introduction.height() + 500); // 500px - scroll pause between intro and questions
+                    introContentHeight = introductionContentScrollHeight - introductionContentOuterHeight + $introduction.height() + 500; // 500px - scroll pause between intro and questions
+
                     $introductionContent.bind('scroll', introContentScrollHandler).addClass('scrollable');
                 } else {
-                    $questions.css('top', $introduction.height());
+                    introContentHeight = $introduction.height();
                 }
+                $questions.css('top', introContentHeight);
+                $container.height($questions.height() + introContentHeight);
+
                 introContentScrollHandler();
             };
 
