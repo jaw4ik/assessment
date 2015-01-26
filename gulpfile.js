@@ -103,8 +103,8 @@ gulp.task('build-app', ['clean', 'css'], function () {
         gulp.src(['./src/css/*.css'])
             .pipe(gulp.dest(output + '/css')),
 
-        gulp.src(['./src/img/**'])
-            .pipe(gulp.dest(output + '/img')),
+        gulp.src(['./src/preview/**'])
+            .pipe(gulp.dest(output + '/preview')),
 
         gulp.src(['./src/app/views/**/*.html'])
             .pipe(gulp.dest(output + '/app/views')),
