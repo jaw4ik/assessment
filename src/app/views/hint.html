@@ -4,7 +4,7 @@
             <span class="hint-button-caption">{{question.hint.isDisplayed ? 'Hide hint' : 'Show hint'}}</span>
         </div>
     </div>
-    <div class="question-hint" slide-toggle="question.hint.isDisplayed" slide-toggle-collapse-to="question.hint.collapseToQuestion ? '.question': ''">
+    <div class="question-hint" slide-toggle="question.hint.isDisplayed" slide-toggle-scroll-to="question.hint.scrollToQuestion ? '.question': ''">
         <div class="hint-content-container" ng-class="{loaded: question.hint.isLoaded}">
             <span ng-if="!question.hint.isLoaded" class="image-loader-icon circular-loader x32 black align-center">
                 <span class="circular-loader x32 black align-center">
