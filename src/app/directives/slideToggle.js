@@ -18,8 +18,9 @@
                     });
 
                     if ($collapseToElement.length) {
+                        var headerHeight = $('.main-header').height() + 5;
                         $('html, body').animate({
-                            scrollTop: $collapseToElement.offset().top - 75
+                            scrollTop: $collapseToElement.offset().top - headerHeight
                         });
                     }
                 });
