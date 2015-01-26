@@ -14,7 +14,7 @@
             that.learningContents = [];
             that.exists = question.learningContents && question.learningContents.length;
             that.isDisplayed = false;
-            that.collapseToQuestion = false;
+            that.scrollToQuestion = false;
             that.isLoaded = false;
 
             that.show = function () {
@@ -26,8 +26,8 @@
                 }
             };
 
-            that.hide = function (collapseToQuestion) {
-                that.collapseToQuestion = collapseToQuestion;
+            that.hide = function (scrollToQuestion) {
+                that.scrollToQuestion = scrollToQuestion;
                 that.isDisplayed = false;
                 if (that.isLoaded) {
                     sendLearningContentsExperienced();
