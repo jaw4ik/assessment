@@ -2,6 +2,7 @@
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.BuildCourse.PackageModel;
 using easygenerator.Web.Components;
@@ -36,6 +37,7 @@ namespace easygenerator.Web.BuildCourse
                 Id = course.Id.ToNString(),
                 Title = course.Title,
                 CreatedBy = author != null ? author.FullName : null,
+                CreatedOn = DateTimeWrapper.Now(),
                 HasIntroductionContent = !String.IsNullOrWhiteSpace(course.IntroductionContent),
                 IntroductionContent = course.IntroductionContent,
                 Objectives = (course.RelatedObjectives ?? new Collection<Objective>()).Select(MapObjective).ToList()

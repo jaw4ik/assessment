@@ -22,16 +22,48 @@
             }
         },
 
+        progressProvider: {
+            getProgress: getProgress,
+            saveProgress: saveProgress
+        },
+
         courseFinished: sendCourseFinished
     }
 
     return lmsReporting;
 
-    function sendCourseFinished(finishedEventData) {
+    function getProgress() {
+        var progress = {};
+        try {
+            progress = JSON.parse(self.apiWrapper.doLMSGetValue("cmi.suspend_data"));
+        } catch (e) {
+            console.log('Unable to restore progress');
+        }
+        return progress;
+    }
+
+    function saveProgress(progress) {
+        var result = self.apiWrapper.doLMSSetValue("cmi.suspend_data", JSON.stringify(progress)) == "true";
+        if (result) {
+            console.log('Progress was saved');
+            //console.dir(progress);
+
+            self.apiWrapper.doLMSSetValue("cmi.core.exit", "suspend");
+            self.apiWrapper.doLMSCommit();
+        }
+
+        return result;
+    }
+
+    function getValue(value) {
+        return (typeof value === 'function') ? value() : value;
+    }
+
+    function sendCourseFinished(course) {
         self.apiWrapper.doLMSSetValue("cmi.core.score.min", "0");
         self.apiWrapper.doLMSSetValue("cmi.core.score.max", "100");
-        self.apiWrapper.doLMSSetValue("cmi.core.score.raw", finishedEventData.result * 100);
-        self.apiWrapper.doLMSSetValue("cmi.core.lesson_status", finishedEventData.isCompleted ? "passed" : "failed");
+        self.apiWrapper.doLMSSetValue("cmi.core.score.raw", getValue(course.result) * 100);
+        self.apiWrapper.doLMSSetValue("cmi.core.lesson_status", getValue(course.isCompleted) ? "passed" : "failed");
 
         self.apiWrapper.doLMSCommit();
     }
@@ -334,7 +366,7 @@
             if (theAPI == null) {
                 message("Unable to find an API adapter");
             }
-            return theAPI
+            return theAPI;
         }
 
         /*******************************************************************************

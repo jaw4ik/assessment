@@ -1602,6 +1602,7 @@
     <Content Include="Templates\Simple course\index.html" />
     <Content Include="Templates\Simple course\js\require.js" />
     <Content Include="Templates\Simple course\js\vendor.min.js" />
+    <Content Include="Templates\Simple course\languages\translations.min.js" />
     <Content Include="Templates\Simple course\publishSettings.js" />
     <Content Include="Templates\Simple course\settings.js" />
     <Content Include="Templates\Simple course\settings\css\settings.css" />
