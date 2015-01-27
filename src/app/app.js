@@ -57,6 +57,10 @@
                 }
             });
 
+            $rootScope.$on('$viewContentLoaded', function () {
+                $rootScope.isVisible = true;
+            });
+
             _.each(htmlTemplatesCache, function (template) {
                 $templateCache.put(template.key, template.value);
             });

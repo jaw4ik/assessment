@@ -9,6 +9,8 @@
             link: function ($scope, $element, attrs) {
                 var $parent = $element.closest('.login'),
                     $containerToLeft = $parent.find('.login-container'),
+                    $overlay = $parent.find('.login-overlay'),
+                    $loader = $parent.find('.circular-loader'),
                     loginController = $scope.login,
                     duration = 300;
 
@@ -30,7 +32,8 @@
                     $containerToLeft.animate({
                         left: '-' + (containerWidth + 60) + 'px'
                     }, duration, function () {
-                        $parent.find('.login-overlay').animate({
+                        $loader.show();
+                        $overlay.animate({
                             'background-color': 'white'
                         }, duration, function () {
                             calllback.apply();

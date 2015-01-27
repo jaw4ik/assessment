@@ -12,19 +12,19 @@
 <body>
     <div id="main-app">
         <div class="container" ng-view autoscroll="true">
-            <span class="image-loader-icon circular-loader x32 black align-center">
-                <span class="circular-loader x32 black align-center">
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                </span>
-            </span>
         </div>
+        <span ng-hide="$root.isVisible" class="image-loader-icon circular-loader x32 black align-center">
+            <span class="circular-loader x32 black align-center">
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+            </span>
+        </span>
 
         <div ng-controller="ImagePreviewController as preview">
 

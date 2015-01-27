@@ -26,7 +26,7 @@
                 htmlTemplatesCacheProvider.set(preloadHtmls);
             }]);
 
-            if (!settings || settings.xApi.enabled) {
+            if (!settings || (settings.xApi && settings.xApi.enabled)) {
                 bootstrapModules.push('quiz.xApi');
             }
 
