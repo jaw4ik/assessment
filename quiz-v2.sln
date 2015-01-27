@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WebEssentials-Settings.json = WebEssentials-Settings.json
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Quiz-v2-fork", "http://localhost:50096", "{0215A5BC-18CA-4D84-B513-A416644A7564}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Quiz-v2", "http://localhost:62302", "{0215A5BC-18CA-4D84-B513-A416644A7564}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
