@@ -12,21 +12,21 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Quiz-v2-fork", "http://loca
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_50096"
-		Debug.AspNetCompiler.PhysicalPath = "..\Quiz-v2-fork\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50096\"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_62302"
+		Debug.AspNetCompiler.PhysicalPath = "..\quiz-v2\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62302\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_50096"
-		Release.AspNetCompiler.PhysicalPath = "..\Quiz-v2-fork\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50096\"
+		Release.AspNetCompiler.VirtualPath = "/localhost_62302"
+		elease.AspNetCompiler.PhysicalPath = "..\quiz-v2\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62302\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\Quiz-v2-fork\"
+		SlnRelativePath = "..\quiz-v2\"
 	EndProjectSection
 EndProject
 Global
