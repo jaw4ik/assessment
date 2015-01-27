@@ -97,8 +97,9 @@ gulp.task('build-app', ['clean', 'css'], function () {
         gulp.src(['./src/css/fonts/**', '!./src/css/fonts/*.less'])
             .pipe(gulp.dest(output + '/css/fonts')),
 
-        gulp.src(['./src/css/img/**'])
-
+		gulp.src(['./src/css/img/**'])
+            .pipe(gulp.dest(output + '/css/img')),
+			
         gulp.src(['./src/css/*.css'])
             .pipe(gulp.dest(output + '/css')),
         
