@@ -98,17 +98,16 @@ gulp.task('build-app', ['clean', 'css'], function () {
             .pipe(gulp.dest(output + '/css/fonts')),
 
         gulp.src(['./src/css/img/**'])
-            .pipe(gulp.dest(output + '/css/img')),
 
         gulp.src(['./src/css/*.css'])
             .pipe(gulp.dest(output + '/css')),
-
-        gulp.src(['./src/img/**'])
-            .pipe(gulp.dest(output + '/img')),
+        
+        gulp.src(['./src/preview/**'])
+            .pipe(gulp.dest(output + '/preview')),
 
         gulp.src(['./src/app/views/**/*.html'])
             .pipe(gulp.dest(output + '/app/views')),
-
+        
         gulp.src(['./src/app/modules/xApi/views/**/*.html'])
             .pipe(gulp.dest(output + '/app/modules/xApi/views')),
 
