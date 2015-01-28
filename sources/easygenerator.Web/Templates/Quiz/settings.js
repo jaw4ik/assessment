@@ -1,12 +1,12 @@
 {
-	"logo": {
-		"url": ""
-	},
+    "logo": {
+        "url": ""
+    },
 	"xApi": {
-		"enabled": false,
+	    "enabled": false,
 		"selectedLrs": "custom",
 		"lrs": {
-			"uri": "http://cloud.scorm.com/ScormEngineInterface/TCAPI/public/statements?limit=25&related_activities=false&related_agents=false",
+		    "uri": "http://cloud.scorm.com/ScormEngineInterface/TCAPI/public/statements?limit=25&related_activities=false&related_agents=false",
 			"authenticationRequired": false,
 			"credentials": {
 				
@@ -21,6 +21,6 @@
 		"failed"]
 	},
 	"masteryScore": {
-		"score": 75
+	    "score": 75
 	}
 }
