@@ -5,5 +5,6 @@
         public string CourseTitle { get; set; }
         public string CourseLanguage { get; set; }
         public string MetadataLanguage { get; set; }
+        public string AnnotationDateTime { get; set; }
     }
 }

@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Web.Hosting;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse.Scorm.Models;
 using easygenerator.Web.Components;
+using System;
+using System.IO;
+using System.Web.Hosting;
 
 namespace easygenerator.Web.BuildCourse.Scorm
 {
@@ -56,7 +56,8 @@ namespace easygenerator.Web.BuildCourse.Scorm
             {
                 CourseTitle = course.Title,
                 CourseLanguage = "en-US",
-                MetadataLanguage = "en"
+                MetadataLanguage = "en",
+                AnnotationDateTime = DateTime.Now.ToString("yyyy-MM-dd")
             };
 
             WriteRazorTemplateToFile(MetadataRazorTemplatePath, model, Path.Combine(buildDirectoryPath, "metadata.xml"));
