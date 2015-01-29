@@ -1,5 +1,5 @@
 <div class="main-container" ng-class="{'without-intro': !quiz.hasIntroductionContent}" scroll-control>
-    <span class="main-background"></span>
+    <span class="main-background" ng-show="quiz.hasIntroductionContent"></span>
     <introduction class="introduction-container at-top-position" ng-show="quiz.hasIntroductionContent">
         <div class="introduction-wrapper">
             <header class="header">
