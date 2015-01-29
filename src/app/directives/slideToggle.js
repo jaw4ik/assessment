@@ -10,16 +10,17 @@
             link: function ($scope, element, attr) {
                 $(element).hide();
                 $scope.$watch(attr.slideToggle, function (value) {
-                    var collapseTo = $scope.$eval(attr.slideToggleCollapseTo);
-                    var $collapseToElement = $(element).closest(collapseTo);
+                    var scrollToSelector = $scope.$eval(attr.slideToggleScrollTo),
+                        $scrollToElement = $(element).closest(scrollToSelector);
 
                     $(element).animate({
                         height: value ? 'show' : 'hide'
                     });
 
-                    if ($collapseToElement.length) {
+                    if ($scrollToElement.length && !value) {
+                        var headerHeight = $('.main-header').height() + 5;
                         $('html, body').animate({
-                            scrollTop: $collapseToElement.offset().top
+                            scrollTop: $scrollToElement.offset().top - headerHeight
                         });
                     }
                 });

@@ -9,16 +9,28 @@
         var that = this,
             ticks = new Date().getTime();
 
-        that.readJson = function(url) {
+        that.readJson = function (url) {
+            return read(url + '?v=' + ticks, function (json) {
+                return _.isObject(json) ? json : null;
+            });
+        };
+
+        that.readHtml = function (url) {
+            return read(url, function (html) {
+                return _.isString(html) ? html : null;
+            });
+        };
+
+        function read(url, callback) {
             var defer = $q.defer();
-            $http.get(url + '?v=' + ticks).success(function(json) {
-                var result = _.isObject(json) ? json : null;
+            $http.get(url).success(function (response) {
+                var result = callback.call(this, response);
                 defer.resolve(result);
-            }).error(function() {
+            }).error(function () {
                 defer.resolve(null);
             });
 
             return defer.promise;
-        };
+        }
     }
 }());

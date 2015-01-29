@@ -88,13 +88,19 @@
             position: relative;
 
             .hint-content-container {
-                padding: 50px;
+                padding: 100px;
                 overflow: auto;
+
+                &.loaded{
+                    padding: 50px;
+                }
+                
             }
 
             .hint-content {
                 position: relative;
                 word-wrap: break-word;
+                opacity: 0;
             }
 
             .hint-content + .hint-content {

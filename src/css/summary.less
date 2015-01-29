@@ -1,15 +1,16 @@
 @import "common";
 
-header.summary-logo {
-    background: none;
-    border: none;
-}
-
 @summary-incorrect-question-color: #f16462;
 @summary-correct-question-color: #50b2ac;
 
 .summary {
     min-width: 640px;
+
+    header {
+        position: relative;
+        background-color: #fff;
+        z-index: 1;
+    }
 
     .summary-header {
         position: relative;
@@ -17,9 +18,10 @@ header.summary-logo {
         width: 100%;
         box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.35);
         margin-bottom: 3px;
-        background-image: url('./img/summary-header-background.jpg');
-        background-repeat: no-repeat;
-        background-position: top right;
+
+        .main-background {
+            position: absolute;
+        }
 
         .summary-header-content {
             box-sizing: border-box;
@@ -84,9 +86,10 @@ header.summary-logo {
 
     .summary-questions {
         position: relative;
-        background-image: url('./img/summary-questions-background.jpg');
+        background-image: url(img/summary-questions-background.jpg);
         background-position: top center;
-        background-repeat: repeat-y;
+        background-repeat: no-repeat;
+        background-size: cover;
 
         .summary-questions-container {
             padding-left: 40px;

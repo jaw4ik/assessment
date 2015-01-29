@@ -9,10 +9,15 @@
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                scope.$watch(attrs.htmlCompile, function (newValue) {
-                    element.html(newValue);
-                    $compile(element.contents())(scope);
-                });
+                var unbind = scope.$watch(attrs.htmlCompile, set);
+
+                function set(newValue) {
+                    if (!_.isUndefined(newValue)) {
+                        element.html(newValue);
+                        $compile(element.contents())(scope);
+                        unbind();
+                    }
+                }
             }
         };
     }
