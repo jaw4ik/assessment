@@ -278,7 +278,7 @@
                 that.$apply();
             }
         });
-        
+
         $.ajax({
             cache: false,
             url: settingsUrl,
@@ -304,7 +304,7 @@
                 setxApi();
                 setLogo();
                 setMasteryScore();
-               
+
                 function setxApi() {
                     that.trackingData.enableXAPI = settings.xApi.enabled || false;
                     var defaultLrs = settings.xApi.enabled ? 'custom' : 'default';
@@ -317,7 +317,9 @@
                     var key;
                     if (settings.xApi.allowedVerbs) {
                         for (key in that.trackingData.statements) {
-                            that.trackingData.statements[key] = settings.xApi.allowedVerbs.indexOf(key) > -1;
+                            if (that.trackingData.statements.hasOwnProperty(key)) {
+                                that.trackingData.statements[key] = settings.xApi.allowedVerbs.indexOf(key) > -1;
+                            }
                         }
                     }
                 }
