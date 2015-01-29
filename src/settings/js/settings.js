@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular.module('settings', [])
-        .controller('SettingsController', ['$scope', SettingsController])
+        .controller('SettingsController', ['$scope', '$window', SettingsController])
         .directive('tabs', tabs)
         .directive('switchToggle', switchToggle)
         .directive('disableDragAndDrop', disableDragAndDrop)
@@ -9,13 +9,14 @@
         .directive('number', number)
         .directive('fadeVisible', fadeVisible);
 
-    function SettingsController($scope) {
+    function SettingsController($scope, $window) {
         var that = $scope,
             courseId = getUrlParameter('courseId'),
             templateId = getUrlParameter('templateId'),
             baseUrl = location.protocol + '//' + location.host,
             settingsUrl = baseUrl + '/api/course/' + courseId + '/template/' + templateId,
-            starterAccessType = 1;
+            starterAccessType = 1,
+            currentSettings = null;
 
         that.trackingData = (function () {
             var data = {};
@@ -29,7 +30,7 @@
                     key: 'custom',
                     text: 'custom LRS'
                 }
-                ];
+            ];
             data.selectedLrs = data.lrsOptions[0].key;
 
             data.lrsOptions.forEach(function (lrsOption) {
@@ -93,53 +94,33 @@
         that.hasStarterPlan = true;
         that.masteryScore = '';
 
-        that.isSaved = false;
-        that.isFailed = false;
         that.advancedSettingsExpanded = false;
         that.toggleAdvancedSettings = function () {
             that.advancedSettingsExpanded = !that.advancedSettingsExpanded;
         };
 
         that.saveChanges = function () {
-            var settings = {
-                logo: {
-                    url: that.logo.url
-                },
-                xApi: {
-                    enabled: that.trackingData.enableXAPI,
-                    selectedLrs: that.trackingData.selectedLrs,
-                    lrs: {
-                        uri: that.trackingData.lrsUrl,
-                        authenticationRequired: that.trackingData.authenticationRequired,
-                        credentials: {
-                            username: that.trackingData.lapLogin,
-                            password: that.trackingData.lapPassword
-                        }
-                    },
-                    allowedVerbs: $.map(that.trackingData.statements, function (value, key) {
-                        return value ? key : undefined;
-                    })
-                },
-                masteryScore: {
-                    score: that.masteryScore
-                }
-            };
+            var settings = initSettings();
 
-            that.isFailed = false;
-            that.isSaved = false;
+            if (JSON.stringify(currentSettings) === JSON.stringify(settings)) {
+                return;
+            }
 
             $.post(settingsUrl, {
                 settings: JSON.stringify(settings)
             })
-                .done(function () {
-                    that.isSaved = true;
-                    that.$apply();
-                })
-                .fail(function () {
-                    that.isFailed = true;
-                    that.$apply();
-                });
+            .done(function () {
+                currentSettings = settings;
+                sendPostMessage({ success: true, message: 'All changes are seved' });
+                that.$apply();
+            })
+            .fail(function () {
+                sendPostMessage({ error: true, message: 'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.' });
+                that.$apply();
+            });
         };
+
+        angular.element($window).on('blur', that.saveChanges);
 
         //#region Image uploader
 
@@ -273,6 +254,31 @@
 
         //#region Ajax requests
 
+        var userInfoDeffered = $.ajax({
+            url: baseUrl + '/api/identify',
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (user) {
+                if (user.hasOwnProperty('subscription') && user.subscription.hasOwnProperty('accessType')) {
+                    var hasStarterAccess = user.subscription.accessType >= starterAccessType && new Date(user.subscription.expirationDate) >= new Date();
+                    that.hasStarterPlan = hasStarterAccess;
+
+                    if (hasStarterAccess) {
+                        imageUploader.init();
+                    }
+                } else {
+                    that.hasStarterPlan = false;
+                }
+
+                that.$apply();
+            },
+            error: function () {
+                that.hasStarterPlan = false;
+                that.$apply();
+            }
+        });
+        
         $.ajax({
             cache: false,
             url: settingsUrl,
@@ -298,9 +304,7 @@
                 setxApi();
                 setLogo();
                 setMasteryScore();
-
-                that.$apply();
-
+               
                 function setxApi() {
                     that.trackingData.enableXAPI = settings.xApi.enabled || false;
                     var defaultLrs = settings.xApi.enabled ? 'custom' : 'default';
@@ -310,10 +314,11 @@
                     that.trackingData.lapLogin = settings.xApi.lrs.credentials.username || '';
                     that.trackingData.lapPassword = settings.xApi.lrs.credentials.password || '';
 
+                    var key;
                     if (settings.xApi.allowedVerbs) {
-                        $.each(that.trackingData.statements, function (key) {
-                            that.trackingData.statements[key] = $.inArray(key, settings.xApi.allowedVerbs) > -1;
-                        });
+                        for (key in that.trackingData.statements) {
+                            that.trackingData.statements[key] = settings.xApi.allowedVerbs.indexOf(key) > -1;
+                        }
                     }
                 }
 
@@ -334,31 +339,11 @@
             },
             error: function () {
                 that.masteryScore = 100;
-                that.$apply();
-            }
-        });
-
-        $.ajax({
-            url: baseUrl + '/api/identify',
-            type: 'POST',
-            contentType: 'application/json',
-            dataType: 'json',
-            success: function (user) {
-                if (user.hasOwnProperty('subscription') && user.subscription.hasOwnProperty('accessType')) {
-                    var hasStarterAccess = user.subscription.accessType >= starterAccessType && new Date(user.subscription.expirationDate) >= new Date();
-                    that.hasStarterPlan = hasStarterAccess;
-
-                    if (hasStarterAccess) {
-                        imageUploader.init();
-                    }
-                } else {
-                    that.hasStarterPlan = false;
-                }
-
-                that.$apply();
             },
-            error: function () {
-                that.hasStarterPlan = false;
+            complete: function () {
+                userInfoDeffered.complete(function () {
+                    currentSettings = initSettings();
+                });
                 that.$apply();
             }
         });
@@ -369,6 +354,37 @@
             return decodeURI(
                 (new RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
             );
+        }
+
+        function sendPostMessage(message) {
+            var editorWindow = window.parent;
+            editorWindow.postMessage(message, window.location.href);
+        }
+
+        function initSettings() {
+            return {
+                logo: {
+                    url: that.logo.url
+                },
+                xApi: {
+                    enabled: that.trackingData.enableXAPI,
+                    selectedLrs: that.trackingData.selectedLrs,
+                    lrs: {
+                        uri: that.trackingData.lrsUrl,
+                        authenticationRequired: that.trackingData.authenticationRequired,
+                        credentials: {
+                            username: that.trackingData.lapLogin,
+                            password: that.trackingData.lapPassword
+                        }
+                    },
+                    allowedVerbs: $.map(that.trackingData.statements, function (value, key) {
+                        return value ? key : undefined;
+                    })
+                },
+                masteryScore: {
+                    score: that.masteryScore || 0
+                }
+            };
         }
     }
 
