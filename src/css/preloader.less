@@ -15,105 +15,43 @@
         display: none;
     }
 
-    .ball-container {
-        width: 44px;
-        height: 44px;
+    .color-ball {
         position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
 
-        .color-ball {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-        }
-
-        &:nth-child(1) .color-ball {
+        &.red {
+            top: 0;
+            left: 0;
             background-color: #e05f5f;
-            top: 0;
-            left: 0;
-            -webkit-animation: ball1Animation 1.2s infinite ease;
-            animation: ball1Animation 1.2s infinite ease;
+            -webkit-animation: redBallAnimation 1.2s infinite ease;
+            animation: redBallAnimation 1.2s infinite ease;
         }
 
-        &:nth-child(2) .color-ball {
+        &.green {
+            top: 0;
+            left: 24px;
             background-color: #43aaa3;
-            top: 0;
-            left: 24px;
-            -webkit-animation: ball2Animation 1.2s infinite ease;
-            animation: ball2Animation 1.2s infinite ease;
+            -webkit-animation: greenBallAnimation 1.2s infinite ease;
+            animation: greenBallAnimation 1.2s infinite ease;
         }
 
-        &:nth-child(3) .color-ball {
-            background-color: #49b8e7;
+        &.blue {
             top: 24px;
             left: 0;
-            -webkit-animation: ball3Animation 1.2s infinite ease;
-            animation: ball3Animation 1.2s infinite ease;
+            background-color: #49b8e7;
+            -webkit-animation: blueBallAnimation 1.2s infinite ease;
+            animation: blueBallAnimation 1.2s infinite ease;
         }
 
-        &:nth-child(4) .color-ball {
-            background-color: #f1d45f;
+        &.yellow {
             top: 24px;
             left: 24px;
-            -webkit-animation: ball4Animation 1.2s infinite ease;
-            animation: ball4Animation 1.2s infinite ease;
+            background-color: #f1d45f;
+            -webkit-animation: yellowBallAnimation 1.2s infinite ease;
+            animation: yellowBallAnimation 1.2s infinite ease;
         }
-    }
-}
-
-@-webkit-keyframes ball1Animation {
-    50% {
-        -webkit-transform: translate(12px, 12px);
-        opacity: 0.5;
-    }
-}
-
-@keyframes ball1Animation {
-    50% {
-        transform: translate(12px, 12px);
-        opacity: 0.5;
-    }
-}
-
-@-webkit-keyframes ball2Animation {
-    50% {
-        -webkit-transform: translate(-12px, 12px);
-        opacity: 0.5;
-    }
-}
-
-@keyframes ball2Animation {
-    50% {
-        transform: translate(-12px, 12px);
-        opacity: 0.5;
-    }
-}
-
-@-webkit-keyframes ball3Animation {
-    50% {
-        -webkit-transform: translate(12px, -12px);
-        opacity: 0.5;
-    }
-}
-
-@keyframes ball3Animation {
-    50% {
-        transform: translate(12px, -12px);
-        opacity: 0.5;
-    }
-}
-
-@-webkit-keyframes ball4Animation {
-    50% {
-        -webkit-transform: translate(-12px, -12px);
-        opacity: 0.5;
-    }
-}
-
-@keyframes ball4Animation {
-    50% {
-        transform: translate(-12px, -12px);
-        opacity: 0.5;
     }
 }
 
@@ -142,5 +80,61 @@
 
     100% {
         transform: rotate(720deg) scale(1);
+    }
+}
+
+@-webkit-keyframes redBallAnimation {
+    50% {
+        -webkit-transform: translate(12px, 12px);
+        opacity: 0.5;
+    }
+}
+
+@keyframes redBallAnimation {
+    50% {
+        transform: translate(12px, 12px);
+        opacity: 0.5;
+    }
+}
+
+@-webkit-keyframes greenBallAnimation {
+    50% {
+        -webkit-transform: translate(-12px, 12px);
+        opacity: 0.5;
+    }
+}
+
+@keyframes greenBallAnimation {
+    50% {
+        transform: translate(-12px, 12px);
+        opacity: 0.5;
+    }
+}
+
+@-webkit-keyframes blueBallAnimation {
+    50% {
+        -webkit-transform: translate(12px, -12px);
+        opacity: 0.5;
+    }
+}
+
+@keyframes blueBallAnimation {
+    50% {
+        transform: translate(12px, -12px);
+        opacity: 0.5;
+    }
+}
+
+@-webkit-keyframes yellowBallAnimation {
+    50% {
+        -webkit-transform: translate(-12px, -12px);
+        opacity: 0.5;
+    }
+}
+
+@keyframes yellowBallAnimation {
+    50% {
+        transform: translate(-12px, -12px);
+        opacity: 0.5;
     }
 }

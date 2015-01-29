@@ -7,10 +7,10 @@
     <div class="question-hint" slide-toggle="question.hint.isDisplayed" slide-toggle-scroll-to="question.hint.scrollToQuestion ? '.question': ''">
         <div class="hint-content-container" ng-class="{loaded: question.hint.isLoaded}">
             <div ng-if="!question.hint.isLoaded" class="loader-container image-loader-icon">
-                <div class="ball-container"><div class="color-ball">&nbsp;</div></div>
-                <div class="ball-container"><div class="color-ball">&nbsp;</div></div>
-                <div class="ball-container"><div class="color-ball">&nbsp;</div></div>
-                <div class="ball-container"><div class="color-ball">&nbsp;</div></div>
+                <div class="color-ball red">&nbsp;</div>
+                <div class="color-ball green">&nbsp;</div>
+                <div class="color-ball blue">&nbsp;</div>
+                <div class="color-ball yellow">&nbsp;</div>
             </div>
             <div class="hint-content" ng-if="question.hint.isLoaded" ng-repeat="learningContent in question.hint.learningContents" show-toggle="question.hint.isLoaded && question.hint.isDisplayed">
                 <div html-compile="learningContent.content" styled-content></div>
