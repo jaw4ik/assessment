@@ -6,18 +6,12 @@
     </div>
     <div class="question-hint" slide-toggle="question.hint.isDisplayed" slide-toggle-scroll-to="question.hint.scrollToQuestion ? '.question': ''">
         <div class="hint-content-container" ng-class="{loaded: question.hint.isLoaded}">
-            <span ng-if="!question.hint.isLoaded" class="image-loader-icon circular-loader x32 black align-center">
-                <span class="circular-loader x32 black align-center">
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                </span>
-            </span>
+            <div ng-if="!question.hint.isLoaded" class="loader-container image-loader-icon">
+                <div class="ball-container"><div class="color-ball">&nbsp;</div></div>
+                <div class="ball-container"><div class="color-ball">&nbsp;</div></div>
+                <div class="ball-container"><div class="color-ball">&nbsp;</div></div>
+                <div class="ball-container"><div class="color-ball">&nbsp;</div></div>
+            </div>
             <div class="hint-content" ng-if="question.hint.isLoaded" ng-repeat="learningContent in question.hint.learningContents" show-toggle="question.hint.isLoaded && question.hint.isDisplayed">
                 <div html-compile="learningContent.content" styled-content></div>
             </div>
