@@ -34,7 +34,7 @@
             var xApi = xApiSettings.xApi;
             var lrsUrl = xApi.lrs.uri.split('/statements')[0];
             var endpointUrl = lrsUrl;
-            if (lrsUrl.indexOf('http') == -1) {
+            if (lrsUrl.slice(0,4) !== 'http') {
                 endpointUrl = location.protocol + endpointUrl;
             }
             return new TinCan.LRS({
