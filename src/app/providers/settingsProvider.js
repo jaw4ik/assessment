@@ -5,7 +5,7 @@
            .provider('settings', settingsProvider);
 
     function settingsProvider() {
-        var settings,
+        var settings = {},
             defaultSettings = {
                 masteryScore: {score: 100},
                 xApi: {
@@ -26,8 +26,8 @@
                     settings = defaultSettings;
                     return;
                 }
-
-                settings = $.extend(true, {}, defaultSettings, value);
+                
+                $.extend(true, settings, defaultSettings, value);
 
                 if (_.isEmpty(settings.logo.url)) {
                     settings.logo.url = defaultSettings.logo.url;
