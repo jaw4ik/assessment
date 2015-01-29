@@ -1574,6 +1574,7 @@
     <Content Include="Templates\Quiz\css\img\error_min.png" />
     <Content Include="Templates\Quiz\css\img\login-background.jpg" />
     <Content Include="Templates\Quiz\css\img\logo.png" />
+    <Content Include="Templates\Quiz\css\img\main-background.jpg" />
     <Content Include="Templates\Quiz\css\img\notSupportedPage\chrome.png" />
     <Content Include="Templates\Quiz\css\img\notSupportedPage\firefox.png" />
     <Content Include="Templates\Quiz\css\img\notSupportedPage\ie.png" />
@@ -2336,9 +2337,6 @@
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Templates\Quiz\css\images\" />
-    <Folder Include="Templates\Quiz\img\previewImages\" />
-    <Folder Include="Templates\Quiz\js\" />
     <Folder Include="Views\CourseImport\" />
     <Folder Include="Views\Statement\" />
   </ItemGroup>

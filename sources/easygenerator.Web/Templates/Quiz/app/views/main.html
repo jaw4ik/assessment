@@ -1,6 +1,6 @@
 <div class="main-container" ng-class="{'without-intro': !quiz.hasIntroductionContent}" scroll-control>
-    <div class="background"></div>
-    <introduction class="introduction-container" ng-show="quiz.hasIntroductionContent">
+    <span class="main-background"></span>
+    <introduction class="introduction-container at-top-position" ng-show="quiz.hasIntroductionContent">
         <div class="introduction-wrapper">
             <header class="header">
                 <img class="main-logo" ng-src="{{quiz.logoUrl}}" />
@@ -32,7 +32,7 @@
         </div>
     </introduction>
     <header class="main-header">
-        <div class="background"></div>
+        <span class="main-background"></span>
         <img class="main-logo" ng-src="{{quiz.logoUrl}}" />
         <span class="vertical-align-helper"></span>
         <div class="button-container" ng-click="scrollToQuestions()">
@@ -52,7 +52,7 @@
                         <div class="question-content">
                             <div html-compile="question.content" styled-content></div>
                         </div>
-                        <div class="question-body" ng-include="'app/views/' + question.getType() + '.html '"></div>
+                        <div class="question-body" ng-include="'app/views/' + question.getType() + '.html'"></div>
                         <div ng-if="question.hint.exists" ng-include="'app/views/hint.html'"></div>
                     </article>
                 </li>
