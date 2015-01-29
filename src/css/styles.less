@@ -36,21 +36,25 @@ button {
     }
 }
 
-.main-logo-wrapper {
-    height: 50px;
-    padding: 10px 0 10px 50px;
+header {
+    &.main-logo-wrapper {
+        height: 50px;
+        padding: 10px 0;
+    }
+
+    .main-logo {
+        position: relative;
+        display: inline-block;
+        max-height: 50px;
+        max-width: 300px;
+        margin-left: 50px;
+        vertical-align: middle;
+    }
 }
 
-.main-logo-helper{
+.vertical-align-helper {
     display: inline-block;
     height: 100%;
-    vertical-align: middle;
-}
-
-.main-logo {
-    display: inline-block;
-    max-height: 50px;
-    max-width: 300px;
     vertical-align: middle;
 }
 

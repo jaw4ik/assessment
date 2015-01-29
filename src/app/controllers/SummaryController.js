@@ -41,7 +41,7 @@
 
             quiz.finish(function () {
                 that.isSendingRequest = false;
-                $scope.$apply();
+                $scope.$applyAsync();
                 $window.close();
                 $timeout(function () {
                     alert('Thank you, you can close the page now');
