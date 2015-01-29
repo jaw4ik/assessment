@@ -12,19 +12,19 @@
 <body>
     <div id="main-app">
         <div class="container" ng-view autoscroll="true">
-            <span class="image-loader-icon circular-loader x32 black align-center">
-                <span class="circular-loader x32 black align-center">
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                    <span class="circular-loader-item"></span>
-                </span>
-            </span>
         </div>
+        <span ng-hide="$root.isVisible" class="image-loader-icon circular-loader x32 black align-center">
+            <span class="circular-loader x32 black align-center">
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+                <span class="circular-loader-item"></span>
+            </span>
+        </span>
 
         <div ng-controller="ImagePreviewController as preview">
 
@@ -298,7 +298,7 @@
 
     <!-- build:js(src) app/app.js  -->
     <script src="app/app.js" type="text/javascript"></script>
-    
+
     <script src="app/factories/eventPublisher.js"></script>
 
     <script src="app/data/models/Quiz.js"></script>
@@ -332,6 +332,7 @@
 
     <script src="app/factories/imagePreviewFactory.js"></script>
     <script src="app/providers/settingsProvider.js"></script>
+    <script src="app/providers/htmlTemplatesCacheProvider.js"></script>
 
     <script src="app/directives/widgets/tooltip.js"></script>
     <script src="app/directives/widgets/radio.js"></script>
@@ -356,6 +357,7 @@
 
     <script src="app/directives/errorPage.js" type="text/javascript"></script>
     <script src="app/directives/slideToggle.js"></script>
+    <script src="app/directives/showToggle.js"></script>
     <script src="app/directives/htmlCompile.js"></script>
 
     <script src="app/controllers/ImagePreviewController.js"></script>
@@ -406,6 +408,8 @@
     <script src="app/modules/bootstrapping/tasks/loadFonts.js" type="text/javascript"></script>
     <script src="app/modules/bootstrapping/tasks/readSettings.js" type="text/javascript"></script>
     <script src="app/modules/bootstrapping/tasks/readPublishSettings.js" type="text/javascript"></script>
+    <script src="app/modules/bootstrapping/tasks/preloadImages.js" type="text/javascript"></script>
+    <script src="app/modules/bootstrapping/tasks/preloadHtml.js" type="text/javascript"></script>
     <script src="app/modules/bootstrapping/starter.js" type="text/javascript"></script>
    
     <!-- endbuild -->

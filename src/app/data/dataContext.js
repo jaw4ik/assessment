@@ -5,9 +5,9 @@
         .module('quiz')
         .factory('dataContext', dataContext);
 
-    dataContext.$inject = ['$q', '$http', 'Quiz', 'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot', 'Objective', 'LearningContent'];// jshint ignore:line
+    dataContext.$inject = ['$q', '$http', 'Quiz', 'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot', 'Objective', 'LearningContent', '$templateCache'];// jshint ignore:line
 
-    function dataContext($q, $http, Quiz, SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot, Objective, LearningContent) { // jshint ignore:line
+    function dataContext($q, $http, Quiz, SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot, Objective, LearningContent, $templateCache) { // jshint ignore:line
 
         var
             self = {
@@ -28,6 +28,11 @@
                     var objectives = [];
                     var questions = [];
                     var promises = [];
+
+                    if (response.hasIntroductionContent) {
+                        promises.push($http.get('content/content.html', {cache: $templateCache}));
+                    }
+
                     if (Array.isArray(response.objectives)) {
                         var dtoQuestions = [];
                         response.objectives.forEach(function (dto) {
@@ -75,7 +80,7 @@
                                                 }));
                                             }
 
-                                            getLearningContents(dto, dtq, question, promises);
+                                            question.learningContents = getLearningContents(dto, dtq);
 
                                             questions.push(question);
                                             dtoQuestions.push(question);
@@ -90,7 +95,7 @@
                     }
 
                     self.quiz = new Quiz(response.id, response.title, objectives, questions, response.hasIntroductionContent);
-
+                    
                     $q.all(promises).then(function () {
                         dfd.resolve(self.quiz);
                     })
@@ -103,19 +108,17 @@
             return dfd.promise;
         }
 
-        function getLearningContents(dto, dtq, question, promises) {
-            question.learningContents = [];
-
-            if (Array.isArray(dtq.learningContents)) {
-                dtq.learningContents.forEach(function (learningContent) {
+        function getLearningContents(objective, question) {
+            var learningContents = [];
+            if (Array.isArray(question.learningContents)) {
+                question.learningContents.forEach(function (learningContent) {
                     if (learningContent) {
-                        promises.push($http.get('content/' + dto.id + '/' + dtq.id + '/' + learningContent.id + '.html', {dataType: 'html'})
-                            .success(function (content) {
-                                question.learningContents.push(new LearningContent(learningContent.id, content));
-                            }));
+                        var learningContentUrl = 'content/' + objective.id + '/' + question.id + '/' + learningContent.id + '.html';
+                        learningContents.push(new LearningContent(learningContent.id, learningContentUrl));
                     }
                 });
             }
+            return learningContents;
         }
     }
 

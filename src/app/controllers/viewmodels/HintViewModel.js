@@ -1,32 +1,41 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('quiz')
         .factory('HintViewModel', factory);
 
-    function factory() {
+    factory.$inject = ['$q', '$http', '$templateCache', '$timeout'];
+
+    function factory($q, $http, $templateCache, $timeout) {
         return function HintViewModel(question) {
             var that = this;
 
-            that.learningContents = question.learningContents;
+            that.learningContents = [];
             that.exists = question.learningContents && question.learningContents.length;
             that.isDisplayed = false;
-            that.collapseToQuestion = false;
+            that.scrollToQuestion = false;
+            that.isLoaded = false;
 
             that.show = function () {
                 that.isDisplayed = true;
-                that.hintStartTime = new Date();
+                if (!that.isLoaded) {
+                    getLearningContents(question.learningContents);
+                } else {
+                    that.hintStartTime = new Date();
+                }
             };
 
-            that.hide = function (collapseToQuestion) {
-                that.collapseToQuestion = collapseToQuestion;
+            that.hide = function (scrollToQuestion) {
+                that.scrollToQuestion = scrollToQuestion;
                 that.isDisplayed = false;
-                sendLearningContentsExperienced();
+                if (that.isLoaded) {
+                    sendLearningContentsExperienced();
+                }
             };
 
-            that.deactivate = function() {
-                if (that.isDisplayed) {
+            that.deactivate = function () {
+                if (that.isDisplayed && that.isLoaded) {
                     sendLearningContentsExperienced();
                 }
             };
@@ -34,6 +43,25 @@
             function sendLearningContentsExperienced() {
                 that.hintEndTime = new Date();
                 question.learningContentsExperienced(that.hintEndTime - that.hintStartTime);
+            }
+
+            function getLearningContents(learningContents) {
+                var promises = [];
+                _.each(learningContents, function (learningContent) {
+                    promises.push($http.get(learningContent.contentUrl, {dataType: 'html'}).success(function (response) {
+                        that.learningContents.push({
+                            id: learningContent.id,
+                            content: response
+                        });
+                    }));
+                });
+
+                $q.all(promises).then(function () {
+                    $timeout(function () {
+                        that.isLoaded = true;
+                        that.hintStartTime = new Date();
+                    }, 400);
+                });
             }
         };
 

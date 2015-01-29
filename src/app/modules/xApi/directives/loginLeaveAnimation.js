@@ -9,8 +9,11 @@
             link: function ($scope, $element, attrs) {
                 var $parent = $element.closest('.login'),
                     $containerToLeft = $parent.find('.login-container'),
+                    $overlay = $parent.find('.login-overlay'),
+                    $loader = $parent.find('.circular-loader'),
                     loginController = $scope.login,
-                    duration = 300;
+                    duration = 300,
+                    leftOffset = 60;
 
                 $element.on('click', function () {
                     if (attrs.loginLeave === 'skip') {
@@ -28,10 +31,11 @@
                 function animation(calllback) {
                     var containerWidth = $containerToLeft.width();
                     $containerToLeft.animate({
-                        left: '-' + (containerWidth + 60) + 'px'
+                        left: '-' + (containerWidth + leftOffset) + 'px'
                     }, duration, function () {
-                        $parent.animate({
-                            opacity: 0
+                        $loader.show();
+                        $overlay.animate({
+                            'background-color': 'white'
                         }, duration, function () {
                             calllback.apply();
                             $scope.$apply();

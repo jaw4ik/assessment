@@ -6,11 +6,11 @@
         .factory('LearningContent', factory);
 
     function factory() {
-        return function LearningContent(id, content) {
+        return function LearningContent(id, contentUrl) {
             var that = this;
 
             that.id = id;
-            that.content = content;
+            that.contentUrl = contentUrl;
         };
     }
 }());

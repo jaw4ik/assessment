@@ -30,7 +30,7 @@
     }
 
     function scrollTo(scrollTop) {
-        $('html, body').animate({ scrollTop: scrollTop }, 1000);
+        $('html, body').animate({scrollTop: scrollTop}, 1000);
     }
 
     function subscribeToMobileEvents($scope, $container) {
@@ -57,8 +57,8 @@
                     windowHeight = $window.height() + 250; //250px - reserve for Chrome window height resize
 
                 //Check if mobile device orientation changed
-                if (windowWidth != previousWindowSize.width && windowHeight != previousWindowSize.height) {
-                    $('.background', $container).height(windowHeight);
+                if (windowWidth !== previousWindowSize.width && windowHeight !== previousWindowSize.height) {
+                    $('.main-background', $container).height(windowHeight);
                 }
 
                 previousWindowSize.width = windowWidth;
@@ -88,6 +88,8 @@
             scrollTo($questions.offset().top);
         };
 
+        $questions.css('top', $window.height());
+
         //Events handlers
         var
             windowScrollHandler = function () {
@@ -116,7 +118,7 @@
             },
             windowResizeHandler = function () {
                 $introduction.height($window.height());
-                $('.background', $header).height($window.height());
+                $('.main-background', $header).height($window.height());
             },
             introContentScrollHandler = function () {
                 var topPositionClass = 'at-top-position',
@@ -134,12 +136,17 @@
                 var introductionContentOuterHeight = $introductionContent.outerHeight(),
                     introductionContentScrollHeight = $introductionContent[0].scrollHeight;
 
+                var introContentHeight;
                 if (introductionContentScrollHeight > introductionContentOuterHeight) {
-                    $questions.css('top', introductionContentScrollHeight - introductionContentOuterHeight + $introduction.height() + 500); // 500px - scroll pause between intro and questions
+                    introContentHeight = introductionContentScrollHeight - introductionContentOuterHeight + $introduction.height() + 500; // 500px - scroll pause between intro and questions
+
                     $introductionContent.bind('scroll', introContentScrollHandler).addClass('scrollable');
                 } else {
-                    $questions.css('top', $introduction.height());
+                    introContentHeight = $introduction.height();
                 }
+                $questions.css('top', introContentHeight);
+                $container.height($questions.height() + introContentHeight);
+
                 introContentScrollHandler();
             };
 
