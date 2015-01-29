@@ -12,7 +12,7 @@
 
         return {
             init: init,
-            off: off,
+            off: off
         };
 
         function init(id, title, absUrl, email, username) {
@@ -33,8 +33,12 @@
         function createLRS() {
             var xApi = xApiSettings.xApi;
             var lrsUrl = xApi.lrs.uri.split('/statements')[0];
+            var endpointUrl = lrsUrl;
+            if (lrsUrl.slice(0,4) !== 'http') {
+                endpointUrl = location.protocol + endpointUrl;
+            }
             return new TinCan.LRS({
-                endpoint: lrsUrl,
+                endpoint: endpointUrl,
                 version: xApi.version,
                 username: xApi.lrs.credentials.username,
                 password: xApi.lrs.credentials.password,
