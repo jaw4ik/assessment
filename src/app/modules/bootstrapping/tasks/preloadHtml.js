@@ -5,62 +5,40 @@
 
     preloadHtmlTask.$inject = ['$q', 'fileReadingService'];
 
+    var htmlStack = [
+        'app/views/widgets/tooltip.html',
+        'app/views/main.html',
+        'app/views/hint.html',
+        'app/views/dragAndDropText.html',
+        'app/views/fillInTheBlanks.html',
+        'app/views/hotspot.html',
+        'app/views/multipleSelectText.html',
+        'app/views/singleSelectImage.html',
+        'app/views/singleSelectText.html',
+        'app/views/statement.html',
+        'app/views/textMatching.html',
+        'app/views/statementItem.html',
+        'app/views/statementItem.html'
+    ];
+
     function preloadHtmlTask($q, fileReadingService) {
         var dfr = $q.defer(),
             promises = [],
             templates = [];
 
-        promises.push(fileReadingService.readHtml('app/views/widgets/tooltip.html').then(function (response) {
-            setTemplate('app/views/widgets/tooltip.html', response);
-        }));
-        promises.push(fileReadingService.readHtml('app/views/main.html').then(function (response) {
-            setTemplate('app/views/main.html', response);
-        }));
-        promises.push(fileReadingService.readHtml('app/views/hint.html').then(function(response) {
-            setTemplate('app/views/hint.html', response);
-        }));
-        promises.push(fileReadingService.readHtml('app/views/dragAndDropText.html').then(function (response) {
-            setTemplate('app/views/dragAndDropText.html', response);
-        }));
-        promises.push(fileReadingService.readHtml('app/views/fillInTheBlanks.html').then(function (response) {
-            setTemplate('app/views/fillInTheBlanks.html', response);
-        }));
-        promises.push(fileReadingService.readHtml('app/views/hotspot.html').then(function (response) {
-            setTemplate('app/views/hotspot.html', response);
-        }));
-        promises.push(fileReadingService.readHtml('app/views/multipleSelectText.html').then(function (response) {
-            setTemplate('app/views/multipleSelectText.html', response);
-        }));
-        promises.push(fileReadingService.readHtml('app/views/singleSelectImage.html').then(function (response) {
-            setTemplate('app/views/singleSelectImage.html', response);
-        }));
-        promises.push(fileReadingService.readHtml('app/views/singleSelectText.html').then(function (response) {
-            setTemplate('app/views/singleSelectText.html', response);
-        }));
-        promises.push(fileReadingService.readHtml('app/views/statement.html').then(function (response) {
-            setTemplate('app/views/statement.html', response);
-        }));
-        promises.push(fileReadingService.readHtml('app/views/textMatching.html').then(function (response) {
-            setTemplate('app/views/textMatching.html', response);
-        }));
-        promises.push(fileReadingService.readHtml('app/views/statementItem.html').then(function (response) {
-            setTemplate('app/views/statementItem.html', response);
-        }));
-        promises.push(fileReadingService.readHtml('app/views/hint.html').then(function (response) {
-            setTemplate('app/views/hint.html', response);
-        }));
+        htmlStack.forEach(function(url) {
+            promises.push(fileReadingService.readHtml(url).then(function (response) {
+                templates.push({
+                    key: url,
+                    value: response
+                });
+            }));
+        });
 
         $q.all(promises).then(function() {
             dfr.resolve(templates);
         });
 
         return dfr.promise;
-
-        function setTemplate(url, html) {
-            templates.push({
-                key: url,
-                value: html
-            });
-        }
     }
 }());
