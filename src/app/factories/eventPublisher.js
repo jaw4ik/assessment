@@ -23,11 +23,11 @@
                 }
             });
 
-            $q.all(promises).then(function () {
-                if (callback) {
+            if (_.isFunction(callback)) {
+                $q.all(promises).then(function () {
                     callback.apply();
-                }
-            });
+                });
+            }
 
             function executeListenerFunction(func) {
                 var listenerResult = func($rootScope, data);
