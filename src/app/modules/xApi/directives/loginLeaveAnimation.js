@@ -10,7 +10,7 @@
                 var $parent = $element.closest('.login'),
                     $containerToLeft = $parent.find('.login-container'),
                     $overlay = $parent.find('.login-overlay'),
-                    $loader = $parent.find('.circular-loader'),
+                    $loader = $parent.find('.loader-container'),
                     loginController = $scope.login,
                     duration = 300,
                     leftOffset = 60;
