@@ -170,14 +170,12 @@
                     }
                 }
 
-                &.scrollable {
-                    .content {
-                        padding-bottom: @scroll-hint-height;
-                        transition: padding-bottom .2s linear;
+                .content {
+                    padding-bottom: @scroll-hint-height;
+                    transition: padding-bottom .2s linear;
 
-                        .at-bottom-position& {
-                            padding-bottom: 0px;
-                        }
+                    .at-bottom-position& {
+                        padding-bottom: 0px;
                     }
                 }
             }
@@ -259,7 +257,7 @@
 
         .content-container {
             display: block;
-            
+
             &:before,
             &:after {
                 display: none;
