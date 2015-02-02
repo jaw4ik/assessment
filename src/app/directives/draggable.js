@@ -12,7 +12,7 @@
             },
             link: function ($scope, element) {
                 $(element).draggable({
-                    containment: 'body',
+                    containment: 'document',
                     appendTo: $(element).closest('section'),
                     helper: function () {
                         return $(element)
