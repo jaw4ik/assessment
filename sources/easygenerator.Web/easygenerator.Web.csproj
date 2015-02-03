@@ -548,6 +548,7 @@
     <Content Include="Content\font\heuristica-italic.svg" />
     <Content Include="Content\font\heuristica-regular.svg" />
     <Content Include="Content\font\opensans-bold.svg" />
+    <Content Include="Content\font\robotoslab-regular.svg" />
     <Content Include="Content\hotSpot.css" />
     <Content Include="Content\images\closedhand.cur" />
     <Content Include="Content\images\comingsoon1024.png" />
@@ -1362,6 +1363,8 @@
     <Content Include="Content\font\opensans-bold.eot" />
     <Content Include="Content\font\opensans-bold.ttf" />
     <Content Include="Content\font\opensans-bold.woff" />
+    <Content Include="Content\font\robotoslab-regular.ttf" />
+    <Content Include="Content\font\robotoslab-regular.woff" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />

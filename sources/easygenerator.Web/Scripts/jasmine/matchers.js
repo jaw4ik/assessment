@@ -3,6 +3,7 @@
     return {
         toBeFunction: toBeFunction,
         toBeObject: toBeObject,
+        toBeNumber: toBeNumber,
         toBePromise: toBePromise,
         toBeRejected: toBeRejected,
         toBeRejectedWith: toBeRejectedWith,
@@ -41,6 +42,22 @@ function toBeObject(util, customEqualityTesters) {
         compare: function (actual) {
             var result = {};
             result.pass = util.equals(actual, jasmine.any(Object), customEqualityTesters);
+
+            if (result.pass) {
+                result.message = "Ok";
+            } else {
+                result.message = "Expected to be object";
+            }
+            return result;
+        }
+    };
+}
+
+function toBeNumber(util, customEqualityTesters) {
+    return {
+        compare: function (actual) {
+            var result = {};
+            result.pass = util.equals(actual, jasmine.any(Number), customEqualityTesters);
 
             if (result.pass) {
                 result.message = "Ok";

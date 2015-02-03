@@ -406,6 +406,9 @@
     dateTime: {
         en: 'Date Time'
     },
+    showMoreResults: {
+        en: 'Show more results'
+    },
     noReportedResults: {
         en: 'No reported results yet...'
     },
@@ -558,6 +561,9 @@
     },
     clickToAddNewAnswerOption: {
         en: 'Click here to add answer option'
+    },
+    addAnswerOption: {
+        en: 'Add answer option'
     },
     deleteAnswerOption: {
         en: 'Delete answer'
@@ -1307,8 +1313,29 @@
     
     /* Resource section for model Copyright */
     CopyrightText: {
-        en: 'Copyright © 2014 easygenerator. All rights reserved.'
-    }
+        en: 'Copyright © 2015 easygenerator. All rights reserved.'
+    },
     /* End resource section for model Copyright */
+    
+    /* Resource section for model Course results upgrade dialog */
+    resultsUpgradeDialogBoldTitle: {
+        en: 'Upgrade now'
+    },
+    resultsUpgradeDialogTitle: {
+        en: '(from free)'
+    },
+    resultsUpgradeDialogTitle2: {
+        en: 'to get full list of results'
+    },
+    resultsUpgradeDialogText: {
+        en: 'On the Free Plan you will only see the first 10 results'
+    },
+    resultsUpgradeDialogUpgradeNow: {
+        en: 'Upgrade now'
+    },
+    resultsUpgradeDialogMaybeLater: {
+        en: 'Maybe later'
+    }
+    /* End resource section for model Course results upgrade dialog */
            
 });

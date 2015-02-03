@@ -1,5 +1,5 @@
 ﻿define([],
-    function() {
+    function () {
 
         return {
             accessType: {
@@ -293,7 +293,11 @@
 
             embedCode: '<iframe width="{W}" height="{H}" src="{src}" frameborder="0" allowfullscreen></iframe>',
 
-            copyToClipboardWait: 5000
+            copyToClipboardWait: 5000,
+
+            courseResults: {
+                pageSize: 10
+            }
         }
     }
 );

@@ -81,7 +81,6 @@
     border-radius: 5px;
     opacity: 0;
     z-index: 1;
-
     -moz-transition: opacity 0.2s linear, top 0 linear 0.2s, visibility 0 linear 0.2s;
     -webkit-transition: opacity 0.2s linear, top 0 linear 0.2s, visibility 0 linear 0.2s;
     transition: opacity 0.2s linear, top 0 linear 0.2s, visibility 0 linear 0.2s;
@@ -91,7 +90,6 @@
         visibility: visible;
         top: 50px;
         opacity: 1;
-
         -moz-transition: opacity 0.2s linear, top 0.2s linear;
         -webkit-transition: opacity 0.2s linear, top 0.2s linear;
         transition: opacity 0.2s linear, top 0.2s linear;

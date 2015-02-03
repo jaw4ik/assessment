@@ -38,6 +38,13 @@
                             </tr>
                             <!-- /ko -->
                         </tbody>
+                        <tfoot>
+                            <tr class="r-show-more-results" data-bind="visible: hasMoreResults">
+                                <td colspan="4">
+                                    <button class="show-more-btn" data-bind="click: showMoreResults, localize: { text: 'showMoreResults' }">Show more results</button>
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                     <!-- ko if: !isLoading() && noResults() -->
                     <div class="no-results" data-bind="localize: { text: 'noReportedResults' }">No reported results yet...</div>
@@ -78,4 +85,19 @@
             </div>
         </div>
     </div>
+    <section class="course-results-upgrade-dialog" data-bind="visible: isResultsDialogShown">
+        <section class="course-results-upgrade-dialog-content">
+            <header>
+                <div class="course-results-upgrade-dialog-title">
+                    <strong data-bind="localize: { text: 'resultsUpgradeDialogBoldTitle' }">Upgrade now</strong>
+                    <span data-bind="localize: { text: 'resultsUpgradeDialogTitle' }"> (from free)</span>
+                </div>
+                <div data-bind="localize: { text: 'resultsUpgradeDialogTitle2' }">to get full list of results</div>
+            </header>
+            <div class="course-results-upgrade-dialog-title-image"></div>
+            <div data-bind="localize: { text: 'resultsUpgradeDialogText' }">On the Free Plan you will only see the first 10 results</div>
+            <button class="btn green course-results-upgrade-dialog-btn-upgrade" data-bind="click: upgradeNow, localize: { text: 'resultsUpgradeDialogUpgradeNow' }">Upgrade now</button><br />
+            <button class="course-results-upgrade-dialog-btn-later" data-bind="click: skipUpgrage, localize: { text: 'resultsUpgradeDialogMaybeLater' }">Maybe later</button>
+        </section>
+    </section>
 </section>
