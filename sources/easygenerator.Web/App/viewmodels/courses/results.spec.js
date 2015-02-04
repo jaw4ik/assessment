@@ -142,7 +142,7 @@
                             email: 'test@test.com',
                             subscription: {
                                 accessType: 0,
-                                expirationDate: new Date().setYear(2055)
+                                expirationDate: new Date().setYear(1990)
                             }
                         };
                     });

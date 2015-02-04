@@ -90,7 +90,7 @@
                 return;
             }
 
-            if (userContext.identity.subscription.accessType == 0) {
+            if (!userContext.hasStarterAccess()) {
                 viewModel.isResultsDialogShown(true);
                 return;
             }

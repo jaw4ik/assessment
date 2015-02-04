@@ -253,6 +253,12 @@
     currentTemplate: {
         en: 'Current template'
     },
+    templateChanged: {
+        en: 'Template has been changed'
+    },
+    templateSettingsError: {
+        en: 'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.'
+    },
     getPublicationLink: {
         en: 'Get link'
     },
@@ -394,6 +400,9 @@
     learnersResults: {
         en: 'Learners results'
     },
+    downloadLearnersResults: {
+        en: 'Download results'
+    },
     nameAndEmail: {
         en: 'Name (E-mail)'
     },
@@ -405,6 +414,12 @@
     },
     dateTime: {
         en: 'Date Time'
+    },
+    date: {
+        en: 'Date'
+    },
+    time: {
+        en: 'Time'
     },
     showMoreResults: {
         en: 'Show more results'
@@ -1321,14 +1336,17 @@
     resultsUpgradeDialogBoldTitle: {
         en: 'Upgrade now'
     },
-    resultsUpgradeDialogTitle: {
-        en: '(from free)'
-    },
     resultsUpgradeDialogTitle2: {
         en: 'to get full list of results'
     },
+    resultsUpgradeForDownloadCSVDialogTitle2: {
+        en: 'to download results as CSV-file'
+    },
     resultsUpgradeDialogText: {
-        en: 'On the Free Plan you will only see the first 10 results'
+        en: 'On the Free Plan you can only see the first 10 results'
+    },
+    resultsUpgradeForDownloadCSVDialogHtml: {
+        en: '<ul><li>Download your learners results</li><li>Import your results in a spreadsheet</li><li>Or any program that supports CSV</li></ul>'
     },
     resultsUpgradeDialogUpgradeNow: {
         en: 'Upgrade now'

@@ -1893,13 +1893,9 @@ td.r-name {
 .course-results-upgrade-dialog .course-results-upgrade-dialog-title {
     white-space: nowrap;
     color: #469dd5;
-    font: 29px 'RobotoSlab-Regular';
+    font: 29px 'RobotoSlab-Bold';
     margin-bottom: 14px;
 }
-
-    .course-results-upgrade-dialog .course-results-upgrade-dialog-title strong {
-        font-family: 'RobotoSlab-Bold';
-    }
 
 .course-results-upgrade-dialog header {
     font-size: 18px;
