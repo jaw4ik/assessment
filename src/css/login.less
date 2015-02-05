@@ -93,6 +93,20 @@
                             border-bottom: 1px solid #c8d1d7;
                             color: #222;
 
+                            &::-webkit-input-placeholder {
+                                font-family: 'RobotoslabLight';
+                                color: #999;
+                            }
+                            &::-moz-placeholder {
+                                font-family: 'RobotoslabLight';
+                                color: #999;
+                                opacity: 1;
+                            }
+                            &:-ms-input-placeholder {
+                                font-family: 'RobotoslabLight';
+                                color: #999;
+                            }
+
                             &:active, &:focus,
                             &.error:active, &.error:focus{
                                 border-bottom-color: #49b8e7 !important;
@@ -107,6 +121,8 @@
                             &.error {
                                 border-bottom-color: #f16162;
                             }
+
+
                         }
 
                         .login-error-text {
