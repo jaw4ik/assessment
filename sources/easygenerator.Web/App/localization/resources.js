@@ -115,6 +115,9 @@
     uploadingImage: {
         en: 'Uploading image...'
     },
+    uploading: {
+        en: 'Uploading...'
+    },
     chooseBackgroundImage: {
         en: 'Choose background image'
     },
@@ -1089,6 +1092,9 @@
     },
     noCoursesTitle: {
         en: 'Course list is empty'
+    },
+    noOwnCoursesTitle: {
+        en: 'No own courses yet'
     },
     noObjectivesTitle: {
         en: 'Objective list is empty'
