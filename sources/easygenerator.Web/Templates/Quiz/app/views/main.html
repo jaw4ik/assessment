@@ -49,7 +49,7 @@
                             <span class="index">{{$index + 1 | leadingZeros: 2}}</span>
                             {{question.title}}
                         </h1>
-                        <div class="question-content">
+                        <div class="question-content" ng-if="question.content">
                             <div html-compile="question.content" styled-content></div>
                         </div>
                         <div class="question-body" ng-include="'app/views/' + question.getType() + '.html'"></div>
