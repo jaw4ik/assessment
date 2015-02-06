@@ -658,6 +658,9 @@
     addNewQuestion: {
         en: 'Add new question'
     },
+    clickToAddNewQuestion: {
+        en: 'Click here to add question'
+    },
     createAndEdit: {
         en: 'Create and edit'
     },
@@ -690,9 +693,6 @@
     },
     fillInTheBlank: {
         en: 'Fill in the blanks'
-    },
-    addDropdown: {
-        en: 'Add dropdown'
     },
     addBlank: {
         en: 'Add blank'
@@ -1359,49 +1359,7 @@
     },
     resultsUpgradeDialogMaybeLater: {
         en: 'Maybe later'
-    },
-    /* End resource section for model Course results upgrade dialog */
-    
-    /* Resource section for model Upgrate Notification */
-    upgrateNotificationTitle: {
-        en: 'Easygenerator license notification'
-    },
-    upgrateNotificationSender: {
-        en: 'From: easygenerator team'
-    },
-    upgrateNotificationHi: {
-        en: 'Hi'
-    },
-    upgrateNotificationYour: {
-        en: 'Your'
-    },
-    upgrateNotificationExpires: {
-        en: 'expires'
-    },
-    upgrateNotificationToday: {
-        en: 'today'
-    },
-    upgrateNotification1day: {
-        en: '1 day'
-    },
-    upgrateNotificationDays: {
-        en: 'days'
-    },
-    upgrateNotificationNote: {
-        en: 'Please note, you will be automatically downgraded to the Free Plan, if you don’t make the payment in time.\nMore info on pricing plans'
-    },
-    upgrateNotificationHere: {
-        en: 'here'
-    },
-    upgratePayNow: {
-        en: 'Pay Now'
-    },
-    upgrateMail: {
-        en: 'Any issues with your credit card and need more time?'
-    },
-    upgratePleaseContact: {
-        en: 'Please contact:'
     }
-    /* End resource section for model Upgrate Notification */
+    /* End resource section for model Course results upgrade dialog */
            
 });

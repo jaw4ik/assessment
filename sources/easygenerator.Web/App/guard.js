@@ -31,21 +31,9 @@
                 throw message;
             }
         },
-
+        
         throwIfNotNumber: function (number, message) {
             if (!_.isNumber(number)) {
-                throw message;
-            }
-        },
-
-        throwIfNotPositiveNumber: function (number, message) {
-            if (!_.isNumber(number) || number < 0) {
-                throw message;
-            }
-        },
-
-        throwIfNotFunction: function (func, message) {
-            if (!_.isFunction(func)) {
                 throw message;
             }
         }
