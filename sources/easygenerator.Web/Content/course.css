@@ -302,6 +302,10 @@
 /*#endregion DEFINE STEP*/
 
 /*#region DESIGN STEP*/
+.transparent {
+    opacity: 0;
+}
+
 .view-module.design {
     padding-top: 20px;
 }
@@ -322,7 +326,6 @@
 
 .template-settings-block {
     position: relative;
-    top: -47px;
 }
 
     .template-settings-block .template-settings-spinner {
@@ -330,6 +333,13 @@
         width: 100%;
         height: 600px;
     }
+
+.template-settings-header {
+    font: 19px OpenSans-Semibold;
+    color: #303133;
+    padding: 15px 5px;
+    margin-top: 45px;
+}
 
 .choose-template-list {
     position: relative;
@@ -400,6 +410,9 @@
     display: block;
     width: 100%;
     border-radius: 10px;
+}
+.transparent.template-image {
+    opacity: 0;
 }
 
 .choose-template-title-container {
@@ -523,7 +536,6 @@
     }
 
 .content-section-wrapper.template-settings {
-    margin-top: 100px;
     background-color: #f9fafc;
     border: 1px solid #e9e9eb;
     transition-duration: 0.5s;

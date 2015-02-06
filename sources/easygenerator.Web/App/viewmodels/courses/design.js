@@ -1,24 +1,41 @@
 ﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'ping',
-    'models/backButton', 'constants'],
-    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, ping, BackButton, constants) {
+    'models/backButton', 'constants', 'utils/waiter'],
+    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, ping, BackButton, constants, waiter) {
 
         var events = {
             navigateToCourses: 'Navigate to courses',
             updateCourseTemplate: 'Change course template to'
-        };
+        },
+
+            templateMessageTypes = {
+                startSave: 'startSave',
+                finishSave: 'finishSave'
+            },
+
+            templateSettingsErrorNotification = localizationManager.localize('templateSettingsError'),
+            templateChangedNotification = localizationManager.localize('templateChanged'),
+
+            delay = 100,
+            limit = 100;
 
         var viewModel = {
             courseId: '',
             currentTemplate: ko.observable(),
+            loadingTemplate: ko.observable(false),
             templates: [],
 
+            onGetTemplateMessage: onGetTemplateMessage,
+
             settingsVisibility: ko.observable(false),
+            displaySettings: ko.observable(true),
+            settingsSaved: ko.observable(true),
             selectTemplate: selectTemplate,
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
             canActivate: canActivate,
             activate: activate,
+            canDeactivate: canDeactivate,
             toggleTemplatesListVisibility: toggleTemplatesListVisibility,
             templatesListCollapsed: ko.observable(false),
 
@@ -39,6 +56,22 @@
 
         function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);
+        }
+
+        function canDeactivate() {
+            var defer = Q.defer();
+            viewModel.displaySettings(false);
+
+            waiter.waitFor(viewModel.settingsSaved, delay, limit)
+                .fail(function () {
+                    notify.error(templateSettingsErrorNotification);
+                })
+                .fin(function () {
+                    viewModel.displaySettings(true);
+                    defer.resolve(true);
+                });
+
+            return defer.promise;
         }
 
         function canActivate() {
@@ -84,23 +117,56 @@
         }
 
         function selectTemplate(template) {
+            if (viewModel.loadingTemplate()) {
+                return false;
+            }
             if (template == viewModel.currentTemplate()) {
                 return Q.fcall(function () { });
             }
 
             eventTracker.publish(events.updateCourseTemplate + ' \'' + template.name + '\'');
-            viewModel.settingsVisibility(false);
+            return waiter.waitFor(viewModel.settingsSaved, delay, limit)
+                .fail(function () {
+                    notify.error(templateSettingsErrorNotification);
+                })
+                .fin(function () {
+                    viewModel.settingsVisibility(false);
 
-            return courseRepository.updateCourseTemplate(viewModel.courseId, template.id)
-                .then(function() {
-                    viewModel.currentTemplate(template);
-                    notify.saved();
+                    return courseRepository.updateCourseTemplate(viewModel.courseId, template.id)
+                    .then(function () {
+                        viewModel.currentTemplate(template);
+                        notify.success(templateChangedNotification);
+                        viewModel.loadingTemplate(false);
+                    });
                 });
+        }
+
+        function onGetTemplateMessage(message) {
+
+            if (!message) {
+                return;
+            }
+
+            if (message.type == templateMessageTypes.startSave) {
+                viewModel.settingsSaved(false);
+            } else if (message.type == templateMessageTypes.finishSave) {
+                var data = message.data;
+                viewModel.settingsSaved(true);
+
+                if (!data) {
+                    return;
+                }
+                if (data.success) {
+                    data.message ? notify.success(data.message) : notify.saved();
+                } else {
+                    notify.error(data.message || templateSettingsErrorNotification);
+                }
+            }
         }
 
         function frameLoaded() {
             viewModel.settingsVisibility(true);
+            viewModel.settingsSaved(true);
         }
-
     }
 );
