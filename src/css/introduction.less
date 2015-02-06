@@ -1,4 +1,4 @@
-﻿@import "common";
+@import "common";
 
 .bottom-border() {
     border-bottom: 1px solid #dadada;
@@ -145,6 +145,7 @@
 
                     .header-title-wrapper {
                         display: inline-block;
+                        max-width: 100%;
 
                         .header-quiz-label {
                             color: #777777;
@@ -156,9 +157,7 @@
                         .header-quiz-title {
                             color: #222222;
                             font-size: 36px;
-                            max-width: 960px;
                             word-wrap: break-word;
-                            text-align: center;
                         }
 
                         .header-questions-label {
@@ -171,14 +170,12 @@
                     }
                 }
 
-                &.scrollable {
-                    .content {
-                        padding-bottom: @scroll-hint-height;
-                        transition: padding-bottom .2s linear;
+                .content {
+                    padding-bottom: @scroll-hint-height;
+                    transition: padding-bottom .2s linear;
 
-                        .at-bottom-position& {
-                            padding-bottom: 0px;
-                        }
+                    .at-bottom-position& {
+                        padding-bottom: 0px;
                     }
                 }
             }
@@ -260,7 +257,7 @@
 
         .content-container {
             display: block;
-            
+
             &:before,
             &:after {
                 display: none;

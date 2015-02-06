@@ -126,8 +126,8 @@
 
                 var scrollTop = Math.round($introductionContent.scrollTop()),
                     isTopPosition = scrollTop === 0,
-                    isBottomPosition = scrollTop >= $introductionContent[0].scrollHeight - $introductionContent.outerHeight() - 5;
-
+                    isBottomPosition = scrollTop >= ($introductionContent[0].scrollHeight - $introductionContent.outerHeight() - 1);
+                
                 $introduction
                     .toggleClass(topPositionClass, isTopPosition)
                     .toggleClass(bottomPositionClass, isBottomPosition);
@@ -136,16 +136,12 @@
                 var introductionContentOuterHeight = $introductionContent.outerHeight(),
                     introductionContentScrollHeight = $introductionContent[0].scrollHeight;
 
-                var introContentHeight;
                 if (introductionContentScrollHeight > introductionContentOuterHeight) {
-                    introContentHeight = introductionContentScrollHeight - introductionContentOuterHeight + $introduction.height() + 500; // 500px - scroll pause between intro and questions
-
-                    $introductionContent.bind('scroll', introContentScrollHandler).addClass('scrollable');
+                    $questions.css('top', introductionContentScrollHeight - introductionContentOuterHeight + $introduction.height() + 500); // 500px - scroll pause between intro and questions
+                    $introductionContent.bind('scroll', introContentScrollHandler);
                 } else {
-                    introContentHeight = $introduction.height();
+                    $questions.css('top', $introduction.height());
                 }
-                $questions.css('top', introContentHeight);
-                $container.height($questions.height() + introContentHeight);
 
                 introContentScrollHandler();
             };
