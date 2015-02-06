@@ -1910,7 +1910,6 @@ td.r-name {
     margin-left: -252px;
     width: 521px;
     background-color: #ffffff;
-    padding: 15px;
     border: 1px solid #d8d8d8;
     box-shadow: 0 0 5px rgba(0,0,0,0.25);
     border-radius: 5px;
@@ -1931,13 +1930,19 @@ td.r-name {
     white-space: nowrap;
     color: #469dd5;
     font: 29px 'RobotoSlab-Bold';
-    margin-bottom: 14px;
+    margin-bottom: 8px;
 }
 
 .course-results-upgrade-dialog header {
     font-size: 18px;
     color: #464d5d;
-    margin-top: 45px;
+    margin: 60px 15px 0;
+}
+
+.course-results-upgrade-download-dialog-buttons {
+    margin-top: 40px;
+    padding:30px 15px 25px;
+    background: #fdfdfd;
 }
 
 .course-results-upgrade-dialog button {
@@ -1947,13 +1952,12 @@ td.r-name {
 
 .course-results-upgrade-dialog-btn-upgrade {
     text-transform: uppercase;
-    margin-top: 77px;
 }
 
 .course-results-upgrade-dialog-btn-later {
+    display: inline-block;
+    margin-top:20px;
     color: #64798d;
-    background: none;
-    border: none;
     cursor: pointer;
     font-family: 'OpenSans';
 }
@@ -1979,7 +1983,7 @@ td.r-name {
 }
 
 .course-results-upgrade-download-dialog-body {
-
+    margin: 0 15px;
 }
 
 .course-results-upgrade-download-dialog-body ul {
