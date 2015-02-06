@@ -28,6 +28,8 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/jquery.autosize.js")
                     .Include("~/scripts/md5.js")
                     .Include("~/scripts/zeroclipboard.js")
+                    .Include("~/scripts/Blob.js")
+                    .Include("~/scripts/FileSaver.js")
                     .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
                 );
 

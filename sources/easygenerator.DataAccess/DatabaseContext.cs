@@ -138,10 +138,6 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<SingleSelectImageAnswer>().Property(e => e.IsCorrect).IsRequired();
             modelBuilder.Entity<SingleSelectImageAnswer>().HasRequired(e => e.Question);
 
-            modelBuilder.Entity<HotSpot>().HasMany(e => e.HotSpotPolygonsCollection).WithRequired(e => e.Question);
-
-            modelBuilder.Entity<HotSpotPolygon>().Property(e => e.Points).IsRequired();
-
             modelBuilder.Entity<LearningContent>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<LearningContent>().HasRequired(e => e.Question);
 

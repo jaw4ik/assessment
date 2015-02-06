@@ -3,6 +3,7 @@
 
     var
         eventTracker = require('eventTracker'),
+        courseRepository = require('repositories/courseRepository'),
         localizationManager = require('localization/localizationManager'),
         ping = require('ping'),
         BackButton = require('models/backButton'),
@@ -14,11 +15,26 @@
 
     describe('viewModel [results]', function () {
 
-        var courseId;
+        var courseId,
+            getCourseDefer;
+        var time = '2015-02-03_05-38';
+
+        var fakeMoment = {
+            format: function () {
+                return time;
+            }
+        };
+
         beforeEach(function () {
+            getCourseDefer = Q.defer();
             courseId = 'courseId';
+            spyOn(window, 'saveAs');
             spyOn(eventTracker, 'publish');
             spyOn(router, 'openUrl');
+            spyOn(courseRepository, 'getById').and.returnValue(getCourseDefer.promise);
+
+            spyOn(window, 'moment').and.returnValue(fakeMoment);
+            spyOn(fakeMoment, 'format').and.returnValue(time);
         });
 
         describe('isResultsDialogShown:', function () {
@@ -29,43 +45,84 @@
 
         });
 
-        describe('upgradeNow:', function () {
+        describe('upgradeNowForLoadMore:', function () {
 
             it('should be function', function () {
-                expect(viewModel.upgradeNow).toBeFunction();
+                expect(viewModel.upgradeNowForLoadMore).toBeFunction();
             });
 
             it('should close dialog', function () {
-                viewModel.upgradeNow();
+                viewModel.upgradeNowForLoadMore();
                 expect(viewModel.isResultsDialogShown()).toBeFalsy();
             });
 
             it('should send event \'Upgrade now\'', function () {
-                viewModel.upgradeNow();
+                viewModel.upgradeNowForLoadMore();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Upgrade now', 'Load more results');
             });
 
             it('should open upgrade url', function () {
-                viewModel.upgradeNow();
+                viewModel.upgradeNowForLoadMore();
                 expect(router.openUrl).toHaveBeenCalledWith(constants.upgradeUrl);
             });
 
         });
 
-        describe('skipUpgrage:', function () {
+        describe('upgradeNowForDownloadCsv:', function () {
 
             it('should be function', function () {
-                expect(viewModel.skipUpgrage).toBeFunction();
+                expect(viewModel.upgradeNowForDownloadCsv).toBeFunction();
             });
 
             it('should close dialog', function () {
-                viewModel.skipUpgrage();
+                viewModel.upgradeNowForDownloadCsv();
+                expect(viewModel.isDownloadDialogShown()).toBeFalsy();
+            });
+
+            it('should send event \'Upgrade now\'', function () {
+                viewModel.upgradeNowForDownloadCsv();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Upgrade now', 'Download results CSV');
+            });
+
+            it('should open upgrade url', function () {
+                viewModel.upgradeNowForDownloadCsv();
+                expect(router.openUrl).toHaveBeenCalledWith(constants.upgradeUrl);
+            });
+
+        });
+
+        describe('skipUpgradeForLoadMore:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.skipUpgradeForLoadMore).toBeFunction();
+            });
+
+            it('should close dialog', function () {
+                viewModel.skipUpgradeForLoadMore();
                 expect(viewModel.isResultsDialogShown()).toBeFalsy();
             });
 
             it('should send event \'Skip upgrade\'', function () {
-                viewModel.skipUpgrage();
+                viewModel.skipUpgradeForLoadMore();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Skip upgrade', 'Load more results');
+            });
+
+        });
+
+        describe('skipUpgradeForDownloadCsv:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.skipUpgradeForDownloadCsv).toBeFunction();
+            });
+
+            it('should close dialog', function () {
+                viewModel.skipUpgradeForDownloadCsv();
+                expect(viewModel.isDownloadDialogShown()).toBeFalsy();
+            });
+
+            it('should send event \'Skip upgrade\'', function () {
+                viewModel.skipUpgradeForDownloadCsv();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Skip upgrade', 'Download results CSV');
             });
 
         });
@@ -133,8 +190,7 @@
                     });
 
                 });
-
-
+                
                 describe('when user access type forbids to view more results', function () {
 
                     beforeEach(function () {
@@ -335,6 +391,16 @@
 
         describe('activate:', function () {
 
+            it('should return promise', function () {
+                expect(viewModel.activate()).toBePromise();
+            });
+
+            it('should get course from repository', function () {
+                var courseId = 'courseId';
+                viewModel.activate(courseId);
+                expect(courseRepository.getById).toHaveBeenCalledWith(courseId);
+            });
+
             it('should fill courseId for viewModel', function () {
                 viewModel.activate(courseId);
                 expect(viewModel.courseId).toBe(courseId);
@@ -363,6 +429,34 @@
                 expect(viewModel.isResultsDialogShown()).toBeFalsy();
             });
 
+            it('should reset isDownloadDialogShown', function () {
+                viewModel.isDownloadDialogShown(true);
+                viewModel.activate(courseId);
+                expect(viewModel.isDownloadDialogShown()).toBeFalsy();
+            });
+
+            it('should reset isDownloadDialogShown', function () {
+                viewModel.isDownloadDialogShown(true);
+                viewModel.activate(courseId);
+                expect(viewModel.isDownloadDialogShown()).toBeFalsy();
+            });
+
+            describe('when course exists', function () {
+
+                var
+                    course = { id: 'courseId', title: 'title' };
+
+                beforeEach(function () {
+                    getCourseDefer.resolve(course);
+                });
+
+                it('should set courseTitle', function (done) {
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.courseTitle).toBe(course.title);
+                        done();
+                    });
+                });
+            });
         });
 
         describe('attached:', function () {
@@ -454,6 +548,81 @@
             });
         });
 
+        describe('downloadResults:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.downloadResults).toBeFunction();
+            });
+
+            it('should send event \'Download results\'', function () {
+                viewModel.downloadResults();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Download results');
+            });
+
+            describe('when user access type allows to view more results', function () {
+
+                beforeEach(function () {
+                    userContext.identity = {
+                        email: 'test@test.com',
+                        subscription: {
+                            accessType: 2,
+                            expirationDate: new Date().setYear(2055)
+                        }
+                    };
+                });
+
+                it('should call saveAs', function () {
+                    viewModel.downloadResults();
+                    expect(window.saveAs).toHaveBeenCalledWith(viewModel.generateResultsCsvBlob(), viewModel.getResultsFileName());
+                });
+
+            });
+
+            describe('when user access type forbids to view more results', function () {
+
+                beforeEach(function () {
+                    userContext.identity = {
+                        email: 'test@test.com',
+                        subscription: {
+                            accessType: 0,
+                            expirationDate: new Date().setYear(1990)
+                        }
+                    };
+                });
+
+                it('should show upgrade results dialog', function () {
+                    viewModel.downloadResults();
+                    expect(viewModel.isDownloadDialogShown()).toBeTruthy();
+                });
+
+                it('should not call saveAs', function () {
+                    viewModel.downloadResults();
+                    expect(window.saveAs).not.toHaveBeenCalled();
+                });
+
+            });
+
+        });
+
+        describe('getResultsFileName:', function () {
+          
+            it('should be function', function () {
+                expect(viewModel.getResultsFileName).toBeFunction();
+            });
+
+            it('should call moment', function () {
+                var a = viewModel.getResultsFileName();
+                expect(moment().format).toHaveBeenCalled();
+            });
+
+            it('should call moment', function () {
+                viewModel.courseTitle = 'Course-123.\\/ фывяй 续约我的服务';
+                var a = viewModel.getResultsFileName();
+                expect(a).toBe('results_Course-123_2015-02-03_05-38.csv');
+            });
+
+        });
+   
     });
 
 });

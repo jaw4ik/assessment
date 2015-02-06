@@ -1,10 +1,15 @@
 ﻿<section class="course results view-module">
     <div class="content-section-wrapper">
         <div class="content-section">
+            <div class="results-title">
+                <!-- ko ifnot: noResults() -->
+                <button class="download-results action-item-btn btn green" data-bind="click:downloadResults">
+                    <span class="action-item-btn-caption" data-bind="localize: { text: 'downloadLearnersResults' }">Download results</span>
+                </button>
+                <!-- /ko -->
+                <span data-bind="localize: { text: 'learnersResults' }">Learners results</span>
+            </div>
             <div class="results-holder">
-                <div class="results-title" data-bind="localize: { text: 'learnersResults' }">
-                    Learners results
-                </div>
                 <div class="results-data">
                     <table class="results-table">
                         <tbody>
@@ -85,16 +90,32 @@
             </div>
         </div>
     </div>
-    <section class="course-results-upgrade-dialog" data-bind="visible: isResultsDialogShown">
-        <section class="course-results-upgrade-dialog-content">
+    <section class="course-results-upgrade-dialog" data-bind="visible: isResultsDialogShown() || isDownloadDialogShown">
+        <section class="course-results-upgrade-dialog-content" data-bind="visible: isResultsDialogShown">
             <header>
                 <div class="course-results-upgrade-dialog-title" data-bind="localize: { text: 'resultsUpgradeDialogBoldTitle' }">Upgrade now</div>
                 <div data-bind="localize: { text: 'resultsUpgradeDialogTitle2' }">to get full list of results</div>
             </header>
             <div class="course-results-upgrade-dialog-title-image"></div>
             <div data-bind="localize: { text: 'resultsUpgradeDialogText' }">On the Free Plan you will only see the first 10 results</div>
-            <button class="btn green course-results-upgrade-dialog-btn-upgrade" data-bind="click: upgradeNow, localize: { text: 'resultsUpgradeDialogUpgradeNow' }">Upgrade now</button><br />
-            <button class="course-results-upgrade-dialog-btn-later" data-bind="click: skipUpgrage, localize: { text: 'resultsUpgradeDialogMaybeLater' }">Maybe later</button>
+            <button class="btn green course-results-upgrade-dialog-btn-upgrade" data-bind="click: upgradeNowForLoadMore, localize: { text: 'resultsUpgradeDialogUpgradeNow' }">Upgrade now</button><br />
+            <button class="course-results-upgrade-dialog-btn-later" data-bind="click: skipUpgradeForLoadMore, localize: { text: 'resultsUpgradeDialogMaybeLater' }">Maybe later</button>
+        </section>
+        <section class="course-results-upgrade-download-dialog-content" data-bind="visible: isDownloadDialogShown">
+            <header>
+                <div class="course-results-upgrade-dialog-title" data-bind="localize: { text: 'resultsUpgradeDialogBoldTitle' }">Upgrade now</div>
+                <div data-bind="localize: { text: 'resultsUpgradeForDownloadCSVDialogTitle2' }">to download results as CSV-file</div>
+            </header>
+            <div class="course-results-upgrade-download-dialog-title-image"></div>
+            <div class="course-results-upgrade-download-dialog-body" data-bind="localize: { html: 'resultsUpgradeForDownloadCSVDialogHtml' }">
+                <ul>
+                    <li>Download your learners results</li>
+                    <li>Import your results in a spreadsheet</li>
+                    <li>Or any program that supports CSV</li>
+                </ul>
+            </div>
+            <button class="btn green course-results-upgrade-dialog-btn-upgrade" data-bind="click: upgradeNowForDownloadCsv, localize: { text: 'resultsUpgradeDialogUpgradeNow' }">Upgrade now</button><br />
+            <button class="course-results-upgrade-dialog-btn-later" data-bind="click: skipUpgradeForDownloadCsv, localize: { text: 'resultsUpgradeDialogMaybeLater' }">Maybe later</button>
         </section>
     </section>
 </section>
