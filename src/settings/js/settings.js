@@ -106,16 +106,18 @@
                 return;
             }
 
+            sendPostMessage({ type: 'startSave' });
+
             $.post(settingsUrl, {
                 settings: JSON.stringify(settings)
             })
             .done(function () {
                 currentSettings = settings;
-                sendPostMessage({ success: true, message: 'All changes are seved' });
+                sendPostMessage({ type: 'finishSave', data: { success: true, message: 'All changes are seved' } });
                 that.$apply();
             })
             .fail(function () {
-                sendPostMessage({ error: true, message: 'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.' });
+                sendPostMessage({ type: 'finishSave', data: { success: false, message: 'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.' } });
                 that.$apply();
             });
         };
