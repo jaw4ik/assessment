@@ -478,6 +478,7 @@
     <Content Include="App\components\polygonsEditor\polygonShape.js" />
     <Content Include="App\components\polygonsEditor\polygonsEditor.js" />
     <Content Include="App\config.js" />
+    <Content Include="App\localization\resources.js" />
     <Content Include="App\models\reportingStatement.js" />
     <Content Include="App\models\reportingStatement.spec.js">
       <DependentUpon>reportingStatement.js</DependentUpon>
@@ -516,7 +517,12 @@
       <DependentUpon>polygonCreated.js</DependentUpon>
     </Content>
     <Content Include="App\utils\base64.js" />
+    <Content Include="App\utils\waiter.js" />
+    <Content Include="App\utils\waiter.spec.js">
+      <DependentUpon>waiter.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
+    <Content Include="App\viewmodels\courses\bindingHandlers\windowMessageListenerBinding.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\items\results.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\items\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
@@ -1413,6 +1419,7 @@
     <Content Include="Scripts\zeroclipboard.js" />
     <Content Include="Scripts\zeroclipboard.swf" />
     <Content Include="Templates\Exam\app\main.js" />
+    <Content Include="Templates\Exam\app\main.js.map" />
     <Content Include="Templates\Exam\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
     <Content Include="Templates\Exam\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
     <Content Include="Templates\Exam\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />
@@ -1431,7 +1438,10 @@
     <Content Include="Templates\Exam\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\content.html" />
     <Content Include="Templates\Exam\content\content.html" />
     <Content Include="Templates\Exam\content\data.js" />
+    <Content Include="Templates\Exam\css\fonts\opensans-regular.eot" />
     <Content Include="Templates\Exam\css\fonts\opensans-regular.svg" />
+    <Content Include="Templates\Exam\css\fonts\opensans-regular.ttf" />
+    <Content Include="Templates\Exam\css\fonts\opensans-regular.woff" />
     <Content Include="Templates\Exam\css\general.css" />
     <Content Include="Templates\Exam\css\images\error-message.png" />
     <Content Include="Templates\Exam\css\images\graphChart.png" />
@@ -1466,8 +1476,13 @@
     <Content Include="Templates\Exam\index.html" />
     <Content Include="Templates\Exam\js\require.js" />
     <Content Include="Templates\Exam\js\vendor.min.js" />
+    <Content Include="Templates\Exam\manifest.json" />
     <Content Include="Templates\Exam\publishSettings.js" />
     <Content Include="Templates\Exam\settings.js" />
+    <Content Include="Templates\Exam\settings\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Exam\settings\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Exam\settings\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Exam\settings\css\fonts\opensans-italic-400.woff" />
     <Content Include="Templates\Exam\settings\css\settings.css" />
     <Content Include="Templates\Exam\settings\img\graphical.png" />
     <Content Include="Templates\Exam\settings\img\mastery.png" />
@@ -1477,6 +1492,7 @@
     <Content Include="Templates\Exam\settings\js\vendor.min.js" />
     <Content Include="Templates\Exam\settings\settings.html" />
     <Content Include="Templates\Personalized learning\app\main.js" />
+    <Content Include="Templates\Personalized learning\app\main.js.map" />
     <Content Include="Templates\Personalized learning\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
     <Content Include="Templates\Personalized learning\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
     <Content Include="Templates\Personalized learning\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />
@@ -1495,9 +1511,18 @@
     <Content Include="Templates\Personalized learning\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\content.html" />
     <Content Include="Templates\Personalized learning\content\content.html" />
     <Content Include="Templates\Personalized learning\content\data.js" />
+    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.eot" />
     <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.svg" />
+    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.woff" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-regular.eot" />
     <Content Include="Templates\Personalized learning\css\font\opensans-regular.svg" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-regular.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-regular.woff" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.eot" />
     <Content Include="Templates\Personalized learning\css\font\opensans-semibold.svg" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.woff" />
     <Content Include="Templates\Personalized learning\css\general.css" />
     <Content Include="Templates\Personalized learning\images\chrome.png" />
     <Content Include="Templates\Personalized learning\images\eg-logo.png" />
@@ -1512,8 +1537,13 @@
     <Content Include="Templates\Personalized learning\index.html" />
     <Content Include="Templates\Personalized learning\js\require\require.js" />
     <Content Include="Templates\Personalized learning\js\vendor.min.js" />
+    <Content Include="Templates\Personalized learning\manifest.json" />
     <Content Include="Templates\Personalized learning\publishSettings.js" />
     <Content Include="Templates\Personalized learning\settings.js" />
+    <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-italic-400.woff" />
     <Content Include="Templates\Personalized learning\settings\css\settings.css" />
     <Content Include="Templates\Personalized learning\settings\img\graphical.png" />
     <Content Include="Templates\Personalized learning\settings\img\sprites_16.png" />
@@ -1623,6 +1653,7 @@
     <Content Include="Templates\Quiz\settings\js\vendor.min.js" />
     <Content Include="Templates\Quiz\settings\settings.html" />
     <Content Include="Templates\Simple course\app\main.js" />
+    <Content Include="Templates\Simple course\app\main.js.map" />
     <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
     <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\content.html" />
     <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\8555e814ebef4f6a9f82cabfe8502894\a542a9cad6b64881844eed6e65d37044.html" />
@@ -1641,16 +1672,48 @@
     <Content Include="Templates\Simple course\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\5b4be25686f943609de151884c5bf9f8.html" />
     <Content Include="Templates\Simple course\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\9e26fe55dfd543329e53856468083572.html" />
     <Content Include="Templates\Simple course\content\a3d951f91e8a4a61a55c173a27c904ca\77dcdee6255f44e588cdae7a0320ffa6\61cdd730fbe54fe9bf2a6ec95cb14535.html" />
+    <Content Include="Templates\Simple course\content\content.html" />
+    <Content Include="Templates\Simple course\content\data.js" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bold.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-bold.svg" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bold.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bold.woff" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.svg" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.woff" />
+    <Content Include="Templates\Simple course\css\font\heuristica-italic.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-italic.svg" />
+    <Content Include="Templates\Simple course\css\font\heuristica-italic.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-italic.woff" />
+    <Content Include="Templates\Simple course\css\font\heuristica-regular.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-regular.svg" />
+    <Content Include="Templates\Simple course\css\font\heuristica-regular.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-regular.woff" />
+    <Content Include="Templates\Simple course\css\font\intro.eot" />
     <Content Include="Templates\Simple course\css\font\intro.svg" />
+    <Content Include="Templates\Simple course\css\font\intro.ttf" />
+    <Content Include="Templates\Simple course\css\font\intro.woff" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.eot" />
     <Content Include="Templates\Simple course\css\font\opensans-regular.svg" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.ttf" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.woff" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.eot" />
     <Content Include="Templates\Simple course\css\font\opensans-semibold.svg" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.ttf" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.woff" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-bold.eot" />
     <Content Include="Templates\Simple course\css\font\robotoslab-bold.svg" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-bold.ttf" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-bold.woff" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-regular.eot" />
     <Content Include="Templates\Simple course\css\font\robotoslab-regular.svg" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-regular.ttf" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-regular.woff" />
+    <Content Include="Templates\Simple course\css\font\segoeui-semibold.eot" />
     <Content Include="Templates\Simple course\css\font\segoeui-semibold.svg" />
+    <Content Include="Templates\Simple course\css\font\segoeui-semibold.ttf" />
+    <Content Include="Templates\Simple course\css\font\segoeui-semibold.woff" />
     <Content Include="Templates\Simple course\css\general.css" />
     <Content Include="Templates\Simple course\css\themes\black.css" />
     <Content Include="Templates\Simple course\css\themes\cartoon.css" />
@@ -1670,8 +1733,13 @@
     <Content Include="Templates\Simple course\js\require.js" />
     <Content Include="Templates\Simple course\js\vendor.min.js" />
     <Content Include="Templates\Simple course\languages\translations.min.js" />
+    <Content Include="Templates\Simple course\manifest.json" />
     <Content Include="Templates\Simple course\publishSettings.js" />
     <Content Include="Templates\Simple course\settings.js" />
+    <Content Include="Templates\Simple course\settings\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Simple course\settings\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Simple course\settings\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Simple course\settings\css\fonts\opensans-italic-400.woff" />
     <Content Include="Templates\Simple course\settings\css\settings.css" />
     <Content Include="Templates\Simple course\settings\img\graphical.png" />
     <Content Include="Templates\Simple course\settings\img\language.png" />
@@ -1704,68 +1772,8 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\jquery-2.1.1.min.map" />
-    <Content Include="Templates\Exam\settings\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Exam\settings\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Exam\settings\css\fonts\opensans-italic-400.woff" />
     <Content Include="Views\Shared\_nudgespotAnalytics.cshtml" />
-    <Content Include="Templates\Exam\css\fonts\opensans-regular.eot" />
-    <Content Include="Templates\Exam\css\fonts\opensans-regular.ttf" />
-    <Content Include="Templates\Exam\css\fonts\opensans-regular.woff" />
-    <Content Include="Templates\Exam\app\main.js.map" />
-    <Content Include="Templates\Exam\settings\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Exam\manifest.json" />
     <Content Include="Views\DemoCourses\Index.cshtml" />
-    <Content Include="Templates\Simple course\app\main.js.map" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bold.eot" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bold.ttf" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bold.woff" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.eot" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.ttf" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.woff" />
-    <Content Include="Templates\Simple course\css\font\heuristica-italic.eot" />
-    <Content Include="Templates\Simple course\css\font\heuristica-italic.ttf" />
-    <Content Include="Templates\Simple course\css\font\heuristica-italic.woff" />
-    <Content Include="Templates\Simple course\css\font\heuristica-regular.eot" />
-    <Content Include="Templates\Simple course\css\font\heuristica-regular.ttf" />
-    <Content Include="Templates\Simple course\css\font\heuristica-regular.woff" />
-    <Content Include="Templates\Simple course\css\font\intro.eot" />
-    <Content Include="Templates\Simple course\css\font\intro.ttf" />
-    <Content Include="Templates\Simple course\css\font\intro.woff" />
-    <Content Include="Templates\Simple course\css\font\opensans-regular.eot" />
-    <Content Include="Templates\Simple course\css\font\opensans-regular.ttf" />
-    <Content Include="Templates\Simple course\css\font\opensans-regular.woff" />
-    <Content Include="Templates\Simple course\css\font\opensans-semibold.eot" />
-    <Content Include="Templates\Simple course\css\font\opensans-semibold.ttf" />
-    <Content Include="Templates\Simple course\css\font\opensans-semibold.woff" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-bold.eot" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-bold.ttf" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-bold.woff" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-regular.eot" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-regular.ttf" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-regular.woff" />
-    <Content Include="Templates\Simple course\css\font\segoeui-semibold.eot" />
-    <Content Include="Templates\Simple course\css\font\segoeui-semibold.ttf" />
-    <Content Include="Templates\Simple course\css\font\segoeui-semibold.woff" />
-    <Content Include="Templates\Simple course\settings\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Simple course\settings\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Simple course\settings\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Simple course\settings\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Simple course\manifest.json" />
-    <Content Include="Templates\Personalized learning\app\main.js.map" />
-    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.eot" />
-    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.ttf" />
-    <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.woff" />
-    <Content Include="Templates\Personalized learning\css\font\opensans-regular.eot" />
-    <Content Include="Templates\Personalized learning\css\font\opensans-regular.ttf" />
-    <Content Include="Templates\Personalized learning\css\font\opensans-regular.woff" />
-    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.eot" />
-    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.ttf" />
-    <Content Include="Templates\Personalized learning\css\font\opensans-semibold.woff" />
-    <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Personalized learning\manifest.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1879,7 +1887,6 @@
     <Content Include="App\localization\localizationManager.spec.js">
       <DependentUpon>localizationManager.js</DependentUpon>
     </Content>
-    <Content Include="App\localization\resources.js" />
     <Content Include="App\main.js" />
     <Content Include="App\models\answerOption.js" />
     <Content Include="App\models\backButton.js" />
@@ -2324,8 +2331,6 @@
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.extensions.js" />
     <Content Include="Scripts\underscore.js" />
-    <Content Include="Templates\Simple course\content\content.html" />
-    <Content Include="Templates\Simple course\content\data.js" />
     <Content Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>

@@ -11,6 +11,7 @@
     require('widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler');
     require('viewmodels/panels/bindingHandlers/fixedPanelBindingHandler');
     require('viewmodels/courses/bindingHandlers/elementCollapseBinding');
+    require('viewmodels/courses/bindingHandlers/windowMessageListenerBinding');
 
     var task = {
         execute: execute

@@ -302,6 +302,10 @@
 /*#endregion DEFINE STEP*/
 
 /*#region DESIGN STEP*/
+.transparent {
+    opacity: 0;
+}
+
 .view-module.design {
     padding-top: 20px;
 }
@@ -322,7 +326,6 @@
 
 .template-settings-block {
     position: relative;
-    top: -47px;
 }
 
     .template-settings-block .template-settings-spinner {
@@ -330,6 +333,13 @@
         width: 100%;
         height: 600px;
     }
+
+.template-settings-header {
+    font: 19px OpenSans-Semibold;
+    color: #303133;
+    padding: 15px 5px;
+    margin-top: 45px;
+}
 
 .choose-template-list {
     position: relative;
@@ -400,6 +410,10 @@
     display: block;
     width: 100%;
     border-radius: 10px;
+}
+
+.transparent.template-image {
+    opacity: 0;
 }
 
 .choose-template-title-container {
@@ -523,7 +537,6 @@
     }
 
 .content-section-wrapper.template-settings {
-    margin-top: 100px;
     background-color: #f9fafc;
     border: 1px solid #e9e9eb;
     transition-duration: 0.5s;
@@ -1601,8 +1614,7 @@ li.package-action-tabs-link {
     font-family: 'OpenSans';
 }
 
-.results-title
- {
+.results-title {
     margin-bottom: 10px;
     font-size: 20px;
     line-height: 40px;
@@ -1616,22 +1628,22 @@ li.package-action-tabs-link {
     border-bottom-width: 2px;
 }
 
-.action-item-btn.download-results .action-item-btn-caption {
-    padding-left: 34px;
-}
+    .action-item-btn.download-results .action-item-btn-caption {
+        padding-left: 34px;
+    }
 
-.action-item-btn.download-results .action-item-btn-caption:before {
-    background-image: url("images/sprites_24.png");
-    background-position: -261px -58px;
-    content: "";
-    display: block;
-    height: 24px;
-    left: 0;
-    margin-top: -9px;
-    position: absolute;
-    top: 50%;
-    width: 24px;
-}
+        .action-item-btn.download-results .action-item-btn-caption:before {
+            background-image: url("images/sprites_24.png");
+            background-position: -261px -58px;
+            content: "";
+            display: block;
+            height: 24px;
+            left: 0;
+            margin-top: -9px;
+            position: absolute;
+            top: 50%;
+            width: 24px;
+        }
 
 .results-holder {
     padding: 30px;
@@ -1647,9 +1659,9 @@ li.package-action-tabs-link {
     position: relative;
 }
 
-.results-data tbody {
-    border-bottom: 1px solid #e8edf1;
-}
+    .results-data tbody {
+        border-bottom: 1px solid #e8edf1;
+    }
 
 .results-table {
     width: 100%;
@@ -1941,7 +1953,7 @@ td.r-name {
 
 .course-results-upgrade-download-dialog-buttons {
     margin-top: 40px;
-    padding:30px 15px 25px;
+    padding: 30px 15px 25px;
     background: #fdfdfd;
 }
 
@@ -1956,7 +1968,7 @@ td.r-name {
 
 .course-results-upgrade-dialog-btn-later {
     display: inline-block;
-    margin-top:20px;
+    margin-top: 20px;
     color: #64798d;
     cursor: pointer;
     font-family: 'OpenSans';
@@ -1986,19 +1998,19 @@ td.r-name {
     margin: 0 15px;
 }
 
-.course-results-upgrade-download-dialog-body ul {
-    width:280px;
-    margin-left: 123px;
-}
+    .course-results-upgrade-download-dialog-body ul {
+        width: 280px;
+        margin-left: 123px;
+    }
 
-.course-results-upgrade-download-dialog-body ul li{
-    padding-left: 26px;
-    margin-top: 30px;
-    text-align: left;
-    list-style: none;
-    background: url("images/sprites_16.png") -84px -63px no-repeat;
-    line-height: 16px;
-}
+        .course-results-upgrade-download-dialog-body ul li {
+            padding-left: 26px;
+            margin-top: 30px;
+            text-align: left;
+            list-style: none;
+            background: url("images/sprites_16.png") -84px -63px no-repeat;
+            line-height: 16px;
+        }
 
 /*#endregion COURSE RESULTS UPGRADE DIALOG*/
 

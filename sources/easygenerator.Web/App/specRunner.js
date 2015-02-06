@@ -57,6 +57,7 @@
             'repositories/questionRepository.spec',
             'routing/routerExtender.spec',
             'services/publishService.spec',
+            'utils/waiter.spec',
 
             //#region onboarding
 
