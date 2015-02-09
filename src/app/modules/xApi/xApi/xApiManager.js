@@ -17,11 +17,13 @@
 
         function init(id, title, absUrl, email, username) {
             xApiSettings.init();
-            
             xApi = new TinCan();
-            xApi.addRecordStore(createLRS());
             xApi.actor = createActor(username, email);
-            
+            try {
+                xApi.addRecordStore(createLRS());
+            } catch (e) {
+                errorsHandler.handleError();
+            }
             xApiRequestManager.init(xApi);
             xApiDataBuilder.init(id, title, absUrl, xApi.actor);
         }
