@@ -478,6 +478,10 @@
     <Content Include="App\components\polygonsEditor\polygonShape.js" />
     <Content Include="App\components\polygonsEditor\polygonsEditor.js" />
     <Content Include="App\config.js" />
+    <Content Include="App\localization\localizationManager.js" />
+    <Content Include="App\localization\localizationManager.spec.js">
+      <DependentUpon>localizationManager.js</DependentUpon>
+    </Content>
     <Content Include="App\localization\resources.js" />
     <Content Include="App\models\reportingStatement.js" />
     <Content Include="App\models\reportingStatement.spec.js">
@@ -1882,10 +1886,6 @@
     <Content Include="App\http\httpWrapper.js" />
     <Content Include="App\http\httpWrapper.spec.js">
       <DependentUpon>httpWrapper.js</DependentUpon>
-    </Content>
-    <Content Include="App\localization\localizationManager.js" />
-    <Content Include="App\localization\localizationManager.spec.js">
-      <DependentUpon>localizationManager.js</DependentUpon>
     </Content>
     <Content Include="App\main.js" />
     <Content Include="App\models\answerOption.js" />
