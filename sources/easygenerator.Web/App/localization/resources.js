@@ -1256,7 +1256,7 @@
         en: 'Fill in the blanks'
     },
     tooltipFibDescription: {
-        en: '<p>Use a fill in the blank to check active knowledge in the context of a text.</p><p>The learner is given text with blank spaces. There are two options -- the learner can type in the text in the bland space, or chose the correct text from a drop down list.</p>'
+        en: '<p>Use a fill in the blank to check active knowledge in the context of a text.</p><p>The learner is given text with blank spaces. There are two options -- the learner can type in the text in the blank space, or chose the correct text from a drop down list.</p>'
     },
     tooltipFibLink: {
         en: '<a href=\"http://youtu.be/mxqA95gW6UE\" target=\"_blank\">watch video</a>'
@@ -1352,7 +1352,7 @@
         en: 'On the Free Plan you can only see the first 10 results'
     },
     resultsUpgradeForDownloadCSVDialogHtml: {
-        en: '<ul><li>Download your learners results</li><li>Import your results in a spreadsheet</li><li>Or any program that supports CSV</li></ul>'
+        en: '<ul><li>Download your learners results</li><li>Export your results in a spreadsheet</li><li>Or any program that supports CSV</li></ul>'
     },
     resultsUpgradeDialogUpgradeNow: {
         en: 'Upgrade now'
@@ -1362,49 +1362,49 @@
     },
     /* End resource section for model Course results upgrade dialog */
     
-    /* Resource section for model Upgrate Notification */
-    upgrateNotificationTitle: {
+    /* Resource section for model Upgrade Notification */
+    upgradeNotificationTitle: {
         en: 'Easygenerator license notification'
     },
-    upgrateNotificationSender: {
+    upgradeNotificationSender: {
         en: 'From: easygenerator team'
     },
-    upgrateNotificationHi: {
+    upgradeNotificationHi: {
         en: 'Hi'
     },
-    upgrateNotificationYour: {
+    upgradeNotificationYour: {
         en: 'Your'
     },
-    upgrateNotificationExpires: {
+    upgradeNotificationExpires: {
         en: 'expires'
     },
-    upgrateNotificationToday: {
+    upgradeNotificationToday: {
         en: 'today'
     },
-    upgrateNotificationIn: {
+    upgradeNotificationIn: {
         en: 'in'
     },
-    upgrateNotification1day: {
+    upgradeNotification1day: {
         en: '1 day'
     },
-    upgrateNotificationDays: {
+    upgradeNotificationDays: {
         en: 'days'
     },
-    upgrateNotificationNote: {
+    upgradeNotificationNote: {
         en: 'Please note, you will be automatically downgraded to the Free Plan, if you don’t make the payment in time. More info on pricing plans'
     },
-    upgrateNotificationHere: {
+    upgradeNotificationHere: {
         en: 'here'
     },
-    upgratePayNow: {
+    upgradePayNow: {
         en: 'Pay Now'
     },
-    upgrateMail: {
+    upgradeMail: {
         en: 'Any issues with your credit card and need more time?'
     },
-    upgratePleaseContact: {
+    upgradePleaseContact: {
         en: 'Please contact:'
     }
-    /* End resource section for model Upgrate Notification */
+    /* End resource section for model Upgrade Notification */
            
 });
