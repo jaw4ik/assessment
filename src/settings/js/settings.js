@@ -113,7 +113,7 @@
             })
             .done(function () {
                 currentSettings = settings;
-                sendPostMessage({ type: 'finishSave', data: { success: true, message: 'All changes are seved' } });
+                sendPostMessage({ type: 'finishSave', data: { success: true, message: 'All changes are saved' } });
                 that.$apply();
             })
             .fail(function () {
