@@ -437,7 +437,7 @@
         en: '1. Go to the \"Design\" step'
     },
     resultTrackingShouldBeEnabled: {
-        en: '2. Enable results tracking and confirm by clicking \"Apply\"'
+        en: '2. Enable results tracking'
     },
     confirmByApply: {
         en: '3. Go to the \"Publish\" step and update the course'
@@ -837,6 +837,12 @@
     },
     newStatementQuestionTitle: {
         en: 'Untitled statement question'
+    },
+    statementTrue: {
+        en: 'TRUE'
+    },
+    statementFalse: {
+        en: 'FALSE'
     },
     /* End resource section for model StatementQuestion */
     
@@ -1349,7 +1355,7 @@
         en: 'to download results as CSV-file'
     },
     resultsUpgradeDialogText: {
-        en: 'On the Free Plan you can only see the first 10 results'
+        en: 'On the Free Plan you can only see the last 10 results'
     },
     resultsUpgradeForDownloadCSVDialogHtml: {
         en: '<ul><li>Download your learners results</li><li>Export your results in a spreadsheet</li><li>Or any program that supports CSV</li></ul>'
