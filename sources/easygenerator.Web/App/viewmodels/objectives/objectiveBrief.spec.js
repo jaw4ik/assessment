@@ -26,10 +26,17 @@
                     expect(objectiveBrief.title()).toEqual(title);
                 });
 
-                it('should expose image', function () {
-                    var image = 'cat.png';
-                    var objectiveBrief = viewModel({ image: image });
-                    expect(objectiveBrief.image).toEqual(image);
+                it('should expose imageUrl', function () {
+                    var imageUrl = 'cat.png';
+                    var objectiveBrief = viewModel({ image: imageUrl });
+                    expect(objectiveBrief.imageUrl).toBeObservable();
+                    expect(objectiveBrief.imageUrl()).toEqual(imageUrl);
+                });
+
+                it('should expose isImageLoading', function () {
+                    var objectiveBrief = viewModel({});
+                    expect(objectiveBrief.isImageLoading).toBeObservable();
+                    expect(objectiveBrief.isImageLoading()).toBeFalsy();
                 });
 
                 describe('when spec has questionsCount', function () {

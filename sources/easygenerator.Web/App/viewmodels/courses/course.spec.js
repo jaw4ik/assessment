@@ -12,7 +12,8 @@
         clientContext = require('clientContext'),
         ping = require('ping'),
         BackButton = require('models/backButton'),
-        userContext = require('userContext')
+        userContext = require('userContext'),
+        imageUpload = require('imageUpload')
     ;
 
     describe('viewModel [course]', function () {
@@ -303,6 +304,143 @@
             });
         });
 
+        describe('updateObjectiveImage:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.updateObjectiveImage).toBeFunction();
+            });
+
+            it('should upload image', function () {
+                spyOn(imageUpload, 'upload');
+                viewModel.updateObjectiveImage();
+                expect(imageUpload.upload).toHaveBeenCalled();
+            });
+
+            var objective = {
+                id: 'some_objective_id',
+                imageUrl: ko.observable(''),
+                isImageLoading: ko.observable(false),
+                modifiedOn: ko.observable(new Date())
+            };
+
+            describe('when image loading started', function () {
+
+                beforeEach(function () {
+                    spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        spec.startLoading();
+                    });
+                });
+
+                it('should set isImageLoading to true', function () {
+                    objective.isImageLoading(false);
+                    viewModel.updateObjectiveImage(objective);
+                    expect(objective.isImageLoading()).toBeTruthy();
+                });
+
+                it('should send event \'Open "change objective image" dialog\'', function () {
+                    viewModel.updateObjectiveImage(objective);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Open "change objective image" dialog');
+                });
+
+            });
+
+            describe('when image was uploaded', function () {
+
+                var url = 'http://url.com', updateImageDefer;
+                beforeEach(function () {
+                    spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        spec.success(url);
+                    });
+
+                    updateImageDefer = Q.defer();
+                    spyOn(objectiveRepository, 'updateImage').and.returnValue(updateImageDefer.promise);
+                });
+
+                it('should update objective image', function () {
+                    viewModel.updateObjectiveImage(objective);
+                    expect(objectiveRepository.updateImage).toHaveBeenCalledWith(objective.id, url);
+                });
+
+                describe('and when objective image updated successfully', function () {
+
+                    var lastModifiedDate = new Date(), newUrl = 'new/image/url';
+                    beforeEach(function () {
+                        updateImageDefer.resolve({
+                            modifiedOn: lastModifiedDate,
+                            imageUrl: newUrl
+                        });
+                    });
+
+                    it('should set imageUrl', function (done) {
+                        objective.imageUrl('');
+                        viewModel.updateObjectiveImage(objective);
+
+                        updateImageDefer.promise.fin(function () {
+                            expect(objective.imageUrl()).toBe(newUrl);
+                            done();
+                        });
+                    });
+
+                    it('should update modifiedOn date', function () {
+                        objective.modifiedOn(0);
+                        viewModel.updateObjectiveImage(objective);
+
+                        updateImageDefer.promise.fin(function () {
+                            expect(objective.modifiedOn()).toBe(lastModifiedDate);
+                            done();
+                        });
+                    });
+
+                    it('should set isImageLoading to false', function (done) {
+                        objective.isImageLoading(true);
+                        viewModel.updateObjectiveImage(objective);
+
+                        updateImageDefer.promise.fin(function () {
+                            expect(objective.isImageLoading()).toBeFalsy();
+                            done();
+                        });
+                    });
+
+                    it('should send event \'Change objective image\'', function (done) {
+                        viewModel.updateObjectiveImage(objective);
+
+                        updateImageDefer.promise.fin(function () {
+                            expect(eventTracker.publish).toHaveBeenCalledWith('Change objective image');
+                            done();
+                        });
+                    });
+
+                    it('should update notificaion', function (done) {
+                        viewModel.updateObjectiveImage(objective);
+
+                        updateImageDefer.promise.fin(function () {
+                            expect(notify.saved).toHaveBeenCalled();
+                            done();
+                        });
+                    });
+
+                });
+
+            });
+
+            describe('when image loading failed', function () {
+
+                beforeEach(function () {
+                    spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        spec.error();
+                    });
+                });
+
+                it('should set isImageLoading to false', function () {
+                    objective.isImageLoading(true);
+                    viewModel.updateObjectiveImage(objective);
+                    expect(objective.isImageLoading()).toBeFalsy();
+                });
+
+            });
+
+        });
+
         describe('navigateToObjectiveDetails:', function () {
 
             it('should be a function', function () {
@@ -367,7 +505,7 @@
 
         });
 
-        describe('navigateToCreateObjective', function () {
+        describe('navigateToCreateObjective:', function () {
 
             it('should be function', function () {
                 expect(viewModel.navigateToCreateObjective).toBeFunction();
@@ -1006,7 +1144,7 @@
                 });
 
                 describe('when last created course is current course', function () {
-                    beforeEach(function() {
+                    beforeEach(function () {
                         spyOn(clientContext, 'get').and.returnValue(course.id);
                     });
 
@@ -1679,7 +1817,7 @@
 
         });
 
-        describe('objectiveTitleUpdated', function () {
+        describe('objectiveTitleUpdated:', function () {
 
             var objectiveId = "objectiveId";
             var vmObjective = {
@@ -1714,7 +1852,44 @@
 
         });
 
-        describe('objectiveUpdated', function () {
+        describe('objectiveImageUpdated:', function () {
+
+            var objectiveId = "objectiveId";
+            var vmObjective = {
+                id: objectiveId,
+                title: ko.observable(""),
+                imageUrl: ko.observable(""),
+                isSelected: ko.observable(false),
+                modifiedOn: ko.observable("")
+            };
+            var objective = {
+                id: objectiveId,
+                title: "new title",
+                image: 'new/image/url',
+                modifiedOn: new Date()
+            };
+
+            it('should be function', function () {
+                expect(viewModel.objectiveImageUpdated).toBeFunction();
+            });
+
+            it('should update objective imageUrl', function () {
+                viewModel.connectedObjectives([vmObjective]);
+                viewModel.objectiveImageUpdated(objective);
+
+                expect(vmObjective.imageUrl()).toBe(objective.image);
+            });
+
+            it('should update course modified on date', function () {
+                viewModel.connectedObjectives([vmObjective]);
+                viewModel.objectiveImageUpdated(objective);
+
+                expect(vmObjective.modifiedOn().toISOString()).toBe(objective.modifiedOn.toISOString());
+            });
+
+        });
+
+        describe('objectiveUpdated:', function () {
 
             var objectiveId = "objectiveId";
             var vmObjective = {

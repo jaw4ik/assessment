@@ -12,50 +12,50 @@
                 success: function () { },
                 error: function () { },
                 complete: function () { }
-            }
+            };
 
             var settings = $.extend({}, defaults, options);
 
             var form = $("<form>")
-                      .hide()
-                      .attr('method', 'post')
-                      .attr('enctype', 'multipart/form-data')
-                      .attr('action', settings.action)
-                      .insertAfter("body");
+                .hide()
+                .attr('method', 'post')
+                .attr('enctype', 'multipart/form-data')
+                .attr('action', settings.action)
+                .insertAfter("body");
 
             var input = $("<input>")
-               .attr('accept', settings.acceptedTypes)
-               .attr('type', 'file')
-               .attr('name', 'file')
-               .on('change', function () {
-                   if ($(this).val().toLowerCase().match(new RegExp('\.(' + getSupportedExtensionsRegexBody(settings.supportedExtensions) + ')$'))) {
-                       $(this).closest('form').ajaxSubmit({
-                           global: false,
-                           beforeSubmit: function () {
-                               settings.startLoading();
-                           },
-                           success: function (response) {
-                               try {
-                                   settings.success(response);
-                               } catch (e) {
-                                   settings.error();
-                               }
+                .attr('accept', settings.acceptedTypes)
+                .attr('type', 'file')
+                .attr('name', 'file')
+                .on('change', function () {
+                    if ($(this).val().toLowerCase().match(new RegExp('\.(' + getSupportedExtensionsRegexBody(settings.supportedExtensions) + ')$'))) {
+                        $(this).closest('form').ajaxSubmit({
+                            global: false,
+                            beforeSubmit: function () {
+                                settings.startLoading();
+                            },
+                            success: function (response) {
+                                try {
+                                    settings.success(response);
+                                } catch (e) {
+                                    settings.error();
+                                }
 
-                               form.remove();
-                               settings.complete();
-                           },
-                           error: function (event) {
-                               settings.error(event);
-                               form.remove();
+                                form.remove();
+                                settings.complete();
+                            },
+                            error: function (event) {
+                                settings.error(event);
+                                form.remove();
 
-                               settings.complete();
-                           }
-                       });
-                   } else {
-                       notify.error(settings.notSupportedFileMessage);
-                   }
-               })
-               .appendTo(form);
+                                settings.complete();
+                            }
+                        });
+                    } else {
+                        notify.error(settings.notSupportedFileMessage);
+                    }
+                })
+                .appendTo(form);
 
             input.click();
 
@@ -69,7 +69,7 @@
 
                 return result;
             }
-        }
-    }
 
-})
+        }
+    };
+});

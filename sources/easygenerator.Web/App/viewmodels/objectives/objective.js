@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'ping', 'models/backButton', 'durandal/app'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton, app) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'ping', 'models/backButton', 'durandal/app', 'imageUpload'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton, app, imageUpload) {
         "use strict";
 
         var
@@ -12,18 +12,23 @@
                 deleteSelectedQuestions: "Delete question",
                 navigateToCourse: "Navigate to course details",
                 navigateToObjectives: "Navigate to objectives",
-                changeQuestionsOrder: "Change order of questions"
+                changeQuestionsOrder: "Change order of questions",
+                openChangeObjectiveImageDialog: "Open \"change objective image\" dialog",
+                changeObjectiveImage: "Change objective image"
             },
             viewModel = {
                 objectiveId: null,
                 title: ko.observable(''),
                 titleMaxLength: constants.validation.objectiveTitleMaxLength,
+                imageUrl: ko.observable(''),
+                isImageLoading: ko.observable(false),
                 currentLanguage: '',
                 contextCourseId: null,
                 contextCourseTitle: null,
 
                 questions: ko.observableArray([]),
 
+                updateImage: updateImage,
                 startEditTitle: startEditTitle,
                 endEditTitle: endEditTitle,
 
@@ -43,6 +48,7 @@
                 activate: activate,
 
                 objectiveTitleUpdated: objectiveTitleUpdated,
+                objectiveImageUrlUpdated: objectiveImageUrlUpdated,
                 questionsReordered: questionsReordered,
                 questionCreatedByCollaborator: questionCreatedByCollaborator,
                 questionTitleUpdatedByCollaborator: questionTitleUpdatedByCollaborator,
@@ -67,6 +73,7 @@
         });
 
         app.on(constants.messages.objective.titleUpdatedByCollaborator, objectiveTitleUpdated);
+        app.on(constants.messages.objective.imageUrlUpdatedByCollaborator, objectiveImageUrlUpdated);
         app.on(constants.messages.objective.questionsReorderedByCollaborator, questionsReordered);
         app.on(constants.messages.question.createdByCollaborator, questionCreatedByCollaborator);
         app.on(constants.messages.question.titleUpdatedByCollaborator, questionTitleUpdatedByCollaborator);
@@ -98,6 +105,33 @@
             viewModel.title(objective.title);
         }
 
+        function objectiveImageUrlUpdated(objective) {
+            if (objective.id != viewModel.objectiveId)
+                return;
+
+            viewModel.imageUrl(objective.image);
+        }
+
+        function updateImage() {
+            imageUpload.upload({
+                startLoading: function () {
+                    viewModel.isImageLoading(true);
+                    eventTracker.publish(events.openChangeObjectiveImageDialog);
+                },
+                success: function (url) {
+                    repository.updateImage(viewModel.objectiveId, url).then(function (result) {
+                        viewModel.imageUrl(result.imageUrl);
+                        viewModel.isImageLoading(false);
+                        eventTracker.publish(events.changeObjectiveImage);
+                        showNotification();
+                    });
+                },
+                error: function () {
+                    viewModel.isImageLoading(false);
+                }
+            });
+        }
+
         function startEditTitle() {
             viewModel.title.isEditing(true);
         }
@@ -117,7 +151,7 @@
                     eventTracker.publish(events.updateObjectiveTitle);
 
                     if (viewModel.title.isValid()) {
-                        repository.updateObjective({ id: viewModel.objectiveId, title: viewModel.title() }).then(showNotification);
+                        repository.updateTitle(viewModel.objectiveId, viewModel.title()).then(showNotification);
                     } else {
                         viewModel.title(objectiveTitle);
                     }
@@ -218,6 +252,7 @@
                     clientContext.set(constants.clientContextKeys.lastVisitedObjective, id);
                     viewModel.objectiveId = objective.id;
                     viewModel.title(objective.title);
+                    viewModel.imageUrl(objective.image);
 
                     var array = _.map(objective.questions, mapQuestion);
 

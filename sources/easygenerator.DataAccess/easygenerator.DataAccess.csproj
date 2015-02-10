@@ -230,6 +230,10 @@
     <Compile Include="Migrations\201412231233568_CreateDemoCoursesTable.Designer.cs">
       <DependentUpon>201412231233568_CreateDemoCoursesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502091509166_AddImageUrlFieldToObjectivesTable.cs" />
+    <Compile Include="Migrations\201502091509166_AddImageUrlFieldToObjectivesTable.Designer.cs">
+      <DependentUpon>201502091509166_AddImageUrlFieldToObjectivesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -392,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412231233568_CreateDemoCoursesTable.resx">
       <DependentUpon>201412231233568_CreateDemoCoursesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502091509166_AddImageUrlFieldToObjectivesTable.resx">
+      <DependentUpon>201502091509166_AddImageUrlFieldToObjectivesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

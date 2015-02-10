@@ -1,8 +1,8 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
         'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'ping', 'models/backButton',
-        'userContext', 'durandal/app', './collaboration/collaborators'],
+        'userContext', 'durandal/app', './collaboration/collaborators', 'imageUpload'],
     function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, ping, BackButton,
-        userContext, app, collaborators) {
+        userContext, app, collaborators, imageUpload) {
         "use strict";
 
         var
@@ -17,7 +17,9 @@
                 showConnectedObjectives: 'Show connected objectives',
                 unrelateObjectivesFromCourse: 'Unrelate objectives from course',
                 navigateToCourses: 'Navigate to courses',
-                changeOrderObjectives: 'Change order of learning objectives'
+                changeOrderObjectives: 'Change order of learning objectives',
+                openChangeObjectiveImageDialog: 'Open "change objective image" dialog',
+                changeObjectiveImage: 'Change objective image'
             },
 
             eventsForCourseContent = {
@@ -56,6 +58,7 @@
                 callback: navigateToCoursesEvent
             }),
 
+            updateObjectiveImage: updateObjectiveImage,
             navigateToObjectiveDetails: navigateToObjectiveDetails,
             navigateToCreateObjective: navigateToCreateObjective,
             navigateToCoursesEvent: navigateToCoursesEvent,
@@ -80,6 +83,7 @@
             objectiveConnected: objectiveConnected,
             objectivesDisconnected: objectivesDisconnected,
             objectiveTitleUpdated: objectiveTitleUpdated,
+            objectiveImageUpdated: objectiveImageUpdated,
             objectiveUpdated: objectiveUpdated,
             updateCollaborationWarning: updateCollaborationWarning,
             collaborators: collaborators,
@@ -114,6 +118,7 @@
         app.on(constants.messages.course.objectiveRelatedByCollaborator, viewModel.objectiveConnected);
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.objectivesDisconnected);
         app.on(constants.messages.objective.titleUpdatedByCollaborator, viewModel.objectiveTitleUpdated);
+        app.on(constants.messages.objective.imageUrlUpdatedByCollaborator, viewModel.objectiveImageUpdated);
         app.on(constants.messages.objective.questionsReorderedByCollaborator, viewModel.objectiveUpdated);
         app.on(constants.messages.question.createdByCollaborator, viewModel.objectiveUpdated);
         app.on(constants.messages.question.deletedByCollaborator, viewModel.objectiveUpdated);
@@ -135,6 +140,27 @@
 
         function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);
+        }
+
+        function updateObjectiveImage(objective) {
+            imageUpload.upload({
+                startLoading: function () {
+                    objective.isImageLoading(true);
+                    eventTracker.publish(events.openChangeObjectiveImageDialog);
+                },
+                success: function (url) {
+                    objectiveRepository.updateImage(objective.id, url).then(function (result) {
+                        objective.imageUrl(result.imageUrl);
+                        objective.modifiedOn(result.modifiedOn);
+                        objective.isImageLoading(false);
+                        eventTracker.publish(events.changeObjectiveImage);
+                        notify.saved();
+                    });
+                },
+                error: function () {
+                    objective.isImageLoading(false);
+                }
+            });
         }
 
         function navigateToObjectiveDetails(objective) {
@@ -392,6 +418,15 @@
 
             if (_.isObject(vmObjective)) {
                 vmObjective.title(objective.title);
+                vmObjective.modifiedOn(objective.modifiedOn);
+            }
+        }
+
+        function objectiveImageUpdated(objective) {
+            var vmObjective = getObjectiveViewModel(objective.id);
+
+            if (_.isObject(vmObjective)) {
+                vmObjective.imageUrl(objective.image);
                 vmObjective.modifiedOn(objective.modifiedOn);
             }
         }

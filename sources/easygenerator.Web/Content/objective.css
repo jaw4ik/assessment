@@ -1,4 +1,12 @@
-﻿.objective .create-new-title {
+﻿.module-objective .view-content {
+    background-color: #f9fafc;
+}
+
+.module-objective .view-module {
+    background-color: #fff;
+}
+
+.objective .create-new-title {
     padding: 32px 0;
 }
 
@@ -194,15 +202,15 @@
     display: block;
 }
 
-
 /*#endregion create objective*/
 
 /*#region add new question*/
 
 .objective .btn.create-question {
     float: right;
-    background: #65bd77;
+    min-width: 150px;
     border: 1px solid #61b472;
+    background: #65bd77;
     font-family: 'OpenSans';
     font-size: 14px;
     text-shadow: none;
@@ -231,6 +239,86 @@
         background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NkIxNzRCNTFCQTQxMTFFMzlGOTRGM0ExN0E1ODkzNDUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NkIxNzRCNTJCQTQxMTFFMzlGOTRGM0ExN0E1ODkzNDUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2QjE3NEI0RkJBNDExMUUzOUY5NEYzQTE3QTU4OTM0NSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2QjE3NEI1MEJBNDExMUUzOUY5NEYzQTE3QTU4OTM0NSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pgd11lwAAAGCSURBVHjaYjSvdWPAApyAOBxKy0HFHgHxPiBeBcR7YQpPNO0E0yxoBmgA8XQgdsBiuAoUpwHxASDOBOIbMEkmJIX2QHwKhyHowAGq1h7dIJBLNgIxLwPxAKR2o0WdO0gvAyMwjBiB9DEgtkBXyc7FziAgJgRmf3j1juHnt5/YDDwBxFagMHLGZgjYIE4OBnEFCTD7++dvuAwC6XUGeS2MgXIQxgSNYkqBE8hrssgi4gqScO8gAwVdJTj75YMXQPwcWVoW5KKfVHAROEE+A2J1mAAoUEE2ggAbBxuDoAQk1t6/eMfw68cvuBo08IQFmrDgBn16+xGMQYBPmB9u0MfXH+DiWMBRkNeWUsFnS0AG7YImKgzw9/cfhq8fvoAxiI0DgPTuBnntPxAnQgX4kVV8/fSV4e6F2/hcAvJrErAE+A/La6Bc7A/En0nwDkitP9CQ6+i5/yAQm+HyJhbvmEH1YC2PQC6zAmJXIA6B5kNQggXF+2MgPgzEa0BhAg0SOAAIMADQJ3OFQ+VQtAAAAABJRU5ErkJggg==);
     }
 /*#endregion add new question*/
+
+/*#region objective image upload*/
+
+.objective .controls {
+    display: -webkit-flex;
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.objective .image-container {
+    position: relative;
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: 120px;
+    height: 120px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.2);
+}
+
+    .objective .image-container .logo-background,
+    .objective .image-container .overlay {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .objective .image-container .overlay {
+        position: absolute;
+        background-color: #fff;
+        text-align: center;
+        opacity: 0.95;
+    }
+
+        .objective .image-container .overlay .image {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            margin-top: 25px;
+        }
+
+        .objective .image-container .overlay .text {
+            margin-top: 11px;
+            text-transform: uppercase;
+            font-family: 'OpenSans-Semibold';
+            font-size: 11px;
+            color: #a1a1a8;
+        }
+
+        .objective .image-container .overlay.hover {
+            visibility: hidden;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.15s linear;
+        }
+
+    .objective .image-container:hover .overlay.hover {
+        visibility: visible;
+        opacity: 0.95;
+    }
+
+    .objective .image-container .overlay.hover .image {
+        background: url(images/upload-image.png) 0 0 no-repeat;
+    }
+
+    .objective .image-container .overlay.uploading .image {
+        background: url(images/buildprogress.gif) 0 0 no-repeat;
+        background-size: 100% 100%;
+    }
+
+.objective .title-container {
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+    width: 70%;
+    margin-left: 20px;
+}
+
+/*#endregion objective image upload*/
 
 @media (max-width: 1200px) {
 

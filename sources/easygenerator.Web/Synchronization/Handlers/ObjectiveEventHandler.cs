@@ -10,6 +10,7 @@ namespace easygenerator.Web.Synchronization.Handlers
 {
     public class ObjectiveEventHandler :
         IDomainEventHandler<ObjectiveTitleUpdatedEvent>,
+        IDomainEventHandler<ObjectiveImageUrlUpdatedEvent>,
         IDomainEventHandler<QuestionsReorderedEvent>,
         IDomainEventHandler<QuestionsDeletedEvent>
     {
@@ -23,6 +24,11 @@ namespace easygenerator.Web.Synchronization.Handlers
         public void Handle(ObjectiveTitleUpdatedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Objective).objectiveTitleUpdated(args.Objective.Id.ToNString(), args.Objective.Title, args.Objective.ModifiedOn);
+        }
+
+        public void Handle(ObjectiveImageUrlUpdatedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Objective).objectiveImageUrlUpdated(args.Objective.Id.ToNString(), args.Objective.ImageUrl, args.Objective.ModifiedOn);
         }
 
         public void Handle(QuestionsReorderedEvent args)

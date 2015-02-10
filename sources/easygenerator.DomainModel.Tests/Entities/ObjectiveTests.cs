@@ -65,6 +65,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             objective.Id.Should().NotBeEmpty();
             objective.Title.Should().Be(title);
+            objective.ImageUrl.Should().BeNull();
             objective.Questions.Should().BeEmpty();
             objective.RelatedCoursesCollection.Should().BeEmpty();
             objective.CreatedOn.Should().Be(DateTime.MaxValue);
@@ -171,6 +172,96 @@ namespace easygenerator.DomainModel.Tests.Entities
             objective.UpdateTitle("title", "user");
 
             objective.Events.Should().ContainSingle(e => e.GetType() == typeof(ObjectiveTitleUpdatedEvent));
+        }
+
+        #endregion
+
+        #region Update image url
+
+        [TestMethod]
+        public void UpdateImageUrl_ShouldThrowArgumentNullException_WhenUrlIsNull()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.UpdateImageUrl(null, ModifiedBy);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("imageUrl");
+        }
+
+        [TestMethod]
+        public void UpdateImageUrl_ShouldThrowArgumentException_WhenUrlIsEmpty()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.UpdateImageUrl(String.Empty, ModifiedBy);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("imageUrl");
+        }
+
+        [TestMethod]
+        public void UpdateImageUrl_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.UpdateImageUrl("Some url", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateImageUrl_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.UpdateImageUrl("Some url", string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateImageUrl_ShouldUpdateImageUrl()
+        {
+            const string imageUrl = "new/image/url";
+            var objective = ObjectiveObjectMother.Create();
+
+            objective.UpdateImageUrl(imageUrl, ModifiedBy);
+
+            objective.ImageUrl.Should().Be(imageUrl);
+        }
+
+        [TestMethod]
+        public void UpdateImageUrl_ShouldUpdateMoidifiedBy()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            var user = "Some user";
+
+            objective.UpdateImageUrl("Some url", user);
+
+            objective.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void UpdateImageUrl_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var objective = ObjectiveObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            objective.UpdateImageUrl("url", ModifiedBy);
+
+            objective.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdateImageUrl_ShouldAddObjectiveImageUrlUpdatedEvent()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            objective.UpdateImageUrl("url", ModifiedBy);
+
+            objective.Events.Should().ContainSingle(e => e.GetType() == typeof(ObjectiveImageUrlUpdatedEvent));
         }
 
         #endregion

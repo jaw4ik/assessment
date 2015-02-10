@@ -15,6 +15,12 @@
             });
         });
 
+        describe('imageUrlUpdated:', function () {
+            it('should be function', function() {
+                expect(handler.imageUrlUpdated).toBeFunction();
+            });
+        });
+
     });
 
 })

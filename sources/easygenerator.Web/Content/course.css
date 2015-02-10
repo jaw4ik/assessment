@@ -52,12 +52,6 @@
         border: 2px dashed #2db7ff;
     }
 
-.course .main-content-list .list-item-logo,
-.course .main-content-list .list-item-logo-image {
-    width: 80px;
-    height: 80px;
-}
-
 /*.course .main-content-list*/
 .placeholder-wrapper {
     border: 1px dashed #2db7ff;
@@ -111,13 +105,14 @@
 
     .connecting-objectives-holder .main-content-list .list-item-logo {
         width: 70px;
-        height: 50px;
+        height: 60px;
     }
 
     .connecting-objectives-holder .main-content-list .list-item-logo-image {
         width: 60px;
         height: 60px;
         margin-left: 10px;
+        border: 1px solid #cccccc;
     }
 
     .connecting-objectives-holder .main-content-list .list-item-info {
@@ -1610,7 +1605,6 @@ li.package-action-tabs-link {
 }
 
 .results .content-section {
-    padding: 20px 0;
     font-family: 'OpenSans';
 }
 

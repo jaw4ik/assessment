@@ -1,22 +1,41 @@
 ﻿<section class="objective view-module">
     <div class="content-section-wrapper">
         <div class="content-section">
-            <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</div>
-            </div>
-
-            <header class="view-header">
-                <div class="view-header-title">
-                    <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }"></div>
-                    <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
-                        <span data-bind="text: title().trim().length"></span>/<span data-bind="text: titleMaxLength"></span>
+            <div class="controls">
+                <div class="image-container" data-bind="click: updateImage">
+                    <div class="logo-background" data-bind="backgroundImage: imageUrl"></div>
+                    <div class="overlay hover" data-bind="visible: !isImageLoading()">
+                        <span class="image"></span>
+                        <div class="text" data-bind="localize: { text: 'changeImage' }">Change image</div>
+                    </div>
+                    <div class="overlay uploading" data-bind="visible: isImageLoading()">
+                        <span class="image"></span>
+                        <div class="text" data-bind="localize: { text: 'uploading' }">Uploading...</div>
                     </div>
                 </div>
-            </header>
-            <div class="main-content-list-title-wrapper">
-                <span class="main-content-list-title" data-bind="localize: { text: 'relatedContents' }"></span>
+                <div class="title-container">
+                    <div class="page-view-caption clearfix">
+                        <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</div>
+                    </div>
+                    <header class="view-header">
+                        <div class="view-header-title">
+                            <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }"></div>
+                            <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
+                                <span data-bind="text: title().trim().length"></span>/<span data-bind="text: titleMaxLength"></span>
+                            </div>
+                        </div>
+                    </header>
+                </div>
             </div>
-
+        </div>
+    </div>
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <span class="main-content-title" data-bind="localize: { text: 'relatedContents' }"></span>
+        </div>
+    </div>
+    <div class="content-section-wrapper main-content">
+        <div class="content-section">
             <div class="main-content-list-holder">
                 <div class="view-list-actions-holder">
                     <div class="list-item-action delete">
@@ -68,7 +87,7 @@
                                     <span class="selectable" data-bind="text: title"></span>
                                 </div>
                                 <div class="list-item-saved">
-                                    <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                    <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
                                 </div>
                             </div>
                             <div class="list-item-open">

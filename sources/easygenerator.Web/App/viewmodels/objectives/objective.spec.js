@@ -15,6 +15,7 @@
             clientContext = require('clientContext'),
             BackButton = require('models/backButton'),
             createQuestionCommand = require('commands/createQuestionCommand'),
+            imageUpload = require('imageUpload'),
             ping = require('ping')
         ;
 
@@ -25,7 +26,7 @@
                 title: 'Test Objective 1',
                 createdOn: new Date(),
                 modifiedOn: new Date(),
-                image: '',
+                image: 'image/url',
                 questions: [
                     { id: 0, title: 'A', type: 'multipleSelect' },
                     { id: 1, title: 'b', type: 'multipleSelect' },
@@ -216,6 +217,17 @@
                             });
                         });
 
+                        it('should set image url', function () {
+                            viewModel.imageUrl('');
+
+                            var promise = viewModel.activate(objective.id, null);
+
+                            promise.fin(function () {
+                                expect(viewModel.imageUrl()).toBe(objective.image);
+                                done();
+                            });
+                        });
+
                         it('should set currentLanguage', function () {
                             viewModel.currentLanguage = null;
                             viewModel.activate(objective.id, null);
@@ -321,6 +333,17 @@
                                 var promise = viewModel.activate(objective.id, queryParams);
                                 promise.fin(function () {
                                     expect(viewModel.title()).toBe(objective.title);
+                                    done();
+                                });
+                            });
+
+                            it('should set image url', function () {
+                                viewModel.imageUrl('');
+
+                                var promise = viewModel.activate(objective.id, queryParams);
+
+                                promise.fin(function () {
+                                    expect(viewModel.imageUrl()).toBe(objective.image);
                                     done();
                                 });
                             });
@@ -435,6 +458,17 @@
 
                                     promise.fin(function () {
                                         expect(viewModel.title()).toBe(objective.title);
+                                        done();
+                                    });
+                                });
+
+                                it('should set image url', function () {
+                                    viewModel.imageUrl('');
+
+                                    var promise = viewModel.activate(objective.id, queryParams);
+
+                                    promise.fin(function () {
+                                        expect(viewModel.imageUrl()).toBe(objective.image);
                                         done();
                                     });
                                 });
@@ -572,6 +606,26 @@
                 });
             });
 
+            describe('imageUrl:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.imageUrl).toBeObservable();
+                });
+
+            });
+
+            describe('isImageLoading:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.isImageLoading).toBeObservable();
+                });
+
+                it('should be false by default', function () {
+                    expect(viewModel.isImageLoading()).toBeFalsy();
+                });
+
+            });
+
             describe('titleMaxLength:', function () {
 
                 it('should be defined', function () {
@@ -600,13 +654,13 @@
 
             describe('endEditTitle:', function () {
 
-                var updateDeferred, getByIdDeferred;
+                var updateTitleDeferred, getByIdDeferred;
 
                 beforeEach(function () {
-                    updateDeferred = Q.defer();
+                    updateTitleDeferred = Q.defer();
                     getByIdDeferred = Q.defer();
 
-                    spyOn(repository, 'updateObjective').and.returnValue(updateDeferred.promise);
+                    spyOn(repository, 'updateTitle').and.returnValue(updateTitleDeferred.promise);
                     spyOn(repository, 'getById').and.returnValue(getByIdDeferred.promise);
 
                     spyOn(notify, 'saved');
@@ -661,7 +715,7 @@
 
                         promise.fin(function () {
                             expect(promise).toBeResolved();
-                            expect(repository.updateObjective).not.toHaveBeenCalled();
+                            expect(repository.updateTitle).not.toHaveBeenCalled();
                             done();
                         });
                     });
@@ -689,22 +743,22 @@
 
                     describe('and when title is valid', function () {
 
-                        it('should update objective in repository', function (done) {
+                        it('should update objective title in repository', function (done) {
                             viewModel.endEditTitle();
 
                             getPromise.fin(function () {
                                 expect(getPromise).toBeResolved();
-                                expect(repository.updateObjective).toHaveBeenCalled();
-                                expect(repository.updateObjective.calls.mostRecent().args[0].title).toEqual(newTitle);
+                                expect(repository.updateTitle).toHaveBeenCalled();
+                                expect(repository.updateTitle.calls.mostRecent().args[1]).toEqual(newTitle);
                                 done();
                             });
                         });
 
-                        describe('and when objective updated successfully', function () {
+                        describe('and when objective title updated successfully', function () {
 
-                            it('should update notificaion', function (done) {
-                                var promise = updateDeferred.promise.fin(function () { });
-                                updateDeferred.resolve(new Date());
+                            it('should update notification', function (done) {
+                                var promise = updateTitleDeferred.promise.fin(function () { });
+                                updateTitleDeferred.resolve(new Date());
 
                                 viewModel.endEditTitle();
 
@@ -735,7 +789,129 @@
                 });
             });
 
-            describe('navigateToEditQuestion', function () {
+            describe('updateImage:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.updateImage).toBeFunction();
+                });
+
+                it('should upload image', function () {
+                    spyOn(imageUpload, 'upload');
+                    viewModel.updateImage();
+                    expect(imageUpload.upload).toHaveBeenCalled();
+                });
+
+                describe('when image loading started', function () {
+
+                    beforeEach(function () {
+                        spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                            spec.startLoading();
+                        });
+                    });
+
+                    it('should set isImageLoading to true', function () {
+                        viewModel.isImageLoading(false);
+                        viewModel.updateImage();
+                        expect(viewModel.isImageLoading()).toBeTruthy();
+                    });
+
+                    it('should send event \'Open "change objective image" dialog\'', function () {
+                        viewModel.updateImage();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Open "change objective image" dialog');
+                    });
+
+                });
+
+                describe('when image was uploaded', function () {
+
+                    var url = 'http://url.com', updateImageDefer;
+                    beforeEach(function () {
+                        spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                            spec.success(url);
+                        });
+
+                        updateImageDefer = Q.defer();
+                        spyOn(repository, 'updateImage').and.returnValue(updateImageDefer.promise);
+                    });
+
+
+                    it('should update objective image', function () {
+                        viewModel.updateImage();
+                        expect(repository.updateImage).toHaveBeenCalledWith(viewModel.objectiveId, url);
+                    });
+
+                    describe('and when objective image updated successfully', function () {
+
+                        var newUrl = 'new/image/url';
+                        beforeEach(function () {
+                            updateImageDefer.resolve({
+                                modifiedOn: new Date(),
+                                imageUrl: newUrl
+                            });
+                        });
+
+                        it('should set imageUrl', function (done) {
+                            viewModel.imageUrl('');
+                            viewModel.updateImage();
+
+                            updateImageDefer.promise.fin(function () {
+                                expect(viewModel.imageUrl()).toBe(newUrl);
+                                done();
+                            });
+                        });
+
+                        it('should set isImageLoading to false', function (done) {
+                            viewModel.isImageLoading(true);
+                            viewModel.updateImage();
+
+                            updateImageDefer.promise.fin(function () {
+                                expect(viewModel.isImageLoading()).toBeFalsy();
+                                done();
+                            });
+                        });
+
+                        it('should send event \'Change objective image\'', function (done) {
+                            viewModel.updateImage();
+
+                            updateImageDefer.promise.fin(function () {
+                                expect(eventTracker.publish).toHaveBeenCalledWith('Change objective image');
+                                done();
+                            });
+                        });
+
+                        it('should update notificaion', function (done) {
+                            spyOn(notify, 'saved');
+                            viewModel.updateImage();
+
+                            updateImageDefer.promise.fin(function () {
+                                expect(notify.saved).toHaveBeenCalled();
+                                done();
+                            });
+                        });
+
+                    });
+
+                });
+
+                describe('when image loading failed', function () {
+
+                    beforeEach(function () {
+                        spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                            spec.error();
+                        });
+                    });
+
+                    it('should set isImageLoading to false', function () {
+                        viewModel.isImageLoading(true);
+                        viewModel.updateImage();
+                        expect(viewModel.isImageLoading()).toBeFalsy();
+                    });
+
+                });
+
+            });
+
+            describe('navigateToEditQuestion:', function () {
 
                 describe('when question is null', function () {
 
@@ -904,7 +1080,7 @@
                 });
             });
 
-            describe('toggleQuestionSelection', function () {
+            describe('toggleQuestionSelection:', function () {
 
                 it('should be a function', function () {
                     expect(viewModel.toggleQuestionSelection).toBeFunction();
@@ -968,7 +1144,7 @@
                 });
             });
 
-            describe('questions', function () {
+            describe('questions:', function () {
 
                 it('should be observable', function () {
                     expect(viewModel.questions).toBeObservable();
@@ -1142,7 +1318,7 @@
                     expect(viewModel.objectiveTitleUpdated).toBeFunction();
                 });
 
-                describe('when objective is current course', function () {
+                describe('when objective is current objective', function () {
 
                     describe('when objective title is editing', function () {
                         beforeEach(function () {
@@ -1182,6 +1358,42 @@
                         expect(viewModel.title()).toBe('');
                     });
                 });
+
+            });
+
+            describe('objectiveImageUrlUpdated:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.objectiveImageUrlUpdated).toBeFunction();
+                });
+
+                describe('when objective is current objective', function () {
+
+                    beforeEach(function () {
+                        viewModel.objectiveId = objective.id;
+                    });
+
+                    it('should update objective image url', function () {
+                        viewModel.imageUrl('');
+                        viewModel.objectiveImageUrlUpdated(objective);
+                        expect(viewModel.imageUrl()).toBe(objective.image);
+                    });
+                });
+
+                describe('when objective is not current objective', function () {
+
+                    beforeEach(function () {
+                        viewModel.objectiveId = 'some_another_id';
+                    });
+
+                    it('should not update objective image url', function () {
+                        viewModel.imageUrl('');
+                        viewModel.objectiveImageUrlUpdated(objective);
+                        expect(viewModel.imageUrl()).toBe('');
+                    });
+
+                });
+
             });
 
             describe('isReorderingQuestions:', function () {

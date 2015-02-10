@@ -16,7 +16,7 @@
                 <div class="page-view-caption-text" data-bind="localize: { text: 'courseViewCaption' }">Course editor</div>
                 <div data-bind="compose: {model: collaborators, activationData: {courseId: id, courseOwner: createdBy}}"></div>
             </div>
-            
+
             <header class="view-header">
                 <div class="view-header-title">
                     <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': isEditing(), 'error': !title.isValid() }, autofocus: { focus: isLastCreatedCourse, autoselect: isLastCreatedCourse }"></div>
@@ -102,7 +102,7 @@
                 </div>
                 <!-- /ko -->
                 <!--ko if: objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0-->
-                <ul class="unstyled main-content-list" data-bind="sortable: { data: connectedObjectives, afterMove: reorderObjectives, isEnabled: isSortingEnabled, options: { handle: '.list-item-drag-icon', start : startReorderingObjectives, stop: endReorderingObjectives } }">
+                <ul class="unstyled main-content-list main-objectives-list" data-bind="sortable: { data: connectedObjectives, afterMove: reorderObjectives, isEnabled: isSortingEnabled, options: { handle: '.list-item-drag-icon', start : startReorderingObjectives, stop: endReorderingObjectives } }">
                     <li class="main-content-list-item draggable" data-bind="css: { selected: isSelected }">
                         <div class="list-item-content-holder" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent)">
                             <div class="list-item-drag-icon-wrapper">
@@ -114,8 +114,18 @@
                                 <!-- /ko -->
                             </div>
                             <div class="list-item-checkbox">&nbsp;</div>
-                            <div class="list-item-logo">
-                                <img class="list-item-logo-image" alt="" src="" data-bind="attr: { src: image }" />
+                            <div class="list-item-logo-wrapper">
+                                <div class="list-item-logo changeable" data-bind="click: $parent.updateObjectiveImage, stopEventPropagation: { event: 'click' }">
+                                    <div class="logo-background" data-bind="backgroundImage: imageUrl"></div>
+                                    <div class="overlay hover" data-bind="visible: !isImageLoading()">
+                                        <span class="image"></span>
+                                        <div class="text" data-bind="localize: { text: 'changeImage' }">Change image</div>
+                                    </div>
+                                    <div class="overlay uploading" data-bind="visible: isImageLoading()">
+                                        <span class="image"></span>
+                                        <div class="text" data-bind="localize: { text: 'uploading' }">Uploading...</div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="list-item-info">
                                 <div class="list-item-title">
@@ -157,7 +167,7 @@
                                 <li class="main-content-list-item">
                                     <div class="list-item-content-holder">
                                         <div class="list-item-logo">
-                                            <img class="list-item-logo-image" alt="" src="" data-bind="attr: { src: image }" />
+                                            <div class="list-item-logo-image" data-bind="backgroundImage: imageUrl"></div>
                                         </div>
                                         <div class="list-item-info">
                                             <div class="list-item-title">
@@ -201,7 +211,7 @@
                                                 <!-- /ko -->
                                             </div>
                                             <div class="list-item-logo">
-                                                <img class="list-item-logo-image" alt="" src="" data-bind="attr: { src: image }" />
+                                                <div class="list-item-logo-image" data-bind="backgroundImage: imageUrl"></div>
                                             </div>
                                             <div class="list-item-info">
                                                 <div class="list-item-title">

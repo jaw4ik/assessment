@@ -10,7 +10,7 @@
                 var dfd = Q.defer();
 
                 var hub = $.connection.eventHub;
-
+                
                 hub.client = {
                     userDowngraded: userEventHandler.downgraded,
                     userUpgradedToStarter: userEventHandler.upgradedToStarter,
@@ -33,6 +33,7 @@
                     courseObjectivesReplaced: courseEventHandler.objectivesReplaced,
 
                     objectiveTitleUpdated: objectiveEventHandler.titleUpdated,
+                    objectiveImageUrlUpdated: objectiveEventHandler.imageUrlUpdated,
                     objectiveQuestionsReordered: objectiveEventHandler.questionsReordered,
 
                     questionCreated: questionEventHandler.question.created,

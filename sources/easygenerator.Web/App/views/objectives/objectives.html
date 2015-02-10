@@ -39,15 +39,25 @@
                 <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
                         <div class="list-item-checkbox"></div>
-                        <div class="list-item-logo">
-                            <img class="list-item-logo-image" alt="" data-bind="attr: { src: image }" src="" />
+                        <div class="list-item-logo-wrapper">
+                            <div class="list-item-logo changeable" data-bind="click: $parent.updateObjectiveImage, stopEventPropagation: { event: 'click' }">
+                                <div class="logo-background" data-bind="backgroundImage: imageUrl"></div>
+                                <div class="overlay hover" data-bind="visible: !isImageLoading()">
+                                    <span class="image"></span>
+                                    <div class="text" data-bind="localize: { text: 'changeImage' }">Change image</div>
+                                </div>
+                                <div class="overlay uploading" data-bind="visible: isImageLoading()">
+                                    <span class="image"></span>
+                                    <div class="text" data-bind="localize: { text: 'uploading' }">Uploading...</div>
+                                </div>
+                            </div>
                         </div>
                         <div class="list-item-info">
                             <div class="list-item-title">
                                 <span class="selectable" data-bind="text: title"></span>
                             </div>
                             <div class="list-item-saved">
-                                <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
                             </div>
                         </div>
                         <div class="list-item-open">

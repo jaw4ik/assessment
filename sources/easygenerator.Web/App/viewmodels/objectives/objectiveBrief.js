@@ -1,11 +1,12 @@
 ﻿define([], function () {
 
-    var ObjectiveBriefViewModel = function (item) {
+    return function objectiveBriefViewModel(item) {
 
         return {
             id: item.id,
             title: ko.observable(item.title),
-            image: item.image,
+            imageUrl: ko.observable(item.image),
+            isImageLoading: ko.observable(false),
             questionsCount: item.questionsCount || (item.questions ? item.questions.length : null),
             modifiedOn: ko.observable(item.modifiedOn),
             isSelected: ko.observable(false),
@@ -14,5 +15,4 @@
 
     };
 
-    return ObjectiveBriefViewModel;
 });

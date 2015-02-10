@@ -504,6 +504,10 @@
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\objective\eventHandlers\imageUrlUpdated.js" />
+    <Content Include="App\synchronization\handlers\objective\eventHandlers\imageUrlUpdated.spec.js">
+      <DependentUpon>imageUrlUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\isMultipleChanged.js" />
     <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\isMultipleChanged.spec.js">
       <DependentUpon>isMultipleChanged.js</DependentUpon>
@@ -566,11 +570,13 @@
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\no-spots.png" />
     <Content Include="Content\images\noResultsHintSteps.png" />
+    <Content Include="Content\images\objective-default-image.jpg" />
     <Content Include="Content\images\openhand.cur" />
     <Content Include="Content\images\import-pptx.png" />
     <Content Include="Content\images\dialog-header-background.png" />
     <Content Include="Content\images\preview.png" />
     <Content Include="Content\images\statement-question.png" />
+    <Content Include="Content\images\upload-image.png" />
     <Content Include="Content\statement.css" />
     <Content Include="Content\switchToggle.css" />
     <Content Include="App\synchronization\handlers\questions\hotSpot\handler.js" />
@@ -849,6 +855,7 @@
       <DependentUpon>tasks.js</DependentUpon>
     </Content>
     <Content Include="Scripts\knockoutBindings\autosizeBinding.js" />
+    <Content Include="Scripts\knockoutBindings\backgroundImageBinding.js" />
     <Content Include="Scripts\knockoutBindings\copyToClipboardBinding.js" />
     <Content Include="Scripts\knockoutBindings\customHasFocusBinding.js" />
     <Content Include="App\dialogs\collaboration\removeCollaborator.spec.js">
@@ -2210,7 +2217,6 @@
     <Content Include="Content\images\multiselect-question.png" />
     <Content Include="Content\images\notify\check.png" />
     <Content Include="Content\images\notify\error.png" />
-    <Content Include="Content\images\objective.png" />
     <Content Include="Content\images\oops.png" />
     <Content Include="Content\images\package-preloader.gif" />
     <Content Include="Content\images\processSteps.png" />

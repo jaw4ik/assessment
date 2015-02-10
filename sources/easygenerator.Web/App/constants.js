@@ -155,6 +155,8 @@
                     createdInCourse: 'objective:createdInCourse',
                     titleUpdated: 'objective:titleUpdated',
                     titleUpdatedByCollaborator: 'objective:titleUpdatedByCollaborator',
+                    imageUrlUpdated: 'objective:imageUrlUpdated',
+                    imageUrlUpdatedByCollaborator: 'objective:imageUrlUpdatedByCollaborator',
                     questionsReordered: 'objective:questionsReordered',
                     questionsReorderedByCollaborator: 'objective:questionsReorderedByCollaborator'
                 },
@@ -233,8 +235,6 @@
                     collapsed: 'sidePanel:collapsed'
                 }
             },
-
-            defaultObjectiveImage: '/Content/images/objective.png',
 
             patterns: {
                 email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/

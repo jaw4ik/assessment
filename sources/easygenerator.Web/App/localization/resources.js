@@ -92,10 +92,10 @@
         en: 'This file format is not supported. Please use jpg, jpeg, png, gif or bmp'
     },
     youHaveTo: {
-        en: 'You have to'
+        en: 'You have to '
     },
     upgradeYourAccount: {
-        en: 'upgrade your account'
+        en: 'upgrade your account '
     },
     spellCheckerWindows: {
         en: '&quot;Ctrl&quot; + &quot;right click&quot; for a spell-checker'
@@ -272,7 +272,7 @@
         en: 'Publishing...'
     },
     publishFailed: {
-        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.'
+        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. '
     },
     publishingLinkDescription: {
         en: 'Copy and share this link with your learners'
@@ -368,10 +368,10 @@
         en: 'Upgrade now'
     },
     limitCoursesInformerTextForStarter: {
-        en: 'You have reached the limit of'
+        en: 'You have reached the limit of '
     },
     limitCoursesInformerTextForFreeUser: {
-        en: 'You have reached the limit of'
+        en: 'You have reached the limit of '
     },
     limitCoursesInformerTextEnd: {
         en: 'courses.'
@@ -902,7 +902,7 @@
         en: 'The page you requested cannot be found'
     },
     pageNotFoundDescription: {
-        en: 'Click on Home. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
+        en: 'Click on Home. Open the course and try again. Contact support@easygenerator.com if the problem persists. '
     },
     homeLink: {
         en: 'Home'
@@ -911,28 +911,28 @@
     
     /* Resource section for model Server error notification */
     courseNotFoundError: {
-        en: 'There is a problem opening the course.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
+        en: 'There is a problem opening the course.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists. '
     },
     objectiveNotFoundError: {
-        en: 'There is a problem opening the objective.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
+        en: 'There is a problem opening the objective.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists. '
     },
     objectivesNotFoundError: {
-        en: 'There is a problem opening the objective.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
+        en: 'There is a problem opening the objective.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists. '
     },
     answerNotFoundError: {
-        en: 'There is a problem opening the answer option.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
+        en: 'There is a problem opening the answer option.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists. '
     },
     questionNotFoundError: {
-        en: 'There is a problem opening this question.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
+        en: 'There is a problem opening this question.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists. '
     },
     learningContentNotFoundError: {
-        en: 'There is a problem opening this content.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
+        en: 'There is a problem opening this content.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists. '
     },
     helpHintNotFoundError: {
-        en: 'There is a problem opening the Help.  Try again. Contact support@easygenerator.com if the problem persists.'
+        en: 'There is a problem opening the Help.  Try again. Contact support@easygenerator.com if the problem persists. '
     },
     responseFailed: {
-        en: 'We have encountered a problem.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.'
+        en: 'We have encountered a problem.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists. '
     },
     /* End resource section for model Server error notification */
     
@@ -980,7 +980,7 @@
         en: '<p>You need to add content and/or questions to the learning objective. Select your question type or content to add items.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
     },
     objectivesHelpHintTitle: {
-        en: 'What is a learning objective?'
+        en: 'What is a learning objective? '
     },
     objectivesHelpHint: {
         en: '<p>A <strong>learning objective</strong> describes specific skills or knowledge a learner can demonstrate after completing a course.</p><p> See our <a href=\"http://www.easygenerator.com/learning-objectives\" target=\"_blank\">website</a> for instructions on how to create a learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
@@ -1145,7 +1145,7 @@
         en: 'Upgrade to Starter Plan to share courses'
     },
     dataHasBeenChangedErrorMessage: {
-        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.'
+        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. '
     },
     removeCollaborator: {
         en: 'Remove co-author'
@@ -1172,7 +1172,7 @@
         en: 'Droptext has been deleted by co-author.'
     },
     courseIsNotAvailableAnyMore: {
-        en: 'Course is no longer shared with you.'
+        en: 'Course is no longer shared with you. '
     },
     collaboratorWasRemoved: {
         en: '<p class=\"user-name\">'
@@ -1181,7 +1181,7 @@
         en: '</p>has been removed as a co-author.'
     },
     collaboratorRemovingFailed: {
-        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.'
+        en: 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. '
     },
     waitingForRegistration: {
         en: 'waiting for registration...'
@@ -1378,23 +1378,14 @@
     upgradeNotificationHi: {
         en: 'Hi'
     },
-    upgradeNotificationYour: {
-        en: 'Your'
-    },
-    upgradeNotificationExpires: {
-        en: 'expires'
-    },
     upgradeNotificationToday: {
         en: 'today'
     },
-    upgradeNotificationIn: {
-        en: 'in'
+    upgradeNotificationIn1day: {
+        en: 'in 1 day'
     },
-    upgradeNotification1day: {
-        en: '1 day'
-    },
-    upgradeNotificationDays: {
-        en: 'days'
+    upgradeNotificationInSeveralDays: {
+        en: 'in {0} days'
     },
     upgradeNotificationNote: {
         en: 'Please note, you will be automatically downgraded to the Free Plan, if you don’t make the payment in time. More info on pricing plans'
@@ -1410,6 +1401,15 @@
     },
     upgradePleaseContact: {
         en: 'Please contact:'
+    },
+    upgradeStarterPlan: {
+        en: 'Starter Plan'
+    },
+    upgradePlusPlan: {
+        en: 'Plus Plan'
+    },
+    upgradeNotificationContent: {
+        en: 'Your {0} expires {1}.'
     }
     /* End resource section for model Upgrade Notification */
            

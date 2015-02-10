@@ -7,7 +7,7 @@
                 success: function () { },
                 error: function () { },
                 complete: function () { }
-            }
+            };
 
             var settings = $.extend({}, defaults, options);
 
@@ -49,5 +49,5 @@
                 }
             });
         }
-    }
+    };
 })

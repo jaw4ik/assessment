@@ -6,6 +6,7 @@ using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Web.Components;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Extensions;
@@ -37,6 +38,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IPrincipal _user;
         HttpContextBase _context;
         IEntityMapper _entityMapper;
+        IUrlHelperWrapper _urlHelper;
 
         [TestInitialize]
         public void InitializeContext()
@@ -44,7 +46,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory = Substitute.For<IEntityFactory>();
             _repository = Substitute.For<IObjectiveRepository>();
             _entityMapper = Substitute.For<IEntityMapper>();
-            _controller = new ObjectiveController(_repository, _entityFactory, _entityMapper);
+            _urlHelper = Substitute.For<IUrlHelperWrapper>();
+            _controller = new ObjectiveController(_repository, _entityFactory, _entityMapper, _urlHelper);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -81,7 +84,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             result.Should()
                 .BeJsonSuccessResult()
-                .And.Data.ShouldBeSimilar(new { Id = objective.Id.ToNString(), CreatedOn = objective.CreatedOn });
+                .And.Data.ShouldBeSimilar(new
+                {
+                    Id = objective.Id.ToNString(),
+                    ImageUrl = String.IsNullOrEmpty(objective.ImageUrl) ? _urlHelper.ToAbsoluteUrl(Constants.Objective.DefaultImageUrl) : objective.ImageUrl,
+                    CreatedOn = objective.CreatedOn,
+                    CreatedBy = objective.CreatedBy
+                });
         }
 
         [TestMethod]
@@ -101,14 +110,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region Update objective
+        #region Update title
 
         [TestMethod]
-        public void Update_ShouldReturnJsonErrorResult_WhenObjectiveIsNull()
+        public void UpdateTitle_ShouldReturnJsonErrorResult_WhenObjectiveIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var result = _controller.Update(null, String.Empty);
+            var result = _controller.UpdateTitle(null, String.Empty);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
             result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
@@ -116,23 +125,61 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
 
         [TestMethod]
-        public void Update_ShouldUpdateObjectiveTitle()
+        public void UpdateTitle_ShouldUpdateObjectiveTitle()
         {
             const string title = "updated title";
             _user.Identity.Name.Returns(ModifiedBy);
             var objective = Substitute.For<Objective>("Some title", CreatedBy);
 
-            _controller.Update(objective, title);
+            _controller.UpdateTitle(objective, title);
 
             objective.Received().UpdateTitle(title, ModifiedBy);
         }
 
         [TestMethod]
-        public void Update_ShouldReturnJsonSuccessResult()
+        public void UpdateTitle_ShouldReturnJsonSuccessResult()
         {
             var objective = Substitute.For<Objective>("Some title", CreatedBy);
 
-            var result = _controller.Update(objective, String.Empty);
+            var result = _controller.UpdateTitle(objective, String.Empty);
+
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = objective.ModifiedOn });
+        }
+
+        #endregion
+
+        #region Update image
+
+        [TestMethod]
+        public void UpdateImage_ShouldReturnJsonErrorResult_WhenObjectiveIsNull()
+        {
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var result = _controller.UpdateImage(null, String.Empty);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+        }
+
+
+        [TestMethod]
+        public void UpdateImage_ShouldUpdateObjectiveImageUrl()
+        {
+            const string imageUrl = "new/image/url";
+            _user.Identity.Name.Returns(ModifiedBy);
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
+
+            _controller.UpdateImage(objective, imageUrl);
+
+            objective.Received().UpdateImageUrl(imageUrl, ModifiedBy);
+        }
+
+        [TestMethod]
+        public void UpdateImage_ShouldReturnJsonSuccessResult()
+        {
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
+
+            var result = _controller.UpdateImage(objective, String.Empty);
 
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = objective.ModifiedOn });
         }

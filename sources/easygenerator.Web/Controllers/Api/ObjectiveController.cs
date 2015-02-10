@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel;
+﻿using System;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Repositories;
@@ -20,13 +21,15 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityFactory _entityFactory;
         private readonly IObjectiveRepository _repository;
         private readonly IEntityMapper _entityMapper;
+        private readonly IUrlHelperWrapper _urlHelper;
 
 
-        public ObjectiveController(IObjectiveRepository repository, IEntityFactory entityFactory, IEntityMapper entityMapper)
+        public ObjectiveController(IObjectiveRepository repository, IEntityFactory entityFactory, IEntityMapper entityMapper, IUrlHelperWrapper urlHelper)
         {
             _repository = repository;
             _entityFactory = entityFactory;
             _entityMapper = entityMapper;
+            _urlHelper = urlHelper;
         }
 
         [HttpPost]
@@ -34,7 +37,7 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult GetCollection()
         {
             var objectives = _repository.GetAvailableObjectivesCollection(User.Identity.Name);
-
+            
             return JsonSuccess(objectives.Select(e => _entityMapper.Map(e)));
         }
 
@@ -46,13 +49,21 @@ namespace easygenerator.Web.Controllers.Api
 
             _repository.Add(objective);
 
-            return JsonSuccess(new { Id = objective.Id.ToNString(), CreatedOn = objective.CreatedOn, CreatedBy = objective.CreatedBy });
+            return JsonSuccess(new
+            {
+                Id = objective.Id.ToNString(),
+                ImageUrl = String.IsNullOrEmpty(objective.ImageUrl)
+                    ? _urlHelper.ToAbsoluteUrl(Constants.Objective.DefaultImageUrl)
+                    : objective.ImageUrl,
+                CreatedOn = objective.CreatedOn,
+                CreatedBy = objective.CreatedBy
+            });
         }
 
         [HttpPost]
         [EntityCollaborator(typeof(Objective))]
-        [Route("api/objective/update")]
-        public ActionResult Update(Objective objective, string title)
+        [Route("api/objective/updatetitle")]
+        public ActionResult UpdateTitle(Objective objective, string title)
         {
             if (objective == null)
             {
@@ -60,6 +71,21 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             objective.UpdateTitle(title, GetCurrentUsername());
+
+            return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
+        }
+
+        [HttpPost]
+        [EntityCollaborator(typeof(Objective))]
+        [Route("api/objective/updateimage")]
+        public ActionResult UpdateImage(Objective objective, string imageUrl)
+        {
+            if (objective == null)
+            {
+                return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
+            }
+
+            objective.UpdateImageUrl(imageUrl, GetCurrentUsername());
 
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }

@@ -221,7 +221,23 @@
                             done();
                         });
 
-                        post.resolve({ CreatedOn: 'dasdasd' });
+                        post.resolve({ ImageUrl: 'sadf', CreatedOn: 'dasdasd', CreatedBy: 'asdasd' });
+                    });
+
+                });
+
+                describe('and response.ImageUrl is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var objective = { test: 'test' };
+                        var promise = repository.addObjective(objective);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Objective ImageUrl is not a string');
+                            done();
+                        });
+
+                        post.resolve({ Id: 'sadf', CreatedOn: 'dasdasd', CreatedBy: 'asdasd' });
                     });
 
                 });
@@ -237,7 +253,7 @@
                             done();
                         });
 
-                        post.resolve({ Id: 'dasdasd' });
+                        post.resolve({ Id: 'assd', ImageUrl: 'sadf', CreatedBy: 'asdasd' });
                     });
 
                 });
@@ -253,7 +269,7 @@
                             done();
                         });
 
-                        post.resolve({ Id: 'dasdasd', CreatedOn: new Date().toISOString() });
+                        post.resolve({ Id: 'assd', ImageUrl: 'sadf', CreatedOn: 'asdasd' });
                     });
 
                 });
@@ -261,6 +277,7 @@
                 it('should add objective to dataContext', function (done) {
                     var objective = { test: 'test', title: 'asdasdasdhfghfgh' },
                         objectiveId = 'dasdasd',
+                        imageUrl = 'url/to/image',
                         createdOn = new Date();
 
                     dataContext.objectives = [];
@@ -271,17 +288,17 @@
                         expect(dataContext.objectives.length).toEqual(1);
                         expect(dataContext.objectives[0].id).toEqual(objectiveId);
                         expect(dataContext.objectives[0].title).toEqual(objective.title);
-                        expect(dataContext.objectives[0].image).toEqual(constants.defaultObjectiveImage);
+                        expect(dataContext.objectives[0].image).toEqual(imageUrl);
                         expect(dataContext.objectives[0].createdOn).toEqual(createdOn);
                         expect(dataContext.objectives[0].modifiedOn).toEqual(createdOn);
                         done();
                     });
 
-                    post.resolve({ Id: objectiveId, CreatedOn: createdOn.toISOString(), CreatedBy: 'asdasd@ukr.net' });
+                    post.resolve({ Id: objectiveId, ImageUrl: imageUrl, CreatedOn: createdOn.toISOString(), CreatedBy: 'asdasd@ukr.net' });
                 });
 
                 it('should resolve promise with received data', function (done) {
-                    var objective = { test: 'test', title: 'asdasdasdhfghfgh' },
+                    var objective = { test: 'test', title: 'asdasdasdhfghfgh', imageUrl: 'image/url' },
                         objectiveId = 'dasdasd',
                         createdOn = new Date();
 
@@ -290,31 +307,31 @@
                     var promise = repository.addObjective(objective);
 
                     promise.fin(function () {
-                        expect(promise).toBeResolvedWith({ id: objectiveId, createdOn: createdOn.toISOString() })
+                        expect(promise).toBeResolvedWith({ id: objectiveId, createdOn: createdOn.toISOString() });
                         done();
                     });
 
-                    post.resolve({ Id: objectiveId, CreatedOn: createdOn.toISOString(), CreatedBy: 'asdasd@ukr.net' });
+                    post.resolve({ Id: objectiveId, ImageUrl: objective.imageUrl, CreatedOn: createdOn.toISOString(), CreatedBy: 'asdasd@ukr.net' });
                 });
 
             });
 
         });
 
-        describe('updateObjective:', function () {
+        describe('updateTitle:', function () {
 
             it('should be function', function () {
-                expect(repository.updateObjective).toBeFunction();
+                expect(repository.updateTitle).toBeFunction();
             });
 
             it('should return promise', function () {
-                expect(repository.updateObjective()).toBePromise();
+                expect(repository.updateTitle()).toBePromise();
             });
 
-            describe('when objective is undefined', function () {
+            describe('when objectiveid is undefined', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.updateObjective(undefined);
+                    var promise = repository.updateTitle(undefined, 'title');
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Objective data has invalid format');
@@ -324,10 +341,10 @@
 
             });
 
-            describe('when objective is null', function () {
+            describe('when objectiveId is null', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.updateObjective(null);
+                    var promise = repository.updateTitle(null, 'title');
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Objective data has invalid format');
@@ -337,10 +354,10 @@
 
             });
 
-            describe('when objective is not an object', function () {
+            describe('when title is undefined', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.updateObjective('asdasdasd');
+                    var promise = repository.updateTitle('id', undefined);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Objective data has invalid format');
@@ -350,26 +367,39 @@
 
             });
 
-            it('should send request to \'api/objective/update\'', function (done) {
+            describe('when title is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateTitle('id', null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective data has invalid format');
+                        done();
+                    });
+                });
+
+            });
+
+            it('should send request to \'api/objective/updatetitle\'', function (done) {
                 var obj = { id: 'asdadasd', title: 'asdasdadsasdas' };
 
-                var promise = repository.updateObjective(obj);
+                var promise = repository.updateTitle(obj.id, obj.title);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/update', { objectiveId: obj.id, title: obj.title });
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/updatetitle', { objectiveId: obj.id, title: obj.title });
                     done();
                 });
 
                 post.reject('lomai menya polnostju');
             });
 
-            describe('when objective successfully updaed on server', function () {
+            describe('when objective successfully updated on server', function () {
 
                 describe('and response is not an object', function () {
 
                     it('should reject promise', function (done) {
                         var obj = { id: 'asdadasd', title: 'asdasdadsasdas' };
-                        var promise = repository.updateObjective(obj);
+                        var promise = repository.updateTitle(obj.id, obj.title);
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Response is not an object');
@@ -385,7 +415,7 @@
 
                     it('should reject promise', function (done) {
                         var obj = { id: 'asdadasd', title: 'asdasdadsasdas' };
-                        var promise = repository.updateObjective(obj);
+                        var promise = repository.updateTitle(obj.id, obj.title);
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Response does not have modification date');
@@ -405,7 +435,7 @@
 
                         dataContext.objectives = [];
 
-                        var promise = repository.updateObjective(obj);
+                        var promise = repository.updateTitle(obj.id, obj.title);
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Objective does not exist in dataContext');
@@ -423,7 +453,7 @@
 
                     dataContext.objectives = [{ id: obj.id, title: '', modifiedOn: '' }];
 
-                    var promise = repository.updateObjective(obj);
+                    var promise = repository.updateTitle(obj.id, obj.title);
 
                     promise.fin(function () {
                         expect(dataContext.objectives[0].title).toEqual(obj.title);
@@ -440,7 +470,7 @@
 
                     dataContext.objectives = [{ id: obj.id, title: '', modifiedOn: '' }];
 
-                    var promise = repository.updateObjective(obj);
+                    var promise = repository.updateTitle(obj.id, obj.title);
 
                     promise.fin(function () {
                         expect(app.trigger).toHaveBeenCalledWith(constants.messages.objective.titleUpdated, dataContext.objectives[0]);
@@ -456,10 +486,194 @@
 
                     dataContext.objectives = [{ id: obj.id, title: '', modifiedOn: '' }];
 
-                    var promise = repository.updateObjective(obj);
+                    var promise = repository.updateTitle(obj.id, obj.title);
 
                     promise.fin(function () {
                         expect(promise).toBeResolvedWith(modifiedOn);
+                        done();
+                    });
+
+                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                });
+
+            });
+
+        });
+
+        describe('updateImage:', function () {
+
+            it('should be function', function () {
+                expect(repository.updateImage).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(repository.updateImage()).toBePromise();
+            });
+
+            describe('when objectiveid is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateImage(undefined, 'image/url');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective data has invalid format');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when objectiveId is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateImage(null, 'image/url');
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective data has invalid format');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when imageUrl is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateImage('id', undefined);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective data has invalid format');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when imageUrl is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.updateImage('id', null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective data has invalid format');
+                        done();
+                    });
+                });
+
+            });
+
+            it('should send request to \'api/objective/updateimage\'', function (done) {
+                var obj = { id: 'objective_id', imageUrl: 'image/url' };
+                var promise = repository.updateImage(obj.id, obj.imageUrl);
+
+                promise.fin(function () {
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/updateimage', { objectiveId: obj.id, imageUrl: obj.imageUrl + '?width=120&height=120&scaleBySmallerSide=true' });
+                    done();
+                });
+
+                post.reject('lomai menya polnostju');
+            });
+
+            describe('when objective imageUrl successfully updated on server', function () {
+
+                describe('and response is not an object', function () {
+
+                    it('should reject promise', function (done) {
+                        var obj = { id: 'objective_id', imageUrl: 'image/url' };
+                        var promise = repository.updateImage(obj.id, obj.imageUrl);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+
+                        post.resolve('lomai menya polnostju');
+                    });
+
+                });
+
+                describe('and response has no modification date', function () {
+
+                    it('should reject promise', function (done) {
+                        var obj = { id: 'objective_id', imageUrl: 'image/url' };
+                        var promise = repository.updateImage(obj.id, obj.imageUrl);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response does not have modification date');
+                            done();
+                        });
+
+                        post.resolve({});
+                    });
+
+                });
+
+                describe('and objective not found in dataContext', function () {
+
+                    it('should reject promise', function (done) {
+                        var obj = { id: 'objective_id', imageUrl: 'image/url' },
+                            modifiedOn = new Date();
+
+                        dataContext.objectives = [];
+
+                        var promise = repository.updateImage(obj.id, obj.imageUrl);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Objective does not exist in dataContext');
+                            done();
+                        });
+
+                        post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                    });
+
+                });
+
+                it('should update objective in dataContext', function (done) {
+                    var obj = { id: 'objective_id', imageUrl: 'image/url' },
+                        modifiedOn = new Date();
+
+                    dataContext.objectives = [{ id: obj.id, imageUrl: '', modifiedOn: '' }];
+
+                    var promise = repository.updateImage(obj.id, obj.imageUrl);
+
+                    promise.fin(function () {
+                        expect(dataContext.objectives[0].image).toEqual(obj.imageUrl + '?width=120&height=120&scaleBySmallerSide=true');
+                        expect(dataContext.objectives[0].modifiedOn).toEqual(modifiedOn);
+                        done();
+                    });
+
+                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                });
+
+                it('should send objective:imageUrlUpdated event', function (done) {
+                    var obj = { id: 'objective_id', imageUrl: 'image/url' },
+                        modifiedOn = new Date();
+
+                    dataContext.objectives = [{ id: obj.id, imageUrl: '', modifiedOn: '' }];
+
+                    var promise = repository.updateImage(obj.id, obj.imageUrl);
+
+                    promise.fin(function () {
+                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.objective.imageUrlUpdated, dataContext.objectives[0]);
+                        done();
+                    });
+
+                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                });
+
+                it('should resolve promise with modification date and image url', function (done) {
+                    var obj = { id: 'objective_id', imageUrl: 'image/url' },
+                        modifiedOn = new Date();
+
+                    dataContext.objectives = [{ id: obj.id, imageUrl: '', modifiedOn: '' }];
+
+                    var promise = repository.updateImage(obj.id, obj.imageUrl);
+
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith({
+                            modifiedOn: modifiedOn,
+                            imageUrl: obj.imageUrl + '?width=120&height=120&scaleBySmallerSide=true'
+                        });
                         done();
                     });
 

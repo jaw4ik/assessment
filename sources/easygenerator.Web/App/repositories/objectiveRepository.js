@@ -7,7 +7,8 @@
             getCollection: getCollection,
             addObjective: addObjective,
             removeObjective: removeObjective,
-            updateObjective: updateObjective,
+            updateTitle: updateTitle,
+            updateImage: updateImage,
             updateQuestionsOrder: updateQuestionsOrder
         };
 
@@ -41,14 +42,15 @@
                 return httpWrapper.post('api/objective/create', objective).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.Id, 'Objective Id is not a string');
+                    guard.throwIfNotString(response.ImageUrl, 'Objective ImageUrl is not a string');
                     guard.throwIfNotString(response.CreatedOn, 'Objective creation date is not a string');
                     guard.throwIfNotString(response.CreatedBy, 'Objective createdBy is not a string');
-
+                    
                     var
                         createdObjective = new objectiveModel({
                             id: response.Id,
                             title: objective.title,
-                            image: constants.defaultObjectiveImage,
+                            image: response.ImageUrl,
                             questions: [],
                             createdOn: new Date(response.CreatedOn),
                             createdBy: response.CreatedBy,
@@ -65,28 +67,57 @@
             });
         }
 
-        function updateObjective(obj) {
+        function updateTitle(objectiveId, title) {
             return Q.fcall(function () {
-                guard.throwIfNotAnObject(obj, 'Objective data has invalid format');
-                guard.throwIfNotString(obj.id, 'Objective data has invalid format');
-                guard.throwIfNotString(obj.title, 'Objective data has invalid format');
+                guard.throwIfNotString(objectiveId, 'Objective data has invalid format');
+                guard.throwIfNotString(title, 'Objective data has invalid format');
 
-                return httpWrapper.post('api/objective/update', { objectiveId: obj.id, title: obj.title }).then(function (response) {
+                return httpWrapper.post('api/objective/updatetitle', { objectiveId: objectiveId, title: title }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                     var objective = _.find(dataContext.objectives, function (item) {
-                        return item.id === obj.id;
+                        return item.id === objectiveId;
                     });
 
                     guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
 
-                    objective.title = obj.title;
+                    objective.title = title;
                     objective.modifiedOn = new Date(response.ModifiedOn);
 
                     app.trigger(constants.messages.objective.titleUpdated, objective);
 
                     return objective.modifiedOn;
+                });
+            });
+        }
+
+        function updateImage(objectiveId, imageUrl) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(objectiveId, 'Objective data has invalid format');
+                guard.throwIfNotString(imageUrl, 'Objective data has invalid format');
+
+                imageUrl += '?width=120&height=120&scaleBySmallerSide=true';
+
+                return httpWrapper.post('api/objective/updateimage', { objectiveId: objectiveId, imageUrl: imageUrl }).then(function (response) {
+                    guard.throwIfNotAnObject(response, 'Response is not an object');
+                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+
+                    var objective = _.find(dataContext.objectives, function (item) {
+                        return item.id === objectiveId;
+                    });
+
+                    guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
+
+                    objective.image = imageUrl;
+                    objective.modifiedOn = new Date(response.ModifiedOn);
+
+                    app.trigger(constants.messages.objective.imageUrlUpdated, objective);
+
+                    return {
+                        modifiedOn: objective.modifiedOn,
+                        imageUrl: imageUrl
+                    };
                 });
             });
         }

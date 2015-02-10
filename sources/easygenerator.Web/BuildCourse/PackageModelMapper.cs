@@ -50,6 +50,9 @@ namespace easygenerator.Web.BuildCourse
             {
                 Id = objective.Id.ToNString(),
                 Title = objective.Title,
+                ImageUrl = String.IsNullOrEmpty(objective.ImageUrl)
+                    ? _urlHelper.ToAbsoluteUrl(Constants.Objective.DefaultImageUrl)
+                    : objective.ImageUrl,
                 Questions = (objective.Questions ?? new Collection<Question>()).Select(MapQuestion).ToList()
             };
         }

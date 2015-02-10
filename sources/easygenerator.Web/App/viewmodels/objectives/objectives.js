@@ -1,5 +1,5 @@
-﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 'ping', 'userContext'],
-    function (constants, eventTracker, router, objectiveRepository, courseRepository, notify, localizationManager, clientContext, ping, userContext) {
+﻿define(['durandal/app', 'constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 'ping', 'userContext', 'viewmodels/objectives/objectiveBrief', 'imageUpload'],
+    function (app, constants, eventTracker, router, objectiveRepository, courseRepository, notify, localizationManager, clientContext, ping, userContext, objectiveBrief, imageUpload) {
         "use strict";
 
         var
@@ -9,7 +9,9 @@
                 navigateToCourses: "Navigate to courses",
                 selectObjective: "Select Objective",
                 unselectObjective: "Unselect Objective",
-                deleteObjectives: "Delete selected objectives"
+                deleteObjectives: "Delete selected objectives",
+                openChangeObjectiveImageDialog: "Open \"change objective image\" dialog",
+                changeObjectiveImage: "Change objective image"
             };
 
         var viewModel = {
@@ -25,6 +27,11 @@
             deleteSelectedObjectives: deleteSelectedObjectives,
             toggleObjectiveSelection: toggleObjectiveSelection,
 
+            updateObjectiveImage: updateObjectiveImage,
+
+            objectiveTitleUpdated: objectiveTitleUpdated,
+            objectiveImageUpdated: objectiveImageUpdated,
+
             canActivate: canActivate,
             activate: activate
         };
@@ -32,6 +39,9 @@
         viewModel.enableDeleteObjectives = ko.computed(function () {
             return getSelectedObjectives().length > 0;
         });
+
+        app.on(constants.messages.objective.titleUpdatedByCollaborator, viewModel.objectiveTitleUpdated);
+        app.on(constants.messages.objective.imageUrlUpdatedByCollaborator, viewModel.objectiveImageUpdated);
 
         return viewModel;
 
@@ -48,6 +58,27 @@
         function navigateToCourses() {
             eventTracker.publish(events.navigateToCourses);
             router.navigate('courses');
+        }
+
+        function updateObjectiveImage(objective) {
+            imageUpload.upload({
+                startLoading: function () {
+                    objective.isImageLoading(true);
+                    eventTracker.publish(events.openChangeObjectiveImageDialog);
+                },
+                success: function (url) {
+                    objectiveRepository.updateImage(objective.id, url).then(function (result) {
+                        objective.imageUrl(result.imageUrl);
+                        objective.modifiedOn(result.modifiedOn);
+                        objective.isImageLoading(false);
+                        eventTracker.publish(events.changeObjectiveImage);
+                        notify.saved();
+                    });
+                },
+                error: function () {
+                    objective.isImageLoading(false);
+                }
+            });
         }
 
         function toggleObjectiveSelection(objective) {
@@ -97,6 +128,30 @@
             });
         }
 
+        function objectiveTitleUpdated(objective) {
+            var vmObjective = getObjectiveViewModel(objective.id);
+
+            if (_.isObject(vmObjective)) {
+                vmObjective.title(objective.title);
+                vmObjective.modifiedOn(objective.modifiedOn);
+            }
+        }
+
+        function objectiveImageUpdated(objective) {
+            var vmObjective = getObjectiveViewModel(objective.id);
+
+            if (_.isObject(vmObjective)) {
+                vmObjective.imageUrl(objective.image);
+                vmObjective.modifiedOn(objective.modifiedOn);
+            }
+        }
+
+        function getObjectiveViewModel(objectiveId) {
+            return _.find(viewModel.objectives(), function (item) {
+                return item.id === objectiveId;
+            });
+        }
+
         function canActivate() {
             return ping.execute();
         }
@@ -117,22 +172,16 @@
                         .filter(function (item) { return item.createdBy == userContext.identity.email; })
                         .sortBy(function (item) { return -item.createdOn; })
                         .map(function (item) {
-                            return {
-                                id: item.id,
-                                title: item.title,
-                                image: item.image,
-                                questionsCount: item.questions.length,
-                                modifiedOn: item.modifiedOn,
-                                isSelected: ko.observable(false),
-                                canBeDeleted: (function (currentItem) {
-                                    if (item.questions.length > 0)
-                                        return false;
+                            var mappedObjective = objectiveBrief(item);
+                            mappedObjective.canBeDeleted = (function (currentItem) {
+                                if (item.questions.length > 0)
+                                    return false;
 
-                                    return (!_.find(includedObjectives, function (objective) {
-                                        return objective.id === currentItem.id;
-                                    }));
-                                })(item)
-                            };
+                                return (!_.find(includedObjectives, function (objective) {
+                                    return objective.id === currentItem.id;
+                                }));
+                            })(item);
+                            return mappedObjective;
                         }).value();
 
                     viewModel.objectives(array);

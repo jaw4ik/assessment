@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
@@ -8,10 +10,12 @@ namespace easygenerator.Web.Components.Mappers
     public class ObjectiveEntityModelMapper : IEntityModelMapper<Objective>
     {
         private readonly IEntityModelMapper<Question> _questionEntityModelMapper;
+        private readonly IUrlHelperWrapper _urlHelper;
 
-        public ObjectiveEntityModelMapper(IEntityModelMapper<Question> questionEntityModelMapper)
+        public ObjectiveEntityModelMapper(IEntityModelMapper<Question> questionEntityModelMapper, IUrlHelperWrapper urlHelper)
         {
             _questionEntityModelMapper = questionEntityModelMapper;
+            _urlHelper = urlHelper;
         }
 
         public dynamic Map(Objective obj)
@@ -20,6 +24,9 @@ namespace easygenerator.Web.Components.Mappers
             {
                 Id = obj.Id.ToNString(),
                 Title = obj.Title,
+                ImageUrl = String.IsNullOrEmpty(obj.ImageUrl)
+                    ? _urlHelper.ToAbsoluteUrl(Constants.Objective.DefaultImageUrl)
+                    : obj.ImageUrl,
                 CreatedBy = obj.CreatedBy,
                 CreatedOn = obj.CreatedOn,
                 ModifiedOn = obj.ModifiedOn,

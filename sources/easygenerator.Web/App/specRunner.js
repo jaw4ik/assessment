@@ -73,6 +73,7 @@
 
             'synchronization/handlers/objective/handler.spec',
             'synchronization/handlers/objective/eventHandlers/titleUpdated.spec',
+            'synchronization/handlers/objective/eventHandlers/imageUrlUpdated.spec',
             'synchronization/handlers/objective/eventHandlers/questionsReordered.spec',
 
             'synchronization/handlers/collaboration/handler.spec',

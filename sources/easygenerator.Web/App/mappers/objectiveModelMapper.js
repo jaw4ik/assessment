@@ -10,7 +10,7 @@
                     createdBy: item.CreatedBy,
                     createdOn: new Date(item.CreatedOn),
                     modifiedOn: new Date(item.ModifiedOn),
-                    image: constants.defaultObjectiveImage,
+                    image: item.ImageUrl,
                     questions: _.map(item.Questions, questionModelMapper.map)
                 });
             };
