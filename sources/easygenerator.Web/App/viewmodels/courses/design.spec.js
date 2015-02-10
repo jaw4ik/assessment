@@ -242,8 +242,8 @@
 
                 var
                     templates = [
-                        { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', order: 1 },
-                        { id: "1", name: "Quiz", thumbnail: "path/to/image2.png", previewImages: ["path/to/previewImg.png"], description: "Quiz template", previewDemoUrl: 'preview_url_quiz', order: 0 }
+                        { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', order: 1, isNew: true },
+                        { id: "1", name: "Quiz", thumbnail: "path/to/image2.png", previewImages: ["path/to/previewImg.png"], description: "Quiz template", previewDemoUrl: 'preview_url_quiz', order: 0, isNew: false }
                     ],
                     template = templates[1],
                     course = { id: 'courseId', template: template };
@@ -364,6 +364,14 @@
 
                             it('should be defined', function () {
                                 expect(template.description).toBeDefined();
+                            });
+
+                        });
+
+                        describe('isNew:', function () {
+
+                            it('should be defined', function () {
+                                expect(template.isNew).toBeDefined();
                             });
 
                         });
