@@ -1,17 +1,17 @@
-﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Repositories;
-using easygenerator.DomainModel.Tests.ObjectMothers;
+﻿using System.Linq;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.ActionResults;
-using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Extensions;
-using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using FluentAssertions.Common;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using easygenerator.DomainModel.Repositories;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using easygenerator.Web.Controllers.Api;
+using easygenerator.DomainModel.Entities;
 using System.Collections.ObjectModel;
-using System.Linq;
+using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Web.Tests.Utils;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -36,17 +36,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void GetCollection_ShouldReturnJsonSuccessResult()
         {
             var previewUrl = "url";
-
+            
             var template = TemplateObjectMother.CreateWithPreviewUrl(previewUrl);
             var collection = new Collection<Template>() { template };
-
+            
             var resultActual = collection.Select(tmpl => new
             {
                 Id = tmpl.Id.ToNString(),
                 Manifest = "string",
                 PreviewDemoUrl = tmpl.PreviewUrl,
-                Order = tmpl.Order,
-                IsNew = tmpl.IsNew
+                Order = tmpl.Order
             });
             var actual = new JsonSuccessResult(resultActual);
 

@@ -1,5 +1,5 @@
-﻿using easygenerator.Infrastructure;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -10,7 +10,6 @@ namespace easygenerator.DomainModel.Entities
         public string Name { get; private set; }
         public string PreviewUrl { get; private set; }
         public int Order { get; private set; }
-        public int IsNew { get; private set; }
 
         protected internal ICollection<Course> Courses { get; set; }
 

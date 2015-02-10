@@ -230,14 +230,6 @@
     <Compile Include="Migrations\201412231233568_CreateDemoCoursesTable.Designer.cs">
       <DependentUpon>201412231233568_CreateDemoCoursesTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201502050838127_AddIsNewFieldToTemplate.cs" />
-    <Compile Include="Migrations\201502050838127_AddIsNewFieldToTemplate.Designer.cs">
-      <DependentUpon>201502050838127_AddIsNewFieldToTemplate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502050844043_AddReaderTemplate.cs" />
-    <Compile Include="Migrations\201502050844043_AddReaderTemplate.Designer.cs">
-      <DependentUpon>201502050844043_AddReaderTemplate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -400,12 +392,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412231233568_CreateDemoCoursesTable.resx">
       <DependentUpon>201412231233568_CreateDemoCoursesTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502050838127_AddIsNewFieldToTemplate.resx">
-      <DependentUpon>201502050838127_AddIsNewFieldToTemplate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502050844043_AddReaderTemplate.resx">
-      <DependentUpon>201502050844043_AddReaderTemplate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

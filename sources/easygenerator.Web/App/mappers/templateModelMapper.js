@@ -14,8 +14,7 @@
                      settingsUrl: item.settingsUrl,
                      shortDescription: item.shortDescription,
                      previewDemoUrl: item.PreviewDemoUrl,
-                     order: item.Order,
-                     isNew: item.IsNew
+                     order: item.Order
                  });
             };
 

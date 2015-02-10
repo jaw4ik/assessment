@@ -97,7 +97,6 @@
                                 settingsUrl: template.settingsUrl,
                                 previewDemoUrl: template.previewDemoUrl,
                                 order: template.order,
-                                isNew: template.isNew,
                                 openPreview: function (item, event) {
                                     event.stopPropagation();
                                     router.openUrl(item.previewDemoUrl + '?v=' + window.top.appVersion);
