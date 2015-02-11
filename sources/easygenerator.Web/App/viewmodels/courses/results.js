@@ -199,7 +199,7 @@
 
             var contentType = 'text/csv';
 
-            return new Blob([csvList.join('\r\n')], { type: contentType });
+            return new Blob(["\ufeff", csvList.join('\r\n')], { type: contentType });
         }
     }
 );
