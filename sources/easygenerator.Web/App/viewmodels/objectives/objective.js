@@ -113,10 +113,10 @@
         }
 
         function updateImage() {
+            eventTracker.publish(events.openChangeObjectiveImageDialog);
             imageUpload.upload({
                 startLoading: function () {
                     viewModel.isImageLoading(true);
-                    eventTracker.publish(events.openChangeObjectiveImageDialog);
                 },
                 success: function (url) {
                     repository.updateImage(viewModel.objectiveId, url).then(function (result) {

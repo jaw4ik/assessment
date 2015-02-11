@@ -143,10 +143,10 @@
         }
 
         function updateObjectiveImage(objective) {
+            eventTracker.publish(events.openChangeObjectiveImageDialog);
             imageUpload.upload({
                 startLoading: function () {
                     objective.isImageLoading(true);
-                    eventTracker.publish(events.openChangeObjectiveImageDialog);
                 },
                 success: function (url) {
                     objectiveRepository.updateImage(objective.id, url).then(function (result) {

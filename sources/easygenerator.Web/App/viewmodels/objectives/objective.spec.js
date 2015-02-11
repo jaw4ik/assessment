@@ -795,6 +795,11 @@
                     expect(viewModel.updateImage).toBeFunction();
                 });
 
+                it('should send event \'Open "change objective image" dialog\'', function () {
+                    viewModel.updateImage();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Open "change objective image" dialog');
+                });
+
                 it('should upload image', function () {
                     spyOn(imageUpload, 'upload');
                     viewModel.updateImage();
@@ -813,11 +818,6 @@
                         viewModel.isImageLoading(false);
                         viewModel.updateImage();
                         expect(viewModel.isImageLoading()).toBeTruthy();
-                    });
-
-                    it('should send event \'Open "change objective image" dialog\'', function () {
-                        viewModel.updateImage();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Open "change objective image" dialog');
                     });
 
                 });
