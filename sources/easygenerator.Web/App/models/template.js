@@ -3,6 +3,7 @@
         "use strict";
 
         var template = function (spec) {
+
             var obj = new Entity(spec);
 
             obj.name = spec.name;
@@ -12,7 +13,6 @@
             obj.settingsUrl = spec.settingsUrl;
             obj.previewDemoUrl = spec.previewDemoUrl;
             obj.order = spec.order;
-            obj.isNew = spec.isNew;
 
             return obj;
         };

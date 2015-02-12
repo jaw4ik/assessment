@@ -1,10 +1,10 @@
-﻿using easygenerator.DomainModel.Repositories;
+﻿using System.Linq;
+using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Extensions;
-using System.Linq;
-using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -26,13 +26,12 @@ namespace easygenerator.Web.Controllers.Api
         {
             var templates = _repository.GetCollection();
 
-            var result = templates.Select(template => new
+            var result = templates.Select(tmpl => new
             {
-                Id = template.Id.ToNString(),
-                Manifest = _manifestFileManager.ReadManifest(template.Id, template.PreviewUrl),
-                PreviewDemoUrl = template.PreviewUrl,
-                Order = template.Order,
-                IsNew = template.IsNew
+                Id = tmpl.Id.ToNString(),
+                Manifest = _manifestFileManager.ReadManifest(tmpl.Id,  tmpl.PreviewUrl),
+                PreviewDemoUrl = tmpl.PreviewUrl,
+                Order = tmpl.Order
             });
 
             return JsonSuccess(result);
