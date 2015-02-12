@@ -46,7 +46,7 @@
         var $filterInput = null;
         filter && ($filterInput = initializeFilter(element, valueAccessor));
 
-        if (options.length > 7) {
+        if (options.length > 8) {
             $optionsListElement.addClass(cssClasses.scroll);
         }
 

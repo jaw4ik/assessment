@@ -813,5 +813,16 @@ namespace AccountRes {
                 return ResourceManager.GetString("OtherOption", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string.
+        /// </summary>
+        public static string StudentOption
+        {
+            get
+            {
+                return ResourceManager.GetString("StudentOption", resourceCulture);
+            }
+        }
     }
 }

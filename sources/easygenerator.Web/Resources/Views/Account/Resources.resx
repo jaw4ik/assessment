@@ -369,4 +369,7 @@
   <data name="TrainerOption" xml:space="preserve">
     <value>Trainer</value>
   </data>
+  <data name="StudentOption" xml:space="preserve">
+    <value>Student</value>
+  </data>
 </root>
