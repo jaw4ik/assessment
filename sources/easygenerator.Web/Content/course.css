@@ -333,15 +333,14 @@
     font: 19px OpenSans-Semibold;
     color: #303133;
     padding: 15px 5px;
-    margin-top: 45px;
+    margin-top: 20px;
 }
 
 .choose-template-list {
     position: relative;
-    display: flex;
-    display: -webkit-flex;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
+    list-style-type: none;
+    text-align: justify;
+    margin-bottom: -30px;
 }
 
 .current-template-name-minus {
@@ -354,8 +353,22 @@
 }
 
 .choose-template-item {
-    width: 204px;
+    position: relative;
+    display: inline-block;
+    width: 22%;
+    margin-bottom: 30px;
+    transition: width 0.8s ease;
 }
+
+.choose-template-item.marked-as-new:after {
+        content: '';
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        width: 71px;
+        height: 72px;
+        background: url('/Content/images/newTemplate.png') no-repeat;
+    }
 
 .template-image-container {
     position: relative;
