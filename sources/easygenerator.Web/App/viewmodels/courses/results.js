@@ -198,8 +198,8 @@
             });
 
             var contentType = 'text/csv';
-
-            return new Blob(['\ufeff', csvList.join('\r\n')], { encoding: 'UTF-8', type: contentType });
+            
+            return new Blob([window.top.BOMSymbol || '\ufeff', csvList.join('\r\n')], { encoding: 'UTF-8', type: contentType });
         }
     }
 );

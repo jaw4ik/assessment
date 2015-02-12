@@ -49,6 +49,7 @@
 
         window.top.userCultures = [];
         window.top.appVersion = @DateTimeWrapper.InstanceStartTime.Ticks;
+        window.top.BOMSymbol = '\ufeff';
         
         @for (var i = 0; i < userCultures.Count(); i++)
         {

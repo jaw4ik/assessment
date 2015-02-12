@@ -622,6 +622,14 @@
             });
 
         });
+
+        describe('generateResultsCsvBlob:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.generateResultsCsvBlob).toBeFunction();
+            });
+            
+        });
    
     });
 
