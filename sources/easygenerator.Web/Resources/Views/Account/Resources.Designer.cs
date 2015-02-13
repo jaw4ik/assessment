@@ -706,16 +706,6 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I would like an introduction demo!.
-        /// </summary>
-        public static string WouldYouLikeAnIntroductionDemo {
-            get {
-                return ResourceManager.GetString("WouldYouLikeAnIntroductionDemo", resourceCulture);
-            }
-        }
-
-
-        /// <summary>
         ///   Looks up a localized string similar to Almost there... .
         /// </summary>
         public static string SignUpSecondStepTitle

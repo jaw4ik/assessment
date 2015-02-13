@@ -117,14 +117,6 @@
 
         });
 
-        describe('requestIntroductionDemo:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.requestIntroductionDemo).toBeObservable();
-            });
-
-        });
-
         describe('isFormValid:', function () {
 
             describe('when country is invalid', function () {
@@ -295,7 +287,7 @@
                 spyOn(app, 'assingLocation');
             });
 
-            afterEach(function() {
+            afterEach(function () {
                 localStorage.removeItem('showCreateCoursePopup');
             });
 
@@ -375,8 +367,7 @@
                             fullName: userData.fullName,
                             phone: viewModel.phone(),
                             country: viewModel.country(),
-                            userRole: viewModel.userRole(),
-                            requestIntroductionDemo: viewModel.requestIntroductionDemo()
+                            userRole: viewModel.userRole()
                         };
                     });
 
@@ -426,7 +417,7 @@
 
                         it('should track event \'Sign up (2nd step)\'', function () {
                             viewModel.signUp();
-                            expect(app.trackEvent).toHaveBeenCalledWith('Sign up (2nd step)', { username: username,  firstname: data.firstName, lastname: data.lastName});
+                            expect(app.trackEvent).toHaveBeenCalledWith('Sign up (2nd step)', { username: username, firstname: data.firstName, lastname: data.lastName });
                         });
 
                         it('should track pageview', function () {

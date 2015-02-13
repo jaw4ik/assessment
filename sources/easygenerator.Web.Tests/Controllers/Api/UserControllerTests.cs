@@ -472,10 +472,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Signup(profile);
 
             //Assert
-            _eventPublisher.Received().Publish
-                (
-                    Arg.Is<UserSignedUpEvent>(_ => _.User == user && _.UserRole == profile.UserRole && _.RequestIntroductionDemo == profile.RequestIntroductionDemo)
-                );
+            _eventPublisher.Received().Publish(Arg.Is<UserSignedUpEvent>(_ => _.User == user && _.UserRole == profile.UserRole));
         }
 
         [TestMethod]
@@ -567,8 +564,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
                 LastName = "easygenerator user lastname",
                 Phone = "+380777777",
                 Password = "UserPassword777",
-                UserRole = "not in the list",
-                RequestIntroductionDemo = true
+                UserRole = "not in the list"
             };
         }
 

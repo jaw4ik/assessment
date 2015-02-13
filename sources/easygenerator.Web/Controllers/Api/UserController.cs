@@ -182,7 +182,7 @@ namespace easygenerator.Web.Controllers.Api
                 profile.Country, profile.Email);
 
             _repository.Add(user);
-            _eventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.UserRole, profile.RequestIntroductionDemo));
+            _eventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.UserRole));
 
             var onboarding = _entityFactory.Onboarding(user.Email);
             _onboardingRepository.Add(onboarding);

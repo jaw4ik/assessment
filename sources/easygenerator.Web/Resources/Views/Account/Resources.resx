@@ -326,9 +326,6 @@
   <data name="VariantMore3Months" xml:space="preserve">
     <value>&gt;3 months</value>
   </data>
-  <data name="WouldYouLikeAnIntroductionDemo" xml:space="preserve">
-    <value>I would like an introduction demo!</value>
-  </data>
   <data name="InviteCollaboratorBody" xml:space="preserve">
     <value>&lt;div&gt;
 &lt;p&gt;{0} wants to work with you on an eLearning course in easygenerator.&lt;/p&gt;

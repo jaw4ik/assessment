@@ -31,16 +31,6 @@
                     </div>
                 </div>
                 <div class="user-form-row submit">
-                    <div class="user-form-checkbox-holder clearfix">
-                        <div class="user-form-checkbox" data-bind="css: { checked: requestIntroductionDemo }">
-                            <input id="uf-checkbox" class="custom-checkbox" type="checkbox" data-bind="checked: requestIntroductionDemo" />
-                        </div>
-                        <div class="user-form-checkbox-label">
-                            <label for="uf-checkbox">
-                                @Resources.WouldYouLikeAnIntroductionDemo
-                            </label>
-                        </div>
-                    </div>
                     <div class="formBtn">
                         <button class="orange btn user-form-btn" data-bind="click: signUp, css: { 'disabled': isSignupRequestPending() || !isFormValid() }, enable: !isSignupRequestPending() && isFormValid()">
                             <img class="preloader" src="/Content/images/account/signup-preloader.gif" data-bind="visible: isSignupRequestPending" />

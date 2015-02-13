@@ -13,7 +13,6 @@ app.signUpSecondStepModel = function () {
         phone: ko.observable(''),
         phoneCode: ko.observable('+ ( ... )'),
         userRole: ko.observable(),
-        requestIntroductionDemo: ko.observable(false),
 
         onFocusPhone: onFocusPhone,
 
@@ -90,8 +89,7 @@ app.signUpSecondStepModel = function () {
         data.userRole = viewModel.userRole();
         data.phone = viewModel.phone();
         data.country = viewModel.country();
-        data.requestIntroductionDemo = viewModel.requestIntroductionDemo();
-
+        
         viewModel.isSignupRequestPending(true);
 
         $.ajax({

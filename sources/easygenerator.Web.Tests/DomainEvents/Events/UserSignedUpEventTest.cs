@@ -14,7 +14,7 @@ namespace easygenerator.Web.Tests.DomainEvents.Events
         public void UserSignedUpEvent_ShoulThrowArgumentNullException_WhenUserIsNull()
         {
             //Arrange
-            Action action = () => new UserSignedUpEvent(null, "abcABC123", "test", true);
+            Action action = () => new UserSignedUpEvent(null, "abcABC123", "test");
 
             //Act & Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("user");
@@ -28,12 +28,11 @@ namespace easygenerator.Web.Tests.DomainEvents.Events
             var user = Substitute.For<User>();
             const string userRole = "not in the list";
 
-            var signedUpEvent = new UserSignedUpEvent(user, "abcABC123", userRole, true);
+            var signedUpEvent = new UserSignedUpEvent(user, "abcABC123", userRole);
 
             //Assert
             signedUpEvent.User.Should().Be(user);
             signedUpEvent.UserRole.Should().Be(userRole);
-            signedUpEvent.RequestIntroductionDemo.Should().Be(true);
         }
     }
 }

@@ -16,6 +16,5 @@ namespace easygenerator.Web.ViewModels.Account
         public string Country { get; set; }
 
         public string UserRole { get; set; }
-        public bool RequestIntroductionDemo { get; set; }
     }
 }
