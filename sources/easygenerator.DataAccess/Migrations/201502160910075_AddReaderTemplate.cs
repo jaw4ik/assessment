@@ -6,7 +6,7 @@ namespace easygenerator.DataAccess.Migrations
     {
         public override void Up()
         {
-            Sql("INSERT INTO dbo.Templates VALUES(NEWID(), 'Reader', '/Templates/Reader/', 'admin@easygenerator.com', GETDATE(), 'admin@easygenerator.com', GETDATE(), 5, 1)");
+            Sql("INSERT INTO dbo.Templates ([Id], [Name], [PreviewUrl], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [Order], [IsNew]) VALUES(NEWID(), 'Reader', '/Templates/Reader/', 'admin@easygenerator.com', GETDATE(), 'admin@easygenerator.com', GETDATE(), 5, 1)");
         }
 
         public override void Down()
