@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using System.Security.Policy;
-using easygenerator.DataAccess.Migrations;
+﻿using easygenerator.DataAccess.Migrations;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
@@ -171,6 +169,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Template>().Property(e => e.Name).IsRequired().HasMaxLength(255);
             modelBuilder.Entity<Template>().Property(e => e.PreviewUrl).HasMaxLength(255);
             modelBuilder.Entity<Template>().Property(e => e.Order);
+            modelBuilder.Entity<Template>().Property(e => e.IsNew);
             modelBuilder.Entity<Template>().HasMany(e => e.Courses);
 
             modelBuilder.Entity<MailNotification>().Property(e => e.Body).IsRequired();

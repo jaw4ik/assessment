@@ -1,0 +1,9 @@
+{
+    "name": "Reader",
+    "shortDescription": "Use this when you want to create a formal reading",
+    "thumbnail": "images/thumbnail.png",
+    "previewImages": [
+        "images/reader.png"
+    ],	
+    "settingsUrl": "settings/settings.html"
+}
