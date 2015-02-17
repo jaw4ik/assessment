@@ -18,12 +18,13 @@ using NSubstitute;
 namespace easygenerator.Web.Tests.Storage
 {
     [TestClass]
-    public class StorageTests
+    public class ImageStorageTest
     {
-        private Web.Storage.Storage _storage;
+        private ImageStorage _imageStorage;
         private HttpRuntimeWrapper _httpRuntimeWrapper;
         private ConfigurationReader _configurationReader;
         private PhysicalFileManager _physicalFileManager;
+        private IStorage _storage;
         private IImageResizer _imageResizer;
 
         private const string imageFilename = "00000000-0000-0000-0000-000000000000";
@@ -46,80 +47,77 @@ namespace easygenerator.Web.Tests.Storage
 
 
             _physicalFileManager = Substitute.For<PhysicalFileManager>();
+            _storage = Substitute.For<IStorage>();
             _imageResizer = Substitute.For<IImageResizer>();
-
-            _storage = new Web.Storage.Storage(_httpRuntimeWrapper, _configurationReader, _physicalFileManager,
-                _imageResizer);
+            _imageStorage = new ImageStorage(_httpRuntimeWrapper, _configurationReader, _physicalFileManager, _storage, _imageResizer);
         }
 
 
         [TestMethod]
-        public void GetCachedImagePath_Should_ReturnCorrectFilePath_WhenScaleBySmallerSideIsTrue()
+        public void GetImagePath_Should_ReturnCorrectFilePath_WhenScaleBySmallerSideIsTrue()
         {
             var resultPath =
                 Path.Combine(imagePath, "cache", "0", imageFilename, cachedImageFilenameWithSmallerSideScaling);
 
-            _storage.GetCachedImagePath(imageFilename + imageFileExtension, width, height, true).Should().Be(resultPath);
+            _imageStorage.GetImagePath(imageFilename + imageFileExtension, width, height, true).Should().Be(resultPath);
         }
 
         [TestMethod]
-        public void GetCachedImagePath_Should_ReturnCorrectFilePath_WhenScaleBySmallerSideIsFalse()
+        public void GetImagePath_Should_ReturnCorrectFilePath_WhenScaleBySmallerSideIsFalse()
         {
             var resultPath =
                 Path.Combine(imagePath, "cache", "0", imageFilename, cachedImageFilenameWithoutSmallerSideScaling);
 
-            _storage.GetCachedImagePath(imageFilename + imageFileExtension, width, height, false).Should().Be(resultPath);
+            _imageStorage.GetImagePath(imageFilename + imageFileExtension, width, height, false).Should().Be(resultPath);
         }
 
         [TestMethod]
-        public void GetCachedImagePath_ShouldNot_CallImageResizer_WhenCachedImageIsExists()
+        public void GetImagePath_ShouldNot_CallImageResizer_WhenCachedImageIsExists()
         {
-            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
+            _storage.FileExists(Arg.Any<string>()).Returns(true);
 
-
-            var imageFilepath = Path.Combine(imagePath, "0", imageFilename);
-
-            _storage.GetCachedImagePath(imageFilename + imageFileExtension, width, height, false);
+            _imageStorage.GetImagePath(imageFilename + imageFileExtension, width, height, false);
 
             _imageResizer.DidNotReceive().ResizeImage(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<bool>());
         }
 
         [TestMethod]
-        public void GetCachedImagePath_Should_CallImageResizer_WhenCachedImageIsNotExists()
+        public void GetImagePath_Should_CallImageResizer_WhenCachedImageIsNotExists()
         {
-            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(false);
-
             var imageFilepath = Path.Combine(imagePath, "0", imageFilename + imageFileExtension);
 
-            _storage.GetCachedImagePath(imageFilename + imageFileExtension, width, height, false);
+            _storage.FileExists(Arg.Any<string>()).Returns(false);
+            _storage.GetFilePath(Arg.Any<string>()).Returns(imageFilepath);
+
+            _imageStorage.GetImagePath(imageFilename + imageFileExtension, width, height, false);
 
             _imageResizer.Received().ResizeImage(imageFilepath, width, height, false);
         }
 
         [TestMethod]
-        public void GetCachedImagePath_Should_CreateResizedImage_WhenCachedImageIsExists()
+        public void GetImagePath_Should_CreateResizedImage_WhenCachedImageIsExists()
         {
-            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
+            _storage.FileExists(Arg.Any<string>()).Returns(true);
 
             var resultPath =
                Path.Combine(imagePath, "cache", "0", imageFilename, cachedImageFilenameWithoutSmallerSideScaling);
 
 
-            _storage.GetCachedImagePath(imageFilename + imageFileExtension, width, height, false);
+            _imageStorage.GetImagePath(imageFilename + imageFileExtension, width, height, false);
 
             _physicalFileManager.DidNotReceive().WriteToFile(resultPath, Arg.Any<byte[]>());
         }
 
         [TestMethod]
-        public void GetCachedImagePath_Should_CreateResizedImage_WhenCachedImageIsNotExists()
+        public void GetImagePath_Should_CreateResizedImage_WhenCachedImageIsNotExists()
         {
-            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(false);
+            _storage.FileExists(Arg.Any<string>()).Returns(false);
 
             var resultPath =
                Path.Combine(imagePath, "cache", "0", imageFilename, cachedImageFilenameWithoutSmallerSideScaling);
 
 
-            _storage.GetCachedImagePath(imageFilename + imageFileExtension, width, height, false);
+            _imageStorage.GetImagePath(imageFilename + imageFileExtension, width, height, false);
 
             _physicalFileManager.Received().WriteToFile(resultPath, Arg.Any<byte[]>());
         }

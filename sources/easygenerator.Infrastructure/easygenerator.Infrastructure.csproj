@@ -76,6 +76,7 @@
     <Compile Include="ITask.cs" />
     <Compile Include="ITaskInvoker.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Locker.cs" />
     <Compile Include="Mail\IMailNotificationManager.cs" />
     <Compile Include="Mail\IMailNotificationRepository.cs" />
     <Compile Include="Mail\IMailSettings.cs" />

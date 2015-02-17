@@ -430,6 +430,7 @@
     <Compile Include="Security\PermissionsCheckers\SingleSelectImageAnswerPermissionChecker.cs" />
     <Compile Include="Security\PermissionsCheckers\TextMatchingAnswerPermissionsChecker.cs" />
     <Compile Include="Storage\FileTypeChecker.cs" />
+    <Compile Include="Storage\ImageStorage.cs" />
     <Compile Include="Storage\Storage.cs" />
     <Compile Include="Synchronization\Broadcasting\Broadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaborationBroadcaster.cs" />

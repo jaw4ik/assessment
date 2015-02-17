@@ -20,15 +20,17 @@ namespace easygenerator.Web.Controllers
     {
         private readonly IEntityFactory _entityFactory;
         private readonly IStorage _storage;
+        private readonly IImageStorage _imageStorage;
         private readonly IImageFileRepository _repository;
         private readonly IUrlHelperWrapper _urlHelperWrapper;
         private readonly IFileTypeChecker _fileTypeChecker;
         private readonly ILog _elmahLog;
 
-        public ImageController(IEntityFactory entityFactory, IStorage storage, IImageFileRepository repository, IUrlHelperWrapper urlHelperWrapper, IFileTypeChecker fileTypeChecker, ILog elmahLog)
+        public ImageController(IEntityFactory entityFactory, IStorage storage, IImageStorage imageStorage, IImageFileRepository repository, IUrlHelperWrapper urlHelperWrapper, IFileTypeChecker fileTypeChecker, ILog elmahLog)
         {
             _entityFactory = entityFactory;
             _storage = storage;
+            _imageStorage = imageStorage;
             _repository = repository;
             _urlHelperWrapper = urlHelperWrapper;
             _fileTypeChecker = fileTypeChecker;
@@ -57,7 +59,7 @@ namespace easygenerator.Web.Controllers
             {
                 try
                 {
-                    filePath = _storage.GetCachedImagePath(fileName, width.Value, height.Value,
+                    filePath = _imageStorage.GetImagePath(fileName, width.Value, height.Value,
                         scaleBySmallerSide.HasValue && scaleBySmallerSide.Value);
                 }
                 catch (InvalidOperationException e)

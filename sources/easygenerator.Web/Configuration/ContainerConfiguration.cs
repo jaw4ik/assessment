@@ -188,6 +188,7 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<UrlHelperWrapper>().As<IUrlHelperWrapper>();
             builder.RegisterType<Storage.Storage>().As<IStorage>();
+            builder.RegisterType<ImageStorage>().As<IImageStorage>();
 
             builder.RegisterType<FileTypeChecker>().As<IFileTypeChecker>();
             builder.RegisterType<WooCommerceAutologinUrlProvider>().As<IWooCommerceAutologinUrlProvider>();

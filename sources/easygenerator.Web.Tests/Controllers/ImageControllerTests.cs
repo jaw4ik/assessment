@@ -33,6 +33,7 @@ namespace easygenerator.Web.Tests.Controllers
 
         private IEntityFactory _entityFactory;
         private IStorage _storage;
+        private IImageStorage _imageStorage;
         private IImageFileRepository _repository;
         private IUrlHelperWrapper _urlHelperWrapper;
         private IFileTypeChecker _fileTypeChecker;
@@ -47,6 +48,7 @@ namespace easygenerator.Web.Tests.Controllers
         {
             _entityFactory = Substitute.For<IEntityFactory>();
             _storage = Substitute.For<IStorage>();
+            _imageStorage = Substitute.For<IImageStorage>();
             _repository = Substitute.For<IImageFileRepository>();
             _urlHelperWrapper = Substitute.For<IUrlHelperWrapper>();
             _fileTypeChecker = Substitute.For<IFileTypeChecker>();
@@ -58,7 +60,7 @@ namespace easygenerator.Web.Tests.Controllers
             _context.User.Returns(_user);
 
 
-            _controller = new ImageController(_entityFactory, _storage, _repository, _urlHelperWrapper, _fileTypeChecker, _elmahLog);
+            _controller = new ImageController(_entityFactory, _storage, _imageStorage, _repository, _urlHelperWrapper, _fileTypeChecker, _elmahLog);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
