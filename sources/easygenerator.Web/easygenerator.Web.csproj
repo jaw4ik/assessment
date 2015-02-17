@@ -472,6 +472,10 @@
     <Content Include="App\commands\createCourseCommand.spec.js">
       <DependentUpon>createCourseCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\commands\createObjectiveCommand.js" />
+    <Content Include="App\commands\createObjectiveCommand.spec.js">
+      <DependentUpon>createObjectiveCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\commands\presentationCourseImportCommand.js" />
     <Content Include="App\commands\presentationCourseImportCommand.spec.js">
       <DependentUpon>presentationCourseImportCommand.js</DependentUpon>
@@ -1140,10 +1144,6 @@
       <DependentUpon>handler.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\questions\fillInTheBlank\fillInTheBlankParser.js" />
-    <Content Include="App\viewmodels\objectives\createObjective.js" />
-    <Content Include="App\viewmodels\objectives\createObjective.spec.js">
-      <DependentUpon>createObjective.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\questions\answers.js" />
     <Content Include="App\viewmodels\questions\answers.spec.js">
       <DependentUpon>answers.js</DependentUpon>
@@ -1281,7 +1281,6 @@
       <DependentUpon>textMatchingAnswer.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\questions\textMatching\textMatchingAnswer.js" />
-    <Content Include="App\views\objectives\createObjective.html" />
     <Content Include="App\views\questions\dragAndDropText\designer.html" />
     <Content Include="App\views\questions\dragAndDropText\dragAndDropText.html" />
     <Content Include="App\views\questions\feedback.html" />
@@ -2193,7 +2192,6 @@
       <DependentUpon>userMenu.js</DependentUpon>
     </Content>
     <Content Include="App\views\common\createtip.html" />
-    <Content Include="App\views\common\formactions.html" />
     <Content Include="App\views\courses\collaboration\collaborators.html" />
     <Content Include="App\views\courses\course.html" />
     <Content Include="App\views\courses\courseComments.html" />

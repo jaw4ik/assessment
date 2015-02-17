@@ -10,13 +10,12 @@
             questionRepository = require('repositories/questionRepository'),
             localizationManager = require('localization/localizationManager'),
             notify = require('notify'),
-            uiLocker = require('uiLocker'),
             constants = require('constants'),
             clientContext = require('clientContext'),
             BackButton = require('models/backButton'),
-            createQuestionCommand = require('commands/createQuestionCommand'),
             imageUpload = require('imageUpload'),
-            ping = require('ping')
+            ping = require('ping'),
+            userContext = require('userContext')
         ;
 
         describe('viewModel [objective]', function () {
@@ -117,20 +116,103 @@
                     getCourseDeferred = Q.defer();
                     spyOn(repository, 'getById').and.returnValue(deferred.promise);
                     spyOn(courseRepository, 'getById').and.returnValue(getCourseDeferred.promise);
+                    spyOn(clientContext, 'set');
+                    spyOn(clientContext, 'remove');
+                    userContext.identity = {};
                 });
 
                 it('should be a function', function () {
                     expect(viewModel.activate).toBeFunction();
                 });
 
-                it('should set client context with current objective id', function (done) {
-                    spyOn(clientContext, 'set');
-                    deferred.resolve();
+                describe('when \'usersWithClosedCreateObjectiveTip\' is defined in client context', function () {
+                    var email = 'test@test.test';
 
+                    describe('and current user in the list of users in \'usersWithClosedCreateObjectiveTip\'', function () {
+                        it('should set \'isObjectiveTipClosed\' to true', function (done) {
+                            spyOn(clientContext, 'get').and.returnValue([email]);
+                            userContext.identity.email = email;
+
+                            deferred.resolve();
+
+                            viewModel.activate().fin(function () {
+                                expect(viewModel.isObjectiveTipClosed()).toBeTruthy();
+                                done();
+                            });
+                        });
+                    });
+
+                    describe('and current user not in the list of users in \'usersWithClosedCreateObjectiveTip\'', function () {
+                        it('should set \'isObjectiveTipClosed\' to false', function (done) {
+                            spyOn(clientContext, 'get').and.returnValue([]);
+                            userContext.identity.email = email;
+
+                            deferred.resolve();
+
+                            viewModel.activate().fin(function () {
+                                expect(viewModel.isObjectiveTipClosed()).toBeFalsy();
+                                done();
+                            });
+                        });
+                    });
+                });
+
+                describe('when \'usersWithClosedCreateObjectiveTip\' is not defined in client context', function () {
+                    it('should set \'isObjectiveTipClosed\' to false', function (done) {
+                        spyOn(clientContext, 'get').and.returnValue(undefined);
+
+                        deferred.resolve();
+
+                        viewModel.activate().fin(function () {
+                            expect(viewModel.isObjectiveTipClosed()).toBeFalsy();
+                            done();
+                        });
+                    });
+                });
+
+                it('should set client context with current objective id', function (done) {
+                    
+                    deferred.resolve();
                     var promise = viewModel.activate(objective.id, null);
 
                     promise.fin(function () {
                         expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVisitedObjective, objective.id);
+                        done();
+                    });
+                });
+
+                describe('when last created objective is current objective', function () {
+                    beforeEach(function () {
+                        deferred.resolve();
+                        spyOn(clientContext, 'get').and.returnValue(objective.id);
+                    });
+
+                    it('should set isLastCreatedObjective to true', function (done) {
+                        viewModel.activate(objective.id, null).fin(function () {
+                            expect(viewModel.isLastCreatedObjective).toBeTruthy();
+                            done();
+                        });
+                    });
+                });
+
+                describe('when last created objective is not current objective', function () {
+                    beforeEach(function () {
+                        deferred.resolve();
+                        spyOn(clientContext, 'get').and.returnValue('some id');
+                    });
+
+                    it('should set isLastCreatedObjective to true', function (done) {
+                        viewModel.activate(objective.id, null).fin(function () {
+                            expect(viewModel.isLastCreatedObjective).toBeFalsy();
+                            done();
+                        });
+                    });
+                });
+
+                it('should remove lastCreatedObjective key from client context', function (done) {
+                    deferred.resolve();
+                    viewModel.activate(objective.id, null).fin(function () {
+                        expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.lastCreatedObjectiveId);
                         done();
                     });
                 });
@@ -612,6 +694,76 @@
                     expect(viewModel.imageUrl).toBeObservable();
                 });
 
+            });
+
+            describe('isObjectiveTipClosed', function () {
+                it('should be observable', function () {
+                    expect(viewModel.isObjectiveTipClosed).toBeObservable();
+                });
+            });
+
+            describe('showObjectiveTip', function () {
+                beforeEach(function () {
+                    spyOn(clientContext, 'set');
+                });
+
+                it('should be function', function () {
+                    expect(viewModel.showObjectiveTip).toBeFunction();
+                });
+
+                it('should set \'isObjectiveTipClosed\' to false', function () {
+                    spyOn(clientContext, 'get');
+                    viewModel.isObjectiveTipClosed(true);
+                    viewModel.showObjectiveTip();
+                    expect(viewModel.isObjectiveTipClosed()).toBeFalsy();
+                });
+
+                it('should send event \'Expand \"Learning objective hint\"\'', function () {
+                    spyOn(clientContext, 'get');
+                    viewModel.showObjectiveTip();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Expand "Learning objective hint"');
+                });
+
+                it('should remove current user from \'usersWithClosedCreateObjectiveTip\' in client context', function () {
+                    var email = "test@test.test";
+                    userContext.identity.email = email;
+                    spyOn(clientContext, 'get').and.returnValue([email]);
+
+                    viewModel.showObjectiveTip();
+                    expect(clientContext.set).toHaveBeenCalledWith('usersWithClosedCreateObjectiveTip', []);
+                });
+            });
+
+            describe('hideObjectiveTip', function () {
+                beforeEach(function () {
+                    spyOn(clientContext, 'set');
+                });
+
+                it('should be function', function () {
+                    expect(viewModel.hideObjectiveTip).toBeFunction();
+                });
+
+                it('should set \'isObjectiveTipClosed\' to true', function () {
+                    spyOn(clientContext, 'get');
+                    viewModel.isObjectiveTipClosed(false);
+                    viewModel.hideObjectiveTip();
+                    expect(viewModel.isObjectiveTipClosed()).toBeTruthy();
+                });
+
+                it('should send event \'Collapse \"Learning objective hint\"\'', function () {
+                    spyOn(clientContext, 'get');
+                    viewModel.hideObjectiveTip();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Collapse "Learning objective hint"');
+                });
+
+                it('should add current user to \'usersWithClosedCreateObjectiveTip\' in client context', function () {
+                    var email = "test@test.test";
+                    userContext.identity.email = email;
+                    spyOn(clientContext, 'get').and.returnValue([]);
+
+                    viewModel.hideObjectiveTip();
+                    expect(clientContext.set).toHaveBeenCalledWith('usersWithClosedCreateObjectiveTip', [email]);
+                });
             });
 
             describe('isImageLoading:', function () {

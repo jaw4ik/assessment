@@ -12,7 +12,8 @@
             localizationManager = require('localization/localizationManager'),
             ping = require('ping'),
             userContext = require('userContext'),
-            imageUpload = require('imageUpload')
+            imageUpload = require('imageUpload'),
+            createObjectiveCommand = require('commands/createObjectiveCommand')
         ;
 
 
@@ -21,6 +22,7 @@
             beforeEach(function () {
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigate');
+                spyOn(createObjectiveCommand, 'execute');
             });
 
             it('should be object', function () {
@@ -181,28 +183,22 @@
 
             });
 
-            describe('navigateToCreation', function () {
+            describe('createObjective', function () {
 
                 it('should be a function', function () {
-                    expect(viewModel.navigateToCreation).toBeFunction();
+                    expect(viewModel.createObjective).toBeFunction();
                 });
 
-                it('should send event \'Navigate to create objective\'', function () {
-                    viewModel.navigateToCreation();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create objective');
+                it('should execute create objective command', function () {
+                    viewModel.createObjective();
+                    expect(createObjectiveCommand.execute).toHaveBeenCalled();
                 });
-
-                it('should navigate to 404', function () {
-                    viewModel.navigateToCreation();
-                    expect(router.navigate).toHaveBeenCalledWith('objective/create');
-                });
-
             });
 
             describe('navigateToDetails', function () {
 
                 it('should be a function', function () {
-                    expect(viewModel.navigateToCreation).toBeFunction();
+                    expect(viewModel.navigateToDetails).toBeFunction();
                 });
 
                 it('should send event \'Navigate to objective details\'', function () {

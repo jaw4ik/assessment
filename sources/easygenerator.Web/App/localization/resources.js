@@ -460,6 +460,9 @@
     createNewObjective: {
         en: 'Add new course objective'
     },
+    objectiveDefaultTitle: {
+        en: 'Untitled objective'
+    },
     createObjectiveTip: {
         en: 'Type objective here...'
     },

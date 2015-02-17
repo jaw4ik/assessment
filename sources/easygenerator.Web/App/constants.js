@@ -266,8 +266,10 @@
             clientContextKeys: {
                 lastCreatedQuestionId: 'lastCreatedQuestionId',
                 lastCreatedCourseId: 'lastCreatedCourseId',
+                lastCreatedObjectiveId: 'lastCreatedObjectiveId',
                 lastVistedCourse: 'lastVistedCourse',
-                lastVisitedObjective: 'lastVisitedObjective'
+                lastVisitedObjective: 'lastVisitedObjective',
+                usersWithClosedCreateObjectiveTip: 'usersWithClosedCreateObjectiveTip'
             },
 
             reporting: {

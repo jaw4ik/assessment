@@ -1,10 +1,10 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext', 'ping', 'userContext', 'viewmodels/objectives/objectiveBrief', 'imageUpload'],
-    function (app, constants, eventTracker, router, objectiveRepository, courseRepository, notify, localizationManager, clientContext, ping, userContext, objectiveBrief, imageUpload) {
+﻿define(['durandal/app', 'constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
+    'clientContext', 'ping', 'userContext', 'viewmodels/objectives/objectiveBrief', 'imageUpload','commands/createObjectiveCommand'],
+    function (app, constants, eventTracker, router, objectiveRepository, courseRepository, notify, localizationManager, clientContext, ping, userContext, objectiveBrief, imageUpload, createObjectiveCommand) {
         "use strict";
 
         var
             events = {
-                navigateToCreation: "Navigate to create objective",
                 navigateToDetails: "Navigate to objective details",
                 navigateToCourses: "Navigate to courses",
                 selectObjective: "Select Objective",
@@ -20,7 +20,7 @@
             lastVisitedObjective: '',
             currentLanguage: '',
 
-            navigateToCreation: navigateToCreation,
+            createObjective: createObjective,
             navigateToDetails: navigateToDetails,
             navigateToCourses: navigateToCourses,
 
@@ -45,9 +45,8 @@
 
         return viewModel;
 
-        function navigateToCreation() {
-            eventTracker.publish(events.navigateToCreation);
-            router.navigate('objective/create');
+        function createObjective() {
+            createObjectiveCommand.execute();
         }
 
         function navigateToDetails(item) {

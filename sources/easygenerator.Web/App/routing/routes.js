@@ -16,14 +16,6 @@
                 }
             },
             {
-                route: 'objective/create',
-                moduleId: 'viewmodels/objectives/createObjective',
-                title: 'Create learning objective',
-                settings: {
-                    localizationKey: 'createNewObjective'
-                }
-            },
-            {
                 route: 'objective/:objectiveId',
                 moduleId: 'viewmodels/objectives/objective',
                 title: 'Learning Objective',

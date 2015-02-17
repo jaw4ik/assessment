@@ -1,6 +1,29 @@
 ﻿<section class="objective view-module">
     <div class="content-section-wrapper">
         <div class="content-section">
+
+
+            <div class="notify-container" data-bind="visible: !isObjectiveTipClosed()">
+                <header class="notify-header clearfix">
+                    <h3 class="notify-title" data-bind="localize: { text: 'howToCreateObjectiveTipHeader' }">
+                        Do you know how to create good learning objectives?
+                    </h3>
+                    <div class="notify-close-btn" data-bind="click: hideObjectiveTip"></div>
+                </header>
+                <div class="notify-content">
+                    <h4 class="notify-content-title" data-bind="localize: { text: 'howToCreateObjectiveTipExamplesHeader' }">Examples</h4>
+                    <div class="notify-content-text-wrapper">
+                        <p class="notify-content-text" data-bind="localize: { text: 'howToCreateObjectiveTipExample1' }">Sales executives will be to assess chances of winning a client bid during a first prospect meeting with first 10 minutes.</p>
+                        <p class="notify-content-text" data-bind="localize: { text: 'howToCreateObjectiveTipExample2' }">HR Managers will be able to indentify the most effective use of gamification in a 1000+ employee organization without hiring third party consultants within a month</p>
+                        <p class="notify-content-text" data-bind="localize: { text: 'howToCreateObjectiveTipExample3' }">Socialogy Students will be able to indentify important nodes in a network under the condition of being given a quality dataset within a week</p>
+                    </div>
+                </div>
+                <div class="read-more-btn-wrapper">
+                    <a class="read-more-btn" target="blank" href="http://www.easygenerator.com/learning-objectives/">
+                        <span class="read-more-btn-text" data-bind="localize: { text: 'howToCreateObjectiveTipLink' }">Read more</span>
+                    </a>
+                </div>
+            </div>
             <div class="controls">
                 <div class="image-container" data-bind="click: updateImage">
                     <div class="logo-background" data-bind="backgroundImage: imageUrl"></div>
@@ -15,11 +38,16 @@
                 </div>
                 <div class="title-container">
                     <div class="page-view-caption clearfix">
+                        <div class="show-notify-btn info-tooltip-holder" data-bind="click: showObjectiveTip, visible: isObjectiveTipClosed()">
+                            <div class="info-tooltip show-notify-tip">
+                                <span data-bind="localize: { text: 'howToCreateObjectiveTipText' }">Click to show tip</span>
+                            </div>
+                        </div>
                         <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</div>
                     </div>
                     <header class="view-header">
                         <div class="view-header-title">
-                            <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }"></div>
+                            <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }, autofocus: { focus: isLastCreatedObjective, autoselect: isLastCreatedObjective }"></div>
                             <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
                                 <span data-bind="text: title().trim().length"></span>/<span data-bind="text: titleMaxLength"></span>
                             </div>

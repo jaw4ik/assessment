@@ -25,9 +25,16 @@
 
         var specs = [
             'authorization/limitCoursesAmount.spec',
+
+            //#region commands
+
             'commands/createQuestionCommand.spec',
+            'commands/createObjectiveCommand.spec',
             'commands/createCourseCommand.spec',
             'commands/presentationCourseImportCommand.spec',
+
+            //#endregion commands
+
             'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/removeCollaborator.spec',
@@ -185,7 +192,6 @@
             'viewmodels/courses/collaboration/collaborators.spec',
             'viewmodels/objectives/objectives.spec',
             'viewmodels/objectives/objective.spec',
-            'viewmodels/objectives/createObjective.spec',
             'viewmodels/objectives/objectiveBrief.spec',
             'viewmodels/panels/sidePanel.spec',
             'viewmodels/panels/tabs/reviewTab.spec',

@@ -13,7 +13,8 @@
         ping = require('ping'),
         BackButton = require('models/backButton'),
         userContext = require('userContext'),
-        imageUpload = require('imageUpload')
+        imageUpload = require('imageUpload'),
+        createObjectiveCommand = require('commands/createObjectiveCommand')
     ;
 
     describe('viewModel [course]', function () {
@@ -505,22 +506,22 @@
 
         });
 
-        describe('navigateToCreateObjective:', function () {
+        describe('createObjective', function () {
+            var courseId = 'courseId';
 
-            it('should be function', function () {
-                expect(viewModel.navigateToCreateObjective).toBeFunction();
+            beforeEach(function() {
+                viewModel.id = courseId;
+                spyOn(createObjectiveCommand, 'execute');
             });
 
-            it('should send event \'Navigate to create objective\'', function () {
-                viewModel.navigateToCreateObjective();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create objective');
+            it('should be a function', function () {
+                expect(viewModel.createObjective).toBeFunction();
             });
 
-            it('should navigate', function () {
-                viewModel.navigateToCreateObjective();
-                expect(router.navigate).toHaveBeenCalled();
+            it('should execute create objective command', function () {
+                viewModel.createObjective();
+                expect(createObjectiveCommand.execute).toHaveBeenCalledWith(courseId);
             });
-
         });
 
         describe('toggleObjectiveSelection:', function () {

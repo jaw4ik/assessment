@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'ping', 'models/backButton', 'durandal/app', 'imageUpload'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton, app, imageUpload) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'ping', 'models/backButton', 'durandal/app', 'imageUpload', 'userContext'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton, app, imageUpload, userContext) {
         "use strict";
 
         var
@@ -14,7 +14,9 @@
                 navigateToObjectives: "Navigate to objectives",
                 changeQuestionsOrder: "Change order of questions",
                 openChangeObjectiveImageDialog: "Open \"change objective image\" dialog",
-                changeObjectiveImage: "Change objective image"
+                changeObjectiveImage: "Change objective image",
+                collapseObjectiveHint: 'Collapse \"Learning objective hint\"',
+                expandObjectiveHint: 'Expand \"Learning objective hint\"'
             },
             viewModel = {
                 objectiveId: null,
@@ -25,6 +27,11 @@
                 currentLanguage: '',
                 contextCourseId: null,
                 contextCourseTitle: null,
+                isLastCreatedObjective: false,
+                isObjectiveTipClosed: ko.observable(false),
+
+                showObjectiveTip: showObjectiveTip,
+                hideObjectiveTip: hideObjectiveTip,
 
                 questions: ko.observableArray([]),
 
@@ -216,6 +223,14 @@
         function activate(objId, queryParams) {
             viewModel.currentLanguage = localizationManager.currentLanguage;
 
+            var users = clientContext.get(constants.clientContextKeys.usersWithClosedCreateObjectiveTip);
+            var hasCurrentUser = !_.isNullOrUndefined(users) && _.indexOf(users, userContext.identity.email) != -1;
+            viewModel.isObjectiveTipClosed(hasCurrentUser);
+
+            var lastCreatedObjectiveId = clientContext.get(constants.clientContextKeys.lastCreatedObjectiveId) || '';
+            clientContext.remove(constants.clientContextKeys.lastCreatedObjectiveId);
+            viewModel.isLastCreatedObjective = lastCreatedObjectiveId === objId;
+
             if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.courseId)) {
                 viewModel.contextCourseId = null;
                 viewModel.contextCourseTitle = null;
@@ -388,6 +403,33 @@
             }
 
             vmQuestion.modifiedOn(question.modifiedOn);
+        }
+
+        function showObjectiveTip() {
+            eventTracker.publish(events.expandObjectiveHint);
+            viewModel.isObjectiveTipClosed(false);
+
+            var users = clientContext.get(constants.clientContextKeys.usersWithClosedCreateObjectiveTip);
+            if (_.isNullOrUndefined(users)) {
+                return;
+            }
+
+            users = _.reject(users, function (item) { return item == userContext.identity.email; });
+            clientContext.set(constants.clientContextKeys.usersWithClosedCreateObjectiveTip, users);
+        }
+
+        function hideObjectiveTip() {
+            eventTracker.publish(events.collapseObjectiveHint);
+            viewModel.isObjectiveTipClosed(true);
+
+            var users = clientContext.get(constants.clientContextKeys.usersWithClosedCreateObjectiveTip);
+            if (_.isNullOrUndefined(users)) {
+                users = [userContext.identity.email];
+            } else {
+                users.push(userContext.identity.email);
+            }
+
+            clientContext.set(constants.clientContextKeys.usersWithClosedCreateObjectiveTip, users);
         }
     }
 );

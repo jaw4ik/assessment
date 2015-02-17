@@ -2015,68 +2015,6 @@ span.top-navigation-item.current {
 
 /*#endregion MAINTENANCE*/
 
-/*#region Create form*/
-
-.form-create {
-    padding-top: 10px;
-    overflow: visible;
-    padding-bottom: 60px;
-}
-
-.form-create-field {
-    position: relative;
-}
-
-    .form-create-field .edit-field {
-        font-size: 16px;
-        color: #303133;
-        font-family: 'OpenSans';
-        border-bottom: 1px solid #E8E8E8;
-        min-height: 65px;
-        padding: 20px 15px;
-        background-color: white;
-    }
-
-        .form-create-field .edit-field.empty {
-            border: 1px solid #E8E8E8;
-            border-radius: 3px;
-        }
-
-        .form-create-field .edit-field.active {
-            border: 1px solid #74b9f0;
-        }
-
-        .form-create-field .edit-field.error {
-            border: 1px solid rgba(149, 59, 57, 0.8);
-        }
-
-.form-create-field-placeholder {
-    position: absolute;
-    left: 16px;
-    top: 21px;
-    font-size: 16px;
-    font-family: 'OpenSans';
-    color: #c4c4c4;
-}
-
-.form-link-wrapper {
-    float: left;
-    margin-top: 30px;
-    padding: 14px 0;
-}
-
-.form-link {
-    vertical-align: top;
-    color: #0083d6;
-    font-size: 14px;
-}
-
-    .form-link:hover {
-        text-decoration: underline;
-    }
-
-/*#endregion Create form*/
-
 /*#region EDIT FIELD*/
 
 .edit-field {

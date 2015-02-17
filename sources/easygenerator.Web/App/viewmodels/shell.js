@@ -10,8 +10,8 @@
         };
 
         var
-            objectivesModules = ['objectives', 'objective', 'createObjective', 'createQuestion', 'question'],
-            coursesModules = ['courses', 'createCourse', 'course', 'design', 'publish', 'results'];
+            objectivesModules = ['objectives', 'objective', 'createQuestion', 'question'],
+            coursesModules = ['courses', 'course', 'design', 'publish', 'results'];
 
         var requestsCounter = ko.observable(0);
         var isFirstVisitPage = true;

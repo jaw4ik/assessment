@@ -1,14 +1,13 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
         'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'ping', 'models/backButton',
-        'userContext', 'durandal/app', './collaboration/collaborators', 'imageUpload'],
+        'userContext', 'durandal/app', './collaboration/collaborators', 'imageUpload', 'commands/createObjectiveCommand'],
     function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, ping, BackButton,
-        userContext, app, collaborators, imageUpload) {
+        userContext, app, collaborators, imageUpload, createObjectiveCommand) {
         "use strict";
 
         var
             events = {
                 navigateToObjectiveDetails: 'Navigate to objective details',
-                navigateToCreateObjective: 'Navigate to create objective',
                 selectObjective: 'Select Objective',
                 unselectObjective: 'Unselect Objective',
                 updateCourseTitle: 'Update course title',
@@ -60,7 +59,7 @@
 
             updateObjectiveImage: updateObjectiveImage,
             navigateToObjectiveDetails: navigateToObjectiveDetails,
-            navigateToCreateObjective: navigateToCreateObjective,
+            createObjective: createObjective,
             navigateToCoursesEvent: navigateToCoursesEvent,
             toggleObjectiveSelection: toggleObjectiveSelection,
             startEditTitle: startEditTitle,
@@ -184,9 +183,8 @@
             router.navigate('objective/' + objective.id + '?courseId=' + viewModel.id);
         }
 
-        function navigateToCreateObjective() {
-            eventTracker.publish(events.navigateToCreateObjective);
-            router.navigate('objective/create?courseId=' + viewModel.id);
+        function createObjective() {
+            createObjectiveCommand.execute(viewModel.id);
         }
 
         function toggleObjectiveSelection(objective) {
