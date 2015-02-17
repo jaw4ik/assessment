@@ -98,37 +98,41 @@
                 <ul class="unstyled main-content-list" data-bind="sortable: { data: questions, afterMove: updateQuestionsOrder, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon', start: startReorderingQuestions, stop: endReorderingQuestions }}">
                     <li class="main-content-list-item draggable" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
                         <div class="list-item-content-holder" data-bind="click: $parent.navigateToEditQuestion.bind($parent)">
-                            <div class="list-item-drag-icon-wrapper">
-                                <!-- ko if: $parent.isSortingEnabled() -->
-                                <span class="list-item-drag-icon" data-bind="stopEventPropagation: { event: 'click' }, localize: { title: 'changeOrderTooltip' }"></span>
-                                <!-- /ko -->
-                                <!-- ko ifnot: $parent.isSortingEnabled() -->
-                                <span class="list-item-drag-icon disabled" data-bind="stopEventPropagation: { event: 'click' }"></span>
-                                <!-- /ko -->
+                            <!-- ko if: $parent.isSortingEnabled() -->
+                            <div class="list-item-drag-icon" data-bind="stopEventPropagation: { event: 'click' }, localize: { title: 'changeOrderTooltip' }"></div>
+                            <!-- /ko -->
+                            <!-- ko ifnot: $parent.isSortingEnabled() -->
+                            <div class="list-item-drag-icon disabled" data-bind="stopEventPropagation: { event: 'click' }"></div>
+                            <!-- /ko -->
+                            <div class="empty-list-item"></div>
+                            <div class="checkbox-holder" data-bind="click: $parent.toggleQuestionSelection, stopEventPropagation: { event: 'click' }">
+                                <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
+                                    <input class="custom-checkbox" type="checkbox" />
+                                </span>
                             </div>
-                            <div class="list-item-checkbox">&nbsp;</div>
-                            <div class="list-item-logo">
-                                <img class="list-item-logo-image" alt="" data-bind="attr: { src: image } " />
-                            </div>
-                            <div class="list-item-info">
-                                <div class="list-item-title">
-                                    <span class="selectable" data-bind="text: title"></span>
-                                </div>
-                                <div class="list-item-saved">
-                                    <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
-                                </div>
-                            </div>
-                            <div class="list-item-open">
-                                <div class="list-item-open-btn course-action-btn info-tooltip-holder">
-                                    <div class="info-tooltip open-item">
-                                        <span data-bind="localize: { text: 'open' }">Open</span>
+                            <div class="list-item-info-holder">
+                                <div class="info-holder-table">
+                                    <div class="list-item-logo">
+                                        <img class="list-item-logo-image" alt="" data-bind="attr: { src: image } " />
+                                    </div>
+                                    <div class="list-item-info">
+                                        <div class="list-item-title">
+                                            <span class="selectable" data-bind="text: title"></span>
+                                        </div>
+                                        <div class="list-item-saved">
+                                            <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                        </div>
+                                    </div>
+                                    <div class="list-item-open">
+                                        <div class="list-item-open-btn course-action-btn info-tooltip-holder">
+                                            <div class="info-tooltip open-item">
+                                                <span data-bind="localize: { text: 'open' }">Open</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }, click: $parent.toggleQuestionSelection">
-                            <input class="custom-checkbox" type="checkbox" />
-                        </span>
                     </li>
                 </ul>
             </div>

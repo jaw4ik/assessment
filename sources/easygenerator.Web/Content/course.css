@@ -37,6 +37,7 @@
 
 .course .main-content-list-holder {
     max-width: 100%;
+    margin-top: 30px;
 }
 
 .course .main-content-list.empty {
@@ -51,6 +52,65 @@
     .course .main-content-list.empty.hover {
         border: 2px dashed #2db7ff;
     }
+
+.info-tooltip.remove-selected {
+    width: 110px;
+    margin-left: -55px;
+}
+
+.info-tooltip.more-options {
+    width: 110px;
+    margin-left: -60px;
+    font-family: 'OpenSans';
+}
+
+/*.empty-list-container*/
+.empty-list-container {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.empty-list-title {
+    font-size: 23px;
+    color: #464d5d;
+    font-weight: normal;
+}
+
+.create-item-btn-container {
+    padding: 20px 0 10px 0;
+}
+
+.connect-objectives-link-container {
+    font: 12px 'OpenSans';
+    color: #546677;
+    text-transform: lowercase;
+}
+
+.connect-objectives-link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.empty-list-image-container {
+    height: 260px;
+    background: url('../Content/images/empty-objective-image.png') 100% 100% no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin-top: 40px;
+}
+
+/*.objective-from-powerpoint*/
+
+.objective-from-powerpoint .soon-icon {
+    display: inline-block;
+    background: #f59957;
+    color: white;
+    border-radius: 4px;
+    padding: 3px 5px;
+    margin-left: 5px;
+    font: 10px 'OpenSans';
+    text-transform: uppercase;
+}
 
 /*.course .main-content-list*/
 .placeholder-wrapper {
@@ -359,11 +419,11 @@
     margin-bottom: 30px;
 }
 
-.choose-template-item:nth-of-type(4n) {
-    margin-right: 0;
-}
+    .choose-template-item:nth-of-type(4n) {
+        margin-right: 0;
+    }
 
-.choose-template-item.marked-as-new:after {
+    .choose-template-item.marked-as-new:after {
         content: '';
         position: absolute;
         top: -3px;

@@ -568,6 +568,7 @@
     <Content Include="Content\images\comingsoon1024.png" />
     <Content Include="Content\images\create-course.png" />
     <Content Include="Content\images\disabled-question1024.png" />
+    <Content Include="Content\images\empty-objective-image.png" />
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\newTemplate.png" />
     <Content Include="Content\images\no-spots.png" />
@@ -577,6 +578,7 @@
     <Content Include="Content\images\import-pptx.png" />
     <Content Include="Content\images\dialog-header-background.png" />
     <Content Include="Content\images\preview.png" />
+    <Content Include="Content\images\sprites_16.png" />
     <Content Include="Content\images\statement-question.png" />
     <Content Include="Content\images\upload-image.png" />
     <Content Include="Content\statement.css" />
@@ -2306,7 +2308,6 @@
     <Content Include="Content\images\sample\9.png" />
     <Content Include="Content\images\simpleCourseTemplate.png" />
     <Content Include="Content\images\slider.png" />
-    <Content Include="Content\images\sprites_16.png" />
     <Content Include="Content\images\sprites_24.png" />
     <Content Include="Content\images\sprites_32.png" />
     <Content Include="Content\images\sprites_64.png" />

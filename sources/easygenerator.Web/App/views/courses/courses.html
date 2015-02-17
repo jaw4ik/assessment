@@ -81,38 +81,42 @@
                 <!-- ko foreach: courses -->
                 <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
-                        <div class="list-item-checkbox">
-                        </div>
-                        <div class="list-item-logo">
-                            <span class="list-item-logo-image-wrapper">
-                                <img class="list-item-logo-image" alt="" data-bind="attr: { src: thumbnail }" src="" />
+                        <div class="checkbox-holder" data-bind="click: $parent.toggleSelection, stopEventPropagation: { event: 'click' }">
+                            <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
+                                <input class="custom-checkbox" type="checkbox" />
                             </span>
                         </div>
-                        <div class="list-item-info">
-                            <div class="list-item-title">
-                                <span class="selectable" data-bind="text: title"></span>
-                            </div>
-                            <div class="list-item-saved">
-                                <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
-                            </div>
-                        </div>
-                        <div class="list-item-open">
-                            <div class="list-item-open-btn course-action-btn info-tooltip-holder">
-                                <div class="info-tooltip open-item">
-                                    <span data-bind="localize: { text: 'open' }">Open</span>
+                        <div class="list-item-info-holder">
+                            <div class="info-holder-table">
+                                <div class="list-item-logo">
+                                    <span class="list-item-logo-image-wrapper">
+                                        <img class="list-item-logo-image" alt="" data-bind="attr: { src: thumbnail }" src="" />
+                                    </span>
+                                </div>
+                                <div class="list-item-info">
+                                    <div class="list-item-title">
+                                        <span class="selectable" data-bind="text: title"></span>
+                                    </div>
+                                    <div class="list-item-saved">
+                                        <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                    </div>
+                                </div>
+                                <div class="list-item-open">
+                                    <div class="list-item-open-btn course-action-btn info-tooltip-holder">
+                                        <div class="info-tooltip open-item">
+                                            <span data-bind="localize: { text: 'open' }">Open</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }, click: $parent.toggleSelection">
-                        <input class="custom-checkbox" type="checkbox" />
-                    </span>
-                    <div class="course-actions-panel">
-                        <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
-                            <div class="info-tooltip publish-item">
-                                <span data-bind="localize: { text: 'publish' }">Publish</span>
+                            <div class="course-actions-panel">
+                                <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
+                                    <div class="info-tooltip publish-item">
+                                        <span data-bind="localize: { text: 'publish' }">Publish</span>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </li>
                 <!-- /ko -->
@@ -126,35 +130,38 @@
                 <!-- ko foreach: sharedCourses -->
                 <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
-                        <div class="list-item-checkbox">
-                        </div>
-                        <div class="list-item-logo">
-                            <span class="list-item-logo-image-wrapper">
-                                <img class="list-item-logo-image" alt="" data-bind="attr: { src: thumbnail }" src="" />
-                            </span>
-                        </div>
-                        <div class="list-item-info">
-                            <div class="list-item-title">
-                                <span class="selectable" data-bind="text: title"></span>
-                            </div>
-                            <div class="list-item-saved">
-                                <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
-                            </div>
-                        </div>
-                        <div class="list-item-open">
-                            <div class="list-item-open-btn course-action-btn info-tooltip-holder">
-                                <div class="info-tooltip open-item">
-                                    <span data-bind="localize: { text: 'open' }">Open</span>
+                        <div class="empty-list-item shared"></div>
+                        <div class="list-item-info-holder">
+                            <div class="info-holder-table">
+                                <div class="list-item-logo">
+                                    <span class="list-item-logo-image-wrapper">
+                                        <img class="list-item-logo-image" alt="" data-bind="attr: { src: thumbnail }" src="" />
+                                    </span>
+                                </div>
+                                <div class="list-item-info">
+                                    <div class="list-item-title">
+                                        <span class="selectable" data-bind="text: title"></span>
+                                    </div>
+                                    <div class="list-item-saved">
+                                        <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                    </div>
+                                </div>
+                                <div class="list-item-open">
+                                    <div class="list-item-open-btn course-action-btn info-tooltip-holder">
+                                        <div class="info-tooltip open-item">
+                                            <span data-bind="localize: { text: 'open' }">Open</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="course-actions-panel">
-                        <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
-                            <div class="info-tooltip publish-item">
-                                <span data-bind="localize: { text: 'publish' }">Publish</span>
+                            <div class="course-actions-panel">
+                                <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
+                                    <div class="info-tooltip publish-item">
+                                        <span data-bind="localize: { text: 'publish' }">Publish</span>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </li>
                 <!-- /ko -->

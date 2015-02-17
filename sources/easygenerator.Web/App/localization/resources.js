@@ -184,6 +184,12 @@
     preview: {
         en: 'Preview'
     },
+    or: {
+        en: 'Or'
+    },
+    soon: {
+        en: 'Soon'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -201,6 +207,9 @@
     },
     learningObjectiveListIsEmpty: {
         en: 'Objective list is empty'
+    },
+    letsCreateLearningObjective: {
+        en: 'Let\'s create learning objective'
     },
     clickToAddObjective: {
         en: 'Click to add learning objective'
@@ -358,6 +367,12 @@
     hideCourseContent: {
         en: 'Hide introduction'
     },
+    editIntroduction: {
+        en: 'Edit introduction'
+    },
+    addCourseIntroduction: {
+        en: 'Add course introduction'
+    },
     startFromHere: {
         en: 'Start from here'
     },
@@ -478,6 +493,9 @@
     disconnectSelected: {
         en: 'Remove selected'
     },
+    moreOptions: {
+        en: 'More options'
+    },
     noLearningObjectivesToConnect: {
         en: 'There are no objectives to add'
     },
@@ -486,6 +504,9 @@
     },
     connectExistingLearningObjectives: {
         en: 'Add existing objectives'
+    },
+    connectExisting: {
+        en: 'Connect existing'
     },
     finishConnectingLearningObjectives: {
         en: 'Confirm'
@@ -522,6 +543,9 @@
     },
     howToCreateObjectiveTipText: {
         en: 'Click here for Help'
+    },
+    objectiveFromPowerpoint: {
+        en: 'Objective from powerpoint'
     },
     /* End resource section for model CreateObjective */
     

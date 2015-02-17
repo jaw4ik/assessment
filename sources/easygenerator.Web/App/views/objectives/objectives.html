@@ -38,39 +38,44 @@
                 <!-- ko foreach: objectives -->
                 <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
-                        <div class="list-item-checkbox"></div>
-                        <div class="list-item-logo-wrapper">
-                            <div class="list-item-logo changeable" data-bind="click: $parent.updateObjectiveImage, stopEventPropagation: { event: 'click' }">
-                                <div class="logo-background" data-bind="backgroundImage: imageUrl"></div>
-                                <div class="overlay hover" data-bind="visible: !isImageLoading()">
-                                    <span class="image"></span>
-                                    <div class="text" data-bind="localize: { text: 'changeImage' }">Change image</div>
-                                </div>
-                                <div class="overlay uploading" data-bind="visible: isImageLoading()">
-                                    <span class="image"></span>
-                                    <div class="text" data-bind="localize: { text: 'uploading' }">Uploading...</div>
-                                </div>
-                            </div>
+                        <div class="checkbox-holder" data-bind="click: $parent.toggleObjectiveSelection, stopEventPropagation: { event: 'click' }">
+                            <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
+                                <input class="custom-checkbox" type="checkbox" />
+                            </span>
                         </div>
-                        <div class="list-item-info">
-                            <div class="list-item-title">
-                                <span class="selectable" data-bind="text: title"></span>
-                            </div>
-                            <div class="list-item-saved">
-                                <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
-                            </div>
-                        </div>
-                        <div class="list-item-open">
-                            <div class="list-item-open-btn course-action-btn info-tooltip-holder">
-                                <div class="info-tooltip open-item">
-                                    <span data-bind="localize: { text: 'open' }">Open</span>
+                        <div class="list-item-info-holder">
+                            <div class="info-holder-table">
+                                <div class="list-item-logo-wrapper">
+                                    <div class="list-item-logo changeable" data-bind="click: $parent.updateObjectiveImage, stopEventPropagation: { event: 'click' }">
+                                        <div class="logo-background" data-bind="backgroundImage: imageUrl"></div>
+                                        <div class="overlay hover" data-bind="visible: !isImageLoading()">
+                                            <span class="image"></span>
+                                            <div class="text" data-bind="localize: { text: 'changeImage' }">Change image</div>
+                                        </div>
+                                        <div class="overlay uploading" data-bind="visible: isImageLoading()">
+                                            <span class="image"></span>
+                                            <div class="text" data-bind="localize: { text: 'uploading' }">Uploading...</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-item-info">
+                                    <div class="list-item-title">
+                                        <span class="selectable" data-bind="text: title"></span>
+                                    </div>
+                                    <div class="list-item-saved">
+                                        <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                    </div>
+                                </div>
+                                <div class="list-item-open">
+                                    <div class="list-item-open-btn course-action-btn info-tooltip-holder">
+                                        <div class="info-tooltip open-item">
+                                            <span data-bind="localize: { text: 'open' }">Open</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }, click: $parent.toggleObjectiveSelection">
-                        <input class="custom-checkbox" type="checkbox" />
-                    </span>
                 </li>
                 <!-- /ko -->
             </ul>
