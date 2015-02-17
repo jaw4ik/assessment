@@ -101,6 +101,10 @@
 
 /*.objective-from-powerpoint*/
 
+.objective-from-powerpoint {
+    cursor:default;
+}
+
 .objective-from-powerpoint .soon-icon {
     display: inline-block;
     background: #f59957;
