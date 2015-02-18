@@ -28,7 +28,7 @@
                 contextCourseId: null,
                 contextCourseTitle: null,
                 isLastCreatedObjective: false,
-                isObjectiveTipClosed: ko.observable(false),
+                isObjectiveTipVisible: ko.observable(false),
 
                 showObjectiveTip: showObjectiveTip,
                 hideObjectiveTip: hideObjectiveTip,
@@ -222,10 +222,7 @@
 
         function activate(objId, queryParams) {
             viewModel.currentLanguage = localizationManager.currentLanguage;
-
-            var users = clientContext.get(constants.clientContextKeys.usersWithClosedCreateObjectiveTip);
-            var hasCurrentUser = !_.isNullOrUndefined(users) && _.indexOf(users, userContext.identity.email) != -1;
-            viewModel.isObjectiveTipClosed(hasCurrentUser);
+            viewModel.isObjectiveTipVisible(false);
 
             var lastCreatedObjectiveId = clientContext.get(constants.clientContextKeys.lastCreatedObjectiveId) || '';
             clientContext.remove(constants.clientContextKeys.lastCreatedObjectiveId);
@@ -407,29 +404,12 @@
 
         function showObjectiveTip() {
             eventTracker.publish(events.expandObjectiveHint);
-            viewModel.isObjectiveTipClosed(false);
-
-            var users = clientContext.get(constants.clientContextKeys.usersWithClosedCreateObjectiveTip);
-            if (_.isNullOrUndefined(users)) {
-                return;
-            }
-
-            users = _.reject(users, function (item) { return item == userContext.identity.email; });
-            clientContext.set(constants.clientContextKeys.usersWithClosedCreateObjectiveTip, users);
+            viewModel.isObjectiveTipVisible(true);
         }
 
         function hideObjectiveTip() {
             eventTracker.publish(events.collapseObjectiveHint);
-            viewModel.isObjectiveTipClosed(true);
-
-            var users = clientContext.get(constants.clientContextKeys.usersWithClosedCreateObjectiveTip);
-            if (_.isNullOrUndefined(users)) {
-                users = [userContext.identity.email];
-            } else {
-                users.push(userContext.identity.email);
-            }
-
-            clientContext.set(constants.clientContextKeys.usersWithClosedCreateObjectiveTip, users);
+            viewModel.isObjectiveTipVisible(false);
         }
     }
 );

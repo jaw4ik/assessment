@@ -268,8 +268,7 @@
                 lastCreatedCourseId: 'lastCreatedCourseId',
                 lastCreatedObjectiveId: 'lastCreatedObjectiveId',
                 lastVistedCourse: 'lastVistedCourse',
-                lastVisitedObjective: 'lastVisitedObjective',
-                usersWithClosedCreateObjectiveTip: 'usersWithClosedCreateObjectiveTip'
+                lastVisitedObjective: 'lastVisitedObjective'
             },
 
             reporting: {

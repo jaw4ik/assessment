@@ -3,7 +3,7 @@
         <div class="content-section">
 
 
-            <div class="notify-container" data-bind="visible: !isObjectiveTipClosed()">
+            <div class="notify-container" data-bind="visible: isObjectiveTipVisible()">
                 <header class="notify-header clearfix">
                     <h3 class="notify-title" data-bind="localize: { text: 'howToCreateObjectiveTipHeader' }">
                         Do you know how to create good learning objectives?
@@ -38,7 +38,7 @@
                 </div>
                 <div class="title-container">
                     <div class="page-view-caption clearfix">
-                        <div class="show-notify-btn info-tooltip-holder" data-bind="click: showObjectiveTip, visible: isObjectiveTipClosed()">
+                        <div class="show-notify-btn info-tooltip-holder" data-bind="click: showObjectiveTip, visible: !isObjectiveTipVisible()">
                             <div class="info-tooltip show-notify-tip">
                                 <span data-bind="localize: { text: 'howToCreateObjectiveTipText' }">Click to show tip</span>
                             </div>

@@ -125,48 +125,15 @@
                     expect(viewModel.activate).toBeFunction();
                 });
 
-                describe('when \'usersWithClosedCreateObjectiveTip\' is defined in client context', function () {
-                    var email = 'test@test.test';
+                it('should set isObjectiveTipVisible to false', function (done) {
 
-                    describe('and current user in the list of users in \'usersWithClosedCreateObjectiveTip\'', function () {
-                        it('should set \'isObjectiveTipClosed\' to true', function (done) {
-                            spyOn(clientContext, 'get').and.returnValue([email]);
-                            userContext.identity.email = email;
+                    deferred.resolve();
+                    viewModel.isObjectiveTipVisible(true);
+                    var promise = viewModel.activate(objective.id, null);
 
-                            deferred.resolve();
-
-                            viewModel.activate().fin(function () {
-                                expect(viewModel.isObjectiveTipClosed()).toBeTruthy();
-                                done();
-                            });
-                        });
-                    });
-
-                    describe('and current user not in the list of users in \'usersWithClosedCreateObjectiveTip\'', function () {
-                        it('should set \'isObjectiveTipClosed\' to false', function (done) {
-                            spyOn(clientContext, 'get').and.returnValue([]);
-                            userContext.identity.email = email;
-
-                            deferred.resolve();
-
-                            viewModel.activate().fin(function () {
-                                expect(viewModel.isObjectiveTipClosed()).toBeFalsy();
-                                done();
-                            });
-                        });
-                    });
-                });
-
-                describe('when \'usersWithClosedCreateObjectiveTip\' is not defined in client context', function () {
-                    it('should set \'isObjectiveTipClosed\' to false', function (done) {
-                        spyOn(clientContext, 'get').and.returnValue(undefined);
-
-                        deferred.resolve();
-
-                        viewModel.activate().fin(function () {
-                            expect(viewModel.isObjectiveTipClosed()).toBeFalsy();
-                            done();
-                        });
+                    promise.fin(function () {
+                        expect(viewModel.isObjectiveTipVisible()).toBeFalsy();
+                        done();
                     });
                 });
 
@@ -696,73 +663,43 @@
 
             });
 
-            describe('isObjectiveTipClosed', function () {
+            describe('isObjectiveTipVisible', function () {
                 it('should be observable', function () {
-                    expect(viewModel.isObjectiveTipClosed).toBeObservable();
+                    expect(viewModel.isObjectiveTipVisible).toBeObservable();
                 });
             });
 
             describe('showObjectiveTip', function () {
-                beforeEach(function () {
-                    spyOn(clientContext, 'set');
-                });
-
                 it('should be function', function () {
                     expect(viewModel.showObjectiveTip).toBeFunction();
                 });
 
-                it('should set \'isObjectiveTipClosed\' to false', function () {
-                    spyOn(clientContext, 'get');
-                    viewModel.isObjectiveTipClosed(true);
+                it('should set \'isObjectiveTipVisible\' to true', function () {
+                    viewModel.isObjectiveTipVisible(false);
                     viewModel.showObjectiveTip();
-                    expect(viewModel.isObjectiveTipClosed()).toBeFalsy();
+                    expect(viewModel.isObjectiveTipVisible()).toBeTruthy();
                 });
 
                 it('should send event \'Expand \"Learning objective hint\"\'', function () {
-                    spyOn(clientContext, 'get');
                     viewModel.showObjectiveTip();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Expand "Learning objective hint"');
-                });
-
-                it('should remove current user from \'usersWithClosedCreateObjectiveTip\' in client context', function () {
-                    var email = "test@test.test";
-                    userContext.identity.email = email;
-                    spyOn(clientContext, 'get').and.returnValue([email]);
-
-                    viewModel.showObjectiveTip();
-                    expect(clientContext.set).toHaveBeenCalledWith('usersWithClosedCreateObjectiveTip', []);
                 });
             });
 
             describe('hideObjectiveTip', function () {
-                beforeEach(function () {
-                    spyOn(clientContext, 'set');
-                });
-
                 it('should be function', function () {
                     expect(viewModel.hideObjectiveTip).toBeFunction();
                 });
 
-                it('should set \'isObjectiveTipClosed\' to true', function () {
-                    spyOn(clientContext, 'get');
-                    viewModel.isObjectiveTipClosed(false);
+                it('should set \'isObjectiveTipVisible\' to false', function () {
+                    viewModel.isObjectiveTipVisible(true);
                     viewModel.hideObjectiveTip();
-                    expect(viewModel.isObjectiveTipClosed()).toBeTruthy();
+                    expect(viewModel.isObjectiveTipVisible()).toBeFalsy();
                 });
 
                 it('should send event \'Collapse \"Learning objective hint\"\'', function () {
-                    spyOn(clientContext, 'get');
                     viewModel.hideObjectiveTip();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Collapse "Learning objective hint"');
-                });
-
-                it('should add current user to \'usersWithClosedCreateObjectiveTip\' in client context', function () {
-                    var email = "test@test.test";
-                    userContext.identity.email = email;
-                    spyOn(clientContext, 'get').and.returnValue([]);
-
-                    viewModel.hideObjectiveTip();
-                    expect(clientContext.set).toHaveBeenCalledWith('usersWithClosedCreateObjectiveTip', [email]);
                 });
             });
 
