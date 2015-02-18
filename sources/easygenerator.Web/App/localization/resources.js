@@ -209,10 +209,10 @@
         en: 'Objective list is empty'
     },
     letsCreateLearningObjective: {
-        en: 'Let\'s create learning objective'
+        en: 'Let\'s create a learning objective'
     },
     clickToAddObjective: {
-        en: 'Click to add learning objective'
+        en: 'Click to add a learning objective'
     },
     objectiveCannnotBeDeleted: {
         en: 'Learning objective cannot be deleted when it contains questions or is connected to a course'
