@@ -37,7 +37,7 @@
             <div class="content-section">
                 <div data-bind="fillInTheBlank: { name:'blankContent', createButtonSelectors: { addBlank: '.create-blank', addDropDownBlank: '.create-drop-down-blank' }, localizationManager: $root.localizationManager, eventTracker: $root.eventTracker}">
                     <div class="fib-wrapper fib-content" data-bind="css: { 'active' : hasFocus }">
-                        <div class="question-learning-content selectable blankContent" data-bind="attr:{ id: 'blankContent'}, ckeditor: { fillInTheBlank: true, data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: endEditText, autosaveInterval: $parent.autosaveInterval, localizationManager: $root.localizationManager }">
+                        <div class="question-learning-content selectable blankContent" data-bind="attr:{ id: 'blankContent'}, ckeditor: { fillInTheBlank: true, data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: endEditText, autosaveInterval: $parent.autosaveInterval, localizationManager: $root.localizationManager, forcedFocus: true }">
                         </div>
                         <!-- ko if: isEmpty -->
                         <div class="fib-watermark-wrapper" data-bind="click: addFillInTheBlank, localize: { html: 'fillInTheBlankWatermark' }">Your content with blanks <span class="blankField"><span class="blankValue">example</span><span class="close">&nbsp;</span></span> and dropdowns <span class=""><span class="blankField blankSelect"><span class="blankValue">example</span><span class="dropDownIndicator">&nbsp;</span><span class="close">&nbsp;</span></span></span> goes here...</div>

@@ -530,6 +530,7 @@
     <Content Include="App\utils\waiter.spec.js">
       <DependentUpon>waiter.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\courses\bindingHandlers\courseIntroductionAnimationBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\windowMessageListenerBinding.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\items\results.js" />

@@ -312,6 +312,7 @@
             });
 
             it('should send event \'Open "change objective image" dialog\'', function () {
+                spyOn(imageUpload, 'upload');
                 viewModel.updateObjectiveImage();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Open "change objective image" dialog');
             });

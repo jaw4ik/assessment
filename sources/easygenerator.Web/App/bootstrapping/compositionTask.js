@@ -14,6 +14,7 @@
         composition.addBindingHandler('ckeditor');
         composition.addBindingHandler('editableText');
         composition.addBindingHandler('autosize');
+        composition.addBindingHandler('introAnimate');
     }
 
 });

@@ -116,6 +116,13 @@
                 viewModel.beginEditText({});
                 expect(viewModel.isEditing()).toBeTruthy();
             });
+
+            it('should set hasFocus to true', function () {
+                viewModel.hasFocus(false);
+
+                viewModel.beginEditText({});
+                expect(viewModel.hasFocus()).toBeTruthy();
+            });
         });
 
         describe('endEditText:', function () {

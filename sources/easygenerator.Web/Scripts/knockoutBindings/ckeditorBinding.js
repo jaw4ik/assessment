@@ -371,10 +371,11 @@
             $toolbarElement.css('top', toolbarTopPosition);
         }
     },
-    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+    update: function (element, valueAccessor) {
         var data = valueAccessor().data(),
             isEditing = valueAccessor().isEditing(),
-            fillInTheBlank = valueAccessor().fillInTheBlank || false;
+            forcedFocus = valueAccessor().forcedFocus || false;
+
         var editor = _.find(CKEDITOR.instances, function (item) {
             return item.element.$ == element;
         });
@@ -384,7 +385,7 @@
                 editor.setData(data);
             }
         }
-        else if (fillInTheBlank && !editor.focusManager.hasFocus) {
+        else if (forcedFocus && !editor.focusManager.hasFocus) {
             editor.focus();
         }
     }

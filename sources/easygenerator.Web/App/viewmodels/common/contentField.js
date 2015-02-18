@@ -13,6 +13,7 @@
             beginEditText = function () {
                 eventTracker.publish(events.beginEditText);
                 isEditing(true);
+                hasFocus(true);
             },
 
             addContent = function () {
