@@ -1664,6 +1664,7 @@ li.package-action-tabs-link {
 .course-collaboration-warning {
     min-height: 40px;
     width: 100%;
+    margin: -20px 0 15px;
     padding: 14px 0 14px;
     background-color: #ebf6fb;
     text-align: center;

@@ -45,9 +45,12 @@
 .view-content-holder {
     position: relative;
     height: 100%;
-    overflow-x: auto;
-    overflow-y: scroll;
+    overflow: auto;
 }
+
+    .view-content-holder.scroll {
+        overflow-y: scroll;
+    }
 
     .view-content-holder .view-content-holder:before {
         content: '';
