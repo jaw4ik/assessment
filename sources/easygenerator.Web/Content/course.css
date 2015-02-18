@@ -1558,6 +1558,7 @@ li.package-action-tabs-link {
     border: 2px dashed #becbd3;
     border-radius: 5px;
     cursor: pointer;
+    transition: border-color 0.2s linear 0s;
 }
 
 .course-introduction-holder {
