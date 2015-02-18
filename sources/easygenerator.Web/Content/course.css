@@ -82,14 +82,19 @@
 
 .connect-objectives-link-container {
     font: 12px 'OpenSans';
-    color: #546677;
+    color: #42515f;
     text-transform: lowercase;
 }
 
 .connect-objectives-link {
+    color: #42515f;
     text-decoration: underline;
     cursor: pointer;
 }
+
+    .connect-objectives-link:hover {
+        color: #63798e;
+    }
 
 .empty-list-image-container {
     height: 260px;
@@ -102,19 +107,19 @@
 /*.objective-from-powerpoint*/
 
 .objective-from-powerpoint {
-    cursor:default;
+    cursor: default;
 }
 
-.objective-from-powerpoint .soon-icon {
-    display: inline-block;
-    background: #f59957;
-    color: white;
-    border-radius: 4px;
-    padding: 3px 5px;
-    margin-left: 5px;
-    font: 10px 'OpenSans';
-    text-transform: uppercase;
-}
+    .objective-from-powerpoint .soon-icon {
+        display: inline-block;
+        background: #f59957;
+        color: white;
+        border-radius: 4px;
+        padding: 3px 5px;
+        margin-left: 5px;
+        font: 10px 'OpenSans';
+        text-transform: uppercase;
+    }
 
 /*.course .main-content-list*/
 .placeholder-wrapper {
@@ -1563,18 +1568,18 @@ li.package-action-tabs-link {
     word-wrap: break-word;
 }
 
-    .course-introduction-wrapper.active {
-        border: 1px solid #469dd5;
-    }
+.course-introduction-wrapper.active {
+    border: 1px solid #469dd5;
+}
 
-    .course-introduction-wrapper:hover,
-    .course-introduction-wrapper.content-defined:hover  {
-        border-color: #469dd5;
-    }
+.course-introduction-wrapper:hover,
+.course-introduction-wrapper.content-defined:hover {
+    border-color: #469dd5;
+}
 
-    .course-introduction-wrapper.content-defined {
-        border: 1px solid #becbd3;
-    }
+.course-introduction-wrapper.content-defined {
+    border: 1px solid #becbd3;
+}
 
     .course-introduction-wrapper.content-defined.active {
         border-color: #469dd5;
@@ -1591,37 +1596,37 @@ li.package-action-tabs-link {
     margin-top: -16px;
     margin-left: -16px;
 }
-    
+
     .course-introduction-control-button.add {
         background: url('images/sprites_32.png') 0 -37px no-repeat;
     }
 
-    .course-introduction-container:hover  .course-introduction-control-button.add {
-        background: url('images/sprites_32.png') -37px -37px no-repeat;
-    }
+.course-introduction-container:hover .course-introduction-control-button.add {
+    background: url('images/sprites_32.png') -37px -37px no-repeat;
+}
 
-    .course-introduction-control-button.collapse,
-    .course-introduction-container:hover .course-introduction-control-button.collapse {
-        background: url('images/sprites_32.png') -148px -37px no-repeat;
-    }
+.course-introduction-control-button.collapse,
+.course-introduction-container:hover .course-introduction-control-button.collapse {
+    background: url('images/sprites_32.png') -148px -37px no-repeat;
+}
 
-    .course-introduction-control-button.edit {
-        background: url('images/sprites_32.png') -74px -37px no-repeat;
-    }
+.course-introduction-control-button.edit {
+    background: url('images/sprites_32.png') -74px -37px no-repeat;
+}
 
-    .course-introduction-container:hover .course-introduction-control-button.edit {
-        background: url('images/sprites_32.png') -111px -37px no-repeat;
-    }
+.course-introduction-container:hover .course-introduction-control-button.edit {
+    background: url('images/sprites_32.png') -111px -37px no-repeat;
+}
 
-    .course-introduction-control-button.edit .info-tooltip {
-        width: 110px;
-        margin-left: -56px;
-    }
+.course-introduction-control-button.edit .info-tooltip {
+    width: 110px;
+    margin-left: -56px;
+}
 
-    .course-introduction-control-button.edit:hover .info-tooltip {
-        opacity: 1;
-        visibility: visible;
-    }
+.course-introduction-control-button.edit:hover .info-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
 
 .course-introduction-title-container {
     height: 56px;
@@ -1631,9 +1636,9 @@ li.package-action-tabs-link {
     transition: color 0.2s linear 0s;
 }
 
-    .course-introduction-container:hover .course-introduction-title-container {
-        color: #469dd5;
-    }
+.course-introduction-container:hover .course-introduction-title-container {
+    color: #469dd5;
+}
 
 .course-introduction-title {
     display: inline-block;
@@ -1645,16 +1650,16 @@ li.package-action-tabs-link {
     width: 100%;
     height: 35%;
     bottom: 0;
-    background: -webkit-linear-gradient(top,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,1) 100%);
-    background: linear-gradient(to bottom,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0.5) 0%,rgba(255,255,255,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,rgba(255,255,255,1) 100%);
     box-shadow: 0 -10px 5px 0 rgba(255, 255, 255, 0.5);
     border-radius: 5px;
 }
 
-    .course-introduction-wrapper.overlay-hide .course-introduction-overlay,
-    .course-introduction-wrapper.active .course-introduction-overlay {
-        display: none;
-    }
+.course-introduction-wrapper.overlay-hide .course-introduction-overlay,
+.course-introduction-wrapper.active .course-introduction-overlay {
+    display: none;
+}
 
 /*#endregion COURSE CONTENT*/
 
