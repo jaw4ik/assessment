@@ -1653,7 +1653,7 @@ li.package-action-tabs-link {
     bottom: 0;
     background: -webkit-linear-gradient(top, rgba(255,255,255,0.5) 0%,rgba(255,255,255,1) 100%);
     background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,rgba(255,255,255,1) 100%);
-    box-shadow: 0 -10px 5px 0 rgba(255, 255, 255, 0.5);
+    box-shadow: 0 -7px 5px 0 rgba(255, 255, 255, 0.5);
     border-radius: 5px;
 }
 
