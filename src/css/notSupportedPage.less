@@ -92,6 +92,10 @@
             width: 100%;
             margin-bottom: 50px;
             border-collapse: separate;
+
+            .supported-browser-item {
+                width: 200px;
+            }
         }
 
         .download-browser-link {
@@ -186,7 +190,7 @@
     }
 
     &.ios {
-        .chrome, .firefox, .ie, .chrome-mobile {
+        .chrome, .firefox, .ie, .chrome-mobile, .chrome-mac {
             display: none;
         }
     }
@@ -198,13 +202,13 @@
     }
 
     &.android {
-        .firefox, .ie, .safari, .chrome {
+        .firefox, .ie, .safari, .chrome, .chrome-mac {
             display: none;
         }
     }
 
     &.windows {
-        .safari, .chrome-mobile {
+        .safari, .chrome-mobile, .chrome-mac {
             display: none;
         }
     }
