@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                             <div class="course-actions-panel">
-                                <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
+                                <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
                                     <div class="info-tooltip publish-item">
                                         <span data-bind="localize: { text: 'publish' }">Publish</span>
                                     </div>
@@ -155,7 +155,7 @@
                                 </div>
                             </div>
                             <div class="course-actions-panel">
-                                <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
+                                <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
                                     <div class="info-tooltip publish-item">
                                         <span data-bind="localize: { text: 'publish' }">Publish</span>
                                     </div>
