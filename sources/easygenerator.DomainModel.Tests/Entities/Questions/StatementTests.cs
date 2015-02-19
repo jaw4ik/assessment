@@ -55,7 +55,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         {
             const string title = "title";
 
-            var question = StatementObjectMother.Create(title, CreatedBy);
+            var question = StatementObjectMother.Create(title, "text", CreatedBy);
 
             question.Id.Should().NotBeEmpty();
             question.Title.Should().Be(title);
@@ -70,8 +70,9 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         public void Question_ShouldCreateQuestionInstanceWithAnswers()
         {
             const string title = "title";
+            const string defaultStatementText = "statement";
 
-            var question = new Statement(title, CreatedBy);
+            var question = new Statement(title, defaultStatementText, CreatedBy);
             question.Answers.Should().NotBeNull().And.HaveCount(2);
         }
 

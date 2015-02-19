@@ -3,7 +3,7 @@
     var plugin = CKEDITOR.plugins.audioembed;
 
     CKEDITOR.dialog.add(plugin.dialogName, function (editor) {
-        var lang = plugin.langEntries[editor.langCode];
+        var lang = editor.lang.audioembed;
 
         return {
             title: lang.embedAudio,

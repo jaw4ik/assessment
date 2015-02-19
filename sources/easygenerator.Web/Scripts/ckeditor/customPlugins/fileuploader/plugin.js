@@ -2,7 +2,7 @@
 
     CKEDITOR.plugins.fileuploader = {
         requires: 'dialogui',
-        lang: 'en',
+        lang: 'en,uk',
 
         onLoad: function () {
 

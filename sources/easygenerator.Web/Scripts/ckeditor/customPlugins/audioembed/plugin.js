@@ -3,7 +3,7 @@
     CKEDITOR.plugins.audioembed = {
 
         icons: 'audioembed',
-        lang: 'en',
+        lang: 'en,uk',
 
         commands: {
             openDialog: 'audioEmbedOpenDialog',
@@ -13,7 +13,7 @@
         dialogName: 'audioEmbedDialog',
 
         init: function (editor) {
-            var lang = this.langEntries[editor.langCode];
+            var lang = editor.lang.audioembed;
 
             editor.addCommand(this.commands.openDialog, new CKEDITOR.dialogCommand(this.dialogName,
                 {

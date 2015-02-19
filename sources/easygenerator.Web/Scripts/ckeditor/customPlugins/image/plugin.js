@@ -11,7 +11,7 @@
 
     CKEDITOR.plugins.image = {
         requires: 'dialog',
-        lang: 'en', // %REMOVE_LINE_CORE%
+        lang: 'en,uk', // %REMOVE_LINE_CORE%
         icons: 'image', // %REMOVE_LINE_CORE%
         hidpi: true, // %REMOVE_LINE_CORE%
         init: function (editor) {

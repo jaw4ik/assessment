@@ -6,22 +6,13 @@ namespace easygenerator.Infrastructure
     public static class Constants
     {
         public const string EmailValidationRegexp = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$";
-        public const string DefaultAnswerOptionText = "Put your answer option here";
+        public const string DefaultCulture = "en-US";
+        public static readonly string[] SupportedCultures = {"en", "en-US", "uk"};
+
 
         public class Objective
         {
             public const string DefaultImageUrl = "/Content/images/objective-default-image.jpg";
-        }
-
-        public class Statement
-        {
-            public const string DefaultStatementText = "Type your statement here...";
-        }
-
-        public class TextMatching
-        {
-            public const string DefaultAnswerKeyText = "Define your key...";
-            public const string DefaultAnswerValueText = "Define your answer...";
         }
 
         public class MailTemplates

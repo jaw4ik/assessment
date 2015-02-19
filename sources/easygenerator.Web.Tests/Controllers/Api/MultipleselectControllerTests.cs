@@ -62,16 +62,17 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void CreateMultipleSelect_ShouldAddTwoAnswerOptionsToQuestion()
         {
             const string title = "title";
+            const string defaultAnswerText = "Put your answer option here";
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             DateTimeWrapper.Now = () => DateTime.MinValue;
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
             var question = Substitute.For<Multipleselect>("Question title", CreatedBy);
-            var correctAnswer = Substitute.For<Answer>("Put your answer option here", true, user, DateTimeWrapper.Now());
-            var incorrectAnswer = Substitute.For<Answer>("Put your answer option here", false, user, DateTimeWrapper.Now().AddSeconds(1));
+            var correctAnswer = Substitute.For<Answer>(defaultAnswerText, true, user, DateTimeWrapper.Now());
+            var incorrectAnswer = Substitute.For<Answer>(defaultAnswerText, false, user, DateTimeWrapper.Now().AddSeconds(1));
 
-            _entityFactory.Answer(Constants.DefaultAnswerOptionText, true, user, Arg.Any<DateTime>()).Returns(correctAnswer);
-            _entityFactory.Answer(Constants.DefaultAnswerOptionText, false, user, Arg.Any<DateTime>()).Returns(incorrectAnswer);
+            _entityFactory.Answer(defaultAnswerText, true, user, Arg.Any<DateTime>()).Returns(correctAnswer);
+            _entityFactory.Answer(defaultAnswerText, false, user, Arg.Any<DateTime>()).Returns(incorrectAnswer);
 
             _entityFactory.MultipleselectQuestion(title, user, correctAnswer, incorrectAnswer).Returns(question);
 

@@ -15,7 +15,7 @@ namespace easygenerator.DomainModel
         Multipleselect MultipleselectQuestion(string title, string createdBy);
         Multipleselect MultipleselectQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer);
 
-        Statement StatementQuestion(string title, string createdBy);
+        Statement StatementQuestion(string title, string defaultStatementText, string  createdBy);
 
         FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
         BlankAnswer BlankAnswer(string text, bool isCorrect, Guid groupId, string createdBy);
@@ -82,9 +82,9 @@ namespace easygenerator.DomainModel
             return new Multipleselect(title, createdBy, correctAnswer, incorrectAnswer);
         }
 
-        public Statement StatementQuestion(string title, string createdBy)
+        public Statement StatementQuestion(string title, string defaultStatementText, string createdBy)
         {
-            return new Statement(title, createdBy);
+            return new Statement(title, defaultStatementText, createdBy);
         }
 
         public FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy)

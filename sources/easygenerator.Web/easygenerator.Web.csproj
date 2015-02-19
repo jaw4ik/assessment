@@ -399,6 +399,11 @@
     <Compile Include="Publish\Aim4You\IAim4YouCoursePublisher.cs" />
     <Compile Include="Publish\CoursePublisher.cs" />
     <Compile Include="Publish\ICoursePublisher.cs" />
+    <Compile Include="Resources\Controllers\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Account\Resources.Designer.cs" />
     <Compile Include="Resources\Views\Error\Resources.Designer.cs" />
     <Compile Include="Resources\Views\Review\Resources.Designer.cs" />
@@ -664,18 +669,21 @@
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\dialogs\audioembed.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\icons\audioembed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\failed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\info.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\de.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\loader.gif" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\dialogs\fillInTheBlank.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\dialogs\fillInTheBlankDropDown.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\floatingspace\plugin.js" />
@@ -683,6 +691,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\icons\error.png" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\icons\no-images.png" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\image\dialogs\image.js" />
@@ -690,17 +699,21 @@
     <Content Include="Scripts\ckeditor\customPlugins\image\icons\image.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\images\noimage.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\dialogs\mediaembed.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\hidpi\mediaembed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\mediaembed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\styles.css" />
     <Content Include="Scripts\ckeditor\lang\en.js" />
+    <Content Include="Scripts\ckeditor\lang\uk.js" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
@@ -2419,12 +2432,21 @@
     <Content Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Controllers\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Controllers\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Account\Resources.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Account\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.resx" />
+    <EmbeddedResource Include="Resources\Views\Error\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.resx" />
+    <EmbeddedResource Include="Resources\Views\Review\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\Resources.uk.resx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\CourseImport\" />

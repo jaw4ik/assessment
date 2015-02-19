@@ -3,7 +3,7 @@
     //Plugin initialization
     CKEDITOR.plugins.imagelibrary = {
         requires: 'dialogui',
-        lang: 'en',
+        lang: 'en,uk',
 
         commands: {
             selectImage: 'selectImage',

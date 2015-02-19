@@ -8,11 +8,11 @@ namespace easygenerator.DomainModel.Entities.Questions
     {
         public Statement() { }
 
-        public Statement(string title, string createdBy)
+        public Statement(string title, string defaultStatementText, string createdBy)
             : base(title, createdBy)
         {
-            var correctAnswer = new Answer(Constants.Statement.DefaultStatementText, true, createdBy, DateTimeWrapper.Now());
-            var incorrectAnswer = new Answer(Constants.Statement.DefaultStatementText, false, createdBy, DateTimeWrapper.Now().AddSeconds(1));
+            var correctAnswer = new Answer(defaultStatementText, true, createdBy, DateTimeWrapper.Now());
+            var incorrectAnswer = new Answer(defaultStatementText, false, createdBy, DateTimeWrapper.Now().AddSeconds(1));
 
             AnswersCollection.Add(correctAnswer);
             AnswersCollection.Add(incorrectAnswer);

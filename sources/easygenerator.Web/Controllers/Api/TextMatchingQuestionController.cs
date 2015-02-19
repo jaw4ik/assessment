@@ -9,6 +9,7 @@ using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Resources.Controllers;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -35,8 +36,8 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var defaultAnswer1 = GetDefaultAnswer();
-            var defaultAnswer2 = _entityFactory.TextMatchingAnswer(Constants.TextMatching.DefaultAnswerKeyText,
-                Constants.TextMatching.DefaultAnswerValueText, GetCurrentUsername(), DateTimeWrapper.Now().AddSeconds(1));
+            var defaultAnswer2 = _entityFactory.TextMatchingAnswer(Resources.Controllers.Resources.DefaultTextMatchingAnswerKeyText,
+                Resources.Controllers.Resources.DefaultTextMatchingAnswerValueText, GetCurrentUsername(), DateTimeWrapper.Now().AddSeconds(1));
 
             var question = _entityFactory.TextMatchingQuestion(title, GetCurrentUsername(), defaultAnswer1, defaultAnswer2);
 
@@ -47,7 +48,7 @@ namespace easygenerator.Web.Controllers.Api
 
         private TextMatchingAnswer GetDefaultAnswer()
         {
-            return _entityFactory.TextMatchingAnswer(Constants.TextMatching.DefaultAnswerKeyText, Constants.TextMatching.DefaultAnswerValueText, GetCurrentUsername());
+            return _entityFactory.TextMatchingAnswer(Resources.Controllers.Resources.DefaultTextMatchingAnswerKeyText, Resources.Controllers.Resources.DefaultTextMatchingAnswerValueText, GetCurrentUsername());
         }
 
         [Route("api/question/textmatching/answers")]

@@ -34,9 +34,9 @@
                                 <div class="question-answer-value" tabindex="-1">
                                     <div class="switch-toggle-slider" data-bind="switchToggle: { value: isCorrect, onValueChanged: $parent.statementCorrectnessUpdated }">
                                         <div class="switch-toggle-wrapper">
-                                            <div class="switch-toggle-on">true</div>
+                                            <div class="switch-toggle-on" data-bind="localize: {text: 'statementTrue'}">true</div>
                                             <div class="switch-toogle-blob"></div>
-                                            <div class="switch-toggle-off">false</div>
+                                            <div class="switch-toggle-off" data-bind="localize: {text: 'statementFalse'}">false</div>
                                         </div>
                                     </div>
                                 </div>

@@ -24,7 +24,7 @@
             addDropDownBlank: 'Add drop down (fill in the blanks)'
         };
 
-        CKEDITOR.config.language = language;
+        CKEDITOR.config.language = localizationManager.currentLanguage;
 
         //Floating Space plugin settings
         CKEDITOR.config.editorsHolderId = 'view_content';

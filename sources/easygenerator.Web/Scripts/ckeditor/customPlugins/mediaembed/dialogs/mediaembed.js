@@ -3,7 +3,7 @@
     var plugin = CKEDITOR.plugins.mediaembed;
 
     CKEDITOR.dialog.add(plugin.dialogName, function (editor) {
-        var lang = plugin.langEntries[editor.langCode];
+        var lang = editor.lang.mediaembed;
 
         return {
             title: lang.embedMedia,

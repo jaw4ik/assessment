@@ -2778,10 +2778,25 @@ h2 + .tooltip-icon {
 
     /*#region Course actions list*/
 
-
     .course-action-item {
         text-align: left;
         width: 40px;
+    }
+
+    [lang~=uk] .course-action-item .course-action-item-text {
+        padding-left: 0;
+    }
+
+        [lang~=uk] .course-action-item .course-action-item-text:before {
+            display: none;
+        }
+
+    [lang~=uk] .course-action-item.course-preview .course-action-item-text:before {
+        background: none;
+    }
+
+    [lang~=uk] .course-action-item.share-now .course-action-item-text:before {
+        background: none;
     }
 
     /*#endregion Course actions list*/

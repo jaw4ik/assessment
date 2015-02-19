@@ -369,4 +369,7 @@
   <data name="StudentOption" xml:space="preserve">
     <value>Student</value>
   </data>
+  <data name="PleaseUse" xml:space="preserve">
+    <value>Please use:</value>
+  </data>
 </root>

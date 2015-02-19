@@ -1,4 +1,6 @@
-﻿using easygenerator.Web.Configuration;
+﻿using System.Linq;
+using easygenerator.Infrastructure;
+using easygenerator.Web.Configuration;
 using System;
 using System.Globalization;
 using System.Threading;
@@ -23,12 +25,25 @@ namespace easygenerator.Web
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
         {
-            var enCulture = new CultureInfo("en-US");
+            var culture = new CultureInfo(Constants.DefaultCulture);
+            var userCultures = Request.UserLanguages;
+            if (userCultures != null)
+            {
+                foreach (var userCulture in userCultures)
+                {
+                    var item = userCulture.Split(';')[0];
+                    if (Constants.SupportedCultures.Any(s => String.Equals(s, item, StringComparison.CurrentCultureIgnoreCase)))
+                    {
+                        culture = new CultureInfo(item);
+                        break;
+                    }
+                }
+            }
 
-            Thread.CurrentThread.CurrentCulture = enCulture;
-            Thread.CurrentThread.CurrentUICulture = enCulture;
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
         }
 
-        
+
     }
 }

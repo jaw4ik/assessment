@@ -57,24 +57,26 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void CreateStatement_ShouldCreateQuestion()
         {
             const string title = "title";
+            const string defaultStatementText = "Type your statement here...";
 
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
             var question = StatementObjectMother.Create(title, CreatedBy);
 
-            _entityFactory.StatementQuestion(title, CreatedBy).Returns(question);
+            _entityFactory.StatementQuestion(title, defaultStatementText, CreatedBy).Returns(question);
 
             _controller.Create(objective, title);
-            _entityFactory.Received().StatementQuestion(title, CreatedBy);
+            _entityFactory.Received().StatementQuestion(title, defaultStatementText, CreatedBy);
         }
 
         [TestMethod]
         public void CreateStatement_ShouldAddQuestionToObjective()
         {
             const string title = "title";
+            const string defaultStatementText = "Type your statement here...";
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
             var question = StatementObjectMother.Create(title, CreatedBy);
 
-            _entityFactory.StatementQuestion(title, CreatedBy).Returns(question);
+            _entityFactory.StatementQuestion(title, defaultStatementText, CreatedBy).Returns(question);
 
             _controller.Create(objective, title);
 
@@ -85,10 +87,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void CreateStatement_ShouldReturnJsonSuccessResult()
         {
             const string title = "title";
+            const string defaultStatementText = "Type your statement here...";
 
             var question = StatementObjectMother.Create(title, CreatedBy);
 
-            _entityFactory.StatementQuestion(title, CreatedBy).Returns(question);
+            _entityFactory.StatementQuestion(title, defaultStatementText, CreatedBy).Returns(question);
 
             var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
 

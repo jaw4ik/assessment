@@ -5,6 +5,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
     public static class StatementObjectMother
     {
         private const string Title = "Question title";
+        private const string DefaultStatementText = "Statement";
         private const string CreatedBy = "username@easygenerator.com";
 
         public static Statement CreateWithTitle(string title)
@@ -17,9 +18,9 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(createdBy: createdBy);
         }
 
-        public static Statement Create(string title = Title, string createdBy = CreatedBy)
+        public static Statement Create(string title = Title, string defaultStatementText = DefaultStatementText, string createdBy = CreatedBy)
         {
-            return new Statement(title, createdBy);
+            return new Statement(title, defaultStatementText, createdBy);
         }
     }
 }

@@ -4,13 +4,13 @@
     var
         defaultCulture = "en",
         supportedCultures = [
-            "en", "en-US"
+            "en", "en-US", 'uk'
         ],
         currentCulture = defaultCulture,
         currentLanguage = '',
 
         localize = function (key, culture) {
-        
+
             var item = resources[key];
             if (_.isNullOrUndefined(item)) {
                 throw new Error('A resource with key "' + key + '" was not found');
@@ -24,7 +24,6 @@
         },
 
         initialize = function (userCultures) {
-
             userCultures = userCultures || [];
 
             var

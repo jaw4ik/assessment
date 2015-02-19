@@ -2,7 +2,7 @@
 
     var
         plugin = CKEDITOR.plugins.fillintheblank,
-        lang = plugin.langEntries.en,
+        lang = editor.lang.fillintheblank,
         classNames = {
             dropDownValuesList: 'drop_down_values_list',
             dropDownValue: 'drop_down_value',

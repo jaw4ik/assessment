@@ -17,7 +17,7 @@
 
         icons: 'mediaembed',
         hidpi: true,
-        lang: 'en',
+        lang: 'en,uk',
 
         commands: {
             openDialog: 'mediaEmbedOpenDialog',
@@ -27,7 +27,7 @@
         dialogName: 'mediaEmbedDialog',
 
         init: function (editor) {
-            var lang = this.langEntries[editor.langCode];
+            var lang = editor.lang.mediaembed;
 
             editor.addCommand(this.commands.openDialog, new CKEDITOR.dialogCommand(this.dialogName,
                 {

@@ -7,7 +7,7 @@
 
     return task;
 
-    function execute() {
+    function execute() {        
         localizationManager.initialize(window.top.userCultures);
     }
 

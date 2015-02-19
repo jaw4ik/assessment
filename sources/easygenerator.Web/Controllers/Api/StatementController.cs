@@ -6,6 +6,7 @@ using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Extensions;
 using System.Web.Mvc;
+using easygenerator.Web.Resources.Controllers;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -30,7 +31,7 @@ namespace easygenerator.Web.Controllers.Api
                     return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
                 }
 
-                var question = _entityFactory.StatementQuestion(title, GetCurrentUsername());
+                var question = _entityFactory.StatementQuestion(title, Resources.Controllers.Resources.DefaultStatementText, GetCurrentUsername());
 
                 objective.AddQuestion(question, GetCurrentUsername());
 
