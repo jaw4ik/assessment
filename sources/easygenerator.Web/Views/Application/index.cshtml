@@ -34,13 +34,16 @@
     </div>
 </div>
 
+@Scripts.Render("~/scripts/vendor")
+<script src="signalr/hubs"></script>
+
 <script type="text/javascript">
     var CKEDITOR_BASEPATH = '/Scripts/ckeditor/';
 </script>
-
-@Scripts.Render("~/scripts/vendor")
 @Scripts.Render("~/scripts/ckeditor.min")
-<script src="signalr/hubs"></script>
+<script type="text/javascript">
+    CKEDITOR.timestamp = @DateTimeWrapper.InstanceStartTime.Ticks;
+</script>
 
 @if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
 {
@@ -50,7 +53,7 @@
         window.top.userCultures = [];
         window.top.appVersion = @DateTimeWrapper.InstanceStartTime.Ticks;
         window.top.BOMSymbol = '\ufeff';
-        
+
         @for (var i = 0; i < userCultures.Count(); i++)
         {
             <text>window.top.userCultures.push('@userCultures[i]');</text>;
