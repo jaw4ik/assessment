@@ -145,6 +145,7 @@
     <Compile Include="Components\ActionFilters\HandleErrorAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\NoCacheAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\ResourceUrlProcessorAttributeTests.cs" />
+    <Compile Include="Components\BrowserSupportTest.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransformTests.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinderTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />

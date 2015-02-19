@@ -1,5 +1,7 @@
 ﻿@using System.Web.Optimization
 @using easygenerator.Infrastructure
+@using easygenerator.Web.Components
+
 <!DOCTYPE html>
 <html class="no-js">
 <head>
@@ -19,20 +21,36 @@
 <!--[if !IE 9]>
 <body>
 <!--<![endif]-->
-<div class="app-wrapper">
-    <div id="applicationHost">
-        <div class="circular-loader x32 black align-center">
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
+@if (BrowserSupport.IsSupportedDevice(HttpContext.Current.Request.UserAgent))
+{
+    if (BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser) ||
+     BrowserSupport.IsPartiallySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
+    {
+        <div id="app" class="app-wrapper">
+            <div id="applicationHost">
+                <div class="circular-loader x32 black align-center">
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    }
+
+    if (!BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
+    {
+        @Html.Partial("notSupportedPage")
+    }
+}
+else
+{
+    @Html.Partial("notSupportedDevicePage")
+}
 
 @Scripts.Render("~/scripts/vendor")
 <script src="signalr/hubs"></script>

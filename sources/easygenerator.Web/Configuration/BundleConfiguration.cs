@@ -84,7 +84,8 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/treeOfContent.css")
                 .Include("~/Content/switchToggle.css")
                 .Include("~/Content/onboarding.css")
-                .Include("~/Content/hotSpot.css");
+                .Include("~/Content/hotSpot.css")
+                .Include("~/Content/notSupportedPage.css");
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());
             bundles.Add(stylesBundle);
 

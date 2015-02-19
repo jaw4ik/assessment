@@ -104,5 +104,105 @@ namespace SharedResources {
                 return ResourceManager.GetString("TermsOfUse", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to google chrome.
+        /// </summary>
+        public static string Chrome
+        {
+            get
+            {
+                return ResourceManager.GetString("Chrome", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to internet explorer.
+        /// </summary>
+        public static string IE
+        {
+            get
+            {
+                return ResourceManager.GetString("IE", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to mozilla firefox.
+        /// </summary>
+        public static string Mozilla
+        {
+            get
+            {
+                return ResourceManager.GetString("Mozilla", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Your browser is currently not supported.
+        /// </summary>
+        public static string NotSupportedBrowserTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("NotSupportedBrowserTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Don't worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions..
+        /// </summary>
+        public static string NotSupportedBrowserDescription
+        {
+            get
+            {
+                return ResourceManager.GetString("NotSupportedBrowserDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to let me try it anyway....
+        /// </summary>
+        public static string NotSupportedBrowserSkip
+        {
+            get
+            {
+                return ResourceManager.GetString("NotSupportedBrowserSkip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to apple safari.
+        /// </summary>
+        public static string Safari
+        {
+            get
+            {
+                return ResourceManager.GetString("Safari", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Your device is not supported.
+        /// </summary>
+        public static string NotSupportedDeviceTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("NotSupportedDeviceTitle", resourceCulture);
+            }
+        }
+
+
+        /// <summary>
+        ///   Looks up a localized string similar to The operational system of your device is not supported. Please find the list of supported operational systems.
+        /// </summary>
+        public static string NotSupportedDeviceDescription
+        {
+            get
+            {
+                return ResourceManager.GetString("NotSupportedDeviceDescription", resourceCulture);
+            }
+        }
     }
 }

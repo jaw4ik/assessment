@@ -1,0 +1,254 @@
+﻿@using SharedResources
+
+<div id="not-supported-page" class="not-supported-page">
+    <table class="bg-table" border="0" cellpadding="0" cellspacing="0">
+        <tr><td class="top-bg">&nbsp;</td></tr>
+        <tr><td><div class="toothed-bg">&nbsp;</div></td></tr>
+        <tr><td class="bottom-bg">&nbsp;</td></tr>
+    </table>
+    <table class="markup-table" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td colspan="3" class="eg-logo-wrapper">
+                <div class="eg-logo-background">
+                    <div class="eg-logo">&nbsp;</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td class="content-cell">
+                <div class="content-item">
+                    <h1 class="page-caption">@Resources.NotSupportedBrowserTitle</h1>
+                    <p class="page-caption-description">@Resources.NotSupportedBrowserDescription</p>
+                    <table class="supported-browsers-group" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td class="supported-browser-item chrome">
+                                <a href="http://www.google.com/chrome" class="download-browser-link" target="_blank">
+                                    <img class="browser-image" src="~/Content/images/chrome.png" alt="">
+                                    <p>
+                                        <span class="browser-title">@Resources.Chrome</span>
+                                    </p>
+                                </a>
+                            </td>
+                            <td class="supported-browser-item chrome-mac">
+                                <a href="https://www.google.com/chrome/browser/desktop/" class="download-browser-link" target="_blank">
+                                    <img class="browser-image" src="~/Content/images/chrome.png" alt="">
+                                    <p>
+                                        <span class="browser-title">@Resources.Chrome</span>
+                                    </p>
+                                </a>
+                            </td>
+                            <td class="supported-browser-item chrome-mobile">
+                                <a href="https://play.google.com/store/apps/details?id=com.android.chrome&pcampaignid=website" class="download-browser-link" target="_blank">
+                                    <img class="browser-image" src="~/Content/images/chrome.png" alt="">
+                                    <p>
+                                        <span class="browser-title">@Resources.Chrome</span>
+                                    </p>
+                                </a>
+                            </td>
+                            <td class="supported-browser-item firefox">
+                                <a href="http://www.mozilla.com/firefox" class="download-browser-link" target="_blank">
+                                    <img class="browser-image" src="~/Content/images/firefox.png" alt="">
+                                    <p>
+                                        <span class="browser-title">@Resources.Mozilla</span>
+                                    </p>
+
+                                </a>
+                            </td>
+                            <td class="supported-browser-item safari">
+                                <a href="http://www.apple.com/safari/" class="download-browser-link" target="_blank">
+                                    <img class="browser-image" src="~/Content/images/safari.png" alt="">
+                                    <p>
+                                        <span class="browser-title">@Resources.Safari</span>
+                                    </p>
+                                </a>
+                            </td>
+                            <td class="supported-browser-item ie">
+                                <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" class="download-browser-link" target="_blank">
+                                    <img class="browser-image" src="~/Content/images/ie.png" alt="">
+                                    <p>
+                                        <span class="browser-title">@Resources.IE</span>
+                                    </p>
+                                </a>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+                    <div class="try-anyway-wrapper">
+                        <span>or </span>
+                        <span id="skip-not-supported-page" class="try-anyway">@Resources.NotSupportedBrowserSkip</span>
+                    </div>
+                </div>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <div class="bottom-aligner">&nbsp;</div>
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+    (function () {
+        "use strict";
+
+        var browser = detectBrowser(),
+            notSupportedPage = getById('not-supported-page'),
+            content = getById('app'),
+            skipButton = getById('skip-not-supported-page');
+
+        if (!browser.isSupportedBrowser && !browser.isSupportedMobile) {
+            if (typeof (sessionStorage) == 'undefined' || !document.addEventListener) {
+                notSupportedPage.className += ' no-skip';
+                showNotSupportedPage();
+            } else {
+                if (!sessionStorage.getItem('supportedBrowser')) {
+                    bindSkip();
+                    showNotSupportedPage();
+                }
+            }
+        }
+
+        function showNotSupportedPage() {
+            hide(content);
+            show(notSupportedPage);
+
+            if (browser.isIos || browser.isAndroid) {
+                notSupportedPage.className += ' mobile';
+                notSupportedPage.className += browser.isIos ? ' ios' : ' android';
+            } else {
+                notSupportedPage.className += browser.isMac ? ' mac' : ' windows';
+            }
+        }
+
+        function detectBrowser() {
+            var ua = navigator.userAgent.toLowerCase();
+
+            var browserDetector = {
+                isSupportedBrowser: null,
+                isSupportedMobile: null,
+                isIos: null,
+                isMac: null,
+                isAndroid: null
+            };
+
+            return detect();
+
+            function getBrowserInfo() {
+                var name = navigator.appName,
+                    versionInclude = ua.match(/version\/([\.\d]+)/i),
+                    browserInfo = ua.match(/(chrome|safari|firefox|msie)\/?\s*([\d\.]+)/i) || [];
+
+                browserInfo = browserInfo[2] ? [browserInfo[1], browserInfo[2]] : [name, navigator.appVersion, '-?'];
+                if (browserInfo.length && versionInclude != null) browserInfo[2] = versionInclude[1];
+
+                var browserName = browserInfo[0].toLowerCase();
+                var version = parseInt(browserInfo[1], 10);
+
+                return { browser: browserName, version: version };
+            }
+
+            function detect() {
+                var browserInfo = getBrowserInfo();
+
+                browserDetector.isSupportedMobile = isSupportedMobile();
+                browserDetector.isSupportedBrowser = isSupportedBrowser(browserInfo);
+                browserDetector.isIos = isIos();
+                browserDetector.isMac = isMac();
+                browserDetector.isAndroid = isAndroid();
+
+                return browserDetector;
+            }
+
+            function isIos() {
+                return /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+            }
+
+            function isMac() {
+                return ua.indexOf('macintosh') != -1 || ua.indexOf('mac os') != -1;
+            }
+
+            function isAndroid() {
+                return ua.indexOf('android') != -1;
+            }
+
+            function isSupportedMobile() {
+                if (isIos()) {
+                    var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+                    if (parseInt(v[1], 10) >= 6 && ua.indexOf("opera") == -1 && ua.indexOf("opr") == -1 && ua.indexOf("firefox") == -1 && ua.indexOf("chrome") == -1 && ua.indexOf('crios') == -1) {
+                        return true;
+                    }
+                }
+
+                //Android is supported but not chrome, opera or firefox
+                if (isAndroid() &&
+                    ua.indexOf("opera") == -1 &&
+                    ua.indexOf("opr") == -1 &&
+                    ua.indexOf("firefox") == -1 &&
+                    parseFloat(ua.slice(ua.indexOf("android") + 8)) >= 4.4) {
+                    return true;
+                }
+
+                return false;
+            };
+
+            function isSupportedBrowser(browserInfo) {
+                if (isIos() || isAndroid()) {
+                    return false;
+                }
+
+                //Mac OS only Safary
+                if (isMac()) {
+                    if (ua.indexOf('opera') != -1 || ua.indexOf("opr") != -1 || ua.indexOf('firefox') != -1) {
+                        return false;
+                    }
+                    return true;
+                }
+                // Opera is not supported
+                if (navigator.appName.toLowerCase() == "opera" || navigator.userAgent.indexOf("OPR") != -1)
+                    return false;
+
+                //Chrome 28+, Firefox 22+, Safari 5+ are supported
+
+                if (browserInfo.browser == "chrome" && browserInfo.version >= 28 || browserInfo.browser == "firefox" && browserInfo.version >= 22)
+                    return true;
+
+                // IE 11 is supported
+                if (ua.indexOf('rv:11.0') != -1) {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+
+        function bindSkip() {
+            skipButton.onclick = function () {
+                show(content);
+                hide(notSupportedPage);
+                sessionStorage.setItem('supportedBrowser', 'false');
+            }
+        }
+
+        function getById(id) {
+            return document.getElementById(id);
+        }
+
+        function hide(elem) {
+            if (elem) {
+                elem.style.display = 'none';
+            }
+        }
+
+        function show(elem) {
+            if (elem) {
+                elem.style.display = 'block';
+            }
+        }
+    }());
+</script>

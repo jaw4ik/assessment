@@ -227,6 +227,7 @@
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
+    <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
@@ -565,12 +566,15 @@
     <Content Include="Content\font\heuristica-regular.svg" />
     <Content Include="Content\font\opensans-bold.svg" />
     <Content Include="Content\hotSpot.css" />
+    <Content Include="Content\images\chrome.png" />
     <Content Include="Content\images\closedhand.cur" />
     <Content Include="Content\images\comingsoon1024.png" />
     <Content Include="Content\images\create-course.png" />
     <Content Include="Content\images\disabled-question1024.png" />
+    <Content Include="Content\images\firefox.png" />
     <Content Include="Content\images\empty-objective-image.png" />
     <Content Include="Content\images\hotSpot-empty.png" />
+    <Content Include="Content\images\ie.png" />
     <Content Include="Content\images\newTemplate.png" />
     <Content Include="Content\images\no-spots.png" />
     <Content Include="Content\images\noResultsHintSteps.png" />
@@ -579,9 +583,13 @@
     <Content Include="Content\images\import-pptx.png" />
     <Content Include="Content\images\dialog-header-background.png" />
     <Content Include="Content\images\preview.png" />
+    <Content Include="Content\images\safari.png" />
     <Content Include="Content\images\sprites_16.png" />
     <Content Include="Content\images\statement-question.png" />
     <Content Include="Content\images\upload-image.png" />
+    <Content Include="Content\images\supported-browser-bg.png" />
+    <Content Include="Content\images\tooth.png" />
+    <Content Include="Content\notSupportedPage.css" />
     <Content Include="Content\statement.css" />
     <Content Include="Content\switchToggle.css" />
     <Content Include="App\synchronization\handlers\questions\hotSpot\handler.js" />
@@ -1831,6 +1839,8 @@
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Views\Shared\_nudgespotAnalytics.cshtml" />
     <Content Include="Views\DemoCourses\Index.cshtml" />
+    <Content Include="Views\Shared\notSupportedPage.cshtml" />
+    <Content Include="Views\Shared\notSupportedDevicePage.cshtml" />
     <Content Include="Templates\Reader\app\main.js.map" />
     <Content Include="Templates\Reader\css\fonts\intro-regular.eot" />
     <Content Include="Templates\Reader\css\fonts\intro-regular.ttf" />
