@@ -15,6 +15,8 @@
             questionId: null,
             questionType: null,
 
+            eventTracker: eventTracker,
+
             addLearningContent: addLearningContent,
             removeLearningContent: removeLearningContent,
 

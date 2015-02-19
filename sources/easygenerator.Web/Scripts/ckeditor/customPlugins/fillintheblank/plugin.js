@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    CKEDITOR.plugins.fillInTheBlank = {
+    CKEDITOR.plugins.fillintheblank = {
         requires: 'widget',
         lang: 'en',
         commands: {
@@ -47,7 +47,7 @@
             var encodedHtmlRegex = /(&amp;|&quot;|&#39;|&lt;|&gt;)/gi;
             var decodedString = $('<div/>').html(str).text();
             if (encodedHtmlRegex.test(decodedString)) {
-                return CKEDITOR.plugins.fillInTheBlank.decodeString(decodedString);
+                return CKEDITOR.plugins.fillintheblank.decodeString(decodedString);
             } else {
                 return decodedString;
             }
@@ -57,7 +57,7 @@
             var extraRemoveFormatTags = "a";
             var tagsRegex = editor._.removeFormatRegex || (editor._.removeFormatRegex = new RegExp('^(?:' + editor.config.removeFormatTags.replace(/,/g, '|') + "|" + extraRemoveFormatTags.replace(/,/g, '|') + ')$', 'i'));
 
-            var plugin = CKEDITOR.plugins.fillInTheBlank;
+            var plugin = CKEDITOR.plugins.fillintheblank;
             var classNames = plugin.classNames;
             var widgetTag = plugin.widgetTag;
 
@@ -278,7 +278,7 @@
                             'data-group-id': groupId,
                             'class': plugin.classNames.blankSelect
                         });
-                        
+
                         var data = this.data;
                         data.dropDownValues.forEach(function (value) {
                             var optionDefinition = {
@@ -299,12 +299,14 @@
             });
             //#endregion WIDGETS DEFINITION
 
+        },
+
+        onLoad: function () {
+            CKEDITOR.document.appendStyleSheet(this.path + 'styles.css');
+            CKEDITOR.dialog.add(this.dialogNames.fillInTheBlank, this.path + 'dialogs/fillInTheBlank.js');
+            CKEDITOR.dialog.add(this.dialogNames.fillInTheBlankDropDown, this.path + 'dialogs/fillInTheBlankDropDown.js');
         }
     };
 
-    CKEDITOR.plugins.add('fillInTheBlank', CKEDITOR.plugins.fillInTheBlank);
-    CKEDITOR.document.appendStyleSheet(CKEDITOR.plugins.fillInTheBlank.path + 'styles.css');
-    CKEDITOR.dialog.add(CKEDITOR.plugins.fillInTheBlank.dialogNames.fillInTheBlank, CKEDITOR.plugins.fillInTheBlank.path + 'dialogs/fillInTheBlank.js');
-    CKEDITOR.dialog.add(CKEDITOR.plugins.fillInTheBlank.dialogNames.fillInTheBlankDropDown, CKEDITOR.plugins.fillInTheBlank.path + 'dialogs/fillInTheBlankDropDown.js');
-
+    CKEDITOR.plugins.add('fillintheblank', CKEDITOR.plugins.fillintheblank);
 })();

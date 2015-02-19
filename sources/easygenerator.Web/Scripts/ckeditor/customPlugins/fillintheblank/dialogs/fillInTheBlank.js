@@ -1,11 +1,11 @@
 ﻿(function () {
 
-    var plugin = CKEDITOR.plugins.fillInTheBlank;
+    var plugin = CKEDITOR.plugins.fillintheblank;
   
     CKEDITOR.dialog.add(plugin.dialogNames.fillInTheBlank, function (editor) {
 
         var
-            lang = editor.lang.fillInTheBlank,
+            lang = editor.lang.fillintheblank,
 
             dialogDefinition = {
                 title: lang.popupTitle,

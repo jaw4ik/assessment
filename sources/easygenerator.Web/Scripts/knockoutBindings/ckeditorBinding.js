@@ -253,31 +253,30 @@
         }
 
         function addCommandsTracking() {
-            if (!editor || !eventTracker)
-                return;
+            if (!editor) {
+                throw 'CKEditor instance not initialized';
+            }
+
+            if (!eventTracker) {
+                throw 'EventTracker is not defined';
+            }
 
             var commandsToTrack = editor.config.commandsToTrack || [];
-            _.each(editor.commands, function (command) {
-                if (commandsToTrack.indexOf(command.name) != -1) {
-                    (function (cmd) {
-                        var baseExec = cmd.exec;
-                        cmd.exec = function (eventInfo) {
-                            eventTracker.publish(cmd.name, 'CKEditor');
-                            baseExec.call(cmd, eventInfo);
-                        };
-                    })(command);
+            _.each(commandsToTrack, function (commandTitle, commandName) {
+                var command = editor.getCommand(commandName);
+
+                if (!_.isUndefined(command)) {
+                    command.on('exec', function () {
+                        eventTracker.publish(commandTitle, 'CKEditor');
+                    });
                 }
             });
 
-            editor.on('publishSemanticEvent', function (eventInfo) {
-                eventTracker.publish('Semantic tag \"' + localizationManager.localize(eventInfo.data, localizationManager.defaultCulture) + '\" applied', 'CKEditor');
-            });
-
             if (fillInTheBlank) {
-                editor.on(CKEDITOR.plugins.fillInTheBlank.events.addBlank, function () {
+                editor.on(CKEDITOR.plugins.fillintheblank.events.addBlank, function () {
                     eventTracker.publish(events.addBlank);
                 });
-                editor.on(CKEDITOR.plugins.fillInTheBlank.events.addDropDownBlank, function () {
+                editor.on(CKEDITOR.plugins.fillintheblank.events.addDropDownBlank, function () {
                     eventTracker.publish(events.addDropDownBlank);
                 });
             }

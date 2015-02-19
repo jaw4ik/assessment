@@ -10,13 +10,13 @@
 
             if (!_.isNullOrUndefined(createButtonSelectors.addBlank)) {
                 $(createButtonSelectors.addBlank, element).click(function () {
-                    createBlank(CKEDITOR.plugins.fillInTheBlank.commands.addBlank);
+                    createBlank(CKEDITOR.plugins.fillintheblank.commands.addBlank);
                 });
             }
 
             if (!_.isNullOrUndefined(createButtonSelectors.addDropDownBlank)) {
                 $(createButtonSelectors.addDropDownBlank, element).click(function () {
-                    createBlank(CKEDITOR.plugins.fillInTheBlank.commands.addDropDownBlank);
+                    createBlank(CKEDITOR.plugins.fillintheblank.commands.addDropDownBlank);
                 });
             }
 

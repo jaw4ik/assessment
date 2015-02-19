@@ -7,67 +7,51 @@
 * Youtube Editor Icon
 * http://paulrobertlloyd.com/
 *
-* @author Fabian Vogelsteller [frozeman.de]
-* @version 0.5
+* @author Yuriy Savchuk =)
+* @version 0.6
 */
 
-CKEDITOR.plugins.mediaembed = {
-    
-    icons: 'mediaembed', // %REMOVE_LINE_CORE%
-    hidpi: true, // %REMOVE_LINE_CORE%
-    
-    lang: 'en',
+(function () {
 
-    init: function (editor) {
-        var
-            me = this,
-            lang = editor.lang.mediaembed;
+    CKEDITOR.plugins.mediaembed = {
 
-        CKEDITOR.dialog.add('MediaEmbedDialog', function (instance) {
-            return {
-                title: lang.embedMedia,
-                minWidth: 550,
-                minHeight: 200,
-                contents:
-                      [
-                         {
-                             id: 'iframe',
-                             expand: true,
-                             elements: [{
-                                 id: 'embedArea',
-                                 type: 'textarea',
-                                 label: lang.pasteEmbedCodeHere,
-                                 'autofocus': 'autofocus',
-                                 setup: function (element) {
-                                 },
-                                 commit: function (element) {
-                                 }
-                             }]
-                         }
-                      ],
-                onOk: function () {
-                    var div = instance.document.createElement('div');
-                    div.setHtml(this.getContentElement('iframe', 'embedArea').getValue());
-                    instance.insertElement(div);
+        icons: 'mediaembed',
+        hidpi: true,
+        lang: 'en',
+
+        commands: {
+            openDialog: 'mediaEmbedOpenDialog',
+            editCode: 'mediaEmbedEditCode',
+            pasteCode: 'mediaEmbedPasteCode'
+        },
+        dialogName: 'mediaEmbedDialog',
+
+        init: function (editor) {
+            var lang = this.langEntries[editor.langCode];
+
+            editor.addCommand(this.commands.openDialog, new CKEDITOR.dialogCommand(this.dialogName,
+                {
+                    allowedContent: 'iframe[*]',
+                    requiredContent: 'iframe[*]'
                 }
-            };
-        });
+            ));
 
-        editor.addCommand('MediaEmbed', new CKEDITOR.dialogCommand('MediaEmbedDialog',
-            {
-                allowedContent: 'iframe[*]',
-                requiredContent: 'iframe[*]'
-            }
-        ));
+            editor.ui.addButton('MediaEmbed', {
+                label: lang.embedMedia,
+                command: this.commands.openDialog,
+                toolbar: 'mediaembed'
+            });
 
-        editor.ui.addButton('MediaEmbed',
-        {
-            label: lang.embedMedia,
-            command: 'MediaEmbed',
-            toolbar: 'mediaembed'
-        });
-    }
-};
+            //Adding tracking commands
+            editor.addTrackingCommand(this.commands.openDialog, 'Open "Embed media" dialog');
+            editor.addTrackingCommand(this.commands.editCode, 'Edit code in "Embed media"');
+            editor.addTrackingCommand(this.commands.pasteCode, 'Paste embedded media');
+        },
 
-CKEDITOR.plugins.add('mediaembed', CKEDITOR.plugins.mediaembed);
+        onLoad: function () {
+            CKEDITOR.dialog.add(this.dialogName, this.path + 'dialogs/mediaembed.js');
+        }
+    };
 
+    CKEDITOR.plugins.add('mediaembed', CKEDITOR.plugins.mediaembed);
+})();

@@ -31,6 +31,8 @@ define(['durandal/app', 'eventTracker', 'constants',
             activeQuestionViewModel: null,
             isInformationContent: false,
 
+            eventTracker: eventTracker,
+            localizationManager: localizationManager,
             backButtonData: new BackButton({}),
 
             navigateToObjectiveEvent: navigateToObjectiveEvent,
@@ -39,8 +41,7 @@ define(['durandal/app', 'eventTracker', 'constants',
             contentUpdatedByCollaborator: contentUpdatedByCollaborator,
 
             canActivate: canActivate,
-            activate: activate,
-            localizationManager: localizationManager
+            activate: activate
         };
 
         app.on(constants.messages.question.titleUpdatedByCollaborator, titleUpdatedByCollaborator);

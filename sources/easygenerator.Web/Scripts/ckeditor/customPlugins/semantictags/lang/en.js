@@ -1,4 +1,4 @@
-﻿CKEDITOR.plugins.setLang('semanticTagsPlugin', 'en', {
+﻿CKEDITOR.plugins.setLang('semantictags', 'en', {
     p: 'Normal',
     cite: 'Quote',
     mark: 'Highlighted',

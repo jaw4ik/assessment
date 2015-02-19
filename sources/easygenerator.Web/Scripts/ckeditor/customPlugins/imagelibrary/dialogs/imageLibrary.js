@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var plugin = CKEDITOR.plugins.imageLibraryPlugin;
+    var plugin = CKEDITOR.plugins.imagelibrary;
     CKEDITOR.tools.extend(plugin, {
         mainTabId: 'imageLibrary',
         imageListContainerId: 'imagesList',
@@ -12,7 +12,7 @@
     CKEDITOR.dialog.add(plugin.imageLibraryDialogName, function (editor) {
 
         var
-            lang = editor.lang.imageLibraryPlugin,
+            lang = editor.lang.imagelibrary,
             
             dialogDefinition = {
                 title: lang.imageLibrary,

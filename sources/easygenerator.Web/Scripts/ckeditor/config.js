@@ -7,21 +7,20 @@ CKEDITOR.editorConfig = function (config) {
         ['Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo'],
         ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'],
         ['NumberedList', 'BulletedList'],
-        ['Link', 'Unlink', 'Table', 'Image', 'Iframe', 'MediaEmbed'],
+        ['Link', 'Unlink', 'Table', 'Image', 'Iframe', 'AudioEmbed', 'MediaEmbed'],
         ['semanticTags']
     ];
 
-    CKEDITOR.plugins.addExternal('semanticTagsPlugin', CKEDITOR.basePath + 'customPlugins/semanticTagsPlugin/', 'plugin.js');
-    config.contentsCss = CKEDITOR.basePath + 'customPlugins/semanticTagsPlugin/styles.css';
-    
-    CKEDITOR.plugins.addExternal('fileUploaderPlugin', CKEDITOR.basePath + 'customPlugins/fileUploaderPlugin/', 'plugin.js');
-    CKEDITOR.plugins.addExternal('image', CKEDITOR.basePath + 'customPlugins/image/', 'plugin.js');
-    CKEDITOR.plugins.addExternal('floatingspace', CKEDITOR.basePath + 'customPlugins/floatingspace/', 'plugin.js');
-    CKEDITOR.plugins.addExternal('mediaembed', CKEDITOR.basePath + 'customPlugins/mediaembed/', 'plugin.js');
-    CKEDITOR.plugins.addExternal('imageLibraryPlugin', CKEDITOR.basePath + 'customPlugins/imageLibraryPlugin/', 'plugin.js');
-    CKEDITOR.plugins.addExternal('fillInTheBlank', CKEDITOR.basePath + 'customPlugins/fillInTheBlank/', 'plugin.js');
+    CKEDITOR.plugins.addExternal('semantictags', 'customPlugins/semantictags/');
+    CKEDITOR.plugins.addExternal('fileuploader', 'customPlugins/fileuploader/');
+    CKEDITOR.plugins.addExternal('image', 'customPlugins/image/');
+    CKEDITOR.plugins.addExternal('floatingspace', 'customPlugins/floatingspace/');
+    CKEDITOR.plugins.addExternal('mediaembed', 'customPlugins/mediaembed/');
+    CKEDITOR.plugins.addExternal('audioembed', 'customPlugins/audioembed/');
+    CKEDITOR.plugins.addExternal('imagelibrary', 'customPlugins/imagelibrary/');
+    CKEDITOR.plugins.addExternal('fillintheblank', 'customPlugins/fillintheblank/');
 
-    config.extraPlugins = 'semanticTagsPlugin,fileUploaderPlugin,image,floatingspace,mediaembed,imageLibraryPlugin,fillInTheBlank';
+    config.extraPlugins = 'semantictags,fileuploader,image,floatingspace,mediaembed,audioembed,imagelibrary,fillintheblank';
     config.extraAllowedContent = 'iframe';
 
     config.removeFormatTags = 'big,del,font,ins,kbd,s,small,strike,tt,var,figcaption,em,strong,u,abbr,acronym,blockquote,q,cite,dfn,code,samp,sub,sup,mark,time';
@@ -29,14 +28,42 @@ CKEDITOR.editorConfig = function (config) {
     config.startupOutlineBlocks = true;
     config.title = false;
     config.autoParagraph = false;
-    
-    config.commandsToTrack = ['cut', 'copy', 'paste', 'pastetext', 'undo', 'redo', 'bold', 'italic',
-            'underline', 'removeformat', 'numberedlist', 'bulletedlist', 'link', 'unlink', 'table', 'image', 'mediaembed'];
 
     config.magicline_color = '#aeb3b9';
 
     config.baseFloatZIndex = 200;
     config.dialog_noConfirmCancel = true;
+    
+    config.commandsToTrack = {
+        'cut': 'Cut text',
+        'copy': 'Copy text',
+        'paste': 'Open "Paste" dialog',
+        'pastetext': 'Open "Paste as plain text" dialog',
+        'undo': 'Undo',
+        'redo': 'Redo',
+        'bold': 'Set text bold',
+        'italic': 'Set text italic',
+        'underline': 'Set text underline',
+        'removeFormat': 'Remove format',
+        'numberedlist': 'Create numbered list',
+        'bulletedlist': 'Create bulleted list',
+        'link': 'Open "Create link" dialog',
+        'unlink': 'Remove link',
+        'table': 'Open "Create table" dialog',
+        'image': 'Open "Create image" dialog'
+    };
+
+    var editor = this;
+    editor.addTrackingCommand = function (commandName, trackingEventTitle) {
+        if (config.commandsToTrack[commandName]) {
+            throw 'Tracking command "' + commandName + '" is already defined';
+        }
+
+        config.commandsToTrack[commandName] = trackingEventTitle;
+        if (typeof editor.getCommand(commandName) === "undefined") {
+            editor.addCommand(commandName, { exec: function () { } });
+        }
+    };
 };
 
 CKEDITOR.on('dialogDefinition', function (ev) {

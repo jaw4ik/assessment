@@ -1,4 +1,4 @@
-﻿CKEDITOR.plugins.setLang('fillInTheBlank', 'en', {
+﻿CKEDITOR.plugins.setLang('fillintheblank', 'en', {
     popupTitle: 'Fill in the answer for this blank',
     dropDownPopupTitle: 'Fill in the answer options for this dropdown',
     addAnswer: '+ Add one more answer',

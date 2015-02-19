@@ -1,7 +1,7 @@
 ﻿(function () {
 
     var
-        plugin = CKEDITOR.plugins.fillInTheBlank,
+        plugin = CKEDITOR.plugins.fillintheblank,
         lang = plugin.langEntries.en,
         classNames = {
             dropDownValuesList: 'drop_down_values_list',

@@ -1,4 +1,4 @@
-﻿CKEDITOR.plugins.setLang('imageLibraryPlugin', 'en', {
+﻿CKEDITOR.plugins.setLang('imagelibrary', 'en', {
     addFromLibrary: 'Image library',
     addFromLibraryHint: 'Choose uploaded file',
     imageLibrary: 'Image library',
