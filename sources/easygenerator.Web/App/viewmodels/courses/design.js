@@ -98,6 +98,7 @@
                                 previewDemoUrl: template.previewDemoUrl,
                                 order: template.order,
                                 isNew: template.isNew,
+                                isCustom: template.isCustom,
                                 openPreview: function (item, event) {
                                     event.stopPropagation();
                                     router.openUrl(item.previewDemoUrl + '?v=' + window.top.appVersion);
@@ -125,7 +126,8 @@
                 return Q.fcall(function () { });
             }
 
-            eventTracker.publish(events.updateCourseTemplate + ' \'' + template.name + '\'');
+            eventTracker.publish(events.updateCourseTemplate + ' \'' + (template.isCustom ? 'custom' : template.name) + '\'');
+
             return waiter.waitFor(viewModel.settingsSaved, delay, limit)
                 .fail(function () {
                     notify.error(templateSettingsErrorNotification);

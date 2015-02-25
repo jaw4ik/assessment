@@ -242,8 +242,8 @@
 
                 var
                     templates = [
-                        { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', order: 1, isNew: true },
-                        { id: "1", name: "Quiz", thumbnail: "path/to/image2.png", previewImages: ["path/to/previewImg.png"], description: "Quiz template", previewDemoUrl: 'preview_url_quiz', order: 0, isNew: false }
+                        { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', order: 1, isNew: true, isCustom: true },
+                        { id: "1", name: "Quiz", thumbnail: "path/to/image2.png", previewImages: ["path/to/previewImg.png"], description: "Quiz template", previewDemoUrl: 'preview_url_quiz', order: 0, isNew: false, isCustom: false }
                     ],
                     template = templates[1],
                     course = { id: 'courseId', template: template };
@@ -376,6 +376,14 @@
 
                         });
 
+                        describe('isCustom:', function () {
+
+                            it('should be defined', function () {
+                                expect(template.isNew).toBeDefined();
+                            });
+
+                        });
+
                         describe('thumbnail:', function () {
 
                             it('should be defined', function () {
@@ -496,13 +504,28 @@
 
             describe('when template is not yet selected', function () {
 
-                it('should send event \'Change course template to \'selectedTemplateName\'\'', function () {
-                    var templateName = 'templateName';
-                    viewModel.currentTemplate({ id: '' });
+                describe('when template is custom', function () {
 
-                    viewModel.selectTemplate({ id: 'templateId', name: 'templateName' });
+                    it('should send event \'Change course template to \'custom\'\'', function () {
+                        viewModel.currentTemplate({ id: '' });
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Change course template to \'' + templateName + '\'');
+                        viewModel.selectTemplate({ id: 'templateId', isCustom: true });
+
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Change course template to \'custom\'');
+                    });
+                });
+
+                describe('when template is default', function () {
+
+                    it('should send event \'Change course template to \'selectedTemplateName\'\'', function () {
+                        var templateName = 'templateName';
+                        viewModel.currentTemplate({ id: '' });
+
+                        viewModel.selectTemplate({ id: 'templateId', name: 'templateName' });
+
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Change course template to \'' + templateName + '\'');
+                    });
+
                 });
 
                 it('should wait for save template settings', function () {
