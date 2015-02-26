@@ -34,7 +34,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void InitializeContext()
         {
             _repository = Substitute.For<ITemplateRepository>();
-            _manifestFileManager = Substitute.For<ManifestFileManager>(Arg.Any<PhysicalFileManager>());
+
+            _manifestFileManager = Substitute.For<ManifestFileManager>(new PhysicalFileManager());
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();

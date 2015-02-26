@@ -75,7 +75,7 @@ namespace easygenerator.Infrastructure.Tests.Http
             _httpRequestManager.PostOrAddToQueueIfUnexpectedError(url, postData, serviceName, reportOnFailure);
 
             // Assert
-            _httpRequestsRepository.Received().Add(Arg.Is<HttpRequest>(request => request.Url == url && request.Verb == "POST" && request.Content == "{\"property\":\"value\"}" 
+            _httpRequestsRepository.Received().Add(Arg.Is<HttpRequest>(request => request.Url == url && request.Verb == "POST" && request.Content == "{\"property\":\"value\"}"
                 && request.ServiceName == serviceName && request.ReportOnFailure == reportOnFailure));
             _unitOfWork.Received().Save();
         }
@@ -86,7 +86,7 @@ namespace easygenerator.Infrastructure.Tests.Http
             // Arrange
             var ex = new HttpRequestExceptionExtended(string.Empty, string.Empty, string.Empty, HttpStatusCode.BadRequest,
                 string.Empty, string.Empty);
-          
+
             _httpClient.Post<string>(Arg.Any<string>(), Arg.Any<object>()).Returns(_ => { throw ex; });
 
             // Act
