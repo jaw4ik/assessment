@@ -16,7 +16,7 @@
                      previewDemoUrl: item.PreviewDemoUrl,
                      order: item.Order,
                      isNew: item.IsNew,
-                     isCustom: item.isCustom
+                     isCustom: item.IsCustom
                  });
             };
 
