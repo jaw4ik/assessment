@@ -242,6 +242,10 @@
     <Compile Include="Migrations\201502160910075_AddReaderTemplate.Designer.cs">
       <DependentUpon>201502160910075_AddReaderTemplate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502261537115_AddRolePropertyToUser.cs" />
+    <Compile Include="Migrations\201502261537115_AddRolePropertyToUser.Designer.cs">
+      <DependentUpon>201502261537115_AddRolePropertyToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -413,6 +417,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502160910075_AddReaderTemplate.resx">
       <DependentUpon>201502160910075_AddReaderTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502261537115_AddRolePropertyToUser.resx">
+      <DependentUpon>201502261537115_AddRolePropertyToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,7 +11,8 @@
 
                     var username = _.isObject(userContext.identity) ? userContext.identity.email : '';
                     var eventProperties = {
-                        Category: eventCategory
+                        Category: eventCategory,
+                        Role: _.isObject(userContext.identity) ? userContext.identity.role : null
                     };
 
                     if (username) {
@@ -19,7 +20,8 @@
                     }
 
                     mixpanel.people.set({
-                        "$last_seen": new Date()
+                        "$last_seen": new Date(),
+                        "Role": eventProperties.Role
                     });
 
                     mixpanel.track(eventName, eventProperties);

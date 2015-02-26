@@ -30,7 +30,12 @@
                             });
                         }
 
+                        mixpanel.people.set({
+                            "Role": eventProperties.role
+                        });
+
                         properties.Email = username;
+                        properties.Role = eventProperties.role;
 
                         mixpanel.track(eventName, properties, resolve);
                         _.delay(resolve, application.constants.timeout.mixpanel);
