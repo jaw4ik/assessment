@@ -417,7 +417,7 @@
 
                         it('should track event \'Sign up (2nd step)\'', function () {
                             viewModel.signUp();
-                            expect(app.trackEvent).toHaveBeenCalledWith('Sign up (2nd step)', { username: username, firstname: data.firstName, lastname: data.lastName });
+                            expect(app.trackEvent).toHaveBeenCalledWith('Sign up (2nd step)', { username: username, firstname: data.firstName, lastname: data.lastName, role: data.userRole });
                         });
 
                         it('should track pageview', function () {
