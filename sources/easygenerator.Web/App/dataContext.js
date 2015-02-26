@@ -37,7 +37,12 @@
                         dataType: 'json'
                     }).then(function (response) {
                         _.each(response.data, function (item) {
-                            courses.push(courseModelMapper.map(item, objectives, templates));
+                            // Temporary - do not display courses if user does not have template
+                            if (_.find(templates, function (template) {
+                                return item.Template.Id === template.id;
+                            })) {
+                                courses.push(courseModelMapper.map(item, objectives, templates));
+                            }
                         });
                     });
                 }).fail(function () {

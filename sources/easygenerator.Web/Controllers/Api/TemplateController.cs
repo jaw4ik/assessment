@@ -24,14 +24,15 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/templates")]
         public ActionResult GetCollection()
         {
-            var templates = _repository.GetCollection();
+            var username = GetCurrentUsername();
 
-            var result = templates.Select(template => new
+            var result = _repository.GetCollection(t => !t.IsCustom || t.CreatedBy == username).Select(template => new
             {
                 Id = template.Id.ToNString(),
                 Manifest = _manifestFileManager.ReadManifest(template.Id, template.PreviewUrl),
                 PreviewDemoUrl = template.PreviewUrl,
                 Order = template.Order,
+                IsCustom = template.IsCustom,
                 IsNew = template.IsNew
             });
 
