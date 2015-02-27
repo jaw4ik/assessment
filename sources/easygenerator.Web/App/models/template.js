@@ -12,6 +12,7 @@
             obj.settingsUrl = spec.settingsUrl;
             obj.previewDemoUrl = spec.previewDemoUrl;
             obj.order = spec.order;
+            obj.isCustom = spec.isCustom;
             obj.isNew = spec.isNew;
 
             return obj;

@@ -588,7 +588,10 @@
     font: 17px 'OpenSans';
     color: #434a54;
     margin-top: 10px;
+    overflow: hidden;
     text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .preview-link {

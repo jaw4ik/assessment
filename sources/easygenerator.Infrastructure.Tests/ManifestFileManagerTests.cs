@@ -26,7 +26,7 @@ namespace easygenerator.Infrastructure.Tests
             var path = "path";
             _physicalFileManager.ReadAllFromFile(Arg.Any<string>()).Returns("manifest");
             _manifestFileManager.ReadManifest(Guid.Empty, path);
-            _physicalFileManager.Received().ReadAllFromFile(Arg.Any<string>());
+            _physicalFileManager.ReceivedWithAnyArgs().ReadAllFromFile(Arg.Any<string>());
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace easygenerator.Infrastructure.Tests
             var path = "path";
             _manifestFileManager.ManifestDictionary.Add(Guid.Empty, "manifest");
             _manifestFileManager.ReadManifest(Guid.Empty, path);
-            _physicalFileManager.DidNotReceive().ReadAllFromFile(Arg.Any<string>());
+            _physicalFileManager.DidNotReceiveWithAnyArgs().ReadAllFromFile(Arg.Any<string>());
         }
 
         [TestMethod]
