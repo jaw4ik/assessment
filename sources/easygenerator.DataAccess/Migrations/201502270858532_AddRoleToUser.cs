@@ -3,7 +3,7 @@ namespace easygenerator.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddRolePropertyToUser : DbMigration
+    public partial class AddRoleToUser : DbMigration
     {
         public override void Up()
         {

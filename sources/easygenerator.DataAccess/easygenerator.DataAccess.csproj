@@ -246,9 +246,9 @@
     <Compile Include="Migrations\201502251610598_AddIsCustomFieldToTemplate.Designer.cs">
       <DependentUpon>201502251610598_AddIsCustomFieldToTemplate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201502261537115_AddRolePropertyToUser.cs" />
-    <Compile Include="Migrations\201502261537115_AddRolePropertyToUser.Designer.cs">
-      <DependentUpon>201502261537115_AddRolePropertyToUser.cs</DependentUpon>
+    <Compile Include="Migrations\201502270858532_AddRoleToUser.cs" />
+    <Compile Include="Migrations\201502270858532_AddRoleToUser.Designer.cs">
+      <DependentUpon>201502270858532_AddRoleToUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -425,8 +425,8 @@
     <EmbeddedResource Include="Migrations\201502251610598_AddIsCustomFieldToTemplate.resx">
       <DependentUpon>201502251610598_AddIsCustomFieldToTemplate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502261537115_AddRolePropertyToUser.resx">
-      <DependentUpon>201502261537115_AddRolePropertyToUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201502270858532_AddRoleToUser.resx">
+      <DependentUpon>201502270858532_AddRoleToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

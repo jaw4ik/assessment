@@ -691,20 +691,20 @@
                 expect(app.clientSessionContext.set).toHaveBeenCalledWith(app.constants.userSignUpFirstStepData, data);
             });
 
-            describe('when current page is signUp page', function() {
+            describe('when current page is signUp page', function () {
                 var currentHref = 'http://easygenerator.com/signup';
 
                 beforeEach(function () {
                     spyOn(app, 'getLocationHref').and.returnValue(currentHref);
                 });
-                
+
                 it('should send event \'Sign up (1st step)\'', function (done) {
                     trackEventDefer.reject();
 
                     viewModel.signUp();
 
                     trackEventDefer.promise().always(function () {
-                        expect(app.trackEvent).toHaveBeenCalledWith('Sign up (1st step)', { username: data.email, firstname: data.firstName, lastname: data.lastName });
+                        expect(app.trackEvent).toHaveBeenCalledWith('Sign up (1st step)', { username: data.email, firstname: data.firstName, lastname: data.lastName, role: null });
                         done();
                     });
                 });
@@ -805,7 +805,7 @@
                 });
             });
 
-            describe('when current page is register page', function() {
+            describe('when current page is register page', function () {
                 var currentHref = 'http://easygenerator.com/register';
 
                 beforeEach(function () {
@@ -818,7 +818,7 @@
                     viewModel.signUp();
 
                     trackEventDefer.promise().always(function () {
-                        expect(app.trackEvent).toHaveBeenCalledWith('Sign up (1st step)', { username: data.email, firstname: data.firstName, lastname: data.lastName });
+                        expect(app.trackEvent).toHaveBeenCalledWith('Sign up (1st step)', { username: data.email, firstname: data.firstName, lastname: data.lastName, role: null });
                         done();
                     });
                 });

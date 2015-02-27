@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class AddRolePropertyToUser : IMigrationMetadata
+    public sealed partial class AddRoleToUser : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddRolePropertyToUser));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddRoleToUser));
         
         string IMigrationMetadata.Id
         {
-            get { return "201502261537115_AddRolePropertyToUser"; }
+            get { return "201502270858532_AddRoleToUser"; }
         }
         
         string IMigrationMetadata.Source
