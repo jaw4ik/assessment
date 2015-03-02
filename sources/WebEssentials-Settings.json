@@ -116,7 +116,7 @@
     "OutputDirectory": null,
     "ProcessSourceMapsForEditorEnhancements": true,
     "ShowPreviewPane": true,
-    "StrictMath": false
+    "StrictMath": true
   },
   "LiveScript": {
     "CompileOnBuild": false,
