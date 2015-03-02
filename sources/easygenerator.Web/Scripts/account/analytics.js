@@ -29,13 +29,14 @@
                                 "$last_login": new Date()
                             });
                         }
-
-                        mixpanel.people.set({
-                            "Role": eventProperties.role
-                        });
+                        if (eventProperties.role) {
+                            properties.Role = eventProperties.role;
+                            mixpanel.people.set({
+                                "Role": eventProperties.role
+                            });
+                        }
 
                         properties.Email = username;
-                        properties.Role = eventProperties.role;
 
                         mixpanel.track(eventName, properties, resolve);
                         _.delay(resolve, application.constants.timeout.mixpanel);

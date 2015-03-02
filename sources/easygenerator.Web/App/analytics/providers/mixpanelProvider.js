@@ -9,19 +9,26 @@
                         return;
                     }
 
-                    var username = _.isObject(userContext.identity) ? userContext.identity.email : '';
+                    var username = _.isObject(userContext.identity) ? userContext.identity.email : '',
+                        role = _.isObject(userContext.identity) ? userContext.identity.role : null;
+
                     var eventProperties = {
-                        Category: eventCategory,
-                        Role: _.isObject(userContext.identity) ? userContext.identity.role : null
+                        Category: eventCategory
                     };
 
                     if (username) {
                         eventProperties.Email = username;
                     }
 
+                    if (role) {
+                        eventProperties.Role = role;
+                        mixpanel.people.set({
+                            "Role": role
+                        });
+                    }
+
                     mixpanel.people.set({
-                        "$last_seen": new Date(),
-                        "Role": eventProperties.Role
+                        "$last_seen": new Date()
                     });
 
                     mixpanel.track(eventName, eventProperties);
