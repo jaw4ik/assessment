@@ -17,7 +17,8 @@
             /* jshint ignore:end */
 
             var dependencyName = 'publishModule';
-            scriptLoader('app/' + moduleName + '.js', dependencyName);
+            scriptLoader('includedModules/' + moduleName + '.js', dependencyName);
+
             scriptLoader.ready(dependencyName, onScriptReady);
 
             return deferred.promise;
