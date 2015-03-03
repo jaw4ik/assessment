@@ -1,6 +1,7 @@
-﻿define(['notifications/subscriptionExpirationNotification'], function(notification) {
+﻿define(['notifications/subscriptionExpirationNotification'], function (notification) {
 
     var eventTracker = require('eventTracker'),
+        localizationManager = require('localization/localizationManager'),
         constants = require('constants');
 
     describe('subscriptionExpirationNotification:', function () {
@@ -13,12 +14,30 @@
             expirationDate = new Date();
 
         beforeEach(function () {
+            spyOn(localizationManager, "localize").and.callFake(function (key) {
+                switch (key) {
+                    case 'upgradeNotificationContent':
+                        return '{0} {1}';
+                    case 'upgradeStarterPlan':
+                        return 'starter';
+                    case 'upgradePlusPlan':
+                        return 'plus';
+                    case 'upgradeNotificationToday':
+                        return 'today';
+                    case 'upgradeNotificationIn1day':
+                        return '1day';
+                    case 'upgradeNotificationInSeveralDays':
+                        return '{0}days';
+                }
+
+                return '';
+            });
             subscriptionExpirationNotification = new notification(name, firstname, amountOfDays, accessType, expirationDate);
         });
 
-        describe('name:', function() {
+        describe('name:', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(subscriptionExpirationNotification.name).toBeDefined();
             });
 
@@ -29,7 +48,7 @@
         });
 
         describe('firstname:', function () {
-            
+
             it('should be defined', function () {
                 expect(subscriptionExpirationNotification.firstname).toBeDefined();
             });
@@ -41,68 +60,158 @@
         });
 
         describe('amountOfDays:', function () {
-            
+
             it('should be defined', function () {
                 expect(subscriptionExpirationNotification.amountOfDays).toBeDefined();
             });
 
-            it('should be equal \'firstName\'', function () {
+            it('should be equal \'amountOfDays\'', function () {
                 expect(subscriptionExpirationNotification.amountOfDays).toBe(amountOfDays);
             });
 
         });
 
-        describe('planName:', function () {
+        describe('expirationMessage:', function () {
 
             it('should be defined', function () {
-                expect(subscriptionExpirationNotification.planName).toBeDefined();
+                expect(subscriptionExpirationNotification.expirationMessage).toBeDefined();
             });
 
-            describe('when access type is starter', function() {
-                
-                it('should be equal \'Starter Plan\'', function () {
-                    subscriptionExpirationNotification = new notification(name, firstname, amountOfDays, '1', expirationDate);
-                    expect(subscriptionExpirationNotification.planName).toBe('Starter Plan');
+            var expirationNotification, type, days, expDate;
+
+            describe('when accessType is starter', function () {
+                beforeEach(function () {
+                    type = '1';
                 });
 
-            });
+                describe('and amount of days is 0', function () {
+                    beforeEach(function () {
+                        days = 0;
+                    });
 
-            describe('when access type is plus', function () {
+                    describe('and expiration date is today', function () {
+                        beforeEach(function () {
+                            expDate = new Date();
+                        });
 
-                it('should be equal \'Plus Plan\'', function () {
-                    subscriptionExpirationNotification = new notification(name, firstname, amountOfDays, accessType, expirationDate);
-                    expect(subscriptionExpirationNotification.planName).toBe('Plus Plan');
+                        it('should be \'starter today\'', function () {
+                            expirationNotification = new notification(name, firstname, days, type, expDate);
+                            expect(expirationNotification.expirationMessage).toBe('starter today');
+                        });
+                    });
+
+                    describe('and expiration date is not today', function () {
+                        beforeEach(function () {
+                            expDate = new Date();
+                            expDate.setDate(expDate.getDate() + 1);
+                        });
+
+                        it('should be \'starter 1day\'', function () {
+                            expirationNotification = new notification(name, firstname, days, type, expDate);
+                            expect(expirationNotification.expirationMessage).toBe('starter 1day');
+                        });
+                    });
                 });
 
-            });
+                describe('and amount of days is 1', function () {
+                    beforeEach(function () {
+                        days = 1;
+                        expDate = new Date();
+                        expDate.setDate(expDate.getDate() + 1);
+                    });
 
-        });
 
-        describe('isToday:', function () {
-            
-            it('should be defined', function () {
-                expect(subscriptionExpirationNotification.isToday).toBeDefined();
-            });
+                    it('should be \'starter 1day\'', function () {
+                        expirationNotification = new notification(name, firstname, days, type, expDate);
+                        expect(expirationNotification.expirationMessage).toBe('starter 1day');
+                    });
 
-            describe('when expiration day is today', function() {
-
-                it('should be true', function() {
-                    expect(subscriptionExpirationNotification.isToday).toBeTruthy();
                 });
 
+                describe('and amount of days is 2 (more than one)', function () {
+                    beforeEach(function () {
+                        days = 2;
+                        expDate = new Date();
+                    });
+
+                    it('should be \'starter 2days\'', function () {
+                        expirationNotification = new notification(name, firstname, days, type, expDate);
+                        expect(expirationNotification.expirationMessage).toBe('starter 2days');
+                    });
+                });
             });
 
-            describe('when expiration day is not today', function () {
+            describe('when accessType is plus', function () {
 
-                it('should be false', function () {
-                    var someDate = new Date();
-                    someDate.setDate(someDate.getDate() + 5);
-                    subscriptionExpirationNotification = new notification(name, firstname, amountOfDays, accessType, someDate);
-                    expect(subscriptionExpirationNotification.isToday).toBeFalsy();
+                beforeEach(function () {
+                    type = '2';
                 });
 
+                describe('and amount of days is 0', function () {
+                    beforeEach(function () {
+                        days = 0;
+                    });
+
+                    describe('and when expiration date is today', function () {
+                        beforeEach(function () {
+                            expDate = new Date();
+                        });
+
+                        it('should be \'plus today\'', function () {
+                            expirationNotification = new notification(name, firstname, days, type, expDate);
+                            expect(expirationNotification.expirationMessage).toBe('plus today');
+                        });
+                    });
+
+                    describe('and when expiration date is not today', function () {
+                        beforeEach(function () {
+                            expDate = new Date();
+                            expDate.setDate(expDate.getDate() + 1);
+                        });
+
+                        it('should be \'plus 1day\'', function () {
+                            expirationNotification = new notification(name, firstname, days, type, expDate);
+                            expect(expirationNotification.expirationMessage).toBe('plus 1day');
+                        });
+                    });
+                });
+
+                describe('and amount of days is 1', function () {
+                    beforeEach(function () {
+                        days = 1;
+                        expDate = new Date();
+                        expDate.setDate(expDate.getDate() + 1);
+                    });
+
+                    it('should be \'plus 1day\'', function () {
+                        expirationNotification = new notification(name, firstname, days, type, expDate);
+                        expect(expirationNotification.expirationMessage).toBe('plus 1day');
+                    });
+
+                });
+
+                describe('and amount of days is 2 (more than one)', function () {
+                    beforeEach(function () {
+                        days = 2;
+                        expDate = new Date();
+                    });
+
+                    it('should be \'plus 2days\'', function () {
+                        expirationNotification = new notification(name, firstname, days, type, expDate);
+                        expect(expirationNotification.expirationMessage).toBe('plus 2days');
+                    });
+                });
             });
 
+            describe('when accessType is undefined', function () {
+                it('should throw exception \'Undefined access type\'', function () {
+                    var f = function () {
+                        expirationNotification = new notification(name, firstname, amountOfDays, undefined, expirationDate);
+                    };
+
+                    expect(f).toThrow("Undefined access type");
+                });
+            });
         });
 
         describe('openUpgradePlanUrl:', function () {

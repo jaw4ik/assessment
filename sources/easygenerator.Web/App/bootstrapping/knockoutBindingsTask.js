@@ -13,6 +13,7 @@
     require('viewmodels/courses/bindingHandlers/elementCollapseBinding');
     require('viewmodels/courses/bindingHandlers/windowMessageListenerBinding');
     require('viewmodels/courses/bindingHandlers/courseIntroductionAnimationBinding');
+    require('viewmodels/courses/bindingHandlers/publishTabBinding');
 
     var task = {
         execute: execute

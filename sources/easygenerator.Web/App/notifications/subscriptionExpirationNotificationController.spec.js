@@ -68,7 +68,10 @@
 
                     });
 
-                    describe('when user access type is not free', function() {
+                    describe('when user access type is starter (not free)', function () {
+                        beforeEach(function () {
+                            userContext.identity.subscription.accessType = constants.accessType.starter;
+                        });
 
                         describe('when expiration date is null', function () {
 

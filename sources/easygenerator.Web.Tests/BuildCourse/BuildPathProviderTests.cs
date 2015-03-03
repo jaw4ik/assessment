@@ -213,6 +213,24 @@ namespace easygenerator.Web.Tests.BuildCourse
 
         #endregion
 
+        #region GetIncludedModulesDirectoryPath
+
+        [TestMethod]
+        public void GetIncludedModulesDirectoryPath_ShouldReturnIncludedModulesPath()
+        {
+            //Arrange
+            var buildDirectory = "BuildDirectory";
+            var expectedPath = "BuildDirectory\\includedModules";
+
+            //Act
+            var result = _buildPathProvider.GetIncludedModulesDirectoryPath(buildDirectory);
+
+            //Assert
+            result.Should().Be(expectedPath);
+        }
+
+        #endregion
+
         #region GetTemplateDirectoryName
 
         [TestMethod]
