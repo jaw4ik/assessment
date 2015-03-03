@@ -159,7 +159,7 @@
   <data name="CreateAccountTitle" xml:space="preserve">
     <value>现在开始创建课程</value>
   </data>
-  <data name="DesignerOption" xml:space="preserve">
+  <data name="InstructionalDesigner" xml:space="preserve">
     <value>课程设计人员</value>
   </data>
   <data name="EmailCaption" xml:space="preserve">
@@ -180,7 +180,7 @@
   <data name="EnterValidPhoneNumber" xml:space="preserve">
     <value>输入电话号码</value>
   </data>
-  <data name="ExpertOption" xml:space="preserve">
+  <data name="ElearningExpert" xml:space="preserve">
     <value>eLearning专家</value>
   </data>
   <data name="Finish" xml:space="preserve">
@@ -252,7 +252,7 @@ easygenerator团队&lt;/p&gt;
   <data name="LicenseAgreeCaption" xml:space="preserve">
     <value>点击“注册”表示我同意easygenerator的 &lt;a href="{0}" target=”_blank”&gt;使用说明&lt;/a&gt; 和 &lt;a href="{1}" target=”_blank”&gt;隐私条例&lt;/a&gt;</value>
   </data>
-  <data name="ManagerOption" xml:space="preserve">
+  <data name="ELearningManager" xml:space="preserve">
     <value>eLearning管理人员</value>
   </data>
   <data name="NoSpaces" xml:space="preserve">
@@ -279,7 +279,7 @@ easygenerator团队&lt;/p&gt;
   <data name="Other" xml:space="preserve">
     <value>Other</value>
   </data>
-  <data name="OtherOption" xml:space="preserve">
+  <data name="OtherRole" xml:space="preserve">
     <value>其它</value>
   </data>
   <data name="PasswordCaption" xml:space="preserve">
@@ -336,35 +336,14 @@ easygenerator团队&lt;/p&gt;
   <data name="Skip" xml:space="preserve">
     <value>Skip</value>
   </data>
-  <data name="SmeOption" xml:space="preserve">
+  <data name="SubjectMatterExpert" xml:space="preserve">
     <value>业务专家</value>
   </data>
-  <data name="TeacherOption" xml:space="preserve">
+  <data name="Teacher" xml:space="preserve">
     <value>教师</value>
   </data>
-  <data name="TrainerOption" xml:space="preserve">
+  <data name="Trainer" xml:space="preserve">
     <value>培训师</value>
-  </data>
-  <data name="TryImageDevelopOn" xml:space="preserve">
-    <value>Develop on</value>
-  </data>
-  <data name="TryImagePublishTo" xml:space="preserve">
-    <value>Publish to</value>
-  </data>
-  <data name="TryNow" xml:space="preserve">
-    <value>Try now</value>
-  </data>
-  <data name="TrySubmitCaption" xml:space="preserve">
-    <value>Try it now</value>
-  </data>
-  <data name="TrySubtitle" xml:space="preserve">
-    <value>A revolutionary eLearning platform</value>
-  </data>
-  <data name="TryTitle" xml:space="preserve">
-    <value>Introducing &lt;b&gt;easygenerator&lt;/b&gt;</value>
-  </data>
-  <data name="TryWarningMessage" xml:space="preserve">
-    <value>In Try It Now mode your content is not safe!</value>
   </data>
   <data name="UpperAndLowercaseLetters" xml:space="preserve">
     <value>Upper and lowercase letters</value>
@@ -380,5 +359,8 @@ easygenerator团队&lt;/p&gt;
   </data>
   <data name="PleaseUse" xml:space="preserve">
     <value>Please use: [cn]</value>
+  </data>
+  <data name="Student" xml:space="preserve">
+    <value>Student</value>
   </data>
 </root>

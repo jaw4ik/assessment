@@ -29,6 +29,12 @@
                                 "$last_login": new Date()
                             });
                         }
+                        if (eventProperties.role) {
+                            properties.Role = eventProperties.role;
+                            mixpanel.people.set({
+                                "Role": eventProperties.role
+                            });
+                        }
 
                         properties.Email = username;
 

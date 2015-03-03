@@ -162,7 +162,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             _authenticationProvider.SignIn(username, true);
-            return JsonSuccess(new { username = user.Email, firstname = user.FirstName, lastname = user.LastName });
+            return JsonSuccess(new { username = user.Email, firstname = user.FirstName, lastname = user.LastName, role = user.Role });
         }
 
         [HttpPost]
@@ -175,7 +175,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var user = _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone,
-                profile.Country, profile.Email);
+                profile.Country, profile.UserRole, profile.Email);
 
             _repository.Add(user);
             _eventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.UserRole));
@@ -233,7 +233,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonDataResult(new { });
             }
 
-            return JsonDataResult(new { email = user.Email, firstname = user.FirstName, lastname = user.LastName, subscription = new { accessType = user.AccessType, expirationDate = user.ExpirationDate } });
+            return JsonDataResult(new { email = user.Email, firstname = user.FirstName, lastname = user.LastName, role = user.Role, subscription = new { accessType = user.AccessType, expirationDate = user.ExpirationDate } });
 
         }
 
