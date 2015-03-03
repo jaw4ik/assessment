@@ -1012,6 +1012,12 @@
     color: #7b7b7b;
 }
 
+.package-action-btn-holder {
+    background: none repeat scroll 0 0 #fdfdfd;
+    padding: 30px 11px;
+    text-align: center;
+}
+
 @media (max-width: 1150px) {
     .publish-tab-link-control-container {
         flex-direction: column;
