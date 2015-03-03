@@ -436,7 +436,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
 
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.Email).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -452,7 +452,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = UserObjectMother.Create(profile.Email, profile.Password);
             var onboarding = OnboardingObjectMother.CreateWithUserEmail(user.Email);
 
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.Email).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
             _entityFactory.Onboarding(user.Email).Returns(onboarding);
 
             _controller.Signup(profile);
@@ -466,7 +466,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.Email).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -486,7 +486,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.IsAuthenticated.Returns(true);
             _user.Identity.Name.Returns(tryItNowUsername);
             _userRepository.GetUserByEmail(tryItNowUsername).Returns((User)null);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.Email).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -501,7 +501,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.Email).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -516,7 +516,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.Email).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
 
             //Act
             var result = _controller.Signup(profile);
@@ -531,7 +531,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.Email).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
 
             var demoCourse1 = CourseObjectMother.Create();
             var demoCourse2 = CourseObjectMother.Create();

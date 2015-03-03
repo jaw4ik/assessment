@@ -342,31 +342,31 @@
   <data name="SignUpSecondStepTitle" xml:space="preserve">
     <value>Almost there...</value>
   </data>
-  <data name="DesignerOption" xml:space="preserve">
+  <data name="InstructionalDesigner" xml:space="preserve">
     <value>Instructional designer</value>
   </data>
-  <data name="ExpertOption" xml:space="preserve">
-    <value>Elearning expert</value>
+  <data name="ElearningExpert" xml:space="preserve">
+    <value>eLearning expert</value>
   </data>
-  <data name="ManagerOption" xml:space="preserve">
+  <data name="ELearningManager" xml:space="preserve">
     <value>eLearning manager</value>
   </data>
-  <data name="OtherOption" xml:space="preserve">
+  <data name="OtherRole" xml:space="preserve">
     <value>Other</value>
   </data>
   <data name="RoleQuestion" xml:space="preserve">
     <value>What is your role?</value>
   </data>
-  <data name="SmeOption" xml:space="preserve">
+  <data name="SubjectMatterExpert" xml:space="preserve">
     <value>Subject matter expert</value>
   </data>
-  <data name="TeacherOption" xml:space="preserve">
+  <data name="Teacher" xml:space="preserve">
     <value>Teacher</value>
   </data>
-  <data name="TrainerOption" xml:space="preserve">
+  <data name="Trainer" xml:space="preserve">
     <value>Trainer</value>
   </data>
-  <data name="StudentOption" xml:space="preserve">
+  <data name="Student" xml:space="preserve">
     <value>Student</value>
   </data>
   <data name="PleaseUse" xml:space="preserve">

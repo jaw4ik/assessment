@@ -192,10 +192,11 @@ namespace easygenerator.DomainModel.Tests.Entities
             var lastname = "easygenerator user lastname";
             var phone = "some phone";
             var country = "some country";
+            var role = "Teacher";
             var creationDate = CurrentDate;
 
             //Act
-            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, CreatedBy);
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy);
 
             //Assert
             user.Id.Should().NotBeEmpty();
