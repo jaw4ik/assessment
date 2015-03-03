@@ -1,7 +1,6 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.UserEvents;
-using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Components;
@@ -23,7 +22,6 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IUserRepository _repository;
         private readonly IEntityFactory _entityFactory;
         private readonly IAuthenticationProvider _authenticationProvider;
-        private readonly ISignupFromTryItNowHandler _signupFromTryItNowHandler;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly ICourseRepository _courseRepository;
@@ -35,7 +33,6 @@ namespace easygenerator.Web.Controllers.Api
         public UserController(IUserRepository repository,
             IEntityFactory entityFactory,
             IAuthenticationProvider authenticationProvider,
-            ISignupFromTryItNowHandler signupFromTryItNowHandler,
             IDomainEventPublisher eventPublisher,
             IMailSenderWrapper mailSenderWrapper,
             ICourseRepository courseRepository,
@@ -47,7 +44,6 @@ namespace easygenerator.Web.Controllers.Api
             _repository = repository;
             _entityFactory = entityFactory;
             _authenticationProvider = authenticationProvider;
-            _signupFromTryItNowHandler = signupFromTryItNowHandler;
             _eventPublisher = eventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
             _courseRepository = courseRepository;
@@ -186,11 +182,6 @@ namespace easygenerator.Web.Controllers.Api
 
             var onboarding = _entityFactory.Onboarding(user.Email);
             _onboardingRepository.Add(onboarding);
-
-            if (User.Identity.IsAuthenticated && _repository.GetUserByEmail(User.Identity.Name) == null)
-            {
-                _signupFromTryItNowHandler.HandleOwnership(User.Identity.Name, user.Email);
-            }
 
             _authenticationProvider.SignIn(profile.Email, true);
 

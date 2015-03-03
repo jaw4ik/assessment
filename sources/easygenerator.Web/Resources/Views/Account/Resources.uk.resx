@@ -347,27 +347,6 @@
   <data name="TrainerOption" xml:space="preserve">
     <value>Тренер</value>
   </data>
-  <data name="TryImageDevelopOn" xml:space="preserve">
-    <value>Розробка на</value>
-  </data>
-  <data name="TryImagePublishTo" xml:space="preserve">
-    <value>Публікація в</value>
-  </data>
-  <data name="TryNow" xml:space="preserve">
-    <value>Спробувати зараз</value>
-  </data>
-  <data name="TrySubmitCaption" xml:space="preserve">
-    <value>Спробувати прямо зараз</value>
-  </data>
-  <data name="TrySubtitle" xml:space="preserve">
-    <value>Революційна платформа електронного навчання</value>
-  </data>
-  <data name="TryTitle" xml:space="preserve">
-    <value>Введення в &lt;b&gt;easygenerator&lt;/b&gt;</value>
-  </data>
-  <data name="TryWarningMessage" xml:space="preserve">
-    <value>В режимі "Спробувати зараз" ваш дані не зберігаються!</value>
-  </data>
   <data name="UpperAndLowercaseLetters" xml:space="preserve">
     <value>Upper and lowercase letters</value>
   </data>

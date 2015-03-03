@@ -4,7 +4,6 @@ using Autofac.Integration.Mvc;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Handlers;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Infrastructure.Http;
@@ -69,7 +68,6 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PackageModelMapper>();
             builder.RegisterType<PackageModelSerializer>();
             builder.RegisterType<BuildPackageCreator>();
-            builder.RegisterType<SignupFromTryItNowHandler>().As<ISignupFromTryItNowHandler>();
             builder.RegisterType<ConfigurationReader>();
             builder.RegisterType<RazorTemplateProvider>().SingleInstance();
 

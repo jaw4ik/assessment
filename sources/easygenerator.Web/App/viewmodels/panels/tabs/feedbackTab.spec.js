@@ -40,6 +40,12 @@
 
         describe('activate:', function () {
 
+            beforeEach(function () {
+                userContext.identity = {
+                    email: 'some_user@easygenerator.com'
+                };
+            });
+
             it('should be function', function () {
                 expect(viewModel.activate).toBeFunction();
             });
@@ -60,50 +66,11 @@
                 });
             });
 
-            describe('when user is anonymous', function () {
-
-                beforeEach(function () {
-                    userContext.identity = null;
+            it('should set userEmail', function (done) {
+                viewModel.activate().fin(function () {
+                    expect(viewModel.userEmail).toBe(userContext.identity.email);
+                    done();
                 });
-
-                it('should set isTryMode to true', function (done) {
-                    viewModel.activate().fin(function () {
-                        expect(viewModel.isTryMode).toBeTruthy();
-                        done();
-                    });
-                });
-
-                it('should set userEmail to null', function (done) {
-                    viewModel.activate().fin(function () {
-                        expect(viewModel.userEmail).toBeNull();
-                        done();
-                    });
-                });
-
-            });
-
-            describe('when user is not anonymous', function () {
-
-                beforeEach(function () {
-                    userContext.identity = {
-                        email: 'some_user@easygenerator.com'
-                    };
-                });
-
-                it('should set isTryMode to false', function (done) {
-                    viewModel.activate().fin(function () {
-                        expect(viewModel.isTryMode).toBeFalsy();
-                        done();
-                    });
-                });
-
-                it('should set userEmail', function (done) {
-                    viewModel.activate().fin(function () {
-                        expect(viewModel.userEmail).toBe(userContext.identity.email);
-                        done();
-                    });
-                });
-
             });
 
         });
@@ -130,6 +97,7 @@
                     feedbackDefer = Q.defer();
                     spyOn(httpWrapper, 'post').and.returnValue(feedbackDefer.promise);
                     spyOn(notify, 'success');
+                    viewModel.userEmail = 'easygenerator user online';
                     viewModel.feedbackMessageFromUser('some message');
                 });
 
@@ -138,35 +106,13 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Send feedback');
                 });
 
-                describe('and try mode', function () {
 
-                    beforeEach(function () {
-                        viewModel.isTryMode = true;
-                        viewModel.feedbackEmail('some email');
-                    });
-
-                    it('should call \'api/feedback/sendfeedback\' with anonymous user email and message', function () {
-                        var data = { email: viewModel.feedbackEmail(), message: viewModel.feedbackMessageFromUser() };
-                        viewModel.sendFeedback();
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/feedback/sendfeedback', data);
-                    });
-
+                it('should call \'api/feedback/sendfeedback\' with easygenerator user email and message', function () {
+                    var data = { email: viewModel.userEmail, message: viewModel.feedbackMessageFromUser() };
+                    viewModel.sendFeedback();
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/feedback/sendfeedback', data);
                 });
 
-                describe('and not try mode', function () {
-
-                    beforeEach(function () {
-                        viewModel.isTryMode = false;
-                        viewModel.userEmail = 'easygenerator user online';
-                    });
-
-                    it('should call \'api/feedback/sendfeedback\' with easygenerator user email and message', function () {
-                        var data = { email: viewModel.userEmail, message: viewModel.feedbackMessageFromUser() };
-                        viewModel.sendFeedback();
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/feedback/sendfeedback', data);
-                    });
-
-                });
 
                 describe('when email was sent', function () {
 
@@ -177,13 +123,6 @@
                     it('should clear feedback message', function (done) {
                         viewModel.sendFeedback().fin(function () {
                             expect(viewModel.feedbackMessageFromUser()).toBe('');
-                            done();
-                        });
-                    });
-
-                    it('should clear feedback email', function (done) {
-                        viewModel.sendFeedback().fin(function () {
-                            expect(viewModel.feedbackEmail()).toBe('');
                             done();
                         });
                     });
@@ -223,14 +162,6 @@
 
             it('should be observable', function () {
                 expect(viewModel.feedbackMessageFromUser).toBeObservable();
-            });
-
-        });
-
-        describe('feedbackEmail:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.feedbackEmail).toBeObservable();
             });
 
         });

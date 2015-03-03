@@ -613,70 +613,7 @@ namespace AccountRes {
             get {
                 return ResourceManager.GetString("Skip", resourceCulture);
             }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Develop on.
-        /// </summary>
-        public static string TryImageDevelopOn {
-            get {
-                return ResourceManager.GetString("TryImageDevelopOn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Publish to.
-        /// </summary>
-        public static string TryImagePublishTo {
-            get {
-                return ResourceManager.GetString("TryImagePublishTo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Try now.
-        /// </summary>
-        public static string TryNow {
-            get {
-                return ResourceManager.GetString("TryNow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Try it now.
-        /// </summary>
-        public static string TrySubmitCaption {
-            get {
-                return ResourceManager.GetString("TrySubmitCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A revolutionary eLearning platform.
-        /// </summary>
-        public static string TrySubtitle {
-            get {
-                return ResourceManager.GetString("TrySubtitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Introducing &lt;b&gt;easygenerator&lt;/b&gt;.
-        /// </summary>
-        public static string TryTitle {
-            get {
-                return ResourceManager.GetString("TryTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to In Try It Now mode your content is not safe!.
-        /// </summary>
-        public static string TryWarningMessage {
-            get {
-                return ResourceManager.GetString("TryWarningMessage", resourceCulture);
-            }
-        }
+        }        
         
         /// <summary>
         ///   Looks up a localized string similar to Upper and lowercase letters.
