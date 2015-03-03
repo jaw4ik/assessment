@@ -758,5 +758,75 @@
 
             });
 
+            escribe('sendOpenLinkTab:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.sendOpenLinkTab).toBeFunction();
+                });
+
+                it('should send event \'Open link tab\'', function () {
+                    viewModel.eventCategory = 'category';
+                    viewModel.sendOpenLinkTab();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Open link tab', 'category');
+                });
+
+            });
+
+            describe('sendOpenEmbedTab:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.sendOpenEmbedTab).toBeFunction();
+                });
+
+                it('should send event \'Open embed tab\'', function () {
+                    viewModel.eventCategory = 'category';
+                    viewModel.sendOpenEmbedTab();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Open embed tab', 'category');
+                });
+
+            });
+
+            describe('sendOpenScormTab:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.sendOpenScormTab).toBeFunction();
+                });
+
+                it('should send event \'Open \'download SCORM\'\'', function () {
+                    viewModel.eventCategory = 'category';
+                    viewModel.sendOpenScormTab();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Open \'download SCORM\'', 'category');
+                });
+
+            });
+
+            describe('sendOpenHtmlTab:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.sendOpenHtmlTab).toBeFunction();
+                });
+
+                it('should send event \'Open \'downoload HTML\'\'', function () {
+                    viewModel.eventCategory = 'category';
+                    viewModel.sendOpenHtmlTab();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Open \'downoload HTML\'', 'category');
+                });
+
+            });
+
+            describe('sendOpenAim4YouTab:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.sendOpenAim4YouTab).toBeFunction();
+                });
+
+                it('should send event \'Open \'Publish to Aim4You\'\'', function () {
+                    viewModel.eventCategory = 'category';
+                    viewModel.sendOpenAim4YouTab();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Open \'Publish to Aim4You\'', 'category');
+                });
+
+            });
+
         });
     });
