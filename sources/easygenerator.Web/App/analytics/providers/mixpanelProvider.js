@@ -9,8 +9,13 @@
                         return;
                     }
 
-                    var username = _.isObject(userContext.identity) ? userContext.identity.email : '',
-                        role = _.isObject(userContext.identity) ? userContext.identity.role : null;
+                    var username = '',
+                        role = null;
+
+                    if (_.isObject(userContext.identity)) {
+                        username = userContext.identity.email;
+                        role = userContext.identity.role;
+                    }
 
                     var eventProperties = {
                         Category: eventCategory
