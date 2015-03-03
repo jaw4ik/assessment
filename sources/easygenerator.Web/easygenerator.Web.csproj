@@ -580,7 +580,9 @@
     <Content Include="Content\font\heuristica-italic.svg" />
     <Content Include="Content\font\heuristica-regular.svg" />
     <Content Include="Content\font\opensans-bold.svg" />
-    <Content Include="Content\hotSpot.css" />
+    <Content Include="Content\hotSpot.css">
+      <DependentUpon>hotSpot.less</DependentUpon>
+    </Content>
     <Content Include="Content\images\chrome.png" />
     <Content Include="Content\images\closedhand.cur" />
     <Content Include="Content\images\comingsoon1024.png" />
@@ -604,9 +606,15 @@
     <Content Include="Content\images\upload-image.png" />
     <Content Include="Content\images\supported-browser-bg.png" />
     <Content Include="Content\images\tooth.png" />
-    <Content Include="Content\notSupportedPage.css" />
-    <Content Include="Content\statement.css" />
-    <Content Include="Content\switchToggle.css" />
+    <Content Include="Content\notSupportedPage.css">
+      <DependentUpon>notSupportedPage.less</DependentUpon>
+    </Content>
+    <Content Include="Content\statement.css">
+      <DependentUpon>statement.less</DependentUpon>
+    </Content>
+    <Content Include="Content\switchToggle.css">
+      <DependentUpon>switchToggle.less</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\hotSpot\handler.js" />
     <Content Include="App\synchronization\handlers\questions\hotSpot\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
@@ -680,6 +688,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\icons\audioembed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\failed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\info.png" />
@@ -687,6 +696,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\loader.gif" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\styles.css" />
@@ -694,6 +704,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\dialogs\fillInTheBlankDropDown.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\floatingspace\plugin.js" />
@@ -702,6 +713,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\icons\no-images.png" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\image\dialogs\image.js" />
@@ -710,6 +722,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\image\images\noimage.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\dialogs\mediaembed.js" />
@@ -717,13 +730,16 @@
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\mediaembed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\styles.css" />
     <Content Include="Scripts\ckeditor\lang\en.js" />
     <Content Include="Scripts\ckeditor\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
@@ -1345,8 +1361,12 @@
     <Content Include="App\widgets\imagePreview\viewmodel.js" />
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
     <Content Include="BuildCourse\Scorm\Templates\metadata.cshtml" />
-    <Content Include="Content\cssPreloaders.css" />
-    <Content Include="Content\dragAndDropText.css" />
+    <Content Include="Content\cssPreloaders.css">
+      <DependentUpon>cssPreloaders.less</DependentUpon>
+    </Content>
+    <Content Include="Content\dragAndDropText.css">
+      <DependentUpon>dragAndDropText.less</DependentUpon>
+    </Content>
     <Content Include="Content\eula\easygenerator_EULA.pdf" />
     <Content Include="Content\font\buxtonsketch.eot" />
     <Content Include="Content\font\buxtonsketch.ttf" />
@@ -1370,7 +1390,9 @@
     <Content Include="Content\font\rabiohead.ttf" />
     <Content Include="Content\font\rabiohead.woff" />
     <Content Include="Content\font\robotoslab-bold.svg" />
-    <Content Include="Content\imagePreview.css" />
+    <Content Include="Content\imagePreview.css">
+      <DependentUpon>imagePreview.less</DependentUpon>
+    </Content>
     <Content Include="Content\images\comingsoon.png" />
     <Content Include="Content\images\draganddroptext-question.png" />
     <Content Include="Content\images\fillintheblank-question.png" />
@@ -1384,9 +1406,15 @@
     <Content Include="Content\images\question-types.png" />
     <Content Include="Content\images\spell-checker.png" />
     <Content Include="Content\images\textmatching-question.png" />
-    <Content Include="Content\navigationBar.css" />
-    <Content Include="Content\onboarding.css" />
-    <Content Include="Content\singleSelectImage.css" />
+    <Content Include="Content\navigationBar.css">
+      <DependentUpon>navigationBar.less</DependentUpon>
+    </Content>
+    <Content Include="Content\onboarding.css">
+      <DependentUpon>onboarding.less</DependentUpon>
+    </Content>
+    <Content Include="Content\singleSelectImage.css">
+      <DependentUpon>singleSelectImage.less</DependentUpon>
+    </Content>
     <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\ForgotPasswordTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\HttpRequestFailedTemplate.cshtml" />
@@ -1421,6 +1449,30 @@
     <Content Include="Content\font\opensans-bold.eot" />
     <Content Include="Content\font\opensans-bold.ttf" />
     <Content Include="Content\font\opensans-bold.woff" />
+    <Content Include="Content\account.less" />
+    <Content Include="Content\ckeditor.less" />
+    <Content Include="Content\common.less" />
+    <Content Include="Content\courses.less" />
+    <Content Include="Content\cssPreloaders.less" />
+    <Content Include="Content\dragAndDropText.less" />
+    <Content Include="Content\helpers.less" />
+    <Content Include="Content\helphint.less" />
+    <Content Include="Content\hotSpot.less" />
+    <Content Include="Content\imagePreview.less" />
+    <Content Include="Content\navigationBar.less" />
+    <Content Include="Content\notify.less" />
+    <Content Include="Content\notSupportedPage.less" />
+    <Content Include="Content\objective.less" />
+    <Content Include="Content\onboarding.less" />
+    <Content Include="Content\panels.less" />
+    <Content Include="Content\question.less" />
+    <Content Include="Content\review.less" />
+    <Content Include="Content\selectbox.less" />
+    <Content Include="Content\singleSelectImage.less" />
+    <Content Include="Content\statement.less" />
+    <Content Include="Content\styles.less" />
+    <Content Include="Content\switchToggle.less" />
+    <Content Include="Content\treeOfContent.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
@@ -2266,11 +2318,19 @@
     </Content>
     <Content Include="Content\collaboration.css" />
     <Content Include="BuildCourse\Scorm\Modules\js\lms.js" />
-    <Content Include="Content\account.css" />
-    <Content Include="Content\ckeditor.css" />
-    <Content Include="Content\common.css" />
+    <Content Include="Content\account.css">
+      <DependentUpon>account.less</DependentUpon>
+    </Content>
+    <Content Include="Content\ckeditor.css">
+      <DependentUpon>ckeditor.less</DependentUpon>
+    </Content>
+    <Content Include="Content\common.css">
+      <DependentUpon>common.less</DependentUpon>
+    </Content>
     <Content Include="Content\course.css" />
-    <Content Include="Content\courses.css" />
+    <Content Include="Content\courses.css">
+      <DependentUpon>courses.less</DependentUpon>
+    </Content>
     <Content Include="Content\durandal.css" />
     <Content Include="Content\font\buxtonsketch.svg" />
     <Content Include="Content\font\opensans-italic.svg" />
@@ -2278,7 +2338,9 @@
     <Content Include="Content\font\opensans-semibold.svg" />
     <Content Include="Content\font\opensans-semibolditalic.svg" />
     <Content Include="Content\font\rabiohead.svg" />
-    <Content Include="Content\helphint.css" />
+    <Content Include="Content\helphint.css">
+      <DependentUpon>helphint.less</DependentUpon>
+    </Content>
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\account\pointer-left-big.png" />
     <Content Include="Content\images\account\pointer-right-big.png" />
@@ -2353,14 +2415,30 @@
     <Content Include="Content\images\tree.png" />
     <Content Include="Content\images\typeQuestionTitleArrow.png" />
     <Content Include="Content\images\undefinedTemplate.png" />
-    <Content Include="Content\notify.css" />
-    <Content Include="Content\objective.css" />
-    <Content Include="Content\panels.css" />
-    <Content Include="Content\question.css" />
-    <Content Include="Content\review.css" />
-    <Content Include="Content\selectbox.css" />
-    <Content Include="Content\styles.css" />
-    <Content Include="Content\treeOfContent.css" />
+    <Content Include="Content\notify.css">
+      <DependentUpon>notify.less</DependentUpon>
+    </Content>
+    <Content Include="Content\objective.css">
+      <DependentUpon>objective.less</DependentUpon>
+    </Content>
+    <Content Include="Content\panels.css">
+      <DependentUpon>panels.less</DependentUpon>
+    </Content>
+    <Content Include="Content\question.css">
+      <DependentUpon>question.less</DependentUpon>
+    </Content>
+    <Content Include="Content\review.css">
+      <DependentUpon>review.less</DependentUpon>
+    </Content>
+    <Content Include="Content\selectbox.css">
+      <DependentUpon>selectbox.less</DependentUpon>
+    </Content>
+    <Content Include="Content\styles.css">
+      <DependentUpon>styles.less</DependentUpon>
+    </Content>
+    <Content Include="Content\treeOfContent.css">
+      <DependentUpon>treeOfContent.less</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />
@@ -2447,16 +2525,21 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Controllers\Resources.uk.resx" />
+    <EmbeddedResource Include="Resources\Controllers\Resources.zh.resx" />
     <EmbeddedResource Include="Resources\Views\Account\Resources.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Account\Resources.uk.resx" />
+    <EmbeddedResource Include="Resources\Views\Account\Resources.zh.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.uk.resx" />
+    <EmbeddedResource Include="Resources\Views\Error\Resources.zh.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.uk.resx" />
+    <EmbeddedResource Include="Resources\Views\Review\Resources.zh.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.uk.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\Resources.zh.resx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\CourseImport\" />
