@@ -538,6 +538,7 @@
     </Content>
     <Content Include="App\viewmodels\courses\bindingHandlers\courseIntroductionAnimationBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
+    <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\windowMessageListenerBinding.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\items\results.js" />
     <Content Include="App\viewmodels\courses\courseNavigation\items\results.spec.js">
@@ -560,7 +561,9 @@
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
-    <Content Include="App\views\courses\publishActions\publishToPublicationServer.html" />
+    <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />
+    <Content Include="App\views\courses\publishActions\publishToPublicationServerLink.html" />
+    <Content Include="App\views\courses\publishActions\publishToPublicationServerPopup.html" />
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\results.html" />
