@@ -730,88 +730,88 @@ namespace AccountRes {
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string TeacherOption
+        public static string Teacher
         {
             get
             {
-                return ResourceManager.GetString("TeacherOption", resourceCulture);
+                return ResourceManager.GetString("Teacher", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string TrainerOption
+        public static string Trainer
         {
             get
             {
-                return ResourceManager.GetString("TrainerOption", resourceCulture);
+                return ResourceManager.GetString("Trainer", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string SmeOption
+        public static string SubjectMatterExpert
         {
             get
             {
-                return ResourceManager.GetString("SmeOption", resourceCulture);
+                return ResourceManager.GetString("SubjectMatterExpert", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string ExpertOption
+        public static string ElearningExpert
         {
             get
             {
-                return ResourceManager.GetString("ExpertOption", resourceCulture);
+                return ResourceManager.GetString("ElearningExpert", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string DesignerOption
+        public static string InstructionalDesigner
         {
             get
             {
-                return ResourceManager.GetString("DesignerOption", resourceCulture);
+                return ResourceManager.GetString("InstructionalDesigner", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string ManagerOption
+        public static string ELearningManager
         {
             get
             {
-                return ResourceManager.GetString("ManagerOption", resourceCulture);
+                return ResourceManager.GetString("ELearningManager", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string OtherOption
+        public static string OtherRole
         {
             get
             {
-                return ResourceManager.GetString("OtherOption", resourceCulture);
+                return ResourceManager.GetString("OtherRole", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string StudentOption
+        public static string Student
         {
             get
             {
-                return ResourceManager.GetString("StudentOption", resourceCulture);
+                return ResourceManager.GetString("Student", resourceCulture);
             }
         }
 
