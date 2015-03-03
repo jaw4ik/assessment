@@ -4,7 +4,7 @@
     var
         defaultCulture = "en",
         supportedCultures = [
-            "en", "en-US", 'uk'
+            "en", "en-US", 'uk', 'zh-cn'
         ],
         currentCulture = defaultCulture,
         currentLanguage = '',
@@ -15,8 +15,8 @@
             if (_.isNullOrUndefined(item)) {
                 throw new Error('A resource with key "' + key + '" was not found');
             }
-            var cultureInfo = _.contains(supportedCultures, culture) ? culture : this.currentLanguage || defaultCulture;
-            return item[cultureInfo] || item[defaultCulture];
+            var cultureInfo = _.contains(supportedCultures, culture) ? culture : this.currentCulture;
+            return item[cultureInfo] || item[this.currentLanguage] || item[defaultCulture];
         },
 
         hasKey = function (key) {

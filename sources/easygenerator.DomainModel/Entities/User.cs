@@ -86,6 +86,11 @@ namespace easygenerator.DomainModel.Entities
             RaiseEvent(new UserUpdateEvent(this, password));
         }
 
+        public virtual bool HasFreeAccess()
+        {
+            return AccessType == AccessType.Free || IsAccessExpired();
+        }
+
         public virtual bool HasStarterAccess()
         {
             return AccessType >= AccessType.Starter && !IsAccessExpired();

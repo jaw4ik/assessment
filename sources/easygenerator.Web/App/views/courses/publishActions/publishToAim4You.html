@@ -1,67 +1,32 @@
-﻿<div class="package-action-item blue">
-    <div class="package-action-header">
-        <h5 class="package-action-title" data-bind="localize: { text: 'publishToCatalog' }"></h5>
-        <span class="package-action-subtitle" data-bind="localize: { text: 'publishToAim4YouPublishDescription' }"></span>
-    </div>
-    <div class="package-action-body">
-        <div class="package-action-slider-wrapper" data-bind="slider:true">
-            <ul class="package-action-slider slides">
-                <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide01.png" /><span class="package-action-slider-item-description" data-bind="localize: { text: 'publishToAim4YouSlideText' }"></span></li>
-                <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide02.png" /><span class="package-action-slider-item-description" data-bind="localize: { text: 'publishToAim4YouSlideText1' }"></span></li>
-                <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide03.png" /><span class="package-action-slider-item-description" data-bind="localize: { text: 'publishToAim4YouSlideText2' }"></span></li>
-                <li class="package-action-slider-item slide"><img src="/Content/images/Aim4YouPublish/Slide04.png" /><span class="package-action-slider-item-description" data-bind="localize: { text: 'publishToAim4YouSlideText3' }"></span></li>
-            </ul>
-            <div class="package-action-slider-arrows">
-                <a class="package-action-slider-nav-prew slider-nav-prew" href="javascript:void(0)"></a>
-                <a class="package-action-slider-nav-next slider-nav-next" href="javascript:void(0)"></a>
+﻿<div class="publish-tab-content" data-tab-content="aim">
+    <div class="publish-tab-content-wrapper">
+        <div class="publish-tab-container">
+            <h2 class="publish-tab-header" data-bind="localize: {text: 'publishToCatalog'}">
+                Publish and Sell your online course
+            </h2>
+            <div class="publish-tab-action-content" data-bind="localize: {text: 'publishToAim4YouPublishDescription'}">
+                with our partner Aim 4 You
             </div>
-            <div class="package-action-slider-nav slider-nav-links">
-                <a class="package-action-slider-nav-link slider-nav-link" href="javascript:void(0)"></a>
-            </div>
-        </div>
-        <div class="package-action-description">
-            <ul class="package-action-description-list">
-                <li>
-                    <div class="package-action-description-list-image-wrapper">
-                        <img src="/Content/images/Aim4YouPublish/List01.png" />
-                    </div>
-                    <div class="package-action-description-list-description" data-bind="localize: { text: 'publishToAim4YouListText' }"></div>
-                </li>
-                <li>
-                    <div class="package-action-description-list-image-wrapper">
-                        <img src="/Content/images/Aim4YouPublish/List02.png" />
-                    </div>
-                    <div class="package-action-description-list-description" data-bind="localize: { text: 'publishToAim4YouListText1' }"></div>
-                </li>
-                <li>
-                    <div class="package-action-description-list-image-wrapper">
-                        <img src="/Content/images/Aim4YouPublish/List03.png" />
-                    </div>
-                    <div class="package-action-description-list-description" data-bind="localize: { text: 'publishToAim4YouListText2' }"></div>
-                </li>
-            </ul>
-        </div>
-        <div class="package-action-btn-holder">
-            <button data-bind="click: publishToAim4YouAction().publishToAim4You, css:{'disabled': isCourseDelivering(), 'progress':publishToAim4YouAction().isPublishing()}" class="action-item-btn btn">
+            <button class="btn green publish-tab-btn" data-bind="click: publishToAim4YouAction().publishToAim4You, css:{'disabled': isCourseDelivering(), 'progress':publishToAim4YouAction().isPublishing()}">
                 <!-- ko if: publishToAim4YouAction().isPublishing() -->
                 <!-- ko if: publishToAim4YouAction().state() === states.building -->
-                <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption"></span>
+                <span data-bind="localize: { text: 'assembling' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
                 <!-- ko if: publishToAim4YouAction().state() === states.publishing -->
-                <span data-bind="localize: { text: 'publishing' }" class="action-item-btn-caption"></span>
+                <span data-bind="localize: { text: 'publishing' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko ifnot: publishToAim4YouAction().isPublishing() -->
-                <span data-bind="localize: { text: 'publishToStore' }" class="action-item-btn-caption"></span>
+                <span data-bind="localize: { text: 'publishToStore' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
             </button>
+            <!-- ko if: !isCourseDelivering() && publishToAim4YouAction().messageState() == publishToAim4YouAction().infoMessageStates.published -->
+            <div class="package-action-message-wrapper success">
+                <div class="message">
+                    <span data-bind="localize: { text: 'publishToAim4YouSuccessMessage' }">Your course is successfully  published. Check your email for more details.</span>
+                </div>
+            </div>
+            <!-- /ko -->
         </div>
     </div>
-    <!-- ko if: !isCourseDelivering() && publishToAim4YouAction().messageState() == publishToAim4YouAction().infoMessageStates.published -->
-    <div class="package-action-message-wrapper success">
-        <div class="message">
-            <span data-bind="localize: { text: 'publishToAim4YouSuccessMessage' }">Your course is successfully  published. Check your email for more details.</span>
-        </div>
-    </div>
-    <!-- /ko -->
 </div>
