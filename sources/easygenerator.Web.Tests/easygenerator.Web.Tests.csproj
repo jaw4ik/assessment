@@ -131,6 +131,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildCourse\BuildContentProviderTests.cs" />
+    <Compile Include="BuildCourse\Modules\PackageModulesProviderTests.cs" />
+    <Compile Include="BuildCourse\Modules\ScormPackageModulesProviderTests.cs" />
     <Compile Include="BuildCourse\ScormCourseBuilderTests.cs" />
     <Compile Include="BuildCourse\CourseBuilderTests.cs" />
     <Compile Include="BuildCourse\BuildPathProviderTests.cs" />

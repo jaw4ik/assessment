@@ -8,7 +8,7 @@ namespace easygenerator.Web.BuildCourse
 {
     public class BuildPackageCreator
     {
-        private PhysicalFileManager _fileManager;
+        private readonly PhysicalFileManager _fileManager;
 
         public BuildPackageCreator(PhysicalFileManager fileManager)
         {
