@@ -52,9 +52,8 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NSubstitute, Version=1.8.1.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\NSubstitute.1.8.1.0\lib\net45\NSubstitute.dll</HintPath>
+    <Reference Include="NSubstitute">
+      <HintPath>..\..\packages\NSubstitute.1.7.2.0\lib\NET45\NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Activities" />
@@ -131,6 +130,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildCourse\BuildContentProviderTests.cs" />
+    <Compile Include="BuildCourse\Modules\PackageModulesProviderTests.cs" />
+    <Compile Include="BuildCourse\Modules\ScormPackageModulesProviderTests.cs" />
     <Compile Include="BuildCourse\ScormCourseBuilderTests.cs" />
     <Compile Include="BuildCourse\CourseBuilderTests.cs" />
     <Compile Include="BuildCourse\BuildPathProviderTests.cs" />

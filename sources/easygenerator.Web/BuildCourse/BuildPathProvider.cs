@@ -80,6 +80,11 @@ namespace easygenerator.Web.BuildCourse
             return Path.Combine(buildDirectory, "publishSettings.js");
         }
 
+        public virtual string GetIncludedModulesDirectoryPath(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "includedModules");
+        }
+
         #endregion
 
         public virtual string GetTemplateDirectoryName(string templateName)
