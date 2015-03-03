@@ -758,7 +758,7 @@
 
             });
 
-            escribe('sendOpenLinkTab:', function () {
+            describe('sendOpenLinkTab:', function () {
 
                 it('should be function', function () {
                     expect(viewModel.sendOpenLinkTab).toBeFunction();
