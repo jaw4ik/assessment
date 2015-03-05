@@ -123,11 +123,6 @@ namespace easygenerator.Web.Configuration
                 defaults: new { controller = "Account", action = "SignOut" });
 
             routes.MapRoute(
-                name: "LaunchTryMode",
-                url: "launchtry",
-                defaults: new { controller = "Account", action = "LaunchTryMode" });
-
-            routes.MapRoute(
                 name: "SignUpSecondStep",
                 url: "signupsecondstep",
                 defaults: new { controller = "Account", action = "SignUpSecondStep" });
