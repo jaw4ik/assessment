@@ -4,7 +4,6 @@ using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.WooCommerce;
-using System;
 using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers
@@ -21,34 +20,6 @@ namespace easygenerator.Web.Controllers
             _authenticationProvider = authenticationProvider;
             _repository = repository;
             _wooCommerceAutologinUrlProvider = wooCommerceAutologinUrlProvider;
-        }
-
-        [NoCache]
-        public ActionResult TryWithoutSignup()
-        {
-            if (_authenticationProvider.IsUserAuthenticated())
-            {
-                return RedirectToRoute("Default");
-            }
-
-            return View("TryNow");
-        }
-
-        [HttpPost]
-        public ActionResult TryWithoutSignup(object viewModel)
-        {
-            return LaunchTryMode();
-        }
-
-        public ActionResult LaunchTryMode()
-        {
-            if (!_authenticationProvider.IsUserAuthenticated())
-            {
-                var user = Guid.NewGuid().ToString();
-                _authenticationProvider.SignIn(user, true);
-            }
-
-            return RedirectToRoute("Default");
         }
 
         public ActionResult PrivacyPolicy()

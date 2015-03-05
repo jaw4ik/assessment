@@ -21,7 +21,6 @@
             };
 
             viewModel.messageState = ko.observable(viewModel.infoMessageStates.none);
-            viewModel.isTryMode = !_.isObject(userContext.identity);
             viewModel.publishToAim4You = publishToAim4You;
 
             viewModel.courseBuildStarted = courseBuildStarted;
