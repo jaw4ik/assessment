@@ -1,6 +1,6 @@
 ﻿define(['durandal/app', 'constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
-    'clientContext', 'ping', 'userContext', 'viewmodels/objectives/objectiveBrief', 'imageUpload','commands/createObjectiveCommand'],
-    function (app, constants, eventTracker, router, objectiveRepository, courseRepository, notify, localizationManager, clientContext, ping, userContext, objectiveBrief, imageUpload, createObjectiveCommand) {
+    'clientContext', 'userContext', 'viewmodels/objectives/objectiveBrief', 'imageUpload','commands/createObjectiveCommand'],
+    function (app, constants, eventTracker, router, objectiveRepository, courseRepository, notify, localizationManager, clientContext, userContext, objectiveBrief, imageUpload, createObjectiveCommand) {
         "use strict";
 
         var
@@ -32,7 +32,6 @@
             objectiveTitleUpdated: objectiveTitleUpdated,
             objectiveImageUpdated: objectiveImageUpdated,
 
-            canActivate: canActivate,
             activate: activate
         };
 
@@ -149,10 +148,6 @@
             return _.find(viewModel.objectives(), function (item) {
                 return item.id === objectiveId;
             });
-        }
-
-        function canActivate() {
-            return ping.execute();
         }
 
         function activate() {

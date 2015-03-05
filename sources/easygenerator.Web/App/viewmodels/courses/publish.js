@@ -1,8 +1,8 @@
 ﻿define(['repositories/courseRepository', 'plugins/router', 'constants', 'viewmodels/courses/publishingActions/build',
         'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
-        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'ping', 'models/backButton', 'durandal/app'],
+        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'models/backButton', 'durandal/app'],
     function (repository, router, constants, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker, ping, BackButton, app) {
+        clientContext, localizationManager, eventTracker, BackButton, app) {
 
         var events = {
             navigateToCourses: 'Navigate to courses'
@@ -23,7 +23,6 @@
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
-            canActivate: canActivate,
             activate: activate,
             openUpgradePlanUrl: openUpgradePlanUrl,
 
@@ -62,10 +61,6 @@
 
         function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);
-        }
-
-        function canActivate() {
-            return ping.execute();
         }
 
         function activate(courseId) {

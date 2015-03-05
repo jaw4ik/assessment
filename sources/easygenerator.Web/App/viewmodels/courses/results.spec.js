@@ -5,7 +5,6 @@
         eventTracker = require('eventTracker'),
         courseRepository = require('repositories/courseRepository'),
         localizationManager = require('localization/localizationManager'),
-        ping = require('ping'),
         BackButton = require('models/backButton'),
         xApiProvider = require('reporting/xApiProvider'),
         constants = require('constants'),
@@ -280,62 +279,6 @@
             it('should send event \'Navigate to courses\'', function () {
                 viewModel.navigateToCoursesEvent();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to courses');
-            });
-
-        });
-
-        describe('canActivate:', function () {
-
-            var dfd;
-
-            beforeEach(function () {
-                dfd = Q.defer();
-                spyOn(ping, 'execute').and.returnValue(dfd.promise);
-            });
-
-            it('should be function', function () {
-                expect(viewModel.canActivate).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                expect(viewModel.canActivate()).toBePromise();
-            });
-
-            it('should ping', function () {
-                viewModel.canActivate();
-                expect(ping.execute).toHaveBeenCalled();
-            });
-
-            describe('when ping failed', function () {
-
-                beforeEach(function () {
-                    dfd.reject();
-                });
-
-                it('should reject promise', function (done) {
-                    var promise = viewModel.canActivate();
-                    promise.fin(function () {
-                        expect(promise).toBeRejected();
-                        done();
-                    });
-                });
-
-            });
-
-            describe('when ping succeed', function () {
-
-                beforeEach(function () {
-                    dfd.resolve();
-                });
-
-                it('should reject promise', function (done) {
-                    var promise = viewModel.canActivate();
-                    promise.fin(function () {
-                        expect(promise).toBeResolved();
-                        done();
-                    });
-                });
-
             });
 
         });

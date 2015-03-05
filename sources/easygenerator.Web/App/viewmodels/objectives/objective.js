@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'ping', 'models/backButton', 'durandal/app', 'imageUpload', 'userContext'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, ping, BackButton, app, imageUpload, userContext) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'models/backButton', 'durandal/app', 'imageUpload', 'userContext'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, BackButton, app, imageUpload, userContext) {
         "use strict";
 
         var
@@ -51,7 +51,6 @@
                 updateQuestionsOrder: updateQuestionsOrder,
                 isQuestionsListReorderedByCollaborator: ko.observable(false),
 
-                canActivate: canActivate,
                 activate: activate,
 
                 objectiveTitleUpdated: objectiveTitleUpdated,
@@ -214,10 +213,6 @@
 
         function navigateToObjectivesEvent() {
             eventTracker.publish(events.navigateToObjectives);
-        }
-
-        function canActivate() {
-            return ping.execute();
         }
 
         function activate(objId, queryParams) {

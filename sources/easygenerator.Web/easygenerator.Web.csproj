@@ -2083,10 +2083,6 @@
     <Content Include="App\notify.spec.js">
       <DependentUpon>notify.js</DependentUpon>
     </Content>
-    <Content Include="App\ping.js" />
-    <Content Include="App\ping.spec.js">
-      <DependentUpon>ping.js</DependentUpon>
-    </Content>
     <Content Include="App\repositories\collaboratorRepository.js" />
     <Content Include="App\repositories\collaboratorRepository.spec.js">
       <DependentUpon>collaboratorRepository.js</DependentUpon>
