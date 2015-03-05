@@ -355,9 +355,9 @@
         'uk': 'Список розділів / цілей порожній'
     },
     letsCreateLearningObjective: {
-        'en': 'What are the objectives of the course? Start from adding the first one:',
-        'zh-cn': 'What are the objectives of the course? Start from adding the first one:[zh-cn]',
-        'uk': 'Які цілі вашого курса? Почніть зі створення першої:'
+        'en': 'What are your course objectives?',
+        'zh-cn': 'What are your course objectives?[zh-cn]',
+        'uk': 'Які цілі вашого курса?'
     },
     clickToAddObjective: {
         'en': 'Click to add a learning objective',
@@ -714,7 +714,7 @@
     },
     result: {
         'en': 'Result',
-        'zh-cn': '成绩',
+        'zh-cn': '结果',
         'uk': 'Результат'
     },
     score: {
@@ -744,7 +744,7 @@
     },
     noReportedResults: {
         'en': 'No reported results yet...',
-        'zh-cn': '尚未获得报告结果',
+        'zh-cn': '尚未报告结果',
         'uk': 'Результати відсутні'
     },
     makeSureTrackingResultsIsEnabled: {
@@ -897,7 +897,7 @@
     },
     disconnectSelected: {
         'en': 'Remove selected',
-        'zh-cn': '选择了移除',
+        'zh-cn': '删除选中',
         'uk': 'Від\'єднати'
     },
     moreOptions: {
@@ -1525,22 +1525,22 @@
     /* Resource section for model QuestionFeedback */
     putYourPositiveFeedback: {
         'en': 'Create response for correct answer',
-        'zh-cn': '创建正确答案的提示',
+        'zh-cn': '答对时回应',
         'uk': 'Додайте відгук на правильну відповідь'
     },
     putYourNegativeFeedback: {
         'en': 'Create response for incorrect answer',
-        'zh-cn': '创建错误答案的提示',
+        'zh-cn': '答错时回应',
         'uk': 'Додайте відгук на неправильну відповідь'
     },
     correctFeedback: {
         'en': 'Response for correct answer',
-        'zh-cn': '正确答案的提示',
+        'zh-cn': '正确答案的回应',
         'uk': 'Відгук на правильну відповідь'
     },
     incorrectFeedback: {
         'en': 'Response for incorrect answer',
-        'zh-cn': '错误答案的提示',
+        'zh-cn': '错误答案的回应',
         'uk': 'Відгук на неправильну відповідь'
     },
     /* End resource section for model QuestionFeedback */
@@ -1891,7 +1891,7 @@
     },
     questionFeedback: {
         'en': 'Question response',
-        'zh-cn': '问题的提示',
+        'zh-cn': '答题后回应',
         'uk': 'Відповідь на питання'
     },
     /* End resource section for model Feedback */
