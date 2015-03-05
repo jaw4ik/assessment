@@ -355,9 +355,9 @@
         'uk': 'Список розділів / цілей порожній'
     },
     letsCreateLearningObjective: {
-        'en': 'Let\'s create a learning objective',
-        'zh-cn': 'Let\'s create a learning objective[zh-cn]',
-        'uk': 'Нумо створювати розділ / ціль'
+        'en': 'What are the objectives of the course? Start from adding the first one:',
+        'zh-cn': 'What are the objectives of the course? Start from adding the first one:[zh-cn]',
+        'uk': 'Які цілі вашого курса? Почніть зі створення першої:'
     },
     clickToAddObjective: {
         'en': 'Click to add a learning objective',
@@ -729,12 +729,12 @@
     },
     date: {
         'en': 'Date',
-        'zh-cn': 'Date',
+        'zh-cn': 'Date[zh-cn]',
         'uk': 'Дата'
     },
     time: {
         'en': 'Time',
-        'zh-cn': 'Time',
+        'zh-cn': 'Time[zh-cn]',
         'uk': 'Час'
     },
     showMoreResults: {
@@ -1512,12 +1512,12 @@
     },
     statementTrue: {
         'en': 'TRUE',
-        'zh-cn': 'TRUE[zh-cn]',
+        'zh-cn': '对',
         'uk': 'Так'
     },
     statementFalse: {
         'en': 'FALSE',
-        'zh-cn': 'FALSE[zh-cn]',
+        'zh-cn': '错',
         'uk': 'Ні'
     },
     /* End resource section for model StatementQuestion */
@@ -1979,7 +1979,7 @@
         'uk': 'Додати співавтора'
     },
     inviteByEmailAddress: {
-        'en': 'Invite users by email ...',
+        'en': 'Invite users by email...',
         'zh-cn': '通过电子邮箱邀请…',
         'uk': 'Email співавтора'
     },
@@ -2087,6 +2087,26 @@
         'en': 'Co-authoring is not available in the Free Plan. Upgrade to Starter Plan to invite co-authors.',
         'zh-cn': '免费账号不能邀请他人共同编辑，升级到Starter账号来邀请。',
         'uk': 'Співавторство недоступне для тарифного плану \"Free plan\". Оновіть свій план до \"Starter plan\", щоб запросити співавторів.'
+    },
+    manageCoauthors: {
+        'en': 'Manage co-authors',
+        'zh-cn': 'Manage co-authors[zh-cn]',
+        'uk': 'Співавтори'
+    },
+    loadingCoauthors: {
+        'en': 'loading co-authors...',
+        'zh-cn': 'loading co-authors...[zh-cn]',
+        'uk': 'завантажуємо співавторів...'
+    },
+    asCoautor: {
+        'en': 'as co-author?',
+        'zh-cn': 'as co-author?[zh-cn]',
+        'uk': 'як співавтора?'
+    },
+    cannotAddDuplicateCoauthor: {
+        'en': '!!! This user has already been added',
+        'zh-cn': '!!! This user has already been added[zh-cn]',
+        'uk': '!!! This user has already been added[uk]'
     },
     /* End resource section for model Collaboration */
     
