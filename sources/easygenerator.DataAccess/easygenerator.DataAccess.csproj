@@ -246,6 +246,18 @@
     <Compile Include="Migrations\201502251610598_AddIsCustomFieldToTemplate.Designer.cs">
       <DependentUpon>201502251610598_AddIsCustomFieldToTemplate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502271507309_CreateTemplatesAccessControlListTable.cs" />
+    <Compile Include="Migrations\201502271507309_CreateTemplatesAccessControlListTable.Designer.cs">
+      <DependentUpon>201502271507309_CreateTemplatesAccessControlListTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502271517245_FillTemplatesACLForDefaultTemplates.cs" />
+    <Compile Include="Migrations\201502271517245_FillTemplatesACLForDefaultTemplates.Designer.cs">
+      <DependentUpon>201502271517245_FillTemplatesACLForDefaultTemplates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503061151279_SetMaxLengthForUserIdentityFieldInTemplateACL.cs" />
+    <Compile Include="Migrations\201503061151279_SetMaxLengthForUserIdentityFieldInTemplateACL.Designer.cs">
+      <DependentUpon>201503061151279_SetMaxLengthForUserIdentityFieldInTemplateACL.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -420,6 +432,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502251610598_AddIsCustomFieldToTemplate.resx">
       <DependentUpon>201502251610598_AddIsCustomFieldToTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502271507309_CreateTemplatesAccessControlListTable.resx">
+      <DependentUpon>201502271507309_CreateTemplatesAccessControlListTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502271517245_FillTemplatesACLForDefaultTemplates.resx">
+      <DependentUpon>201502271517245_FillTemplatesACLForDefaultTemplates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503061151279_SetMaxLengthForUserIdentityFieldInTemplateACL.resx">
+      <DependentUpon>201503061151279_SetMaxLengthForUserIdentityFieldInTemplateACL.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

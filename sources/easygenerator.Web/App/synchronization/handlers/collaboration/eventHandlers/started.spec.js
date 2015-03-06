@@ -4,7 +4,8 @@
     var
         dataContext = require('dataContext'),
         app = require('durandal/app'),
-        courseModelMapper = require('mappers/courseModelMapper')
+        courseModelMapper = require('mappers/courseModelMapper'),
+        emptyTemplate = { Manifest: '{ "name": "TemplateName" }' };
     ;
 
     describe('synchronization collaboration [started]', function () {
@@ -12,6 +13,7 @@
         var course = { Id: 'courseId' };
 
         beforeEach(function () {
+            emptyTemplate = { Manifest: '{ "name": "TemplateName" }' }
             spyOn(app, 'trigger');
             spyOn(courseModelMapper, 'map').and.returnValue(course);
         });
@@ -44,7 +46,7 @@
 
             it('should add mapped course to data context', function () {
                 dataContext.courses = [];
-                handler(course, []);
+                handler(course, [], emptyTemplate);
 
                 expect(dataContext.courses.length).toBe(1);
             });
@@ -60,7 +62,7 @@
                 dataContext.courses = [existingCourse];
                 dataContext.objectives = [];
 
-                handler(course, [objective]);
+                handler(course, [objective], emptyTemplate);
 
                 expect(dataContext.objectives.length).toBe(1);
             });
@@ -76,7 +78,7 @@
                 dataContext.courses = [existingCourse];
                 dataContext.objectives = [{ id: objective.Id }];
 
-                handler(course, [objective]);
+                handler(course, [objective], emptyTemplate);
 
                 expect(dataContext.objectives.length).toBe(1);
             });
@@ -84,10 +86,8 @@
         });
 
         it('should trigger app event', function () {
-            handler(course, []);
+            handler(course, [], emptyTemplate);
             expect(app.trigger).toHaveBeenCalled();
         });
     });
-
-
 })
