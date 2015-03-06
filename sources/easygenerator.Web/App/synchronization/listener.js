@@ -78,7 +78,7 @@
 
                 $.connection.hub.disconnected(function () {
                     $.ajax({
-                        type: 'head',
+                        type: 'get',
                         url: '/ping.ashx'
                     }).error(function (error) {
                         if (error.status == 503) {
