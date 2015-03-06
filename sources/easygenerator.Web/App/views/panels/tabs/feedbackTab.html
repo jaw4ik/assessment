@@ -6,9 +6,6 @@
     <div class="tab-description" data-bind="localize: { text: 'feedBackHelp' }">Help us to improve our application</div>
     <div class="tab-content">
         <form class="feedback-form">
-            <!-- ko if: isTryMode -->
-            <input type="text" class="feedback-text-block email" placeholder="Your e-mail..." data-bind="localize: { placeholder: 'yourEmail' }, value: feedbackEmail, valueUpdate: 'afterkeydown'" />
-            <!-- /ko -->
             <textarea class="feedback-text-block message" placeholder="Your message..." data-bind="localize: { placeholder: 'yourMessage' }, value: feedbackMessageFromUser, valueUpdate: 'afterkeydown', css: { error: isFeedbackMessageErrorVisible() }, event: { focus: feedbackMessageFocus }"></textarea>
             <div class="tab-action-wrapper">
                 <!-- ko if: feedbackSuccessfulySent -->

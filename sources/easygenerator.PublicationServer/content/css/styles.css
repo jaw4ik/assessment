@@ -270,10 +270,6 @@
     height: 55px;
 }
 
-.header-menu-list-item.istrymode {
-    display: list-item;
-}
-
 .header-menu-list-item.user-notification {
     position: relative;
     width: 60px;

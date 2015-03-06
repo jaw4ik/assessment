@@ -233,9 +233,6 @@
   border-bottom: 1px solid black;
   cursor: pointer;
 }
-.header-menu-list-item.istrymode {
-  display: list-item;
-}
 .header-menu-list-item.user-notification {
   width: 60px;
   position: relative;

@@ -2,7 +2,6 @@
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.UserEvents;
-using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -32,7 +31,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private UserController _controller;
         private IEntityFactory _entityFactory;
         private IAuthenticationProvider _authenticationProvider;
-        private ISignupFromTryItNowHandler _signupFromTryItNowHandler;
         private IDomainEventPublisher _eventPublisher;
         private IMailSenderWrapper _mailSenderWrapper;
         private ICourseRepository _courseRepository;
@@ -50,7 +48,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _userRepository = Substitute.For<IUserRepository>();
             _entityFactory = Substitute.For<IEntityFactory>();
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
-            _signupFromTryItNowHandler = Substitute.For<ISignupFromTryItNowHandler>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
             _courseRepository = Substitute.For<ICourseRepository>();
@@ -62,7 +59,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller = new UserController(_userRepository,
                 _entityFactory,
                 _authenticationProvider,
-                _signupFromTryItNowHandler,
                 _eventPublisher,
                 _mailSenderWrapper,
                 _courseRepository,
@@ -475,25 +471,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _eventPublisher.Received().Publish(Arg.Is<UserSignedUpEvent>(_ => _.User == user && _.UserRole == profile.UserRole));
         }
 
-        [TestMethod]
-        public void Signup_ShouldHandleTryItNowModeContent_WhenUserWasInTryItNowMode()
-        {
-            //Arrange
-            const string tryItNowUsername = "username";
-            var profile = GetTestUserSignUpViewModel();
-            var user = UserObjectMother.Create(profile.Email, profile.Password);
-
-            _user.Identity.IsAuthenticated.Returns(true);
-            _user.Identity.Name.Returns(tryItNowUsername);
-            _userRepository.GetUserByEmail(tryItNowUsername).Returns((User)null);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
-
-            //Act
-            _controller.Signup(profile);
-
-            //Assert
-            _signupFromTryItNowHandler.Received().HandleOwnership(tryItNowUsername, profile.Email);
-        }
 
         [TestMethod]
         public void Signup_ShouldSignInNewUser()

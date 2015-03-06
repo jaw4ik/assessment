@@ -144,40 +144,6 @@
 
             });
 
-            describe('isTryMode:', function () {
-
-                it('should be defined', function () {
-                    expect(viewModel.isTryMode).toBeDefined();
-                });
-
-                describe('when user to be in try mode', function () {
-
-                    beforeEach(function () {
-                        userContext.identity = null;
-                    });
-
-                    it('should be true', function () {
-                        var view = publishToAim4You(course);
-                        expect(view.isTryMode).toBeTruthy();
-                    });
-
-                });
-
-                describe('when user to not be in try mode', function () {
-
-                    beforeEach(function () {
-                        userContext.identity = {};
-                    });
-
-                    it('should be false', function () {
-                        var view = publishToAim4You(course);
-                        expect(view.isTryMode).toBeFalsy();
-                    });
-
-                });
-
-            });
-
             describe('publishToAim4You', function () {
 
                 it('should be function', function () {
@@ -186,7 +152,7 @@
 
                 describe('when course is delivering', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         viewModel.isCourseDelivering(true);
                     });
 
@@ -262,7 +228,7 @@
 
                 describe('and when course is current course', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         viewModel.courseId = course.id;
                     });
 
@@ -299,7 +265,7 @@
 
                 describe('and when course is any other course', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         viewModel.courseId = '100500';
                     });
 
