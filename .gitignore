@@ -21,7 +21,6 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
-sources/easygenerator.Web/FileStorage/
 
 # Visual Studo 2015 cache/options directory
 .vs/
@@ -198,5 +197,6 @@ FakesAssemblies/
 
 # Custom easygenerator files
 /sources/easygenerator.Web/App/main-built.js
+/sources/easygenerator.Web/FileStorage/
 *.ncrunchproject
 *.ncrunchsolution
