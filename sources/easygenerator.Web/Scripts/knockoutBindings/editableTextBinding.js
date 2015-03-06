@@ -70,6 +70,8 @@
                 }
             }
         }
+
+        return ko.bindingHandlers.contentEditableFix.init(element);
     },
     update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var text = ko.unwrap(valueAccessor().text),

@@ -369,6 +369,8 @@
             var toolbarTopPosition = screenTop > editorTop ? 0 : editorTop;
             $toolbarElement.css('top', toolbarTopPosition);
         }
+
+        return ko.bindingHandlers.contentEditableFix.init(element);
     },
     update: function (element, valueAccessor) {
         var data = valueAccessor().data(),
