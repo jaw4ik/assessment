@@ -25,7 +25,6 @@
             showCourseNavigation: ko.observable(),
             showTreeOfContent: ko.observable(),
             navigation: ko.observableArray([]),
-            isTryMode: false,
             help: help,
             courseDeleted: courseDeleted,
             objectivesUnrelated: objectivesUnrelated,
@@ -157,7 +156,6 @@
                             isPartOfModules: ko.observable(false)
                         }
                     ]);
-                    viewModel.isTryMode = !_.isObject(userContext.identity);
 
                     clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
                     clientContext.set(constants.clientContextKeys.lastVistedCourse, null);

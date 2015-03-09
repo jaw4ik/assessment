@@ -691,13 +691,13 @@
                 expect(app.clientSessionContext.set).toHaveBeenCalledWith(app.constants.userSignUpFirstStepData, data);
             });
 
-            describe('when current page is signUp page', function() {
+            describe('when current page is signUp page', function () {
                 var currentHref = 'http://easygenerator.com/signup';
 
                 beforeEach(function () {
                     spyOn(app, 'getLocationHref').and.returnValue(currentHref);
                 });
-                
+
                 it('should send event \'Sign up (1st step)\'', function (done) {
                     trackEventDefer.reject();
 
@@ -805,7 +805,7 @@
                 });
             });
 
-            describe('when current page is register page', function() {
+            describe('when current page is register page', function () {
                 var currentHref = 'http://easygenerator.com/register';
 
                 beforeEach(function () {

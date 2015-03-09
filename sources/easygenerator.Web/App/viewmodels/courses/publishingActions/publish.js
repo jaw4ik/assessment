@@ -5,6 +5,9 @@
             publishCourse: 'Publish course',
             openEmbedTab: 'Open embed tab',
             openLinkTab: 'Open link tab',
+            openScormTab: 'Open \'download SCORM\'',
+            openHtmlTab: 'Open \'downoload HTML\'',
+            openAim4YouTab: 'Open \'Publish to Aim4You\'',
             copyEmbedCode: 'Copy embed code',
             copyPublishLink: 'Copy publish link',
         };
@@ -37,6 +40,11 @@
             viewModel.validateFrameWidth = validateFrameWidth;
             viewModel.validateFrameHeight = validateFrameHeight;
 
+            viewModel.sendOpenLinkTab = sendOpenLinkTab;
+            viewModel.sendOpenEmbedTab = sendOpenEmbedTab;
+            viewModel.sendOpenScormTab = sendOpenScormTab;
+            viewModel.sendOpenHtmlTab = sendOpenHtmlTab;
+            viewModel.sendOpenAim4YouTab = sendOpenAim4YouTab;
 
             viewModel.linkCopied = ko.observable(false);
             viewModel.copyLinkToClipboard = copyLinkToClipboard;
@@ -62,6 +70,26 @@
             });
 
             return viewModel;
+
+            function sendOpenLinkTab() {
+                eventTracker.publish(events.openLinkTab, viewModel.eventCategory);
+            }
+
+            function sendOpenEmbedTab() {
+                eventTracker.publish(events.openEmbedTab, viewModel.eventCategory);
+            }
+
+            function sendOpenScormTab() {
+                eventTracker.publish(events.openScormTab, viewModel.eventCategory);
+            }
+
+            function sendOpenHtmlTab() {
+                eventTracker.publish(events.openHtmlTab, viewModel.eventCategory);
+            }
+
+            function sendOpenAim4YouTab() {
+                eventTracker.publish(events.openAim4YouTab, viewModel.eventCategory);
+            }
 
             function validateFrameWidth() {
                 if (!viewModel.frameWidth() || viewModel.frameWidth() == 0) {

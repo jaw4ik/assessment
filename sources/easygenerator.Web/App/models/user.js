@@ -5,6 +5,7 @@
         guard.throwIfNotString(spec.email, 'You should provide email to create user');
 
         this.email = spec.email;
+        this.role = spec.role;
 
         this.firstname = spec.firstname;
         this.lastname = spec.lastname;

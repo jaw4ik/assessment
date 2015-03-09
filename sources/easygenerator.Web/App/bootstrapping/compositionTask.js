@@ -15,6 +15,7 @@
         composition.addBindingHandler('editableText');
         composition.addBindingHandler('autosize');
         composition.addBindingHandler('introAnimate');
+        composition.addBindingHandler('publishTabs');
     }
 
 });

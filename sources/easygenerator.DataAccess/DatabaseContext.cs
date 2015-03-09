@@ -158,6 +158,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.FirstName).IsRequired();
             modelBuilder.Entity<User>().Property(e => e.LastName).IsRequired();
             modelBuilder.Entity<User>().Property(e => e.Country).IsRequired();
+            modelBuilder.Entity<User>().Property(e => e.Role).IsOptional();
             modelBuilder.Entity<User>().Property(e => e.Organization).IsOptional();
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));

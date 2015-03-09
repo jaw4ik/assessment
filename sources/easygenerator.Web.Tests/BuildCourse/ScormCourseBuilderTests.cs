@@ -1,11 +1,15 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Collections.Generic;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
+using easygenerator.Web.BuildCourse.Modules.Models;
 using easygenerator.Web.BuildCourse.PackageModel;
+using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.BuildCourse.Scorm.Models;
+using easygenerator.Web.BuildCourse.Scorm.Modules;
 using easygenerator.Web.Components;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,6 +29,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         private BuildPackageCreator _buildPackageCreator;
         private BuildContentProvider _buildContentProvider;
         private RazorTemplateProvider _razorTemplateProvider;
+        private ScormPackageModulesProvider _scormPackageModulesProvider;
 
         private Course _course;
         private CoursePackageModel _coursePackageModel;
@@ -48,9 +53,12 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             var packageModelMapper = Substitute.For<PackageModelMapper>(Substitute.For<IUrlHelperWrapper>(), Substitute.For<IUserRepository>());
             var packageModelSerializer = Substitute.For<PackageModelSerializer>();
-            _buildContentProvider = Substitute.For<BuildContentProvider>(_fileManager, _buildPathProvider, packageModelSerializer, packageModelMapper);
+            _buildContentProvider = Substitute.For<BuildContentProvider>(_fileManager, _buildPathProvider, packageModelSerializer, packageModelMapper, new PublishSettingsProvider());
 
-            _builder = new ScormCourseBuilder(_fileManager, _buildPathProvider, _buildPackageCreator, _buildContentProvider, _razorTemplateProvider, Substitute.For<ILog>());
+            var userRepository = Substitute.For<IUserRepository>();
+            _scormPackageModulesProvider = Substitute.For<ScormPackageModulesProvider>(userRepository);
+
+            _builder = new ScormCourseBuilder(_fileManager, _buildPathProvider, _buildPackageCreator, _buildContentProvider, _razorTemplateProvider, _scormPackageModulesProvider, Substitute.For<ILog>());
         }
 
         #region Build
@@ -81,7 +89,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _builder.Build(_course);
 
             //Assert
-            _buildContentProvider.Received().AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+            _buildContentProvider.Received().AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<IEnumerable<PackageModule>>());
         }
 
         #region Add xsd schemas to package
@@ -258,7 +266,7 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             _buildPathProvider.GetDownloadPath().Returns(downloadPath);
             _buildContentProvider
-                .When(e => e.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>()))
+                .When(e => e.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<IEnumerable<PackageModule>>()))
                 .Do(e => { throw null; });
 
             //Act
@@ -292,7 +300,7 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             _buildPathProvider.GetBuildDirectoryName(Arg.Any<string>()).Returns(buildDirectory);
             _buildContentProvider
-                .When(e => e.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>()))
+                .When(e => e.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<IEnumerable<PackageModule>>()))
                 .Do(e => { throw null; });
 
             //Act
@@ -312,7 +320,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         {
             //Arrange
             _buildContentProvider
-                .When(e => e.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>()))
+                .When(e => e.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<IEnumerable<PackageModule>>()))
                 .Do(e => { throw null; });
 
             //Act

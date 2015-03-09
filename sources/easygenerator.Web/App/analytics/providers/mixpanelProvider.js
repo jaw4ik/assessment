@@ -9,13 +9,27 @@
                         return;
                     }
 
-                    var username = _.isObject(userContext.identity) ? userContext.identity.email : '';
+                    var username = '',
+                        role = null;
+
+                    if (_.isObject(userContext.identity)) {
+                        username = userContext.identity.email;
+                        role = userContext.identity.role;
+                    }
+
                     var eventProperties = {
                         Category: eventCategory
                     };
 
                     if (username) {
                         eventProperties.Email = username;
+                    }
+
+                    if (role) {
+                        eventProperties.Role = role;
+                        mixpanel.people.set({
+                            "Role": role
+                        });
                     }
 
                     mixpanel.people.set({

@@ -34,6 +34,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository = Substitute.For<ITemplateRepository>();
             _entityMapper = Substitute.For<IEntityMapper>();
 
+            _manifestFileManager = Substitute.For<ManifestFileManager>(new PhysicalFileManager());
+
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);

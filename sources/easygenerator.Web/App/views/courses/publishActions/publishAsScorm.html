@@ -1,33 +1,32 @@
-﻿<div class="package-action-item">
-    <div class="package-action-header ">
-        <h5 class="package-action-title" data-bind="localize: { text: 'downloadScorm12Package'}"></h5>
-    </div>
-    <div class="package-action-body">
-        <div class="package-action-btn-holder">
-            <!-- ko if: scormBuildAction() -->
-            <button data-bind="click: scormBuildAction().downloadCourse, css:{'disabled': isCourseDelivering(),'progress' : scormBuildAction().isPublishing()}" class="action-item-btn btn">
+﻿<div class="publish-tab-content" data-tab-content="scorm">
+    <div class="publish-tab-content-wrapper">
+        <!-- ko if: scormBuildAction() -->
+        <div class="publish-tab-container">
+            <h2 class="publish-tab-header" data-bind="localize: {text: 'downloadScorm12Package'}">Publish to LMS </h2>
+            <div class="publish-tab-action-content">
+                <p data-bind="localize: {text: 'scormCaptionFirst'}">Want to run your course on LMS or on your SCROM cloud?</p>
+                <p data-bind="localize: {text: 'scormCaptionSecond'}">We package up all the SCORM 1.2 package.</p>
+            </div>
+            <button class="btn green publish-tab-btn" data-bind="click: scormBuildAction().downloadCourse, css:{'disabled': isCourseDelivering(),'progress' : scormBuildAction().isPublishing()}">
                 <!-- ko if: scormBuildAction().isPublishing() -->
-                <span data-bind="localize: { text: 'assembling' }" class="action-item-btn-caption"></span>
+                <span data-bind="localize: { text: 'assembling' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
                 <!-- ko ifnot: scormBuildAction().isPublishing() -->
-                <span data-bind="localize: { text: 'courseDownloadScormAction' }" class="action-item-btn-caption"></span>
+                <span data-bind="localize: { text: 'courseDownloadScormAction' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
             </button>
-            <!-- /ko -->
-            <!-- ko ifnot: scormBuildAction() -->
-            <button class="action-item-btn btn">
-                <span data-bind="localize: { text: 'courseDownloadScormAction' }" class="action-item-btn-caption"></span>
-            </button>
-            <div class="package-action-access-message-overlay"></div>
-            <div class="package-action-access-message-wrapper">
-                <div class="package-action-access-message-icon"></div>
-                <div class="package-action-access-message">
-                    <span data-bind="localize: { text: 'youHaveTo' }">You have to</span>
-                    <a href="" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeYourAccount' }">upgrade your account</a>
-                    <span data-bind="localize: { html: 'upgradeToStarterPlanToUseScormMessage' }">in order to read external review comments</span>
-                </div>
-            </div>
-            <!-- /ko -->
         </div>
+        <!-- /ko -->
+        <!-- ko ifnot: scormBuildAction() -->
+        <div class="publish-tab-container">
+            <span class="publish-tab-scorm-locked"></span>
+            <h2 class="publish-tab-header" data-bind="localize: {text: 'downloadScorm12Package'}">Publish to LMS </h2>
+            <div class="publish-tab-action-content scorm-locked">
+                <span data-bind="localize: { text: 'youHaveTo' }">You have to</span>
+                <a class="publish-tab-action-link" href="" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeYourAccount' }">upgrade your account</a>
+                <span data-bind="localize: { html: 'upgradeToStarterPlanToUseScormMessage' }"></span>
+            </div>
+        </div>
+        <!-- /ko -->
     </div>
 </div>

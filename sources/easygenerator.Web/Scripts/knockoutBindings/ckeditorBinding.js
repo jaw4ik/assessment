@@ -1,8 +1,7 @@
 ﻿ko.bindingHandlers.ckeditor = {
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
 
-        var language = valueAccessor().language || 'en',
-            eventTracker = valueAccessor().eventTracker || null,
+        var eventTracker = valueAccessor().eventTracker || null,
             data = valueAccessor().data,
             isEditing = valueAccessor().isEditing,
             saveHandler = valueAccessor().save,
@@ -23,8 +22,9 @@
             addBlank: 'Add blank (fill in the blanks)',
             addDropDownBlank: 'Add drop down (fill in the blanks)'
         };
-
-        CKEDITOR.config.language = localizationManager.currentLanguage;
+        
+        var supportedCultures = CKEDITOR.lang.languages;
+        CKEDITOR.config.language = supportedCultures[localizationManager.currentCulture] == 1 ? localizationManager.currentCulture : localizationManager.currentLanguage;
 
         //Floating Space plugin settings
         CKEDITOR.config.editorsHolderId = 'view_content';

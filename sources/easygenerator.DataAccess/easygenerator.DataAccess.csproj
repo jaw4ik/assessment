@@ -246,6 +246,10 @@
     <Compile Include="Migrations\201502251610598_AddIsCustomFieldToTemplate.Designer.cs">
       <DependentUpon>201502251610598_AddIsCustomFieldToTemplate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502270858532_AddRoleToUser.cs" />
+    <Compile Include="Migrations\201502270858532_AddRoleToUser.Designer.cs">
+      <DependentUpon>201502270858532_AddRoleToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201502271507309_CreateTemplatesAccessControlListTable.cs" />
     <Compile Include="Migrations\201502271507309_CreateTemplatesAccessControlListTable.Designer.cs">
       <DependentUpon>201502271507309_CreateTemplatesAccessControlListTable.cs</DependentUpon>
@@ -432,6 +436,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502251610598_AddIsCustomFieldToTemplate.resx">
       <DependentUpon>201502251610598_AddIsCustomFieldToTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502270858532_AddRoleToUser.resx">
+      <DependentUpon>201502270858532_AddRoleToUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502271507309_CreateTemplatesAccessControlListTable.resx">
       <DependentUpon>201502271507309_CreateTemplatesAccessControlListTable.cs</DependentUpon>

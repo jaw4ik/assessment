@@ -3,15 +3,12 @@ Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang('image', 'uk', {
-    alertUrl: 'Будь ласка введіть посилання на картинку',
     alt: 'Альтернативний текст',
     border: 'Границя',
-    btnUpload: 'Відправити на сервер',
     button2Img: 'Do you want to transform the selected image button on a simple image?',
     hSpace: 'HSpace',
     img2Button: 'Do you want to transform the selected image on a image button?',
     infoTab: 'Інформація про зображення',
-    linkTab: 'Посилання',
     lockRatio: 'Збереження пропорцій',
     menu: 'Властивості зображення',
     resetSize: 'Скинути розміри',
