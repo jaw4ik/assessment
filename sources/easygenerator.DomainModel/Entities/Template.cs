@@ -42,7 +42,7 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNullOrEmpty(name, "name");
         }
 
-        public void GrantAccessTo(params string[] userIdentities)
+        public virtual void GrantAccessTo(params string[] userIdentities)
         {
             foreach (var userIdentity in userIdentities)
             {

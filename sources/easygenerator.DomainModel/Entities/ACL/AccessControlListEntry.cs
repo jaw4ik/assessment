@@ -6,7 +6,7 @@ namespace easygenerator.DomainModel.Entities.ACL
         public const string WildcardIdentity = "*";
 
         public string UserIdentity { get; private set; }
-        protected AccessControlListEntry(string userIdentity)
+        protected internal AccessControlListEntry(string userIdentity)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(userIdentity, "userIdentity");
             UserIdentity = userIdentity;

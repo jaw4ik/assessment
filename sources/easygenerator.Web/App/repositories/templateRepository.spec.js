@@ -105,5 +105,54 @@
 
         });
 
+        describe('addIfNotExists:', function () {
+            it('should be function', function() {
+                expect(repository.addIfNotExists).toBeFunction();
+            });
+
+            describe('when template is undefined or null', function () {
+                it('should throw exception', function () {
+                    var f = function () { repository.addIfNotExists(null); };
+                    expect(f).toThrow();
+                });
+            });
+
+            describe('when template already exists', function() {
+                it('should not add new one', function() {
+                    var template = { id: '0', name: 'Quizz' };
+                    dataContext.templates = [template];
+
+                    repository.addIfNotExists(template);
+                    expect(dataContext.templates.length).toBe(1);
+                });
+
+                it('should return existing tempalate', function() {
+                    var template = { id: '0', name: 'Quizz' };
+                    dataContext.templates = [template];
+
+                    var returnedTemplate = repository.addIfNotExists(template);
+                    expect(returnedTemplate).toBe(template);
+                });
+            });
+
+            describe('when template doesnt exist', function() {
+                it('should add it to the dataContext', function () {
+                    var template = { id: '0', name: 'Quizz' };
+                    dataContext.templates = [];
+                    repository.addIfNotExists(template);
+
+                    expect(dataContext.templates.length).toBe(1);
+                    expect(dataContext.templates[0]).toBe(template);
+                });
+
+                it('should returned new template', function() {
+                    var template = { id: '0', name: 'Quizz' };
+                    dataContext.templates = [];
+                    var returnedTemplate = repository.addIfNotExists(template);
+                    expect(returnedTemplate).toBe(template);
+                });
+            });
+        });
+
     });
 });

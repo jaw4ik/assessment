@@ -7,9 +7,9 @@ namespace easygenerator.DataAccess.Migrations
     {
         public override void Up()
         {
-            Sql("INSERT INTO TemplateAccessControlListEntries SELECT NEWID(), Id, '*' FROM Templates WHERE IsCustom = 0");
+            Sql("INSERT INTO TemplateAccessControlListEntries SELECT NEWID(), '*', Id FROM Templates WHERE IsCustom = 0");
         }
-        
+
         public override void Down()
         {
             Sql("DELETE FROM TemplateAccessControlListEntries WHERE UserIdentity = '*'");

@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using System.Linq;
+using easygenerator.DomainModel.Entities;
+using FluentAssertions;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -22,31 +24,80 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void Course_ShouldCreateTemplateInstance()
+        public void Ctor_ShouldCreateTemplateInstance()
         {
             const string name = "name";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var course = TemplateObjectMother.Create(name, CreatedBy);
+            var template = TemplateObjectMother.Create(name, CreatedBy);
 
-            course.Id.Should().NotBeEmpty();
-            course.Name.Should().Be(name);
-            course.CreatedOn.Should().Be(DateTime.MaxValue);
-            course.ModifiedOn.Should().Be(DateTime.MaxValue);
-            course.CreatedBy.Should().Be(CreatedBy);
-            course.ModifiedBy.Should().Be(CreatedBy);
+            template.Id.Should().NotBeEmpty();
+            template.Name.Should().Be(name);
+            template.CreatedOn.Should().Be(DateTime.MaxValue);
+            template.ModifiedOn.Should().Be(DateTime.MaxValue);
+            template.CreatedBy.Should().Be(CreatedBy);
+            template.ModifiedBy.Should().Be(CreatedBy);
         }
 
         [TestMethod]
-        public void Course_ShouldCreateTemplateInstanceWithPreviewUrl()
+        public void Ctor_ShouldCreateTemplateInstanceWithPreviewUrl()
         {
             const string previewUrl = "preview_url";
 
-            var course = TemplateObjectMother.CreateWithPreviewUrl(previewUrl);
+            var template = TemplateObjectMother.CreateWithPreviewUrl(previewUrl);
 
-            course.PreviewUrl.Should().Be(previewUrl);
+            template.PreviewUrl.Should().Be(previewUrl);
         }
 
+        [TestMethod]
+        public void Ctor_ShouldInitACL()
+        {
+            var template = TemplateObjectMother.CreateWithPreviewUrl("preview_url");
+            var template2 = TemplateObjectMother.Create();
+
+            template.AccessControlList.Should().NotBeNull();
+            template.AccessControlList.Count.Should().Be(0);
+
+            template2.AccessControlList.Should().NotBeNull();
+            template2.AccessControlList.Count.Should().Be(0);
+        }
+
+        #endregion
+
+        #region GrantAccessTo
+
+        [TestMethod]
+        public void GrantAccessTo_ShouldNotAddUsersToACL_IfNotCustom()
+        {
+            var template = TemplateObjectMother.Create();
+            template.GrantAccessTo("aa@aa.aa");
+            template.AccessControlList.Count.Should().Be(0);
+        }
+
+        [TestMethod]
+        public void GrantAccessTo_ShouldAddUsersToACL_IfIsCustom()
+        {
+            var template = TemplateObjectMother.Create();
+            MarkAsCustom(template);
+            template.GrantAccessTo("aa@aa.aa", "bb@bb.bb");
+        }
+
+        [TestMethod]
+        public void GrantAccessTo_ShouldAddOnlyUniqueUsersToACL()
+        {
+            var template = TemplateObjectMother.Create();
+            MarkAsCustom(template);
+            template.GrantAccessTo("aa@aa.aa", "bb@bb.bb", "bb@bb.bb", "aa@aa.aa");
+            template.AccessControlList.Count.Should().Be(2);
+            template.AccessControlList.ElementAt(0).UserIdentity.Should().Be("aa@aa.aa");
+            template.AccessControlList.ElementAt(1).UserIdentity.Should().Be("bb@bb.bb");
+        }
+
+        private void MarkAsCustom(Template template)
+        {
+            // reflection magic to change private prop
+            template.GetType().GetProperty("IsCustom").SetValue(template, true, null);
+        }
         #endregion
     }
 }

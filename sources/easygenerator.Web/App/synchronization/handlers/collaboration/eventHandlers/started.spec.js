@@ -5,7 +5,9 @@
         dataContext = require('dataContext'),
         app = require('durandal/app'),
         courseModelMapper = require('mappers/courseModelMapper'),
-        emptyTemplate = { Manifest: '{ "name": "TemplateName" }' };
+        emptyTemplate = { Manifest: '{ "name": "TemplateName" }' },
+        templateRepository = require('repositories/templateRepository'),
+        templateModelMapper = require('mappers/templateModelMapper')
     ;
 
     describe('synchronization collaboration [started]', function () {
@@ -16,6 +18,8 @@
             emptyTemplate = { Manifest: '{ "name": "TemplateName" }' }
             spyOn(app, 'trigger');
             spyOn(courseModelMapper, 'map').and.returnValue(course);
+            spyOn(templateModelMapper, 'map').and.returnValue(emptyTemplate);
+            spyOn(templateRepository, 'addIfNotExists').and.returnValue(emptyTemplate);
         });
 
         it('should be function', function () {
@@ -83,6 +87,12 @@
                 expect(dataContext.objectives.length).toBe(1);
             });
 
+        });
+
+        it('should add mapped template to repository', function() {
+            handler(course, [], emptyTemplate);
+            expect(templateModelMapper.map).toHaveBeenCalledWith(emptyTemplate);
+            expect(templateRepository.addIfNotExists).toHaveBeenCalledWith(emptyTemplate);
         });
 
         it('should trigger app event', function () {

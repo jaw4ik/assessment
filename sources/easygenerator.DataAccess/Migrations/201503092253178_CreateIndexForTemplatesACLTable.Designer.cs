@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class SetMaxLengthForUserIdentityFieldInTemplateACL : IMigrationMetadata
+    public sealed partial class CreateIndexForTemplatesACLTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SetMaxLengthForUserIdentityFieldInTemplateACL));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateIndexForTemplatesACLTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201503061151279_SetMaxLengthForUserIdentityFieldInTemplateACL"; }
+            get { return "201503092253178_CreateIndexForTemplatesACLTable"; }
         }
         
         string IMigrationMetadata.Source

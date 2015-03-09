@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class FillTemplatesACLForDefaultTemplates : IMigrationMetadata
+    public sealed partial class CreateTemplatesAccessControlListTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FillTemplatesACLForDefaultTemplates));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateTemplatesAccessControlListTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201502271517245_FillTemplatesACLForDefaultTemplates"; }
+            get { return "201503092247225_CreateTemplatesAccessControlListTable"; }
         }
         
         string IMigrationMetadata.Source

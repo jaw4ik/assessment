@@ -539,6 +539,19 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CourseTemplateUpdatedEvent));
         }
 
+        [TestMethod]
+        public void UpdateTemplate_ShouldGrantAccessToCollaborators()
+        {
+            var course = CourseObjectMother.Create();
+            course.Collaborate("aa@aa.aa", "creator");
+            course.Collaborate("bb@bb.bb", "creator");
+
+            var template = Substitute.For<Template>();
+            course.UpdateTemplate(template, "user");
+
+            template.Received().GrantAccessTo(new[] { "aa@aa.aa", "bb@bb.bb" });
+        }
+
         #endregion
 
         #region UpdatePackageUrl
@@ -921,6 +934,17 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.Collaborate(email, CreatedBy);
 
             course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CourseCollaboratorAddedEvent));
+        }
+
+        [TestMethod]
+        public void Collaborate_ShouldGrantAccessToCollaborator()
+        {
+            const string email = "owner@www.com";
+            var template = Substitute.For<Template>();
+            var course = CourseObjectMother.CreateWithTemplate(template);
+            course.Collaborate(email, CreatedBy);
+
+            template.Received().GrantAccessTo(new[] { email });
         }
 
         #endregion
@@ -1390,7 +1414,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
-        
+
 
         #region GetTemplateSettings
 

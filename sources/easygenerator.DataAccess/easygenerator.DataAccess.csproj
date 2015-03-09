@@ -250,17 +250,17 @@
     <Compile Include="Migrations\201502270858532_AddRoleToUser.Designer.cs">
       <DependentUpon>201502270858532_AddRoleToUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201502271507309_CreateTemplatesAccessControlListTable.cs" />
-    <Compile Include="Migrations\201502271507309_CreateTemplatesAccessControlListTable.Designer.cs">
-      <DependentUpon>201502271507309_CreateTemplatesAccessControlListTable.cs</DependentUpon>
+    <Compile Include="Migrations\201503092247225_CreateTemplatesAccessControlListTable.cs" />
+    <Compile Include="Migrations\201503092247225_CreateTemplatesAccessControlListTable.Designer.cs">
+      <DependentUpon>201503092247225_CreateTemplatesAccessControlListTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201502271517245_FillTemplatesACLForDefaultTemplates.cs" />
-    <Compile Include="Migrations\201502271517245_FillTemplatesACLForDefaultTemplates.Designer.cs">
-      <DependentUpon>201502271517245_FillTemplatesACLForDefaultTemplates.cs</DependentUpon>
+    <Compile Include="Migrations\201503092249289_FillTemplatesACLForDefaultTemplates.cs" />
+    <Compile Include="Migrations\201503092249289_FillTemplatesACLForDefaultTemplates.Designer.cs">
+      <DependentUpon>201503092249289_FillTemplatesACLForDefaultTemplates.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503061151279_SetMaxLengthForUserIdentityFieldInTemplateACL.cs" />
-    <Compile Include="Migrations\201503061151279_SetMaxLengthForUserIdentityFieldInTemplateACL.Designer.cs">
-      <DependentUpon>201503061151279_SetMaxLengthForUserIdentityFieldInTemplateACL.cs</DependentUpon>
+    <Compile Include="Migrations\201503092253178_CreateIndexForTemplatesACLTable.cs" />
+    <Compile Include="Migrations\201503092253178_CreateIndexForTemplatesACLTable.Designer.cs">
+      <DependentUpon>201503092253178_CreateIndexForTemplatesACLTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -440,14 +440,14 @@
     <EmbeddedResource Include="Migrations\201502270858532_AddRoleToUser.resx">
       <DependentUpon>201502270858532_AddRoleToUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502271507309_CreateTemplatesAccessControlListTable.resx">
-      <DependentUpon>201502271507309_CreateTemplatesAccessControlListTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503092247225_CreateTemplatesAccessControlListTable.resx">
+      <DependentUpon>201503092247225_CreateTemplatesAccessControlListTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502271517245_FillTemplatesACLForDefaultTemplates.resx">
-      <DependentUpon>201502271517245_FillTemplatesACLForDefaultTemplates.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503092249289_FillTemplatesACLForDefaultTemplates.resx">
+      <DependentUpon>201503092249289_FillTemplatesACLForDefaultTemplates.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503061151279_SetMaxLengthForUserIdentityFieldInTemplateACL.resx">
-      <DependentUpon>201503061151279_SetMaxLengthForUserIdentityFieldInTemplateACL.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503092253178_CreateIndexForTemplatesACLTable.resx">
+      <DependentUpon>201503092253178_CreateIndexForTemplatesACLTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

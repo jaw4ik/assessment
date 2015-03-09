@@ -12,12 +12,13 @@ namespace easygenerator.DataAccess.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false),
+                        UserIdentity = c.String(nullable: false, maxLength: 254),
                         Template_Id = c.Guid(nullable: false),
-                        UserIdentity = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Templates", t => t.Template_Id, cascadeDelete: true)
                 .Index(t => t.Template_Id);
+            
         }
         
         public override void Down()
