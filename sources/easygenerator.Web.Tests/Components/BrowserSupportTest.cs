@@ -20,11 +20,19 @@ namespace easygenerator.Web.Tests.Components
         }
 
         [TestMethod]
-        public void BrowserSupport_IsFullySupportedBrowserWhenUserAgentIsEmpty_ShouldReturnFalse()
+        public void BrowserSupport_IsFullySupportedBrowserWhenUserAgentIsNULL_ShouldReturnTrue()
+        {
+            _ua = null;
+            _InitFakeBrowser("Chrome", "41");
+            Assert.AreEqual(BrowserSupport.IsFullySupportedBrowser(_ua, _browser), true);
+        }
+
+        [TestMethod]
+        public void BrowserSupport_IsFullySupportedBrowserWhenUserAgentIsEmpty_ShouldReturnTrue()
         {
             _ua = "";
             _InitFakeBrowser("Chrome", "41");
-            Assert.AreEqual(BrowserSupport.IsFullySupportedBrowser(_ua, _browser), false);
+            Assert.AreEqual(BrowserSupport.IsFullySupportedBrowser(_ua, _browser), true);
         }
 
         [TestMethod]
@@ -193,6 +201,22 @@ namespace easygenerator.Web.Tests.Components
             _ua = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/6.0";
             _InitFakeBrowser("IE", "9");
             Assert.AreEqual(BrowserSupport.IsPartiallySupportedBrowser(_ua, _browser), true);
+        }
+
+        [TestMethod]
+        public void BrowserSupport_IsSupportedDevice_WhenUserAgentStringIsNULL_ShouldReturnTrue()
+        {
+            _ua = null;
+            _InitFakeBrowser("Chrome", "41");
+            Assert.AreEqual(BrowserSupport.IsSupportedDevice(_ua), true);
+        }
+
+        [TestMethod]
+        public void BrowserSupport_IsSupportedDevice_WhenUserAgentStringIsEmpty_ShouldReturnTrue()
+        {
+            _ua = "";
+            _InitFakeBrowser("Chrome", "41");
+            Assert.AreEqual(BrowserSupport.IsSupportedDevice(_ua), true);
         }
 
         [TestMethod]
