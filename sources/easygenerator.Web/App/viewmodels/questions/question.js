@@ -1,12 +1,12 @@
 ﻿
 define(['durandal/app', 'eventTracker', 'constants',
         'repositories/questionRepository', 'repositories/objectiveRepository',
-        'ping', 'models/backButton', 'plugins/router',
+        'models/backButton', 'plugins/router',
         'viewmodels/questions/questionTitle',
         'viewmodels/common/contentField',
         'viewmodels/questions/questionViewModelFactory',
         'localization/localizationManager'],
-    function (app, eventTracker, constants, questionRepository, objectiveRepository, ping, BackButton, router, vmQuestionTitle, vmContentField,
+    function (app, eventTracker, constants, questionRepository, objectiveRepository, BackButton, router, vmQuestionTitle, vmContentField,
         questionViewModelFactory, localizationManager) {
         "use strict";
 
@@ -40,7 +40,6 @@ define(['durandal/app', 'eventTracker', 'constants',
             titleUpdatedByCollaborator: titleUpdatedByCollaborator,
             contentUpdatedByCollaborator: contentUpdatedByCollaborator,
 
-            canActivate: canActivate,
             activate: activate
         };
 
@@ -51,10 +50,6 @@ define(['durandal/app', 'eventTracker', 'constants',
 
         function navigateToObjectiveEvent() {
             eventTracker.publish(events.navigateToObjective);
-        }
-
-        function canActivate() {
-            return ping.execute();
         }
 
         function setActiveViewModel(question) {

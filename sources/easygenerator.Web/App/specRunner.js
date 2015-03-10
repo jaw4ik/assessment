@@ -267,7 +267,6 @@
             'http/httpWrapper.spec',
             'http/httpRequestSender.spec',
             'notify.spec',
-            'ping.spec',
             'uiLocker.spec',
             'userContext.spec',
             '../Scripts/account/signup.spec',

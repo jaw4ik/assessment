@@ -1,7 +1,7 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
-        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'ping', 'models/backButton',
+        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'models/backButton',
         'userContext', 'durandal/app', './collaboration/collaborators', 'imageUpload', 'commands/createObjectiveCommand'],
-    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, ping, BackButton,
+    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, BackButton,
         userContext, app, collaborators, imageUpload, createObjectiveCommand) {
         "use strict";
 
@@ -70,7 +70,6 @@
             startReorderingObjectives: startReorderingObjectives,
             endReorderingObjectives: endReorderingObjectives,
             reorderObjectives: reorderObjectives,
-            canActivate: canActivate,
             activate: activate,
             deactivate: deactivate,
             connectObjective: connectObjective,
@@ -368,10 +367,6 @@
             repository.updateObjectiveOrder(viewModel.id, viewModel.connectedObjectives()).then(function () {
                 notify.saved();
             });
-        }
-
-        function canActivate() {
-            return ping.execute();
         }
 
         function activate(courseId) {
