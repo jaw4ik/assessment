@@ -15,7 +15,7 @@
         var course = { Id: 'courseId' };
 
         beforeEach(function () {
-            emptyTemplate = { Manifest: '{ "name": "TemplateName" }' }
+            emptyTemplate = { Manifest: '{ "name": "TemplateName" }' };
             spyOn(app, 'trigger');
             spyOn(courseModelMapper, 'map').and.returnValue(course);
             spyOn(templateModelMapper, 'map').and.returnValue(emptyTemplate);
