@@ -589,7 +589,6 @@
     <Content Include="Content\images\create-course.png" />
     <Content Include="Content\images\disabled-question1024.png" />
     <Content Include="Content\images\firefox.png" />
-    <Content Include="Content\images\empty-objective-image.png" />
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\ie.png" />
     <Content Include="Content\images\newTemplate.png" />

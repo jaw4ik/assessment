@@ -355,9 +355,9 @@
         'uk': 'Список розділів / цілей порожній'
     },
     letsCreateLearningObjective: {
-        'en': 'Let\'s create a learning objective',
-        'zh-cn': 'Let\'s create a learning objective[zh-cn]',
-        'uk': 'Нумо створювати розділ / ціль'
+        'en': 'What are your course objectives?',
+        'zh-cn': 'What are your course objectives?[zh-cn]',
+        'uk': 'Які цілі вашого курса?'
     },
     clickToAddObjective: {
         'en': 'Click to add a learning objective',
@@ -714,7 +714,7 @@
     },
     result: {
         'en': 'Result',
-        'zh-cn': '成绩',
+        'zh-cn': '结果',
         'uk': 'Результат'
     },
     score: {
@@ -729,12 +729,12 @@
     },
     date: {
         'en': 'Date',
-        'zh-cn': 'Date',
+        'zh-cn': 'Date[zh-cn]',
         'uk': 'Дата'
     },
     time: {
         'en': 'Time',
-        'zh-cn': 'Time',
+        'zh-cn': 'Time[zh-cn]',
         'uk': 'Час'
     },
     showMoreResults: {
@@ -744,7 +744,7 @@
     },
     noReportedResults: {
         'en': 'No reported results yet...',
-        'zh-cn': '尚未获得报告结果',
+        'zh-cn': '尚未报告结果',
         'uk': 'Результати відсутні'
     },
     makeSureTrackingResultsIsEnabled: {
@@ -897,7 +897,7 @@
     },
     disconnectSelected: {
         'en': 'Remove selected',
-        'zh-cn': '选择了移除',
+        'zh-cn': '删除选中',
         'uk': 'Від\'єднати'
     },
     moreOptions: {
@@ -1512,12 +1512,12 @@
     },
     statementTrue: {
         'en': 'TRUE',
-        'zh-cn': 'TRUE[zh-cn]',
+        'zh-cn': '对',
         'uk': 'Так'
     },
     statementFalse: {
         'en': 'FALSE',
-        'zh-cn': 'FALSE[zh-cn]',
+        'zh-cn': '错',
         'uk': 'Ні'
     },
     /* End resource section for model StatementQuestion */
@@ -1525,22 +1525,22 @@
     /* Resource section for model QuestionFeedback */
     putYourPositiveFeedback: {
         'en': 'Create response for correct answer',
-        'zh-cn': '创建正确答案的提示',
+        'zh-cn': '答对时回应',
         'uk': 'Додайте відгук на правильну відповідь'
     },
     putYourNegativeFeedback: {
         'en': 'Create response for incorrect answer',
-        'zh-cn': '创建错误答案的提示',
+        'zh-cn': '答错时回应',
         'uk': 'Додайте відгук на неправильну відповідь'
     },
     correctFeedback: {
         'en': 'Response for correct answer',
-        'zh-cn': '正确答案的提示',
+        'zh-cn': '正确答案的回应',
         'uk': 'Відгук на правильну відповідь'
     },
     incorrectFeedback: {
         'en': 'Response for incorrect answer',
-        'zh-cn': '错误答案的提示',
+        'zh-cn': '错误答案的回应',
         'uk': 'Відгук на неправильну відповідь'
     },
     /* End resource section for model QuestionFeedback */
@@ -1891,7 +1891,7 @@
     },
     questionFeedback: {
         'en': 'Question response',
-        'zh-cn': '问题的提示',
+        'zh-cn': '答题后回应',
         'uk': 'Відповідь на питання'
     },
     /* End resource section for model Feedback */
@@ -1979,7 +1979,7 @@
         'uk': 'Додати співавтора'
     },
     inviteByEmailAddress: {
-        'en': 'Invite users by email ...',
+        'en': 'Invite users by email...',
         'zh-cn': '通过电子邮箱邀请…',
         'uk': 'Email співавтора'
     },
@@ -2087,6 +2087,26 @@
         'en': 'Co-authoring is not available in the Free Plan. Upgrade to Starter Plan to invite co-authors.',
         'zh-cn': '免费账号不能邀请他人共同编辑，升级到Starter账号来邀请。',
         'uk': 'Співавторство недоступне для тарифного плану \"Free plan\". Оновіть свій план до \"Starter plan\", щоб запросити співавторів.'
+    },
+    manageCoauthors: {
+        'en': 'Manage co-authors',
+        'zh-cn': 'Manage co-authors[zh-cn]',
+        'uk': 'Співавтори'
+    },
+    loadingCoauthors: {
+        'en': 'loading co-authors...',
+        'zh-cn': 'loading co-authors...[zh-cn]',
+        'uk': 'завантажуємо співавторів...'
+    },
+    asCoautor: {
+        'en': 'as co-author?',
+        'zh-cn': 'as co-author?[zh-cn]',
+        'uk': 'як співавтора?'
+    },
+    cannotAddDuplicateCoauthor: {
+        'en': '!!! This user has already been added',
+        'zh-cn': '!!! This user has already been added[zh-cn]',
+        'uk': '!!! This user has already been added[uk]'
     },
     /* End resource section for model Collaboration */
     
