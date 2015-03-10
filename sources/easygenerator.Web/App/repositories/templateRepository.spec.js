@@ -117,15 +117,13 @@
                 });
             });
 
-            describe('when template doesnt exist', function() {
-                it('should add it to the dataContext', function () {
-                    var template = { id: '0', name: 'Quizz' };
-                    dataContext.templates = [];
-                    repository.add(template);
+            it('should add template to the dataContext', function () {
+                var template = { id: '0', name: 'Quizz' };
+                dataContext.templates = [];
+                repository.add(template);
 
-                    expect(dataContext.templates.length).toBe(1);
-                    expect(dataContext.templates[0]).toBe(template);
-                });
+                expect(dataContext.templates.length).toBe(1);
+                expect(dataContext.templates[0]).toBe(template);
             });
         });
 

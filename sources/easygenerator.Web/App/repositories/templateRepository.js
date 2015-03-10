@@ -33,13 +33,7 @@
             throw 'Template is not an object.';
         }
 
-        var existingTemplate = _.find(dataContext.templates, function (item) {
-            return item.id === template.id;
-        });
-
-        if (!existingTemplate) {
-            dataContext.templates.push(template);
-        }
+        dataContext.templates.push(template);
     };
 
     return {
