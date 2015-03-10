@@ -370,7 +370,9 @@
             $toolbarElement.css('top', toolbarTopPosition);
         }
 
-        return ko.bindingHandlers.contentEditableFix.init(element);
+        return ko.bindingHandlers.contentEditableFix.init(element, function() {
+            return editor;
+        });
     },
     update: function (element, valueAccessor) {
         var data = valueAccessor().data(),
