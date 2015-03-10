@@ -72,7 +72,7 @@
         }
 
         return ko.bindingHandlers.contentEditableFix.init(element, function () {
-            return $(element);
+            return $element;
         });
     },
     update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
