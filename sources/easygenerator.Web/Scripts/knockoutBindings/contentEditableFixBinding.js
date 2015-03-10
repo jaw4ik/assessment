@@ -1,7 +1,7 @@
 ﻿ko.bindingHandlers.contentEditableFix = {
     init: function(element) {
         var $element = $(element),
-            $editableFix = $('<input type="text" style="width:0;height:0;margin:0;padding:0;border:none;" />').insertAfter($element);
+            $editableFix = $('<input type="text" style="width:0;height:0;margin:0;padding:0;border:none;" />').appendTo('body');
 
         $element.blur(function () {
             $editableFix.focus();
