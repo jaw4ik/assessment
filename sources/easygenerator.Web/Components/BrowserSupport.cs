@@ -10,6 +10,10 @@ namespace easygenerator.Web.Components
     {
         public static bool IsFullySupportedBrowser(string userAgent, HttpBrowserCapabilities browser)
         {
+            if (String.IsNullOrEmpty(userAgent))
+            {
+                return true;
+            }
             var ua = userAgent.ToLower();
             return IsSupportedDesktop(ua, browser) || IsSupportedMobile(ua);
         }
@@ -32,6 +36,10 @@ namespace easygenerator.Web.Components
 
         public static bool IsSupportedDevice(string userAgent)
         {
+            if (String.IsNullOrEmpty(userAgent))
+            {
+                return true;
+            }
             var ua = userAgent.ToLower();
             var version = "";
             if (IsIos(ua))
