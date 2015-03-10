@@ -172,7 +172,6 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Template>().Property(e => e.PreviewUrl).HasMaxLength(255);
             modelBuilder.Entity<Template>().Property(e => e.Order);
             modelBuilder.Entity<Template>().Property(e => e.IsNew);
-            modelBuilder.Entity<Template>().Property(e => e.IsCustom);
             modelBuilder.Entity<Template>().HasMany(e => e.Courses);
             modelBuilder.Entity<Template>().HasMany(e => e.AccessControlList).WithRequired(e => e.Template).WillCascadeOnDelete(true);
 

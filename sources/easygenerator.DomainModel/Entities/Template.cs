@@ -13,7 +13,11 @@ namespace easygenerator.DomainModel.Entities
         public string PreviewUrl { get; private set; }
         public int Order { get; private set; }
         public int IsNew { get; private set; }
-        public bool IsCustom { get; private set; }
+
+        public bool IsCustom
+        {
+            get { return !AccessControlList.Any(_ => _.UserIdentity == AccessControlListEntry.WildcardIdentity); }
+        }
 
         protected internal virtual ICollection<Course> Courses { get; set; }
 

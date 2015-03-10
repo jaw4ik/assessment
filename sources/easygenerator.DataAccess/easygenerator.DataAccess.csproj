@@ -262,6 +262,10 @@
     <Compile Include="Migrations\201503092253178_CreateIndexForTemplatesACLTable.Designer.cs">
       <DependentUpon>201503092253178_CreateIndexForTemplatesACLTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503100910363_Templates_DeleteIsCustomColumn.cs" />
+    <Compile Include="Migrations\201503100910363_Templates_DeleteIsCustomColumn.Designer.cs">
+      <DependentUpon>201503100910363_Templates_DeleteIsCustomColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -448,6 +452,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503092253178_CreateIndexForTemplatesACLTable.resx">
       <DependentUpon>201503092253178_CreateIndexForTemplatesACLTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503100910363_Templates_DeleteIsCustomColumn.resx">
+      <DependentUpon>201503100910363_Templates_DeleteIsCustomColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

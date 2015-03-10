@@ -70,15 +70,18 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void GrantAccessTo_ShouldNotAddUsersToACL_IfNotCustom()
         {
             var template = TemplateObjectMother.Create();
+            // mark template as custom
+            template.GrantAccessTo("*");
             template.GrantAccessTo("aa@aa.aa");
-            template.AccessControlList.Count.Should().Be(0);
+            template.AccessControlList.Count.Should().Be(1);
         }
 
         [TestMethod]
         public void GrantAccessTo_ShouldAddUsersToACL_IfIsCustom()
         {
             var template = TemplateObjectMother.Create();
-            MarkAsCustom(template);
+            // mark template as custom
+            template.GrantAccessTo("*");
             template.GrantAccessTo("aa@aa.aa", "bb@bb.bb");
         }
 
@@ -86,17 +89,10 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void GrantAccessTo_ShouldAddOnlyUniqueUsersToACL()
         {
             var template = TemplateObjectMother.Create();
-            MarkAsCustom(template);
             template.GrantAccessTo("aa@aa.aa", "bb@bb.bb", "bb@bb.bb", "aa@aa.aa");
             template.AccessControlList.Count.Should().Be(2);
             template.AccessControlList.ElementAt(0).UserIdentity.Should().Be("aa@aa.aa");
             template.AccessControlList.ElementAt(1).UserIdentity.Should().Be("bb@bb.bb");
-        }
-
-        private void MarkAsCustom(Template template)
-        {
-            // reflection magic to change private prop
-            template.GetType().GetProperty("IsCustom").SetValue(template, true, null);
         }
         #endregion
     }

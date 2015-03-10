@@ -21,7 +21,13 @@
                 return item.id == course.Id;
             });
 
-            templateRepository.addIfNotExists(templateModelMapper.map(courseTemplate));
+            var template = _.find(dataContext.templates, function (item) {
+                return item.id == courseTemplate.Id;
+            });
+
+            if (_.isNullOrUndefined(template)) {
+                templateRepository.add(templateModelMapper.map(courseTemplate));
+            }
 
             if (_.isNullOrUndefined(existingCourse)) {
                 existingCourse = courseModelMapper.map(course, dataContext.objectives, dataContext.templates);

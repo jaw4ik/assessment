@@ -19,7 +19,7 @@
             spyOn(app, 'trigger');
             spyOn(courseModelMapper, 'map').and.returnValue(course);
             spyOn(templateModelMapper, 'map').and.returnValue(emptyTemplate);
-            spyOn(templateRepository, 'addIfNotExists').and.returnValue(emptyTemplate);
+            spyOn(templateRepository, 'add').and.returnValue(emptyTemplate);
         });
 
         it('should be function', function () {
@@ -89,10 +89,11 @@
 
         });
 
-        it('should add mapped template to repository', function() {
+        it('should add template to repository if not exist', function () {
+            dataContext.templates = [];
             handler(course, [], emptyTemplate);
             expect(templateModelMapper.map).toHaveBeenCalledWith(emptyTemplate);
-            expect(templateRepository.addIfNotExists).toHaveBeenCalledWith(emptyTemplate);
+            expect(templateRepository.add).toHaveBeenCalledWith(emptyTemplate);
         });
 
         it('should trigger app event', function () {
