@@ -100,11 +100,14 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.app-wrapper {
+.application {
   -moz-user-select: none;
-  -webkit-user-select: none;
   -ms-user-select: none;
+  -webkit-user-select: none;
   user-select: none;
+  cursor: default;
+  width: 100%;
+  height: 100%;
 }
 .main-container {
   height: auto;
@@ -2389,4 +2392,25 @@ h2 + .tooltip-icon {
   .module-courses .help-hint .content-section-wrapper {
     padding-left: 140px;
   }
+}
+/*#endregion MEDIA*/
+.shell-wrapper {
+  width: 100%;
+  height: 100%;
+}
+.shell {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.shell > header {
+  background-color: #393939;
+  flex: 0 0 auto;
+}
+.shell > section {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  position: relative;
 }

@@ -4,6 +4,24 @@
 
         "use strict";
 
+
+
+        ko.bindingHandlers.slide = {
+            init: function (element, valueAccessor) {
+                var value = valueAccessor();
+                //                debugger;
+            },
+            update: function (element, valueAccessor) {
+                var value = valueAccessor();
+                if (ko.unwrap(value)) {
+                    $(element).animate({ width: '300px' });
+                } else {
+                    $(element).animate({ width: '50px' });
+                }
+            }
+
+        }
+
         var events = {
             navigateToCourses: "Navigate to courses",
             navigateToObjectives: 'Navigate to objectives'
@@ -32,6 +50,19 @@
             courseCollaborationFinished: courseCollaborationFinished,
             openUpgradePlanUrl: openUpgradePlanUrl
         };
+
+        viewModel.scope = ko.computed(function () {
+            var activeModuleId = router.routeData().moduleName;
+            var hasCourseId = router.routeData().courseId != null;
+            viewModel.showCourseNavigation(hasCourseId);
+            if (_.contains(coursesModules, activeModuleId) || hasCourseId) {
+                return 'courses';
+            } else {
+                return 'objectives';
+            }
+
+
+        });
 
         viewModel.activeModuleName = ko.computed(function () {
             var activeItem = router.activeItem();
@@ -79,7 +110,7 @@
             return dataContext.initialize()
                 .then(function () {
                     router.guardRoute = function (routeInfo, params) {
-                        
+
                         if (isFirstVisitPage && routeInfo.__moduleId__ == "viewmodels/errors/404") {
                             return 'courses';
                         }
@@ -105,7 +136,7 @@
                             }
                         }
                     };
-                   
+
                     router.on('router:navigation:composition-complete').then(function () {
                         var activeModuleId = router.routeData().moduleName;
                         var hasCourseId = router.routeData().courseId != null;
@@ -114,8 +145,8 @@
 
                         viewModel.navigation()[0].isPartOfModules(_.contains(coursesModules, activeModuleId) || hasCourseId);
                         viewModel.navigation()[1].isPartOfModules(_.contains(objectivesModules, activeModuleId) && !hasCourseId);
-                       
-                        clientContext.set(hex_md5(userContext.identity.email), {hash: window.location.hash});
+
+                        clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
                     });
 
                     router.on('router:route:activating').then(function () {
@@ -159,14 +190,14 @@
 
                     clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
                     clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
-                    
+
                     var compositionComplete = router.on('router:navigation:composition-complete').then(function () {
                         isFirstVisitPage = false;
                         compositionComplete.off();
                     });
 
                     router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));
-                    
+
                     return router.map(routes)
                         .buildNavigationModel()
                         .mapUnknownRoutes('viewmodels/errors/404', '404')

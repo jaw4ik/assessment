@@ -30,7 +30,7 @@
 
             this.hide = function () {
                 that.visible(false);
-                that.treeExpanded = !that.visible();
+                that.treeExpanded = !that.visible();                
             };
 
             this.update = function (viewmodel) {

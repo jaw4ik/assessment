@@ -575,6 +575,7 @@
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\results.html" />
     <Content Include="App\views\questions\statement\statement.html" />
+    <Content Include="App\views\shell.old.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="Content\font\heuristica-bold.svg" />
     <Content Include="Content\font\heuristica-bolditalic.svg" />
@@ -608,6 +609,9 @@
     <Content Include="Content\images\tooth.png" />
     <Content Include="Content\notSupportedPage.css">
       <DependentUpon>notSupportedPage.less</DependentUpon>
+    </Content>
+    <Content Include="Content\shell.css">
+      <DependentUpon>shell.less</DependentUpon>
     </Content>
     <Content Include="Content\statement.css">
       <DependentUpon>statement.less</DependentUpon>
@@ -1473,6 +1477,7 @@
     <Content Include="Content\styles.less" />
     <Content Include="Content\switchToggle.less" />
     <Content Include="Content\treeOfContent.less" />
+    <Content Include="Content\shell.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />

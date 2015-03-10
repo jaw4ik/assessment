@@ -173,14 +173,6 @@
 }
 /*#endregion NO COURSES*/
 @media (min-width: 1550px) {
-  .nav-back-wrapper {
-    width: 80px !important;
-  }
-  .navigation-tree-shown-mode .nav-back-wrapper {
-    width: 0 !important;
-    min-width: 0 !important;
-    margin-left: 47px;
-  }
   .navigation-tree-shown-mode .nav-back-button {
     left: 48px;
   }

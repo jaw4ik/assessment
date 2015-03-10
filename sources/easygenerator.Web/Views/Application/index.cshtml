@@ -4,7 +4,7 @@
 @using easygenerator.Web.Components
 
 <!DOCTYPE html>
-<html lang="@Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName" class="no-js">
+<html lang="@Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -16,19 +16,12 @@
     @Html.Partial("_mixpanelAnalytics")
     @Html.Partial("_nudgespotAnalytics")
 </head>
-<!--[if IE 9]>
-<body class="ie9">
-<!--<![endif]-->
-<!--[if !IE 9]>
 <body>
-<!--<![endif]-->
-@if (BrowserSupport.IsSupportedDevice(HttpContext.Current.Request.UserAgent))
-{
-    if (BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser) ||
-     BrowserSupport.IsPartiallySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
+    @if (BrowserSupport.IsSupportedDevice(HttpContext.Current.Request.UserAgent))
     {
-        <div id="app" class="app-wrapper">
-            <div id="applicationHost">
+        if (BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser) || BrowserSupport.IsPartiallySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
+        {
+            <div id="app" class="application">
                 <div class="circular-loader x32 black align-center">
                     <div class="circular-loader-item"></div>
                     <div class="circular-loader-item"></div>
@@ -40,55 +33,54 @@
                     <div class="circular-loader-item"></div>
                 </div>
             </div>
-        </div>
-    }
+        }
 
-    if (!BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
+        if (!BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
+        {
+            @Html.Partial("notSupportedPage")
+        }
+    }
+    else
     {
-        @Html.Partial("notSupportedPage")
+        @Html.Partial("notSupportedDevicePage")
     }
-}
-else
-{
-    @Html.Partial("notSupportedDevicePage")
-}
 
-@Scripts.Render("~/scripts/vendor")
-<script src="signalr/hubs"></script>
+    @Scripts.Render("~/scripts/vendor")
+    <script src="signalr/hubs"></script>
 
-<script type="text/javascript">
-    var CKEDITOR_BASEPATH = '/Scripts/ckeditor/';
-</script>
-@Scripts.Render("~/scripts/ckeditor.min")
-<script type="text/javascript">
-    CKEDITOR.timestamp = @DateTimeWrapper.InstanceStartTime.Ticks;
-</script>
-
-@if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
-{
-    var userCultures = Request.UserLanguages.Select(l => l.Split(';')[0]).ToList();
     <script type="text/javascript">
+        var CKEDITOR_BASEPATH = '/Scripts/ckeditor/';
+    </script>
+    @Scripts.Render("~/scripts/ckeditor.min")
+    <script type="text/javascript">
+        CKEDITOR.timestamp = @DateTimeWrapper.InstanceStartTime.Ticks;
+    </script>
 
-        window.top.userCultures = [];
-        window.top.appVersion = @DateTimeWrapper.InstanceStartTime.Ticks;
-        window.top.BOMSymbol = '\ufeff';
+    @if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
+    {
+        var userCultures = Request.UserLanguages.Select(l => l.Split(';')[0]).ToList();
+        <script type="text/javascript">
 
-        @for (var i = 0; i < userCultures.Count(); i++)
+            window.top.userCultures = [];
+            window.top.appVersion = @DateTimeWrapper.InstanceStartTime.Ticks;
+            window.top.BOMSymbol = '\ufeff';
+
+            @for (var i = 0; i < userCultures.Count(); i++)
         {
             <text>window.top.userCultures.push('@userCultures[i]');</text>;
         }
-    </script>
-}
+        </script>
+    }
 
-@if (HttpContext.Current.IsDebuggingEnabled)
-{
-    <script src="/Scripts/require.js" data-main="/App/main"></script>
-}
-else
-{
-    var bundlePath = "/App/main-built.js?v=" + DateTimeWrapper.InstanceStartTime.Ticks;
-    <script type="text/javascript" src="@bundlePath"></script>
-}
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        <script src="/Scripts/require.js" data-main="/App/main"></script>
+    }
+    else
+    {
+        var bundlePath = "/App/main-built.js?v=" + DateTimeWrapper.InstanceStartTime.Ticks;
+        <script type="text/javascript" src="@bundlePath"></script>
+    }
 
 </body>
 </html>
