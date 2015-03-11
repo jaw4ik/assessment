@@ -26,10 +26,19 @@
         }
 
         return deferred.promise;
+    },
+
+    add = function (template) {
+        if (!_.isObject(template)) {
+            throw 'Template is not an object.';
+        }
+
+        dataContext.templates.push(template);
     };
 
     return {
         getCollection: getCollection,
-        getById: getById
+        getById: getById,
+        add: add
     };
 });

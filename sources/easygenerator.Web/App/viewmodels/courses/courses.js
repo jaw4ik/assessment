@@ -1,6 +1,6 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
-    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'ping', 'commands/createCourseCommand', 'uiLocker', 'commands/presentationCourseImportCommand'],
-    function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount, ping,
+    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'commands/createCourseCommand', 'uiLocker', 'commands/presentationCourseImportCommand'],
+    function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount,
         createCourseCommand, uiLocker, presentationCourseImportCommand) {
         "use strict";
 
@@ -52,7 +52,6 @@
 
             openUpgradePlanUrl: openUpgradePlanUrl,
 
-            canActivate: canActivate,
             activate: activate
         };
 
@@ -132,10 +131,6 @@
                 viewModel.courses(_.without(viewModel.courses(), selectedCourse));
                 notify.saved();
             });
-        }
-
-        function canActivate() {
-            return ping.execute();
         }
 
         function courseCollaborationStarted(course) {

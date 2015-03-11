@@ -1,6 +1,6 @@
-﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'ping',
+﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext',
     'models/backButton', 'constants', 'utils/waiter'],
-    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, ping, BackButton, constants, waiter) {
+    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, BackButton, constants, waiter) {
 
         var events = {
             navigateToCourses: 'Navigate to courses',
@@ -33,7 +33,6 @@
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
-            canActivate: canActivate,
             activate: activate,
             canDeactivate: canDeactivate,
             toggleTemplatesListVisibility: toggleTemplatesListVisibility,
@@ -72,10 +71,6 @@
                 });
 
             return defer.promise;
-        }
-
-        function canActivate() {
-            return ping.execute();
         }
 
         function activate(courseId) {
