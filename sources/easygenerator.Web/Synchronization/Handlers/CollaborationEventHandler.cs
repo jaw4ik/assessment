@@ -54,9 +54,9 @@ namespace easygenerator.Web.Synchronization.Handlers
                    _entityMapper.Map(args.Collaborator));
 
             _userBroadcaster.User(args.Collaborator.Email)
-                 .courseCollaborationStarted(
-                     _entityMapper.Map(args.Collaborator.Course),
-                     args.Collaborator.Course.RelatedObjectives.Select(o => _entityMapper.Map(o)));
+                 .courseCollaborationStarted(_entityMapper.Map(args.Collaborator.Course),
+                     args.Collaborator.Course.RelatedObjectives.Select(o => _entityMapper.Map(o)),
+                     _entityMapper.Map(args.Collaborator.Course.Template));
         }
 
 
@@ -74,7 +74,9 @@ namespace easygenerator.Web.Synchronization.Handlers
             if (hasJustEnabledCollaboration)
             {
                 _courseCollaborationBroadcaster.AllCollaboratorsExcept(args.Course, args.Collaborator.CreatedBy, args.Collaborator.Email)
-                        .courseCollaborationStarted(_entityMapper.Map(args.Course), args.Course.RelatedObjectives.Select(o => _entityMapper.Map(o)));
+                        .courseCollaborationStarted(_entityMapper.Map(args.Course), 
+                        args.Course.RelatedObjectives.Select(o => _entityMapper.Map(o)),
+                        _entityMapper.Map(args.Course.Template));
             }
         }
 
@@ -117,7 +119,8 @@ namespace easygenerator.Web.Synchronization.Handlers
             if (!courses.Any())
                 return;
 
-            courses.ForEach(c => _courseCollaborationBroadcaster.AllCollaboratorsExcept(c, username).courseCollaborationStarted(_entityMapper.Map(c), c.RelatedObjectives.Select(o => _entityMapper.Map(o))));
+            courses.ForEach(c => _courseCollaborationBroadcaster.AllCollaboratorsExcept(c, username).
+                courseCollaborationStarted(_entityMapper.Map(c), c.RelatedObjectives.Select(o => _entityMapper.Map(o)), _entityMapper.Map(c.Template)));
         }
 
         #endregion

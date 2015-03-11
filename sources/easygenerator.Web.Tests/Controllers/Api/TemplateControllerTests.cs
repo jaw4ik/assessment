@@ -1,12 +1,10 @@
-﻿using System;
-using System.Security.Principal;
+﻿using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
-using easygenerator.Infrastructure;
 using easygenerator.Web.Components.ActionResults;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Extensions;
@@ -17,7 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Linq.Expressions;
+using easygenerator.Web.Components.Mappers;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -25,7 +23,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
     public class TemplateControllerTests
     {
         private ITemplateRepository _repository;
-        private ManifestFileManager _manifestFileManager;
+        private IEntityMapper _entityMapper;
         private TemplateController _controller;
         private IPrincipal _user;
         private HttpContextBase _context;
@@ -34,13 +32,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void InitializeContext()
         {
             _repository = Substitute.For<ITemplateRepository>();
-
-            _manifestFileManager = Substitute.For<ManifestFileManager>(new PhysicalFileManager());
+            _entityMapper = Substitute.For<IEntityMapper>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
-            _controller = new TemplateController(_repository, _manifestFileManager);
+            _controller = new TemplateController(_repository, _entityMapper);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -50,7 +47,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void GetCollection_ShouldReturnJsonSuccessResult()
         {
             _user.Identity.Name.Returns("user@template.com");
-
             var previewUrl = "url";
 
             var template = TemplateObjectMother.CreateWithPreviewUrl(previewUrl);
@@ -67,7 +63,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             });
             var actual = new JsonSuccessResult(resultActual);
 
-            _repository.GetCollection().Returns(collection);
+            _repository.GetCollection("user@template.com").Returns(collection);
+            _entityMapper.Map(template).Returns(resultActual);
 
             var result = _controller.GetCollection();
 

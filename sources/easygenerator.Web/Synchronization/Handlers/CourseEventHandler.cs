@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace easygenerator.Web.Synchronization.Handlers
 {
-    public class CourseEventHandler : 
+    public class CourseEventHandler :
         IDomainEventHandler<CourseTitleUpdatedEvent>,
         IDomainEventHandler<CourseIntroductionContentUpdated>,
         IDomainEventHandler<CourseTemplateUpdatedEvent>,
@@ -43,7 +43,7 @@ namespace easygenerator.Web.Synchronization.Handlers
         public void Handle(CourseTemplateUpdatedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Course)
-                .courseTemplateUpdated(args.Course.Id.ToNString(), args.Course.Template.Id.ToNString(), args.Course.ModifiedOn);
+                .courseTemplateUpdated(args.Course.Id.ToNString(), _entityMapper.Map(args.Course.Template), args.Course.ModifiedOn);
         }
 
         public void Handle(CourseObjectivesReorderedEvent args)

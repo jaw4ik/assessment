@@ -1,5 +1,4 @@
-﻿using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Events.CourseEvents;
+﻿using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using System;
@@ -46,6 +45,8 @@ namespace easygenerator.DomainModel.Entities
             Template = template;
             MarkAsModified(modifiedBy);
 
+            template.GrantAccessTo(Collaborators.Select(_ => _.Email).ToArray());
+
             RaiseEvent(new CourseTemplateUpdatedEvent(this));
         }
 
@@ -64,7 +65,7 @@ namespace easygenerator.DomainModel.Entities
 
             var collaborator = new CourseCollaborator(this, username, createdBy);
             CollaboratorsCollection.Add(collaborator);
-
+            Template.GrantAccessTo(username);
             RaiseEvent(new CourseCollaboratorAddedEvent(collaborator));
 
             return collaborator;

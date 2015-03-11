@@ -105,5 +105,27 @@
 
         });
 
+        describe('add:', function () {
+            it('should be function', function() {
+                expect(repository.add).toBeFunction();
+            });
+
+            describe('when template is undefined or null', function () {
+                it('should throw exception', function () {
+                    var f = function () { repository.add(null); };
+                    expect(f).toThrow();
+                });
+            });
+
+            it('should add template to the dataContext', function () {
+                var template = { id: '0', name: 'Quizz' };
+                dataContext.templates = [];
+                repository.add(template);
+
+                expect(dataContext.templates.length).toBe(1);
+                expect(dataContext.templates[0]).toBe(template);
+            });
+        });
+
     });
 });

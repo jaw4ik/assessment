@@ -64,6 +64,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Entities\ACL\TemplateAccessControlListEntryTests.cs" />
     <Compile Include="Entities\DemoCourseInfoTests.cs" />
     <Compile Include="Entities\OnboardingTests.cs" />
     <Compile Include="Entities\Questions\AnswerTests.cs" />
