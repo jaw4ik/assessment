@@ -2332,13 +2332,22 @@ td.r-name {
     }
 
         .course-results-upgrade-download-dialog-body ul li {
+            position: relative;
             padding-left: 26px;
             margin-top: 30px;
             text-align: left;
             list-style: none;
-            background: url("images/sprites_16.png") -84px -63px no-repeat;
             line-height: 16px;
         }
+
+            .course-results-upgrade-download-dialog-body ul li:before {
+                content: '';
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                left: 5px;
+                background: url("images/sprites_16.png") -84px -63px no-repeat;
+            }
 
 /*#endregion COURSE RESULTS UPGRADE DIALOG*/
 
