@@ -168,10 +168,13 @@
             $(element).removeAttr('contenteditable');
         });
 
-        function setData() {
-            setTimeout(function () {
-                data(editor.getData());
-            }, 10);
+        function setData(evt) {
+            var attr = $(evt.target).attr('data-cke-temp');
+            if (typeof attr !== typeof undefined && attr !== false) {
+                setTimeout(function () {
+                    data(editor.getData());
+                }, 10);
+            }
         }
 
         function isElementInFocus(tagName) {
