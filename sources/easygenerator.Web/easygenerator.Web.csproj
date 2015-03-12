@@ -237,6 +237,7 @@
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
     <Compile Include="Components\Mappers\DropspotMapper.cs" />

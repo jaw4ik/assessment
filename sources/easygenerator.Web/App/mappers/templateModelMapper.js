@@ -4,6 +4,7 @@
 
         var
             map = function (item) {
+
                 parseManifest(item);
                 return new TemplateModel(
                  {
@@ -28,12 +29,12 @@
             item.Manifest = JSON.parse(item.Manifest);
 
             item.name = item.Manifest.name;
-            item.thumbnail = item.PreviewDemoUrl + item.Manifest.thumbnail;
+            item.thumbnail = item.TemplateUrl + item.Manifest.thumbnail;
             item.previewImages = [];
             _.each(item.Manifest.previewImages, function (img) {
-                item.previewImages.push(item.PreviewDemoUrl + img);
+                item.previewImages.push(item.TemplateUrl + img);
             });
-            item.settingsUrl = item.PreviewDemoUrl + item.Manifest.settingsUrl;
+            item.settingsUrl = item.TemplateUrl + item.Manifest.settingsUrl;
             item.shortDescription = item.Manifest.shortDescription;
         }
     });

@@ -39,16 +39,26 @@ namespace easygenerator.Web.Storage
         public string GetTemplateDirectoryPath(Template template)
         {
             return template.IsCustom
-                ? Path.Combine(TemplatesDirectoryPath, _configurationReader.TempateStorageConfiguration.CustomTemplatesDirectory, template.Name)
+                ? Path.Combine(CustomTemplatesDirectoryPath, template.Name)
                 : Path.Combine(TemplatesDirectoryPath, template.Name);
         }
 
         private string TemplatesDirectoryPath {
             get
             {
-                return Path.IsPathRooted(_configurationReader.TempateStorageConfiguration.Path)
-                    ? _configurationReader.TempateStorageConfiguration.Path
-                    : Path.Combine(_httpRuntimeWrapper.GetDomainAppPath(), _configurationReader.TempateStorageConfiguration.Path);
+                return Path.IsPathRooted(_configurationReader.TempateStorageConfiguration.TemplatesPath)
+                    ? _configurationReader.TempateStorageConfiguration.TemplatesPath
+                    : Path.Combine(_httpRuntimeWrapper.GetDomainAppPath(), _configurationReader.TempateStorageConfiguration.TemplatesPath);
+            }
+        }
+
+        private string CustomTemplatesDirectoryPath
+        {
+            get
+            {
+                return Path.IsPathRooted(_configurationReader.TempateStorageConfiguration.CustomTemplatesPath)
+                    ? _configurationReader.TempateStorageConfiguration.CustomTemplatesPath
+                    : Path.Combine(_httpRuntimeWrapper.GetDomainAppPath(), _configurationReader.TempateStorageConfiguration.CustomTemplatesPath);
             }
         }
     }

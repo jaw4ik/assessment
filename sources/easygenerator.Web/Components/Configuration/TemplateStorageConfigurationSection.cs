@@ -8,29 +8,29 @@ namespace easygenerator.Web.Components.Configuration
 {
     public class TemplateStorageConfigurationSection : ConfigurationSection
     {
-        [ConfigurationProperty("Path", DefaultValue = "Templates", IsRequired = false)]
-        public virtual string Path
+        [ConfigurationProperty("TemplatesPath", DefaultValue = "Templates", IsRequired = false)]
+        public virtual string TemplatesPath
         {
             get
             {
-                return (string)this["Path"];
+                return (string)this["TemplatesPath"];
             }
             set
             {
-                this["Path"] = value;
+                this["TemplatesPath"] = value;
             }
         }
 
-        [ConfigurationProperty("CustomTemplatesDirectory", DefaultValue = "CustomTemplates", IsRequired = false)]
-        public virtual string CustomTemplatesDirectory
+        [ConfigurationProperty("CustomTemplatesPath", DefaultValue = "Templates/CustomTemplates", IsRequired = false)]
+        public virtual string CustomTemplatesPath
         {
             get
             {
-                return (string)this["CustomTemplatesDirectory"];
+                return (string)this["CustomTemplatesPath"];
             }
             set
             {
-                this["CustomTemplatesDirectory"] = value;
+                this["CustomTemplatesPath"] = value;
             }
         }
     }
