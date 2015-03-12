@@ -257,6 +257,7 @@
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="DomainEvents\Handlers\MailChimpSubscriptionHandler.cs" />
     <Compile Include="InMemoryStorages\DemoCoursesInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\IDemoCoursesStorage.cs" />
     <Compile Include="Import\Presentation\Extensions\ParagraphExtensions.cs" />
@@ -380,7 +381,6 @@
     <Compile Include="DomainEvents\Handlers\RegisterWooCommerceUserHandler.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
-    <Compile Include="DomainEvents\Handlers\SubscribeForNewslettersHandler.cs" />
     <Compile Include="DomainEvents\Handlers\UpdateWooCommerceUserHandler.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Global.asax.cs">
