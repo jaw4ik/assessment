@@ -168,10 +168,14 @@
             $(element).removeAttr('contenteditable');
         });
 
-        function setData() {
-            setTimeout(function () {
-                data(editor.getData());
-            }, 10);
+        function setData(evt) {
+            // Fix for bug with save resize of table in tableresize plugin
+            var attr = $(evt.target).attr('data-cke-temp');
+            if (typeof attr !== typeof undefined && attr !== false) {
+                setTimeout(function () {
+                    data(editor.getData());
+                }, 10);
+            }
         }
 
         function isElementInFocus(tagName) {
@@ -369,6 +373,10 @@
             var toolbarTopPosition = screenTop > editorTop ? 0 : editorTop;
             $toolbarElement.css('top', toolbarTopPosition);
         }
+
+        return ko.bindingHandlers.contentEditableFix.init(element, function() {
+            return editor;
+        });
     },
     update: function (element, valueAccessor) {
         var data = valueAccessor().data(),
