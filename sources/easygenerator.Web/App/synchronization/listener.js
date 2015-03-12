@@ -10,7 +10,7 @@
                 var dfd = Q.defer();
 
                 var hub = $.connection.eventHub;
-                
+
                 hub.client = {
                     userDowngraded: userEventHandler.downgraded,
                     userUpgradedToStarter: userEventHandler.upgradedToStarter,
@@ -45,7 +45,7 @@
                     questionBackgroundChanged: questionEventHandler.question.backgroundChanged,
 
                     fillInTheBlankUpdated: questionEventHandler.fillInTheBlank.updated,
-                    
+
                     dragAndDropDropspotCreated: questionEventHandler.dragAndDropText.dropspotCreated,
                     dragAndDropDropspotDeleted: questionEventHandler.dragAndDropText.dropspotDeleted,
                     dragAndDropDropspotTextChanged: questionEventHandler.dragAndDropText.dropspotTextChanged,
@@ -75,6 +75,17 @@
                     hotSpotPolygonChanged: questionEventHandler.hotSpot.polygonChanged,
                     hotSpotIsMultipleChanged: questionEventHandler.hotSpot.isMultipleChanged
                 };
+
+                $.connection.hub.disconnected(function () {
+                    $.ajax({
+                        type: 'get',
+                        url: '/ping.ashx'
+                    }).error(function (error) {
+                        if (error.status == 503) {
+                            window.location.reload(true);
+                        }
+                    });
+                });
 
                 $.connection.hub.start()
                     .done(function () {

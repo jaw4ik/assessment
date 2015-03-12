@@ -242,6 +242,30 @@
     <Compile Include="Migrations\201502160910075_AddReaderTemplate.Designer.cs">
       <DependentUpon>201502160910075_AddReaderTemplate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502251610598_AddIsCustomFieldToTemplate.cs" />
+    <Compile Include="Migrations\201502251610598_AddIsCustomFieldToTemplate.Designer.cs">
+      <DependentUpon>201502251610598_AddIsCustomFieldToTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502270858532_AddRoleToUser.cs" />
+    <Compile Include="Migrations\201502270858532_AddRoleToUser.Designer.cs">
+      <DependentUpon>201502270858532_AddRoleToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503092247225_CreateTemplatesAccessControlListTable.cs" />
+    <Compile Include="Migrations\201503092247225_CreateTemplatesAccessControlListTable.Designer.cs">
+      <DependentUpon>201503092247225_CreateTemplatesAccessControlListTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503092249289_FillTemplatesACLForDefaultTemplates.cs" />
+    <Compile Include="Migrations\201503092249289_FillTemplatesACLForDefaultTemplates.Designer.cs">
+      <DependentUpon>201503092249289_FillTemplatesACLForDefaultTemplates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503092253178_CreateIndexForTemplatesACLTable.cs" />
+    <Compile Include="Migrations\201503092253178_CreateIndexForTemplatesACLTable.Designer.cs">
+      <DependentUpon>201503092253178_CreateIndexForTemplatesACLTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503100910363_Templates_DeleteIsCustomColumn.cs" />
+    <Compile Include="Migrations\201503100910363_Templates_DeleteIsCustomColumn.Designer.cs">
+      <DependentUpon>201503100910363_Templates_DeleteIsCustomColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -413,6 +437,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502160910075_AddReaderTemplate.resx">
       <DependentUpon>201502160910075_AddReaderTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502251610598_AddIsCustomFieldToTemplate.resx">
+      <DependentUpon>201502251610598_AddIsCustomFieldToTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502270858532_AddRoleToUser.resx">
+      <DependentUpon>201502270858532_AddRoleToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503092247225_CreateTemplatesAccessControlListTable.resx">
+      <DependentUpon>201503092247225_CreateTemplatesAccessControlListTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503092249289_FillTemplatesACLForDefaultTemplates.resx">
+      <DependentUpon>201503092249289_FillTemplatesACLForDefaultTemplates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503092253178_CreateIndexForTemplatesACLTable.resx">
+      <DependentUpon>201503092253178_CreateIndexForTemplatesACLTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503100910363_Templates_DeleteIsCustomColumn.resx">
+      <DependentUpon>201503100910363_Templates_DeleteIsCustomColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,7 +15,8 @@
                      shortDescription: item.shortDescription,
                      previewDemoUrl: item.PreviewDemoUrl,
                      order: item.Order,
-                     isNew: item.IsNew
+                     isNew: item.IsNew,
+                     isCustom: item.IsCustom
                  });
             };
 

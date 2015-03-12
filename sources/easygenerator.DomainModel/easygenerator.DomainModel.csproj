@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\ACL\AccessControlListEntry.cs" />
+    <Compile Include="Entities\ACL\TemplateAccessControlListEntry.cs" />
     <Compile Include="Entities\DemoCourseInfo.cs" />
     <Compile Include="Entities\Identifiable.cs" />
     <Compile Include="Entities\Onboarding.cs" />
@@ -157,7 +159,6 @@
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\ITemplateRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
-    <Compile Include="Handlers\SignupFromTryItNowHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj">

@@ -53,6 +53,10 @@
                             </div>
                         </div>
                     </header>
+                    <div class="objective-help-link-container" data-bind="css : { 'visible': title.isEditing(), 'hidden': !title.isEditing() }">
+                        <span class="objective-help-link" data-bind="localize: { text: 'objectiveHelpText' }">Need help with your objective? Try our new </span>
+                        <span class="objective-help-link clickable" data-bind="localize: { html: 'objectiveHelpLink' }"></span>
+                    </div>
                 </div>
             </div>
         </div>

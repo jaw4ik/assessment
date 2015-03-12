@@ -86,7 +86,7 @@ app.signUpSecondStepModel = function () {
             throw 'User sign up data is not defined';
         }
 
-        data.userRole = viewModel.userRole();
+        data.userRole = viewModel.userRole() || null;
         data.phone = viewModel.phone();
         data.country = viewModel.country();
         
@@ -98,9 +98,8 @@ app.signUpSecondStepModel = function () {
             type: 'POST'
         }).done(function (response) {
             app.clientSessionContext.remove(app.constants.userSignUpFirstStepData);
-
             $.when(
-                app.trackEvent(app.constants.events.signupSecondStep, { username: response.data, firstname: data.firstName, lastname: data.lastName }),
+                app.trackEvent(app.constants.events.signupSecondStep, { username: response.data, firstname: data.firstName, lastname: data.lastName, role: data.userRole }),
                 app.trackPageview(app.constants.pageviewUrls.signupSecondStep)
                 ).done(function () {
                     localStorage.setItem('showCreateCoursePopup', true);

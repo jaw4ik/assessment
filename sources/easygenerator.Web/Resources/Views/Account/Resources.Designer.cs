@@ -616,69 +616,6 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Develop on.
-        /// </summary>
-        public static string TryImageDevelopOn {
-            get {
-                return ResourceManager.GetString("TryImageDevelopOn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Publish to.
-        /// </summary>
-        public static string TryImagePublishTo {
-            get {
-                return ResourceManager.GetString("TryImagePublishTo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Try now.
-        /// </summary>
-        public static string TryNow {
-            get {
-                return ResourceManager.GetString("TryNow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Try it now.
-        /// </summary>
-        public static string TrySubmitCaption {
-            get {
-                return ResourceManager.GetString("TrySubmitCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A revolutionary eLearning platform.
-        /// </summary>
-        public static string TrySubtitle {
-            get {
-                return ResourceManager.GetString("TrySubtitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Introducing &lt;b&gt;easygenerator&lt;/b&gt;.
-        /// </summary>
-        public static string TryTitle {
-            get {
-                return ResourceManager.GetString("TryTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to In Try It Now mode your content is not safe!.
-        /// </summary>
-        public static string TryWarningMessage {
-            get {
-                return ResourceManager.GetString("TryWarningMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Upper and lowercase letters.
         /// </summary>
         public static string UpperAndLowercaseLetters {
@@ -730,88 +667,88 @@ namespace AccountRes {
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string TeacherOption
+        public static string Teacher
         {
             get
             {
-                return ResourceManager.GetString("TeacherOption", resourceCulture);
+                return ResourceManager.GetString("Teacher", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string TrainerOption
+        public static string Trainer
         {
             get
             {
-                return ResourceManager.GetString("TrainerOption", resourceCulture);
+                return ResourceManager.GetString("Trainer", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string SmeOption
+        public static string SubjectMatterExpert
         {
             get
             {
-                return ResourceManager.GetString("SmeOption", resourceCulture);
+                return ResourceManager.GetString("SubjectMatterExpert", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string ExpertOption
+        public static string ElearningExpert
         {
             get
             {
-                return ResourceManager.GetString("ExpertOption", resourceCulture);
+                return ResourceManager.GetString("ElearningExpert", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string DesignerOption
+        public static string InstructionalDesigner
         {
             get
             {
-                return ResourceManager.GetString("DesignerOption", resourceCulture);
+                return ResourceManager.GetString("InstructionalDesigner", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string ManagerOption
+        public static string ELearningManager
         {
             get
             {
-                return ResourceManager.GetString("ManagerOption", resourceCulture);
+                return ResourceManager.GetString("ELearningManager", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string OtherOption
+        public static string OtherRole
         {
             get
             {
-                return ResourceManager.GetString("OtherOption", resourceCulture);
+                return ResourceManager.GetString("OtherRole", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string StudentOption
+        public static string Student
         {
             get
             {
-                return ResourceManager.GetString("StudentOption", resourceCulture);
+                return ResourceManager.GetString("Student", resourceCulture);
             }
         }
 

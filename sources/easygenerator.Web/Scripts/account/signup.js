@@ -144,7 +144,6 @@ app.signupModel = function () {
         };
 
         app.clientSessionContext.set(app.constants.userSignUpFirstStepData, data);
-
         $.when(app.trackEvent(app.constants.events.signupFirstStep, { username: data.email, firstname: data.firstName, lastname: data.lastName }), app.trackPageview(app.constants.pageviewUrls.signupFirstStep))
             .done(function () {
                 var href = app.getLocationHref();

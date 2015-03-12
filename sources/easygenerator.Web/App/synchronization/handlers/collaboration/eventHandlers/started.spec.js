@@ -4,7 +4,10 @@
     var
         dataContext = require('dataContext'),
         app = require('durandal/app'),
-        courseModelMapper = require('mappers/courseModelMapper')
+        courseModelMapper = require('mappers/courseModelMapper'),
+        emptyTemplate = { Manifest: '{ "name": "TemplateName" }' },
+        templateRepository = require('repositories/templateRepository'),
+        templateModelMapper = require('mappers/templateModelMapper')
     ;
 
     describe('synchronization collaboration [started]', function () {
@@ -12,8 +15,11 @@
         var course = { Id: 'courseId' };
 
         beforeEach(function () {
+            emptyTemplate = { Manifest: '{ "name": "TemplateName" }' };
             spyOn(app, 'trigger');
             spyOn(courseModelMapper, 'map').and.returnValue(course);
+            spyOn(templateModelMapper, 'map').and.returnValue(emptyTemplate);
+            spyOn(templateRepository, 'add').and.returnValue(emptyTemplate);
         });
 
         it('should be function', function () {
@@ -44,7 +50,7 @@
 
             it('should add mapped course to data context', function () {
                 dataContext.courses = [];
-                handler(course, []);
+                handler(course, [], emptyTemplate);
 
                 expect(dataContext.courses.length).toBe(1);
             });
@@ -60,7 +66,7 @@
                 dataContext.courses = [existingCourse];
                 dataContext.objectives = [];
 
-                handler(course, [objective]);
+                handler(course, [objective], emptyTemplate);
 
                 expect(dataContext.objectives.length).toBe(1);
             });
@@ -76,18 +82,23 @@
                 dataContext.courses = [existingCourse];
                 dataContext.objectives = [{ id: objective.Id }];
 
-                handler(course, [objective]);
+                handler(course, [objective], emptyTemplate);
 
                 expect(dataContext.objectives.length).toBe(1);
             });
 
         });
 
+        it('should add template to repository if not exist', function () {
+            dataContext.templates = [];
+            handler(course, [], emptyTemplate);
+            expect(templateModelMapper.map).toHaveBeenCalledWith(emptyTemplate);
+            expect(templateRepository.add).toHaveBeenCalledWith(emptyTemplate);
+        });
+
         it('should trigger app event', function () {
-            handler(course, []);
+            handler(course, [], emptyTemplate);
             expect(app.trigger).toHaveBeenCalled();
         });
     });
-
-
 })

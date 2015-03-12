@@ -192,10 +192,11 @@ namespace easygenerator.DomainModel.Tests.Entities
             var lastname = "easygenerator user lastname";
             var phone = "some phone";
             var country = "some country";
+            var role = "Teacher";
             var creationDate = CurrentDate;
 
             //Act
-            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, CreatedBy);
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy);
 
             //Assert
             user.Id.Should().NotBeEmpty();
@@ -433,6 +434,125 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             user.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(UserUpdateEvent));
         }
+        #endregion
+
+        #region HasFreeAccess
+
+        [TestMethod]
+        public void HasFreeAccess_ShouldReturnTrue_WhenUserHasFreeAccessType()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Free;
+
+            //Act
+            var result = user.HasFreeAccess();
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasFreeAccess_ShouldReturnTrue_WhenUserAccessExpired()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
+
+            //Act
+            var result = user.HasFreeAccess();
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasFreeAccess_ShouldReturnTrue_WhenUserHasFreeAccessTypeAndAccessExpired()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Free;
+            DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
+
+            //Act
+            var result = user.HasFreeAccess();
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasFreeAccess_ShouldReturnTrue_ExpirationDateIsNotSet()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.ExpirationDate = null;
+
+            //Act
+            var result = user.HasFreeAccess();
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasFreeAccess_ShouldReturnFalse_WhenUserHasStarterAccess()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Starter;
+
+            //Act
+            var result = user.HasFreeAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void HasFreeAccess_ShouldReturnTrue_WhenUserHasStarterAccessButAccessExpired()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Starter;
+            DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
+
+            //Act
+            var result = user.HasFreeAccess();
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasFreeAccess_ShouldReturnFalse_WhenUserHasPlusAccess()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Plus;
+
+            //Act
+            var result = user.HasFreeAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void HasFreeAccess_ShouldReturnTrue_WhenUserHasPlusAccessButAccessExpired()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Plus;
+            DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
+
+            //Act
+            var result = user.HasFreeAccess();
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
         #endregion
 
         #region HasStarterAccess

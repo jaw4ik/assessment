@@ -4,14 +4,16 @@ using Autofac.Integration.Mvc;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Events;
-using easygenerator.DomainModel.Handlers;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Infrastructure.Http;
 using easygenerator.Infrastructure.ImageProcessors;
 using easygenerator.Infrastructure.Mail;
 using easygenerator.Web.BuildCourse;
+using easygenerator.Web.BuildCourse.Modules;
+using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.BuildCourse.Scorm;
+using easygenerator.Web.BuildCourse.Scorm.Modules;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Elmah;
@@ -69,10 +71,11 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PackageModelMapper>();
             builder.RegisterType<PackageModelSerializer>();
             builder.RegisterType<BuildPackageCreator>();
-            builder.RegisterType<SignupFromTryItNowHandler>().As<ISignupFromTryItNowHandler>();
             builder.RegisterType<ConfigurationReader>();
             builder.RegisterType<RazorTemplateProvider>().SingleInstance();
-
+            builder.RegisterType<PackageModulesProvider>();
+            builder.RegisterType<ScormPackageModulesProvider>();
+            builder.RegisterType<PublishSettingsProvider>();
 
             builder.RegisterModule(new DataAccessModule());
 

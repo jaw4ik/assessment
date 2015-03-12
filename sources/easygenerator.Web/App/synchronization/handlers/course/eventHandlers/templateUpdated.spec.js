@@ -3,7 +3,10 @@
 
     var
         dataContext = require('dataContext'),
-        app = require('durandal/app')
+        app = require('durandal/app'),
+        templateRepository = require('repositories/templateRepository'),
+        templateModelMapper = require('mappers/templateModelMapper'),
+        emptyTemplate = { Manifest: '{ "name": "TemplateName" }' }
     ;
 
     describe('synchronization course [templateUpdated]', function () {
@@ -13,6 +16,10 @@
 
         beforeEach(function () {
             spyOn(app, 'trigger');
+            emptyTemplate = { Manifest: '{ "name": "TemplateName" }' };
+            spyOn(templateModelMapper, 'map').and.returnValue(emptyTemplate);
+            spyOn(templateRepository, 'add').and.returnValue(emptyTemplate);
+            spyOn(templateRepository, 'getById').and.returnValue(emptyTemplate);
         });
 
         var templateId = "templateId",
@@ -26,7 +33,7 @@
         describe('when courseId is not a string', function () {
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(undefined, templateId, modifiedOn.toISOString());
+                    handler(undefined, emptyTemplate, modifiedOn.toISOString());
                 };
 
                 expect(f).toThrow('CourseId is not a string');
@@ -39,14 +46,14 @@
                     handler(mappedCourse.id, undefined, modifiedOn.toISOString());
                 };
 
-                expect(f).toThrow('TemplateId content is not a string');
+                expect(f).toThrow('Template is not an object');
             });
         });
 
         describe('when modifiedOn is not a date', function () {
             it('should throw an exception', function () {
                 var f = function () {
-                    handler(mappedCourse.id, templateId, undefined);
+                    handler(mappedCourse.id, emptyTemplate, undefined);
                 };
 
                 expect(f).toThrow('ModifiedOn is not a string');
@@ -58,40 +65,35 @@
                 dataContext.courses = [];
 
                 var f = function () {
-                    handler(mappedCourse.id, templateId, modifiedOn.toISOString());
+                    handler(mappedCourse.id, emptyTemplate, modifiedOn.toISOString());
                 };
 
                 expect(f).toThrow('Course has not been found');
             });
         });
 
-        describe('when template is not found in data context', function () {
-            it('should throw an exception', function () {
-                dataContext.courses = [mappedCourse];
-                dataContext.templates = [];
-
-                var f = function () {
-                    handler(mappedCourse.id, templateId, modifiedOn.toISOString());
-                };
-
-                expect(f).toThrow('Template has not been found');
-            });
+        it('should add mapped template to repository if not exists', function () {
+            dataContext.courses = [mappedCourse];
+            dataContext.templates = [];
+            handler(mappedCourse.id, emptyTemplate, modifiedOn.toISOString());
+            expect(templateModelMapper.map).toHaveBeenCalledWith(emptyTemplate);
+            expect(templateRepository.add).toHaveBeenCalledWith(emptyTemplate);
         });
 
-        it('should update course title', function () {
+        it('should update course template', function () {
             mappedCourse.template = {};
             dataContext.courses = [mappedCourse];
             dataContext.templates = [template];
 
-            handler(mappedCourse.id, templateId, modifiedOn.toISOString());
-            expect(mappedCourse.template).toBe(template);
+            handler(mappedCourse.id, template, modifiedOn.toISOString());
+            expect(mappedCourse.template).toBe(emptyTemplate);
         });
 
         it('should update course modified on date', function () {
             mappedCourse.modifiedOn = "";
             dataContext.courses = [mappedCourse];
             dataContext.templates = [template];
-            handler(mappedCourse.id, templateId, modifiedOn.toISOString());
+            handler(mappedCourse.id, emptyTemplate, modifiedOn.toISOString());
 
             expect(dataContext.courses[0].modifiedOn.toISOString()).toBe(modifiedOn.toISOString());
         });
@@ -99,7 +101,7 @@
         it('should trigger app event', function () {
             dataContext.courses = [mappedCourse];
             dataContext.templates = [template];
-            handler(mappedCourse.id, templateId, modifiedOn.toISOString());
+            handler(mappedCourse.id, emptyTemplate, modifiedOn.toISOString());
             expect(app.trigger).toHaveBeenCalled();
         });
     });

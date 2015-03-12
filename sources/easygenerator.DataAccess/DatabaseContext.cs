@@ -1,5 +1,6 @@
 ﻿using easygenerator.DataAccess.Migrations;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.ACL;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.Infrastructure;
@@ -157,6 +158,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.FirstName).IsRequired();
             modelBuilder.Entity<User>().Property(e => e.LastName).IsRequired();
             modelBuilder.Entity<User>().Property(e => e.Country).IsRequired();
+            modelBuilder.Entity<User>().Property(e => e.Role).IsOptional();
             modelBuilder.Entity<User>().Property(e => e.Organization).IsOptional();
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));
@@ -171,6 +173,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Template>().Property(e => e.Order);
             modelBuilder.Entity<Template>().Property(e => e.IsNew);
             modelBuilder.Entity<Template>().HasMany(e => e.Courses);
+            modelBuilder.Entity<Template>().HasMany(e => e.AccessControlList).WithRequired(e => e.Template).WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<TemplateAccessControlListEntry>().Property(e => e.UserIdentity).IsRequired().HasMaxLength(254);
+            modelBuilder.Entity<TemplateAccessControlListEntry>().HasRequired(e => e.Template);
 
             modelBuilder.Entity<MailNotification>().Property(e => e.Body).IsRequired();
             modelBuilder.Entity<MailNotification>().Property(e => e.Subject).HasMaxLength(254).IsRequired();

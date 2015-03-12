@@ -1,6 +1,6 @@
-﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'ping',
+﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext',
     'models/backButton', 'constants', 'utils/waiter'],
-    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, ping, BackButton, constants, waiter) {
+    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, BackButton, constants, waiter) {
 
         var events = {
             navigateToCourses: 'Navigate to courses',
@@ -33,7 +33,6 @@
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
-            canActivate: canActivate,
             activate: activate,
             canDeactivate: canDeactivate,
             toggleTemplatesListVisibility: toggleTemplatesListVisibility,
@@ -74,10 +73,6 @@
             return defer.promise;
         }
 
-        function canActivate() {
-            return ping.execute();
-        }
-
         function activate(courseId) {
 
             return courseRepository.getById(courseId).then(function (course) {
@@ -98,6 +93,7 @@
                                 previewDemoUrl: template.previewDemoUrl,
                                 order: template.order,
                                 isNew: template.isNew,
+                                isCustom: template.isCustom,
                                 openPreview: function (item, event) {
                                     event.stopPropagation();
                                     router.openUrl(item.previewDemoUrl + '?v=' + window.top.appVersion);
@@ -125,7 +121,8 @@
                 return Q.fcall(function () { });
             }
 
-            eventTracker.publish(events.updateCourseTemplate + ' \'' + template.name + '\'');
+            eventTracker.publish(events.updateCourseTemplate + ' \'' + (template.isCustom ? 'custom' : template.name) + '\'');
+
             return waiter.waitFor(viewModel.settingsSaved, delay, limit)
                 .fail(function () {
                     notify.error(templateSettingsErrorNotification);

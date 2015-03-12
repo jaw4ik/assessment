@@ -1,9 +1,14 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Collections;
+using System.Collections.Generic;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
+using easygenerator.Web.BuildCourse.Modules;
+using easygenerator.Web.BuildCourse.Modules.Models;
+using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.Components;
 using easygenerator.Web.Controllers;
 using easygenerator.Web.Tests.Utils;
@@ -21,6 +26,8 @@ namespace easygenerator.Web.Tests.Controllers
         private BuildPathProvider _buildPathProvider;
         private PhysicalFileManager _physicalFileManager;
         private PackageModelMapper _packageModelMapper;
+        private PublishSettingsProvider _publishSettingsProvider;
+        private PackageModulesProvider _packageModulesProvider;
 
         [TestInitialize]
         public void Initialize()
@@ -30,7 +37,12 @@ namespace easygenerator.Web.Tests.Controllers
 
             _packageModelMapper = Substitute.For<PackageModelMapper>(Substitute.For<IUrlHelperWrapper>(), Substitute.For<IUserRepository>());
 
-            _controller = new PreviewController(_buildPathProvider, _physicalFileManager, _packageModelMapper);
+            _publishSettingsProvider = Substitute.For<PublishSettingsProvider>();
+
+            var _userRepository = Substitute.For<IUserRepository>();
+            _packageModulesProvider = Substitute.For<PackageModulesProvider>(_userRepository);
+
+            _controller = new PreviewController(_buildPathProvider, _physicalFileManager, _packageModelMapper, _publishSettingsProvider, _packageModulesProvider);
         }
 
         #region GetPreviewCourseSettings
@@ -49,7 +61,7 @@ namespace easygenerator.Web.Tests.Controllers
 
 
         [TestMethod]
-        public void GetPreviewCourseSettings_ShouldGetRemplateSettings()
+        public void GetPreviewCourseSettings_ShouldGetTemplateSettings()
         {
             //Arrange
             var course = Substitute.For<Course>();
@@ -69,6 +81,49 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Act
             var result = _controller.GetPreviewCourseSettings(course);
+
+            //Assert
+            result.Should().BeContentResult();
+        }
+
+        #endregion
+
+        #region GetPreviewCoursePublishSettings
+
+        [TestMethod]
+        public void GetPreviewCoursePublishSettings_ShouldReturnHttpNotFoundResult_WhenCourseDoesNotExist()
+        {
+            //Arrange
+
+
+            //Act
+            var result = _controller.GetPreviewCoursePublishSettings(null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
+        }
+
+        [TestMethod]
+        public void GetPreviewCoursePublishSettings_ShouldGetPublishSettingsFromProvider()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = _controller.GetPreviewCoursePublishSettings(course);
+
+            //Assert
+            _publishSettingsProvider.Received().GetPublishSettings(Arg.Any<IEnumerable<PackageModule>>());
+        }
+
+        [TestMethod]
+        public void GetPreviewCoursePublishSettings_ShouldReturnContentResult()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = _controller.GetPreviewCoursePublishSettings(course);
 
             //Assert
             result.Should().BeContentResult();
@@ -259,6 +314,84 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             result.Should().BeJsonDataResult();
+        }
+
+        #endregion
+
+        #region GetPreviewIncludedModules
+
+        [TestMethod]
+        public void GetPreviewIncludedModules_ShouldReturnHttpNotFoundResult_WhenCourseDoesNotExist()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.GetPreviewIncludedModules(null, null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
+        }
+
+        [TestMethod]
+        public void GetPreviewIncludedModules_ShouldGetModulesList_WhenCourseExists()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            _controller.GetPreviewIncludedModules(course, null);
+
+            //Assert
+            _packageModulesProvider.Received().GetModulesList(course);
+        }
+
+        [TestMethod]
+        public void GetPreviewIncludedModules_ShouldReturnHttpNotFoundResult_WhenModulesListEmpty()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            _packageModulesProvider.GetModulesList(course).Returns(new List<PackageModule>());
+
+            //Act
+            var result = _controller.GetPreviewIncludedModules(course, null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
+        }
+
+        [TestMethod]
+        public void GetPreviewIncludedModules_ShouldReturnHttpNotFoundResult_WhenModuleDoesNotExist()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            _packageModulesProvider.GetModulesList(course).Returns(new List<PackageModule>()
+            {
+                new PackageModule("module1", "path1")
+            });
+
+            //Act
+            var result = _controller.GetPreviewIncludedModules(course, "module2.js");
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
+        }
+
+        [TestMethod]
+        public void GetPreviewIncludedModules_ShouldReturnFilePathResult_WhenModuleExists()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            const string filePath = "filePath";
+            var module = Substitute.For<PackageModule>("module1", filePath);
+            module.GetFilePath().Returns(filePath);
+            _packageModulesProvider.GetModulesList(course).Returns(new List<PackageModule>() { module });
+
+            //Act
+            var result = _controller.GetPreviewIncludedModules(course, "module1.js");
+
+            //Assert
+            result.Should().BeFilePathResult();
         }
 
         #endregion

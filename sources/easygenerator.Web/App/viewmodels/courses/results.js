@@ -1,9 +1,9 @@
 ﻿define(['repositories/courseRepository', 'plugins/router', 'constants', 'repositories/courseRepository', 'viewmodels/courses/publishingActions/build',
         'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
-        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'ping', 'models/backButton',
+        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'models/backButton',
         'reporting/xApiProvider', 'plugins/dialog'],
     function (repository, router, constants, courseRepository, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker, ping, BackButton, xApiProvider, dialog) {
+        clientContext, localizationManager, eventTracker, BackButton, xApiProvider, dialog) {
         "use strict";
         "use strict";
 
@@ -25,7 +25,6 @@
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
-            canActivate: canActivate,
             activate: activate,
             attached: attached,
 
@@ -62,10 +61,6 @@
 
         function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);
-        }
-
-        function canActivate() {
-            return ping.execute();
         }
 
         function activate(courseId) {

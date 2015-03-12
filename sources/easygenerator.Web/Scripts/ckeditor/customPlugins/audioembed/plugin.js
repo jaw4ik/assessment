@@ -3,7 +3,7 @@
     CKEDITOR.plugins.audioembed = {
 
         icons: 'audioembed',
-        lang: 'en,uk',
+        lang: 'en,uk,zh-cn',
 
         commands: {
             openDialog: 'audioEmbedOpenDialog',

@@ -6,7 +6,5 @@
     h2: 'Заголовок 2',
     h3: 'Заголовок 3',
     label: "Стилі",
-    panelTitle: "Стилі",
-    paragraphTitle: "Параграф",
-    selectionTitle: "Selection Format"
+    panelTitle: "Стилі"
 });

@@ -1,6 +1,7 @@
 ﻿using System;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
+using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.BuildCourse
@@ -9,17 +10,20 @@ namespace easygenerator.Web.BuildCourse
     {
         protected readonly PhysicalFileManager FileManager;
         protected readonly BuildPathProvider BuildPathProvider;
-        protected readonly BuildPackageCreator BuildPackageCreator;
-        protected readonly BuildContentProvider BuildContentProvider;
-        protected readonly ILog Logger;
+        private readonly BuildPackageCreator _buildPackageCreator;
+        private readonly BuildContentProvider _buildContentProvider;
+        private readonly IPackageModulesProvider _packageModulesProvider;
+        private readonly ILog _logger;
 
-        protected CourseBuilderBase(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator, BuildContentProvider buildContentProvider, ILog logger)
+        protected CourseBuilderBase(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator,
+            BuildContentProvider buildContentProvider, IPackageModulesProvider packageModulesProvider, ILog logger)
         {
             FileManager = fileManager;
             BuildPathProvider = buildPathProvider;
-            BuildPackageCreator = buildPackageCreator;
-            BuildContentProvider = buildContentProvider;
-            Logger = logger;
+            _buildPackageCreator = buildPackageCreator;
+            _buildContentProvider = buildContentProvider;
+            _packageModulesProvider = packageModulesProvider;
+            _logger = logger;
         }
 
         public virtual bool Build(Course course)
@@ -30,9 +34,12 @@ namespace easygenerator.Web.BuildCourse
 
             try
             {
-                CreatePackageDirectory(buildId);
+                var buildDirectoryPath = BuildPathProvider.GetBuildDirectoryName(buildId);
 
-                BuildContentProvider.AddBuildContentToPackageDirectory(BuildPathProvider.GetBuildDirectoryName(buildId), course, GetPublishSettings());
+                CreatePackageDirectory(buildDirectoryPath);
+
+                var modulesList = _packageModulesProvider.GetModulesList(course);
+                _buildContentProvider.AddBuildContentToPackageDirectory(buildDirectoryPath, course, modulesList);
                 OnAfterBuildContentAdded(course, buildId);
 
                 CreatePackageFromDirectory(buildId);
@@ -40,7 +47,7 @@ namespace easygenerator.Web.BuildCourse
             }
             catch (Exception exception)
             {
-                Logger.LogException(exception);
+                _logger.LogException(exception);
                 isBuildSuccessful = false;
             }
 
@@ -51,7 +58,7 @@ namespace easygenerator.Web.BuildCourse
             }
             catch (Exception exception)
             {
-                Logger.LogException(exception);
+                _logger.LogException(exception);
             }
 
             return isBuildSuccessful;
@@ -65,19 +72,14 @@ namespace easygenerator.Web.BuildCourse
         {
         }
 
-        protected virtual string GetPublishSettings()
+        private void CreatePackageDirectory(string buildDirectory)
         {
-            return string.Empty;
-        }
-
-        private void CreatePackageDirectory(string buildId)
-        {
-            FileManager.CreateDirectory(BuildPathProvider.GetBuildDirectoryName(buildId));
+            FileManager.CreateDirectory(buildDirectory);
         }
 
         private void CreatePackageFromDirectory(string buildId)
         {
-            BuildPackageCreator.CreatePackageFromFolder(BuildPathProvider.GetBuildDirectoryName(buildId),
+            _buildPackageCreator.CreatePackageFromFolder(BuildPathProvider.GetBuildDirectoryName(buildId),
                                                          BuildPathProvider.GetBuildPackageFileName(buildId));
         }
 

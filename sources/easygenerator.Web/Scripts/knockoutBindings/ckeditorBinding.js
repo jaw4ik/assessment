@@ -1,8 +1,7 @@
 ﻿ko.bindingHandlers.ckeditor = {
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
 
-        var language = valueAccessor().language || 'en',
-            eventTracker = valueAccessor().eventTracker || null,
+        var eventTracker = valueAccessor().eventTracker || null,
             data = valueAccessor().data,
             isEditing = valueAccessor().isEditing,
             saveHandler = valueAccessor().save,
@@ -23,8 +22,9 @@
             addBlank: 'Add blank (fill in the blanks)',
             addDropDownBlank: 'Add drop down (fill in the blanks)'
         };
-
-        CKEDITOR.config.language = localizationManager.currentLanguage;
+        
+        var supportedCultures = CKEDITOR.lang.languages;
+        CKEDITOR.config.language = supportedCultures[localizationManager.currentCulture] == 1 ? localizationManager.currentCulture : localizationManager.currentLanguage;
 
         //Floating Space plugin settings
         CKEDITOR.config.editorsHolderId = 'view_content';
@@ -168,10 +168,14 @@
             $(element).removeAttr('contenteditable');
         });
 
-        function setData() {
-            setTimeout(function () {
-                data(editor.getData());
-            }, 10);
+        function setData(evt) {
+            // Fix for bug with save resize of table in tableresize plugin
+            var attr = $(evt.target).attr('data-cke-temp');
+            if (typeof attr !== typeof undefined && attr !== false) {
+                setTimeout(function () {
+                    data(editor.getData());
+                }, 10);
+            }
         }
 
         function isElementInFocus(tagName) {
@@ -369,6 +373,10 @@
             var toolbarTopPosition = screenTop > editorTop ? 0 : editorTop;
             $toolbarElement.css('top', toolbarTopPosition);
         }
+
+        return ko.bindingHandlers.contentEditableFix.init(element, function() {
+            return editor;
+        });
     },
     update: function (element, valueAccessor) {
         var data = valueAccessor().data(),

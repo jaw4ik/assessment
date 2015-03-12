@@ -32,23 +32,12 @@
                                 </ul>
                             </nav>
                             <ul class="header-menu-list clearfix">
-                                <!-- ko if: isTryMode -->
-                                <li class="header-menu-list-item sign-up">
-                                    <span class="try-warning-message" data-bind="localize: { text: 'tryWarningMessage' }">In Try It Now mode your content is not safe!</span>
-                                    <a class="orange btn btn-small" href="/signup" data-bind="localize: { text: 'signUpButton' }">
-                                        Sign up
-                                    </a>
-                                </li>
-                                <!-- /ko -->
-                                <!-- ko ifnot: isTryMode -->
                                 <li class="header-menu-list-item ">
                                     <a href="" class="header-upgrade-link" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeNow' }">Upgrade now</a>
                                 </li>
-                                <!-- /ko -->
                                 <li class="header-menu-list-item help">
                                     <span class="header-help-hint-btn" data-bind="localize: { text: 'help' }, click: help.show, css: { disabled: !help.isHelpHintExist() || help.visible() }">Help</span>
                                 </li>
-                                <!-- ko ifnot: isTryMode -->
                                 <li class="header-menu-list-item dropdown-list-wrapper">
                                     <!-- ko compose: 'notifications/notification' -->
                                     <!-- /ko -->
@@ -57,7 +46,6 @@
                                     <!-- ko compose: 'viewmodels/user/userMenu' -->
                                     <!-- /ko -->
                                 </li>
-                                <!-- /ko -->
                             </ul>
                         </div>
                     </div>
