@@ -48,47 +48,38 @@
                 </div>
             </div>
         </header>
-        
+
         <section>
-            <div style="display: flex; flex-direction: row; position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                
-                
 
-                
-                
-                <!-- ko if: showTreeOfContent -->
-                <!-- ko compose: 'navigationBar/navigationBar' -->
-                <!-- /ko -->
-                <!-- /ko-->
-                
-                <div class="back-button" data-bind="widget: { kind: 'backButton'}, style: { visibility: isViewReady() ? 'visible' : 'hidden' }" style="position: relative;"></div>  
+            <!-- ko if: showTreeOfContent -->
+            <!-- ko compose: 'navigationBar/navigationBar' -->
+            <!-- /ko -->
+            <!-- /ko-->
 
-                <div style="flex: 1 1 auto; overflow-x: hidden;overflow-y: scroll;position: relative;" id="view_content">
-                    <div class="circular-loader x32 black align-center" data-bind="visible: !isViewReady()">
-                        <div class="circular-loader-item"></div>
-                        <div class="circular-loader-item"></div>
-                        <div class="circular-loader-item"></div>
-                        <div class="circular-loader-item"></div>
-                        <div class="circular-loader-item"></div>
-                        <div class="circular-loader-item"></div>
-                        <div class="circular-loader-item"></div>
-                        <div class="circular-loader-item"></div>
-                    </div>
-                    <div data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }">
-                        <div data-bind="router: { cacheViews: false, transition: 'defaultRouterTransition' }"></div>
-                        <!-- ko compose: 'viewmodels/panels/sidePanel' -->
-                        <!-- /ko -->
-                        <footer class="footer-container">
-                            <div class="content-section-wrapper">
-                                <div class="content-section">
-                                    <span class="cursor-default" data-bind="localize: { text: 'CopyrightText' }"></span>
-                                </div>
-                            </div>
-                        </footer>
-                    </div>
+            <div class="back-button" data-bind="widget: { kind: 'backButton'}, style: { visibility: isViewReady() ? 'visible' : 'hidden' }"></div>
 
+            <main id="view_content">
+                <!-- ko ifnot: isViewReady -->
+                <div class="circular-loader x32 black align-center" data-bind="visible: !isViewReady()">
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
+                    <div class="circular-loader-item"></div>
                 </div>
-            </div>
+                <!-- /ko -->
+                <div data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }">
+                    <div data-bind="router: { cacheViews: false, transition: 'defaultRouterTransition' }"></div>
+                    <!-- ko compose: 'viewmodels/panels/sidePanel' -->
+                    <!-- /ko -->
+                </div>
+                <footer>
+                    <span data-bind="localize: { text: 'CopyrightText' }"></span>
+                </footer>
+            </main>
         </section>
 
 

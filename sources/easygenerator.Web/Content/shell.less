@@ -7,18 +7,52 @@
     width: 100%;
     height: 100%;
     display: flex;
+    -webkit-flex-direction: column;
     flex-direction: column;
-    height: 100%;
 
     & > header {
         background-color: #393939;
+        -webkit-flex: 0 0 auto;
         flex: 0 0 auto;
     }
 
     & > section {
+        -webkit-flex: 1 1 auto;
         flex: 1 1 auto;
+        display: -webkit-flex;
         display: flex;
+        -webkit-flex-direction: row;
         flex-direction: row;
+        position: relative;
+        overflow: hidden;
+    }
+
+    main {
+        -webkit-flex: 1 1 auto;
+        flex: 1 1 auto;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        & > footer {
+            width: 100%;
+            min-width: 600px;
+            height: 35px;
+            line-height: 35px;
+            background-color: rgb(48, 49, 51);
+            color: white;
+            font-size: 12px;
+            z-index: 1;
+            text-align: center;
+            -webkit-flex: 0 0 auto;
+            flex: 0 0 auto;
+        }
+    }
+    // HZ
+    .back-button {
         position: relative;
     }
 }
