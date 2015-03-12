@@ -169,6 +169,7 @@
         });
 
         function setData(evt) {
+            // Fix for bug with save resize of table in tableresize plugin
             var attr = $(evt.target).attr('data-cke-temp');
             if (typeof attr !== typeof undefined && attr !== false) {
                 setTimeout(function () {
