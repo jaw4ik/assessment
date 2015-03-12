@@ -4,36 +4,30 @@
 
         var
             map = function (item) {
-                parseManifest(item);
-                return new TemplateModel(
-                 {
-                     id: item.Id,
-                     name: item.name,
-                     thumbnail: item.thumbnail,
-                     previewImages: item.previewImages,
-                     settingsUrl: item.settingsUrl,
-                     shortDescription: item.shortDescription,
-                     previewDemoUrl: item.PreviewDemoUrl,
-                     order: item.Order,
-                     isNew: item.IsNew,
-                     isCustom: item.IsCustom
-                 });
+                var templateData = {
+                    id: item.Id,
+                    previewDemoUrl: item.PreviewDemoUrl,
+                    order: item.Order,
+                    isNew: item.IsNew,
+                    isCustom: item.IsCustom
+                };
+                var manifestData = getManifestData(JSON.parse(item.Manifest), item.PreviewDemoUrl);
+                return new TemplateModel(_.extend(templateData, manifestData));
             };
 
         return {
             map: map
         };
 
-        function parseManifest(item) {
-            item.Manifest = JSON.parse(item.Manifest);
-
-            item.name = item.Manifest.name;
-            item.thumbnail = item.PreviewDemoUrl + item.Manifest.thumbnail;
-            item.previewImages = [];
-            _.each(item.Manifest.previewImages, function (img) {
-                item.previewImages.push(item.PreviewDemoUrl + img);
-            });
-            item.settingsUrl = item.PreviewDemoUrl + item.Manifest.settingsUrl;
-            item.shortDescription = item.Manifest.shortDescription;
+        function getManifestData(manifest, previewDemoUrl) {
+            return {
+                name: manifest.name,
+                thumbnail: previewDemoUrl + manifest.thumbnail,
+                previewImages: _.map(manifest.previewImages, function (img) {
+                    return previewDemoUrl + img;
+                }),
+                settingsUrl: previewDemoUrl + manifest.settingsUrl,
+                shortDescription: manifest.shortDescription
+            };
         }
     });
