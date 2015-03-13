@@ -18,6 +18,7 @@ namespace easygenerator.Web.Tests.Storage
         private PhysicalFileManager _physicalFileManager;
         private ConfigurationReader _configurationReader;
         private HttpRuntimeWrapper _httpRuntimeWrapper;
+        private ILog _logger;
 
         private Template _template;
         private TemplateStorageConfigurationSection _templateStorageConfiguration;
@@ -30,6 +31,7 @@ namespace easygenerator.Web.Tests.Storage
             _physicalFileManager = Substitute.For<PhysicalFileManager>();
             _configurationReader = Substitute.For<ConfigurationReader>();
             _httpRuntimeWrapper = Substitute.For<HttpRuntimeWrapper>();
+            _logger = Substitute.For<ILog>();
 
             _templateStorageConfiguration = new TemplateStorageConfigurationSection()
             {
@@ -38,7 +40,7 @@ namespace easygenerator.Web.Tests.Storage
             };
             _configurationReader.TempateStorageConfiguration.Returns(_templateStorageConfiguration);
 
-            _templateStorage = new TemplateStorage(_configurationReader, _httpRuntimeWrapper, _physicalFileManager);
+            _templateStorage = new TemplateStorage(_configurationReader, _httpRuntimeWrapper, _physicalFileManager, _logger);
         }
 
         #region TemplateDirectoryExist
@@ -69,6 +71,19 @@ namespace easygenerator.Web.Tests.Storage
             result.Should().BeFalse();
         }
 
+        [TestMethod]
+        public void TemplateDirectoryExist_ShouldLogException_WhenTemplateDirectoryDoesNotExist()
+        {
+            //Arrange
+            _physicalFileManager.DirectoryExists(Arg.Any<string>()).Returns(false);
+
+            //Act
+            _templateStorage.TemplateDirectoryExist(_template);
+
+            //Assert
+            _logger.Received().LogException(Arg.Any<DirectoryNotFoundException>());
+        }
+
         #endregion
 
         #region FileExists
@@ -97,6 +112,19 @@ namespace easygenerator.Web.Tests.Storage
 
             //Assert
             result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void FileExists_ShouldLogException_WhenPhysicalFileDoesNotExist()
+        {
+            //Arrange
+            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(false);
+
+            //Act
+            _templateStorage.FileExists(_template, "fileName");
+
+            //Assert
+            _logger.Received().LogException(Arg.Any<FileNotFoundException>());
         }
 
         #endregion

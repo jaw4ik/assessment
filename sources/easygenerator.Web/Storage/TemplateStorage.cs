@@ -20,22 +20,40 @@ namespace easygenerator.Web.Storage
         private readonly ConfigurationReader _configurationReader;
         private readonly HttpRuntimeWrapper _httpRuntimeWrapper;
         private readonly PhysicalFileManager _physicalFileManager;
+        private readonly ILog _logger;
 
-        public TemplateStorage(ConfigurationReader configurationReader, HttpRuntimeWrapper httpRuntimeWrapper, PhysicalFileManager physicalFileManager)
+        public TemplateStorage(ConfigurationReader configurationReader, HttpRuntimeWrapper httpRuntimeWrapper, PhysicalFileManager physicalFileManager, ILog logger)
         {
             _configurationReader = configurationReader;
             _httpRuntimeWrapper = httpRuntimeWrapper;
             _physicalFileManager = physicalFileManager;
+            _logger = logger;
         }
 
         public bool TemplateDirectoryExist(Template template)
         {
-            return _physicalFileManager.DirectoryExists(GetTemplateDirectoryPath(template));
+            var templateDirectoryPath = GetTemplateDirectoryPath(template);
+            var exists = _physicalFileManager.DirectoryExists(templateDirectoryPath);
+
+            if (!exists)
+            {
+                _logger.LogException(new DirectoryNotFoundException("Template directory not found. Path: " + templateDirectoryPath));
+            }
+
+            return exists;
         }
 
         public bool FileExists(Template template, string filePath)
         {
-            return _physicalFileManager.FileExists(GetAbsoluteFilePath(template, filePath));
+            var absoluteFilePath = GetAbsoluteFilePath(template, filePath);
+            var exists = _physicalFileManager.FileExists(absoluteFilePath);
+
+            if (!exists)
+            {
+                _logger.LogException(new FileNotFoundException("Template file not found. Path: " + absoluteFilePath, filePath));
+            }
+
+            return exists;
         }
 
         public string GetAbsoluteFilePath(Template template, string filePath)
