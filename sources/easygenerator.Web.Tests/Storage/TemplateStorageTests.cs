@@ -41,6 +41,36 @@ namespace easygenerator.Web.Tests.Storage
             _templateStorage = new TemplateStorage(_configurationReader, _httpRuntimeWrapper, _physicalFileManager);
         }
 
+        #region TemplateDirectoryExist
+
+        [TestMethod]
+        public void TemplateDirectoryExist_ShouldReturnTrue_WhenTemplateDirectoryExists()
+        {
+            //Arrange
+            _physicalFileManager.DirectoryExists(Arg.Any<string>()).Returns(true);
+
+            //Act
+            var result = _templateStorage.TemplateDirectoryExist(_template);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void TemplateDirectoryExist_ShouldReturnFalse_WhenTemplateDirectoryDoesNotExist()
+        {
+            //Arrange
+            _physicalFileManager.DirectoryExists(Arg.Any<string>()).Returns(false);
+
+            //Act
+            var result = _templateStorage.TemplateDirectoryExist(_template);
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        #endregion
+
         #region FileExists
 
         [TestMethod]

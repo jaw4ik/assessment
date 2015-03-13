@@ -30,7 +30,9 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult GetCollection()
         {
             var result = _templateRepository.GetCollection(GetCurrentUsername())
-                .Select(template => _entityMapper.Map(template)).Where(template => template != null);
+                .Where(template => _templateStorage.TemplateDirectoryExist(template))
+                .Select(template => _entityMapper.Map(template))
+                .Where(template => template != null);
 
             return JsonSuccess(result);
         }

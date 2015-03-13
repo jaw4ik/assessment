@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
@@ -8,6 +9,7 @@ namespace easygenerator.Web.Storage
 {
     public interface ITemplateStorage
     {
+        bool TemplateDirectoryExist(Template template);
         bool FileExists(Template template, string filePath);
         string GetAbsoluteFilePath(Template template, string filePath);
         string GetTemplateDirectoryPath(Template template);
@@ -24,6 +26,11 @@ namespace easygenerator.Web.Storage
             _configurationReader = configurationReader;
             _httpRuntimeWrapper = httpRuntimeWrapper;
             _physicalFileManager = physicalFileManager;
+        }
+
+        public bool TemplateDirectoryExist(Template template)
+        {
+            return _physicalFileManager.DirectoryExists(GetTemplateDirectoryPath(template));
         }
 
         public bool FileExists(Template template, string filePath)
