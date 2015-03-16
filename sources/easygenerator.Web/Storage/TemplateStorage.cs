@@ -32,28 +32,12 @@ namespace easygenerator.Web.Storage
 
         public bool TemplateDirectoryExist(Template template)
         {
-            var templateDirectoryPath = GetTemplateDirectoryPath(template);
-            var exists = _physicalFileManager.DirectoryExists(templateDirectoryPath);
-
-            if (!exists)
-            {
-                _logger.LogException(new DirectoryNotFoundException("Template directory not found. Path: " + templateDirectoryPath));
-            }
-
-            return exists;
+            return _physicalFileManager.DirectoryExists(GetTemplateDirectoryPath(template));
         }
 
         public bool FileExists(Template template, string filePath)
         {
-            var absoluteFilePath = GetAbsoluteFilePath(template, filePath);
-            var exists = _physicalFileManager.FileExists(absoluteFilePath);
-
-            if (!exists)
-            {
-                _logger.LogException(new FileNotFoundException("Template file not found. Path: " + absoluteFilePath, filePath));
-            }
-
-            return exists;
+            return _physicalFileManager.FileExists(GetAbsoluteFilePath(template, filePath));
         }
 
         public string GetAbsoluteFilePath(Template template, string filePath)

@@ -71,19 +71,6 @@ namespace easygenerator.Web.Tests.Storage
             result.Should().BeFalse();
         }
 
-        [TestMethod]
-        public void TemplateDirectoryExist_ShouldLogException_WhenTemplateDirectoryDoesNotExist()
-        {
-            //Arrange
-            _physicalFileManager.DirectoryExists(Arg.Any<string>()).Returns(false);
-
-            //Act
-            _templateStorage.TemplateDirectoryExist(_template);
-
-            //Assert
-            _logger.Received().LogException(Arg.Any<DirectoryNotFoundException>());
-        }
-
         #endregion
 
         #region FileExists
@@ -112,19 +99,6 @@ namespace easygenerator.Web.Tests.Storage
 
             //Assert
             result.Should().BeFalse();
-        }
-
-        [TestMethod]
-        public void FileExists_ShouldLogException_WhenPhysicalFileDoesNotExist()
-        {
-            //Arrange
-            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(false);
-
-            //Act
-            _templateStorage.FileExists(_template, "fileName");
-
-            //Assert
-            _logger.Received().LogException(Arg.Any<FileNotFoundException>());
         }
 
         #endregion
