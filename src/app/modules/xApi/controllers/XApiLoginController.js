@@ -17,7 +17,7 @@
 
         $rootScope.title = quiz.title;
 
-        that.courseTitle = '"' + quiz.title + '"';
+        that.courseTitle = quiz.title;
         that.questionsLength = length === 1 ? length + ' question' : length + ' questions';
         that.username = '';
         that.email = '';
