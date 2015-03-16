@@ -198,5 +198,6 @@ FakesAssemblies/
 # Custom easygenerator files
 /sources/easygenerator.Web/App/main-built.js
 /sources/easygenerator.Web/FileStorage/
+/sources/easygenerator.PublicationServer.Web/courses/*
 *.ncrunchproject
 *.ncrunchsolution
