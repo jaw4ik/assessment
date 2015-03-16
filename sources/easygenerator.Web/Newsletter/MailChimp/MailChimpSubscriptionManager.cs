@@ -1,4 +1,5 @@
-﻿using easygenerator.Infrastructure;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Http;
 using easygenerator.Web.Components.Configuration;
 using System;
@@ -44,7 +45,7 @@ namespace easygenerator.Web.Newsletter.MailChimp
             _logger = logger;
         }
 
-        public bool SubscribeForNewsletters(string userEmail, string firstname, string lastname, string userRole)
+        public bool UpsertSubscription(string userEmail, string firstname, string lastname, string userRole, AccessType accessType)
         {
             if (_configurationReader.MailChimpConfiguration.Enabled)
             {
@@ -52,7 +53,15 @@ namespace easygenerator.Web.Newsletter.MailChimp
                 {
                     var methodUrl = GetServiceMethodUrl(SubscribeMethodPath);
                     var responseData = _httpClient.Post<MailChimpSubscription>(methodUrl,
-                        new { apikey = ApiKey, id = ListIdForSubscription, email = new { email = userEmail }, merge_vars = new { fname = firstname, lname = lastname, role = userRole }, double_optin = confirmationRequired });
+                        new
+                        {
+                            apikey = ApiKey,
+                            id = ListIdForSubscription,
+                            email = new { email = userEmail },
+                            merge_vars = new { fname = firstname, lname = lastname, role = userRole, plan = accessType.ToString() },
+                            double_optin = confirmationRequired,
+                            update_existing = true
+                        });
                     return string.Equals(responseData.Email, userEmail, StringComparison.CurrentCultureIgnoreCase);
                 }
                 catch (Exception exception)
