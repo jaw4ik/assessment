@@ -1,5 +1,4 @@
 ﻿using easygenerator.Infrastructure;
-using easygenerator.Infrastructure.ImageProcessors;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using System.Globalization;

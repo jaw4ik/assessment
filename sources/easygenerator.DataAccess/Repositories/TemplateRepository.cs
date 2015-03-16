@@ -24,5 +24,10 @@ namespace easygenerator.DataAccess.Repositories
         {
             return GetCollection(t => t.AccessControlList.Any(templateAcl => templateAcl.UserIdentity == userName || templateAcl.UserIdentity == AccessControlListEntry.WildcardIdentity));
         }
+
+        public Template GetByName(string templateName, string userName)
+        {
+            return GetCollection(userName).FirstOrDefault(t => t.Name == templateName);
+        }
     }
 }

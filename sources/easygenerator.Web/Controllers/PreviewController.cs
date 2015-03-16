@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Hosting;
 using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
@@ -12,6 +11,7 @@ using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionResults;
+using easygenerator.Web.Storage;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -20,23 +20,20 @@ namespace easygenerator.Web.Controllers
     [NoCache]
     public class PreviewController : Controller
     {
-        private readonly BuildPathProvider _buildPathProvider;
-        private readonly PhysicalFileManager _physicalFileManager;
         private readonly PackageModelMapper _packageModelMapper;
         private readonly PublishSettingsProvider _publishSettingsProvider;
         private readonly PackageModulesProvider _packageModulesProvider;
+        private readonly ITemplateStorage _templateStorage;
 
-        public PreviewController(BuildPathProvider buildPathProvider,
-                                 PhysicalFileManager physicalFileManager,
-                                 PackageModelMapper packageModelMapper,
+        public PreviewController(PackageModelMapper packageModelMapper,
                                  PublishSettingsProvider publishSettingsProvider,
-                                 PackageModulesProvider packageModulesProvider)
+                                 PackageModulesProvider packageModulesProvider,
+                                 ITemplateStorage templateStorage)
         {
-            _buildPathProvider = buildPathProvider;
-            _physicalFileManager = physicalFileManager;
             _packageModelMapper = packageModelMapper;
             _publishSettingsProvider = publishSettingsProvider;
             _packageModulesProvider = packageModulesProvider;
+            _templateStorage = templateStorage;
         }
 
 
@@ -168,14 +165,13 @@ namespace easygenerator.Web.Controllers
             }
 
             var resourcePath = String.IsNullOrWhiteSpace(resourceUrl) ? "index.html" : resourceUrl.Replace("/", "\\");
-            var templateDirectory = _buildPathProvider.GetTemplateDirectoryName(course.Template.Name);
-            var filePath = Path.Combine(templateDirectory, resourcePath);
 
-            if (!_physicalFileManager.FileExists(filePath))
+            if (!_templateStorage.FileExists(course.Template, resourcePath))
             {
                 return HttpNotFound();
             }
 
+            var filePath = _templateStorage.GetAbsoluteFilePath(course.Template, resourcePath);
             return File(filePath, MimeMapping.GetMimeMapping(filePath));
         }
     }

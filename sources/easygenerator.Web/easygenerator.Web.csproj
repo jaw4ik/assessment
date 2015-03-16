@@ -235,7 +235,9 @@
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
     <Compile Include="Components\Mappers\DropspotMapper.cs" />
@@ -445,6 +447,7 @@
     <Compile Include="Storage\FileTypeChecker.cs" />
     <Compile Include="Storage\ImageStorage.cs" />
     <Compile Include="Storage\Storage.cs" />
+    <Compile Include="Storage\TemplateStorage.cs" />
     <Compile Include="Synchronization\Broadcasting\Broadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\CourseCollaboratorProvider.cs" />

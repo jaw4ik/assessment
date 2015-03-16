@@ -6,6 +6,7 @@ namespace easygenerator.DomainModel.Repositories
     public interface ITemplateRepository : IQuerableRepository<Template>
     {
         Template GetDefaultTemplate();
+        Template GetByName(string templateName, string userName);
         ICollection<Template> GetCollection(string userName);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using easygenerator.DataAccess.Migrations;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Repositories;
@@ -11,6 +12,7 @@ using easygenerator.Web.BuildCourse.Modules.Models;
 using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.Components;
 using easygenerator.Web.Controllers;
+using easygenerator.Web.Storage;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,26 +25,24 @@ namespace easygenerator.Web.Tests.Controllers
     public class PreviewControllerTests
     {
         private PreviewController _controller;
-        private BuildPathProvider _buildPathProvider;
-        private PhysicalFileManager _physicalFileManager;
         private PackageModelMapper _packageModelMapper;
         private PublishSettingsProvider _publishSettingsProvider;
         private PackageModulesProvider _packageModulesProvider;
+        private ITemplateStorage _templateStorage;
 
         [TestInitialize]
         public void Initialize()
         {
-            _buildPathProvider = Substitute.For<BuildPathProvider>(Substitute.For<HttpRuntimeWrapper>());
-            _physicalFileManager = Substitute.For<PhysicalFileManager>();
-
             _packageModelMapper = Substitute.For<PackageModelMapper>(Substitute.For<IUrlHelperWrapper>(), Substitute.For<IUserRepository>());
 
             _publishSettingsProvider = Substitute.For<PublishSettingsProvider>();
 
-            var _userRepository = Substitute.For<IUserRepository>();
-            _packageModulesProvider = Substitute.For<PackageModulesProvider>(_userRepository);
+            var userRepository = Substitute.For<IUserRepository>();
+            _packageModulesProvider = Substitute.For<PackageModulesProvider>(userRepository);
 
-            _controller = new PreviewController(_buildPathProvider, _physicalFileManager, _packageModelMapper, _publishSettingsProvider, _packageModulesProvider);
+            _templateStorage = Substitute.For<ITemplateStorage>();
+
+            _controller = new PreviewController(_packageModelMapper, _publishSettingsProvider, _packageModulesProvider, _templateStorage);
         }
 
         #region GetPreviewCourseSettings
@@ -403,7 +403,7 @@ namespace easygenerator.Web.Tests.Controllers
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(false);
+            _templateStorage.FileExists(course.Template, Arg.Any<string>()).Returns(false);
 
             //Act
             var result = _controller.GetPreviewResource(course, "resourceId");
@@ -417,7 +417,7 @@ namespace easygenerator.Web.Tests.Controllers
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
+            _templateStorage.FileExists(course.Template, Arg.Any<string>()).Returns(true);
 
             //Act
             var result = _controller.GetPreviewResource(null, "resourceId");
@@ -430,28 +430,16 @@ namespace easygenerator.Web.Tests.Controllers
         public void GetPreviewResource_ShouldReturnFilePathResult_WhenResourceExists()
         {
             //Arrange
+            const string resourse = "resourceId";
             var course = CourseObjectMother.Create();
-            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
+            _templateStorage.FileExists(course.Template, Arg.Any<string>()).Returns(true);
+            _templateStorage.GetAbsoluteFilePath(course.Template, resourse).Returns(resourse);
 
             //Act
-            var result = _controller.GetPreviewResource(course, "resourceId");
+            var result = _controller.GetPreviewResource(course, resourse);
 
             //Assert
             result.Should().BeFilePathResult();
-        }
-
-        [TestMethod]
-        public void GetPreviewResource_ShouldGetTemplateDirectory()
-        {
-            //Arrange
-            var course = CourseObjectMother.Create();
-            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
-
-            //Act
-            _controller.GetPreviewResource(course, "resourceId");
-
-            //Assert
-            _buildPathProvider.Received().GetTemplateDirectoryName(course.Template.Name);
         }
 
         #endregion
