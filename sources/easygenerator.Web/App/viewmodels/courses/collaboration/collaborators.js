@@ -1,4 +1,5 @@
-﻿define(['viewModels/courses/collaboration/collaborator', 'dialogs/collaboration/addCollaborator', 'eventTracker', 'durandal/app', 'constants', 'userContext', 'repositories/collaboratorRepository', 'guard'],
+﻿define(['viewModels/courses/collaboration/collaborator', 'dialogs/collaboration/collaboration', 'eventTracker', 'durandal/app', 'constants', 'userContext', 'repositories/collaboratorRepository',
+    'guard'],
     function (vmCollaborator, addCollaboratorDialog, eventTracker, app, constants, userContext, collaboratorRepository, guard) {
         "use strict";
 
@@ -26,7 +27,7 @@
 
         function addMember() {
             eventTracker.publish(events.openAddCourseCollaboratorDialog);
-            viewModel.addMemberDialog.show();
+            viewModel.addMemberDialog.show(viewModel.courseOwner);
         }
 
         function collaboratorAdded(collaborator) {

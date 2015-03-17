@@ -1,0 +1,69 @@
+﻿<li class="collaborators-list-item" data-bind="css:{ 'remove-confirmation-shown': isRemoveConfirmationShown}">
+    <div class="collaborator-wrapper" data-bind="css: { 'activatable': canBeRemoved}">
+        <div class="collaborator" data-bind="css: { 'course-owner': isOwner, 'not-registered': !isRegistered(), 'locked': isLocked, 'active':  isRemoveConfirmationShown }">
+            <div class="collaborator-avatar-container">
+                <div class="collaborator-avatar-wrapper">
+                    <!-- ko if: isLocked -->
+                    <div class="collaborator-avatar user-avatar"></div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isLocked -->
+                    <div class="collaborator-avatar user-avatar" data-bind="text: avatarLetter"></div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <div class="collaborator-info">
+                <div class="collaborator-name" data-bind="text: name"></div>
+                <!-- ko if: isRegistered -->
+                <div class="collaborator-email" data-bind="text: email"></div>
+                <!-- /ko -->
+                <!-- ko ifnot: isRegistered -->
+                <div class="collaborator-not-registered-message" data-bind="localize: { text: 'waitingForRegistration' }"></div>
+                <!-- /ko -->
+            </div>
+            <div class="collaborator-actions">
+                <!-- ko if: isOwner -->
+                <div class="collaborator-owner-mark" data-bind="localize: { text: 'owner' }"></div>
+                <!-- /ko -->
+                <!-- ko if: canBeRemoved -->
+                <button class="collaborator-remove-btn info-tooltip-holder" data-bind="click: showRemoveConfirmation">
+                    <!-- ko ifnot: isRemoveConfirmationShown -->
+                    <span class="info-tooltip remove-collaborator-tooltip">
+                        <span data-bind="localize: {text: 'remove'}"></span>
+                    </span>
+                    <!-- /ko -->
+                </button>
+                <!-- /ko -->
+            </div>
+        </div>
+        <!-- ko if: canBeRemoved -->
+        <div class="collaborator-remove-popover" data-bind="css: { shown: (isRemoveConfirmationShown() || isRemoveSuccessMessageShown()) }">
+            <div class="collaborator-remove-confirmation" data-bind="css: { shown: isRemoveConfirmationShown }">
+                <div class="collaborator-remove-confirmation-text">
+                    <div data-bind="localize: { text: 'remove' }"></div>&nbsp;<div class="collaborator-remove-confirmation-user-name" data-bind="text: name"></div>&nbsp;<div data-bind="localize: { text: 'asCoautor' }"></div>
+                </div>
+                <div class="collaborator-remove-confirmation-actions">
+                    <button class="collaborator-remove-btn" data-bind="click: removeCollaborator, disable: isRemoving, css: {progress: isRemoving}">
+                        <!-- ko if: isRemoving -->
+                        <!-- ko compose: { view: 'views/common/circularLoader', model: {css: 'x16 white align-center'} } -->
+                        <!-- /ko -->
+                        <!-- /ko -->
+                        <span class="collaborator-remove-btn-text" data-bind="localize: { text: 'remove' }"></span>
+                    </button>
+                    <button class="collaborator-cancel-btn" data-bind="click: hideRemoveConfirmation, disable: isRemoving, css: {enabled: !isRemoving()}">
+                        <span data-bind="localize: { text: 'cancel' }"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="collaborator-remove-success-message" data-bind="css: { shown: isRemoveSuccessMessageShown }">
+                <div class="collaborator-remove-success-message-cross-wrapper">
+                    <div class="collaborator-remove-success-message-cross">
+                    </div>
+                </div>
+                <div class="collaborator-remove-success-message-text">
+                    <div data-bind="localize: { text: 'coAuthor' }"></div>&nbsp;<div class="collaborator-remove-success-message-user-name" data-bind="text: name"></div>&nbsp;<div data-bind="localize: { text: 'hasBeenRemoved' }"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+</li>

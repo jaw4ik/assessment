@@ -35,10 +35,17 @@
 
             //#endregion commands
 
+            //#region dialogs
+
             'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
+            'dialogs/collaboration/collaboration.spec',
+            'dialogs/collaboration/collaborator.spec',
             'dialogs/collaboration/removeCollaborator.spec',
             'dialogs/publishCourse/publishCourse.spec',
+
+            //#endregion dialogs
+
             'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
             'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
             'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
