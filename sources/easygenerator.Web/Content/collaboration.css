@@ -543,6 +543,7 @@
 .collaborators-list {
   text-align: left;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 @media screen and (max-height: 600px) {
   .collaborators-list {
@@ -759,15 +760,17 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 0px;
+  background: #ffffff;
+  height: 100%;
   width: 100%;
-  transition: height 0.3s ease;
+  margin-left: 385px;
+  transition: all 0.4s ease-out;
   overflow: hidden;
   font: 13px "OpenSans-Semibold";
   color: #63798e;
 }
 .collaborator-remove-popover.shown {
-  height: 100%;
+  margin-left: 0;
   border-top: 1px solid #d8d8d8;
   border-bottom: 1px solid #d8d8d8;
 }
@@ -777,7 +780,7 @@
 .collaborators-list-item:last-child .collaborator-remove-popover {
   border-bottom: 1px solid transparent;
 }
-.collaborators-list-item.remove-confirmation-shown + .collaborators-list-item.remove-confirmation-shown .collaborator-remove-confirmation {
+.collaborators-list-item.remove-confirmation-shown + .collaborators-list-item.remove-confirmation-shown .collaborator-remove-popover {
   border-top: 1px solid transparent;
 }
 .collaborator-remove-confirmation {
@@ -963,7 +966,7 @@
 /*#endregion Upgrade invitation */
 /*#region Collaboration locked info block */
 .collaboration-locked-info-block {
-  padding: 30px 45px;
+  padding: 25px 45px 0px 45px;
   text-align: center;
 }
 .collaboration-locked-info-block-message {
@@ -977,6 +980,9 @@
   padding: 0px 30px;
   margin-top: 30px;
   text-transform: uppercase;
+}
+.collaboration-locked-info-block .collaboration-locked-info-block-upgrade-btn {
+  margin-top: 20px;
 }
 /*#endregion Collaboration locked info block */
 /*#endregion ADD COLLABORATOR MODAL DIALOG NEW*/
