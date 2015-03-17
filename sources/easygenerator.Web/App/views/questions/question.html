@@ -4,7 +4,18 @@
         <div class="content-section">
             <div class="page-view-caption clearfix">
                 <div class="action-item-btn-wrapper pull-right">
-                    <!-- ko widget: { kind: 'createQuestion', objectiveId: objectiveId } --><!-- /ko -->
+                    <div class="list-item-action advanced-features-dropdown" data-bind="dropDown: {}">
+                        <div class="btn-head bold"></div>
+                        <ul class="dropdown-list">
+                            <li class="dropdown-list-item">
+                                <span class="advanced-features-item">Move/Copy question to...</span>
+                            </li>
+                            <li class="dropdown-list-item objective-from-powerpoint">
+                                <span class="advanced-features-item marked">Delete question</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="list-item-action" data-bind="widget: { kind: 'createQuestion', objectiveId: objectiveId }"></div>
                 </div>
                 <div class="page-view-caption-text" data-bind="text: viewCaption">Question editor</div>
             </div>
