@@ -87,7 +87,9 @@
                         nudgespot.identify(username, { "first_name": firstname, "last_name": lastname });
                         properties.email = username;
 
-                        nudgespot.track(eventName, properties);
+                        nudgespot.track(eventName, properties, function() {
+                            resolve();
+                        });
                         _.delay(resolve, application.constants.timeout.nudgespot);
                     } else {
                         console.error('nudgespot can\'t identify a user');
