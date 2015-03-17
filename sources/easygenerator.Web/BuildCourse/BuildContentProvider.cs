@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Web.Hosting;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse.Modules.Models;
 using easygenerator.Web.BuildCourse.PackageModel;
 using easygenerator.Web.BuildCourse.PublishSettings;
+using easygenerator.Web.Storage;
 using Newtonsoft.Json;
 
 namespace easygenerator.Web.BuildCourse
@@ -18,18 +17,21 @@ namespace easygenerator.Web.BuildCourse
         private readonly PackageModelSerializer _packageModelSerializer;
         private readonly PackageModelMapper _packageModelMapper;
         private readonly PublishSettingsProvider _publishSettingsProvider;
+        private readonly ITemplateStorage _templateStorage;
 
         public BuildContentProvider(PhysicalFileManager fileManager,
                                     BuildPathProvider buildPathProvider,
                                     PackageModelSerializer packageModelSerializer,
                                     PackageModelMapper packageModelMapper,
-                                    PublishSettingsProvider publishSettingsProvider)
+                                    PublishSettingsProvider publishSettingsProvider,
+                                    ITemplateStorage templateStorage)
         {
             _fileManager = fileManager;
             _buildPathProvider = buildPathProvider;
             _packageModelSerializer = packageModelSerializer;
             _packageModelMapper = packageModelMapper;
             _publishSettingsProvider = publishSettingsProvider;
+            _templateStorage = templateStorage;
         }
 
         public virtual void AddBuildContentToPackageDirectory(string buildDirectory, Course course, IEnumerable<PackageModule> modules)
@@ -63,7 +65,7 @@ namespace easygenerator.Web.BuildCourse
 
         private void AddTemplateToPackageDirectory(string buildDirectory, Course course)
         {
-            _fileManager.CopyDirectory(_buildPathProvider.GetTemplateDirectoryName(course.Template.Name), buildDirectory);
+            _fileManager.CopyDirectory(_templateStorage.GetTemplateDirectoryPath(course.Template), buildDirectory);
         }
 
         private void AddCourseContentToPackageDirectory(string buildDirectory, CoursePackageModel coursePackageModel)

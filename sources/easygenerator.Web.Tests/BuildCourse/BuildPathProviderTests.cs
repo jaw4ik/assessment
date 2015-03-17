@@ -20,7 +20,6 @@ namespace easygenerator.Web.Tests.BuildCourse
 
         private string BuildPath { get; set; }
         private string WebsitePath { get; set; }
-        private string TemplatesPath { get; set; }
         private string DownloadPath { get; set; }
         private string PublishPath { get; set; }
         private string PreviewPath { get; set; }
@@ -35,7 +34,6 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             BuildPath = Path.Combine(Path.GetTempPath(), "eg", "build");
             WebsitePath = _httpRuntimeWrapper.GetDomainAppPath();
-            TemplatesPath = Path.Combine(WebsitePath, "Templates");
             DownloadPath = Path.Combine(WebsitePath, "Download");
             PublishPath = Path.Combine(WebsitePath, "PublishedPackages");
             PreviewPath = Path.Combine(WebsitePath, "PreviewPackages");
@@ -224,24 +222,6 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             //Act
             var result = _buildPathProvider.GetIncludedModulesDirectoryPath(buildDirectory);
-
-            //Assert
-            result.Should().Be(expectedPath);
-        }
-
-        #endregion
-
-        #region GetTemplateDirectoryName
-
-        [TestMethod]
-        public void GetTemplateDirectoryName_ShouldReturnTemplateDirecory()
-        {
-            //Arrange
-            var templateName = "TemplateName";
-            var expectedPath = Path.Combine(TemplatesPath, templateName);
-
-            //Act
-            var result = _buildPathProvider.GetTemplateDirectoryName(templateName);
 
             //Assert
             result.Should().Be(expectedPath);

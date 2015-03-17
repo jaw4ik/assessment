@@ -235,7 +235,9 @@
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
     <Compile Include="Components\Mappers\DropspotMapper.cs" />
@@ -257,6 +259,7 @@
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="DomainEvents\Handlers\MailChimpSubscriptionHandler.cs" />
     <Compile Include="InMemoryStorages\DemoCoursesInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\IDemoCoursesStorage.cs" />
     <Compile Include="Import\Presentation\Extensions\ParagraphExtensions.cs" />
@@ -380,7 +383,6 @@
     <Compile Include="DomainEvents\Handlers\RegisterWooCommerceUserHandler.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
-    <Compile Include="DomainEvents\Handlers\SubscribeForNewslettersHandler.cs" />
     <Compile Include="DomainEvents\Handlers\UpdateWooCommerceUserHandler.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -445,6 +447,7 @@
     <Compile Include="Storage\FileTypeChecker.cs" />
     <Compile Include="Storage\ImageStorage.cs" />
     <Compile Include="Storage\Storage.cs" />
+    <Compile Include="Storage\TemplateStorage.cs" />
     <Compile Include="Synchronization\Broadcasting\Broadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\CourseCollaboratorProvider.cs" />

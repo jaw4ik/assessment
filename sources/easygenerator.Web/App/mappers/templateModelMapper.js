@@ -11,7 +11,7 @@
                     isNew: item.IsNew,
                     isCustom: item.IsCustom
                 };
-                var manifestData = getManifestData(JSON.parse(item.Manifest), item.PreviewDemoUrl);
+                var manifestData = getManifestData(JSON.parse(item.Manifest), item.TemplateUrl);
                 return new TemplateModel(_.extend(templateData, manifestData));
             };
 
@@ -19,14 +19,14 @@
             map: map
         };
 
-        function getManifestData(manifest, previewDemoUrl) {
+        function getManifestData(manifest, templateUrl) {
             return {
                 name: manifest.name,
-                thumbnail: previewDemoUrl + manifest.thumbnail,
+                thumbnail: templateUrl + manifest.thumbnail,
                 previewImages: _.map(manifest.previewImages, function (img) {
-                    return previewDemoUrl + img;
+                    return templateUrl + img;
                 }),
-                settingsUrl: previewDemoUrl + manifest.settingsUrl,
+                settingsUrl: templateUrl + manifest.settingsUrl,
                 shortDescription: manifest.shortDescription
             };
         }

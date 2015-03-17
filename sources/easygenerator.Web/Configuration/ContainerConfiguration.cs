@@ -65,7 +65,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<BuildContentProvider>();
             builder.RegisterType<PhysicalFileManager>();
             builder.RegisterType<MagickImageResizer>().As<IImageResizer>();
-            builder.RegisterType<ManifestFileManager>().As<ManifestFileManager>().SingleInstance();
+            builder.RegisterType<ManifestFileManager>().SingleInstance();
             builder.RegisterType<HttpRuntimeWrapper>();
             builder.RegisterType<BuildPackageCreator>();
             builder.RegisterType<PackageModelMapper>();
@@ -192,6 +192,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<UrlHelperWrapper>().As<IUrlHelperWrapper>();
             builder.RegisterType<Storage.Storage>().As<IStorage>();
             builder.RegisterType<ImageStorage>().As<IImageStorage>();
+            builder.RegisterType<TemplateStorage>().As<ITemplateStorage>();
 
             builder.RegisterType<FileTypeChecker>().As<IFileTypeChecker>();
             builder.RegisterType<WooCommerceAutologinUrlProvider>().As<IWooCommerceAutologinUrlProvider>();
