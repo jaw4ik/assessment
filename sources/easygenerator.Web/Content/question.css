@@ -111,6 +111,299 @@
   color: #e85e5d;
 }
 /*#endregion Advanced features dropdown*/
+/*#region Copy move dialog*/
+.question .move-copy-dialog {
+  display: none;
+}
+.question .move-copy-dialog .dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 620px;
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  z-index: 1100;
+  background: none repeat scroll 0 0 #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.25);
+  color: #546677;
+  font-family: 'OpenSans';
+  font-size: 13px;
+  line-height: 24px;
+}
+.question .move-copy-dialog .dialog-header {
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  cursor: default;
+}
+.question .move-copy-dialog .dialog-header-text {
+  color: #546677;
+  font-family: 'OpenSans-Semibold';
+  font-size: 22px;
+  line-height: 36px;
+}
+.question .move-copy-dialog .dialog-close-btn {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 10px;
+  right: 0;
+  padding: 0;
+  border: none;
+  background: url('images/sprites_16.png');
+  background-position: -42px 0;
+  opacity: 0.8;
+  cursor: pointer;
+}
+.question .move-copy-dialog .dialog-close-btn:hover {
+  opacity: 1;
+}
+.question .move-copy-dialog .section-title {
+  padding: 2px 0 3px;
+  color: #546677;
+  font-family: 'OpenSans-Semibold';
+  font-size: 15px;
+  line-height: 36px;
+}
+.question .move-copy-dialog .section-content {
+  margin-bottom: 10px;
+}
+.question .move-copy-dialog .dropdown {
+  color: #42515f;
+  font-size: 13px;
+  line-height: 22px;
+  position: relative;
+  width: 100%;
+}
+.question .move-copy-dialog .dropdown-current-item {
+  height: 38px;
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 0 -11px 1px -10px rgba(0, 0, 0, 0.05) inset;
+  cursor: pointer;
+}
+.question .move-copy-dialog .expanded .dropdown-current-item {
+  border-color: #469dd5;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+}
+.question .move-copy-dialog .dropdown-current-item:hover {
+  border: 1px solid #469dd5;
+}
+.question .move-copy-dialog .dropdown-current-item:hover .dropdown-indicator-holder {
+  border-left: 1px solid #469dd5;
+}
+.question .move-copy-dialog .dropdown-current-item-text {
+  width: 100%;
+  line-height: 36px;
+  padding: 0 43px 0 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  z-index: 1;
+}
+.question .move-copy-dialog .dropdown-indicator-holder {
+  top: 0;
+  right: 0;
+  width: 32px;
+  height: 100%;
+  position: absolute;
+  border-left: 1px solid #ddd;
+  border-radius: 0 4px 4px 0;
+  box-sizing: border-box;
+  z-index: 1;
+}
+.question .move-copy-dialog .expanded .dropdown-indicator-holder {
+  border-color: #469dd5;
+}
+.question .move-copy-dialog .dropdown-indicator {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAGCAYAAAAVMmT4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QTAxMTU5NzY2NjRDMTFFNDkxODFBREQ1MEE5MjA3OUIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QTAxMTU5Nzc2NjRDMTFFNDkxODFBREQ1MEE5MjA3OUIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBMDExNTk3NDY2NEMxMUU0OTE4MUFERDUwQTkyMDc5QiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBMDExNTk3NTY2NEMxMUU0OTE4MUFERDUwQTkyMDc5QiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PiuoBKIAAAB2SURBVHjaYuyaOq+dgYGhgoEw6GACElVAPI+AwrkgdYz///9n6J42nxnIWQfEflgUbgLioNKsxL9gxSAA1MAJpLYAsROSwn1A7ANU+B3EgSuGauAHUgeBWB+ILwKxPVDhR5g8imKoBlEgtQiI44AKXyPLAQQYAEiNKG+murk/AAAAAElFTkSuQmCC");
+  display: block;
+  height: 6px;
+  left: 50%;
+  margin-left: -5px;
+  margin-top: -3px;
+  position: absolute;
+  top: 50%;
+  width: 11px;
+}
+.question .move-copy-dialog .expanded .dropdown-indicator {
+  border-color: #469dd5;
+  transform: rotate(180deg);
+}
+.question .move-copy-dialog .dropdown-options-list {
+  background: none repeat scroll 0 0 #fff;
+  border: 1px solid #469dd5;
+  border-radius: 0 0 5px 5px;
+  box-sizing: border-box;
+  display: none;
+  left: 0;
+  list-style: outside none none;
+  margin-top: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 100;
+}
+.question .move-copy-dialog .expanded .dropdown-options-list {
+  display: block;
+}
+.question .move-copy-dialog .dropdown-options-item {
+  cursor: pointer;
+  padding: 10px;
+  position: relative;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+  border-top: 1px solid #ddd;
+}
+.question .move-copy-dialog .dropdown-options-item:first-child {
+  border: none;
+}
+.question .move-copy-dialog .dropdown-options-item:hover {
+  background: #f9f9f9;
+}
+.question .move-copy-dialog .dropdown-options-item.current {
+  background: #fffddd;
+  padding-left: 30px;
+}
+.question .move-copy-dialog .dropdown-options-item.current:before {
+  content: "";
+  top: 50%;
+  left: 10px;
+  height: 8px;
+  width: 10px;
+  margin-top: -4px;
+  position: absolute;
+  background: url('images/sprites_16.png');
+  background-position: -3px 12px;
+}
+.question .move-copy-dialog .dropdown-options-item.current:hover {
+  background: #fffddd;
+}
+.question .move-copy-dialog .destination-objectives-container {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.question .move-copy-dialog .destination-objectives-list {
+  list-style: none;
+  overflow-y: scroll;
+  max-height: 410px;
+}
+.question .move-copy-dialog .destination-objectives-list-item:first-child {
+  border: none;
+}
+.question .move-copy-dialog .destination-objectives-list-item {
+  border-top: 1px dashed #ddd;
+  line-height: 23px;
+  padding: 8px 20px;
+  position: relative;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+  cursor: pointer;
+}
+.question .move-copy-dialog .destination-objectives-list-item.current::before {
+  content: "";
+  top: 50%;
+  left: 10px;
+  height: 8px;
+  width: 10px;
+  margin-top: -4px;
+  position: absolute;
+  background: url('images/sprites_16.png');
+  background-position: -3px 12px;
+}
+.question .move-copy-dialog .destination-objectives-list-item.current {
+  background: #fffddd;
+  padding-left: 30px;
+}
+.question .move-copy-dialog .destination-objectives-list-item:hover {
+  background: #f9f9f9;
+}
+.question .move-copy-dialog .destination-objectives-list-item.current:hover {
+  background: #fffddd;
+}
+.question .move-copy-dialog .dialog-footer {
+  margin-top: 40px;
+}
+.question .move-copy-dialog .dialog-footer .switcher {
+  float: left;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 43px;
+  margin: 0;
+}
+.question .move-copy-dialog .dialog-footer .switcher .switcher-text {
+  width: auto;
+  color: #546677;
+  font-family: 'OpenSans';
+  font-size: 13px;
+  line-height: 22px;
+}
+.question .move-copy-dialog .dialog-footer .switcher .switcher-text.selected {
+  color: #42515f;
+}
+.question .move-copy-dialog .dialog-footer .switcher .switch-toggle-slider {
+  margin: 0 7px;
+  width: 60px;
+}
+.question .move-copy-dialog .dialog-footer .switcher .switch-toggle-slider .switch-toggle-on,
+.question .move-copy-dialog .dialog-footer .switcher .switch-toggle-slider .switch-toggle-off {
+  background-color: #abbcc6;
+  width: 60px;
+}
+.question .move-copy-dialog .dialog-footer .switcher .switch-toggle-slider.on,
+.question .move-copy-dialog .dialog-footer .switcher .switch-toggle-slider.off {
+  box-shadow: 0 0 0 1px #95a3ac;
+}
+.question .move-copy-dialog .dialog-footer .switcher .switch-toggle-slider.on .switch-toogle-blob,
+.question .move-copy-dialog .dialog-footer .switcher .switch-toggle-slider.off .switch-toogle-blob {
+  box-shadow: 0 0 0 1px #95a3ac;
+}
+.question .move-copy-dialog .dialog-footer .buttons-container {
+  float: right;
+  display: inline-block;
+}
+.question .move-copy-dialog .dialog-footer .buttons-container .main-button {
+  height: 43px;
+  text-transform: uppercase;
+}
+.question .move-copy-dialog .dialog-footer .buttons-container .accessory-button {
+  border: none;
+  background-color: #fff;
+  color: #64798d;
+  font-family: 'OpenSans';
+  font-size: 13px;
+  line-height: 13px;
+  cursor: pointer;
+  margin-right: 20px;
+  padding: 0;
+}
+.question .move-copy-dialog .dialog-footer .buttons-container .accessory-button:hover {
+  border-bottom: 1px solid #64798d;
+}
+.question .move-copy-dialog .background {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+  opacity: 0.8;
+}
+/*#endregion Copy move dialog*/
 /*#region expand-collapse panel*/
 .expand-collapse-panel {
   position: relative;
