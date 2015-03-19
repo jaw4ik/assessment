@@ -2,13 +2,14 @@ var GitHubApi = require("github");
 
 if (process.argv.length === 3){
 
-	var authToken = '';
+ 	// token for easygenerator-ci (replace with one if you want to crete realeses from your name)
+	var authToken = '4a6abc571a3ebeac204f1980e81b1474a0aa1d5f';
 
 	var reposOwner = 'easygenerator';
 	var reposList = [
 		'easygenerator',
 		'simple',
-		'quiz',
+		'exam',
 		'personalized-learning',
 		'quiz-v2',
 		'reader'
