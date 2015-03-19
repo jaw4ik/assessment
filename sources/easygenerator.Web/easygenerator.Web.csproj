@@ -499,6 +499,16 @@
     <Content Include="App\components\polygonsEditor\polygonShape.js" />
     <Content Include="App\components\polygonsEditor\polygonsEditor.js" />
     <Content Include="App\config.js" />
+    <Content Include="App\dialogs\collaboration\collaboration.html" />
+    <Content Include="App\dialogs\collaboration\collaboration.js" />
+    <Content Include="App\dialogs\collaboration\collaboration.spec.js">
+      <DependentUpon>collaboration.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\collaboration\collaborator.html" />
+    <Content Include="App\dialogs\collaboration\collaborator.js" />
+    <Content Include="App\dialogs\collaboration\collaborator.spec.js">
+      <DependentUpon>collaborator.js</DependentUpon>
+    </Content>
     <Content Include="App\localization\resources.js" />
     <Content Include="App\models\reportingStatement.js" />
     <Content Include="App\models\reportingStatement.spec.js">
@@ -570,6 +580,7 @@
     <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
+    <Content Include="App\views\common\circularLoader.html" />
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerLink.html" />
@@ -1477,6 +1488,7 @@
     <Content Include="Content\styles.less" />
     <Content Include="Content\switchToggle.less" />
     <Content Include="Content\treeOfContent.less" />
+    <Content Include="Content\collaboration.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
@@ -1506,6 +1518,7 @@
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="App\viewmodels\questions\fillInTheBlank\bindingHandlers\fillInTheBlankBindingHandler.js" />
     <Content Include="Scripts\knockoutBindings\containerHasFocusBinding.js" />
+    <Content Include="Scripts\knockoutBindings\foreachAnimatedBinding.js" />
     <Content Include="Scripts\knockoutBindings\numericFieldBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
@@ -2315,7 +2328,9 @@
     <Content Include="App\widgets\uiLockViewer\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
-    <Content Include="Content\collaboration.css" />
+    <Content Include="Content\collaboration.css">
+      <DependentUpon>collaboration.less</DependentUpon>
+    </Content>
     <Content Include="BuildCourse\Scorm\Modules\js\lms.js" />
     <Content Include="Content\account.css">
       <DependentUpon>account.less</DependentUpon>
