@@ -4,7 +4,7 @@
     var
         userContext = require('userContext'),
         eventTracker = require('eventTracker'),
-        addCollaboratorDialog = require('dialogs/collaboration/addCollaborator'),
+        addCollaboratorDialog = require('dialogs/collaboration/collaboration'),
         collaboratorRepository = require('repositories/collaboratorRepository'),
         app = require('durandal/app'),
         constants = require('constants')
@@ -102,8 +102,9 @@
             });
 
             it('should show dialog', function () {
+                viewModel.courseOwner = courseOwner;
                 viewModel.addMember();
-                expect(addCollaboratorDialog.show).toHaveBeenCalled();
+                expect(addCollaboratorDialog.show).toHaveBeenCalledWith(courseOwner);
             });
         });
 

@@ -14,7 +14,7 @@ namespace easygenerator.DomainModel.Entities
         public int Order { get; private set; }
         public int IsNew { get; private set; }
 
-        public bool IsCustom
+        public virtual bool IsCustom
         {
             get { return !AccessControlList.Any(_ => _.UserIdentity == AccessControlListEntry.WildcardIdentity); }
         }

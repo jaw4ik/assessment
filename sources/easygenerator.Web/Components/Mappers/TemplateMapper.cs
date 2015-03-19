@@ -1,5 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
-using easygenerator.Infrastructure;
+﻿using DocumentFormat.OpenXml.Drawing;
+using easygenerator.DomainModel.Entities;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
@@ -15,10 +15,17 @@ namespace easygenerator.Web.Components.Mappers
 
         public dynamic Map(Template template)
         {
+            var manifest = _manifestFileManager.ReadManifest(template);
+            if (manifest == null)
+            {
+                return null;
+            }
+
             return new
             {
                 Id = template.Id.ToNString(),
-                Manifest = _manifestFileManager.ReadManifest(template.Id, template.PreviewUrl),
+                Manifest = manifest,
+                TemplateUrl = "templates/" + template.Name + "/",
                 PreviewDemoUrl = template.PreviewUrl,
                 Order = template.Order,
                 IsCustom = template.IsCustom,

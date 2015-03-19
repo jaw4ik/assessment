@@ -10,6 +10,7 @@ using easygenerator.Web.BuildCourse.PackageModel;
 using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.Components;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         private PackageModelSerializer _packageModelSerializer;
         private PackageModelMapper _packageModelMapper;
         private PublishSettingsProvider _publishSettingsProvider;
+        private ITemplateStorage _templateStorage;
         private IEnumerable<PackageModule> _packageModules;
         
         [TestInitialize]
@@ -52,7 +54,8 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             _publishSettingsProvider = Substitute.For<PublishSettingsProvider>();
 
-            _buildContentProvider = new BuildContentProvider(_fileManager, _buildPathProvider, _packageModelSerializer, _packageModelMapper, _publishSettingsProvider);
+            _templateStorage = Substitute.For<ITemplateStorage>();
+            _buildContentProvider = new BuildContentProvider(_fileManager, _buildPathProvider, _packageModelSerializer, _packageModelMapper, _publishSettingsProvider, _templateStorage);
         }
 
         #region AddBuildContentToPackageDirectory
@@ -66,7 +69,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             var buildDirectory = "SomeDirectoryPath";
             var templateDirectory = "SomeTemplatePath";
 
-            _buildPathProvider.GetTemplateDirectoryName(_course.Template.Name).Returns(templateDirectory);
+            _templateStorage.GetTemplateDirectoryPath(_course.Template).Returns(templateDirectory);
 
             //Act
             _buildContentProvider.AddBuildContentToPackageDirectory(buildDirectory, _course, _packageModules);

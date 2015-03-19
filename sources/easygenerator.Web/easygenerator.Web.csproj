@@ -235,7 +235,9 @@
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
     <Compile Include="Components\Mappers\DropspotMapper.cs" />
@@ -257,6 +259,7 @@
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="DomainEvents\Handlers\MailChimpSubscriptionHandler.cs" />
     <Compile Include="InMemoryStorages\DemoCoursesInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\IDemoCoursesStorage.cs" />
     <Compile Include="Import\Presentation\Extensions\ParagraphExtensions.cs" />
@@ -380,7 +383,6 @@
     <Compile Include="DomainEvents\Handlers\RegisterWooCommerceUserHandler.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
-    <Compile Include="DomainEvents\Handlers\SubscribeForNewslettersHandler.cs" />
     <Compile Include="DomainEvents\Handlers\UpdateWooCommerceUserHandler.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -445,6 +447,7 @@
     <Compile Include="Storage\FileTypeChecker.cs" />
     <Compile Include="Storage\ImageStorage.cs" />
     <Compile Include="Storage\Storage.cs" />
+    <Compile Include="Storage\TemplateStorage.cs" />
     <Compile Include="Synchronization\Broadcasting\Broadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaborationBroadcaster.cs" />
     <Compile Include="Synchronization\Broadcasting\CollaborationBroadcasting\CollaboratorProviders\CourseCollaboratorProvider.cs" />
@@ -496,6 +499,16 @@
     <Content Include="App\components\polygonsEditor\polygonShape.js" />
     <Content Include="App\components\polygonsEditor\polygonsEditor.js" />
     <Content Include="App\config.js" />
+    <Content Include="App\dialogs\collaboration\collaboration.html" />
+    <Content Include="App\dialogs\collaboration\collaboration.js" />
+    <Content Include="App\dialogs\collaboration\collaboration.spec.js">
+      <DependentUpon>collaboration.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\collaboration\collaborator.html" />
+    <Content Include="App\dialogs\collaboration\collaborator.js" />
+    <Content Include="App\dialogs\collaboration\collaborator.spec.js">
+      <DependentUpon>collaborator.js</DependentUpon>
+    </Content>
     <Content Include="App\localization\resources.js" />
     <Content Include="App\models\reportingStatement.js" />
     <Content Include="App\models\reportingStatement.spec.js">
@@ -567,6 +580,7 @@
     <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
+    <Content Include="App\views\common\circularLoader.html" />
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerLink.html" />
@@ -917,6 +931,7 @@
     </Content>
     <Content Include="Scripts\knockoutBindings\autosizeBinding.js" />
     <Content Include="Scripts\knockoutBindings\backgroundImageBinding.js" />
+    <Content Include="Scripts\knockoutBindings\contentEditableFixBinding.js" />
     <Content Include="Scripts\knockoutBindings\copyToClipboardBinding.js" />
     <Content Include="Scripts\knockoutBindings\customHasFocusBinding.js" />
     <Content Include="App\dialogs\collaboration\removeCollaborator.spec.js">
@@ -1473,6 +1488,7 @@
     <Content Include="Content\styles.less" />
     <Content Include="Content\switchToggle.less" />
     <Content Include="Content\treeOfContent.less" />
+    <Content Include="Content\collaboration.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
@@ -1502,6 +1518,7 @@
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="App\viewmodels\questions\fillInTheBlank\bindingHandlers\fillInTheBlankBindingHandler.js" />
     <Content Include="Scripts\knockoutBindings\containerHasFocusBinding.js" />
+    <Content Include="Scripts\knockoutBindings\foreachAnimatedBinding.js" />
     <Content Include="Scripts\knockoutBindings\numericFieldBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
@@ -2311,7 +2328,9 @@
     <Content Include="App\widgets\uiLockViewer\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
-    <Content Include="Content\collaboration.css" />
+    <Content Include="Content\collaboration.css">
+      <DependentUpon>collaboration.less</DependentUpon>
+    </Content>
     <Content Include="BuildCourse\Scorm\Modules\js\lms.js" />
     <Content Include="Content\account.css">
       <DependentUpon>account.less</DependentUpon>
