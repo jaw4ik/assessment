@@ -1,5 +1,4 @@
 ﻿<section class="question view-module" data-bind="css: questionType">
-
     <div class="content-section-wrapper">
         <div class="content-section">
             <div class="page-view-caption clearfix">
@@ -7,7 +6,7 @@
                     <div class="list-item-action advanced-features-dropdown" data-bind="dropDown: {}">
                         <div class="btn-head bold"></div>
                         <ul class="dropdown-list">
-                            <li class="dropdown-list-item">
+                            <li class="dropdown-list-item" data-bind="click: showMoveCopyDialog">
                                 <span class="advanced-features-item">Move/Copy question to...</span>
                             </li>
                             <li class="dropdown-list-item objective-from-powerpoint">
@@ -21,60 +20,7 @@
             </div>
         </div>
     </div>
-
-    <div class="move-copy-dialog">
-        <div class="dialog">
-            <div class="dialog-header">
-                <span class="dialog-header-text">Move/Copy current question</span>
-                <button class="dialog-close-btn"></button>
-            </div>
-            <div class="dialog-content">
-                <div class="section-title">To course:</div>
-                <div class="section-content dropdown">
-                    <div class="dropdown-current-item">
-                        <div class="dropdown-current-item-text">Current course</div>
-                        <div class="dropdown-indicator-holder">
-                            <span class="dropdown-indicator"></span>
-                        </div>
-                    </div>
-                    <ul class="dropdown-options-list">
-                        <li class="dropdown-options-item">First course</li>
-                        <li class="dropdown-options-item current">Current course</li>
-                        <li class="dropdown-options-item">WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</li>
-                    </ul>
-                </div>
-                <div class="section-title">To objective:</div>
-                <div class="section-content destination-objectives-container">
-                    <ul class="destination-objectives-list">
-                        <li class="destination-objectives-list-item">Other objective</li>
-                        <li class="destination-objectives-list-item current">Current objective</li>
-                        <li class="destination-objectives-list-item">WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</li>
-                    </ul>
-                </div>
-
-            </div>
-            <div class="dialog-footer">
-                <div class="switcher">
-                    <div class="switcher-text">Move</div>
-                    <div class="switch-toggle-slider on">
-                        <div class="switch-toggle-wrapper">
-                            <div class="switch-toggle-on"></div>
-                            <div class="switch-toogle-blob"></div>
-                            <div class="switch-toggle-off"></div>
-                        </div>
-                    </div>
-                    <div class="switcher-text selected">Copy</div>
-                    <div class="overlay"></div>
-                </div>
-                <div class="buttons-container">
-                    <button class="accessory-button">Cancel</button>
-                    <button class="main-button btn green">Copy</button>
-                </div>
-            </div>
-        </div>
-        <div class="background"></div>
-    </div>
-
+    <!-- ko compose: moveCopyQuestionDialog --><!-- /ko -->
     <div class="content-section-wrapper" data-bind="with: questionTitle">
         <div class="content-section">
             <header class="question-view-header" data-bind="css: { 'active' : text.isEditing() }">

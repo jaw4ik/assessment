@@ -5,9 +5,10 @@ define(['durandal/app', 'eventTracker', 'constants',
         'viewmodels/questions/questionTitle',
         'viewmodels/common/contentField',
         'viewmodels/questions/questionViewModelFactory',
-        'localization/localizationManager'],
+        'localization/localizationManager',
+        'dialogs/moveCopyQuestion/moveCopyQuestion'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, BackButton, router, vmQuestionTitle, vmContentField,
-        questionViewModelFactory, localizationManager) {
+        questionViewModelFactory, localizationManager, moveCopyQuestionDialog) {
         "use strict";
 
         var events = {
@@ -40,6 +41,9 @@ define(['durandal/app', 'eventTracker', 'constants',
             titleUpdatedByCollaborator: titleUpdatedByCollaborator,
             contentUpdatedByCollaborator: contentUpdatedByCollaborator,
 
+            moveCopyQuestionDialog: moveCopyQuestionDialog,
+            showMoveCopyDialog: showMoveCopyDialog,
+
             activate: activate
         };
 
@@ -47,6 +51,10 @@ define(['durandal/app', 'eventTracker', 'constants',
         app.on(constants.messages.question.contentUpdatedByCollaborator, contentUpdatedByCollaborator);
 
         return viewmodel;
+
+        function showMoveCopyDialog() {
+            viewmodel.moveCopyQuestionDialog.show();
+        }
 
         function navigateToObjectiveEvent() {
             eventTracker.publish(events.navigateToObjective);
