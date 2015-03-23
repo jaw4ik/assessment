@@ -7,7 +7,7 @@
                 <p data-bind="localize: {text: 'scormCaptionFirst'}">Want to run your course on LMS or on your SCROM cloud?</p>
                 <p data-bind="localize: {text: 'scormCaptionSecond'}">We package up all the SCORM 1.2 package.</p>
             </div>
-            <button class="btn green publish-tab-btn" data-bind="click: scormBuildAction().downloadCourse, css:{'disabled': isCourseDelivering(),'progress' : scormBuildAction().isPublishing()}">
+            <button class="btn green publish-tab-btn" data-bind="click: scormBuildAction().downloadCourse, css:{'disabled': scormBuildAction().isCourseDelivering(),'progress' : scormBuildAction().isPublishing()}">
                 <!-- ko if: scormBuildAction().isPublishing() -->
                 <span data-bind="localize: { text: 'assembling' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->

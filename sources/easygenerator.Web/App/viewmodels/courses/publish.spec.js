@@ -134,7 +134,6 @@
 
         });
 
-
         describe('activate:', function () {
 
             var getById;
@@ -293,32 +292,6 @@
                         });
                     });
 
-                    describe('when course delivering', function () {
-
-                        it('should disabled all publish action in view', function (done) {
-                            course.isDelivering = false;
-                            getById.resolve(course);
-                            viewModel.activate(course.id).fin(function () {
-                                expect(viewModel.isCourseDelivering()).toBeFalsy();
-                                done();
-                            });
-                        });
-
-                    });
-
-                    describe('when course is not delivering', function () {
-
-                        it('should enabled all publish action in view', function (done) {
-                            course.isDelivering = true;
-                            getById.resolve(course);
-                            viewModel.activate(course.id).fin(function () {
-                                expect(viewModel.isCourseDelivering()).toBeTruthy();
-                                done();
-                            });
-                        });
-
-                    });
-
                 });
 
             });
@@ -359,50 +332,6 @@
                 expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
             });
 
-        });
-
-        describe('courseDeliveringStarted:', function () {
-            it('should be function', function () {
-                expect(viewModel.courseDeliveringStarted).toBeFunction();
-            });
-
-            describe('when course is current course', function () {
-                it('should set isCourseDelivering to true', function () {
-                    viewModel.isCourseDelivering(false);
-                    viewModel.courseDeliveringStarted(course);
-                    expect(viewModel.isCourseDelivering()).toBeTruthy();
-                });
-            });
-
-            describe('when course is not current course', function () {
-                it('should not change isCourseDelivering', function () {
-                    viewModel.isCourseDelivering(false);
-                    viewModel.courseDeliveringStarted({ id: 'none' });
-                    expect(viewModel.isCourseDelivering()).toBeFalsy();
-                });
-            });
-        });
-
-        describe('courseDeliveringFinished:', function () {
-            it('should be function', function () {
-                expect(viewModel.courseDeliveringFinished).toBeFunction();
-            });
-
-            describe('when course is current course', function () {
-                it('should set isCourseDelivering to false', function () {
-                    viewModel.isCourseDelivering(true);
-                    viewModel.courseDeliveringFinished(course);
-                    expect(viewModel.isCourseDelivering()).toBeFalsy();
-                });
-            });
-
-            describe('when course is not current course', function () {
-                it('should not change isCourseDelivering', function () {
-                    viewModel.isCourseDelivering(true);
-                    viewModel.courseDeliveringFinished({ id: 'none' });
-                    expect(viewModel.isCourseDelivering()).toBeTruthy();
-                });
-            });
         });
 
     });

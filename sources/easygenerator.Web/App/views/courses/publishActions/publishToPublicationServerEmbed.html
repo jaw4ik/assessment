@@ -31,14 +31,14 @@
                     <span class="propotions-size-unit" data-bind="localize: { text: 'croppedPixels' }"></span>
                 </div>
             </div>
-            <div class="publish-tab-overlay" data-bind="visible: isCourseDelivering()"></div>
+            <div class="publish-tab-overlay" data-bind="visible: publishAction().isCourseDelivering()"></div>
         </div>
         <div class="publish-tab-update-course">
             <div class="publish-tab-update-course-image"></div>
             <div class="publish-tab-update-course-text" data-bind="localize: {text: 'updateCourseCaption'}">
                 Apply the latest changes to the published course by clicking this button
             </div>
-            <button class="btn green-white publish-tab-btn" data-bind="click: publishAction().publishCourse, css:{ 'disabled': isCourseDelivering(), 'progress': publishAction().isPublishing() }">
+            <button class="btn green-white publish-tab-btn" data-bind="click: publishAction().publishCourse, css:{ 'disabled': publishAction().isCourseDelivering(), 'progress': publishAction().isPublishing() }">
                 <!-- ko if: publishAction().isPublishing() -->
                 <!-- ko if: publishAction().state() === states.publishing || publishAction().state() === states.building  -->
                 <span class="publish-tab-btn-caption" data-bind="localize: { text: 'updating' }"></span>

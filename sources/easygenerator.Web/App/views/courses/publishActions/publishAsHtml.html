@@ -6,7 +6,7 @@
                 <p data-bind="localize: { text: 'publishHtmlCaptionFirst' }">Want to run your course offline on your desktop or on your own server?</p>
                 <p data-bind="localize: { text: 'publishHtmlCaptionSecond' }">We package up all the HTML, CSS and JS of your course for you to download.</p>
             </div>
-            <button class="btn green publish-tab-btn" data-bind="click: buildAction().downloadCourse, css:{'disabled': isCourseDelivering(), 'progress' : buildAction().isPublishing()}">
+            <button class="btn green publish-tab-btn" data-bind="click: buildAction().downloadCourse, css:{'disabled': buildAction().isCourseDelivering(), 'progress' : buildAction().isPublishing()}">
                 <!-- ko if: buildAction().isPublishing() -->
                 <span data-bind="localize: { text: 'assembling' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
