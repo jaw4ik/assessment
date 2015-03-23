@@ -72,36 +72,16 @@
                         <!-- /ko -->
                         <!-- /ko -->
                         <!-- ko ifnot: isPublishing() -->
-                        <!-- ko if: packageExists() -->
-                        <span data-bind="localize: { text: 'republishOnline' }" class="action-item-btn-caption"></span>
-                        <!-- /ko -->
-                        <!-- ko ifnot: packageExists() -->
                         <span data-bind="localize: { text: $parent.linkTabOpened() ? 'getPrivateLink' : 'getEmbedCode' }" class="action-item-btn-caption"></span>
                         <!-- /ko -->
-                        <!-- /ko -->
                     </button>
                 </div>
                 <!-- /ko -->
                 <!-- /ko -->
             </div>
-            
-            <!-- ko with: publishAction() -->
+
             <!-- ko if: packageExists() -->
-            <div class="package-action-update-course-container">
-                <div class="package-action-update-course-info" data-bind="localize: { text: 'updateCourseDescription' }"></div>
-                <div class="package-action-update-course">
-                    <button class="btn green-white progress" data-bind="click: publishCourse, css:{ 'progress': isPublishing() }">
-                        <!-- ko if: isPublishing() -->
-                        <!-- ko if: state() === states.publishing || state() === states.building  -->
-                        <span data-bind="localize: { text: 'updating' }"></span>
-                        <!-- /ko -->
-                        <!-- /ko -->
-                        <!-- ko ifnot: isPublishing() -->
-                        <span data-bind="localize: { text: 'reviewUpdateCourse' }"></span>
-                        <!-- /ko -->
-                    </button>
-                </div>
-            </div>
+            <!-- ko compose: { view: 'dialogs/publishCourse/updatePublishedCourse', model: publishAction() } -->
             <!-- /ko -->
             <!-- /ko -->
         </div>

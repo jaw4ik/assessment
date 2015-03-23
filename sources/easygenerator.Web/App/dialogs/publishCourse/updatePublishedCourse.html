@@ -1,0 +1,15 @@
+﻿<div class="package-action-update-course-container">
+    <div class="package-action-update-course-info" data-bind="localize: { text: 'updateCourseDescription' }"></div>
+    <div class="package-action-update-course">
+        <button class="btn green-white progress" data-bind="click: publishCourse, css:{ 'progress': isPublishing() }">
+            <!-- ko if: isPublishing() -->
+            <!-- ko if: state() === states.publishing || state() === states.building  -->
+            <span data-bind="localize: { text: 'updating' }"></span>
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko ifnot: isPublishing() -->
+            <span data-bind="localize: { text: 'reviewUpdateCourse' }"></span>
+            <!-- /ko -->
+        </button>
+    </div>
+</div>

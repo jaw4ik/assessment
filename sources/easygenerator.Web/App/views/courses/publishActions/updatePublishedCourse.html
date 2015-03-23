@@ -1,0 +1,16 @@
+﻿<div class="publish-tab-update-course">
+    <div class="publish-tab-update-course-image"></div>
+    <div class="publish-tab-update-course-text" data-bind="localize: {text: 'updateCourseCaption'}">
+        Apply the latest changes to the published course by clicking this button
+    </div>
+    <button class="btn green-white publish-tab-btn" data-bind="click: publishCourse, css:{ 'disabled': isCourseDelivering(), 'progress': isPublishing() }">
+        <!-- ko if: isPublishing() -->
+        <!-- ko if: state() === states.publishing || state() === states.building  -->
+        <span class="publish-tab-btn-caption" data-bind="localize: { text: 'updating' }"></span>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko ifnot: isPublishing() -->
+        <span class="publish-tab-btn-caption" data-bind="localize: { text: 'reviewUpdateCourse' }"></span>
+        <!-- /ko -->
+    </button>
+</div>

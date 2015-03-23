@@ -509,6 +509,7 @@
     <Content Include="App\dialogs\collaboration\collaborator.spec.js">
       <DependentUpon>collaborator.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\publishCourse\updatePublishedCourse.html" />
     <Content Include="App\localization\resources.js" />
     <Content Include="App\models\reportingStatement.js" />
     <Content Include="App\models\reportingStatement.spec.js">
@@ -586,6 +587,7 @@
     <Content Include="App\views\courses\publishActions\publishToPublicationServerLink.html" />
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
+    <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
     <Content Include="App\views\courses\results.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
