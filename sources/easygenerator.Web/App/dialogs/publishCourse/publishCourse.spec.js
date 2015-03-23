@@ -30,12 +30,6 @@
             });
         });
 
-        describe('states:', function () {
-            it('should be defined', function () {
-                expect(viewModel.states).toBeDefined();
-            });
-        });
-
         describe('show:', function () {
 
             var getCourse,

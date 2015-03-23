@@ -11,7 +11,6 @@
     var viewModel = {
         isShown: ko.observable(false),
         publishAction: ko.observable(),
-        states: constants.publishingStates,
         show: show,
         hide: hide,
         embedTabOpened: ko.observable(false),
