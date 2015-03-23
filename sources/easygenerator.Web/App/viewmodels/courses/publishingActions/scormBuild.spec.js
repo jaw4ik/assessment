@@ -1,5 +1,5 @@
-﻿define(['viewmodels/courses/publishingActions/scormBuild', 'models/course', 'constants', 'durandal/app', 'notify', 'eventTracker', 'fileHelper'],
-    function (scormBuildPublishingAction, Course, constants, app, notify, eventTracker, fileHelper) {
+﻿define(['viewmodels/courses/publishingActions/scormBuild', 'models/course', 'constants', 'durandal/app', 'notify', 'eventTracker', 'fileHelper', 'plugins/router', 'userContext'],
+    function (scormBuildPublishingAction, Course, constants, app, notify, eventTracker, fileHelper, router, userContext) {
 
         describe('publishing action [scormBuild]', function () {
 
@@ -194,6 +194,52 @@
 
                 });
 
+            });
+
+            describe('openUpgradePlanUrl:', function () {
+
+                beforeEach(function () {
+                    spyOn(router, 'openUrl');
+                });
+
+                it('should be function', function () {
+                    expect(viewModel.openUpgradePlanUrl).toBeFunction();
+                });
+
+                it('should send event \'Upgrade now\'', function () {
+                    viewModel.openUpgradePlanUrl();
+                    expect(eventTracker.publish).toHaveBeenCalledWith(constants.upgradeEvent, constants.upgradeCategory.scorm);
+                });
+
+                it('should open upgrade link in new window', function () {
+                    viewModel.openUpgradePlanUrl();
+                    expect(router.openUrl).toHaveBeenCalledWith(constants.upgradeUrl);
+                });
+
+            });
+
+            describe('userHasPublishAccess:', function () {
+                describe('when user has starter access', function() {
+                    beforeEach(function () {
+                        spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
+                        viewModel = scormBuildPublishingAction(course);
+                    });
+
+                    it('should be true', function() {
+                        expect(viewModel.userHasPublishAccess).toBeTruthy();
+                    });
+                });
+
+                describe('when user does not have starter access', function () {
+                    beforeEach(function () {
+                        spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
+                        viewModel = scormBuildPublishingAction(course);
+                    });
+
+                    it('should be false', function () {
+                        expect(viewModel.userHasPublishAccess).toBeFalsy();
+                    });
+                });
             });
 
             describe('when course scorm build was started', function () {

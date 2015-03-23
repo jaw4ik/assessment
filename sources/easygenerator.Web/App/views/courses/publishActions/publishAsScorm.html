@@ -1,6 +1,6 @@
 ﻿<div class="publish-tab-content" data-tab-content="scorm">
     <div class="publish-tab-content-wrapper">
-        <!-- ko if: scormBuildAction() -->
+        <!-- ko if: scormBuildAction().userHasPublishAccess -->
         <div class="publish-tab-container">
             <h2 class="publish-tab-header" data-bind="localize: {text: 'downloadScorm12Package'}">Publish to LMS </h2>
             <div class="publish-tab-action-content">
@@ -17,13 +17,13 @@
             </button>
         </div>
         <!-- /ko -->
-        <!-- ko ifnot: scormBuildAction() -->
+        <!-- ko ifnot: scormBuildAction().userHasPublishAccess -->
         <div class="publish-tab-container">
             <span class="publish-tab-scorm-locked"></span>
             <h2 class="publish-tab-header" data-bind="localize: {text: 'downloadScorm12Package'}">Publish to LMS </h2>
             <div class="publish-tab-action-content scorm-locked">
                 <span data-bind="localize: { text: 'youHaveTo' }">You have to</span>
-                <a class="publish-tab-action-link" href="" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeYourAccount' }">upgrade your account</a>
+                <a class="publish-tab-action-link" href="" data-bind="click: scormBuildAction().openUpgradePlanUrl, localize: { text: 'upgradeYourAccount' }">upgrade your account</a>
                 <span data-bind="localize: { html: 'upgradeToStarterPlanToUseScormMessage' }"></span>
             </div>
         </div>

@@ -249,38 +249,13 @@
                         });
                     });
 
-                    describe('and user has starter access', function () {
+                    it('should define scorm build action', function (done) {
+                        viewModel.scormBuildAction(undefined);
 
-                        beforeEach(function () {
-                            spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
+                        viewModel.activate(course.id).fin(function () {
+                            expect(viewModel.scormBuildAction()).toBeDefined();
+                            done();
                         });
-
-                        it('should define scorm build action', function (done) {
-                            viewModel.scormBuildAction(undefined);
-
-                            viewModel.activate(course.id).fin(function () {
-                                expect(viewModel.scormBuildAction()).toBeDefined();
-                                done();
-                            });
-                        });
-
-                    });
-
-                    describe('and user does not have starter access', function () {
-
-                        beforeEach(function () {
-                            spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
-                        });
-
-                        it('should not define scorm build action', function (done) {
-                            viewModel.scormBuildAction({ isPublishing: ko.observable(false) });
-
-                            viewModel.activate(course.id).fin(function () {
-                                expect(viewModel.scormBuildAction()).not.toBeDefined();
-                                done();
-                            });
-                        });
-
                     });
 
                     it('should resolve promise', function (done) {
@@ -308,28 +283,6 @@
                 expect(viewModel.backButtonData.url).toBe('courses');
                 expect(viewModel.backButtonData.backViewName).toBe(localizationManager.localize('courses'));
                 expect(viewModel.backButtonData.callback).toBe(viewModel.navigateToCoursesEvent);
-            });
-
-        });
-
-        describe('openUpgradePlanUrl:', function () {
-
-            beforeEach(function () {
-                spyOn(window, 'open');
-            });
-
-            it('should be function', function () {
-                expect(viewModel.openUpgradePlanUrl).toBeFunction();
-            });
-
-            it('should send event \'Upgrade now\'', function () {
-                viewModel.openUpgradePlanUrl();
-                expect(eventTracker.publish).toHaveBeenCalledWith(constants.upgradeEvent, constants.upgradeCategory.scorm);
-            });
-
-            it('should open upgrade link in new window', function () {
-                viewModel.openUpgradePlanUrl();
-                expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
             });
 
         });

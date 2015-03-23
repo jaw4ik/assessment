@@ -25,7 +25,6 @@
             navigateToCoursesEvent: navigateToCoursesEvent,
 
             activate: activate,
-            openUpgradePlanUrl: openUpgradePlanUrl,
 
             sendOpenLinkTab: sendOpenLinkTab,
             sendOpenEmbedTab: sendOpenEmbedTab,
@@ -41,11 +40,6 @@
         };
 
         return viewModel;
-
-        function openUpgradePlanUrl() {
-            eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.scorm);
-            router.openUrl(constants.upgradeUrl);
-        }
 
         function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);
@@ -81,7 +75,7 @@
 
                     viewModel.publishAction(publishPublishingAction(course));
                     viewModel.buildAction(buildPublishingAction(course));
-                    viewModel.scormBuildAction(userContext.hasStarterAccess() ? scormBuildPublishingAction(course) : undefined);
+                    viewModel.scormBuildAction(scormBuildPublishingAction(course));
                     viewModel.publishToAim4YouAction(publishToAim4You(course));
                 }).fail(function (reason) {
                     router.activeItem.settings.lifecycleData = { redirect: '404' };

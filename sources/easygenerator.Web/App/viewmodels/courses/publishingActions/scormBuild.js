@@ -1,5 +1,5 @@
-﻿define(['constants', 'viewmodels/courses/publishingActions/publishingAction', 'durandal/app', 'notify', 'eventTracker', 'fileHelper'],
-    function (constants, publishingAction, app, notify, eventTracker, fileHelper) {
+﻿define(['constants', 'viewmodels/courses/publishingActions/publishingAction', 'durandal/app', 'notify', 'eventTracker', 'fileHelper', 'plugins/router', 'userContext'],
+    function (constants, publishingAction, app, notify, eventTracker, fileHelper, router, userContext) {
 
         var
             events = {
@@ -14,6 +14,8 @@
             }, viewModel);
 
             viewModel.downloadCourse = downloadCourse;
+            viewModel.openUpgradePlanUrl = openUpgradePlanUrl;
+            viewModel.userHasPublishAccess = userContext.hasStarterAccess();
 
             viewModel.scromBuildStarted = scromBuildStarted;
             viewModel.scromBuildCompleted = scromBuildCompleted;
@@ -38,6 +40,11 @@
                     notify.error(message);
                 });
             };
+
+            function openUpgradePlanUrl() {
+                eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.scorm);
+                router.openUrl(constants.upgradeUrl);
+            }
 
             //#region App-wide events
 
