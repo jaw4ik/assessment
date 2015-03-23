@@ -1,4 +1,4 @@
-﻿define(['viewmodels/courses/publishingActions/publishingAction'], function (publishingAction) {
+﻿define(['viewmodels/courses/publishingActions/publishingAction', 'constants'], function (publishingAction, constants) {
 
     describe('[publishingAction]', function () {
         var
@@ -22,6 +22,14 @@
 
             it('should be equal to ctor \'state\' parameter', function () {
                 expect(viewModel.state()).toBe(action.state);
+            });
+
+        });
+
+        describe('states:', function () {
+
+            it('should be equal to allowed publish states', function () {
+                expect(viewModel.states).toEqual(constants.publishingStates);
             });
 
         });

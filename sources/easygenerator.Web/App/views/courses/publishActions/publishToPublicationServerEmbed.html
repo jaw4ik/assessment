@@ -10,7 +10,7 @@
                 Paste this code into your HTML page where you want the course to appear
             </div>
             <div class="publish-tab-link-control-container">
-                <textarea readonly="readonly" class="publish-tab-textarea" data-bind="value: publishAction().embedCode, selectText: publishAction().state() === states.succeed"></textarea>
+                <textarea readonly="readonly" class="publish-tab-textarea" data-bind="value: publishAction().embedCode, selectText: publishAction().state() === publishAction().states.succeed"></textarea>
                 <div class="copy-btn-wrapper">
                     <button class="btn green" data-bind="copyToClipboard: { value: publishAction().embedCode, onCopied: publishAction().copyEmbedCodeToClipboard, isDisabled: publishAction().copyBtnDisabled }, css: { copied: publishAction().embedCodeCopied, disabled: publishAction().copyBtnDisabled }, attr: { disabled: publishAction().copyBtnDisabled() }">
                         <span data-bind="localize: { text: publishAction().embedCodeCopied() ? 'copied' : 'copy' }"></span>
@@ -40,7 +40,7 @@
             </div>
             <button class="btn green-white publish-tab-btn" data-bind="click: publishAction().publishCourse, css:{ 'disabled': publishAction().isCourseDelivering(), 'progress': publishAction().isPublishing() }">
                 <!-- ko if: publishAction().isPublishing() -->
-                <!-- ko if: publishAction().state() === states.publishing || publishAction().state() === states.building  -->
+                <!-- ko if: publishAction().state() === publishAction().states.publishing || publishAction().state() === publishAction().states.building  -->
                 <span class="publish-tab-btn-caption" data-bind="localize: { text: 'updating' }"></span>
                 <!-- /ko -->
                 <!-- /ko -->
@@ -56,7 +56,7 @@
             <div class="publish-tab-action-content" data-bind="localize: {text: 'embedCaption'}">Copy and paste the URL of your course to share or view.</div>
             <button class="btn green publish-tab-btn" data-bind="click: publishAction().publishCourse, css:{ disabled: publishAction().isCourseDelivering(), progress : publishAction().isPublishing()}">
                 <!-- ko if: publishAction().isPublishing() -->
-                <!-- ko if: publishAction().state() === states.publishing || publishAction().state() === states.building -->
+                <!-- ko if: publishAction().state() === publishAction().states.publishing || publishAction().state() === publishAction().states.building -->
                 <span data-bind="localize: { text: 'publishing' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
                 <!-- /ko -->

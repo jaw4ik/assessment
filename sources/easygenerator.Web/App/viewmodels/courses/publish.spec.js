@@ -35,14 +35,6 @@
 
         });
 
-        describe('states:', function () {
-
-            it('should be equal to allowed publish states', function () {
-                expect(viewModel.states).toEqual(constants.publishingStates);
-            });
-
-        });
-
         describe('buildAction:', function () {
             it('should be observable', function () {
                 expect(viewModel.buildAction).toBeObservable();

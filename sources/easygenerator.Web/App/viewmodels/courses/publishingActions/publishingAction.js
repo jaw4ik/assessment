@@ -5,6 +5,7 @@
             state: ko.observable(action.state),
             packageUrl: ko.observable(action.packageUrl),
             isPublishing: ko.observable(false),
+            states: constants.publishingStates,
             isCourseDelivering: ko.observable(course.isDelivering),
             courseId: course.id,
             courseDeliveringStarted: courseDeliveringStarted,

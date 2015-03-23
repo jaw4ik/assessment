@@ -32,6 +32,14 @@
 
             });
 
+            describe('states:', function () {
+
+                it('should be equal to allowed publish states', function () {
+                    expect(viewModel.states).toEqual(constants.publishingStates);
+                });
+
+            });
+
             describe('isPublishing', function () {
 
                 it('should be computed', function () {

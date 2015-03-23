@@ -26,6 +26,14 @@
                 });
             });
 
+            describe('states:', function () {
+
+                it('should be equal to allowed publish states', function () {
+                    expect(viewModel.states).toEqual(constants.publishingStates);
+                });
+
+            });
+
             describe('packageUrl:', function () {
                 it('should be observable', function () {
                     expect(viewModel.packageUrl).toBeObservable();

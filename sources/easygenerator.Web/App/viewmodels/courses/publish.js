@@ -15,7 +15,6 @@
 
         var viewModel = {
             courseId: '',
-            states: constants.publishingStates,
 
             buildAction: ko.observable(),
             scormBuildAction: ko.observable(),
