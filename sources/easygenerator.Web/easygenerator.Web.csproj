@@ -584,7 +584,6 @@
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerLink.html" />
-    <Content Include="App\views\courses\publishActions\publishToPublicationServerPopup.html" />
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\results.html" />

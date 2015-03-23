@@ -4,9 +4,15 @@
 
     var repository = require('repositories/courseRepository'),
         router = require('plugins/router'),
+        eventTracker = require('eventTracker'),
+        constants = require('constants'),
         Course = require('models/course');
 
     describe('dialog [publishCourse]', function () {
+
+        beforeEach(function() {
+            spyOn(eventTracker, 'publish');
+        });
 
         it('should be defined', function () {
             expect(viewModel).toBeDefined();
@@ -82,6 +88,87 @@
                 expect(viewModel.isShown()).toBeFalsy();
             });
 
+        });
+
+        describe('embedTabOpened:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.embedTabOpened).toBeObservable();
+            });
+
+        });
+
+        describe('linkTabOpened', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.linkTabOpened).toBeObservable();
+            });
+
+        });
+
+        describe('openEmbedTab:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.openEmbedTab).toBeFunction();
+            });
+
+            describe('when embed tab not opened', function () {
+
+                beforeEach(function () {
+                    viewModel.embedTabOpened(false);
+                });
+
+                it('should send event \'Open embed tab\'', function () {
+                    viewModel.openEmbedTab();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Open embed tab', constants.eventCategories.header);
+                });
+
+                it('should close link tab', function () {
+                    viewModel.linkTabOpened(true);
+                    viewModel.openEmbedTab();
+                    expect(viewModel.linkTabOpened()).toBeFalsy();
+                });
+
+                it('should open embed tab', function () {
+                    viewModel.linkTabOpened(true);
+                    viewModel.openEmbedTab();
+                    expect(viewModel.embedTabOpened()).toBeTruthy();
+                });
+
+            });
+
+        });
+
+        describe('openLinkTab:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.openLinkTab).toBeFunction();
+            });
+
+            describe('when embed tab not opened', function () {
+
+                beforeEach(function () {
+                    viewModel.linkTabOpened(false);
+                });
+
+                it('should send event \'Open link tab\'', function () {
+                    viewModel.openLinkTab();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Open link tab', constants.eventCategories.header);
+                });
+
+                it('should open link tab', function () {
+                    viewModel.embedTabOpened(true);
+                    viewModel.openLinkTab();
+                    expect(viewModel.linkTabOpened()).toBeTruthy();
+                });
+
+                it('should close embed tab', function () {
+                    viewModel.embedTabOpened(true);
+                    viewModel.openLinkTab();
+                    expect(viewModel.embedTabOpened()).toBeFalsy();
+                });
+
+            });
         });
 
     });

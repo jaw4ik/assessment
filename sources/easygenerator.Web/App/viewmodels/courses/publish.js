@@ -5,7 +5,12 @@
         clientContext, localizationManager, eventTracker, BackButton, app) {
 
         var events = {
-            navigateToCourses: 'Navigate to courses'
+            navigateToCourses: 'Navigate to courses',
+            openEmbedTab: 'Open embed tab',
+            openLinkTab: 'Open link tab',
+            openScormTab: 'Open \'download SCORM\'',
+            openHtmlTab: 'Open \'downoload HTML\'',
+            openAim4YouTab: 'Open \'Publish to Aim4You\'',
         };
 
         var viewModel = {
@@ -25,6 +30,12 @@
 
             activate: activate,
             openUpgradePlanUrl: openUpgradePlanUrl,
+
+            sendOpenLinkTab: sendOpenLinkTab,
+            sendOpenEmbedTab: sendOpenEmbedTab,
+            sendOpenScormTab: sendOpenScormTab,
+            sendOpenHtmlTab: sendOpenHtmlTab,
+            sendOpenAim4YouTab: sendOpenAim4YouTab,
 
             backButtonData: new BackButton({
                 url: 'courses',
@@ -61,6 +72,26 @@
 
         function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);
+        }
+
+        function sendOpenLinkTab() {
+            eventTracker.publish(events.openLinkTab);
+        }
+
+        function sendOpenEmbedTab() {
+            eventTracker.publish(events.openEmbedTab);
+        }
+
+        function sendOpenScormTab() {
+            eventTracker.publish(events.openScormTab);
+        }
+
+        function sendOpenHtmlTab() {
+            eventTracker.publish(events.openHtmlTab);
+        }
+
+        function sendOpenAim4YouTab() {
+            eventTracker.publish(events.openAim4YouTab);
         }
 
         function activate(courseId) {

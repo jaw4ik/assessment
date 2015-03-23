@@ -69,6 +69,72 @@
 
         });
 
+        describe('sendOpenLinkTab:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.sendOpenLinkTab).toBeFunction();
+            });
+
+            it('should send event \'Open link tab\'', function () {
+                viewModel.sendOpenLinkTab();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open link tab');
+            });
+
+        });
+
+        describe('sendOpenEmbedTab:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.sendOpenEmbedTab).toBeFunction();
+            });
+
+            it('should send event \'Open embed tab\'', function () {
+                viewModel.sendOpenEmbedTab();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open embed tab');
+            });
+
+        });
+
+        describe('sendOpenScormTab:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.sendOpenScormTab).toBeFunction();
+            });
+
+            it('should send event \'Open \'download SCORM\'\'', function () {
+                viewModel.sendOpenScormTab();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open \'download SCORM\'');
+            });
+
+        });
+
+        describe('sendOpenHtmlTab:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.sendOpenHtmlTab).toBeFunction();
+            });
+
+            it('should send event \'Open \'downoload HTML\'\'', function () {
+                viewModel.sendOpenHtmlTab();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open \'downoload HTML\'');
+            });
+
+        });
+
+        describe('sendOpenAim4YouTab:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.sendOpenAim4YouTab).toBeFunction();
+            });
+
+            it('should send event \'Open \'Publish to Aim4You\'\'', function () {
+                viewModel.sendOpenAim4YouTab();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open \'Publish to Aim4You\'');
+            });
+
+        });
+
+
         describe('activate:', function () {
 
             var getById;

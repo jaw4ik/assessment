@@ -3,11 +3,6 @@
 
         var events = {
             publishCourse: 'Publish course',
-            openEmbedTab: 'Open embed tab',
-            openLinkTab: 'Open link tab',
-            openScormTab: 'Open \'download SCORM\'',
-            openHtmlTab: 'Open \'downoload HTML\'',
-            openAim4YouTab: 'Open \'Publish to Aim4You\'',
             copyEmbedCode: 'Copy embed code',
             copyPublishLink: 'Copy publish link',
         };
@@ -30,21 +25,11 @@
             viewModel.coursePublishCompleted = coursePublishCompleted;
             viewModel.coursePublishFailed = coursePublishFailed;
 
-            viewModel.embedTabOpened = ko.observable(false);
-            viewModel.linkTabOpened = ko.observable(true);
-            viewModel.openEmbedTab = openEmbedTab;
-            viewModel.openLinkTab = openLinkTab;
             viewModel.frameWidth = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.width.name)) ? constants.frameSize.width.value : clientContext.get(constants.frameSize.width.name));
             viewModel.frameHeight = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.height.name)) ? constants.frameSize.height.value : clientContext.get(constants.frameSize.height.name));
             viewModel.embedCode = ko.observable();
             viewModel.validateFrameWidth = validateFrameWidth;
             viewModel.validateFrameHeight = validateFrameHeight;
-
-            viewModel.sendOpenLinkTab = sendOpenLinkTab;
-            viewModel.sendOpenEmbedTab = sendOpenEmbedTab;
-            viewModel.sendOpenScormTab = sendOpenScormTab;
-            viewModel.sendOpenHtmlTab = sendOpenHtmlTab;
-            viewModel.sendOpenAim4YouTab = sendOpenAim4YouTab;
 
             viewModel.linkCopied = ko.observable(false);
             viewModel.copyLinkToClipboard = copyLinkToClipboard;
@@ -70,26 +55,6 @@
             });
 
             return viewModel;
-
-            function sendOpenLinkTab() {
-                eventTracker.publish(events.openLinkTab, viewModel.eventCategory);
-            }
-
-            function sendOpenEmbedTab() {
-                eventTracker.publish(events.openEmbedTab, viewModel.eventCategory);
-            }
-
-            function sendOpenScormTab() {
-                eventTracker.publish(events.openScormTab, viewModel.eventCategory);
-            }
-
-            function sendOpenHtmlTab() {
-                eventTracker.publish(events.openHtmlTab, viewModel.eventCategory);
-            }
-
-            function sendOpenAim4YouTab() {
-                eventTracker.publish(events.openAim4YouTab, viewModel.eventCategory);
-            }
 
             function validateFrameWidth() {
                 if (!viewModel.frameWidth() || viewModel.frameWidth() == 0) {
@@ -122,22 +87,6 @@
 
             function getEmbedCode() {
                 return constants.embedCode.replace('{W}', viewModel.frameWidth()).replace('{H}', viewModel.frameHeight()).replace('{src}', course.publish.packageUrl);
-            }
-
-            function openEmbedTab() {
-                if (!viewModel.embedTabOpened()) {
-                    eventTracker.publish(events.openEmbedTab, viewModel.eventCategory);
-                    viewModel.linkTabOpened(false);
-                    viewModel.embedTabOpened(true);
-                }
-            }
-
-            function openLinkTab() {
-                if (!viewModel.linkTabOpened()) {
-                    eventTracker.publish(events.openLinkTab, viewModel.eventCategory);
-                    viewModel.embedTabOpened(false);
-                    viewModel.linkTabOpened(true);
-                }
             }
 
             function publishCourse() {
