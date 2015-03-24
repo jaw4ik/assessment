@@ -150,7 +150,7 @@
 
             switch (message.type) {
                 case templateMessageTypes.freeze:
-                    viewModel.settingsSaved(message.data.freezeEditor || true);
+                    viewModel.settingsSaved(message.data.freezeEditor ? !message.data.freezeEditor : true);
                     break;
                 case templateMessageTypes.notification:
                     var data = message.data;
