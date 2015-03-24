@@ -37,6 +37,12 @@
 
             });
 
+            describe('courseHasUnpublishedChanges:', function () {
+                 it('should be observable', function () {
+                    expect(viewModel.courseHasUnpublishedChanges).toBeObservable();
+            });
+            });
+
             describe('isPublishing', function () {
                 it('should be computed', function () {
                     expect(viewModel.isPublishing).toBeComputed();

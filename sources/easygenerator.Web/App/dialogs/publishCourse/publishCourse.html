@@ -10,10 +10,15 @@
                     <li class="package-action-tabs-link link" data-bind="click: openLinkTab, localize: { text: 'link' }, css: { active: linkTabOpened }"></li>
                     <li class="package-action-tabs-link embed-code" data-bind="click: openEmbedTab, localize: { text: 'embed' }, css: { active: embedTabOpened }"></li>
                 </ul>
-
+                
+                <!-- ko if: publishAction().packageExists() -->
                 <!-- ko with: publishAction() -->
-                <!-- ko if: packageExists() -->
-                <div class="package-action-tabs-item">
+
+                <!-- ko if: courseHasUnpublishedChanges() -->
+                <!-- ko compose: { view: 'dialogs/publishCourse/updatePublishedCourse', model: $data } --><!-- /ko -->
+                <!-- /ko -->
+
+                <div class="package-action-tabs-item" >
                     <div class="package-action-tabs-item-overlay" data-bind="visible: isCourseDelivering()"></div>
 
                     <!-- ko if: $parent.linkTabOpened -->
@@ -58,10 +63,12 @@
                     </div>
                     <!-- /ko -->
                 </div>
-                <div class="package-action-tabs-item-seperate-line"></div>
+
                 <!-- /ko -->
-                <!-- ko ifnot: packageExists() -->
-                <div class="package-action-btn-holder">
+                <!-- /ko -->
+
+                <!-- ko ifnot: publishAction().packageExists() -->
+                <div class="package-action-btn-holder" data-bind="with: publishAction()">
                     <button data-bind="click: publishCourse, css:{ disabled: isCourseDelivering(), progress : isPublishing()}" class="action-item-btn btn">
                         <!-- ko if: isPublishing() -->
                         <!-- ko if: state() === states.building -->
@@ -77,13 +84,7 @@
                     </button>
                 </div>
                 <!-- /ko -->
-                <!-- /ko -->
             </div>
-
-            <!-- ko if: packageExists() -->
-            <!-- ko compose: { view: 'dialogs/publishCourse/updatePublishedCourse', model: publishAction() } -->
-            <!-- /ko -->
-            <!-- /ko -->
         </div>
     </div>
     <!-- /ko -->

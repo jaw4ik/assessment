@@ -25,6 +25,8 @@
             viewModel.coursePublishCompleted = coursePublishCompleted;
             viewModel.coursePublishFailed = coursePublishFailed;
 
+            viewModel.courseHasUnpublishedChanges = ko.observable(true);
+
             viewModel.frameWidth = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.width.name)) ? constants.frameSize.width.value : clientContext.get(constants.frameSize.width.name));
             viewModel.frameHeight = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.height.name)) ? constants.frameSize.height.value : clientContext.get(constants.frameSize.height.name));
             viewModel.embedCode = ko.observable();
