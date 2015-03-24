@@ -43,7 +43,7 @@
             var downloadUrl = hash == '' ? href + '/' + url : href.replace(hash, url);
             window.open(downloadUrl);
         };
-
+            
         router.setDefaultLocationHash = function (hash) {
             var locationHash = router.getLocationHash();
             if (hash && hash.hash && hash.hash.length && !locationHash.length) {

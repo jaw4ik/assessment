@@ -215,7 +215,17 @@
             eventTracker.publish(events.navigateToObjectives);
         }
 
-        function activate(objId, queryParams) {
+        function activate() {
+            var courseId, objId;
+            if (arguments.length === 2) {
+                courseId = arguments[0];
+                objId = arguments[1];
+            } else if (arguments.length === 1) {
+                objId = arguments[0];
+            } else {
+                throw 'Invalid arguments';
+            }
+
             viewModel.currentLanguage = localizationManager.currentLanguage;
             viewModel.isObjectiveTipVisible(false);
 
@@ -223,7 +233,7 @@
             clientContext.remove(constants.clientContextKeys.lastCreatedObjectiveId);
             viewModel.isLastCreatedObjective = lastCreatedObjectiveId === objId;
 
-            if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.courseId)) {
+            if (_.isNullOrUndefined(courseId)) {
                 viewModel.contextCourseId = null;
                 viewModel.contextCourseTitle = null;
 
@@ -237,7 +247,7 @@
                 return initObjectiveInfo(objId);
             }
 
-            return courseRepository.getById(queryParams.courseId).then(function (course) {
+            return courseRepository.getById(courseId).then(function (course) {
                 viewModel.contextCourseId = course.id;
                 viewModel.contextCourseTitle = course.title;
 
@@ -283,10 +293,12 @@
         }
 
         function getEditQuestionLink(questionId) {
-            var queryString = router.activeInstruction().queryString;
-            queryString = _.isNullOrUndefined(queryString) ? '' : '?' + queryString;
+            if (viewModel.contextCourseId) {
+                return '#courses/' + viewModel.contextCourseId + '/objectives/' + viewModel.objectiveId + '/question/' + questionId;
+            } else {
+                return '#objectives/' + viewModel.objectiveId + '/question/' + questionId;
+            }
 
-            return '#objective/' + viewModel.objectiveId + '/question/' + questionId + queryString;
         }
 
         function getQuestionImageLink(type) {

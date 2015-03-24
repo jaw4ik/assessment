@@ -50,7 +50,7 @@
 
         function navigateToDetails(item) {
             eventTracker.publish(events.navigateToDetails);
-            router.navigate('objective/' + item.id);
+            router.navigate('objectives/' + item.id);
         }
 
         function navigateToCourses() {

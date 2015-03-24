@@ -95,7 +95,7 @@
 
         function navigateToDetails(course) {
             eventTracker.publish(events.navigateToCourseDetails);
-            router.navigate('course/' + course.id);
+            router.navigate('courses/' + course.id);
         }
 
         function navigateToPublish(course) {
@@ -237,7 +237,7 @@
             return createCourseCommand.execute('Courses')
                 .then(function (course) {
                     uiLocker.unlock();
-                    router.navigate('#course/' + course.id);
+                    router.navigate('#courses/' + course.id);
                 })
                 .fail(function () {
                     uiLocker.unlock();
@@ -253,7 +253,7 @@
                     if (course.objectives.length) {
                         router.navigate('#objective/' + course.objectives[0].id + '?courseId=' + course.id);
                     } else {
-                        router.navigate('#course/' + course.id);
+                        router.navigate('#courses/' + course.id);
                     }
                 },
                 complete: function () {

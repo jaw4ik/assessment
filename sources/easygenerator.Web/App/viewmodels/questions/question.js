@@ -56,17 +56,28 @@ define(['durandal/app', 'eventTracker', 'constants',
             var activeViewModel = questionViewModelFactory[question.type];
             if (!activeViewModel) throw "Question with type " + question.type.toString() + " is not found in questionViewModelFactory";
             return activeViewModel;
-        }
+        }   
 
-        function activate(objectiveId, questionId, queryParams) {
+        function activate() {
+            var courseId, objectiveId, questionId;
+            if (arguments.length === 3) {
+                courseId = arguments[0];
+                objectiveId = arguments[1];
+                questionId = arguments[2];
+            } else if (arguments.length === 2) {
+                objectiveId = arguments[0];
+                questionId = arguments[1];
+            } else {
+                throw 'Invalid arguments';
+            }
             viewmodel.objectiveId = objectiveId;
             viewmodel.questionId = questionId;
             return objectiveRepository.getById(objectiveId).then(function (objective) {
                 viewmodel.backButtonData.configure({
-                    url: 'objective/' + objective.id,
+                    url: 'objectives/' + objective.id,
                     backViewName: '\'' + objective.title + '\'',
                     callback: navigateToObjectiveEvent,
-                    alwaysVisible: _.isNullOrUndefined(queryParams) || !_.isString(queryParams.courseId)
+                    alwaysVisible: !_.isString(courseId)
                 });
                 return questionRepository.getById(viewmodel.objectiveId, viewmodel.questionId).then(function (question) {
                     viewmodel.activeQuestionViewModel = setActiveViewModel(question);

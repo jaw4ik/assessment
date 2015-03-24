@@ -1,0 +1,20 @@
+﻿<section class="course">
+
+    <header>
+        <div>
+            <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': isEditing(), 'error': !title.isValid() }, autofocus: { focus: true, autoselect: true }"></div>
+        </div>
+        <nav>
+            <ul data-bind="foreach: router.navigationModel">
+                <li><a data-bind="attr: { href:  hash }, css: { active: isActive }, text: ($index() + 1) + '. ' + title"></a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <!-- ko router: {} -->
+    <!-- /ko -->
+
+
+
+</section>

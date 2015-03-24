@@ -1,4 +1,4 @@
-﻿<section class="course define view-module">
+﻿<section class="create view-module">
     <!-- ko if: collaborationWarning().length > 0 -->
     <div class="course-collaboration-warning unselectable">
         <div class="content-section-wrapper">
@@ -12,7 +12,7 @@
 
     <div class="content-section-wrapper">
         <div class="content-section">
-            <div class="page-view-caption clearfix">
+            <!--<div class="page-view-caption clearfix">
                 <div class="page-view-caption-text" data-bind="localize: { text: 'courseViewCaption' }">Course editor</div>
                 <div data-bind="compose: {model: collaborators, activationData: {courseId: id, courseOwner: createdBy}}"></div>
             </div>
@@ -24,7 +24,7 @@
                         <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: courseTitleMaxLength"></span>
                     </div>
                 </div>
-            </header>
+            </header>-->
             <div class="course-introduction-container" data-bind="with: courseIntroductionContent, css: {hidden: objectivesMode() != objectivesListModes.display}">
                 <div class="course-introduction-wrapper" data-bind="css: { active: hasFocus, 'content-defined': isContentDefined }, introAnimate: { isEditing: isEditing }">
                     <div class="course-introduction-holder">

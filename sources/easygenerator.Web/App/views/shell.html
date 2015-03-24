@@ -18,12 +18,12 @@
                                 <!-- ko foreach: navigation -->
                                 <li class="header-navigation-item">
                                     <!-- ko ifnot: isActive -->
-                                    <a href="#" class="top-navigation-item" data-bind="click: navigate, attr: { href: navigationLink }, css: { current: isPartOfModules }">
+                                    <a href="#" class="top-navigation-item" data-bind="click: navigate, attr: { href: navigationLink }">
                                         <span data-bind="localize: { text: title }, css: { 'cursor-default': $parent.router.isNavigating() }"></span>
                                     </a>
                                     <!-- /ko -->
                                     <!-- ko if: isActive -->
-                                    <span class="top-navigation-item" data-bind="click: isEditor() ? navigate : '', css: { current: isPartOfModules, cursor: $parent.router.isNavigating(), 'cursor-pointer': isEditor() }, scrollToTop: true">
+                                    <span class="top-navigation-item current" data-bind="click: navigate, scrollToTop: true">
                                         <span data-bind="localize: { text: title }, css: { 'cursor-default': $parent.router.isNavigating() }"></span>
                                     </span>
                                     <!-- /ko -->
@@ -49,44 +49,19 @@
             </div>
         </header>
 
-        <section>
+        <main id="view_content" data-bind="router: { cacheViews: false, transition: 'defaultRouterTransition' }">
+        </main>
 
-            <!-- ko if: showTreeOfContent -->
-            <!-- ko compose: 'navigationBar/navigationBar' -->
-            <!-- /ko -->
-            <!-- /ko-->
-
-            <div class="back-button" data-bind="widget: { kind: 'backButton'}, style: { visibility: isViewReady() ? 'visible' : 'hidden' }"></div>
-
-            <main id="view_content">
-                <!-- ko ifnot: isViewReady -->
-                <div class="circular-loader x32 black align-center" data-bind="visible: !isViewReady()">
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
-                </div>
-                <!-- /ko -->
-                <div data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }">
-                    <div data-bind="router: { cacheViews: false, transition: 'defaultRouterTransition' }"></div>
-                    <!-- ko compose: 'viewmodels/panels/sidePanel' -->
-                    <!-- /ko -->
-                </div>
-                <footer>
-                    <span data-bind="localize: { text: 'CopyrightText' }"></span>
-                </footer>
-            </main>
-        </section>
-
-
-
+        <footer>
+            <span data-bind="localize: { text: 'CopyrightText' }"></span>
+        </footer>
+        
+        <!-- ko compose: { model: 'viewmodels/panels/sidePanel' } -->
+        <!-- /ko -->
 
     </section>
-
+    
+    <div data-bind="widget: { kind: 'backButton'}" class="back-button"></div>
     <div data-bind="widget: { kind: 'uiLockViewer' }"></div>
     <div data-bind="widget: { kind: 'imagePreview' }"></div>
     <div data-bind="widget: { kind: 'notifyViewer' }"></div>

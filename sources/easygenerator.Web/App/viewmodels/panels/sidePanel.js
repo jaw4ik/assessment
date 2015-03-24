@@ -18,7 +18,7 @@
         });
 
         viewModel.reviewTabActivationData = ko.computed({
-            read: function () {
+            read: function () {                
                 var courseId = router.routeData().courseId;
                 return Q.fcall(function () {
                     if (courseId == null) {

@@ -551,10 +551,27 @@
     <Content Include="App\viewmodels\courses\courseNavigation\items\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\courses\course\course.spec.js" />
+    <Content Include="App\viewmodels\courses\course\create\index.js" />
+    <Content Include="App\viewmodels\courses\course\design.js" />
+    <Content Include="App\viewmodels\courses\course\design.spec.js">
+      <DependentUpon>design.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\index.js" />
+    <Content Include="App\viewmodels\courses\course\publish.js" />
+    <Content Include="App\viewmodels\courses\course\publish.spec.js">
+      <DependentUpon>publish.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\results.js" />
+    <Content Include="App\viewmodels\courses\course\results.spec.js">
+      <DependentUpon>results.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\results.js" />
     <Content Include="App\viewmodels\courses\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\courses\index.js" />
+    <Content Include="App\viewmodels\objectives\index.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
       <DependentUpon>changeType.js</DependentUpon>
@@ -567,6 +584,13 @@
     <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\shell.old.js" />
+    <Content Include="App\views\courses\course\create\index.html" />
+    <Content Include="App\views\courses\course\publish.html" />
+    <Content Include="App\views\courses\course\design.html" />
+    <Content Include="App\views\courses\course\index.html" />
+    <Content Include="App\views\courses\course\results.html" />
+    <Content Include="App\views\courses\index.html" />
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerLink.html" />
@@ -574,7 +598,9 @@
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\results.html" />
+    <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
+    <Content Include="App\views\shell.courses.html" />
     <Content Include="App\views\shell.old.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="Content\font\heuristica-bold.svg" />
@@ -1478,6 +1504,7 @@
     <Content Include="Content\switchToggle.less" />
     <Content Include="Content\treeOfContent.less" />
     <Content Include="Content\shell.less" />
+    <None Include="Content\shell.flexbox" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
@@ -2183,10 +2210,7 @@
     <Content Include="App\viewmodels\courses\collaboration\collaborators.spec.js">
       <DependentUpon>collaborators.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\course.js" />
-    <Content Include="App\viewmodels\courses\course.spec.js">
-      <DependentUpon>course.js</DependentUpon>
-    </Content>
+    <Content Include="App\viewmodels\courses\course\course.js" />
     <Content Include="App\viewmodels\courses\courseComments.js" />
     <Content Include="App\viewmodels\courses\courseComments.spec.js">
       <DependentUpon>courseComments.js</DependentUpon>
@@ -2286,7 +2310,7 @@
     </Content>
     <Content Include="App\views\common\createtip.html" />
     <Content Include="App\views\courses\collaboration\collaborators.html" />
-    <Content Include="App\views\courses\course.html" />
+    <Content Include="App\views\courses\course\course.html" />
     <Content Include="App\views\courses\courseComments.html" />
     <Content Include="App\views\courses\courseNavigation\navigation.html" />
     <Content Include="App\views\courses\courses.html" />

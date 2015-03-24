@@ -23,7 +23,7 @@
             that.isCourseCreating(true);
             return createCourseCommand.execute(eventCategory)
                 .then(function (course) {
-                    router.navigate('#course/' + course.id);
+                    router.navigate('#courses/' + course.id);
                     dialog.close(that);
                 })
                 .fin(function () {

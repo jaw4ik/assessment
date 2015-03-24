@@ -1,0 +1,22 @@
+﻿<section>
+    
+    
+    <!-- ko if: router.isNavigating -->
+    <div class="circular-loader x32 black align-center">
+        <div class="circular-loader-item"></div>
+        <div class="circular-loader-item"></div>
+        <div class="circular-loader-item"></div>
+        <div class="circular-loader-item"></div>
+        <div class="circular-loader-item"></div>
+        <div class="circular-loader-item"></div>
+        <div class="circular-loader-item"></div>
+        <div class="circular-loader-item"></div>
+    </div>
+    <!-- /ko -->
+    
+    <div data-bind="style: { visibility: !router.isNavigating() ? 'visible' : 'hidden' }">
+        <!-- ko router: {} -->
+        <!-- /ko -->
+    </div>
+
+</section>

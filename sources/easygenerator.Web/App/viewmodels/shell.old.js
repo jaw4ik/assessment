@@ -4,6 +4,24 @@
 
         "use strict";
 
+
+
+        ko.bindingHandlers.slide = {
+            init: function (element, valueAccessor) {
+                var value = valueAccessor();
+                //                debugger;
+            },
+            update: function (element, valueAccessor) {
+                var value = valueAccessor();
+                if (ko.unwrap(value)) {
+                    $(element).animate({ width: '300px' });
+                } else {
+                    $(element).animate({ width: '50px' });
+                }
+            }
+
+        }
+
         var events = {
             navigateToCourses: "Navigate to courses",
             navigateToObjectives: 'Navigate to objectives'
@@ -20,9 +38,10 @@
             activate: activate,
             router: router,
             homeModuleName: 'courses',
-            isViewReady: ko.observable(true),
+            isViewReady: ko.observable(false),
             showNavigation: showNavigation,
-
+            showCourseNavigation: ko.observable(),
+            showTreeOfContent: ko.observable(),
             navigation: ko.observableArray([]),
             help: help,
             courseDeleted: courseDeleted,
@@ -31,6 +50,19 @@
             courseCollaborationFinished: courseCollaborationFinished,
             openUpgradePlanUrl: openUpgradePlanUrl
         };
+
+        viewModel.scope = ko.computed(function () {
+            var activeModuleId = router.routeData().moduleName;
+            var hasCourseId = router.routeData().courseId != null;
+            viewModel.showCourseNavigation(hasCourseId);
+            if (_.contains(coursesModules, activeModuleId) || hasCourseId) {
+                return 'courses';
+            } else {
+                return 'objectives';
+            }
+
+
+        });
 
         viewModel.activeModuleName = ko.computed(function () {
             var activeItem = router.activeItem();
@@ -108,13 +140,18 @@
                     router.on('router:navigation:composition-complete').then(function () {
                         var activeModuleId = router.routeData().moduleName;
                         var hasCourseId = router.routeData().courseId != null;
-                        
+                        viewModel.showCourseNavigation(hasCourseId);
+                        viewModel.showTreeOfContent(_.contains(coursesModules, activeModuleId) || hasCourseId);
+
                         viewModel.navigation()[0].isPartOfModules(_.contains(coursesModules, activeModuleId) || hasCourseId);
                         viewModel.navigation()[1].isPartOfModules(_.contains(objectivesModules, activeModuleId) && !hasCourseId);
 
                         clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
                     });
 
+                    router.on('router:route:activating').then(function () {
+                        viewModel.isViewReady(false);
+                    });
 
                     viewModel.navigation([
                         {
@@ -126,11 +163,10 @@
                             navigationLink: '#courses',
                             title: 'courses',
                             isActive: ko.computed(function () {
-                                if (_.isNullOrUndefined(router.activeInstruction()) || router.isNavigating()) {
-                                    return false;
-                                }
-                                
-                                return router.activeInstruction().fragment.indexOf("courses") === 0;
+                                return _.contains(coursesModules, viewModel.activeModuleName()) || router.isNavigating();
+                            }),
+                            isEditor: ko.computed(function () {
+                                return _.contains(_.without(coursesModules, 'courses'), viewModel.activeModuleName());
                             }),
                             isPartOfModules: ko.observable(false)
                         },
@@ -143,11 +179,10 @@
                             navigationLink: '#objectives',
                             title: 'materials',
                             isActive: ko.computed(function () {
-                                if (_.isNullOrUndefined(router.activeInstruction()) || router.isNavigating()) {
-                                    return false;
-                                }
-                                
-                                return router.activeInstruction().fragment.indexOf("objectives") === 0;
+                                return _.contains(objectivesModules, viewModel.activeModuleName()) || router.isNavigating();
+                            }),
+                            isEditor: ko.computed(function () {
+                                return _.contains(_.without(objectivesModules, 'objectives'), viewModel.activeModuleName());
                             }),
                             isPartOfModules: ko.observable(false)
                         }
@@ -161,21 +196,20 @@
                         compositionComplete.off();
                     });
 
-                    router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));                    
+                    router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));
 
-                    router.map([
-                        {
-                            route: ['', 'courses*details'], moduleId: 'viewmodels/courses/index', title: 'Knockout Samples'
-                        },
-                        {
-                            route: 'objectives*details', moduleId: 'viewmodels/objectives/index', title: 'Knockout Samples'
-                        }
+                    routes.push({
+                        route: 'course*details', moduleId: 'viewmodels/course/index', title: 'Knockout Samples'
 
-                    ]);
+                    });
 
+                    //routes.push({ route: 'knockout-samples*details', moduleId: 'ko/index', title: 'Knockout Samples', nav: true });
+
+                    router.map(routes);
 
 
-                    return router.buildNavigationModel().activate(viewModel.homeModuleName);
+
+                    return router.buildNavigationModel().mapUnknownRoutes('viewmodels/errors/404', '404').activate(viewModel.homeModuleName);
                 });
         }
 
