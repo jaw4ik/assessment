@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.Web.Newsletter
 {
     public interface INewsletterSubscriptionManager
     {
-        bool SubscribeForNewsletters(string userEmail, string firstname, string lastname, string role);
+        bool CreateSubscription(string userEmail, string firstname, string lastname, string userRole, AccessType accessType);
+        bool UpdateSubscription(string userEmail, string firstname, string lastname, string userRole, AccessType accessType);
     }
 }

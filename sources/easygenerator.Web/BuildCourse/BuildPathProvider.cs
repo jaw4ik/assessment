@@ -7,14 +7,12 @@ namespace easygenerator.Web.BuildCourse
     {
         private string BuildPath { get; set; }
         private string WebsitePath { get; set; }
-        private string TemplatesPath { get; set; }
         private string DownloadPath { get; set; }
 
         public BuildPathProvider(HttpRuntimeWrapper httpRuntimeWrapper)
         {
             BuildPath = Path.Combine(Path.GetTempPath(), "eg", "build");
             WebsitePath = httpRuntimeWrapper.GetDomainAppPath();
-            TemplatesPath = Path.Combine(WebsitePath, "Templates");
             DownloadPath = Path.Combine(WebsitePath, "Download");
         }
 
@@ -86,11 +84,6 @@ namespace easygenerator.Web.BuildCourse
         }
 
         #endregion
-
-        public virtual string GetTemplateDirectoryName(string templateName)
-        {
-            return Path.Combine(TemplatesPath, templateName);
-        }
 
         public virtual string GetDownloadPath()
         {

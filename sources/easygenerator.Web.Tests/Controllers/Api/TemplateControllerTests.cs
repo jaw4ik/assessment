@@ -8,6 +8,7 @@ using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.Components.ActionResults;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Storage;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using FluentAssertions.Common;
@@ -27,6 +28,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private TemplateController _controller;
         private IPrincipal _user;
         private HttpContextBase _context;
+        private ITemplateStorage _templateStorage;
 
         [TestInitialize]
         public void InitializeContext()
@@ -37,7 +39,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
-            _controller = new TemplateController(_repository, _entityMapper);
+
+            _templateStorage = Substitute.For<ITemplateStorage>();
+            _controller = new TemplateController(_repository, _entityMapper, _templateStorage);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -69,6 +73,57 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.GetCollection();
 
             result.Should().BeJsonSuccessResult().And.Data.IsSameOrEqualTo(actual.Data);
+        }
+
+        #endregion
+
+        #region GetTemplateResource
+
+        [TestMethod]
+        public void GetTemplateResource_ShouldReturnHttpNotFoundResult_WhenTemplateDoesNotExist()
+        {
+            //Arrange
+            var template = TemplateObjectMother.Create();
+            _repository.GetByName(template.Name, Arg.Any<string>()).Returns((Template)null);
+
+            //Act
+            var result = _controller.GetTemplateResource(template.Name, "resource");
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
+        }
+
+        [TestMethod]
+        public void GetTemplateResource_ShouldReturnHttpNotFoundResult_WhenResourceFileDoesNotExist()
+        {
+            //Arrange
+            var resource = "resourceUrl";
+            var template = TemplateObjectMother.Create();
+            _repository.GetByName(template.Name, Arg.Any<string>()).Returns(template);
+            _templateStorage.FileExists(template, resource).Returns(false);
+
+            //Act
+            var result = _controller.GetTemplateResource(template.Name, resource);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
+        }
+
+        [TestMethod]
+        public void GetTemplateResource_ShouldReturnFilePathResult()
+        {
+            //Arrange
+            var resource = "resourceUrl";
+            var template = TemplateObjectMother.Create();
+            _repository.GetByName(template.Name, Arg.Any<string>()).Returns(template);
+            _templateStorage.FileExists(template, resource).Returns(true);
+            _templateStorage.GetAbsoluteFilePath(template, resource).Returns("absoluteFilePath");
+
+            //Act
+            var result = _controller.GetTemplateResource(template.Name, resource);
+
+            //Assert
+            result.Should().BeFilePathResult();
         }
 
         #endregion

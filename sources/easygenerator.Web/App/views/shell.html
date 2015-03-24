@@ -52,15 +52,11 @@
         <main id="view_content" data-bind="router: { cacheViews: false, transition: 'defaultRouterTransition' }">
         </main>
 
-        <footer>
-            <span data-bind="localize: { text: 'CopyrightText' }"></span>
-        </footer>
-        
         <!-- ko compose: { model: 'viewmodels/panels/sidePanel' } -->
         <!-- /ko -->
 
     </section>
-    
+
     <div data-bind="widget: { kind: 'backButton'}" class="back-button"></div>
     <div data-bind="widget: { kind: 'uiLockViewer' }"></div>
     <div data-bind="widget: { kind: 'imagePreview' }"></div>

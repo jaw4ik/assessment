@@ -1,0 +1,47 @@
+﻿<div class="modal-dialog-wrapper collaboration" data-bind="dialog: { autoclose: true, isShown: isShown, onHide: hide }">
+    <div class="modal-dialog-close-btn" data-bind="click: hide"></div>
+    <!-- ko if: isUpgradeInvitationShown -->
+    <div class="collaboration-upgrade-invitation">
+        <div class="collaboration-upgrade-invitation-title" data-bind="localize: { text: 'addCoauthorsToYourCourse' }"></div>
+        <div class="collaboration-upgrade-invitation-message" data-bind="text: collaborationWarning"></div>
+        <button class="btn green collaboration-upgrade-btn" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeNow' }"></button>
+    </div>
+    <!-- /ko -->
+    <!-- ko ifnot: isUpgradeInvitationShown -->
+    <div class="modal-dialog-header">
+        <div class="modal-dialog-header-text" data-bind="localize: { text: 'manageCoauthors' }"></div>
+    </div>
+    <div class="modal-dialog-content">
+        <!-- ko if: isLoadingCollaborators -->
+        <ul class="collaborators-list unstyled">
+            <li class="collaborators-list-item empty">
+                <div class="collaborators-list-item-content">
+                    <!-- ko compose: { view: 'views/common/circularLoader', model: {css: 'x32 align-center'} } -->
+                    <!-- /ko -->
+                    <div class="collaborators-list-item-content-text" data-bind="localize: { text: 'loadingCoauthors' }"></div>
+                </div>
+            </li>
+        </ul>
+        <!-- /ko -->
+        <!-- ko ifnot: isLoadingCollaborators -->
+        <ul class="collaborators-list unstyled scrollable" data-bind="foreachAnimated: { data: collaborators, removeDelay: 3, speed: 0.3 }">
+            <li class="collaborators-list-item" data-bind="css:{ 'remove-confirmation-shown': isRemoveConfirmationShown}">
+                <!-- ko compose: { view: 'dialogs/collaboration/collaborator', model: $data} -->
+                <!-- /ko -->
+            </li>
+        </ul>
+        <!-- /ko -->
+    </div>
+    <!-- ko if: isAddCollaboratorLocked -->
+    <div class="collaboration-locked-info-block">
+        <div class="collaboration-locked-info-block-message" data-bind="text: collaborationWarning"></div>
+        <button class="btn green collaboration-locked-info-block-upgrade-btn" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeNow' }"></button>
+    </div>
+    <!-- /ko -->
+    <!-- ko ifnot: isAddCollaboratorLocked -->
+    <!-- ko compose: { view: 'dialogs/collaboration/addCollaborator', model: addCollaboratorViewModel } -->
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
+</div>
+

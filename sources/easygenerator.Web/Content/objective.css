@@ -4,6 +4,10 @@
 .module-objective .view-module {
   background-color: #fff;
 }
+.objective .view-header {
+  margin-top: 7px;
+  margin-bottom: 5px;
+}
 .objective .create-new-title {
   padding: 32px 0;
 }
@@ -258,4 +262,32 @@
   width: 70%;
   margin-left: 20px;
   position: relative;
+}
+/*#endregion objective image upload*/
+/*#region objective help link*/
+.objective-help-link-container {
+  font-size: 13px;
+  -webkit-transition: opacity, margin-left, 0.3s;
+  transition: opacity, margin-left, 0.3s;
+  opacity: 1;
+  margin-left: 0;
+}
+.objective-help-link-container.hidden {
+  opacity: 0;
+  margin-left: -10px;
+}
+.objective-help-link {
+  font-family: 'OpenSansItalic';
+  color: #63798e;
+}
+.objective-help-link.clickable a {
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+  font-family: 'OpenSans-SemiboldItalic';
+  text-decoration: underline;
+  color: #469dd5;
+  padding-left: 3px;
+}
+.objective-help-link.clickable a:hover {
+  color: #2177ae;
 }

@@ -1,4 +1,5 @@
-﻿using easygenerator.Infrastructure;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Http;
 using easygenerator.Web.Components.Configuration;
 using System;
@@ -10,6 +11,7 @@ namespace easygenerator.Web.Newsletter.MailChimp
     {
         private const string GetListMethodPath = "lists/list";
         private const string SubscribeMethodPath = "lists/subscribe";
+        private const string UpdateSubscriptionMethodPath = "lists/update-member";
         private const bool confirmationRequired = false;
 
         private readonly ConfigurationReader _configurationReader;
@@ -44,15 +46,32 @@ namespace easygenerator.Web.Newsletter.MailChimp
             _logger = logger;
         }
 
-        public bool SubscribeForNewsletters(string userEmail, string firstname, string lastname, string userRole)
+        public bool CreateSubscription(string userEmail, string firstname, string lastname, string userRole, AccessType accessType)
+        {
+            return SendSubscriptionRequest(SubscribeMethodPath, userEmail, firstname, lastname, userRole, accessType);
+        }
+
+        public bool UpdateSubscription(string userEmail, string firstname, string lastname, string userRole, AccessType accessType)
+        {
+            return SendSubscriptionRequest(UpdateSubscriptionMethodPath, userEmail, firstname, lastname, userRole, accessType);
+        }
+
+        private bool SendSubscriptionRequest(string methodPath, string userEmail, string firstname, string lastname, string userRole, AccessType accessType)
         {
             if (_configurationReader.MailChimpConfiguration.Enabled)
             {
                 try
                 {
-                    var methodUrl = GetServiceMethodUrl(SubscribeMethodPath);
+                    var methodUrl = GetServiceMethodUrl(methodPath);
                     var responseData = _httpClient.Post<MailChimpSubscription>(methodUrl,
-                        new { apikey = ApiKey, id = ListIdForSubscription, email = new { email = userEmail }, merge_vars = new { fname = firstname, lname = lastname, role = userRole }, double_optin = confirmationRequired });
+                        new
+                        {
+                            apikey = ApiKey,
+                            id = ListIdForSubscription,
+                            email = new { email = userEmail },
+                            merge_vars = new { fname = firstname, lname = lastname, role = userRole, plan = accessType.ToString() },
+                            double_optin = confirmationRequired
+                        });
                     return string.Equals(responseData.Email, userEmail, StringComparison.CurrentCultureIgnoreCase);
                 }
                 catch (Exception exception)

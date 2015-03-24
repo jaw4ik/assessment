@@ -11,6 +11,7 @@ using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.BuildCourse.Scorm.Models;
 using easygenerator.Web.BuildCourse.Scorm.Modules;
 using easygenerator.Web.Components;
+using easygenerator.Web.Storage;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
@@ -53,7 +54,8 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             var packageModelMapper = Substitute.For<PackageModelMapper>(Substitute.For<IUrlHelperWrapper>(), Substitute.For<IUserRepository>());
             var packageModelSerializer = Substitute.For<PackageModelSerializer>();
-            _buildContentProvider = Substitute.For<BuildContentProvider>(_fileManager, _buildPathProvider, packageModelSerializer, packageModelMapper, new PublishSettingsProvider());
+            var templateStorage = Substitute.For<ITemplateStorage>();
+            _buildContentProvider = Substitute.For<BuildContentProvider>(_fileManager, _buildPathProvider, packageModelSerializer, packageModelMapper, new PublishSettingsProvider(), templateStorage);
 
             var userRepository = Substitute.For<IUserRepository>();
             _scormPackageModulesProvider = Substitute.For<ScormPackageModulesProvider>(userRepository);

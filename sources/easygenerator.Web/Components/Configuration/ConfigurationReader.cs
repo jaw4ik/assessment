@@ -11,7 +11,15 @@ namespace easygenerator.Web.Components.Configuration
         {
             get
             {
-                return ConfigurationManager.GetSection("FileStorage") as FileStorageConfigurationSection;
+                return ConfigurationManager.GetSection("fileStorage") as FileStorageConfigurationSection;
+            }
+        }
+
+        public virtual TemplateStorageConfigurationSection TempateStorageConfiguration
+        {
+            get
+            {
+                return ConfigurationManager.GetSection("templateStorage") as TemplateStorageConfigurationSection;
             }
         }
 

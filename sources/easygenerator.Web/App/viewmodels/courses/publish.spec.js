@@ -227,6 +227,32 @@
                         });
                     });
 
+                    describe('when course delivering', function () {
+
+                        it('should disabled all publish action in view', function (done) {
+                            course.isDelivering = false;
+                            getById.resolve(course);
+                            viewModel.activate(course.id).fin(function () {
+                                expect(viewModel.isCourseDelivering()).toBeFalsy();
+                                done();
+                            });
+                        });
+
+                    });
+
+                    describe('when course is not delivering', function () {
+
+                        it('should enabled all publish action in view', function (done) {
+                            course.isDelivering = true;
+                            getById.resolve(course);
+                            viewModel.activate(course.id).fin(function () {
+                                expect(viewModel.isCourseDelivering()).toBeTruthy();
+                                done();
+                            });
+                        });
+
+                    });
+
                 });
 
             });

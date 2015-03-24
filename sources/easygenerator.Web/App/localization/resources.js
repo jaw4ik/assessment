@@ -990,6 +990,16 @@
         'zh-cn': 'Objective from powerpoint[zh-cn]',
         'uk': 'Розділ з Powerpoint'
     },
+    objectiveHelpText: {
+        'en': 'Need help with your objective? Try our new',
+        'zh-cn': 'Need help with your objective? Try our new[zh-cn]',
+        'uk': 'Потрібна допомога з вашою ціллю? Спробуйте наш новий'
+    },
+    objectiveHelpLink: {
+        'en': '<a href=\"https://www.easygenerator.com/elearning-learning-objective-maker/\" target=\"_blank\">learning objective maker here</a>',
+        'zh-cn': '<a href=\"https://www.easygenerator.com/elearning-learning-objective-maker/\" target=\"_blank\">learning objective maker here</a>[zh-cn]',
+        'uk': '<a href=\"https://www.easygenerator.com/elearning-learning-objective-maker/\" target=\"_blank\">генератор навчальних цілей тут</a>'
+    },
     /* End resource section for model CreateObjective */
     
     /* Resource section for model CreateCourse */
@@ -2104,9 +2114,24 @@
         'uk': 'як співавтора?'
     },
     cannotAddDuplicateCoauthor: {
-        'en': '!!! This user has already been added',
-        'zh-cn': '!!! This user has already been added[zh-cn]',
-        'uk': '!!! This user has already been added[uk]'
+        'en': 'Co-author with such email has already been added',
+        'zh-cn': 'Co-author with such email has already been added[zh-cn]',
+        'uk': 'Співавтор з таким е-mail вже доданий до списку'
+    },
+    addCoauthorsToYourCourse: {
+        'en': 'Add co-authors to your course',
+        'zh-cn': 'Add co-authors to your course[zh-cn]',
+        'uk': 'Додайте співавторів до курсу'
+    },
+    coAuthor: {
+        'en': 'Co-author',
+        'zh-cn': 'Co-author[zh-cn]',
+        'uk': 'Співавтор'
+    },
+    hasBeenRemoved: {
+        'en': 'hasBeenRemoved',
+        'zh-cn': 'hasBeenRemoved[zh-cn]',
+        'uk': 'видалений'
     },
     /* End resource section for model Collaboration */
     

@@ -1,6 +1,6 @@
-﻿using easygenerator.Infrastructure;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Http;
-using easygenerator.Infrastructure.Mail;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
@@ -28,6 +28,8 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         private const string serviceUrl = "serviceUrl";
         private const string getListMethodPath = "serviceUrl/lists/list";
         private const string subscribeMethodPath = "serviceUrl/lists/subscribe";
+        private const string updateMethodPath = "serviceUrl/lists/update-member";
+        private const AccessType accessType = AccessType.Starter;
 
         [TestInitialize]
         public void InitializeManager()
@@ -46,33 +48,35 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _subscriptionManager = new MailChimpSubscriptionManager(_configurationReader, _httpClient, Substitute.For<ILog>());
         }
 
+        #region CreateSubscription
+
         [TestMethod]
-        public void SubscribeForNewsletters_ShouldReturnTrueIfManagerEnabledIsFalse()
+        public void CreateSubscription_ShouldReturnTrueIfManagerEnabledIsFalse()
         {
             // Arrange
             _mailChimpConfiguration.Enabled = false;
             _configurationReader.MailChimpConfiguration.Returns(_mailChimpConfiguration);
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName, role);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
 
             // Assert
             result.Should().BeTrue();
         }
 
         [TestMethod]
-        public void SubscribeForNewsletters_ShouldDoHttpPostToGetListId()
+        public void CreateSubscription_ShouldDoHttpPostToGetListId()
         {
             // Arrange
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName, role);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
 
             // Assert
             _httpClient.Received().Post<MailChimpLists>(Arg.Is(getListMethodPath), Arg.Any<object>());
         }
 
         [TestMethod]
-        public void SubscribeForNewsletters_ShouldReturnFalseIfExceptionWasThrownWhileGettingListId()
+        public void CreateSubscription_ShouldReturnFalseIfExceptionWasThrownWhileGettingListId()
         {
             // Arrange
             var mailChimpLists = new MailChimpLists { Total = 0 };
@@ -80,15 +84,14 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName, role);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
 
             // Assert
             result.Should().BeFalse();
         }
 
-
         [TestMethod]
-        public void SubscribeForNewsletters_ShouldReturnFalseIfListIsNotFound()
+        public void CreateSubscription_ShouldReturnFalseIfListIsNotFound()
         {
             // Arrange
             var mailChimpLists = new MailChimpLists { Total = 0 };
@@ -96,14 +99,14 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName, role);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
 
             // Assert
             result.Should().BeFalse();
         }
 
         [TestMethod]
-        public void SubscribeForNewsletters_ShouldReturnFalseIfMoreThanOneListWasFound()
+        public void CreateSubscription_ShouldReturnFalseIfMoreThanOneListWasFound()
         {
             // Arrange
             var mailChimpLists = new MailChimpLists { Total = 2 };
@@ -111,14 +114,14 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName, role);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
 
             // Assert
             result.Should().BeFalse();
         }
 
         [TestMethod]
-        public void SubscribeForNewsletters_ShouldDoHttpPostToSubcribeEmail()
+        public void CreateSubscription_ShouldDoHttpPostToSubcribeEmail()
         {
             // Arrange
             var mailChimpLists = new MailChimpLists
@@ -130,14 +133,14 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpLists>(null, (object)null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName, role);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
 
             // Assert
             _httpClient.Received().Post<MailChimpSubscription>(Arg.Is(subscribeMethodPath), Arg.Any<object>());
         }
 
         [TestMethod]
-        public void SubscribeForNewsletters_ShouldReturnFalseIfExceptionWhilePostingSubsciption()
+        public void CreateSubscription_ShouldReturnFalseIfExceptionWhilePostingSubsciption()
         {
             // Arrange
             var mailChimpLists = new MailChimpLists
@@ -150,14 +153,14 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpSubscription>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName, role);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
 
             // Assert
             result.Should().BeFalse();
         }
 
         [TestMethod]
-        public void SubscribeForNewsletters_ShouldReturnFalseIfEmailDoesntMatchWithEmailForSubscription()
+        public void CreateSubscription_ShouldReturnFalseIfEmailDoesntMatchWithEmailForSubscription()
         {
             // Arrange
             var mailChimpLists = new MailChimpLists
@@ -170,14 +173,14 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpSubscription>(null, null).Returns(new MailChimpSubscription() { Email = "someother@mail.com" });
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName, role);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
 
             // Assert
             result.Should().BeFalse();
         }
 
         [TestMethod]
-        public void SubscribeForNewsletters_ShouldReturnTrueIfEmailMatchEmailForSubscription()
+        public void CreateSubscription_ShouldReturnTrueIfEmailMatchEmailForSubscription()
         {
             // Arrange
             var mailChimpLists = new MailChimpLists
@@ -190,10 +193,165 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpSubscription>(null, (object)null).ReturnsForAnyArgs(new MailChimpSubscription() { Email = emailToSubscribe });
 
             // Act
-            var result = _subscriptionManager.SubscribeForNewsletters(emailToSubscribe, firstName, lastName, role);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
 
             // Assert
             result.Should().BeTrue();
         }
+
+        #endregion
+
+        #region UpdateSubscription
+
+        [TestMethod]
+        public void UpdateSubscription_ShouldReturnTrueIfManagerEnabledIsFalse()
+        {
+            // Arrange
+            _mailChimpConfiguration.Enabled = false;
+            _configurationReader.MailChimpConfiguration.Returns(_mailChimpConfiguration);
+
+            // Act
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void UpdateSubscription_ShouldDoHttpPostToGetListId()
+        {
+            // Arrange
+            // Act
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+
+            // Assert
+            _httpClient.Received().Post<MailChimpLists>(Arg.Is(getListMethodPath), Arg.Any<object>());
+        }
+
+        [TestMethod]
+        public void UpdateSubscription_ShouldReturnFalseIfExceptionWasThrownWhileGettingListId()
+        {
+            // Arrange
+            var mailChimpLists = new MailChimpLists { Total = 0 };
+
+            _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
+
+            // Act
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void UpdateSubscription_ShouldReturnFalseIfListIsNotFound()
+        {
+            // Arrange
+            var mailChimpLists = new MailChimpLists { Total = 0 };
+
+            _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
+
+            // Act
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void UpdateSubscription_ShouldReturnFalseIfMoreThanOneListWasFound()
+        {
+            // Arrange
+            var mailChimpLists = new MailChimpLists { Total = 2 };
+
+            _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
+
+            // Act
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void UpdateSubscription_ShouldDoHttpPostToSubcribeEmail()
+        {
+            // Arrange
+            var mailChimpLists = new MailChimpLists
+            {
+                Data = new List<MailChimpList> { new MailChimpList() { Id = "listId", Name = "listName" } },
+                Total = 1
+            };
+
+            _httpClient.Post<MailChimpLists>(null, (object)null).ReturnsForAnyArgs(mailChimpLists);
+
+            // Act
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+
+            // Assert
+            _httpClient.Received().Post<MailChimpSubscription>(Arg.Is(updateMethodPath), Arg.Any<object>());
+        }
+
+        [TestMethod]
+        public void UpdateSubscription_ShouldReturnFalseIfExceptionWhilePostingSubsciption()
+        {
+            // Arrange
+            var mailChimpLists = new MailChimpLists
+            {
+                Data = new List<MailChimpList> { new MailChimpList() { Id = "listId", Name = "listName" } },
+                Total = 1
+            };
+
+            _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
+            _httpClient.Post<MailChimpSubscription>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
+
+            // Act
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void UpdateSubscription_ShouldReturnFalseIfEmailDoesntMatchWithEmailForSubscription()
+        {
+            // Arrange
+            var mailChimpLists = new MailChimpLists
+            {
+                Data = new List<MailChimpList> { new MailChimpList() { Id = "listId", Name = "listName" } },
+                Total = 1
+            };
+
+            _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
+            _httpClient.Post<MailChimpSubscription>(null, null).Returns(new MailChimpSubscription() { Email = "someother@mail.com" });
+
+            // Act
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void UpdateSubscription_ShouldReturnTrueIfEmailMatchEmailForSubscription()
+        {
+            // Arrange
+            var mailChimpLists = new MailChimpLists
+            {
+                Data = new List<MailChimpList> { new MailChimpList() { Id = "listId", Name = "listName" } },
+                Total = 1
+            };
+
+            _httpClient.Post<MailChimpLists>(null, (object)null).ReturnsForAnyArgs(mailChimpLists);
+            _httpClient.Post<MailChimpSubscription>(null, (object)null).ReturnsForAnyArgs(new MailChimpSubscription() { Email = emailToSubscribe });
+
+            // Act
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
+        #endregion
     }
 }

@@ -454,6 +454,7 @@
             viewModel.courseIntroductionContent.originalText(course.introductionContent);
             if (!viewModel.courseIntroductionContent.isEditing()) {
                 viewModel.courseIntroductionContent.text(course.introductionContent);
+                viewModel.courseIntroductionContent.isEditing.valueHasMutated();
             }
         }
 
