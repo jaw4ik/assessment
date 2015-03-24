@@ -1504,6 +1504,15 @@ li.package-action-tabs-link {
             border-color: #61b472;
         }
 
+        .copy-btn-wrapper .btn.green-white.zeroclipboard-is-hover {
+            background: #5fb06f;
+            border-color: #61b472;
+            border-bottom-color: #61b472;
+            color: #fdfdfd;
+            text-shadow: none;
+            box-shadow: none;
+        }
+
         .copy-btn-wrapper .btn.copied span {
             position: relative;
             display: inline-block;
