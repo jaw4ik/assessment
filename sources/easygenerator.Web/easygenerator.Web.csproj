@@ -551,6 +551,10 @@
     <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonCreated.spec.js">
       <DependentUpon>polygonCreated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.spec.js">
+      <DependentUpon>learningContentsReordered.js</DependentUpon>
+    </Content>
     <Content Include="App\utils\base64.js" />
     <Content Include="App\utils\waiter.js" />
     <Content Include="App\utils\waiter.spec.js">
@@ -2515,7 +2519,7 @@
     <Content Include="Scripts\knockoutBindings\selectTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\sliderBinding.js" />
     <Content Include="Scripts\knockoutBindings\slidingDialogBinding.js" />
-    <Content Include="Scripts\knockoutBindings\sortablePlaceholderBinding.js" />
+    <Content Include="Scripts\knockoutBindings\sortableExtendedBinding.js" />
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />

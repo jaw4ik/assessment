@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Events.LearningContentEvents;
+﻿using System;
+using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace easygenerator.DomainModel.Entities.Questions
 
             LearningContentsCollection = new Collection<LearningContent>();
             Feedback = new Feedback();
+            LearningContentsOrder = null;
         }
 
         public string Title { get; private set; }
@@ -50,8 +52,10 @@ namespace easygenerator.DomainModel.Entities.Questions
 
         public IEnumerable<LearningContent> LearningContents
         {
-            get { return LearningContentsCollection.OrderBy(item => item.CreatedOn).AsEnumerable(); }
+            get { return GetOrderedLearningContents().AsEnumerable(); }
         }
+
+        protected internal string LearningContentsOrder { get; set; }
 
         public Feedback Feedback { get; private set; }
 
@@ -96,6 +100,10 @@ namespace easygenerator.DomainModel.Entities.Questions
             ThrowIfLearningContentIsInvalid(learningContent);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
+            var learningContents = GetOrderedLearningContents();
+            learningContents.Add(learningContent);
+            DoUpdateLearningContentsOrder(learningContents);
+
             LearningContentsCollection.Add(learningContent);
             learningContent.Question = this;
             MarkAsModified(modifiedBy);
@@ -108,11 +116,47 @@ namespace easygenerator.DomainModel.Entities.Questions
             ThrowIfLearningContentIsInvalid(learningContent);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
+            var learningContents = GetOrderedLearningContents();
+            learningContents.Remove(learningContent);
+            DoUpdateLearningContentsOrder(learningContents);
+
             LearningContentsCollection.Remove(learningContent);
             learningContent.Question = null;
             MarkAsModified(modifiedBy);
 
             RaiseEvent(new LearningContentDeletedEvent(this, learningContent));
+        }
+
+        public virtual void UpdateLearningContentsOrder(ICollection<LearningContent> learningContents, string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNull(learningContents, "learningContents");
+
+            DoUpdateLearningContentsOrder(learningContents);
+            MarkAsModified(modifiedBy);
+
+            RaiseEvent(new LearningContentsReorderedEvent(this));
+        }
+
+        private void DoUpdateLearningContentsOrder(ICollection<LearningContent> learningContents)
+        {
+            LearningContentsOrder = learningContents.Count == 0 ? null : String.Join(",", learningContents.Select(i => i.Id).ToArray());
+        }
+
+        private ICollection<LearningContent> GetOrderedLearningContents()
+        {
+            if (String.IsNullOrEmpty(LearningContentsOrder))
+            {
+                return LearningContentsCollection.ToList();
+            }
+
+            var orderedLearningContentsIds = LearningContentsOrder.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            return LearningContentsCollection.OrderBy(item => GetLearningContentIndex(orderedLearningContentsIds, item)).ToList();
+        }
+
+        private static int GetLearningContentIndex(IList<string> orderedLearningContentsIds, Identifiable learningContent)
+        {
+            var index = orderedLearningContentsIds.IndexOf(learningContent.Id.ToString());
+            return index > -1 ? index : orderedLearningContentsIds.Count;
         }
 
         private void ThrowIfTitleIsInvalid(string title)

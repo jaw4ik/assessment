@@ -114,5 +114,20 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
 
+        [HttpPost]
+        [EntityCollaborator(typeof(Question))]
+        [Route("api/question/updateLearningContentsOrder")]
+        public ActionResult UpdateQuestionsOrder(Question question, ICollection<LearningContent> learningContents)
+        {
+            if (question == null)
+            {
+                return HttpNotFound(Errors.QuestionNotFoundError);
+            }
+
+            question.UpdateLearningContentsOrder(learningContents, GetCurrentUsername());
+
+            return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
+        }
+
     }
 }
