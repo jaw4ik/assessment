@@ -1,9 +1,11 @@
-﻿using easygenerator.DomainModel.Events;
+﻿using System;
+using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Mail;
 using easygenerator.Web.Newsletter;
 using System.Threading.Tasks;
+using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.Web.DomainEvents.Handlers
 {
@@ -27,40 +29,40 @@ namespace easygenerator.Web.DomainEvents.Handlers
 
         public void Handle(UserUpgradedToStarter args)
         {
-            HandleSubscriptionEvent(args, UpdateSubscriptionFailedMessage);
+            HandleSubscriptionEvent(_subscriptionManager.UpdateSubscription, args, UpdateSubscriptionFailedMessage);
         }
 
         public void Handle(UserUpgradedToPlus args)
         {
-            HandleSubscriptionEvent(args, UpdateSubscriptionFailedMessage);
+            HandleSubscriptionEvent(_subscriptionManager.UpdateSubscription, args, UpdateSubscriptionFailedMessage);
         }
 
         public void Handle(UserDowngraded args)
         {
-            HandleSubscriptionEvent(args, UpdateSubscriptionFailedMessage);
+            HandleSubscriptionEvent(_subscriptionManager.UpdateSubscription, args, UpdateSubscriptionFailedMessage);
         }
 
         public void Handle(UserSignedUpEvent args)
         {
-            HandleSubscriptionEvent(args, CreateSubscriptionFailedMessage);
+            HandleSubscriptionEvent(_subscriptionManager.CreateSubscription, args, CreateSubscriptionFailedMessage);
         }
 
-        private void HandleSubscriptionEvent(UserEvent args, string failureMessage)
+        private void HandleSubscriptionEvent(Func<string, string, string, string, AccessType, bool> subscriptionAction, UserEvent args, string failureMessage)
         {
             Task.Run
                (() =>
                {
-                   if (!_subscriptionManager.UpsertSubscription(args.User.Email, args.User.FirstName, args.User.LastName, args.User.Role, args.User.AccessType))
+                   if (!subscriptionAction(args.User.Email, args.User.FirstName, args.User.LastName, args.User.Role, args.User.AccessType))
                    {
                        _mailNotificationManager.AddMailNotificationToQueue(
                            Constants.MailTemplates.NewsletterSubscriptionFailedTemplate,
                            new
                            {
-                               FailureMessage = failureMessage, 
-                               Email = args.User.Email, 
-                               FirstName = args.User.FirstName, 
-                               LastName = args.User.LastName, 
-                               Role = args.User.Role, 
+                               FailureMessage = failureMessage,
+                               Email = args.User.Email,
+                               FirstName = args.User.FirstName,
+                               LastName = args.User.LastName,
+                               Role = args.User.Role,
                                AccessType = args.User.AccessType
                            });
                    }
