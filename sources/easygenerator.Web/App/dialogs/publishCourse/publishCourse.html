@@ -12,59 +12,56 @@
                 </ul>
                 
                 <!-- ko if: publishAction().packageExists() -->
-                <!-- ko with: publishAction() -->
-
-                <!-- ko if: courseHasUnpublishedChanges() -->
-                <!-- ko compose: { view: 'dialogs/publishCourse/updatePublishedCourse', model: $data } --><!-- /ko -->
-                <!-- /ko -->
-
-                <div class="package-action-tabs-item" >
-                    <div class="package-action-tabs-item-overlay" data-bind="visible: isCourseDelivering()"></div>
-
-                    <!-- ko if: $parent.linkTabOpened -->
-                    <div class="package-action-tabs-item-title" data-bind="localize: { text: 'privateLink' }"></div>
-                    <div class="package-action-tabs-item-control">
-                        <div class="private-link-control-wrapper">
-                            <input type="text" class="private-link-input" readonly="readonly" data-bind="value: packageUrl(), selectText: state() === states.succeed" />
-                        </div>
-                        <div class="copy-btn-wrapper">
-                            <button class="btn" data-bind="copyToClipboard: { value: packageUrl, onCopied: copyLinkToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseHasUnpublishedChanges(), 'green-white': courseHasUnpublishedChanges(), copied: linkCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
-                                <span data-bind="localize: { text: linkCopied() ? 'copied' : 'copy' }"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="package-action-tabs-item-service">
-                        <a class="private-link" data-bind="localize: { text: 'openInNewWindow' }, click: openPublishedCourse, attr: { href: packageUrl() }"></a>
-                    </div>
+                <div class="package-action-tabs-item-wrapper" data-bind="with: publishAction()">
+                    <!-- ko if: courseHasUnpublishedChanges() -->
+                    <!-- ko compose: { view: 'dialogs/publishCourse/updatePublishedCourse', model: $data } --><!-- /ko -->
                     <!-- /ko -->
-                    <!-- ko if: $parent.embedTabOpened -->
-                    <div class="package-action-tabs-item-title" data-bind="localize: { text: 'code' }"></div>
-                    <div class="package-action-tabs-item-control">
-                        <div class="private-link-control-wrapper">
-                            <textarea readonly="readonly" class="embed-code-text" data-bind="value: embedCode, selectText: state() === states.succeed"></textarea>
+                    <div class="package-action-tabs-item">
+                        <div class="package-action-tabs-item-overlay" data-bind="visible: isCourseDelivering()"></div>
+
+                        <!-- ko if: $parent.linkTabOpened -->
+                        <div class="package-action-tabs-item-title" data-bind="localize: { text: 'privateLink' }"></div>
+                        <div class="package-action-tabs-item-control">
+                            <div class="private-link-control-wrapper">
+                                <input type="text" class="private-link-input" readonly="readonly" data-bind="value: packageUrl(), selectText: state() === states.succeed" />
+                            </div>
+                            <div class="copy-btn-wrapper">
+                                <button class="btn" data-bind="copyToClipboard: { value: packageUrl, onCopied: copyLinkToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseHasUnpublishedChanges(), 'green-white': courseHasUnpublishedChanges(), copied: linkCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
+                                    <span data-bind="localize: { text: linkCopied() ? 'copied' : 'copy' }"></span>
+                                </button>
+                            </div>
                         </div>
-                        <div class="copy-btn-wrapper">
-                            <button class="btn" data-bind="copyToClipboard: { value: embedCode, onCopied: copyEmbedCodeToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseHasUnpublishedChanges(), 'green-white': courseHasUnpublishedChanges(), copied: embedCodeCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
-                                <span data-bind="localize: { text: embedCodeCopied() ? 'copied' : 'copy' }"></span>
-                            </button>
+                        <div class="package-action-tabs-item-service">
+                            <a class="private-link" data-bind="localize: { text: 'openInNewWindow' }, click: openPublishedCourse, attr: { href: packageUrl() }"></a>
                         </div>
+                        <!-- /ko -->
+                        <!-- ko if: $parent.embedTabOpened -->
+                        <div class="package-action-tabs-item-title" data-bind="localize: { text: 'code' }"></div>
+                        <div class="package-action-tabs-item-control">
+                            <div class="private-link-control-wrapper">
+                                <textarea readonly="readonly" class="embed-code-text" data-bind="value: embedCode, selectText: state() === states.succeed"></textarea>
+                            </div>
+                            <div class="copy-btn-wrapper">
+                                <button class="btn" data-bind="copyToClipboard: { value: embedCode, onCopied: copyEmbedCodeToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseHasUnpublishedChanges(), 'green-white': courseHasUnpublishedChanges(), copied: embedCodeCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
+                                    <span data-bind="localize: { text: embedCodeCopied() ? 'copied' : 'copy' }"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="package-action-tabs-item-service embed-code">
+                            <span class="proportions-title" data-bind="localize: { text: 'frameSize' }"></span>
+                            <span class="proportions-value-container">
+                                <span class="proportions-text" data-bind="localize: { text: 'croppedWidth' }"></span>
+                                <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: frameWidth, valueUpdate: ['afterkeydown', 'input'], event: { blur: validateFrameWidth }" />
+                            </span>
+                            <span class="proportions-value-container">
+                                <span class="proportions-text" data-bind="localize: { text: 'croppedHeight' }"></span>
+                                <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: frameHeight, valueUpdate: ['afterkeydown', 'input'], event: { blur: validateFrameHeight }" />
+                            </span>
+                            <span class="propotions-size-unit" data-bind="localize: { text: 'croppedPixels' }"></span>
+                        </div>
+                        <!-- /ko -->
                     </div>
-                    <div class="package-action-tabs-item-service embed-code">
-                        <span class="proportions-title" data-bind="localize: { text: 'frameSize' }"></span>
-                        <span class="proportions-value-container">
-                            <span class="proportions-text" data-bind="localize: { text: 'croppedWidth' }"></span>
-                            <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: frameWidth, valueUpdate: ['afterkeydown', 'input'], event: { blur: validateFrameWidth }" />
-                        </span>
-                        <span class="proportions-value-container">
-                            <span class="proportions-text" data-bind="localize: { text: 'croppedHeight' }"></span>
-                            <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: frameHeight, valueUpdate: ['afterkeydown', 'input'], event: { blur: validateFrameHeight }" />
-                        </span>
-                        <span class="propotions-size-unit" data-bind="localize: { text: 'croppedPixels' }"></span>
-                    </div>
-                    <!-- /ko -->
                 </div>
-
-                <!-- /ko -->
                 <!-- /ko -->
 
                 <!-- ko ifnot: publishAction().packageExists() -->
