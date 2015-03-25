@@ -901,6 +901,16 @@
     opacity: 0.7;
 }
 
+.publish-tab-update-course-wrapper {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+    .publish-tab-update-course-wrapper.shown {
+        max-height: 1000px;
+    }
+
 .publish-tab-update-course {
     display: flex;
     display: -webkit-flex;
@@ -1574,6 +1584,16 @@ li.package-action-tabs-link {
 }
 
 .package-action-update-course-container {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 2s ease-out;
+}
+
+    .package-action-update-course-container.shown {
+        max-height: 1000px;
+    }
+
+.package-action-update-course-wrapper {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: column;
@@ -1638,13 +1658,13 @@ li.package-action-tabs-link {
             opacity: 1;
         }
 
-.package-action-update-course-container .btn.progress {
+.package-action-update-course-wrapper .btn.progress {
     padding-left: 20px;
     background-color: #5fb06f;
     color: #fff;
 }
 
-.package-action-update-course-container.disabled .package-action-update-course .btn:hover {
+.package-action-update-course-wrapper.disabled .package-action-update-course .btn:hover {
     background-color: #fff;
     color: #61b472;
     cursor: default;
