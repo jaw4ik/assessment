@@ -327,9 +327,9 @@
         'uk': 'незабаром'
     },
     updateChangedCourseDescription: {
-        'en': 'The course has been changed since the last publication. Click \"Update course\" to apply the latest changes.',
-        'zh-cn': 'The course has been changed since the last publication. Click \"Update course\" to apply the latest changes.[zh-cn]',
-        'uk': 'Курс було змінено з часу останньої публікації. Натисніть \"Оновити курс\" щоб застосувати зміни.'
+        'en': 'This course has been changed since it was last published. Please click on \'Update course\' to apply the latest changes',
+        'zh-cn': 'This course has been changed since it was last published. Please click on \'Update course\' to apply the latest changes[zh-cn]',
+        'uk': 'Курс було змінено з часу останньої публікації. Натисніть \"Оновити курс\" щоб застосувати зміни'
     },
     /* End resource section for model General */
     
@@ -1300,9 +1300,9 @@
         'uk': 'Додайте текст з <span class=\"blankField\"><span class=\"blankValue\">відповідями</span><span class=\"close\">&nbsp;</span></span> і <span class=\"\"><span class=\"blankField blankSelect\"><span class=\"blankValue\">списками відповідей</span><span class=\"dropDownIndicator\">&nbsp;</span><span class=\"close\">&nbsp;</span></span></span> тут...'
     },
     upgradeAccountToCreateAdvancedQuestionTypes: {
-        'en': 'Please upgrade your account to be able to create advanced question types',
+        'en': 'Please upgrade your account to be able to create or copy such question types',
         'zh-cn': '升级您的账户来创建高等问题类别',
-        'uk': 'Будь ласка, оновіть свій тарифний план, щоб створювати інші типи питань'
+        'uk': 'Будь ласка, оновіть свій тарифний план, щоб створювати або копіювати такі типи питань'
     },
     dragAndDropText: {
         'en': 'Drag and drop text',
@@ -2246,7 +2246,7 @@
     },
     tooltipFibLink: {
         'en': '<a href=\"http://youtu.be/mxqA95gW6UE\" target=\"_blank\">watch video</a>',
-        'zh-cn': '<a href=\"http://youtu.be/mxqA95gW6UE\" target=\"_blank\">观看录像</a>',
+        'zh-cn': '<span></span>',
         'uk': '<a href=\"http://youtu.be/mxqA95gW6UE\" target=\"_blank\">дивитись відео</a>'
     },
     tooltipTextMatchingTitle: {
@@ -2261,7 +2261,7 @@
     },
     tooltipTextMatchingLink: {
         'en': '<a href=\"http://youtu.be/4VhGiuHNlbc\" target=\"_blank\">watch video</a>',
-        'zh-cn': '<a href=\"http://youtu.be/4VhGiuHNlbc\" target=\"_blank\">观看录像</a>',
+        'zh-cn': '<span></span>',
         'uk': '<a href=\"http://youtu.be/4VhGiuHNlbc\" target=\"_blank\">дивитись відео</a>'
     },
     tooltipDragAndDropTitle: {
@@ -2276,7 +2276,7 @@
     },
     tooltipDragAndDropLink: {
         'en': '<a href=\"http://youtu.be/7L9O6nhc1Ls\" target=\"_blank\">watch video</a>',
-        'zh-cn': '<a href=\"http://youtu.be/7L9O6nhc1Ls\" target=\"_blank\">观看录像</a>',
+        'zh-cn': '<span></span>',
         'uk': '<a href=\"http://youtu.be/7L9O6nhc1Ls\" target=\"_blank\">дивитись відео</a>'
     },
     tooltipCourseTemplateTitle: {
