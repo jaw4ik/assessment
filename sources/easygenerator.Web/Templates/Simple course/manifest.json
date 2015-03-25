@@ -12,8 +12,8 @@
             "url": "lang/cn.json"
         },
         {
-            "code": "de",
-            "url": "lang/de.json"
+            "code": "nl",
+            "url": "lang/nl.json"
         },
         {
             "code": "en",
@@ -24,16 +24,16 @@
             "url": "lang/fr.json"
         },
         {
+            "code": "de",
+            "url": "lang/de.json"
+        },
+        {
             "code": "it",
             "url": "lang/it.json"
         },        
         {
             "code": "pt-br",
             "url": "lang/pt-br.json"
-        },
-        {
-            "code": "nl",
-            "url": "lang/nl.json"
         },
         {
             "code": "tr",
