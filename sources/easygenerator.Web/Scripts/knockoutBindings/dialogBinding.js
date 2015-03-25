@@ -4,6 +4,7 @@
     update: function (element, valueAccessor) {
         var $element = $(element),
             $container = $('.tb-main'),
+            $html = $('html'),
             speed = 200,
             isShown = valueAccessor().isShown,
             autoclose = ko.unwrap(valueAccessor().autoclose) || false,
@@ -33,6 +34,8 @@
                     isShown(false);
                 });
             }
+
+            $html.on('keyup', hideOnEscape);
         }
 
         function hide() {
@@ -40,12 +43,19 @@
                 $('.modal-dialog-blockout').fadeOut(speed, function () {
                     scrollLocker.releaseScroll();
                     $(this).remove();
+                    $html.off('keyup', hideOnEscape);
 
                     if (_.isFunction(onHide)) {
                         onHide();
                     }
                 });
             });
+        }
+
+        function hideOnEscape(evt) {
+            if (evt.keyCode == 27) {
+                hide();
+            }
         }
 
         function createScrollLocker() {
@@ -96,5 +106,9 @@
                 return false;
             }
         };
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+            isShown(false);
+        });
     }
 };
