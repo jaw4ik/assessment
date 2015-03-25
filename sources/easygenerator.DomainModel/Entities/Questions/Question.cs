@@ -137,6 +137,21 @@ namespace easygenerator.DomainModel.Entities.Questions
             RaiseEvent(new LearningContentsReorderedEvent(this));
         }
 
+        public virtual IList<LearningContent> OrderClonedLearningContents(ICollection<LearningContent> clonedLearningContents)
+        {
+            if (clonedLearningContents == null)
+                return null;
+
+            var originalQuestions = LearningContentsCollection.ToList();
+
+            if (originalQuestions.Count != clonedLearningContents.Count)
+            {
+                throw new ArgumentException("Cloned learning contents collection has to be same length as original.", "clonedLearningContents");
+            }
+
+            return LearningContents.Select(obj => clonedLearningContents.ElementAt(originalQuestions.IndexOf(obj))).ToList();
+        }
+
         private void DoUpdateLearningContentsOrder(ICollection<LearningContent> learningContents)
         {
             LearningContentsOrder = learningContents.Count == 0 ? null : String.Join(",", learningContents.Select(i => i.Id).ToArray());
@@ -159,13 +174,13 @@ namespace easygenerator.DomainModel.Entities.Questions
             return index > -1 ? index : orderedLearningContentsIds.Count;
         }
 
-        private void ThrowIfTitleIsInvalid(string title)
+        private static void ThrowIfTitleIsInvalid(string title)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(title, "title");
             ArgumentValidation.ThrowIfLongerThan255(title, "title");
         }
 
-        private void ThrowIfLearningContentIsInvalid(LearningContent learningContent)
+        private static void ThrowIfLearningContentIsInvalid(LearningContent learningContent)
         {
             ArgumentValidation.ThrowIfNull(learningContent, "explanation");
         }

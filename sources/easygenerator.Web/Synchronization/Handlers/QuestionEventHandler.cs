@@ -66,7 +66,7 @@ namespace easygenerator.Web.Synchronization.Handlers
         public void Handle(LearningContentsReorderedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Question)
-                .learningContentsReordered(args.Question.Id.ToNString(), args.Question.LearningContents.Select(e => e.Id.ToNString()), args.Question.ModifiedBy);
+                .learningContentsReordered(args.Question.Id.ToNString(), args.Question.LearningContents.Select(e => e.Id.ToNString()), args.Question.ModifiedOn);
         }
 
         public void Handle(FillInTheBlankUpdatedEvent args)
