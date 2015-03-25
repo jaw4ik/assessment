@@ -54,7 +54,7 @@
             return {
                 lockScroll: lockScroll,
                 releaseScroll: releaseScroll
-            }
+            };
 
             function lockScroll() {
                 $('.scrollable', $element).on(eventNames, trapScroll);
