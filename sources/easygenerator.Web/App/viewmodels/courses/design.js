@@ -8,6 +8,10 @@
         },
 
             templateMessageTypes = {
+                freeze: 'freeze',
+                notification: 'notification',
+
+                //TODO: Should Be removed when all templates will be refactored
                 startSave: 'startSave',
                 finishSave: 'finishSave'
             },
@@ -140,25 +144,38 @@
         }
 
         function onGetTemplateMessage(message) {
-
-            if (!message) {
+            if (!message || !message.type || !message.data) {
                 return;
             }
 
-            if (message.type == templateMessageTypes.startSave) {
-                viewModel.settingsSaved(false);
-            } else if (message.type == templateMessageTypes.finishSave) {
-                var data = message.data;
-                viewModel.settingsSaved(true);
+            switch (message.type) {
+                case templateMessageTypes.freeze:
+                    viewModel.settingsSaved(message.data.freezeEditor ? !message.data.freezeEditor : true);
+                    break;
+                case templateMessageTypes.notification:
+                    var data = message.data;
 
-                if (!data) {
-                    return;
-                }
-                if (data.success) {
-                    data.message ? notify.success(data.message) : notify.saved();
-                } else {
-                    notify.error(data.message || templateSettingsErrorNotification);
-                }
+                    if (data.success) {
+                        data.message ? notify.success(data.message) : notify.saved();
+                    } else {
+                        notify.error(data.message || templateSettingsErrorNotification);
+                    }
+                    break;
+
+                    //TODO: Should Be removed when all templates will be refactored
+                case templateMessageTypes.startSave:
+                    viewModel.settingsSaved(false);
+                    break;
+                case templateMessageTypes.finishSave:
+                    var data = message.data;
+                    viewModel.settingsSaved(true);
+
+                    if (data.success) {
+                        data.message ? notify.success(data.message) : notify.saved();
+                    } else {
+                        notify.error(data.message || templateSettingsErrorNotification);
+                    }
+                    break;
             }
         }
 
