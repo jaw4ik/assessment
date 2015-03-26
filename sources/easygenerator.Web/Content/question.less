@@ -106,6 +106,10 @@
     text-shadow: none;
 }
 
+.question .btn.create-question.expanded{
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+}
+
 .question .create-question-text {
     position: relative;
     padding-left: 25px;
@@ -179,11 +183,11 @@
             }
 
             .modal-dialog-content {
+                margin-top: 15px;
                 padding: 0;
 
                 .move-copy-question-title {
-                    font: 400 15px 'OpenSans-Semibold';
-                    line-height: 36px;
+                    font: 400 15px/36px 'OpenSans-Semibold';
                 }
 
                 .move-copy-question-content {
@@ -238,9 +242,11 @@
                         }
 
                         &.empty{
+                            padding: 15px 20px;
                             font-size: 16px;
                             background-color: #fff;
                             color: #73808d;
+                            cursor: default;
 
                             &:hover{
                                 background-color: #fff;
@@ -1591,7 +1597,6 @@
 .create-question .create-form {
     padding-bottom: 60px;
 }
-
 
 @media (max-width: 1350px) {
 

@@ -9,17 +9,20 @@
             <div class="dropdown-selected-item">
                 <span class="dropdown-selected-item-text" data-bind="text: selectedCourse().title">Current course</span>
             </div>
-            <ul class="dropdown-options-list unstyled" data-options="" data-bind="foreach: courses">
+            <ul class="dropdown-options-list unstyled">
+                <!-- ko foreach: courses -->
                 <li class="dropdown-options-item" data-bind="text: title, click: $parent.selectCourse, css: { selected: id === $parent.selectedCourse().id }"></li>
+                <!-- /ko -->
+                <li class="dropdown-options-item" data-bind="click: selectCourse, css: { selected: allObjectives().isSelected }">All objectives</li>
             </ul>
         </div>
         <h2 class="move-copy-question-title">To objective:</h2>
         <div class="move-copy-question-content">
-            <ul class="destination-objectives-list scrollable unstyled" data-bind="foreach: selectedCourse().objectives">
-                <!-- ko if: $parent.selectedCourse().objectives -->
+            <ul class="destination-objectives-list scrollable unstyled">
+                <!-- ko foreach: selectedCourse().objectives -->
                 <li class="destination-objectives-list-item" data-bind="click: $parent.selectObjective, text: title, css: { selected: id == $parent.selectedObjective() }"></li>
                 <!-- /ko -->
-                <!-- ko if: $parent.selectedCourse().objectives.length === 0 -->
+                <!-- ko if: selectedCourse().objectvesListEmpty -->
                 <li class="destination-objectives-list-item empty">Objectives list is empty...</li>
                 <!-- /ko -->
             </ul>
