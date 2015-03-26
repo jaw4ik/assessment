@@ -1,10 +1,8 @@
-﻿
-using easygenerator.DomainModel.Entities;
-using easygenerator.Infrastructure;
+﻿using easygenerator.Infrastructure;
 
-namespace easygenerator.Web.DomainEvents.ChangeTracking
+namespace easygenerator.DomainModel.Entities
 {
-    public class CourseState
+    public class CourseState : Identifiable
     {
         public Course Course { get; set; }
         public bool HasUnpublishedChanges { get; set; }
