@@ -32,7 +32,6 @@
     "[browser not supported hint]": "别担心，有简答的修复方法。你只需要点击下面其中一个按钮，跟着提示操作就可以了。",
     "[page not found title]": "页面没找到（404）",
     "[page not found message]": "Sorry，没有找到你要找的页面。请检查URL是否有错误，使用上面的导航栏或点击下面的“主页”链接。",
-    "[tracking and tracing header]": "授权启用进度跟踪",
     "[tracking and tracing hint]": "若要启用跟踪，请先输入你的信息，然后点击“开始预览并报告我的结果”。若不启用，点击“不报告，直接开始预览”。",
     "[tracking and tracing name field]": "你的姓名",
     "[tracking and tracing email field]": "你的e-mail",
