@@ -5,9 +5,16 @@
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         dataContext = require('dataContext'),
-        localizationManager = require('localization/localizationManager');
+        localizationManager = require('localization/localizationManager'),
+        questionRepository =require('repositories/questionRepository');
 
     describe('moveCopyQuestionDialog', function () {
+
+        var ids = {
+            courseId: 'courseId',
+            objectiveId: 'objectiveId',
+            questionId: 'questionId'
+        };
 
         beforeEach(function() {
             spyOn(eventTracker, 'publish');
@@ -46,15 +53,6 @@
         });
 
         describe('show:', function () {
-            var routeData = {
-                courseId: 'courseId',
-                objectiveId: 'objectiveId',
-                questionId: 'questionId'
-            };
-
-            beforeEach(function() {
-                spyOn(router, 'routeData').and.returnValue(routeData);
-            });
 
             it('should be function', function() {
                 expect(viewModel.show).toBeFunction();
@@ -79,25 +77,25 @@
 
             it('should set courseId', function() {
                 viewModel.courseId = '';
-                viewModel.show();
-                expect(viewModel.courseId).toBe(routeData.courseId);
+                viewModel.show(ids.courseId);
+                expect(viewModel.courseId).toBe(ids.courseId);
             });
 
             it('should set objectiveId', function () {
                 viewModel.objectiveId = '';
-                viewModel.show();
-                expect(viewModel.objectiveId).toBe(routeData.objectiveId);
+                viewModel.show(ids.courseId, ids.objectiveId);
+                expect(viewModel.objectiveId).toBe(ids.objectiveId);
             });
 
             it('should set questionId', function () {
                 viewModel.questionId = '';
-                viewModel.show();
-                expect(viewModel.questionId).toBe(routeData.questionId);
+                viewModel.show(ids.courseId, ids.objectiveId, ids.questionId);
+                expect(viewModel.questionId).toBe(ids.questionId);
             });
 
-            it('should set selected objectiveId from route data', function() {
-                viewModel.show();
-                expect(viewModel.selectedObjective()).toBe(routeData.objectiveId);
+            it('should set selected objectiveId', function() {
+                viewModel.show(ids.courseId, ids.objectiveId, ids.questionId);
+                expect(viewModel.selectedObjective()).toBe(ids.objectiveId);
             });
 
             it('should set object allObjectives', function () {
@@ -108,7 +106,7 @@
                 expect(viewModel.allObjectives().isSelected).toBeObservable();
             });
 
-            describe('when courseId from route data is defined', function() {
+            describe('when courseId is defined', function() {
 
                 it('should select course from dataContext', function() {
                     dataContext.courses = [
@@ -119,7 +117,7 @@
                         }
                     ];
 
-                    viewModel.show();
+                    viewModel.show(ids.courseId, ids.objectiveId, ids.questionId);
                     expect(viewModel.selectedCourse().id).toBe(dataContext.courses[0].id);
                     expect(viewModel.selectedCourse().title).toBe(dataContext.courses[0].title);
                     expect(viewModel.selectedCourse().objectives).toBe(dataContext.courses[0].objectives);
@@ -128,11 +126,10 @@
 
             });
 
-            describe('when courseId from route data is undefined', function() {
+            describe('when courseId is undefined', function() {
 
                 it('should set select to allObjectives', function () {
-                    router.routeData().courseId = null;
-                    viewModel.show();
+                    viewModel.show(null, ids.objectiveId, ids.questionId);
                     expect(viewModel.selectedCourse().title).toBe('All objectives');
                     expect(viewModel.selectedCourse().objectives()).toBe(dataContext.objectives);
                     expect(viewModel.selectedCourse().isSelected()).toBeTruthy();
@@ -184,6 +181,40 @@
 
         });
 
+        describe('selectedCourse', function () {
+
+            it('should be observable', function() {
+                expect(viewModel.selectedCourse).toBeObservable();
+            });
+
+        });
+
+        describe('selectCourse:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.selectCourse).toBeFunction();
+            });
+
+            describe('when argument is not course', function() {
+                
+
+
+            });
+
+            describe('when argument is course', function() {
+                
+            });
+
+        });
+
+        describe('selectedObjective', function () {
+
+            it('should be observable', function() {
+                expect(viewModel.selectedObjective).toBeObservable();
+            });
+
+        });
+
         describe('selectObjective:', function () {
 
             it('should be function', function() {
@@ -201,17 +232,53 @@
 
         });
 
+        describe('courses', function () {
 
-        /*selectedCourse: ko.observable({}),
+            it('should be observable', function() {
+                expect(viewModel.courses).toBeObservable();
+            });
+
+        });
+
+        describe('allObjectives', function () {
+
+            it('should be observable', function() {
+                expect(viewModel.allObjectives).toBeObservable();
+            });
+
+        });
+
+        describe('moveQuestion:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.moveQuestion).toBeFunction();
+            });
+
+            it('should send event \'Move item\'', function () {
+                viewModel.moveQuestion();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Move item');
+            });
+
+        });
+
+        describe('copyQuestion:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.copyQuestion).toBeFunction();
+            });
+
+            it('should send event \'Copy item\'', function () {
+                viewModel.copyQuestion();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Copy item');
+            });
+
+        });
+
+        /*
         selectCourse: selectCourse,
-        selectedObjective: ko.observable({}),
-        selectObjective: selectObjective,
-        courses: ko.observable({}),
-        objectives: dataContext.objectives,
         
         moveQuestion: moveQuestion,
-        copyQuestion: copyQuestion,
-        allObjectives: ko.observable({})*/
+        copyQuestion: copyQuestion,*/
 
     });
 });

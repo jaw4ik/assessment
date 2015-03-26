@@ -22,6 +22,7 @@ define(['durandal/app', 'eventTracker', 'constants',
         };
 
         var viewmodel = {
+            courseId: null,
             objectiveId: '',
             questionId: '',
             questionType: '',
@@ -53,7 +54,7 @@ define(['durandal/app', 'eventTracker', 'constants',
         return viewmodel;
 
         function showMoveCopyDialog() {
-            viewmodel.moveCopyQuestionDialog.show();
+            viewmodel.moveCopyQuestionDialog.show(viewmodel.courseId, viewmodel.objectiveId, viewmodel.questionId);
         }
 
         function navigateToObjectiveEvent() {
@@ -69,6 +70,7 @@ define(['durandal/app', 'eventTracker', 'constants',
         function activate(objectiveId, questionId, queryParams) {
             viewmodel.objectiveId = objectiveId;
             viewmodel.questionId = questionId;
+            viewmodel.courseId = !_.isNullOrUndefined(queryParams) ? queryParams.courseId : null;
             return objectiveRepository.getById(objectiveId).then(function (objective) {
                 viewmodel.backButtonData.configure({
                     url: 'objective/' + objective.id,
