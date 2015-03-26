@@ -21,6 +21,6 @@
         "score": "75"
     },
     "languages": {
-        "selected": "cn"
+        "selected": "en"
     }
 }
