@@ -10,7 +10,6 @@
         var ctor = function (course, eventCategory) {
 
             var viewModel = publishingAction(course, course.publish);
-
             viewModel.isPublishing = ko.computed(function () {
                 return this.state() === constants.publishingStates.building || this.state() === constants.publishingStates.publishing;
             }, viewModel);
@@ -24,8 +23,9 @@
             viewModel.coursePublishStarted = coursePublishStarted;
             viewModel.coursePublishCompleted = coursePublishCompleted;
             viewModel.coursePublishFailed = coursePublishFailed;
-
-            viewModel.courseHasUnpublishedChanges = ko.observable(true);
+            viewModel.courseChanged = courseChanged;
+         
+            viewModel.courseHasUnpublishedChanges = ko.observable(course.hasUnpublishedChanges);
 
             viewModel.frameWidth = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.width.name)) ? constants.frameSize.width.value : clientContext.get(constants.frameSize.width.name));
             viewModel.frameHeight = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.height.name)) ? constants.frameSize.height.value : clientContext.get(constants.frameSize.height.name));
@@ -46,6 +46,7 @@
             app.on(constants.messages.course.publish.started).then(viewModel.coursePublishStarted);
             app.on(constants.messages.course.publish.completed).then(viewModel.coursePublishCompleted);
             app.on(constants.messages.course.publish.failed).then(viewModel.coursePublishFailed);
+            app.on(constants.messages.course.changed + course.id).then(viewModel.courseChanged);
 
             viewModel.embedCode = ko.computed({
                 read: function () {
@@ -82,7 +83,7 @@
 
             function copyToClipboard(value) {
                 value(true);
-                _.delay(function() {
+                _.delay(function () {
                     value(false);
                 }, constants.copyToClipboardWait);
             }
@@ -109,6 +110,10 @@
             };
 
             //#region App-wide events
+
+            function courseChanged() {
+                viewModel.courseHasUnpublishedChanges(true);
+            }
 
             function courseBuildStarted(course) {
                 if (course.id !== viewModel.courseId || course.publish.state !== constants.publishingStates.building)
@@ -138,6 +143,7 @@
                     return;
 
                 viewModel.state(constants.publishingStates.succeed);
+                viewModel.courseHasUnpublishedChanges(false);
                 viewModel.packageUrl(course.publish.packageUrl);
                 viewModel.embedCode(getEmbedCode());
             };

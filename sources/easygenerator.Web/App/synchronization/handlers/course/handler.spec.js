@@ -57,6 +57,12 @@
             });
         });
 
+        describe('changed:', function () {
+            it('should be function', function () {
+                expect(handler.changed).toBeFunction();
+            });
+        });
+
     });
 
 })

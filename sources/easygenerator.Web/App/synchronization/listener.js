@@ -22,6 +22,7 @@
                     courseCollaborationFinished: collaborationEventHandler.finished,
                     collaboratorRemoved: collaborationEventHandler.collaboratorRemoved,
 
+                    courseChanged: courseEventHandler.changed,
                     courseTitleUpdated: courseEventHandler.titleUpdated,
                     courseIntroductionContentUpdated: courseEventHandler.introductionContentUpdated,
                     courseTemplateUpdated: courseEventHandler.templateUpdated,

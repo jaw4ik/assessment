@@ -837,7 +837,8 @@
 }
 
 .btn.green.publish-tab-btn {
-    min-width: 220px;
+    min-width: 200px;
+    padding: 0px 10px;
     height: 40px;
     text-transform: uppercase;
 }
@@ -904,7 +905,7 @@
 .publish-tab-update-course-wrapper {
     max-height: 0px;
     overflow: hidden;
-    transition: max-height 0.5s ease-out;
+    transition: max-height 0.8s ease-out;
 }
 
     .publish-tab-update-course-wrapper.shown {
@@ -1586,7 +1587,7 @@ li.package-action-tabs-link {
 .package-action-update-course-container {
     max-height: 0px;
     overflow: hidden;
-    transition: max-height 2s ease-out;
+    transition: max-height 0.8s ease-out;
 }
 
     .package-action-update-course-container.shown {

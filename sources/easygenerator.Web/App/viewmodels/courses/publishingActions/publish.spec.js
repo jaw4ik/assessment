@@ -248,6 +248,14 @@
 
             });
 
+            describe('courseChanged:', function() {
+                it('should set courseHasUnpublishedChanges to true', function() {
+                    viewModel.courseHasUnpublishedChanges(false);
+                    viewModel.courseChanged();
+                    expect(viewModel.courseHasUnpublishedChanges()).toBeTruthy();
+                });
+            });
+
             describe('when course build was started', function () {
 
                 describe('and when course is current course', function () {
@@ -429,8 +437,11 @@
 
                 describe('and when course is current course', function () {
 
-                    it('should update action state to \'success\'', function () {
+                    beforeEach(function() {
                         viewModel.courseId = course.id;
+                    });
+
+                    it('should update action state to \'success\'', function () {
                         viewModel.state('');
                         course.buildingStatus = constants.publishingStates.succeed;
 
@@ -440,13 +451,18 @@
                     });
 
                     it('should update action packageUrl to the corresponding one', function () {
-                        viewModel.courseId = course.id;
                         viewModel.packageUrl('');
                         course.publish.packageUrl = "http://xxx.com";
 
                         viewModel.coursePublishCompleted(course);
 
                         expect(viewModel.packageUrl()).toEqual(course.publish.packageUrl);
+                    });
+
+                    it('should set courseHasUnpublishedChanges to false', function () {
+                        viewModel.courseHasUnpublishedChanges(true);
+                        viewModel.coursePublishCompleted(course);
+                        expect(viewModel.courseHasUnpublishedChanges()).toBeFalsy();
                     });
 
                 });

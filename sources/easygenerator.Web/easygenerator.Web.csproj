@@ -259,7 +259,15 @@
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\CourseState.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\CourseStateStorage.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\ICourseStateStorage.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\CourseStateTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\CourseChangedEvent.cs" />
     <Compile Include="DomainEvents\Handlers\MailChimpSubscriptionHandler.cs" />
+    <Compile Include="InMemoryStorages\CourseStateInMemoryStorage.cs" />
+    <Compile Include="InMemoryStorages\ICourseStateInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\DemoCoursesInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\IDemoCoursesStorage.cs" />
     <Compile Include="Import\Presentation\Extensions\ParagraphExtensions.cs" />
@@ -531,6 +539,10 @@
     </Content>
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\changed.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\changed.spec.js">
+      <DependentUpon>changed.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\objective\eventHandlers\imageUrlUpdated.js" />
     <Content Include="App\synchronization\handlers\objective\eventHandlers\imageUrlUpdated.spec.js">

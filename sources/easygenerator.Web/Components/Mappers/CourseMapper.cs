@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.Web.DomainEvents.ChangeTracking;
 using easygenerator.Web.Extensions;
 using System.Linq;
 
@@ -7,10 +8,12 @@ namespace easygenerator.Web.Components.Mappers
     public class CourseEntityModelMapper : IEntityModelMapper<Course>
     {
         private readonly IUrlHelperWrapper _urlHelper;
+        private readonly ICourseStateStorage _courseStateStorage;
 
-        public CourseEntityModelMapper(IUrlHelperWrapper urlHelper)
+        public CourseEntityModelMapper(IUrlHelperWrapper urlHelper, ICourseStateStorage courseStateStorage)
         {
             _urlHelper = urlHelper;
+            _courseStateStorage = courseStateStorage;
         }
 
         public dynamic Map(Course course)
@@ -26,6 +29,7 @@ namespace easygenerator.Web.Components.Mappers
                 Template = new { Id = course.Template.Id.ToNString() },
                 PackageUrl = course.PackageUrl,
                 PublishedPackageUrl = course.PublicationUrl,
+                HasUnpublishedChanges = _courseStateStorage.GetCourseState(course).HasUnpublishedChanges,
                 ReviewUrl = course.PublishedOn != null ? GetCourseReviewUrl(course.Id.ToString()) : null,
                 RelatedObjectives = course.RelatedObjectives.Select(obj => new
                 {
