@@ -2305,7 +2305,7 @@
         'uk': '<p>Учень побачить список тверджень, по кожному з яких йому треба буде сказати, погоджується він з цим твердженням чи ні.</p><p><b>Наприклад:</b></p><p>[Так] 5 є простим числом<br>[Ні] Атлантичний океан є найбільшим океаном на землі.</p>'
     },
     tooltipStatementLink: {
-        'en': 'k',
+        'en': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Statement\" target=\"_blank\">read more</a>',
         'zh-cn': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Statement\" target=\"_blank\">了解更多</a>',
         'uk': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Statement\" target=\"_blank\">докладніше</a>'
     },
