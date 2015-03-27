@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Tests.ObjectMothers;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -26,7 +27,9 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             courseState.Id.Should().NotBeEmpty();
             courseState.Course.Should().Be(course);
-            courseState.HasUnpublishedChanges.Should().BeTrue();
+            courseState.Info.Should().NotBeNull();
+            courseState.Info.Should().BeOfType<CourseStateInfo>();
+            courseState.Info.HasUnpublishedChanges.Should().BeTrue();
         }
 
         [TestMethod]
@@ -37,7 +40,9 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             courseState.Id.Should().NotBeEmpty();
             courseState.Course.Should().Be(course);
-            courseState.HasUnpublishedChanges.Should().BeFalse();
+            courseState.Info.Should().NotBeNull();
+            courseState.Info.Should().BeOfType<CourseStateInfo>();
+            courseState.Info.HasUnpublishedChanges.Should().BeFalse();
         }
 
         #endregion

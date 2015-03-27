@@ -202,6 +202,8 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<DemoCourseInfo>().HasRequired(e => e.DemoCourse);
             modelBuilder.Entity<DemoCourseInfo>().HasOptional(e => e.SourceCourse);
 
+            modelBuilder.Entity<CourseState>().HasRequired(e => e.Course);
+
             base.OnModelCreating(modelBuilder);
         }
 

@@ -1,4 +1,5 @@
 ﻿
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.DomainEvents.ChangeTracking;
 using easygenerator.Web.InMemoryStorages;
@@ -25,7 +26,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         public void GetCourseState_Should_ReturnCourseState_When_StatePresentInMemoryStorage()
         {
             //Arrange
-            var info = new CourseStateInfo();
+            var info = CourseStateInfoObjectMother.Create();
             var course = CourseObjectMother.Create();
             _inMemoryStorage.GetCourseStateInfo(course).Returns(info);
 
@@ -40,7 +41,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         public void GetCourseState_Should_ReturnDefaultCourseState_When_StateIsNotPresentInMemoryStorage()
         {
             //Arrange
-            var info = new CourseStateInfo();
+            var info = CourseStateInfoObjectMother.Create();
             var course = CourseObjectMother.Create();
             _inMemoryStorage.GetCourseStateInfo(course).Returns(null as CourseStateInfo);
 
@@ -56,7 +57,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         public void SaveCourseState_Should_CallInMemoryStorageSaveCourseState()
         {
             //Arrange
-            var info = new CourseStateInfo();
+            var info = CourseStateInfoObjectMother.Create();
             var course = CourseObjectMother.Create();
 
             //Act

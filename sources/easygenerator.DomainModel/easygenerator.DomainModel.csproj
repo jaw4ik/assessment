@@ -151,6 +151,7 @@
     <Compile Include="Events\UserEvents\UserUpgradedToStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ICourseCollaboratorRepository.cs" />
+    <Compile Include="Repositories\ICourseStateRepository.cs" />
     <Compile Include="Repositories\IDemoCourseRepository.cs" />
     <Compile Include="Repositories\IImageFileRepository.cs" />
     <Compile Include="Repositories\IOnboardingRepository.cs" />

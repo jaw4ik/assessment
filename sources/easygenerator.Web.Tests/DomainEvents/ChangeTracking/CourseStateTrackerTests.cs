@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Events.CourseEvents;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.DomainEvents.ChangeTracking;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
@@ -29,7 +30,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var info = new CourseStateInfo();
+            var info = CourseStateInfoObjectMother.Create();
             _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act
@@ -44,7 +45,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var info = new CourseStateInfo(true);
+            var info = CourseStateInfoObjectMother.Create(true);
             _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act
@@ -59,7 +60,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var info = new CourseStateInfo(true);
+            var info = CourseStateInfoObjectMother.Create(true);
             _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act
@@ -78,7 +79,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var info = new CourseStateInfo(true);
+            var info = CourseStateInfoObjectMother.Create(true);
             _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act
@@ -93,7 +94,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var info = new CourseStateInfo();
+            var info = CourseStateInfoObjectMother.Create();
             _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act
@@ -108,7 +109,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var info = new CourseStateInfo();
+            var info = CourseStateInfoObjectMother.Create();
             _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act
@@ -127,7 +128,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var info = new CourseStateInfo();
+            var info = CourseStateInfoObjectMother.Create();
             _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act

@@ -259,7 +259,6 @@
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\CourseStateInfo.cs" />
     <Compile Include="DomainEvents\ChangeTracking\CourseStateInfoStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\ICourseStateInfoStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseChangeTracker.cs" />

@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Tests.ObjectMothers;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.DomainEvents.ChangeTracking;
 using easygenerator.Web.InMemoryStorages;
 using FluentAssertions;
@@ -22,7 +23,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         public void SaveCourseStateInfo_Should_AddAddCourseState_When_CourseStateIsNotPresentInTheCollection()
         {
             //Arrange
-            var info = new CourseStateInfo();
+            var info = CourseStateInfoObjectMother.Create();
             var course = CourseObjectMother.Create();
 
             //Act
@@ -38,11 +39,11 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var oldInfo = new CourseStateInfo();
+            var oldInfo = CourseStateInfoObjectMother.Create();
             _courseStateStorage.SaveCourseStateInfo(course, oldInfo);
 
             //Act
-            var newInfo = new CourseStateInfo(true);
+            var newInfo = CourseStateInfoObjectMother.Create(true);
             _courseStateStorage.SaveCourseStateInfo(course, newInfo);
 
             //Assert
@@ -53,7 +54,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         public void RemoveCourseState_Should_RemoveCourseState()
         {
             //Arrange
-            var info = new CourseStateInfo();
+            var info = CourseStateInfoObjectMother.Create();
             var course = CourseObjectMother.Create();
             _courseStateStorage.SaveCourseStateInfo(course, info);
 
@@ -82,7 +83,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var info = new CourseStateInfo();
+            var info = CourseStateInfoObjectMother.Create();
             _courseStateStorage.SaveCourseStateInfo(course, info);
 
             //Act
