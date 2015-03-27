@@ -24,8 +24,7 @@
         selectCourse: selectCourse,
         selectedObjective: ko.observable(''),
         selectObjective: selectObjective,
-        courses: ko.observable({}),
-        objectives: dataContext.objectives,
+        courses: ko.observable(dataContext.courses),
         
         moveQuestion: moveQuestion,
         copyQuestion: copyQuestion,
@@ -34,11 +33,11 @@
 
     return viewModel;
 
-    function show() {
+    function show(courseId, objectiveId, questionId) {
         eventTracker.publish(events.showDialog);
         viewModel.isShown(true);
 
-        reset();
+        reset(courseId, objectiveId, questionId);
     }
 
     function hide() {
@@ -70,7 +69,7 @@
     function moveQuestion() {
         if (viewModel.objectiveId !== viewModel.selectedObjective()) {
             eventTracker.publish(events.moveItem);
-            questionRepository.moveQuestion(viewModel.questionId, viewModel.objectiveId, viewModel.selectedObjective()).then(function (response) {
+            questionRepository.moveQuestion(viewModel.questionId, viewModel.objectiveId, viewModel.selectedObjective()).then(function(response) {
                 viewModel.hide();
                 if (!_.isNullOrUndefined(viewModel.courseId)) {
                     router.navigate('objective/' + viewModel.objectiveId + '?courseId=' + viewModel.courseId);
@@ -78,6 +77,8 @@
                     router.navigate('objective/' + viewModel.objectiveId);
                 }
             });
+        } else {
+            viewModel.hide();
         }
     }
 
@@ -86,22 +87,22 @@
         questionRepository.copyQuestion(viewModel.questionId, viewModel.selectedObjective()).then(function (response) {
             viewModel.hide();
             if (!_.isNullOrUndefined(viewModel.courseId)) {
-                router.navigate('objective/' + viewModel.selectedObjective() + '/question/' + response.id + '?courseId=');
+                router.navigate('objective/' + viewModel.selectedObjective() + '/question/' + response.id + '?courseId=' + viewModel.courseId);
             } else {
                 router.navigate('objective/' + viewModel.selectedObjective() + '/question/' + response.id);
             }
         });
     }
 
-    function reset() {
+    function reset(courseId, objectiveId, questionId) {
         viewModel.isCopy(true);
         viewModel.courses(mapCourses());
-        viewModel.courseId = router.routeData().courseId;
-        viewModel.objectiveId = router.routeData().objectiveId;
-        viewModel.questionId = router.routeData().questionId;
+        viewModel.courseId = courseId;
+        viewModel.objectiveId = objectiveId;
+        viewModel.questionId = questionId;
         viewModel.selectedObjective(viewModel.objectiveId);
         viewModel.allObjectives({
-            title: 'All objectives',
+            title: localizationManager.localize('allObjectives'),
             objectives: ko.observable(dataContext.objectives),
             isSelected: ko.observable(false)
         });
