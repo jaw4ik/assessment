@@ -10,9 +10,9 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking
         IDomainEventHandler<CoursePublishedEvent>,
         IDomainEventHandler<CourseDeletedEvent>
     {
-        private readonly ICourseStateStorage _storage;
+        private readonly ICourseStateInfoStorage _storage;
 
-        public CourseStateTracker(ICourseStateStorage storage)
+        public CourseStateTracker(ICourseStateInfoStorage storage)
         {
             _storage = storage;
         }
@@ -29,17 +29,17 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking
 
         public void Handle(CourseDeletedEvent args)
         {
-            _storage.RemoveCourseState(args.Course);
+            _storage.RemoveCourseStateInfo(args.Course);
         }
 
         private void HandleCourseUnpublishedChangesState(Course course, bool hasChanges)
         {
-            var state = _storage.GetCourseState(course);
-            if (state.HasUnpublishedChanges == hasChanges)
+            var info = _storage.GetCourseStateInfo(course);
+            if (info.HasUnpublishedChanges == hasChanges)
                 return;
 
-            state.HasUnpublishedChanges = hasChanges;
-            _storage.SaveCourseState(state);
+            info.HasUnpublishedChanges = hasChanges;
+            _storage.SaveCourseStateInfo(course, info);
         }
     }
 }

@@ -197,7 +197,7 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<FileTypeChecker>().As<IFileTypeChecker>();
             builder.RegisterType<WooCommerceAutologinUrlProvider>().As<IWooCommerceAutologinUrlProvider>();
-            builder.RegisterType<CourseStateStorage>().As<ICourseStateStorage>();
+            builder.RegisterType<CourseStateInfoStorage>().As<ICourseStateInfoStorage>();
 
             #region Log
 
@@ -207,7 +207,7 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<EntityCloner>().As<ICloner>().SingleInstance();
             builder.RegisterType<DemoCoursesInMemoryStorage>().As<IDemoCoursesStorage>().SingleInstance();
-            builder.RegisterType<CourseStateInMemoryStorage>().As<ICourseStateInMemoryStorage>().SingleInstance();
+            builder.RegisterType<CourseStateInfoInMemoryStorage>().As<ICourseStateInfoInMemoryStorage>().SingleInstance();
 
             var container = builder.Build();
 

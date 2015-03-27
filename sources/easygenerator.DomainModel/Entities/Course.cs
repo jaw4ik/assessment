@@ -355,6 +355,8 @@ namespace easygenerator.DomainModel.Entities
                 Settings = settings,
                 ExtraData = extraData
             });
+
+            RaiseEvent(new CourseTemplateSettingsUpdated(this));
         }
 
         #endregion

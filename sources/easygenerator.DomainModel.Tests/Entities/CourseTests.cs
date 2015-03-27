@@ -1,13 +1,10 @@
-﻿using System.Linq.Expressions;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using FluentAssertions;
-using FluentAssertions.Collections;
-using FluentAssertions.Execution;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
@@ -1572,6 +1569,23 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.TemplateSettings.First().Template.Should().Be(template);
             course.TemplateSettings.First().Settings.Should().Be(settings);
             course.TemplateSettings.First().ExtraData.Should().Be(extraData);
+        }
+
+        [TestMethod]
+        public void SaveTemplateSettings_ShouldAddTemplateSettingsUpdatedEvent()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            const string settings = "settings";
+            const string extraData = "extra data";
+            course.TemplateSettings = new Collection<Course.CourseTemplateSettings>();
+
+            //Act
+            course.SaveTemplateSettings(template, settings, extraData);
+
+            //Assert
+            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CourseTemplateSettingsUpdated));
         }
 
         #endregion

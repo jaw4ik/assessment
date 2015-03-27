@@ -8,9 +8,9 @@ namespace easygenerator.Web.Components.Mappers
     public class CourseEntityModelMapper : IEntityModelMapper<Course>
     {
         private readonly IUrlHelperWrapper _urlHelper;
-        private readonly ICourseStateStorage _courseStateStorage;
+        private readonly ICourseStateInfoStorage _courseStateStorage;
 
-        public CourseEntityModelMapper(IUrlHelperWrapper urlHelper, ICourseStateStorage courseStateStorage)
+        public CourseEntityModelMapper(IUrlHelperWrapper urlHelper, ICourseStateInfoStorage courseStateStorage)
         {
             _urlHelper = urlHelper;
             _courseStateStorage = courseStateStorage;
@@ -29,7 +29,7 @@ namespace easygenerator.Web.Components.Mappers
                 Template = new { Id = course.Template.Id.ToNString() },
                 PackageUrl = course.PackageUrl,
                 PublishedPackageUrl = course.PublicationUrl,
-                HasUnpublishedChanges = _courseStateStorage.GetCourseState(course).HasUnpublishedChanges,
+                HasUnpublishedChanges = _courseStateStorage.GetCourseStateInfo(course).HasUnpublishedChanges,
                 ReviewUrl = course.PublishedOn != null ? GetCourseReviewUrl(course.Id.ToString()) : null,
                 RelatedObjectives = course.RelatedObjectives.Select(obj => new
                 {

@@ -10,7 +10,8 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<CourseTemplateUpdatedEvent>,
         IDomainEventHandler<CourseObjectivesReorderedEvent>,
         IDomainEventHandler<CourseObjectiveRelatedEvent>,
-        IDomainEventHandler<CourseObjectivesUnrelatedEvent>
+        IDomainEventHandler<CourseObjectivesUnrelatedEvent>,
+        IDomainEventHandler<CourseTemplateSettingsUpdated>
     {
         private readonly IDomainEventPublisher _eventPublisher;
 
@@ -45,6 +46,11 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         }
 
         public void Handle(CourseObjectivesUnrelatedEvent args)
+        {
+            HandleCourseChangeEvent(args);
+        }
+
+        public void Handle(CourseTemplateSettingsUpdated args)
         {
             HandleCourseChangeEvent(args);
         }

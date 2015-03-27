@@ -725,7 +725,6 @@
 
     .publish-tab-image.private-link {
         background-position: -283px -74px;
-        background-position: -7px -140px;
     }
 
 .publish-tab:hover .publish-tab-image.private-link,
@@ -905,7 +904,7 @@
 .publish-tab-update-course-wrapper {
     max-height: 0px;
     overflow: hidden;
-    transition: max-height 0.8s ease-out;
+    transition: max-height 0.8s ease;
 }
 
     .publish-tab-update-course-wrapper.shown {
@@ -1587,7 +1586,7 @@ li.package-action-tabs-link {
 .package-action-update-course-container {
     max-height: 0px;
     overflow: hidden;
-    transition: max-height 0.8s ease-out;
+    transition: max-height 0.8s ease;
 }
 
     .package-action-update-course-container.shown {

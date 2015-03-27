@@ -1,5 +1,4 @@
 ﻿
-using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.DomainEvents.ChangeTracking;
 using easygenerator.Web.InMemoryStorages;
@@ -10,59 +9,61 @@ using NSubstitute;
 namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
 {
     [TestClass]
-    public class CourseStateStorageTests
+    public class CourseStateInfoStorageTests
     {
-        private CourseStateStorage _courseStateStorage;
-        private ICourseStateInMemoryStorage _courseStateInMemoryStorage;
+        private CourseStateInfoStorage _storage;
+        private ICourseStateInfoInMemoryStorage _inMemoryStorage;
 
         [TestInitialize]
         public void Initialize()
         {
-            _courseStateInMemoryStorage = Substitute.For<ICourseStateInMemoryStorage>();
-            _courseStateStorage = new CourseStateStorage(_courseStateInMemoryStorage);
+            _inMemoryStorage = Substitute.For<ICourseStateInfoInMemoryStorage>();
+            _storage = new CourseStateInfoStorage(_inMemoryStorage);
         }
 
         [TestMethod]
         public void GetCourseState_Should_ReturnCourseState_When_StatePresentInMemoryStorage()
         {
             //Arrange
-            var state = CourseStateObjectMother.Create();
-            _courseStateInMemoryStorage.GetCourseState(state.Course).Returns(state);
+            var info = new CourseStateInfo();
+            var course = CourseObjectMother.Create();
+            _inMemoryStorage.GetCourseStateInfo(course).Returns(info);
 
             //Act
-            var result = _courseStateStorage.GetCourseState(state.Course);
+            var result = _storage.GetCourseStateInfo(course);
 
             //Act
-            result.Should().Be(state);
+            result.Should().Be(info);
         }
 
         [TestMethod]
         public void GetCourseState_Should_ReturnDefaultCourseState_When_StateIsNotPresentInMemoryStorage()
         {
             //Arrange
+            var info = new CourseStateInfo();
             var course = CourseObjectMother.Create();
-            _courseStateInMemoryStorage.GetCourseState(course).Returns(null as CourseState);
+            _inMemoryStorage.GetCourseStateInfo(course).Returns(null as CourseStateInfo);
 
             //Act
-            var result = _courseStateStorage.GetCourseState(course);
+            var result = _storage.GetCourseStateInfo(course);
 
             //Act
             Assert.IsNotNull(result);
             result.HasUnpublishedChanges.Should().BeFalse();
-            result.Course.Should().Be(course);
         }
 
         [TestMethod]
         public void SaveCourseState_Should_CallInMemoryStorageSaveCourseState()
         {
             //Arrange
-            var state = CourseStateObjectMother.Create();
+            var info = new CourseStateInfo();
+            var course = CourseObjectMother.Create();
 
             //Act
-            _courseStateStorage.SaveCourseState(state);
+            _storage.SaveCourseStateInfo(course, info);
 
             //Act
-            _courseStateInMemoryStorage.Received().SaveCourseState(state);
+            _inMemoryStorage.Received().SaveCourseStateInfo(course, info);
         }
 
         [TestMethod]
@@ -72,10 +73,10 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             var course = CourseObjectMother.Create();
 
             //Act
-            _courseStateStorage.RemoveCourseState(course);
+            _storage.RemoveCourseStateInfo(course);
 
             //Act
-            _courseStateInMemoryStorage.Received().RemoveCourseState(course);
+            _inMemoryStorage.Received().RemoveCourseStateInfo(course);
         }
     }
 }

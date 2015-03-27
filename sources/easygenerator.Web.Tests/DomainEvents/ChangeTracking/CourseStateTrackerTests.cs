@@ -13,12 +13,12 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
     public class CourseStateTrackerTests
     {
         private CourseStateTracker _tracker;
-        private ICourseStateStorage _storage;
+        private ICourseStateInfoStorage _storage;
 
         [TestInitialize]
         public void Initialize()
         {
-            _storage = Substitute.For<ICourseStateStorage>();
+            _storage = Substitute.For<ICourseStateInfoStorage>();
             _tracker = new CourseStateTracker(_storage);
         }
 
@@ -29,14 +29,14 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var state = CourseStateObjectMother.Create(course);
-            _storage.GetCourseState(course).Returns(state);
+            var info = new CourseStateInfo();
+            _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act
             _tracker.Handle(new CoursePublishedEvent(course));
 
             //Asssert
-            _storage.DidNotReceive().SaveCourseState(state);
+            _storage.DidNotReceive().SaveCourseStateInfo(course, info);
         }
 
         [TestMethod]
@@ -44,14 +44,14 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var state = CourseStateObjectMother.Create(course, true);
-            _storage.GetCourseState(course).Returns(state);
+            var info = new CourseStateInfo(true);
+            _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act
             _tracker.Handle(new CoursePublishedEvent(course));
 
             //Asssert
-            state.HasUnpublishedChanges.Should().BeFalse();
+            info.HasUnpublishedChanges.Should().BeFalse();
         }
 
         [TestMethod]
@@ -59,14 +59,14 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var state = CourseStateObjectMother.Create(course, true);
-            _storage.GetCourseState(course).Returns(state);
+            var info = new CourseStateInfo(true);
+            _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act
             _tracker.Handle(new CoursePublishedEvent(course));
 
             //Asssert
-            _storage.Received().SaveCourseState(state);
+            _storage.Received().SaveCourseStateInfo(course, info);
         }
 
         #endregion
@@ -78,14 +78,14 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var state = CourseStateObjectMother.Create(course, true);
-            _storage.GetCourseState(course).Returns(state);
+            var info = new CourseStateInfo(true);
+            _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act
             _tracker.Handle(new CourseChangedEvent(course));
 
             //Asssert
-            _storage.DidNotReceive().SaveCourseState(state);
+            _storage.DidNotReceive().SaveCourseStateInfo(course, info);
         }
 
         [TestMethod]
@@ -93,14 +93,14 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var state = CourseStateObjectMother.Create(course);
-            _storage.GetCourseState(course).Returns(state);
+            var info = new CourseStateInfo();
+            _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act
             _tracker.Handle(new CourseChangedEvent(course));
 
             //Asssert
-            state.HasUnpublishedChanges.Should().BeTrue();
+            info.HasUnpublishedChanges.Should().BeTrue();
         }
 
         [TestMethod]
@@ -108,14 +108,14 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var state = CourseStateObjectMother.Create(course);
-            _storage.GetCourseState(course).Returns(state);
+            var info = new CourseStateInfo();
+            _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act
             _tracker.Handle(new CourseChangedEvent(course));
 
             //Asssert
-            _storage.Received().SaveCourseState(state);
+            _storage.Received().GetCourseStateInfo(course);
         }
 
         #endregion
@@ -127,14 +127,14 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var state = CourseStateObjectMother.Create(course);
-            _storage.GetCourseState(course).Returns(state);
+            var info = new CourseStateInfo();
+            _storage.GetCourseStateInfo(course).Returns(info);
 
             //Act
-            _tracker.Handle(new CourseDeletedEvent(course,new List<string>(), "admin"));
+            _tracker.Handle(new CourseDeletedEvent(course, new List<string>(), "admin"));
 
             //Asssert
-            _storage.Received().RemoveCourseState(course);
+            _storage.Received().RemoveCourseStateInfo(course);
         }
 
         #endregion

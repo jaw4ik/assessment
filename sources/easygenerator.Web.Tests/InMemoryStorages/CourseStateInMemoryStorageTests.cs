@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Web.DomainEvents.ChangeTracking;
 using easygenerator.Web.InMemoryStorages;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,26 +10,27 @@ namespace easygenerator.Web.Tests.InMemoryStorages
     [TestClass]
     public class CourseStateInMemoryStorageTests
     {
-        private CourseStateInMemoryStorage _courseStateStorage;
+        private CourseStateInfoInMemoryStorage _courseStateStorage;
 
         [TestInitialize]
         public void Initialize()
         {
-            _courseStateStorage = new CourseStateInMemoryStorage();
+            _courseStateStorage = new CourseStateInfoInMemoryStorage();
         }
 
         [TestMethod]
-        public void SaveCourseState_Should_AddAddCourseState_When_CourseStateIsNotPresentInTheCollection()
+        public void SaveCourseStateInfo_Should_AddAddCourseState_When_CourseStateIsNotPresentInTheCollection()
         {
             //Arrange
-            var courseState = CourseStateObjectMother.Create();
+            var info = new CourseStateInfo();
+            var course = CourseObjectMother.Create();
 
             //Act
-            _courseStateStorage.SaveCourseState(courseState);
+            _courseStateStorage.SaveCourseStateInfo(course, info);
 
 
             //Assert
-            _courseStateStorage.CourseStates.ElementAt(0).Should().Be(courseState);
+            _courseStateStorage.CourseStateInfos.ElementAt(0).Should().Be(info);
         }
 
         [TestMethod]
@@ -36,56 +38,58 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var oldCourseState = CourseStateObjectMother.Create(course);
-            _courseStateStorage.SaveCourseState(oldCourseState);
+            var oldInfo = new CourseStateInfo();
+            _courseStateStorage.SaveCourseStateInfo(course, oldInfo);
 
             //Act
-            var newCourseState = CourseStateObjectMother.Create(course, true);
-            _courseStateStorage.SaveCourseState(newCourseState);
+            var newInfo = new CourseStateInfo(true);
+            _courseStateStorage.SaveCourseStateInfo(course, newInfo);
 
             //Assert
-            _courseStateStorage.CourseStates.ElementAt(0).Should().Be(newCourseState);
+            _courseStateStorage.CourseStateInfos.ElementAt(0).Should().Be(newInfo);
         }
 
         [TestMethod]
         public void RemoveCourseState_Should_RemoveCourseState()
         {
             //Arrange
-            var courseState = CourseStateObjectMother.Create();
-            _courseStateStorage.SaveCourseState(courseState);
+            var info = new CourseStateInfo();
+            var course = CourseObjectMother.Create();
+            _courseStateStorage.SaveCourseStateInfo(course, info);
 
             //Act
-            _courseStateStorage.RemoveCourseState(courseState.Course);
+            _courseStateStorage.RemoveCourseStateInfo(course);
 
             //Assert
-            _courseStateStorage.CourseStates.Count().Should().Be(0);
+            _courseStateStorage.CourseStateInfos.Count().Should().Be(0);
         }
 
         [TestMethod]
         public void RemoveCourseState_Should_DoNothing_When_CourseStateIsNotPresentInCollection()
         {
             //Arrange
-            var courseState = CourseStateObjectMother.Create();
+            var course = CourseObjectMother.Create();
 
             //Act
-            _courseStateStorage.RemoveCourseState(courseState.Course);
+            _courseStateStorage.RemoveCourseStateInfo(course);
 
             //Assert
-            _courseStateStorage.CourseStates.Count().Should().Be(0);
+            _courseStateStorage.CourseStateInfos.Count().Should().Be(0);
         }
 
         [TestMethod]
         public void GetCourseState_Should_ReturnCourseState()
         {
             //Arrange
-            var courseState = CourseStateObjectMother.Create();
-            _courseStateStorage.SaveCourseState(courseState);
+            var course = CourseObjectMother.Create();
+            var info = new CourseStateInfo();
+            _courseStateStorage.SaveCourseStateInfo(course, info);
 
             //Act
-            var result = _courseStateStorage.GetCourseState(courseState.Course);
+            var result = _courseStateStorage.GetCourseStateInfo(course);
 
             //Assert
-            result.Should().Be(courseState);
+            result.Should().Be(info);
         }
     }
 }

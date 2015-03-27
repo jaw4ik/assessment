@@ -142,8 +142,8 @@
                 if (course.id !== viewModel.courseId)
                     return;
 
-                viewModel.state(constants.publishingStates.succeed);
                 viewModel.courseHasUnpublishedChanges(false);
+                viewModel.state(constants.publishingStates.succeed);
                 viewModel.packageUrl(course.publish.packageUrl);
                 viewModel.embedCode(getEmbedCode());
             };
