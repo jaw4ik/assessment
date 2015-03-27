@@ -1022,7 +1022,6 @@
                     expect(questionRepository.updateLearningContentsOrder()).toBePromise();
                 });
 
-
                 describe('when question id is undefined', function () {
 
                     it('should reject promise', function (done) {

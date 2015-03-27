@@ -783,7 +783,7 @@
                             question: { id: 'id' }, learningContentsIds: ['id2', 'id1']
                         }
                         viewModel.stopReordering();
-                        expect(expect(viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id()).toBe(learningContentsIds));
+                        expect(viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id()).toBe(learningContentsIds);
                     });
                 });
 

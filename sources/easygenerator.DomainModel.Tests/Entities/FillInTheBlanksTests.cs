@@ -409,7 +409,6 @@ namespace easygenerator.DomainModel.Tests.Entities
                 learningContent
             };
             question.LearningContentsOrder = String.Format("{0},{1}", learningContent2.Id, learningContent.Id);
-            ;
 
             //Act
             var result = question.LearningContents;
@@ -424,7 +423,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         #region OrderClonedLearningContents
 
         [TestMethod]
-        public void OrderClonedLearningContents_ShouldReturnNull_IfClonedLearningContentsAreNull()
+        public void OrderClonedLearningContents_ShouldReturnNull_WhenClonedLearningContentsAreNull()
         {
             var question = FillInTheBlanksObjectMother.Create();
 
@@ -433,7 +432,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void OrderClonedLearningContents_ShouldThrowArgumentException_IfLengthOfLearningContentsCollectionsAreDifferent()
+        public void OrderClonedLearningContents_ShouldThrowArgumentException_WhenLengthOfLearningContentsCollectionsAreDifferent()
         {
             var question = FillInTheBlanksObjectMother.Create();
             Action action = () => question.OrderClonedLearningContents(new Collection<LearningContent> { LearningContentObjectMother.Create() });
