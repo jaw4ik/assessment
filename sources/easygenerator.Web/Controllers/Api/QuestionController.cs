@@ -117,7 +117,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityCollaborator(typeof(Question))]
         [Route("api/question/updateLearningContentsOrder")]
-        public ActionResult UpdateQuestionsOrder(Question question, ICollection<LearningContent> learningContents)
+        public ActionResult UpdateLearningContentsOrder(Question question, ICollection<LearningContent> learningContents)
         {
             if (question == null)
             {
