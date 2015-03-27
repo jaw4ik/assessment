@@ -107,9 +107,6 @@
 }
 /*#endregion Add new question button block*/
 /*#region Advanced features dropdown*/
-.question .advanced-features-dropdown {
-  color: #42515f;
-}
 .question .advanced-features-item.marked {
   color: #e85e5d;
 }
@@ -211,6 +208,11 @@
 }
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer {
   margin-top: 40px;
+}
+.question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer:after {
+  content: '';
+  display: block;
+  clear: both;
 }
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer .switcher {
   float: left;

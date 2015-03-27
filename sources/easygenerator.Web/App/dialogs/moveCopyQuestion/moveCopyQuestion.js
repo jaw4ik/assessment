@@ -22,9 +22,9 @@
 
         selectedCourse: ko.observable({}),
         selectCourse: selectCourse,
-        selectedObjective: ko.observable(''),
+        selectedObjectiveId: ko.observable(''),
         selectObjective: selectObjective,
-        courses: ko.observable(dataContext.courses),
+        courses: ko.observable({}),
         
         moveQuestion: moveQuestion,
         copyQuestion: copyQuestion,
@@ -63,13 +63,13 @@
     }
 
     function selectObjective(objective) {
-        viewModel.selectedObjective(objective.id);
+        viewModel.selectedObjectiveId(objective.id);
     }
 
     function moveQuestion() {
-        if (viewModel.objectiveId !== viewModel.selectedObjective()) {
+        if (viewModel.objectiveId !== viewModel.selectedObjectiveId()) {
             eventTracker.publish(events.moveItem);
-            questionRepository.moveQuestion(viewModel.questionId, viewModel.objectiveId, viewModel.selectedObjective()).then(function(response) {
+            questionRepository.moveQuestion(viewModel.questionId, viewModel.objectiveId, viewModel.selectedObjectiveId()).then(function() {
                 viewModel.hide();
                 if (!_.isNullOrUndefined(viewModel.courseId)) {
                     router.navigate('objective/' + viewModel.objectiveId + '?courseId=' + viewModel.courseId);
@@ -84,12 +84,12 @@
 
     function copyQuestion() {
         eventTracker.publish(events.copyItem);
-        questionRepository.copyQuestion(viewModel.questionId, viewModel.selectedObjective()).then(function (response) {
+        questionRepository.copyQuestion(viewModel.questionId, viewModel.selectedObjectiveId()).then(function (response) {
             viewModel.hide();
             if (!_.isNullOrUndefined(viewModel.courseId)) {
-                router.navigate('objective/' + viewModel.selectedObjective() + '/question/' + response.id + '?courseId=' + viewModel.courseId);
+                router.navigate('objective/' + viewModel.selectedObjectiveId() + '/question/' + response.id + '?courseId=' + viewModel.courseId);
             } else {
-                router.navigate('objective/' + viewModel.selectedObjective() + '/question/' + response.id);
+                router.navigate('objective/' + viewModel.selectedObjectiveId() + '/question/' + response.id);
             }
         });
     }
@@ -100,7 +100,7 @@
         viewModel.courseId = courseId;
         viewModel.objectiveId = objectiveId;
         viewModel.questionId = questionId;
-        viewModel.selectedObjective(viewModel.objectiveId);
+        viewModel.selectedObjectiveId(viewModel.objectiveId);
         viewModel.allObjectives({
             title: localizationManager.localize('allObjectives'),
             objectives: ko.observable(dataContext.objectives),

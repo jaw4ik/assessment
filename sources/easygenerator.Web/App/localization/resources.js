@@ -1221,6 +1221,16 @@
         'zh-cn': 'Move/Copy current question[zh-cn]',
         'uk': 'Перемістити/Скопіювати дане питання'
     },
+    moveCopyQuestionTo: {
+        'en': 'Move/Copy question to...',
+        'zh-cn': 'Move/Copy question to...[zh-cn]',
+        'uk': 'Перемістити/Скопіювати питання в...'
+    },
+    deleteQuestion: {
+        'en': 'Delete question',
+        'zh-cn': 'Delete question[zh-cn]',
+        'uk': 'Видалити питання'
+    },
     /* End resource section for model Question */
     
     /* Resource section for model Questions */

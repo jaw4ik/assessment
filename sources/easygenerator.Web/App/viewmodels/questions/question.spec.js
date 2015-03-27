@@ -163,10 +163,11 @@ define(function (require) {
             });
 
             it('should initialize fields', function () {
-                viewModel.activate(objective.id, question.id);
+                viewModel.activate(objective.id, question.id, {courseId: 'courseId'});
 
                 expect(viewModel.objectiveId).toBe(objective.id);
                 expect(viewModel.questionId).toBe(question.id);
+                expect(viewModel.courseId).toBe('courseId');
             });
 
             describe('when objective not found', function () {

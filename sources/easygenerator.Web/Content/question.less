@@ -132,10 +132,6 @@
 
 /*#region Advanced features dropdown*/
 
-.question .advanced-features-dropdown {
-    color: #42515f;
-}
-
 .question .advanced-features-item.marked {
     color: #e85e5d;
 }
@@ -257,6 +253,12 @@
 
                 .move-copy-question-footer {
                     margin-top: 40px;
+
+                    &:after{
+                        content: '';
+                        display: block;
+                        clear: both;
+                    }
 
                     .switcher {
                         float: left;
