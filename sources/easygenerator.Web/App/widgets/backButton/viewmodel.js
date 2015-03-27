@@ -57,6 +57,6 @@
 
         };
 
-        return backButton;
+        return new backButton();
 
     });

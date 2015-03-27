@@ -63,7 +63,7 @@
             viewModel.layoutChangingIndicator(!viewModel.layoutChangingIndicator());
         });
 
-        router.on('router:route:activating').then(function () {
+        router.on('router:route:activating').then(function () {            
             viewModel.layoutChangingIndicator(!viewModel.layoutChangingIndicator());
         });
 

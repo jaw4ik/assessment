@@ -5,17 +5,26 @@
        .makeRelative({
            fromParent: true
        }).map([
-           { route: '', moduleId: 'viewmodels/courses/courses', title: 'Hello World', type: 'intro', nav: true },
-           { route: ':courseId*details', moduleId: 'viewmodels/courses/course/index', title: 'Hello World', type: 'intro', nav: true }
+           { route: '', moduleId: 'viewmodels/courses/courses', title: 'Hello World', type: 'intro', nav: true, hash: '#courses' },
+           { route: ':courseId*details', moduleId: 'viewmodels/courses/course/index', title: 'Hello World', type: 'intro', nav: true, hash: '#courses/:courseId' }
        ]).buildNavigationModel();
 
-  
+
     var subscriptions = [];
+
+
+    childRouter.on('router:navigation:processing').then(function (instruction, router) {
+        console.warn('router:navigation:processing  -  course/index');
+    });
+
+    childRouter.isNavigating.subscribe(function (newValue) {
+        console.log('isNavigating: ' + newValue);
+    });
 
     return {
         router: childRouter,
         activate: function () {
-
+            console.warn('viewmodels/courses/index');
 
         },
         attached: function (element) {
@@ -37,23 +46,6 @@
             subscriptions.push(app.on(constants.messages.treeOfContent.expanded).then(expand));
             subscriptions.push(app.on(constants.messages.treeOfContent.collapsed).then(collapse));
 
-
-            //var handler = function () {
-            //    if ($(window).width() < 1560) {
-            //        $(element).css({
-            //            'padding-left': '300px',
-            //            'padding-right': '300px'
-            //        });
-            //    } else {
-            //        $(element).css({
-            //            'padding-left': '0',
-            //            'padding-right': '0'
-            //        });
-            //    }
-            //}
-
-            //handler();
-            //$(window).on('resize', _.debounce(handler));
 
 
         },

@@ -284,7 +284,10 @@
             '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
         ];
 
-        require(specs, function () {
+        require([
+            'viewmodels/courses/course/index.spec'
+
+        ], function () {
             env.execute();
         });
     });

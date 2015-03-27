@@ -24,7 +24,7 @@
 
         return viewModel;
 
-        function show(courseOwner) {
+        function show(courseId, courseOwner) {
             guard.throwIfNotString(courseOwner, 'courseOwner is not a string');
 
             reset();
@@ -34,7 +34,7 @@
 
             viewModel.isShown(true);
 
-            viewModel.courseId = router.routeData().courseId;
+            viewModel.courseId = courseId;
             app.on(constants.messages.course.collaboration.collaboratorAdded + viewModel.courseId, viewModel.collaboratorAdded);
             app.on(constants.messages.course.collaboration.collaboratorRemoved + viewModel.courseId, viewModel.collaboratorRemoved);
 

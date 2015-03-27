@@ -8,8 +8,7 @@
     require('viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankBindingHandler');
     require('viewmodels/questions/singleSelectImage/bindingHandlers/answerImageBindingHandler');
     require('widgets/imagePreview/bindingHandlers/fadeBindingHandler');
-    require('widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler');
-    require('viewmodels/panels/bindingHandlers/fixedPanelBindingHandler');
+    require('widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler');    
     require('viewmodels/courses/bindingHandlers/elementCollapseBinding');
     require('viewmodels/courses/bindingHandlers/windowMessageListenerBinding');
     require('viewmodels/courses/bindingHandlers/courseIntroductionAnimationBinding');

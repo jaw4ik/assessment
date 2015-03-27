@@ -588,9 +588,14 @@
 /*#region Collaboration */
 
 .collaboration.modal-dialog-wrapper {
+    right: 110px;
+    top: -5px;
     width: 385px;
-    right: 44px;
-    top: -9px;
+
+    //  TODO: .
+    & + .button {
+        z-index: 100500;
+    }
 }
 
 .collaboration .circular-loader .circular-loader-item {

@@ -12,9 +12,18 @@
       ]).buildNavigationModel();
 
 
+    childRouter.on('router:navigation:processing').then(function (instruction, router) {
+        console.warn('router:navigation:processing  -  course/course/create/index');
+    });
+
+    childRouter.isNavigating.subscribe(function (newValue) {
+        console.log('isNavigating: ' + newValue);
+    });
+
     return {
         router: childRouter,
         activate: function () {
+            console.warn('viewmodels/courses/course/create/index');
             //debugger;
         }
     };

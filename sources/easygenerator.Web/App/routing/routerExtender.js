@@ -43,7 +43,7 @@
             var downloadUrl = hash == '' ? href + '/' + url : href.replace(hash, url);
             window.open(downloadUrl);
         };
-            
+
         router.setDefaultLocationHash = function (hash) {
             var locationHash = router.getLocationHash();
             if (hash && hash.hash && hash.hash.length && !locationHash.length) {
@@ -73,36 +73,65 @@
         router.routeData = ko.observable(defaultRouteData);
 
         router.activeInstruction.subscribe(function (instruction) {
-            if (_.isObject(instruction) && _.isObject(instruction.config)) {
-                var routeParams = {};
-                var urlFragment = instruction.config.route;
-                var match, routeParam, counter = 0;
 
-                // initialize route params
-                if (urlFragment) {
-                    while ((match = namedParamPattern.exec(urlFragment))) {
-                        if (match[0]) {
-                            routeParam = match[0].replace(':', '');
-                            var paramValue = instruction.params[counter++];
-                            if (_.isString(paramValue)) {
-                                routeParams[routeParam] = paramValue;
-                            }
-                        }
-                    }
+            //if (_.isObject(instruction) && _.isObject(instruction.config)) {
+            //    var routeParams = {};
+            //    var urlFragment = instruction.config.route;
+            //    var match, routeParam, counter = 0;
+
+            //    // initialize route params
+            //    if (urlFragment) {
+            //        while ((match = namedParamPattern.exec(urlFragment))) {
+            //            if (match[0]) {
+            //                routeParam = match[0].replace(':', '');
+            //                var paramValue = instruction.params[counter++];
+            //                if (_.isString(paramValue)) {
+            //                    routeParams[routeParam] = paramValue;
+            //                }
+            //            }
+            //        }
+            //    }
+
+            //    // merge queryParams to routeParams
+            //    if (instruction.queryParams) {
+            //        mergeObjects(routeParams, instruction.queryParams);
+            //    }
+
+            //    // initialize module values
+            //    routeParams.moduleName = getModuleName(instruction.config.moduleId);
+
+            //    router.routeData(routeParams);
+            //} else {
+            //    router.routeData(defaultRouteData);
+            //}
+
+            var url = instruction.fragment;
+            var context = {
+                moduleName: getModuleName(instruction.config.moduleId)
+            };
+            
+            var parts = url.split('/');
+            var i = 0, len = parts.length;
+            for (; i < len; i++) {
+                if (parts[i] === 'courses' && parts[i + 1]) {
+                    context.courseId = parts[i + 1];
+                    i++;
                 }
-
-                // merge queryParams to routeParams
-                if (instruction.queryParams) {
-                    mergeObjects(routeParams, instruction.queryParams);
+                if (parts[i] === 'objectives' && parts[i + 1]) {
+                    context.objectiveId = parts[i + 1];
+                    i++;
                 }
-
-                // initialize module values
-                routeParams.moduleName = getModuleName(instruction.config.moduleId);
-
-                router.routeData(routeParams);
-            } else {
-                router.routeData(defaultRouteData);
+                if (parts[i] === 'question' && parts[i + 1]) {
+                    context.questionId = parts[i + 1];
+                    i++;
+                }
             }
+
+            router.routeData(context);
+
+
+            //if ()
+
         });
 
         function mergeObjects(destinationObject, sourceObject) {

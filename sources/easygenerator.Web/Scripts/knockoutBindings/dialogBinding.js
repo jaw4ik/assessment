@@ -3,7 +3,7 @@
     },
     update: function (element, valueAccessor) {
         var $element = $(element),
-            $container = $('.tb-main'),
+            $container = $('body'),
             speed = 200,
             isShown = valueAccessor().isShown,
             autoclose = ko.unwrap(valueAccessor().autoclose) || false,

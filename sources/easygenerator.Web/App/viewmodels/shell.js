@@ -9,10 +9,6 @@
             navigateToObjectives: 'Navigate to objectives'
         };
 
-        var
-            objectivesModules = ['objectives', 'objective', 'createQuestion', 'question'],
-            coursesModules = ['courses', 'course', 'design', 'publish', 'results'];
-
         var requestsCounter = ko.observable(0);
         var isFirstVisitPage = true;
 
@@ -75,6 +71,7 @@
         }
 
         function activate() {
+            console.warn('shell');
             return dataContext.initialize()
                 .then(function () {
                     router.guardRoute = function (routeInfo, params) {
@@ -106,12 +103,6 @@
                     };
 
                     router.on('router:navigation:composition-complete').then(function () {
-                        var activeModuleId = router.routeData().moduleName;
-                        var hasCourseId = router.routeData().courseId != null;
-                        
-                        viewModel.navigation()[0].isPartOfModules(_.contains(coursesModules, activeModuleId) || hasCourseId);
-                        viewModel.navigation()[1].isPartOfModules(_.contains(objectivesModules, activeModuleId) && !hasCourseId);
-
                         clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
                     });
 
@@ -125,14 +116,13 @@
                             },
                             navigationLink: '#courses',
                             title: 'courses',
-                            isActive: ko.computed(function () {
-                                if (_.isNullOrUndefined(router.activeInstruction()) || router.isNavigating()) {
+                            isActive: ko.computed(function () {                                
+                                if (_.isNullOrUndefined(router.activeInstruction())) {
                                     return false;
                                 }
-                                
+
                                 return router.activeInstruction().fragment.indexOf("courses") === 0;
-                            }),
-                            isPartOfModules: ko.observable(false)
+                            })
                         },
                         {
                             navigate: function () {
@@ -143,13 +133,12 @@
                             navigationLink: '#objectives',
                             title: 'materials',
                             isActive: ko.computed(function () {
-                                if (_.isNullOrUndefined(router.activeInstruction()) || router.isNavigating()) {
+                                if (_.isNullOrUndefined(router.activeInstruction())) {
                                     return false;
                                 }
-                                
+
                                 return router.activeInstruction().fragment.indexOf("objectives") === 0;
-                            }),
-                            isPartOfModules: ko.observable(false)
+                            })
                         }
                     ]);
 
@@ -161,7 +150,7 @@
                         compositionComplete.off();
                     });
 
-                    router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));                    
+                    router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));
 
                     router.map([
                         {

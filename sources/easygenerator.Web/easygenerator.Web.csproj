@@ -571,6 +571,7 @@
       <DependentUpon>design.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\course\index.js" />
+    <Content Include="App\viewmodels\courses\course\index.spec.js" />
     <Content Include="App\viewmodels\courses\course\publish.js" />
     <Content Include="App\viewmodels\courses\course\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
@@ -579,6 +580,7 @@
     <Content Include="App\viewmodels\courses\course\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\courses\course\childRouter.js" />
     <Content Include="App\viewmodels\courses\results.js" />
     <Content Include="App\viewmodels\courses\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
