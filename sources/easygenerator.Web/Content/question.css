@@ -228,6 +228,7 @@
 }
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer .switcher .switcher-text.selected {
   color: #42515f;
+  font-family: 'OpenSans-Semibold';
 }
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer .switcher .switch-toggle-slider {
   margin: 0 7px;
