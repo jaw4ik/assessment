@@ -8,6 +8,7 @@
 
     <link href="css/settings.css" rel="stylesheet" />
     <script src="js/vendor.min.js"></script>
+    <script src="js/api.min.js"></script>
     <script src="js/settings.min.js"></script>
 </head>
 <body>
@@ -19,6 +20,9 @@
                 </li>
                 <li class="settings-tabs-item track-and-trace" data-tab-link="track-and-trace">
                     Results Tracking
+                </li>
+                <li class="settings-tabs-item languages" data-tab-link="languages">
+                    Template language
                 </li>
             </ul>
             <div class="settings-tab-container customization" data-tab="customization">
@@ -111,10 +115,10 @@
                         </div>
                     </div>
                     <div class="tab-content-container">
-                        <div class="tab-content-title-container" ng-click="toggleAdvancedSettings()">
-                            <div class="tab-content-title" ng-class="{ expanded: advancedSettingsExpanded, collapsed: !advancedSettingsExpanded }">Advanced settings</div>
+                        <div class="tab-content-title-container" ng-click="trackingData.toggleAdvancedSettings()">
+                            <div class="tab-content-title" ng-class="{ expanded: trackingData.advancedSettingsExpanded, collapsed: !trackingData.advancedSettingsExpanded }">Advanced settings</div>
                         </div>
-                        <div class="template-selector-container" ng-show="advancedSettingsExpanded">
+                        <div class="template-selector-container" ng-show="trackingData.advancedSettingsExpanded">
                             <div class="selector-items-container">
                                 <h2 class="selector-title">Report to:</h2>
                                 <ul class="selector-items-wrapper unstyled">
@@ -261,6 +265,45 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+            <div class="settings-tab-container languages" data-tab="languages">
+                <div class="settings-tab-wrapper">
+                    <div class="tab-header-container">
+                        <img src="img/language.png">
+                        <div class="tab-header-wrapper">
+                            <h1 class="tab-header-title">Choose language for your course</h1>
+                            <div class="tab-header-content">
+                                <div class="select-language">
+                                    <dropdown options="languages.languagesList" value="languages.selectedLanguageCode" options-value="'code'" options-text="'name'"></dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content-container">
+                        <table class="choose-language-table">
+                            <thead>
+                                <tr>
+                                    <th class="choose-language-table-header-text">Default</th>
+                                    <th class="choose-language-table-header-text">Translation</th>
+                                </tr>
+                            </thead>
+                            <tbody class="choose-language-table-content">
+                                <tr class="choose-language-table-row" ng-repeat="resource in languages.getSelectedLanguageResources()">
+                                    <td class="choose-language-table-key">{{resource.key}}</td>
+                                    <td class="choose-language-table-text-wrapper">
+                                        <div class="input-wrapper">
+                                            <div class="choose-language-table-input-wrapper" ng-if="languages.isSelectedLanguageEditable()">
+                                                <input type="text" class="choose-language-table-input" ng-model="resource.value" />
+                                                <span class="edit-icon"></span>
+                                            </div>
+                                            <span ng-if="!languages.isSelectedLanguageEditable()">{{resource.value}}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
