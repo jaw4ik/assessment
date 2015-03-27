@@ -11,13 +11,22 @@
     describe('moveCopyQuestionDialog', function () {
 
         var ids = {
-            courseId: 'courseId',
-            objectiveId: 'objectiveId',
-            questionId: 'questionId'
-        };
+                courseId: 'courseId',
+                objectiveId: 'objectiveId',
+                questionId: 'questionId'
+            },
+            moveQuestionDefer,
+            copyQuestionDefer,
+            allObjectivesTitle = 'title';
 
-        beforeEach(function() {
+        beforeEach(function () {
+            moveQuestionDefer = Q.defer();
+            copyQuestionDefer = Q.defer();
+            spyOn(questionRepository, 'moveQuestion').and.returnValue(moveQuestionDefer.promise);
+            spyOn(questionRepository, 'copyQuestion').and.returnValue(copyQuestionDefer.promise);
             spyOn(eventTracker, 'publish');
+            spyOn(router, 'navigate');
+            spyOn(localizationManager, 'localize').and.returnValue(allObjectivesTitle);
         });
 
         describe('isShown', function () {
@@ -95,13 +104,13 @@
 
             it('should set selected objectiveId', function() {
                 viewModel.show(ids.courseId, ids.objectiveId, ids.questionId);
-                expect(viewModel.selectedObjective()).toBe(ids.objectiveId);
+                expect(viewModel.selectedObjectiveId()).toBe(ids.objectiveId);
             });
 
             it('should set object allObjectives', function () {
                 viewModel.allObjectives({});
                 viewModel.show();
-                expect(viewModel.allObjectives().title).toBe('All objectives');
+                expect(viewModel.allObjectives().title).toBe(allObjectivesTitle);
                 expect(viewModel.allObjectives().objectives()).toBe(dataContext.objectives);
                 expect(viewModel.allObjectives().isSelected).toBeObservable();
             });
@@ -130,7 +139,7 @@
 
                 it('should set select to allObjectives', function () {
                     viewModel.show(null, ids.objectiveId, ids.questionId);
-                    expect(viewModel.selectedCourse().title).toBe('All objectives');
+                    expect(viewModel.selectedCourse().title).toBe(allObjectivesTitle);
                     expect(viewModel.selectedCourse().objectives()).toBe(dataContext.objectives);
                     expect(viewModel.selectedCourse().isSelected()).toBeTruthy();
                 });
@@ -197,20 +206,41 @@
 
             describe('when argument is not course', function() {
                 
+                it('should set allObjectives.isSelected to true', function () {
+                    viewModel.allObjectives().isSelected(false);
+                    viewModel.selectCourse({});
+                    expect(viewModel.allObjectives().isSelected()).toBeTruthy();
+                });
 
+                it('should set selecteCourse to allObjectives', function() {
+                    viewModel.selectCourse({});
+                    expect(viewModel.selectedCourse()).toBe(viewModel.allObjectives());
+                });
 
             });
 
             describe('when argument is course', function() {
-                
+
+                it('should set allObjectives.isSelected to fasle', function () {
+                    viewModel.allObjectives().isSelected(true);
+                    viewModel.selectCourse({id: 'This is id!'});
+                    expect(viewModel.allObjectives().isSelected()).toBeFalsy();
+                });
+
+                it('should set selectedCourse', function() {
+                    viewModel.selectedCourse(null);
+                    viewModel.selectCourse({ id: 'This is id!' });
+                    expect(viewModel.selectedCourse().id).toBe('This is id!');
+                });
+
             });
 
         });
 
-        describe('selectedObjective', function () {
+        describe('selectedObjectiveId', function () {
 
             it('should be observable', function() {
-                expect(viewModel.selectedObjective).toBeObservable();
+                expect(viewModel.selectedObjectiveId).toBeObservable();
             });
 
         });
@@ -225,9 +255,9 @@
                 var objective = {
                     id: 'someid'
                 };
-                viewModel.selectedObjective('');
+                viewModel.selectedObjectiveId('');
                 viewModel.selectObjective(objective);
-                expect(viewModel.selectedObjective()).toBe(objective.id);
+                expect(viewModel.selectedObjectiveId()).toBe(objective.id);
             });
 
         });
@@ -259,9 +289,106 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Move item');
             });
 
+            describe('when current objective id equal selected objective id', function() {
+
+                it('should hide popup', function() {
+                    var objectiveId = 'objectiveId';
+                    viewModel.objectiveId = objectiveId;
+                    viewModel.selectedObjectiveId(objectiveId);
+                    viewModel.moveQuestion();
+                    expect(viewModel.isShown()).toBeFalsy();
+                });
+
+            });
+
+            describe('when current objective id not equal selected objective id', function() {
+                var currentObjectiveId = 'currentObjectiveId',
+                    selectedObjectiveId = 'selectedObjectiveId';
+
+                beforeEach(function () {
+                    viewModel.questionId = 'questionId';
+                    viewModel.courseId = 'courseId';
+                    viewModel.objectiveId = currentObjectiveId;
+                    viewModel.selectedObjectiveId(selectedObjectiveId);
+                });
+
+                it('should send event \'Move item\'', function () {
+                    viewModel.moveQuestion();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Move item');
+                });
+
+                it('should call moveQuestion from repository', function () {
+                    viewModel.moveQuestion();
+                    expect(questionRepository.moveQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.objectiveId, viewModel.selectedObjectiveId());
+                });
+
+                describe('when question was move', function() {
+                    var newQuestionId;
+                    beforeEach(function () {
+                        newQuestionId = 'newQuestionId';
+                        moveQuestionDefer.resolve({ id: newQuestionId });
+                    });
+
+                    it('should hide popup', function (done) {
+                        viewModel.moveQuestion();
+
+                        moveQuestionDefer.promise.fin(function () {
+                            expect(viewModel.isShown()).toBeFalsy();
+                            done();
+                        });
+                    });
+
+                    describe('when course is undefined', function() {
+
+                        beforeEach(function() {
+                            viewModel.courseId = null;
+                        });
+
+                        it('should navigate to current objective', function() {
+                            viewModel.moveQuestion();
+
+                            moveQuestionDefer.promise.fin(function () {
+                                expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.objectiveId);
+                                done();
+                            });
+                        });
+
+                    });
+
+                    describe('when course is not undefined', function () {
+
+                        beforeEach(function () {
+                            viewModel.courseId = 'courseid';
+                        });
+
+                        it('should navigate to current objective', function () {
+                            viewModel.moveQuestion();
+
+                            moveQuestionDefer.promise.fin(function () {
+                                expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.objectiveId + '?courseId=' + viewModel.courseId);
+                                done();
+                            });
+                        });
+
+                    });
+
+                });
+
+            });
+
         });
 
         describe('copyQuestion:', function () {
+
+            var currentObjectiveId = 'currentObjectiveId',
+                selectedObjectiveId = 'selectedObjectiveId';
+
+            beforeEach(function () {
+                viewModel.questionId = 'questionId';
+                viewModel.courseId = 'courseId';
+                viewModel.objectiveId = currentObjectiveId;
+                viewModel.selectedObjectiveId(selectedObjectiveId);
+            });
 
             it('should be function', function() {
                 expect(viewModel.copyQuestion).toBeFunction();
@@ -272,13 +399,63 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Copy item');
             });
 
-        });
+            it('should call copyQuestion from repository', function() {
+                viewModel.copyQuestion();
+                expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.selectedObjectiveId());
+            });
 
-        /*
-        selectCourse: selectCourse,
-        
-        moveQuestion: moveQuestion,
-        copyQuestion: copyQuestion,*/
+            describe('when question was copy', function() {
+                var newQuestionId;
+
+                beforeEach(function() {
+                    newQuestionId = 'newQuestionId';
+                    copyQuestionDefer.resolve({ id: newQuestionId });
+                });
+
+                it('should hide popup', function(done) {
+                    viewModel.copyQuestion();
+
+                    copyQuestionDefer.promise.fin(function() {
+                        expect(viewModel.isShown()).toBeFalsy();
+                        done();
+                    });
+                });
+
+                describe('when course is undefined', function() {
+
+                    beforeEach(function() {
+                        viewModel.courseId = null;
+                    });
+
+                    it('should navigate to new question', function() {
+                        viewModel.moveQuestion();
+
+                        copyQuestionDefer.promise.fin(function() {
+                            expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.selectedObjectiveId() + '/question/' + newQuestionId);
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when course is not undefined', function() {
+
+                    beforeEach(function() {
+                        viewModel.courseId = 'courseid';
+                    });
+
+                    it('should navigate to new question in course', function() {
+                        viewModel.moveQuestion();
+
+                        copyQuestionDefer.promise.fin(function() {
+                            expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.selectedObjectiveId() + '/question/' + newQuestionId + '?courseId=' + viewModel.courseId);
+                            done();
+                        });
+                    });
+
+                });
+            });
+        });
 
     });
 });

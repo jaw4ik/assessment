@@ -20,7 +20,7 @@
         <div class="move-copy-question-content">
             <ul class="destination-objectives-list scrollable unstyled">
                 <!-- ko foreach: selectedCourse().objectives -->
-                <li class="destination-objectives-list-item" data-bind="click: $parent.selectObjective, text: title, css: { selected: id == $parent.selectedObjective() }"></li>
+                <li class="destination-objectives-list-item" data-bind="click: $parent.selectObjective, text: title, css: { selected: id == $parent.selectedObjectiveId() }"></li>
                 <!-- /ko -->
                 <!-- ko if: selectedCourse().objectvesListEmpty -->
                 <li class="destination-objectives-list-item empty" data-bind="localize: { text: 'objectivesListEmpty' }">Objectives list is empty...</li>
