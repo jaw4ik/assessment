@@ -25,8 +25,10 @@
         <!-- /ko -->
         <!-- ko ifnot: isLoadingCollaborators -->
         <ul class="collaborators-list unstyled scrollable" data-bind="foreachAnimated: { data: collaborators, removeDelay: 3, speed: 0.3 }">
-            <!-- ko compose: { view: 'dialogs/collaboration/collaborator', model: $data} -->
-            <!-- /ko -->
+            <li class="collaborators-list-item" data-bind="css:{ 'remove-confirmation-shown': isRemoveConfirmationShown}">
+                <!-- ko compose: { view: 'dialogs/collaboration/collaborator', model: $data} -->
+                <!-- /ko -->
+            </li>
         </ul>
         <!-- /ko -->
     </div>

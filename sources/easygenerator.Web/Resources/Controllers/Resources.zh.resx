@@ -124,7 +124,7 @@
     <value>在此处输入你的陈述</value>
   </data>
   <data name="DefaultTextMatchingAnswerKeyText" xml:space="preserve">
-    <value>自 定义你的按键</value>
+    <value>自定义你的题干</value>
   </data>
   <data name="DefaultTextMatchingAnswerValueText" xml:space="preserve">
     <value>自定义你的答案</value>
