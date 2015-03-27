@@ -23,7 +23,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void CourseState_CreateCourseState()
         {
             var course = CourseObjectMother.Create();
-            var courseState = CourseStateObjectMother.Create(course, true);
+            var courseState = CourseStateObjectMother.Create(course, CourseStateInfoObjectMother.Create(true));
 
             courseState.Id.Should().NotBeEmpty();
             courseState.Course.Should().Be(course);
@@ -43,6 +43,30 @@ namespace easygenerator.DomainModel.Tests.Entities
             courseState.Info.Should().NotBeNull();
             courseState.Info.Should().BeOfType<CourseStateInfo>();
             courseState.Info.HasUnpublishedChanges.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void CourseState_UpdateInfo_Should_ThrowArgumentNullException_WhenCourseStateInfoIsNull()
+        {
+            var course = CourseObjectMother.Create();
+            var courseState = CourseStateObjectMother.Create(course);
+           // var newInfo = CourseStateInfoObjectMother.Create(true);
+
+            Action action = () => courseState.UpdateInfo(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("info");
+        }
+
+        [TestMethod]
+        public void CourseState_UpdateInfo_Should_UpdateStateInfo()
+        {
+            var course = CourseObjectMother.Create();
+            var courseState = CourseStateObjectMother.Create(course);
+            var newInfo = CourseStateInfoObjectMother.Create(true);
+
+            courseState.UpdateInfo(newInfo);
+
+            courseState.Info.Should().Be(newInfo);
         }
 
         #endregion

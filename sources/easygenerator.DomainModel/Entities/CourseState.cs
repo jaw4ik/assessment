@@ -7,12 +7,20 @@ namespace easygenerator.DomainModel.Entities
         public virtual Course Course { get; private set; }
         public virtual CourseStateInfo Info { get; private set; }
 
-        public CourseState(Course course, bool hasUnpublishedChanges = false)
+        protected internal CourseState() { }
+
+        protected internal CourseState(Course course, CourseStateInfo info)
         {
             ArgumentValidation.ThrowIfNull(course, "course");
 
             Course = course;
-            Info = new CourseStateInfo(hasUnpublishedChanges);
+            Info = info ?? new CourseStateInfo();
+        }
+
+        public void UpdateInfo(CourseStateInfo info)
+        {
+            ArgumentValidation.ThrowIfNull(info, "info");
+            Info = info;
         }
     }
 
@@ -20,7 +28,9 @@ namespace easygenerator.DomainModel.Entities
     {
         public bool HasUnpublishedChanges { get; set; }
 
-        public CourseStateInfo(bool hasUnpublishedChanges = false)
+        protected internal CourseStateInfo() { }
+
+        protected internal CourseStateInfo(bool hasUnpublishedChanges = false)
         {
             HasUnpublishedChanges = hasUnpublishedChanges;
         }
