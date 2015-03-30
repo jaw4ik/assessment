@@ -13,9 +13,15 @@
             maxHeight = value.maxHeight;
 
         if (_.isNumber(maxHeight) && maxHeight > 0) {
-            var stopOptionHandler = value.options.stop;
+            var optionsStopHandler = value.options.stop;
 
             options = {
+                start: function (e, ui) {
+                    if (_.isFunction(optionsStartHandler)) {
+                        optionsStartHandler(e, ui);
+                    }
+                    $(document.activeElement).blur();
+                },
                 helper: function (e, ui) {
                     if (ui.height() > maxHeight) {
                         ui.height(maxHeight);
@@ -30,8 +36,8 @@
                     ui.item.height('');
                     ui.placeholder.height('');
 
-                    if (_.isFunction(stopOptionHandler)) {
-                        stopOptionHandler(e, ui);
+                    if (_.isFunction(optionsStopHandler)) {
+                        optionsStopHandler(e, ui);
                     }
                 }
             };
