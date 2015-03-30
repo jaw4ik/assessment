@@ -22,7 +22,7 @@ namespace easygenerator.Web.BuildCourse.Modules
             var modulesList = new List<PackageModule>();
 
             var user = _userRepository.GetUserByEmail(course.CreatedBy);
-            if (user != null && user.HasFreeAccess())
+            if (user != null && user.IsFreeAccess())
             {
                 modulesList.Add(new PackageModule(BrandingModuleName, BrandingModulePath));
             }
