@@ -468,6 +468,9 @@
 .question-learning-content-list-item.ui-sortable-helper .question-learning-content-list-item-body-wrapper .question-learning-content-drag-wrapper:before {
   display: none;
 }
+.question-learning-content-list-item.ui-sortable-helper .question-learning-content-list-item-body-wrapper .question-learning-content-delete-wrapper {
+  opacity: 0;
+}
 .question-learning-content-list-item.ui-sortable-helper:after {
   content: '';
   display: block;
