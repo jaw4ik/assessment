@@ -4,6 +4,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
@@ -129,6 +130,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityCollaborator(typeof(Question))]
         [EntityCollaborator(typeof(Objective))]
+        [QuestionAccess]
         [Route("api/question/copy")]
         public ActionResult Copy(Question question, Objective objective)
         {
