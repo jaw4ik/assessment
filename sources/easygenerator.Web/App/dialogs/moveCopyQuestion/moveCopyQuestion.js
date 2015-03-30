@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'eventTracker', 'dataContext', 'repositories/questionRepository', 'localization/localizationManager'],
-    function (router, eventTracker, dataContext, questionRepository, localizationManager) {
+﻿define(['plugins/router', 'eventTracker', 'dataContext', 'repositories/questionRepository', 'localization/localizationManager', 'uiLocker', 'notify'],
+    function (router, eventTracker, dataContext, questionRepository, localizationManager, uiLocker, notify) {
     'use strict';
 
     var events = {
@@ -53,12 +53,19 @@
     }
 
     function selectCourse(course) {
+        var selectedItem = null;
         if (!_.isNullOrUndefined(course.id)) {
             viewModel.allObjectives().isSelected(false);
-            viewModel.selectedCourse(course);
+            selectedItem = course;
         } else {
             viewModel.allObjectives().isSelected(true);
-            viewModel.selectedCourse(viewModel.allObjectives());
+            selectedItem = viewModel.allObjectives();
+        }
+        viewModel.selectedCourse(selectedItem);
+        if (selectedItem.objectvesListEmpty) {
+            viewModel.selectedObjectiveId(null);
+        } else {
+            viewModel.selectedObjectiveId(selectedItem.objectives[0].id);
         }
     }
 
@@ -67,10 +74,16 @@
     }
 
     function moveQuestion() {
+        if (_.isNullOrUndefined(viewModel.selectedObjectiveId())) {
+            notify.error(localizationManager.localize('moveCopyErrorMessage'));
+            return;
+        }
         if (viewModel.objectiveId !== viewModel.selectedObjectiveId()) {
             eventTracker.publish(events.moveItem);
-            questionRepository.moveQuestion(viewModel.questionId, viewModel.objectiveId, viewModel.selectedObjectiveId()).then(function() {
+            uiLocker.lock();
+            questionRepository.moveQuestion(viewModel.questionId, viewModel.objectiveId, viewModel.selectedObjectiveId()).then(function () {
                 viewModel.hide();
+                uiLocker.unlock();
                 if (!_.isNullOrUndefined(viewModel.courseId)) {
                     router.navigate('objective/' + viewModel.objectiveId + '?courseId=' + viewModel.courseId);
                 } else {
@@ -83,6 +96,10 @@
     }
 
     function copyQuestion() {
+        if (_.isNullOrUndefined(viewModel.selectedObjectiveId())) {
+            notify.error(localizationManager.localize('moveCopyErrorMessage'));
+            return;
+        }
         eventTracker.publish(events.copyItem);
         questionRepository.copyQuestion(viewModel.questionId, viewModel.selectedObjectiveId()).then(function (response) {
             viewModel.hide();
@@ -103,8 +120,9 @@
         viewModel.selectedObjectiveId(viewModel.objectiveId);
         viewModel.allObjectives({
             title: localizationManager.localize('allObjectives'),
-            objectives: ko.observable(dataContext.objectives),
-            isSelected: ko.observable(false)
+            objectives: dataContext.objectives,
+            isSelected: ko.observable(false),
+            objectvesListEmpty: dataContext.objectives.length === 0
         });
 
         if (_.isNullOrUndefined(viewModel.courseId)) {

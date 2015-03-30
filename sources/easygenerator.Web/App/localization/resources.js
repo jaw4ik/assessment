@@ -1231,6 +1231,11 @@
         'zh-cn': 'Delete question[zh-cn]',
         'uk': 'Видалити питання'
     },
+    moveCopyErrorMessage: {
+        'en': 'There are no objectives in the course. Please choose a course that contains at least one objective.',
+        'zh-cn': 'There are no objectives in the course. Please choose a course that contains at least one objective.[zh-cn]',
+        'uk': 'Курс не містить розділів/цілей. Будь ласка виберіть курс, що включає в себе хоча б один розділ/ціль.'
+    },
     /* End resource section for model Question */
     
     /* Resource section for model Questions */

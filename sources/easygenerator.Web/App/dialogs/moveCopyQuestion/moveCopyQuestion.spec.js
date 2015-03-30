@@ -6,7 +6,8 @@
         eventTracker = require('eventTracker'),
         dataContext = require('dataContext'),
         localizationManager = require('localization/localizationManager'),
-        questionRepository =require('repositories/questionRepository');
+        questionRepository =require('repositories/questionRepository'),
+        notify = require('notify');
 
     describe('moveCopyQuestionDialog', function () {
 
@@ -27,6 +28,7 @@
             spyOn(eventTracker, 'publish');
             spyOn(router, 'navigate');
             spyOn(localizationManager, 'localize').and.returnValue(allObjectivesTitle);
+            spyOn(notify, 'error');
         });
 
         describe('isShown', function () {
@@ -111,7 +113,7 @@
                 viewModel.allObjectives({});
                 viewModel.show();
                 expect(viewModel.allObjectives().title).toBe(allObjectivesTitle);
-                expect(viewModel.allObjectives().objectives()).toBe(dataContext.objectives);
+                expect(viewModel.allObjectives().objectives).toBe(dataContext.objectives);
                 expect(viewModel.allObjectives().isSelected).toBeObservable();
             });
 
@@ -140,7 +142,7 @@
                 it('should set select to allObjectives', function () {
                     viewModel.show(null, ids.objectiveId, ids.questionId);
                     expect(viewModel.selectedCourse().title).toBe(allObjectivesTitle);
-                    expect(viewModel.selectedCourse().objectives()).toBe(dataContext.objectives);
+                    expect(viewModel.selectedCourse().objectives).toBe(dataContext.objectives);
                     expect(viewModel.selectedCourse().isSelected()).toBeTruthy();
                 });
 
@@ -219,18 +221,27 @@
 
             });
 
-            describe('when argument is course', function() {
+            describe('when argument is course', function () {
 
                 it('should set allObjectives.isSelected to fasle', function () {
                     viewModel.allObjectives().isSelected(true);
-                    viewModel.selectCourse({id: 'This is id!'});
+                    viewModel.selectCourse({id: 'This is id!', objectives: [], objectvesListEmpty: true});
                     expect(viewModel.allObjectives().isSelected()).toBeFalsy();
                 });
 
                 it('should set selectedCourse', function() {
                     viewModel.selectedCourse(null);
-                    viewModel.selectCourse({ id: 'This is id!' });
+                    viewModel.selectCourse({ id: 'This is id!', objectives: [], objectvesListEmpty: true });
                     expect(viewModel.selectedCourse().id).toBe('This is id!');
+                });
+
+            });
+
+            describe('when selected course has objectives', function() {
+
+                it('should select first objective id', function() {
+                    viewModel.selectCourse({id: 'This is id!', objectives: [{id: 1}, {id: 2}], objectvesListEmpty: false});
+                    expect(viewModel.selectedObjectiveId()).toBe(1);
                 });
 
             });
@@ -279,6 +290,11 @@
         });
 
         describe('moveQuestion:', function () {
+            var objectiveId = 'selectedObjectiveId';
+
+            beforeEach(function() {
+                viewModel.selectedObjectiveId(objectiveId);
+            });
 
             it('should be function', function() {
                 expect(viewModel.moveQuestion).toBeFunction();
@@ -289,10 +305,19 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Move item');
             });
 
+            describe('when selected objective id is null or undefined', function() {
+
+                it('should show notify error', function() {
+                    viewModel.selectedObjectiveId(null);
+                    viewModel.moveQuestion();
+                    expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                });
+
+            });
+
             describe('when current objective id equal selected objective id', function() {
 
                 it('should hide popup', function() {
-                    var objectiveId = 'objectiveId';
                     viewModel.objectiveId = objectiveId;
                     viewModel.selectedObjectiveId(objectiveId);
                     viewModel.moveQuestion();
@@ -404,6 +429,16 @@
                 expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.selectedObjectiveId());
             });
 
+            describe('when selected objective id is null or undefined', function () {
+
+                it('should show notify error', function () {
+                    viewModel.selectedObjectiveId(null);
+                    viewModel.moveQuestion();
+                    expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                });
+
+            });
+
             describe('when question was copy', function() {
                 var newQuestionId;
 
@@ -412,7 +447,7 @@
                     copyQuestionDefer.resolve({ id: newQuestionId });
                 });
 
-                it('should hide popup', function(done) {
+                it('should hide popup', function (done) {
                     viewModel.copyQuestion();
 
                     copyQuestionDefer.promise.fin(function() {
