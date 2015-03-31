@@ -4,15 +4,16 @@
         emptyPlaceHolder: 'empty'
     },
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+        
         var
             $element = $(element),
             value = ko.unwrap(valueAccessor()) || {},
             options = value.options || {},
             optionsStartHandler = options.start,
-            optionsStopHandler = value.options.stop,
+            optionsStopHandler = options.stop,
             cssClasses = ko.bindingHandlers.sortableExtended.cssClasses,
             maxHeight = value.maxHeight;
-
+        
         if (_.isNumber(maxHeight) && maxHeight > 0) {
             options = {
                 start: function (e, ui) {
