@@ -48,7 +48,7 @@
             function getLearningContents(learningContents) {
                 var promises = [];
                 _.each(learningContents, function (learningContent) {
-                    promises.push($http.get(learningContent.contentUrl, {dataType: 'html'}).success(function (response) {
+                    promises.push($http.get(learningContent.contentUrl, { dataType: 'html' }).success(function (response) {
                         that.learningContents.push({
                             id: learningContent.id,
                             content: response
@@ -57,6 +57,13 @@
                 });
 
                 $q.all(promises).then(function () {
+                    that.learningContents = _.chain(learningContents).map(function (learningContent) {
+                        return _.find(that.learningContents, function (learnCont) {
+                            return learningContent.id == learnCont.id;
+                        });
+                    })
+                    .value();
+
                     $timeout(function () {
                         that.isLoaded = true;
                         that.hintStartTime = new Date();
