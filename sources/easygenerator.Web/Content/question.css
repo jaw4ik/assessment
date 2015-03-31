@@ -112,20 +112,32 @@
 }
 /*#endregion Advanced features dropdown*/
 /*#region Copy move dialog*/
+.question .modal-dialog-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: none;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.question .modal-dialog-container.shown {
+  display: flex;
+  display: -webkit-flex;
+}
 .question .modal-dialog-wrapper {
-  background-color: #fdfdfd;
   color: #546677;
 }
 .question .modal-dialog-wrapper.move-copy-question {
-  position: fixed;
+  position: relative;
   width: 620px;
-  top: 50%;
-  left: 50%;
-  padding: 30px 20px 20px;
+  padding: 25px 20px 20px;
   font: 13px 'OpenSans';
   line-height: 24px;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
 }
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-close-btn {
   width: 16px;
@@ -143,10 +155,12 @@
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-header-text {
   font-size: 22px;
   line-height: 22px;
+  color: #546677;
 }
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content {
   margin-top: 15px;
   padding: 0;
+  background-color: #fff;
 }
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-title {
   font: 400 15px/36px 'OpenSans-Semibold';
