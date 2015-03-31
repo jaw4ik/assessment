@@ -3,6 +3,7 @@
 
     var
         repository = require('repositories/learningContentRepository'),
+        questionRepository = require('repositories/questionRepository'),
         eventTracker = require('eventTracker'),
         notify = require('notify');
 
@@ -22,7 +23,7 @@
 
         describe('learningContents:', function () {
 
-            it('should be observable array', function() {
+            it('should be observable array', function () {
                 expect(viewModel.learningContents).toBeObservableArray();
             });
 
@@ -30,7 +31,7 @@
 
         describe('localizationManager:', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.localizationManager).toBeDefined();
             });
 
@@ -536,7 +537,7 @@
 
             describe('when question is current question', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     viewModel.questionId = question.id;
                 });
 
@@ -616,7 +617,7 @@
 
             describe('when question is current question', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     viewModel.questionId = question.id;
                 });
 
@@ -661,6 +662,281 @@
 
             });
 
+        });
+
+        describe('orderInProcess:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.orderInProcess).toBeDefined();
+            });
+
+        });
+
+        describe('changesFromCollaborator:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.changesFromCollaborator).toBeDefined();
+            });
+
+        });
+
+        describe('isSortingEnabled:', function () {
+
+            it('should be computed', function () {
+                expect(viewModel.isSortingEnabled).toBeComputed();
+            });
+
+            describe('when learning contents count is 0', function () {
+
+                it('should be falsy', function () {
+                    viewModel.learningContents([]);
+
+                    expect(viewModel.isSortingEnabled()).toBeFalsy();
+                });
+
+            });
+
+            describe('when learning contents count is 1', function () {
+
+                it('should be falsy', function () {
+                    viewModel.learningContents([{ id: 'id' }]);
+
+                    expect(viewModel.isSortingEnabled()).toBeFalsy();
+                });
+
+            });
+
+            describe('when learning contents count is more than 1', function () {
+
+                it('should be truthy', function () {
+                    viewModel.learningContents([
+                        { id: 'id' },
+                        { id: 'id2' }
+                    ]);
+
+                    expect(viewModel.isSortingEnabled()).toBeTruthy();
+                });
+
+            });
+
+        });
+
+        describe('startReordering:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.startReordering).toBeFunction();
+            });
+
+            it('should set orderInProcess', function () {
+                viewModel.orderInProcess = false;
+                viewModel.startReordering();
+
+                expect(viewModel.orderInProcess).toBeTruthy();
+            });
+
+        });
+
+        describe('stopReordering:', function () {
+
+            beforeEach(function () {
+                viewModel.learningContents([{ id: ko.observable('id1') }, { id: ko.observable('id2') }]);
+                viewModel.questionId = 'id';
+            });
+
+            it('should be function', function () {
+                expect(viewModel.stopReordering).toBeFunction();
+            });
+
+            it('should reset orderInProcess', function () {
+                viewModel.orderInProcess = true;
+                viewModel.stopReordering();
+                expect(viewModel.orderInProcess).toBeFalsy();
+            });
+
+            it('should reset changesFromCollaborator', function () {
+                viewModel.orderInProcess = true;
+                viewModel.changesFromCollaborator = {
+                    question: { id: 'id' }, learningContentsIds: ['id1', 'id2']
+                };
+                viewModel.stopReordering();
+                expect(viewModel.changesFromCollaborator).toBeNull();
+            });
+
+            describe('when learning contents have not been reordered by collaborator', function () {
+
+                it('should not reorder learning contents', function () {
+                    var learningContentsIds = viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id();
+                    viewModel.changesFromCollaborator = null;
+                    viewModel.stopReordering();
+                    expect(viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id()).toBe(learningContentsIds);
+                });
+
+            });
+
+            describe('when learning contents have been reordered by collaborator', function () {
+
+                describe('and question Id is equals to current question Id', function () {
+
+                    it('should reorder learning contents', function () {
+                        var learningContentsIds = viewModel.learningContents()[1].id() + viewModel.learningContents()[0].id();
+                        viewModel.changesFromCollaborator = {
+                            question: { id: 'id' }, learningContentsIds: ['id2', 'id1']
+                        }
+                        viewModel.stopReordering();
+                        expect(viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id()).toBe(learningContentsIds);
+                    });
+                });
+
+                describe('and question Id is not equals to current question Id', function () {
+
+                    it('should not reorder learning contents', function () {
+                        var learningContentsIds = viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id();
+                        viewModel.changesFromCollaborator = {
+                            question: { id: 'anotherid' }, learningContentsIds: ['id2', 'id1']
+                        }
+                        viewModel.stopReordering();
+                        expect(viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id()).toBe(learningContentsIds);
+                    });
+                });
+
+            });
+
+        });
+
+        describe('updateOrder:', function () {
+
+            beforeEach(function () {
+                var def = Q.defer();
+                def.resolve();
+                spyOn(questionRepository, 'updateLearningContentsOrder').and.returnValue(def.promise);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.updateOrder).toBeFunction();
+            });
+
+            it('should reset changesFromCollaborator', function () {
+                viewModel.changesFromCollaborator = {
+                    question: { id: 'id' }, learningContentsIds: ['id2', 'id1']
+                }
+                viewModel.updateOrder();
+                expect(viewModel.changesFromCollaborator).toBeNull();
+            });
+
+            it('should send event to mixPanel', function () {
+                viewModel.updateOrder();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change order of Learning Contents');
+            });
+
+            it('should update learning contents order', function () {
+                viewModel.updateOrder();
+                expect(questionRepository.updateLearningContentsOrder).toHaveBeenCalled();
+            });
+
+        });
+
+        describe('learningContentsReorderedByCollaborator:', function () {
+            beforeEach(function () {
+                var learningContents = [
+                            { id: ko.observable('id1') },
+                            { id: ko.observable('id2') },
+                            { id: ko.observable('id3') },
+                            { id: ko.observable('id4') }
+                ];
+                viewModel.learningContents(learningContents);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.learningContentsReorderedByCollaborator).toBeFunction();
+            });
+
+            describe('when question id corresponds current question', function () {
+
+                var newLearningContentsIds = ['id4', 'id3', 'id2', 'id1'];
+
+                beforeEach(function () {
+                    viewModel.questionId = 'qid';
+                });
+
+                describe('and orderInProcess is false', function () {
+
+                    beforeEach(function () {
+                        viewModel.orderInProcess = false;
+                    });
+
+                    it('should update order of learning contents', function () {
+                        var currentLc = viewModel.learningContents();
+                        var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
+                        
+                        viewModel.learningContentsReorderedByCollaborator({id: viewModel.questionId }, newLearningContentsIds);
+
+                        var resultOrder = viewModel.learningContents();
+                        expect(resultOrder[3].id() + resultOrder[2].id() + resultOrder[1].id() + resultOrder[0].id()).toBe(currentOrder);
+                    });
+                });
+
+                describe('and orderInProcess is true', function () {
+                    beforeEach(function () {
+                        viewModel.orderInProcess = true;
+                    });
+
+                    it('should set changesFromCollaborator', function () {
+                        viewModel.changesFromCollaborator = null;
+                        var currentLc = viewModel.learningContents();
+                        var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
+                        
+                        viewModel.learningContentsReorderedByCollaborator({ id: viewModel.questionId }, newLearningContentsIds);
+
+                        var resultOrder = viewModel.changesFromCollaborator.learningContentsIds;
+
+                        expect(resultOrder[3] + resultOrder[2] + resultOrder[1] + resultOrder[0]).toBe(currentOrder);
+                    });
+
+                    it('should not update order of learning contents', function () {
+                        var currentLc = viewModel.learningContents();
+                        var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
+                        
+                        viewModel.learningContentsReorderedByCollaborator({ id: viewModel.questionId }, newLearningContentsIds);
+
+                        var resultOrder = viewModel.learningContents();
+                        expect(resultOrder[0].id() + resultOrder[1].id() + resultOrder[2].id() + resultOrder[3].id()).toBe(currentOrder);
+                    });
+                });
+            });
+
+            describe('when question id doesn\'t correspond current question', function () {
+
+                var collaboratorslearningContents = [
+                            'id4',
+                            'id3',
+                            'id2',
+                            'id1'
+                ];
+
+                beforeEach(function () {
+                    viewModel.questionId = 'someId';
+                });
+
+                it('should not update order of learning contents', function () {
+                    var question = { id: 'id' };
+                    var currentLc = viewModel.learningContents();
+                    var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
+
+                    viewModel.learningContentsReorderedByCollaborator(question, collaboratorslearningContents);
+
+                    var resultOrder = viewModel.learningContents();
+                    expect(resultOrder[0].id() + resultOrder[1].id() + resultOrder[2].id() + resultOrder[3].id()).toBe(currentOrder);
+                });
+
+                it('should not set changes from collaborator', function () {
+                    var question = { id: 'id' };
+                    viewModel.changesFromCollaborator = null;
+                    viewModel.learningContentsReorderedByCollaborator(question, collaboratorslearningContents);
+
+                    expect(viewModel.changesFromCollaborator).toBeNull();
+                });
+
+            });
         });
 
     });
