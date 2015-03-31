@@ -220,7 +220,10 @@
   background-color: #fff;
 }
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer {
-  margin-top: 40px;
+  margin: 20px -20px -20px;
+  padding: 20px;
+  border-radius: 0 0 5px 5px;
+  background: #fdfdfd;
 }
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer:after {
   content: '';
@@ -276,7 +279,7 @@
 }
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer .buttons-container .accessory-button {
   border: none;
-  background-color: #fff;
+  background-color: transparent;
   color: #64798d;
   font-family: 'OpenSans';
   font-size: 13px;
