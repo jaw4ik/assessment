@@ -219,6 +219,9 @@
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .destination-objectives-list .destination-objectives-list-item.empty:hover {
   background-color: #fff;
 }
+.question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .destination-objectives-list .destination-objectives-list-item .destination-objectives-list-item-text {
+  text-transform: lowercase;
+}
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer {
   margin: 20px -20px -20px;
   padding: 20px;

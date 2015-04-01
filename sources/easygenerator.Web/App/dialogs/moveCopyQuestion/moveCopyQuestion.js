@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'eventTracker', 'dataContext', 'repositories/questionRepository', 'localization/localizationManager', 'uiLocker', 'notify'],
-    function (router, eventTracker, dataContext, questionRepository, localizationManager, uiLocker, notify) {
+﻿define(['plugins/router', 'eventTracker', 'dataContext', 'repositories/questionRepository', 'localization/localizationManager', 'notify'],
+    function (router, eventTracker, dataContext, questionRepository, localizationManager, notify) {
     'use strict';
 
     var events = {
@@ -53,19 +53,12 @@
     }
 
     function selectCourse(course) {
-        var selectedItem = null;
-        if (!_.isNullOrUndefined(course.id)) {
-            viewModel.allObjectives().isSelected(false);
-            selectedItem = course;
-        } else {
-            viewModel.allObjectives().isSelected(true);
-            selectedItem = viewModel.allObjectives();
-        }
-        viewModel.selectedCourse(selectedItem);
-        if (selectedItem.objectvesListEmpty) {
+        viewModel.selectedCourse(course);
+
+        if (course.objectvesListEmpty) {
             viewModel.selectedObjectiveId(null);
         } else {
-            viewModel.selectedObjectiveId(selectedItem.objectives[0].id);
+            viewModel.selectedObjectiveId(course.objectives[0].id);
         }
     }
 
@@ -80,10 +73,8 @@
         }
         if (viewModel.objectiveId !== viewModel.selectedObjectiveId()) {
             eventTracker.publish(events.moveItem);
-            uiLocker.lock();
             questionRepository.moveQuestion(viewModel.questionId, viewModel.objectiveId, viewModel.selectedObjectiveId()).then(function () {
                 viewModel.hide();
-                uiLocker.unlock();
                 if (!_.isNullOrUndefined(viewModel.courseId)) {
                     router.navigate('objective/' + viewModel.objectiveId + '?courseId=' + viewModel.courseId);
                 } else {
@@ -121,13 +112,11 @@
         viewModel.allObjectives({
             title: localizationManager.localize('allObjectives'),
             objectives: dataContext.objectives,
-            isSelected: ko.observable(false),
             objectvesListEmpty: dataContext.objectives.length === 0
         });
 
         if (_.isNullOrUndefined(viewModel.courseId)) {
             viewModel.selectedCourse(viewModel.allObjectives());
-            viewModel.allObjectives().isSelected(true);
         } else {
             viewModel.selectedCourse(_.find(viewModel.courses(), function (course) {
                 return course.id == viewModel.courseId;

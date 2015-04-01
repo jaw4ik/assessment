@@ -346,6 +346,11 @@
         'zh-cn': 'To objective:[zh-cn]',
         'uk': 'В розділ / ціль:'
     },
+    current: {
+        'en': 'Current',
+        'zh-cn': 'Current[zh-cn]',
+        'uk': 'Поточний'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */

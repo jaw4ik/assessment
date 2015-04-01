@@ -114,7 +114,6 @@
                 viewModel.show();
                 expect(viewModel.allObjectives().title).toBe(allObjectivesTitle);
                 expect(viewModel.allObjectives().objectives).toBe(dataContext.objectives);
-                expect(viewModel.allObjectives().isSelected).toBeObservable();
             });
 
             describe('when courseId is defined', function() {
@@ -143,7 +142,6 @@
                     viewModel.show(null, ids.objectiveId, ids.questionId);
                     expect(viewModel.selectedCourse().title).toBe(allObjectivesTitle);
                     expect(viewModel.selectedCourse().objectives).toBe(dataContext.objectives);
-                    expect(viewModel.selectedCourse().isSelected()).toBeTruthy();
                 });
 
             });
@@ -206,42 +204,28 @@
                 expect(viewModel.selectCourse).toBeFunction();
             });
 
-            describe('when argument is not course', function() {
-                
-                it('should set allObjectives.isSelected to true', function () {
-                    viewModel.allObjectives().isSelected(false);
-                    viewModel.selectCourse({});
-                    expect(viewModel.allObjectives().isSelected()).toBeTruthy();
-                });
-
-                it('should set selecteCourse to allObjectives', function() {
-                    viewModel.selectCourse({});
-                    expect(viewModel.selectedCourse()).toBe(viewModel.allObjectives());
-                });
-
-            });
-
-            describe('when argument is course', function () {
-
-                it('should set allObjectives.isSelected to fasle', function () {
-                    viewModel.allObjectives().isSelected(true);
-                    viewModel.selectCourse({id: 'This is id!', objectives: [], objectvesListEmpty: true});
-                    expect(viewModel.allObjectives().isSelected()).toBeFalsy();
-                });
-
-                it('should set selectedCourse', function() {
-                    viewModel.selectedCourse(null);
-                    viewModel.selectCourse({ id: 'This is id!', objectives: [], objectvesListEmpty: true });
-                    expect(viewModel.selectedCourse().id).toBe('This is id!');
-                });
-
+            it('should select course', function () {
+                viewModel.selectedCourse(null);
+                viewModel.selectCourse({ id: 'This is id!', objectives: [], objectvesListEmpty: true });
+                expect(viewModel.selectedCourse().id).toBe('This is id!');
             });
 
             describe('when selected course has objectives', function() {
 
-                it('should select first objective id', function() {
-                    viewModel.selectCourse({id: 'This is id!', objectives: [{id: 1}, {id: 2}], objectvesListEmpty: false});
+                it('should set selected objective id', function() {
+                    viewModel.selectedObjectiveId(null);
+                    viewModel.selectCourse({ id: 'This is id!', objectives: [{id: 1}], objectvesListEmpty: false });
                     expect(viewModel.selectedObjectiveId()).toBe(1);
+                });
+
+            });
+
+            describe('when selected course has objectives', function () {
+
+                it('should set selected objective id to null', function () {
+                    viewModel.selectedObjectiveId(1);
+                    viewModel.selectCourse({ id: 'This is id!', objectives: [], objectvesListEmpty: true });
+                    expect(viewModel.selectedObjectiveId()).toBe(null);
                 });
 
             });
