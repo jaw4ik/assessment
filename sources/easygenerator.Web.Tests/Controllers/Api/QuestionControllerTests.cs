@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Collections.ObjectModel;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -23,6 +24,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
     public class QuestionControllerTests
     {
         private const string CreatedBy = "easygenerator@easygenerator.com";
+        private const string ModifiedBy = "easygenerator2@easygenerator.com";
 
         private QuestionController _controller;
         private ICloner _cloner;
@@ -266,6 +268,52 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.UpdateIncorrectFeedback(question, String.Empty);
 
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
+        }
+
+        #endregion
+
+        #region UpdateLearningContentsOrder
+
+        [TestMethod]
+        public void UpdateLearningContentsOrder_ShouldReturnHttpNotFoundResult_WhenQuestionIsNull()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.UpdateLearningContentsOrder(null, new Collection<LearningContent>());
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.QuestionNotFoundError);
+        }
+
+        [TestMethod]
+        public void UpdateLearningContentsOrder_ShouldCallUpdateLearningContentsForQuestion()
+        {
+            //Arrange
+            var question = Substitute.For<Question>();
+            var learningContents = new Collection<LearningContent>();
+            _user.Identity.Name.Returns(ModifiedBy);
+
+            //Act
+            _controller.UpdateLearningContentsOrder(question, learningContents);
+
+            //Assert
+            question.Received().UpdateLearningContentsOrder(learningContents, ModifiedBy);
+        }
+
+        [TestMethod]
+        public void UpdateLearningContentsOrder_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var question = Substitute.For<Question>();
+            var learningContents = new Collection<LearningContent>();
+            _user.Identity.Name.Returns(ModifiedBy);
+
+            //Act
+            var result = _controller.UpdateLearningContentsOrder(question, learningContents);
+
+            //Assert
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
         }
 

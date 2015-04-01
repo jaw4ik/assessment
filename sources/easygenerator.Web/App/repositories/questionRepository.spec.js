@@ -1013,6 +1013,189 @@
 
             });
 
+            describe('updateLearningContentsOrder:', function () {
+
+                it('should be function', function () {
+                    expect(questionRepository.updateLearningContentsOrder).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(questionRepository.updateLearningContentsOrder()).toBePromise();
+                });
+
+                describe('when question id is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateLearningContentsOrder(undefined, []);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id (string) was expected');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when question id is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateLearningContentsOrder(null, []);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id (string) was expected');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when question id is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateLearningContentsOrder({}, []);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id (string) was expected');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when learning contents is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateLearningContentsOrder('id', undefined);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('learningContents is not array');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when learning contents is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateLearningContentsOrder('id', null);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('learningContents is not array');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when learning contents is not an array', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateLearningContentsOrder('id', {});
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('learningContents is not array');
+                            done();
+                        });
+                    });
+
+                });
+
+                it('should send request to \'api/question/updateLearningContentsOrder\'', function (done) {
+                    var question = 'id',
+                        learningContent = 'loid';
+
+                    var promise = questionRepository.updateLearningContentsOrder(question, [{ id: learningContent }]);
+
+                    promise.fin(function () {
+                        expect(httpWrapper.post).toHaveBeenCalledWith('api/question/updateLearningContentsOrder', { questionId: question, learningContents: [learningContent] });
+                        done();
+                    });
+
+                    post.reject('lomai menya polnostju');
+                });
+
+                describe('when learning contents order successfully updated on server', function () {
+
+                    describe('and response is not an object', function () {
+
+                        it('should reject promise', function (done) {
+                            var question = 'id',
+                                learningContent = 'loid';
+
+                            var promise = questionRepository.updateLearningContentsOrder(question, [{ id: learningContent }]);
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith('Response is not an object');
+                                done();
+                            });
+
+                            post.resolve('lomai menya polnostju');
+                        });
+
+                    });
+
+                    describe('and response has no modification date', function () {
+
+                        it('should reject promise', function (done) {
+                            var question = 'id',
+                                learningContent = 'loid';
+
+                            var promise = questionRepository.updateLearningContentsOrder(question, [{ id: learningContent }]);
+
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith('Response does not have modification date');
+                                done();
+                            });
+
+                            post.resolve({});
+                        });
+
+                    });
+
+                    describe('and question not found in dataContext', function () {
+
+                        it('should reject promise', function (done) {
+                            var question = 'id',
+                                learningContent = 'loid',
+                                modifiedOn = new Date();
+
+                            dataContext.objectives = [];
+
+                            var promise = questionRepository.updateLearningContentsOrder(question, [{ id: learningContent }]);
+
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith('Question does not exist in dataContext');
+                                done();
+                            });
+
+                            post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                        });
+
+                    });
+
+                    it('should resolve promise with modification date', function (done) {
+                        var objective = 'Oid',
+                            question = 'id',
+                            learningContent = 'loid',
+                            learningContent2 = 'loid2',
+                            modifiedOn = new Date();
+
+                        dataContext.objectives = [{ id: objective, questions: [{ id: question }] }];
+
+                        var promise = questionRepository.updateLearningContentsOrder(question, [{ id: learningContent }, {id: learningContent2}]);
+
+                        promise.fin(function () {
+                            expect(promise).toBeResolvedWith(modifiedOn);
+                            done();
+                        });
+
+                        post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                    });
+
+                });
+
+            });
+
             describe('getById:', function () {
                 var getObjectiveDeferred;
                 beforeEach(function () {

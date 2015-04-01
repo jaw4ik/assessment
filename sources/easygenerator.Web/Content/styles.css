@@ -2333,6 +2333,9 @@ h2 + .tooltip-icon {
     text-align: left;
     width: 40px;
   }
+  [lang~=zh] .course-action-item {
+    width: 85px;
+  }
   [lang~=uk] .course-action-item .course-action-item-text {
     padding-left: 0;
   }
@@ -2394,3 +2397,4 @@ h2 + .tooltip-icon {
     padding-left: 140px;
   }
 }
+/*#endregion MEDIA*/

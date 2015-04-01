@@ -39,7 +39,7 @@
             inPageSettings.extraAllowedContent = 'span[*]; input[*]; select[*]; option[*]';
             inPageSettings.floatSpaceDockedOffsetY = 45;
         } else {
-            inPageSettings.removePlugins = 'fillInTheBlank';
+            inPageSettings.removePlugins = 'fillintheblank';
         }
 
         $(element).addClass('styled-content');
