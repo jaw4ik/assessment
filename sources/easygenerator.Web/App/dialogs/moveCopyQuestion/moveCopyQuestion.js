@@ -93,8 +93,8 @@
         eventTracker.publish(events.copyItem);
         questionRepository.copyQuestion(viewModel.questionId, viewModel.selectedObjectiveId()).then(function (response) {
             viewModel.hide();
-            if (!_.isNullOrUndefined(viewModel.courseId)) {
-                router.navigate('objective/' + viewModel.selectedObjectiveId() + '/question/' + response.id + '?courseId=' + viewModel.courseId);
+            if (!_.isNullOrUndefined(viewModel.selectedCourse().id)) {
+                router.navigate('objective/' + viewModel.selectedObjectiveId() + '/question/' + response.id + '?courseId=' + viewModel.selectedCourse().id);
             } else {
                 router.navigate('objective/' + viewModel.selectedObjectiveId() + '/question/' + response.id);
             }
@@ -145,6 +145,12 @@
             var course = _.find(dataContext.courses, function(item) {
                 return item.id === viewModel.selectedCourse().id;
             });
+
+            if (_.isNullOrUndefined(course)) {
+                notify.error(localizationManager.localize('courseIsNotAvailableAnyMore'));
+                return false;
+            }
+
             objective = _.find(course.objectives, function(item) {
                 return item.id === viewModel.selectedObjectiveId();
             });

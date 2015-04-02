@@ -75,13 +75,17 @@
             expect(dataContext.courses[0].objectives.length).toBe(0);
         });
 
-        it('should unrelate objectives from all objectives', function() {
-            dataContext.objectives = [objective];
-            userContext.identity = { email: 'anotheruser' };
+        describe('when objectives unrelated from collaborator', function() {
+            
+            it('should unrelate objectives from dataContext.objectives', function () {
+                dataContext.objectives = [objective];
+                userContext.identity = { email: 'anotheruser' };
 
-            handler(courseId, [objectiveId], modifiedOn.toISOString());
+                handler(courseId, [objectiveId], modifiedOn.toISOString());
 
-            expect(dataContext.objectives.length).toBe(0);
+                expect(dataContext.objectives.length).toBe(0);
+            });
+
         });
 
         it('should update course modified on date', function () {

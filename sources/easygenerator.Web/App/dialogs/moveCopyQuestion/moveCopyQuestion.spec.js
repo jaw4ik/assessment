@@ -495,6 +495,32 @@
 
                 describe('when objective is selected', function () {
 
+                    describe('and when course not found in dataContext', function() {
+                        
+                        beforeEach(function () {
+                            dataContext.courses = [];
+                            var course = {
+                                id: 1,
+                                objectives: [
+                                    {
+                                        id: 1
+                                    }, {
+                                        id: 2
+                                    }
+                                ]
+                            };
+                            viewModel.selectedCourse(course);
+                            viewModel.selectedObjectiveId(3);
+                        });
+
+                        it('should show notify error', function () {
+                            viewModel.copyQuestion();
+                            expect(localizationManager.localize).toHaveBeenCalledWith('courseIsNotAvailableAnyMore');
+                            expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                        });
+
+                    });
+
                     describe('and when objective is not found in course', function () {
 
                         beforeEach(function () {
@@ -596,7 +622,7 @@
                     describe('when course is undefined', function () {
 
                         beforeEach(function () {
-                            viewModel.courseId = null;
+                            viewModel.selectedCourse(allobjs);
                         });
 
                         it('should navigate to new question', function (done) {
