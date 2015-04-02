@@ -37,7 +37,10 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
                     app.setRoot('viewmodels/shell', null, document.getElementById('app'));
                 });
 
-        }).done();
+        }).catch(function (reason) {
+            alert(reason);
+        })
+        .done();
 
     }
 );
