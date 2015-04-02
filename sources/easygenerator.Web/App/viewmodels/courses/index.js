@@ -7,7 +7,7 @@
        }).map([
            { route: '', moduleId: 'viewmodels/courses/courses', title: 'Hello World', type: 'intro', nav: true, hash: '#courses' },
            { route: ':courseId*details', moduleId: 'viewmodels/courses/course/index', title: 'Hello World', type: 'intro', nav: true, hash: '#courses/:courseId' }
-       ]).buildNavigationModel();
+       ]).mapUnknownRoutes('viewmodels/errors/404', '404').buildNavigationModel();
 
 
     var subscriptions = [];

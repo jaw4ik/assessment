@@ -17,7 +17,7 @@
           { route: 'results', moduleId: 'viewmodels/courses/course/results', title: 'Results', nav: 4, hash: '#courses/:courseId/results' },
 
           { route: ['', '*details'], moduleId: 'viewmodels/courses/course/create/index', title: 'Create', nav: 1, hash: '#courses/:courseId' }
-      ]).buildNavigationModel();
+      ]).mapUnknownRoutes('viewmodels/errors/404', '404').buildNavigationModel();
 
 
     childRouter.isViewReady = ko.observable();

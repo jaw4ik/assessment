@@ -9,7 +9,7 @@
           { route: '', moduleId: 'viewmodels/courses/course/create/course', settings: { localizationKey: 'objectiveProperties' } },
           { route: 'objectives/:objectiveId', moduleId: 'viewmodels/objectives/objective', title: 'Learning Objective', settings: { localizationKey: 'objectiveProperties' } },
           { route: 'objectives/:objectiveId/questions/:questionId', moduleId: 'viewmodels/questions/question', title: 'Question', settings: { localizationKey: 'questionProperties' } }
-      ]).buildNavigationModel();
+      ]).mapUnknownRoutes('viewmodels/errors/404', '404').buildNavigationModel();
 
 
     childRouter.isViewReady = ko.observable();

@@ -16,7 +16,7 @@
         function getQuestions(objectiveId, courseId) {
             return getObjectiveByIdQuery.execute(objectiveId).then(function (objective) {
                 return _.map(objective.questions, function (question) {
-                    return new QuestionTreeNode(question.id, question.title, '#courses/' + courseId + '/objectives/' + objectiveId + '/question/' + question.id);
+                    return new QuestionTreeNode(question.id, question.title, '#courses/' + courseId + '/objectives/' + objectiveId + '/questions/' + question.id);
                 });
             });
         }

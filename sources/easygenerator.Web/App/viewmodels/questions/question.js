@@ -69,6 +69,7 @@ define(['durandal/app', 'eventTracker', 'constants',
             } else {
                 throw 'Invalid arguments';
             }
+            viewmodel.courseId = courseId;
             viewmodel.objectiveId = objectiveId;
             viewmodel.questionId = questionId;
             return objectiveRepository.getById(objectiveId).then(function (objective) {                

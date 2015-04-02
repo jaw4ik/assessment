@@ -278,9 +278,9 @@
 
         function getEditQuestionLink(questionId) {
             if (viewModel.contextCourseId) {
-                return '#courses/' + viewModel.contextCourseId + '/objectives/' + viewModel.objectiveId + '/question/' + questionId;
+                return '#courses/' + viewModel.contextCourseId + '/objectives/' + viewModel.objectiveId + '/questions/' + questionId;
             } else {
-                return '#objectives/' + viewModel.objectiveId + '/question/' + questionId;
+                return '#objectives/' + viewModel.objectiveId + '/questions/' + questionId;
             }
 
         }
