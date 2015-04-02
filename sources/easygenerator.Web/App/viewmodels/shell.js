@@ -75,7 +75,6 @@
             return dataContext.initialize()
                 .then(function () {
                     router.guardRoute = function (routeInfo, params) {
-
                         if (isFirstVisitPage && routeInfo.__moduleId__ == "viewmodels/errors/404") {
                             return 'courses';
                         }
@@ -188,7 +187,9 @@
                         }
                     });
 
-                    return router.buildNavigationModel().activate(viewModel.homeModuleName);
+                    return router.buildNavigationModel()
+                        .mapUnknownRoutes('viewmodels/errors/404', '404')
+                        .activate(viewModel.homeModuleName);
                 });
         }
 
