@@ -21,9 +21,6 @@
   z-index: 1;
   width: 100%;
 }
-.shell .back-button {
-  position: relative;
-}
 .course > header {
   background: #fff;
   -webkit-flex: 0 0 auto;

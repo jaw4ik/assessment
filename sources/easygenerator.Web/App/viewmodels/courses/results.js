@@ -1,9 +1,9 @@
 ﻿define(['repositories/courseRepository', 'plugins/router', 'constants', 'repositories/courseRepository', 'viewmodels/courses/publishingActions/build',
         'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
-        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'models/backButton',
+        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker',
         'reporting/xApiProvider', 'plugins/dialog'],
     function (repository, router, constants, courseRepository, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker, BackButton, xApiProvider, dialog) {
+        clientContext, localizationManager, eventTracker, xApiProvider, dialog) {
         "use strict";
         "use strict";
 
@@ -27,12 +27,6 @@
 
             activate: activate,
             attached: attached,
-
-            backButtonData: new BackButton({
-                url: 'courses',
-                backViewName: localizationManager.localize('courses'),
-                callback: navigateToCoursesEvent
-            }),
 
             isLoading: ko.observable(true),
             results: ko.observableArray([]),
@@ -193,7 +187,7 @@
             });
 
             var contentType = 'text/csv';
-            
+
             return new Blob([window.top.BOMSymbol || '\ufeff', csvList.join('\r\n')], { encoding: 'UTF-8', type: contentType });
         }
     }

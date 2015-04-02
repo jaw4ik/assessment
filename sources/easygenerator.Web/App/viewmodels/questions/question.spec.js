@@ -10,7 +10,6 @@ define(function (require) {
         objectiveRepository = require('repositories/objectiveRepository'),
         http = require('plugins/http'),
         localizationManager = require('localization/localizationManager'),
-        BackButton = require('models/backButton'),
         vmQuestionTitle = require('viewmodels/questions/questionTitle'),
         vmContentField = require('viewmodels/common/contentField'),
         multipleSelect = require('viewmodels/questions/multipleSelect/multipleSelect');
@@ -133,14 +132,6 @@ define(function (require) {
 
         });
 
-        describe('backButtonData:', function () {
-
-            it('should be instance of BackButton', function () {
-                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
-            });
-
-        });
-
         describe('activate:', function () {
 
             var getQuestionByIdDeferred;
@@ -196,51 +187,6 @@ define(function (require) {
 
                 beforeEach(function () {
                     getObjectiveByIdDeferred.resolve(objectiveFull);
-                });
-
-                var queryString;
-                describe('when queryString in null', function () {
-
-                    beforeEach(function () {
-                        queryString = null;
-                    });
-
-                    it('should configure back button that it always visible', function (done) {
-                        spyOn(viewModel.backButtonData, 'configure');
-                        spyOn(localizationManager, 'localize').and.returnValue('text');
-                        getObjectiveByIdDeferred.resolve(objectiveFull);
-                        getQuestionByIdDeferred.resolve(question);
-
-                        var promise = viewModel.activate(objective.id, question.id, queryString);
-
-                        promise.fin(function () {
-                            expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + objectiveFull.title + '\'', url: 'objective/' + objectiveFull.id, callback: viewModel.navigateToObjectiveEvent, alwaysVisible: true });
-                            done();
-                        });
-                    });
-
-                });
-
-                describe('when queryString contains courseId', function () {
-
-                    beforeEach(function () {
-                        queryString = {
-                            courseId: 'courseId'
-                        };
-                    });
-
-                    it('should configure back button that it not always visible', function (done) {
-                        spyOn(viewModel.backButtonData, 'configure');
-                        spyOn(localizationManager, 'localize').and.returnValue('text');
-                        getObjectiveByIdDeferred.resolve(objectiveFull);
-                        getQuestionByIdDeferred.resolve(question);
-
-                        viewModel.activate(objective.id, question.id, queryString).fin(function () {
-                            expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + objectiveFull.title + '\'', url: 'objective/' + objectiveFull.id, callback: viewModel.navigateToObjectiveEvent, alwaysVisible: false });
-                            done();
-                        });
-                    });
-
                 });
 
                 describe('when question not found', function () {

@@ -8,11 +8,9 @@
             repository = require('repositories/objectiveRepository'),
             courseRepository = require('repositories/courseRepository'),
             questionRepository = require('repositories/questionRepository'),
-            localizationManager = require('localization/localizationManager'),
             notify = require('notify'),
             constants = require('constants'),
             clientContext = require('clientContext'),
-            BackButton = require('models/backButton'),
             imageUpload = require('imageUpload'),
             userContext = require('userContext')
         ;
@@ -81,7 +79,7 @@
                 });
 
                 it('should set client context with current objective id', function (done) {
-                    
+
                     deferred.resolve();
                     var promise = viewModel.activate(objective.id, null);
 
@@ -147,19 +145,6 @@
 
                         promise.fin(function () {
                             expect(viewModel.contextCourseTitle).toBeNull();
-                            done();
-                        });
-                    });
-
-                    it('should configure back button', function (done) {
-                        spyOn(viewModel.backButtonData, 'configure');
-                        spyOn(localizationManager, 'localize').and.returnValue('text');
-                        deferred.resolve(null);
-
-                        var promise = viewModel.activate(objective.id, null);
-
-                        promise.fin(function () {
-                            expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: 'text', url: 'objectives', callback: viewModel.navigateToObjectivesEvent, alwaysVisible: true });
                             done();
                         });
                     });
@@ -269,18 +254,6 @@
 
                             promise.fin(function () {
                                 expect(viewModel.contextCourseTitle).toBeNull();
-                                done();
-                            });
-                        });
-
-                        it('should configure back button', function (done) {
-                            deferred.resolve(null);
-                            spyOn(viewModel.backButtonData, 'configure');
-                            spyOn(localizationManager, 'localize').and.returnValue('text');
-
-                            var promise = viewModel.activate(objective.id, queryParams);
-                            promise.fin(function () {
-                                expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: 'text', url: 'objectives', callback: viewModel.navigateToObjectivesEvent, alwaysVisible: true });
                                 done();
                             });
                         });
@@ -428,17 +401,6 @@
 
                                     promise.fin(function () {
                                         expect(viewModel.contextCourseTitle).toBe(course.title);
-                                        done();
-                                    });
-                                });
-
-                                it('should configure back button', function (done) {
-                                    spyOn(viewModel.backButtonData, 'configure');
-                                    spyOn(localizationManager, 'localize').and.returnValue('text');
-
-                                    var promise = viewModel.activate('id', queryParams);
-                                    promise.fin(function () {
-                                        expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + course.title + '\'', url: 'course/' + course.id, callback: viewModel.navigateToCourseEvent, alwaysVisible: false });
                                         done();
                                     });
                                 });
@@ -1335,14 +1297,6 @@
                         });
                     });
                 });
-            });
-
-            describe('backButtonData:', function () {
-
-                it('should be instance of BackButton', function () {
-                    expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
-                });
-
             });
 
             describe('objectiveTitleUpdated:', function () {

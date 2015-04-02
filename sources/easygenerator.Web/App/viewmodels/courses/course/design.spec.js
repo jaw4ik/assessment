@@ -10,7 +10,6 @@
         localizationManager = require('localization/localizationManager'),
         clientContext = require('clientContext'),
         constants = require('constants'),
-        BackButton = require('models/backButton'),
         waiter = require('utils/waiter')
     ;
 
@@ -702,20 +701,6 @@
 
             it('should be defined', function () {
                 expect(viewModel.templates).toBeDefined();
-            });
-
-        });
-
-        describe('backButtonData:', function () {
-
-            it('should be instance of BackButton', function () {
-                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
-            });
-
-            it('should be configured', function () {
-                expect(viewModel.backButtonData.url).toBe('courses');
-                expect(viewModel.backButtonData.backViewName).toBe(localizationManager.localize('courses'));
-                expect(viewModel.backButtonData.callback).toBe(viewModel.navigateToCoursesEvent);
             });
 
         });

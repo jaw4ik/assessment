@@ -20,10 +20,11 @@
         }
     });
     childRouter.on('router:navigation:composition-complete').then(function (instance, instruction, router) {
-        setTimeout(function () {
-            console.log('COURSES COMPOSITION COMPLETE ' + instance.__moduleId__);
-            router.isViewReady(instance.__moduleId__);
-        }, 250);
+        if (instance) {
+            setTimeout(function () {
+                router.isViewReady(instance.__moduleId__);
+            }, 250);
+        }
     });
 
 

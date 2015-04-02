@@ -1,12 +1,12 @@
 ﻿
 define(['durandal/app', 'eventTracker', 'constants',
         'repositories/questionRepository', 'repositories/objectiveRepository',
-        'models/backButton', 'plugins/router',
+        'plugins/router',
         'viewmodels/questions/questionTitle',
         'viewmodels/common/contentField',
         'viewmodels/questions/questionViewModelFactory',
         'localization/localizationManager'],
-    function (app, eventTracker, constants, questionRepository, objectiveRepository, BackButton, router, vmQuestionTitle, vmContentField,
+    function (app, eventTracker, constants, questionRepository, objectiveRepository, router, vmQuestionTitle, vmContentField,
         questionViewModelFactory, localizationManager) {
         "use strict";
 
@@ -33,7 +33,6 @@ define(['durandal/app', 'eventTracker', 'constants',
 
             eventTracker: eventTracker,
             localizationManager: localizationManager,
-            backButtonData: new BackButton({}),
 
             navigateToObjectiveEvent: navigateToObjectiveEvent,
 
@@ -72,13 +71,7 @@ define(['durandal/app', 'eventTracker', 'constants',
             }
             viewmodel.objectiveId = objectiveId;
             viewmodel.questionId = questionId;
-            return objectiveRepository.getById(objectiveId).then(function (objective) {
-                viewmodel.backButtonData.configure({
-                    url: 'objectives/' + objective.id,
-                    backViewName: '\'' + objective.title + '\'',
-                    callback: navigateToObjectiveEvent,
-                    alwaysVisible: !_.isString(courseId)
-                });
+            return objectiveRepository.getById(objectiveId).then(function (objective) {                
                 return questionRepository.getById(viewmodel.objectiveId, viewmodel.questionId).then(function (question) {
                     viewmodel.activeQuestionViewModel = setActiveViewModel(question);
                     viewmodel.questionType = question.type;

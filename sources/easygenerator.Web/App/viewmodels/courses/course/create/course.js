@@ -1,7 +1,7 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
-        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'models/backButton',
+        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext',
         'userContext', 'durandal/app', './../../collaboration/collaborators', 'imageUpload', 'commands/createObjectiveCommand'],
-    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, BackButton,
+    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext,
         userContext, app, collaborators, imageUpload, createObjectiveCommand) {
         "use strict";
 
@@ -49,13 +49,7 @@
             courseTitleMaxLength: constants.validation.courseTitleMaxLength,
             isObjectivesListReorderedByCollaborator: ko.observable(false),
             collaborationWarning: ko.observable(''),
-            isLastCreatedCourse: false,
-
-            backButtonData: new BackButton({
-                url: 'courses',
-                backViewName: localizationManager.localize('courses'),
-                callback: navigateToCoursesEvent
-            }),
+            isLastCreatedCourse: false,            
 
             updateObjectiveImage: updateObjectiveImage,
             navigateToObjectiveDetails: navigateToObjectiveDetails,
@@ -90,7 +84,7 @@
             eventTracker: eventTracker
         };
 
-     
+
 
         viewModel.canDisconnectObjectives = ko.computed(function () {
             return _.some(viewModel.connectedObjectives(), function (item) {
@@ -228,7 +222,7 @@
                 }
             });
         }
-       
+
         function showAllAvailableObjectives() {
             if (viewModel.objectivesMode() === objectivesListModes.appending) {
                 return;

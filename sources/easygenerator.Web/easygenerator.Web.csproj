@@ -1520,7 +1520,6 @@
     <Content Include="Content\treeOfContent.less" />
     <Content Include="Content\collaboration.less" />
     <Content Include="Content\shell.less" />
-    <None Include="Content\shell.flexbox" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
@@ -2100,7 +2099,6 @@
     </Content>
     <Content Include="App\main.js" />
     <Content Include="App\models\answerOption.js" />
-    <Content Include="App\models\backButton.js" />
     <Content Include="App\models\collaborator.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.js" />
@@ -2342,11 +2340,6 @@
     <Content Include="App\views\questions\question.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="App\views\user\userMenu.html" />
-    <Content Include="App\widgets\backButton\view.html" />
-    <Content Include="App\widgets\backButton\viewmodel.js" />
-    <Content Include="App\widgets\backButton\viewmodel.spec.js">
-      <DependentUpon>viewmodel.js</DependentUpon>
-    </Content>
     <Content Include="App\widgets\notifyViewer\view.html" />
     <Content Include="App\widgets\notifyViewer\viewmodel.js" />
     <Content Include="App\widgets\notifyViewer\viewmodel.spec.js">

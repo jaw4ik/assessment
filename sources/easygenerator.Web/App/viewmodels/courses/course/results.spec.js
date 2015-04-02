@@ -5,7 +5,6 @@
         eventTracker = require('eventTracker'),
         courseRepository = require('repositories/courseRepository'),
         localizationManager = require('localization/localizationManager'),
-        BackButton = require('models/backButton'),
         xApiProvider = require('reporting/xApiProvider'),
         constants = require('constants'),
         dialog = require('plugins/dialog'),
@@ -279,20 +278,6 @@
             it('should send event \'Navigate to courses\'', function () {
                 viewModel.navigateToCoursesEvent();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to courses');
-            });
-
-        });
-
-        describe('backButtonData:', function () {
-
-            it('should be instance of BackButton', function () {
-                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
-            });
-
-            it('should be configured', function () {
-                expect(viewModel.backButtonData.url).toBe('courses');
-                expect(viewModel.backButtonData.backViewName).toBe(localizationManager.localize('courses'));
-                expect(viewModel.backButtonData.callback).toBe(viewModel.navigateToCoursesEvent);
             });
 
         });

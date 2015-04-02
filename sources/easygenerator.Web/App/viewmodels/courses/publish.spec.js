@@ -9,7 +9,6 @@
         eventTracker = require('eventTracker'),
         localizationManager = require('localization/localizationManager'),
         clientContext = require('clientContext'),
-        BackButton = require('models/backButton'),
         Course = require('models/course');
 
     describe('viewModel [publish]', function () {
@@ -255,20 +254,6 @@
 
                 });
 
-            });
-
-        });
-
-        describe('backButtonData:', function () {
-
-            it('should be instance of BackButton', function () {
-                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
-            });
-
-            it('should be configured', function () {
-                expect(viewModel.backButtonData.url).toBe('courses');
-                expect(viewModel.backButtonData.backViewName).toBe(localizationManager.localize('courses'));
-                expect(viewModel.backButtonData.callback).toBe(viewModel.navigateToCoursesEvent);
             });
 
         });

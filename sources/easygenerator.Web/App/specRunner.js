@@ -265,7 +265,6 @@
             
             'viewmodels/user/userMenu.spec',
             'viewmodels/shell.spec',
-            'widgets/backButton/viewmodel.spec',
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
             'widgets/createQuestion/viewmodel.spec',

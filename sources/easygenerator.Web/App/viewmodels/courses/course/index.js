@@ -27,11 +27,11 @@
         }
     });
     childRouter.on('router:navigation:composition-complete').then(function (instance, instruction, router) {
-        //console.log('COURSE COMPOSITION COMPLETE ' + instance.__moduleId__);
-        setTimeout(function () {
-            router.isViewReady(instance.__moduleId__);
-        }, 250);
-
+        if (instance) {
+            setTimeout(function () {
+                router.isViewReady(instance.__moduleId__);
+            }, 250);
+        }
     });
 
 

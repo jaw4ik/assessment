@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'models/backButton', 'durandal/app', 'imageUpload', 'userContext'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, BackButton, app, imageUpload, userContext) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'durandal/app', 'imageUpload', 'userContext'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, app, imageUpload, userContext) {
         "use strict";
 
         var
@@ -59,9 +59,7 @@
                 questionCreatedByCollaborator: questionCreatedByCollaborator,
                 questionTitleUpdatedByCollaborator: questionTitleUpdatedByCollaborator,
                 questionDeletedByCollaborator: questionDeletedByCollaborator,
-                questionUpdated: questionUpdated,
-
-                backButtonData: new BackButton({})
+                questionUpdated: questionUpdated
             };
 
         viewModel.title.isEditing = ko.observable();
@@ -237,26 +235,12 @@
                 viewModel.contextCourseId = null;
                 viewModel.contextCourseTitle = null;
 
-                viewModel.backButtonData.configure({
-                    url: 'objectives',
-                    backViewName: localizationManager.localize('learningObjectives'),
-                    callback: navigateToObjectivesEvent,
-                    alwaysVisible: true
-                });
-
                 return initObjectiveInfo(objId);
             }
 
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.contextCourseId = course.id;
                 viewModel.contextCourseTitle = course.title;
-
-                viewModel.backButtonData.configure({
-                    url: 'course/' + course.id,
-                    backViewName: '\'' + course.title + '\'',
-                    callback: navigateToCourseEvent,
-                    alwaysVisible: false
-                });
 
                 return initObjectiveInfo(objId);
             }).fail(function (reason) {
