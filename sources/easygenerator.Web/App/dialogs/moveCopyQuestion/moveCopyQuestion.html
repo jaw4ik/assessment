@@ -10,7 +10,7 @@
                 <div class="dropdown-selected-item">
                     <span class="dropdown-selected-item-text" data-bind="text: selectedCourse().title"></span>
                 </div>
-                <ul class="dropdown-options-list unstyled">
+                <ul class="dropdown-options-list scrollable unstyled">
                     <!-- ko foreach: courses -->
                     <li class="dropdown-options-item" data-bind="text: title, click: $parent.selectCourse, css: { selected: id === $parent.selectedCourse().id }"></li>
                     <!-- /ko -->
