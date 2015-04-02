@@ -3,8 +3,8 @@
 
     var
         dataContext = require('dataContext'),
-        app = require('durandal/app')
-    ;
+        app = require('durandal/app'),
+        userContext = require('userContext');
 
     describe('synchronization course [objectivesUnrelated]', function () {
 
@@ -18,7 +18,7 @@
         var modifiedOn = new Date(),
             objectiveId = 'obj1',
             courseId = mappedCourse.id,
-            objective = { id: objectiveId };
+            objective = { id: objectiveId, createdBy: 'user' };
 
         it('should be function', function () {
             expect(handler).toBeFunction();
@@ -73,6 +73,15 @@
             handler(courseId, [objectiveId], modifiedOn.toISOString());
 
             expect(dataContext.courses[0].objectives.length).toBe(0);
+        });
+
+        it('should unrelate objectives from all objectives', function() {
+            dataContext.objectives = [objective];
+            userContext.identity = { email: 'anotheruser' };
+
+            handler(courseId, [objectiveId], modifiedOn.toISOString());
+
+            expect(dataContext.objectives.length).toBe(0);
         });
 
         it('should update course modified on date', function () {

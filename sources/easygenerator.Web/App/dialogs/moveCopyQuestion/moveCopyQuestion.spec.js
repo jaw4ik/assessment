@@ -284,41 +284,91 @@
                 expect(viewModel.moveQuestion).toBeFunction();
             });
 
-            it('should send event \'Move item\'', function () {
-                viewModel.moveQuestion();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Move item');
-            });
+            describe('when selected objective is not valid', function () {
 
-            describe('when selected objective id is null or undefined', function() {
+                describe('when objective is not selected', function () {
 
-                it('should show notify error', function() {
-                    viewModel.selectedObjectiveId(null);
-                    viewModel.moveQuestion();
-                    expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                    beforeEach(function() {
+                        viewModel.selectedObjectiveId(null);
+                    });
+
+                    it('should show notify error', function () {
+                        viewModel.moveQuestion();
+                        expect(localizationManager.localize).toHaveBeenCalledWith('moveCopyErrorMessage');
+                        expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                    });
+
+                });
+
+                describe('when objective is selected', function() {
+
+                    describe('and when objective is not found in course', function() {
+
+                        beforeEach(function() {
+                            dataContext.courses = [{
+                                    id: 1,
+                                    objectives: [{
+                                            id: 1
+                                        }, {
+                                            id: 2
+                                        }
+                                    ]
+                                }
+                            ];
+                            viewModel.selectedCourse(dataContext.courses[0]);
+                            viewModel.selectedObjectiveId(3);
+                        });
+
+                        it('should show notify error', function () {
+                            viewModel.moveQuestion();
+                            expect(localizationManager.localize).toHaveBeenCalledWith('learningObjectiveHasBeenDisconnectedByCollaborator');
+                            expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                        });
+
+                    });
+
+                    describe('and when objective is not found dataContext objectives', function () {
+
+                        beforeEach(function () {
+                            var allobjs = [
+                                {
+                                    id: 1
+                                }, {
+                                    id: 2
+                                }
+                            ];
+                            dataContext.objectives = allobjs;
+                            viewModel.allObjectives(allobjs);
+                            viewModel.selectedObjectiveId(3);
+                            viewModel.selectedCourse(allobjs);
+                        });
+
+                        it('should show notify error', function () {
+                            viewModel.moveQuestion();
+                            expect(localizationManager.localize).toHaveBeenCalledWith('learningObjectiveHasBeenDisconnectedByCollaborator');
+                            expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                        });
+
+                    });
+
                 });
 
             });
 
-            describe('when current objective id equal selected objective id', function() {
+            describe('when selected objective is valid', function () {
 
-                it('should hide popup', function() {
-                    viewModel.objectiveId = objectiveId;
-                    viewModel.selectedObjectiveId(objectiveId);
-                    viewModel.moveQuestion();
-                    expect(viewModel.isShown()).toBeFalsy();
-                });
-
-            });
-
-            describe('when current objective id not equal selected objective id', function() {
-                var currentObjectiveId = 'currentObjectiveId',
-                    selectedObjectiveId = 'selectedObjectiveId';
-
-                beforeEach(function () {
-                    viewModel.questionId = 'questionId';
-                    viewModel.courseId = 'courseId';
-                    viewModel.objectiveId = currentObjectiveId;
-                    viewModel.selectedObjectiveId(selectedObjectiveId);
+                beforeEach(function() {
+                    var allobjs = [
+                        {
+                            id: 1
+                        }, {
+                            id: 2
+                        }
+                    ];
+                    dataContext.objectives = allobjs;
+                    viewModel.allObjectives(allobjs);
+                    viewModel.selectedObjectiveId(2);
+                    viewModel.selectedCourse(allobjs);
                 });
 
                 it('should send event \'Move item\'', function () {
@@ -326,57 +376,81 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Move item');
                 });
 
-                it('should call moveQuestion from repository', function () {
-                    viewModel.moveQuestion();
-                    expect(questionRepository.moveQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.objectiveId, viewModel.selectedObjectiveId());
+                describe('when current objective id equal selected objective id', function () {
+
+                    it('should hide popup', function() {
+                        viewModel.objectiveId = 1;
+                        viewModel.selectedObjectiveId(1);
+                        viewModel.moveQuestion();
+                        expect(viewModel.isShown()).toBeFalsy();
+                    });
+
                 });
 
-                describe('when question was move', function() {
-                    var newQuestionId;
+                describe('when current objective id not equal selected objective id', function () {
+                    var currentObjectiveId = 1,
+                        selectedObjectiveId = 2;
+
                     beforeEach(function () {
-                        newQuestionId = 'newQuestionId';
-                        moveQuestionDefer.resolve({ id: newQuestionId });
+                        viewModel.questionId = 'questionId';
+                        viewModel.courseId = 'courseId';
+                        viewModel.objectiveId = currentObjectiveId;
+                        viewModel.selectedObjectiveId(selectedObjectiveId);
                     });
 
-                    it('should hide popup', function (done) {
+                    it('should call moveQuestion from repository', function () {
                         viewModel.moveQuestion();
-
-                        moveQuestionDefer.promise.fin(function () {
-                            expect(viewModel.isShown()).toBeFalsy();
-                            done();
-                        });
+                        expect(questionRepository.moveQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.objectiveId, viewModel.selectedObjectiveId());
                     });
 
-                    describe('when course is undefined', function() {
-
-                        beforeEach(function() {
-                            viewModel.courseId = null;
-                        });
-
-                        it('should navigate to current objective', function() {
-                            viewModel.moveQuestion();
-
-                            moveQuestionDefer.promise.fin(function () {
-                                expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.objectiveId);
-                                done();
-                            });
-                        });
-
-                    });
-
-                    describe('when course is not undefined', function () {
-
+                    describe('when question was move', function () {
+                        var newQuestionId;
                         beforeEach(function () {
-                            viewModel.courseId = 'courseid';
+                            newQuestionId = 'newQuestionId';
+                            moveQuestionDefer.resolve({ id: newQuestionId });
                         });
 
-                        it('should navigate to current objective', function () {
+                        it('should hide popup', function (done) {
                             viewModel.moveQuestion();
 
                             moveQuestionDefer.promise.fin(function () {
-                                expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.objectiveId + '?courseId=' + viewModel.courseId);
+                                expect(viewModel.isShown()).toBeFalsy();
                                 done();
                             });
+                        });
+
+                        describe('when course is undefined', function () {
+
+                            beforeEach(function () {
+                                viewModel.courseId = null;
+                            });
+
+                            it('should navigate to current objective', function (done) {
+                                viewModel.moveQuestion();
+
+                                moveQuestionDefer.promise.fin(function () {
+                                    expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.objectiveId);
+                                    done();
+                                });
+                            });
+
+                        });
+
+                        describe('when course is not undefined', function () {
+
+                            beforeEach(function () {
+                                viewModel.courseId = 'courseid';
+                            });
+
+                            it('should navigate to current objective', function (done) {
+                                viewModel.moveQuestion();
+
+                                moveQuestionDefer.promise.fin(function () {
+                                    expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.objectiveId + '?courseId=' + viewModel.courseId);
+                                    done();
+                                });
+                            });
+
                         });
 
                     });
@@ -389,12 +463,12 @@
 
         describe('copyQuestion:', function () {
 
-            var currentObjectiveId = 'currentObjectiveId',
-                selectedObjectiveId = 'selectedObjectiveId';
+            var currentObjectiveId = 1,
+                selectedObjectiveId = 2;
 
             beforeEach(function () {
                 viewModel.questionId = 'questionId';
-                viewModel.courseId = 'courseId';
+                viewModel.courseId = 1;
                 viewModel.objectiveId = currentObjectiveId;
                 viewModel.selectedObjectiveId(selectedObjectiveId);
             });
@@ -403,77 +477,159 @@
                 expect(viewModel.copyQuestion).toBeFunction();
             });
 
-            it('should send event \'Copy item\'', function () {
-                viewModel.copyQuestion();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Copy item');
-            });
+            describe('when selected objective is not valid', function () {
 
-            it('should call copyQuestion from repository', function() {
-                viewModel.copyQuestion();
-                expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.selectedObjectiveId());
-            });
+                describe('when objective is not selected', function () {
 
-            describe('when selected objective id is null or undefined', function () {
+                    beforeEach(function () {
+                        viewModel.selectedObjectiveId(null);
+                    });
 
-                it('should show notify error', function () {
-                    viewModel.selectedObjectiveId(null);
-                    viewModel.moveQuestion();
-                    expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                    it('should show notify error', function () {
+                        viewModel.copyQuestion();
+                        expect(localizationManager.localize).toHaveBeenCalledWith('moveCopyErrorMessage');
+                        expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                    });
+
+                });
+
+                describe('when objective is selected', function () {
+
+                    describe('and when objective is not found in course', function () {
+
+                        beforeEach(function () {
+                            dataContext.courses = [{
+                                id: 1,
+                                objectives: [{
+                                    id: 1
+                                }, {
+                                    id: 2
+                                }
+                                ]
+                            }
+                            ];
+                            viewModel.selectedCourse(dataContext.courses[0]);
+                            viewModel.selectedObjectiveId(3);
+                        });
+
+                        it('should show notify error', function () {
+                            viewModel.copyQuestion();
+                            expect(localizationManager.localize).toHaveBeenCalledWith('learningObjectiveHasBeenDisconnectedByCollaborator');
+                            expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                        });
+
+                    });
+
+                    describe('and when objective is not found dataContext objectives', function () {
+
+                        beforeEach(function () {
+                            var allobjs = [
+                                {
+                                    id: 1
+                                }, {
+                                    id: 2
+                                }
+                            ];
+                            dataContext.objectives = allobjs;
+                            viewModel.allObjectives(allobjs);
+                            viewModel.selectedObjectiveId(3);
+                            viewModel.selectedCourse(allobjs);
+                        });
+
+                        it('should show notify error', function () {
+                            viewModel.copyQuestion();
+                            expect(localizationManager.localize).toHaveBeenCalledWith('learningObjectiveHasBeenDisconnectedByCollaborator');
+                            expect(notify.error).toHaveBeenCalledWith(allObjectivesTitle);
+                        });
+
+                    });
+
                 });
 
             });
 
-            describe('when question was copy', function() {
-                var newQuestionId;
-
-                beforeEach(function() {
-                    newQuestionId = 'newQuestionId';
-                    copyQuestionDefer.resolve({ id: newQuestionId });
+            describe('when selected objective is valid', function () {
+                var allobjs;
+                beforeEach(function () {
+                    allobjs = [{ id: 1 }, { id: 2 }];
+                    dataContext.courses = [{
+                        id: 1,
+                        objectives: [{
+                            id: 1
+                        }, {
+                            id: 2
+                        }]
+                    }];
+                    dataContext.objectives = allobjs;
+                    viewModel.allObjectives(allobjs);
+                    viewModel.selectedObjectiveId(1);
+                    viewModel.selectedCourse(dataContext.courses[0]);
                 });
 
-                it('should hide popup', function (done) {
+                it('should send event \'Copy item\'', function () {
                     viewModel.copyQuestion();
-
-                    copyQuestionDefer.promise.fin(function() {
-                        expect(viewModel.isShown()).toBeFalsy();
-                        done();
-                    });
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Copy item');
                 });
 
-                describe('when course is undefined', function() {
+                it('should call copyQuestion from repository', function () {
+                    viewModel.copyQuestion();
+                    expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.selectedObjectiveId());
+                });
 
-                    beforeEach(function() {
-                        viewModel.courseId = null;
+                describe('and when question was copy', function () {
+                    var newQuestionId;
+
+                    beforeEach(function () {
+                        newQuestionId = 'newQuestionId';
+                        copyQuestionDefer.resolve({ id: newQuestionId });
                     });
 
-                    it('should navigate to new question', function() {
-                        viewModel.moveQuestion();
+                    it('should hide popup', function (done) {
+                        viewModel.copyQuestion();
 
-                        copyQuestionDefer.promise.fin(function() {
-                            expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.selectedObjectiveId() + '/question/' + newQuestionId);
+                        copyQuestionDefer.promise.fin(function () {
+                            expect(viewModel.isShown()).toBeFalsy();
                             done();
                         });
                     });
 
-                });
+                    describe('when course is undefined', function () {
 
-                describe('when course is not undefined', function() {
-
-                    beforeEach(function() {
-                        viewModel.courseId = 'courseid';
-                    });
-
-                    it('should navigate to new question in course', function() {
-                        viewModel.moveQuestion();
-
-                        copyQuestionDefer.promise.fin(function() {
-                            expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.selectedObjectiveId() + '/question/' + newQuestionId + '?courseId=' + viewModel.courseId);
-                            done();
+                        beforeEach(function () {
+                            viewModel.courseId = null;
                         });
+
+                        it('should navigate to new question', function (done) {
+                            viewModel.copyQuestion();
+
+                            copyQuestionDefer.promise.fin(function () {
+                                expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.selectedObjectiveId() + '/question/' + newQuestionId);
+                                done();
+                            });
+                        });
+
                     });
 
+                    describe('when course is not undefined', function (done) {
+
+                        beforeEach(function () {
+                            viewModel.courseId = 'courseid';
+                        });
+
+                        it('should navigate to new question in course', function () {
+                            viewModel.moveQuestion();
+
+                            copyQuestionDefer.promise.fin(function () {
+                                expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.selectedObjectiveId() + '/question/' + newQuestionId + '?courseId=' + viewModel.courseId);
+                                done();
+                            });
+                        });
+
+                    });
                 });
+
             });
+            
         });
 
     });

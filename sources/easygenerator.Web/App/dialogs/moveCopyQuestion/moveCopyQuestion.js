@@ -67,10 +67,10 @@
     }
 
     function moveQuestion() {
-        if (_.isNullOrUndefined(viewModel.selectedObjectiveId())) {
-            notify.error(localizationManager.localize('moveCopyErrorMessage'));
+        if (!isValidObjective()) {
             return;
         }
+
         if (viewModel.objectiveId !== viewModel.selectedObjectiveId()) {
             eventTracker.publish(events.moveItem);
             questionRepository.moveQuestion(viewModel.questionId, viewModel.objectiveId, viewModel.selectedObjectiveId()).then(function () {
@@ -87,8 +87,7 @@
     }
 
     function copyQuestion() {
-        if (_.isNullOrUndefined(viewModel.selectedObjectiveId())) {
-            notify.error(localizationManager.localize('moveCopyErrorMessage'));
+        if (!isValidObjective()) {
             return;
         }
         eventTracker.publish(events.copyItem);
@@ -133,5 +132,33 @@
                 objectvesListEmpty: course.objectives.length === 0
             };
         });
+    }
+
+    function isValidObjective() {
+        var objective;
+        if (_.isNullOrUndefined(viewModel.selectedObjectiveId())) {
+            notify.error(localizationManager.localize('moveCopyErrorMessage'));
+            return false;
+        }
+
+        if (viewModel.selectedCourse() !== viewModel.allObjectives()) {
+            var course = _.find(dataContext.courses, function(item) {
+                return item.id === viewModel.selectedCourse().id;
+            });
+            objective = _.find(course.objectives, function(item) {
+                return item.id === viewModel.selectedObjectiveId();
+            });
+        } else {
+            objective = _.find(dataContext.objectives, function (item) {
+                return item.id === viewModel.selectedObjectiveId();
+            });
+        }
+
+        if (_.isNullOrUndefined(objective)) {
+            notify.error(localizationManager.localize('learningObjectiveHasBeenDisconnectedByCollaborator'));
+            return false;
+        }
+
+        return true;
     }
 });
