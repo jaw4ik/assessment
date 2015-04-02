@@ -3,7 +3,7 @@
 
     var childRouter = shell.router.createChildRouter()
        .makeRelative({
-           fromParent: true
+           fromParent: true,
        }).map([
            { route: '', moduleId: 'viewmodels/courses/courses', title: 'Hello World', type: 'intro', nav: true, hash: '#courses' },
            { route: ':courseId*details', moduleId: 'viewmodels/courses/course/index', title: 'Hello World', type: 'intro', nav: true, hash: '#courses/:courseId' }
@@ -12,14 +12,20 @@
 
     var subscriptions = [];
 
-
+    childRouter.isViewReady = ko.observable();
     childRouter.on('router:navigation:processing').then(function (instruction, router) {
-        console.warn('router:navigation:processing  -  course/index');
+        if (instruction.config.moduleId !== router.isViewReady()) {
+            console.log('COURSES FALSE');
+            router.isViewReady(false);
+        }
+    });
+    childRouter.on('router:navigation:composition-complete').then(function (instance, instruction, router) {
+        setTimeout(function () {
+            console.log('COURSES COMPOSITION COMPLETE ' + instance.__moduleId__);
+            router.isViewReady(instance.__moduleId__);
+        }, 250);
     });
 
-    childRouter.isNavigating.subscribe(function (newValue) {
-        console.log('isNavigating: ' + newValue);
-    });
 
     return {
         router: childRouter,

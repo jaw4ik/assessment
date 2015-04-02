@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'viewmodels/courses/index', 'repositories/courseRepository', 'eventTracker', 'notify', 'constants', 'dialogs/collaboration/collaboration', 'dialogs/publishCourse/publishCourse'], function (router, index, repository, eventTracker, notify, constants, addCollaboratorDialog, vmPublishCourse) {
+﻿define(['plugins/router', 'viewmodels/courses/index', 'repositories/courseRepository', 'clientContext', 'eventTracker', 'notify', 'constants', 'dialogs/collaboration/collaboration', 'dialogs/publishCourse/publishCourse'], function (router, index, repository, clientContext, eventTracker, notify, constants, collaborationPopup, sharePopup) {
 
     // VIEWMODEL COURSE INDEX
 
@@ -20,51 +20,40 @@
       ]).buildNavigationModel();
 
 
-    childRouter.isViewReady = ko.observable(false);
-
-
-    childRouter.isNavigating.subscribe(function (newValue) {
-        console.log('isNavigating: ' + newValue);
-    });
-
+    childRouter.isViewReady = ko.observable();
     childRouter.on('router:navigation:processing').then(function (instruction, router) {
-        console.warn('router:navigation:processing  -  course/course/index');
+        if (instruction.config.moduleId !== router.isViewReady()) {
+            router.isViewReady(false);
+        }
     });
+    childRouter.on('router:navigation:composition-complete').then(function (instance, instruction, router) {
+        //console.log('COURSE COMPOSITION COMPLETE ' + instance.__moduleId__);
+        setTimeout(function () {
+            router.isViewReady(instance.__moduleId__);
+        }, 250);
 
-
-    //childRouter.on('router:navigation:composition-complete').then(function (instance, instruction, router) {
-    //    router.isViewReady(true);
-    //});
+    });
 
 
     var viewModel = {
         router: childRouter,
 
-        courseId: undefined,
-
+        id: '',
         title: ko.observable(),
-        courseTitleMaxLength: constants.validation.courseTitleMaxLength,
         createdBy: ko.observable(),
 
-        activate: function (courseId) {
-            console.warn('viewmodels/courses/course/index');
-            return repository.getById(courseId).then(function (course) {
-                viewModel.id = course.id;
-                viewModel.title(course.title);
-                viewModel.createdBy(course.createdBy);
-            });
-
-        },
-        collaboration: addCollaboratorDialog,
-        addMember: function () {
-            addCollaboratorDialog.show(viewModel.id, viewModel.createdBy());
-        },
-
+        collaborate: collaborate,
         preview: preview,
-        share: share
+        share: share,
+
+        canActivate: canActivate,
+        activate: activate
     };
 
+    viewModel.title.maxLength = constants.validation.courseTitleMaxLength;
+
     viewModel.title.isEditing = ko.observable();
+    viewModel.title.isSelected = ko.observable();
 
     viewModel.title.beginEdit = function () {
         viewModel.title.isEditing(true);
@@ -93,11 +82,19 @@
 
     viewModel.title.isValid = ko.computed(function () {
         var length = viewModel.title() ? viewModel.title().trim().length : 0;
-        return length > 0 && length <= constants.validation.courseTitleMaxLength;
+        return length > 0 && length <= viewModel.title.maxLength;
     });
 
     return viewModel;
 
+    function title() {
+
+    }
+
+
+    function collaborate() {
+        collaborationPopup.show(viewModel.id, viewModel.createdBy());
+    }
 
     function preview() {
         eventTracker.publish(events.previewCourse);
@@ -105,7 +102,30 @@
     }
 
     function share() {
-        vmPublishCourse.show(viewModel.id);
+        sharePopup.show(viewModel.id);
+    }
+
+    function canActivate(courseId) {
+        return repository.getById(courseId).then(function () {
+            return true;
+        }).catch(function () {
+            return { redirect: '404' };
+        });
+
+    }
+
+    function activate(courseId) {
+        return repository.getById(courseId).then(function (course) {
+            viewModel.id = course.id;
+            viewModel.title(course.title);
+            viewModel.createdBy(course.createdBy);
+
+            clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
+            clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
+
+            viewModel.title.isSelected(clientContext.get(constants.clientContextKeys.lastCreatedCourseId) === course.id);
+            clientContext.remove(constants.clientContextKeys.lastCreatedCourseId);
+        });
     }
 
 

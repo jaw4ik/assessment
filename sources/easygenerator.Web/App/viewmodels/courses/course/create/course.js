@@ -1,6 +1,6 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
         'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'models/backButton',
-        'userContext', 'durandal/app', './../collaboration/collaborators', 'imageUpload', 'commands/createObjectiveCommand'],
+        'userContext', 'durandal/app', './../../collaboration/collaborators', 'imageUpload', 'commands/createObjectiveCommand'],
     function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, BackButton,
         userContext, app, collaborators, imageUpload, createObjectiveCommand) {
         "use strict";

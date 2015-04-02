@@ -564,7 +564,9 @@
     <Content Include="App\viewmodels\courses\courseNavigation\items\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\course\course.spec.js" />
+    <Content Include="App\viewmodels\courses\course\create\course.spec.js">
+      <DependentUpon>course.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\course\create\index.js" />
     <Content Include="App\viewmodels\courses\course\design.js" />
     <Content Include="App\viewmodels\courses\course\design.spec.js">
@@ -580,7 +582,6 @@
     <Content Include="App\viewmodels\courses\course\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\course\childRouter.js" />
     <Content Include="App\viewmodels\courses\results.js" />
     <Content Include="App\viewmodels\courses\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
@@ -2226,7 +2227,7 @@
     <Content Include="App\viewmodels\courses\collaboration\collaborators.spec.js">
       <DependentUpon>collaborators.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\course\course.js" />
+    <Content Include="App\viewmodels\courses\course\create\course.js" />
     <Content Include="App\viewmodels\courses\courseComments.js" />
     <Content Include="App\viewmodels\courses\courseComments.spec.js">
       <DependentUpon>courseComments.js</DependentUpon>
@@ -2326,7 +2327,7 @@
     </Content>
     <Content Include="App\views\common\createtip.html" />
     <Content Include="App\views\courses\collaboration\collaborators.html" />
-    <Content Include="App\views\courses\course\course.html" />
+    <Content Include="App\views\courses\course\create\course.html" />
     <Content Include="App\views\courses\courseComments.html" />
     <Content Include="App\views\courses\courseNavigation\navigation.html" />
     <Content Include="App\views\courses\courses.html" />

@@ -3,6 +3,9 @@
 
     var
         repository = require('repositories/courseRepository'),
+
+        clientContext = require('clientContext'),
+        constants = require('constants'),
         eventTracker = require('eventTracker'),
         notify = require('notify')
     ;
@@ -25,16 +28,24 @@
             });
         });
 
+        describe('id:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.id).toBeDefined();
+            });
+
+        });
+
         describe('title:', function () {
 
             it('should be observable', function () {
                 expect(viewModel.title).toBeObservable();
             });
 
-            describe('isEditing:', function () {
+            describe('maxLength:', function () {
 
-                it('should be observable', function () {
-                    expect(viewModel.title.isEditing).toBeObservable();
+                it('should be defined', function () {
+                    expect(viewModel.title.maxLength).toEqual(constants.validation.courseTitleMaxLength);
                 });
 
             });
@@ -57,7 +68,7 @@
                 describe('when title is longer than 255', function () {
 
                     it('should be false', function () {
-                        viewModel.title(utils.createString(viewModel.courseTitleMaxLength + 1));
+                        viewModel.title(utils.createString(constants.validation.courseTitleMaxLength + 1));
                         expect(viewModel.title.isValid()).toBeFalsy();
                     });
 
@@ -66,7 +77,7 @@
                 describe('when title is longer than 255 but after trimming is not longer than 255', function () {
 
                     it('should be true', function () {
-                        viewModel.title('   ' + utils.createString(viewModel.courseTitleMaxLength - 1) + '   ');
+                        viewModel.title('   ' + utils.createString(constants.validation.courseTitleMaxLength - 1) + '   ');
                         expect(viewModel.title.isValid()).toBeTruthy();
                     });
 
@@ -75,10 +86,26 @@
                 describe('when title is not empty and not longer than 255', function () {
 
                     it('should be true', function () {
-                        viewModel.title(utils.createString(viewModel.courseTitleMaxLength - 1));
+                        viewModel.title(utils.createString(constants.validation.courseTitleMaxLength - 1));
                         expect(viewModel.title.isValid()).toBeTruthy();
                     });
 
+                });
+
+            });
+
+            describe('isEditing:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.title.isEditing).toBeObservable();
+                });
+
+            });
+
+            describe('isSelected:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.title.isSelected).toBeObservable();
                 });
 
             });
@@ -245,6 +272,270 @@
                     });
                 });
             });
+        });
+
+        describe('createdBy:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.createdBy).toBeObservable();
+            });
+
+        });
+
+
+        describe('preview:', function () {
+
+            var router = require('plugins/router');
+
+            beforeEach(function () {
+                spyOn(router, 'openUrl');
+            });
+
+            it('should be function', function () {
+                expect(viewModel.preview).toBeFunction();
+            });
+
+            it('should send \'Preview course\' event', function () {
+                viewModel.preview();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Preview course');
+            });
+
+            it('should open course URL', function () {
+                viewModel.id = 'id';
+                viewModel.preview();
+                expect(router.openUrl).toHaveBeenCalledWith('/preview/id');
+            });
+
+        });
+
+        describe('share:', function () {
+
+            var share = require('dialogs/publishCourse/publishCourse');
+
+            beforeEach(function () {
+                spyOn(share, 'show');
+            });
+
+            it('should be function', function () {
+                expect(viewModel.share).toBeFunction();
+            });
+
+            it('should show collaboration dialog', function () {
+                var id = 'id';
+                viewModel.id = id;
+
+                viewModel.share();
+
+                expect(share.show).toHaveBeenCalledWith(id);
+            });
+
+        });
+
+        describe('collaborate:', function () {
+
+            var collaboration = require('dialogs/collaboration/collaboration');
+
+            beforeEach(function () {
+                spyOn(collaboration, 'show');
+            });
+
+            it('should be function', function () {
+                expect(viewModel.collaborate).toBeFunction();
+            });
+
+            it('should show collaboration dialog', function () {
+                var id = 'id';
+                var createdBy = 'createdBy';
+
+                viewModel.id = id;
+                viewModel.createdBy(createdBy);
+
+                viewModel.collaborate();
+
+                expect(collaboration.show).toHaveBeenCalledWith(id, createdBy);
+            });
+
+        });
+
+        describe('canActivate:', function () {
+
+            var getById;
+
+            beforeEach(function () {
+                getById = Q.defer();
+                spyOn(repository, 'getById').and.returnValue(getById.promise);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.canActivate).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(viewModel.canActivate()).toBePromise();
+            });
+
+            describe('when course does not exist', function () {
+
+                beforeEach(function () {
+                    getById.reject('reason');
+                });
+
+                it('should return redirect to \'404\'', function (done) {
+
+                    viewModel.canActivate('courseId').then(function (result) {
+                        expect(result).toEqual({ redirect: "404" });
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when course exists', function () {
+
+                beforeEach(function () {
+                    getById.resolve({});
+                });
+
+                it('should return true', function (done) {
+                    viewModel.canActivate('courseId').then(function (result) {
+                        expect(result).toEqual(true);
+                        done();
+                    });
+                });
+
+            });
+
+        });
+
+        describe('activate:', function () {
+            var getById;
+
+            beforeEach(function () {
+                getById = Q.defer();
+                spyOn(repository, 'getById').and.returnValue(getById.promise);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.activate).toBeFunction();
+            });
+
+            it('should reject promise', function () {
+                expect(viewModel.activate()).toBePromise();
+            });
+
+
+            describe('when course does not exist', function () {
+
+                beforeEach(function () {
+                    getById.reject();
+                });
+
+                it('should reject promise', function (done) {
+                    viewModel.activate().catch(function () {
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when course exists', function () {
+
+                var course = {
+                    id: 'id',
+                    title: 'title',
+                    createdBy: 'createdBy'
+                };
+
+                beforeEach(function () {
+                    getById.resolve(course);
+                    spyOn(clientContext, 'set');
+                });
+
+                it('should set current course id', function (done) {
+                    viewModel.id = undefined;
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.id).toEqual(course.id);
+                        done();
+                    });
+                });
+
+                it('should set title', function (done) {
+                    viewModel.title('');
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.title()).toEqual(course.title);
+                        done();
+                    });
+                });
+
+                it('should set createdBy', function (done) {
+                    viewModel.id = undefined;
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.createdBy()).toEqual(course.createdBy);
+                        done();
+                    });
+                });
+
+                it('should resolve promise', function (done) {
+                    viewModel.activate(course.id).then(function () {
+                        done();
+                    });
+                });
+
+                it('should set course id as the last visited in client context', function (done) {
+                    viewModel.activate(course.id).fin(function () {
+                        expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVistedCourse, course.id);
+                        done();
+                    });
+                });
+
+                it('should reset last visited objective in client context', function (done) {
+                    viewModel.activate(course.id).fin(function () {
+                        expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVisitedObjective, null);
+                        done();
+                    });
+                });
+
+
+                describe('when last created course is current course', function () {
+                    beforeEach(function () {
+                        spyOn(clientContext, 'get').and.returnValue(course.id);
+                    });
+
+                    it('should select title', function (done) {
+                        viewModel.activate(course.id).fin(function () {
+                            expect(viewModel.title.isSelected()).toBeTruthy();
+                            done();
+                        });
+                    });
+                });
+
+                describe('when last created course is not current course', function () {
+                    beforeEach(function () {
+                        spyOn(clientContext, 'get').and.returnValue('other id');
+                    });
+
+                    it('should not select title', function (done) {
+                        viewModel.activate(course.id).fin(function () {
+                            expect(viewModel.title.isSelected()).toBeFalsy();
+                            done();
+                        });
+                    });
+                });
+
+                it('should remove lastCreatedCourse key from client context', function (done) {
+                    spyOn(clientContext, 'remove');
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.lastCreatedCourseId);
+                        done();
+                    });
+                });
+
+            });
+
         });
 
     });

@@ -1,26 +1,20 @@
 ﻿@import "helpers.less";
 
-html {
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
 .application {
+    height:100%;
     width: 100%;
-    height: 100%;
 }
 
 .shell-wrapper {
+    height:100%;
     width: 100%;
-    height: 100%;
 }
 
 .shell {
-    width: 100%;
-    height: 100%;
-    background-color: rgb(243, 247, 249);
     padding-top: 56px;
     position: relative;
+    height:100%;
+    width: 100%;
 
     & > header {
         background-color: #393939;
@@ -36,8 +30,6 @@ html {
     }
 
     main {
-
-
 
         & > section {
         }
@@ -124,7 +116,7 @@ html {
                 position: absolute;
                 left: 0;
                 top: 12px;
-                display:block;
+                display: block;
             }
 
             &.active {
@@ -245,6 +237,12 @@ html {
                     padding: 10px 15px;
                     display: inline-block;
                     line-height: 1;
+                    min-width: 125px;
+                    text-align: center;
+
+                    &:hover {
+                        box-shadow: 0 3px #88d498;
+                    }
 
                     &.active {
                         font-family: 'OpenSans-Semibold';
@@ -264,6 +262,10 @@ html {
                             bottom: -12px;
                             position: absolute;
                         }
+
+                        &:hover {
+                            box-shadow: 0 3px #65bd77;
+                        }
                     }
                 }
 
@@ -273,7 +275,6 @@ html {
                     width: 8px;
                     height: 12px;
                     display: inline-block;
-                    //margin: 0 30px;
                 }
             }
         }

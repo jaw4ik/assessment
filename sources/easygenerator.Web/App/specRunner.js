@@ -286,6 +286,7 @@
 
         require([
             'viewmodels/courses/course/index.spec'
+ //           'viewmodels/courses/course/create.spec'
 
         ], function () {
             env.execute();

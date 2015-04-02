@@ -1,21 +1,16 @@
-﻿html {
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-.application {
-  width: 100%;
+﻿.application {
   height: 100%;
+  width: 100%;
 }
 .shell-wrapper {
-  width: 100%;
   height: 100%;
+  width: 100%;
 }
 .shell {
-  width: 100%;
-  height: 100%;
-  background-color: #f3f7f9;
   padding-top: 56px;
   position: relative;
+  height: 100%;
+  width: 100%;
 }
 .shell > header {
   background-color: #393939;
@@ -183,6 +178,11 @@
   padding: 10px 15px;
   display: inline-block;
   line-height: 1;
+  min-width: 125px;
+  text-align: center;
+}
+.course nav ul li a:hover {
+  box-shadow: 0 3px #88d498;
 }
 .course nav ul li a.active {
   font-family: 'OpenSans-Semibold';
@@ -201,6 +201,9 @@
   margin-left: -6px;
   bottom: -12px;
   position: absolute;
+}
+.course nav ul li a.active:hover {
+  box-shadow: 0 3px #65bd77;
 }
 .course nav ul li + li:before {
   content: '';

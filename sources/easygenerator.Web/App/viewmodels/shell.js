@@ -116,7 +116,7 @@
                             },
                             navigationLink: '#courses',
                             title: 'courses',
-                            isActive: ko.computed(function () {                                
+                            isActive: ko.computed(function () {
                                 if (_.isNullOrUndefined(router.activeInstruction())) {
                                     return false;
                                 }
@@ -154,15 +154,40 @@
 
                     router.map([
                         {
-                            route: ['', 'courses*details'], moduleId: 'viewmodels/courses/index', title: 'Knockout Samples'
+                            route: ['', 'courses*details'], moduleId: 'viewmodels/courses/index', title: 'Courses',
+                            settings: {
+                                localizationKey: 'courses'
+                            }
                         },
                         {
-                            route: 'objectives*details', moduleId: 'viewmodels/objectives/index', title: 'Knockout Samples'
-                        }
+                            route: 'objectives*details', moduleId: 'viewmodels/objectives/index', title: 'Objectives',
+                            settings: {
+                                localizationKey: 'learningObjectives'
+                            }
+                        },
+
+                                    {
+                                        route: '404',
+                                        moduleId: 'viewmodels/errors/404',
+                                        title: '404 Not Found'
+                                    }
 
                     ]);
 
-
+                    router.isViewReady = ko.observable();
+                    router.on('router:navigation:processing').then(function (instruction, router) {
+                        if (instruction.config.moduleId !== router.isViewReady()) {
+                            console.log('SHELL FALSE');
+                            router.isViewReady(false);
+                        }
+                    });
+                    router.on('router:navigation:composition-complete').then(function (instance, instruction, router) {
+                        
+                        setTimeout(function () {
+                            console.log('SHELL COMPOSITION COMPLETE');
+                            router.isViewReady(instance.__moduleId__);
+                        }, 100);
+                    });
 
                     return router.buildNavigationModel().activate(viewModel.homeModuleName);
                 });
