@@ -8,7 +8,7 @@
       }).map([
           { route: '', moduleId: 'viewmodels/courses/course/create/course', settings: { localizationKey: 'objectiveProperties' } },
           { route: 'objectives/:objectiveId', moduleId: 'viewmodels/objectives/objective', title: 'Learning Objective', settings: { localizationKey: 'objectiveProperties' } },
-          { route: 'objectives/:objectiveId/question/:questionId', moduleId: 'viewmodels/questions/question', title: 'Question', settings: { localizationKey: 'questionProperties' } }
+          { route: 'objectives/:objectiveId/questions/:questionId', moduleId: 'viewmodels/questions/question', title: 'Question', settings: { localizationKey: 'questionProperties' } }
       ]).buildNavigationModel();
 
 
