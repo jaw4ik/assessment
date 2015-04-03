@@ -44,6 +44,7 @@ define(['durandal/app', 'eventTracker', 'constants',
 
             moveCopyQuestionDialog: moveCopyQuestionDialog,
             showMoveCopyDialog: showMoveCopyDialog,
+            duplicateQuestion: duplicateQuestion,
 
             activate: activate
         };
@@ -52,6 +53,16 @@ define(['durandal/app', 'eventTracker', 'constants',
         app.on(constants.messages.question.contentUpdatedByCollaborator, contentUpdatedByCollaborator);
 
         return viewmodel;
+
+        function duplicateQuestion() {
+            questionRepository.copyQuestion(viewmodel.questionId, viewmodel.objectiveId).then(function (response) {
+                if (!_.isNullOrUndefined(viewmodel.courseId)) {
+                    router.navigate('objective/' + viewmodel.objectiveId + '/question/' + response.id + '?courseId=' + viewmodel.courseId);
+                } else {
+                    router.navigate('objective/' + viewmodel.objectiveId + '/question/' + response.id);
+                }
+            });
+        }
 
         function showMoveCopyDialog() {
             viewmodel.moveCopyQuestionDialog.show(viewmodel.courseId, viewmodel.objectiveId, viewmodel.questionId);

@@ -351,6 +351,11 @@
         'zh-cn': 'Current[zh-cn]',
         'uk': 'Поточний'
     },
+    duplicate: {
+        'en': 'Duplicate',
+        'zh-cn': 'Duplicate[zh-cn]',
+        'uk': 'Дублювати'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
