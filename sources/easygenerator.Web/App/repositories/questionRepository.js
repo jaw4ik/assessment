@@ -266,6 +266,38 @@
                 });
             },
 
+            updateLearningContentsOrder = function (questionId, learningContents) {
+                return Q.fcall(function () {
+                    guard.throwIfNotString(questionId, 'Question id (string) was expected');
+                    guard.throwIfNotArray(learningContents, 'learningContents is not array');
+
+                    var data = {
+                        questionId: questionId,
+                        learningContents: _.map(learningContents, function (item) {
+                            return item.id;
+                        })
+                    };
+
+                    return httpWrapper.post('api/question/updateLearningContentsOrder', data)
+                        .then(function (response) {
+
+                            guard.throwIfNotAnObject(response, 'Response is not an object');
+                            guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+
+                            var question = _.find(getQuestions(), function (item) {
+                                return item.id == questionId;
+                            });
+
+                            guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
+
+                            var modifiedOn = new Date(response.ModifiedOn);
+                            question.modifiedOn = modifiedOn;
+
+                            return modifiedOn;
+                        });
+                });
+            },
+
             getById = function (objectiveId, questionId) {
                 if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(questionId)) {
                     throw 'Invalid arguments';
@@ -311,6 +343,7 @@
             getQuestionFeedback: getQuestionFeedback,
             updateCorrectFeedback: updateCorrectFeedback,
             updateIncorrectFeedback: updateIncorrectFeedback,
+            updateLearningContentsOrder: updateLearningContentsOrder,
             getById: getById
         };
     });

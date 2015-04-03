@@ -113,6 +113,7 @@
     <Compile Include="Events\QuestionEvents\DragAndDropEvents\DropspotEvent.cs" />
     <Compile Include="Events\QuestionEvents\DragAndDropEvents\DropspotPositionChangedEvent.cs" />
     <Compile Include="Events\QuestionEvents\DragAndDropEvents\DropspotTextChangedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\LearningContentsReorderedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionBackgroundChangedEvent.cs" />
     <Compile Include="Events\QuestionEvents\HotSpotEvents\HotSpotPolygonCreatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\HotSpotEvents\HotSpotPolygonDeletedEvent.cs" />
