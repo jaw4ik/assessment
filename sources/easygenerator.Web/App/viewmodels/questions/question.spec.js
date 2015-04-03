@@ -13,7 +13,8 @@ define(function (require) {
         BackButton = require('models/backButton'),
         vmQuestionTitle = require('viewmodels/questions/questionTitle'),
         vmContentField = require('viewmodels/common/contentField'),
-        multipleSelect = require('viewmodels/questions/multipleSelect/multipleSelect');
+        multipleSelect = require('viewmodels/questions/multipleSelect/multipleSelect'),
+        moveCopyDialog = require('dialogs/moveCopyQuestion/moveCopyQuestion');
 
     var question = {
         id: '1',
@@ -58,6 +59,7 @@ define(function (require) {
             spyOn(router, 'navigate');
             spyOn(router, 'navigateWithQueryString');
             spyOn(router, 'replace');
+            spyOn(moveCopyDialog, 'show');
         });
 
         it('is defined', function () {
@@ -161,10 +163,11 @@ define(function (require) {
             });
 
             it('should initialize fields', function () {
-                viewModel.activate(objective.id, question.id);
+                viewModel.activate(objective.id, question.id, {courseId: 'courseId'});
 
                 expect(viewModel.objectiveId).toBe(objective.id);
                 expect(viewModel.questionId).toBe(question.id);
+                expect(viewModel.courseId).toBe('courseId');
             });
 
             describe('when objective not found', function () {
@@ -418,6 +421,22 @@ define(function (require) {
                 viewModel.contentUpdatedByCollaborator(question);
                 expect(viewModel.questionContent.text()).toBe(question.content);
             });
+        });
+
+        describe('showMoveCopyDialog:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.showMoveCopyDialog).toBeFunction();
+            });
+
+            it('should open move/copy question dialog', function() {
+                viewModel.courseId = '1';
+                viewModel.objectiveId = '2';
+                viewModel.questionId = '3';
+                viewModel.showMoveCopyDialog();
+                expect(moveCopyDialog.show).toHaveBeenCalledWith(viewModel.courseId, viewModel.objectiveId, viewModel.questionId);
+            });
+
         });
 
     });

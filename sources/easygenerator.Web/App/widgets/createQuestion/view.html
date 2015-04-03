@@ -1,10 +1,9 @@
-﻿
-<div>
-    <button class="action-item-btn btn create-question" data-bind="click: show, css: { active: visible }, stopEventPropagation: { event: 'click' }">
+﻿<div>
+    <button class="action-item-btn btn create-question" data-bind="dropDown: {}">
         <span class="create-question-text" data-bind="localize: { text: 'createNewQuestion' }">
         </span>
     </button>
-    <div class="question-type-action-wrapper" data-bind="visible: visible, outsideClick: { action: hide }">
+    <div class="question-type-action-wrapper">
         <ul class="question-type-action-list unstyled">
             <!-- ko foreach: questions -->
             <!-- ko if: hasAccess -->
