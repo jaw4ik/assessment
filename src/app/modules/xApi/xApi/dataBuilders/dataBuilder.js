@@ -12,7 +12,8 @@
             courseId = '',
             activityName = '',
             activityUrl = '',
-            rootUrl = '';
+            rootUrl = '',
+            sessionId = TinCan.Utils.getUUID();
         /*private fields*/
 
         var builder = {
@@ -110,6 +111,7 @@
             context.extensions = {
                 'http://easygenerator/expapi/course/id': courseId
             };
+            context.registration = sessionId;
             return context;
         }
     }
