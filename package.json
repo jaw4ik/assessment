@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/andreydrebot/quiz-v2.git"
+    "url": "https://github.com/easygenerator/quiz-v2.git"
   },
   "author": "easygenerator",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/andreydrebot/quiz-v2/issues"
+    "url": "https://github.com/easygenerator/quiz-v2/issues"
   },
-  "homepage": "https://github.com/andreydrebot/quiz-v2",
+  "homepage": "https://github.com/easygenerator/quiz-v2",
   "devDependencies": {
     "del": "^1.1.0",
     "gulp": "^3.8.10",
