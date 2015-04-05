@@ -57,7 +57,7 @@
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
-            'models/reportingStatement.spec',
+            'models/reporting/statement.spec',
             'notifications/notification.spec',
             'notifications/subscriptionExpirationNotificationController.spec',
             'notifications/subscriptionExpirationNotification.spec',

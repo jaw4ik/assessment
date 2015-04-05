@@ -510,9 +510,13 @@
       <DependentUpon>collaborator.js</DependentUpon>
     </Content>
     <Content Include="App\localization\resources.js" />
-    <Content Include="App\models\reportingStatement.js" />
-    <Content Include="App\models\reportingStatement.spec.js">
-      <DependentUpon>reportingStatement.js</DependentUpon>
+    <Content Include="App\models\reporting\actor.js" />
+    <Content Include="App\models\reporting\actor.spec.js">
+      <DependentUpon>actor.js</DependentUpon>
+    </Content>
+    <Content Include="App\models\reporting\statement.js" />
+    <Content Include="App\models\reporting\statement.spec.js">
+      <DependentUpon>statement.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\xApiProvider.js" />
     <Content Include="App\dialogs\publishCourse\publishCourse.html" />
@@ -528,6 +532,7 @@
     <Content Include="App\reporting\xApiProvider.spec.js">
       <DependentUpon>xApiProvider.js</DependentUpon>
     </Content>
+    <Content Include="App\reporting\xApiFilterCriteria.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
     </Content>

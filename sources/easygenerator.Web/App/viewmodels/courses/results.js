@@ -77,7 +77,7 @@
 
         function attached() {
             viewModel.isLoading(true);
-            return xApiProvider.getReportingStatements(viewModel.courseId).then(function (reportingStatements) {
+            return xApiProvider.getCourseCompletedStatements(viewModel.courseId).then(function (reportingStatements) {
                 viewModel.loadedResults = _.sortBy(reportingStatements, function (reportingStatement) {
                     return -reportingStatement.date;
                 });
