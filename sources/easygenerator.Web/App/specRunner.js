@@ -59,6 +59,7 @@
             'models/course.spec',
             'models/user.spec',
             'models/reporting/statement.spec',
+            'models/reporting/actor.spec',
             'notifications/notification.spec',
             'notifications/subscriptionExpirationNotificationController.spec',
             'notifications/subscriptionExpirationNotification.spec',
@@ -82,6 +83,7 @@
 
             //#endregion
 
+            'reporting/xApiFilterCriteria.spec',
             'reporting/xApiProvider.spec',
 
             //#region synchronization

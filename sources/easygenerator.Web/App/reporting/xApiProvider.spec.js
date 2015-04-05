@@ -90,7 +90,6 @@
             });
 
             it('should call httpRequestSender send method with correct params', function () {
-
                 xApiProvider.getCourseCompletedStatements(courseId);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[0]).toBe(config.lrs.uri);
@@ -99,6 +98,14 @@
                 expect(args[1][constants.reporting.filterKeys.verb]).toBe([constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed].join(","));
                 expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
                 expect(args[2]["Content-Type"]).toBe("application/json");
+            });
+
+            it('should pass correct skip and take params if present to httpRequestSender', function () {
+                var skip = 10, take = 20;
+                xApiProvider.getCourseCompletedStatements(courseId, take, skip);
+                var args = httpRequestSender.get.calls.mostRecent().args;
+                expect(args[1][constants.reporting.filterKeys.limit]).toBe(take);
+                expect(args[1][constants.reporting.filterKeys.skip]).toBe(skip);
             });
 
             describe('if statements were returned', function () {

@@ -524,6 +524,9 @@
     <Content Include="App\models\reporting\statement.spec.js">
       <DependentUpon>statement.js</DependentUpon>
     </Content>
+    <Content Include="App\reporting\xApiFilterCriteria.spec.js">
+      <DependentUpon>xApiFilterCriteria.js</DependentUpon>
+    </Content>
     <Content Include="App\reporting\xApiProvider.js" />
     <Content Include="App\dialogs\publishCourse\publishCourse.html" />
     <Content Include="App\dialogs\publishCourse\publishCourse.js" />
