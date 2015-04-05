@@ -44,6 +44,13 @@
                 expect(handler.deleted).toBeDefined();
             });
         });
+
+        describe('learningContentsReordered:', function () {
+            it('should be defined', function () {
+                expect(handler.learningContentsReordered).toBeDefined();
+            });
+        });
+
     });
 
 })

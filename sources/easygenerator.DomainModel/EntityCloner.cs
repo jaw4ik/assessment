@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
 using System;
@@ -12,6 +13,10 @@ namespace easygenerator.DomainModel
     {
         protected static MethodInfo Guid_NewGuidMethodInfo = typeof(Guid).GetMethod("NewGuid");
         protected static FieldInfo DateTimeWrapper_NowPropertyInfo = typeof(DateTimeWrapper).GetField("Now");
+
+        protected static MethodInfo EntityTypeCloner_UpdateLearningContentsOrderInQuestion =
+           typeof(EntityCloner).GetMethod("UpdateLearningContentsOrderInQuestion",
+               BindingFlags.NonPublic | BindingFlags.Instance);
 
         protected static MethodInfo EntityTypeCloner_UpdateQuestionsOrderInObjective =
             typeof(EntityCloner).GetMethod("UpdateQuestionsOrderInObjective", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -105,6 +110,11 @@ namespace easygenerator.DomainModel
                     }
                 }
 
+                if (typeof(Question).IsAssignableFrom(type))
+                {
+                    list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateLearningContentsOrderInQuestion, source, target));
+                }
+
                 if (type == typeof(Objective))
                 {
                     list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateQuestionsOrderInObjective, source, target));
@@ -129,6 +139,12 @@ namespace easygenerator.DomainModel
         {
             var orderedClonedQuestions = source.OrderClonedQuestions(target.QuestionsCollection);
             target.UpdateQuestionsOrder(orderedClonedQuestions, target.CreatedBy);
+        }
+
+        protected virtual void UpdateLearningContentsOrderInQuestion(Question source, Question target)
+        {
+            var orderedClonedLearningContents = source.OrderClonedLearningContents(target.LearningContentsCollection);
+            target.UpdateLearningContentsOrder(orderedClonedLearningContents, target.CreatedBy);
         }
     }
 }

@@ -180,7 +180,7 @@
                                 </div>
                             </div>
                             <!-- /ko -->
-                            <ul class="unstyled main-content-list" data-bind="css: { 'disconnected': availableObjectives().length != 0, empty: availableObjectives().length == 0 }, sortablePlaceholder: { data: availableObjectives, beforeMove: disconnectObjective, afterMove: objectiveDisconnected, placeholder: '.placeholder-wrapper' }">
+                            <ul class="unstyled main-content-list" data-bind="css: { 'disconnected': availableObjectives().length != 0, empty: availableObjectives().length == 0 }, sortableExtended: { data: availableObjectives, beforeMove: disconnectObjective, afterMove: objectiveDisconnected, placeholder: '.placeholder-wrapper' }">
                                 <li class="main-content-list-item">
                                     <div class="list-item-content-holder moved-objectives">
                                         <div class="list-item-drag-icon"></div>
@@ -221,7 +221,7 @@
                                     </div>
                                 </div>
                                 <!-- /ko -->
-                                <ul class="unstyled main-content-list" data-bind="css: { 'connected': connectedObjectives().length != 0, empty: connectedObjectives().length == 0 }, sortablePlaceholder: { data: connectedObjectives, beforeMove: connectObjective, placeholder: '.placeholder-wrapper',  options: { start : startReorderingObjectives, stop: endReorderingObjectives } }">
+                                <ul class="unstyled main-content-list" data-bind="css: { 'connected': connectedObjectives().length != 0, empty: connectedObjectives().length == 0 }, sortableExtended: { data: connectedObjectives, beforeMove: connectObjective, placeholder: '.placeholder-wrapper',  options: { start : startReorderingObjectives, stop: endReorderingObjectives } }">
                                     <li class="main-content-list-item">
                                         <div class="list-item-content-holder moved-objectives">
                                             <div class="list-item-drag-icon"></div>

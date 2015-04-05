@@ -8,7 +8,8 @@
             constants = require('constants'),
             httpWrapper = require('http/httpWrapper'),
             objectiveRepository = require('repositories/objectiveRepository'),
-            QuestionModel = require('models/question');
+            QuestionModel = require('models/question'),
+            questionModelMapper = require('mappers/questionModelMapper');
 
         var questionType = 0,
             questionId = 'questionId';
@@ -1012,6 +1013,189 @@
 
             });
 
+            describe('updateLearningContentsOrder:', function () {
+
+                it('should be function', function () {
+                    expect(questionRepository.updateLearningContentsOrder).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(questionRepository.updateLearningContentsOrder()).toBePromise();
+                });
+
+                describe('when question id is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateLearningContentsOrder(undefined, []);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id (string) was expected');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when question id is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateLearningContentsOrder(null, []);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id (string) was expected');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when question id is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateLearningContentsOrder({}, []);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id (string) was expected');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when learning contents is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateLearningContentsOrder('id', undefined);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('learningContents is not array');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when learning contents is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateLearningContentsOrder('id', null);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('learningContents is not array');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when learning contents is not an array', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateLearningContentsOrder('id', {});
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('learningContents is not array');
+                            done();
+                        });
+                    });
+
+                });
+
+                it('should send request to \'api/question/updateLearningContentsOrder\'', function (done) {
+                    var question = 'id',
+                        learningContent = 'loid';
+
+                    var promise = questionRepository.updateLearningContentsOrder(question, [{ id: learningContent }]);
+
+                    promise.fin(function () {
+                        expect(httpWrapper.post).toHaveBeenCalledWith('api/question/updateLearningContentsOrder', { questionId: question, learningContents: [learningContent] });
+                        done();
+                    });
+
+                    post.reject('lomai menya polnostju');
+                });
+
+                describe('when learning contents order successfully updated on server', function () {
+
+                    describe('and response is not an object', function () {
+
+                        it('should reject promise', function (done) {
+                            var question = 'id',
+                                learningContent = 'loid';
+
+                            var promise = questionRepository.updateLearningContentsOrder(question, [{ id: learningContent }]);
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith('Response is not an object');
+                                done();
+                            });
+
+                            post.resolve('lomai menya polnostju');
+                        });
+
+                    });
+
+                    describe('and response has no modification date', function () {
+
+                        it('should reject promise', function (done) {
+                            var question = 'id',
+                                learningContent = 'loid';
+
+                            var promise = questionRepository.updateLearningContentsOrder(question, [{ id: learningContent }]);
+
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith('Response does not have modification date');
+                                done();
+                            });
+
+                            post.resolve({});
+                        });
+
+                    });
+
+                    describe('and question not found in dataContext', function () {
+
+                        it('should reject promise', function (done) {
+                            var question = 'id',
+                                learningContent = 'loid',
+                                modifiedOn = new Date();
+
+                            dataContext.objectives = [];
+
+                            var promise = questionRepository.updateLearningContentsOrder(question, [{ id: learningContent }]);
+
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith('Question does not exist in dataContext');
+                                done();
+                            });
+
+                            post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                        });
+
+                    });
+
+                    it('should resolve promise with modification date', function (done) {
+                        var objective = 'Oid',
+                            question = 'id',
+                            learningContent = 'loid',
+                            learningContent2 = 'loid2',
+                            modifiedOn = new Date();
+
+                        dataContext.objectives = [{ id: objective, questions: [{ id: question }] }];
+
+                        var promise = questionRepository.updateLearningContentsOrder(question, [{ id: learningContent }, {id: learningContent2}]);
+
+                        promise.fin(function () {
+                            expect(promise).toBeResolvedWith(modifiedOn);
+                            done();
+                        });
+
+                        post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                    });
+
+                });
+
+            });
+
             describe('getById:', function () {
                 var getObjectiveDeferred;
                 beforeEach(function () {
@@ -1079,7 +1263,7 @@
 
 
                         describe('when question does not exist', function () {
-                            beforeEach(function() {
+                            beforeEach(function () {
                                 objective.questions = [];
                             });
 
@@ -1992,6 +2176,609 @@
 
                         });
 
+                    });
+
+                });
+
+            });
+
+            describe('copyQuestion:', function () {
+
+                it('should be function', function () {
+                    expect(questionRepository.copyQuestion).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(questionRepository.copyQuestion()).toBePromise();
+                });
+
+                describe('when questionId is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.copyQuestion(undefined);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when questionId is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.copyQuestion(null);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when questionId is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.copyQuestion({});
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when objectiveId is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.copyQuestion('', undefined);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Objective id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when objectiveId is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.copyQuestion('', null);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Objective id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when objectiveId is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.copyQuestion('', {});
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Objective id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                it('should send request to server to api/question/copy', function (done) {
+                    var objectiveId = 'objectiveId';
+                    post.reject();
+
+                    var promise = questionRepository.copyQuestion(questionId, objectiveId);
+
+                    promise.fin(function () {
+                        expect(httpWrapper.post).toHaveBeenCalledWith('api/question/copy', {
+                            questionId: questionId,
+                            objectiveId: objectiveId
+                        });
+                        done();
+                    });
+                });
+
+                describe('when request to server was not successful', function () {
+
+                    it('should reject promise', function (done) {
+                        var reason = 'reason';
+                        var promise = questionRepository.copyQuestion('questionId', 'objectiveId');
+
+                        post.reject(reason);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith(reason);
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when response is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.copyQuestion('questionId', 'objectiveId');
+
+                        post.resolve(undefined);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when response is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.copyQuestion('questionId', 'objectiveId');
+
+                        post.resolve(null);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when response is not an object', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.copyQuestion('questionId', 'objectiveId');
+
+                        post.resolve('');
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when response is correct', function () {
+
+                    var createdOnDate = new Date(),
+                        response = {},
+                        mappedQuestion = {
+                            createdOn: createdOnDate.toISOString()
+                        },
+                        objective = {
+                            id: 'objectiveId',
+                            questions: []
+                        };
+
+                    beforeEach(function () {
+                        post.resolve(response);
+                        dataContext.objectives = [objective];
+                        spyOn(questionModelMapper, 'map').and.returnValue(mappedQuestion);
+                    });
+
+                    describe('and destination objective does not exist in dataContext', function () {
+
+                        it('should reject promise', function (done) {
+                            dataContext.objectives = [];
+
+                            var promise = questionRepository.copyQuestion('questionId', 'objectiveId');
+
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith('Objective does not exist in dataContext');
+                                done();
+                            });
+                        });
+
+                    });
+
+                    it('should get question model from response', function (done) {
+                        var promise = questionRepository.copyQuestion('questionId', 'objectiveId');
+
+                        promise.fin(function () {
+                            expect(questionModelMapper.map).toHaveBeenCalledWith(response);
+                            done();
+                        });
+                    });
+
+                    it('should add copied question to objective', function (done) {
+                        objective.questions = [];
+
+                        var promise = questionRepository.copyQuestion(questionId, objective.id);
+
+                        promise.fin(function () {
+                            expect(objective.questions.length).toEqual(1);
+                            expect(objective.questions[0]).toEqual(mappedQuestion);
+                            done();
+                        });
+                    });
+
+                    it('should update objective modification date', function (done) {
+                        objective.ModifiedOn = null;
+
+                        var promise = questionRepository.copyQuestion(questionId, objective.id);
+
+                        promise.fin(function () {
+                            expect(objective.modifiedOn).toEqual(mappedQuestion.createdOn);
+                            done();
+                        });
+                    });
+
+                    it('should trigger event \'question:created\'', function (done) {
+                        var promise = questionRepository.copyQuestion(questionId, objective.id);
+
+                        promise.fin(function () {
+                            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.created, objective.id, mappedQuestion);
+                            done();
+                        });
+                    });
+
+                    it('should resolve promise with copied question', function (done) {
+                        var promise = questionRepository.copyQuestion(questionId, objective.id);
+
+                        promise.fin(function () {
+                            expect(promise.inspect().value).toBe(mappedQuestion);
+                            done();
+                        });
+                    });
+
+                });
+
+            });
+
+            describe('moveQuestion:', function () {
+                var sourceObjectiveId = 'sourceObjectiveId';
+                var destinationObjectiveId = 'destinationObjectiveId';
+
+
+                it('should be function', function () {
+                    expect(questionRepository.moveQuestion).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(questionRepository.moveQuestion()).toBePromise();
+                });
+
+
+                describe('when questionId is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.moveQuestion(undefined);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when questionId is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.moveQuestion(null);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when questionId is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.moveQuestion({});
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when sourceObjectiveId is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.moveQuestion('', undefined);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Source objective id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when sourceObjectiveId is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.moveQuestion('', null);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Source objective id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when sourceObjectiveId is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.moveQuestion('', {});
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Source objective id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when destinationObjectiveId is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.moveQuestion('', '', undefined);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Destination objective id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when destinationObjectiveId is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.moveQuestion('', '', null);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Destination objective id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when destinationObjectiveId is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.moveQuestion('', '', {});
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Destination objective id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                it('should send request to server to api/question/move', function (done) {
+                    post.reject();
+
+                    var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                    promise.fin(function () {
+                        expect(httpWrapper.post).toHaveBeenCalledWith('api/question/move', {
+                            questionId: questionId,
+                            objectiveId: destinationObjectiveId
+                        });
+                        done();
+                    });
+                });
+
+                describe('when request to server was not successful', function () {
+
+                    it('should reject promise', function (done) {
+                        var reason = 'reason';
+                        var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                        post.reject(reason);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith(reason);
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when response is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                        post.resolve(undefined);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when response is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                        post.resolve(null);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when response is not an object', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                        post.resolve('');
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when response does not have a question creation date', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                        post.resolve({});
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response does not have modification date');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when response is correct', function () {
+                    var modifiedOnDate = new Date(),
+                        response = {
+                            ModifiedOn: modifiedOnDate.toISOString()
+                        },
+                        question = {
+                            id: questionId
+                        },
+                        sourceObjective = {
+                            id: sourceObjectiveId,
+                            questions: []
+                        },
+                        destinationObjective = {
+                            id: destinationObjectiveId,
+                            questions: []
+                        };
+
+                    beforeEach(function () {
+                        post.resolve(response);
+                        sourceObjective.questions = [question];
+                        dataContext.objectives = [sourceObjective, destinationObjective];
+                    });
+
+                    describe('and source objective does not exist in dataContext', function () {
+
+                        it('should reject promise', function (done) {
+                            dataContext.objectives = [];
+
+                            var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith('Source objective does not exist in dataContext');
+                                done();
+                            });
+                        });
+
+                    });
+
+                    describe('and destination objective does not exist in dataContext', function () {
+
+                        it('should reject promise', function (done) {
+                            dataContext.objectives = [sourceObjective];
+
+                            var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith('Destination objective does not exist in dataContext');
+                                done();
+                            });
+                        });
+
+                    });
+
+                    describe('and source objective does not contain question', function() {
+
+                        it('should reject promise', function (done) {
+                            sourceObjective.questions = [];
+
+                            var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith('Source objective does not contain moved question');
+                                done();
+                            });
+                        });
+
+                    });
+
+                    it('should remove question from source objective', function(done) {
+                        var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                        promise.fin(function () {
+                            expect(sourceObjective.questions.length).toBe(0);
+                            done();
+                        });
+                    });
+
+                    it('should update modification date of source objective', function (done) {
+                        sourceObjective.modifiedOn = null;
+
+                        var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                        promise.fin(function () {
+                            expect(sourceObjective.modifiedOn).toEqual(new Date(response.ModifiedOn));
+                            done();
+                        });
+                    });
+
+                    it('should add question to destination objective', function (done) {
+                        destinationObjective.questions = [];
+
+                        var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                        promise.fin(function () {
+                            expect(destinationObjective.questions.length).toBe(1);
+                            done();
+                        });
+                    });
+
+                    it('should update modification date of destination objective', function (done) {
+                        destinationObjective.modifiedOn = null;
+
+                        var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                        promise.fin(function () {
+                            expect(destinationObjective.modifiedOn).toEqual(new Date(response.ModifiedOn));
+                            done();
+                        });
+                    });
+
+                    it('should trigger event \'questions:deleted\'', function (done) {
+                        var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                        promise.fin(function () {
+                            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.deleted, sourceObjective.id, [question.id]);
+                            done();
+                        });
+                    });
+                    it('should trigger event \'question:created\'', function (done) {
+                        var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
+
+                        promise.fin(function () {
+                            expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.created, destinationObjective.id, question);
+                            done();
+                        });
                     });
 
                 });

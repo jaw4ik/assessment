@@ -1,9 +1,10 @@
 ﻿using easygenerator.DomainModel.Entities;
-using System;
 using easygenerator.Web.Security.PermissionsCheckers;
+using System;
 
 namespace easygenerator.Web.Components.ActionFilters.Permissions
 {
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class EntityCollaboratorAttribute : EntityAccessAttribute
     {
         public EntityCollaboratorAttribute(Type entityType)
