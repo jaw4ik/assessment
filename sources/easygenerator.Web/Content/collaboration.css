@@ -494,8 +494,8 @@
   top: -5px;
   width: 385px;
 }
-.collaboration.modal-dialog-wrapper + .button {
-  z-index: 100500;
+.collaboration.modal-dialog-wrapper.visible + .button {
+  z-index: 1500;
 }
 .collaboration .circular-loader .circular-loader-item {
   background-color: #bcbec4;
