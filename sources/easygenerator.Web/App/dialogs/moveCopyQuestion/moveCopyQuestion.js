@@ -144,14 +144,19 @@
     }
 
     function mapCourses() {
-        return _.map(dataContext.courses, function (course) {
-            return {
-                id: course.id,
-                title: course.title,
-                objectives: course.objectives,
-                objectvesListEmpty: course.objectives.length === 0
-            };
-        });
+        return _.chain(dataContext.courses)
+                .sortBy(function (course) {
+                    return -course.createdOn;
+                 })
+                .map(function (course) {
+                    return {
+                        id: course.id,
+                        title: course.title,
+                        objectives: course.objectives,
+                        objectvesListEmpty: course.objectives.length === 0
+                    };
+                })
+                .value();
     }
 
     function isValidObjective() {
