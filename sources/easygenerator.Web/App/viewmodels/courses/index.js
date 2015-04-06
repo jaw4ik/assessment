@@ -10,12 +10,9 @@
        ]).mapUnknownRoutes('viewmodels/errors/404', '404').buildNavigationModel();
 
 
-    var subscriptions = [];
-
     childRouter.isViewReady = ko.observable();
     childRouter.on('router:navigation:processing').then(function (instruction, router) {
         if (instruction.config.moduleId !== router.isViewReady()) {
-            console.log('COURSES FALSE');
             router.isViewReady(false);
         }
     });
@@ -33,33 +30,6 @@
         activate: function () {
             console.warn('viewmodels/courses/index');
 
-        },
-        attached: function (element) {
-            $(element).css({
-                'padding-left': '300px'
-            });
-            var expand = function () {
-                $(element).finish().animate({
-                    'padding-left': '300px',
-                }, 400);
-            }
-
-            var collapse = function () {
-                $(element).finish().animate({
-                    'padding-left': '50px',
-                }, 400);
-            }
-
-            subscriptions.push(app.on(constants.messages.treeOfContent.expanded).then(expand));
-            subscriptions.push(app.on(constants.messages.treeOfContent.collapsed).then(collapse));
-
-
-
-        },
-        detached: function () {
-            subscriptions.forEach(function (subscription) {
-                subscription.off();
-            });
         }
     };
 

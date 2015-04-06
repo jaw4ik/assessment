@@ -10,10 +10,14 @@
         collapse: collapse,
         onCollapsed: onCollapsed,
 
-        activate: activate
+        activate: activate,
+        attached: attached,
+        detached: detached
     };
 
     app.on(constants.messages.onboarding.closed, onOnboardingClosed);
+
+    var subscriptions = [];
 
     return viewModel;
 
@@ -24,7 +28,7 @@
     function expand() {
         eventTracker.publish('Expand navigation bar');
         viewModel.isExpanded(true);
-        _.defer(function() { viewModel.isVisible(true); });
+        _.defer(function () { viewModel.isVisible(true); });
         app.trigger(constants.messages.treeOfContent.expanded);
     }
 
@@ -41,5 +45,35 @@
     function activate() {
         viewModel.onboardingClosed(initialization.isClosed());
     }
+
+
+
+
+    function attached(bar) {
+
+        var element = $(bar).parent();
+
+        $(element).css({
+            'padding-left': viewModel.isVisible() ? '300px' : '50px'
+        });
+
+        subscriptions.push(app.on(constants.messages.treeOfContent.expanded).then(function () {
+            $(element).finish().animate({
+                'padding-left': '300px',
+            }, 400);
+        }));
+        subscriptions.push(app.on(constants.messages.treeOfContent.collapsed).then(function () {
+            $(element).finish().animate({
+                'padding-left': '50px',
+            }, 400);
+        }));
+    }
+
+    function detached() {
+        subscriptions.forEach(function (subscription) {
+            subscription.off();
+        });
+    }
+
 
 });
