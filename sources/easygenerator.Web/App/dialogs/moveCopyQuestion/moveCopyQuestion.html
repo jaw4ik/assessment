@@ -35,7 +35,7 @@
             </div>
             <div class="move-copy-question-footer">
                 <div class="switcher">
-                    <div class="switcher-text" data-bind="localize: { text: 'move' }, css: { selected: !isCopy() }">Move</div>
+                    <div class="switcher-text" data-bind="localize: { text: 'move' }, css: { selected: !isCopy() }, click: setMoveAction">Move</div>
                     <div class="switch-toggle-slider on" data-bind="switchToggle: { value: isCopy, onValueChanged: changeMoveCopyAction }">
                         <div class="switch-toggle-wrapper">
                             <div class="switch-toggle-on"></div>
@@ -43,7 +43,7 @@
                             <div class="switch-toggle-off"></div>
                         </div>
                     </div>
-                    <div class="switcher-text selected" data-bind="localize: { text: 'copy' }, css: { selected: isCopy() }">Copy</div>
+                    <div class="switcher-text selected" data-bind="localize: { text: 'copy' }, css: { selected: isCopy() }, click: setCopyAction">Copy</div>
                     <div class="overlay"></div>
                 </div>
                 <div class="buttons-container">

@@ -18,7 +18,9 @@
         show: show,
         hide: hide,
         isCopy: ko.observable(true),
-        changeMoveCopyAction: changeMoveCopyAction, 
+        changeMoveCopyAction: changeMoveCopyAction,
+        setCopyAction: setCopyAction,
+        setMoveAction: setMoveAction,
 
         selectedCourse: ko.observable({}),
         selectCourse: selectCourse,
@@ -50,6 +52,24 @@
         } else {
             eventTracker.publish(events.switchToMove);
         }
+    }
+
+    function setCopyAction() {
+        if (viewModel.isCopy()) {
+            return;
+        }
+
+        viewModel.isCopy(true);
+        eventTracker.publish(events.switchToCopy);
+    }
+
+    function setMoveAction() {
+        if (!viewModel.isCopy()) {
+            return;
+        }
+
+        viewModel.isCopy(false);
+        eventTracker.publish(events.switchToMove);
     }
 
     function selectCourse(course) {

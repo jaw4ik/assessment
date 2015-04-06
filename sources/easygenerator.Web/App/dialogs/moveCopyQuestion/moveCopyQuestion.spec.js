@@ -190,6 +190,74 @@
 
         });
 
+        describe('setCopyAction:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.setCopyAction).toBeFunction();
+            });
+
+            describe('when isCopy is true', function() {
+                it('should not publish event', function() {
+                    viewModel.isCopy(true);
+
+                    viewModel.setCopyAction();
+
+                    expect(eventTracker.publish).not.toHaveBeenCalled();
+                });
+            });
+
+            it('should set isCopy in true', function() {
+                viewModel.isCopy(false);
+
+                viewModel.setCopyAction();
+
+                expect(viewModel.isCopy()).toBeTruthy();
+            });
+
+            it('should publish event \'Switch to "copy" item\'', function () {
+                viewModel.isCopy(false);
+
+                viewModel.setCopyAction();
+
+                expect(eventTracker.publish).toHaveBeenCalledWith('Switch to "copy" item');
+            });
+
+        });
+
+        describe('setMoveAction:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.setMoveAction).toBeFunction();
+            });
+
+            describe('when isCopy is false', function () {
+                it('should not publish event', function () {
+                    viewModel.isCopy(false);
+
+                    viewModel.setMoveAction();
+
+                    expect(eventTracker.publish).not.toHaveBeenCalled();
+                });
+            });
+
+            it('should set isCopy in false', function () {
+                viewModel.isCopy(true);
+
+                viewModel.setMoveAction();
+
+                expect(viewModel.isCopy()).toBeFalsy();
+            });
+
+            it('should publish event \'Switch to "move" item\'', function () {
+                viewModel.isCopy(true);
+
+                viewModel.setMoveAction();
+
+                expect(eventTracker.publish).toHaveBeenCalledWith('Switch to "move" item');
+            });
+
+        });
+
         describe('selectedCourse', function () {
 
             it('should be observable', function() {
