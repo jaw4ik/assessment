@@ -9,8 +9,8 @@
                             <li class="dropdown-list-item" data-bind="click: showMoveCopyDialog">
                                 <span class="advanced-features-item" data-bind="localize: { text: 'moveCopyQuestionTo' }">Move/Copy question to...</span>
                             </li>
-                            <li class="dropdown-list-item objective-from-powerpoint">
-                                <span class="advanced-features-item marked" data-bind="localize: { text: 'deleteQuestion' }">Delete question</span>
+                            <li class="dropdown-list-item" data-bind="click: duplicateQuestion">
+                                <span class="advanced-features-item" data-bind="localize: { text: 'duplicate' }">Duplicate</span>
                             </li>
                         </ul>
                     </div>
@@ -35,7 +35,6 @@
             </header>
         </div>
     </div>
-
     <!-- ko if: questionContent -->
     <div class="content-section-wrapper">
         <div class="content-section">

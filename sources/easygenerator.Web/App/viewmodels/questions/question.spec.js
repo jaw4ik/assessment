@@ -439,6 +439,65 @@ define(function (require) {
 
         });
 
+        describe('duplicateQuestion:', function () {
+
+            var copyQuestionDefer,
+                questionId = 'questionId',
+                objectiveId = 'objectiveId',
+                courseId = 'courseId',
+                newQuestionId = 'newQuestionId';
+
+            beforeEach(function () {
+                copyQuestionDefer = Q.defer();
+                spyOn(questionRepository, 'copyQuestion').and.returnValue(copyQuestionDefer.promise);
+                copyQuestionDefer.resolve({ id: newQuestionId });
+                viewModel.objectiveId = objectiveId;
+                viewModel.questionId = questionId;
+            });
+
+            it('should be function', function() {
+                expect(viewModel.duplicateQuestion).toBeFunction();
+            });
+
+            it('should send response to server', function() {
+                viewModel.duplicateQuestion();
+                expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.objectiveId);
+            });
+
+            describe('when is context of course', function() {
+
+                beforeEach(function() {
+                    viewModel.courseId = courseId;
+                });
+
+                it('should navigate to new question in course', function(done) {
+                    viewModel.duplicateQuestion();
+                    copyQuestionDefer.promise.fin(function() {
+                        expect(router.navigate).toHaveBeenCalledWith('objective/' + objectiveId + '/question/' + newQuestionId + '?courseId=' + courseId);
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when is not a context of course', function () {
+
+                beforeEach(function () {
+                    viewModel.courseId = null;
+                });
+
+                it('should navigate to new question', function (done) {
+                    viewModel.duplicateQuestion();
+                    copyQuestionDefer.promise.fin(function () {
+                        expect(router.navigate).toHaveBeenCalledWith('objective/' + objectiveId + '/question/' + newQuestionId);
+                        done();
+                    });
+                });
+
+            });
+
+        });
+
     });
 
 });
