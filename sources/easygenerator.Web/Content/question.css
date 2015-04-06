@@ -369,15 +369,11 @@
 .dropdown .dropdown-options-list .dropdown-options-item {
   position: relative;
   padding: 10px;
-  border-top: 1px solid #ddd;
   word-wrap: break-word;
   cursor: pointer;
 }
 .dropdown .dropdown-options-list .dropdown-options-item:hover {
   background: #f9f9f9;
-}
-.dropdown .dropdown-options-list .dropdown-options-item:first-child {
-  border: none;
 }
 .dropdown .dropdown-options-list .dropdown-options-item.selected {
   background: #fffddd;
