@@ -34,6 +34,9 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking
 
         private void HandleCourseUnpublishedChangesState(Course course, bool hasChanges)
         {
+            if (string.IsNullOrEmpty(course.PublicationUrl))
+                return;
+
             var info = _storage.GetCourseStateInfo(course);
             if (info.HasUnpublishedChanges == hasChanges)
                 return;

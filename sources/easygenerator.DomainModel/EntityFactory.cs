@@ -38,7 +38,7 @@ namespace easygenerator.DomainModel
         InformationContent InformationContent(string title, string createdBy);
         Onboarding Onboarding(string userEmail);
         DemoCourseInfo DemoCourseInfo(Course sourceCourse, Course demoCourse, string createdBy);
-        CourseStateInfo CourseStateInfo(bool hasUnpublishedChanges = false);
+        CourseStateInfo CourseStateInfo(bool hasUnpublishedChanges);
         CourseState CourseState(Course course, CourseStateInfo info);
     }
 

@@ -1,5 +1,4 @@
-﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Events.CourseEvents;
+﻿using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.DomainEvents.ChangeTracking;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
@@ -15,6 +14,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
     {
         private CourseStateTracker _tracker;
         private ICourseStateInfoStorage _storage;
+        private const string PublicationUrl = "www.publication.com";
 
         [TestInitialize]
         public void Initialize()
@@ -24,12 +24,28 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         }
 
         #region Handle CoursePublishedEvent
-
+        
         [TestMethod]
-        public void Handle_CoursePublishedEvent_Should_DoNothing_When_CourseDoesNotHaveUnpublishedChanges()
+        public void Handle_CoursePublishedEvent_Should_Not_SaveCourseState_When_CourseDoesNotHavePublicationUrl()
         {
             //Arrange
             var course = CourseObjectMother.Create();
+            var info = CourseStateInfoObjectMother.Create(true);
+            _storage.GetCourseStateInfo(course).Returns(info);
+
+            //Act
+            _tracker.Handle(new CoursePublishedEvent(course));
+
+            //Asssert
+            _storage.DidNotReceive().SaveCourseStateInfo(course, info);
+        }
+
+        [TestMethod]
+        public void Handle_CoursePublishedEvent_Should_Not_SaveCourseState_When_CourseDoesNotHaveUnpublishedChanges()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.UpdatePublicationUrl(PublicationUrl);
             var info = CourseStateInfoObjectMother.Create();
             _storage.GetCourseStateInfo(course).Returns(info);
 
@@ -45,6 +61,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
+            course.UpdatePublicationUrl(PublicationUrl);
             var info = CourseStateInfoObjectMother.Create(true);
             _storage.GetCourseStateInfo(course).Returns(info);
 
@@ -60,6 +77,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
+            course.UpdatePublicationUrl(PublicationUrl);
             var info = CourseStateInfoObjectMother.Create(true);
             _storage.GetCourseStateInfo(course).Returns(info);
 
@@ -75,10 +93,26 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         #region Handle CourseChangedEvent
 
         [TestMethod]
+        public void Handle_CourseChangedEvent_Should_Not_SaveCourseState_When_CourseHasNotBeenPublished()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var info = CourseStateInfoObjectMother.Create();
+            _storage.GetCourseStateInfo(course).Returns(info);
+
+            //Act
+            _tracker.Handle(new CourseChangedEvent(course));
+
+            //Asssert
+            _storage.DidNotReceive().GetCourseStateInfo(course);
+        }
+
+        [TestMethod]
         public void Handle_CourseChangedEvent_Should_DoNothing_When_CourseHasUnpublishedChanges()
         {
             //Arrange
             var course = CourseObjectMother.Create();
+            course.UpdatePublicationUrl(PublicationUrl);
             var info = CourseStateInfoObjectMother.Create(true);
             _storage.GetCourseStateInfo(course).Returns(info);
 
@@ -94,6 +128,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
+            course.UpdatePublicationUrl(PublicationUrl);
             var info = CourseStateInfoObjectMother.Create();
             _storage.GetCourseStateInfo(course).Returns(info);
 
@@ -109,6 +144,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
+            course.UpdatePublicationUrl(PublicationUrl);
             var info = CourseStateInfoObjectMother.Create();
             _storage.GetCourseStateInfo(course).Returns(info);
 

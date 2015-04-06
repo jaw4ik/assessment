@@ -1,5 +1,4 @@
 ﻿
-using System.Web.Http.WebHost;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
@@ -108,7 +107,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             var info = CourseStateInfoObjectMother.Create();
             _inMemoryStorage.GetCourseStateInfo(course).Returns(null as CourseStateInfo);
             _repository.GetByCourseId(course.Id).Returns(null as CourseState);
-            _entityFactory.CourseStateInfo().Returns(info);
+            _entityFactory.CourseStateInfo(false).Returns(info);
 
             //Act
             var result = _storage.GetCourseStateInfo(course);

@@ -32,7 +32,7 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking
             var state = _repository.GetByCourseId(course.Id);
             if (state == null)
             {
-                return _entityFactory.CourseStateInfo();
+                return _entityFactory.CourseStateInfo(false);
             }
 
             _inMemoryStorage.SaveCourseStateInfo(course, state.Info);
