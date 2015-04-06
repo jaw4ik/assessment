@@ -1,6 +1,9 @@
-﻿using easygenerator.DomainModel.Events;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
+using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
+using System.Collections.Generic;
 
 namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
 {
@@ -11,53 +14,80 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<CourseObjectivesReorderedEvent>,
         IDomainEventHandler<CourseObjectiveRelatedEvent>,
         IDomainEventHandler<CourseObjectivesUnrelatedEvent>,
-        IDomainEventHandler<CourseTemplateSettingsUpdated>
+        IDomainEventHandler<CourseTemplateSettingsUpdated>,
+        IDomainEventHandler<ObjectiveChangedEvent>,
+        IDomainEventHandler<QuestionChangedEvent>
     {
+        private readonly ICourseRepository _repository;
         private readonly IDomainEventPublisher _eventPublisher;
 
-        public CourseChangeTracker(IDomainEventPublisher publisher)
+        public CourseChangeTracker(IDomainEventPublisher eventPublisher, ICourseRepository repository)
         {
-            _eventPublisher = publisher;
+            _eventPublisher = eventPublisher;
+            _repository = repository;
         }
+
+        #region Course event handlers
 
         public void Handle(CourseTitleUpdatedEvent args)
         {
-            HandleCourseChangeEvent(args);
+            RaiseCourseChangedEvent(args.Course);
         }
 
         public void Handle(CourseIntroductionContentUpdated args)
         {
-            HandleCourseChangeEvent(args);
+            RaiseCourseChangedEvent(args.Course);
         }
 
         public void Handle(CourseTemplateUpdatedEvent args)
         {
-            HandleCourseChangeEvent(args);
+            RaiseCourseChangedEvent(args.Course);
         }
 
         public void Handle(CourseObjectivesReorderedEvent args)
         {
-            HandleCourseChangeEvent(args);
+            RaiseCourseChangedEvent(args.Course);
         }
 
         public void Handle(CourseObjectiveRelatedEvent args)
         {
-            HandleCourseChangeEvent(args);
+            RaiseCourseChangedEvent(args.Course);
         }
 
         public void Handle(CourseObjectivesUnrelatedEvent args)
         {
-            HandleCourseChangeEvent(args);
+            RaiseCourseChangedEvent(args.Course);
         }
 
         public void Handle(CourseTemplateSettingsUpdated args)
         {
-            HandleCourseChangeEvent(args);
+            RaiseCourseChangedEvent(args.Course);
         }
 
-        private void HandleCourseChangeEvent(CourseEvent args)
+        #endregion
+
+        public void Handle(ObjectiveChangedEvent args)
         {
-            _eventPublisher.Publish(new CourseChangedEvent(args.Course));
+            RaiseCoursesChangedEvent(_repository.GetObjectiveCourses(args.Objective.Id));
         }
+
+        public void Handle(QuestionChangedEvent args)
+        {
+
+        }
+
+        private void RaiseCoursesChangedEvent(IEnumerable<Course> courses)
+        {
+            foreach (var course in courses)
+            {
+                RaiseCourseChangedEvent(course);
+            }
+        }
+
+        private void RaiseCourseChangedEvent(Course course)
+        {
+            _eventPublisher.Publish(new CourseChangedEvent(course));
+        }
+
     }
 }

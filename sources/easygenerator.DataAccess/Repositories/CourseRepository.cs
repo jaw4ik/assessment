@@ -1,11 +1,11 @@
-﻿using System;
-using System.Data.Entity;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Data.Entity;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace easygenerator.DataAccess.Repositories
 {
@@ -37,6 +37,19 @@ namespace easygenerator.DataAccess.Repositories
                           ";
 
             ((DatabaseContext)_dataContext).Database.ExecuteSqlCommand(command, new SqlParameter("@courseId", courseId));
+        }
+
+        public ICollection<Course> GetObjectiveCourses(Guid objectiveId)
+        {
+            const string query = @"
+               SELECT * FROM Courses WHERE Id IN
+                (
+                    SELECT obj.Course_Id FROM CourseObjectives obj WHERE Objective_Id = @objectiveId
+                )
+            ";
+
+            return ((DbSet<Course>)_dataContext.GetSet<Course>()).SqlQuery(query,
+                new SqlParameter("@objectiveId", objectiveId)).ToList();
         }
     }
 }
