@@ -1,16 +1,26 @@
 ﻿<section class="question view-module" data-bind="css: questionType">
-
     <div class="content-section-wrapper">
         <div class="content-section">
             <div class="page-view-caption clearfix">
                 <div class="action-item-btn-wrapper pull-right">
-                    <!-- ko widget: { kind: 'createQuestion', courseId: courseId, objectiveId: objectiveId } --><!-- /ko -->
+                    <div class="list-item-action advanced-features-dropdown" data-bind="dropDown: {}">
+                        <div class="btn-head bold"></div>
+                        <ul class="dropdown-list">
+                            <li class="dropdown-list-item" data-bind="click: showMoveCopyDialog">
+                                <span class="advanced-features-item" data-bind="localize: { text: 'moveCopyQuestionTo' }">Move/Copy question to...</span>
+                            </li>
+                            <li class="dropdown-list-item" data-bind="click: duplicateQuestion">
+                                <span class="advanced-features-item" data-bind="localize: { text: 'duplicate' }">Duplicate</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="list-item-action" data-bind="widget: { kind: 'createQuestion', courseId: courseId, objectiveId: objectiveId }"></div>
                 </div>
                 <div class="page-view-caption-text" data-bind="text: viewCaption">Question editor</div>
             </div>
         </div>
     </div>
-
+    <!-- ko compose: moveCopyQuestionDialog --><!-- /ko -->
     <div class="content-section-wrapper" data-bind="with: questionTitle">
         <div class="content-section">
             <header class="question-view-header" data-bind="css: { 'active' : text.isEditing() }">
@@ -25,7 +35,6 @@
             </header>
         </div>
     </div>
-
     <!-- ko if: questionContent -->
     <div class="content-section-wrapper">
         <div class="content-section">
@@ -65,7 +74,6 @@
         </div>
     </div>
     <!-- /ko -->
-    
     <!-- ko if: !isInformationContent -->
         <!-- ko compose: activeQuestionViewModel --><!-- /ko -->
         <!-- ko compose: { model: 'viewmodels/questions/feedback', activationData: questionId } --><!-- /ko -->

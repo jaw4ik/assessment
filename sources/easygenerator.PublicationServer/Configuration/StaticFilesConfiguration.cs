@@ -3,6 +3,7 @@ using easygenerator.PublicationServer.Extensions;
 using Microsoft.Owin;
 using Microsoft.Owin.Extensions;
 using Microsoft.Owin.StaticFiles;
+using Microsoft.Owin.StaticFiles.ContentTypes;
 using Owin;
 using System.Web.Http;
 
@@ -21,6 +22,10 @@ namespace easygenerator.PublicationServer.Configuration
                 EnableDefaultFiles = true
             };
             fileServerOptions.StaticFileOptions.DisableCache();
+
+            var contentTypes = (FileExtensionContentTypeProvider)fileServerOptions.StaticFileOptions.ContentTypeProvider;
+            contentTypes.Mappings[".json"] = "application/json";
+
             appBuilder.UseFileServer(fileServerOptions);
 
             appBuilder.UseStageMarker(PipelineStage.Authenticate);

@@ -1,8 +1,12 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Collections.ObjectModel;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Clonning;
+using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,16 +24,22 @@ namespace easygenerator.Web.Tests.Controllers.Api
     public class QuestionControllerTests
     {
         private const string CreatedBy = "easygenerator@easygenerator.com";
+        private const string ModifiedBy = "easygenerator2@easygenerator.com";
 
         private QuestionController _controller;
+        private ICloner _cloner;
+        private IEntityModelMapper<Question> _entityModelMapper;
 
         IPrincipal _user;
         HttpContextBase _context;
 
+
         [TestInitialize]
         public void InitializeContext()
         {
-            _controller = new QuestionController();
+            _cloner = Substitute.For<ICloner>();
+            _entityModelMapper = Substitute.For<IEntityModelMapper<Question>>();
+            _controller = new QuestionController(_cloner, _entityModelMapper);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -263,5 +273,257 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region UpdateLearningContentsOrder
+
+        [TestMethod]
+        public void UpdateLearningContentsOrder_ShouldReturnHttpNotFoundResult_WhenQuestionIsNull()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.UpdateLearningContentsOrder(null, new Collection<LearningContent>());
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.QuestionNotFoundError);
+        }
+
+        [TestMethod]
+        public void UpdateLearningContentsOrder_ShouldCallUpdateLearningContentsForQuestion()
+        {
+            //Arrange
+            var question = Substitute.For<Question>();
+            var learningContents = new Collection<LearningContent>();
+            _user.Identity.Name.Returns(ModifiedBy);
+
+            //Act
+            _controller.UpdateLearningContentsOrder(question, learningContents);
+
+            //Assert
+            question.Received().UpdateLearningContentsOrder(learningContents, ModifiedBy);
+        }
+
+        [TestMethod]
+        public void UpdateLearningContentsOrder_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var question = Substitute.For<Question>();
+            var learningContents = new Collection<LearningContent>();
+            _user.Identity.Name.Returns(ModifiedBy);
+
+            //Act
+            var result = _controller.UpdateLearningContentsOrder(question, learningContents);
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
+        }
+
+        #endregion
+
+        #region Copy question
+
+        [TestMethod]
+        public void Copy_ShouldReturnBadRequest_WnenQuestionIsNull()
+        {
+            var result = _controller.Copy(null, null);
+
+            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+        }
+
+        [TestMethod]
+        public void Copy_ShouldReturnBadRequest_WnenDestinationObjectiveIsNull()
+        {
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+
+            var result = _controller.Copy(question, null);
+
+            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+        }
+
+        [TestMethod]
+        public void Copy_ShouldCloneQuestion()
+        {
+            //Arrange
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+            var destinationObjective = Substitute.For<Objective>("Objective title", CreatedBy);
+
+            _cloner.Clone(question, user).Returns(Substitute.For<Question>());
+
+            //Act
+            _controller.Copy(question, destinationObjective);
+
+            //Assert
+            _cloner.Received().Clone(question, user);
+        }
+
+        [TestMethod]
+        public void Copy_ShouldAddCopiedQuestionToDestinationObjective()
+        {
+            //Arrange
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+
+            var destinationObjective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+            var questionCopy = Substitute.For<Question>("Question copy title", CreatedBy);
+
+            _cloner.Clone(question, user).Returns(questionCopy);
+
+            //Act
+            _controller.Copy(question, destinationObjective);
+
+            //Assert
+            destinationObjective.Received().AddQuestion(questionCopy, user);
+        }
+
+        [TestMethod]
+        public void Copy_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+
+            var destinationObjective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+            var questionCopy = Substitute.For<Question>("Question copy title", CreatedBy);
+            var questionModel = new {Id = "Question Id", Title = "Question title", Type = "Question type"};
+
+            _cloner.Clone(question, user).Returns(questionCopy);
+            _entityModelMapper.Map(questionCopy).Returns(questionModel);
+
+            //Act
+            var result = _controller.Copy(question, destinationObjective);
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.Should().Be(questionModel);
+        }
+
+        #endregion
+
+        #region Move question
+
+        [TestMethod]
+        public void Move_ShouldReturnBadRequest_WnenQuestionIsNull()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.Move(null, null);
+
+            //Assert
+            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+        }
+
+        [TestMethod]
+        public void Move_ShouldReturnBadRequest_WnenDestinationObjectiveIsNull()
+        {
+            //Arrange
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+
+            //Act
+            var result = _controller.Move(question, null);
+
+            //Assert
+            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+        }
+
+        [TestMethod]
+        public void Move_ShouldRemoveQuestionFromSourceObjective()
+        {
+            //Arrange
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+
+            var sourceObjective = Substitute.For<Objective>("Source objective title", CreatedBy);
+            var destinationObjective = Substitute.For<Objective>("Destination objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+            question.Objective.Returns(sourceObjective);
+
+            //Act
+            _controller.Move(question, destinationObjective);
+
+            //Assert
+            sourceObjective.Received().RemoveQuestion(question, user);
+        }
+
+        [TestMethod]
+        public void Move_ShouldNotRemoveQuestionFromSourceObjective_WhenDestinationObjectiveIsSource()
+        {
+            //Arrange
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+
+            var destinationObjective = Substitute.For<Objective>("Destination objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+            question.Objective.Returns(destinationObjective);
+
+            //Act
+            _controller.Move(question, destinationObjective);
+
+            //Assert
+            destinationObjective.DidNotReceive().RemoveQuestion(question, user);
+        }
+
+        [TestMethod]
+        public void Move_ShouldAddQuestionToDestinationObjective()
+        {
+            //Arrange
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+
+            var sourceObjective = Substitute.For<Objective>("Source objective title", CreatedBy);
+            var destinationObjective = Substitute.For<Objective>("Destination objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+            question.Objective.Returns(sourceObjective);
+
+            //Act
+            _controller.Move(question, destinationObjective);
+
+            //Assert
+            destinationObjective.Received().AddQuestion(question, user);
+        }
+
+        [TestMethod]
+        public void Move_ShouldAddQuestionToDestinationObjective_WhenDestinationObjectiveIsSource()
+        {
+            //Arrange
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+
+            var destinationObjective = Substitute.For<Objective>("Destination objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+            question.Objective.Returns(destinationObjective);
+
+            //Act
+            _controller.Move(question, destinationObjective);
+
+            //Assert
+            destinationObjective.DidNotReceive().AddQuestion(question, user);
+        }
+
+        [TestMethod]
+        public void Move_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+
+            var destinationObjective = Substitute.For<Objective>("Destination objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+            question.Objective.Returns(destinationObjective);
+
+            //Act
+            var result = _controller.Move(question, destinationObjective);
+
+            //Assert
+
+            result.Should()
+                .BeJsonSuccessResult()
+                .And.Data.ShouldBeSimilar(new { ModifiedOn = destinationObjective.ModifiedOn });
+        }
+
+        #endregion
     }
 }

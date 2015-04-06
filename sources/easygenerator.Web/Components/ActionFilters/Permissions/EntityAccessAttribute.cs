@@ -10,7 +10,7 @@ namespace easygenerator.Web.Components.ActionFilters.Permissions
 {
     public abstract class EntityAccessAttribute : AccessAttribute
     {
-        public Type EntityType { get; set; }
+        protected Type EntityType { get; set; }
 
         protected EntityAccessAttribute(Type entityType)
         {

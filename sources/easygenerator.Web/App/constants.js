@@ -171,6 +171,7 @@
                     correctFeedbackUpdatedByCollaborator: 'question:correctFeedbackUpdatedByCollaborator',
                     incorrectFeedbackUpdatedByCollaborator: 'question:incorrectFeedbackUpdatedByCollaborator',
                     deletedByCollaborator: 'question:deletedByCollaborator',
+                    learningContentsReorderedByCollaborator: 'question:learningContentsReorderedByCollaborator',
 
                     answer: {
                         addedByCollaborator: 'question:answer:addedByCollaborator',

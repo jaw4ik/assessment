@@ -772,35 +772,178 @@
                 expect(viewModel.onGetTemplateMessage).toBeFunction();
             });
 
+            var message;
             describe('when message object is empty', function () {
 
+                beforeEach(function() {
+                    message = null;
+                });
+
                 it('should not send error notification', function () {
-                    viewModel.onGetTemplateMessage(null);
+                    viewModel.onGetTemplateMessage(message);
                     expect(notify.error).not.toHaveBeenCalled();
                 });
 
                 it('should not send success notification', function () {
-                    viewModel.onGetTemplateMessage(null);
+                    viewModel.onGetTemplateMessage(message);
                     expect(notify.success).not.toHaveBeenCalled();
+                });
+
+            });
+
+            describe('when message object have freeze type', function () {
+
+                beforeEach(function () {
+                    message = { type: 'freeze' };
+                });
+
+                describe('when data.freezeEditor is true', function() {
+
+                    beforeEach(function() {
+                        message.data = {
+                            freezeEditor: true
+                        };
+                    });
+
+                    it('should set settings into not saved state', function () {
+                        viewModel.settingsSaved(true);
+                        viewModel.onGetTemplateMessage(message);
+                        expect(viewModel.settingsSaved()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when data.freezeEditor is false', function () {
+
+                    beforeEach(function () {
+                        message.data = {
+                            freezeEditor: false
+                        };
+                    });
+
+                    it('should set settings into saved state', function () {
+                        viewModel.settingsSaved(false);
+                        viewModel.onGetTemplateMessage(message);
+                        expect(viewModel.settingsSaved()).toBeTruthy();
+                    });
+
+                });
+                
+                describe('when data.freezeEditor is empty', function () {
+
+                    beforeEach(function () {
+                        message.data = {};
+                    });
+
+                    it('should set settings into saved state', function () {
+                        viewModel.settingsSaved(false);
+                        viewModel.onGetTemplateMessage(message);
+                        expect(viewModel.settingsSaved()).toBeTruthy();
+                    });
+
+                });
+
+            });
+
+            describe('when message object have notification type', function () {
+
+                beforeEach(function () {
+                    message = { type: 'notification' };
+                });
+
+                describe('when data.success is true', function () {
+
+                    beforeEach(function () {
+                        message.data = {
+                            success: true
+                        };
+                    });
+
+                    describe('and when message exists', function() {
+
+                        beforeEach(function() {
+                            message.data.message = "Message text";
+                        });
+
+                        it('should show success notification', function() {
+                            viewModel.onGetTemplateMessage(message);
+                            expect(notify.success).toHaveBeenCalledWith(message.data.message);
+                        });
+
+                    });
+
+                    describe('and when message does not exist', function () {
+
+                        beforeEach(function () {
+                            message.data.message = null;
+                        });
+
+                        it('should show saved notification', function () {
+                            viewModel.onGetTemplateMessage(message);
+                            expect(notify.saved).toHaveBeenCalled();
+                        });
+
+                    });
+
+                });
+
+                describe('when data.success is false', function () {
+
+                    beforeEach(function () {
+                        message.data = {
+                            success: false
+                        };
+                    });
+
+                    describe('and when message exists', function () {
+
+                        beforeEach(function () {
+                            message.data.message = "Message text";
+                        });
+
+                        it('should show error notification', function () {
+                            viewModel.onGetTemplateMessage(message);
+                            expect(notify.error).toHaveBeenCalledWith(message.data.message);
+                        });
+
+                    });
+
+                    describe('and when message does not exist', function () {
+
+                        beforeEach(function () {
+                            message.data.message = null;
+                        });
+
+                        it('should show error notification with default text', function () {
+                            viewModel.onGetTemplateMessage(message);
+                            expect(notify.error).toHaveBeenCalled();
+                        });
+
+                    });
+
                 });
 
             });
 
             describe('when message object have startSave type', function () {
 
+                beforeEach(function () {
+                    message = { type: 'startSave', data: {} };
+                });
+
                 it('should not send error notification message', function () {
-                    viewModel.onGetTemplateMessage({ type: 'startSave' });
+                    viewModel.onGetTemplateMessage(message);
                     expect(notify.error).not.toHaveBeenCalled();
                 });
 
                 it('should not send success notification message', function () {
-                    viewModel.onGetTemplateMessage({ type: 'startSave' });
+                    viewModel.onGetTemplateMessage(message);
                     expect(notify.success).not.toHaveBeenCalled();
                 });
 
                 it('should set settings into not save state', function () {
                     viewModel.settingsSaved(true);
-                    viewModel.onGetTemplateMessage({ type: 'startSave' });
+                    viewModel.onGetTemplateMessage(message);
                     expect(viewModel.settingsSaved()).toBeFalsy();
                 });
 
@@ -808,50 +951,67 @@
 
             describe('when message object have finishSave type', function () {
 
+                beforeEach(function () {
+                    message = { type: 'finishSave' };
+                });
+
                 describe('and message have not data', function () {
 
+                    beforeEach(function () {
+                        message.data = null;
+                    });
+
                     it('should not send error notification message', function () {
-                        viewModel.onGetTemplateMessage({ type: 'finishSave', data: null });
+                        viewModel.onGetTemplateMessage(message);
                         expect(notify.error).not.toHaveBeenCalled();
                     });
 
                     it('should not send success notification message', function () {
-                        viewModel.onGetTemplateMessage({ type: 'finishSave', data: null });
+                        viewModel.onGetTemplateMessage(message);
                         expect(notify.error).not.toHaveBeenCalled();
-                    });
-
-                    it('should set settings into save state', function () {
-                        viewModel.settingsSaved(false);
-                        viewModel.onGetTemplateMessage({ type: 'finishSave' });
-                        expect(viewModel.settingsSaved()).toBeTruthy();
                     });
 
                 });
 
                 describe('and message object have data', function () {
 
+                    beforeEach(function () {
+                        message.data = {};
+                    });
+
                     it('should set settings into save state', function () {
                         viewModel.settingsSaved(false);
-                        viewModel.onGetTemplateMessage({ type: 'finishSave', data: { success: true } });
+                        viewModel.onGetTemplateMessage(message);
                         expect(viewModel.settingsSaved()).toBeTruthy();
                     });
 
                     describe('and data have success type', function () {
 
+                        beforeEach(function () {
+                            message.data.success = true;
+                        });
+
                         describe('and data have message', function () {
 
+                            beforeEach(function () {
+                                message.data.message = 'All changes are saved';
+                            });
+
                             it('should send success notification message', function () {
-                                var message = 'All changes are saved';
-                                viewModel.onGetTemplateMessage({ type: 'finishSave', data: { success: true, message: message } });
-                                expect(notify.success).toHaveBeenCalledWith(message);
+                                viewModel.onGetTemplateMessage(message);
+                                expect(notify.success).toHaveBeenCalledWith(message.data.message);
                             });
 
                         });
 
                         describe('and data have not message', function () {
 
+                            beforeEach(function () {
+                                message.data.message = null;
+                            });
+
                             it('should send saved notification message', function () {
-                                viewModel.onGetTemplateMessage({ type: 'finishSave', data: { success: true, message: null } });
+                                viewModel.onGetTemplateMessage(message);
                                 expect(notify.saved).toHaveBeenCalled();
                             });
 
@@ -861,20 +1021,31 @@
 
                     describe('and data have not success type', function () {
 
+                        beforeEach(function () {
+                            message.data.success = false;
+                        });
+
                         describe('and data have message', function () {
 
+                            beforeEach(function () {
+                                message.data.message = 'All changes are saved';
+                            });
+
                             it('should send error notification message', function () {
-                                var message = 'error';
-                                viewModel.onGetTemplateMessage({ type: 'finishSave', data: { success: false, message: message } });
-                                expect(notify.error).toHaveBeenCalledWith(message);
+                                viewModel.onGetTemplateMessage(message);
+                                expect(notify.error).toHaveBeenCalledWith(message.data.message);
                             });
 
                         });
 
                         describe('and data have not message', function () {
 
+                            beforeEach(function () {
+                                message.data.message = null;
+                            });
+
                             it('should send error notification message', function () {
-                                viewModel.onGetTemplateMessage({ type: 'finishSave', data: { success: false, message: null } });
+                                viewModel.onGetTemplateMessage(message);
                                 expect(notify.error).toHaveBeenCalled();
                             });
 

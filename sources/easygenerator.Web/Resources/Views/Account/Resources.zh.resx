@@ -232,10 +232,10 @@ Hi,
   <data name="InviteCollaboratorBody" xml:space="preserve">
     <value>"&lt;div&gt;
 &lt;p&gt;{0} 希望在easygenerator的一个eLearning课程中和你合作。&lt;/p&gt;
-&lt;p&gt;你可以免费创建一个easygenerator的账号。请使用此email地址前往: &lt;a href=""{1}""&gt;{1}&lt;/a&gt;注册，登陆后即可发现课程。&lt;/p&gt;
+&lt;p&gt;你可以免费创建一个easygenerator的账号。请使用此email地址前往: &lt;a href=""{1}""&gt;{1}&lt;/a&gt;注册，登录后即可发现课程。&lt;/p&gt;
 &lt;p&gt;好运！&lt;br/&gt;
 easygenerator团队&lt;/p&gt;
-&lt;/div&gt; "</value>
+&lt;/div&gt;"</value>
   </data>
   <data name="InviteCollaboratorFromDisplayName" xml:space="preserve">
     <value>{0} (easygenerator)</value>
@@ -319,7 +319,7 @@ easygenerator团队&lt;/p&gt;
     <value>显示密码</value>
   </data>
   <data name="SignIn" xml:space="preserve">
-    <value>登陆</value>
+    <value>登录</value>
   </data>
   <data name="SignOutButton" xml:space="preserve">
     <value>退出</value>

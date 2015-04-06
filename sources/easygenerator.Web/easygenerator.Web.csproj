@@ -233,6 +233,7 @@
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
@@ -509,6 +510,11 @@
     <Content Include="App\dialogs\collaboration\collaborator.spec.js">
       <DependentUpon>collaborator.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.html" />
+    <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.js" />
+    <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
+      <DependentUpon>moveCopyQuestion.js</DependentUpon>
+    </Content>
     <Content Include="App\localization\resources.js" />
     <Content Include="App\models\reportingStatement.js" />
     <Content Include="App\models\reportingStatement.spec.js">
@@ -550,6 +556,10 @@
     <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonCreated.js" />
     <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonCreated.spec.js">
       <DependentUpon>polygonCreated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.spec.js">
+      <DependentUpon>learningContentsReordered.js</DependentUpon>
     </Content>
     <Content Include="App\utils\base64.js" />
     <Content Include="App\utils\waiter.js" />
@@ -1841,7 +1851,6 @@
     <Content Include="Templates\Reader\settings\js\vendor.min.js" />
     <Content Include="Templates\Reader\settings\settings.html" />
     <Content Include="Templates\Simple course\app\main.js" />
-    <Content Include="Templates\Simple course\app\main.js.map" />
     <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
     <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\content.html" />
     <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\8555e814ebef4f6a9f82cabfe8502894\a542a9cad6b64881844eed6e65d37044.html" />
@@ -1862,46 +1871,16 @@
     <Content Include="Templates\Simple course\content\a3d951f91e8a4a61a55c173a27c904ca\77dcdee6255f44e588cdae7a0320ffa6\61cdd730fbe54fe9bf2a6ec95cb14535.html" />
     <Content Include="Templates\Simple course\content\content.html" />
     <Content Include="Templates\Simple course\content\data.js" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bold.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-bold.svg" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bold.ttf" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bold.woff" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.svg" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.ttf" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.woff" />
-    <Content Include="Templates\Simple course\css\font\heuristica-italic.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-italic.svg" />
-    <Content Include="Templates\Simple course\css\font\heuristica-italic.ttf" />
-    <Content Include="Templates\Simple course\css\font\heuristica-italic.woff" />
-    <Content Include="Templates\Simple course\css\font\heuristica-regular.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-regular.svg" />
-    <Content Include="Templates\Simple course\css\font\heuristica-regular.ttf" />
-    <Content Include="Templates\Simple course\css\font\heuristica-regular.woff" />
-    <Content Include="Templates\Simple course\css\font\intro.eot" />
     <Content Include="Templates\Simple course\css\font\intro.svg" />
-    <Content Include="Templates\Simple course\css\font\intro.ttf" />
-    <Content Include="Templates\Simple course\css\font\intro.woff" />
-    <Content Include="Templates\Simple course\css\font\opensans-regular.eot" />
     <Content Include="Templates\Simple course\css\font\opensans-regular.svg" />
-    <Content Include="Templates\Simple course\css\font\opensans-regular.ttf" />
-    <Content Include="Templates\Simple course\css\font\opensans-regular.woff" />
-    <Content Include="Templates\Simple course\css\font\opensans-semibold.eot" />
     <Content Include="Templates\Simple course\css\font\opensans-semibold.svg" />
-    <Content Include="Templates\Simple course\css\font\opensans-semibold.ttf" />
-    <Content Include="Templates\Simple course\css\font\opensans-semibold.woff" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-bold.eot" />
     <Content Include="Templates\Simple course\css\font\robotoslab-bold.svg" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-bold.ttf" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-bold.woff" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-regular.eot" />
     <Content Include="Templates\Simple course\css\font\robotoslab-regular.svg" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-regular.ttf" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-regular.woff" />
-    <Content Include="Templates\Simple course\css\font\segoeui-semibold.eot" />
     <Content Include="Templates\Simple course\css\font\segoeui-semibold.svg" />
-    <Content Include="Templates\Simple course\css\font\segoeui-semibold.ttf" />
-    <Content Include="Templates\Simple course\css\font\segoeui-semibold.woff" />
     <Content Include="Templates\Simple course\css\general.css" />
     <Content Include="Templates\Simple course\css\themes\black.css" />
     <Content Include="Templates\Simple course\css\themes\cartoon.css" />
@@ -1920,7 +1899,6 @@
     <Content Include="Templates\Simple course\index.html" />
     <Content Include="Templates\Simple course\js\require.js" />
     <Content Include="Templates\Simple course\js\vendor.min.js" />
-    <Content Include="Templates\Simple course\languages\translations.min.js" />
     <Content Include="Templates\Simple course\manifest.json" />
     <Content Include="Templates\Simple course\publishSettings.js" />
     <Content Include="Templates\Simple course\settings.js" />
@@ -1935,6 +1913,7 @@
     <Content Include="Templates\Simple course\settings\img\preview-templates-sprite.png" />
     <Content Include="Templates\Simple course\settings\img\sprites_16.png" />
     <Content Include="Templates\Simple course\settings\img\track.png" />
+    <Content Include="Templates\Simple course\settings\js\api.js" />
     <Content Include="Templates\Simple course\settings\js\settings.min.js" />
     <Content Include="Templates\Simple course\settings\js\vendor.min.js" />
     <Content Include="Templates\Simple course\settings\settings.html" />
@@ -1984,6 +1963,46 @@
     <Content Include="Templates\Reader\settings\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Reader\settings\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Reader\settings\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Simple course\app\main.js.map" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bold.eot" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bold.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bold.woff" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.eot" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.woff" />
+    <Content Include="Templates\Simple course\css\font\heuristica-italic.eot" />
+    <Content Include="Templates\Simple course\css\font\heuristica-italic.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-italic.woff" />
+    <Content Include="Templates\Simple course\css\font\heuristica-regular.eot" />
+    <Content Include="Templates\Simple course\css\font\heuristica-regular.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-regular.woff" />
+    <Content Include="Templates\Simple course\css\font\intro.eot" />
+    <Content Include="Templates\Simple course\css\font\intro.ttf" />
+    <Content Include="Templates\Simple course\css\font\intro.woff" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.eot" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.ttf" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.woff" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.eot" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.ttf" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.woff" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-bold.eot" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-bold.ttf" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-bold.woff" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-regular.eot" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-regular.ttf" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-regular.woff" />
+    <Content Include="Templates\Simple course\css\font\segoeui-semibold.eot" />
+    <Content Include="Templates\Simple course\css\font\segoeui-semibold.ttf" />
+    <Content Include="Templates\Simple course\css\font\segoeui-semibold.woff" />
+    <Content Include="Templates\Simple course\lang\cn.json" />
+    <Content Include="Templates\Simple course\lang\de.json" />
+    <Content Include="Templates\Simple course\lang\en.json" />
+    <Content Include="Templates\Simple course\lang\fr.json" />
+    <Content Include="Templates\Simple course\lang\it.json" />
+    <Content Include="Templates\Simple course\lang\nl.json" />
+    <Content Include="Templates\Simple course\lang\pt-br.json" />
+    <Content Include="Templates\Simple course\lang\tr.json" />
+    <Content Include="Templates\Simple course\lang\ua.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2537,7 +2556,7 @@
     <Content Include="Scripts\knockoutBindings\selectTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\sliderBinding.js" />
     <Content Include="Scripts\knockoutBindings\slidingDialogBinding.js" />
-    <Content Include="Scripts\knockoutBindings\sortablePlaceholderBinding.js" />
+    <Content Include="Scripts\knockoutBindings\sortableExtendedBinding.js" />
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />
