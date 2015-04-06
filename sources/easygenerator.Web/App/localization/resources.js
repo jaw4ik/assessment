@@ -251,6 +251,11 @@
         'zh-cn': '已拷贝',
         'uk': 'Готово'
     },
+    move: {
+        'en': 'Move',
+        'zh-cn': 'Move[zh-cn]',
+        'uk': 'Перемістити'
+    },
     frameSize: {
         'en': 'Frame size:',
         'zh-cn': '框架尺寸',
@@ -331,6 +336,26 @@
         'zh-cn': 'This course has been changed since it was last published. Please click on \'Update course\' to apply the latest changes[zh-cn]',
         'uk': 'Курс було змінено з часу останньої публікації. Натисніть \"Оновити курс\" щоб застосувати зміни'
     },
+    toCourse: {
+        'en': 'To course:',
+        'zh-cn': 'To course:[zh-cn]',
+        'uk': 'В курс:'
+    },
+    toObjective: {
+        'en': 'To objective:',
+        'zh-cn': 'To objective:[zh-cn]',
+        'uk': 'В розділ / ціль:'
+    },
+    current: {
+        'en': 'Current',
+        'zh-cn': 'Current[zh-cn]',
+        'uk': 'Поточний'
+    },
+    duplicate: {
+        'en': 'Duplicate',
+        'zh-cn': 'Duplicate[zh-cn]',
+        'uk': 'Дублювати'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -383,6 +408,16 @@
         'en': 'Drop here',
         'zh-cn': '放到这里',
         'uk': 'Перемістити сюди'
+    },
+    allObjectives: {
+        'en': 'All objectives',
+        'zh-cn': 'All objectives[zh-cn]',
+        'uk': 'Усі розділи / цілі'
+    },
+    objectivesListEmpty: {
+        'en': 'Objectives list is empty...',
+        'zh-cn': 'Objectives list is empty...[zh-cn]',
+        'uk': 'Список розділей / цілей порожній...'
     },
     /* End resource section for model Objectives */
     
@@ -1190,6 +1225,26 @@
         'en': 'New Term/Match',
         'zh-cn': '新的题干/答案',
         'uk': 'Новий термiн/пояснення'
+    },
+    moveCopyQuestion: {
+        'en': 'Move/Copy current question',
+        'zh-cn': 'Move/Copy current question[zh-cn]',
+        'uk': 'Перемістити/Скопіювати дане питання'
+    },
+    moveCopyQuestionTo: {
+        'en': 'Move/Copy question to...',
+        'zh-cn': 'Move/Copy question to...[zh-cn]',
+        'uk': 'Перемістити/Скопіювати питання в...'
+    },
+    deleteQuestion: {
+        'en': 'Delete question',
+        'zh-cn': 'Delete question[zh-cn]',
+        'uk': 'Видалити питання'
+    },
+    moveCopyErrorMessage: {
+        'en': 'There are no objectives in the course. Please choose a course that contains at least one objective.',
+        'zh-cn': 'There are no objectives in the course. Please choose a course that contains at least one objective.[zh-cn]',
+        'uk': 'Курс не містить розділів/цілей. Будь ласка виберіть курс, що включає в себе хоча б один розділ/ціль.'
     },
     /* End resource section for model Question */
     

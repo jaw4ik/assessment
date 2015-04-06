@@ -266,9 +266,13 @@
     <Compile Include="Migrations\201503100910363_Templates_DeleteIsCustomColumn.Designer.cs">
       <DependentUpon>201503100910363_Templates_DeleteIsCustomColumn.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503271134583_AddCourseStatesTable.cs" />
-    <Compile Include="Migrations\201503271134583_AddCourseStatesTable.Designer.cs">
-      <DependentUpon>201503271134583_AddCourseStatesTable.cs</DependentUpon>
+    <Compile Include="Migrations\201503231353000_AddLearningContentsOrderFieldToQuestion.cs" />
+    <Compile Include="Migrations\201503231353000_AddLearningContentsOrderFieldToQuestion.Designer.cs">
+      <DependentUpon>201503231353000_AddLearningContentsOrderFieldToQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504060855394_AddCourseStateTable.cs" />
+    <Compile Include="Migrations\201504060855394_AddCourseStateTable.Designer.cs">
+      <DependentUpon>201504060855394_AddCourseStateTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -461,8 +465,11 @@
     <EmbeddedResource Include="Migrations\201503100910363_Templates_DeleteIsCustomColumn.resx">
       <DependentUpon>201503100910363_Templates_DeleteIsCustomColumn.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503271134583_AddCourseStatesTable.resx">
-      <DependentUpon>201503271134583_AddCourseStatesTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503231353000_AddLearningContentsOrderFieldToQuestion.resx">
+      <DependentUpon>201503231353000_AddLearningContentsOrderFieldToQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504060855394_AddCourseStateTable.resx">
+      <DependentUpon>201504060855394_AddCourseStateTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

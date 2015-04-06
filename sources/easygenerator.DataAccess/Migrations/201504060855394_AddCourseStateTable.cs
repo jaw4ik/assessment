@@ -3,7 +3,7 @@ namespace easygenerator.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddCourseStatesTable : DbMigration
+    public partial class AddCourseStateTable : DbMigration
     {
         public override void Up()
         {

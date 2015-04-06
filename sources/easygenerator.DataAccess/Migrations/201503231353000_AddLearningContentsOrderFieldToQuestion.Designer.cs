@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class AddCourseStatesTable : IMigrationMetadata
+    public sealed partial class AddLearningContentsOrderFieldToQuestion : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddCourseStatesTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddLearningContentsOrderFieldToQuestion));
         
         string IMigrationMetadata.Id
         {
-            get { return "201503271134583_AddCourseStatesTable"; }
+            get { return "201503231353000_AddLearningContentsOrderFieldToQuestion"; }
         }
         
         string IMigrationMetadata.Source

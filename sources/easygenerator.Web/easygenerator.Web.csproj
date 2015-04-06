@@ -233,6 +233,7 @@
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
@@ -516,6 +517,11 @@
     <Content Include="App\dialogs\collaboration\collaborator.spec.js">
       <DependentUpon>collaborator.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.html" />
+    <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.js" />
+    <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
+      <DependentUpon>moveCopyQuestion.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\publishCourse\updatePublishedCourse.html" />
     <Content Include="App\localization\resources.js" />
     <Content Include="App\models\reportingStatement.js" />
@@ -562,6 +568,10 @@
     <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonCreated.js" />
     <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonCreated.spec.js">
       <DependentUpon>polygonCreated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.spec.js">
+      <DependentUpon>learningContentsReordered.js</DependentUpon>
     </Content>
     <Content Include="App\utils\base64.js" />
     <Content Include="App\utils\waiter.js" />
@@ -2536,7 +2546,7 @@
     <Content Include="Scripts\knockoutBindings\selectTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\sliderBinding.js" />
     <Content Include="Scripts\knockoutBindings\slidingDialogBinding.js" />
-    <Content Include="Scripts\knockoutBindings\sortablePlaceholderBinding.js" />
+    <Content Include="Scripts\knockoutBindings\sortableExtendedBinding.js" />
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />

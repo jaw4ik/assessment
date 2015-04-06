@@ -1,12 +1,13 @@
-﻿define(['repositories/learningContentRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker', 'durandal/app'],
-    function (repository, localizationManager, notify, constants, eventTracker, app) {
+﻿define(['repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker', 'durandal/app'],
+    function (learningContentsrepository, questionRepository, localizationManager, notify, constants, eventTracker, app) {
 
         var
             events = {
                 addLearningContent: 'Add learning content',
                 deleteLearningContent: 'Delete learning content',
                 beginEditText: 'Start editing learning content',
-                endEditText: 'End editing learning content'
+                endEditText: 'End editing learning content',
+                changeLearningContentsOrder: 'Change order of Learning Contents'
             };
 
         var viewModel = {
@@ -19,6 +20,11 @@
 
             addLearningContent: addLearningContent,
             removeLearningContent: removeLearningContent,
+
+            updateOrder: updateOrder,
+            startReordering: startReordering,
+            stopReordering: stopReordering,
+            learningContentsReorderedByCollaborator: learningContentsReorderedByCollaborator,
 
             createdByCollaborator: createdByCollaborator,
             deletedByCollaborator: deletedByCollaborator,
@@ -35,9 +41,17 @@
             localizationManager: localizationManager
         };
 
+        viewModel.isSortingEnabled = ko.computed(function () {
+            return viewModel.learningContents().length > 1;
+        });
+
+        viewModel.orderInProcess = false,
+        viewModel.changesFromCollaborator = null;
+
         app.on(constants.messages.question.learningContent.createdByCollaborator, createdByCollaborator);
         app.on(constants.messages.question.learningContent.deletedByCollaborator, deletedByCollaborator);
         app.on(constants.messages.question.learningContent.textUpdatedByCollaborator, textUpdatedByCollaborator);
+        app.on(constants.messages.question.learningContentsReorderedByCollaborator, learningContentsReorderedByCollaborator);
 
         return viewModel;
 
@@ -56,10 +70,55 @@
 
             performActionWhenLearningContentIdIsSet(learningContent, function () {
                 viewModel.learningContents.remove(learningContent);
-                repository.removeLearningContent(viewModel.questionId, ko.unwrap(learningContent.id)).then(function (response) {
+                learningContentsrepository.removeLearningContent(viewModel.questionId, ko.unwrap(learningContent.id)).then(function (response) {
                     showNotification(response.modifiedOn);
                 });
             });
+        }
+
+        function startReordering() {
+            viewModel.orderInProcess = true;
+        }
+
+        function stopReordering() {
+            viewModel.orderInProcess = false;
+            if (viewModel.changesFromCollaborator && viewModel.questionId == viewModel.changesFromCollaborator.question.id) {
+                reorderLearningContents(viewModel.changesFromCollaborator.learningContentsIds);
+            }
+            viewModel.changesFromCollaborator = null;
+        }
+
+        function updateOrder() {
+            eventTracker.publish(events.changeLearningContentsOrder);
+            questionRepository.updateLearningContentsOrder(viewModel.questionId, viewModel.learningContents()).then(function () {
+                showNotification();
+            });
+            viewModel.changesFromCollaborator = null;
+        }
+
+        function learningContentsReorderedByCollaborator(question, learningContentsIds) {
+            if (viewModel.questionId != question.id) {
+                return;
+            }
+
+            if (viewModel.orderInProcess) {
+                viewModel.changesFromCollaborator = {
+                    question: question, learningContentsIds: learningContentsIds
+                }
+                return;
+            }
+
+            reorderLearningContents(learningContentsIds);
+        }
+
+        function reorderLearningContents(learningContentsIds) {
+            viewModel.learningContents(_.chain(learningContentsIds)
+               .map(function (id) {
+                   return _.find(viewModel.learningContents(), function (learningContent) {
+                       return id == learningContent.id();
+                   });
+               })
+               .value());
         }
 
         function beginEditText() {
@@ -80,7 +139,7 @@
             if (_.isEmptyHtmlText(text)) {
                 viewModel.learningContents.remove(learningContent);
                 if (!_.isEmptyOrWhitespace(id)) {
-                    repository.removeLearningContent(viewModel.questionId, id).then(function (modifiedOn) {
+                    learningContentsrepository.removeLearningContent(viewModel.questionId, id).then(function (modifiedOn) {
                         showNotification(modifiedOn);
                     });
                 }
@@ -96,14 +155,14 @@
             }
 
             if (_.isEmptyOrWhitespace(id)) {
-                repository.addLearningContent(viewModel.questionId, { text: text }).then(function (item) {
+                learningContentsrepository.addLearningContent(viewModel.questionId, { text: text }).then(function (item) {
                     learningContent.id(item.id);
                     learningContent.originalText = text;
                     showNotification(item.createdOn);
                 });
             } else {
                 if (text != learningContent.originalText) {
-                    repository.updateText(viewModel.questionId, id, text).then(function (response) {
+                    learningContentsrepository.updateText(viewModel.questionId, id, text).then(function (response) {
                         learningContent.originalText = text;
                         showNotification(response.modifiedOn);
                     });
@@ -202,7 +261,7 @@
             var questionId = activationData.questionId;
             var questionType = activationData.questionType;
 
-            return repository.getCollection(questionId).then(function (learningContentsList) {
+            return learningContentsrepository.getCollection(questionId).then(function (learningContentsList) {
                 viewModel.questionId = questionId;
                 viewModel.questionType = questionType;
                 viewModel.learningContents([]);

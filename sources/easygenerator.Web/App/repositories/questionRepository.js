@@ -1,5 +1,6 @@
-﻿define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard', 'repositories/objectiveRepository', 'models/question'],
-    function (app, dataContext, constants, httpWrapper, guard, objectiveRepository, Question) {
+﻿
+define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard', 'repositories/objectiveRepository', 'models/question', 'mappers/questionModelMapper'],
+    function (app, dataContext, constants, httpWrapper, guard, objectiveRepository, Question, questionModelMapper) {
 
         var
             addQuestion = function (objectiveId, obj, questionType) {
@@ -266,6 +267,38 @@
                 });
             },
 
+            updateLearningContentsOrder = function (questionId, learningContents) {
+                return Q.fcall(function () {
+                    guard.throwIfNotString(questionId, 'Question id (string) was expected');
+                    guard.throwIfNotArray(learningContents, 'learningContents is not array');
+
+                    var data = {
+                        questionId: questionId,
+                        learningContents: _.map(learningContents, function (item) {
+                            return item.id;
+                        })
+                    };
+
+                    return httpWrapper.post('api/question/updateLearningContentsOrder', data)
+                        .then(function (response) {
+
+                            guard.throwIfNotAnObject(response, 'Response is not an object');
+                            guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+
+                            var question = _.find(getQuestions(), function (item) {
+                                return item.id == questionId;
+                            });
+
+                            guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
+
+                            var modifiedOn = new Date(response.ModifiedOn);
+                            question.modifiedOn = modifiedOn;
+
+                            return modifiedOn;
+                        });
+                });
+            },
+
             getById = function (objectiveId, questionId) {
                 if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(questionId)) {
                     throw 'Invalid arguments';
@@ -290,6 +323,76 @@
                 });
 
                 return deferred.promise;
+            },
+
+            copyQuestion = function(questionId, objectiveId) {
+                return Q.fcall(function() {
+                    guard.throwIfNotString(questionId, 'Question id is not a string');
+                    guard.throwIfNotString(objectiveId, 'Objective id is not a string');
+
+                    return httpWrapper.post('api/question/copy', { questionId: questionId, objectiveId: objectiveId })
+                        .then(function(response) {
+                            guard.throwIfNotAnObject(response, 'Response is not an object');
+
+                            var objective = _.find(dataContext.objectives, function (item) {
+                                return item.id === objectiveId;
+                            });
+
+                            guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
+
+                            var question = questionModelMapper.map(response);
+                            objective.questions.push(question);
+                            objective.modifiedOn = question.createdOn;
+
+                            app.trigger(constants.messages.question.created, objectiveId, question);
+                            return question;
+                        });
+                });
+            },
+
+            moveQuestion = function (questionId, sourceObjectiveId, destinationObjectiveId) {
+                return Q.fcall(function() {
+                    guard.throwIfNotString(questionId, 'Question id is not a string');
+                    guard.throwIfNotString(sourceObjectiveId, 'Source objective id is not a string');
+                    guard.throwIfNotString(destinationObjectiveId, 'Destination objective id is not a string');
+
+                    return httpWrapper.post('api/question/move', { questionId: questionId, objectiveId: destinationObjectiveId })
+                        .then(function(response) {
+                            guard.throwIfNotAnObject(response, 'Response is not an object');
+                            guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+
+                            var sourceObjective = _.find(dataContext.objectives, function (item) {
+                                return item.id === sourceObjectiveId;
+                                });
+
+                            guard.throwIfNotAnObject(sourceObjective, 'Source objective does not exist in dataContext');
+
+                            var destinationObjective = _.find(dataContext.objectives, function (item) {
+                                return item.id === destinationObjectiveId;
+                                });
+
+                            guard.throwIfNotAnObject(destinationObjective, 'Destination objective does not exist in dataContext');
+
+                            var question = _.find(sourceObjective.questions, function (item) {
+                                return item.id === questionId;
+                                });
+
+                            guard.throwIfNotAnObject(question, 'Source objective does not contain moved question');
+
+                            sourceObjective.questions = _.reject(sourceObjective.questions, function(item) {
+                                return item.id === question.id;
+                            });
+                            destinationObjective.questions.push(question);
+
+                            var modifiedOn = new Date(response.ModifiedOn);
+                            sourceObjective.modifiedOn = modifiedOn;
+                            destinationObjective.modifiedOn = modifiedOn;
+
+                            app.trigger(constants.messages.question.deleted, sourceObjectiveId, [question.id]);
+                            app.trigger(constants.messages.question.created, destinationObjectiveId, question);
+                            return;
+                        });
+                });
             }
         ;
 
@@ -304,6 +407,8 @@
         return {
             addQuestion: addQuestion,
             removeQuestions: removeQuestions,
+            copyQuestion: copyQuestion,
+            moveQuestion: moveQuestion,
             updateTitle: updateTitle,
             updateContent: updateContent,
             updateFillInTheBlank: updateFillInTheBlank,
@@ -311,6 +416,7 @@
             getQuestionFeedback: getQuestionFeedback,
             updateCorrectFeedback: updateCorrectFeedback,
             updateIncorrectFeedback: updateIncorrectFeedback,
+            updateLearningContentsOrder: updateLearningContentsOrder,
             getById: getById
         };
     });

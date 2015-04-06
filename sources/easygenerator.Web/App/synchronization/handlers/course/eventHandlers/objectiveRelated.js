@@ -2,19 +2,19 @@
     function (guard, app, constants, dataContext, objectiveModelMapper) {
         "use strict";
 
-        return function (courseId, objectiveData, targetIndex, modifiedOn) {
+        return function(courseId, objectiveData, targetIndex, modifiedOn) {
             guard.throwIfNotString(courseId, 'CourseId is not a string');
             guard.throwIfNotAnObject(objectiveData, 'Objective is not an object');
             guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
 
-            var course = _.find(dataContext.courses, function (item) {
+            var course = _.find(dataContext.courses, function(item) {
                 return item.id == courseId;
             });
 
             guard.throwIfNotAnObject(course, 'Course has not been found');
 
             var objective = objectiveModelMapper.map(objectiveData);
-            var objectiveExists = _.some(dataContext.objectives, function (item) {
+            var objectiveExists = _.some(dataContext.objectives, function(item) {
                 return item.id === objective.id;
             });
 
@@ -22,7 +22,7 @@
                 dataContext.objectives.push(objective);
             }
 
-            course.objectives = _.reject(course.objectives, function (item) {
+            course.objectives = _.reject(course.objectives, function(item) {
                 return item.id == objective.id;
             });
 
@@ -35,6 +35,6 @@
             course.modifiedOn = new Date(modifiedOn);
 
             app.trigger(constants.messages.course.objectiveRelatedByCollaborator, courseId, objective, targetIndex);
-        }
+        };
 
     });

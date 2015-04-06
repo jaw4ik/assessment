@@ -43,6 +43,7 @@
             'dialogs/collaboration/collaborator.spec',
             'dialogs/collaboration/removeCollaborator.spec',
             'dialogs/publishCourse/publishCourse.spec',
+            'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
 
             //#endregion dialogs
 
@@ -137,6 +138,7 @@
             'synchronization/handlers/questions/question/eventHandlers/contentUpdated.spec',
             'synchronization/handlers/questions/question/eventHandlers/correctFeedbackUpdated.spec',
             'synchronization/handlers/questions/question/eventHandlers/incorrectFeedbackUpdated.spec',
+            'synchronization/handlers/questions/question/eventHandlers/learningContentsReordered.spec',
 
             'synchronization/handlers/questions/fillInTheBlank/handler.spec',
             'synchronization/handlers/questions/fillInTheBlank/eventHandlers/updated.spec',
