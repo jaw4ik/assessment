@@ -345,6 +345,8 @@ namespace easygenerator.DomainModel.Entities
             {
                 existingSettings.Settings = settings;
                 existingSettings.ExtraData = extraData;
+                RaiseEvent(new CourseTemplateSettingsUpdated(this));
+
                 return;
             }
 

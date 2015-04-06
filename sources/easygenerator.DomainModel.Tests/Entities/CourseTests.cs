@@ -1551,6 +1551,26 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
+        public void SaveTemplateSettings_ShouldAddTemplateSettingsUpdatedEvent_WhenSettingsTheyAlreadyExist()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            const string settings = "settings";
+            const string extraData = "extra data";
+            course.TemplateSettings = new Collection<Course.CourseTemplateSettings>()
+            {
+                CourseTemplateSettingsObjectMother.Create(course, template, "previous settings", "previous extra data")
+            };
+
+            //Act
+            course.SaveTemplateSettings(template, settings, extraData);
+
+            //Assert
+            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CourseTemplateSettingsUpdated));
+        }
+
+        [TestMethod]
         public void SaveTemplateSettings_ShouldAddSettings_WhenTheyDoNotExistYet()
         {
             //Arrange
@@ -1572,7 +1592,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void SaveTemplateSettings_ShouldAddTemplateSettingsUpdatedEvent()
+        public void SaveTemplateSettings_ShouldAddTemplateSettingsUpdatedEvent_WhenSettingsDoNotExistYet()
         {
             //Arrange
             var course = CourseObjectMother.Create();

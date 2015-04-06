@@ -7,10 +7,10 @@
             </div>
         </div>
         <div class="publish-tab-update-course-action">
-            <button class="btn green publish-tab-btn" data-bind="click: publishCourse, css:{ 'disabled': isCourseDelivering(), 'progress': isPublishing() }">
+            <button class="btn green publish-tab-btn" data-bind="click: publishCourse, css:{ 'disabled': isCourseDelivering(), 'progress': isPublishing() }, disable: isCourseDelivering() || !courseHasUnpublishedChanges()">
                 <!-- ko if: isPublishing() -->
                 <!-- ko if: state() === states.publishing || state() === states.building  -->
-                <span class="publish-tab-btn-caption" data-bind="localize: { text: 'updating' }"></span>
+                <span class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko ifnot: isPublishing() -->
