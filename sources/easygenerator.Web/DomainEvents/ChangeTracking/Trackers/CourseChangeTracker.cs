@@ -68,12 +68,12 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
 
         public void Handle(ObjectiveChangedEvent args)
         {
-            RaiseCoursesChangedEvent(_repository.GetObjectiveCourses(args.Objective.Id));
+            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToObjective(args.Objective.Id));
         }
 
         public void Handle(QuestionChangedEvent args)
         {
-
+            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToQuestion(args.Question.Id));
         }
 
         private void RaiseCoursesChangedEvent(IEnumerable<Course> courses)
