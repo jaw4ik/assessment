@@ -1663,6 +1663,8 @@
     <Content Include="Templates\Personalized learning\index.html" />
     <Content Include="Templates\Personalized learning\js\require\require.js" />
     <Content Include="Templates\Personalized learning\js\vendor.min.js" />
+    <Content Include="Templates\Personalized learning\lang\en.json" />
+    <Content Include="Templates\Personalized learning\lang\ua.json" />
     <Content Include="Templates\Personalized learning\manifest.json" />
     <Content Include="Templates\Personalized learning\publishSettings.js" />
     <Content Include="Templates\Personalized learning\settings.js" />
@@ -1975,8 +1977,6 @@
     <Content Include="Templates\Simple course\lang\pt-br.json" />
     <Content Include="Templates\Simple course\lang\tr.json" />
     <Content Include="Templates\Simple course\lang\ua.json" />
-    <Content Include="Templates\Personalized learning\lang\en.json" />
-    <Content Include="Templates\Personalized learning\lang\ua.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
