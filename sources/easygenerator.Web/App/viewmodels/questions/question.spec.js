@@ -459,6 +459,11 @@ define(function (require) {
                 expect(viewModel.duplicateQuestion).toBeFunction();
             });
 
+            it('should publish event \'Duplicate item\'', function () {
+                viewModel.duplicateQuestion();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Duplicate item');
+            });
+
             it('should send response to server', function() {
                 viewModel.duplicateQuestion();
                 expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.objectiveId);

@@ -68,8 +68,8 @@
 
         describe('objectiveId', function () {
 
-            it('should be string', function () {
-                expect(viewModel.objectiveId).toBeString();
+            it('should be observable', function () {
+                expect(viewModel.objectiveId).toBeObservable();
             });
 
         });
@@ -156,9 +156,9 @@
             });
 
             it('should set objectiveId', function () {
-                viewModel.objectiveId = '';
+                viewModel.objectiveId('');
                 viewModel.show(ids.courseId, ids.objectiveId);
-                expect(viewModel.objectiveId).toBe(ids.objectiveId);
+                expect(viewModel.objectiveId()).toBe(ids.objectiveId);
             });
 
             it('should set questionId', function () {
@@ -502,7 +502,7 @@
                 describe('when current objective id equal selected objective id', function () {
 
                     it('should hide popup', function() {
-                        viewModel.objectiveId = 1;
+                        viewModel.objectiveId(1);
                         viewModel.selectedObjectiveId(1);
                         viewModel.moveQuestion();
                         expect(viewModel.isShown()).toBeFalsy();
@@ -517,13 +517,13 @@
                     beforeEach(function () {
                         viewModel.questionId = 'questionId';
                         viewModel.courseId = 'courseId';
-                        viewModel.objectiveId = currentObjectiveId;
+                        viewModel.objectiveId(currentObjectiveId);
                         viewModel.selectedObjectiveId(selectedObjectiveId);
                     });
 
                     it('should call moveQuestion from repository', function () {
                         viewModel.moveQuestion();
-                        expect(questionRepository.moveQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.objectiveId, viewModel.selectedObjectiveId());
+                        expect(questionRepository.moveQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.objectiveId(), viewModel.selectedObjectiveId());
                     });
 
                     describe('when question was move', function () {
@@ -552,7 +552,7 @@
                                 viewModel.moveQuestion();
 
                                 moveQuestionDefer.promise.fin(function () {
-                                    expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.objectiveId);
+                                    expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.objectiveId());
                                     done();
                                 });
                             });
@@ -569,7 +569,7 @@
                                 viewModel.moveQuestion();
 
                                 moveQuestionDefer.promise.fin(function () {
-                                    expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.objectiveId + '?courseId=' + viewModel.courseId);
+                                    expect(router.navigate).toHaveBeenCalledWith('objective/' + viewModel.objectiveId() + '?courseId=' + viewModel.courseId);
                                     done();
                                 });
                             });
@@ -592,7 +592,7 @@
             beforeEach(function () {
                 viewModel.questionId = 'questionId';
                 viewModel.courseId = 1;
-                viewModel.objectiveId = currentObjectiveId;
+                viewModel.objectiveId(currentObjectiveId);
                 viewModel.selectedObjectiveId(selectedObjectiveId);
             });
 

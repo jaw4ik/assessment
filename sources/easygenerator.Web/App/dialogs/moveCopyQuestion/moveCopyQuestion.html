@@ -23,7 +23,7 @@
                     <!-- ko foreach: selectedCourse().objectives -->
                     <li class="destination-objectives-list-item" data-bind="click: $parent.selectObjective, css: { selected: id == $parent.selectedObjectiveId() }">
                         <span data-bind="text: title"></span>
-                        <!-- ko if: id === $parent.objectiveId -->
+                        <!-- ko if: id === $parent.objectiveId() -->
                         [<span class="destination-objectives-list-item-text" data-bind="localize: { text: 'current' }"></span>]
                         <!-- /ko -->
                     </li>
