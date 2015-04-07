@@ -1678,7 +1678,6 @@
     <Content Include="Templates\Personalized learning\settings\img\sprites_16.png" />
     <Content Include="Templates\Personalized learning\settings\img\track.png" />
     <Content Include="Templates\Personalized learning\settings\js\api.js" />
-    <Content Include="Templates\Personalized learning\settings\js\settings.js" />
     <Content Include="Templates\Personalized learning\settings\js\settings.min.js" />
     <Content Include="Templates\Personalized learning\settings\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\settings\settings.html" />
