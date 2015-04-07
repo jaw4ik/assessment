@@ -2,51 +2,47 @@
 <html>
 <head>
     <title>Adaptive template settings</title>
-    <link href="css/settings.min.css" rel="stylesheet" />
+
+    <meta charset="utf-8" />
+    <link href="css/settings.css?v=1428395307721" rel="stylesheet" />
 </head>
 <body>
     <div class="settings-container">
         <div class="settings-tabs-container" data-bind="tabs: {}">
             <ul class="settings-tabs-wrapper unstyled">
-                <li class="settings-tabs-item customization active" data-tab-link="customization">
-                    Graphical customization
-                </li>
+                <li class="settings-tabs-item customization active" data-tab-link="customization" data-bind="localize: 'graphical customization'"></li>
+                <li class="settings-tabs-item languages" data-tab-link="languages" data-bind="localize: 'template language'"></li>
             </ul>
             <div class="settings-tab-container customization" data-tab="customization">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/graphical.png" />
+                        <img alt="" src="img/graphical.png?v=1428395307721" />
                         <div class="tab-header-wrapper">
-                            <h1 class="tab-header-title">Customize your course</h1>
+                            <h1 class="tab-header-title" data-bind="localize: 'customize your course'"></h1>
                             <div class="tab-header-content">
-                                <span class="tab-header-content-text">Change the look and feel of the course</span>
+                                <span class="tab-header-content-text" data-bind="localize: 'look and feel of the course'"></span>
                             </div>
                         </div>
                     </div>
                     <div class="tab-content-container">
                         <div class="tab-content-row">
-                            <h1 class="template-logo-title">
-                                Custom course logo:
-                            </h1>
+                            <h1 class="template-logo-title" data-bind="localize: 'custom course logo'"></h1>
                             <div class="tab-content-wrapper">
                                 <div class="has-access">
                                     <div class="template-logo-url-container">
-                                        <input class="template-logo-url" type="text" placeholder="Paste image URL here..." id="imgUrl" data-bind="value: logo.url, valueUpdate: ['afterkeydown', 'afterpaste'], enable: hasStarterPlan" />
-                                        <span class="template-logo-or">or</span>
+                                        <input class="template-logo-url" type="text" placeholder="Paste image URL here..." id="imgUrl" data-bind="value: logo.url, valueUpdate: ['afterkeydown', 'afterpaste'], enable: userHasStarterPlan" />
+                                        <span class="template-logo-or" data-bind="localize: 'or'"></span>
                                         <form id="logoForm" method="post" enctype="multipart/form-data" encoding="multipart/form-data" target="logoFrame">
                                             <a class="btn grey template-logo">
-                                                Upload logo image
-                                                <input type="file" id="logoInput" name="file">
+                                                <span data-bind="localize: 'upload logo image'"></span>
+                                                <input type="file" id="logoInput" name="file" disabled="disabled">
                                             </a>
                                         </form>
                                     </div>
                                     <div class="template-logo-container">
                                         <div class="template-logo-wrapper" data-bind="style: { display: logo.hasLogo() || logo.isError() ? 'none' : 'table-cell' }">
                                             <div class="template-logo-emty-img"></div>
-                                            <div class="template-logo-empty-text">
-                                                Your logo will appear here
-                                                <p>(recommended size 300 x 120 px)</p>
-                                            </div>
+                                            <div class="template-logo-empty-text" data-bind="localize: 'logo hint'"></div>
                                         </div>
                                         <div class="template-logo-wrapper error" data-bind="style: { display: logo.isError() && logo.url() == '' ? 'table-cell' : 'none' }">
                                             <div class="template-logo-emty-img"></div>
@@ -62,28 +58,71 @@
                                         <div class="template-logo-clear-wrapper" data-bind="style: { display: logo.hasLogo() ? 'inline-block' : 'none' }">
                                             <div class="template-logo-clear-btn" data-bind="click: logo.clear">
                                                 <div class="tooltip">
-                                                    <span class="tooltip-text">Clear logo</span>
+                                                    <span class="tooltip-text" data-bind="localize: 'clear logo'"></span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="no-access" data-bind="fadeVisible: !hasStarterPlan()">
+                                <div class="no-access" data-bind="fadeVisible: !userHasStarterPlan()">
                                     <div class="no-access-img"></div>
-                                    <div class="no-access-text">
-                                        You have to
-                                        <a target="_blank" href="/account/upgrade">upgrade your account</a>
-                                        in order to set custom course logo
-                                    </div>
+                                    <div class="no-access-text" data-bind="localize: 'upgrade account hint'"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="settings-tab-container languages" data-tab="languages" data-bind="with: languages">
+                <div class="settings-tab-wrapper">
+                    <div class="tab-header-container">
+                        <img alt="" src="img/language.png?v=1428395307721" />
+                        <div class="tab-header-wrapper">
+                            <h1 class="tab-header-title" data-bind="localize: 'choose language for your course'"></h1>
+                            <div class="tab-header-content">
+                                <div class="select-language">
+                                    <div id="selectedLanguage" data-bind="dropdown: { options: languages, value: selectedLanguageCode, optionsValue: 'code', optionsText: 'name' }"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content-container">
+                        <table class="choose-language-table">
+                            <thead>
+                                <tr>
+                                    <th class="choose-language-table-header-text" data-bind="localize: 'defaultText'"></th>
+                                    <th class="choose-language-table-header-text" data-bind="localize: 'translation'"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="choose-language-table-content" data-bind="ifnot: isLanguageLoading">
+                                <!-- ko foreach: selectedLanguageTranslations -->
+                                <tr class="choose-language-table-row">
+                                    <td class="choose-language-table-key" data-bind="text: key"></td>
+                                    <td class="choose-language-table-text-wrapper">
+                                        <div class="input-wrapper">
+                                            <!-- ko if: $parent.isLanguageEditable() -->
+                                            <div class="choose-language-table-input-wrapper">
+                                                <input type="text" class="choose-language-table-input" data-bind="value: value, valueUpdate: ['afterkeydown', 'afterpaste']" />
+                                                <span class="edit-icon"></span>
+                                            </div>
+                                            <!-- /ko -->
+                                            <!-- ko ifnot: $parent.isLanguageEditable() -->
+                                            <span data-bind="text: value"></span>
+                                            <!-- /ko -->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- /ko -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <script src="js/vendor.min.js"></script>
-    <script src="js/settings.min.js" type="text/javascript"></script>
+
+    <script src="js/vendor.min.js?v=1428395307721"></script>
+    <script src="js/api.js?v=1428395307721"></script>
+    <script src="js/settings.min.js?v=1428395307721"></script>
 </body>
 </html>
