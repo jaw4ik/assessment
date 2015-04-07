@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'eventTracker', 'dataContext', 'repositories/questionRepository', 'localization/localizationManager', 'notify'],
-    function (router, eventTracker, dataContext, questionRepository, localizationManager, notify) {
+﻿define(['plugins/router', 'eventTracker', 'dataContext', 'userContext', 'repositories/questionRepository', 'localization/localizationManager', 'notify'],
+    function (router, eventTracker, dataContext, userContext, questionRepository, localizationManager, notify) {
     'use strict';
 
     var events = {
@@ -18,7 +18,9 @@
         show: show,
         hide: hide,
         isCopy: ko.observable(true),
-        changeMoveCopyAction: changeMoveCopyAction, 
+        changeMoveCopyAction: changeMoveCopyAction,
+        setCopyAction: setCopyAction,
+        setMoveAction: setMoveAction,
 
         selectedCourse: ko.observable({}),
         selectCourse: selectCourse,
@@ -50,6 +52,24 @@
         } else {
             eventTracker.publish(events.switchToMove);
         }
+    }
+
+    function setCopyAction() {
+        if (viewModel.isCopy()) {
+            return;
+        }
+
+        viewModel.isCopy(true);
+        eventTracker.publish(events.switchToCopy);
+    }
+
+    function setMoveAction() {
+        if (!viewModel.isCopy()) {
+            return;
+        }
+
+        viewModel.isCopy(false);
+        eventTracker.publish(events.switchToMove);
     }
 
     function selectCourse(course) {
@@ -124,14 +144,22 @@
     }
 
     function mapCourses() {
-        return _.map(dataContext.courses, function (course) {
-            return {
-                id: course.id,
-                title: course.title,
-                objectives: course.objectives,
-                objectvesListEmpty: course.objectives.length === 0
-            };
-        });
+        return _.chain(dataContext.courses)
+                .sortBy(function (course) {
+                    return -course.createdOn;
+                })
+                .sortBy(function (course) {
+                    return course.createdBy == userContext.identity.email ? 0 : 1;
+                })
+                .map(function (course) {
+                    return {
+                        id: course.id,
+                        title: course.title,
+                        objectives: course.objectives,
+                        objectvesListEmpty: course.objectives.length === 0
+                    };
+                })
+                .value();
     }
 
     function isValidObjective() {

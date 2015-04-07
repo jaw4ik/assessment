@@ -241,6 +241,7 @@
   font-family: 'OpenSans';
   font-size: 13px;
   line-height: 22px;
+  cursor: pointer;
 }
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer .switcher .switcher-text.selected {
   color: #42515f;
@@ -369,15 +370,11 @@
 .dropdown .dropdown-options-list .dropdown-options-item {
   position: relative;
   padding: 10px;
-  border-top: 1px solid #ddd;
   word-wrap: break-word;
   cursor: pointer;
 }
 .dropdown .dropdown-options-list .dropdown-options-item:hover {
   background: #f9f9f9;
-}
-.dropdown .dropdown-options-list .dropdown-options-item:first-child {
-  border: none;
 }
 .dropdown .dropdown-options-list .dropdown-options-item.selected {
   background: #fffddd;

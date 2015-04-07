@@ -5,6 +5,7 @@
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         dataContext = require('dataContext'),
+        userContext = require('userContext'),
         localizationManager = require('localization/localizationManager'),
         questionRepository =require('repositories/questionRepository'),
         notify = require('notify');
@@ -16,9 +17,27 @@
                 objectiveId: 'objectiveId',
                 questionId: 'questionId'
             },
+            userName = 'user@user.com',
             moveQuestionDefer,
             copyQuestionDefer,
-            allObjectivesTitle = 'title';
+            allObjectivesTitle = 'title',
+            courses = [
+                {
+                    id: 'courseId',
+                    title: 'courseTitle',
+                    objectives: [{}]
+                },
+                {
+                    id: 'courseId2',
+                    title: 'courseTitle2',
+                    objectives: [{}]
+                },
+                {
+                    id: 'courseId3',
+                    title: 'courseTitle3',
+                    objectives: [{}]
+                }
+            ];
 
         beforeEach(function () {
             moveQuestionDefer = Q.defer();
@@ -65,6 +84,11 @@
 
         describe('show:', function () {
 
+            beforeEach(function () {
+                userContext.identity = { email: userName };
+                dataContext.courses = courses;
+            });
+
             it('should be function', function() {
                 expect(viewModel.show).toBeFunction();
             });
@@ -90,6 +114,45 @@
                 viewModel.courseId = '';
                 viewModel.show(ids.courseId);
                 expect(viewModel.courseId).toBe(ids.courseId);
+            });
+
+            it('should map courses from context', function() {
+                viewModel.courses([]);
+
+                viewModel.show(ids.courseId);
+
+                expect(viewModel.courses().length).toBe(3);
+            });
+
+            it('should order courses by creation date', function () {
+                courses[0].createdOn = new Date(2012, 12, 12);
+                courses[1].createdOn = new Date(2015, 2, 1);
+                courses[2].createdOn = new Date(2014, 1, 12);
+
+                viewModel.courses([]);
+
+                viewModel.show(ids.courseId);
+
+                expect(viewModel.courses()[0].id).toBe(courses[1].id);
+                expect(viewModel.courses()[1].id).toBe(courses[2].id);
+                expect(viewModel.courses()[2].id).toBe(courses[0].id);
+            });
+
+            it('should move collaborators\' courses to the end of list', function () {
+                courses[0].createdOn = new Date(2012, 12, 12);
+                courses[0].createdBy = userName;
+                courses[1].createdOn = new Date(2015, 2, 1);
+                courses[1].createdBy = 'collaborator@mail.dom';
+                courses[2].createdOn = new Date(2014, 1, 12);
+                courses[2].createdBy = userName;
+
+                viewModel.courses([]);
+
+                viewModel.show(ids.courseId);
+
+                expect(viewModel.courses()[0].id).toBe(courses[2].id);
+                expect(viewModel.courses()[1].id).toBe(courses[0].id);
+                expect(viewModel.courses()[2].id).toBe(courses[1].id);
             });
 
             it('should set objectiveId', function () {
@@ -119,19 +182,11 @@
             describe('when courseId is defined', function() {
 
                 it('should select course from dataContext', function() {
-                    dataContext.courses = [
-                        {
-                            id: 'courseId',
-                            title: 'courseTitle',
-                            objectives: [{}],
-                        }
-                    ];
-
                     viewModel.show(ids.courseId, ids.objectiveId, ids.questionId);
-                    expect(viewModel.selectedCourse().id).toBe(dataContext.courses[0].id);
-                    expect(viewModel.selectedCourse().title).toBe(dataContext.courses[0].title);
-                    expect(viewModel.selectedCourse().objectives).toBe(dataContext.courses[0].objectives);
-                    expect(viewModel.selectedCourse().objectvesListEmpty).toBe(dataContext.courses[0].objectives === 0);
+                    expect(viewModel.selectedCourse().id).toBe(courses[0].id);
+                    expect(viewModel.selectedCourse().title).toBe(courses[0].title);
+                    expect(viewModel.selectedCourse().objectives).toBe(courses[0].objectives);
+                    expect(viewModel.selectedCourse().objectvesListEmpty).toBe(courses[0].objectives === 0);
                 });
 
             });
@@ -186,6 +241,74 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Switch to "move" item');
                 });
 
+            });
+
+        });
+
+        describe('setCopyAction:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.setCopyAction).toBeFunction();
+            });
+
+            describe('when isCopy is true', function() {
+                it('should not publish event', function() {
+                    viewModel.isCopy(true);
+
+                    viewModel.setCopyAction();
+
+                    expect(eventTracker.publish).not.toHaveBeenCalled();
+                });
+            });
+
+            it('should set isCopy in true', function() {
+                viewModel.isCopy(false);
+
+                viewModel.setCopyAction();
+
+                expect(viewModel.isCopy()).toBeTruthy();
+            });
+
+            it('should publish event \'Switch to "copy" item\'', function () {
+                viewModel.isCopy(false);
+
+                viewModel.setCopyAction();
+
+                expect(eventTracker.publish).toHaveBeenCalledWith('Switch to "copy" item');
+            });
+
+        });
+
+        describe('setMoveAction:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.setMoveAction).toBeFunction();
+            });
+
+            describe('when isCopy is false', function () {
+                it('should not publish event', function () {
+                    viewModel.isCopy(false);
+
+                    viewModel.setMoveAction();
+
+                    expect(eventTracker.publish).not.toHaveBeenCalled();
+                });
+            });
+
+            it('should set isCopy in false', function () {
+                viewModel.isCopy(true);
+
+                viewModel.setMoveAction();
+
+                expect(viewModel.isCopy()).toBeFalsy();
+            });
+
+            it('should publish event \'Switch to "move" item\'', function () {
+                viewModel.isCopy(true);
+
+                viewModel.setMoveAction();
+
+                expect(eventTracker.publish).toHaveBeenCalledWith('Switch to "move" item');
             });
 
         });
