@@ -15,8 +15,11 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<CourseObjectiveRelatedEvent>,
         IDomainEventHandler<CourseObjectivesUnrelatedEvent>,
         IDomainEventHandler<CourseTemplateSettingsUpdated>,
+
         IDomainEventHandler<ObjectiveChangedEvent>,
-        IDomainEventHandler<QuestionChangedEvent>
+        IDomainEventHandler<QuestionChangedEvent>,
+        IDomainEventHandler<LearningContentChangedEvent>,
+        IDomainEventHandler<AnswerChangedEvent>
     {
         private readonly ICourseRepository _repository;
         private readonly IDomainEventPublisher _eventPublisher;
@@ -74,6 +77,16 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         public void Handle(QuestionChangedEvent args)
         {
             RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToQuestion(args.Question.Id));
+        }
+
+        public void Handle(LearningContentChangedEvent args)
+        {
+            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToLearningContent(args.LearningContent.Id));
+        }
+
+        public void Handle(AnswerChangedEvent args)
+        {
+            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToAnswer(args.Answer.Id));
         }
 
         private void RaiseCoursesChangedEvent(IEnumerable<Course> courses)

@@ -1,5 +1,7 @@
 ﻿using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.AnswerEvents;
+using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
@@ -102,6 +104,26 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
         {
             //Act
             _tracker.Handle(new QuestionTitleUpdatedEvent(DragAndDropTextObjectMother.Create()));
+
+            //Assert
+            ShouldPublishQuestionChangedevent();
+        }
+
+        [TestMethod]
+        public void Handler_AnswerDeletedEvent_Should_Publish_QuestionChangedEvent()
+        {
+            //Act
+            _tracker.Handle(new AnswerDeletedEvent(SingleSelectTextObjectMother.Create(), AnswerObjectMother.Create()));
+
+            //Assert
+            ShouldPublishQuestionChangedevent();
+        }
+
+        [TestMethod]
+        public void Handler_LearningContentDeletedEvent_Should_Publish_QuestionChangedEvent()
+        {
+            //Act
+            _tracker.Handle(new LearningContentDeletedEvent(SingleSelectTextObjectMother.Create(), LearningContentObjectMother.Create()));
 
             //Assert
             ShouldPublishQuestionChangedevent();

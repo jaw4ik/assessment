@@ -261,12 +261,16 @@
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
     <Compile Include="DomainEvents\ChangeTracking\CourseStateInfoStorage.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\LearningContentChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\ObjectiveChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\QuestionChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\ICourseStateInfoStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseChangeTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\CourseChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\AnswerChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\LearningContentChangeTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\ObjectiveChangeTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\QuestionChangeTracker.cs" />
     <Compile Include="DomainEvents\Handlers\MailChimpSubscriptionHandler.cs" />

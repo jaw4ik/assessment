@@ -130,6 +130,36 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             ShouldPublishCourseChangedEvent(2);
         }
 
+        [TestMethod]
+        public void Handler_LearningContentChangedEvent_Should_Publish_CourseChangedEvent()
+        {
+            //Arrange
+            var content = LearningContentObjectMother.Create();
+            var courses = new[] { CourseObjectMother.Create(), CourseObjectMother.Create() };
+            _repository.GetCoursesRelatedToLearningContent(content.Id).Returns(courses);
+
+            //Act
+            _tracker.Handle(new LearningContentChangedEvent(content));
+
+            //Assert
+            ShouldPublishCourseChangedEvent(2);
+        }
+
+        [TestMethod]
+        public void Handler_AnswerChangedEvent_Should_Publish_CourseChangedEvent()
+        {
+            //Arrange
+            var answer = AnswerObjectMother.Create();
+            var courses = new[] { CourseObjectMother.Create(), CourseObjectMother.Create() };
+            _repository.GetCoursesRelatedToAnswer(answer.Id).Returns(courses);
+
+            //Act
+            _tracker.Handle(new AnswerChangedEvent(answer));
+
+            //Assert
+            ShouldPublishCourseChangedEvent(2);
+        }
+
         private void ShouldPublishCourseChangedEvent(int eventCount = 1)
         {
             var calls = _publisher.ReceivedCalls();

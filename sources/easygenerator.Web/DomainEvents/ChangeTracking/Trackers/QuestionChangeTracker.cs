@@ -1,5 +1,7 @@
 ﻿using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.AnswerEvents;
+using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 
@@ -13,7 +15,9 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<QuestionCorrectFeedbackUpdatedEvent>,
         IDomainEventHandler<QuestionCreatedEvent>,
         IDomainEventHandler<QuestionIncorrectFeedbackUpdatedEvent>,
-        IDomainEventHandler<QuestionTitleUpdatedEvent>
+        IDomainEventHandler<QuestionTitleUpdatedEvent>,
+        IDomainEventHandler<AnswerDeletedEvent>,
+        IDomainEventHandler<LearningContentDeletedEvent>
     {
         private readonly IDomainEventPublisher _eventPublisher;
 
@@ -60,6 +64,16 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         }
 
         public void Handle(QuestionTitleUpdatedEvent args)
+        {
+            RaiseQuestionChangedEvent(args.Question);
+        }
+
+        public void Handle(AnswerDeletedEvent args)
+        {
+            RaiseQuestionChangedEvent(args.Question);
+        }
+
+        public void Handle(LearningContentDeletedEvent args)
         {
             RaiseQuestionChangedEvent(args.Question);
         }
