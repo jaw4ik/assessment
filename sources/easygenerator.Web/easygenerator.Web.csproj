@@ -233,6 +233,7 @@
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
@@ -508,6 +509,11 @@
     <Content Include="App\dialogs\collaboration\collaborator.js" />
     <Content Include="App\dialogs\collaboration\collaborator.spec.js">
       <DependentUpon>collaborator.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.html" />
+    <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.js" />
+    <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
+      <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
     <Content Include="App\localization\resources.js" />
     <Content Include="App\models\reportingStatement.js" />

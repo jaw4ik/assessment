@@ -23,12 +23,6 @@
             });
         });
 
-        describe('visible:', function () {
-            it('should be observable', function () {
-                expect(viewModel.visible).toBeObservable();
-            });
-        });
-
         describe('questions', function () {
             it('should be observable array', function () {
                 expect(viewModel.questions).toBeObservableArray();
@@ -345,48 +339,6 @@
 
         });
 
-        describe('show:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.show).toBeFunction();
-            });
-
-            describe('when block is visible', function () {
-
-                it('should set false', function () {
-                    viewModel.visible(true);
-                    viewModel.show();
-                    expect(viewModel.visible()).toBeFalsy();
-                });
-
-            });
-
-            describe('when block is not visible', function () {
-
-                it('should set true', function () {
-                    viewModel.visible(false);
-                    viewModel.show();
-                    expect(viewModel.visible()).toBeTruthy();
-                });
-
-            });
-
-        });
-
-        describe('hide:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.hide).toBeFunction();
-            });
-
-            it('should hide block', function () {
-                viewModel.visible(true);
-                viewModel.hide();
-                expect(viewModel.visible()).toBeFalsy();
-            });
-
-        });
-
         describe('createQuestion:', function () {
 
             beforeEach(function () {
@@ -401,15 +353,7 @@
                 beforeEach(function () {
                     spyOn(router, "activeInstruction").and.returnValue({ queryParams: {} });
                 });
-
-                it('should hide block', function () {
-                    viewModel.visible(true);
-
-                    viewModel.createQuestion({ type: 'questionType' });
-
-                    expect(viewModel.visible()).toBeFalsy();
-                });
-
+                
                 it('should execute createQuestionCommand', function () {
                     viewModel.objectiveId = 'objectiveId';
 
@@ -425,14 +369,6 @@
                 beforeEach(function () {
                     var instruction = { queryParams: { courseId: 'courseId' } };
                     spyOn(router, "activeInstruction").and.returnValue(instruction);
-                });
-
-                it('should hide block', function () {
-                    viewModel.visible(true);
-
-                    viewModel.createQuestion({ type: 'questionType' });
-
-                    expect(viewModel.visible()).toBeFalsy();
                 });
 
                 it('should call command with courseId', function () {

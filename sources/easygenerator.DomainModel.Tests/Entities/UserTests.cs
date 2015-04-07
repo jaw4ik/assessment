@@ -436,38 +436,38 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
         #endregion
 
-        #region HasFreeAccess
+        #region IsFreeAccess
 
         [TestMethod]
-        public void HasFreeAccess_ShouldReturnTrue_WhenUserHasFreeAccessType()
+        public void IsFreeAccess_ShouldReturnTrue_WhenUserIsFreeAccessType()
         {
             //Arrange
             var user = UserObjectMother.Create();
             user.AccessType = AccessType.Free;
 
             //Act
-            var result = user.HasFreeAccess();
+            var result = user.IsFreeAccess();
 
             //Assert
             result.Should().BeTrue();
         }
 
         [TestMethod]
-        public void HasFreeAccess_ShouldReturnTrue_WhenUserAccessExpired()
+        public void IsFreeAccess_ShouldReturnTrue_WhenUserAccessExpired()
         {
             //Arrange
             var user = UserObjectMother.Create();
             DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
 
             //Act
-            var result = user.HasFreeAccess();
+            var result = user.IsFreeAccess();
 
             //Assert
             result.Should().BeTrue();
         }
 
         [TestMethod]
-        public void HasFreeAccess_ShouldReturnTrue_WhenUserHasFreeAccessTypeAndAccessExpired()
+        public void IsFreeAccess_ShouldReturnTrue_WhenUserIsFreeAccessTypeAndAccessExpired()
         {
             //Arrange
             var user = UserObjectMother.Create();
@@ -475,42 +475,42 @@ namespace easygenerator.DomainModel.Tests.Entities
             DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
 
             //Act
-            var result = user.HasFreeAccess();
+            var result = user.IsFreeAccess();
 
             //Assert
             result.Should().BeTrue();
         }
 
         [TestMethod]
-        public void HasFreeAccess_ShouldReturnTrue_ExpirationDateIsNotSet()
+        public void IsFreeAccess_ShouldReturnTrue_ExpirationDateIsNotSet()
         {
             //Arrange
             var user = UserObjectMother.Create();
             user.ExpirationDate = null;
 
             //Act
-            var result = user.HasFreeAccess();
+            var result = user.IsFreeAccess();
 
             //Assert
             result.Should().BeTrue();
         }
 
         [TestMethod]
-        public void HasFreeAccess_ShouldReturnFalse_WhenUserHasStarterAccess()
+        public void IsFreeAccess_ShouldReturnFalse_WhenUserHasStarterAccess()
         {
             //Arrange
             var user = UserObjectMother.Create();
             user.AccessType = AccessType.Starter;
 
             //Act
-            var result = user.HasFreeAccess();
+            var result = user.IsFreeAccess();
 
             //Assert
             result.Should().BeFalse();
         }
 
         [TestMethod]
-        public void HasFreeAccess_ShouldReturnTrue_WhenUserHasStarterAccessButAccessExpired()
+        public void IsFreeAccess_ShouldReturnTrue_WhenUserHasStarterAccessButAccessExpired()
         {
             //Arrange
             var user = UserObjectMother.Create();
@@ -518,28 +518,28 @@ namespace easygenerator.DomainModel.Tests.Entities
             DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
 
             //Act
-            var result = user.HasFreeAccess();
+            var result = user.IsFreeAccess();
 
             //Assert
             result.Should().BeTrue();
         }
 
         [TestMethod]
-        public void HasFreeAccess_ShouldReturnFalse_WhenUserHasPlusAccess()
+        public void IsFreeAccess_ShouldReturnFalse_WhenUserHasPlusAccess()
         {
             //Arrange
             var user = UserObjectMother.Create();
             user.AccessType = AccessType.Plus;
 
             //Act
-            var result = user.HasFreeAccess();
+            var result = user.IsFreeAccess();
 
             //Assert
             result.Should().BeFalse();
         }
 
         [TestMethod]
-        public void HasFreeAccess_ShouldReturnTrue_WhenUserHasPlusAccessButAccessExpired()
+        public void IsFreeAccess_ShouldReturnTrue_WhenUserHasPlusAccessButAccessExpired()
         {
             //Arrange
             var user = UserObjectMother.Create();
@@ -547,7 +547,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
 
             //Act
-            var result = user.HasFreeAccess();
+            var result = user.IsFreeAccess();
 
             //Assert
             result.Should().BeTrue();

@@ -13,7 +13,8 @@ define(function (require) {
         BackButton = require('models/backButton'),
         vmQuestionTitle = require('viewmodels/questions/questionTitle'),
         vmContentField = require('viewmodels/common/contentField'),
-        multipleSelect = require('viewmodels/questions/multipleSelect/multipleSelect');
+        multipleSelect = require('viewmodels/questions/multipleSelect/multipleSelect'),
+        moveCopyDialog = require('dialogs/moveCopyQuestion/moveCopyQuestion');
 
     var question = {
         id: '1',
@@ -58,6 +59,7 @@ define(function (require) {
             spyOn(router, 'navigate');
             spyOn(router, 'navigateWithQueryString');
             spyOn(router, 'replace');
+            spyOn(moveCopyDialog, 'show');
         });
 
         it('is defined', function () {
@@ -161,10 +163,11 @@ define(function (require) {
             });
 
             it('should initialize fields', function () {
-                viewModel.activate(objective.id, question.id);
+                viewModel.activate(objective.id, question.id, {courseId: 'courseId'});
 
                 expect(viewModel.objectiveId).toBe(objective.id);
                 expect(viewModel.questionId).toBe(question.id);
+                expect(viewModel.courseId).toBe('courseId');
             });
 
             describe('when objective not found', function () {
@@ -418,6 +421,81 @@ define(function (require) {
                 viewModel.contentUpdatedByCollaborator(question);
                 expect(viewModel.questionContent.text()).toBe(question.content);
             });
+        });
+
+        describe('showMoveCopyDialog:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.showMoveCopyDialog).toBeFunction();
+            });
+
+            it('should open move/copy question dialog', function() {
+                viewModel.courseId = '1';
+                viewModel.objectiveId = '2';
+                viewModel.questionId = '3';
+                viewModel.showMoveCopyDialog();
+                expect(moveCopyDialog.show).toHaveBeenCalledWith(viewModel.courseId, viewModel.objectiveId, viewModel.questionId);
+            });
+
+        });
+
+        describe('duplicateQuestion:', function () {
+
+            var copyQuestionDefer,
+                questionId = 'questionId',
+                objectiveId = 'objectiveId',
+                courseId = 'courseId',
+                newQuestionId = 'newQuestionId';
+
+            beforeEach(function () {
+                copyQuestionDefer = Q.defer();
+                spyOn(questionRepository, 'copyQuestion').and.returnValue(copyQuestionDefer.promise);
+                copyQuestionDefer.resolve({ id: newQuestionId });
+                viewModel.objectiveId = objectiveId;
+                viewModel.questionId = questionId;
+            });
+
+            it('should be function', function() {
+                expect(viewModel.duplicateQuestion).toBeFunction();
+            });
+
+            it('should send response to server', function() {
+                viewModel.duplicateQuestion();
+                expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.objectiveId);
+            });
+
+            describe('when is context of course', function() {
+
+                beforeEach(function() {
+                    viewModel.courseId = courseId;
+                });
+
+                it('should navigate to new question in course', function(done) {
+                    viewModel.duplicateQuestion();
+                    copyQuestionDefer.promise.fin(function() {
+                        expect(router.navigate).toHaveBeenCalledWith('objective/' + objectiveId + '/question/' + newQuestionId + '?courseId=' + courseId);
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when is not a context of course', function () {
+
+                beforeEach(function () {
+                    viewModel.courseId = null;
+                });
+
+                it('should navigate to new question', function (done) {
+                    viewModel.duplicateQuestion();
+                    copyQuestionDefer.promise.fin(function () {
+                        expect(router.navigate).toHaveBeenCalledWith('objective/' + objectiveId + '/question/' + newQuestionId);
+                        done();
+                    });
+                });
+
+            });
+
         });
 
     });
