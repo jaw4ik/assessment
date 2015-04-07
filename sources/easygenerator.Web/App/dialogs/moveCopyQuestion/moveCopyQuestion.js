@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'eventTracker', 'dataContext', 'repositories/questionRepository', 'localization/localizationManager', 'notify'],
-    function (router, eventTracker, dataContext, questionRepository, localizationManager, notify) {
+﻿define(['plugins/router', 'eventTracker', 'dataContext', 'userContext', 'repositories/questionRepository', 'localization/localizationManager', 'notify'],
+    function (router, eventTracker, dataContext, userContext, questionRepository, localizationManager, notify) {
     'use strict';
 
     var events = {
@@ -147,7 +147,10 @@
         return _.chain(dataContext.courses)
                 .sortBy(function (course) {
                     return -course.createdOn;
-                 })
+                })
+                .sortBy(function (course) {
+                    return course.createdBy == userContext.identity.email ? 0 : 1;
+                })
                 .map(function (course) {
                     return {
                         id: course.id,

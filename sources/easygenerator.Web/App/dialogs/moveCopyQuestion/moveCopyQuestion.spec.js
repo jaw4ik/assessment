@@ -5,6 +5,7 @@
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         dataContext = require('dataContext'),
+        userContext = require('userContext'),
         localizationManager = require('localization/localizationManager'),
         questionRepository =require('repositories/questionRepository'),
         notify = require('notify');
@@ -16,6 +17,7 @@
                 objectiveId: 'objectiveId',
                 questionId: 'questionId'
             },
+            userName = 'user@user.com',
             moveQuestionDefer,
             copyQuestionDefer,
             allObjectivesTitle = 'title',
@@ -23,20 +25,17 @@
                 {
                     id: 'courseId',
                     title: 'courseTitle',
-                    objectives: [{}],
-                    createdOn: new Date(2014, 12, 14)
+                    objectives: [{}]
                 },
                 {
                     id: 'courseId2',
                     title: 'courseTitle2',
-                    objectives: [{}],
-                    createdOn: new Date(2015, 2, 24)
+                    objectives: [{}]
                 },
                 {
                     id: 'courseId3',
                     title: 'courseTitle3',
-                    objectives: [{}],
-                    createdOn: new Date(2015, 3, 14)
+                    objectives: [{}]
                 }
             ];
 
@@ -85,7 +84,8 @@
 
         describe('show:', function () {
 
-            beforeEach(function() {
+            beforeEach(function () {
+                userContext.identity = { email: userName };
                 dataContext.courses = courses;
             });
 
@@ -116,15 +116,43 @@
                 expect(viewModel.courseId).toBe(ids.courseId);
             });
 
-            it('should map courses from context order by created date', function() {
+            it('should map courses from context', function() {
                 viewModel.courses([]);
 
                 viewModel.show(ids.courseId);
 
                 expect(viewModel.courses().length).toBe(3);
-                expect(viewModel.courses()[0].id).toBe(courses[2].id);
-                expect(viewModel.courses()[1].id).toBe(courses[1].id);
+            });
+
+            it('should order courses by creation date', function () {
+                courses[0].createdOn = new Date(2012, 12, 12);
+                courses[1].createdOn = new Date(2015, 2, 1);
+                courses[2].createdOn = new Date(2014, 1, 12);
+
+                viewModel.courses([]);
+
+                viewModel.show(ids.courseId);
+
+                expect(viewModel.courses()[0].id).toBe(courses[1].id);
+                expect(viewModel.courses()[1].id).toBe(courses[2].id);
                 expect(viewModel.courses()[2].id).toBe(courses[0].id);
+            });
+
+            it('should move collaborators\' courses to the end of list', function () {
+                courses[0].createdOn = new Date(2012, 12, 12);
+                courses[0].createdBy = userName;
+                courses[1].createdOn = new Date(2015, 2, 1);
+                courses[1].createdBy = 'collaborator@mail.dom';
+                courses[2].createdOn = new Date(2014, 1, 12);
+                courses[2].createdBy = userName;
+
+                viewModel.courses([]);
+
+                viewModel.show(ids.courseId);
+
+                expect(viewModel.courses()[0].id).toBe(courses[2].id);
+                expect(viewModel.courses()[1].id).toBe(courses[0].id);
+                expect(viewModel.courses()[2].id).toBe(courses[1].id);
             });
 
             it('should set objectiveId', function () {
