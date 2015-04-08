@@ -19,6 +19,7 @@
                 expandObjectiveHint: 'Expand \"Learning objective hint\"'
             },
             viewModel = {
+                courseId: null,
                 objectiveId: null,
                 title: ko.observable(''),
                 titleMaxLength: constants.validation.objectiveTitleMaxLength,
@@ -52,6 +53,7 @@
                 isQuestionsListReorderedByCollaborator: ko.observable(false),
 
                 activate: activate,
+                back: back,
 
                 objectiveTitleUpdated: objectiveTitleUpdated,
                 objectiveImageUrlUpdated: objectiveImageUrlUpdated,
@@ -214,56 +216,39 @@
             eventTracker.publish(events.navigateToObjectives);
         }
 
-        function activate() {
-            var courseId, objId;
-            if (arguments.length === 2) {
-                courseId = arguments[0];
-                objId = arguments[1];
-            } else if (arguments.length === 1) {
-                objId = arguments[0];
+        function back() {
+            if (viewModel.courseId) {
+                router.navigate('#courses/' + viewModel.courseId);
             } else {
-                throw 'Invalid arguments';
+                router.navigate('#objectives');
+            }
+        }
+
+        function activate() {
+
+            if (arguments.length === 1) {
+                viewModel.courseId = null;
+                viewModel.objectiveId = arguments[0];
+            } else if (arguments.length === 2) {
+                viewModel.courseId = arguments[0];
+                viewModel.objectiveId = arguments[1];
             }
 
-            viewModel.currentLanguage = localizationManager.currentLanguage;
-            viewModel.isObjectiveTipVisible(false);
 
-            var lastCreatedObjectiveId = clientContext.get(constants.clientContextKeys.lastCreatedObjectiveId) || '';
-            clientContext.remove(constants.clientContextKeys.lastCreatedObjectiveId);
-            viewModel.isLastCreatedObjective = lastCreatedObjectiveId === objId;
+            return repository.getById(viewModel.objectiveId).then(function (objective) {
+                clientContext.set(constants.clientContextKeys.lastVisitedObjective, viewModel.objectiveId);
 
-            if (_.isNullOrUndefined(courseId)) {
-                viewModel.contextCourseId = null;
-                viewModel.contextCourseTitle = null;
+                viewModel.title(objective.title);
+                viewModel.imageUrl(objective.image);
+                viewModel.questions(_.map(objective.questions, mapQuestion));
 
-                return initObjectiveInfo(objId);
-            }
+                viewModel.currentLanguage = localizationManager.currentLanguage;
+                viewModel.isObjectiveTipVisible(false);
 
-            return courseRepository.getById(courseId).then(function (course) {
-                viewModel.contextCourseId = course.id;
-                viewModel.contextCourseTitle = course.title;
-
-                return initObjectiveInfo(objId);
-            }).fail(function (reason) {
-                router.activeItem.settings.lifecycleData = { redirect: '404' };
-                throw reason;
+                var lastCreatedObjectiveId = clientContext.get(constants.clientContextKeys.lastCreatedObjectiveId) || '';
+                clientContext.remove(constants.clientContextKeys.lastCreatedObjectiveId);
+                viewModel.isLastCreatedObjective = lastCreatedObjectiveId === viewModel.objectiveId;
             });
-
-            function initObjectiveInfo(id) {
-                return repository.getById(id).then(function (objective) {
-                    clientContext.set(constants.clientContextKeys.lastVisitedObjective, id);
-                    viewModel.objectiveId = objective.id;
-                    viewModel.title(objective.title);
-                    viewModel.imageUrl(objective.image);
-
-                    var array = _.map(objective.questions, mapQuestion);
-
-                    viewModel.questions(array);
-                }).fail(function (reason) {
-                    router.activeItem.settings.lifecycleData = { redirect: '404' };
-                    throw reason;
-                });
-            }
         }
 
         function mapQuestion(question) {
@@ -278,8 +263,8 @@
         }
 
         function getEditQuestionLink(questionId) {
-            if (viewModel.contextCourseId) {
-                return '#courses/' + viewModel.contextCourseId + '/objectives/' + viewModel.objectiveId + '/questions/' + questionId;
+            if (viewModel.courseId) {
+                return '#courses/' + viewModel.courseId + '/objectives/' + viewModel.objectiveId + '/questions/' + questionId;
             } else {
                 return '#objectives/' + viewModel.objectiveId + '/questions/' + questionId;
             }
@@ -305,13 +290,13 @@
         }
 
         function endReorderingQuestions() {
-           
+
             return Q.fcall(function () {
                 if (!viewModel.isReorderingQuestions() || !viewModel.isQuestionsListReorderedByCollaborator()) {
                     viewModel.isReorderingQuestions(false);
                     return;
                 }
-                
+
                 viewModel.isReorderingQuestions(false);
                 viewModel.isQuestionsListReorderedByCollaborator(false);
 

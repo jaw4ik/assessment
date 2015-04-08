@@ -286,7 +286,8 @@
         ];
 
         require([
-            'viewmodels/courses/course/index.spec'
+            'viewmodels/courses/course/index.spec',
+            'viewmodels/objectives/objective.spec'
  //           'viewmodels/courses/course/create.spec'
 
         ], function () {

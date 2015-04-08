@@ -35,27 +35,26 @@
 
             beforeEach(function () {
                 spyOn(eventTracker, 'publish');
-                spyOn(router, 'navigateWithQueryString');
                 spyOn(router, 'navigate');
                 spyOn(router, 'replace');
                 spyOn(router, 'activeInstruction').and.returnValue(instruction);
             });
 
-            it('is object', function () {
+            it('should be object', function () {
                 expect(viewModel).toBeObject();
             });
 
             describe('activate:', function () {
 
-                var deferred, getCourseDeferred;
+                var getById, getCourseDeferred;
 
                 beforeEach(function () {
                     viewModel.contextCourseTitle = null;
                     viewModel.contextCourseId = null;
 
-                    deferred = Q.defer();
+                    getById = Q.defer();
                     getCourseDeferred = Q.defer();
-                    spyOn(repository, 'getById').and.returnValue(deferred.promise);
+                    spyOn(repository, 'getById').and.returnValue(getById.promise);
                     spyOn(courseRepository, 'getById').and.returnValue(getCourseDeferred.promise);
                     spyOn(clientContext, 'set');
                     spyOn(clientContext, 'remove');
@@ -66,440 +65,215 @@
                     expect(viewModel.activate).toBeFunction();
                 });
 
-                it('should set isObjectiveTipVisible to false', function (done) {
+                describe('when activated with 1 argument', function () {
 
-                    deferred.resolve();
-                    viewModel.isObjectiveTipVisible(true);
-                    var promise = viewModel.activate(objective.id, null);
+                    it('should set objectiveId', function (done) {
+                        viewModel.objectiveId = null;
+                        getById.resolve(objective);
 
-                    promise.fin(function () {
-                        expect(viewModel.isObjectiveTipVisible()).toBeFalsy();
-                        done();
+                        viewModel.activate('objectiveId').then(function () {
+                            expect(viewModel.objectiveId).toEqual('objectiveId');
+                            done();
+                        });
                     });
+
+                    it('should set null to coursId', function (done) {
+                        viewModel.courseId = 'courseId';
+                        getById.resolve(objective);
+
+                        viewModel.activate('objectiveId').then(function () {
+                            expect(viewModel.courseId).toEqual(null);
+                            done();
+                        });
+                    });
+
+                    it('should return promise', function () {
+                        expect(viewModel.activate('objectiveId')).toBePromise();
+                    });
+
                 });
 
-                it('should set client context with current objective id', function (done) {
+                describe('when activated with 2 arguments', function () {
 
-                    deferred.resolve();
-                    var promise = viewModel.activate(objective.id, null);
+                    it('should set objectiveId', function (done) {
+                        viewModel.objectiveId = null;
+                        getById.resolve(objective);
 
-                    promise.fin(function () {
-                        expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVisitedObjective, objective.id);
-                        done();
+                        viewModel.activate('courseId', 'objectiveId').then(function () {
+                            expect(viewModel.objectiveId).toEqual('objectiveId');
+                            done();
+                        });
                     });
+
+                    it('should set courseId', function (done) {
+                        viewModel.courseId = null;
+                        getById.resolve(objective);
+
+                        viewModel.activate('courseId', 'objectiveId').then(function () {
+                            expect(viewModel.courseId).toEqual('courseId');
+                            done();
+                        });
+                    });
+
+                    it('should return promise', function () {
+                        expect(viewModel.activate('courseId', 'objectiveId')).toBePromise();
+                    });
+
                 });
 
-                describe('when last created objective is current objective', function () {
+                describe('when objective does not exist', function () {
+
                     beforeEach(function () {
-                        deferred.resolve();
-                        spyOn(clientContext, 'get').and.returnValue(objective.id);
+                        getById.reject('reason');
                     });
 
-                    it('should set isLastCreatedObjective to true', function (done) {
-                        viewModel.activate(objective.id, null).fin(function () {
-                            expect(viewModel.isLastCreatedObjective).toBeTruthy();
+                    it('should reject promise', function (done) {
+                        var promise = viewModel.activate('objectiveId', 'courseId');
+
+                        promise.catch(function () {
+                            expect(promise).toBeRejectedWith('reason');
                             done();
                         });
                     });
                 });
 
-                describe('when last created objective is not current objective', function () {
+                describe('when objective exists', function () {
                     beforeEach(function () {
-                        deferred.resolve();
-                        spyOn(clientContext, 'get').and.returnValue('some id');
+                        getById.resolve(objective);
                     });
 
-                    it('should set isLastCreatedObjective to true', function (done) {
-                        viewModel.activate(objective.id, null).fin(function () {
-                            expect(viewModel.isLastCreatedObjective).toBeFalsy();
-                            done();
-                        });
-                    });
-                });
+                    it('should set objective title', function (done) {
+                        viewModel.title('');
 
-                it('should remove lastCreatedObjective key from client context', function (done) {
-                    deferred.resolve();
-                    viewModel.activate(objective.id, null).fin(function () {
-                        expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.lastCreatedObjectiveId);
-                        done();
-                    });
-                });
-
-                describe('when queryParams are null', function () {
-
-                    it('should set contextExpperienceId to null', function (done) {
-                        deferred.resolve(null);
-
-                        var promise = viewModel.activate(objective.id, null);
+                        var promise = viewModel.activate(objective.id);
 
                         promise.fin(function () {
-                            expect(viewModel.contextCourseId).toBeNull();
+                            expect(viewModel.title()).toBe(objective.title);
                             done();
                         });
                     });
 
-                    it('should set contextExpperienceTitle to null', function (done) {
-                        deferred.resolve(null);
+                    it('should set image url', function () {
+                        viewModel.imageUrl('');
 
-                        var promise = viewModel.activate(objective.id, null);
+                        var promise = viewModel.activate(objective.id);
 
                         promise.fin(function () {
-                            expect(viewModel.contextCourseTitle).toBeNull();
+                            expect(viewModel.imageUrl()).toBe(objective.image);
                             done();
                         });
                     });
 
-                    describe('when objective not found', function () {
+                    it('should initialize questions collection', function (done) {
+                        viewModel.questions([]);
+                        var promise = viewModel.activate(objective.id);
 
-                        beforeEach(function () {
-                            deferred.reject('reason');
-                        });
-
-                        it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
-                            router.activeItem.settings.lifecycleData = null;
-
-                            var promise = viewModel.activate(objective.id, null);
-                            promise.fin(function () {
-                                expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
-                                done();
-                            });
-                        });
-
-                        it('should reject promise', function (done) {
-                            var promise = viewModel.activate(objective.id, null);
-                            promise.fin(function () {
-                                expect(promise).toBeRejectedWith('reason');
-                                done();
-                            });
+                        promise.fin(function () {
+                            expect(viewModel.questions().length).toBe(objective.questions.length);
+                            done();
                         });
                     });
 
-                    describe('when objective exists', function () {
-                        beforeEach(function () {
-                            deferred.resolve(objective);
+                    it('should sort questions asc', function (done) {
+                        var promise = viewModel.activate(objective.id);
+
+                        promise.fin(function () {
+                            expect(viewModel.questions).toBeSortedAsc('title');
+                            done();
                         });
+                    });
 
-                        it('should return promise', function () {
-                            expect(viewModel.activate('id', null)).toBePromise();
-                        });
-
-                        it('should set objective title', function (done) {
-                            viewModel.title('');
-
-                            var promise = viewModel.activate(objective.id, null);
-
-                            promise.fin(function () {
-                                expect(viewModel.title()).toBe(objective.title);
-                                done();
-                            });
-                        });
-
-                        it('should set image url', function () {
-                            viewModel.imageUrl('');
-
-                            var promise = viewModel.activate(objective.id, null);
-
-                            promise.fin(function () {
-                                expect(viewModel.imageUrl()).toBe(objective.image);
-                                done();
-                            });
-                        });
-
-                        it('should set currentLanguage', function () {
-                            viewModel.currentLanguage = null;
-                            viewModel.activate(objective.id, null);
+                    it('should set currentLanguage', function (done) {
+                        viewModel.currentLanguage = null;
+                        viewModel.activate(objective.id).then(function () {
                             expect(viewModel.currentLanguage).not.toBeNull();
-                        });
-
-                        it('should initialize questions collection', function (done) {
-                            viewModel.questions([]);
-                            var promise = viewModel.activate(objective.id, null);
-
-                            promise.fin(function () {
-                                expect(viewModel.questions().length).toBe(objective.questions.length);
-                                done();
-                            });
-                        });
-
-                        it('should sort questions asc', function (done) {
-                            var promise = viewModel.activate(objective.id, null);
-
-                            promise.fin(function () {
-                                expect(viewModel.questions).toBeSortedAsc('title');
-                                done();
-                            });
-                        });
-
-                    });
-                });
-
-                describe('when queryParams are not null', function () {
-
-                    describe('when courseId is not string', function () {
-                        var queryParams = { courseId: null };
-
-                        it('should set contextExpperienceId to null', function (done) {
-                            deferred.resolve(null);
-                            var promise = viewModel.activate(objective.id, queryParams);
-
-                            promise.fin(function () {
-                                expect(viewModel.contextCourseId).toBeNull();
-                                done();
-                            });
-                        });
-
-                        it('should set contextExpperienceTitle to null', function (done) {
-                            deferred.resolve(null);
-                            var promise = viewModel.activate(objective.id, queryParams);
-
-                            promise.fin(function () {
-                                expect(viewModel.contextCourseTitle).toBeNull();
-                                done();
-                            });
-                        });
-
-                        describe('when objective not found', function () {
-
-                            beforeEach(function () {
-                                deferred.reject('reason');
-                            });
-
-                            it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
-                                router.activeItem.settings.lifecycleData = null;
-
-                                var promise = viewModel.activate(objective.id, queryParams);
-                                promise.fin(function () {
-                                    expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
-                                    done();
-                                });
-                            });
-
-                            it('should reject promise', function (done) {
-                                var promise = viewModel.activate(objective.id, queryParams);
-                                promise.fin(function () {
-                                    expect(promise).toBeRejectedWith('reason');
-                                    done();
-                                });
-                            });
-                        });
-
-                        describe('when objective exists', function () {
-                            beforeEach(function () {
-                                deferred.resolve(objective);
-                            });
-
-                            it('should return promise', function () {
-                                expect(viewModel.activate('id', queryParams)).toBePromise();
-                            });
-
-                            it('should set objective title', function (done) {
-                                viewModel.title('');
-
-                                var promise = viewModel.activate(objective.id, queryParams);
-                                promise.fin(function () {
-                                    expect(viewModel.title()).toBe(objective.title);
-                                    done();
-                                });
-                            });
-
-                            it('should set image url', function () {
-                                viewModel.imageUrl('');
-
-                                var promise = viewModel.activate(objective.id, queryParams);
-
-                                promise.fin(function () {
-                                    expect(viewModel.imageUrl()).toBe(objective.image);
-                                    done();
-                                });
-                            });
-
-                            it('should set currentLanguage', function () {
-                                viewModel.currentLanguage = null;
-                                viewModel.activate(objective.id, queryParams);
-                                expect(viewModel.currentLanguage).not.toBeNull();
-                            });
-
-                            it('should initialize questions collection', function (done) {
-                                viewModel.questions([]);
-                                var promise = viewModel.activate(objective.id, queryParams);
-
-                                promise.fin(function () {
-                                    expect(viewModel.questions().length).toBe(objective.questions.length);
-                                    done();
-                                });
-                            });
-
-                            it('should sort questions asc', function (done) {
-                                var promise = viewModel.activate(objective.id, queryParams);
-
-                                promise.fin(function () {
-                                    expect(viewModel.questions).toBeSortedAsc('title');
-                                    done();
-                                });
-                            });
-
+                            done();
                         });
                     });
 
-                    describe('when courseId is string', function () {
-                        var course = { id: 'id1', title: 'Course 1' };
-                        var queryParams = { courseId: 'id' };
+                    it('should set isObjectiveTipVisible to false', function (done) {
+                        getById.resolve(objective);
+                        viewModel.isObjectiveTipVisible(true);
 
-                        describe('when course exists', function () {
+                        viewModel.activate(objective.id).then(function () {
+                            expect(viewModel.isObjectiveTipVisible()).toBeFalsy();
+                            done();
+                        });
+                    });
 
-                            beforeEach(function () {
-                                getCourseDeferred.resolve(course);
-                            });
+                    it('should set current objectiveId to client context', function (done) {
+                        getById.resolve(objective);
+                        viewModel.activate(objective.id).then(function () {
+                            expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVisitedObjective, objective.id);
+                            done();
+                        });
+                    });
 
-                            describe('when objective not found', function () {
+                    it('should remove lastCreatedObjective key from client context', function (done) {
+                        getById.resolve(objective);
+                        viewModel.activate(objective.id).then(function () {
+                            expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.lastCreatedObjectiveId);
+                            done();
+                        });
+                    });
 
-                                beforeEach(function () {
-                                    deferred.reject('reason');
-                                });
-
-                                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
-                                    router.activeItem.settings.lifecycleData = null;
-
-                                    var promise = viewModel.activate(objective.id, queryParams);
-
-                                    promise.fin(function () {
-                                        expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
-                                        done();
-                                    });
-                                });
-
-                                it('should reject promise', function (done) {
-                                    var promise = viewModel.activate(objective.id, queryParams);
-
-                                    promise.fin(function () {
-                                        expect(promise).toBeRejectedWith('reason');
-                                        done();
-                                    });
-                                });
-                            });
-
-                            describe('when objective exists', function () {
-                                beforeEach(function () {
-                                    deferred.resolve(objective);
-                                });
-
-                                it('should return promise', function () {
-                                    expect(viewModel.activate('id', queryParams)).toBePromise();
-                                });
-
-                                it('should set contextExpperienceId', function (done) {
-                                    var promise = viewModel.activate('id', queryParams);
-
-                                    promise.fin(function () {
-                                        expect(viewModel.contextCourseId).toBe(course.id);
-                                        done();
-                                    });
-                                });
-
-                                it('should set contextExpperienceTitle', function (done) {
-                                    var promise = viewModel.activate('id', queryParams);
-
-                                    promise.fin(function () {
-                                        expect(viewModel.contextCourseTitle).toBe(course.title);
-                                        done();
-                                    });
-                                });
-
-                                it('should set objective title', function (done) {
-                                    viewModel.title('');
-
-                                    var promise = viewModel.activate(objective.id, queryParams);
-
-                                    promise.fin(function () {
-                                        expect(viewModel.title()).toBe(objective.title);
-                                        done();
-                                    });
-                                });
-
-                                it('should set image url', function () {
-                                    viewModel.imageUrl('');
-
-                                    var promise = viewModel.activate(objective.id, queryParams);
-
-                                    promise.fin(function () {
-                                        expect(viewModel.imageUrl()).toBe(objective.image);
-                                        done();
-                                    });
-                                });
-
-                                it('should set currentLanguage', function () {
-                                    viewModel.currentLanguage = null;
-                                    viewModel.activate(objective.id, queryParams);
-                                    expect(viewModel.currentLanguage).not.toBeNull();
-                                });
-
-                                it('should initialize questions collection', function (done) {
-                                    viewModel.questions([]);
-                                    var promise = viewModel.activate(objective.id, queryParams);
-
-                                    promise.fin(function () {
-                                        expect(viewModel.questions().length).toBe(objective.questions.length);
-                                        done();
-                                    });
-                                });
-
-                                it('should sort questions asc', function (done) {
-                                    var promise = viewModel.activate(objective.id, queryParams);
-
-                                    promise.fin(function () {
-                                        expect(viewModel.questions).toBeSortedAsc('title');
-                                        done();
-                                    });
-                                });
-
-                            });
+                    describe('when last created objective is current objective', function () {
+                        beforeEach(function () {
+                            getById.resolve(objective);
+                            spyOn(clientContext, 'get').and.returnValue(objective.id);
                         });
 
-                        describe('when course does not exist', function () {
-                            beforeEach(function () {
-                                getCourseDeferred.reject('reason');
+                        it('should set isLastCreatedObjective to true', function (done) {
+                            viewModel.activate(objective.id).then(function () {
+                                expect(viewModel.isLastCreatedObjective).toBeTruthy();
+                                done();
                             });
+                        });
+                    });
 
-                            it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
-                                router.activeItem.settings.lifecycleData = null;
+                    describe('when last created objective is not current objective', function () {
+                        beforeEach(function () {
+                            getById.resolve(objective);
+                            spyOn(clientContext, 'get').and.returnValue('some id');
+                        });
 
-                                var promise = viewModel.activate('id', queryParams);
-
-                                promise.fin(function () {
-                                    expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
-                                    done();
-                                });
-                            });
-
-                            it('should reject promise', function (done) {
-                                var promise = viewModel.activate('id', queryParams);
-
-                                promise.fin(function () {
-                                    expect(promise).toBeRejectedWith('reason');
-                                    done();
-                                });
-                            });
-
-                            it('should set contextCourseId to null', function (done) {
-                                var promise = viewModel.activate('id', queryParams);
-
-                                promise.fin(function () {
-                                    expect(viewModel.contextCourseId).toBeNull();
-                                    done();
-                                });
-                            });
-
-                            it('should set contextCourseTitle to null', function (done) {
-                                var promise = viewModel.activate('id', queryParams);
-
-                                promise.fin(function () {
-                                    expect(viewModel.contextCourseTitle).toBeNull();
-                                    done();
-                                });
+                        it('should set isLastCreatedObjective to true', function (done) {
+                            viewModel.activate(objective.id, null).fin(function () {
+                                expect(viewModel.isLastCreatedObjective).toBeFalsy();
+                                done();
                             });
                         });
                     });
                 });
+
+            });
+
+            describe('back:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.back).toBeFunction();
+                });
+
+                describe('when courseId is set', function () {
+
+                    it('should redirect to course', function () {
+                        viewModel.courseId = 'courseId';
+                        viewModel.back();
+                        expect(router.navigate).toHaveBeenCalledWith('#courses/courseId');
+                    });
+
+                });
+
+                describe('when courseId is not set', function () {
+
+                    it('should redirect to objectives', function () {
+                        viewModel.courseId = null;
+                        viewModel.back();
+                        expect(router.navigate).toHaveBeenCalledWith('#objectives');
+                    });
+
+                });
+
             });
 
             describe('title:', function () {
@@ -944,13 +718,30 @@
 
                 });
 
-                it('should navigate to question editor with query string', function () {
+                describe('when course id is set', function () {
 
-                    viewModel.objectiveId = objective.id;
+                    it('should navigate to question within course context', function () {
+                        viewModel.courseId = 'courseId';
+                        viewModel.objectiveId = objective.id;
 
-                    viewModel.navigateToEditQuestion(objective.questions[0]);
+                        viewModel.navigateToEditQuestion(objective.questions[0]);
 
-                    expect(router.navigate).toHaveBeenCalledWith('#objective/' + objective.id + '/question/' + objective.questions[0].id + '?' + instruction.queryString);
+                        expect(router.navigate).toHaveBeenCalledWith('#courses/courseId/objectives/' + objective.id + '/questions/' + objective.questions[0].id);
+                    });
+
+                });
+
+                describe('when course id is not set', function () {
+
+                    it('should navigate to question within objective context', function () {
+                        viewModel.courseId = null;
+                        viewModel.objectiveId = objective.id;
+
+                        viewModel.navigateToEditQuestion(objective.questions[0]);
+
+                        expect(router.navigate).toHaveBeenCalledWith('#objectives/' + objective.id + '/questions/' + objective.questions[0].id);
+                    });
+
                 });
 
                 it('should send event \"Navigate to question editor\"', function () {

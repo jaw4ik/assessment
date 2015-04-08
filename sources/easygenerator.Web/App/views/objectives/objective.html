@@ -2,6 +2,20 @@
     <div class="content-section-wrapper">
         <div class="content-section">
 
+            
+            <div class="page-view-caption clearfix">
+                <div class="show-notify-btn info-tooltip-holder" data-bind="click: showObjectiveTip, visible: !isObjectiveTipVisible()">
+                    <div class="info-tooltip show-notify-tip">
+                        <span data-bind="localize: { text: 'howToCreateObjectiveTipText' }">Click to show tip</span>
+                    </div>
+                </div>
+                <button class="page-view-caption-back-button info-tooltip-holder" data-bind="click: back">
+                    <div class="info-tooltip">
+                        <span>Go back</span>
+                    </div>
+                </button>
+                <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</div>
+            </div>
 
             <div class="notify-container" data-bind="visible: isObjectiveTipVisible()">
                 <header class="notify-header clearfix">
@@ -24,6 +38,7 @@
                     </a>
                 </div>
             </div>
+            
             <div class="controls">
                 <div class="image-container" data-bind="click: updateImage">
                     <div class="logo-background" data-bind="backgroundImage: imageUrl"></div>
@@ -37,14 +52,6 @@
                     </div>
                 </div>
                 <div class="title-container">
-                    <div class="page-view-caption clearfix">
-                        <div class="show-notify-btn info-tooltip-holder" data-bind="click: showObjectiveTip, visible: !isObjectiveTipVisible()">
-                            <div class="info-tooltip show-notify-tip">
-                                <span data-bind="localize: { text: 'howToCreateObjectiveTipText' }">Click to show tip</span>
-                            </div>
-                        </div>
-                        <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</div>
-                    </div>
                     <header class="view-header">
                         <div class="view-header-title">
                             <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }, autofocus: { focus: isLastCreatedObjective, autoselect: isLastCreatedObjective }"></div>
@@ -63,13 +70,11 @@
     </div>
     <div class="content-section-wrapper">
         <div class="content-section">
-            <span class="main-content-title" data-bind="localize: { text: 'relatedContents' }"></span>
-        </div>
-    </div>
-    <div class="content-section-wrapper main-content">
-        <div class="content-section">
             <div class="main-content-list-holder">
                 <div class="view-list-actions-holder">
+                    <div class="list-item-action">
+                        <span class="main-content-title" data-bind="localize: { text: 'relatedContents' }"></span>
+                    </div>
                     <div class="list-item-action delete">
                         <!-- ko if: enableDeleteQuestions -->
                         <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedQuestions, localize: { text: 'deleteSelected' }">Delete selected</span>
