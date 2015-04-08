@@ -8,9 +8,9 @@ app.constants.events = {
 };
 
 app.constants.timeout = {
-    mixpanel: 10000,
-    googleAnalytics: 10000,
-    nudgespot: 1000
+    mixpanel: 15000,
+    googleAnalytics: 15000,
+    nudgespot: 15000
 };
 
 app.constants.pageviewUrls = {
