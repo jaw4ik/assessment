@@ -23,11 +23,6 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
             RaiseLearningContentChangedEvent(args.LearningContent);
         }
 
-        public void Handle(LearningContentDeletedEvent args)
-        {
-            RaiseLearningContentChangedEvent(args.LearningContent);
-        }
-
         public void Handle(LearningContentUpdatedEvent args)
         {
             RaiseLearningContentChangedEvent(args.LearningContent);

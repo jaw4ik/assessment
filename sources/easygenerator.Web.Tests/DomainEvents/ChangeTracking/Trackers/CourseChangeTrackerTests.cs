@@ -160,6 +160,66 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             ShouldPublishCourseChangedEvent(2);
         }
 
+        [TestMethod]
+        public void Handler_DropspotChangedEvent_Should_Publish_CourseChangedEvent()
+        {
+            //Arrange
+            var dropspot = DropspotObjectMother.Create();
+            var courses = new[] { CourseObjectMother.Create(), CourseObjectMother.Create() };
+            _repository.GetCoursesRelatedToDropspot(dropspot.Id).Returns(courses);
+
+            //Act
+            _tracker.Handle(new DropspotChangedEvent(dropspot));
+
+            //Assert
+            ShouldPublishCourseChangedEvent(2);
+        }
+
+        [TestMethod]
+        public void Handler_HotSpotPolygonChangedEvent_Should_Publish_CourseChangedEvent()
+        {
+            //Arrange
+            var polygon = HotSpotPolygonObjectMother.Create();
+            var courses = new[] { CourseObjectMother.Create(), CourseObjectMother.Create() };
+            _repository.GetCoursesRelatedToHotSpotPolygon(polygon.Id).Returns(courses);
+
+            //Act
+            _tracker.Handle(new HotSpotPolygonChangedEvent(polygon));
+
+            //Assert
+            ShouldPublishCourseChangedEvent(2);
+        }
+
+        [TestMethod]
+        public void Handler_TextMatchingAnswerChanged_Should_Publish_CourseChangedEvent()
+        {
+            //Arrange
+            var answer = TextMatchingAnswerObjectMother.Create();
+            var courses = new[] { CourseObjectMother.Create(), CourseObjectMother.Create() };
+            _repository.GetCoursesRelatedToTextMatchingAnswer(answer.Id).Returns(courses);
+
+            //Act
+            _tracker.Handle(new TextMatchingAnswerChangedEvent(answer));
+
+            //Assert
+            ShouldPublishCourseChangedEvent(2);
+        }
+
+        [TestMethod]
+        public void Handler_SingleSelectImageAnswerChanged_Should_Publish_CourseChangedEvent()
+        {
+            //Arrange
+            var answer = SingleSelectImageAnswerObjectMother.Create();
+            var courses = new[] { CourseObjectMother.Create(), CourseObjectMother.Create() };
+            _repository.GetCoursesRelatedToSingleSelectImageAnswer(answer.Id).Returns(courses);
+
+            //Act
+            _tracker.Handle(new SingleSelectImageAnswerChangedEvent(answer));
+
+            //Assert
+            ShouldPublishCourseChangedEvent(2);
+        }
+
         private void ShouldPublishCourseChangedEvent(int eventCount = 1)
         {
             var calls = _publisher.ReceivedCalls();

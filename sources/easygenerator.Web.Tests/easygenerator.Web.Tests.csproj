@@ -189,6 +189,10 @@
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\CourseStateInfoStorageTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\CourseStateTrackerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTrackerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\SingleSelectImageAnswerChangeTrackerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\DropspotChangeTrackerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\TextMatchingAnswerChangeTrackerTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\AnswerChangeTrackerTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\LearningContentChangeTrackerTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\QuestionChangeTrackerTests.cs" />

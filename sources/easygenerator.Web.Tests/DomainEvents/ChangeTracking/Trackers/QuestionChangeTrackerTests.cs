@@ -3,6 +3,10 @@ using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.DragAndDropEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.HotSpotEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.SingleSelectImageEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 using easygenerator.Web.DomainEvents.ChangeTracking.Trackers;
@@ -36,7 +40,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new FillInTheBlankUpdatedEvent(FillInTheBlanksObjectMother.Create(), new Collection<BlankAnswer>()));
 
             //Assert
-            ShouldPublishQuestionChangedevent();
+            ShouldPublishQuestionChangedEvent();
         }
 
         [TestMethod]
@@ -46,7 +50,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new LearningContentsReorderedEvent(FillInTheBlanksObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedevent();
+            ShouldPublishQuestionChangedEvent();
         }
 
         [TestMethod]
@@ -56,7 +60,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionContentUpdatedEvent(FillInTheBlanksObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedevent();
+            ShouldPublishQuestionChangedEvent();
         }
 
         [TestMethod]
@@ -66,7 +70,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionBackgroundChangedEvent(DragAndDropTextObjectMother.Create(), "bg.com"));
 
             //Assert
-            ShouldPublishQuestionChangedevent();
+            ShouldPublishQuestionChangedEvent();
         }
 
         [TestMethod]
@@ -76,7 +80,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionIncorrectFeedbackUpdatedEvent(DragAndDropTextObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedevent();
+            ShouldPublishQuestionChangedEvent();
         }
 
         [TestMethod]
@@ -86,7 +90,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionCorrectFeedbackUpdatedEvent(DragAndDropTextObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedevent();
+            ShouldPublishQuestionChangedEvent();
         }
 
         [TestMethod]
@@ -96,7 +100,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionCreatedEvent(DragAndDropTextObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedevent();
+            ShouldPublishQuestionChangedEvent();
         }
 
         [TestMethod]
@@ -106,7 +110,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionTitleUpdatedEvent(DragAndDropTextObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedevent();
+            ShouldPublishQuestionChangedEvent();
         }
 
         [TestMethod]
@@ -116,7 +120,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new AnswerDeletedEvent(SingleSelectTextObjectMother.Create(), AnswerObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedevent();
+            ShouldPublishQuestionChangedEvent();
         }
 
         [TestMethod]
@@ -126,12 +130,62 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new LearningContentDeletedEvent(SingleSelectTextObjectMother.Create(), LearningContentObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedevent();
+            ShouldPublishQuestionChangedEvent();
+        }
+
+        [TestMethod]
+        public void Handler_HotSpotPolygonDeletedEvent_Should_Publish_QuestionChangedEvent()
+        {
+            //Act
+            _tracker.Handle(new HotSpotPolygonDeletedEvent(SingleSelectTextObjectMother.Create(), HotSpotPolygonObjectMother.Create()));
+
+            //Assert
+            ShouldPublishQuestionChangedEvent();
+        }
+
+        [TestMethod]
+        public void Handler_DropspotPolygonDeletedEvent_Should_Publish_QuestionChangedEvent()
+        {
+            //Act
+            _tracker.Handle(new DropspotDeletedEvent(SingleSelectTextObjectMother.Create(), DropspotObjectMother.Create()));
+
+            //Assert
+            ShouldPublishQuestionChangedEvent();
+        }
+
+        [TestMethod]
+        public void Handler_HotSpotIsMultipleChanged_Should_Publish_QuestionChangedEvent()
+        {
+            //Act
+            _tracker.Handle(new HotSpotIsMultipleChangedEvent(SingleSelectTextObjectMother.Create(), false));
+
+            //Assert
+            ShouldPublishQuestionChangedEvent();
+        }
+
+        [TestMethod]
+        public void Handler_TextMatchingAnswerDeleted_Should_Publish_QuestionChangedEvent()
+        {
+            //Act
+            _tracker.Handle(new TextMatchingAnswerDeletedEvent(TextMatchingObjectMother.Create(), TextMatchingAnswerObjectMother.Create()));
+
+            //Assert
+            ShouldPublishQuestionChangedEvent();
+        }
+
+        [TestMethod]
+        public void Handler_SingleSelectImageAnswerDeleted_Should_Publish_QuestionChangedEvent()
+        {
+            //Act
+            _tracker.Handle(new SingleSelectImageAnswerDeletedEvent(SingleSelectImageAnswerObjectMother.Create(), SingleSelectImageObjectMother.Create()));
+
+            //Assert
+            ShouldPublishQuestionChangedEvent();
         }
 
         #endregion
 
-        private void ShouldPublishQuestionChangedevent()
+        private void ShouldPublishQuestionChangedEvent()
         {
             var calls = _publisher.ReceivedCalls();
             calls.Count().Should().Be(1);

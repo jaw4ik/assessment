@@ -3,6 +3,10 @@ using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.DragAndDropEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.HotSpotEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.SingleSelectImageEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 
 namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
@@ -17,7 +21,12 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<QuestionIncorrectFeedbackUpdatedEvent>,
         IDomainEventHandler<QuestionTitleUpdatedEvent>,
         IDomainEventHandler<AnswerDeletedEvent>,
-        IDomainEventHandler<LearningContentDeletedEvent>
+        IDomainEventHandler<LearningContentDeletedEvent>,
+        IDomainEventHandler<HotSpotPolygonDeletedEvent>,
+        IDomainEventHandler<DropspotDeletedEvent>,
+        IDomainEventHandler<HotSpotIsMultipleChangedEvent>,
+        IDomainEventHandler<SingleSelectImageAnswerDeletedEvent>,
+        IDomainEventHandler<TextMatchingAnswerDeletedEvent>
     {
         private readonly IDomainEventPublisher _eventPublisher;
 
@@ -74,6 +83,31 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         }
 
         public void Handle(LearningContentDeletedEvent args)
+        {
+            RaiseQuestionChangedEvent(args.Question);
+        }
+
+        public void Handle(DropspotDeletedEvent args)
+        {
+            RaiseQuestionChangedEvent(args.Question);
+        }
+
+        public void Handle(HotSpotPolygonDeletedEvent args)
+        {
+            RaiseQuestionChangedEvent(args.Question);
+        }
+
+        public void Handle(HotSpotIsMultipleChangedEvent args)
+        {
+            RaiseQuestionChangedEvent(args.Question);
+        }
+
+        public void Handle(SingleSelectImageAnswerDeletedEvent args)
+        {
+            RaiseQuestionChangedEvent(args.Question);
+        }
+
+        public void Handle(TextMatchingAnswerDeletedEvent args)
         {
             RaiseQuestionChangedEvent(args.Question);
         }

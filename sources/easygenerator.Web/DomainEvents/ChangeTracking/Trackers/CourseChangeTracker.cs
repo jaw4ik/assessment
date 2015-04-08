@@ -19,7 +19,11 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<ObjectiveChangedEvent>,
         IDomainEventHandler<QuestionChangedEvent>,
         IDomainEventHandler<LearningContentChangedEvent>,
-        IDomainEventHandler<AnswerChangedEvent>
+        IDomainEventHandler<AnswerChangedEvent>,
+        IDomainEventHandler<DropspotChangedEvent>,
+        IDomainEventHandler<HotSpotPolygonChangedEvent>,
+        IDomainEventHandler<TextMatchingAnswerChangedEvent>,
+        IDomainEventHandler<SingleSelectImageAnswerChangedEvent>
     {
         private readonly ICourseRepository _repository;
         private readonly IDomainEventPublisher _eventPublisher;
@@ -89,6 +93,26 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
             RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToAnswer(args.Answer.Id));
         }
 
+        public void Handle(DropspotChangedEvent args)
+        {
+            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToDropspot(args.Dropspot.Id));
+        }
+
+        public void Handle(HotSpotPolygonChangedEvent args)
+        {
+            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToHotSpotPolygon(args.HotSpotPolygon.Id));
+        }
+
+        public void Handle(TextMatchingAnswerChangedEvent args)
+        {
+            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToTextMatchingAnswer(args.Answer.Id));
+        }
+
+        public void Handle(SingleSelectImageAnswerChangedEvent args)
+        {
+            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToSingleSelectImageAnswer(args.Answer.Id));
+        }
+
         private void RaiseCoursesChangedEvent(IEnumerable<Course> courses)
         {
             foreach (var course in courses)
@@ -101,6 +125,5 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         {
             _eventPublisher.Publish(new CourseChangedEvent(course));
         }
-
     }
 }

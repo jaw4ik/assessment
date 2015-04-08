@@ -10,31 +10,31 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<AnswerCreatedEvent>,
         IDomainEventHandler<AnswerTextUpdatedEvent>
     {
-         private readonly IDomainEventPublisher _eventPublisher;
+        private readonly IDomainEventPublisher _eventPublisher;
 
-         public AnswerChangeTracker(IDomainEventPublisher eventPublisher)
+        public AnswerChangeTracker(IDomainEventPublisher eventPublisher)
         {
             _eventPublisher = eventPublisher;
         }
 
         #region Handlers
 
-         public void Handle(AnswerCorrectnessUpdatedEvent args)
-         {
-             RaiseAnswerChangedEvent(args.Answer);
-         }
+        public void Handle(AnswerCorrectnessUpdatedEvent args)
+        {
+            RaiseAnswerChangedEvent(args.Answer);
+        }
 
-         public void Handle(AnswerCreatedEvent args)
-         {
-             RaiseAnswerChangedEvent(args.Answer);
-         }
+        public void Handle(AnswerCreatedEvent args)
+        {
+            RaiseAnswerChangedEvent(args.Answer);
+        }
 
-         public void Handle(AnswerTextUpdatedEvent args)
-         {
-             RaiseAnswerChangedEvent(args.Answer);
-         }
+        public void Handle(AnswerTextUpdatedEvent args)
+        {
+            RaiseAnswerChangedEvent(args.Answer);
+        }
 
-        #endregion 
+        #endregion
 
         private void RaiseAnswerChangedEvent(Answer answer)
         {
