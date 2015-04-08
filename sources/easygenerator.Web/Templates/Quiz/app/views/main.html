@@ -20,7 +20,11 @@
             </div>
             <div class="controls" ng-click="scrollToQuestions()">
                 <div class="buttons-container">
-                    <button class="button large emphasize primary">{{ '[start quiz]' | translate }}</button>
+                    <button class="button large emphasize primary">
+                        <span class="text-wrapper">
+                            {{ '[start quiz]' | translate }}
+                        </span>
+                    </button>
                 </div>
                 <div class="scroll-hint-container">
                     <span class="text">{{ '[or scroll to start]' | translate }}</span>
@@ -36,8 +40,12 @@
         <img class="main-logo" ng-src="{{ quiz.logoUrl }}" />
         <span class="vertical-align-helper"></span>
         <div class="button-container" ng-click="scrollToQuestions()">
-            <button class="button small emphasize default">{{ '[start quiz]' | translate }}</button>
             <span class="vertical-align-helper"></span>
+            <button class="button small emphasize default">
+                <span class="text-wrapper">
+                    {{ '[start quiz]' | translate }}
+                </span>
+            </button>
         </div>
     </header>
     <questions class="questions-container">
@@ -59,7 +67,11 @@
             </ul>
 
             <div class="submit-wrapper">
-                <button class="button large primary emphasize" ng-click="quiz.submit()">{{ '[submit all answers]' | translate }}</button>
+                <button class="button large primary emphasize" ng-click="quiz.submit()">
+                    <span class="text-wrapper">
+                        {{ '[submit all answers]' | translate }}
+                    </span>
+                </button>
             </div>
         </div>
     </questions>

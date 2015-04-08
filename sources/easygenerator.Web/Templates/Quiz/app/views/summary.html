@@ -15,14 +15,22 @@
                 <progress-control class="progress-control" progress="summary.progress" mastery-score="summary.masteryScore"></progress-control>
             </div>
             <div class="summary-buttons">
-                <button class="summary-button button large emphasize" ng-class="{ primary:!summary.reachMasteryScore, default:summary.reachMasteryScore }" ng-click="summary.tryAgain()">{{ '[try again]' | translate }}</button>
-                <button class="summary-button button large emphasize" ng-class="{ primary:summary.reachMasteryScore, default:!summary.reachMasteryScore }" ng-click="summary.finish()">{{ '[finish course]' | translate }}</button>
+                <button class="summary-button button large emphasize" ng-class="{ primary:!summary.reachMasteryScore, default:summary.reachMasteryScore }" ng-click="summary.tryAgain()">
+                    <span class="text-wrapper">
+                        {{ '[try again]' | translate }}
+                    </span>
+                </button>
+                <button class="summary-button button large emphasize" ng-class="{ primary:summary.reachMasteryScore, default:!summary.reachMasteryScore }" ng-click="summary.finish()">
+                    <span class="text-wrapper">
+                        {{ '[finish course]' | translate }}
+                    </span>
+                </button>
             </div>
         </div>
     </div>
     <div class="summary-questions">
         <div class="summary-questions-container">
-            <div class="questions-title">How did you do?</div>
+            <div class="questions-title">{{ '[summary page questions list title]' | translate }}</div>
             <ul class="questions unstyled">
                 <li class="question-item" ng-repeat="question in summary.questions" ng-class="{ correct: question.isCorrect }">
                     <div class="question-number-cell">

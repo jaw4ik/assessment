@@ -4,14 +4,11 @@
     <div class="answers statements-list">
         <div class="answer-pair" ng-repeat="statement in question.statements">
             <div class="answer-container" ng-if="$even">
-                <div class="answer-wrapper" statement-item statement="statement" question="question" ng-if="$even">
-
-                </div>
+                <div class="statement-answer-wrapper" statement-item statement="statement" question="question" ng-if="$even"></div>
             </div>
             <div class="answer-container" ng-if="$even">
-                <div class="answer-wrapper" statement-item statement="question.statements[$index + 1]" question="question" ng-if="$index + 1 < question.statements.length"></div>
+                <div class="statement-answer-wrapper" statement-item statement="question.statements[$index + 1]" question="question" ng-if="$index + 1 < question.statements.length"></div>
             </div>
         </div>
     </div>
-
 </div>

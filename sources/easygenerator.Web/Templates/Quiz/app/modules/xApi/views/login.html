@@ -3,7 +3,10 @@
     <div class="login-overlay"></div>
     <div class="login-container">
         <div class="login-skip-button" login-leave="skip"></div>
-        <div class="login-skip-text">{{ '[tracking and tracing skip step]' | translate }}</div>
+        <div class="login-skip-text-wrapper">
+            <span class="login-skip-text-arrow"></span>
+            <span class="login-skip-text">{{ '[tracking and tracing skip step]' | translate }}</span>
+        </div>
         <div class="login-wrapper">
             <div class="login-content">
                 <div class="course-title-container">
@@ -12,8 +15,8 @@
                 </div>
                 <div class="login-form-container">
                     <div class="login-tooltip-container">
-                        {{ '[tracking and tracing hint]' | translate }}
-                        <div>{{ '[tracking and tracing subhint]' | translate }}</div>
+                        <div class="text">{{ '[tracking and tracing hint]' | translate }}</div>
+                        <div class="text small">{{ '[tracking and tracing subhint]' | translate }}</div>
                     </div>
                     <div class="login-input-container name">
                         <input type="text" ng-model="login.username" ng-class="{ 'error': !login.usernameIsValid() && login.usernameModified }" ng-blur="login.markUsernameAsModified()" placeholder="{{ '[tracking and tracing name field]' | translate }}" class="login-input" />
@@ -24,7 +27,12 @@
                         <span class="login-error-text" ng-style="{ visibility: !login.emailIsValid() && login.emailModified ? 'visible' : 'hidden' }">{{ '[tracking and tracing email is not valid]' | translate }}</span>
                     </div>
                     <div class="login-form-submit-container">
-                        <button class="button large emphasize primary" login-leave="submit">{{ '[tracking and tracing start]' | translate }} *</button>
+                        <button class="button large emphasize primary" login-leave="submit">
+                            <span class="text-wrapper">
+                                <span class="text">{{ '[tracking and tracing start]' | translate }}</span>
+                                <span>*</span>
+                            </span>
+                        </button>
                         <div class="login-skip-link" login-leave="skip">{{ '[tracking and tracing do not report]' | translate }}</div>
                         <span class="login-description">
                             * By clicking the button “{{ '[tracking and tracing start]' | translate }}” you agree to the fact that your results and scores will be stored. These results will only be visible to the organizer (author) of your course.

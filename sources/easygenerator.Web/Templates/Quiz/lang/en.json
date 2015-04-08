@@ -1,6 +1,6 @@
 {
     "[quiz]": "Quiz",
-    "[questions]": "questions",
+    "[questions]": "question(s)",
     "[start quiz]": "Start quiz",
     "[or scroll to start]": "Or scroll to start",
     "[show hint]": "Show hint",
@@ -15,9 +15,13 @@
     "[statement question false text]": "False",
     "[text matching question hint]": "Drag items from right column to the left to match the pairs",
     "[text matching question drop here]": "Drop here",
+    "[fill in the blank choose answer]": "Choose the answer",
     "[try again]": "Try again",
     "[finish course]": "Finish course",
-    "[tracking and tracing hint]": "Please introduce youself",
+    "[summary page questions list title]": "How did you do?",
+    "[page not found message]": "Sorry, the page you have been looking for has not been found. Try checking the URL on errors or click 'Home' button below. Contact your teacher if the problem persists.",
+    "[page not found home button]": "Home",
+    "[tracking and tracing hint]": "Please introduce yourself",
     "[tracking and tracing subhint]": "So, your achievements will be reported",
     "[tracking and tracing name field]": "Type your name...",
     "[tracking and tracing email field]": "Type your e-mail...",
@@ -32,5 +36,6 @@
     "[tracking and tracing continue anyway]": "Continue anyway",
     "[tracking and tracing result success]": "Success",
     "[tracking and tracing result failed]": "Failed",
+    "[tracking and tracing mastery score hint]": "The minimal score you need to succeed",
     "[tracking and tracing reporting progress]": "reporting progress..."
 }
