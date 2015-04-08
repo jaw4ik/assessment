@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'eventTracker', 'dataContext', 'repositories/questionRepository', 'localization/localizationManager', 'notify'],
-    function (router, eventTracker, dataContext, questionRepository, localizationManager, notify) {
+﻿define(['plugins/router', 'eventTracker', 'dataContext', 'userContext', 'repositories/questionRepository', 'localization/localizationManager', 'notify'],
+    function (router, eventTracker, dataContext, userContext, questionRepository, localizationManager, notify) {
     'use strict';
 
     var events = {
@@ -14,11 +14,13 @@
         isShown: ko.observable(false),
         courseId: '',
         questionId: '',
-        objectiveId: '',
+        objectiveId: ko.observable(''),
         show: show,
         hide: hide,
         isCopy: ko.observable(true),
-        changeMoveCopyAction: changeMoveCopyAction, 
+        changeMoveCopyAction: changeMoveCopyAction,
+        setCopyAction: setCopyAction,
+        setMoveAction: setMoveAction,
 
         selectedCourse: ko.observable({}),
         selectCourse: selectCourse,
@@ -36,7 +38,6 @@
     function show(courseId, objectiveId, questionId) {
         eventTracker.publish(events.showDialog);
         viewModel.isShown(true);
-
         reset(courseId, objectiveId, questionId);
     }
 
@@ -50,6 +51,24 @@
         } else {
             eventTracker.publish(events.switchToMove);
         }
+    }
+
+    function setCopyAction() {
+        if (viewModel.isCopy()) {
+            return;
+        }
+
+        viewModel.isCopy(true);
+        eventTracker.publish(events.switchToCopy);
+    }
+
+    function setMoveAction() {
+        if (!viewModel.isCopy()) {
+            return;
+        }
+
+        viewModel.isCopy(false);
+        eventTracker.publish(events.switchToMove);
     }
 
     function selectCourse(course) {
@@ -71,14 +90,14 @@
             return;
         }
 
-        if (viewModel.objectiveId !== viewModel.selectedObjectiveId()) {
+        if (viewModel.objectiveId() !== viewModel.selectedObjectiveId()) {
             eventTracker.publish(events.moveItem);
-            questionRepository.moveQuestion(viewModel.questionId, viewModel.objectiveId, viewModel.selectedObjectiveId()).then(function () {
+            questionRepository.moveQuestion(viewModel.questionId, viewModel.objectiveId(), viewModel.selectedObjectiveId()).then(function () {
                 viewModel.hide();
                 if (!_.isNullOrUndefined(viewModel.courseId)) {
-                    router.navigate('objective/' + viewModel.objectiveId + '?courseId=' + viewModel.courseId);
+                    router.navigate('objective/' + viewModel.objectiveId() + '?courseId=' + viewModel.courseId);
                 } else {
-                    router.navigate('objective/' + viewModel.objectiveId);
+                    router.navigate('objective/' + viewModel.objectiveId());
                 }
             });
         } else {
@@ -105,9 +124,9 @@
         viewModel.isCopy(true);
         viewModel.courses(mapCourses());
         viewModel.courseId = courseId;
-        viewModel.objectiveId = objectiveId;
+        viewModel.objectiveId(objectiveId);
         viewModel.questionId = questionId;
-        viewModel.selectedObjectiveId(viewModel.objectiveId);
+        viewModel.selectedObjectiveId(viewModel.objectiveId());
         viewModel.allObjectives({
             title: localizationManager.localize('allObjectives'),
             objectives: dataContext.objectives,
@@ -124,14 +143,22 @@
     }
 
     function mapCourses() {
-        return _.map(dataContext.courses, function (course) {
-            return {
-                id: course.id,
-                title: course.title,
-                objectives: course.objectives,
-                objectvesListEmpty: course.objectives.length === 0
-            };
-        });
+        return _.chain(dataContext.courses)
+                .sortBy(function (course) {
+                    return -course.createdOn;
+                })
+                .sortBy(function (course) {
+                    return course.createdBy == userContext.identity.email ? 0 : 1;
+                })
+                .map(function (course) {
+                    return {
+                        id: course.id,
+                        title: course.title,
+                        objectives: course.objectives,
+                        objectvesListEmpty: course.objectives.length === 0
+                    };
+                })
+                .value();
     }
 
     function isValidObjective() {

@@ -1,1 +1,20 @@
-{"logo":{"url":""},"xApi":{"enabled":false,"selectedLrs":"custom","lrs":{"uri":"http://cloud.scorm.com/ScormEngineInterface/TCAPI/public","authenticationRequired":false,"credentials":{"username":"","password":""}},"allowedVerbs":["started","stopped","experienced","mastered","answered","passed","failed"]}}
+{
+    "logo": {
+        "url": ""
+    },
+    "xApi": {
+        "enabled": true,
+        "lrs": {
+            "uri": "http://cloud.scorm.com/ScormEngineInterface/TCAPI/public/statements/",
+            "credentials": {
+                "username": "",
+                "password": ""
+            },
+          "authenticationRequired": false
+        },
+        "allowedVerbs":["started","stopped","mastered","passed","failed"]
+    },
+    "languages": {
+        "selected": "en"
+    }
+}
