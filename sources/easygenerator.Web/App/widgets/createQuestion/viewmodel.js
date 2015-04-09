@@ -67,8 +67,7 @@
         router.openUrl(constants.upgradeUrl);
     }
 
-    function createQuestion(item) {        
-        viewModel.visible(false);        
+    function createQuestion(item) {
         return createQuestionCommand.execute(viewModel.objectiveId, viewModel.courseId, item.type);
     }
 

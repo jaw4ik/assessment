@@ -139,7 +139,7 @@
 }
 
 .content-section-wrapper {
-    padding: 0 50px 0 20px;
+    /*padding: 0 50px 0 20px;*/
 }
 
 .content-section {
@@ -2186,75 +2186,6 @@ span.top-navigation-item.current {
 
 /*#endregion MAINTENANCE*/
 
-/*#region EDIT FIELD*/
-
-.edit-field {
-    min-height: 60px;
-    width: 100%;
-    resize: none;
-    padding: 18px 15px;
-    vertical-align: top;
-    border: 1px solid rgba(68, 192, 252, 0);
-    background-color: transparent;
-    outline: none;
-    color: #666;
-    font-size: 14px;
-    word-wrap: break-word;
-}
-
-.edit-field.bordered {
-    border: 1px solid #E8E8E8;
-    border-radius: 3px;
-}
-
-.edit-field:hover {
-    border: 1px solid #E8E8E8;
-}
-
-.edit-field.active {
-    background-color: white;
-    border: 1px solid #74b9f0;
-    border-radius: 3px;
-    box-shadow: 0 0 3px #74b9f0;
-}
-
-.edit-field.active + .chars-counter {
-    display: block;
-}
-
-.edit-field + .chars-counter.error {
-    background-color: #953b39;
-    display: block;
-}
-
-.edit-field.error {
-    border: 1px solid rgba(149, 59, 57, 0.8);
-    box-shadow: 0 0 3px #953b39;
-}
-
-.edit-field a {
-    color: #303032;
-}
-
-.chars-counter {
-    display: none;
-    color: white;
-    background-color: #74B9F0;
-    padding: 0 10px;
-    width: auto;
-    height: 20px;
-    line-height: 20px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    font-size: 11px;
-    margin: 0;
-    border-radius: 5px 0 3px 0;
-    text-align: center;
-}
-
-/*#endregion EDIT FIELD*/
-
 /*#region EDITABLE-TEXT*/
 
 .editable-text-binding {
@@ -2830,3 +2761,4 @@ h2 + .tooltip-icon {
 
 
 @import "shell.less";
+@import "editField.less";

@@ -628,6 +628,9 @@
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
+    <Content Include="Content\editField.css">
+      <DependentUpon>editField.less</DependentUpon>
+    </Content>
     <Content Include="Content\font\heuristica-bold.svg" />
     <Content Include="Content\font\heuristica-bolditalic.svg" />
     <Content Include="Content\font\heuristica-italic.svg" />
@@ -1530,6 +1533,7 @@
     <Content Include="Content\treeOfContent.less" />
     <Content Include="Content\collaboration.less" />
     <Content Include="Content\shell.less" />
+    <Content Include="Content\editField.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
