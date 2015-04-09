@@ -2,7 +2,7 @@
     <div class="content-section-wrapper">
         <div class="content-section">
 
-            
+
             <div class="page-view-caption clearfix">
                 <div class="show-notify-btn info-tooltip-holder" data-bind="click: showObjectiveTip, visible: !isObjectiveTipVisible()">
                     <div class="info-tooltip show-notify-tip">
@@ -38,7 +38,7 @@
                     </a>
                 </div>
             </div>
-            
+
             <div class="controls">
                 <div class="image-container" data-bind="click: updateImage">
                     <div class="logo-background" data-bind="backgroundImage: imageUrl"></div>
@@ -52,14 +52,12 @@
                     </div>
                 </div>
                 <div class="title-container">
-                    <header class="view-header">
-                        <div class="view-header-title">
-                            <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }, autofocus: { focus: isLastCreatedObjective, autoselect: isLastCreatedObjective }"></div>
-                            <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
-                                <span data-bind="text: title().trim().length"></span>/<span data-bind="text: titleMaxLength"></span>
-                            </div>
+                    <div class="edit-field-wrapper small question-title" data-bind="css: { 'active': title.isEditing(), 'error': !title.isValid() }">
+                        <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }, autofocus: { focus: isLastCreatedObjective, autoselect: isLastCreatedObjective }"></div>
+                        <div class="validation-message">
+                            <span data-bind="text: title().trim().length"></span>/<span data-bind="text: titleMaxLength"></span>
                         </div>
-                    </header>
+                    </div>
                     <div class="objective-help-link-container" data-bind="css : { 'visible': title.isEditing(), 'hidden': !title.isEditing() }">
                         <span class="objective-help-link" data-bind="localize: { text: 'objectiveHelpText' }">Need help with your objective? Try our new </span>
                         <span class="objective-help-link clickable" data-bind="localize: { html: 'objectiveHelpLink' }"></span>
