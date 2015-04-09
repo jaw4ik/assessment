@@ -1,4 +1,4 @@
-﻿define(['viewmodels/courses/course/index'], function (index) {
+﻿define(['viewmodels/courses/course/index', 'repositories/courseRepository', 'repositories/objectiveRepository'], function (index, courseRepository, objectiveRepository) {
 
 
     var childRouter = index.router.createChildRouter()
@@ -22,7 +22,7 @@
         if (instance) {
             setTimeout(function () {
                 router.isViewReady(instance.__moduleId__);
-            }, 250);            
+            }, 250);
         }
     });
 
@@ -32,7 +32,16 @@
         activate: function () {
             //console.warn('viewmodels/courses/course/create/index');
             //debugger;
-        }
+        },
+        canActivate: canActivate
     };
+
+    function canActivate() {
+        return courseRepository.getById(arguments[0]).then(function () {
+            return true;
+        }).catch(function () {
+            return { redirect: '404' };
+        });
+    }
 
 })
