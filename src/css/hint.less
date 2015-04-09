@@ -10,6 +10,7 @@
 
             .hint-button {
                 min-width: 332px;
+                max-width: 100%;
                 padding: 14px 0 11px;
                 position: relative;
                 display: inline-block;
@@ -44,6 +45,8 @@
                     position: relative;
                     font: 16px/25px 'RobotoslabRegular';
                     text-transform: uppercase;
+                    .crop-text-by-size-with-dots(600px);
+                    .border-box;
 
                     &:before {
                         content: '';

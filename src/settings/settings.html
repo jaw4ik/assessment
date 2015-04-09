@@ -8,9 +8,9 @@
 
     <link href="css/settings.css" rel="stylesheet" />
     <!-- build:js js/vendor.min.js  -->
-    <script src="../vendor/jquery/dist/jquery.js"></script>
-    <script src="../vendor/angular/angular.js"></script>
-    <script src="js/jquery.spinner.min.js"></script>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/jquery.spinner.min.js"></script>
+    <script src="js/vendor/angular.js"></script>
     <!-- endbuild -->
     <!-- build:js js/api.min.js-->
     <script src="js/api.js"></script>
@@ -53,7 +53,7 @@
                             <div class="tab-content-wrapper">
                                 <div class="has-access">
                                     <div class="template-logo-url-container">
-                                        <input class="template-logo-url" type="text" placeholder="Paste image URL here..." id="imgUrl" ng-disabled="!hasStarterPlan" ng-model="logo.url" />
+                                        <input class="template-logo-url" type="text" placeholder="Paste image URL here..." id="imgUrl" ng-disabled="!userAccess.hasStarterPlan" ng-model="logo.url" />
                                         <span class="template-logo-or">or</span>
                                         <form id="logoForm" method="post" enctype="multipart/form-data" encoding="multipart/form-data" target="logoFrame">
                                             <span class="btn grey template-logo">
@@ -89,7 +89,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="no-access" fade-visible fade-visible-value="!hasStarterPlan">
+                                <div class="no-access" fade-visible fade-visible-value="!userAccess.hasStarterPlan">
                                     <div class="no-access-img"></div>
                                     <div class="no-access-text">
                                         You have to
@@ -263,9 +263,9 @@
                             <div class="tab-content-container">
                                 <div class="mastery-score-container">
                                     <div class="mastery-score-title">Mastery score (the score a learner needs to pass the course):</div>
-                                    <div data-trigger="spinner" class="spinner" spinner spinner-value="masteryScore">
+                                    <div data-trigger="spinner" class="spinner" spinner spinner-value="masteryScore.value">
                                         <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
-                                        <input type="text" maxlength="3" id="masteryScore" class="content-text-input" data-rule="quantity" data-max="100" data-min="0" number number-value="masteryScore" ng-model="masteryScore">
+                                        <input type="text" maxlength="3" id="masteryScore.value" class="content-text-input" data-rule="quantity" data-max="100" data-min="0" number number-value="masteryScore.value" ng-model="masteryScore.value">
                                         <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
                                         <div class="spiner-seperator"></div>
                                     </div>
@@ -298,15 +298,15 @@
                                 </tr>
                             </thead>
                             <tbody class="choose-language-table-content">
-                                <tr class="choose-language-table-row" ng-repeat="resource in languages.getSelectedLanguageResources()">
-                                    <td class="choose-language-table-key">{{resource.key}}</td>
+                                <tr class="choose-language-table-row" ng-repeat="key in languages.selectedLanguage.resources | keys">
+                                    <td class="choose-language-table-key">{{ key }}</td>
                                     <td class="choose-language-table-text-wrapper">
                                         <div class="input-wrapper">
-                                            <div class="choose-language-table-input-wrapper" ng-if="languages.isSelectedLanguageEditable()">
-                                                <input type="text" class="choose-language-table-input" ng-model="resource.value" />
+                                            <div class="choose-language-table-input-wrapper" ng-if="languages.selectedLanguage.isEditable">
+                                                <input type="text" class="choose-language-table-input" ng-model="languages.selectedLanguage.resources[key]" />
                                                 <span class="edit-icon"></span>
                                             </div>
-                                            <span ng-if="!languages.isSelectedLanguageEditable()">{{resource.value}}</span>
+                                            <span ng-if="!languages.selectedLanguage.isEditable">{{ languages.selectedLanguage.resources[key] }}</span>
                                         </div>
                                     </td>
                                 </tr>

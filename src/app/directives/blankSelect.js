@@ -36,7 +36,7 @@
                     });
             },
             template: '<div class="select-wrapper">' +
-                        '<div class="current default">Choose the answer</div>' +
+                        '<div class="current default">{{ "[fill in the blank choose answer]" | translate }}</div>' +
                         '<div class="highlight">' +
                       '</div>'
         };

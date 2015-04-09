@@ -9,30 +9,56 @@
             baseUrl = location.protocol + '//' + location.host,
             currentSettings = null;
 
-        that.hasStarterPlan = true;
+        that.userAccess = (function () {
+            var self = {};
+
+            self.hasStarterPlan = true;
+            self.init = init;
+
+            return self;
+
+            function init(userData) {
+                self.hasStarterPlan = userData.accessType > 0;
+            }
+        })();
 
         that.logo = (function () {
-            var logo = {};
-            logo.url = '';
+            var self = {};
+            self.url = '';
 
-            logo.hasLogo = function () {
-                return logo.url !== '';
-            };
-            logo.clear = function () {
-                logo.url = '';
-            };
-            logo.hasError = false;
-            logo.errorText = 'Unsupported image format';
-            logo.errorDescription = '(Supported formats: jpg, png, bmp)';
-            logo.isLoading = false;
+            self.hasError = false;
+            self.errorText = 'Unsupported image format';
+            self.errorDescription = '(Supported formats: jpg, png, bmp)';
+            self.isLoading = false;
 
-            return logo;
+            self.hasLogo = hasLogo;
+            self.clear = clear;
+
+            self.init = init;
+
+            return self;
+
+            function hasLogo() {
+                return self.url !== '';
+            }
+
+            function clear() {
+                self.url = '';
+            }
+
+            function init(logoSettings) {
+                self.url = '';
+                if (logoSettings && logoSettings.url) {
+                    self.url = logoSettings.url;
+                }
+            }
         })(),
 
         that.trackingData = (function () {
-            var data = {};
-            data.enableXAPI = true,
-            data.lrsOptions = [
+            var self = {};
+
+            self.enableXAPI = true,
+            self.lrsOptions = [
                 {
                     key: 'default',
                     text: 'easygenerator (recommended)'
@@ -42,36 +68,31 @@
                     text: 'custom LRS'
                 }
             ];
-            data.selectedLrs = data.lrsOptions[0].key;
+            self.selectedLrs = self.lrsOptions[0].key;
 
-            data.lrsOptions.forEach(function (lrsOption) {
+            self.lrsOptions.forEach(function (lrsOption) {
                 lrsOption.isSelected = function () {
-                    return data.selectedLrs === lrsOption.key;
+                    return self.selectedLrs === lrsOption.key;
                 };
 
                 lrsOption.select = function () {
-                    data.lrsOptions.forEach(function (item) {
+                    self.lrsOptions.forEach(function (item) {
                         item.isSelected(false);
                     });
                     lrsOption.isSelected(true);
-                    data.selectedLrs = lrsOption.key;
+                    self.selectedLrs = lrsOption.key;
                 };
             });
 
-            data.customLrsEnabled = function () {
-                return data.enableXAPI && data.selectedLrs !== data.lrsOptions[0].key;
-            };
+            self.customLrsEnabled = customLrsEnabled;
 
-            data.lrsUrl = '';
-            data.authenticationRequired = false;
-            data.lapLogin = '';
-            data.lapPassword = '';
+            self.lrsUrl = '';
+            self.authenticationRequired = false;
+            self.lapLogin = '';
+            self.lapPassword = '';
+            self.credentialsEnabled = credentialsEnabled;
 
-            data.credentialsEnabled = function () {
-                return data.customLrsEnabled() && data.authenticationRequired;
-            };
-
-            data.statements = {
+            self.statements = {
                 started: true,
                 stopped: true,
                 experienced: true,
@@ -81,15 +102,61 @@
                 failed: true
             };
 
-            data.advancedSettingsExpanded = false;
-            data.toggleAdvancedSettings = function () {
-                data.advancedSettingsExpanded = !data.advancedSettingsExpanded;
-            };
+            self.advancedSettingsExpanded = false;
+            self.toggleAdvancedSettings = toggleAdvancedSettings;
 
-            return data;
+            self.init = init;
+
+            return self;
+
+            function customLrsEnabled() {
+                return self.enableXAPI && self.selectedLrs !== self.lrsOptions[0].key;
+            }
+
+            function credentialsEnabled() {
+                return self.customLrsEnabled() && self.authenticationRequired;
+            }
+
+            function toggleAdvancedSettings() {
+                self.advancedSettingsExpanded = !self.advancedSettingsExpanded;
+            }
+
+            function init(xApiSettings) {
+                self.enableXAPI = xApiSettings.enabled || false;
+                var defaultLrs = xApiSettings.enabled ? 'custom' : 'default';
+                self.selectedLrs = xApiSettings.selectedLrs || defaultLrs;
+                self.lrsUrl = xApiSettings.lrs.uri || '';
+                self.authenticationRequired = xApiSettings.lrs.authenticationRequired || false;
+                self.lapLogin = xApiSettings.lrs.credentials.username || '';
+                self.lapPassword = xApiSettings.lrs.credentials.password || '';
+
+                var key;
+                if (xApiSettings.allowedVerbs) {
+                    for (key in self.statements) {
+                        if (self.statements.hasOwnProperty(key)) {
+                            self.statements[key] = xApiSettings.allowedVerbs.indexOf(key) > -1;
+                        }
+                    }
+                }
+            }
         })();
 
-        that.masteryScore = '';
+        that.masteryScore = (function() {
+            var self = {};
+
+            self.value = 0;
+            self.init = init;
+
+            return self;
+
+            function init(masteryScoreSettings) {
+                if (masteryScoreSettings && masteryScoreSettings.score >= 0 && masteryScoreSettings.score <= 100) {
+                    self.value = masteryScoreSettings.score;
+                } else {
+                    self.value = 100;
+                }
+            }
+        })();
 
         that.languages = (function () {
             var self = {},
@@ -97,46 +164,43 @@
                 customLanguageCode = 'xx';
 
             self.languagesList = [];
+
             self.selectedLanguageCode = '';
+            self.selectedLanguage = null;
 
-            self.getSelectedLanguageResources = getSelectedLanguageResources;
-            self.isSelectedLanguageEditable = isSelectedLanguageEditable;
             self.getCustomTranslations = getCustomTranslations;
-
             self.init = init;
+
+            that.$watch('languages.selectedLanguageCode', function () {
+                var language = _getLanguage(self.selectedLanguageCode);
+
+                if (!language) {
+                    return;
+                }
+
+                language.load().then(function () {
+                    self.selectedLanguage = language;
+                    that.$applyAsync();
+                });
+            });
 
             return self;
 
-            function getSelectedLanguageResources() {
-                var selectedLanguage = _getLanguage(self.selectedLanguageCode);
-                return selectedLanguage ? selectedLanguage.getResources() : [];
-            }
-
-            function isSelectedLanguageEditable() {
-                var selectedLanguage = _getLanguage(self.selectedLanguageCode);
-                return selectedLanguage ? selectedLanguage.isEditable : false;
-            }
-
             function getCustomTranslations() {
                 var customLanguage = _getLanguage(customLanguageCode);
-                return customLanguage ? customLanguage.getNotMappedResources() : {};
+                return customLanguage ? customLanguage.resources : {};
             }
 
             function init(languages, languagesSettings) {
                 languages.forEach(function (language) {
-                    self.languagesList.push(new Language(language.code, language.name, false, language.resources));
+                    self.languagesList.push(new Language(language.code, language.name, language.url, false));
                 });
 
-                var customLanguage = new Language(customLanguageCode, 'Custom', true);
-                if (languagesSettings && languagesSettings.customTranslations) {
-                    customLanguage.setResources(languagesSettings.customTranslations);
-                } else {
-                    var defaultLanguage = _getLanguage(defaultLanguageCode);
-                    var defaultResources = defaultLanguage ? defaultLanguage.getNotMappedResources() : [];
-                    customLanguage.setResources(defaultResources);
-                }
+                var defaultLanguage = _getLanguage(defaultLanguageCode);
+                var customLanguage = new Language(customLanguageCode, 'Custom', defaultLanguage ? defaultLanguage.resourcesUrl : null, true, languagesSettings ? languagesSettings.customTranslations : null);
 
                 self.languagesList.push(customLanguage);
+
                 self.selectedLanguageCode = (languagesSettings && languagesSettings.selected) ? languagesSettings.selected : defaultLanguageCode;
             }
 
@@ -144,48 +208,45 @@
                 return $filter('filter')(self.languagesList, { code: code })[0];
             }
 
-            function Language(code, name, isEditable, resources) {
-                this.code = code;
-                this.name = name;
-                this.isEditable = isEditable;
+            function Language(code, name, resourcesUrl, isEditable, userTranslations) {
+                var _isLoaded = false,
+                    _userTranslations = userTranslations;
 
-                this._resources = [];
-                this.setResources = function (res) {
-                    this._resources = Array.isArray(res) ? res : map(res);
-                };
-                this.getResources = function () {
-                    return this._resources;
-                };
-                this.getNotMappedResources = function () {
-                    return unmap(this._resources);
-                };
+                var that = this;
 
-                if (resources) {
-                    this.setResources(resources);
-                }
+                that.code = code;
+                that.name = name;
+                that.isEditable = isEditable;
+                that.resourcesUrl = resourcesUrl;
+                that.resources = {};
 
-                function map(resourcesObject) {
-                    var arr = [];
+                that.load = load;
 
-                    if (resourcesObject) {
-                        Object.keys(resourcesObject).forEach(function (key) {
-                            arr.push({ key: key, value: resourcesObject[key] });
-                        });
+                function load() {
+                    if (_isLoaded) {
+                        return $.when();
                     }
 
-                    return arr;
+                    return loadLanguageResources(that.resourcesUrl).then(function (resources) {
+                        that.resources = _userTranslations ? extend(_userTranslations, resources) : resources;
+                        _isLoaded = true;
+                    });
                 }
 
-                function unmap(resourcesArray) {
-                    var translationsObj = {};
+                function extend(source, defaults) {
+                    var extendedList = {};
+                    $.each(defaults, function (key, value) {
+                        extendedList[key] = typeof source[key] == "string" ? source[key] : value;
+                    });
+                    return extendedList;
+                }
 
-                    if (resourcesArray) {
-                        resourcesArray.forEach(function (translation) {
-                            translationsObj[translation.key] = translation.value;
-                        });
-                    }
-
-                    return translationsObj;
+                function loadLanguageResources(url) {
+                    return $.ajax({
+                        url: url,
+                        dataType: 'json',
+                        contentType: 'application/json'
+                    });
                 }
             }
 
@@ -201,7 +262,7 @@
             }
 
             window.egApi.saveSettings(JSON.stringify(newSettings), null).done(function () {
-                currentSettings = settings;
+                currentSettings = newSettings;
             });
         };
 
@@ -226,7 +287,7 @@
                     })
                 },
                 masteryScore: {
-                    score: that.masteryScore || 0
+                    score: that.masteryScore.value || 0
                 },
                 languages: {
                     selected: that.languages.selectedLanguageCode,
@@ -373,81 +434,18 @@
                 user = api.getUser(),
                 settings = api.getSettings();
 
-            initUserAccess(user);
-            initXApi(settings.xApi);
-            initLogo(settings.logo);
-            initMasteryScore(settings.masteryScore);
+            that.userAccess.init(user);
+            that.logo.init(settings.logo);
+            that.trackingData.init(settings.xApi);
+            that.masteryScore.init(settings.masteryScore);
+            that.languages.init(manifest.languages, settings.languages);
 
-            if (that.hasStarterPlan) {
+            if (that.userAccess.hasStarterPlan) {
                 imageUploader.init();
             }
 
-            return loadLanguages(manifest.languages).then(function (loadedLanguages) {
-                that.languages.init(loadedLanguages, settings.languages);
-
-                currentSettings = getSettings();
-                
-                that.$applyAsync();
-            });
-
-            function initUserAccess(userData) {
-                that.hasStarterPlan = userData.accessType > 0;
-            }
-
-            function initXApi(xApiSettings) {
-                that.trackingData.enableXAPI = xApiSettings.enabled || false;
-                var defaultLrs = xApiSettings.enabled ? 'custom' : 'default';
-                that.trackingData.selectedLrs = xApiSettings.selectedLrs || defaultLrs;
-                that.trackingData.lrsUrl = xApiSettings.lrs.uri || '';
-                that.trackingData.authenticationRequired = xApiSettings.lrs.authenticationRequired || false;
-                that.trackingData.lapLogin = xApiSettings.lrs.credentials.username || '';
-                that.trackingData.lapPassword = xApiSettings.lrs.credentials.password || '';
-
-                var key;
-                if (xApiSettings.allowedVerbs) {
-                    for (key in that.trackingData.statements) {
-                        if (that.trackingData.statements.hasOwnProperty(key)) {
-                            that.trackingData.statements[key] = xApiSettings.allowedVerbs.indexOf(key) > -1;
-                        }
-                    }
-                }
-            }
-
-            function initLogo(logoSettings) {
-                that.logo.url = '';
-                if (logoSettings && logoSettings.url) {
-                    that.logo.url = logoSettings.url;
-                }
-            }
-
-            function initMasteryScore(masteryScoreSettings) {
-                if (masteryScoreSettings && masteryScoreSettings.score >= 0 && masteryScoreSettings.score <= 100) {
-                    that.masteryScore = masteryScoreSettings.score;
-                } else {
-                    that.masteryScore = 100;
-                }
-            }
-
-            function loadLanguages(languagesList) {
-                var promises = [];
-
-                languagesList.forEach(function (language) {
-                    promises.push(loadLanguageResources(language.url).then(function (resources) {
-                        language.resources = resources;
-                        return language;
-                    }));
-                });
-
-                return $q.all(promises);
-
-                function loadLanguageResources(url) {
-                    return $.ajax({
-                        url: url,
-                        dataType: 'json',
-                        contentType: 'application/json'
-                    });
-                }
-            }
+            currentSettings = getSettings();
+            that.$applyAsync();
 
         }).fail(function () {
             api.sendNotificationToEditor('Settings are not initialized.', false);

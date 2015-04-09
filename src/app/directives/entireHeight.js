@@ -1,9 +1,9 @@
 ﻿(function () {
 
     angular.module('quiz')
-        .directive('errorPage', errorPage);
+        .directive('entireHeight', entireHeight);
 
-    function errorPage() {
+    function entireHeight() {
         return {
             restrict: 'A',
             link: function ($scope, element) {

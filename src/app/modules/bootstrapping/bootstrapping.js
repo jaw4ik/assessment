@@ -21,9 +21,15 @@
                 publishSettings = data.readPublishSettings,
                 preloadHtmls = data.preloadHtmlTask;
 
-            angular.module('quiz').config(['$routeProvider', 'settingsProvider', 'htmlTemplatesCacheProvider', function ($routeProvider, settingsProvider, htmlTemplatesCacheProvider) {
+            angular.module('quiz').config(['$routeProvider', 'settingsProvider', 'htmlTemplatesCacheProvider', '$translateProvider', function ($routeProvider, settingsProvider, htmlTemplatesCacheProvider, $translateProvider) {
                 settingsProvider.setSettings(settings);
                 htmlTemplatesCacheProvider.set(preloadHtmls);
+
+                $translateProvider
+                    .useStaticFilesLoader({ prefix: 'lang/', suffix: '.json' })
+                    .translations('xx', (settings.languages && settings.languages.customTranslations) ? settings.languages.customTranslations : {})
+                    .fallbackLanguage('en')
+                    .preferredLanguage((settings.languages && settings.languages.selected) ? settings.languages.selected : 'en');
             }]);
 
             if (!settings || _.isEmpty(settings) || (settings.xApi && settings.xApi.enabled)) {

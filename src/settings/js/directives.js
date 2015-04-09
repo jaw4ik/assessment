@@ -8,7 +8,8 @@
         .directive('spinner', spinner)
         .directive('number', number)
         .directive('fadeVisible', fadeVisible)
-        .directive('dropdown', dropdown);
+        .directive('dropdown', dropdown)
+        .filter('keys', keys);
 
     function tabs() {
         return {
@@ -268,7 +269,6 @@
 
                 $('html').bind('click', collapseHandler);
                 $(window).bind('blur', collapseHandler);
-                //TODO: dispose bindings
 
                 scope.$watchGroup(['options', 'value'], function (values) {
                     var $optionsListElement = $element.find('ul.' + cssClasses.optionsList),
@@ -298,6 +298,15 @@
                     });
                 });
             }
+        };
+    }
+
+    function keys() {
+        return function(input) {
+            if (!input) {
+                return [];
+            }
+            return Object.keys(input);
         };
     }
 
